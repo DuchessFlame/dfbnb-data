@@ -1,16 +1,12 @@
 {
-  "_generated": "2026-08-28T09:20:53Z",
+  "_generated": "2026-08-31T02:15:25Z",
   "_note": "Extract each ddsPath from the game archives (BAE), convert to AVIF (texconv -ft png, then avifenc --min 0 --max 20), name the output outAvif, then upload with: sync_season_images_to_site.ps1 -Season 14",
   "seasonNumber": 14,
   "seasonName": "Fight for Freedom",
   "uploadTo": "/wp-content/uploads/season_images/season-14/",
-  "imageCount": 74,
+  "imageCount": 77,
   "itemsWithoutEntitlement": [],
-  "itemsWithoutTexturePath": [
-    "SCORE_S14_ENTM_PlayerIcon_PresidentialSeal",
-    "SCORE_S14_ENTM_PlayerIcon_LibertyPrimeSalute",
-    "SCORE_S14_ENTM_PlayerIcon_FightForFreedom"
-  ],
+  "itemsWithoutTexturePath": [],
   "images": [
     {
       "id": "S14_P1_playericon_eagleballoon",
@@ -37,11 +33,35 @@
       "uploadTo": "/wp-content/uploads/season_images/season-14/"
     },
     {
+      "id": "S14_P1_playericon_presidentialseal",
+      "name": "Player Icon: Presidential Seal",
+      "entitlement": "SCORE_S14_ENTM_PlayerIcon_PresidentialSeal",
+      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_s14_presidentialseal.dds",
+      "outAvif": "score_s14_playericon_presidentialseal.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-14/"
+    },
+    {
       "id": "S14_P1_playericon_deepspacepa",
       "name": "Player Icon: Deep Spacewalk Power Armor",
       "entitlement": "SCORE_S14_ENTM_PlayerIcon_DeepSpacePA",
       "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_s14_spacepa.dds",
       "outAvif": "score_s14_playericon_deepspacepa.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-14/"
+    },
+    {
+      "id": "S14_P2_playericon_libertyprimesalute",
+      "name": "Player Icon: Liberty Prime Salute",
+      "entitlement": "SCORE_S14_ENTM_PlayerIcon_LibertyPrimeSalute",
+      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_s14_libertyprime.dds",
+      "outAvif": "score_s14_playericon_libertyprimesalute.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-14/"
+    },
+    {
+      "id": "S14_P2_playericon_fightforfreedom",
+      "name": "Player Icon: Fight For Freedom",
+      "entitlement": "SCORE_S14_ENTM_PlayerIcon_FightForFreedom",
+      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_s14_fightforfreedom.dds",
+      "outAvif": "score_s14_playericon_fightforfreedom.avif",
       "uploadTo": "/wp-content/uploads/season_images/season-14/"
     },
     {

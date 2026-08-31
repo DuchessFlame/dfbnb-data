@@ -1,28 +1,21 @@
 {
-  "_generated": "2026-08-28T09:20:54Z",
+  "_generated": "2026-08-31T02:15:25Z",
   "_note": "Extract each ddsPath from the game archives (BAE), convert to AVIF (texconv -ft png, then avifenc --min 0 --max 20), name the output outAvif, then upload with: sync_season_images_to_site.ps1 -Season 22",
   "seasonNumber": 22,
   "seasonName": "Appalachian Modern Living",
   "uploadTo": "/wp-content/uploads/season_images/season-22/",
-  "imageCount": 70,
+  "imageCount": 84,
   "itemsWithoutEntitlement": [],
-  "itemsWithoutTexturePath": [
-    "SCORE_S22_ENTM_PlayerIcon_QueenCorn",
-    "SCORE_S22_ENTM_PlayerIcon_CosmicKnife_Man",
-    "SCORE_S22_ENTM_PlayerIcon_RacecarDriver",
-    "SCORE_S22_ENTM_PlayerIcon_Sarsaparilla_Boy",
-    "SCORE_S22_ENTM_PlayerIcon_Sarsaparilla_Girl",
-    "SCORE_S22_ENTM_PlayerIcon_SunsetSarsaparilla",
-    "SCORE_S22_ENTM_PlayerTitles_Prefix_Saturnite",
-    "SCORE_S22_ENTM_PlayerTitles_Prefix_SqueakyClean",
-    "SCORE_S22_ENTM_PlayerTitles_Prefix_Homecooked",
-    "SCORE_S22_ENTM_PlayerTitles_Prefix_WellRead",
-    "SCORE_S22_ENTM_PlayerTitles_Suffix_Renovator",
-    "SCORE_S22_ENTM_PlayerTitles_Suffix_Deputy",
-    "SCORE_S22_ENTM_PlayerTitles_Suffix_Reader",
-    "SCORE_S22_ENTM_PlayerTitles_Suffix_HouseWifeHouseHousband"
-  ],
+  "itemsWithoutTexturePath": [],
   "images": [
+    {
+      "id": "S22_P2_playericon_queencorn",
+      "name": "Player Icon: Queen Corn",
+      "entitlement": "SCORE_S22_ENTM_PlayerIcon_QueenCorn",
+      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_s22_queencorn.dds",
+      "outAvif": "score_s22_playericon_queencorn.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-22/"
+    },
     {
       "id": "S22_P2_playericon_mrfuzzy_cranberry",
       "name": "Player Icon: Mr. Cran",
@@ -37,6 +30,14 @@
       "entitlement": "SCORE_S22_ENTM_PlayerIcon_BeheadedChicken",
       "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_s22_beheadedchicken.dds",
       "outAvif": "score_s22_playericon_beheadedchicken.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-22/"
+    },
+    {
+      "id": "S22_P2_playericon_cosmicknife_man",
+      "name": "Player Icon: Cosmic Knife Chef",
+      "entitlement": "SCORE_S22_ENTM_PlayerIcon_CosmicKnife_Man",
+      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_s22_cosmicknife_mascot.dds",
+      "outAvif": "score_s22_playericon_cosmicknife_man.avif",
       "uploadTo": "/wp-content/uploads/season_images/season-22/"
     },
     {
@@ -64,6 +65,38 @@
       "uploadTo": "/wp-content/uploads/season_images/season-22/"
     },
     {
+      "id": "S22_P2_playericon_racecardriver",
+      "name": "Player Icon: Racecar Driver",
+      "entitlement": "SCORE_S22_ENTM_PlayerIcon_RacecarDriver",
+      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_s22_racecardriver.dds",
+      "outAvif": "score_s22_playericon_racecardriver.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-22/"
+    },
+    {
+      "id": "S22_P3_playericon_sarsaparilla_boy",
+      "name": "Player Icon: Sunset Sarsaparilla Boy",
+      "entitlement": "SCORE_S22_ENTM_PlayerIcon_Sarsaparilla_Boy",
+      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_s22_sunsetsarsaparilla_boy.dds",
+      "outAvif": "score_s22_playericon_sarsaparilla_boy.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-22/"
+    },
+    {
+      "id": "S22_P3_playericon_sarsaparilla_girl",
+      "name": "Player Icon: Sunset Sarsaparilla Girl",
+      "entitlement": "SCORE_S22_ENTM_PlayerIcon_Sarsaparilla_Girl",
+      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_s22_sunsetsarsaparilla_girl.dds",
+      "outAvif": "score_s22_playericon_sarsaparilla_girl.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-22/"
+    },
+    {
+      "id": "S22_P3_playericon_sunsetsarsaparilla",
+      "name": "Player Icon: Sunset Sarsaparilla",
+      "entitlement": "SCORE_S22_ENTM_PlayerIcon_SunsetSarsaparilla",
+      "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_s22_sunsetsarsaparilla_logo.dds",
+      "outAvif": "score_s22_playericon_sunsetsarsaparilla.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-22/"
+    },
+    {
       "id": "S22_P3_playericon_sunsetsarsaparilladeputy",
       "name": "Player Icon: Sunset Sarsaparilla Deputy",
       "entitlement": "SCORE_S22_ENTM_PlayerIcon_SunsetSarsaparillaDeputy",
@@ -77,6 +110,70 @@
       "entitlement": "SCORE_S22_ENTM_PlayerIcon_VB_Soup",
       "ddsPath": "textures/atx/storefront/player/playericons/atx_playericon_s22_chef.dds",
       "outAvif": "score_s22_playericon_vb_soup.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-22/"
+    },
+    {
+      "id": "S22_P4_playertitles_prefix_saturnite",
+      "name": "Player Title Prefix: \"Saturnite\"",
+      "entitlement": "SCORE_S22_ENTM_PlayerTitles_Prefix_Saturnite",
+      "ddsPath": "textures/atx/storefront/player/playertitles/score_s22_playertitles_prefix_saturnite.dds",
+      "outAvif": "score_s22_playertitles_prefix_saturnite.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-22/"
+    },
+    {
+      "id": "S22_P4_playertitles_prefix_squeakyclean",
+      "name": "Player Title Prefix: \"SqueakyClean\"",
+      "entitlement": "SCORE_S22_ENTM_PlayerTitles_Prefix_SqueakyClean",
+      "ddsPath": "textures/atx/storefront/player/playertitles/score_s22_playertitles_prefix_squeaky-clean.dds",
+      "outAvif": "score_s22_playertitles_prefix_squeakyclean.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-22/"
+    },
+    {
+      "id": "S22_P4_playertitles_prefix_homecooked",
+      "name": "Player Title Prefix: \"Homecooked\"",
+      "entitlement": "SCORE_S22_ENTM_PlayerTitles_Prefix_Homecooked",
+      "ddsPath": "textures/atx/storefront/player/playertitles/score_s22_playertitles_prefix_homecooked.dds",
+      "outAvif": "score_s22_playertitles_prefix_homecooked.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-22/"
+    },
+    {
+      "id": "S22_P4_playertitles_prefix_wellread",
+      "name": "Player Title Prefix: \"WellRead\"",
+      "entitlement": "SCORE_S22_ENTM_PlayerTitles_Prefix_WellRead",
+      "ddsPath": "textures/atx/storefront/player/playertitles/score_s22_playertitles_prefix_well-read.dds",
+      "outAvif": "score_s22_playertitles_prefix_wellread.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-22/"
+    },
+    {
+      "id": "S22_P4_playertitles_suffix_renovator",
+      "name": "Player Title Suffix: \"Renovator\"",
+      "entitlement": "SCORE_S22_ENTM_PlayerTitles_Suffix_Renovator",
+      "ddsPath": "textures/atx/storefront/player/playertitles/score_s22_playertitles_suffix_renovator.dds",
+      "outAvif": "score_s22_playertitles_suffix_renovator.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-22/"
+    },
+    {
+      "id": "S22_P4_playertitles_suffix_deputy",
+      "name": "Player Title Suffix: \"Deputy\"",
+      "entitlement": "SCORE_S22_ENTM_PlayerTitles_Suffix_Deputy",
+      "ddsPath": "textures/atx/storefront/player/playertitles/score_s22_playertitles_suffix_deputy.dds",
+      "outAvif": "score_s22_playertitles_suffix_deputy.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-22/"
+    },
+    {
+      "id": "S22_P4_playertitles_suffix_reader",
+      "name": "Player Title Suffix: \"Reader\"",
+      "entitlement": "SCORE_S22_ENTM_PlayerTitles_Suffix_Reader",
+      "ddsPath": "textures/atx/storefront/player/playertitles/score_s22_playertitles_suffix_reader.dds",
+      "outAvif": "score_s22_playertitles_suffix_reader.avif",
+      "uploadTo": "/wp-content/uploads/season_images/season-22/"
+    },
+    {
+      "id": "S22_P4_playertitles_suffix_housewifehousehousband",
+      "name": "Player Title Suffix: \"HouseWifeHouseHousband\"",
+      "entitlement": "SCORE_S22_ENTM_PlayerTitles_Suffix_HouseWifeHouseHousband",
+      "ddsPath": "textures/atx/storefront/player/playertitles/score_s22_playertitles_suffix_housewife_househusband.dds",
+      "outAvif": "score_s22_playertitles_suffix_housewifehousehousband.avif",
       "uploadTo": "/wp-content/uploads/season_images/season-22/"
     },
     {
