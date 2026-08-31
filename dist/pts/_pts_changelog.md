@@ -560,10 +560,7 @@ _Couldn't key this file to records; contents differ._
 
 ## `collectables_holotape_games.json`  ·  +0 / -0 / ~0
 
-## `collectables_holotapes.json`  ·  +0 / -0 / ~1
-
-**Changed (1)**
-- Memories of Rusty Holotape  `XPD_HubRE_DogExMachina_Holotape_MiscObject` — fields: name
+## `collectables_holotapes.json`  ·  +0 / -0 / ~0
 
 ## `collectables_keys.json`  ·  +0 / -0 / ~0
 
