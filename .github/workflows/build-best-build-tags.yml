@@ -1,0 +1,65 @@
+name: Build Best Build Tags JSON
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tsv/KYWD_Export*.tsv'
+      - 'tsv/FLST_Export*.tsv'
+      - 'src/build_best_build_tags_json.py'
+      - 'src/tsv_source.py'
+      - '.github/workflows/build-best-build-tags.yml'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Build Best Builds tag JSON
+        run: |
+          python src/build_best_build_tags_json.py \
+            --tsv-root tsv \
+            --outdir dist
+
+      # A truncated or half-parsed export would otherwise commit a JSON with a
+      # handful of tags in it and quietly gut the page. 300 is well under the
+      # 363 the game currently ships and well above any plausible partial read.
+      - name: Sanity-check output
+        run: |
+          python - <<'PY'
+          import json, sys
+          d = json.load(open("dist/best-build-tags.json"))
+          cats, tags = d["categoryCount"], d["tagCount"]
+          print(f"  Categories: {cats}")
+          print(f"  Tags:       {tags}")
+          for c in d["categories"]:
+              print(f"    {c['displayName']:<12} {c['count']:>3}")
+          if cats < 9 or tags < 300:
+              sys.exit(f"Refusing to publish: {cats} categories / {tags} tags "
+                       f"looks like a bad read.")
+          PY
+
+      - name: Commit updated dist file
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/best-build-tags.json
+          git diff --cached --quiet && echo "No changes to commit" || \
+            git commit -m "chore: rebuild Best Builds tag JSON [skip ci]"
+
+      - name: Push changes
+        run: |
+          git fetch origin main
+          git pull --rebase origin main
+          git push origin main
