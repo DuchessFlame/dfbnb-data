@@ -38,6 +38,7 @@ import os
 import re
 from pathlib import Path
 import tsv_source          # one resolver for every export selection
+import camp_config       # hand-maintained tables live in data/camp/*.json
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--tsv-dir", default="tsv",  help="Folder containing TSV exports")
@@ -106,6 +107,10 @@ for _n, _p in [("FURN", FURN_PATH), ("ACTI", ACTI_PATH), ("ENTM", ENTM_PATH),
 
 IMG_BASE = "/wp-content/uploads/guide-images/camp-items/buff-stations/"
 ATX_HOW  = "Can be purchased with certain bundles from the Atom Shop."
+
+# Override tables (groups, exclusions, name/how/ENTM overrides, gold-vendor
+# merges, beds). One entry gets added most seasons — see data/camp/buff_stations.json.
+_CFG = camp_config.load("buff_stations", {"ATX_HOW": ATX_HOW})
 
 
 def rows(path):
@@ -297,20 +302,7 @@ def fvpa_to_array(fvpa):
 # ---------------------------------------------------------------- groups
 # No blurbs on group headers (user requirement, 7 Jun 2026) — the group
 # expand shows the label + count only.
-GROUPS = [
-    {"key": "strength",     "label": "Strength"},
-    {"key": "perception",   "label": "Perception"},
-    {"key": "endurance",    "label": "Endurance"},
-    {"key": "charisma",     "label": "Charisma"},
-    {"key": "intelligence", "label": "Intelligence"},
-    {"key": "agility",      "label": "Agility"},
-    {"key": "luck",         "label": "Luck"},
-    {"key": "experience",   "label": "Experience (XP)"},
-    {"key": "unique",       "label": "Unique Buffs"},
-    {"key": "utility",      "label": "Utility"},
-    {"key": "wellrested",   "label": "Well Rested"},
-    {"key": "welltuned",    "label": "Well Tuned"},
-]
+GROUPS = _CFG["groups"]
 GROUP_ORDER = {g["key"]: i for i, g in enumerate(GROUPS)}
 
 STAT_NAME = {"strength": "Strength", "perception": "Perception",
@@ -342,58 +334,16 @@ RESTED_OUT = "Rested: +5% XP for 60 minutes — solo buff (player only)."
 # Buff-furniture keyword → page group(s). An item carrying two of these
 # keywords (e.g. a pinball machine with Agility + Perception) automatically
 # lands in BOTH groups — no manual dual-stat list needed.
-KW_TO_GROUPS = {
-    "005B359F": ["strength"],
-    "0065015D": ["perception"],
-    "00644EA3": ["endurance"],
-    "0065015A": ["charisma"],
-    "0065015B": ["intelligence"],
-    "005EDEE0": ["agility"],
-    "0065015C": ["luck"],
-    "0050CD11": ["welltuned"],                  # FurnitureTypeInstrument
-    "005A4E2B": ["wellrested", "experience"],   # ATX_FurnituretypeRested (Rested = +5% XP)
-    "0076B52B": ["experience"],                 # FurnitureTypeXPBonus
-    "0089ADB2": ["unique"],                     # FurnituretypeAccuracy (Phoropter)
-    "00897407": ["unique"],                     # LoveHurts ChemDuration (Lethal Loveseat)
-    "008B1D60": ["unique"],                     # WeaponsExpert GatheringBuff (Rip statue)
-    "005D98A6": ["utility"],                    # FurnitureTypeDiseaseCure (Sympto-matic)
-}
+KW_TO_GROUPS = _CFG["kw_to_groups"]
 
 # Records that carry a buff keyword but must NOT be on the page.
 # World-placed objects (REFR only, no buildable COBJ) and quest/companion props.
-EXCLUDED = {
-    "006B8E0F",  # Casino Pool Table — world object, Expedition: Atlantic City
-    "0078CA7D",  # Pool Table — world object, Storm questline
-    "00692563",  # Communal Campfire — event-placed, crafting recipe is cut
-    "006D1DD7",  # Arm Wrestle Machine — world object, EXP17
-    "006B8E0E",  # Drum Set — world object, EXP17
-    "00684B85",  # Moon_CampfireGuitar — event-placed world guitar
-    "00769104",  # AC_MQ01 Tuba — quest prop, EDID says NONPLAYER
-    "005856C7",  # Wanderer's Guitar — companion camp object, not buildable
-    "0061E075",  # ATX_COMP_Mechanic guitar — companion camp object
-    "0052A8F9",  # CharGen guitar
-    "00830006",  # Ice Bath — ZZZ deprecated (S22)
-}
+EXCLUDED = set(_CFG["excluded"])
 
 CUT_RE = re.compile(r"^(zzz|test|chargen|post_)", re.I)
 
 # Items that grant a buff but carry NO detectable buff keyword — added manually.
-MANUAL_ITEMS = [
-    {"fid": "007B2841", "groups": ["utility"],
-     "entm": "ATX_ENTM_CAMP_FloorDecor_BloodTransfusionPump", "how": None,
-     "buff": "Restores health and removes rads when used.\n"
-             "Ghoul characters gain rads instead.\n15 minute cooldown between uses."},
-    {"fid": "008B1D5A", "groups": ["unique"],
-     "entm": "ATX_ENTM_CAMP_Utility_Sharpening", "how": None,
-     "buff": "Sharpening Stone: 5% chance to gain a Blood Pack on melee kills for 30 minutes.",
-     "spell": "008D1C9C “Sharpening Stone”"},
-    {"fid": "0068D3D5", "groups": ["experience"],
-     "entm": None,
-     "how": "Placed and used by Lite Ally: Steven Scarberry (Season 12 Scoreboard) — "
-            "the ally applies the buff to your team.",
-     "name": "Scarberry’s Shrine",
-     "buff": "+5% XP for 60 minutes — team buff, applied by your companion."},
-]
+MANUAL_ITEMS = _CFG["manual_items"]
 
 # Gold-vendor re-releases of scoreboard items are the SAME item with a second
 # purchase route — they merge into the base entry instead of getting their own
@@ -403,89 +353,31 @@ MANUAL_ITEMS = [
 # Source: BOOK VendorList LVLI (W05_LLV_GoldVendor_*) + Econ_GoldVendor_Tier
 # GLOBs. Same item with a DIFFERENT SKIN stays a separate sub-expand
 # (beds/sleeping bags excepted — they stay aggregated).
-GOLD_MERGED = {
-    "005F56CA": "0056744C",   # Weight Bench (Gold Vendor)      → Weight Bench
-    "00609E0A": "005D80E0",   # Antique Speed Bag (Gold Vendor) → Antique Speed Bag
-}
+GOLD_MERGED = _CFG["gold_merged"]
 
 # Gold bullion line appended to the base item's How to Obtain.
-GOLD_HOW = {
-    "0056744C": "Gold Bullion: Plan: Weight Bench — sold by Mortimer at The Crater "
-                "for 1,250 gold bullion. Requires Raiders reputation rank Cautious "
-                "to appear in his inventory. Available once per character.",
-    "005D80E0": "Gold Bullion: Plan: Speed Bag — sold by Mortimer at The Crater "
-                "for 1,250 gold bullion. Requires Raiders reputation rank Cautious "
-                "to appear in his inventory. Available once per character.",
-}
+# One labelled line per fact (camp-item-expands "Route detail formats") — the
+# renderer turns "Label: value" lines into aligned sub-rows.
+GOLD_HOW = _CFG["gold_how"]
 
 # Correct plan names for the merged items (the auto COBJ token-fallback
 # previously mismatched these to an unrelated GoldVendor recipe).
-PLAN_OVERRIDES = {
-    "0056744C": "Plan: Weight Bench",
-    "005D80E0": "Plan: Speed Bag",
-}
+PLAN_OVERRIDES = _CFG["plan_overrides"]
 
 # Extra Technical lines for merged gold-vendor records
-GOLD_TECH = {
-    "0056744C": ["Gold Vendor FURN: SCORE_S2_Furniture_Weightbench_GoldVendor (005F56CA)",
-                 "Gold Vendor Plan: SCORE_Recipe_workshop_CAMP_Utility_WeightBench_GoldVendor (005F56C8)",
-                 "Vendor List: 005A0EE5 W05_LLV_GoldVendor_Raider_Mortimer_1_Cautious",
-                 "Price Global: 005A504D Econ_GoldVendor_Tier_10 = 1250"],
-    "005D80E0": ["Gold Vendor FURN: SCORE_S3_Antique_Speed_Bag_GoldVendor (00609E0A)",
-                 "Gold Vendor Plan: SCORE_Recipe_workshop_CAMP_Utility_SpeedBag_GoldVendor (00609E06)",
-                 "Vendor List: 005A0EE5 W05_LLV_GoldVendor_Raider_Mortimer_1_Cautious",
-                 "Price Global: 005A504D Econ_GoldVendor_Tier_10 = 1250"],
-}
+GOLD_TECH = _CFG["gold_tech"]
 
 # ---------------------------------------------------------------- overrides
-NAME_OVERRIDES = {
-    "00668025": "Nuka-lele (Quantum)",
-    "0062C3E2": "Pipe Organ (Atom Shop)",
-    "00678D16": "Resonator Guitar B",
-    "007AE386": "Accordion (Free)",
-    "00691B73": "Violin",
-    "00684BAA": "Vault Girl Arm Wrestle Machine",
-    "007267B6": "Hollywood Vanity (Free)",
-    "006FA9F0": "Stars and Strikes Bowling Arcade Machine",
-}
+NAME_OVERRIDES = _CFG["name_overrides"]
 
-HOW_OVERRIDES = {
-    "007CF731": "Plan: Cosmic Capture — rare reward drop from the Invaders from Beyond seasonal event.",
-    "008B12E0": "Purchase with tickets from the Weapons Expert Mini Season (2026) reward shop.",
-    "008B1553": "Purchase with tickets from the Weapons Expert Mini Season (2026) reward shop.",
-    "00897409": "Purchase with tickets from the Love Hurts Mini Season reward shop.",
-    "00766AA3": "Plan: Stargazer's Telescope — sold by the Milepost Zero vendors (imported goods).",
-    "0079B885": "Plan: Cauldron Hot Tub — event-specific reward during the Mischief Night event.",
-    "0078C78E": "Plan: Rusty Saxophone — Milepost Zero reward.",
-    "00755EB1": "Reward from the Mothman Equinox seasonal event. Not craftable.",
-    "007AE386": "Free reward — unlocked for all players.",
-    "007267B6": "Free reward — unlocked for all players.",
-    "005D98A5": ATX_HOW,   # Sympto-matic — Atom Shop item with unbranded EDID
-    "006628D8": "Available to Fallout 1st members.",
-}
+HOW_OVERRIDES = _CFG["how_overrides"]
 
 # Free-from-ATX unlocks have no tradeable plan; Milepost saxophone plan is
 # untradeable per the published data set.
-TRADEABLE_OVERRIDES = {
-    "007AE386": False,  # Accordion (Free)
-    "007267B6": False,  # Hollywood Vanity (Free)
-    "0078C78E": False,  # Rusty Saxophone
-}
+TRADEABLE_OVERRIDES = _CFG["tradeable_overrides"]
 
 # ENTM matches the FULL-name auto-lookup can't resolve (shared or differing names)
-ENTM_OVERRIDES = {
-    "0056744C": "SCORE_S2_ENTM_Utility_WeightBench",
-    "005D80E0": "SCORE_S3_ENTM_CAMP_FloorDecor_ExerciseEquipment_AntiqueSpeedBag",
-    "006628D9": "ATX_ENTM_CAMP_Furniture_Table_Special_9BallTable_D_WoodGreen",
-    "006628DB": "ATX_ENTM_CAMP_Furniture_Table_Special_9BallTable_C_Green",
-    "00684BAA": "ATX_ENTM_CAMP_Utility_ArmWrestleMachine_VaultGirl",
-    "0068DF0A": "ATX_ENTM_CAMP_Furniture_SkullsFirePit",
-    "00691B73": "SCORE_S12_ENTM_CAMP_Furniture_Instrument_ViolinChair",
-    "0062C3E2": "ATX_ENTM_CAMP_Furniture_Instrument_Pipe_Organ",
-    "00678D16": "ATX_ENTM_CAMP_Furniture_Instrument_ResonatorGuitar",
-    "006FA9F0": "ATX_ENTM_CAMP_Furniture_BowlingArcadeMachine_StarsAndStrikes",
-    "007AE386": "ATX_ENTM_CAMP_Furniture_Instrument_Accordion",  # free version shares the ATX art
-}
+ENTM_OVERRIDES = _CFG["entm_overrides"]
 
 # Custom Output text for non-SPECIAL, non-instrument, non-rested items
 BUFF_TEXT = {
@@ -889,17 +781,7 @@ for fid in sorted(discovered):
     })
 
 # ----- aggregate bed entries -------------------------------------------------
-BED_ENTRIES = [
-    ("003CD038", "Sleeping Bags",
-     "Rested: +5% XP for 60 minutes — solo buff (player only).",
-     "0005C528 SURV_WellRested", "003CD038 BedTypeSleepingBag", "sleepingbag"),
-    ("003CD037", "Mattresses",
-     "Rested: +5% XP for 60 minutes — solo buff (player only).",
-     "0005C528 SURV_WellRested", "003CD037 BedTypeMattress", "mattress"),
-    ("003CD036", "Comfy Beds",
-     "Well Rested: +5% XP and +2 Agility for 2 hours (3 hours with the Homebody perk) — solo buff (player only).",
-     "003CD033 SURV_WellRested2", "003CD036 BedTypeComfy", "comfy"),
-]
+BED_ENTRIES = _CFG["bed_entries"]
 for fid, label, buff, spell, kwline, bkey in BED_ENTRIES:
     names = bed_names[bkey]
     tech = [f"Bed Type Keyword: {kwline}", f"Buff Spell: {spell}", "",

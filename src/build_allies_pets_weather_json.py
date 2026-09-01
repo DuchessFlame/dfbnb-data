@@ -33,6 +33,12 @@ from pathlib import Path
 
 from patchlog_utils import write_patchlog_feed
 import tsv_source          # one resolver for every export selection
+import camp_config       # hand-maintained tables live in data/camp/*.json
+
+_CFG_WEATHER_STATIONS = camp_config.load("weather_stations")
+_CFG_ALLIES = camp_config.load("allies")
+_CFG_REPAIR_BOTS = camp_config.load("repair_bots")
+_CFG_PETS = camp_config.load("pets")
 
 # ---------------------------------------------------------------------------
 # CLI args + env var resolution (matches dfbnb-patch-build.yml pattern)
@@ -690,17 +696,35 @@ _GOLD_VENDOR_LVLI_RE = re.compile(
 # BVGO column, e.g. "Econ_GoldVendor_Tier_10 [GLOB:005A504D]"
 _BVGO_RE = re.compile(r"^\s*(?P<edid>\S+)\s*\[GLOB:(?P<fid>[0-9A-Fa-f]+)\]")
 
+def _faction_display(name):
+    """LVLI faction token -> the name players see: "Settler" -> "Settlers"."""
+    n = (name or "").strip()
+    if not n:
+        return ""
+    n = n[0].upper() + n[1:]
+    return n if n.endswith("s") else n + "s"
+
+
+def _thousands(value):
+    """1250 -> "1,250". Left untouched when the value is not a plain number."""
+    try:
+        return "{:,}".format(int(str(value).replace(",", "").strip()))
+    except (ValueError, TypeError):
+        return str(value)
+
+
 book_by_id: dict = {}
 for r in book_rows:
     ref_vals = [r.get(f"Ref{i}", "") for i in range(1, 44)]
     is_untrad = any("Untradable" in v or "Untradeable" in v for v in ref_vals)
 
     # Gold-vendor data (vendor + rank from refs, price tier from BVGO)
-    _gv_vendor, _gv_rank = "", ""
+    _gv_vendor, _gv_rank, _gv_faction = "", "", ""
     for v in ref_vals:
         m = _GOLD_VENDOR_LVLI_RE.search(v or "")
         if m:
             _gv_vendor, _gv_rank = m.group("vendor"), m.group("rank")
+            _gv_faction = _faction_display(m.group("faction"))
             break
     _gv_price = ""
     _bvgo_m = _BVGO_RE.match(r.get("BVGO", "") or "")
@@ -720,38 +744,63 @@ for r in book_rows:
         "is_untradeable":  is_untrad,
         "gold_vendor":     _gv_vendor,
         "gold_rank":       _gv_rank,
+        "gold_faction":    _gv_faction,
         "gold_price":      _gv_price,
     }
 
 
-def plan_purchase_block(book_fid: str) -> str:
+def vendor_purchase_block(plan_name="", vendor="", location="",
+                          cost="", currency="", faction="", rank="", note=""):
+    """The shared vendor-purchase block for the Caps, Stamps and Gold Bullion
+    routes (camp-item-expands, "Route detail formats").
+
+    One labelled line per fact, in a fixed order — the renderer turns
+    "Label: value" lines into aligned sub-rows:
+
+        Plan: {plan name}
+        Vendor: {vendor} — {location}
+        Cost: {price} {currency}
+        Reputation: {faction} — {rank}
+        Note: {note}
+
+    Lines whose data is missing are omitted, so a caps vendor with no known
+    reputation gate simply has no Reputation row.
     """
-    How to Obtain block for a physical purchasable plan (user template,
-    June 2026):
+    lines = []
+    plan = re.sub(r"^\s*plan\s*:\s*", "", str(plan_name or ""), flags=re.I).strip()
+    if plan:
+        lines.append(f"Plan: {plan}")
+    if vendor:
+        lines.append(f"Vendor: {vendor} — {location}" if location
+                     else f"Vendor: {vendor}")
+    if cost:
+        lines.append(f"Cost: {_thousands(cost)} {currency}".strip())
+    if rank:
+        lines.append(f"Reputation: {faction} — {rank}" if faction
+                     else f"Reputation: {rank}")
+    if note:
+        lines.append(f"Note: {note}")
+    return "\n".join(lines)
 
-        Plan: {BOOK plan name}
-        {Vendor} - {Reputation rank} reputation   (gold-bullion vendors)
-        {price} Gold Bullion
 
-    All three lines are data-derived from the BOOK record (FULL, the
-    W05_LLV_GoldVendor_* LVLI ref, and the BVGO price-tier GLOB). Lines
-    whose data is missing are omitted. Returns "" if the BOOK is unknown.
-    Caps/Stamps vendor plans: no reliable purchase-price field in the
-    current exports — extend here when one becomes available.
+def plan_purchase_block(book_fid: str) -> str:
+    """Gold Bullion block for a purchasable plan, built from the BOOK record
+    (FULL, the W05_LLV_GoldVendor_* LVLI ref, and the BVGO price-tier GLOB).
+    Returns "" if the BOOK is unknown. Caps/Stamps vendor plans: no reliable
+    purchase-price field in the current exports — when one appears, call
+    vendor_purchase_block with currency="Caps" / "Stamps".
     """
     b = book_by_id.get(book_fid)
     if not b:
         return ""
-    lines = []
-    full = (b["full"] or "").strip()
-    if full:
-        lines.append(full if full.lower().startswith("plan") else f"Plan: {full}")
-    if b["gold_vendor"]:
-        lines.append(f"{b['gold_vendor']} - {b['gold_rank']} reputation"
-                     if b["gold_rank"] else b["gold_vendor"])
-    if b["gold_price"]:
-        lines.append(f"{b['gold_price']} Gold Bullion")
-    return "\n".join(lines)
+    return vendor_purchase_block(
+        plan_name=(b["full"] or "").strip(),
+        vendor=b["gold_vendor"],
+        cost=b["gold_price"],
+        currency="Gold Bullion",
+        faction=b.get("gold_faction", ""),
+        rank=b["gold_rank"],
+    )
 
 # COBJ: CNAM FormID → {gnam_fid, gnam_full} (direct crafted-item → plan-book)
 # Only rows with a non-empty GNAM_FormID are stored.
@@ -1124,9 +1173,7 @@ def build_weather_stations():
     # Atlantic City Fog has a Gold Bullion plan but the CondProxy token regex
     # mislabels it — hardcode tradeable status here keyed by ENTM FormID.
     # The plan (0075FF95) has NonPlayerTradable keyword — plan is NOT tradeable.
-    WEATHER_TRADEABLE = {
-        "0073ABA6": False,  # Weather Control Station (Atlantic City Fog) — Gold Bullion plan, NonPlayerTradable
-    }
+    WEATHER_TRADEABLE = _CFG_WEATHER_STATIONS["weather_tradeable"]
 
     # ── Hand-uploaded page images (June 2026) ──
     # Mirrors the repair-bot approach: these AVIFs live in guide-images
@@ -1136,29 +1183,8 @@ def build_weather_stations():
     # it becomes imageUrl / the row thumbnail; the _c1/_c2/_c3 colourways follow.
     # Up to 4 images per station. Stations not in this map fall back to the
     # storefront ECIL-derived URLs.
-    WEATHER_STATION_IMG_BASE = "/wp-content/uploads/guide-images/camp-items/weather-stations/"
-    WEATHER_STATION_IMG_MAP = {
-        "008E09A2": ["score_s26_camp_utility_weatherstation_bloodmoon_l.avif", "score_s26_camp_utility_weatherstation_bloodmoon_c1.avif", "score_s26_camp_utility_weatherstation_bloodmoon_c2.avif"],  # Weather Station (Blood Moon)
-        "008998E2": ["score_s24_camp_utility_weatherstation_invasion_l.avif", "score_s24_camp_utility_weatherstation_invasion_c1.avif", "score_s24_camp_utility_weatherstation_invasion_c2.avif"],  # Weather Station (Alien Invasion)
-        "0073ABA6": ["score_s15_camp_utility_weatherstation_xpdacboardwalk_l.avif", "score_s15_camp_utility_weatherstation_xpdacboardwalk_c1.avif", "score_s15_camp_utility_weatherstation_xpdacboardwalk_c2.avif", "score_s15_camp_utility_weatherstation_xpdacboardwalk_c3.avif"],  # Weather Station (Atlantic City Fog)
-        "007B28BB": ["atx_camp_utility_weatherstation_verdantpollen_l.avif", "atx_camp_utility_weatherstation_verdantpollen_c1.avif", "atx_camp_utility_weatherstation_verdantpollen_c2.avif", "atx_camp_utility_weatherstation_verdantpollen_c3.avif"],  # Weather Station (Blooming Haze)
-        "0084CCD5": ["atx_camp_utility_weatherstation_burningnight.avif", "atx_camp_utility_weatherstation_burningnight_c1.avif", "atx_camp_utility_weatherstation_burningnight_c2.avif", "atx_camp_utility_weatherstation_burningnight_c3.avif"],  # Weather Station (Burning Night)
-        "0084CCD6": ["atx_camp_utility_weatherstation_burningsandstorm.avif", "atx_camp_utility_weatherstation_burningsandstorm_c1.avif", "atx_camp_utility_weatherstation_burningsandstorm_c2.avif", "atx_camp_utility_weatherstation_burningsandstorm_c3.avif"],  # Weather Station (Burning Sandstorm)
-        "006EE8EE": ["atx_camp_utility_weatherstation_standard_clear_l.avif", "atx_camp_utility_weatherstation_standard_clear_c1.avif", "atx_camp_utility_weatherstation_standard_clear_c2.avif", "atx_camp_utility_weatherstation_standard_clear_c3.avif"],  # Weather Station (Clear)
-        "0078DB68": ["atx_camp_utility_weatherstation_fallfoliage_l.avif", "atx_camp_utility_weatherstation_fallfoliage_c1.avif", "atx_camp_utility_weatherstation_fallfoliage_c2.avif", "atx_camp_utility_weatherstation_fallfoliage_c3.avif"],  # Weather Station (Fall)
-        "007D70D3": ["atx_camp_utility_weatherstation_fireworks_l.avif", "atx_camp_utility_weatherstation_fireworks_c1.avif", "atx_camp_utility_weatherstation_fireworks_c2.avif", "atx_camp_utility_weatherstation_fireworks_c3.avif"],  # Weather Station (Fireworks)
-        "00787EE2": ["atx_camp_utility_weatherstation_halloween_l.avif", "atx_camp_utility_weatherstation_halloween_c1.avif", "atx_camp_utility_weatherstation_halloween_c2.avif", "atx_camp_utility_weatherstation_halloween_c3.avif"],  # Weather Station (Halloween)
-        "008319F2": ["atx_camp_utility_weatherstation_standard_lightrain_l.avif", "atx_camp_utility_weatherstation_standard_lightrain_c1.avif", "atx_camp_utility_weatherstation_standard_lightrain_c2.avif", "atx_camp_utility_weatherstation_standard_lightrain_c3.avif"],  # Weather Station (Light Rain)
-        "00781421": ["atx_camp_utility_weatherstation_mothman_l.avif", "atx_camp_utility_weatherstation_mothman_c1.avif", "atx_camp_utility_weatherstation_mothman_c2.avif", "atx_camp_utility_weatherstation_mothman_c3.avif"],  # Weather Station (Mothman)
-        "007990A2": ["score_s19_camp_utility_weatherstation_nukezone_l.avif", "score_s19_camp_utility_weatherstation_nukezone_c1.avif", "score_s19_camp_utility_weatherstation_nukezone_c2.avif"],  # Weather Station (Nuke Zone)
-        "0085B5FA": ["atx_camp_utility_weatherstation_outwaste_l.avif", "atx_camp_utility_weatherstation_outwaste_c1.avif", "atx_camp_utility_weatherstation_outwaste_c2.avif", "atx_camp_utility_weatherstation_outwaste_c3.avif"],  # Weather Station (Outwaste)
-        "006F0693": ["atx_camp_utility_weatherstation_standard_radstorm.avif", "atx_camp_utility_weatherstation_standard_radstorm_c1.avif", "atx_camp_utility_weatherstation_standard_radstorm_c2.avif", "atx_camp_utility_weatherstation_standard_radstorm_c3.avif"],  # Weather Station (Radstorm)
-        "008B0D76": ["score_s25_camp_utility_weatherstation_rainbow_l.avif", "score_s25_camp_utility_weatherstation_rainbow_c1.avif", "score_s25_camp_utility_weatherstation_rainbow_c2.avif"],  # Weather Station (Rainbow)
-        "007586AC": ["atx_camp_utility_weatherstation_storm_skylinevalley_l.avif", "atx_camp_utility_weatherstation_storm_skylinevalley_c1.avif", "atx_camp_utility_weatherstation_storm_skylinevalley_c2.avif"],  # Weather Station (Skyline Valley)
-        "0079A1D2": ["atx_camp_utility_weatherstation_snowaurora.avif", "atx_camp_utility_weatherstation_snowaurora_c1.avif", "atx_camp_utility_weatherstation_snowaurora_c2.avif"],  # Weather Station (Snow Aurora)
-        "007263C0": ["atx_camp_utility_weatherstation_snowman_snow_l.avif", "atx_camp_utility_weatherstation_snowman_snow_c1.avif", "atx_camp_utility_weatherstation_snowman_snow_c2.avif", "atx_camp_utility_weatherstation_snowman_snow_c3.avif"],  # Weather Station (Snow)
-        "00743E6E": ["atx_camp_utility_weatherstation_thunderstorm.avif", "atx_camp_utility_weatherstation_thunderstorm_c1.avif", "atx_camp_utility_weatherstation_thunderstorm_c2.avif"],  # Weather Station (Thunderstorm)
-    }
+    WEATHER_STATION_IMG_BASE = _CFG_WEATHER_STATIONS["weather_station_img_base"]
+    WEATHER_STATION_IMG_MAP = _CFG_WEATHER_STATIONS["weather_station_img_map"]
 
     # ── Real-money Limited Time Bundle overrides ──
     # A few weather stations were NOT Atom-shop purchases — they shipped in a
@@ -1480,12 +1506,7 @@ for _eid, _sfx in _rb_suffix_by_entm.items():
 # Bot NPC record + race per suffix (NPC actor TSV isn't loaded here — manual).
 # A new bot without an entry still builds; it just logs a [WARN] and leaves
 # the NPC fields blank until the suffix is added below.
-_RB_NPC_BY_SUFFIX = {
-    "enclave":       {"npcFormId": "007AE49A", "npcEdid": "ATX_RepairBot_Enclave",       "race": "Protectron"},
-    "company":       {"npcFormId": "008109D4", "npcEdid": "ATX_RepairBot_Company",       "race": "Protectron"},
-    "santashelper":  {"npcFormId": "0084920D", "npcEdid": "ATX_RepairBot_SantasHelper",  "race": "Protectron"},
-    "emergencytech": {"npcFormId": "008571F7", "npcEdid": "ATX_RepairBot_EmergencyTech", "race": "Mr. Handy"},
-}
+_RB_NPC_BY_SUFFIX = _CFG_REPAIR_BOTS["rb_npc_by_suffix"]
 REPAIR_BOT_NPC_INFO = {}
 for _eid, _sfx in _rb_suffix_by_entm.items():
     _info = _RB_NPC_BY_SUFFIX.get(_sfx)
@@ -1520,16 +1541,7 @@ REPAIR_BOT_HOW_OVERRIDE = {
 # storefront folder, and the filename suffixes are not uniform (base / _c1 /
 # _c2 / _l), so each bot maps to an explicit file list. First entry = primary.
 REPAIR_BOT_IMG_BASE = "/wp-content/uploads/guide-images/camp-items/repair-bots/"
-REPAIR_BOT_IMAGES = {
-    "0082BED5": ["atx_camp_utility_repairbot_company.avif",
-                 "atx_camp_utility_repairbot_company_c2.avif"],
-    "008571F1": ["atx_camp_utility_repairbot_emergencytech_c1.avif",
-                 "atx_camp_utility_repairbot_emergencytech_l.avif"],
-    "007AE546": ["atx_camp_utility_repairbot_enclave.avif",
-                 "atx_camp_utility_repairbot_enclave_c2.avif"],
-    "0084920E": ["atx_camp_utility_repairbot_santashelper.avif",
-                 "atx_camp_utility_repairbot_santashelper_c2.avif"],
-}
+REPAIR_BOT_IMAGES = _CFG_REPAIR_BOTS["repair_bot_images"]
 
 
 def build_repair_bots():
@@ -1688,53 +1700,7 @@ def build_repair_bots():
 #                 *FadeToBlack record naming this ally). "" = not romanceable.
 # These are IDs/tokens only — all display text (name, buff, rates) is pulled
 # generatively from the TSVs at build time, never hardcoded.
-ALLY_COBJ_FURN = {
-    # Quest/companion placed (no plan)
-    "0054EB64": {"furn": "0055F6D2", "name": "U.S.S.A. Console",       "obtain": "Companion Quest",
-                 "ally": "Commander Daguerre", "vendor_base": "", "buff_token": "", "rom_token": "Astronaut"},
-    "00568E4E": {"furn": "0056FBA4", "name": "Raider Punk's Radio",     "obtain": "Companion Quest",
-                 "ally": "Raider Punk", "vendor_base": "", "buff_token": "", "rom_token": ""},
-    "00569CC1": {"furn": "0057469B", "name": "Beckett's Bar",           "obtain": "Companion Quest",
-                 "ally": "Beckett", "vendor_base": "COMP_VisitorVendor_VendorChest_Beckett", "buff_token": "", "rom_token": "Beckett"},
-    "00585CDB": {"furn": "00585CE0", "name": "Forager's Chair",         "obtain": "Companion Quest",
-                 "ally": "Settler Forager", "vendor_base": "", "buff_token": "", "rom_token": ""},
-    "00585CC2": {"furn": "005856C7", "name": "Wanderer's Guitar",       "obtain": "Companion Quest",
-                 "ally": "Settler Wanderer", "vendor_base": "", "buff_token": "", "rom_token": ""},
-    "0061E077": {"furn": "0061E042", "name": "Sam's Workbench",         "obtain": "Companion Quest",
-                 "ally": "Sam Nguyen", "vendor_base": "ATX_COMP_Mechanic_VendorChest", "buff_token": "COMP_Mechanic_", "rom_token": ""},
-    # Premium / Scoreboard
-    "005C60D0": {"furn": "005C4208", "name": "Solomon's Medic Station", "obtain": "Atom Shop",
-                 "ally": "Solomon Hardy", "vendor_base": "BS01_COMP_Medic_VendorChest", "buff_token": "COMP_Medic_", "rom_token": ""},
-    "005DBE64": {"furn": "005EED4D", "name": "Yasmin's Cooking Stove",  "obtain": "Atom Shop",
-                 "ally": "Yasmin Chowdhury", "vendor_base": "BS01_COMP_Chef_VendorChest", "buff_token": "COMP_Chef_", "rom_token": ""},
-    "0061E078": {"furn": "0063164E", "name": "Daphne's Toy Box",        "obtain": "Scoreboard",
-                 "ally": "Daphne", "vendor_base": "SCORE_S5_COMP_Inspector_VendorChest", "buff_token": "COMP_Inspector_", "rom_token": ""},
-    "0061E079": {"furn": "0061F6F3", "name": "Maul's Cauldron",         "obtain": "Scoreboard",
-                 "ally": "Maul", "vendor_base": "SCORE_S5_COMP_SuperMutant_VendorChest", "buff_token": "COMP_SuperMutant_", "rom_token": ""},
-    "0062F75B": {"furn": "0062F75A", "name": "Xerxo's Spaceship",              "obtain": "Atom Shop",
-                 "ally": "Xerxo", "vendor_base": "ATX_COMP_Ghoul_VendorChest", "buff_token": "COMP_Ghoul_", "rom_token": ""},
-    # Katherine Swan: COBJ 0063164B, FURN 0063164E (ATX_CAMP_Astronomer_KatherineFurniture_CampObject)
-    # ENTM 0062F44F — ETDI base "SCORE_S7_CAMP_Ally_KatherineSwan" matches FURN prefix OK
-    "0063164B": {"furn": "0063164E", "name": "Katherine's Research Desk",      "obtain": "Atom Shop",
-                 "ally": "Katherine Swan", "vendor_base": "ATX_COMP_Astronomer_VendorChest", "buff_token": "COMP_Astronomer_", "rom_token": ""},
-    # Leo Petrov: FURN EDID "SCORE_S11_CAMP_Ally_NukaAgent_Leo_Desk_FURN"
-    # ENTM ETDI "SCORE_S11_CAMP_Ally_LeoPetrov.dds" — prefix mismatch, use entm_override
-    "00674961": {"furn": "0067E70B", "name": "Leo's Desk",                     "obtain": "Scoreboard",
-                 "entm_override": "00674962",
-                 "ally": "Leo Petrov", "vendor_base": "ATX_COMP_NukaAgent_VendorChest", "buff_token": "ATX_COMP_NukaBuff_NukaAgent", "rom_token": ""},
-    "0068D3D2": {"furn": "0068D3D5", "name": "Scarberry's Shrine",      "obtain": "Scoreboard",
-                 "ally": "Steven Scarberry", "vendor_base": "ATX_COMP_Scarberry_VendorChest", "buff_token": "Scarberry_Blessing", "rom_token": ""},
-    "006A4360": {"furn": "006A4363", "name": "Joey's Stage",            "obtain": "Scoreboard",
-                 "ally": "Joey Bello", "vendor_base": "ATX_COMP_JoeyBello_VendorChest", "buff_token": "Roast_Proof_Joey", "rom_token": ""},
-    "006DC965": {"furn": "006DC969", "name": "Grandma's Chair",         "obtain": "Scoreboard",
-                 "ally": "Grandma Junko", "vendor_base": "ATX_COMP_GrandmaJunko_VendorChest", "buff_token": "Junko_Cooking_FoodDrink", "rom_token": ""},
-    "0073506D": {"furn": "0073507C", "name": "Del Lawson's Squire Bag", "obtain": "Atom Shop",
-                 "ally": "Del Lawson", "vendor_base": "ATX_COMP_Lawson_VendorChest", "buff_token": "", "rom_token": ""},
-    "0073E940": {"furn": "0073E943", "name": "Adelaide's Table",        "obtain": "Scoreboard",
-                 "ally": "Adelaide", "vendor_base": "ATX_COMP_Adelaide_VendorChest", "buff_token": "Adelaide_Perk_HumanRobotInterface", "rom_token": "Adelaide"},
-    "007FDC17": {"furn": "007FDC1B", "name": "Dottie's Strange Boxes",  "obtain": "Atom Shop",
-                 "ally": "Dottie", "vendor_base": "ATX_COMP_Dottie_VendorChest", "buff_token": "Unshakeable_Beliefs_Dottie", "rom_token": ""},
-}
+ALLY_COBJ_FURN = _CFG_ALLIES["ally_cobj_furn"]
 
 # Drift check: warn when a NEW ally camp object exists that isn't mapped.
 # Ally COBJ EDIDs match COMP_Constructible_CampObject (or LiteAlly for the
@@ -2329,33 +2295,7 @@ def animal_from_edid(edid):
 # (e.g. SpawnFurniture_Cat_RoboPaw, SpawnFurniture_Cat_Lykoi,
 #        SpawnFurniture_Dog_MongrelDogHouse) which breaks suffix extraction.
 # ---------------------------------------------------------------------------
-SPAWN_FURN_TO_ENTM = {
-    "0077D81F": "0078B500",  # Grey Tabby Cat     (cat)
-    "0077D820": "0078B501",  # German Shepherd     (dog)
-    "007A19B6": "007A19B5",  # White Shepherd      (dog)  S19 Scoreboard
-    "007A19C5": "007A19C4",  # Bombay Cat          (cat)  S19 Scoreboard
-    "007AE521": "007AE520",  # Sphynx Cat          (cat)
-    "007B28F8": "007B28F7",  # Rottweiler          (dog)
-    "007DC475": "007DC474",  # Wild Cat            (cat)
-    "00804BAC": "00804BAA",  # Farm Cat            (cat)
-    "0082A99E": "0082A99D",  # RoboPaw Steel Dog   (dog)
-    "0082BCB6": "0082BCB4",  # RoboPaw Steel Cat   (cat)
-    "008335D9": "008335DA",  # Sable Shepherd      (dog)  S22 Scoreboard
-    "0083646D": "0083646C",  # Ragdoll Cat         (cat)  S22 Scoreboard
-    "0084132B": "0084132A",  # Mongrel             (dog)
-    "0084FB8B": "0084FB8A",  # Radhog              (radhog)
-    "00853B83": "00853B80",  # Lykoi Cat           (cat)  S23 Scoreboard
-    "0085B0CA": "0085B0C9",  # RoboPaw Blue Dog    (dog)
-    "0089A8C5": "0089A8C4",  # Rooter Radhog       (radhog)
-    "008A5DF5": "008A5DF4",  # Glowing Cat         (cat)  S24 Scoreboard
-    "008AFDFF": "008AFE00",  # Goodboy             (dog)
-    "008AFF66": "008AFF64",  # Cyprus Cat          (cat)  S25 Scoreboard
-    "008B1207": "008B1206",  # Mr Pebbles          (cat)
-    "008B1550": "008B154F",  # Gruyere             (radhog)
-    "008B1D6D": "008B1D6C",  # Glowing Dog         (dog)  S25 Scoreboard
-    "008B1F0B": "008B1F0A",  # Glowing Hog         (radhog) S25 Scoreboard
-    "008A52AF": "008A52B4",  # Deathclaw           (deathclaw) — Deathclaw Cage spawn
-}
+SPAWN_FURN_TO_ENTM = _CFG_PETS["spawn_furn_to_entm"]
 
 # Drift check: warn when a NEW pet ENTM exists that isn't mapped above.
 # Pets need a manual FURN→ENTM pair (regex suffix matching is unreliable for
@@ -2387,20 +2327,7 @@ PET_FURNITURE_ENTM_IDS = sorted({
 })
 
 # Animal type for each furniture ENTM (for grouping on page)
-PET_FURNITURE_ANIMAL = {
-    "0078B4FE": "cat",
-    "007A27AD": "cat",
-    "007DC478": "cat",
-    "0082EF12": "cat",
-    "00853B8A": "cat",
-    "0078B4FF": "dog",
-    "007A27AC": "dog",
-    "007B290F": "dog",
-    "007B2910": "dog",
-    "00804F59": "dog",
-    "00852172": "radhog",
-    "00868F73": "radhog",
-}
+PET_FURNITURE_ANIMAL = _CFG_PETS["pet_furniture_animal"]
 
 
 def build_pets():
@@ -2555,13 +2482,7 @@ PET_APPAREL_ENTM_IDS = sorted({
     and not is_cut(_e.get("EDID", ""))
 })
 
-PET_APPAREL_ANIMAL = {
-    "0078B503": "cat", "0078B502": "dog",
-    "007B285E": "dog", "007DBEF0": "cat",
-    "00840E0F": "dog", "00852177": "radhog",
-    "00853B81": "cat", "00853B82": "dog",
-    "00868F71": "radhog",
-}
+PET_APPAREL_ANIMAL = _CFG_PETS["pet_apparel_animal"]
 
 
 def build_pet_apparel():

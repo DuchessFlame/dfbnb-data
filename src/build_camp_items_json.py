@@ -687,6 +687,14 @@ def resolve_obtain(entm_edid, book_data):
     result.update(method="default", display="Available in the base game.")
     return result
 
+def _thousands(value):
+    """1250 -> "1,250". Left untouched when the value is not a plain number."""
+    try:
+        return "{:,}".format(int(str(value).replace(",", "").strip()))
+    except (ValueError, TypeError):
+        return str(value)
+
+
 # --- 9-route obtain routes (camp-item-expands spec) ---
 OBTAIN_ROUTE_ORDER = [
     "Caps", "Stamps", "Scoreboard", "Gold Bullion",
@@ -709,17 +717,22 @@ def build_obtain_routes(obtain, book_data):
             entry["dropRate"] = "N/A"
         elif route_label == "Gold Bullion" and method == "gold":
             entry["populated"] = True
+            # One labelled line per fact ("Plan: X" / "Vendor: Y" / "Cost: Z") —
+            # the renderer splits these into aligned sub-rows. See the
+            # camp-item-expands skill, "Route detail formats".
             lines = []
             plan = obtain.get("planName")
-            # GNAM_FULL values usually already read "Plan: X", so only add the
-            # prefix when it is actually missing — otherwise the Gold Bullion
-            # route renders "Plan: Plan: Auto-Miner Collectron".
+            # GNAM_FULL values usually already read "Plan: X", so strip the
+            # leading "Plan:" rather than doubling it — otherwise the route
+            # renders "Plan: Plan: Auto-Miner Collectron".
             if plan:
-                lines.append(plan if plan.lower().lstrip().startswith("plan") else "Plan: {}".format(plan))
+                plan = re.sub(r"^\s*plan\s*:\s*", "", str(plan), flags=re.I).strip()
+                if plan:
+                    lines.append("Plan: {}".format(plan))
             vendor = obtain.get("vendor", "")
-            if vendor: lines.append("{} — Gold Bullion vendor".format(vendor))
+            if vendor: lines.append("Vendor: {}".format(vendor))
             price = obtain.get("goldBullionPrice")
-            if price: lines.append("{} Gold Bullion".format(price))
+            if price: lines.append("Cost: {} Gold Bullion".format(_thousands(price)))
             if not lines: lines = [obtain.get("display", "")]
             entry["lines"] = lines
             entry["tradeable"] = tradeable

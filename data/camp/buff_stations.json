@@ -1,0 +1,260 @@
+{
+  "groups": [
+    {
+      "key": "strength",
+      "label": "Strength"
+    },
+    {
+      "key": "perception",
+      "label": "Perception"
+    },
+    {
+      "key": "endurance",
+      "label": "Endurance"
+    },
+    {
+      "key": "charisma",
+      "label": "Charisma"
+    },
+    {
+      "key": "intelligence",
+      "label": "Intelligence"
+    },
+    {
+      "key": "agility",
+      "label": "Agility"
+    },
+    {
+      "key": "luck",
+      "label": "Luck"
+    },
+    {
+      "key": "experience",
+      "label": "Experience (XP)"
+    },
+    {
+      "key": "unique",
+      "label": "Unique Buffs"
+    },
+    {
+      "key": "utility",
+      "label": "Utility"
+    },
+    {
+      "key": "wellrested",
+      "label": "Well Rested"
+    },
+    {
+      "key": "welltuned",
+      "label": "Well Tuned"
+    }
+  ],
+  "kw_to_groups": {
+    "005B359F": [
+      "strength"
+    ],
+    "0065015D": [
+      "perception"
+    ],
+    "00644EA3": [
+      "endurance"
+    ],
+    "0065015A": [
+      "charisma"
+    ],
+    "0065015B": [
+      "intelligence"
+    ],
+    "005EDEE0": [
+      "agility"
+    ],
+    "0065015C": [
+      "luck"
+    ],
+    "0050CD11": [
+      "welltuned"
+    ],
+    "005A4E2B": [
+      "wellrested",
+      "experience"
+    ],
+    "0076B52B": [
+      "experience"
+    ],
+    "0089ADB2": [
+      "unique"
+    ],
+    "00897407": [
+      "unique"
+    ],
+    "008B1D60": [
+      "unique"
+    ],
+    "005D98A6": [
+      "utility"
+    ]
+  },
+  "excluded": {
+    "0052A8F9": "CharGen guitar",
+    "005856C7": "Wanderer's Guitar — companion camp object, not buildable",
+    "0061E075": "ATX_COMP_Mechanic guitar — companion camp object",
+    "00684B85": "Moon_CampfireGuitar — event-placed world guitar",
+    "00692563": "Communal Campfire — event-placed, crafting recipe is cut",
+    "006B8E0E": "Drum Set — world object, EXP17",
+    "006B8E0F": "Casino Pool Table — world object, Expedition: Atlantic City",
+    "006D1DD7": "Arm Wrestle Machine — world object, EXP17",
+    "00769104": "AC_MQ01 Tuba — quest prop, EDID says NONPLAYER",
+    "0078CA7D": "Pool Table — world object, Storm questline",
+    "00830006": "Ice Bath — ZZZ deprecated (S22)"
+  },
+  "manual_items": [
+    {
+      "fid": "007B2841",
+      "groups": [
+        "utility"
+      ],
+      "entm": "ATX_ENTM_CAMP_FloorDecor_BloodTransfusionPump",
+      "how": null,
+      "buff": "Restores health and removes rads when used.\nGhoul characters gain rads instead.\n15 minute cooldown between uses."
+    },
+    {
+      "fid": "008B1D5A",
+      "groups": [
+        "unique"
+      ],
+      "entm": "ATX_ENTM_CAMP_Utility_Sharpening",
+      "how": null,
+      "buff": "Sharpening Stone: 5% chance to gain a Blood Pack on melee kills for 30 minutes.",
+      "spell": "008D1C9C “Sharpening Stone”"
+    },
+    {
+      "fid": "0068D3D5",
+      "groups": [
+        "experience"
+      ],
+      "entm": null,
+      "how": "Placed and used by Lite Ally: Steven Scarberry (Season 12 Scoreboard) — the ally applies the buff to your team.",
+      "name": "Scarberry’s Shrine",
+      "buff": "+5% XP for 60 minutes — team buff, applied by your companion."
+    }
+  ],
+  "gold_merged": {
+    "005F56CA": "0056744C",
+    "00609E0A": "005D80E0"
+  },
+  "gold_how": {
+    "0056744C": "Gold Bullion: Plan: Weight Bench\nVendor: Mortimer — The Crater\nCost: 1,250 Gold Bullion\nReputation: Raiders — Cautious\nNote: Available once per character",
+    "005D80E0": "Gold Bullion: Plan: Speed Bag\nVendor: Mortimer — The Crater\nCost: 1,250 Gold Bullion\nReputation: Raiders — Cautious\nNote: Available once per character"
+  },
+  "plan_overrides": {
+    "0056744C": "Plan: Weight Bench",
+    "005D80E0": "Plan: Speed Bag"
+  },
+  "gold_tech": {
+    "0056744C": [
+      "Gold Vendor FURN: SCORE_S2_Furniture_Weightbench_GoldVendor (005F56CA)",
+      "Gold Vendor Plan: SCORE_Recipe_workshop_CAMP_Utility_WeightBench_GoldVendor (005F56C8)",
+      "Vendor List: 005A0EE5 W05_LLV_GoldVendor_Raider_Mortimer_1_Cautious",
+      "Price Global: 005A504D Econ_GoldVendor_Tier_10 = 1250"
+    ],
+    "005D80E0": [
+      "Gold Vendor FURN: SCORE_S3_Antique_Speed_Bag_GoldVendor (00609E0A)",
+      "Gold Vendor Plan: SCORE_Recipe_workshop_CAMP_Utility_SpeedBag_GoldVendor (00609E06)",
+      "Vendor List: 005A0EE5 W05_LLV_GoldVendor_Raider_Mortimer_1_Cautious",
+      "Price Global: 005A504D Econ_GoldVendor_Tier_10 = 1250"
+    ]
+  },
+  "name_overrides": {
+    "00668025": "Nuka-lele (Quantum)",
+    "0062C3E2": "Pipe Organ (Atom Shop)",
+    "00678D16": "Resonator Guitar B",
+    "007AE386": "Accordion (Free)",
+    "00691B73": "Violin",
+    "00684BAA": "Vault Girl Arm Wrestle Machine",
+    "007267B6": "Hollywood Vanity (Free)",
+    "006FA9F0": "Stars and Strikes Bowling Arcade Machine"
+  },
+  "how_overrides": {
+    "007CF731": "Plan: Cosmic Capture — rare reward drop from the Invaders from Beyond seasonal event.",
+    "008B12E0": "Purchase with tickets from the Weapons Expert Mini Season (2026) reward shop.",
+    "008B1553": "Purchase with tickets from the Weapons Expert Mini Season (2026) reward shop.",
+    "00897409": "Purchase with tickets from the Love Hurts Mini Season reward shop.",
+    "00766AA3": "Plan: Stargazer's Telescope — sold by the Milepost Zero vendors (imported goods).",
+    "0079B885": "Plan: Cauldron Hot Tub — event-specific reward during the Mischief Night event.",
+    "0078C78E": "Plan: Rusty Saxophone — Milepost Zero reward.",
+    "00755EB1": "Reward from the Mothman Equinox seasonal event. Not craftable.",
+    "007AE386": "Free reward — unlocked for all players.",
+    "007267B6": "Free reward — unlocked for all players.",
+    "005D98A5": "@ATX_HOW",
+    "006628D8": "Available to Fallout 1st members."
+  },
+  "tradeable_overrides": {
+    "007AE386": false,
+    "007267B6": false,
+    "0078C78E": false
+  },
+  "entm_overrides": {
+    "0056744C": "SCORE_S2_ENTM_Utility_WeightBench",
+    "005D80E0": "SCORE_S3_ENTM_CAMP_FloorDecor_ExerciseEquipment_AntiqueSpeedBag",
+    "006628D9": "ATX_ENTM_CAMP_Furniture_Table_Special_9BallTable_D_WoodGreen",
+    "006628DB": "ATX_ENTM_CAMP_Furniture_Table_Special_9BallTable_C_Green",
+    "00684BAA": "ATX_ENTM_CAMP_Utility_ArmWrestleMachine_VaultGirl",
+    "0068DF0A": "ATX_ENTM_CAMP_Furniture_SkullsFirePit",
+    "00691B73": "SCORE_S12_ENTM_CAMP_Furniture_Instrument_ViolinChair",
+    "0062C3E2": "ATX_ENTM_CAMP_Furniture_Instrument_Pipe_Organ",
+    "00678D16": "ATX_ENTM_CAMP_Furniture_Instrument_ResonatorGuitar",
+    "006FA9F0": "ATX_ENTM_CAMP_Furniture_BowlingArcadeMachine_StarsAndStrikes",
+    "007AE386": "ATX_ENTM_CAMP_Furniture_Instrument_Accordion"
+  },
+  "bed_entries": [
+    [
+      "003CD038",
+      "Sleeping Bags",
+      "Rested: +5% XP for 60 minutes — solo buff (player only).",
+      "0005C528 SURV_WellRested",
+      "003CD038 BedTypeSleepingBag",
+      "sleepingbag"
+    ],
+    [
+      "003CD037",
+      "Mattresses",
+      "Rested: +5% XP for 60 minutes — solo buff (player only).",
+      "0005C528 SURV_WellRested",
+      "003CD037 BedTypeMattress",
+      "mattress"
+    ],
+    [
+      "003CD036",
+      "Comfy Beds",
+      "Well Rested: +5% XP and +2 Agility for 2 hours (3 hours with the Homebody perk) — solo buff (player only).",
+      "003CD033 SURV_WellRested2",
+      "003CD036 BedTypeComfy",
+      "comfy"
+    ]
+  ],
+  "kw_to_groups_notes": {
+    "0050CD11": "FurnitureTypeInstrument",
+    "005A4E2B": "ATX_FurnituretypeRested (Rested = +5% XP)",
+    "0076B52B": "FurnitureTypeXPBonus",
+    "0089ADB2": "FurnituretypeAccuracy (Phoropter)",
+    "00897407": "LoveHurts ChemDuration (Lethal Loveseat)",
+    "008B1D60": "WeaponsExpert GatheringBuff (Rip statue)",
+    "005D98A6": "FurnitureTypeDiseaseCure (Sympto-matic)"
+  },
+  "gold_merged_notes": {
+    "005F56CA": "Weight Bench (Gold Vendor)      → Weight Bench",
+    "00609E0A": "Antique Speed Bag (Gold Vendor) → Antique Speed Bag"
+  },
+  "how_overrides_notes": {
+    "005D98A5": "Sympto-matic — Atom Shop item with unbranded EDID"
+  },
+  "tradeable_overrides_notes": {
+    "007AE386": "Accordion (Free)",
+    "007267B6": "Hollywood Vanity (Free)",
+    "0078C78E": "Rusty Saxophone"
+  },
+  "entm_overrides_notes": {
+    "007AE386": "free version shares the ATX art"
+  },
+  "_note": "Hand-maintained override tables for the Buff Stations page. Edit this file rather than build_buff_stations_json.py. 'excluded' maps FormID -> why it is off the page. A value of \"@NAME\" is resolved at load time against the script's own constant of that name (e.g. \"@ATX_HOW\")."
+}
