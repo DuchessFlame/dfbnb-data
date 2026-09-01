@@ -301,16 +301,10 @@ def resolve_obtain(row: dict, season_rows: dict, season_names: dict, chal: dict)
         rank = (sr.get("rank") or "").strip()
         page = (sr.get("page") or "").strip()
         label = season_label(num, season_names)
-        if rank:
-            where = f"Rank {rank}"
-        elif page:
-            where = f"Page {page}" if not page.startswith("B") else f"Bonus Page {page[1:]}"
-        else:
-            where = ""
-        text = f"Reward from the {label} Scoreboard"
-        if where:
-            text += f" - {where}"
-        text += "."
+        # Rank/page are kept in the payload for reference but deliberately kept
+        # OUT of the sentence: Bethesda are reworking the seasons, so pointing
+        # people at a specific rank would go stale.
+        text = f"Claim from the {label} Scoreboard."
         if premium:
             text += " Requires the paid Season Pass."
         return {
@@ -354,7 +348,7 @@ def resolve_obtain(row: dict, season_rows: dict, season_names: dict, chal: dict)
     m = _RE_SEASON.search(edid)
     if m:
         num = int(m.group(1))
-        text = f"Reward from the {season_label(num, season_names)} Scoreboard."
+        text = f"Claim from the {season_label(num, season_names)} Scoreboard."
         if premium:
             text += " Requires the paid Season Pass."
         return {"method": "scoreboard", "source": "Scoreboard", "text": text,
