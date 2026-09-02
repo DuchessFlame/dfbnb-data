@@ -1,0 +1,667 @@
+{
+ "version": "2026-09-02",
+ "generated": "2026-09-02T10:05:36+00:00",
+ "page": "scout-banners",
+ "title": "Scout Banner Buffs",
+ "url": "/bnb/buffs/scout-banners/scout-banner-buffs/",
+ "blurb": "Scout's Banner fires one of its Scout's Codes when you or a teammate get a kill. One expand per code.",
+ "countNoun": "Scout's Codes",
+ "sourceAlch": "ALCH_Export_August_2026.tsv",
+ "sourceMgef": "MGEF_Export_August_2026.tsv",
+ "mode": "effect-rows",
+ "groups": [
+  {
+   "key": "scout-s-code-survival",
+   "label": "Scout's Code: Survival",
+   "count": 1
+  },
+  {
+   "key": "scout-s-code-teamwork",
+   "label": "Scout's Code: Teamwork",
+   "count": 1
+  },
+  {
+   "key": "scout-s-code-research",
+   "label": "Scout's Code: Research",
+   "count": 1
+  },
+  {
+   "key": "scout-s-code-discovery",
+   "label": "Scout's Code: Discovery",
+   "count": 1
+  },
+  {
+   "key": "scout-s-code-innovation",
+   "label": "Scout's Code: Innovation",
+   "count": 1
+  },
+  {
+   "key": "scout-s-courage",
+   "label": "Scout's Courage",
+   "count": 1
+  },
+  {
+   "key": "battle-charged",
+   "label": "Battle Charged",
+   "count": 1
+  },
+  {
+   "key": "first-aid",
+   "label": "First Aid",
+   "count": 1
+  }
+ ],
+ "items": [
+  {
+   "formId": "00666920",
+   "edid": "SCORE_Banner_Medic",
+   "name": "Scout's Code: Survival",
+   "gameName": "Scout's Code: Survival",
+   "description": "Survival. Teamwork. Research. Discovery. Innovation. Open near your friends, so everyone can enjoy!",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/scout-banners/scout-s-banner.avif",
+   "objectType": "Scout's Code",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "00666920",
+     "edid": "SCORE_Banner_Medic",
+     "full": "Banner - Medic",
+     "dnam": "Survival - Heal 20% HP",
+     "magnitude": 1.0,
+     "duration": 3615.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Medic",
+     "polarity": "buff",
+     "durationDisplay": "1 hour",
+     "display": "Survival - Heal 20% HP"
+    },
+    {
+     "formId": "00669181",
+     "edid": "SCORE_Banner_Medic_RestoreHealth_Effect",
+     "full": "Restore Health",
+     "dnam": "Healing",
+     "magnitude": 4.0,
+     "duration": 5.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Restore Health",
+     "polarity": "buff",
+     "durationDisplay": "5s",
+     "display": "Restores 20 Health"
+    }
+   ],
+   "effectGroups": [],
+   "summaryLines": [
+    "Heals 20% of your maximum Health.",
+    "In-game text: Heal 20% HP"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Scoreboard",
+     "populated": true,
+     "lines": [
+      "Plan: Scout's Banner",
+      "Note: Purchase with tickets from the Season Scoreboard, or pick one up from a teammate who dropped it.",
+      "Availability: Consumable — one banner per placement."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "Fresh: The banner has no world spawns — it is a reward consumable only.",
+      "Guide: Scout's Banner Location Guide — /df/farming/consumables/scouts-banner/location-guide/"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Source: Scout's Banner",
+     "Trigger: Fires on a kill by you or a nearby teammate.",
+     "Duration: 1 hour",
+     "Effect Duration: 5s"
+    ],
+    "ids": [
+     "ALCH FormID: 00653FCD  (SCORE_Banner_Consumable)",
+     "SPEL: SCORE_Banner_Medic_Spell  [00666923]",
+     "MGEF 00666920: SCORE_Banner_Medic",
+     "MGEF 00669181: SCORE_Banner_Medic_RestoreHealth_Effect"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "00667763",
+   "edid": "SCORE_Banner_Driven_Effect",
+   "name": "Scout's Code: Teamwork",
+   "gameName": "Scout's Code: Teamwork",
+   "description": "Survival. Teamwork. Research. Discovery. Innovation. Open near your friends, so everyone can enjoy!",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/scout-banners/scout-s-banner.avif",
+   "objectType": "Scout's Code",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "00667763",
+     "edid": "SCORE_Banner_Driven_Effect",
+     "full": "Banner - Driven",
+     "dnam": "Teamwork - Restore 100% AP",
+     "magnitude": 1.0,
+     "duration": 3615.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Driven",
+     "polarity": "buff",
+     "durationDisplay": "1 hour",
+     "display": "Teamwork - Restore 100% AP"
+    },
+    {
+     "formId": "00669540",
+     "edid": "SCORE_Banner_Driven_RestoreAP_Effect",
+     "full": "Restore AP",
+     "dnam": "",
+     "magnitude": 999.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Restore AP",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+999 AP"
+    }
+   ],
+   "effectGroups": [],
+   "summaryLines": [
+    "Restores 100% of your Action Points.",
+    "In-game text: Restore 100% AP"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Scoreboard",
+     "populated": true,
+     "lines": [
+      "Plan: Scout's Banner",
+      "Note: Purchase with tickets from the Season Scoreboard, or pick one up from a teammate who dropped it.",
+      "Availability: Consumable — one banner per placement."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "Fresh: The banner has no world spawns — it is a reward consumable only.",
+      "Guide: Scout's Banner Location Guide — /df/farming/consumables/scouts-banner/location-guide/"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Source: Scout's Banner",
+     "Trigger: Fires on a kill by you or a nearby teammate.",
+     "Duration: 1 hour"
+    ],
+    "ids": [
+     "ALCH FormID: 00653FCD  (SCORE_Banner_Consumable)",
+     "SPEL: SCORE_Banner_Driven_Spell  [00667766]",
+     "MGEF 00667763: SCORE_Banner_Driven_Effect",
+     "MGEF 00669540: SCORE_Banner_Driven_RestoreAP_Effect"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "00669822",
+   "edid": "SCORE_Banner_Hardened_Effect",
+   "name": "Scout's Code: Research",
+   "gameName": "Scout's Code: Research",
+   "description": "Survival. Teamwork. Research. Discovery. Innovation. Open near your friends, so everyone can enjoy!",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/scout-banners/scout-s-banner.avif",
+   "objectType": "Scout's Code",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "00669822",
+     "edid": "SCORE_Banner_Hardened_Effect",
+     "full": "Banner - Hardened",
+     "dnam": "Research - Repair 10% armor CND",
+     "magnitude": 1.0,
+     "duration": 3615.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Hardened",
+     "polarity": "buff",
+     "durationDisplay": "1 hour",
+     "display": "Research - Repair 10% armor CND"
+    },
+    {
+     "formId": "00669821",
+     "edid": "SCORE_Banner_Hardened_RepairArmor_Effect",
+     "full": "Repair All Equipped Armor",
+     "dnam": "Armor Repair",
+     "magnitude": 1.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Repair All Equipped Armor",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+1 Repair All Equipped Armor"
+    }
+   ],
+   "effectGroups": [],
+   "summaryLines": [
+    "Repairs 10% condition on all equipped armour.",
+    "In-game text: Repair 10% armor CND"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Scoreboard",
+     "populated": true,
+     "lines": [
+      "Plan: Scout's Banner",
+      "Note: Purchase with tickets from the Season Scoreboard, or pick one up from a teammate who dropped it.",
+      "Availability: Consumable — one banner per placement."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "Fresh: The banner has no world spawns — it is a reward consumable only.",
+      "Guide: Scout's Banner Location Guide — /df/farming/consumables/scouts-banner/location-guide/"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Source: Scout's Banner",
+     "Trigger: Fires on a kill by you or a nearby teammate.",
+     "Duration: 1 hour"
+    ],
+    "ids": [
+     "ALCH FormID: 00653FCD  (SCORE_Banner_Consumable)",
+     "SPEL: SCORE_Banner_Hardened_Spell  [00669828]",
+     "MGEF 00669822: SCORE_Banner_Hardened_Effect",
+     "MGEF 00669821: SCORE_Banner_Hardened_RepairArmor_Effect"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "0066953F",
+   "edid": "SCORE_Banner_Vision",
+   "name": "Scout's Code: Discovery",
+   "gameName": "Scout's Code: Discovery",
+   "description": "Survival. Teamwork. Research. Discovery. Innovation. Open near your friends, so everyone can enjoy!",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/scout-banners/scout-s-banner.avif",
+   "objectType": "Scout's Code",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "0066953F",
+     "edid": "SCORE_Banner_Vision",
+     "full": "Scout Valor",
+     "dnam": "Discovery - Highlight enemies for 5s",
+     "magnitude": 1.0,
+     "duration": 3615.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Scout Valor",
+     "polarity": "buff",
+     "durationDisplay": "1 hour",
+     "display": "Discovery - Highlight enemies for 5s"
+    }
+   ],
+   "effectGroups": [],
+   "summaryLines": [
+    "Highlights nearby enemies through walls.",
+    "In-game text: Highlight enemies for 5s"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Scoreboard",
+     "populated": true,
+     "lines": [
+      "Plan: Scout's Banner",
+      "Note: Purchase with tickets from the Season Scoreboard, or pick one up from a teammate who dropped it.",
+      "Availability: Consumable — one banner per placement."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "Fresh: The banner has no world spawns — it is a reward consumable only.",
+      "Guide: Scout's Banner Location Guide — /df/farming/consumables/scouts-banner/location-guide/"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Source: Scout's Banner",
+     "Trigger: Fires on a kill by you or a nearby teammate.",
+     "Duration: 1 hour"
+    ],
+    "ids": [
+     "ALCH FormID: 00653FCD  (SCORE_Banner_Consumable)",
+     "SPEL: SCORE_Banner_Vision_Spell  [00669541]",
+     "MGEF 0066953F: SCORE_Banner_Vision"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "006697E9",
+   "edid": "SCORE_Banner_Forged_Effect",
+   "name": "Scout's Code: Innovation",
+   "gameName": "Scout's Code: Innovation",
+   "description": "Survival. Teamwork. Research. Discovery. Innovation. Open near your friends, so everyone can enjoy!",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/scout-banners/scout-s-banner.avif",
+   "objectType": "Scout's Code",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "006697E9",
+     "edid": "SCORE_Banner_Forged_Effect",
+     "full": "Banner - Forged",
+     "dnam": "Innovation - Repair 10% weapon CND",
+     "magnitude": 1.0,
+     "duration": 3615.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Forged",
+     "polarity": "buff",
+     "durationDisplay": "1 hour",
+     "display": "Innovation - Repair 10% weapon CND"
+    },
+    {
+     "formId": "006697E7",
+     "edid": "SCORE_Banner_Forged_RepairWeapon_Effect",
+     "full": "Repair Equipped Weapon",
+     "dnam": "Healing",
+     "magnitude": 1.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Repair Equipped Weapon",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+1 Repair Equipped Weapon"
+    }
+   ],
+   "effectGroups": [],
+   "summaryLines": [
+    "Repairs 10% condition on your equipped weapon.",
+    "In-game text: Repair 10% weapon CND"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Scoreboard",
+     "populated": true,
+     "lines": [
+      "Plan: Scout's Banner",
+      "Note: Purchase with tickets from the Season Scoreboard, or pick one up from a teammate who dropped it.",
+      "Availability: Consumable — one banner per placement."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "Fresh: The banner has no world spawns — it is a reward consumable only.",
+      "Guide: Scout's Banner Location Guide — /df/farming/consumables/scouts-banner/location-guide/"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Source: Scout's Banner",
+     "Trigger: Fires on a kill by you or a nearby teammate.",
+     "Duration: 1 hour"
+    ],
+    "ids": [
+     "ALCH FormID: 00653FCD  (SCORE_Banner_Consumable)",
+     "SPEL: SCORE_Banner_Forged_Spell  [006697EE]",
+     "MGEF 006697E9: SCORE_Banner_Forged_Effect",
+     "MGEF 006697E7: SCORE_Banner_Forged_RepairWeapon_Effect"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "006663F7",
+   "edid": "SCORE_Banner_AutoRevive_ApplyPerk_Effect",
+   "name": "Scout's Courage",
+   "gameName": "Scout's Courage",
+   "description": "Survival. Teamwork. Research. Discovery. Innovation. Open near your friends, so everyone can enjoy!",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/scout-banners/scout-s-banner.avif",
+   "objectType": "Scout's Code",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "006663F7",
+     "edid": "SCORE_Banner_AutoRevive_ApplyPerk_Effect",
+     "full": "Second Wind!",
+     "dnam": "Auto-revive if incapacitated once every 5 min",
+     "magnitude": 1.0,
+     "duration": 3615.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Second Wind!",
+     "polarity": "buff",
+     "durationDisplay": "1 hour",
+     "display": "Auto-revive if incapacitated once every 5 min"
+    }
+   ],
+   "effectGroups": [],
+   "summaryLines": [
+    "Automatically revives you if you go down, once every 5 minutes.",
+    "In-game text: Auto-revive if incapacitated once every 5 min"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Scoreboard",
+     "populated": true,
+     "lines": [
+      "Plan: Scout's Banner",
+      "Note: Purchase with tickets from the Season Scoreboard, or pick one up from a teammate who dropped it.",
+      "Availability: Consumable — one banner per placement."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "Fresh: The banner has no world spawns — it is a reward consumable only.",
+      "Guide: Scout's Banner Location Guide — /df/farming/consumables/scouts-banner/location-guide/"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Source: Scout's Banner",
+     "Trigger: Fires on a kill by you or a nearby teammate.",
+     "Duration: 1 hour"
+    ],
+    "ids": [
+     "ALCH FormID: 00653FCD  (SCORE_Banner_Consumable)",
+     "SPEL: SCORE_Banner_AutoRevive_ApplyPerk_Spell  [006663FB]",
+     "MGEF 006663F7: SCORE_Banner_AutoRevive_ApplyPerk_Effect"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "006663F6",
+   "edid": "SCORE_Banner_BattleCharged_Buff_Effect",
+   "name": "Battle Charged",
+   "gameName": "Battle Charged",
+   "description": "Survival. Teamwork. Research. Discovery. Innovation. Open near your friends, so everyone can enjoy!",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/scout-banners/scout-s-banner.avif",
+   "objectType": "Scout's Code",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "006663F6",
+     "edid": "SCORE_Banner_BattleCharged_Buff_Effect",
+     "full": "Fortify All Damage",
+     "dnam": "",
+     "magnitude": 1.0,
+     "duration": 30.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify All Damage",
+     "polarity": "buff",
+     "durationDisplay": "30s",
+     "display": "+1 All Damage"
+    },
+    {
+     "formId": "006663F8",
+     "edid": "SCORE_Banner_BattleCharged_OnKill_Effect",
+     "full": "Adrenaline Script",
+     "dnam": "",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Adrenaline Script",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Adrenaline Script"
+    }
+   ],
+   "effectGroups": [],
+   "summaryLines": [
+    "Fortifies all damage you deal for a short burst after a kill."
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Scoreboard",
+     "populated": true,
+     "lines": [
+      "Plan: Scout's Banner",
+      "Note: Purchase with tickets from the Season Scoreboard, or pick one up from a teammate who dropped it.",
+      "Availability: Consumable — one banner per placement."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "Fresh: The banner has no world spawns — it is a reward consumable only.",
+      "Guide: Scout's Banner Location Guide — /df/farming/consumables/scouts-banner/location-guide/"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Source: Scout's Banner",
+     "Trigger: Fires on a kill by you or a nearby teammate.",
+     "Duration: 30s"
+    ],
+    "ids": [
+     "ALCH FormID: 00653FCD  (SCORE_Banner_Consumable)",
+     "SPEL: SCORE_Banner_BattleCharged_Buff_Spell  [006663FA]",
+     "MGEF 006663F6: SCORE_Banner_BattleCharged_Buff_Effect",
+     "MGEF 006663F8: SCORE_Banner_BattleCharged_OnKill_Effect"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "007D2393",
+   "edid": "SCORE_Banner_HumanHeal_Effect",
+   "name": "First Aid",
+   "gameName": "First Aid",
+   "description": "Survival. Teamwork. Research. Discovery. Innovation. Open near your friends, so everyone can enjoy!",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/scout-banners/scout-s-banner.avif",
+   "objectType": "Scout's Code",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "007D2393",
+     "edid": "SCORE_Banner_HumanHeal_Effect",
+     "full": "First Aid",
+     "dnam": "Healing <mag> HP/s",
+     "magnitude": 12.0,
+     "duration": 3615.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "First Aid",
+     "polarity": "buff",
+     "durationDisplay": "1 hour",
+     "display": "Healing 12 HP/s"
+    }
+   ],
+   "effectGroups": [],
+   "summaryLines": [
+    "A healing-over-time trickle for everyone standing near the banner. The rate steps up with the banner's rank.",
+    "In-game text: Healing 12 HP/s"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Scoreboard",
+     "populated": true,
+     "lines": [
+      "Plan: Scout's Banner",
+      "Note: Purchase with tickets from the Season Scoreboard, or pick one up from a teammate who dropped it.",
+      "Availability: Consumable — one banner per placement."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "Fresh: The banner has no world spawns — it is a reward consumable only.",
+      "Guide: Scout's Banner Location Guide — /df/farming/consumables/scouts-banner/location-guide/"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Source: Scout's Banner",
+     "Trigger: Fires on a kill by you or a nearby teammate.",
+     "Duration: 1 hour"
+    ],
+    "ids": [
+     "ALCH FormID: 00653FCD  (SCORE_Banner_Consumable)",
+     "SPEL: SCORE_Banner_GuaranteedEffectSpell_Human  [007B11B9]",
+     "MGEF 007D2393: SCORE_Banner_HumanHeal_Effect"
+    ]
+   },
+   "status": "live"
+  }
+ ]
+}
