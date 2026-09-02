@@ -1,8 +1,68 @@
 {
   "_notes": {
-    "purpose": "PTS Season Scoreboard data for TheDuchessFlame.com. Auto-generated from PTS ENTM exports by build_pts_season_scoreboard.py. Used by df-bnb-seasons.js (Scoreboards module).",
-    "pts_notice": "This is PTS datamined data. Page assignments are provisional (grouped by category). Ticket costs are set to 0 (unknown). Items may be added, removed, or rearranged before the season goes live. When the season is curated in season_rewards.tsv, build_season_rewards.py output supersedes this file.",
-    "generated_by": "build_pts_season_scoreboard.py -- do not hand-edit."
+    "purpose": "Season Ticket Calculator data for TheDuchessFlame.com. Used by df-bnb-df-calculator.js (mountSeasonTickets) and df-bnb-seasons.js (Scoreboards module).",
+    "how_to_update_each_season": [
+      "1. Add new item rows to tsv/season_rewards.tsv with the correct seasonNumber.",
+      "2. If this is a brand-new season, add a row to tsv/fallout76_seasons.tsv with UnlockRequiredCount, UnlockRankRequired, and UnlockLineText filled in.",
+      "3. Run: python src/build_season_rewards.py",
+      "4. The script outputs per-season JSON and updates all_seasons.json automatically.",
+      "5. IDs must follow the pattern: S{seasonNum}_P{pageNum}_{snake_case_name} for regular pages, S{seasonNum}_B{bonusPageNum}_{snake_case_name} for bonus pages.",
+      "6. Pages are '1' through '10' for regular pages, 'B1' for Bonus Page 1, 'B2' for Bonus Page 2.",
+      "7. The tally table in the JS counts items from all regular pages and B1 only. B2 is intentionally EXCLUDED from the tally.",
+      "8. Even though B2 items are excluded from the tally display, still add tallyCategory to B2 items for data completeness."
+    ],
+    "item_schema": {
+      "id": "STRING - Unique ID. Pattern: S{N}_P{page}_{snake_name} or S{N}_B{bonus}_{snake_name}",
+      "page": "STRING - Page number: '1'-'10' for regular, 'B1'/'B2' for bonus. Blank on board-game seasons, which use rank instead.",
+      "rank": "NUMBER (optional) - Board rank 1-100. Present only on the old board-game seasons (S1-S8), where the scoreboard had no pages. When a season has ranks the JSON carries layout:'rank' and df-bnb-seasons.js renders one flat ordered list instead of page groups.",
+      "name": "STRING - Display name.",
+      "cost": "NUMBER - Ticket cost (0 if free).",
+      "isFirst": "BOOLEAN (optional) - True if Fallout First exclusive.",
+      "tallyCategory": "STRING (optional) - Category key for the utility tally table.",
+      "kind": "STRING (optional) - playerIcon, campTitlePrefix, campTitleSuffix, playerTitlePrefix, playerTitleSuffix, playerTitlePrefixSuffix.",
+      "value": "STRING (optional) - The title/icon label value when kind is set.",
+      "storefrontEntitlement": "STRING (optional) - Internal Bethesda entitlement code.",
+      "reappearances": "STRING (optional, pipe-separated) - Sources where this item is now also obtainable (Atom Shop, Gold Bullion vendor, etc.). Populated by check_season_reward_reappearances.py; exported as a JSON array.",
+      "addedInRerun": "STRING (optional) - The legacy re-release this reward was ADDED in, e.g. 'Aug 2026'. Bethesda adds rewards to legacy scoreboards on re-release; setting this emits isNew:true and renders a PERMANENT gold NEW pill on the card. It never expires - unlike the ~31-day date-driven NEW pill on checklist pages - because the point is to mark forever which rewards were not on the original board.",
+      "isNew": "BOOLEAN (derived, do not put in the TSV) - Emitted automatically when addedInRerun is set. df-bnb-seasons.js keys the NEW pill off this.",
+      "imageUrl": "STRING (optional) - URL to item image.",
+      "description": "STRING (optional) - Item description."
+    },
+    "tally_category_valid_values": {
+      "atoms": "Atoms",
+      "camp_player_title": "Camp & Player Titles",
+      "caps": "Caps",
+      "carry_weight_booster": "Carry Weight Booster",
+      "fireworks": "Fireworks",
+      "gold_bullion": "Gold Bullion",
+      "improved_bait": "Improved Bait",
+      "legendary_core": "Legendary Core",
+      "legendary_module": "Legendary Module",
+      "legendary_scrip": "Legendary Scrip",
+      "liquid_courage": "Liquid Courage",
+      "lunchbox": "Lunchbox",
+      "mystery_bobblehead": "Mystery Bobblehead",
+      "mystery_magazine": "Mystery Magazine",
+      "nuclear_keycard": "Nuclear Keycard",
+      "nukashine": "Nukashine",
+      "perfect_bubblegum": "Perfect Bubblegum",
+      "perk_card_pack": "Perk Card Pack",
+      "perk_coins": "Perk Coins",
+      "player_icon": "Player Icon",
+      "re_roller": "Re-Roller",
+      "repair_kit": "Repair Kits",
+      "score_booster": "S.C.O.R.E. Boosters",
+      "scouts_banner": "Scout's Banner",
+      "scrap_kit": "Scrap Kit",
+      "stamps": "Stamps",
+      "superb_bait": "Superb Bait",
+      "supply_package": "Vault-Tec Supply Package",
+      "tadpole_badge": "Tadpole Badge"
+    },
+    "tally_behaviour": "The tally table counts how many visible items (respecting the Fallout First toggle) have each tallyCategory, excluding Bonus Page 2 items. It counts occurrences (line items), NOT quantities. Counts update live as the user toggles 'Fallout First Member'.",
+    "js_file": "df-bnb-df-calculator.js — see mountSeasonTickets() and the TALLY_DISPLAY constant.",
+    "css_file": "df-bnb-df-calculator.css — tally table uses dfcalcTallyTable and dfcalcTallyRow classes.",
+    "generated_by": "build_season_rewards.py — do not hand-edit this file."
   },
   "seasonNumber": 26,
   "seasonName": "Beware the Blood Moon",
@@ -11,34 +71,963 @@
   "unlockLineText": "Reach Rank 150 AND claim 48 more Season Reward(s) to unlock this page",
   "items": [
     {
-      "id": "S26_P1_account_scoreboost_1",
+      "id": "S26_P1_bloody_nurse_hat",
+      "page": "1",
+      "name": "Bloody Nurse Hat",
+      "cost": 25,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Apparel_Headwear_BloodyNurse_Hat",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_apparel_headwear_bloodynurse_hat.webp",
+      "description": "You got some red on you.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S26_P1_blood_moon_t_45_power_armor_paint",
+      "page": "1",
+      "name": "Blood Moon T-45 Power Armor Paint",
+      "cost": 50,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Skin_PowerArmor_Paint_T45_BloodMoon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_skin_powerarmor_paint_t45_bloodmoon.webp",
+      "description": "Terrorize the Wasteland with the Blood Moon Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S26_P1_bloody_mess_paint_mole_miner_gauntlet",
+      "page": "1",
+      "name": "Bloody Mess Paint (Mole Miner Gauntlet)",
+      "cost": 40,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Skin_WeaponSkin_MoleMinerGauntlet_BloodMess",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_skin_weaponskin_moleminergauntlet_bloodmess.webp",
+      "description": "That ain't ketchup...  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
+    },
+    {
+      "id": "S26_P1_5_s_c_o_r_e_boost",
       "page": "1",
       "name": "5% S.C.O.R.E. Boost",
       "cost": 0,
+      "isFirst": true,
       "storefrontEntitlement": "SCORE_S26_ENTM_Account_ScoreBoost_1",
       "imageUrl": "/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_1.webp",
       "description": "Gain 5% bonus S.C.O.R.E. when you complete challenges for the rest of Season 26!  - UNLOCKS BOOST FOR ALL CHARACTERS ON YOUR ACCOUNT. -  - BONUS IS APPLIED TO BASE CHALLENGE S.C.O.R.E. -  - DOES NOT APPLY TO PREVIOUSLY COMPLETED CHALLENGES. -",
       "tallyCategory": "score_booster"
     },
     {
-      "id": "S26_P1_account_scoreboost_2",
+      "id": "S26_P1_bloodsucker_vault_boy_cutout",
       "page": "1",
+      "name": "Bloodsucker Vault Boy Cutout",
+      "cost": 30,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_FloorDecor_Cutout_VaultBoy_S26Bloodsucker",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_floordecor_cutout_vaultboy_s26bloodsucker.webp",
+      "description": "Quench the thirst for blood in your own C.A.M.P. with this Cutout!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P1_200_atoms",
+      "page": "1",
+      "name": "200 Atoms",
+      "cost": 20,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S26_P1_tales_from_the_west_virginia_hills_vol_1_poster",
+      "page": "1",
+      "name": "Tales from the West Virginia Hills Vol.1 Poster",
+      "cost": 25,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_WallDecor_WVHillPoster1",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_walldecor_wvhillposter1.webp",
+      "description": "A poster that depicts a hunger far worse than any normal human could imagine.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P1_player_title_prefix_psycho",
+      "page": "1",
+      "name": "Player Title Prefix: \"Psycho\"",
+      "cost": 15,
+      "isFirst": true,
+      "kind": "playerTitlePrefix",
+      "value": "Psycho",
+      "storefrontEntitlement": "SCORE_S26_ENTM_PlayerTitles_Prefix_Psycho",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_playertitles_prefix_psycho.webp",
+      "description": "Unlocks the Player Title Prefix \"Psycho\".  - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
+      "tallyCategory": "camp_player_title"
+    },
+    {
+      "id": "S26_P1_player_icon_vamp",
+      "page": "1",
+      "name": "Player Icon: Vamp",
+      "cost": 25,
+      "kind": "playerIcon",
+      "value": "Vamp",
+      "storefrontEntitlement": "SCORE_S26_ENTM_PlayerIcon_Bei",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_playericon_bei.webp",
+      "description": "The one who worships Bats and Blood Moons.  - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S26_P1_bloody_nurse_outfit",
+      "page": "1",
+      "name": "Bloody Nurse Outfit",
+      "cost": 45,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Apparel_Outfit_BloodyNurse",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_apparel_outfit_bloodynurse.webp",
+      "description": "That's one way to get a red outfit.  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S26_P2_creepy_cultist_well_collector",
+      "page": "2",
+      "name": "Creepy Cultist Well Collector",
+      "cost": 50,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_Utility_Collector_CultistWell",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_utility_collector_cultistwell.webp",
+      "description": "Not all wells offer water - add this Creepy Cultists Well to your C.A.M.P.  - Collects blood over time -  This item cannot be built inside of a Shelter.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P2_boarded_up_door",
+      "page": "2",
+      "name": "Boarded Up Door",
+      "cost": 20,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_Door_BoardedUp",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_door_boardedup.webp",
+      "description": "The perfect defense for when someone has taken a shining to your C.A.M.P.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P2_c_a_m_p_title_prefix_haunted",
+      "page": "2",
+      "name": "C.A.M.P. Title Prefix: \"Haunted\"",
+      "cost": 0,
+      "kind": "campTitlePrefix",
+      "value": "Haunted",
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMPTitles_Prefix_Haunted",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camptitles_prefix_haunted.webp",
+      "description": "Unlocks the C.A.M.P. Title Prefix \"Haunted\".  - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -",
+      "tallyCategory": "camp_player_title"
+    },
+    {
+      "id": "S26_P2_psychopath_vault_boy_cutout",
+      "page": "2",
+      "name": "Psychopath Vault Boy Cutout",
+      "cost": 30,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_FloorDecor_Cutout_VaultBoy_S26Psychopath",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_floordecor_cutout_vaultboy_s26psychopath.webp",
+      "description": "Things are getting out of control with this Psychopath Vault Boy Cutout!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P2_blood_moon_t_51_power_armor_paint",
+      "page": "2",
+      "name": "Blood Moon T-51 Power Armor Paint",
+      "cost": 50,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Skin_PowerArmor_Paint_T51_BloodMoon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_skin_powerarmor_paint_t51_bloodmoon.webp",
+      "description": "Terrorize the Wasteland with the Blood Moon Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S26_P2_200_atoms",
+      "page": "2",
+      "name": "200 Atoms",
+      "cost": 30,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S26_P2_bloodstained_chemistry_workstation",
+      "page": "2",
+      "name": "Bloodstained Chemistry Workstation",
+      "cost": 40,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_Workbench_Chemistry_BloodStained",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_workbench_chemistry_bloodstained.webp",
+      "description": "A little blood in the mix never hurt anyone.  Requires the Chemistry Workstation to be learned.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P2_player_icon_night_person",
+      "page": "2",
+      "name": "Player Icon: Night Person",
+      "cost": 25,
+      "isFirst": true,
+      "kind": "playerIcon",
+      "value": "Night Person",
+      "storefrontEntitlement": "SCORE_S26_ENTM_PlayerIcon_NightPerson",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_playericon_nightperson.webp",
+      "description": "Beware those who lurk at night.  - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S26_P2_gold_bullion_x100",
+      "page": "2",
+      "name": "Gold Bullion x100",
+      "cost": 20,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp",
+      "tallyCategory": "gold_bullion"
+    },
+    {
+      "id": "S26_P2_framed_magazine_display_5_slots",
+      "page": "2",
+      "name": "Framed Magazine Display (5 Slots)",
+      "cost": 35,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_WallDecor_Display_MagazineHalfFramer",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_walldecor_display_magazinehalfframer.webp",
+      "description": "Proudly frame those high quality pages with the Framed Magazine Display!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P3_antique_chandelier",
+      "page": "3",
+      "name": "Antique Chandelier",
+      "cost": 30,
+      "isFirst": true
+    },
+    {
+      "id": "S26_P3_fish_of_appalachia_cranberry_bog_poster",
+      "page": "3",
+      "name": "Fish of Appalachia: Cranberry Bog Poster",
+      "cost": 30,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_WallDecor_AppalachiaFishPosters_CranberryFish",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_walldecor_appalachiafishposters_cranberryfish.webp",
+      "description": "Study your prey with the Fish of Appalachia: Cranberry Bog Poster!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P3_blood_moon_excavator_power_armor_paint",
+      "page": "3",
+      "name": "Blood Moon Excavator Power Armor Paint",
+      "cost": 45,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Skin_PowerArmor_Paint_Excavator_BloodMoon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_skin_powerarmor_paint_excavator_bloodmoon.webp",
+      "description": "Terrorize the Wasteland with the Blood Moon Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S26_P3_10_s_c_o_r_e_boost",
+      "page": "3",
       "name": "10% S.C.O.R.E. Boost",
       "cost": 0,
+      "isFirst": true,
       "storefrontEntitlement": "SCORE_S26_ENTM_Account_ScoreBoost_2",
       "imageUrl": "/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_2.webp",
       "description": "Gain another 10% bonus S.C.O.R.E. when you complete challenges for the rest of Season 26!  - UNLOCKS BOOST FOR ALL CHARACTERS ON YOUR ACCOUNT. -  - BONUS IS APPLIED TO BASE CHALLENGE S.C.O.R.E.. -  - DOES NOT APPLY TO PREVIOUSLY COMPLETED CHALLENGES. -",
       "tallyCategory": "score_booster"
     },
     {
-      "id": "S26_P1_account_scoreboost_3",
-      "page": "1",
+      "id": "S26_P3_tales_from_the_west_virginia_hills_vol_4_poster",
+      "page": "3",
+      "name": "Tales from the West Virginia Hills Vol.4 Poster",
+      "cost": 30,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_WallDecor_WVHillPoster2",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_walldecor_wvhillposter2.webp",
+      "description": "Find out why you should keep your eyes peeled when you go to the fairgrounds.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P3_blue_carpeted_stairs",
+      "page": "3",
+      "name": "Blue Carpeted Stairs",
+      "cost": 35,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_Structure_Stairs_Carpeted",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_structure_stairs_carpeted.webp",
+      "description": "Add a touch of comfort to your C.A.M.P. with these Blue Carpeted Stairs.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P3_blasted_barrel_mod_cryolator",
+      "page": "3",
+      "name": "Blasted Barrel Mod (Cryolator)",
+      "cost": 30,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Weapons_Cryolator_Barrel_Blasted",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_weapons_cryolator_mods.webp",
+      "description": "Blast away with the Blasted Barrel Mod.  This mod turns the Cryolator into a Shotgun.  - ITEM IS CRAFTABLE AT WEAPON WORKBENCHES. REQUIRES THE Cryolator. -"
+    },
+    {
+      "id": "S26_P3_200_atoms",
+      "page": "3",
+      "name": "200 Atoms",
+      "cost": 30,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S26_P3_re_roller_x5",
+      "page": "3",
+      "name": "Re-Roller x5",
+      "cost": 20,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_reroller.webp",
+      "tallyCategory": "re_roller"
+    },
+    {
+      "id": "S26_P3_bloodstained_armor_workbench",
+      "page": "3",
+      "name": "Bloodstained Armor Workbench",
+      "cost": 50,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_Machinery_Workbench_Armor_BloodStained",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_machinery_workbench_armor_bloodstained.webp",
+      "description": "Craft a suit of armor with the blood of your enemies at this Bloodstained Armor Workbench  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P4_taxidermy_snallygaster",
+      "page": "4",
+      "name": "Taxidermy Snallygaster",
+      "cost": 40,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_FloorDecor_Taxidermy_Taxigaster",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_floordecor_taxidermy_taxigaster.webp",
+      "description": "A Taxidermy version of one of many horrid reminders of the F.E.V.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P4_bloody_mess_paint_super_sledge",
+      "page": "4",
+      "name": "Bloody Mess Paint (Super Sledge)",
+      "cost": 40,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Skin_WeaponSkin_SuperSledge_BloodMess",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_skin_weaponskin_supersledge_bloodmess.webp",
+      "description": "That ain't ketchup...  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
+    },
+    {
+      "id": "S26_P4_circuit_chiller_barrel_mod_cryolator",
+      "page": "4",
+      "name": "Circuit Chiller Barrel Mod (Cryolator)",
+      "cost": 0,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Weapons_Cryolator_Barrel_CircuitChiller",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_weapons_cryolator_mods.webp",
+      "description": "Amplify your chillness by deep freezing your enemies with the Circuit Chiller Barrel mod!  - ITEM IS CRAFTABLE AT WEAPON WORKBENCHES. REQUIRES THE CRYOLATOR. -"
+    },
+    {
+      "id": "S26_P4_200_atoms",
+      "page": "4",
+      "name": "200 Atoms",
+      "cost": 30,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S26_P4_blood_moon_hellcat_power_armor_paint",
+      "page": "4",
+      "name": "Blood Moon Hellcat Power Armor Paint",
+      "cost": 45,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Skin_PowerArmor_Paint_Hellcat_BloodMoon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_entm_skin_powerarmor_paint_hellcat_bloodmoon.webp",
+      "description": "Terrorize the Wasteland with the Blood Moon Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S26_P4_c_a_m_p_title_prefix_eerie",
+      "page": "4",
+      "name": "C.A.M.P. Title Prefix: \"Eerie\"",
+      "cost": 25,
+      "isFirst": true,
+      "kind": "campTitlePrefix",
+      "value": "Eerie",
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMPTitles_Prefix_Eerie",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camptitles_prefix_eerie.webp",
+      "description": "Unlocks the C.A.M.P. Title Prefix \"Eerie\".  - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -",
+      "tallyCategory": "camp_player_title"
+    },
+    {
+      "id": "S26_P4_batty_skirt_vault_girl_cutout",
+      "page": "4",
+      "name": "Batty Skirt Vault Girl Cutout",
+      "cost": 30,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_FloorDecor_Cutout_VaultBoy_S26BattySkirt",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_floordecor_cutout_vaultboy_s26battyskirt.webp",
+      "description": "A beautifully batty cutout for your terrifying C.A.M.P. needs!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P4_ghost_boy",
+      "page": "4",
+      "name": "Ghost Boy",
+      "cost": 20
+    },
+    {
+      "id": "S26_P4_nuclear_keycard_x5",
+      "page": "4",
+      "name": "Nuclear Keycard x5",
+      "cost": 0,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_nuclearkeycard.webp",
+      "tallyCategory": "nuclear_keycard"
+    },
+    {
+      "id": "S26_P4_batty_skirtn_outfit",
+      "page": "4",
+      "name": "Batty Skirtn Outfit",
+      "cost": 45,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Apparel_Outfit_BattySkirt",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_apparel_outfit_battyskirt.webp",
+      "description": "Go batty for the Batty Skirt Outfit!  - APPAREL IS CRAFTABLE AT ARMOR WORKBENCHES. -"
+    },
+    {
+      "id": "S26_P5_bloody_mess_paint_ripper",
+      "page": "5",
+      "name": "Bloody Mess Paint (Ripper)",
+      "cost": 0,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Skin_WeaponSkin_Ripper_BloodMess",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_skin_weaponskin_ripper_bloodmess.webp",
+      "description": "That ain't ketchup...  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
+    },
+    {
+      "id": "S26_P5_bloodstained_tinker_s_workbench",
+      "page": "5",
+      "name": "Bloodstained Tinker's Workbench",
+      "cost": 50,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_Machinery_Workbench_Tinkers_BloodStained",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_machinery_workbench_tinker_bloodstained.webp",
+      "description": "Create bloody masterpieces at the Bloodstained Tinker's Workbench.  Requires the Tinker's Workbench to be Learned.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P5_cultist_cauldron",
+      "page": "5",
+      "name": "Cultist Cauldron",
+      "cost": 45,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_FloorDecor_CultistCauldron",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_floordecor_cultistcauldron.webp",
+      "description": "A ritual in motion - this Cultist Cauldron glows with eerie energy.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P5_200_atoms",
+      "page": "5",
+      "name": "200 Atoms",
+      "cost": 25,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S26_P5_vault_of_terror_catwalk",
+      "page": "5",
+      "name": "Vault of Terror Catwalk",
+      "cost": 40,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_Structure_VaultOT_Catwalk",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_structure_vaultot_catwalk.webp",
+      "description": "Watch your step - these Vault of Terror Catwalks overlook something best left alone.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P5_blood_moon_t_60_power_armor_paint",
+      "page": "5",
+      "name": "Blood Moon T-60 Power Armor Paint",
+      "cost": 40,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Skin_PowerArmor_Paint_T60_BloodMoon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_entm_skin_powerarmor_paint_t60_bloodmoon.webp",
+      "description": "Terrorize the Wasteland with the Blood Moon Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S26_P5_s_c_o_r_e_booster_x3",
+      "page": "5",
+      "name": "S.C.O.R.E. Booster x3",
+      "cost": 25,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_scorebooster.webp",
+      "tallyCategory": "score_booster"
+    },
+    {
+      "id": "S26_P6_blood_moon_ultracite_power_armor_paint",
+      "page": "6",
+      "name": "Blood Moon Ultracite Power Armor Paint",
+      "cost": 40,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Skin_PowerArmor_Paint_Ultracite_BloodMoon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_entm_skin_powerarmor_paint_ultracite_bloodmoon.webp",
+      "description": "Terrorize the Wasteland with the Blood Moon Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S26_P6_cryolator_magazine_mods",
+      "page": "6",
+      "name": "Cryolator Magazine Mods",
+      "cost": 30,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Weapons_Cryolator_Magazine_Mods",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_weapons_cryolator_mods.webp",
+      "description": "Load up your Cryolator with as many cryo cells as you can with the new Swift & Huge Magazine Mods!  - ITEM IS CRAFTABLE AT WEAPON WORKBENCHES. REQUIRES CRYOLATOR. -"
+    },
+    {
+      "id": "S26_P6_10_s_c_o_r_e_boost",
+      "page": "6",
       "name": "10% S.C.O.R.E. Boost",
       "cost": 0,
+      "isFirst": true,
       "storefrontEntitlement": "SCORE_S26_ENTM_Account_ScoreBoost_3",
       "imageUrl": "/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_2.webp",
       "description": "Gain another 10% bonus S.C.O.R.E. when you complete challenges for the rest of Season 26!  - UNLOCKS BOOST FOR ALL CHARACTERS ON YOUR ACCOUNT. -  - BONUS IS APPLIED TO BASE CHALLENGE S.C.O.R.E.. -  - DOES NOT APPLY TO PREVIOUSLY COMPLETED CHALLENGES. -",
       "tallyCategory": "score_booster"
+    },
+    {
+      "id": "S26_P6_200_atoms",
+      "page": "6",
+      "name": "200 Atoms",
+      "cost": 30,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S26_P6_altar_of_bones",
+      "page": "6",
+      "name": "Altar of Bones",
+      "cost": 45,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_Collector_SkullCollector",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_collector_skullcollector.webp",
+      "description": "This Altar of Bones will serve your C.A.M.P. as a resting place for those whom have had their spirits laid to rest.  Generates Bone scraps and skulls.  - This item cannot be built inside of a Shelter. -  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P6_blood_moon_vault_boy_cutout",
+      "page": "6",
+      "name": "Blood Moon Vault Boy Cutout",
+      "cost": 25,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_FloorDecor_Cutout_VaultBoy_S26BloodMoon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_floordecor_cutout_vaultboy_s26bloodmoon.webp",
+      "description": "The blood moon is beautiful, especially in cutout form!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P6_player_icon_bat_tamer",
+      "page": "6",
+      "name": "Player Icon: Bat Tamer",
+      "cost": 25,
+      "kind": "playerIcon",
+      "value": "Bat Tamer",
+      "storefrontEntitlement": "SCORE_S26_ENTM_PlayerIcon_BatTamer",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_playericon_battamer.webp",
+      "description": "Tamer of night flyers.   - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S26_P6_player_title_suffix_killer",
+      "page": "6",
+      "name": "Player Title Suffix: \"Killer\"",
+      "cost": 30,
+      "kind": "playerTitleSuffix",
+      "value": "Killer",
+      "storefrontEntitlement": "SCORE_S26_ENTM_PlayerTitles_Suffix_Killer",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_playertitles_suffix_killer.webp",
+      "description": "Unlocks the Player Title Suffix \"Killer\".  - PLAYER TITLES ARE SELECTABLE IN THE PIP-BOY. -",
+      "tallyCategory": "camp_player_title"
+    },
+    {
+      "id": "S26_P6_nuclear_keycard_x5",
+      "page": "6",
+      "name": "Nuclear Keycard x5",
+      "cost": 20,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_nuclearkeycard.webp",
+      "tallyCategory": "nuclear_keycard"
+    },
+    {
+      "id": "S26_P6_perk_coin_x50",
+      "page": "6",
+      "name": "Perk Coin x50",
+      "cost": 30,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_perkcoin.webp",
+      "tallyCategory": "perk_coins"
+    },
+    {
+      "id": "S26_P7_vault_of_terror_floor",
+      "page": "7",
+      "name": "Vault of Terror Floor",
+      "cost": 45,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_Floor_VaultOT",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_floor_vaultot.webp",
+      "description": "Stained and forgotten - these Vault of Terror Floors tell a grim story.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P7_blood_moon_t_65_power_armor_paint",
+      "page": "7",
+      "name": "Blood Moon T-65 Power Armor Paint",
+      "cost": 40,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Skin_PowerArmor_Paint_T65_BloodMoon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_entm_skin_powerarmor_paint_t65_bloodmoon.webp",
+      "description": "Terrorize the Wasteland with the Blood Moon Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S26_P7_vault_of_terror_stairs",
+      "page": "7",
+      "name": "Vault of Terror Stairs",
+      "cost": 35,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_Structure_Stairs_VaultOT",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_structure_stairs_vaultot.webp",
+      "description": "Stained with time - and worse - these Vault of Terror Stairs tell a grim story.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P7_polar_lobber_barrel_mod_cryolator",
+      "page": "7",
+      "name": "Polar Lobber Barrel Mod (Cryolator)",
+      "cost": 30,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Weapons_Cryolator_Barrel_PolarLobber",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_weapons_cryolator_mods.webp",
+      "description": "Lob large chunks of snow and ice with the Polar Lobber Barrel Mod.  This mod turns the Cryolator into a Explosive Launcher.  - ITEM IS CRAFTABLE AT WEAPON WORKBENCHES. REQUIRES THE CRYOLATOR. -"
+    },
+    {
+      "id": "S26_P7_c_a_m_p_title_suffix_mansion",
+      "page": "7",
+      "name": "C.A.M.P. Title Suffix: \"Mansion\"",
+      "cost": 25,
+      "kind": "campTitleSuffix",
+      "value": "Mansion",
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMPTitles_Suffix_Mansion",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camptitles_suffix_mansion.webp",
+      "description": "Unlocks the C.A.M.P. Title Suffix \"Mansion\".  - C.A.M.P. TITLES ARE SELECTABLE IN THE C.A.M.P. MENU ON THE MAP -",
+      "tallyCategory": "camp_player_title"
+    },
+    {
+      "id": "S26_P7_200_atoms",
+      "page": "7",
+      "name": "200 Atoms",
+      "cost": 20,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S26_P7_blood_spore_plant_bed",
+      "page": "7",
+      "name": "Blood Spore Plant Bed",
+      "cost": 0,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_Bed_RedSporePlant",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_bed_redsporeplant.webp",
+      "description": "This blood red plant seems suspicious...ly comfortable.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P7_player_icon_psychopath",
+      "page": "7",
+      "name": "Player Icon: Psychopath",
+      "cost": 25,
+      "isFirst": true,
+      "kind": "playerIcon",
+      "value": "Psychopath",
+      "storefrontEntitlement": "SCORE_S26_ENTM_PlayerIcon_Psychopath",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_playericon_psychopath.webp",
+      "description": "Killer on the loose!  - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S26_P7_framed_magazine_display",
+      "page": "7",
+      "name": "Framed Magazine Display",
+      "cost": 30,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_WallDecor_Display_MagazineFramer",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_walldecor_display_magazineframer.webp",
+      "description": "Proudly frame those high quality covers with a Framed Magazine Display!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P7_stamps_x10",
+      "page": "7",
+      "name": "Stamps x10",
+      "cost": 25,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_stamps.webp",
+      "tallyCategory": "stamps"
+    },
+    {
+      "id": "S26_P8_alto_saxophone",
+      "page": "8",
+      "name": "Alto Saxophone",
+      "cost": 35,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_Furniture_Instrument_AltoSax",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_furniture_instrument_altosax.webp",
+      "description": "Put those lungs to good use and let the feelings fly with an Alto Saxophone!  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P8_cold_surge_muzzle_mod_cryolator",
+      "page": "8",
+      "name": "Cold Surge Muzzle Mod (Cryolator)",
+      "cost": 35,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Weapons_Cryolator_Muzzle_ColdSurgeMuzzle",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_weapons_cryolator_mods.webp",
+      "description": "Chill your enemies with the Cold Surge Muzzle mod!  - ITEM IS CRAFTABLE AT WEAPON WORKBENCHES. REQUIRES THE CRYOLATOR. -"
+    },
+    {
+      "id": "S26_P8_200_atoms",
+      "page": "8",
+      "name": "200 Atoms",
+      "cost": 40,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S26_P8_player_icon_t_51b",
+      "page": "8",
+      "name": "Player Icon: T-51b",
+      "cost": 20,
+      "isFirst": true,
+      "kind": "playerIcon",
+      "value": "T-51b",
+      "storefrontEntitlement": "SCORE_S26_ENTM_PlayerIcon_T51B",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_playericon_t-51b.webp",
+      "description": "Armor Up!  - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S26_P8_blood_moon_x_01_power_armor_paint",
+      "page": "8",
+      "name": "Blood Moon X-01 Power Armor Paint",
+      "cost": 50,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Skin_PowerArmor_Paint_X01_BloodMoon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_entm_skin_powerarmor_paint_x01_bloodmoon.webp",
+      "description": "Terrorize the Wasteland with the Blood Moon Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S26_P8_mystery_magazine_package_x3",
+      "page": "8",
+      "name": "Mystery Magazine Package x3",
+      "cost": 25,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_magazinebookbox.webp",
+      "tallyCategory": "mystery_magazine"
+    },
+    {
+      "id": "S26_P8_bloody_mess_paint_chainsaw",
+      "page": "8",
+      "name": "Bloody Mess Paint (Chainsaw)",
+      "cost": 0,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Skin_WeaponSkin_Chainsaw_BloodMess",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_skin_weaponskin_chainsaw_bloodmess.webp",
+      "description": "That ain't ketchup...  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
+    },
+    {
+      "id": "S26_P8_ghost_boy",
+      "page": "8",
+      "name": "Ghost Boy",
+      "cost": 25
+    },
+    {
+      "id": "S26_P8_carry_weight_booster_x5",
+      "page": "8",
+      "name": "Carry Weight Booster x5",
+      "cost": 0,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_carryweight.webp",
+      "tallyCategory": "carry_weight_booster"
+    },
+    {
+      "id": "S26_P8_bloodstained_weapons_workbench",
+      "page": "8",
+      "name": "Bloodstained Weapons Workbench",
+      "cost": 45,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_Machinery_Workbench_Weapon_BloodStained",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_machinery_workbench_weapon_bloodstained.webp",
+      "description": "Paint the town and your C.A.M.P. red with the Bloodstained Weapons Workbench  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P9_blood_moon_stein",
+      "page": "9",
+      "name": "Blood Moon Stein",
+      "cost": 0,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_FloorDecor_Stein_BloodMoon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_floordecor_stein_bloodmoon.webp",
+      "description": "Though the memories may be faded, the hunter's moon will haunt you again through the Blood Moon Stein.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P9_hypothermic_muzzle_mod_cryolator",
+      "page": "9",
+      "name": "Hypothermic Muzzle Mod (Cryolator)",
+      "cost": 35,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Weapons_Cryolator_Muzzle_HypothermicMuzzle",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_weapons_cryolator_mods.webp",
+      "description": "Freeze away by adding this Hypothermic Muzzle mod to your Cryolator!  - ITEM IS CRAFTABLE AT WEAPON WORKBENCHES. REQUIRES THE CRYOLATOR. -"
+    },
+    {
+      "id": "S26_P9_framed_beware_the_blood_moon_wall_art",
+      "page": "9",
+      "name": "Framed Beware The Blood Moon Wall Art",
+      "cost": 20,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_WallDecor_BewareMoon_EndOfSeasonArt",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_walldecor_bewaremoon_endofseasonart.webp",
+      "description": "Be wary... be very wary.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_P9_blood_moon_union_power_armor_paint",
+      "page": "9",
+      "name": "Blood Moon Union Power Armor Paint",
+      "cost": 45,
+      "isFirst": true,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Skin_PowerArmor_Paint_Union_BloodMoon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_entm_skin_powerarmor_paint_union_bloodmoon.webp",
+      "description": "Terrorize the Wasteland with the Blood Moon Power Armor Paint!  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S26_P9_200_atoms",
+      "page": "9",
+      "name": "200 Atoms",
+      "cost": 20,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S26_P9_jack_gourdon_power_armor_paint",
+      "page": "9",
+      "name": "Jack Gourdon Power Armor Paint",
+      "cost": 70,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Skin_PowerArmor_Model_JackGourdon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_skin_powerarmor_model_jackgourdon.webp",
+      "description": "Ready to carve up pumpkins or anything else that gets in the way.  This is a unique skin that alters the appearance of your Power Armor. It can be equipped on all base Power Armors.  - SKIN IS CRAFTABLE AT POWER ARMOR STATIONS. -"
+    },
+    {
+      "id": "S26_P9_mystery_bobblehead_x3",
+      "page": "9",
+      "name": "Mystery Bobblehead x3",
+      "cost": 25,
+      "isFirst": true,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_mysterybobblehead.webp",
+      "tallyCategory": "mystery_bobblehead"
+    },
+    {
+      "id": "S26_P9_vault_of_terror_house_kit",
+      "page": "9",
+      "name": "Vault of Terror House Kit",
+      "cost": 60,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_Kit_VaultOT",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_kit_vaultot.webp",
+      "description": "Time stood still here. Whatever happened didn't. Bring the nightmare home with the Vault of Terror House Kit.  Includes new Wall and Roof items.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_PB1_cyberdog",
+      "page": "B1",
+      "name": "Cyberdog",
+      "cost": 200
+    },
+    {
+      "id": "S26_PB1_service_truck",
+      "page": "B1",
+      "name": "Service Truck",
+      "cost": 100
+    },
+    {
+      "id": "S26_PB1_200_atoms",
+      "page": "B1",
+      "name": "200 Atoms",
+      "cost": 40,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
+    },
+    {
+      "id": "S26_PB1_player_icon_castle",
+      "page": "B1",
+      "name": "Player Icon: Castle",
+      "cost": 50,
+      "kind": "playerIcon",
+      "value": "Castle",
+      "storefrontEntitlement": "SCORE_S26_ENTM_PlayerIcon_Castle",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_playericon_castle.webp",
+      "description": "King of the Castle.  - UNLOCKS A PLAYER ICON. -",
+      "tallyCategory": "player_icon"
+    },
+    {
+      "id": "S26_PB1_cultist_mansion",
+      "page": "B1",
+      "name": "Cultist Mansion",
+      "cost": 150,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_Structure_CultistMansion",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_structure_cultistmansion.webp",
+      "description": "Make your home among the faithful with this Cultist Mansion.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_PB1_bloody_mess_paint_auto_axe",
+      "page": "B1",
+      "name": "Bloody Mess Paint (Auto Axe)",
+      "cost": 120,
+      "storefrontEntitlement": "SCORE_S26_ENTM_Skin_WeaponSkin_AutoAxe_BloodMess",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_skin_weaponskin_autoaxe_bloodmess.webp",
+      "description": "That ain't ketchup...  - SKIN IS CRAFTABLE AT WEAPON WORKBENCHES. -"
+    },
+    {
+      "id": "S26_PB1_camden_park_claw_machine",
+      "page": "B1",
+      "name": "Camden Park Claw Machine",
+      "cost": 175
+    },
+    {
+      "id": "S26_PB1_ghost_boy",
+      "page": "B1",
+      "name": "Ghost Boy",
+      "cost": 50
+    },
+    {
+      "id": "S26_PB1_brotherhood_scribe_robes",
+      "page": "B1",
+      "name": "Brotherhood Scribe Robes",
+      "cost": 140
+    },
+    {
+      "id": "S26_PB1_weather_control_station_blood_moon",
+      "page": "B1",
+      "name": "Weather Control Station (Blood Moon)",
+      "cost": 225,
+      "storefrontEntitlement": "SCORE_S26_ENTM_CAMP_Utility_WeatherStation_BloodMoon",
+      "imageUrl": "/wp-content/uploads/season_images/score_s26_camp_utility_weatherstation_bloodmoon.webp",
+      "description": "When the red moon hangs low... the line between man and monster is blurred.  Weather Control Station will change weather in the C.A.M.P. radius when connected to power.  - C.A.M.P. ITEMS APPEAR WHILE IN C.A.M.P. MODE. -"
+    },
+    {
+      "id": "S26_PB2_stamps_x10",
+      "page": "B2",
+      "name": "Stamps x10",
+      "cost": 75,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_stamps.webp",
+      "tallyCategory": "stamps"
+    },
+    {
+      "id": "S26_PB2_s_c_o_r_e_booster_x3",
+      "page": "B2",
+      "name": "S.C.O.R.E. Booster x3",
+      "cost": 75,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_scorebooster.webp",
+      "tallyCategory": "score_booster"
+    },
+    {
+      "id": "S26_PB2_gold_bullion_x100",
+      "page": "B2",
+      "name": "Gold Bullion x100",
+      "cost": 75,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_bullion.webp",
+      "tallyCategory": "gold_bullion"
+    },
+    {
+      "id": "S26_PB2_lunchbox_x5",
+      "page": "B2",
+      "name": "Lunchbox x5",
+      "cost": 75,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_store_lunchbox001.webp",
+      "tallyCategory": "lunchbox"
+    },
+    {
+      "id": "S26_PB2_caps_x5000",
+      "page": "B2",
+      "name": "Caps x5000",
+      "cost": 75,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_caps.webp",
+      "tallyCategory": "caps"
+    },
+    {
+      "id": "S26_PB2_legendary_module_x10",
+      "page": "B2",
+      "name": "Legendary Module x10",
+      "cost": 75,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_game_legendarymodule.webp",
+      "tallyCategory": "legendary_module"
+    },
+    {
+      "id": "S26_PB2_perk_coin_x25",
+      "page": "B2",
+      "name": "Perk Coin x25",
+      "cost": 75,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_perkcoin.webp",
+      "tallyCategory": "perk_coins"
+    },
+    {
+      "id": "S26_PB2_basic_repair_kit_x5",
+      "page": "B2",
+      "name": "Basic Repair Kit x5",
+      "cost": 75,
+      "imageUrl": "/wp-content/uploads/season_images/utility/atx_utility_repairkit_basic.webp",
+      "tallyCategory": "repair_kit"
+    },
+    {
+      "id": "S26_PB2_mystery_bobblehead_x3",
+      "page": "B2",
+      "name": "Mystery Bobblehead x3",
+      "cost": 75,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_utility_mysterybobblehead.webp",
+      "tallyCategory": "mystery_bobblehead"
+    },
+    {
+      "id": "S26_PB2_100_atoms",
+      "page": "B2",
+      "name": "100 Atoms",
+      "cost": 250,
+      "imageUrl": "/wp-content/uploads/season_images/utility/score_currency_atoms.webp",
+      "tallyCategory": "atoms"
     }
-  ]
+  ],
+  "layout": "pages"
 }
