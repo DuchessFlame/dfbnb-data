@@ -22,8 +22,15 @@ Outputs, per item, mirroring the existing Cream layout:
   04 Interior Maps/<spaceEditorID>_<slug>.jpg  +  interior_cells.csv
   <slug>_exterior_coords.csv
 
+Sources (--source): the family whose doc + geo cache to read. All of them write the
+same doc shape, so only the two paths differ — see SOURCES.
+  farming   dist/farming_spawns/<slug>_spawns.json
+  nuka      dist/nuka_cola_spawns_<slug>.json
+  chainsaw  dist/chainsaws/<slug>.json
+
 Usage:
   python render_spawn_maps.py --set deathclaw-egg --out "<...>/.Farming - Eggs/Deathclaw Eggs"
+  python render_spawn_maps.py --set chainsaw --source chainsaw --out "<...>/.Weapons/Chainsaws"
   python render_spawn_maps.py --all-farming --root "<...>/Guides and Stuff"
 """
 
@@ -68,6 +75,10 @@ TYPE_LABELS = {
     "flora": "Flora",
     "enlightened-flora": "Enlightened flora",
     "npc": "Creature",
+    # Weapon pages (spawns_engine.classify.weapon_classify): a wall rack / gun rack
+    # is a fixed world point that hands you the weapon, so it IS a place to walk to
+    # and belongs on the map — unlike a vendor or a chance container.
+    "machine": "Weapon rack",
 }
 TYPE_COLOURS = {
     "direct": (255, 193, 7),            # amber
@@ -79,6 +90,7 @@ TYPE_COLOURS = {
     "flora": (76, 217, 100),            # green
     "enlightened-flora": (0, 209, 255), # cyan
     "npc": (244, 67, 54),               # red
+    "machine": (0, 209, 255),           # cyan
 }
 
 
@@ -224,19 +236,36 @@ def _slug_us(slug):
     return slug.replace("-", "_")
 
 
+# slug -> (doc path, geo cache path), per family. Every family writes the same doc
+# shape (regions[] -> locations[] -> spawns[]), so only the two paths differ.
+SOURCES = {
+    "farming":  lambda slug: (
+        os.path.join(REPO, "dist", "farming_spawns", f"{slug}_spawns.json"),
+        os.path.join(REPO, "data", "farming_spawns", f"geo_cache_{_slug_us(slug)}.json")),
+    "nuka":     lambda slug: (
+        os.path.join(REPO, "dist", f"nuka_cola_spawns_{slug}.json"),
+        os.path.join(REPO, "data", "nuka_cola_spawns", "geo_cache.json")),
+    "chainsaw": lambda slug: (
+        os.path.join(REPO, "dist", "chainsaws", f"{slug}.json"),
+        os.path.join(REPO, "data", "chainsaw_spawns", "geo_cache.json")),
+}
+
+
+def source_paths(slug, source):
+    fn = SOURCES.get(source)
+    if not fn:
+        raise SystemExit(f"unknown source {source!r}; expected one of {sorted(SOURCES)}")
+    return fn(slug)
+
+
 def load_points(slug, source):
     """
     -> (name, page_title, points)
     points = [ {ref, space, x, y, region, marker} ]  one row per spawn instance
     """
-    if source == "farming":
-        dist = os.path.join(REPO, "dist", "farming_spawns", f"{slug}_spawns.json")
-        geo_p = os.path.join(REPO, "data", "farming_spawns", f"geo_cache_{_slug_us(slug)}.json")
-    elif source == "nuka":
-        dist = os.path.join(REPO, "dist", f"nuka_cola_spawns_{slug}.json")
-        geo_p = os.path.join(REPO, "data", "nuka_cola_spawns", "geo_cache.json")
-    else:
-        raise SystemExit(f"unknown source {source}")
+    dist, geo_p = source_paths(slug, source)
+    if not os.path.exists(dist):
+        raise SystemExit(f"no doc at {dist} — build the page first.")
 
     data = json.load(open(dist, encoding="utf-8"))
     geo = json.load(open(geo_p, encoding="utf-8")) if os.path.exists(geo_p) else {}
@@ -291,9 +320,7 @@ def apply_base_filter(slug, source, pts):
     keep = BASE_FILTERS.get(slug)
     if not keep:
         return pts, 0
-    geo_p = (os.path.join(REPO, "data", "farming_spawns", f"geo_cache_{_slug_us(slug)}.json")
-             if source == "farming" else
-             os.path.join(REPO, "data", "nuka_cola_spawns", "geo_cache.json"))
+    _, geo_p = source_paths(slug, source)
     geo = json.load(open(geo_p, encoding="utf-8")) if os.path.exists(geo_p) else {}
     out, dropped = [], 0
     for p in pts:
@@ -511,7 +538,7 @@ def render_set(slug, source, out_root, conn, spaces, boxes, verbose=True):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--set")
-    ap.add_argument("--source", default="farming", choices=["farming", "nuka"])
+    ap.add_argument("--source", default="farming", choices=sorted(SOURCES))
     ap.add_argument("--out")
     ap.add_argument("--manifest", help="JSON list of {slug, source, out}")
     args = ap.parse_args()

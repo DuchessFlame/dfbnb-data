@@ -1,0 +1,2415 @@
+{
+ "version": "2026-09-01",
+ "generated": "2026-09-01T14:55:08+00:00",
+ "page": "nuka-cola",
+ "title": "Nuka Cola Product Buffs",
+ "url": "/bnb/buffs/nuka-cola-products/nuka-cola-product-buffs/",
+ "blurb": "Every Nuka-Cola product and what it does, A-Z.",
+ "countNoun": "Nuka-Cola products",
+ "sourceAlch": "ALCH_Export_August_2026.tsv",
+ "sourceMgef": "MGEF_Export_July_2026.tsv",
+ "mode": "items-abc",
+ "groups": [],
+ "items": [
+  {
+   "formId": "003F3053",
+   "edid": "Brew_DLC04_NukaCola_DarkFerm",
+   "name": "Fermentable Nuka-Cola Dark",
+   "gameName": "Fermentable Nuka-Cola Dark",
+   "description": "Ages into Nuka-Cola Dark",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/nuka-cola/fermentable-nuka-cola-dark.avif",
+   "objectType": "Drink",
+   "diet": "None",
+   "weight": 1.0,
+   "value": 5,
+   "effects": [
+    {
+     "formId": "0009A41B",
+     "edid": "SURV_DiseaseVector_Food_Effect",
+     "full": "SURV_DiseaseVector_Food_Effect",
+     "dnam": "<mag>% Disease Chance",
+     "magnitude": 9.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Food_DiseaseChance_Mag_4_VeryVeryHigh",
+     "durGlob": null,
+     "name": "Disease Chance",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "9% chance to catch a disease",
+     "groupKey": null,
+     "groupLabel": null
+    }
+   ],
+   "effectGroups": [],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": true,
+     "lines": [
+      "Requires: Brewing Station",
+      "Components: Wood x3 / Boiled Water x3 / Nuka-Cola x3 / Snaptail Reed x3",
+      "Note: Ferments/spoils into Nuka-Cola Dark."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "Note: This is the fermentable form — craft it, then let it ferment into the drinkable version.",
+      "Spoils into: Nuka-Cola Dark"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Drink",
+     "Weight: 1",
+     "Value: 5 caps",
+     "Addiction: Alcohol Addiction"
+    ],
+    "ids": [
+     "EDID: Brew_DLC04_NukaCola_DarkFerm",
+     "FormID: 003F3053",
+     "MGEF 0009A41B: SURV_DiseaseVector_Food_Effect",
+     "Keywords: BlockSuperDuperPerk, DrinkTypeAlcohol, DrinkTypeLiquor, FermenterItem, ObjectTypeDrink"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "0047BC13",
+   "edid": "Brew_NukashineFerm",
+   "name": "Fermentable Nukashine",
+   "gameName": "Fermentable Nukashine",
+   "description": "Ages into Nukashine.",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/nuka-cola/fermentable-nukashine.avif",
+   "objectType": "Drink",
+   "diet": "None",
+   "weight": 1.0,
+   "value": 5,
+   "effects": [
+    {
+     "formId": "0009A41B",
+     "edid": "SURV_DiseaseVector_Food_Effect",
+     "full": "SURV_DiseaseVector_Food_Effect",
+     "dnam": "<mag>% Disease Chance",
+     "magnitude": 9.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Food_DiseaseChance_Mag_4_VeryVeryHigh",
+     "durGlob": null,
+     "name": "Disease Chance",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "9% chance to catch a disease",
+     "groupKey": null,
+     "groupLabel": null
+    },
+    {
+     "formId": "00024056",
+     "edid": "DamageRadiationEating",
+     "full": "Eating: Radiation Damage",
+     "dnam": "",
+     "magnitude": 30.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Food_RadiationDamage_Mag_5_Extreme",
+     "durGlob": null,
+     "name": "Rads",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "+30 Rads",
+     "groupKey": null,
+     "groupLabel": null
+    }
+   ],
+   "effectGroups": [],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": true,
+     "lines": [
+      "Requires: Brewing Station",
+      "Components: Nuclear Material x3 / Wood x5 / Corn x5 / Boiled Water x2 / Nuka-Cola Quantum x1 / Razorgrain x5",
+      "Note: Unlocked by a quest (P01A_Nukashine).",
+      "Note: Ferments/spoils into Nukashine."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "Note: This is the fermentable form — craft it, then let it ferment into the drinkable version.",
+      "Spoils into: Nukashine"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Drink",
+     "Weight: 1",
+     "Value: 5 caps",
+     "Addiction: Alcohol Addiction"
+    ],
+    "ids": [
+     "EDID: Brew_NukashineFerm",
+     "FormID: 0047BC13",
+     "MGEF 0009A41B: SURV_DiseaseVector_Food_Effect",
+     "MGEF 00024056: DamageRadiationEating",
+     "Keywords: BlockPartyBoyPerk, BlockQuackSurgeon, BlockSuperDuperPerk, DrinkTypeAlcohol, DrinkTypeLiquor, FermenterItem, NukashineAlcoholType, ObjectTypeDrink"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "00048360",
+   "edid": "NukaColaCherry",
+   "name": "Nuka-Cherry",
+   "gameName": "Nuka-Cherry",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/nuka-cola/nuka-cherry.avif",
+   "objectType": "Drink",
+   "diet": "None",
+   "weight": 1.0,
+   "value": 25,
+   "effects": [
+    {
+     "formId": "00047668",
+     "edid": "RestoreActionPoints",
+     "full": "Restore Action Points",
+     "dnam": "",
+     "magnitude": 5.0,
+     "duration": 5.0,
+     "magGlob": "SURV_Food_Effect_APRegen_Mag_3_High",
+     "durGlob": "SURV_Food_Effect_APRestore_Dur_1_VeryShort",
+     "name": "Restore Action Points",
+     "polarity": "buff",
+     "durationDisplay": "5s",
+     "display": "+5 Action Points",
+     "groupKey": "action-points",
+     "groupLabel": "Action Points"
+    },
+    {
+     "formId": "0000397E",
+     "edid": "RestoreHealthFood",
+     "full": "Restore Health",
+     "dnam": "Restore <mag> HP / second",
+     "magnitude": 10.0,
+     "duration": 10.0,
+     "magGlob": "SURV_Food_Heal_Mag_6_NukaCola_Medium",
+     "durGlob": "SURV_Food_Heal_Dur_Water",
+     "name": "Restore Health",
+     "polarity": "buff",
+     "durationDisplay": "10s",
+     "display": "Restores 100 Health",
+     "groupKey": "health",
+     "groupLabel": "Health"
+    },
+    {
+     "formId": "000A7922",
+     "edid": "NukaColaBottlecapAdder",
+     "full": "Bottlecap Collector",
+     "dnam": "",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Bottlecap Collector",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Bottlecap Collector",
+     "groupKey": "bottlecap-collector",
+     "groupLabel": "Bottlecap Collector"
+    },
+    {
+     "formId": "00134836",
+     "edid": "SURV_Drink_Effect",
+     "full": "SURV_Drink_Effect",
+     "dnam": "",
+     "magnitude": 900.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+     "durGlob": null,
+     "name": "Quench Thirst",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Quenches thirst (900/15 min)",
+     "groupKey": null,
+     "groupLabel": null
+    },
+    {
+     "formId": "00024056",
+     "edid": "DamageRadiationEating",
+     "full": "Eating: Radiation Damage",
+     "dnam": "",
+     "magnitude": 5.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+     "durGlob": null,
+     "name": "Rads",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "+5 Rads",
+     "groupKey": null,
+     "groupLabel": null
+    }
+   ],
+   "effectGroups": [
+    "action-points",
+    "bottlecap-collector",
+    "health"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": false,
+     "lines": [
+      "Recipe: Not in Game"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "No separate fresh or raw variant — the crafted item is the only form."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Drink",
+     "Weight: 1",
+     "Value: 25 caps"
+    ],
+    "ids": [
+     "EDID: NukaColaCherry",
+     "FormID: 00048360",
+     "MGEF 00047668: RestoreActionPoints",
+     "MGEF 0000397E: RestoreHealthFood",
+     "MGEF 000A7922: NukaColaBottlecapAdder",
+     "MGEF 00134836: SURV_Drink_Effect",
+     "MGEF 00024056: DamageRadiationEating",
+     "Keywords: DrinkTypeSoda, DrinkTypeSodaIcon, ObjectTypeDrink"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "0004835D",
+   "edid": "NukaCola",
+   "name": "Nuka-Cola",
+   "gameName": "Nuka-Cola",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/nuka-cola/nuka-cola.avif",
+   "objectType": "Drink",
+   "diet": "None",
+   "weight": 1.0,
+   "value": 10,
+   "effects": [
+    {
+     "formId": "00047668",
+     "edid": "RestoreActionPoints",
+     "full": "Restore Action Points",
+     "dnam": "",
+     "magnitude": 2.0,
+     "duration": 5.0,
+     "magGlob": "SURV_Food_Effect_APRegen_Mag_1_Low",
+     "durGlob": "SURV_Food_Effect_APRestore_Dur_1_VeryShort",
+     "name": "Restore Action Points",
+     "polarity": "buff",
+     "durationDisplay": "5s",
+     "display": "+2 Action Points",
+     "groupKey": "action-points",
+     "groupLabel": "Action Points"
+    },
+    {
+     "formId": "0000397E",
+     "edid": "RestoreHealthFood",
+     "full": "Restore Health",
+     "dnam": "Restore <mag> HP / second",
+     "magnitude": 4.0,
+     "duration": 10.0,
+     "magGlob": "SURV_Food_Heal_Mag_6_NukaCola_Small",
+     "durGlob": "SURV_Food_Heal_Dur_Water",
+     "name": "Restore Health",
+     "polarity": "buff",
+     "durationDisplay": "10s",
+     "display": "Restores 40 Health",
+     "groupKey": "health",
+     "groupLabel": "Health"
+    },
+    {
+     "formId": "000A7922",
+     "edid": "NukaColaBottlecapAdder",
+     "full": "Bottlecap Collector",
+     "dnam": "",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Bottlecap Collector",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Bottlecap Collector",
+     "groupKey": "bottlecap-collector",
+     "groupLabel": "Bottlecap Collector"
+    },
+    {
+     "formId": "00134836",
+     "edid": "SURV_Drink_Effect",
+     "full": "SURV_Drink_Effect",
+     "dnam": "",
+     "magnitude": 540.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+     "durGlob": null,
+     "name": "Quench Thirst",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Quenches thirst (540/9 min)",
+     "groupKey": null,
+     "groupLabel": null
+    },
+    {
+     "formId": "00024056",
+     "edid": "DamageRadiationEating",
+     "full": "Eating: Radiation Damage",
+     "dnam": "",
+     "magnitude": 5.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+     "durGlob": null,
+     "name": "Rads",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "+5 Rads",
+     "groupKey": null,
+     "groupLabel": null
+    }
+   ],
+   "effectGroups": [
+    "action-points",
+    "bottlecap-collector",
+    "health"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": false,
+     "lines": [
+      "Recipe: Not in Game"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "No separate fresh or raw variant — the crafted item is the only form."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Drink",
+     "Weight: 1",
+     "Value: 10 caps"
+    ],
+    "ids": [
+     "EDID: NukaCola",
+     "FormID: 0004835D",
+     "MGEF 00047668: RestoreActionPoints",
+     "MGEF 0000397E: RestoreHealthFood",
+     "MGEF 000A7922: NukaColaBottlecapAdder",
+     "MGEF 00134836: SURV_Drink_Effect",
+     "MGEF 00024056: DamageRadiationEating",
+     "Keywords: DrinkTypeSoda, DrinkTypeSodaIcon, ObjectTypeDrink"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "00598DCD",
+   "edid": "NukaColaCranberry",
+   "name": "Nuka-Cola Cranberry",
+   "gameName": "Nuka-Cola Cranberry",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/nuka-cola/nuka-cola-cranberry.avif",
+   "objectType": "Drink",
+   "diet": "None",
+   "weight": 1.0,
+   "value": 10,
+   "effects": [
+    {
+     "formId": "00211891",
+     "edid": "FortifyXPBonusFood",
+     "full": "Food: Fortify XP Bonus",
+     "dnam": "",
+     "magnitude": 2.0,
+     "duration": 1800.0,
+     "magGlob": "SURV_Food_Effect_FortifyXPBonus_Mag_1_Low",
+     "durGlob": "SURV_Food_Effect_Any_Dur_1_Short",
+     "name": "Fortify XP Bonus",
+     "polarity": "buff",
+     "durationDisplay": "30 min",
+     "display": "+2 XP Bonus",
+     "groupKey": "xp-bonus",
+     "groupLabel": "XP Bonus"
+    },
+    {
+     "formId": "0000397E",
+     "edid": "RestoreHealthFood",
+     "full": "Restore Health",
+     "dnam": "Restore <mag> HP / second",
+     "magnitude": 4.0,
+     "duration": 10.0,
+     "magGlob": "SURV_Food_Heal_Mag_6_NukaCola_Small",
+     "durGlob": "SURV_Food_Heal_Dur_Water",
+     "name": "Restore Health",
+     "polarity": "buff",
+     "durationDisplay": "10s",
+     "display": "Restores 40 Health",
+     "groupKey": "health",
+     "groupLabel": "Health"
+    },
+    {
+     "formId": "000A7922",
+     "edid": "NukaColaBottlecapAdder",
+     "full": "Bottlecap Collector",
+     "dnam": "",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Bottlecap Collector",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Bottlecap Collector",
+     "groupKey": "bottlecap-collector",
+     "groupLabel": "Bottlecap Collector"
+    },
+    {
+     "formId": "00134836",
+     "edid": "SURV_Drink_Effect",
+     "full": "SURV_Drink_Effect",
+     "dnam": "",
+     "magnitude": 540.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+     "durGlob": null,
+     "name": "Quench Thirst",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Quenches thirst (540/9 min)",
+     "groupKey": null,
+     "groupLabel": null
+    },
+    {
+     "formId": "00024056",
+     "edid": "DamageRadiationEating",
+     "full": "Eating: Radiation Damage",
+     "dnam": "",
+     "magnitude": 5.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+     "durGlob": null,
+     "name": "Rads",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "+5 Rads",
+     "groupKey": null,
+     "groupLabel": null
+    }
+   ],
+   "effectGroups": [
+    "bottlecap-collector",
+    "health",
+    "xp-bonus"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": false,
+     "lines": [
+      "Recipe: Not in Game"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "No separate fresh or raw variant — the crafted item is the only form."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Drink",
+     "Weight: 1",
+     "Value: 10 caps"
+    ],
+    "ids": [
+     "EDID: NukaColaCranberry",
+     "FormID: 00598DCD",
+     "MGEF 00211891: FortifyXPBonusFood",
+     "MGEF 0000397E: RestoreHealthFood",
+     "MGEF 000A7922: NukaColaBottlecapAdder",
+     "MGEF 00134836: SURV_Drink_Effect",
+     "MGEF 00024056: DamageRadiationEating",
+     "Keywords: DrinkTypeSoda, DrinkTypeSodaIcon, ObjectTypeDrink"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "00113294",
+   "edid": "Brew_DLC04_NukaCola_Dark",
+   "name": "Nuka-Cola Dark",
+   "gameName": "Nuka-Cola Dark",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/nuka-cola/nuka-cola-dark.avif",
+   "objectType": "Drink",
+   "diet": "None",
+   "weight": 1.0,
+   "value": 30,
+   "effects": [
+    {
+     "formId": "000AA797",
+     "edid": "FortifyEnduranceAlcohol",
+     "full": "Alcohol: Fortify Endurance",
+     "dnam": "",
+     "magnitude": 1.0,
+     "duration": 180.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify Endurance",
+     "polarity": "buff",
+     "durationDisplay": "3 min",
+     "display": "+1 Endurance",
+     "groupKey": "endurance",
+     "groupLabel": "Endurance"
+    },
+    {
+     "formId": "0018E146",
+     "edid": "PerkHappyGoLucky02FortifyLuck",
+     "full": "Happy-Go-Lucky02 - Fortify Luck",
+     "dnam": "",
+     "magnitude": 3.0,
+     "duration": 180.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify Luck",
+     "polarity": "buff",
+     "durationDisplay": "3 min",
+     "display": "+3 Luck",
+     "groupKey": "luck",
+     "groupLabel": "Luck"
+    },
+    {
+     "formId": "0018E145",
+     "edid": "PerkHappyGoLuckyFortifyLuck",
+     "full": "Happy-Go-Lucky - Fortify Luck",
+     "dnam": "",
+     "magnitude": 2.0,
+     "duration": 180.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify Luck",
+     "polarity": "buff",
+     "durationDisplay": "3 min",
+     "display": "+2 Luck",
+     "groupKey": "luck",
+     "groupLabel": "Luck"
+    },
+    {
+     "formId": "00102253",
+     "edid": "FortifyStrengthAlcohol",
+     "full": "Alcohol: Fortify Strength",
+     "dnam": "",
+     "magnitude": 1.0,
+     "duration": 180.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify Strength",
+     "polarity": "buff",
+     "durationDisplay": "3 min",
+     "display": "+1 Strength",
+     "groupKey": "strength",
+     "groupLabel": "Strength"
+    },
+    {
+     "formId": "00113966",
+     "edid": "ReducePerceptionAlcohol",
+     "full": "Alcohol: Reduce Perception",
+     "dnam": "",
+     "magnitude": 1.0,
+     "duration": 180.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Reduce Perception",
+     "polarity": "debuff",
+     "durationDisplay": "3 min",
+     "display": "-1 Perception",
+     "groupKey": "perception",
+     "groupLabel": "Perception"
+    },
+    {
+     "formId": "000A7922",
+     "edid": "NukaColaBottlecapAdder",
+     "full": "Bottlecap Collector",
+     "dnam": "",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Bottlecap Collector",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Bottlecap Collector",
+     "groupKey": "bottlecap-collector",
+     "groupLabel": "Bottlecap Collector"
+    },
+    {
+     "formId": "001B5B29",
+     "edid": "FortifyLuckMagazineLiveLove",
+     "full": "Live & Love - Fortify Luck",
+     "dnam": "",
+     "magnitude": 1.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify Luck",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+1 Luck",
+     "groupKey": "luck",
+     "groupLabel": "Luck"
+    },
+    {
+     "formId": "00134836",
+     "edid": "SURV_Drink_Effect",
+     "full": "SURV_Drink_Effect",
+     "dnam": "",
+     "magnitude": 900.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+     "durGlob": null,
+     "name": "Quench Thirst",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Quenches thirst (900/15 min)",
+     "groupKey": null,
+     "groupLabel": null
+    },
+    {
+     "formId": "00245EF2",
+     "edid": "AddictionOddsAlcohol",
+     "full": "Chance Addiction Alcohol",
+     "dnam": "",
+     "magnitude": 15.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Chance Addiction Alcohol",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "15% chance of addiction",
+     "groupKey": null,
+     "groupLabel": null
+    }
+   ],
+   "effectGroups": [
+    "strength",
+    "perception",
+    "endurance",
+    "luck",
+    "bottlecap-collector"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": false,
+     "lines": [
+      "Recipe: Not in Game"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "No separate fresh or raw variant — the crafted item is the only form."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Drink",
+     "Weight: 1",
+     "Value: 30 caps",
+     "Addiction: Alcohol Addiction"
+    ],
+    "ids": [
+     "EDID: Brew_DLC04_NukaCola_Dark",
+     "FormID: 00113294",
+     "MGEF 000AA797: FortifyEnduranceAlcohol",
+     "MGEF 0018E146: PerkHappyGoLucky02FortifyLuck",
+     "MGEF 0018E145: PerkHappyGoLuckyFortifyLuck",
+     "MGEF 00102253: FortifyStrengthAlcohol",
+     "MGEF 00113966: ReducePerceptionAlcohol",
+     "MGEF 000A7922: NukaColaBottlecapAdder",
+     "MGEF 001B5B29: FortifyLuckMagazineLiveLove",
+     "MGEF 00134836: SURV_Drink_Effect",
+     "MGEF 00245EF2: AddictionOddsAlcohol",
+     "Keywords: BlockSuperDuperPerk, DrinkTypeAlcohol, DrinkTypeSoda, DrinkTypeSodaIcon, FreshAlcoholType, ObjectTypeDrink, SpiritAlcoholType"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "005939C8",
+   "edid": "NukaCola_Vaccine_Blood",
+   "name": "Nuka-Cola My Blood's In It",
+   "gameName": "Nuka-Cola My Blood's In It",
+   "description": "Reduce damage from Scorched by 15% for 10 minutes. Restores health.",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/nuka-cola/nuka-cola-my-blood-s-in-it.avif",
+   "objectType": "Drink",
+   "diet": "None",
+   "weight": 0.15,
+   "value": 10,
+   "effects": [
+    {
+     "formId": "0000397E",
+     "edid": "RestoreHealthFood",
+     "full": "Restore Health",
+     "dnam": "Restore <mag> HP / second",
+     "magnitude": 20.0,
+     "duration": 2.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Restore Health",
+     "polarity": "buff",
+     "durationDisplay": "2s",
+     "display": "Restores 40 Health",
+     "groupKey": "health",
+     "groupLabel": "Health"
+    },
+    {
+     "formId": "0000397E",
+     "edid": "RestoreHealthFood",
+     "full": "Restore Health",
+     "dnam": "Restore <mag> HP / second",
+     "magnitude": 2.0,
+     "duration": 20.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Restore Health",
+     "polarity": "buff",
+     "durationDisplay": "20s",
+     "display": "Restores 40 Health",
+     "groupKey": "health",
+     "groupLabel": "Health"
+    },
+    {
+     "formId": "0059AA7F",
+     "edid": "NukaCola_Vaccine_Buff",
+     "full": "Scorched Repellent",
+     "dnam": "15% Reduced damage from Scorched",
+     "magnitude": 1.0,
+     "duration": 600.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Scorched Repellent",
+     "polarity": "debuff",
+     "durationDisplay": "10 min",
+     "display": "15% Reduced damage from Scorched",
+     "groupKey": "scorched-repellent",
+     "groupLabel": "Scorched Repellent"
+    }
+   ],
+   "effectGroups": [
+    "health",
+    "scorched-repellent"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": true,
+     "lines": [
+      "Requires: Chemistry Station",
+      "Components: Glass x1 / Corn x2 / Mutfruit x1 / Purified Water x1 / Blood Pack x1",
+      "Note: Unlocked by a quest (W05_MQ_101P).",
+      "Note: Terminal: NWOT_PatsLog_SubTerminal"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "No separate fresh or raw variant — the crafted item is the only form."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Drink",
+     "Weight: 0.15",
+     "Value: 10 caps"
+    ],
+    "ids": [
+     "EDID: NukaCola_Vaccine_Blood",
+     "FormID: 005939C8",
+     "MGEF 0000397E: RestoreHealthFood",
+     "MGEF 0000397E: RestoreHealthFood",
+     "MGEF 0059AA7F: NukaCola_Vaccine_Buff",
+     "Keywords: DrinkTypeSoda, DrinkTypeSodaIcon, ObjectTypeDrink"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "0004835F",
+   "edid": "NukaColaQuantum",
+   "name": "Nuka-Cola Quantum",
+   "gameName": "Nuka-Cola Quantum",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/nuka-cola/nuka-cola-quantum.avif",
+   "objectType": "Drink",
+   "diet": "None",
+   "weight": 1.0,
+   "value": 30,
+   "effects": [
+    {
+     "formId": "0000397E",
+     "edid": "RestoreHealthFood",
+     "full": "Restore Health",
+     "dnam": "Restore <mag> HP / second",
+     "magnitude": 20.0,
+     "duration": 10.0,
+     "magGlob": "SURV_Food_Heal_Mag_6_NukaCola_VeryLarge",
+     "durGlob": "SURV_Food_Heal_Dur_Water",
+     "name": "Restore Health",
+     "polarity": "buff",
+     "durationDisplay": "10s",
+     "display": "Restores 200 Health",
+     "groupKey": "health",
+     "groupLabel": "Health"
+    },
+    {
+     "formId": "000A7922",
+     "edid": "NukaColaBottlecapAdder",
+     "full": "Bottlecap Collector",
+     "dnam": "",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Bottlecap Collector",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Bottlecap Collector",
+     "groupKey": "bottlecap-collector",
+     "groupLabel": "Bottlecap Collector"
+    },
+    {
+     "formId": "00047668",
+     "edid": "RestoreActionPoints",
+     "full": "Restore Action Points",
+     "dnam": "",
+     "magnitude": 100.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Restore Action Points",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+100 Action Points",
+     "groupKey": "action-points",
+     "groupLabel": "Action Points"
+    },
+    {
+     "formId": "00134836",
+     "edid": "SURV_Drink_Effect",
+     "full": "SURV_Drink_Effect",
+     "dnam": "",
+     "magnitude": 900.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+     "durGlob": null,
+     "name": "Quench Thirst",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Quenches thirst (900/15 min)",
+     "groupKey": null,
+     "groupLabel": null
+    },
+    {
+     "formId": "00024056",
+     "edid": "DamageRadiationEating",
+     "full": "Eating: Radiation Damage",
+     "dnam": "",
+     "magnitude": 10.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Food_RadiationDamage_Mag_3_High",
+     "durGlob": null,
+     "name": "Rads",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "+10 Rads",
+     "groupKey": null,
+     "groupLabel": null
+    }
+   ],
+   "effectGroups": [
+    "action-points",
+    "bottlecap-collector",
+    "health"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": false,
+     "lines": [
+      "Recipe: Not in Game"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "No separate fresh or raw variant — the crafted item is the only form."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Drink",
+     "Weight: 1",
+     "Value: 30 caps"
+    ],
+    "ids": [
+     "EDID: NukaColaQuantum",
+     "FormID: 0004835F",
+     "MGEF 0000397E: RestoreHealthFood",
+     "MGEF 000A7922: NukaColaBottlecapAdder",
+     "MGEF 00047668: RestoreActionPoints",
+     "MGEF 00134836: SURV_Drink_Effect",
+     "MGEF 00024056: DamageRadiationEating",
+     "Keywords: DrinkTypeSoda, DrinkTypeSodaIcon, ObjectTypeDrink"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "005939CA",
+   "edid": "NukaCola_Vaccine_Scorched",
+   "name": "Nuka-Cola Scorched",
+   "gameName": "Nuka-Cola Scorched",
+   "description": "Reduce damage from Scorched by 15% for 10 minutes. Restores health.",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/nuka-cola/nuka-cola-scorched.avif",
+   "objectType": "Drink",
+   "diet": "None",
+   "weight": 0.15,
+   "value": 10,
+   "effects": [
+    {
+     "formId": "0000397E",
+     "edid": "RestoreHealthFood",
+     "full": "Restore Health",
+     "dnam": "Restore <mag> HP / second",
+     "magnitude": 20.0,
+     "duration": 2.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Restore Health",
+     "polarity": "buff",
+     "durationDisplay": "2s",
+     "display": "Restores 40 Health",
+     "groupKey": "health",
+     "groupLabel": "Health"
+    },
+    {
+     "formId": "0000397E",
+     "edid": "RestoreHealthFood",
+     "full": "Restore Health",
+     "dnam": "Restore <mag> HP / second",
+     "magnitude": 2.0,
+     "duration": 20.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Restore Health",
+     "polarity": "buff",
+     "durationDisplay": "20s",
+     "display": "Restores 40 Health",
+     "groupKey": "health",
+     "groupLabel": "Health"
+    },
+    {
+     "formId": "0059AA7F",
+     "edid": "NukaCola_Vaccine_Buff",
+     "full": "Scorched Repellent",
+     "dnam": "15% Reduced damage from Scorched",
+     "magnitude": 1.0,
+     "duration": 600.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Scorched Repellent",
+     "polarity": "debuff",
+     "durationDisplay": "10 min",
+     "display": "15% Reduced damage from Scorched",
+     "groupKey": "scorched-repellent",
+     "groupLabel": "Scorched Repellent"
+    }
+   ],
+   "effectGroups": [
+    "health",
+    "scorched-repellent"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": true,
+     "lines": [
+      "Requires: Chemistry Station",
+      "Components: Glass x1 / Corn x2 / Mutfruit x1 / Purified Water x1 / Blood Pack x1",
+      "Note: Unlocked by a quest (W05_MQ_101P).",
+      "Note: Terminal: NWOT_PatsLog_SubTerminal"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "No separate fresh or raw variant — the crafted item is the only form."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Drink",
+     "Weight: 0.15",
+     "Value: 10 caps"
+    ],
+    "ids": [
+     "EDID: NukaCola_Vaccine_Scorched",
+     "FormID: 005939CA",
+     "MGEF 0000397E: RestoreHealthFood",
+     "MGEF 0000397E: RestoreHealthFood",
+     "MGEF 0059AA7F: NukaCola_Vaccine_Buff",
+     "Keywords: DrinkTypeSoda, DrinkTypeSodaIcon, ObjectTypeDrink"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "00660864",
+   "edid": "NukaCola_Twist",
+   "name": "Nuka-Cola Twist",
+   "gameName": "Nuka-Cola Twist",
+   "description": "Applies a random positive effect. Restores health. Restores action points.",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/nuka-cola/nuka-cola-twist.avif",
+   "objectType": "Drink",
+   "diet": "None",
+   "weight": 1.0,
+   "value": 10,
+   "effects": [
+    {
+     "formId": "00660867",
+     "edid": "NukaColaTwistRandomEffect",
+     "full": "Nuka Cola Twist",
+     "dnam": "",
+     "magnitude": 1.0,
+     "duration": 300.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Nuka Cola Twist",
+     "polarity": "buff",
+     "durationDisplay": "5 min",
+     "display": "+1 Nuka Cola Twist",
+     "groupKey": "nuka-cola-twist",
+     "groupLabel": "Nuka Cola Twist"
+    },
+    {
+     "formId": "00047668",
+     "edid": "RestoreActionPoints",
+     "full": "Restore Action Points",
+     "dnam": "",
+     "magnitude": 2.0,
+     "duration": 5.0,
+     "magGlob": "SURV_Food_Effect_APRegen_Mag_1_Low",
+     "durGlob": "SURV_Food_Effect_APRestore_Dur_1_VeryShort",
+     "name": "Restore Action Points",
+     "polarity": "buff",
+     "durationDisplay": "5s",
+     "display": "+2 Action Points",
+     "groupKey": "action-points",
+     "groupLabel": "Action Points"
+    },
+    {
+     "formId": "0000397E",
+     "edid": "RestoreHealthFood",
+     "full": "Restore Health",
+     "dnam": "Restore <mag> HP / second",
+     "magnitude": 4.0,
+     "duration": 10.0,
+     "magGlob": "SURV_Food_Heal_Mag_6_NukaCola_Small",
+     "durGlob": "SURV_Food_Heal_Dur_Water",
+     "name": "Restore Health",
+     "polarity": "buff",
+     "durationDisplay": "10s",
+     "display": "Restores 40 Health",
+     "groupKey": "health",
+     "groupLabel": "Health"
+    },
+    {
+     "formId": "000A7922",
+     "edid": "NukaColaBottlecapAdder",
+     "full": "Bottlecap Collector",
+     "dnam": "",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Bottlecap Collector",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Bottlecap Collector",
+     "groupKey": "bottlecap-collector",
+     "groupLabel": "Bottlecap Collector"
+    },
+    {
+     "formId": "00134836",
+     "edid": "SURV_Drink_Effect",
+     "full": "SURV_Drink_Effect",
+     "dnam": "",
+     "magnitude": 540.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+     "durGlob": null,
+     "name": "Quench Thirst",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Quenches thirst (540/9 min)",
+     "groupKey": null,
+     "groupLabel": null
+    },
+    {
+     "formId": "00024056",
+     "edid": "DamageRadiationEating",
+     "full": "Eating: Radiation Damage",
+     "dnam": "",
+     "magnitude": 5.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+     "durGlob": null,
+     "name": "Rads",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "+5 Rads",
+     "groupKey": null,
+     "groupLabel": null
+    }
+   ],
+   "effectGroups": [
+    "action-points",
+    "bottlecap-collector",
+    "health",
+    "nuka-cola-twist"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": false,
+     "lines": [
+      "Recipe: Not in Game"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "No separate fresh or raw variant — the crafted item is the only form."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Drink",
+     "Weight: 1",
+     "Value: 10 caps"
+    ],
+    "ids": [
+     "EDID: NukaCola_Twist",
+     "FormID: 00660864",
+     "MGEF 00660867: NukaColaTwistRandomEffect",
+     "MGEF 00047668: RestoreActionPoints",
+     "MGEF 0000397E: RestoreHealthFood",
+     "MGEF 000A7922: NukaColaBottlecapAdder",
+     "MGEF 00134836: SURV_Drink_Effect",
+     "MGEF 00024056: DamageRadiationEating",
+     "Keywords: DrinkTypeSoda, DrinkTypeSodaIcon, ObjectTypeDrink"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "005939C9",
+   "edid": "NukaCola_Vaccine_Vaccinated",
+   "name": "Nuka-Cola Vaccinated",
+   "gameName": "Nuka-Cola Vaccinated",
+   "description": "Reduce damage from Scorched by 15% for 10 minutes. Restores health.",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/nuka-cola/nuka-cola-vaccinated.avif",
+   "objectType": "Drink",
+   "diet": "None",
+   "weight": 0.15,
+   "value": 10,
+   "effects": [
+    {
+     "formId": "0000397E",
+     "edid": "RestoreHealthFood",
+     "full": "Restore Health",
+     "dnam": "Restore <mag> HP / second",
+     "magnitude": 2.0,
+     "duration": 20.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Restore Health",
+     "polarity": "buff",
+     "durationDisplay": "20s",
+     "display": "Restores 40 Health",
+     "groupKey": "health",
+     "groupLabel": "Health"
+    },
+    {
+     "formId": "0000397E",
+     "edid": "RestoreHealthFood",
+     "full": "Restore Health",
+     "dnam": "Restore <mag> HP / second",
+     "magnitude": 20.0,
+     "duration": 2.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Restore Health",
+     "polarity": "buff",
+     "durationDisplay": "2s",
+     "display": "Restores 40 Health",
+     "groupKey": "health",
+     "groupLabel": "Health"
+    },
+    {
+     "formId": "0059AA7F",
+     "edid": "NukaCola_Vaccine_Buff",
+     "full": "Scorched Repellent",
+     "dnam": "15% Reduced damage from Scorched",
+     "magnitude": 1.0,
+     "duration": 600.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Scorched Repellent",
+     "polarity": "debuff",
+     "durationDisplay": "10 min",
+     "display": "15% Reduced damage from Scorched",
+     "groupKey": "scorched-repellent",
+     "groupLabel": "Scorched Repellent"
+    }
+   ],
+   "effectGroups": [
+    "health",
+    "scorched-repellent"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": true,
+     "lines": [
+      "Requires: Chemistry Station",
+      "Components: Glass x1 / Corn x2 / Mutfruit x1 / Purified Water x1 / Blood Pack x1",
+      "Note: Unlocked by a quest (W05_MQ_101P).",
+      "Note: Terminal: NWOT_PatsLog_SubTerminal"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "No separate fresh or raw variant — the crafted item is the only form."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Drink",
+     "Weight: 0.15",
+     "Value: 10 caps"
+    ],
+    "ids": [
+     "EDID: NukaCola_Vaccine_Vaccinated",
+     "FormID: 005939C9",
+     "MGEF 0000397E: RestoreHealthFood",
+     "MGEF 0000397E: RestoreHealthFood",
+     "MGEF 0059AA7F: NukaCola_Vaccine_Buff",
+     "Keywords: DrinkTypeSoda, DrinkTypeSodaIcon, ObjectTypeDrink"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "0011329B",
+   "edid": "DLC04_NukaCola_Wild",
+   "name": "Nuka-Cola Wild",
+   "gameName": "Nuka-Cola Wild",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/nuka-cola/nuka-cola-wild.avif",
+   "objectType": "Drink",
+   "diet": "None",
+   "weight": 1.0,
+   "value": 15,
+   "effects": [
+    {
+     "formId": "00047668",
+     "edid": "RestoreActionPoints",
+     "full": "Restore Action Points",
+     "dnam": "",
+     "magnitude": 5.0,
+     "duration": 5.0,
+     "magGlob": "SURV_Food_Effect_APRegen_Mag_3_High",
+     "durGlob": "SURV_Food_Effect_APRestore_Dur_1_VeryShort",
+     "name": "Restore Action Points",
+     "polarity": "buff",
+     "durationDisplay": "5s",
+     "display": "+5 Action Points",
+     "groupKey": "action-points",
+     "groupLabel": "Action Points"
+    },
+    {
+     "formId": "0000397E",
+     "edid": "RestoreHealthFood",
+     "full": "Restore Health",
+     "dnam": "Restore <mag> HP / second",
+     "magnitude": 4.0,
+     "duration": 10.0,
+     "magGlob": "SURV_Food_Heal_Mag_6_NukaCola_Small",
+     "durGlob": "SURV_Food_Heal_Dur_Water",
+     "name": "Restore Health",
+     "polarity": "buff",
+     "durationDisplay": "10s",
+     "display": "Restores 40 Health",
+     "groupKey": "health",
+     "groupLabel": "Health"
+    },
+    {
+     "formId": "000A7922",
+     "edid": "NukaColaBottlecapAdder",
+     "full": "Bottlecap Collector",
+     "dnam": "",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Bottlecap Collector",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Bottlecap Collector",
+     "groupKey": "bottlecap-collector",
+     "groupLabel": "Bottlecap Collector"
+    },
+    {
+     "formId": "00134836",
+     "edid": "SURV_Drink_Effect",
+     "full": "SURV_Drink_Effect",
+     "dnam": "",
+     "magnitude": 900.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+     "durGlob": null,
+     "name": "Quench Thirst",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Quenches thirst (900/15 min)",
+     "groupKey": null,
+     "groupLabel": null
+    },
+    {
+     "formId": "00024056",
+     "edid": "DamageRadiationEating",
+     "full": "Eating: Radiation Damage",
+     "dnam": "",
+     "magnitude": 5.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Food_RadiationDamage_Mag_2_Medium",
+     "durGlob": null,
+     "name": "Rads",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "+5 Rads",
+     "groupKey": null,
+     "groupLabel": null
+    }
+   ],
+   "effectGroups": [
+    "action-points",
+    "bottlecap-collector",
+    "health"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": false,
+     "lines": [
+      "Recipe: Not in Game"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "No separate fresh or raw variant — the crafted item is the only form."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Drink",
+     "Weight: 1",
+     "Value: 15 caps"
+    ],
+    "ids": [
+     "EDID: DLC04_NukaCola_Wild",
+     "FormID: 0011329B",
+     "MGEF 00047668: RestoreActionPoints",
+     "MGEF 0000397E: RestoreHealthFood",
+     "MGEF 000A7922: NukaColaBottlecapAdder",
+     "MGEF 00134836: SURV_Drink_Effect",
+     "MGEF 00024056: DamageRadiationEating",
+     "Keywords: DrinkTypeSoda, DrinkTypeSodaIcon, ObjectTypeDrink"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "00113292",
+   "edid": "DLC04_NukaCola_Grape",
+   "name": "Nuka-Grape",
+   "gameName": "Nuka-Grape",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/nuka-cola/nuka-grape.avif",
+   "objectType": "Drink",
+   "diet": "None",
+   "weight": 1.0,
+   "value": 15,
+   "effects": [
+    {
+     "formId": "00047668",
+     "edid": "RestoreActionPoints",
+     "full": "Restore Action Points",
+     "dnam": "",
+     "magnitude": 10.0,
+     "duration": 5.0,
+     "magGlob": "SURV_Food_Effect_APRegen_Mag_4_VeryHigh",
+     "durGlob": "SURV_Food_Effect_APRestore_Dur_1_VeryShort",
+     "name": "Restore Action Points",
+     "polarity": "buff",
+     "durationDisplay": "5s",
+     "display": "+10 Action Points",
+     "groupKey": "action-points",
+     "groupLabel": "Action Points"
+    },
+    {
+     "formId": "0000397E",
+     "edid": "RestoreHealthFood",
+     "full": "Restore Health",
+     "dnam": "Restore <mag> HP / second",
+     "magnitude": 15.0,
+     "duration": 10.0,
+     "magGlob": "SURV_Food_Heal_Mag_6_NukaCola_Large",
+     "durGlob": "SURV_Food_Heal_Dur_Water",
+     "name": "Restore Health",
+     "polarity": "buff",
+     "durationDisplay": "10s",
+     "display": "Restores 150 Health",
+     "groupKey": "health",
+     "groupLabel": "Health"
+    },
+    {
+     "formId": "000A7922",
+     "edid": "NukaColaBottlecapAdder",
+     "full": "Bottlecap Collector",
+     "dnam": "",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Bottlecap Collector",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Bottlecap Collector",
+     "groupKey": "bottlecap-collector",
+     "groupLabel": "Bottlecap Collector"
+    },
+    {
+     "formId": "00134836",
+     "edid": "SURV_Drink_Effect",
+     "full": "SURV_Drink_Effect",
+     "dnam": "",
+     "magnitude": 540.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+     "durGlob": null,
+     "name": "Quench Thirst",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Quenches thirst (540/9 min)",
+     "groupKey": null,
+     "groupLabel": null
+    },
+    {
+     "formId": "0021188C",
+     "edid": "RestoreRadsFood",
+     "full": "Food Remove Radiation",
+     "dnam": "Remove <mag> points of Radiation / second.",
+     "magnitude": 40.0,
+     "duration": 10.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Food Remove Radiation",
+     "polarity": "buff",
+     "durationDisplay": "10s",
+     "display": "Remove 40 points of Radiation / second.",
+     "groupKey": "radiation-removal",
+     "groupLabel": "Radiation Removal"
+    }
+   ],
+   "effectGroups": [
+    "action-points",
+    "bottlecap-collector",
+    "health",
+    "radiation-removal"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": false,
+     "lines": [
+      "Recipe: Not in Game"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "No separate fresh or raw variant — the crafted item is the only form."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Drink",
+     "Weight: 1",
+     "Value: 15 caps"
+    ],
+    "ids": [
+     "EDID: DLC04_NukaCola_Grape",
+     "FormID: 00113292",
+     "MGEF 00047668: RestoreActionPoints",
+     "MGEF 0000397E: RestoreHealthFood",
+     "MGEF 000A7922: NukaColaBottlecapAdder",
+     "MGEF 00134836: SURV_Drink_Effect",
+     "MGEF 0021188C: RestoreRadsFood",
+     "Keywords: DrinkTypeSoda, DrinkTypeSodaIcon, ObjectTypeDrink"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "00113298",
+   "edid": "DLC04_NukaCola_Orange",
+   "name": "Nuka-Orange",
+   "gameName": "Nuka-Orange",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/nuka-cola/nuka-orange.avif",
+   "objectType": "Drink",
+   "diet": "None",
+   "weight": 1.0,
+   "value": 15,
+   "effects": [
+    {
+     "formId": "00047668",
+     "edid": "RestoreActionPoints",
+     "full": "Restore Action Points",
+     "dnam": "",
+     "magnitude": 10.0,
+     "duration": 5.0,
+     "magGlob": "SURV_Food_Effect_APRegen_Mag_4_VeryHigh",
+     "durGlob": "SURV_Food_Effect_APRestore_Dur_1_VeryShort",
+     "name": "Restore Action Points",
+     "polarity": "buff",
+     "durationDisplay": "5s",
+     "display": "+10 Action Points",
+     "groupKey": "action-points",
+     "groupLabel": "Action Points"
+    },
+    {
+     "formId": "0000397E",
+     "edid": "RestoreHealthFood",
+     "full": "Restore Health",
+     "dnam": "Restore <mag> HP / second",
+     "magnitude": 15.0,
+     "duration": 10.0,
+     "magGlob": "SURV_Food_Heal_Mag_6_NukaCola_Large",
+     "durGlob": "SURV_Food_Heal_Dur_Water",
+     "name": "Restore Health",
+     "polarity": "buff",
+     "durationDisplay": "10s",
+     "display": "Restores 150 Health",
+     "groupKey": "health",
+     "groupLabel": "Health"
+    },
+    {
+     "formId": "000A7922",
+     "edid": "NukaColaBottlecapAdder",
+     "full": "Bottlecap Collector",
+     "dnam": "",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Bottlecap Collector",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Bottlecap Collector",
+     "groupKey": "bottlecap-collector",
+     "groupLabel": "Bottlecap Collector"
+    },
+    {
+     "formId": "00134836",
+     "edid": "SURV_Drink_Effect",
+     "full": "SURV_Drink_Effect",
+     "dnam": "",
+     "magnitude": 900.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+     "durGlob": null,
+     "name": "Quench Thirst",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Quenches thirst (900/15 min)",
+     "groupKey": null,
+     "groupLabel": null
+    },
+    {
+     "formId": "00150737",
+     "edid": "FortifyResistRadsFood",
+     "full": "Radiation Resistance Food",
+     "dnam": "",
+     "magnitude": 50.0,
+     "duration": 480.0,
+     "magGlob": "SURV_Food_Effect_FortifyResistRads_Mag_3_High",
+     "durGlob": null,
+     "name": "Radiation Resistance",
+     "polarity": "debuff",
+     "durationDisplay": "8 min",
+     "display": "-50 Radiation Resistance",
+     "groupKey": "radiation-resistance",
+     "groupLabel": "Radiation Resistance"
+    }
+   ],
+   "effectGroups": [
+    "action-points",
+    "bottlecap-collector",
+    "health",
+    "radiation-resistance"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": false,
+     "lines": [
+      "Recipe: Not in Game"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "No separate fresh or raw variant — the crafted item is the only form."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Drink",
+     "Weight: 1",
+     "Value: 15 caps"
+    ],
+    "ids": [
+     "EDID: DLC04_NukaCola_Orange",
+     "FormID: 00113298",
+     "MGEF 00047668: RestoreActionPoints",
+     "MGEF 0000397E: RestoreHealthFood",
+     "MGEF 000A7922: NukaColaBottlecapAdder",
+     "MGEF 00134836: SURV_Drink_Effect",
+     "MGEF 00150737: FortifyResistRadsFood",
+     "Keywords: DrinkTypeSoda, DrinkTypeSodaIcon, ObjectTypeDrink"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "0047BC14",
+   "edid": "Brew_NukashineFresh",
+   "name": "Nukashine",
+   "gameName": "Nukashine",
+   "description": "Decreases Sprint AP cost and increases AP Regen 50%. Warning: May cause blackouts. Ages into Vintage Nukashine.",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/nuka-cola/nukashine.avif",
+   "objectType": "Drink",
+   "diet": "None",
+   "weight": 1.0,
+   "value": 5,
+   "effects": [
+    {
+     "formId": "0047BC0D",
+     "edid": "Nukashine_AdjustFallSpeed",
+     "full": "Fortify",
+     "dnam": "",
+     "magnitude": 0.25,
+     "duration": 120.0,
+     "magGlob": null,
+     "durGlob": "NukashineDurationGlobal",
+     "name": "Nukashine Adjust Fall Speed",
+     "polarity": "buff",
+     "durationDisplay": "2 min",
+     "display": "Nukashine Adjust Fall Speed ×0.25",
+     "groupKey": "fall-speed-damage",
+     "groupLabel": "Fall Speed & Damage"
+    },
+    {
+     "formId": "0047BC12",
+     "edid": "Nukashine_APRegen",
+     "full": "Regen",
+     "dnam": "",
+     "magnitude": 5.0,
+     "duration": 120.0,
+     "magGlob": null,
+     "durGlob": "NukashineDurationGlobal",
+     "name": "Nukashine APRegen",
+     "polarity": "buff",
+     "durationDisplay": "2 min",
+     "display": "+5 Nukashine APRegen",
+     "groupKey": "action-point-regen",
+     "groupLabel": "Action Point Regen"
+    },
+    {
+     "formId": "0045411E",
+     "edid": "Nukashine_FortifySprintAP",
+     "full": "Reduce Sprint AP Cost",
+     "dnam": "",
+     "magnitude": 80.0,
+     "duration": 120.0,
+     "magGlob": null,
+     "durGlob": "NukashineDurationGlobal",
+     "name": "Reduce Sprint AP Cost",
+     "polarity": "buff",
+     "durationDisplay": "2 min",
+     "display": "+80 Sprint AP Cost",
+     "groupKey": "sprint-ap-cost",
+     "groupLabel": "Sprint AP Cost"
+    },
+    {
+     "formId": "00134836",
+     "edid": "SURV_Drink_Effect",
+     "full": "SURV_Drink_Effect",
+     "dnam": "",
+     "magnitude": 900.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+     "durGlob": null,
+     "name": "Quench Thirst",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Quenches thirst (900/15 min)",
+     "groupKey": null,
+     "groupLabel": null
+    },
+    {
+     "formId": "00245EF2",
+     "edid": "AddictionOddsAlcohol",
+     "full": "Chance Addiction Alcohol",
+     "dnam": "",
+     "magnitude": 20.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Chance Addiction Alcohol",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "20% chance of addiction",
+     "groupKey": null,
+     "groupLabel": null
+    },
+    {
+     "formId": "00024056",
+     "edid": "DamageRadiationEating",
+     "full": "Eating: Radiation Damage",
+     "dnam": "",
+     "magnitude": 30.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Food_RadiationDamage_Mag_5_Extreme",
+     "durGlob": null,
+     "name": "Rads",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "+30 Rads",
+     "groupKey": null,
+     "groupLabel": null
+    }
+   ],
+   "effectGroups": [
+    "action-point-regen",
+    "fall-speed-damage",
+    "sprint-ap-cost"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": false,
+     "lines": [
+      "Recipe: Not in Game"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "Note: This is the fermentable form — craft it, then let it ferment into the drinkable version.",
+      "Spoils into: Vintage Nukashine"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Drink",
+     "Weight: 1",
+     "Value: 5 caps",
+     "Addiction: Alcohol Addiction"
+    ],
+    "ids": [
+     "EDID: Brew_NukashineFresh",
+     "FormID: 0047BC14",
+     "MGEF 0047BC0D: Nukashine_AdjustFallSpeed",
+     "MGEF 0047BC12: Nukashine_APRegen",
+     "MGEF 0045411E: Nukashine_FortifySprintAP",
+     "MGEF 00134836: SURV_Drink_Effect",
+     "MGEF 00245EF2: AddictionOddsAlcohol",
+     "MGEF 00024056: DamageRadiationEating",
+     "Keywords: BlockPartyBoyPerk, BlockQuackSurgeon, BlockSuperDuperPerk, BypassBleedoutOnKill, DrinkTypeAlcohol, DrinkTypeLiquor, FermenterItem, NukashineAlcoholType, ObjectTypeDrink, SpiritAlcoholType"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "005FD9A7",
+   "edid": "SCORE_Brew_NukashineVintage_SugarFree",
+   "name": "Sugar-Free Nukashine",
+   "gameName": "Sugar-Free Nukashine",
+   "description": "Increases Fists DMG 100%, decreases Sprint AP cost, and increases AP Regen 50%. Warning: Now with no blackouts!",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/nuka-cola/sugar-free-nukashine.avif",
+   "objectType": "Drink",
+   "diet": "None",
+   "weight": 1.0,
+   "value": 0,
+   "effects": [
+    {
+     "formId": "00400B33",
+     "edid": "Nukashine_DamageResist",
+     "full": "Fortify Damage Resist",
+     "dnam": "",
+     "magnitude": 25.0,
+     "duration": 120.0,
+     "magGlob": null,
+     "durGlob": "NukashineDurationGlobal",
+     "name": "Fortify Damage Resist",
+     "polarity": "buff",
+     "durationDisplay": "2 min",
+     "display": "+25 Damage Resist",
+     "groupKey": "damage-resistance",
+     "groupLabel": "Damage Resistance"
+    },
+    {
+     "formId": "0047F57A",
+     "edid": "Nukashine_FortifyUnarmedDamage",
+     "full": "Fortify Fists Damage",
+     "dnam": "",
+     "magnitude": 100.0,
+     "duration": 120.0,
+     "magGlob": null,
+     "durGlob": "NukashineDurationGlobal",
+     "name": "Fortify Fists Damage",
+     "polarity": "buff",
+     "durationDisplay": "2 min",
+     "display": "+100 Fists Damage",
+     "groupKey": "unarmed-damage",
+     "groupLabel": "Unarmed Damage"
+    },
+    {
+     "formId": "0047BC0D",
+     "edid": "Nukashine_AdjustFallSpeed",
+     "full": "Fortify",
+     "dnam": "",
+     "magnitude": 0.25,
+     "duration": 120.0,
+     "magGlob": null,
+     "durGlob": "NukashineDurationGlobal",
+     "name": "Nukashine Adjust Fall Speed",
+     "polarity": "buff",
+     "durationDisplay": "2 min",
+     "display": "Nukashine Adjust Fall Speed ×0.25",
+     "groupKey": "fall-speed-damage",
+     "groupLabel": "Fall Speed & Damage"
+    },
+    {
+     "formId": "0047BC12",
+     "edid": "Nukashine_APRegen",
+     "full": "Regen",
+     "dnam": "",
+     "magnitude": 5.0,
+     "duration": 120.0,
+     "magGlob": null,
+     "durGlob": "NukashineDurationGlobal",
+     "name": "Nukashine APRegen",
+     "polarity": "buff",
+     "durationDisplay": "2 min",
+     "display": "+5 Nukashine APRegen",
+     "groupKey": "action-point-regen",
+     "groupLabel": "Action Point Regen"
+    },
+    {
+     "formId": "0045411E",
+     "edid": "Nukashine_FortifySprintAP",
+     "full": "Reduce Sprint AP Cost",
+     "dnam": "",
+     "magnitude": 80.0,
+     "duration": 120.0,
+     "magGlob": null,
+     "durGlob": "NukashineDurationGlobal",
+     "name": "Reduce Sprint AP Cost",
+     "polarity": "buff",
+     "durationDisplay": "2 min",
+     "display": "+80 Sprint AP Cost",
+     "groupKey": "sprint-ap-cost",
+     "groupLabel": "Sprint AP Cost"
+    },
+    {
+     "formId": "00134836",
+     "edid": "SURV_Drink_Effect",
+     "full": "SURV_Drink_Effect",
+     "dnam": "",
+     "magnitude": 900.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+     "durGlob": null,
+     "name": "Quench Thirst",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Quenches thirst (900/15 min)",
+     "groupKey": null,
+     "groupLabel": null
+    },
+    {
+     "formId": "00245EF2",
+     "edid": "AddictionOddsAlcohol",
+     "full": "Chance Addiction Alcohol",
+     "dnam": "",
+     "magnitude": 20.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Chance Addiction Alcohol",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "20% chance of addiction",
+     "groupKey": null,
+     "groupLabel": null
+    },
+    {
+     "formId": "00024056",
+     "edid": "DamageRadiationEating",
+     "full": "Eating: Radiation Damage",
+     "dnam": "",
+     "magnitude": 30.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Food_RadiationDamage_Mag_5_Extreme",
+     "durGlob": null,
+     "name": "Rads",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "+30 Rads",
+     "groupKey": null,
+     "groupLabel": null
+    }
+   ],
+   "effectGroups": [
+    "action-point-regen",
+    "damage-resistance",
+    "fall-speed-damage",
+    "sprint-ap-cost",
+    "unarmed-damage"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": false,
+     "lines": [
+      "Recipe: Not in Game"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "No separate fresh or raw variant — the crafted item is the only form."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Drink",
+     "Weight: 1",
+     "Value: 0 caps",
+     "Addiction: Alcohol Addiction"
+    ],
+    "ids": [
+     "EDID: SCORE_Brew_NukashineVintage_SugarFree",
+     "FormID: 005FD9A7",
+     "MGEF 00400B33: Nukashine_DamageResist",
+     "MGEF 0047F57A: Nukashine_FortifyUnarmedDamage",
+     "MGEF 0047BC0D: Nukashine_AdjustFallSpeed",
+     "MGEF 0047BC12: Nukashine_APRegen",
+     "MGEF 0045411E: Nukashine_FortifySprintAP",
+     "MGEF 00134836: SURV_Drink_Effect",
+     "MGEF 00245EF2: AddictionOddsAlcohol",
+     "MGEF 00024056: DamageRadiationEating",
+     "Keywords: BlockPartyBoyPerk, BlockQuackSurgeon, BlockSuperDuperPerk, BypassBleedoutOnKill, DrinkTypeAlcohol, DrinkTypeLiquor, NukashineAlcoholType, ObjectTypeDrink, SpiritAlcoholType, UnsellableObject, VintageAlcoholType"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "0047BC08",
+   "edid": "Brew_NukashineVintage",
+   "name": "Vintage Nukashine",
+   "gameName": "Vintage Nukashine",
+   "description": "Increases Fists DMG 100%, decreases Sprint AP cost and increases AP Regen 50%. Warning: May cause blackouts.",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/nuka-cola/vintage-nukashine.avif",
+   "objectType": "Drink",
+   "diet": "None",
+   "weight": 1.0,
+   "value": 5,
+   "effects": [
+    {
+     "formId": "00400B33",
+     "edid": "Nukashine_DamageResist",
+     "full": "Fortify Damage Resist",
+     "dnam": "",
+     "magnitude": 25.0,
+     "duration": 120.0,
+     "magGlob": null,
+     "durGlob": "NukashineDurationGlobal",
+     "name": "Fortify Damage Resist",
+     "polarity": "buff",
+     "durationDisplay": "2 min",
+     "display": "+25 Damage Resist",
+     "groupKey": "damage-resistance",
+     "groupLabel": "Damage Resistance"
+    },
+    {
+     "formId": "0047F57A",
+     "edid": "Nukashine_FortifyUnarmedDamage",
+     "full": "Fortify Fists Damage",
+     "dnam": "",
+     "magnitude": 100.0,
+     "duration": 120.0,
+     "magGlob": null,
+     "durGlob": "NukashineDurationGlobal",
+     "name": "Fortify Fists Damage",
+     "polarity": "buff",
+     "durationDisplay": "2 min",
+     "display": "+100 Fists Damage",
+     "groupKey": "unarmed-damage",
+     "groupLabel": "Unarmed Damage"
+    },
+    {
+     "formId": "0047BC0D",
+     "edid": "Nukashine_AdjustFallSpeed",
+     "full": "Fortify",
+     "dnam": "",
+     "magnitude": 0.25,
+     "duration": 120.0,
+     "magGlob": null,
+     "durGlob": "NukashineDurationGlobal",
+     "name": "Nukashine Adjust Fall Speed",
+     "polarity": "buff",
+     "durationDisplay": "2 min",
+     "display": "Nukashine Adjust Fall Speed ×0.25",
+     "groupKey": "fall-speed-damage",
+     "groupLabel": "Fall Speed & Damage"
+    },
+    {
+     "formId": "0047BC12",
+     "edid": "Nukashine_APRegen",
+     "full": "Regen",
+     "dnam": "",
+     "magnitude": 5.0,
+     "duration": 120.0,
+     "magGlob": null,
+     "durGlob": "NukashineDurationGlobal",
+     "name": "Nukashine APRegen",
+     "polarity": "buff",
+     "durationDisplay": "2 min",
+     "display": "+5 Nukashine APRegen",
+     "groupKey": "action-point-regen",
+     "groupLabel": "Action Point Regen"
+    },
+    {
+     "formId": "0045411E",
+     "edid": "Nukashine_FortifySprintAP",
+     "full": "Reduce Sprint AP Cost",
+     "dnam": "",
+     "magnitude": 80.0,
+     "duration": 120.0,
+     "magGlob": null,
+     "durGlob": "NukashineDurationGlobal",
+     "name": "Reduce Sprint AP Cost",
+     "polarity": "buff",
+     "durationDisplay": "2 min",
+     "display": "+80 Sprint AP Cost",
+     "groupKey": "sprint-ap-cost",
+     "groupLabel": "Sprint AP Cost"
+    },
+    {
+     "formId": "00134836",
+     "edid": "SURV_Drink_Effect",
+     "full": "SURV_Drink_Effect",
+     "dnam": "",
+     "magnitude": 900.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+     "durGlob": null,
+     "name": "Quench Thirst",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Quenches thirst (900/15 min)",
+     "groupKey": null,
+     "groupLabel": null
+    },
+    {
+     "formId": "00245EF2",
+     "edid": "AddictionOddsAlcohol",
+     "full": "Chance Addiction Alcohol",
+     "dnam": "",
+     "magnitude": 20.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Chance Addiction Alcohol",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "20% chance of addiction",
+     "groupKey": null,
+     "groupLabel": null
+    },
+    {
+     "formId": "00024056",
+     "edid": "DamageRadiationEating",
+     "full": "Eating: Radiation Damage",
+     "dnam": "",
+     "magnitude": 30.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Food_RadiationDamage_Mag_5_Extreme",
+     "durGlob": null,
+     "name": "Rads",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "+30 Rads",
+     "groupKey": null,
+     "groupLabel": null
+    }
+   ],
+   "effectGroups": [
+    "action-point-regen",
+    "damage-resistance",
+    "fall-speed-damage",
+    "sprint-ap-cost",
+    "unarmed-damage"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": false,
+     "lines": [
+      "Recipe: Not in Game"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "No separate fresh or raw variant — the crafted item is the only form."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Drink",
+     "Weight: 1",
+     "Value: 5 caps",
+     "Addiction: Alcohol Addiction"
+    ],
+    "ids": [
+     "EDID: Brew_NukashineVintage",
+     "FormID: 0047BC08",
+     "MGEF 00400B33: Nukashine_DamageResist",
+     "MGEF 0047F57A: Nukashine_FortifyUnarmedDamage",
+     "MGEF 0047BC0D: Nukashine_AdjustFallSpeed",
+     "MGEF 0047BC12: Nukashine_APRegen",
+     "MGEF 0045411E: Nukashine_FortifySprintAP",
+     "MGEF 00134836: SURV_Drink_Effect",
+     "MGEF 00245EF2: AddictionOddsAlcohol",
+     "MGEF 00024056: DamageRadiationEating",
+     "Keywords: BlockPartyBoyPerk, BlockQuackSurgeon, BlockSuperDuperPerk, BypassBleedoutOnKill, DrinkTypeAlcohol, DrinkTypeLiquor, NukashineAlcoholType, ObjectTypeDrink, SpiritAlcoholType, VintageAlcoholType"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "0083A263",
+   "edid": "Burn_Bounty_IcedNukaCola",
+   "name": "Volatile Nuka Quantum",
+   "gameName": "Volatile Nuka Quantum",
+   "description": "A refreshing ice cold bottle of nuka cola quantum gifted from the Nuka-Queen. Drink it quickly, or there will be consequences",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/nuka-cola/volatile-nuka-quantum.avif",
+   "objectType": "Drink",
+   "diet": "None",
+   "weight": 0.0,
+   "value": 0,
+   "effects": [
+    {
+     "formId": "0083A26E",
+     "edid": "Burn_Bounty_IcedNukaCola_EF",
+     "full": "Cola Drinker",
+     "dnam": "",
+     "magnitude": 0.0,
+     "duration": 10.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Cola Drinker",
+     "polarity": "buff",
+     "durationDisplay": "10s",
+     "display": "Cola Drinker",
+     "groupKey": "cola-drinker",
+     "groupLabel": "Cola Drinker"
+    }
+   ],
+   "effectGroups": [
+    "cola-drinker"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": false,
+     "lines": [
+      "Recipe: Not in Game"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "No separate fresh or raw variant — the crafted item is the only form."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Drink",
+     "Weight: 0",
+     "Value: 0 caps"
+    ],
+    "ids": [
+     "EDID: Burn_Bounty_IcedNukaCola",
+     "FormID: 0083A263",
+     "MGEF 0083A26E: Burn_Bounty_IcedNukaCola_EF",
+     "Keywords: DrinkTypeSoda, DrinkTypeSodaIcon, FeaturedItem, ObjectTypeDrink"
+    ]
+   },
+   "status": "live"
+  }
+ ]
+}

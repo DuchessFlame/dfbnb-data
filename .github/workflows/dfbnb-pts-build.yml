@@ -886,6 +886,22 @@ jobs:
       - name: Build All Farming Spawns JSON
         run: python src/build_farming_spawns_json.py --all
 
+      # --- CHAINSAW SPAWNS (Weapons - Chainsaws hub + location guides) ---
+      # The first WEAPON spawn family. build_chainsaw_spawns_json.py seeds from the
+      # Chainsaw's WEAP record and resolves everything else from the committed exports:
+      # the LVLI closure (containers / event + raid reward pools / vendors), the stat line
+      # and level-scaled damage curve, and every OMOD that targets the weapon's own mod
+      # archetypes together with the COBJ plan that teaches it.
+      # Must run AFTER Camp Items, Vendors and Curves — the producer cards, the vendor
+      # join and the base-damage table read dist/collectrons.json, dist/resource_producers.json,
+      # dist/vendors.json and dist/curves/.
+      # Like every other spawn build it runs in CI CACHE mode: coordinates and regions come
+      # from the committed data/chainsaw_spawns/geo_cache.json, so the Mappalachia DB is NOT
+      # needed in CI. The cache only changes when DuchessFlame re-runs this locally with the
+      # DB. Hand-filled per-spawn directions/images are merge-preserved on every rebuild.
+      - name: Build Chainsaw Spawns JSON
+        run: python src/build_chainsaw_spawns_json.py
+
       # --- CULT OF THE LAMB ---
       - name: Build Cult of the Lamb JSON
         run: python src/build_cult_of_the_lamb_json.py
@@ -1156,6 +1172,9 @@ jobs:
           test -f dist/nuka_cola_spawns_nuka-cola.json && echo "OK nuka_cola_spawns_nuka-cola.json" || (echo "MISSING nuka_cola_spawns_nuka-cola.json" && exit 1)
           test -f data/nuka_cola_spawns/geo_cache.json && echo "OK nuka_cola_spawns/geo_cache.json" || echo "WARN nuka geo_cache not seeded — Nuka pages rebuild from committed dist until a local Mappalachia DB pass seeds it"
           test -f data/vendors/geo_cache.json         && echo "OK vendors/geo_cache.json" || echo "WARN vendors geo_cache not seeded — vendor marker/region blank until a local Mappalachia DB pass seeds it"
+          test -f dist/chainsaws.json                 && echo "OK chainsaws.json"                 || (echo "MISSING chainsaws.json" && exit 1)
+          test -f dist/chainsaws/chainsaw.json        && echo "OK chainsaws/chainsaw.json"        || (echo "MISSING chainsaws/chainsaw.json" && exit 1)
+          test -f data/chainsaw_spawns/geo_cache.json && echo "OK chainsaw_spawns/geo_cache.json" || echo "WARN chainsaw geo_cache not seeded — Fixed Spawn Locations stays empty until a local Mappalachia DB pass seeds it"
           # Farming spawns — check every item in config (soft-warn, geo cache may not be seeded yet)
           for f in dist/farming_spawns/*_spawns.json; do test -f "$f" && echo "OK $f" || echo "WARN $f not built"; done
           for f in data/farming_spawns/geo_cache_*.json; do test -f "$f" && echo "OK $f" || echo "WARN $f not seeded"; done

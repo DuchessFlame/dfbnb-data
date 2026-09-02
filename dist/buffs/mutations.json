@@ -1,0 +1,2197 @@
+{
+ "version": "2026-09-01",
+ "generated": "2026-09-01T14:55:08+00:00",
+ "page": "mutations",
+ "title": "Mutation Buffs",
+ "url": "/bnb/buffs/mutations/mutation-buffs/",
+ "blurb": "Every mutation, its positive and negative effects, and the serum that grants it. A-Z.",
+ "countNoun": "mutations",
+ "sourceAlch": "ALCH_Export_August_2026.tsv",
+ "sourceMgef": "MGEF_Export_July_2026.tsv",
+ "mode": "items-abc",
+ "groups": [],
+ "items": [
+  {
+   "formId": "004E1F14",
+   "edid": "Mutation_AdrenalReaction",
+   "name": "Adrenal Reaction Mutation",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/mutations/adrenal-reaction.avif",
+   "objectType": "Mutation",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "004F6AB0",
+     "edid": "abPerkFortifyDmgAll",
+     "full": "Fortify All Damage",
+     "dnam": "",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify All Damage",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Fortify All Damage",
+     "groupKey": "all-damage",
+     "groupLabel": "All Damage"
+    },
+    {
+     "formId": "0080B570",
+     "edid": "abEnableKillStreak",
+     "full": "Kill Streak",
+     "dnam": "",
+     "magnitude": 1.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Kill Streak",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+1 Kill Streak",
+     "groupKey": "kill-streak",
+     "groupLabel": "Kill Streak"
+    },
+    {
+     "formId": "004E1F19",
+     "edid": "Mutation_AdrenalReaction_TextDummy",
+     "full": "Normal Dmg Text",
+     "dnam": "+5% DMG per kill while on a Kill Streak",
+     "magnitude": 1.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Normal Dmg Text",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+5% DMG per kill while on a Kill Streak",
+     "groupKey": "normal-dmg-text",
+     "groupLabel": "Normal Dmg Text"
+    },
+    {
+     "formId": "004E1F18",
+     "edid": "Mutation_ReduceMaxHealth",
+     "full": "Mutation: Reduce",
+     "dnam": "<+MAG> <ITEM1.ABBR>",
+     "magnitude": 50.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Reduce Max Health",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "-50 Max Health",
+     "groupKey": "reduce-max-health",
+     "groupLabel": "Reduce Max Health"
+    },
+    {
+     "formId": "003D0127",
+     "edid": "Mutation_AdrenalReaction_TextDummySuper",
+     "full": "Super Dmg Text",
+     "dnam": "+6.25% DMG per kill while on a Kill Streak",
+     "magnitude": 1.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Super Dmg Text",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+6.25% DMG per kill while on a Kill Streak",
+     "groupKey": "super-dmg-text",
+     "groupLabel": "Super Dmg Text"
+    }
+   ],
+   "effectGroups": [
+    "all-damage",
+    "kill-streak",
+    "normal-dmg-text",
+    "reduce-max-health",
+    "super-dmg-text"
+   ],
+   "summaryLines": [],
+   "obtainRoutes": [
+    {
+     "route": "Serum",
+     "populated": true,
+     "lines": [
+      "Item: Adrenal Reaction Serum",
+      "Vendor: Purchasable from the MODUS Pharmacy in the Whitespring Bunker, or crafted at a Chemistry Station with the recipe.",
+      "Note: A serum grants the mutation with none of its negative effects for one hour."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Radiation",
+     "populated": true,
+     "lines": [
+      "Fresh: Take radiation damage and the game rolls a random mutation from the pool. Starched Genes prevents new mutations, so unequip it before farming rads.",
+      "Note: A mutation gained this way carries its negative effects unless you also hold a serum or the Class Freak perk."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Mutation",
+     "Serum: Adrenal Reaction Serum",
+     "Effect magnitude: n/a",
+     "With a serum: n/a"
+    ],
+    "ids": [
+     "SPEL EDID: Mutation_AdrenalReaction",
+     "SPEL FormID: 004E1F14",
+     "MGEF 004F6AB0: abPerkFortifyDmgAll",
+     "MGEF 0080B570: abEnableKillStreak",
+     "MGEF 004E1F19: Mutation_AdrenalReaction_TextDummy",
+     "MGEF 004E1F18: Mutation_ReduceMaxHealth",
+     "MGEF 003D0127: Mutation_AdrenalReaction_TextDummySuper"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "003C403D",
+   "edid": "Mutation_BirdBones",
+   "name": "Bird Bones Mutation",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/mutations/bird-bones.avif",
+   "objectType": "Mutation",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "003C4042",
+     "edid": "Mutation_FortifyAgility",
+     "full": "Mutation: Fortify",
+     "dnam": "<+MAG> <ITEM1.ABBR>",
+     "magnitude": 4.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify Agility",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+4 Agility (+5 Agility with a serum)",
+     "groupKey": "fortify-agility",
+     "groupLabel": "Fortify Agility",
+     "serumMagnitude": 5.0
+    },
+    {
+     "formId": "0034D237",
+     "edid": "Mutation_ReduceFallDamage",
+     "full": "Mutation: Reduce Fall Damage",
+     "dnam": "",
+     "magnitude": 0.9,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Reduce Fall Damage",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "Fall Damage ×0.9 (Fall Damage ×0.95 with a serum)",
+     "groupKey": "fall-speed-damage",
+     "groupLabel": "Fall Speed & Damage",
+     "serumMagnitude": 0.95
+    },
+    {
+     "formId": "0034D2BF",
+     "edid": "Mutation_ReduceFallSpeed",
+     "full": "Mutation: Reduce Fall Speed",
+     "dnam": "",
+     "magnitude": 0.45,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Reduce Fall Speed",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "Fall Speed ×0.45 (Fall Speed ×0.65 with a serum)",
+     "groupKey": "fall-speed-damage",
+     "groupLabel": "Fall Speed & Damage",
+     "serumMagnitude": 0.65
+    },
+    {
+     "formId": "003C4038",
+     "edid": "Mutation_ReduceStrength",
+     "full": "Mutation: Reduce",
+     "dnam": "<+MAG> <ITEM1.ABBR>",
+     "magnitude": 4.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Reduce Strength",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "-4 Strength",
+     "groupKey": "reduce-strength",
+     "groupLabel": "Reduce Strength"
+    }
+   ],
+   "effectGroups": [
+    "fall-speed-damage",
+    "fall-speed-damage",
+    "fortify-agility",
+    "reduce-strength"
+   ],
+   "summaryLines": [],
+   "obtainRoutes": [
+    {
+     "route": "Serum",
+     "populated": true,
+     "lines": [
+      "Item: Bird Bones Serum",
+      "Vendor: Purchasable from the MODUS Pharmacy in the Whitespring Bunker, or crafted at a Chemistry Station with the recipe.",
+      "Note: A serum grants the mutation with none of its negative effects for one hour."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Radiation",
+     "populated": true,
+     "lines": [
+      "Fresh: Take radiation damage and the game rolls a random mutation from the pool. Starched Genes prevents new mutations, so unequip it before farming rads.",
+      "Note: A mutation gained this way carries its negative effects unless you also hold a serum or the Class Freak perk."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Mutation",
+     "Serum: Bird Bones Serum",
+     "Effect magnitude: 4 – 5",
+     "With a serum: 4 – 5"
+    ],
+    "ids": [
+     "SPEL EDID: Mutation_BirdBones",
+     "SPEL FormID: 003C403D",
+     "MGEF 003C4042: Mutation_FortifyAgility",
+     "MGEF 0034D237: Mutation_ReduceFallDamage",
+     "MGEF 0034D2BF: Mutation_ReduceFallSpeed",
+     "MGEF 003C4038: Mutation_ReduceStrength"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "003C4049",
+   "edid": "Mutation_Carnivore",
+   "name": "Carnivore Mutation",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/mutations/carnivore.avif",
+   "objectType": "Mutation",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "003C4050",
+     "edid": "Mutation_EatAllTheMeat",
+     "full": "Mutation: Double Meat Benefits",
+     "dnam": "",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Double Meat Benefits",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Double Meat Benefits",
+     "groupKey": "double-meat-benefits",
+     "groupLabel": "Double Meat Benefits"
+    },
+    {
+     "formId": "003C4052",
+     "edid": "Mutation_EatSafeMeat",
+     "full": "Mutation: No Meat Disease",
+     "dnam": "Immune to Disease and Rads from Meat",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "No Meat Disease",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "No Meat Disease",
+     "groupKey": "no-meat-disease",
+     "groupLabel": "No Meat Disease"
+    },
+    {
+     "formId": "003C404D",
+     "edid": "Mutation_EatNoVeggies",
+     "full": "Mutation: No Veggies",
+     "dnam": "No benefits from Veggies",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "No Veggies",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "No Veggies",
+     "groupKey": "no-veggies",
+     "groupLabel": "No Veggies"
+    }
+   ],
+   "effectGroups": [
+    "double-meat-benefits",
+    "no-meat-disease",
+    "no-veggies"
+   ],
+   "summaryLines": [
+    "Effect magnitude: 2 – 2.5"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Serum",
+     "populated": true,
+     "lines": [
+      "Item: Carnivore Serum",
+      "Vendor: Purchasable from the MODUS Pharmacy in the Whitespring Bunker, or crafted at a Chemistry Station with the recipe.",
+      "Note: A serum grants the mutation with none of its negative effects for one hour."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Radiation",
+     "populated": true,
+     "lines": [
+      "Fresh: Take radiation damage and the game rolls a random mutation from the pool. Starched Genes prevents new mutations, so unequip it before farming rads.",
+      "Note: A mutation gained this way carries its negative effects unless you also hold a serum or the Class Freak perk."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Mutation",
+     "Serum: Carnivore Serum",
+     "Effect magnitude: 2 – 2.5",
+     "With a serum: 2 – 2.5"
+    ],
+    "ids": [
+     "SPEL EDID: Mutation_Carnivore",
+     "SPEL FormID: 003C4049",
+     "MGEF 003C4050: Mutation_EatAllTheMeat",
+     "MGEF 003C4052: Mutation_EatSafeMeat",
+     "MGEF 003C404D: Mutation_EatNoVeggies"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "004E4006",
+   "edid": "Mutation_Chameleon",
+   "name": "Chameleon Mutation",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/mutations/chameleon.avif",
+   "objectType": "Mutation",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "00490013",
+     "edid": "Mutation_ChameleonAudioEffect",
+     "full": "Chameleon Audio",
+     "dnam": "",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Chameleon Audio",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Chameleon Audio",
+     "groupKey": "stealth",
+     "groupLabel": "Stealth"
+    },
+    {
+     "formId": "008571A7",
+     "edid": "Mutation_Chameleon_StealthIcon",
+     "full": "",
+     "dnam": "",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Chameleon Stealth Icon",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Chameleon Stealth Icon",
+     "groupKey": "chameleon-stealth-icon",
+     "groupLabel": "Chameleon Stealth Icon"
+    },
+    {
+     "formId": "003D0128",
+     "edid": "Mutation_FortifyDamageResist_Hidden",
+     "full": "Mutation: Fortify",
+     "dnam": "",
+     "magnitude": 40.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify Damage Resist",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+40 Damage Resist",
+     "groupKey": "fortify-damage-resist",
+     "groupLabel": "Fortify Damage Resist"
+    },
+    {
+     "formId": "004E400A",
+     "edid": "Mutation_ChameleonEffect",
+     "full": "Stealth Field",
+     "dnam": "",
+     "magnitude": 99.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Stealth Field",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+99 Stealth Field",
+     "groupKey": "stealth",
+     "groupLabel": "Stealth"
+    },
+    {
+     "formId": "00437AE3",
+     "edid": "Mutation_Chameleon_AddOnAttackFlagPerk",
+     "full": "Watch for player attacks",
+     "dnam": "",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Watch for player attacks",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Watch for player attacks",
+     "groupKey": "watch-for-player-attacks",
+     "groupLabel": "Watch for Player Attacks"
+    }
+   ],
+   "effectGroups": [
+    "chameleon-stealth-icon",
+    "fortify-damage-resist",
+    "stealth",
+    "stealth",
+    "watch-for-player-attacks"
+   ],
+   "summaryLines": [],
+   "obtainRoutes": [
+    {
+     "route": "Serum",
+     "populated": true,
+     "lines": [
+      "Item: Chameleon Serum",
+      "Vendor: Purchasable from the MODUS Pharmacy in the Whitespring Bunker, or crafted at a Chemistry Station with the recipe.",
+      "Note: A serum grants the mutation with none of its negative effects for one hour."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Radiation",
+     "populated": true,
+     "lines": [
+      "Fresh: Take radiation damage and the game rolls a random mutation from the pool. Starched Genes prevents new mutations, so unequip it before farming rads.",
+      "Note: A mutation gained this way carries its negative effects unless you also hold a serum or the Class Freak perk."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Mutation",
+     "Serum: Chameleon Serum",
+     "Effect magnitude: 1",
+     "With a serum: 1"
+    ],
+    "ids": [
+     "SPEL EDID: Mutation_Chameleon",
+     "SPEL FormID: 004E4006",
+     "MGEF 00490013: Mutation_ChameleonAudioEffect",
+     "MGEF 008571A7: Mutation_Chameleon_StealthIcon",
+     "MGEF 003D0128: Mutation_FortifyDamageResist_Hidden",
+     "MGEF 004E400A: Mutation_ChameleonEffect",
+     "MGEF 00437AE3: Mutation_Chameleon_AddOnAttackFlagPerk"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "003C4037",
+   "edid": "Mutation_EagleEyes",
+   "name": "Eagle Eyes Mutation",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/mutations/eagle-eyes.avif",
+   "objectType": "Mutation",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "003C403B",
+     "edid": "Mutation_FortifyCrits",
+     "full": "Mutation: Fortify Critical Damage",
+     "dnam": "<+MAG> <ITEM1.ABBR>",
+     "magnitude": 50.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify Critical Damage",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+50 Critical Damage (+62 Critical Damage with a serum)",
+     "groupKey": "critical-damage",
+     "groupLabel": "Critical Damage",
+     "serumMagnitude": 62.5
+    },
+    {
+     "formId": "003C403A",
+     "edid": "Mutation_FortifyPerception",
+     "full": "Mutation: Fortify",
+     "dnam": "<+MAG> <ITEM1.ABBR>",
+     "magnitude": 4.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify Perception",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+4 Perception (+5 Perception with a serum)",
+     "groupKey": "fortify-perception",
+     "groupLabel": "Fortify Perception",
+     "serumMagnitude": 5.0
+    },
+    {
+     "formId": "003C4038",
+     "edid": "Mutation_ReduceStrength",
+     "full": "Mutation: Reduce",
+     "dnam": "<+MAG> <ITEM1.ABBR>",
+     "magnitude": 4.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Reduce Strength",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "-4 Strength",
+     "groupKey": "reduce-strength",
+     "groupLabel": "Reduce Strength"
+    }
+   ],
+   "effectGroups": [
+    "critical-damage",
+    "fortify-perception",
+    "reduce-strength"
+   ],
+   "summaryLines": [],
+   "obtainRoutes": [
+    {
+     "route": "Serum",
+     "populated": true,
+     "lines": [
+      "Item: Eagle Eyes Serum",
+      "Vendor: Purchasable from the MODUS Pharmacy in the Whitespring Bunker, or crafted at a Chemistry Station with the recipe.",
+      "Note: A serum grants the mutation with none of its negative effects for one hour."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Radiation",
+     "populated": true,
+     "lines": [
+      "Fresh: Take radiation damage and the game rolls a random mutation from the pool. Starched Genes prevents new mutations, so unequip it before farming rads.",
+      "Note: A mutation gained this way carries its negative effects unless you also hold a serum or the Class Freak perk."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Mutation",
+     "Serum: Eagle Eyes Serum",
+     "Effect magnitude: n/a",
+     "With a serum: n/a"
+    ],
+    "ids": [
+     "SPEL EDID: Mutation_EagleEyes",
+     "SPEL FormID: 003C4037",
+     "MGEF 003C403B: Mutation_FortifyCrits",
+     "MGEF 003C403A: Mutation_FortifyPerception",
+     "MGEF 003C4038: Mutation_ReduceStrength"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "003C4045",
+   "edid": "Mutation_EggHead",
+   "name": "Egg Head Mutation",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/mutations/egg-head.avif",
+   "objectType": "Mutation",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "003C404A",
+     "edid": "Mutation_FortifyIntelligence",
+     "full": "Mutation: Fortify",
+     "dnam": "<+MAG> <ITEM1.ABBR>",
+     "magnitude": 6.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify Intelligence",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+6 Intelligence (+8 Intelligence with a serum)",
+     "groupKey": "fortify-intelligence",
+     "groupLabel": "Fortify Intelligence",
+     "serumMagnitude": 8.0
+    },
+    {
+     "formId": "003C4048",
+     "edid": "Mutation_ReduceEndurance",
+     "full": "Mutation: Reduce",
+     "dnam": "<+MAG> <ITEM1.ABBR>",
+     "magnitude": 3.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Reduce Endurance",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "-3 Endurance",
+     "groupKey": "reduce-endurance",
+     "groupLabel": "Reduce Endurance"
+    },
+    {
+     "formId": "003C4038",
+     "edid": "Mutation_ReduceStrength",
+     "full": "Mutation: Reduce",
+     "dnam": "<+MAG> <ITEM1.ABBR>",
+     "magnitude": 3.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Reduce Strength",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "-3 Strength",
+     "groupKey": "reduce-strength",
+     "groupLabel": "Reduce Strength"
+    }
+   ],
+   "effectGroups": [
+    "fortify-intelligence",
+    "reduce-endurance",
+    "reduce-strength"
+   ],
+   "summaryLines": [],
+   "obtainRoutes": [
+    {
+     "route": "Serum",
+     "populated": true,
+     "lines": [
+      "Item: Egg Head Serum",
+      "Vendor: Purchasable from the MODUS Pharmacy in the Whitespring Bunker, or crafted at a Chemistry Station with the recipe.",
+      "Note: A serum grants the mutation with none of its negative effects for one hour."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Radiation",
+     "populated": true,
+     "lines": [
+      "Fresh: Take radiation damage and the game rolls a random mutation from the pool. Starched Genes prevents new mutations, so unequip it before farming rads.",
+      "Note: A mutation gained this way carries its negative effects unless you also hold a serum or the Class Freak perk."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Mutation",
+     "Serum: Egg Head Serum",
+     "Effect magnitude: n/a",
+     "With a serum: n/a"
+    ],
+    "ids": [
+     "SPEL EDID: Mutation_EggHead",
+     "SPEL FormID: 003C4045",
+     "MGEF 003C404A: Mutation_FortifyIntelligence",
+     "MGEF 003C4048: Mutation_ReduceEndurance",
+     "MGEF 003C4038: Mutation_ReduceStrength"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "004E400D",
+   "edid": "Mutation_ElectricallyCharged",
+   "name": "Electrically Charged Mutation",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/mutations/electrically-charged.avif",
+   "objectType": "Mutation",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "004E4012",
+     "edid": "Mutation_ElectricallyChargedScriptEffect",
+     "full": "Mutation: Trigger Shock",
+     "dnam": "40% chance to deal 25 Energy DMG to melee attackers",
+     "magnitude": 1.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Trigger Shock",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "40% chance to deal 25 Energy DMG to melee attackers",
+     "groupKey": "trigger-shock",
+     "groupLabel": "Trigger Shock"
+    },
+    {
+     "formId": "00518507",
+     "edid": "Mutation_ElectricallyChargedSuperScriptEffect",
+     "full": "Mutation: Trigger Super Shock",
+     "dnam": "40% chance to deal 32 Energy DMG to melee attackers",
+     "magnitude": 1.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Trigger Super Shock",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "40% chance to deal 32 Energy DMG to melee attackers",
+     "groupKey": "trigger-super-shock",
+     "groupLabel": "Trigger Super Shock"
+    }
+   ],
+   "effectGroups": [
+    "trigger-shock",
+    "trigger-super-shock"
+   ],
+   "summaryLines": [],
+   "obtainRoutes": [
+    {
+     "route": "Serum",
+     "populated": true,
+     "lines": [
+      "Item: Electrically Charged Serum",
+      "Vendor: Purchasable from the MODUS Pharmacy in the Whitespring Bunker, or crafted at a Chemistry Station with the recipe.",
+      "Note: A serum grants the mutation with none of its negative effects for one hour."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Radiation",
+     "populated": true,
+     "lines": [
+      "Fresh: Take radiation damage and the game rolls a random mutation from the pool. Starched Genes prevents new mutations, so unequip it before farming rads.",
+      "Note: A mutation gained this way carries its negative effects unless you also hold a serum or the Class Freak perk."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Mutation",
+     "Serum: Electrically Charged Serum",
+     "Effect magnitude: n/a",
+     "With a serum: n/a"
+    ],
+    "ids": [
+     "SPEL EDID: Mutation_ElectricallyCharged",
+     "SPEL FormID: 004E400D",
+     "MGEF 004E4012: Mutation_ElectricallyChargedScriptEffect",
+     "MGEF 00518507: Mutation_ElectricallyChargedSuperScriptEffect"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "004E1F16",
+   "edid": "Mutation_Empath",
+   "name": "Empath Mutation",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/mutations/empath.avif",
+   "objectType": "Mutation",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "007AED01",
+     "edid": "abMutationEmpathStrength",
+     "full": "Empath Strength",
+     "dnam": "",
+     "magnitude": 1.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Empath Strength",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+1 Empath Strength (+2 Empath Strength with a serum)",
+     "groupKey": "strength",
+     "groupLabel": "Strength",
+     "serumMagnitude": 2.0
+    },
+    {
+     "formId": "004E1F1B",
+     "edid": "Mutation_EmpathEffect",
+     "full": "Mutation: Increased Damage Taken",
+     "dnam": "",
+     "magnitude": 50.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Increased Damage Taken",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+50 Increased Damage Taken",
+     "groupKey": "increased-damage-taken",
+     "groupLabel": "Increased Damage Taken"
+    }
+   ],
+   "effectGroups": [
+    "strength",
+    "increased-damage-taken"
+   ],
+   "summaryLines": [],
+   "obtainRoutes": [
+    {
+     "route": "Serum",
+     "populated": true,
+     "lines": [
+      "Item: Empath Serum",
+      "Vendor: Purchasable from the MODUS Pharmacy in the Whitespring Bunker, or crafted at a Chemistry Station with the recipe.",
+      "Note: A serum grants the mutation with none of its negative effects for one hour."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Radiation",
+     "populated": true,
+     "lines": [
+      "Fresh: Take radiation damage and the game rolls a random mutation from the pool. Starched Genes prevents new mutations, so unequip it before farming rads.",
+      "Note: A mutation gained this way carries its negative effects unless you also hold a serum or the Class Freak perk."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Mutation",
+     "Serum: Empath Serum",
+     "Effect magnitude: 25 – 33",
+     "With a serum: 25 – 33"
+    ],
+    "ids": [
+     "SPEL EDID: Mutation_Empath",
+     "SPEL FormID: 004E1F16",
+     "MGEF 007AED01: abMutationEmpathStrength",
+     "MGEF 004E1F1B: Mutation_EmpathEffect"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "004E4002",
+   "edid": "Mutation_Grounded",
+   "name": "Grounded Mutation",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/mutations/grounded.avif",
+   "objectType": "Mutation",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "004DF1D4",
+     "edid": "Mutation_FortifyEnergyResist",
+     "full": "Mutation: Fortify",
+     "dnam": "<+MAG> <ITEM1.ABBR>",
+     "magnitude": 100.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify Energy Resist",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+100 Energy Resist (+125 Energy Resist with a serum)",
+     "groupKey": "fortify-energy-resist",
+     "groupLabel": "Fortify Energy Resist",
+     "serumMagnitude": 125.0
+    },
+    {
+     "formId": "004E4005",
+     "edid": "Mutation_ReduceEnergyDamage",
+     "full": "Mutation: Reduce Energy Damage",
+     "dnam": "-<MAG>% Energy Gun DMG",
+     "magnitude": 50.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Reduce Energy Damage",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "-50% Energy Gun DMG",
+     "groupKey": "energy-damage",
+     "groupLabel": "Energy Damage"
+    }
+   ],
+   "effectGroups": [
+    "energy-damage",
+    "fortify-energy-resist"
+   ],
+   "summaryLines": [],
+   "obtainRoutes": [
+    {
+     "route": "Serum",
+     "populated": true,
+     "lines": [
+      "Item: Grounded Serum",
+      "Vendor: Purchasable from the MODUS Pharmacy in the Whitespring Bunker, or crafted at a Chemistry Station with the recipe.",
+      "Note: A serum grants the mutation with none of its negative effects for one hour."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Radiation",
+     "populated": true,
+     "lines": [
+      "Fresh: Take radiation damage and the game rolls a random mutation from the pool. Starched Genes prevents new mutations, so unequip it before farming rads.",
+      "Note: A mutation gained this way carries its negative effects unless you also hold a serum or the Class Freak perk."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Mutation",
+     "Serum: Grounded Serum",
+     "Effect magnitude: n/a",
+     "With a serum: n/a"
+    ],
+    "ids": [
+     "SPEL EDID: Mutation_Grounded",
+     "SPEL FormID: 004E4002",
+     "MGEF 004DF1D4: Mutation_FortifyEnergyResist",
+     "MGEF 004E4005: Mutation_ReduceEnergyDamage"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "004DF1DB",
+   "edid": "Mutation_HealingFactor",
+   "name": "Healing Factor Mutation",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/mutations/healing-factor.avif",
+   "objectType": "Mutation",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "004DF1DC",
+     "edid": "Mutation_ReduceChemEffect",
+     "full": "Mutation: Reduce Chem Effect",
+     "dnam": "-<MAG>% Chem Effects",
+     "magnitude": 55.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "- % Chem Effects",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "-55% Chem Effects",
+     "groupKey": "chem-effects",
+     "groupLabel": "- % Chem Effects"
+    },
+    {
+     "formId": "004DF1DD",
+     "edid": "Mutation_FortifyHealRate",
+     "full": "Fortify Heal Rate",
+     "dnam": "<+MAG> <ITEM1.ABBR>",
+     "magnitude": 3.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify Heal Rate",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+3 Heal Rate (+4 Heal Rate with a serum)",
+     "groupKey": "healing-rate",
+     "groupLabel": "Healing Rate",
+     "serumMagnitude": 3.75
+    }
+   ],
+   "effectGroups": [
+    "chem-effects",
+    "healing-rate"
+   ],
+   "summaryLines": [],
+   "obtainRoutes": [
+    {
+     "route": "Serum",
+     "populated": true,
+     "lines": [
+      "Item: Healing Factor Serum",
+      "Vendor: Purchasable from the MODUS Pharmacy in the Whitespring Bunker, or crafted at a Chemistry Station with the recipe.",
+      "Note: A serum grants the mutation with none of its negative effects for one hour."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Radiation",
+     "populated": true,
+     "lines": [
+      "Fresh: Take radiation damage and the game rolls a random mutation from the pool. Starched Genes prevents new mutations, so unequip it before farming rads.",
+      "Note: A mutation gained this way carries its negative effects unless you also hold a serum or the Class Freak perk."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Mutation",
+     "Serum: Healing Factor Serum",
+     "Effect magnitude: n/a",
+     "With a serum: n/a"
+    ],
+    "ids": [
+     "SPEL EDID: Mutation_HealingFactor",
+     "SPEL FormID: 004DF1DB",
+     "MGEF 004DF1DC: Mutation_ReduceChemEffect",
+     "MGEF 004DF1DD: Mutation_FortifyHealRate"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "003C404E",
+   "edid": "Mutation_Herbivore",
+   "name": "Herbivore Mutation",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/mutations/herbivore.avif",
+   "objectType": "Mutation",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "003C4053",
+     "edid": "Mutation_EatAllTheVeggies",
+     "full": "Mutation: Double Veggie Benefits",
+     "dnam": "",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Double Veggie Benefits",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Double Veggie Benefits",
+     "groupKey": "double-veggie-benefits",
+     "groupLabel": "Double Veggie Benefits"
+    },
+    {
+     "formId": "003C4055",
+     "edid": "Mutation_EatNoMeat",
+     "full": "Mutation: No Meat",
+     "dnam": "No benefits from Meat",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "No Meat",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "No Meat",
+     "groupKey": "no-meat",
+     "groupLabel": "No Meat"
+    },
+    {
+     "formId": "003C4056",
+     "edid": "Mutation_EatSafeVeggies",
+     "full": "Mutation: No Veggie Disease",
+     "dnam": "Immune to Disease and Rads from Veggies",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "No Veggie Disease",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "No Veggie Disease",
+     "groupKey": "no-veggie-disease",
+     "groupLabel": "No Veggie Disease"
+    }
+   ],
+   "effectGroups": [
+    "double-veggie-benefits",
+    "no-meat",
+    "no-veggie-disease"
+   ],
+   "summaryLines": [
+    "Effect magnitude: 2 – 2.5"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Serum",
+     "populated": true,
+     "lines": [
+      "Item: Herbivore Serum",
+      "Vendor: Purchasable from the MODUS Pharmacy in the Whitespring Bunker, or crafted at a Chemistry Station with the recipe.",
+      "Note: A serum grants the mutation with none of its negative effects for one hour."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Radiation",
+     "populated": true,
+     "lines": [
+      "Fresh: Take radiation damage and the game rolls a random mutation from the pool. Starched Genes prevents new mutations, so unequip it before farming rads.",
+      "Note: A mutation gained this way carries its negative effects unless you also hold a serum or the Class Freak perk."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Mutation",
+     "Serum: Herbivore Serum",
+     "Effect magnitude: 2 – 2.5",
+     "With a serum: 2 – 2.5"
+    ],
+    "ids": [
+     "SPEL EDID: Mutation_Herbivore",
+     "SPEL FormID: 003C404E",
+     "MGEF 003C4053: Mutation_EatAllTheVeggies",
+     "MGEF 003C4055: Mutation_EatNoMeat",
+     "MGEF 003C4056: Mutation_EatSafeVeggies"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "004E1F1E",
+   "edid": "Mutation_HerdMentality",
+   "name": "Herd Mentality Mutation",
+   "description": "-2 SPECIAL solo, +2 SPECIAL grouped",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/mutations/herd-mentality.avif",
+   "objectType": "Mutation",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "004E3FF5",
+     "edid": "Mutation_FortifyEndurance_Hidden",
+     "full": "Mutation: Fortify",
+     "dnam": "+<mag> Endurance",
+     "magnitude": 2.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "+ Endurance",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+2 Endurance (+3 Endurance with a serum)",
+     "groupKey": "endurance",
+     "groupLabel": "Endurance",
+     "serumMagnitude": 3.0
+    },
+    {
+     "formId": "004E3FF6",
+     "edid": "Mutation_FortifyIntelligence_Hidden",
+     "full": "Mutation: Fortify",
+     "dnam": "+<mag> Intelligence",
+     "magnitude": 2.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "+ Intelligence",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+2 Intelligence (+3 Intelligence with a serum)",
+     "groupKey": "intelligence",
+     "groupLabel": "Intelligence",
+     "serumMagnitude": 3.0
+    },
+    {
+     "formId": "004E3FF7",
+     "edid": "Mutation_FortifyLuck_Hidden",
+     "full": "Mutation: Fortify",
+     "dnam": "+<mag> Luck",
+     "magnitude": 2.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "+ Luck",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+2 Luck (+3 Luck with a serum)",
+     "groupKey": "luck",
+     "groupLabel": "Luck",
+     "serumMagnitude": 3.0
+    },
+    {
+     "formId": "004E3FF8",
+     "edid": "Mutation_FortifyPerception_Hidden",
+     "full": "Mutation: Fortify",
+     "dnam": "+<mag> Perception",
+     "magnitude": 2.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "+ Perception",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+2 Perception (+3 Perception with a serum)",
+     "groupKey": "perception",
+     "groupLabel": "Perception",
+     "serumMagnitude": 3.0
+    },
+    {
+     "formId": "004E3FF9",
+     "edid": "Mutation_FortifyStrength_Hidden",
+     "full": "Mutation: Fortify",
+     "dnam": "+<mag> Strength",
+     "magnitude": 2.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "+ Strength",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+2 Strength (+3 Strength with a serum)",
+     "groupKey": "strength",
+     "groupLabel": "Strength",
+     "serumMagnitude": 3.0
+    },
+    {
+     "formId": "004E3FFA",
+     "edid": "Mutation_ReduceAgility_Hidden",
+     "full": "Mutation: Reduce",
+     "dnam": "<mag> Agility",
+     "magnitude": 2.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Agility",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "-2 Agility",
+     "groupKey": "agility",
+     "groupLabel": "Agility"
+    },
+    {
+     "formId": "004E3FFB",
+     "edid": "Mutation_ReduceCharisma_Hidden",
+     "full": "Mutation: Reduce",
+     "dnam": "<mag> Charisma",
+     "magnitude": 2.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Charisma",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "-2 Charisma",
+     "groupKey": "charisma",
+     "groupLabel": "Charisma"
+    },
+    {
+     "formId": "004E3FFC",
+     "edid": "Mutation_ReduceEndurance_Hidden",
+     "full": "Mutation: Reduce",
+     "dnam": "<mag> Endurance",
+     "magnitude": 2.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Endurance",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "-2 Endurance",
+     "groupKey": "endurance",
+     "groupLabel": "Endurance"
+    },
+    {
+     "formId": "004E3FF3",
+     "edid": "Mutation_FortifyAgility_Hidden",
+     "full": "Mutation: Fortify",
+     "dnam": "",
+     "magnitude": 2.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify Agility",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+2 Agility (+3 Agility with a serum)",
+     "groupKey": "fortify-agility",
+     "groupLabel": "Fortify Agility",
+     "serumMagnitude": 3.0
+    },
+    {
+     "formId": "004E3FF4",
+     "edid": "Mutation_FortifyCharisma_Hidden",
+     "full": "Mutation: Fortify",
+     "dnam": "",
+     "magnitude": 2.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify Charisma",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+2 Charisma (+3 Charisma with a serum)",
+     "groupKey": "fortify-charisma",
+     "groupLabel": "Fortify Charisma",
+     "serumMagnitude": 3.0
+    },
+    {
+     "formId": "004E3FFD",
+     "edid": "Mutation_ReduceIntelligence_Hidden",
+     "full": "Mutation: Reduce",
+     "dnam": "<mag> Intelligence",
+     "magnitude": 2.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Intelligence",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "-2 Intelligence",
+     "groupKey": "intelligence",
+     "groupLabel": "Intelligence"
+    },
+    {
+     "formId": "004E3FFE",
+     "edid": "Mutation_ReduceLuck_Hidden",
+     "full": "Mutation: Reduce",
+     "dnam": "<mag> Luck",
+     "magnitude": 2.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Luck",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "-2 Luck",
+     "groupKey": "luck",
+     "groupLabel": "Luck"
+    },
+    {
+     "formId": "004E3FFF",
+     "edid": "Mutation_ReducePerception_Hidden",
+     "full": "Mutation: Reduce",
+     "dnam": "<mag> Perception",
+     "magnitude": 2.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Perception",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "-2 Perception",
+     "groupKey": "perception",
+     "groupLabel": "Perception"
+    },
+    {
+     "formId": "004E4000",
+     "edid": "Mutation_ReduceStrength_Hidden",
+     "full": "Mutation: Reduce",
+     "dnam": "<mag> Strength",
+     "magnitude": 2.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Strength",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "-2 Strength",
+     "groupKey": "strength",
+     "groupLabel": "Strength"
+    }
+   ],
+   "effectGroups": [
+    "strength",
+    "perception",
+    "endurance",
+    "charisma",
+    "intelligence",
+    "agility",
+    "luck",
+    "fortify-agility",
+    "fortify-charisma"
+   ],
+   "summaryLines": [
+    "-2 SPECIAL solo, +2 SPECIAL grouped"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Serum",
+     "populated": true,
+     "lines": [
+      "Item: Herd Mentality Serum",
+      "Vendor: Purchasable from the MODUS Pharmacy in the Whitespring Bunker, or crafted at a Chemistry Station with the recipe.",
+      "Note: A serum grants the mutation with none of its negative effects for one hour."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Radiation",
+     "populated": true,
+     "lines": [
+      "Fresh: Take radiation damage and the game rolls a random mutation from the pool. Starched Genes prevents new mutations, so unequip it before farming rads.",
+      "Note: A mutation gained this way carries its negative effects unless you also hold a serum or the Class Freak perk."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Mutation",
+     "Serum: Herd Mentality Serum",
+     "Effect magnitude: 2 – 3",
+     "With a serum: 2 – 3"
+    ],
+    "ids": [
+     "SPEL EDID: Mutation_HerdMentality",
+     "SPEL FormID: 004E1F1E",
+     "MGEF 004E3FF5: Mutation_FortifyEndurance_Hidden",
+     "MGEF 004E3FF6: Mutation_FortifyIntelligence_Hidden",
+     "MGEF 004E3FF7: Mutation_FortifyLuck_Hidden",
+     "MGEF 004E3FF8: Mutation_FortifyPerception_Hidden",
+     "MGEF 004E3FF9: Mutation_FortifyStrength_Hidden",
+     "MGEF 004E3FFA: Mutation_ReduceAgility_Hidden",
+     "MGEF 004E3FFB: Mutation_ReduceCharisma_Hidden",
+     "MGEF 004E3FFC: Mutation_ReduceEndurance_Hidden",
+     "MGEF 004E3FF3: Mutation_FortifyAgility_Hidden",
+     "MGEF 004E3FF4: Mutation_FortifyCharisma_Hidden",
+     "MGEF 004E3FFD: Mutation_ReduceIntelligence_Hidden",
+     "MGEF 004E3FFE: Mutation_ReduceLuck_Hidden",
+     "MGEF 004E3FFF: Mutation_ReducePerception_Hidden",
+     "MGEF 004E4000: Mutation_ReduceStrength_Hidden"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "004DF1CE",
+   "edid": "Mutation_Marsupial",
+   "name": "Marsupial Mutation",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/mutations/marsupial.avif",
+   "objectType": "Mutation",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "004DF1DE",
+     "edid": "Mutation_FortifyCarryWeight",
+     "full": "Fortify Carry Weight",
+     "dnam": "<+MAG> <ITEM1.ABBR>",
+     "magnitude": 20.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify Carry Weight",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+20 Carry Weight (+25 Carry Weight with a serum)",
+     "groupKey": "carry-weight",
+     "groupLabel": "Carry Weight",
+     "serumMagnitude": 25.0
+    },
+    {
+     "formId": "004DF1D0",
+     "edid": "Mutation_FortifyJumpHeight",
+     "full": "Fortify",
+     "dnam": "",
+     "magnitude": 3.2,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Jump Height",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+3 Jump Height (+4 Jump Height with a serum)",
+     "groupKey": "fortify-jump-height",
+     "groupLabel": "Fortify Jump Height",
+     "serumMagnitude": 4.0
+    },
+    {
+     "formId": "004DF1D1",
+     "edid": "Mutation_ReduceIntelligence",
+     "full": "Mutation: Reduce",
+     "dnam": "<+MAG> <ITEM1.ABBR>",
+     "magnitude": 4.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Reduce Intelligence",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "-4 Intelligence",
+     "groupKey": "reduce-intelligence",
+     "groupLabel": "Reduce Intelligence"
+    }
+   ],
+   "effectGroups": [
+    "carry-weight",
+    "fortify-jump-height",
+    "reduce-intelligence"
+   ],
+   "summaryLines": [],
+   "obtainRoutes": [
+    {
+     "route": "Serum",
+     "populated": true,
+     "lines": [
+      "Item: Marsupial Serum",
+      "Vendor: Purchasable from the MODUS Pharmacy in the Whitespring Bunker, or crafted at a Chemistry Station with the recipe.",
+      "Note: A serum grants the mutation with none of its negative effects for one hour."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Radiation",
+     "populated": true,
+     "lines": [
+      "Fresh: Take radiation damage and the game rolls a random mutation from the pool. Starched Genes prevents new mutations, so unequip it before farming rads.",
+      "Note: A mutation gained this way carries its negative effects unless you also hold a serum or the Class Freak perk."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Mutation",
+     "Serum: Marsupial Serum",
+     "Effect magnitude: n/a",
+     "With a serum: n/a"
+    ],
+    "ids": [
+     "SPEL EDID: Mutation_Marsupial",
+     "SPEL FormID: 004DF1CE",
+     "MGEF 004DF1DE: Mutation_FortifyCarryWeight",
+     "MGEF 004DF1D0: Mutation_FortifyJumpHeight",
+     "MGEF 004DF1D1: Mutation_ReduceIntelligence"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "004E4021",
+   "edid": "Mutation_PlagueWalker",
+   "name": "Plague Walker Mutation",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/mutations/plague-walker.avif",
+   "objectType": "Mutation",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "004E401F",
+     "edid": "Mutation_PlagueWalkerCloak",
+     "full": "Mutation: Poison Aura",
+     "dnam": "Poison Aura Scaling With Your Diseases",
+     "magnitude": 10.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Poison Aura",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+10 Poison Aura",
+     "groupKey": "poison-aura",
+     "groupLabel": "Poison Aura"
+    },
+    {
+     "formId": "003D012B",
+     "edid": "Mutation_PlagueWalkerCloakSuper",
+     "full": "Mutation: Poison Aura",
+     "dnam": "Poison Aura Scaling With Your Diseases",
+     "magnitude": 12.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Poison Aura",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+12 Poison Aura",
+     "groupKey": "poison-aura",
+     "groupLabel": "Poison Aura"
+    }
+   ],
+   "effectGroups": [
+    "poison-aura",
+    "poison-aura"
+   ],
+   "summaryLines": [],
+   "obtainRoutes": [
+    {
+     "route": "Serum",
+     "populated": true,
+     "lines": [
+      "Item: Plague Walker Serum",
+      "Vendor: Purchasable from the MODUS Pharmacy in the Whitespring Bunker, or crafted at a Chemistry Station with the recipe.",
+      "Note: A serum grants the mutation with none of its negative effects for one hour."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Radiation",
+     "populated": true,
+     "lines": [
+      "Fresh: Take radiation damage and the game rolls a random mutation from the pool. Starched Genes prevents new mutations, so unequip it before farming rads.",
+      "Note: A mutation gained this way carries its negative effects unless you also hold a serum or the Class Freak perk."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Mutation",
+     "Serum: Plague Walker Serum",
+     "Effect magnitude: n/a",
+     "With a serum: n/a"
+    ],
+    "ids": [
+     "SPEL EDID: Mutation_PlagueWalker",
+     "SPEL FormID: 004E4021",
+     "MGEF 004E401F: Mutation_PlagueWalkerCloak",
+     "MGEF 003D012B: Mutation_PlagueWalkerCloakSuper"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "004DF1CF",
+   "edid": "Mutation_ScalySkin",
+   "name": "Scaly Skin Mutation",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/mutations/scaly-skin.avif",
+   "objectType": "Mutation",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "004DF1D2",
+     "edid": "Mutation_FortifyDamageResist",
+     "full": "Mutation: Fortify",
+     "dnam": "<+MAG> <ITEM1.ABBR>",
+     "magnitude": 50.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify Damage Resist",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+50 Damage Resist (+62 Damage Resist with a serum)",
+     "groupKey": "fortify-damage-resist",
+     "groupLabel": "Fortify Damage Resist",
+     "serumMagnitude": 62.0
+    },
+    {
+     "formId": "004DF1D4",
+     "edid": "Mutation_FortifyEnergyResist",
+     "full": "Mutation: Fortify",
+     "dnam": "<+MAG> <ITEM1.ABBR>",
+     "magnitude": 50.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify Energy Resist",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+50 Energy Resist (+62 Energy Resist with a serum)",
+     "groupKey": "fortify-energy-resist",
+     "groupLabel": "Fortify Energy Resist",
+     "serumMagnitude": 62.0
+    },
+    {
+     "formId": "004DF1D5",
+     "edid": "Mutation_ReduceActionPoints",
+     "full": "Mutation: Reduce",
+     "dnam": "<+MAG> <ITEM1.ABBR>",
+     "magnitude": 50.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Reduce Action Points",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "-50 Action Points",
+     "groupKey": "reduce-action-points",
+     "groupLabel": "Reduce Action Points"
+    }
+   ],
+   "effectGroups": [
+    "fortify-damage-resist",
+    "fortify-energy-resist",
+    "reduce-action-points"
+   ],
+   "summaryLines": [],
+   "obtainRoutes": [
+    {
+     "route": "Serum",
+     "populated": true,
+     "lines": [
+      "Item: Scaly Skin Serum",
+      "Vendor: Purchasable from the MODUS Pharmacy in the Whitespring Bunker, or crafted at a Chemistry Station with the recipe.",
+      "Note: A serum grants the mutation with none of its negative effects for one hour."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Radiation",
+     "populated": true,
+     "lines": [
+      "Fresh: Take radiation damage and the game rolls a random mutation from the pool. Starched Genes prevents new mutations, so unequip it before farming rads.",
+      "Note: A mutation gained this way carries its negative effects unless you also hold a serum or the Class Freak perk."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Mutation",
+     "Serum: Scaly Skin Serum",
+     "Effect magnitude: n/a",
+     "With a serum: n/a"
+    ],
+    "ids": [
+     "SPEL EDID: Mutation_ScalySkin",
+     "SPEL FormID: 004DF1CF",
+     "MGEF 004DF1D2: Mutation_FortifyDamageResist",
+     "MGEF 004DF1D4: Mutation_FortifyEnergyResist",
+     "MGEF 004DF1D5: Mutation_ReduceActionPoints"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "004DF1E0",
+   "edid": "Mutation_SpeedDemon",
+   "name": "Speed Demon Mutation",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/mutations/speed-demon.avif",
+   "objectType": "Mutation",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "004DF1E2",
+     "edid": "Mutation_FortifyMoveSpeed",
+     "full": "Mutation: Fortify",
+     "dnam": "",
+     "magnitude": 20.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify Move Speed",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+20 Move Speed (+25 Move Speed with a serum)",
+     "groupKey": "fortify-move-speed",
+     "groupLabel": "Fortify Move Speed",
+     "serumMagnitude": 25.0
+    },
+    {
+     "formId": "004DF1E6",
+     "edid": "Mutation_FortifyReloadSpeed",
+     "full": "Mutation: Fortify",
+     "dnam": "",
+     "magnitude": 0.3,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Fortify Reload Speed",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Reload Speed ×0.3 (Reload Speed ×0.4 with a serum)",
+     "groupKey": "fortify-reload-speed",
+     "groupLabel": "Fortify Reload Speed",
+     "serumMagnitude": 0.4
+    },
+    {
+     "formId": "007F2033",
+     "edid": "GHL_Mutation_IncreasedFeral",
+     "full": "Mutation: Increased Feral",
+     "dnam": "+<mag>% Feral",
+     "magnitude": 50.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Increased Feral",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+50% Feral",
+     "groupKey": "increased-feral",
+     "groupLabel": "Increased Feral"
+    },
+    {
+     "formId": "004DF1E4",
+     "edid": "Mutation_IncreasedHungerThirst",
+     "full": "Mutation: Increased Hunger & Thirst",
+     "dnam": "+<mag>% Hunger/Thirst",
+     "magnitude": 50.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Increased Hunger & Thirst",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+50% Hunger/Thirst",
+     "groupKey": "increased-hunger-thirst",
+     "groupLabel": "Increased Hunger & Thirst"
+    }
+   ],
+   "effectGroups": [
+    "fortify-move-speed",
+    "fortify-reload-speed",
+    "increased-feral",
+    "increased-hunger-thirst"
+   ],
+   "summaryLines": [],
+   "obtainRoutes": [
+    {
+     "route": "Serum",
+     "populated": true,
+     "lines": [
+      "Item: Speed Demon Serum",
+      "Vendor: Purchasable from the MODUS Pharmacy in the Whitespring Bunker, or crafted at a Chemistry Station with the recipe.",
+      "Note: A serum grants the mutation with none of its negative effects for one hour."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Radiation",
+     "populated": true,
+     "lines": [
+      "Fresh: Take radiation damage and the game rolls a random mutation from the pool. Starched Genes prevents new mutations, so unequip it before farming rads.",
+      "Note: A mutation gained this way carries its negative effects unless you also hold a serum or the Class Freak perk."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Mutation",
+     "Serum: Speed Demon Serum",
+     "Effect magnitude: 50",
+     "With a serum: 50"
+    ],
+    "ids": [
+     "SPEL EDID: Mutation_SpeedDemon",
+     "SPEL FormID: 004DF1E0",
+     "MGEF 004DF1E2: Mutation_FortifyMoveSpeed",
+     "MGEF 004DF1E6: Mutation_FortifyReloadSpeed",
+     "MGEF 007F2033: GHL_Mutation_IncreasedFeral",
+     "MGEF 004DF1E4: Mutation_IncreasedHungerThirst"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "0028D3BC",
+   "edid": "Mutation_Talons",
+   "name": "Talons Mutation",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/mutations/talons.avif",
+   "objectType": "Mutation",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "003C4032",
+     "edid": "Mutation_TalonsEffect",
+     "full": "",
+     "dnam": "<+MAG> <ITEM1.ABBR> +25 Bleed DMG over 5 sec",
+     "magnitude": 25.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "+25 Bleed DMG over 5 sec",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+25 Bleed DMG over 5 sec (+25 Bleed DMG over 5 sec with a serum)",
+     "groupKey": "25-bleed-dmg-over-5-sec",
+     "groupLabel": "+25 Bleed DMG Over 5 Sec",
+     "serumMagnitude": 35.0
+    },
+    {
+     "formId": "00391F10",
+     "edid": "Mutation_ReduceAgility",
+     "full": "Mutation: Reduce",
+     "dnam": "<+MAG> <ITEM1.ABBR>",
+     "magnitude": 4.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Reduce Agility",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "-4 Agility",
+     "groupKey": "reduce-agility",
+     "groupLabel": "Reduce Agility"
+    }
+   ],
+   "effectGroups": [
+    "25-bleed-dmg-over-5-sec",
+    "reduce-agility"
+   ],
+   "summaryLines": [],
+   "obtainRoutes": [
+    {
+     "route": "Serum",
+     "populated": true,
+     "lines": [
+      "Item: Talons Serum",
+      "Vendor: Purchasable from the MODUS Pharmacy in the Whitespring Bunker, or crafted at a Chemistry Station with the recipe.",
+      "Note: A serum grants the mutation with none of its negative effects for one hour."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Radiation",
+     "populated": true,
+     "lines": [
+      "Fresh: Take radiation damage and the game rolls a random mutation from the pool. Starched Genes prevents new mutations, so unequip it before farming rads.",
+      "Note: A mutation gained this way carries its negative effects unless you also hold a serum or the Class Freak perk."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Mutation",
+     "Serum: Talons Serum",
+     "Effect magnitude: n/a",
+     "With a serum: n/a"
+    ],
+    "ids": [
+     "SPEL EDID: Mutation_Talons",
+     "SPEL FormID: 0028D3BC",
+     "MGEF 003C4032: Mutation_TalonsEffect",
+     "MGEF 00391F10: Mutation_ReduceAgility"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "003C402F",
+   "edid": "Mutation_TwistedMuscles",
+   "name": "Twisted Muscles Mutation",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/mutations/twisted-muscles.avif",
+   "objectType": "Mutation",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "008065B2",
+     "edid": "Mutation_TwistedMuscleLimbDamage",
+     "full": "Twisted Muscles",
+     "dnam": "<+MAG> <ITEM1.NAME>",
+     "magnitude": 50.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Limb Damage",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+50 Limb Damage (+63 Limb Damage with a serum)",
+     "groupKey": "twisted-muscles",
+     "groupLabel": "Twisted Muscles",
+     "serumMagnitude": 63.0
+    },
+    {
+     "formId": "003C4031",
+     "edid": "Mutation_TwistedMusclesEffect",
+     "full": "Twisted Muscles",
+     "dnam": "<+MAG> <ITEM1.NAME>",
+     "magnitude": 25.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Melee Damage",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+25 Melee Damage (+35 Melee Damage with a serum)",
+     "groupKey": "twisted-muscles",
+     "groupLabel": "Twisted Muscles",
+     "serumMagnitude": 35.0
+    },
+    {
+     "formId": "003C4034",
+     "edid": "Mutation_ReduceAccuracy",
+     "full": "Mutation: Reduce Accuracy",
+     "dnam": "-<MAG>% Gun Accuracy",
+     "magnitude": 50.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Reduce Accuracy",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "-50% Gun Accuracy",
+     "groupKey": "accuracy",
+     "groupLabel": "Accuracy"
+    }
+   ],
+   "effectGroups": [
+    "accuracy",
+    "twisted-muscles",
+    "twisted-muscles"
+   ],
+   "summaryLines": [],
+   "obtainRoutes": [
+    {
+     "route": "Serum",
+     "populated": true,
+     "lines": [
+      "Item: Twisted Muscles Serum",
+      "Vendor: Purchasable from the MODUS Pharmacy in the Whitespring Bunker, or crafted at a Chemistry Station with the recipe.",
+      "Note: A serum grants the mutation with none of its negative effects for one hour."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Radiation",
+     "populated": true,
+     "lines": [
+      "Fresh: Take radiation damage and the game rolls a random mutation from the pool. Starched Genes prevents new mutations, so unequip it before farming rads.",
+      "Note: A mutation gained this way carries its negative effects unless you also hold a serum or the Class Freak perk."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Mutation",
+     "Serum: Twisted Muscles Serum",
+     "Effect magnitude: n/a",
+     "With a serum: n/a"
+    ],
+    "ids": [
+     "SPEL EDID: Mutation_TwistedMuscles",
+     "SPEL FormID: 003C402F",
+     "MGEF 008065B2: Mutation_TwistedMuscleLimbDamage",
+     "MGEF 003C4031: Mutation_TwistedMusclesEffect",
+     "MGEF 003C4034: Mutation_ReduceAccuracy"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "004E4017",
+   "edid": "Mutation_UnstableIsotope",
+   "name": "Unstable Isotope Mutation",
+   "description": "",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/mutations/unstable-isotope.avif",
+   "objectType": "Mutation",
+   "diet": null,
+   "effects": [
+    {
+     "formId": "004E4018",
+     "edid": "Mutation_UnstableIsotopeScriptEffect",
+     "full": "Mutation: Trigger Rad Blast",
+     "dnam": "10% chance to deal 10 Fire and 80 Rads to melee attackers",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Trigger Rad Blast",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "10% chance to deal 10 Fire and 80 Rads to melee attackers",
+     "groupKey": "trigger-rad-blast",
+     "groupLabel": "Trigger Rad Blast"
+    },
+    {
+     "formId": "0051850C",
+     "edid": "Mutation_UnstableIsotopeSuperScriptEffect",
+     "full": "Mutation: Trigger Super Rad Blast",
+     "dnam": "10% chance to deal 25 Fire and 120 Rads to melee attackers",
+     "magnitude": 0.0,
+     "duration": 0.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Trigger Super Rad Blast",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "10% chance to deal 25 Fire and 120 Rads to melee attackers",
+     "groupKey": "trigger-super-rad-blast",
+     "groupLabel": "Trigger Super Rad Blast"
+    }
+   ],
+   "effectGroups": [
+    "trigger-rad-blast",
+    "trigger-super-rad-blast"
+   ],
+   "summaryLines": [],
+   "obtainRoutes": [
+    {
+     "route": "Serum",
+     "populated": true,
+     "lines": [
+      "Item: Unstable Isotope Serum",
+      "Vendor: Purchasable from the MODUS Pharmacy in the Whitespring Bunker, or crafted at a Chemistry Station with the recipe.",
+      "Note: A serum grants the mutation with none of its negative effects for one hour."
+     ],
+     "tradeable": true,
+     "dropRate": null
+    },
+    {
+     "route": "Radiation",
+     "populated": true,
+     "lines": [
+      "Fresh: Take radiation damage and the game rolls a random mutation from the pool. Starched Genes prevents new mutations, so unequip it before farming rads.",
+      "Note: A mutation gained this way carries its negative effects unless you also hold a serum or the Class Freak perk."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Mutation",
+     "Serum: Unstable Isotope Serum",
+     "Effect magnitude: n/a",
+     "With a serum: n/a"
+    ],
+    "ids": [
+     "SPEL EDID: Mutation_UnstableIsotope",
+     "SPEL FormID: 004E4017",
+     "MGEF 004E4018: Mutation_UnstableIsotopeScriptEffect",
+     "MGEF 0051850C: Mutation_UnstableIsotopeSuperScriptEffect"
+    ]
+   },
+   "status": "live"
+  }
+ ]
+}

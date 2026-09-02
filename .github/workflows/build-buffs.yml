@@ -1,5 +1,11 @@
 name: Build Buffs Data
 
+# Standalone rebuild for /bnb/buffs/*. The master pipeline
+# (dfbnb-patch-build.yml) also runs this script, positioned AFTER
+# build_recipe_guide_json.py because the How to Obtain routes read
+# dist/recipe_guide.json. This workflow assumes that file is already
+# committed in dist/ — which it is, on every patch build.
+
 on:
   workflow_dispatch:
 
@@ -7,6 +13,9 @@ on:
     paths:
       - 'tsv/**'
       - 'src/build_buffs_json.py'
+      # The effect normaliser decides the group names and the
+      # SPECIAL-then-A-Z order, so a change to it changes every buff page.
+      - 'src/buffs_effects.py'
 
 jobs:
   build:
@@ -23,8 +32,8 @@ jobs:
 
       - name: Run build script
         run: |
-          mkdir -p dist
-          python src/build_buffs_json.py
+          mkdir -p dist/buffs
+          python src/build_buffs_json.py --data-dir tsv --outdir dist
 
       - name: Commit and push
         run: |

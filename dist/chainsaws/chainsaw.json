@@ -1,0 +1,1389 @@
+{
+ "_meta": {
+  "generated": "2026-09-02",
+  "source": "Game-file exports (WEAP/OMOD/COBJ/BOOK/CURV/LVLI/CONT) + Mappalachia Position (cached for CI)",
+  "weapon_form_id": "0004DF01",
+  "lists_in_closure": 15,
+  "source_totals": {
+   "direct": 29
+  },
+  "unresolved": {}
+ },
+ "set": "chainsaws",
+ "slug": "chainsaw",
+ "name": "Chainsaw",
+ "page_title": "Weapons - Chainsaw Location Guide",
+ "url": "/bnb/weapons/chainsaws/chainsaw-location-guide/",
+ "blurb": "Every place the Chainsaw spawns in Fallout 76 — its fixed world spawn points, the containers and reward pools that can roll it, its full stat line and every mod, plan and paint it takes.",
+ "weapon_stats": {
+  "form_id": "0004DF01",
+  "edid": "Chainsaw_76",
+  "name": "Chainsaw",
+  "level_requirement": 20,
+  "equip_type": "BothHands",
+  "base_damage": {
+   "curve": "CT_Player_Damage_Universal_Tier12",
+   "curve_form_id": "0080F1FC",
+   "note": "Base damage is not stored on the weapon — it scales with your character level off the curve below.",
+   "by_level": [
+    {
+     "level": 1,
+     "damage": 8.0
+    },
+    {
+     "level": 10,
+     "damage": 11.0
+    },
+    {
+     "level": 20,
+     "damage": 14.0
+    },
+    {
+     "level": 30,
+     "damage": 17.0
+    },
+    {
+     "level": 40,
+     "damage": 22.0
+    },
+    {
+     "level": 50,
+     "damage": 28.0
+    }
+   ],
+   "min": 8.0,
+   "max": 28.0
+  },
+  "stats": [
+   {
+    "label": "Weapon type",
+    "value": "TwoHandAxe"
+   },
+   {
+    "label": "Value (caps)",
+    "value": "125"
+   },
+   {
+    "label": "Weight",
+    "value": "12"
+   },
+   {
+    "label": "Speed multiplier",
+    "value": "1"
+   },
+   {
+    "label": "Attack animation",
+    "value": "2.2s"
+   },
+   {
+    "label": "Attack delay",
+    "value": "1s"
+   },
+   {
+    "label": "AP cost per swing",
+    "value": "9"
+   },
+   {
+    "label": "Reach",
+    "value": "0.8"
+   },
+   {
+    "label": "Durability (health)",
+    "value": "100"
+   },
+   {
+    "label": "Stagger",
+    "value": "Small"
+   },
+   {
+    "label": "Critical damage",
+    "value": "2×"
+   },
+   {
+    "label": "Sneak attack",
+    "value": "2×"
+   },
+   {
+    "label": "On hit",
+    "value": "Dismember only"
+   }
+  ],
+  "mod_slots": [
+   {
+    "edid": "ap_gun_Scope",
+    "name": "Scope"
+   },
+   {
+    "edid": "ap_gun_Barrel",
+    "name": "Barrel"
+   },
+   {
+    "edid": "ap_gun_Appearance",
+    "name": "Appearance"
+   },
+   {
+    "edid": "ap_Misc",
+    "name": "Misc"
+   },
+   {
+    "edid": "ap_Legendary1",
+    "name": "Legendary Mod ¬"
+   },
+   {
+    "edid": "ap_customName",
+    "name": "Custom Name"
+   },
+   {
+    "edid": "ap_Legendary2",
+    "name": "Legendary Mod ¬¬"
+   },
+   {
+    "edid": "ap_Legendary3",
+    "name": "Legendary Mod ¬¬¬"
+   },
+   {
+    "edid": "ap_Legendary4",
+    "name": "Legendary Mod ¬¬¬¬"
+   },
+   {
+    "edid": "ap_Legendary5",
+    "name": "Legendary Mod ¬¬¬¬¬"
+   },
+   {
+    "edid": "ap_Legendary_Crafting",
+    "name": "Extract Legendary Mods"
+   }
+  ],
+  "keywords": [
+   "AnimsChainsaw",
+   "s_40_Chainsaw",
+   "WeaponTypeMelee2H",
+   "ma_Chainsaw",
+   "ObjectTypeWeapon",
+   "WeaponTypeChainsaw",
+   "ma_CanHaveNullMuzzle",
+   "WeaponTypeMeleeGeneral",
+   "ma_Gun_Appearance",
+   "PhotomodeGripHeavy",
+   "UI_WeaponTypeChainsaw_76",
+   "ma_legendarycrafting_weaponmelee",
+   "ma_Misc_Legendarycrafting_Weapon_Melee4",
+   "WeaponTypeAutomaticMelee",
+   "ma_legendarycrafting_weapon",
+   "ma_CanHavePaint",
+   "ma_ChainsawCanHaveDualBar",
+   "ma_ChainsawCanHaveFlamer"
+  ]
+ },
+ "mods": {
+  "archetypes": [
+   "ma_Chainsaw",
+   "ma_ChainsawCanHaveDualBar",
+   "ma_ChainsawCanHaveFlamer"
+  ],
+  "unique_variants": [
+   {
+    "name": "Cauterizer",
+    "plan": "Plan: Cauterizer",
+    "plan_form_id": "00793859",
+    "cobj_edid": "RD01_co_Weapon_Melee_Cauterizer"
+   }
+  ],
+  "count": 17,
+  "groups": [
+   {
+    "slot": "Barrel",
+    "cosmetic": false,
+    "mods": [
+     {
+      "form_id": "0004DEFD",
+      "edid": "mod_Chainsaw_Bar_Bow",
+      "name": "Bow Bar",
+      "description": "",
+      "slot": "Barrel",
+      "attach_point": "ap_gun_Barrel",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_Chainsaw_Bar_Bow",
+      "effects": [
+       {
+        "label": "Value",
+        "value": "+10%",
+        "kind": "stat"
+       },
+       {
+        "label": "Weight",
+        "value": "+10%",
+        "kind": "stat"
+       },
+       {
+        "label": "AP cost",
+        "value": "+15%",
+        "kind": "stat"
+       },
+       {
+        "label": "Armor Penetration",
+        "value": "+15",
+        "kind": "stat"
+       }
+      ]
+     },
+     {
+      "form_id": "0004DEFF",
+      "edid": "mod_Chainsaw_Bar_Dual",
+      "name": "Dual Bar",
+      "description": "",
+      "slot": "Barrel",
+      "attach_point": "ap_gun_Barrel",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_Chainsaw_Bar_Dual",
+      "effects": [
+       {
+        "label": "Damage bonus",
+        "value": "+50%",
+        "kind": "stat"
+       },
+       {
+        "label": "Value",
+        "value": "+35%",
+        "kind": "stat"
+       },
+       {
+        "label": "Weight",
+        "value": "+25%",
+        "kind": "stat"
+       },
+       {
+        "label": "AP cost",
+        "value": "+25%",
+        "kind": "stat"
+       },
+       {
+        "label": "Durability",
+        "value": "-5",
+        "kind": "stat"
+       }
+      ]
+     },
+     {
+      "form_id": "0004DEFE",
+      "edid": "mod_Chainsaw_Bar_Bow_Long",
+      "name": "Long Bow Bar",
+      "description": "",
+      "slot": "Barrel",
+      "attach_point": "ap_gun_Barrel",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "Plan: Chainsaw Long Bow Bar",
+      "plan_form_id": "00182F4D",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_Chainsaw_Bar_Bow_Long",
+      "effects": [
+       {
+        "label": "Damage",
+        "value": "-10%",
+        "kind": "stat"
+       },
+       {
+        "label": "Value",
+        "value": "+15%",
+        "kind": "stat"
+       },
+       {
+        "label": "Weight",
+        "value": "+15%",
+        "kind": "stat"
+       },
+       {
+        "label": "Adds effect",
+        "value": "Bleed",
+        "kind": "effect"
+       },
+       {
+        "label": "AP cost",
+        "value": "+10%",
+        "kind": "stat"
+       },
+       {
+        "label": "Durability",
+        "value": "-5%",
+        "kind": "stat"
+       }
+      ]
+     },
+     {
+      "form_id": "0004DEF8",
+      "edid": "mod_Chainsaw_Bar_Base",
+      "name": "Standard Bar",
+      "description": "",
+      "slot": "Barrel",
+      "attach_point": "ap_gun_Barrel",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_Chainsaw_Bar_Base",
+      "effects": []
+     }
+    ]
+   },
+   {
+    "slot": "Scope",
+    "cosmetic": false,
+    "mods": [
+     {
+      "form_id": "0004DF00",
+      "edid": "mod_Chainsaw_Flamer",
+      "name": "Flamer",
+      "description": "",
+      "slot": "Scope",
+      "attach_point": "ap_gun_Scope",
+      "cosmetic": false,
+      "default": false,
+      "unique_variant": null,
+      "plan": "Plan: Chainsaw Flamer",
+      "plan_form_id": "00182F4E",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_Chainsaw_Flamer",
+      "effects": [
+       {
+        "label": "Value",
+        "value": "+25%",
+        "kind": "stat"
+       },
+       {
+        "label": "Weight",
+        "value": "+20%",
+        "kind": "stat"
+       },
+       {
+        "label": "Adds effect",
+        "value": "Chainsaw Fire",
+        "kind": "effect"
+       },
+       {
+        "label": "AP cost",
+        "value": "+10%",
+        "kind": "stat"
+       },
+       {
+        "label": "Durability",
+        "value": "-3",
+        "kind": "stat"
+       }
+      ]
+     },
+     {
+      "form_id": "00597808",
+      "edid": "mod_Chainsaw_NoMod",
+      "name": "No Mod",
+      "description": "",
+      "slot": "Scope",
+      "attach_point": "ap_gun_Scope",
+      "cosmetic": false,
+      "default": true,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "miscmod_mod_Chainsaw_NoMod",
+      "effects": []
+     }
+    ]
+   },
+   {
+    "slot": "Appearance",
+    "cosmetic": true,
+    "mods": [
+     {
+      "form_id": "00796EB3",
+      "edid": "RD01_Mod_Custom_Cauterizer_Appearance",
+      "name": "Cauterizer Paint",
+      "description": "",
+      "slot": "Appearance",
+      "attach_point": "ap_gun_Appearance",
+      "cosmetic": true,
+      "default": false,
+      "unique_variant": "Cauterizer",
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "",
+      "effects": []
+     },
+     {
+      "form_id": "007A747A",
+      "edid": "ATX_mod_Cauterizer_Weapon_Paint_Enclave",
+      "name": "Enclave Paint",
+      "description": "",
+      "slot": "Appearance",
+      "attach_point": "ap_gun_Appearance",
+      "cosmetic": true,
+      "default": false,
+      "unique_variant": "Cauterizer",
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "Weapon Workbench",
+      "loose_mod": "",
+      "effects": []
+     },
+     {
+      "form_id": "007281A5",
+      "edid": "mod_Chainsaw_Weapon_Paint_GhostlyGrinder",
+      "name": "Ghostly Grinder Paint",
+      "description": "",
+      "slot": "Appearance",
+      "attach_point": "ap_gun_Appearance",
+      "cosmetic": true,
+      "default": false,
+      "unique_variant": null,
+      "plan": "Plan: Chainsaw Ghostly Grinder Paint",
+      "plan_form_id": "00728185",
+      "workbench": "Weapon Workbench",
+      "loose_mod": "",
+      "effects": []
+     },
+     {
+      "form_id": "006C50E4",
+      "edid": "ATX_mod_Chainsaw_Weapon_Paint_Grinder",
+      "name": "Grinder Paint",
+      "description": "",
+      "slot": "Appearance",
+      "attach_point": "ap_gun_Appearance",
+      "cosmetic": true,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "Weapon Workbench",
+      "loose_mod": "",
+      "effects": []
+     },
+     {
+      "form_id": "0066F232",
+      "edid": "ATX_Event_mod_Chainsaw_Weapon_Paint_Halloween",
+      "name": "Halloween Paint",
+      "description": "",
+      "slot": "Appearance",
+      "attach_point": "ap_gun_Appearance",
+      "cosmetic": true,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "Weapon Workbench",
+      "loose_mod": "",
+      "effects": []
+     },
+     {
+      "form_id": "0076FFBD",
+      "edid": "mod_Chainsaw_Weapon_Paint_LaserChainsaw",
+      "name": "Laser Chainsaw Paint",
+      "description": "",
+      "slot": "Appearance",
+      "attach_point": "ap_gun_Appearance",
+      "cosmetic": true,
+      "default": false,
+      "unique_variant": null,
+      "plan": "Plan: Laser Chainsaw Paint",
+      "plan_form_id": "0076FFB9",
+      "workbench": "Weapon Workbench",
+      "loose_mod": "",
+      "effects": []
+     },
+     {
+      "form_id": "006F6520",
+      "edid": "SCORE_S15_mod_Chainsaw_Weapon_Paint_Poker",
+      "name": "Poker Paint",
+      "description": "Poker Paint",
+      "slot": "Appearance",
+      "attach_point": "ap_gun_Appearance",
+      "cosmetic": true,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "Weapon Workbench",
+      "loose_mod": "",
+      "effects": []
+     },
+     {
+      "form_id": "0075761E",
+      "edid": "mod_Chainsaw_Weapon_Paint_Skeptikill",
+      "name": "Skeptikill Paint",
+      "description": "",
+      "slot": "Appearance",
+      "attach_point": "ap_gun_Appearance",
+      "cosmetic": true,
+      "default": false,
+      "unique_variant": null,
+      "plan": "Plan: Chainsaw Skeptikill Paint",
+      "plan_form_id": "0075761A",
+      "workbench": "Weapon Workbench",
+      "loose_mod": "",
+      "effects": []
+     },
+     {
+      "form_id": "007F6267",
+      "edid": "SCORE_S21_mod_Chainsaw_Weapon_Paint_Spitfire",
+      "name": "Spitfire Paint",
+      "description": "",
+      "slot": "Appearance",
+      "attach_point": "ap_gun_Appearance",
+      "cosmetic": true,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "Weapon Workbench",
+      "loose_mod": "",
+      "effects": []
+     }
+    ]
+   },
+   {
+    "slot": "Custom Name",
+    "cosmetic": true,
+    "mods": [
+     {
+      "form_id": "00796EB4",
+      "edid": "RD01_Mod_Custom_Cauterizer_CustomName",
+      "name": "Cauterizer Custom Name",
+      "description": "",
+      "slot": "Custom Name",
+      "attach_point": "ap_customName",
+      "cosmetic": true,
+      "default": false,
+      "unique_variant": "Cauterizer",
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "",
+      "effects": []
+     }
+    ]
+   },
+   {
+    "slot": "Melee Appearance",
+    "cosmetic": true,
+    "mods": [
+     {
+      "form_id": "00677BCB",
+      "edid": "SCORE_S11_mod_Chainsaw_Weapon_ModelSwap_JackhammerDrill",
+      "name": "Jackhammer Drill Style",
+      "description": "Jackhammer Drill Paint",
+      "slot": "Melee Appearance",
+      "attach_point": "ap_melee_Appearance",
+      "cosmetic": true,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "",
+      "effects": []
+     }
+    ]
+   }
+  ],
+  "note": "Legendary effects are not listed here — they are shared melee-weapon mods rather than Chainsaw mods, and roll or are crafted separately."
+ },
+ "farming_tips": null,
+ "drop_rates": {
+  "containers": {
+   "types": []
+  },
+  "collectrons": {
+   "entries": []
+  },
+  "resource_generators": {
+   "entries": []
+  },
+  "creatures": {
+   "entries": [],
+   "note": "No creature carries the Chainsaw in its own death-drop list. It can still drop from a legendary enemy: the shared legendary melee-weapon pools reach it."
+  }
+ },
+ "vendor_list": [],
+ "events_activities": [
+  {
+   "list_id": "007965E4",
+   "edid": "RD01_LL_Raids_Rewards_Enc04",
+   "name": "Enclave Research Lab Module",
+   "type": "Module",
+   "note": "Chance the item is in the Enclave Research Lab Module reward pool per event/activity payout.",
+   "rate_value": 0.1,
+   "rate_display": "10%",
+   "rate_lines": [
+    "10%"
+   ]
+  }
+ ],
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": []
+  },
+  {
+   "region": "Atlantic City",
+   "locations": [
+    {
+     "marker": "Community Center",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "755F8F"
+     ],
+     "coords": [
+      3882.0,
+      4440.6
+     ],
+     "spawns": [
+      {
+       "label": "Chainsaw",
+       "ref": "755F8F",
+       "source_type": "direct",
+       "coords": [
+        3882.0,
+        4440.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Burning Springs",
+   "locations": [
+    {
+     "marker": "Sand Fork Lumber",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "8261C2",
+      "83C0A5"
+     ],
+     "coords": [
+      -216753.1,
+      -6461.7
+     ],
+     "spawns": [
+      {
+       "label": "Chainsaw #1",
+       "ref": "8261C2",
+       "source_type": "direct",
+       "coords": [
+        -214895.3,
+        -4592.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chainsaw #2",
+       "ref": "83C0A5",
+       "source_type": "direct",
+       "coords": [
+        -216753.1,
+        -6461.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Starlight Drive-in",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "81C260"
+     ],
+     "coords": [
+      -195760.5,
+      113678.4
+     ],
+     "spawns": [
+      {
+       "label": "Chainsaw",
+       "ref": "81C260",
+       "source_type": "direct",
+       "coords": [
+        -195760.5,
+        113678.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": [
+    {
+     "marker": "Crimson Prospect",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "537769"
+     ],
+     "coords": [
+      140332.6,
+      -105108.1
+     ],
+     "spawns": [
+      {
+       "label": "Chainsaw",
+       "ref": "537769",
+       "source_type": "direct",
+       "coords": [
+        140332.6,
+        -105108.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Ranger District Office",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2DC343"
+     ],
+     "coords": [
+      150717.7,
+      -89107.2
+     ],
+     "spawns": [
+      {
+       "label": "Chainsaw",
+       "ref": "2DC343",
+       "source_type": "direct",
+       "coords": [
+        150717.7,
+        -89107.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Forest",
+   "locations": [
+    {
+     "marker": "Gilman Lumber Mill",
+     "count": 6,
+     "sources": {
+      "direct": 6
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "27A7D7",
+      "27A7D8",
+      "28D689",
+      "2A9AF9",
+      "3114BA",
+      "6F5838"
+     ],
+     "coords": [
+      -102823.4,
+      68422.9
+     ],
+     "spawns": [
+      {
+       "label": "Chainsaw #1",
+       "ref": "27A7D7",
+       "source_type": "direct",
+       "coords": [
+        -103976.0,
+        69295.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chainsaw #2",
+       "ref": "27A7D8",
+       "source_type": "direct",
+       "coords": [
+        -105886.4,
+        70724.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chainsaw #3",
+       "ref": "28D689",
+       "source_type": "direct",
+       "coords": [
+        -102823.4,
+        68422.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chainsaw #4",
+       "ref": "2A9AF9",
+       "source_type": "direct",
+       "coords": [
+        -107426.4,
+        60663.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chainsaw #5",
+       "ref": "3114BA",
+       "source_type": "direct",
+       "coords": [
+        -104144.4,
+        69544.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chainsaw #6",
+       "ref": "6F5838",
+       "source_type": "direct",
+       "coords": [
+        -104652.6,
+        70702.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Poseidon Energy Plant Expansion",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "592343"
+     ],
+     "coords": [
+      -4095.3,
+      -2043.9
+     ],
+     "spawns": [
+      {
+       "label": "Chainsaw",
+       "ref": "592343",
+       "source_type": "direct",
+       "coords": [
+        -4095.3,
+        -2043.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "WV Lumber Co.",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3CFF53"
+     ],
+     "coords": [
+      -169298.0,
+      193998.3
+     ],
+     "spawns": [
+      {
+       "label": "Chainsaw",
+       "ref": "3CFF53",
+       "source_type": "direct",
+       "coords": [
+        -169298.0,
+        193998.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "WV Lumber Co. Office",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "42E41C"
+     ],
+     "coords": [
+      2520.3,
+      214.6
+     ],
+     "spawns": [
+      {
+       "label": "Chainsaw",
+       "ref": "42E41C",
+       "source_type": "direct",
+       "coords": [
+        2520.3,
+        214.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Savage Divide",
+   "locations": [
+    {
+     "marker": "Metal Dome",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "60637A"
+     ],
+     "coords": [
+      69227.9,
+      101324.7
+     ],
+     "spawns": [
+      {
+       "label": "Chainsaw",
+       "ref": "60637A",
+       "source_type": "direct",
+       "coords": [
+        69227.9,
+        101324.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Middle Mountain Pitstop",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "693D90"
+     ],
+     "coords": [
+      50772.4,
+      -40737.9
+     ],
+     "spawns": [
+      {
+       "label": "Chainsaw",
+       "ref": "693D90",
+       "source_type": "direct",
+       "coords": [
+        50772.4,
+        -40737.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Mountainside Bed & Breakfast",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3C5E15"
+     ],
+     "coords": [
+      7618.4,
+      -98536.2
+     ],
+     "spawns": [
+      {
+       "label": "Chainsaw",
+       "ref": "3C5E15",
+       "source_type": "direct",
+       "coords": [
+        7618.4,
+        -98536.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Old Danielson Cabin",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "7AE4CA"
+     ],
+     "coords": [
+      163989.9,
+      215876.5
+     ],
+     "spawns": [
+      {
+       "label": "Chainsaw",
+       "ref": "7AE4CA",
+       "source_type": "direct",
+       "coords": [
+        163989.9,
+        215876.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Skullbone Vantage",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "211418"
+     ],
+     "coords": [
+      24569.3,
+      26353.2
+     ],
+     "spawns": [
+      {
+       "label": "Chainsaw",
+       "ref": "211418",
+       "source_type": "direct",
+       "coords": [
+        24569.3,
+        26353.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Rose Room",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "6A531F"
+     ],
+     "coords": [
+      24961.3,
+      100368.6
+     ],
+     "spawns": [
+      {
+       "label": "Chainsaw",
+       "ref": "6A531F",
+       "source_type": "direct",
+       "coords": [
+        24961.3,
+        100368.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": [
+    {
+     "marker": "Vault 63 Organics Sector",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "73DEC2"
+     ],
+     "coords": [
+      -1736.0,
+      -9500.1
+     ],
+     "spawns": [
+      {
+       "label": "Chainsaw",
+       "ref": "73DEC2",
+       "source_type": "direct",
+       "coords": [
+        -1736.0,
+        -9500.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Mire",
+   "locations": []
+  },
+  {
+   "region": "The Pitt",
+   "locations": [
+    {
+     "marker": "The Foundry",
+     "count": 6,
+     "sources": {
+      "direct": 6
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "6553C8",
+      "665850",
+      "6682B1",
+      "7383B7",
+      "7390BE",
+      "739413"
+     ],
+     "coords": [
+      5134.8,
+      5800.4
+     ],
+     "spawns": [
+      {
+       "label": "Chainsaw #1",
+       "ref": "6553C8",
+       "source_type": "direct",
+       "coords": [
+        1858.1,
+        10162.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chainsaw #2",
+       "ref": "665850",
+       "source_type": "direct",
+       "coords": [
+        2253.8,
+        5458.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chainsaw #3",
+       "ref": "6682B1",
+       "source_type": "direct",
+       "coords": [
+        5134.8,
+        5800.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chainsaw #4",
+       "ref": "7383B7",
+       "source_type": "direct",
+       "coords": [
+        1858.1,
+        10162.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chainsaw #5",
+       "ref": "7390BE",
+       "source_type": "direct",
+       "coords": [
+        2253.8,
+        5458.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chainsaw #6",
+       "ref": "739413",
+       "source_type": "direct",
+       "coords": [
+        5134.8,
+        5800.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": [
+    {
+     "marker": "Clarksburg",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "346B90"
+     ],
+     "coords": [
+      -25884.1,
+      166957.8
+     ],
+     "spawns": [
+      {
+       "label": "Chainsaw",
+       "ref": "346B90",
+       "source_type": "direct",
+       "coords": [
+        -25884.1,
+        166957.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "fixed_spawn_totals": {
+  "markers": 18,
+  "placements": 29
+ }
+}

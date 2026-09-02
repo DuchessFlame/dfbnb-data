@@ -1,0 +1,170 @@
+{
+ "version": "2026-09-01",
+ "generated": "2026-09-01T14:36:56+00:00",
+ "page": "hybrid-food",
+ "title": "Hybrid Food Buffs",
+ "url": "/bnb/buffs/hybrid-food/hybrid-food-buffs/",
+ "blurb": "Dishes that carry BOTH meat and plant ingredient keywords, so Carnivore and Herbivore both double their benefit. Grouped by effect, SPECIAL first.",
+ "countNoun": "hybrid dishes",
+ "sourceAlch": "ALCH_Export_August_2026.tsv",
+ "sourceMgef": "MGEF_Export_July_2026.tsv",
+ "mode": "effect-groups",
+ "groups": [
+  {
+   "key": "carry-weight",
+   "label": "Carry Weight",
+   "count": 1
+  },
+  {
+   "key": "health",
+   "label": "Health",
+   "count": 1
+  },
+  {
+   "key": "water-breathing",
+   "label": "Water Breathing",
+   "count": 1
+  }
+ ],
+ "items": [
+  {
+   "formId": "008D3862",
+   "edid": "SCORE_S25_SmokedMirelurkGourmet_Cannery_G2",
+   "name": "Canned Smoked Mirelurk Fillets",
+   "description": "Breathe underwater for 1 hour and 30 minutes.",
+   "imageUrl": "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/hybrid-food/canned-smoked-mirelurk-fillets.avif",
+   "objectType": "Food",
+   "diet": "Both",
+   "weight": 3.0,
+   "value": 47,
+   "effects": [
+    {
+     "formId": "00150733",
+     "edid": "FortifyCarryWeightFood",
+     "full": "Fortify Carry Weight Food",
+     "dnam": "",
+     "magnitude": 30.0,
+     "duration": 5400.0,
+     "magGlob": "SURV_Food_Effect_FortifyCarryCapacity_Mag_3_High",
+     "durGlob": "SURV_Food_Effect_Any_Dur_3_Long",
+     "name": "Fortify Carry Weight",
+     "polarity": "buff",
+     "durationDisplay": "1 hour 30 min",
+     "display": "+30 Fortify Carry Weight",
+     "groupKey": "carry-weight",
+     "groupLabel": "Carry Weight"
+    },
+    {
+     "formId": "0000397E",
+     "edid": "RestoreHealthFood",
+     "full": "Restore Health",
+     "dnam": "Restore <mag> HP / second",
+     "magnitude": 10.0,
+     "duration": 25.0,
+     "magGlob": "SURV_Food_Heal_Mag_5_Gourmet",
+     "durGlob": "SURV_Food_Heal_Dur_Standard",
+     "name": "Restore Health",
+     "polarity": "buff",
+     "durationDisplay": "25s",
+     "display": "Restores 250 Health",
+     "groupKey": "health",
+     "groupLabel": "Health"
+    },
+    {
+     "formId": "000469AA",
+     "edid": "FortifyWaterBreathing",
+     "full": "Water Breathing",
+     "dnam": "Breathe Underwater.",
+     "magnitude": 4.0,
+     "duration": 5400.0,
+     "magGlob": null,
+     "durGlob": "SURV_Food_Effect_Any_Dur_3_Long",
+     "name": "Water Breathing",
+     "polarity": "buff",
+     "durationDisplay": "1 hour 30 min",
+     "display": "+4 Water Breathing",
+     "groupKey": "water-breathing",
+     "groupLabel": "Water Breathing"
+    },
+    {
+     "formId": "00026874",
+     "edid": "SURV_Food_Effect",
+     "full": "SURV_Food_Effect",
+     "dnam": "",
+     "magnitude": 1800.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Food_RestoreHunger_Mag_5_VeryLarge_Improved",
+     "durGlob": null,
+     "name": "Satisfy Hunger",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Satisfies hunger (1800/30 min)",
+     "groupKey": null,
+     "groupLabel": null
+    },
+    {
+     "formId": "00024056",
+     "edid": "DamageRadiationEating",
+     "full": "Eating: Radiation Damage",
+     "dnam": "",
+     "magnitude": 2.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Food_RadiationDamage_Mag_1_Low",
+     "durGlob": null,
+     "name": "Rads",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "+2 Rads",
+     "groupKey": null,
+     "groupLabel": null
+    }
+   ],
+   "effectGroups": [
+    "carry-weight",
+    "health",
+    "water-breathing"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": true,
+     "lines": [
+      "Requires: Cannery Station",
+      "Components: Smoked Mirelurk Fillets x1 / Clean Can x1"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "No separate fresh or raw variant — the crafted item is the only form."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Food",
+     "Mutation Diet: Both",
+     "Weight: 3",
+     "Value: 47 caps",
+     "Spoils: Yes"
+    ],
+    "ids": [
+     "EDID: SCORE_S25_SmokedMirelurkGourmet_Cannery_G2",
+     "FormID: 008D3862",
+     "MGEF 00150733: FortifyCarryWeightFood",
+     "MGEF 0000397E: RestoreHealthFood",
+     "MGEF 000469AA: FortifyWaterBreathing",
+     "MGEF 00026874: SURV_Food_Effect",
+     "MGEF 00024056: DamageRadiationEating",
+     "Keywords: 00055ECC, 0011090C, 0013486B, 0013486C, 002944CF, 0043C439, 0044D4B9, 00572648, 008FAE29"
+    ]
+   },
+   "status": "live"
+  }
+ ]
+}

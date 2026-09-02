@@ -1,0 +1,90 @@
+name: Build Chainsaw Spawns Data
+
+# Weapons - Chainsaws: the hub plus one location guide per chainsaw.
+#
+#   dist/chainsaws.json          — hub index
+#   dist/chainsaws/<slug>.json   — one doc per guide page
+#
+# Runs in CI CACHE mode. Coordinates and regions come from the committed
+# data/chainsaw_spawns/geo_cache.json, so the ~459 MB Mappalachia DB is NOT needed here.
+# That cache only changes when DuchessFlame re-runs the build locally with MAPPALACHIA_DB
+# set and commits the result — which is why data/chainsaw_spawns/** is a trigger path.
+# Hand-filled per-spawn directions and images are merge-preserved on every rebuild.
+#
+# This standalone workflow is for a targeted rebuild. The full pipeline
+# (dfbnb-patch-build.yml / dfbnb-pts-build.yml) also runs the same script.
+
+on:
+  workflow_dispatch:
+
+  push:
+    paths:
+      - 'tsv/**'
+      - 'data/chainsaw_spawns/**'
+      - 'src/build_chainsaw_spawns_json.py'
+      - 'src/spawns_configs/chainsaws.py'
+      - 'src/spawns_engine/**'
+      - '.github/workflows/build-chainsaw-spawns.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-chainsaw-spawns
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Run build script
+        run: |
+          mkdir -p dist
+          python src/build_chainsaw_spawns_json.py --pts
+
+      # A build that silently wrote nothing is the failure mode worth catching:
+      # the site would keep serving whatever dist/ was last given.
+      - name: Verify output
+        run: |
+          test -f dist/chainsaws.json          && echo "OK dist/chainsaws.json"          || (echo "MISSING dist/chainsaws.json" && exit 1)
+          test -f dist/chainsaws/chainsaw.json && echo "OK dist/chainsaws/chainsaw.json" || (echo "MISSING dist/chainsaws/chainsaw.json" && exit 1)
+          python - <<'PY'
+          import json, sys
+          doc = json.load(open("dist/chainsaws/chainsaw.json", encoding="utf-8"))
+          for key in ("weapon_stats", "mods", "drop_rates", "vendor_list",
+                      "events_activities", "regions"):
+              if key not in doc:
+                  sys.exit(f"chainsaw.json is missing '{key}'")
+          if not doc["mods"].get("count"):
+              sys.exit("chainsaw.json resolved 0 mods — the OMOD archetype join broke.")
+          # spawn-guide §9k: one photo/direction slot set per placement, always.
+          bad = [(r["region"], l["marker"]) for r in doc["regions"]
+                 for l in r.get("locations", [])
+                 if len(l.get("spawns") or []) != l["count"]]
+          if bad:
+              sys.exit(f"spawns/count mismatch at {bad[:5]}")
+          print(f"OK {doc['mods']['count']} mods, "
+                f"{doc['fixed_spawn_totals']['placements']} placements, "
+                f"{len(doc['events_activities'])} event pools")
+          PY
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add dist/
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Build Weapons - Chainsaws data"
+            git push
+          fi

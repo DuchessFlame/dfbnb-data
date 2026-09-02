@@ -56,6 +56,43 @@ def nuka_classify(sig, edid, via_edid):
     return "loot-list"
 
 
+def weapon_classify(sig, edid, via_edid):
+    """Weapon router (the Chainsaw family, and any WEAP page that follows it).
+
+    A weapon is never a nest, a dispenser or a harvestable, so the vocabulary is the
+    drink router's minus those cases — and it keeps the drink router's ordering rule:
+    the most specific keyword first, VendorChest beating the VendingMachine token so a
+    merchant chest is never mislabelled as a machine.
+
+    The one weapon-specific case is the world **display rack / weapon rack** (EDID
+    carries `WeaponRack` / `GunRack`): a rack is a fixed world point that hands you the
+    weapon, so it belongs in Fixed Spawn Locations alongside `direct`, not in
+    Containers. Everything else routes exactly as the drink router does.
+    """
+    e = (edid or "").lower() + " " + (via_edid or "").lower()
+    if "collectron" in e:
+        return "collectron"
+    if "vendorchest" in e:
+        return "vendor"
+    if "mysterymachine" in e:
+        return "resource-generator"
+    if "weaponrack" in e or "gunrack" in e:
+        return "machine"          # a fixed, always-there world point (Fixed Spawn)
+    if "vendingmachine" in e or "dispenser" in e:
+        return "resource-generator"
+    if "vendor" in e:
+        return "vendor"
+    if "questreward" in e or "quest_reward" in e or "_reward" in e:
+        return "quest-reward"
+    if sig == "NPC_":
+        return "npc"
+    if sig == "REFR":
+        return "direct"
+    if sig == "CONT":
+        return "container"
+    return "loot-list"
+
+
 def farming_classify(sig, edid, via_edid):
     """Farming / egg router (Cream + the egg sets). Keeps the exact buckets the
     farming pipeline shipped: collectron/slowroaster, vendor, nest, dispenser,

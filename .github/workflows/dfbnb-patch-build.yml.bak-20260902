@@ -1,0 +1,1156 @@
+name: DFBNB Patch Build
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'
+  push:
+    branches: [ main ]
+    paths:
+      # tsv/** intentionally broad — covers CHAL, KYWD, LVLI, CURV, BOOK, ARMO,
+      # COBJ, FURN, FLST, ENTM, ALCH, FISH, GLOB, etc. Do NOT narrow this glob
+      # without auditing which downstream builds depend on which TSVs. In
+      # particular, mini-seasons keyword pill resolution (Archaic, Bow, etc.)
+      # depends on KYWD_Export_*_Refs.tsv — if the glob is narrowed to only
+      # CHAL exports, weapon renames from Bethesda won't rebuild mini_seasons.
+      - "tsv/**"
+      # PTS data lives in tsv/pts/ and has its own workflow (dfbnb-pts-build.yml).
+      # Exclude it so PTS pulls don't trigger a wasteful live rebuild.
+      - "!tsv/pts/**"
+      - "tools/**"
+      - "src/**"
+      - "data/**"
+      - ".github/workflows/dfbnb-patch-build.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: "24"
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas
+
+      # ===== INPUT SELECTION GUARD =====
+      # Every builder must pick its export through src/tsv_source.py. Sorting
+      # export filenames lexically resolves to MAY 2026 for every record type
+      # ("August" sorts before "July"; "May" outranks them all), and sorting by
+      # mtime is meaningless here because actions/checkout stamps every file
+      # with the same timestamp. Both bugs shipped silently for months. This
+      # step fails the build if either pattern reappears.
+      - name: Verify export selection (tsv_source lint)
+        run: python src/tsv_source.py --lint
+
+      - name: Report which export each record type resolves to
+        run: python src/tsv_source.py
+
+      # ===== DROP RATES (must run before titles, events) =====
+      - name: Build Drop Rates JSON
+        run: python src/build_drop_rates.py
+
+      - name: Sanity check drop_rates.json
+        run: |
+          test -f dist/drop_rates.json && echo "OK drop_rates.json ($(wc -c < dist/drop_rates.json) bytes)" || (echo "MISSING drop_rates.json" && exit 1)
+
+      # --- TITLES ---
+      - name: Build Titles JSON
+        run: |
+          python src/build_titles_json.py \
+            --tsv-root tsv \
+            --seasons tsv/fallout76_seasons.tsv \
+            --outdir dist
+
+      - name: Stage patchlog latest (titles -> generic)
+        run: cp dist/titles_patchlog.json dist/patchlog_latest_titles.json
+
+      - name: Build patchlog manifest (from guide_index.tsv)
+        run: |
+          python src/build_patchlog_manifest_from_guide_index.py \
+            --guide-index tsv/guide_index.tsv \
+            --out dist/patchlog_manifest.json \
+            --dist-base-url "https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/dist" \
+            --titles-feed patchlog_latest_titles.json
+
+      - name: Append patchlog history (append-only)
+        run: |
+          python src/append_patchlog_history.py \
+            --latest dist/patchlog_latest_titles.json \
+            --history dist/patchlog_history.json \
+            --kind titles
+
+      - name: Build Titles Generator JSON
+        run: python src/build_titles_generator_json.py
+
+      - name: Build Camp Titles Manifest
+        run: python src/build_titles.py
+
+      # --- CURVES ---
+
+      # Regenerate the POINTS TSV from the committed records TSV +
+      # committed curve-table JSONs. This closes the generative loop:
+      # once xEdit exports a fresh CURV_Export_*_CURV.tsv, CI rebuilds
+      # the matching _POINTS.tsv in-place so downstream builders always
+      # see points in lock-step with the records. No "don't forget to
+      # run the PowerShell script" step for Duchess to remember.
+      #
+      # Skip gracefully if no records TSV exists yet — the locate step
+      # below will then pick up whatever POINTS file is committed.
+      - name: Regenerate CURV POINTS TSV from records + JSONs
+        shell: bash
+        run: |
+          set -e
+          # GitHub Actions bash runs with -o pipefail. `ls` given a glob
+          # that matches nothing (here: tsv/CURV_Export_*.tsv_CURV.tsv)
+          # exits 2 even with stderr redirected, and pipefail propagates
+          # that up through the pipe, aborting the script via `set -e`.
+          # Wrap ls in `{ ... || true; }` so the pipeline always starts
+          # from exit 0; the awk filter decides whether any records TSV
+          # was actually found.
+          RECORDS=$({ ls -1 tsv/CURV_Export_*_CURV.tsv tsv/CURV_Export_*.tsv_CURV.tsv 2>/dev/null || true; } | awk -F'[_./]' '
+            BEGIN {
+              m["jan"]=1;m["january"]=1;m["feb"]=2;m["february"]=2;
+              m["mar"]=3;m["march"]=3;m["apr"]=4;m["april"]=4;
+              m["may"]=5;m["jun"]=6;m["june"]=6;m["jul"]=7;m["july"]=7;
+              m["aug"]=8;m["august"]=8;m["sep"]=9;m["sept"]=9;m["september"]=9;
+              m["oct"]=10;m["october"]=10;m["nov"]=11;m["november"]=11;
+              m["dec"]=12;m["december"]=12
+            }
+            { cm=0;cy=0
+              for(i=1;i<=NF;i++){v=tolower($i);if(v in m)cm=m[v];if($i~/^[0-9]{4}$/)cy=$i+0}
+              printf "%04d%02d %s\n",cy,cm,$0
+            }' | sort -k1,1 | tail -n 1 | cut -d' ' -f2-)
+
+          if [ -z "$RECORDS" ]; then
+            echo "No CURV records TSV found — skipping regeneration."
+            echo "(Downstream steps will use whatever CURV_Export_*_POINTS.tsv is committed.)"
+            exit 0
+          fi
+
+          if [ ! -d data/curvetables/json ]; then
+            echo "data/curvetables/json missing — skipping regeneration."
+            echo "(Downstream steps will use the committed CURV_Export_*_POINTS.tsv.)"
+            exit 0
+          fi
+
+          echo "Using records TSV: $RECORDS"
+          python src/build_curv_points_tsv.py \
+            --records-tsv "$RECORDS" \
+            --json-root data/curvetables/json
+
+      - name: Locate latest CURV points TSV
+        shell: bash
+        run: |
+          # Pick the file whose filename contains the latest Month_Year.
+          # On GitHub Actions all mtimes are equal after checkout, so we
+          # parse the month name embedded in the filename instead.
+          newest_by_name() {
+            local files
+            files=$(ls -1 $1 2>/dev/null)
+            [ -z "$files" ] && return
+            echo "$files" | awk -F'[_./]' '
+            BEGIN {
+              m["jan"]=1;m["january"]=1;m["feb"]=2;m["february"]=2;
+              m["mar"]=3;m["march"]=3;m["apr"]=4;m["april"]=4;
+              m["may"]=5;m["jun"]=6;m["june"]=6;m["jul"]=7;m["july"]=7;
+              m["aug"]=8;m["august"]=8;m["sep"]=9;m["sept"]=9;m["september"]=9;
+              m["oct"]=10;m["october"]=10;m["nov"]=11;m["november"]=11;
+              m["dec"]=12;m["december"]=12
+            }
+            { cm=0;cy=0
+              for(i=1;i<=NF;i++){v=tolower($i);if(v in m)cm=m[v];if($i~/^[0-9]{4}$/)cy=$i+0}
+              printf "%04d%02d %s\n",cy,cm,$0
+            }' | sort -k1,1 | tail -n 1 | cut -d' ' -f2-
+          }
+
+          FILE=$(newest_by_name "tsv/CURV_Export_*_POINTS.tsv")
+          if [ -z "$FILE" ]; then
+            echo "ERROR: No CURV_Export_*_POINTS.tsv found in tsv/"
+            exit 1
+          fi
+          echo "CURV_POINTS_TSV=$FILE" >> $GITHUB_ENV
+          echo "Using CURV points TSV: $FILE"
+
+          # build_curves_json.mjs also takes PCRD / PERK / CURV header exports for the
+          # perk-card linkage, and its built-in defaults are the LITERAL strings
+          # "tsv/PCRD_Export_March_2026.tsv" etc. Only CURV_POINTS_TSV was ever set
+          # here, so those three have been reading March 2026 since March. A frozen
+          # filename is worse than a bad sort — there is no selection logic for a lint
+          # to inspect. Resolve them the same way as the points file.
+          for pair in "PCRD_TSV:tsv/PCRD_Export_*.tsv" \
+                      "PERK_TSV:tsv/PERK_Export_*.tsv" \
+                      "CURV_HDR_TSV:tsv/CURV_Export_*_CURV.tsv"; do
+            var="${pair%%:*}"; pat="${pair#*:}"
+            f=$(newest_by_name "$pat")
+            if [ -n "$f" ]; then
+              echo "$var=$f" >> $GITHUB_ENV
+              echo "Using $var: $f"
+            else
+              echo "WARN: no match for $pat — $var falls back to the builder default"
+            fi
+          done
+
+      - name: Build Curves JSON
+        shell: bash
+        run: |
+          mkdir -p dist/curves
+          CURV_POINTS_TSV="${CURV_POINTS_TSV}" \
+          PCRD_TSV="${PCRD_TSV}" \
+          PERK_TSV="${PERK_TSV}" \
+          CURV_HDR_TSV="${CURV_HDR_TSV}" \
+          CURV_OUT_DIR="dist/curves" \
+          CURV_CHUNK_MAX_CURVES="200" \
+          node tools/build_curves_json.mjs
+
+      # --- EVENTS REWARDS ---
+      - name: Build Events Rewards JSON
+        run: python src/build_events_rewards_json.py
+
+      # --- ACTIVITIES REWARDS ---
+      - name: Build Activities Rewards JSON
+        run: python src/build_activities_rewards_json.py
+
+      # --- INFESTATIONS (HTO) REWARDS ---
+      - name: Build Infestations (HTO) Rewards JSON
+        run: |
+          python src/build_hto_rewards_json.py
+          python src/build_hto_rewards_json.py --pts
+
+      # --- INFESTATIONS (HTO) LOCATIONS ---
+      - name: Build Infestations (HTO) Locations JSON
+        run: |
+          python src/build_hto_locations_json.py
+          python src/build_hto_locations_json.py --pts
+
+      # --- SEASONAL EVENTS REWARDS ---
+      - name: Build Seasonal Events Rewards JSON
+        run: python src/build_seasonal_events_json.py
+
+      # --- RAIDS / EXPOS / DAILY OPS REWARDS ---
+      # Each reads dist/events/events_rewards.json (built above) via the shared
+      # events_page_pools helper and writes its own per-page dist file. Daily Ops
+      # additionally cross-references BOOK + ARMO TSVs to stamp a tradeable flag.
+      - name: Build Raids Rewards JSON
+        run: python src/build_raids_json.py
+
+      - name: Build Expos Rewards JSON
+        run: python src/build_expos_json.py
+
+      - name: Build Daily Ops JSON
+        run: python src/build_daily_ops_json.py
+
+      # --- BOUNTY HUNTING CHALLENGES (reads CHAL TSV directly) ---
+      - name: Build Bounty Hunting Challenges JSON
+        run: python src/build_bounty_hunting_json.py
+
+      # --- MINI SEASONS ---
+      - name: Build Mini Seasons JSON
+        run: python src/build_mini_seasons_json.py
+
+      # --- CHALLENGES ---
+      - name: Build Challenges JSON
+        run: python src/build_challenges_json_v3.py
+
+      # --- DAILY PIP-BOY QUESTS ---
+      - name: Build Daily Quests JSON
+        run: python src/build_daily_quests_json.py
+
+      # --- CHAL LATEST / PREVIOUS ---
+      - name: Build CHAL Latest/Previous JSON
+        run: python src/build_chal_latest_previous.py
+
+      # --- DF CALCULATORS ---
+      - name: Pick newest TSVs (DF Calculators)
+        shell: bash
+        run: |
+          set -e
+
+          newest() {
+            local files
+            files=$(ls -1 $1 2>/dev/null)
+            [ -z "$files" ] && return
+            echo "$files" | awk -F'[_./]' '
+            BEGIN {
+              m["jan"]=1;m["january"]=1;m["feb"]=2;m["february"]=2;
+              m["mar"]=3;m["march"]=3;m["apr"]=4;m["april"]=4;
+              m["may"]=5;m["jun"]=6;m["june"]=6;m["jul"]=7;m["july"]=7;
+              m["aug"]=8;m["august"]=8;m["sep"]=9;m["sept"]=9;m["september"]=9;
+              m["oct"]=10;m["october"]=10;m["nov"]=11;m["november"]=11;
+              m["dec"]=12;m["december"]=12
+            }
+            { cm=0;cy=0
+              for(i=1;i<=NF;i++){v=tolower($i);if(v in m)cm=m[v];if($i~/^[0-9]{4}$/)cy=$i+0}
+              printf "%04d%02d %s\n",cy,cm,$0
+            }' | sort -k1,1 | tail -n 1 | cut -d' ' -f2-
+          }
+
+          FLST_ENTRIES_TSV="$(newest "tsv/FLST_Export_*_Entries.tsv")"
+          ARMO_TSV="$(newest "tsv/ARMO_Export_*.tsv")"
+          ENTM_TSV="$(newest "tsv/ENTM_Export_*.tsv")"
+          COBJ_TSV="$(newest "tsv/COBJ_Export_*.tsv")"
+          FURN_TSV="$(newest "tsv/FURN_Export_*_FURN.tsv")"
+
+          if [ -z "$FLST_ENTRIES_TSV" ]; then echo "Missing FLST Entries TSV (tsv/FLST_Export_*_Entries.tsv)"; exit 1; fi
+          if [ -z "$ARMO_TSV" ]; then echo "Missing ARMO TSV (tsv/ARMO_Export_*.tsv)"; exit 1; fi
+          if [ -z "$COBJ_TSV" ]; then echo "Missing COBJ TSV (tsv/COBJ_Export_*.tsv)"; exit 1; fi
+          if [ -z "$FURN_TSV" ]; then echo "Missing FURN TSV (tsv/FURN_Export_*_FURN.tsv)"; exit 1; fi
+
+          echo "FLST_ENTRIES_TSV=$FLST_ENTRIES_TSV" >> $GITHUB_ENV
+          echo "ARMO_BOD2_TSV=$ARMO_TSV" >> $GITHUB_ENV
+          echo "ENTM_TSV=$ENTM_TSV" >> $GITHUB_ENV
+          echo "COBJ_TSV=$COBJ_TSV" >> $GITHUB_ENV
+          echo "FURN_TSV=$FURN_TSV" >> $GITHUB_ENV
+
+          echo "Using:"
+          echo "  FLST_ENTRIES_TSV=$FLST_ENTRIES_TSV"
+          echo "  ARMO_BOD2_TSV=$ARMO_TSV"
+          echo "  ENTM_TSV=$ENTM_TSV"
+          echo "  COBJ_TSV=$COBJ_TSV"
+          echo "  FURN_TSV=$FURN_TSV"
+
+      - name: Build DF Calculators JSON
+        run: node tools/build_df_calculators_json.mjs
+        env:
+          FLST_ENTRIES_TSV: ${{ env.FLST_ENTRIES_TSV }}
+          ARMO_BOD2_TSV: ${{ env.ARMO_BOD2_TSV }}
+          ENTM_TSV: ${{ env.ENTM_TSV }}
+          COBJ_TSV: ${{ env.COBJ_TSV }}
+          OUT_DIR: dist/calculators
+
+      - name: Stage DF calculators patchlog feeds
+        # build_df_calculators_json.mjs writes per-page patchlog feeds next to
+        # the data files. Copy them into dist/ with the names the patchlog
+        # manifest expects so the build-inspiration page and the
+        # outfit-inspiration page each get their own, separate feed.
+        run: |
+          cp dist/calculators/build_inspiration_patchlog.json  dist/patchlog_latest_df_build_inspiration.json
+          cp dist/calculators/outfit_inspiration_patchlog.json dist/patchlog_latest_df_outfit_inspiration.json
+
+      - name: Build Weapon Spin Wheel JSON
+        run: python src/build_spin_wheel_json.py
+
+      # --- DF SCOREBOARDS (placeholder patchlog) ---
+      - name: Stage scoreboards patchlog feed (placeholder)
+        # No dedicated builder for the scoreboards category yet — the Season
+        # Ticket Calculator and S.C.O.R.E. Progression Calculator pages live
+        # under /df/scoreboards/ but their underlying season-ticket reward and
+        # SCORE challenge data isn't diffed into a patchlog yet. Emit a
+        # minimal valid stub so the patchlog manifest URL resolves (no 404)
+        # and the patchlog UI on those pages just shows "no recent changes".
+        # When real change tracking is wired up (e.g. extend
+        # build_score_challenges_json.py / build_seasons_json.py to emit a
+        # scoreboards_patchlog.json), replace this step with a `cp` from the
+        # builder output, same pattern as the DF calculators step above.
+        run: |
+          TS=$(date -u +%FT%T+00:00)
+          cat > dist/patchlog_latest_df_scoreboards.json <<EOF
+          {
+            "entries": [
+              {
+                "ts": "${TS}",
+                "current": 0,
+                "added": [],
+                "removed": [],
+                "changed": []
+              }
+            ]
+          }
+          EOF
+
+      # --- ARMOUR DATA ---
+      - name: Build Armour Data JSON
+        run: python src/build_armour_json.py --data-dir tsv --out dist/armour.json
+
+      # --- COLLECTABLES ---
+      - name: Build Collectables JSON
+        run: |
+          python src/build_collectables_json.py \
+            --tsv-root tsv \
+            --seasons tsv/fallout76_seasons.tsv \
+            --outdir dist
+
+      # --- CAMP ITEMS ---
+      - name: Build Camp Items JSON
+        run: |
+          python src/build_camp_items_json.py \
+            --tsv-root tsv \
+            --outdir dist
+
+      # --- VENDORS (must run before Allies — ally inventory reads vendor data) ---
+      - name: Build Vendors JSON
+        run: python src/build_vendors_json.py
+
+      # --- ALLIES · PETS · WEATHER · CRYOS · REPAIR BOTS ---
+      - name: Pick BOOK TSV (Allies/Pets/Weather)
+        shell: bash
+        run: |
+          newest_by_name() {
+            local files
+            files=$(ls -1 $1 2>/dev/null)
+            [ -z "$files" ] && return
+            echo "$files" | awk -F'[_./]' '
+            BEGIN {
+              m["jan"]=1;m["january"]=1;m["feb"]=2;m["february"]=2;
+              m["mar"]=3;m["march"]=3;m["apr"]=4;m["april"]=4;
+              m["may"]=5;m["jun"]=6;m["june"]=6;m["jul"]=7;m["july"]=7;
+              m["aug"]=8;m["august"]=8;m["sep"]=9;m["sept"]=9;m["september"]=9;
+              m["oct"]=10;m["october"]=10;m["nov"]=11;m["november"]=11;
+              m["dec"]=12;m["december"]=12
+            }
+            { cm=0;cy=0
+              for(i=1;i<=NF;i++){v=tolower($i);if(v in m)cm=m[v];if($i~/^[0-9]{4}$/)cy=$i+0}
+              printf "%04d%02d %s\n",cy,cm,$0
+            }' | sort -k1,1 | tail -n 1 | cut -d' ' -f2-
+          }
+          BOOK=$(ls tsv/BOOK_Export_*.tsv 2>/dev/null | grep -iv '_locations' | awk -F'[_./]' '
+            BEGIN {
+              m["jan"]=1;m["january"]=1;m["feb"]=2;m["february"]=2;
+              m["mar"]=3;m["march"]=3;m["apr"]=4;m["april"]=4;
+              m["may"]=5;m["jun"]=6;m["june"]=6;m["jul"]=7;m["july"]=7;
+              m["aug"]=8;m["august"]=8;m["sep"]=9;m["sept"]=9;m["september"]=9;
+              m["oct"]=10;m["october"]=10;m["nov"]=11;m["november"]=11;
+              m["dec"]=12;m["december"]=12
+            }
+            { cm=0;cy=0
+              for(i=1;i<=NF;i++){v=tolower($i);if(v in m)cm=m[v];if($i~/^[0-9]{4}$/)cy=$i+0}
+              printf "%04d%02d %s\n",cy,cm,$0
+            }' | sort -k1,1 | tail -n 1 | cut -d' ' -f2-)
+          if [ -z "$BOOK" ]; then echo "ERROR: No BOOK_Export_*.tsv (non-Locations) found in tsv/"; exit 1; fi
+          echo "BOOK_TSV=$BOOK" >> $GITHUB_ENV
+          echo "Using BOOK TSV: $BOOK"
+
+      # --- MINERVA PLANS ---
+      # Folded in from dfbnb-minerva-build.yml — uses the BOOK_TSV env var
+      # set by "Pick BOOK TSV" above.
+      - name: Build Minerva Plans JSON
+        shell: bash
+        run: |
+          mkdir -p dist/minerva
+          python src/build_minerva.py "$BOOK_TSV" > dist/minerva/minerva_plans.json
+          echo "Built dist/minerva/minerva_plans.json"
+
+      - name: Sanity check Minerva output
+        run: |
+          test -f dist/minerva/minerva_plans.json \
+            && echo "OK minerva_plans.json" \
+            || (echo "MISSING minerva_plans.json" && exit 1)
+          python3 -c "
+          import json, sys
+          d = json.load(open('dist/minerva/minerva_plans.json'))
+          assert 'minerva' in d, 'Missing minerva key'
+          assert 'all_plans' in d, 'Missing all_plans key'
+          assert len(d['minerva']) > 0, 'minerva list is empty'
+          assert len(d['all_plans']) > 0, 'all_plans list is empty'
+          print(f'  Minerva plans: {len(d[\"minerva\"])}')
+          print(f'  All gold vendor plans: {len(d[\"all_plans\"])}')
+          "
+
+      - name: Pick TSVs (Allies extras + Buff Stations)
+        shell: bash
+        run: |
+          # Month-aware picker — plain sorted() globs put May after June
+          # alphabetically, so these MUST be picked by month/year.
+          newest_by_name() {
+            local files
+            files=$(ls -1 $1 2>/dev/null)
+            [ -z "$files" ] && return
+            echo "$files" | awk -F'[_./]' '
+            BEGIN {
+              m["jan"]=1;m["january"]=1;m["feb"]=2;m["february"]=2;
+              m["mar"]=3;m["march"]=3;m["apr"]=4;m["april"]=4;
+              m["may"]=5;m["jun"]=6;m["june"]=6;m["jul"]=7;m["july"]=7;
+              m["aug"]=8;m["august"]=8;m["sep"]=9;m["sept"]=9;m["september"]=9;
+              m["oct"]=10;m["october"]=10;m["nov"]=11;m["november"]=11;
+              m["dec"]=12;m["december"]=12
+            }
+            { cm=0;cy=0
+              for(i=1;i<=NF;i++){v=tolower($i);if(v in m)cm=m[v];if($i~/^[0-9]{4}$/)cy=$i+0}
+              printf "%04d%02d %s\n",cy,cm,$0
+            }' | sort -k1,1 | tail -n 1 | cut -d' ' -f2-
+          }
+          ACTI=$(newest_by_name "tsv/ACTI_Export_*_ACTI.tsv")
+          WTHR=$(newest_by_name "tsv/WTHR_Export_*_WTHR.tsv")
+          NPCP=$(newest_by_name "tsv/NPC_Export_*_PRPS.tsv")
+          KYWD=$(newest_by_name "tsv/KYWD_Export_*_Refs.tsv")
+          PERK=$(newest_by_name "tsv/PERK_Export_*.tsv")
+          echo "ACTI_TSV=$ACTI"      >> $GITHUB_ENV
+          echo "WTHR_TSV=$WTHR"      >> $GITHUB_ENV
+          echo "NPC_PRPS_TSV=$NPCP"  >> $GITHUB_ENV
+          echo "KYWD_REFS_TSV=$KYWD" >> $GITHUB_ENV
+          echo "PERK_TSV=$PERK"      >> $GITHUB_ENV
+          echo "  ACTI: $ACTI"; echo "  WTHR: $WTHR"; echo "  NPC PRPS: $NPCP"
+          echo "  KYWD Refs: $KYWD"; echo "  PERK: $PERK"
+
+      - name: Build Allies / Pets / Weather JSON
+        run: |
+          python src/build_allies_pets_weather_json.py \
+            --tsv-dir tsv \
+            --out-dir dist
+        env:
+          COBJ_TSV:         ${{ env.COBJ_TSV }}
+          ENTM_TSV:         ${{ env.ENTM_TSV }}
+          FURN_TSV:         ${{ env.FURN_TSV }}
+          FLST_ENTRIES_TSV: ${{ env.FLST_ENTRIES_TSV }}
+          BOOK_TSV:         ${{ env.BOOK_TSV }}
+          ACTI_TSV:         ${{ env.ACTI_TSV }}
+          WTHR_TSV:         ${{ env.WTHR_TSV }}
+          NPC_PRPS_TSV:     ${{ env.NPC_PRPS_TSV }}
+
+      # --- BUFF STATIONS (auto-discovers from buff-furniture keywords) ---
+      - name: Build Buff Stations JSON
+        run: |
+          python src/build_buff_stations_json.py \
+            --tsv-dir tsv \
+            --out-dir dist
+        env:
+          FURN_TSV:      ${{ env.FURN_TSV }}
+          ACTI_TSV:      ${{ env.ACTI_TSV }}
+          ENTM_TSV:      ${{ env.ENTM_TSV }}
+          KYWD_REFS_TSV: ${{ env.KYWD_REFS_TSV }}
+          PERK_TSV:      ${{ env.PERK_TSV }}
+          COBJ_TSV:      ${{ env.COBJ_TSV }}
+
+      # --- PLAN MASTER ---
+      - name: Build Plan Master JSON
+        run: |
+          mkdir -p dist
+          node src/plan-system/build-plan-master.mjs
+
+      # --- AXOLOTL ---
+      - name: Build Axolotl Rotations JSON
+        run: node tools/build-axolotl-rotations-json.mjs
+
+      # --- SEASONAL FISH ---
+      # Reads the latest FISH + LVLI_Entries TSVs and emits dist/seasonal-fish.json
+      # consumed by the home banner. Regenerative — if Bethesda moves a fish
+      # between regional collections or adds a new seasonal fish, the next build
+      # picks it up without code changes. Runs AFTER Axolotl for consistency.
+      - name: Build Seasonal Fish JSON
+        run: node tools/build-seasonal-fish-json.mjs
+
+      # --- HOME EVENTS ---
+      - name: Build Home Events JSON
+        run: node tools/build-home-events-json.mjs
+
+      # --- BUNDLES (now handled by Build Atom Shop JSON below) ---
+
+      # ===== GAP-FILLER CATEGORY BUILDS (scaffolded — real logic TBD) =====
+      # NOTE: Buffs is no longer a gap-filler. Its step moved DOWN the file,
+      # below Recipe Guide — see "BUFFS" there.
+
+      # --- CAMP ---
+      - name: Build CAMP JSON
+        run: python src/build_camp_json.py
+
+      # --- CRYPTIDS ---
+      - name: Build Cryptids JSON
+        run: python src/build_cryptids_json.py
+
+      # --- CURRENCY ---
+      # BOOK_TSV is already set by the "Pick BOOK TSV (Allies/Pets/Weather)" step above.
+      # build_currency_json.py reads the BOOK TSV directly — no minerva dependency.
+      - name: Build Currency JSON
+        shell: bash
+        run: |
+          LVLI=$(ls -1 tsv/LVLI_Export_*_LVLI_Entries.tsv 2>/dev/null | awk -F'[_./]' '
+            BEGIN {
+              m["jan"]=1;m["january"]=1;m["feb"]=2;m["february"]=2;
+              m["mar"]=3;m["march"]=3;m["apr"]=4;m["april"]=4;
+              m["may"]=5;m["jun"]=6;m["june"]=6;m["jul"]=7;m["july"]=7;
+              m["aug"]=8;m["august"]=8;m["sep"]=9;m["sept"]=9;m["september"]=9;
+              m["oct"]=10;m["october"]=10;m["nov"]=11;m["november"]=11;
+              m["dec"]=12;m["december"]=12
+            }
+            { cm=0;cy=0
+              for(i=1;i<=NF;i++){v=tolower($i);if(v in m)cm=m[v];if($i~/^[0-9]{4}$/)cy=$i+0}
+              printf "%04d%02d %s\n",cy,cm,$0
+            }' | sort -k1,1 | tail -n 1 | cut -d' ' -f2-)
+          python src/build_currency_json.py \
+            --book-tsv "$BOOK_TSV" \
+            ${LVLI:+--lvli-entries "$LVLI"} \
+            --outdir dist
+
+      # --- DATA MINING ---
+      - name: Build Data Mining JSON
+        run: python src/build_data_mining_json.py
+
+      # --- EXPERIENCE (XP) ---
+      - name: Build Experience JSON
+        run: python src/build_experience_json.py
+
+      # --- FARMING (all sub-types) ---
+      - name: Build Farming JSON
+        run: python src/build_farming_json.py
+
+      - name: Build Farming Consumables JSON
+        run: python src/build_farming_consumables_json.py
+
+      - name: Build Farming Critters JSON
+        run: python src/build_farming_critters_json.py
+
+      - name: Build Farming Eggs JSON
+        run: python src/build_farming_eggs_json.py
+
+      - name: Build Farming Guides JSON
+        run: python src/build_farming_guides_json.py
+
+      - name: Build Farming Junk JSON
+        run: python src/build_farming_junk_json.py
+
+      - name: Build Farming Meat JSON
+        run: python src/build_farming_meat_json.py
+
+      - name: Build Farming Non Perishable JSON
+        run: python src/build_farming_non_perishable_json.py
+
+      - name: Build Farming Nuka Cola JSON
+        run: python src/build_farming_nuka_cola_json.py
+
+      - name: Build Farming Plants JSON
+        run: python src/build_farming_plants_json.py
+
+      # --- LEGENDARY MODS ---
+      - name: Build Legendary Mods JSON
+        run: python src/build_legendary_mods_json.py
+
+      # --- LOAD SCREENS ---
+      - name: Build Load Screens JSON
+        run: python src/build_load_screens_json.py --data-dir tsv --out dist/load_screens.json
+
+      # --- HELP MENU (MESG) ---
+      - name: Build Help Menu JSON
+        run: python src/build_help_menu_json.py --data-dir tsv --out dist/help_menu.json
+
+      # --- PERK CARDS ---
+      - name: Build Perk Cards JSON
+        run: python src/build_perk_cards_json.py
+
+      # --- PET TAMING ---
+      - name: Build Pet Taming JSON
+        run: python src/build_pet_taming_json.py
+
+      # --- SPECIALs & STATS ---
+      - name: Build SPECIALs & Stats JSON
+        run: python src/build_specials_stats_json.py
+
+      # --- STARFIELD ---
+      - name: Build Starfield JSON
+        run: python src/build_starfield_json.py
+
+      # --- TREASURE MAPS ---
+      - name: Build Treasure Maps JSON
+        run: python src/build_treasure_maps_json.py
+
+      # --- WEAPONS ---
+      - name: Build Weapons JSON
+        run: python src/build_weapons_json.py
+
+      # --- UNIQUE WEAPONS ---
+      # Outputs dist/unique_weapons/unique_weapons.json (live) and
+      # dist/pts/unique_weapons/unique_weapons.json (PTS) for
+      # df-bnb-unique-weapons.js. Reads LVLI, WEAP, OMOD, ENCH, GMRW, QUEST TSVs.
+      - name: Build Unique Weapons JSON
+        run: python src/build_unique_weapons_json.py --channel both
+
+      # --- PENNANTS (Pennants checklist page) ---
+      # Outputs dist/pennants.json, served via raw.githubusercontent to
+      # df-bnb-plan-checklists.js. Previously had no workflow and went stale.
+      - name: Build Pennants JSON
+        run: python src/build_pennants_json.py --data-dir tsv --outdir dist
+
+      # --- WORLD PET CHALLENGES (World Pet Challenges page) ---
+      # Outputs dist/world_pet_challenges.json for df-bnb-world-pets.js.
+      - name: Build World Pet Challenges JSON
+        run: python src/build_world_pet_challenges_json.py --tsv-dir tsv --out-dir dist
+
+      # --- WORLD PET TYPES (per-species World Pet pages) ---
+      # Outputs dist/world_pet_types.json for df-bnb-world-pets.js.
+      # Reads NPC, ENTM, ALCH, ALCH_Effects, COBJ, GLOB TSVs (resolved
+      # internally via glob patterns — no explicit env vars needed).
+      - name: Build World Pet Types JSON
+        run: |
+          python src/build_world_pet_types_json.py \
+            --tsv-dir tsv \
+            --out-dir dist
+
+      # --- WEAK SPOT MULTIPLIERS (BnB calculators) ---
+      # Outputs dist/calculators/weak_spot_multipliers.json for df-bnb-bnb-calculators.js.
+      - name: Build Weak Spot Multipliers JSON
+        run: python src/build_weak_spot_multipliers_json.py
+
+      # --- HEALING CALCULATOR (BnB calculators) ---
+      # Outputs dist/calculators/healing_calculator.json for df-bnb-bnb-calculators.js.
+      - name: Build Healing Calculator JSON
+        run: python src/build_healing_calculator_json.py
+
+      # --- DROP CHANCES DATA (Drop Chances page) ---
+      # Outputs dist/drop_chances_data.json for df-bnb-drop-chances.js.
+      - name: Build Drop Chances Data JSON
+        run: python src/build_drop_chances_data.py --tsv-root tsv --outdir dist
+
+      # --- LEGENDARY MOD DROP CHANCES (Legendary mod calculator) ---
+      # Outputs dist/legendary_mod_drop_chances.json for df-bnb-legendary-mod-calc.js.
+      - name: Build Legendary Mod Drop Chances JSON
+        run: python src/build_legendary_mod_drop_chances_json.py
+
+      # --- NPC SPAWNS (Score Challenges spawn-location pages) ---
+      # tools/build_npc_spawns.py outputs dist/npc_spawns.json for df-bnb-npc-spawns.js.
+      # The Mappalachia DB is large and local-only, so in CI this runs in CACHE
+      # mode: it reads data/npc_spawns/geo_cache.json (committed) for regions +
+      # companions and refreshes dig counts + "Used For" from the committed dig
+      # .txt and CHAL export every 6h. Regions/companions only change when
+      # DuchessFlame re-runs the script locally with the DB and commits a fresh
+      # geo_cache.json (which also retriggers this build via the data/** path).
+      - name: Build NPC Spawns JSON
+        run: python tools/build_npc_spawns.py
+
+      # --- PINT-SIZED PHANTOMS GRAVE PLACEMENTS ---
+      # Regenerates tsv/phantom_grave_sites.tsv from the newest LIVE REFR export.
+      # This used to be local-only because resolving coordinates needed the 480 MB
+      # Mappalachia DB; it now falls back to data/mappalachia_geo.json (~42 KB,
+      # committed, refreshed by any local DB-backed run), so a fresh REFR export is
+      # the ONLY manual step in this chain. Exits 0 with a message when there is no
+      # live REFR export yet, rather than failing the build or reaching into tsv/pts.
+      - name: Build Phantom Grave Sites TSV
+        run: python src/build_phantom_grave_sites_tsv.py || true
+
+      # --- TREASURE MAP + U-MINE-IT DIG SITES ---
+      # Both regenerate from committed exports and the geo snapshot, so they belong
+      # here rather than in someone's head. Treasure map mounds come from the ACTI2
+      # export; U-Mine-It reads the REFR export (base 000355A1) — it used to read
+      # Mappalachia's Position table directly, which is what made it local-only.
+      # `|| true` so a channel with no export yet logs and moves on instead of
+      # failing a build that has nothing to do with dig sites.
+      - name: Build Treasure Map Dig Sites TSV
+        run: python src/build_treasure_map_dig_sites_tsv.py || true
+
+      - name: Build U-Mine-It Dig Sites TSV
+        run: python src/build_u_mine_it_dig_sites_tsv.py || true
+
+      # --- COLLECTABLE SPAWNS ({Item} Spawn Locations pages) ---
+      # src/build_collectable_spawns_json.py outputs dist/collectable_spawns_<set>.json
+      # (+ manifest) for df-bnb-collectables-spawns.js, from the MISC2/ACTI2 placement
+      # exports. Like NPC spawns this runs in CI CACHE mode: it re-resolves every placement
+      # by FormID from data/collectable_spawns/geo_cache.json (committed) — regions/markers
+      # only change when DuchessFlame re-runs it locally with the Mappalachia DB and commits a
+      # fresh geo_cache.json. Hand-filled directions/images are merge-preserved on rebuild.
+      - name: Build Collectable Spawns JSON
+        run: python src/build_collectable_spawns_json.py
+
+      # --- NUKA COLA SPAWNS ({Type} Locations pages) ---
+      # src/build_nuka_cola_spawns_json.py outputs dist/nuka_cola_spawns_<slug>.json (+ manifest)
+      # for df-bnb-nuka-cola-spawns.js. It computes each flavour's FULL source closure — vending
+      # machines / collectrons / containers / loot lists / direct placements — from the committed
+      # game-file exports (LVLI_Entries / LVLI_Refs / ALCH), then attaches coordinates + region.
+      # Like the collectable/NPC spawn builds it runs in CI CACHE mode: coordinates & regions come
+      # from the committed data/nuka_cola_spawns/geo_cache.json, so the 459 MB Mappalachia DB is
+      # NOT needed in CI. The cache only changes when DuchessFlame re-runs this locally with the DB
+      # (which also retriggers this build via the data/** path). Hand-filled directions/images are
+      # merge-preserved on every rebuild.
+      - name: Build Nuka Cola Spawns JSON
+        run: python src/build_nuka_cola_spawns_json.py
+
+      # --- FARMING SPAWNS (config-driven, all items in farming_spawns_config.py) ---
+      # build_farming_spawns_json.py --all builds every item defined in
+      # farming_spawns_config.ALL_SETS → dist/farming_spawns/<slug>_spawns.json.
+      # Runs in CI CACHE mode: coordinates & regions come from the committed
+      # data/farming_spawns/geo_cache_*.json files (no Mappalachia DB in CI).
+      # The caches only change when DuchessFlame re-runs locally with the DB.
+      # Hand-filled directions/images are merge-preserved on every rebuild.
+      # To add a new food: add a config entry to farming_spawns_config.py,
+      # seed its geo cache locally, and the next CI run picks it up.
+      - name: Build All Farming Spawns JSON
+        run: python src/build_farming_spawns_json.py --all
+
+      # --- CULT OF THE LAMB ---
+      - name: Build Cult of the Lamb JSON
+        run: python src/build_cult_of_the_lamb_json.py
+
+      # --- COBJ RECIPES (Buffs n Brew crafting data) ---
+      - name: Build COBJ Recipes JSON
+        run: python src/build_cobj_recipes_json.py
+
+      # --- MENU ITEMS (Buffs n Brew Crafting tab) ---
+      # Reads dist/cobj-recipes.json produced by the step above and merges
+      # with tsv/menu-overrides.tsv to produce dist/menu-items.json, which
+      # is consumed by the staff portal's Crafting tab category classifier.
+      # Must run AFTER build_cobj_recipes_json.py.
+      - name: Build Menu Items JSON
+        run: python src/build_menu_items_json.py
+
+      # --- BNB MENU SYNC (ALCH → menu TSV) ---
+      # Reads the latest ALCH_Export_*.tsv + Effects TSV, cross-references
+      # with tsv/BnB_Menu_Items.tsv, auto-adds new items that match existing
+      # menu categories, and populates mutation/buff columns from ALCH data.
+      # Unpriced items are flagged in dist/diagnostics.json for the staff
+      # portal diagnose page. Must run BEFORE build_bnb_menu_json.py.
+      - name: Sync ALCH into BnB Menu TSV
+        run: python src/build_bnb_menu_sync.py
+
+      # --- BNB MENU (public menu page) ---
+      # Reads tsv/BnB_Menu_Items.tsv and emits dist/bnb-menu.json — the data
+      # source for the Buffs n Brew menu page rendered by df-bnb-menu.js at
+      # /bnb/buffs-n-brew/menu/. Self-contained (no COBJ dependency).
+      # Must run AFTER build_bnb_menu_sync.py.
+      - name: Build BnB Menu JSON
+        run: python src/build_bnb_menu_json.py
+
+      # --- BNB ITEM CATEGORIES (ALCH → category index for crafting tab) ---
+      # Cross-references ALCH_Export + KYWD_Refs TSVs to classify every
+      # consumable into food/canned/nuka_cola/chems/alcohol/serums/prewar_candy.
+      # Emits dist/bnb-item-categories.json consumed by the staff portal's
+      # Crafting tab to supplement the menu-items.json primary item list.
+      - name: Build BnB Item Categories JSON
+        run: python src/build_bnb_item_categories_json.py --data-dir tsv --outdir dist
+
+      # --- RECIPE GUIDE (public recipe page at /df/plan-checklists/recipe/) ---
+      # Reads dist/farming_guides.json + dist/cobj-recipes.json +
+      # dist/bnb-item-categories.json + COBJ TSV refs. Must run AFTER all three
+      # upstream builds (farming guides, COBJ recipes, BnB item categories).
+      - name: Build Recipe Guide JSON
+        run: python src/build_recipe_guide_json.py --data-dir tsv --outdir dist
+
+      # --- FARMING SPAWNS "Used For" (generative) ---
+      # Injects the used_for block (consumption effects from ALCH exports,
+      # recipes from recipe_guide.json, challenges from challenges.json) into
+      # every dist/farming_spawns/<slug>_spawns.json.  Must run AFTER
+      # build_farming_spawns_json.py AND build_recipe_guide_json.py.
+      - name: Build Farming Spawns "Used For" JSON
+        run: python src/build_farming_used_for.py --all
+
+      # --- BUFFS (/bnb/buffs/*) ---
+      # Emits dist/buffs/<page>.json for the nine buff pages plus the
+      # dist/buffs.json manifest. Reads the ALCH/MGEF/GLOB/SPEL/BOOK exports
+      # directly AND dist/recipe_guide.json (for the Recipe / Plan route in
+      # How to Obtain), so it MUST run after Recipe Guide above — which in
+      # turn needs COBJ recipes and BnB item categories. Effect grouping and
+      # the SPECIAL-then-A-Z order live in src/buffs_effects.py.
+      - name: Build Buffs JSON
+        run: python src/build_buffs_json.py --data-dir tsv --outdir dist
+
+      # --- FISHING ---
+      # Reads FISH/GLOB/LVLI TSVs directly and emits dist/fishing.json with
+      # fish metadata, spawn rate tables per bait type, axolotl monthly
+      # rotation, seasonal fish, waterlogged gifts, and weekend seasonal
+      # event data. Self-contained.
+      #
+      # IMPORTANT: use build_fishing_calculator_json.py (the full builder),
+      # NOT build_fishing_json.py — the latter is the legacy script that
+      # only emits fish/spawnRates/globs and strips axolotlRotation,
+      # seasonalFish, waterloggedGifts, weekendSeasonalFish from the
+      # output. The calculator page on the site needs those keys.
+      - name: Build Fishing JSON
+        run: python src/build_fishing_calculator_json.py
+
+      # --- FIELD JOURNAL OF APPALACHIA (/df/fishing/field-journal-appalachia/) ---
+      # Was never wired into ANY workflow: dist/fish_journal.json had been
+      # hand-built and committed once, and dist/pts/fish_journal.json had never
+      # been committed at all — which is why the page logged a 404 for the PTS
+      # twin on every load (df-bnb-pts.js falls back to live, so the page still
+      # worked; the console noise was the only symptom).
+      #
+      # This ONE step covers both channels: build_fish_journal_json.py writes
+      # dist/fish_journal.json AND dist/pts/fish_journal.json itself, falling
+      # back to the live data when no PTS FISH export exists. Do NOT also add it
+      # to dfbnb-pts-build.yml — that workflow relocates dist/ to dist/pts/
+      # afterwards, which would nest the twin at dist/pts/pts/.
+      - name: Build Fish Journal JSON
+        run: python src/build_fish_journal_json.py
+
+      # --- FISHING EQUIPMENT (rod skins + bobbers & floats) ---
+      # Reads OMOD_Export_*.tsv and emits dist/fishing_equipment.json
+      # describing every fishing rod skin and bobber/float in the game,
+      # classified by how it is obtained (base game / Atomic Shop /
+      # Scoreboard season / Mini-Season event / Burning Springs).
+      # Consumed by the /df/fishing/fishing-bobbers-floats/ page.
+      - name: Build Fishing Equipment JSON
+        run: |
+          python src/build_fishing_equipment_json.py
+          python src/build_fishing_equipment_json.py --pts
+
+      # --- FISHING CHALLENGES CHECKLIST ---
+      # Groups the fishing CHAL rows (already selected + leaf-expanded by
+      # build_challenges_json_v3.py above) into Daily / Weekly / Big Fish in a
+      # Little Pond / Lifetime, resolves rewards (Score + GMRW + overlay), and
+      # emits dist/fishing_challenges_checklist.json (live + PTS twins) for the
+      # /df/fishing/challenges-checklist/ page. Depends on challenges.json and
+      # fishing_big_fish.json, so it runs after both.
+      - name: Build Fishing Daily (Big Fish) rewards
+        run: |
+          python src/build_fishing_daily_rewards_json.py
+          python src/build_fishing_daily_rewards_json.py --pts
+      - name: Build Fishing Challenges Checklist JSON
+        run: |
+          python src/build_fishing_challenges_checklist_json.py
+          python src/build_fishing_challenges_checklist_json.py --pts
+
+      # --- SEASONS ---
+      # Reads tsv/fallout76_seasons.tsv and emits dist/seasons.json — the
+      # canonical season-number -> {name, dates, etc.} lookup. Consumed by
+      # the website wherever "(Season N) Gameboard" labels appear so the
+      # JS doesn't have to hardcode a SEASON_NAMES map every patch.
+      # Cheap to build; runs before Atom Shop so any future builder that
+      # wants to enrich items with season metadata can read it.
+      - name: Build Seasons JSON
+        run: python src/build_seasons_json.py
+
+      # --- PTS SEASON SCOREBOARD ---
+      # Generative builder: discovers SCORE_S{N}_ENTM entries in the
+      # ENTM export and produces provisional season_tickets_s{N}.json
+      # for seasons that don't yet have curated data in season_rewards.tsv.
+      # Safe to run on every build — no-ops when there's nothing new.
+      - name: Build PTS Season Scoreboard JSON
+        run: python src/build_pts_season_scoreboard.py
+
+      # --- UPCOMING (PTS) REWARDS PREVIEW ---
+      # Same SCORE_S{N}_ENTM discovery as the scoreboard builder, but emits the
+      # rich A-Z upcoming_rewards_s{N}.json consumed by df-bnb-upcoming-rewards.js
+      # on /df/scoreboards/season-{N}/upcoming-rewards/. Only builds seasons that
+      # have NOT started yet (skips curated + past seasons); no-ops when there's
+      # nothing new. Reads the PTS ENTM export (--pts) because upcoming-reward
+      # previews are datamined from PTS builds -- the LIVE ENTM only carries the
+      # pass + S.C.O.R.E. boosts for a future season, so a bare run would empty
+      # the committed upcoming_rewards_s{N}.json (e.g. S26) on every live build.
+      - name: Build Upcoming Rewards JSON
+        run: python src/build_upcoming_rewards_json.py --pts
+
+      # --- LEGACY RE-RELEASE ADDITIONS ---
+      # A legacy re-run is not a straight repeat: Bethesda quietly adds rewards
+      # (usually titles and the end-of-season art) that were never on the
+      # original board, and announces none of them. This compares the PTS export
+      # against the curated board on entitlement EDID and writes anything new
+      # into tsv/season_rewards.tsv with addedInRerun set, which is what puts the
+      # permanent gold NEW pill on the card.
+      #
+      # It must run AFTER the upcoming builder, which produces the export side of
+      # that comparison. Idempotent — a second run finds nothing — so it is safe
+      # on every build. Committing season_rewards.tsv fires build-season-rewards.yml,
+      # which regenerates the per-season JSON.
+      - name: Apply legacy re-release additions
+        run: python src/apply_legacy_additions.py
+
+      # --- EXPORT INTEGRITY ---
+      # The xEdit export scripts used to round-trip each row through
+      # TStringList.DelimitedText without setting QuoteChar, so any value that
+      # STARTED with a double quote — `"Megasloth" Pelt Rug`, `"Improved" Slot
+      # Machine` — was split into two columns and shifted the rest of the row
+      # one place right. The .pas scripts are fixed, but this repairs anything
+      # exported with an older copy of them before it reaches a builder.
+      # Idempotent; a clean tree is a no-op. See tools/ and src/tsv_repair.py.
+      - name: Repair quote-split export rows
+        run: python tools/repair_export_quote_splits.py
+
+      # --- ATOM SHOP ---
+      - name: Build Atom Shop JSON
+        run: python src/build_atom_shop_json.py
+
+      # --- SURVIVAL TENT INTERIORS ---
+      # Reads the latest tsv/SurvivalTentInteriors_Export_*.tsv (produced
+      # by !!!Wordpress - ExportSurvivalTentInteriorsToTSV.pas in xEdit)
+      # and emits dist/survival_tent_interiors.json — consumed by the
+      # tents page (df-bnb-atom-shop.js) to list each tent's interior
+      # items. Self-contained; runs after Atom Shop because it's the
+      # same page family.
+      - name: Build Survival Tent Interiors JSON
+        run: python src/build_survival_tent_interiors_json.py
+
+      # --- EMOTES ---
+      # Reads the latest tsv/EMOT_Export_*.tsv (+ ENTM for name polish) and
+      # emits dist/emotes.json — consumed by the emotes page (df-bnb-atom-shop.js).
+      # Generative replacement for the old inline EMOTE_DATA array; same page
+      # family as Atom Shop / Tents so it runs alongside them.
+      - name: Build Emotes JSON
+        run: python src/build_emotes_json.py
+
+      # --- PLAYER ICONS ---
+      # Reads the newest tsv/ENTM_Export_*.tsv (+ season_rewards.tsv and
+      # CHAL for obtain routes) and emits dist/player_icons.json — consumed
+      # by the Player Icons page (df-bnb-atom-shop.js). Same page family as
+      # Atom Shop / Tents / Emotes, so it runs alongside them. Also writes
+      # tsv/player_icons_first_seen.json, which drives the 31-day NEW pill.
+      - name: Build Player Icons JSON
+        run: python src/build_player_icons_json.py
+
+      # Point every scoreboard playerIcon reward at the same folder the Player
+      # Icons page uses, and back-fill any blank storefrontEntitlement. Must run
+      # AFTER build_player_icons_json.py (it reads dist/player_icons.json).
+      # Committing season_rewards.tsv fires build-season-rewards.yml, which
+      # regenerates the per-season JSON so the new URLs reach the scoreboards.
+      # Never invents an image — unmatched rows are reported and left alone.
+      - name: Repoint scoreboard player-icon images
+        run: python src/apply_player_icon_images.py
+
+      # --- SANITY CHECK ---
+      - name: Sanity check dist outputs
+        run: |
+          ls -la dist || true
+          test -f dist/drop_rates.json             && echo "OK drop_rates.json"             || (echo "MISSING drop_rates.json" && exit 1)
+          test -f dist/titles_camp.json            && echo "OK titles_camp.json"            || (echo "MISSING titles_camp.json" && exit 1)
+          test -f dist/titles_player.json          && echo "OK titles_player.json"          || (echo "MISSING titles_player.json" && exit 1)
+          test -f dist/titles_manifest.json        && echo "OK titles_manifest.json"        || (echo "MISSING titles_manifest.json" && exit 1)
+          test -f dist/titles_camp_generator.json  && echo "OK titles_camp_generator.json"  || (echo "MISSING titles_camp_generator.json" && exit 1)
+          test -f dist/titles_player_generator.json && echo "OK titles_player_generator.json" || (echo "MISSING titles_player_generator.json" && exit 1)
+          test -f dist/curves/index.json           && echo "OK curves/index.json"           || (echo "MISSING curves/index.json" && exit 1)
+          test -f dist/events/events_rewards.json  && echo "OK events_rewards.json"         || (echo "MISSING events_rewards.json" && exit 1)
+          test -f dist/activities/activities_rewards.json && echo "OK activities_rewards.json" || (echo "MISSING activities_rewards.json" && exit 1)
+          test -f dist/challenges/bounty_hunting_challenges.json && echo "OK bounty_hunting_challenges.json" || (echo "MISSING bounty_hunting_challenges.json" && exit 1)
+          test -f dist/mini_seasons/mini_seasons.json && echo "OK mini_seasons.json" || (echo "MISSING mini_seasons.json" && exit 1)
+          test -f dist/challenges/challenges.json  && echo "OK challenges/challenges.json"  || (echo "MISSING challenges/challenges.json" && exit 1)
+          test -f dist/daily_quests/daily_quests.json && echo "OK daily_quests/daily_quests.json" || (echo "MISSING daily_quests/daily_quests.json" && exit 1)
+          test -f dist/chal_latest.json            && echo "OK chal_latest.json"            || (echo "MISSING chal_latest.json" && exit 1)
+          test -f dist/armour.json                 && echo "OK armour.json"                 || (echo "MISSING armour.json" && exit 1)
+          test -f dist/collectrons.json            && echo "OK collectrons.json"            || (echo "MISSING collectrons.json" && exit 1)
+          test -f dist/resource_producers.json     && echo "OK resource_producers.json"     || (echo "MISSING resource_producers.json" && exit 1)
+          test -f dist/weather_stations.json       && echo "OK weather_stations.json"       || (echo "MISSING weather_stations.json" && exit 1)
+          test -f dist/allies.json                 && echo "OK allies.json"                 || (echo "MISSING allies.json" && exit 1)
+          test -f dist/pets.json                   && echo "OK pets.json"                   || (echo "MISSING pets.json" && exit 1)
+          test -f dist/pet-furniture.json          && echo "OK pet-furniture.json"          || (echo "MISSING pet-furniture.json" && exit 1)
+          test -f dist/pet-apparel.json            && echo "OK pet-apparel.json"            || (echo "MISSING pet-apparel.json" && exit 1)
+          test -f dist/cryos.json                  && echo "OK cryos.json"                  || (echo "MISSING cryos.json" && exit 1)
+          test -f dist/fridges.json                && echo "OK fridges.json"                || (echo "MISSING fridges.json" && exit 1)
+          test -f dist/repair-bots.json            && echo "OK repair-bots.json"            || (echo "MISSING repair-bots.json" && exit 1)
+          test -f dist/buff-stations.json          && echo "OK buff-stations.json"          || (echo "MISSING buff-stations.json" && exit 1)
+          test -f dist/collectables_bobbleheads.json && echo "OK collectables_bobbleheads.json" || (echo "MISSING collectables_bobbleheads.json" && exit 1)
+          test -f dist/collectables_plushies.json    && echo "OK collectables_plushies.json"    || (echo "MISSING collectables_plushies.json" && exit 1)
+          test -f dist/collectables_notes.json       && echo "OK collectables_notes.json"       || (echo "MISSING collectables_notes.json" && exit 1)
+          test -f dist/collectables_holotape_games.json && echo "OK collectables_holotape_games.json" || (echo "MISSING collectables_holotape_games.json" && exit 1)
+          test -f dist/collectables_magazines.json    && echo "OK collectables_magazines.json"    || (echo "MISSING collectables_magazines.json" && exit 1)
+          test -f dist/collectables_holotapes.json    && echo "OK collectables_holotapes.json"    || (echo "MISSING collectables_holotapes.json" && exit 1)
+          test -f dist/collectables_keys.json         && echo "OK collectables_keys.json"         || (echo "MISSING collectables_keys.json" && exit 1)
+          test -f dist/collectables_manifest.json    && echo "OK collectables_manifest.json"    || (echo "MISSING collectables_manifest.json" && exit 1)
+          test -f dist/atom_shop.json                && echo "OK atom_shop.json"                || (echo "MISSING atom_shop.json" && exit 1)
+          test -f dist/seasons.json                  && echo "OK seasons.json"                  || (echo "MISSING seasons.json" && exit 1)
+          test -f dist/survival_tent_interiors.json  && echo "OK survival_tent_interiors.json"  || (echo "MISSING survival_tent_interiors.json" && exit 1)
+          test -f dist/emotes.json                   && echo "OK emotes.json"                   || (echo "MISSING emotes.json" && exit 1)
+          test -f dist/player_icons.json            && echo "OK player_icons.json"            || (echo "MISSING player_icons.json" && exit 1)
+          test -f dist/camp.json                     && echo "OK camp.json"                     || (echo "MISSING camp.json" && exit 1)
+          test -f dist/cobj-recipes.json             && echo "OK cobj-recipes.json"             || (echo "MISSING cobj-recipes.json" && exit 1)
+          test -f dist/menu-items.json               && echo "OK menu-items.json"               || (echo "MISSING menu-items.json" && exit 1)
+          test -f dist/bnb-menu.json                 && echo "OK bnb-menu.json"                 || (echo "MISSING bnb-menu.json" && exit 1)
+          test -f dist/bnb-item-categories.json      && echo "OK bnb-item-categories.json"      || (echo "MISSING bnb-item-categories.json" && exit 1)
+          test -f dist/recipe_guide.json              && echo "OK recipe_guide.json"              || (echo "MISSING recipe_guide.json" && exit 1)
+          test -f dist/load_screens.json              && echo "OK load_screens.json"              || (echo "MISSING load_screens.json" && exit 1)
+          test -f dist/help_menu.json                 && echo "OK help_menu.json"                 || (echo "MISSING help_menu.json" && exit 1)
+          test -f dist/fishing.json                  && echo "OK fishing.json"                  || (echo "MISSING fishing.json" && exit 1)
+          test -f dist/fishing_equipment.json        && echo "OK fishing_equipment.json"        || (echo "MISSING fishing_equipment.json" && exit 1)
+          test -f dist/seasonal-fish.json            && echo "OK seasonal-fish.json"            || (echo "MISSING seasonal-fish.json" && exit 1)
+          test -f dist/infestations/hto_rewards.json   && echo "OK infestations/hto_rewards.json"   || (echo "MISSING infestations/hto_rewards.json" && exit 1)
+          test -f dist/infestations/hto_locations.json  && echo "OK infestations/hto_locations.json"  || (echo "MISSING infestations/hto_locations.json" && exit 1)
+          test -f dist/seasonal_events/seasonal_events_rewards.json && echo "OK seasonal_events_rewards.json" || (echo "MISSING seasonal_events_rewards.json" && exit 1)
+          test -f dist/seasonal_events/seasonal_events_rewards_by_page.json && echo "OK seasonal_events_rewards_by_page.json" || (echo "MISSING seasonal_events_rewards_by_page.json" && exit 1)
+          test -f dist/raids/raids_rewards.json && echo "OK raids/raids_rewards.json" || (echo "MISSING raids/raids_rewards.json" && exit 1)
+          test -f dist/expos/expos_rewards.json && echo "OK expos/expos_rewards.json" || (echo "MISSING expos/expos_rewards.json" && exit 1)
+          test -f dist/daily_ops/daily_ops_rewards.json && echo "OK daily_ops/daily_ops_rewards.json" || (echo "MISSING daily_ops/daily_ops_rewards.json" && exit 1)
+          test -f dist/minerva/minerva_plans.json      && echo "OK minerva/minerva_plans.json"       || (echo "MISSING minerva/minerva_plans.json" && exit 1)
+          test -f dist/mule-defaults.json            && echo "OK mule-defaults.json (static seed)" || echo "WARN missing mule-defaults.json (static seed, not built by patch)"
+          test -f dist/pennants.json                 && echo "OK pennants.json"                 || (echo "MISSING pennants.json" && exit 1)
+          test -f dist/world_pet_challenges.json     && echo "OK world_pet_challenges.json"     || (echo "MISSING world_pet_challenges.json" && exit 1)
+          test -f dist/world_pet_types.json          && echo "OK world_pet_types.json"          || (echo "MISSING world_pet_types.json" && exit 1)
+          test -f dist/calculators/weak_spot_multipliers.json && echo "OK weak_spot_multipliers.json" || (echo "MISSING weak_spot_multipliers.json" && exit 1)
+          test -f dist/calculators/healing_calculator.json && echo "OK healing_calculator.json" || (echo "MISSING healing_calculator.json" && exit 1)
+          test -f dist/drop_chances_data.json        && echo "OK drop_chances_data.json"        || (echo "MISSING drop_chances_data.json" && exit 1)
+          test -f dist/legendary_mod_drop_chances.json && echo "OK legendary_mod_drop_chances.json" || (echo "MISSING legendary_mod_drop_chances.json" && exit 1)
+          test -f dist/npc_spawns.json               && echo "OK npc_spawns.json"               || (echo "MISSING npc_spawns.json" && exit 1)
+          test -f dist/vendors.json                  && echo "OK vendors.json"                  || (echo "MISSING vendors.json" && exit 1)
+          test -f dist/collectable_spawns_manifest.json && echo "OK collectable_spawns_manifest.json" || (echo "MISSING collectable_spawns_manifest.json" && exit 1)
+          test -f dist/collectable_spawns_pint-sized-slasher-masks.json && echo "OK collectable_spawns_pint-sized-slasher-masks.json" || (echo "MISSING collectable_spawns_pint-sized-slasher-masks.json" && exit 1)
+          test -f dist/nuka_cola_spawns_manifest.json && echo "OK nuka_cola_spawns_manifest.json" || (echo "MISSING nuka_cola_spawns_manifest.json" && exit 1)
+          test -f dist/nuka_cola_spawns_nuka-cola.json && echo "OK nuka_cola_spawns_nuka-cola.json" || (echo "MISSING nuka_cola_spawns_nuka-cola.json" && exit 1)
+          test -f data/nuka_cola_spawns/geo_cache.json && echo "OK nuka_cola_spawns/geo_cache.json" || echo "WARN nuka geo_cache not seeded — Nuka pages rebuild from committed dist until a local Mappalachia DB pass seeds it"
+          test -f data/vendors/geo_cache.json         && echo "OK vendors/geo_cache.json" || echo "WARN vendors geo_cache not seeded — vendor marker/region blank until a local Mappalachia DB pass seeds it"
+          # Farming spawns — check every item in config (soft-warn, geo cache may not be seeded yet)
+          for f in dist/farming_spawns/*_spawns.json; do test -f "$f" && echo "OK $f" || echo "WARN $f not built"; done
+          for f in data/farming_spawns/geo_cache_*.json; do test -f "$f" && echo "OK $f" || echo "WARN $f not seeded"; done
+          test -f dist/unique_weapons/unique_weapons.json && echo "OK unique_weapons.json"     || (echo "MISSING unique_weapons/unique_weapons.json" && exit 1)
+
+      # Every internal link a builder emits must be a real page in
+      # guide_index.tsv. The file-existence checks above cannot see this: the
+      # JSON is well-formed and the page renders, only the link is dead. That
+      # is how the magazines guide pointed all ten region links at pages the
+      # index did not have, for as long as it did, with every build green.
+      # Pre-existing dead links are baselined; this fails on NEW ones only.
+      # The whole camp-item category renders through one module + one
+      # stylesheet, so the eleven JSONs have to keep the same shape.
+      # This fails the build the moment one of them starts shipping
+      # without its images, build info or obtain routes.
+      - name: Verify camp-items JSON contract
+        run: python src/verify_camp_items_json.py --dist dist --allow-missing
+
+      - name: Verify internal links resolve (guide_index)
+        run: python src/check_guide_links.py
+
+      # --- PATCH LOG FEEDS ---
+      # Built from export-vs-export diffs, so an entry only exists when a NEW TSV
+      # was uploaded. The old path wrote a fresh "today · Added 0 Removed 0
+      # Changed 0" row every six hours whether or not the game had moved, which is
+      # how five weeks of wrong grave data produced no signal anywhere.
+      #
+      # Runs LAST so it takes precedence over any feed still written by a builder
+      # on the old item-diff path.
+      - name: Build patch log feeds (export diffs)
+        run: python src/patchlog_utils.py --write-feeds --dist dist --channel live
+
+      # --- COMMIT ONCE ---
+      - name: Commit & Push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
+
+          git add dist/
+          git add tsv/BnB_Menu_Items.tsv
+          # Stage regenerated CURV POINTS TSV (built by build_curv_points_tsv.py)
+          git add tsv/CURV_Export_*_POINTS.tsv 2>/dev/null || true
+          # Rewards added by a legacy re-release (apply_legacy_additions.py).
+          # Pushing this fires build-season-rewards.yml, which rebuilds the
+          # per-season JSON so the NEW pills actually reach the site.
+          git add tsv/season_rewards.tsv 2>/dev/null || true
+          # First-seen ledgers behind the rolling NEW pills. If these are not
+          # committed, every CI run re-stamps today and the pill never expires.
+          git add tsv/*_first_seen.json 2>/dev/null || true
+          # Exports the repair step re-joined. Committing them means the fix
+          # lands once instead of being redone on every run, and the diff shows
+          # exactly which rows the export had broken.
+          git add tsv/*_Export_*.tsv 2>/dev/null || true
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "DFBNB Patch Build update"
+            # Land on top of a moving main. Regenerated-JSON conflicts resolve in
+            # favour of THIS build's output (-X theirs = the commit being replayed),
+            # and we retry to survive a push race with the PTS build. --autostash
+            # handles any remaining unstaged changes during rebase.
+            pushed=0
+            for attempt in 1 2 3 4 5; do
+              git fetch origin main
+              if git pull --rebase --autostash -X theirs origin main; then
+                if git push origin main; then pushed=1; break; fi
+              else
+                git rebase --abort 2>/dev/null || true
+              fi
+              echo "push race, retry $attempt"; sleep $((RANDOM % 6 + 3))
+            done
+            [ "$pushed" = 1 ] || { echo "ERROR: could not push dist after retries"; exit 1; }
+          fi

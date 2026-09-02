@@ -51,6 +51,11 @@ INCLUDE_RE = re.compile(
     re.I,
 )
 
+# DO NOT ADD `mystery_?crate` HERE. The 41 MILE_LL_MysteryCrate_* lists (Milepost Zero)
+# read event-like and sit in the closure of ~40 food / chem / drink items plus the
+# Chainsaw — but the crates are CUT CONTENT and never shipped, so surfacing them would
+# put a route players cannot take on every one of those pages. Checked Sep 2026.
+
 # Other source families — these own their own expands, never route them here.
 EXCLUDE_RE = re.compile(
     r"(lld_creature|lls_creature|lle_creature|_creature|creature_|vendor|collectron|"
