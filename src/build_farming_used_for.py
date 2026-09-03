@@ -65,6 +65,7 @@ if HERE not in sys.path:
 
 from farming_spawns_config import ALL_SETS, SETS_BY_SLUG  # noqa: E402
 from spawns_engine import events as _events_engine  # noqa: E402  (Events & Activities rate chaining)
+import treasure_map_sources as _treasure_maps  # noqa: E402  (Treasure Maps expand — map -> dig rate)
 import farming_spawns_sources as sources  # noqa: E402  (item LVLI closure for vendor join)
 import rng76  # noqa: E402  (shared LVLI engine — computes vendor appearance rates, never hardcoded)
 # Reuse the exact effect-name / duration formatting used by the guide pages.
@@ -956,6 +957,30 @@ def _patch_events_activities(doc: Dict[str, Any], rates: Optional["VendorRates"]
     _events_engine.resolve_event_rates(evs, targets, rates.appearance)
 
 
+def _patch_treasure_maps(doc: Dict[str, Any], rates: Optional["VendorRates"],
+                         targets: set, dist_dir: str) -> None:
+    """Fill doc['treasure_maps'] for the Treasure Maps root expand.
+
+    One row per MAP — "if I dig up this map, what's the chance the item is in the
+    haul?" — across the three families (region treasure maps, the Lucky Strike /
+    U Mine It maps, the Pint-Sized Phantoms' map). Names and FormIDs are JOINED
+    from dist/treasure_maps.json, so a new map needs no edit here; the rates are
+    resolved with rng76 exactly like every other expand. See
+    src/treasure_map_sources.py and spawn-guide skill §9l.
+
+    A map that can't pay the item out is dropped, so an item with no map source
+    leaves the key empty and the renderer shows its honest empty state.
+    """
+    if not (rates and targets):
+        return
+    maps = _treasure_maps.build_maps(
+        dist_dir, targets,
+        lambda list_id, t: rates.appearance([list_id], t),
+        rates.lvli, _fmt_rate,
+    )
+    doc["treasure_maps"] = {"maps": maps}
+
+
 def _patch_drop_rates(doc: Dict[str, Any], rates: Optional["VendorRates"], targets: set,
                       harvest: Optional["HarvestProduce"] = None,
                       extra_base_ids: Optional[List[str]] = None) -> None:
@@ -1388,6 +1413,7 @@ def inject(slug: str, used_for: Dict[str, Any], cfg: Dict[str, Any], dist_dir: s
     _patch_drop_rates(doc, rates, _target_fids(cfg), harvest=harvest, extra_base_ids=extra_ids)
     _patch_events_activities(doc, rates, _target_fids(cfg))
     _patch_camp_producers(doc, _target_fids(cfg), dist_dir)
+    _patch_treasure_maps(doc, rates, _target_fids(cfg), dist_dir)
     # Containers expand → container-type → rng76 rate (runs AFTER _patch_drop_rates
     # so the type list is the final word on doc['drop_rates']['containers']).
     _patch_containers(doc, closure_lists, _target_fids(cfg), rates,
