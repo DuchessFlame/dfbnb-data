@@ -622,6 +622,24 @@ def is_past_season(season_num, meta):
     return start <= today
 
 
+def starts_in_future(season_num, meta):
+    """A season with a KNOWN start date still ahead of us. Distinct from
+    'not is_past_season', which is also true for a season with no metadata or no
+    start date at all. Used to protect the /upcoming-rewards/ page of a season
+    that has been curated ahead of launch: S26 had its board transcribed from
+    screenshots weeks before release, which put it in season_rewards.tsv and made
+    the curated skip below fire — the prune then deleted its file and the live
+    page 404'd, even though the season genuinely was still upcoming."""
+    sm = meta.get(season_num)
+    if not sm:
+        return False
+    start = sm.get("startDate", "")
+    if not start:
+        return False
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    return start > today
+
+
 def make_item_id(season_num, edid_suffix):
     slug = re.sub(r"[^a-z0-9]+", "_", edid_suffix.lower()).strip("_")
     return "S" + str(season_num) + "_" + slug
@@ -872,7 +890,8 @@ def main():
     for snum in sorted(season_items):
         rerun = snum in relegacy
 
-        if snum in curated and not args.force and not rerun:
+        if (snum in curated and not starts_in_future(snum, meta)
+                and not args.force and not rerun):
             print(TAG + " S" + str(snum) + ": skipped (curated data exists; use --force to override)")
             continue
 
