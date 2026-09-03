@@ -107,6 +107,33 @@
     "0078CA7D": "Pool Table — world object, Storm questline",
     "00830006": "Ice Bath — ZZZ deprecated (S22)"
   },
+  "image_overrides": {
+    "Instrument_Theremin": "/wp-content/uploads/guide-images/atom-shop/request-item-images/ATX_CAMP_Furniture_Instrument_Theremin.avif",
+    "ATX_Communal_Firepit": "/wp-content/uploads/guide-images/atom-shop/request-item-images/ATX_CAMP_Structure_Communal_Firepit.avif",
+    "ATX_Orgatronic": "/wp-content/uploads/guide-images/atom-shop/request-item-images/atx_camp_furniture_instrument_orgatronic.avif",
+    "ATX_HotTub": "/wp-content/uploads/guide-images/atom-shop/request-item-images/ATX_Camp_FloorDecor_HotTub.avif",
+    "ATX_VaultTecSpa": "/wp-content/uploads/guide-images/atom-shop/request-item-images/ATX_CAMP_Decoration_VaultTecSpa.avif",
+    "ATX_Instrument_Pipe_Organ": "/wp-content/uploads/guide-images/atom-shop/request-item-images/ATX_CAMP_Furniture_Instrument_Pipe_Organ.avif",
+    "Instrument_Pipe_Organ": "/wp-content/uploads/guide-images/atom-shop/request-item-images/ATX_CAMP_Furniture_Instrument_Pipe_Organ.avif",
+    "SCORE_S2_Furniture_Weightbench": "/wp-content/uploads/season_images/season-2/score_s2_utility_weightbench.avif",
+    "SCORE_S8_Furniture_ExerciseBike": "/wp-content/uploads/season_images/season-8/score_s8_camp_utility_exercisebike.avif",
+    "SCORE_S9_ArmWrestleMachine": "/wp-content/uploads/season_images/season-9/score_s9_camp_utility_armwrestlemachine.avif",
+    "SCORE_S11_Furniture_CappyHotTub": "/wp-content/uploads/season_images/season-11/score_s11_camp_furniture_cappyhottub.avif",
+    "SCORE_S12_Instrument_Violin": "/wp-content/uploads/season_images/season-12/score_s12_camp_furniture_instrument_violinchair.avif",
+    "SCORE_S13_Misc_HollywoodVanity": "/wp-content/uploads/season_images/season-13/score_s13_camp_utility_hollywoodvanity.avif",
+    "SCORE_S13_Misc_HollywoodVanity_FROMATX": "/wp-content/uploads/season_images/season-13/score_s13_camp_utility_hollywoodvanity.avif",
+    "SCORE_S16_Instrument_HomemadeXylophone": "/wp-content/uploads/season_images/season-16/score_s16_camp_furniture_instrument_homemadexylophone.avif",
+    "SCORE_S20_Furniture_GooTub": "/wp-content/uploads/season_images/season-20/score_s20_camp_decoration_gootub.avif",
+    "SCORE_S20_Instrument_MetalBarrelDrum": "/wp-content/uploads/season_images/season-20/score_s20_camp_furniture_instrument_metalbarreldrum.avif",
+    "SCORE_S20_Instrument_ChemicalBarrelDrum": "/wp-content/uploads/season_images/season-20/score_s20_camp_furniture_instrument_chemicalbarreldrum.avif",
+    "SCORE_S21_ArmWrestleMachine_Poseidon": "/wp-content/uploads/season_images/season-21/score_s21_camp_utility_armwrestlemachine_poseidon.avif",
+    "SCORE_S24_Utility_PlayerBuff_Phoropter": "/wp-content/uploads/season_images/season-24/score_s24_camp_utility_phoropter.avif",
+    "SCORE_MiniSeason_2026_SockHop_Instrument_BlackPiano": "/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/score_miniseason_2026_sockhop_camp_furniture_instrument_blackpiano.avif",
+    "SCORE_MiniSeason_2026_SockHop_Furniture_Lonecycle": "/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/score_miniseason_2026_sockhop_camp_floordecor_lonecycle.avif",
+    "Invaders_AlienWhackAMole": "/wp-content/uploads/guide-images/seasonal-events/invaders-from-beyond/reward-images/cosmic-capture.avif",
+    "SCORE_MiniSeason_2026_Furniture_RipDaringPinballMachine": "/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/rewards/score_miniseason_2026_camp_furniture_ripdaringpinballmachine_l.avif"
+  },
+  "image_overrides_notes": "FURN EDID -> imageUrl, used verbatim (the renderer does img.src = item.imageUrl, so it can point anywhere under /wp-content/). For items whose art is already hosted somewhere else on the site — Atom Shop request tiles, season_images/season-N, mini-season and seasonal-event galleries — so the file is not re-uploaded into guide-images/camp-items/buff-stations/. Every URL here was HTTP-verified 200 on 2026-09-03. Paths are case-sensitive on the server. Do not add /wp-content/uploads/storefront/ or /wp-content/uploads/fo76/storefront/ URLs: both folders are empty on the server despite appearing in older JSONs.",
   "manual_items": [
     {
       "fid": "007B2841",

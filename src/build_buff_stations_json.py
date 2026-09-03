@@ -340,6 +340,12 @@ KW_TO_GROUPS = _CFG["kw_to_groups"]
 # World-placed objects (REFR only, no buildable COBJ) and quest/companion props.
 EXCLUDED = set(_CFG["excluded"])
 
+# FURN EDID -> a wp-content URL for art the site already hosts elsewhere (Atom
+# Shop request tiles, season_images/season-N, event galleries). Used verbatim,
+# so nothing has to be re-uploaded into IMG_BASE. Lookup is case-insensitive;
+# see data/camp/buff_stations.json.
+IMAGE_OVERRIDES = {k.lower(): v for k, v in _CFG.get("image_overrides", {}).items()}
+
 CUT_RE = re.compile(r"^(zzz|test|chargen|post_)", re.I)
 
 # Items that grant a buff but carry NO detectable buff keyword — added manually.
@@ -576,6 +582,9 @@ def entm_lookup(fid, full_name, furn_edid=""):
 
 
 def image_for(entm, furn_edid):
+    override = IMAGE_OVERRIDES.get((furn_edid or "").lower())
+    if override:
+        return override
     if entm:
         tex = (entm.get("ETDI") or "").strip()
         if tex.lower().endswith(".dds"):
@@ -794,7 +803,8 @@ for fid, label, buff, spell, kwline, bkey in BED_ENTRIES:
         "obtainSource": "", "howToObtain": "Various — base game, Atom Shop and Scoreboard bed plans all qualify.",
         "obtainRoutes": buff_obtain_routes("Various — base game, Atom Shop and Scoreboard bed plans all qualify.", None),
         "dropRate": "N/A", "seasonNumber": None, "tradeable": None, "planName": "",
-        "imageUrl": IMG_BASE + label.lower().replace(" ", "_") + ".avif",
+        "imageUrl": (IMAGE_OVERRIDES.get(kwline.split(" ")[1].lower())
+                     or IMG_BASE + label.lower().replace(" ", "_") + ".avif"),
         "outputInfo": buff + "\n\n" + HOMEBODY_LINE,
         "craftingRequirements": [],
         "technicalNotes": "\n".join(tech),
