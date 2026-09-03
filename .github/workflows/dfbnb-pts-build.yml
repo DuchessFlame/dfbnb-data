@@ -747,6 +747,17 @@ jobs:
       - name: Build Unique Weapons JSON
         run: python src/build_unique_weapons_json.py --channel live
 
+      # --- UNIQUE WEAPONS AND ARMOUR ---
+      # Build the single (live) channel into dist/unique_weapons_armour/. In this
+      # workflow tsv/ is already PTS-normalized, so that IS PTS data, and the
+      # "Relocate build output into dist/pts" step moves it to
+      # dist/pts/unique_weapons_armour/ like every other builder. Do NOT use
+      # --channel both here (it would write dist/pts/unique_weapons_armour/
+      # directly and collide with the relocate mv). Consumed by
+      # df-bnb-unique-weapons-armour.js.
+      - name: Build Unique Weapons Armour JSON
+        run: python src/build_unique_weapons_armour_json.py --channel live
+
       # --- PENNANTS (Pennants checklist page) ---
       # Outputs dist/pennants.json, served via raw.githubusercontent to
       # df-bnb-plan-checklists.js. Previously had no workflow and went stale.

@@ -674,16 +674,6 @@ jobs:
       - name: Build Unique Weapons JSON
         run: python src/build_unique_weapons_json.py --channel both
 
-      # --- UNIQUE WEAPONS AND ARMOUR ---
-      # Outputs dist/unique_weapons_armour/unique_weapons_armour.json (live) and
-      # dist/pts/unique_weapons_armour/unique_weapons_armour.json (PTS) for
-      # df-bnb-unique-weapons-armour.js. Unions the freshly-built
-      # dist/unique_weapons/unique_weapons.json (built in the step above) with a
-      # fresh SpeciallyNamed OMOD pass, then adds unique armour + cosmetics and
-      # cross-references the reward-pool JSONs for How-to-Obtain.
-      - name: Build Unique Weapons Armour JSON
-        run: python src/build_unique_weapons_armour_json.py --channel both
-
       # --- PENNANTS (Pennants checklist page) ---
       # Outputs dist/pennants.json, served via raw.githubusercontent to
       # df-bnb-plan-checklists.js. Previously had no workflow and went stale.
@@ -1113,7 +1103,6 @@ jobs:
           for f in dist/farming_spawns/*_spawns.json; do test -f "$f" && echo "OK $f" || echo "WARN $f not built"; done
           for f in data/farming_spawns/geo_cache_*.json; do test -f "$f" && echo "OK $f" || echo "WARN $f not seeded"; done
           test -f dist/unique_weapons/unique_weapons.json && echo "OK unique_weapons.json"     || (echo "MISSING unique_weapons/unique_weapons.json" && exit 1)
-          test -f dist/unique_weapons_armour/unique_weapons_armour.json && echo "OK unique_weapons_armour.json" || (echo "MISSING unique_weapons_armour/unique_weapons_armour.json" && exit 1)
 
       # Every internal link a builder emits must be a real page in
       # guide_index.tsv. The file-existence checks above cannot see this: the
