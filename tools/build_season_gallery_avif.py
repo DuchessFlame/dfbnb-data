@@ -44,9 +44,22 @@ try:
 except ImportError:
     sys.exit("Missing deps. Run: pip install pillow pillow-avif-plugin")
 
-SEASON_IMAGES_ROOT = "/sessions/tender-wonderful-clarke/mnt/.Season Images"
-STAGE_ROOT = ("/sessions/tender-wonderful-clarke/mnt/1 site-data/json/uploads"
-              "/fo76/season_images")
+def _mount_root():
+    """The sandbox session id changes every session, so the mount prefix cannot
+    be hardcoded - it was, and every later session broke. Find the live one."""
+    env = os.environ.get("SEASON_IMAGES_ROOT")
+    if env and os.path.isdir(env):
+        return os.path.dirname(env.rstrip("/"))
+    for base in sorted(glob.glob("/sessions/*/mnt")):
+        if os.path.isdir(os.path.join(base, ".Season Images")):
+            return base
+    sys.exit("Could not find a mounted '.Season Images' folder under /sessions/*/mnt")
+
+
+_MNT = _mount_root()
+SEASON_IMAGES_ROOT = os.path.join(_MNT, ".Season Images")
+STAGE_ROOT = os.path.join(_MNT, "1 site-data", "json", "uploads",
+                          "fo76", "season_images")
 
 IMG_EXT = (".png", ".jpg", ".jpeg", ".webp", ".jfif", ".avif")
 
@@ -118,6 +131,10 @@ def main():
     ap.add_argument("--quality", type=int, default=68)
     ap.add_argument("--stage", action="store_true",
                     help="also copy into the WP upload staging folder")
+    ap.add_argument("--require-complete", action="store_true",
+                    help="build ONLY if every source file is readable; a season "
+                         "with any cloud-only placeholder is left untouched "
+                         "rather than written as a partial manifest")
     a = ap.parse_args()
 
     n = a.season
@@ -148,6 +165,35 @@ def main():
 
     if not jobs:
         sys.exit("Nothing to convert for Season %d" % n)
+
+    # A manifest listing 6 of 22 images is worse than no manifest at all: the
+    # page renders a gallery that silently claims to be complete. So under
+    # --require-complete a season is all-or-nothing.
+    if a.require_complete:
+        unreadable = []
+        for src, _name in jobs:
+            try:
+                with open(src, "rb") as fh:
+                    fh.read(64)
+            except OSError as e:
+                unreadable.append((os.path.basename(src), e.__class__.__name__))
+        if unreadable:
+            print("  INCOMPLETE - %d of %d source files still unreadable "
+                  "(cloud-only). Leaving Season %d untouched."
+                  % (len(unreadable), len(jobs), n))
+            for base, cls in unreadable[:5]:
+                print("    %s (%s)" % (base, cls))
+            if len(unreadable) > 5:
+                print("    ... and %d more" % (len(unreadable) - 5))
+            return 1
+
+    # Clean rebuild: an earlier partial run can leave AVIFs that are no longer
+    # in the manifest. Clear them so output always equals the manifest exactly.
+    for stale in glob.glob(os.path.join(out, "*.avif")):
+        os.remove(stale)
+    stale_manifest = os.path.join(out, "gallery.json")
+    if os.path.exists(stale_manifest):
+        os.remove(stale_manifest)
 
     tot_in = tot_out = 0
     manifest = []
@@ -195,6 +241,9 @@ def main():
     if a.stage:
         stage = os.path.join(STAGE_ROOT, "season-%d" % n, "AVIF")
         os.makedirs(stage, exist_ok=True)
+        for stale in (glob.glob(os.path.join(stage, "*.avif"))
+                      + glob.glob(os.path.join(stage, "gallery.json"))):
+            os.remove(stale)
         staged = 0
         for f in glob.glob(os.path.join(out, "*.avif")) + [os.path.join(out, "gallery.json")]:
             shutil.copy2(f, stage)
@@ -203,4 +252,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main() or 0)
