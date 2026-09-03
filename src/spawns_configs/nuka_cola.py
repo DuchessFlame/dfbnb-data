@@ -48,6 +48,21 @@ DRINK_ALCH = {
     "sunset-sarsaparilla":  ["00832CA7", "00837E07", "00837E08"],
 }
 
+
+# A variant's doc/page slug DROPS the "nuka-cola-" prefix on flavours —
+# VARIANTS["slug"] is "cherry-locations", so the slug is "cherry" — while
+# DRINK_ALCH is keyed by the FULL drink slug ("nuka-cola-cherry"). Indexing the
+# dict with the short slug therefore missed every flavour and silently built 8 pages
+# with NO item FormID: empty Events & Activities, no drop rates, no treasure maps.
+# (Only nuka-cola / nukashine / sunset-sarsaparilla worked, because their slug
+# happens to match a key.) Fixed Sept 2026 — always go through this helper, never
+# index DRINK_ALCH directly.
+def drink_alch(slug):
+    """ALCH FormIDs for a variant, accepting the short slug or the full one."""
+    if slug in DRINK_ALCH:
+        return DRINK_ALCH[slug] or []
+    return DRINK_ALCH.get("nuka-cola-" + str(slug), []) or []
+
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db")
 DIST = os.path.join(REPO, "dist")
 TSV = esources.TSV
@@ -108,7 +123,7 @@ def compute_farming_tips(cons):
 def build_used_for(slug, name):
     """(used_for, farming_tips) for a variant, from the farming pipeline's
     build_consumption. Empty dicts when there's no drink ALCH."""
-    fids = DRINK_ALCH.get(slug) or []
+    fids = drink_alch(slug)
     if not fids or build_consumption is None:
         return {}, {}
     cons = None
@@ -127,7 +142,7 @@ def build_variant(v, tbls, geo, cur, cache, db_ok, generated, appearance_fn=None
     keep = ebuild.load_existing(path)
 
     extra = [f"{int(x):08X}" for x in v.get("source_formids", [])]
-    item_records = [{"formid": f, "sig": "ALCH"} for f in DRINK_ALCH.get(slug, [])]
+    item_records = [{"formid": f, "sig": "ALCH"} for f in drink_alch(slug)]
     src = esources.get_sources(item_records, tbls, nuka_classify,
                                extra_closure_seeds=extra,
                                placed_sigs=esources.PLACED_SIGS_DEFAULT)
@@ -138,7 +153,7 @@ def build_variant(v, tbls, geo, cur, cache, db_ok, generated, appearance_fn=None
     # Events & Activities — event/activity reward ROOTS in the closure (§9k):
     # keyword pass + QUEST reward registry, nested loot bags collapsed to their
     # outer root (c2p). Chained per-root rate resolved from rng76 (appearance_fn).
-    targets = {f.upper() for f in DRINK_ALCH.get(slug, [])}
+    targets = {f.upper() for f in drink_alch(slug)}
     events_activities = eevents.detect(src["lvli_closure"], tbls["parent_edid"],
                                        c2p=tbls["c2p"])
     eevents.resolve_event_rates(events_activities, targets, appearance_fn)

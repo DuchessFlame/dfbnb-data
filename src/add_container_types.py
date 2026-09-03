@@ -31,7 +31,7 @@ if HERE not in sys.path:
 import build_farming_used_for as B
 import farming_spawns_sources as sources
 import rng76
-from spawns_configs.nuka_cola import DRINK_ALCH
+from spawns_configs.nuka_cola import drink_alch
 
 
 _DROP = {"container", "loot-list"}
@@ -68,11 +68,12 @@ def _meat_formids(doc):
 
 
 def _drink_formids_for(path):
-    # dist/nuka_cola_spawns_<slug>.json -> DRINK_ALCH[<slug>] (decimal -> hex)
+    # dist/nuka_cola_spawns_<slug>.json -> the variant's ALCH FormIDs.
+    # Goes through nuka_cola.drink_alch because the file slug drops the
+    # "nuka-cola-" prefix that DRINK_ALCH's keys carry (see its comment).
     base = os.path.basename(path)
     slug = base[len("nuka_cola_spawns_"):-len(".json")]
-    fids = DRINK_ALCH.get(slug) or []
-    return [f"{int(f):08X}" if str(f).isdigit() else str(f) for f in fids]
+    return [f"{int(f):08X}" if str(f).isdigit() else str(f) for f in drink_alch(slug)]
 
 
 def run(dist_dir="dist", data_dir="tsv"):
