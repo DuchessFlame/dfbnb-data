@@ -27,7 +27,6 @@ server simply means no gallery on that page.
 USAGE
   python3 build_season_gallery_avif.py --season 26
   python3 build_season_gallery_avif.py --season 26 --stage
-  python3 build_season_gallery_avif.py --season 26 --stage --require-complete
   python3 build_season_gallery_avif.py --season 26 --max-width 1600 --quality 62
 """
 
@@ -44,7 +43,6 @@ try:
     from PIL import Image
 except ImportError:
     sys.exit("Missing deps. Run: pip install pillow pillow-avif-plugin")
-
 
 def _mount_root():
     """The sandbox session id changes every session, so the mount prefix cannot
