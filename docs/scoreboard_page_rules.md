@@ -139,6 +139,39 @@ because there "not written" only means "not asked for". A local checkout inside
 OneDrive cannot delete without permission; the builder warns and carries on, and
 CI does the real prune.
 
+## 10. One texture, one file — every S.C.O.R.E. Boost tier shares an image
+
+The 5% Boost, the 10% Boost and the second 10% Boost are the SAME art. In game
+all three point at `textures/atx/storefront/utility/score_account_scoreboost.dds`
+— the entitlement suffix (`…_Account_ScoreBoost_1/_2/_3`) is a tier, not a
+different picture. The export wrote it out under three filenames anyway, only
+`_1` was ever uploaded, and the data files then scattered the tiers across three
+folders (`season_images/`, `season-24/`, `utility/`). Result: the 5% row
+rendered and both 10% rows 404'd on every season from S9 to S35 — the boost
+appeared as a blank tile roughly two-thirds of the time it appeared at all.
+
+Every boost row on every season page now resolves to:
+
+    /wp-content/uploads/season_images/utility/score_s24_account_scoreboost_1.avif
+
+The rule lives in `asset_paths.py` and its four JavaScript twins, and it is
+checked **before** the folder rules precisely because the wrong folder is half
+the bug. It routes on the filename, so it applies to a season nobody has curated
+yet, and it survives a data file that still carries the old tier or folder — the
+same reason the zero-pad rule sits there.
+
+The generators write the canonical path too, so the JSON is right on its own and
+the renderer is a backstop rather than a patch: `backfill_season_rewards_tsv.py`
+ignores the entitlement tier, `build_pts_season_scoreboard.py` maps all three
+`Account_ScoreBoost_*` keys to the one file, and `tsv/season_rewards.tsv` was
+normalised across all 54 rows.
+
+Do not "fix" this by uploading `_2` and `_3`. Three copies of one texture is the
+thing that broke, and the next season's export would arrive as `_4`.
+
+The consumable **S.C.O.R.E. Booster x3** is a different item with its own art
+(`score_utility_scorebooster.avif`). It is not covered by this rule.
+
 **Any generated per-item output should work this way.** An output directory that
 is only ever written to will serve whatever it was last given, forever, and
 nothing will report it.
