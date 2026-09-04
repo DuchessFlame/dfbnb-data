@@ -97,7 +97,13 @@ def resolve_placements(src, geo, cur, cache, db_ok):
     DB absent  -> reconstruct from the committed cache + the TSV source closure.
     """
     base_type = {int(fid, 16): meta["source_type"] for fid, meta in src["placed_bases"].items()}
-    direct_ints = {int(fid, 16) for fid in src["direct_refrs"]}
+    # A placed REFR is only a FIXED spawn when the list behind it is dedicated to this
+    # item (spawns_engine.sources.dedicated_lists). A shared loot pool's point is real
+    # but what appears there is a gamble -> "chance", which group_regions keeps out of
+    # Fixed Spawn Locations and group_chance renders separately.
+    direct_type = {int(fid, 16): ("direct" if meta.get("dedicated", True) else "chance")
+                   for fid, meta in src["direct_refrs"].items()}
+    direct_ints = set(direct_type)
     lists_n = len(src["lvli_closure"])
 
     seen = {}
@@ -115,7 +121,7 @@ def resolve_placements(src, geo, cur, cache, db_ok):
             region, marker, how = geo.resolve(space, x, y)
             cache[str(inst)] = {"base": None, "space": space, "x": round(x, 1),
                                 "y": round(y, 1), "region": region, "marker": marker}
-            seen[inst] = (x, y, region, marker, "direct")
+            seen[inst] = (x, y, region, marker, direct_type[inst])
     else:
         for key, e in cache.items():
             inst = int(key)
@@ -127,20 +133,29 @@ def resolve_placements(src, geo, cur, cache, db_ok):
             e = cache.get(str(inst))
             if e and inst not in seen:
                 seen[inst] = (e.get("x"), e.get("y"), e.get("region", ""),
-                              e.get("marker", ""), "direct")
+                              e.get("marker", ""), direct_type[inst])
 
     return seen, lists_n
 
 
 # ── region / marker grouping ─────────────────────────────────────────────────
-def group_regions(seen, all_regions, keep):
+CHANCE_TYPES = ("chance",)     # shared-loot-pool points -> Chance to Spawn Locations
+
+
+def group_regions(seen, all_regions, keep, exclude_types=CHANCE_TYPES):
     """Group resolved placements into the per-region location lists. Returns
         (regions_out, src_totals, unresolved, total, placements)
-    with the exact shapes the pre-refactor builds emitted."""
+    with the exact shapes the pre-refactor builds emitted.
+
+    `exclude_types` are held back for group_chance() — a point whose list is a shared
+    loot pool is not a fixed spawn and must never be counted here."""
+    exclude = set(exclude_types or ())
     grouped = defaultdict(lambda: {"count": 0, "refs": [], "coords": None,
                                    "sources": defaultdict(int), "places": []})
     unresolved = defaultdict(int)
     for inst, (x, y, region, marker, stype) in seen.items():
+        if stype in exclude:
+            continue
         if region not in all_regions:
             unresolved[marker or f"instance {inst:06X}"] += 1
             continue
@@ -204,3 +219,37 @@ def group_regions(seen, all_regions, keep):
 
     return (regions_out, dict(sorted(src_totals.items())),
             {k: unresolved[k] for k in sorted(unresolved)}, total, placements)
+
+
+def group_chance(seen, all_regions, chance_types=CHANCE_TYPES):
+    """Build the `chance_spawns` block: the world points whose leveled list is a
+    SHARED loot pool, so the item is only one of several things that can appear.
+
+    Deliberately NAMES ONLY. These points are far too numerous and too low-odds to
+    photograph or map individually (Addictol alone has 306 of them), so the expand
+    lists marker names A-Z inside each region A-Z and links out to a per-region map
+    the reader can zoom. No coords, no refs, no photo slots — that is what makes
+    Fixed Spawn Locations worth reading.
+    """
+    types = set(chance_types or ())
+    by_region = defaultdict(lambda: defaultdict(int))
+    total = 0
+    for _inst, (_x, _y, region, marker, stype) in seen.items():
+        if stype not in types or region not in all_regions or not marker:
+            continue
+        by_region[region][marker] += 1
+        total += 1
+
+    regions_out = []
+    for region in all_regions:
+        markers = by_region.get(region)
+        if not markers:
+            continue
+        regions_out.append({
+            "region": region,
+            "markers": sorted(markers, key=lambda m: m.lower()),
+            "placements": sum(markers.values()),
+        })
+    return {"regions": regions_out,
+            "total_markers": sum(len(r["markers"]) for r in regions_out),
+            "total": total}

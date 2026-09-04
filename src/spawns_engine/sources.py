@@ -18,7 +18,12 @@ For each item set get_sources() yields:
   * lvli_closure  — every LVLI FormID that can roll the item
   * placed_bases  — {base_formid: {sig, edid, source_type, via}} for CONT/ACTI/FURN/
                     NPC_/MSTT/FLOR that hold any list in the closure
-  * direct_refrs  — {refr_formid: {edid}} the item/list is placed directly
+  * direct_refrs  — {refr_formid: {edid, via, dedicated}} the item/list is placed
+                    directly. `dedicated` is the FIXED-SPAWN test (see
+                    dedicated_lists): True when the placed list can only ever hand
+                    out this item, False when it is a shared loot pool. Only the
+                    dedicated ones are Fixed Spawn Locations; the rest are chance
+                    points and render under Chance to Spawn Locations.
 
 classify() is passed IN (see spawns_engine.classify) so the routing vocabulary is
 per-family while this walker stays generic. This module only READS tsv/ — it needs
@@ -62,17 +67,22 @@ def _fid(token):
 
 # ── TSV loaders ──────────────────────────────────────────────────────────────
 def _load_child_to_parents(entries_path):
-    """child FormID -> set(parent LVLI FormID), from LVLI_Entries (col LVLO_Reference)."""
+    """child FormID -> set(parent LVLI FormID), from LVLI_Entries (col LVLO_Reference).
+
+    Also returns the DOWN edges (parent -> [(child, sig)]) in the same pass, because
+    the dedication test (see `dedicated_lists`) has to walk the tree downwards."""
     c2p = {}
+    p2c = {}
     parent_edid = {}
     with open(entries_path, encoding="utf-8", errors="replace") as f:
         for r in csv.DictReader(f, delimiter="\t"):
             parent = (r.get("LVLI_FormID") or "").strip().upper()
-            child, _, _ = _fid(r.get("LVLO_Reference") or "")
+            child, _, csig = _fid(r.get("LVLO_Reference") or "")
             if parent and child:
                 c2p.setdefault(child, set()).add(parent)
+                p2c.setdefault(parent, []).append((child, csig))
                 parent_edid[parent] = (r.get("LVLI_EDID") or "").strip()
-    return c2p, parent_edid
+    return c2p, p2c, parent_edid
 
 
 def _load_lvli_refs(refs_path):
@@ -143,6 +153,51 @@ def _closure(seeds, c2p):
     return seen
 
 
+def _leaves(root, p2c, cache):
+    """Every non-list leaf FormID a list can ultimately hand out (down-closure)."""
+    if root in cache:
+        return cache[root]
+    out, seen, stack = set(), set(), [root]
+    while stack:
+        n = stack.pop()
+        if n in seen:
+            continue
+        seen.add(n)
+        kids = p2c.get(n)
+        if not kids:                      # not a list (or an empty one) -> a leaf item
+            out.add(n)
+            continue
+        for child, csig in kids:
+            if csig == "LVLI" and child in p2c:
+                stack.append(child)
+            else:
+                out.add(child)
+    cache[root] = out
+    return out
+
+
+def dedicated_lists(seeds, closure, p2c):
+    """The subset of `closure` that can ONLY ever produce this item set.
+
+    THE FIXED-SPAWN RULE. A world REFR that places a leveled list is a *fixed spawn*
+    for this item only when that list is DEDICATED to it — i.e. every leaf the list
+    can hand out is one of the page's own items (`LPI_Chems_Addictol` -> Addictol,
+    `LPI_Food_DeathclawEgg` -> Deathclaw Egg). If it spawns, it is this item.
+
+    A SHARED loot pool (`LPI_Chems_Prewar` rolls nine different chems, `LPI_Chems_
+    Prewar` -> `LL_Chems_Prewar_Same`) is NOT a fixed spawn: the point exists, but
+    what appears there is a gamble. Those become source_type "chance" and render in
+    the Chance to Spawn Locations expand instead.
+
+    A list's own ChanceNone is deliberately NOT part of the test — the Deathclaw Egg
+    world spawn is 50% and is still a fixed Deathclaw Egg spawn, because nothing else
+    can ever be standing there. Dedication is about WHAT spawns, not HOW OFTEN.
+    """
+    seeds = {str(s).upper() for s in seeds}
+    cache = {}
+    return {lv for lv in closure if _leaves(lv, p2c, cache) <= seeds}
+
+
 # ── public API ───────────────────────────────────────────────────────────────
 def load_tables(tsv_root=None):
     """Load all TSV tables needed for source resolution. Requires LVLI_Entries +
@@ -154,10 +209,10 @@ def load_tables(tsv_root=None):
     missing = [n for n, p in [("LVLI_Entries", entries), ("LVLI_Refs", refs)] if not p]
     if missing:
         raise FileNotFoundError(f"missing tsv export(s): {missing} in {tsv_root or TSV}")
-    c2p, parent_edid = _load_child_to_parents(entries)
+    c2p, p2c, parent_edid = _load_child_to_parents(entries)
     return {
         "entries": entries, "refs": refs, "alch": alch, "misc": misc,
-        "c2p": c2p, "parent_edid": parent_edid,
+        "c2p": c2p, "p2c": p2c, "parent_edid": parent_edid,
         "lvli_refs": _load_lvli_refs(refs),
         "alch_refs": _load_alch_refs(alch) if alch else {},
         "misc_refs": _load_misc_refs(misc) if misc else {},
@@ -166,7 +221,7 @@ def load_tables(tsv_root=None):
 
 def get_sources(item_records, tables, classify, extra_closure_seeds=None,
                 extra_world_bases=None, placed_sigs=PLACED_SIGS_DEFAULT,
-                place_item_bases=False):
+                place_item_bases=False, dedication_seeds=None):
     """Return {'lvli_closure', 'placed_bases', 'direct_refrs'} for a set of items.
 
     item_records : list of {"formid": hex, "sig": "ALCH"|"MISC", ...}. Each formid
@@ -186,6 +241,10 @@ def get_sources(item_records, tables, classify, extra_closure_seeds=None,
                    Each item's source_type comes from its record's `world_source_type`
                    (default "static", i.e. a guaranteed 100% direct spawn). Requires a
                    local geo-cache reseed with the Mappalachia DB to take effect.
+    dedication_seeds : optional wider FormID set for the FIXED-SPAWN dedication test
+                   only (never for the closure). Use it on a whole-category page whose
+                   world list also carries category siblings the page's item list
+                   doesn't enumerate — see the magazines note inline below.
     """
     c2p = tables["c2p"]
     parent_edid = tables["parent_edid"]
@@ -197,13 +256,33 @@ def get_sources(item_records, tables, classify, extra_closure_seeds=None,
 
     closure = _closure(seeds, c2p)          # every list that can roll the item
 
+    # Which of those lists are DEDICATED to this item (see dedicated_lists). A REFR
+    # placing a dedicated list is a fixed spawn; a REFR placing a shared loot pool is
+    # a chance point. Without this every closure REFR read as a guaranteed spawn —
+    # Addictol shipped 332 "fixed" spawns when only 25 were its own.
+    # `dedication_seeds` widens ONLY the dedication test, never the closure — for a
+    # whole-CATEGORY page. The magazine guide covers 96 numbered issues, but
+    # LPI_Loot_Magazines also hands out the four holotape magazines, so measured
+    # against the page's own items the list looks "shared" and all 717 magazine
+    # spawn points would be demoted to chance. They are magazines on a magazines
+    # page — the widened set says so, keyword-driven, no FormIDs typed.
+    ded = dedicated_lists(dedication_seeds or seeds, closure, tables.get("p2c") or {})
+
     placed_bases, direct_refrs = {}, {}
+
+    def _mark_direct(rf, redid, dedicated, via=""):
+        cur = direct_refrs.setdefault(rf, {"edid": redid, "dedicated": False, "via": via})
+        if dedicated:                       # one dedicated placer is enough
+            cur["dedicated"] = True
+            cur["via"] = via or cur.get("via", "")
+        if redid and not cur.get("edid"):
+            cur["edid"] = redid
 
     # holders of every list in the closure
     for lv in closure:
         for rf, redid, rsig in lvli_refs.get(lv, ()):
             if rsig == "REFR":
-                direct_refrs.setdefault(rf, {"edid": redid})
+                _mark_direct(rf, redid, lv in ded, parent_edid.get(lv, lv))
             elif rsig in placed_sigs:
                 placed_bases.setdefault(rf, {
                     "sig": rsig, "edid": redid,
@@ -219,7 +298,8 @@ def get_sources(item_records, tables, classify, extra_closure_seeds=None,
             item_refs = tables["alch_refs"].get(fid, [])
         for rf, redid, rsig in item_refs:
             if rsig == "REFR":
-                direct_refrs.setdefault(rf, {"edid": redid})
+                # the item's OWN base placed in the world — guaranteed by definition
+                _mark_direct(rf, redid, True, "item")
             elif rsig in placed_sigs:
                 placed_bases.setdefault(rf, {
                     "sig": rsig, "edid": redid,

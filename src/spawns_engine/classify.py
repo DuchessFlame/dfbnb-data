@@ -93,25 +93,38 @@ def weapon_classify(sig, edid, via_edid):
     return "loot-list"
 
 
-def farming_classify(sig, edid, via_edid):
-    """Farming / egg router (Cream + the egg sets). Keeps the exact buckets the
-    farming pipeline shipped: collectron/slowroaster, vendor, nest, dispenser,
-    quest-reward, npc, direct, container, loot-list."""
-    e = (edid or "").lower() + " " + (via_edid or "").lower()
-    if "collectron" in e or "slowroaster" in e:
-        return "collectron"
-    if "vend" in e or "vendor" in e:
-        return "vendor"
-    if "nest" in e:
-        return "nest"
-    if "dispenser" in e:
-        return "dispenser"
-    if "questreward" in e or "quest_reward" in e or "_reward" in e:
-        return "quest-reward"
-    if sig == "NPC_":
-        return "npc"
-    if sig == "REFR":
-        return "direct"
-    if sig == "CONT":
-        return "container"
-    return "loot-list"
+def make_farming_classify(nests=True):
+    """Farming / egg router factory.
+
+    `nests` is the ONLY per-page knob. A creature nest is a CONT like any other; it
+    is only a *distinct source* on a page about the thing that lives in it. On the
+    Deathclaw Egg page a Deathclaw Nest is the source (declared by the config's
+    drop_rates.containers.marker_label). On the Addictol page the same nest is just
+    another container whose loot can roll a chem — a shared pool, so it is NOT a
+    fixed spawn and belongs in Containers with its rng76 rate. Every chem page
+    shipped 19 phantom "Deathclaw Nest" fixed spawns because this was unconditional.
+    """
+    def farming_classify(sig, edid, via_edid):
+        e = (edid or "").lower() + " " + (via_edid or "").lower()
+        if "collectron" in e or "slowroaster" in e:
+            return "collectron"
+        if "vend" in e or "vendor" in e:
+            return "vendor"
+        if nests and "nest" in e:
+            return "nest"
+        if "dispenser" in e:
+            return "dispenser"
+        if "questreward" in e or "quest_reward" in e or "_reward" in e:
+            return "quest-reward"
+        if sig == "NPC_":
+            return "npc"
+        if sig == "REFR":
+            return "direct"
+        if sig == "CONT":
+            return "container"
+        return "loot-list"
+    return farming_classify
+
+
+# Back-compat default (nest-aware) — the egg sets and anything importing the name.
+farming_classify = make_farming_classify(nests=True)
