@@ -105,7 +105,9 @@
     "006D1DD7": "Arm Wrestle Machine — world object, EXP17",
     "00769104": "AC_MQ01 Tuba — quest prop, EDID says NONPLAYER",
     "0078CA7D": "Pool Table — world object, Storm questline",
-    "00830006": "Ice Bath — ZZZ deprecated (S22)"
+    "00830006": "Ice Bath — ZZZ deprecated (S22)",
+    "007267B6": "Hollywood Vanity _FROMATX — level-design copy of the Atom Shop asset, placed as AC_MQ02_Stage_ZaydesVanity in Showman's Pier (Expedition: Atlantic City). No ENTM, no COBJ, no XALG flags, single REFR. Not player-obtainable.",
+    "007AE386": "Accordion _FROMATX — unused dev copy of ATX_Furniture_Instrument_Accordion (007746A5). Zero references, no ENTM, no COBJ. Not player-obtainable."
   },
   "image_overrides": {
     "Instrument_Theremin": "/wp-content/uploads/guide-images/atom-shop/request-item-images/ATX_CAMP_Furniture_Instrument_Theremin.avif",
@@ -195,10 +197,8 @@
     "00668025": "Nuka-lele (Quantum)",
     "0062C3E2": "Pipe Organ (Atom Shop)",
     "00678D16": "Resonator Guitar B",
-    "007AE386": "Accordion (Free)",
     "00691B73": "Violin",
     "00684BAA": "Vault Girl Arm Wrestle Machine",
-    "007267B6": "Hollywood Vanity (Free)",
     "006FA9F0": "Stars and Strikes Bowling Arcade Machine"
   },
   "how_overrides": {
@@ -210,14 +210,10 @@
     "0079B885": "Plan: Cauldron Hot Tub — event-specific reward during the Mischief Night event.",
     "0078C78E": "Plan: Rusty Saxophone — Milepost Zero reward.",
     "00755EB1": "Reward from the Mothman Equinox seasonal event. Not craftable.",
-    "007AE386": "Free reward — unlocked for all players.",
-    "007267B6": "Free reward — unlocked for all players.",
     "005D98A5": "@ATX_HOW",
     "006628D8": "Available to Fallout 1st members."
   },
   "tradeable_overrides": {
-    "007AE386": false,
-    "007267B6": false,
     "0078C78E": false
   },
   "entm_overrides": {
@@ -230,8 +226,7 @@
     "00691B73": "SCORE_S12_ENTM_CAMP_Furniture_Instrument_ViolinChair",
     "0062C3E2": "ATX_ENTM_CAMP_Furniture_Instrument_Pipe_Organ",
     "00678D16": "ATX_ENTM_CAMP_Furniture_Instrument_ResonatorGuitar",
-    "006FA9F0": "ATX_ENTM_CAMP_Furniture_BowlingArcadeMachine_StarsAndStrikes",
-    "007AE386": "ATX_ENTM_CAMP_Furniture_Instrument_Accordion"
+    "006FA9F0": "ATX_ENTM_CAMP_Furniture_BowlingArcadeMachine_StarsAndStrikes"
   },
   "bed_entries": [
     [
@@ -276,12 +271,10 @@
     "005D98A5": "Sympto-matic — Atom Shop item with unbranded EDID"
   },
   "tradeable_overrides_notes": {
-    "007AE386": "Accordion (Free)",
-    "007267B6": "Hollywood Vanity (Free)",
     "0078C78E": "Rusty Saxophone"
   },
-  "entm_overrides_notes": {
-    "007AE386": "free version shares the ATX art"
+  "excluded_notes": {
+    "_FROMATX": "FURN records suffixed _FROMATX / _TakenFromAtx are level-design copies of Atom Shop assets so world/quest placements and NPC furniture do not need the entitlement. They carry no ENTM, no COBJ recipe and no XALG flags — never treat one as a free or obtainable player item."
   },
   "_note": "Hand-maintained override tables for the Buff Stations page. Edit this file rather than build_buff_stations_json.py. 'excluded' maps FormID -> why it is off the page. A value of \"@NAME\" is resolved at load time against the script's own constant of that name (e.g. \"@ATX_HOW\")."
 }

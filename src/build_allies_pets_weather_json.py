@@ -34,6 +34,7 @@ from pathlib import Path
 from patchlog_utils import write_patchlog_feed
 import tsv_source          # one resolver for every export selection
 import camp_config       # hand-maintained tables live in data/camp/*.json
+import gold_vendor       # generative Gold Bullion route (ENTM -> vendor plan)
 
 _CFG_WEATHER_STATIONS = camp_config.load("weather_stations")
 _CFG_ALLIES = camp_config.load("allies")
@@ -236,6 +237,29 @@ def make_obtain_routes(populated):
             "dropRate":  (drop_rate if lines else None),
         })
     return routes
+
+
+# The generative Gold Bullion index, built once. Every call site below asks it
+# for the route rather than deriving one from a local table — see
+# src/gold_vendor.py for the ENTM -> plan -> vendor chain and why the old
+# per-script tables went stale.
+_GV = gold_vendor.index()
+
+
+def gold_block_for(entm_form_id="", display_name=""):
+    """The Gold Bullion block for an item, as a newline-joined string.
+
+    Passed straight into ``simple_obtain_routes(gold_block=...)``. Resolving it
+    at the construction site — not only in the ``apply_to_items`` post-pass —
+    matters because ``simple_obtain_routes`` returns an EMPTY array when
+    nothing is populated, and a post-pass has no Gold Bullion slot to write
+    into on an item that came back empty. That is exactly how Daphne and Sam
+    Nguyen, both sold by Samuel for 4,000 bullion, ended up with no obtain
+    routes at all.
+    """
+    lines = (_GV.route_for_entm(entm_form_id) if entm_form_id
+             else _GV.route_for_name(display_name))
+    return "\n".join(lines)
 
 
 def simple_obtain_routes(season_num=None, gold_block="", atom_shop=False,
@@ -2240,10 +2264,13 @@ def build_allies():
             "tradeable":        _ally_tradeable,
             "planName":         _ally_plan_name,
             # Scoreboard when seasonal, Atom Shop when the source resolves to
-            # ATX; quest/event/vendor allies leave this empty so the flat
-            # howToObtain line shows instead.
+            # Scoreboard when seasonal, Gold Bullion when a gold vendor sells
+            # the ally's plan, Atom Shop when the source resolves to ATX.
+            # Quest/event allies with none of the three leave this empty so the
+            # flat howToObtain line shows instead.
             "obtainRoutes":     simple_obtain_routes(
                                     season_num=season_num,
+                                    gold_block=gold_block_for(entm_id, display),
                                     atom_shop=(not season_num and obtain == ATX_HOW),
                                     tradeable=_ally_tradeable),
             "imageUrl":         img,
@@ -2738,6 +2765,21 @@ pet_furn_data = build_pet_furniture()
 pet_appr_data = build_pet_apparel()
 cryos_data = build_cryos()
 fridges_data = build_fridges()
+
+# Generative Gold Bullion route, one pass per page, before anything is written.
+# Every page goes through this — the route used to be decided by a per-script
+# table that only grew when somebody remembered to grow it, and 24 items a gold
+# vendor demonstrably sells were reading "N/A" as a result. See gold_vendor.py.
+for _label, _data in [("weather station", weather_data),
+                      ("repair bot",      repair_bots_data),
+                      ("ally",            allies_data),
+                      ("pet",             pets_data),
+                      ("pet furniture",   pet_furn_data),
+                      ("pet apparel",     pet_appr_data),
+                      ("cryo",            cryos_data),
+                      ("fridge",          fridges_data)]:
+    _GV.apply_to_items(_data.get("items", []), _label)
+    _GV.report_unstocked(_data.get("items", []), _label)
 
 save_json("weather_stations.json", weather_data)
 save_json("repair-bots.json",      repair_bots_data)

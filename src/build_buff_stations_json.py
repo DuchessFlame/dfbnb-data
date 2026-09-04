@@ -39,6 +39,7 @@ import re
 from pathlib import Path
 import tsv_source          # one resolver for every export selection
 import camp_config       # hand-maintained tables live in data/camp/*.json
+import gold_vendor       # generative Gold Bullion route (ENTM -> vendor plan)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--tsv-dir", default="tsv",  help="Folder containing TSV exports")
@@ -811,6 +812,14 @@ for fid, label, buff, spell, kwline, bkey in BED_ENTRIES:
         "buffTypes": ["wellrested", "experience"],
         "singleExpand": False, "cutContent": False,
     })
+
+# ------------------------------------------------- Gold Bullion (generative)
+# Every station a gold vendor sells, resolved from the game data rather than
+# the gold_merged/gold_how tables, which only ever covered the Weight Bench and
+# the Antique Speed Bag. See src/gold_vendor.py for the ENTM -> plan chain.
+_GV = gold_vendor.index()
+_GV.apply_to_items(items_out, "buff station")
+_GV.report_unstocked(items_out)
 
 # ---------------------------------------------------------------- write
 data = {"groups": GROUPS, "items": items_out}

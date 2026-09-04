@@ -31,6 +31,7 @@ except ImportError:
     from rng76 import Rng76Data, read_tsv_columns
 
 import tsv_source          # one resolver for every export selection
+import gold_vendor         # generative Gold Bullion route (ENTM -> vendor plan)
 # Populated once in main() from the TSV root; resolve_drops_via_rng76() reads it.
 _RNG_RESOLVER = None
 
@@ -1435,6 +1436,16 @@ def main():
     sk = lambda x: (_rank.get(x.get("status"), 0 if not x.get("cutContent") else 2),
                     (x.get("displayName") or "").lower())
     col_items.sort(key=sk); res_items.sort(key=sk)
+    # Generative Gold Bullion route (src/gold_vendor.py). This builder had no
+    # gold-vendor handling of any kind, so every collectron and resource
+    # producer a gold vendor sells read "N/A" — which the page contract states
+    # as "we checked, it isn't sold there".
+    _gv = gold_vendor.index()
+    for _label, _items in [("collectron", col_items),
+                           ("resource producer", res_items)]:
+        _gv.apply_to_items(_items, _label)
+        _gv.report_unstocked(_items, _label)
+
     for fname, typ, items in [("collectrons.json", "collectrons", col_items),
                                ("resource_producers.json", "resource_producers", res_items)]:
         out = {"generatedAt": now_iso(), "type": typ, "count": len(items), "items": items}
