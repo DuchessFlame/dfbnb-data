@@ -188,6 +188,190 @@ def legacy_rerun_seasons(path):
     return out
 
 
+def rerun_label(season_num, path=LEGACY_TSV):
+    """The most recent re-run label for a season, e.g. 'Sep 2026'. '' if none.
+
+    Same derivation as apply_legacy_additions.rerun_labels() so the label written
+    into season_rewards.tsv and the label shown on the page cannot disagree.
+    """
+    labels = []
+    if not path.exists():
+        return ""
+    for row in read_tsv(path):
+        try:
+            if int((row.get("SeasonNumber") or "").strip()) != season_num:
+                continue
+            start = datetime.strptime((row.get("StartDate") or "").strip(), "%d/%m/%Y")
+        except (TypeError, ValueError):
+            continue
+        labels.append(start.strftime("%b %Y"))
+    return labels[-1] if labels else ""
+
+
+def read_quoted_tsv(path):
+    """A TSV that is real, minimally-quoted CSV — read it as such.
+
+    read_tsv() above uses QUOTE_NONE deliberately: the game's own ENTM/RESO
+    exports carry unbalanced double quotes inside DESC fields, and asking the csv
+    module to interpret them swallows whole rows.
+
+    season_rewards.tsv is not one of those. It is hand-curated and properly
+    escaped, and its title rewards are named with quotes in them, so on disk the
+    name field is a quoted CSV field with its inner quotes doubled. Reading THAT
+    with QUOTE_NONE hands the escaping back as if it were part of the name, and
+    the page ends up displaying the doubled quotes and the wrapping quotes
+    instead of  Player Title Suffix: "Icebreaker".
+    """
+    for enc in ("utf-8-sig", "latin-1"):
+        try:
+            with path.open("r", encoding=enc, newline="") as f:
+                return list(csv.DictReader(f, delimiter="\t",
+                                           quoting=csv.QUOTE_MINIMAL))
+        except UnicodeDecodeError:
+            continue
+    raise RuntimeError(f"Cannot decode {path} with any known encoding")
+
+
+def curated_rows(season_num, path=REWARDS_TSV):
+    """Every curated reward row for a season, straight from season_rewards.tsv."""
+    if not path.exists():
+        return []
+    return [r for r in read_quoted_tsv(path)
+            if safe_int(r.get("seasonNumber", ""), -1) == season_num]
+
+
+def _curated_item(row, season_num):
+    """A curated season_rewards.tsv row as an upcoming-rewards item.
+
+    Most of a board's rewards are not entitlements at all — supply packages,
+    boosters, caps, scrip — so they never appear in the ENTM export and carry no
+    category, rarity, form ID or texture. Those fields are left EMPTY rather than
+    guessed; the renderer simply omits the pills it has nothing for.
+    """
+    ent = (row.get("storefrontEntitlement") or "").strip()
+    rank = safe_int(row.get("rank") or "", 0)
+    item = {
+        "id": (row.get("id") or make_item_id(season_num, ent or row.get("name", ""))).strip(),
+        "name": (row.get("name") or "").strip(),
+        "description": (row.get("description") or "").strip(),
+        "category": "",
+        "subCategory": "",
+        "rarity": "",
+        "falloutFirst": str(row.get("isFirst") or "").strip().lower() in ("1", "true", "yes"),
+        "formId": "",
+        "ddsHandle": "",
+        "edid": ent,
+    }
+    img = (row.get("imageUrl") or "").strip()
+    if img:
+        item["imageUrl"] = img
+    if rank:
+        item["originalRank"] = rank
+    return item
+
+
+def merge_original_run(season_num, pts_items, label):
+    """Fold the season's ORIGINAL board into its re-run Upcoming Rewards list.
+
+    A legacy season is not a new season — it is an old board coming back — so a
+    page that shows only the PTS export answers the wrong question. A player
+    opening it wants one A-Z list of everything the re-released board holds, with
+    the handful of rewards that were NOT there the first time called out.
+
+    Sources, joined on entitlement (never on name — the curated board calls a
+    title reward 'Icebreaker' where the export calls it 'Icebreaker Player Title
+    Suffix', so a name join silently duplicates them):
+
+      season_rewards.tsv        the curated original board, every reward, with
+                                its rank, artwork and in-game description
+      the PTS ENTM export       this re-run's entitlements, with category,
+                                rarity, form ID and texture
+
+    A reward is marked NEW — permanently, the pill never expires — when it was
+    not on the original board: either the curated row carries addedInRerun, or
+    the entitlement is in the export with no curated row behind it at all.
+
+    Curated names win on a join so this page and the season's Scoreboard page
+    call the same reward the same thing; the export's name is kept as `ptsName`
+    so searching for either still finds it.
+    """
+    by_ent = {}
+    for item in pts_items:
+        ent = (item.get("edid") or "").strip().lower()
+        if ent:
+            by_ent[ent] = item
+
+    merged = []
+    matched = set()
+    counts = {"board": 0, "added": 0, "pts_only": 0}
+
+    for row in curated_rows(season_num):
+        ent = (row.get("storefrontEntitlement") or "").strip().lower()
+        added = (row.get("addedInRerun") or "").strip()
+        pts = by_ent.get(ent) if ent else None
+
+        if pts is not None:
+            matched.add(ent)
+            item = dict(pts)
+            pts_name = (item.get("name") or "").strip()
+            curated_name = (row.get("name") or "").strip()
+            if curated_name:
+                item["name"] = curated_name
+                if pts_name and pts_name != curated_name:
+                    item["ptsName"] = pts_name
+            if not item.get("description"):
+                item["description"] = (row.get("description") or "").strip()
+            if not item.get("imageUrl") and (row.get("imageUrl") or "").strip():
+                item["imageUrl"] = row["imageUrl"].strip()
+        else:
+            item = _curated_item(row, season_num)
+
+        rank = safe_int(row.get("rank") or "", 0)
+        if rank:
+            item["originalRank"] = rank
+
+        kind = (row.get("kind") or "").strip()
+        value = (row.get("value") or "").strip()
+        if kind:
+            item["kind"] = kind
+        if value:
+            item["value"] = value
+
+        if added:
+            item["addedInRerun"] = added
+            item["isNew"] = True
+            counts["added"] += 1
+        else:
+            # On the original board when it has a rank on it. A curated row with
+            # neither a rank nor an addedInRerun label is a reward we hold data
+            # for but cannot place on the published list — say neither.
+            if rank:
+                item["originalRun"] = True
+                counts["board"] += 1
+
+        merged.append(item)
+
+    # Entitlements in this re-run's export with no curated row behind them: brand
+    # new rewards Bethesda has put on the re-released board. apply_legacy_additions
+    # normally promotes these into season_rewards.tsv first, so this is the
+    # safety net for a fresh export that has not been through that step yet.
+    for ent, item in by_ent.items():
+        if ent in matched:
+            continue
+        item = dict(item)
+        item["isNew"] = True
+        if label:
+            item["addedInRerun"] = label
+        counts["pts_only"] += 1
+        merged.append(item)
+
+    print(TAG + " S%d: merged original run -- %d on the original board, "
+          "%d added for the re-run, %d export-only, %d total"
+          % (season_num, counts["board"], counts["added"], counts["pts_only"],
+             len(merged)))
+    return merged
+
+
 def load_uploaded_images(season_num):
     """Entitlement (lowercased) -> the artwork URL actually uploaded for it.
 
@@ -739,7 +923,8 @@ def extract_seasons(entm_tsv, overrides, target_season=None, gen_resolver=None):
     return dict(seasons)
 
 
-def build_season_json(season_num, items, meta, source_name, observed):
+def build_season_json(season_num, items, meta, source_name, observed,
+                      rerun_label=""):
     sm = meta.get(season_num, {})
 
     # Resolve each item's real uploaded artwork.
@@ -771,6 +956,15 @@ def build_season_json(season_num, items, meta, source_name, observed):
         "sourceFile": source_name,
         "count": len(items),
     }
+
+    # A legacy re-run file is NOT purely datamined — most of it is the curated
+    # original board, which is settled fact. The renderer keys its warning
+    # wording off this so the page does not tell a reader that a reward from
+    # 2021 is "subject to change".
+    if rerun_label:
+        output["isLegacyRerun"] = True
+        output["rerunLabel"] = rerun_label
+        output["newCount"] = sum(1 for i in items if i.get("isNew"))
     if sm.get("startDate"):
         output["startDate"] = sm["startDate"]
     if sm.get("endDate"):
@@ -900,7 +1094,16 @@ def main():
             continue
 
         items = season_items[snum]
-        output = build_season_json(snum, items, meta, entm_tsv.name, observed)
+
+        # A legacy re-run page lists the WHOLE re-released board, not just this
+        # PTS export: the original run's rewards folded in, A-Z, with the ones
+        # added for the re-run flagged. See merge_original_run().
+        label = rerun_label(snum) if rerun else ""
+        if rerun:
+            items = merge_original_run(snum, items, label)
+
+        output = build_season_json(snum, items, meta, entm_tsv.name, observed,
+                                   rerun_label=label)
         out_path = out_dir / ("upcoming_rewards_s" + str(snum) + ".json")
 
         with out_path.open("w", encoding="utf-8") as f:
