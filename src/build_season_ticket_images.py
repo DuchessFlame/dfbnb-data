@@ -43,6 +43,10 @@ def strip_quantity(name: str) -> str:
     return s
 
 
+# The one routing rule, shared with the renderers. See src/asset_paths.py.
+from asset_paths import asset_url  # noqa: E402
+
+
 def utility_image_url(raw_name: str) -> str:
     # Season-agnostic icons hosted in /season_images/utility/
     root = "/wp-content/uploads/season_images/utility/"
@@ -50,43 +54,43 @@ def utility_image_url(raw_name: str) -> str:
 
     # Currencies
     if base == "atoms":
-        return root + "score_currency_atoms.webp"
+        return root + "score_currency_atoms.avif"
     if base == "bullion":
-        return root + "score_currency_bullion.webp"
+        return root + "score_currency_bullion.avif"
     if base == "caps":
-        return root + "score_currency_caps.webp"
+        return root + "score_currency_caps.avif"
     if base in ("perk coin", "perk coins"):
-        return root + "score_currency_perkcoin.webp"
+        return root + "score_currency_perkcoin.avif"
     if base in ("legendary scrip", "scrip"):
-        return root + "score_currency_scrip.webp"
+        return root + "score_currency_scrip.avif"
     if base == "stamps":
-        return root + "score_currency_stamps.webp"
+        return root + "score_currency_stamps.avif"
 
     # Utilities
     if base in ("legendary module", "legendary modules"):
-        return root + "score_game_legendarymodule.webp"
+        return root + "score_game_legendarymodule.avif"
     if base in ("carry weight booster", "carryweight booster"):
-        return root + "score_utility_carryweight.webp"
+        return root + "score_utility_carryweight.avif"
     if base == "improved bait":
-        return root + "score_utility_improvedbait.webp"
+        return root + "score_utility_improvedbait.avif"
     if base in ("superb bait", "superb-bait"):
-        return root + "score_utility_superbait.webp"
+        return root + "score_utility_superbait.avif"
     if base in ("re-roller", "reroller", "re roller"):
-        return root + "score_utility_reroller.webp"
+        return root + "score_utility_reroller.avif"
     if base in ("score booster", "scorebooster"):
-        return root + "score_utility_scorebooster.webp"
+        return root + "score_utility_scorebooster.avif"
     if base in ("lunchbox", "lunch box", "lunchboxes", "lunch boxes"):
-        return root + "atx_store_lunchbox001.webp"
+        return root + "atx_store_lunchbox001.avif"
     if base == "banner":
-        return root + "score_coen_utility_banner.webp"
+        return root + "score_coen_utility_banner.avif"
     if base in ("magazine and book box", "magazine book box", "magazinebookbox"):
-        return root + "score_utility_magazinebookbox.webp"
+        return root + "score_utility_magazinebookbox.avif"
     if base in ("mystery bobblehead", "mysterybobblehead"):
-        return root + "score_utility_mysterybobblehead.webp"
+        return root + "score_utility_mysterybobblehead.avif"
     if base in ("basic repair kit", "repair kit", "repairkit"):
-        return root + "atx_utility_repairkit_basic.webp"
+        return root + "atx_utility_repairkit_basic.avif"
     if base in ("sugar-free nukashine", "sugar free nukashine", "nukashine sugarfree"):
-        return root + "score_item_nukashine_sugarfree.webp"
+        return root + "score_item_nukashine_sugarfree.avif"
 
     return ""
 
@@ -102,7 +106,7 @@ def to_dds_path(etip: str, etdi: str) -> str:
 def entitlement_to_webp_name(edid: str) -> str:
     k = (edid or "").strip().lower()
     k = k.replace("_entm_", "_")
-    return f"{k}.webp"
+    return f"{k}.avif"
 
 
 def main() -> int:
@@ -171,7 +175,7 @@ def main() -> int:
         # Utility override: imageUrl only (conversion handled by run_season_ticket_images.ps1 $UtilityIcons list)
         u = utility_image_url(raw_name)
         if u:
-            it["imageUrl"] = u
+            it["imageUrl"] = asset_url(u)
             continue
 
         base0 = raw_name
@@ -212,7 +216,12 @@ def main() -> int:
             continue
 
         it["storefrontEntitlement"] = edid
-        it["imageUrl"] = (args.img_url_root.rstrip("/") + "/" + entitlement_to_webp_name(edid))
+        # Route it, do not just concatenate. A title, icon or utility reward
+        # belongs in its shared folder, not under this season - which is what
+        # a bare join produced, and why those rewards 404'd on every page.
+        it["imageUrl"] = asset_url(
+            args.img_url_root.rstrip("/") + "/" + entitlement_to_webp_name(edid)
+        )
 
         # Optional: attach ENTM description (for showing above image on the Season Ticket page)
         desc = (hit.get("DESC") or "").strip()

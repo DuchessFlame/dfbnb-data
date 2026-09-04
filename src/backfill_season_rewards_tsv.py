@@ -16,7 +16,7 @@ While reversing it also enriches two fields that were largely blank on S1-23:
 
   imageUrl      Derived from storefrontEntitlement using the project's existing
                 convention (see entitlement_to_webp_name in build_season_ticket_images.py):
-                    SCORE_S12_ENTM_CAMP_AidBox_Alien -> score_s12_camp_aidbox_alien.webp
+                    SCORE_S12_ENTM_CAMP_AidBox_Alien -> score_s12_camp_aidbox_alien.avif
                 Validated against all 59 S24 rows that carry both fields - 59/59 match.
                 Utility/currency items resolve to the shared /utility/ icons instead.
                 df-bnb-seasons.js resolveImageUrl() rewrites these to
@@ -109,48 +109,48 @@ def base_name(name: str) -> str:
 # ---------------------------------------------------------------------------
 
 UTILITY_MAP = {
-    "atoms":                    ("atoms",                 "score_currency_atoms.webp"),
-    "atom":                     ("atoms",                 "score_currency_atoms.webp"),
-    "bullion":                  ("gold_bullion",          "score_currency_bullion.webp"),
-    "gold bullion":             ("gold_bullion",          "score_currency_bullion.webp"),
-    "caps":                     ("caps",                  "score_currency_caps.webp"),
-    "bottle caps":              ("caps",                  "score_currency_caps.webp"),
-    "perk coin":                ("perk_coins",            "score_currency_perkcoin.webp"),
-    "perk coins":               ("perk_coins",            "score_currency_perkcoin.webp"),
-    "scrip":                    ("legendary_scrip",       "score_currency_scrip.webp"),
-    "legendary scrip":          ("legendary_scrip",       "score_currency_scrip.webp"),
-    "stamps":                   ("stamps",                "score_currency_stamps.webp"),
-    "stamp":                    ("stamps",                "score_currency_stamps.webp"),
-    "legendary module":         ("legendary_module",      "score_game_legendarymodule.webp"),
-    "legendary modules":        ("legendary_module",      "score_game_legendarymodule.webp"),
-    "carry weight booster":     ("carry_weight_booster",  "score_utility_carryweight.webp"),
-    "carryweight booster":      ("carry_weight_booster",  "score_utility_carryweight.webp"),
-    "improved bait":            ("improved_bait",         "score_utility_improvedbait.webp"),
-    "superb bait":              ("superb_bait",           "score_utility_superbait.webp"),
-    "re roller":                ("re_roller",             "score_utility_reroller.webp"),
-    "reroller":                 ("re_roller",             "score_utility_reroller.webp"),
-    "score booster":            ("score_booster",         "score_utility_scorebooster.webp"),
-    "s c o r e booster":        ("score_booster",         "score_utility_scorebooster.webp"),
-    "scorebooster":             ("score_booster",         "score_utility_scorebooster.webp"),
-    "lunchbox":                 ("lunchbox",              "atx_store_lunchbox001.webp"),
-    "lunch box":                ("lunchbox",              "atx_store_lunchbox001.webp"),
-    "lunchboxes":               ("lunchbox",              "atx_store_lunchbox001.webp"),
-    "banner":                   ("scouts_banner",         "score_coen_utility_banner.webp"),
-    "scouts banner":            ("scouts_banner",         "score_coen_utility_banner.webp"),
-    "scout s banner":           ("scouts_banner",         "score_coen_utility_banner.webp"),
-    "magazine and book box":    ("mystery_magazine",      "score_utility_magazinebookbox.webp"),
-    "magazine book box":        ("mystery_magazine",      "score_utility_magazinebookbox.webp"),
-    "mystery magazine":         ("mystery_magazine",      "score_utility_magazinebookbox.webp"),
-    "mystery magazine package": ("mystery_magazine",      "score_utility_magazinebookbox.webp"),
-    "mystery bobblehead":       ("mystery_bobblehead",    "score_utility_mysterybobblehead.webp"),
-    "mysterybobblehead":        ("mystery_bobblehead",    "score_utility_mysterybobblehead.webp"),
-    "repair kit":               ("repair_kit",            "atx_utility_repairkit_basic.webp"),
-    "basic repair kit":         ("repair_kit",            "atx_utility_repairkit_basic.webp"),
-    "repair kits":              ("repair_kit",            "atx_utility_repairkit_basic.webp"),
-    "nuclear keycard":          ("nuclear_keycard",       "score_utility_nuclearkeycard.webp"),
-    "nukashine":                ("nukashine",             "score_item_nukashine_sugarfree.webp"),
-    "sugar free nukashine":     ("nukashine",             "score_item_nukashine_sugarfree.webp"),
-    "sugarfree nukashine":      ("nukashine",             "score_item_nukashine_sugarfree.webp"),
+    "atoms":                    ("atoms",                 "score_currency_atoms.avif"),
+    "atom":                     ("atoms",                 "score_currency_atoms.avif"),
+    "bullion":                  ("gold_bullion",          "score_currency_bullion.avif"),
+    "gold bullion":             ("gold_bullion",          "score_currency_bullion.avif"),
+    "caps":                     ("caps",                  "score_currency_caps.avif"),
+    "bottle caps":              ("caps",                  "score_currency_caps.avif"),
+    "perk coin":                ("perk_coins",            "score_currency_perkcoin.avif"),
+    "perk coins":               ("perk_coins",            "score_currency_perkcoin.avif"),
+    "scrip":                    ("legendary_scrip",       "score_currency_scrip.avif"),
+    "legendary scrip":          ("legendary_scrip",       "score_currency_scrip.avif"),
+    "stamps":                   ("stamps",                "score_currency_stamps.avif"),
+    "stamp":                    ("stamps",                "score_currency_stamps.avif"),
+    "legendary module":         ("legendary_module",      "score_game_legendarymodule.avif"),
+    "legendary modules":        ("legendary_module",      "score_game_legendarymodule.avif"),
+    "carry weight booster":     ("carry_weight_booster",  "score_utility_carryweight.avif"),
+    "carryweight booster":      ("carry_weight_booster",  "score_utility_carryweight.avif"),
+    "improved bait":            ("improved_bait",         "score_utility_improvedbait.avif"),
+    "superb bait":              ("superb_bait",           "score_utility_superbait.avif"),
+    "re roller":                ("re_roller",             "score_utility_reroller.avif"),
+    "reroller":                 ("re_roller",             "score_utility_reroller.avif"),
+    "score booster":            ("score_booster",         "score_utility_scorebooster.avif"),
+    "s c o r e booster":        ("score_booster",         "score_utility_scorebooster.avif"),
+    "scorebooster":             ("score_booster",         "score_utility_scorebooster.avif"),
+    "lunchbox":                 ("lunchbox",              "atx_store_lunchbox001.avif"),
+    "lunch box":                ("lunchbox",              "atx_store_lunchbox001.avif"),
+    "lunchboxes":               ("lunchbox",              "atx_store_lunchbox001.avif"),
+    "banner":                   ("scouts_banner",         "score_coen_utility_banner.avif"),
+    "scouts banner":            ("scouts_banner",         "score_coen_utility_banner.avif"),
+    "scout s banner":           ("scouts_banner",         "score_coen_utility_banner.avif"),
+    "magazine and book box":    ("mystery_magazine",      "score_utility_magazinebookbox.avif"),
+    "magazine book box":        ("mystery_magazine",      "score_utility_magazinebookbox.avif"),
+    "mystery magazine":         ("mystery_magazine",      "score_utility_magazinebookbox.avif"),
+    "mystery magazine package": ("mystery_magazine",      "score_utility_magazinebookbox.avif"),
+    "mystery bobblehead":       ("mystery_bobblehead",    "score_utility_mysterybobblehead.avif"),
+    "mysterybobblehead":        ("mystery_bobblehead",    "score_utility_mysterybobblehead.avif"),
+    "repair kit":               ("repair_kit",            "atx_utility_repairkit_basic.avif"),
+    "basic repair kit":         ("repair_kit",            "atx_utility_repairkit_basic.avif"),
+    "repair kits":              ("repair_kit",            "atx_utility_repairkit_basic.avif"),
+    "nuclear keycard":          ("nuclear_keycard",       "score_utility_nuclearkeycard.avif"),
+    "nukashine":                ("nukashine",             "score_item_nukashine_sugarfree.avif"),
+    "sugar free nukashine":     ("nukashine",             "score_item_nukashine_sugarfree.avif"),
+    "sugarfree nukashine":      ("nukashine",             "score_item_nukashine_sugarfree.avif"),
 }
 
 # `kind` -> tallyCategory. Covers the icon/title rows, which are the bulk of the
@@ -170,7 +170,7 @@ _BOOST_RE = re.compile(r"s\s*c\s*o\s*r\s*e\s*boost", re.IGNORECASE)
 
 
 def entitlement_to_webp(edid: str) -> str:
-    """SCORE_S12_ENTM_CAMP_AidBox -> score_s12_camp_aidbox.webp
+    """SCORE_S12_ENTM_CAMP_AidBox -> score_s12_camp_aidbox.avif
 
     Same rule as entitlement_to_webp_name() in build_season_ticket_images.py, plus
     a strip of Bethesda's "zzz" deprecation prefix so cut records still point at the
@@ -179,7 +179,7 @@ def entitlement_to_webp(edid: str) -> str:
     k = (edid or "").strip().lower()
     k = re.sub(r"^zzz+", "", k)
     k = k.replace("_entm_", "_")
-    return f"{k}.webp" if k else ""
+    return f"{k}.avif" if k else ""
 
 
 def name_from_entitlement(edid: str) -> str:
@@ -219,7 +219,7 @@ def resolve_utility(item: dict) -> tuple[str, str]:
         # is shared across seasons, so point every season at the S24 files that exist.
         m = re.search(r"scoreboost_(\d)", (item.get("storefrontEntitlement") or "").lower())
         tier = m.group(1) if m else "1"
-        return "score_booster", f"{UTILITY_ROOT}score_s24_account_scoreboost_{tier}.webp"
+        return "score_booster", f"{UTILITY_ROOT}score_s24_account_scoreboost_{tier}.avif"
 
     return "", ""
 

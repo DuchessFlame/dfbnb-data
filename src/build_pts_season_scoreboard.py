@@ -85,9 +85,9 @@ CATEGORY_RULES = [
 ]
 
 UTILITY_IMAGES = {
-    "Account_ScoreBoost_1": "/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_1.webp",
-    "Account_ScoreBoost_2": "/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_2.webp",
-    "Account_ScoreBoost_3": "/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_2.webp",
+    "Account_ScoreBoost_1": "/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_1.avif",
+    "Account_ScoreBoost_2": "/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_2.avif",
+    "Account_ScoreBoost_3": "/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_2.avif",
 }
 
 NOTES = {

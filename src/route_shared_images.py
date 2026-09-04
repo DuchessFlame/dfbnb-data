@@ -9,14 +9,18 @@ Replaces route_title_images.py, which handled titles only.
 
 WHY: some reward art is not per-season at all.
 
-  Titles   Camp/player titles have always been served from
-           /wp-content/uploads/storefront/titles-player/ and titles-camp/ by the
+  Titles   Camp/player titles are served from the shared titles folders by the
            /df/titles/ pages, and those folders already hold the season titles.
 
   Icons    Player icons repeat across seasons (and across bundles, the Atom Shop and
            request items), so per-season copies would duplicate the same file. They
-           get one shared folder, /wp-content/uploads/storefront/player-icons/, which
-           the planned player-icons page can also read.
+           get one shared folder, which the player-icons page also reads.
+
+The exact roots deliberately do NOT appear in this file - see src/asset_paths.py.
+They were spelled out here once, under /uploads/storefront/; when the folders were
+moved to /uploads/guide-images/ this script was not updated, and the result was
+149 of 162 images 404ing on the Player Titles checklist while the files sat on the
+server intact.
 
 The back-fill derived every imageUrl from storefrontEntitlement, which sent all of
 these to /season_images/season-{N}/ - a path their textures never live under.
@@ -62,10 +66,15 @@ MANIFEST_DIR = REPO_ROOT / "dist" / "season_images"
 
 TAG = "[route_shared_images]"
 
-REMOTE_ROOT = "/wp-content/uploads/storefront/"
+# The REMOTE root is no longer spelled out here. It moved once already - from
+# /uploads/storefront/ to /uploads/guide-images/ - and because this script kept
+# the old spelling, every title on the site 404'd while the folders sat there
+# perfectly intact. src/asset_paths.py is now the single place that knows, and
+# it has a JS twin the renderers use, so the next move only happens once.
+from asset_paths import asset_url  # noqa: E402
 
-# Remote subfolder per category. Change ICON_DIR here if the folder should be called
-# something else on the server - it is referenced nowhere else.
+# These name folders in the LOCAL upload mirror passed via --storefront, which
+# is a different thing from the remote URL and has not moved.
 TITLES_PLAYER_DIR = "titles-player"
 TITLES_CAMP_DIR = "titles-camp"
 ICON_DIR = "player-icons"
@@ -163,7 +172,9 @@ def main() -> None:
             if not stem:
                 misses.append((r["seasonNumber"], r["name"], "no texture path in ENTM"))
                 continue
-            r["imageUrl"] = f"{REMOTE_ROOT}{ICON_DIR}/{stem}.avif"
+            # asset_url() decides the folder from the filename, so the icon
+            # lands in the shared player-icons root wherever that root now is.
+            r["imageUrl"] = asset_url(f"{stem}.avif")
             routed["icon"] += 1
             if stem in icon_pool:
                 icon_present += 1
@@ -187,7 +198,7 @@ def main() -> None:
             misses.append((r["seasonNumber"], r["name"], f"no art in titles-* ({stem})"))
             continue
         sub, fname = found
-        r["imageUrl"] = f"{REMOTE_ROOT}{sub}/{fname}"
+        r["imageUrl"] = asset_url(fname)
         routed[which] += 1
 
     total = sum(routed.values())

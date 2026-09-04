@@ -62,17 +62,17 @@ UTILITY = "/wp-content/uploads/season_images/utility/"
 # Reward-name pattern -> (tallyCategory, utility image filename or "").
 # Order matters: first match wins, so put the specific patterns first.
 UTILITY_RULES: list[tuple[str, str, str]] = [
-    (r"^atoms$",                      "atoms",                "score_currency_atoms.webp"),
-    (r"^caps$",                       "caps",                 "score_currency_caps.webp"),
-    (r"^gold bullion$",               "gold_bullion",         "score_currency_bullion.webp"),
-    (r"^legendary scrip$",            "legendary_scrip",      "score_currency_scrip.webp"),
-    (r"^perk coins?$",                "perk_coins",           "score_currency_perkcoin.webp"),
-    (r"^lunchboxe?s?$",               "lunchbox",             "atx_store_lunchbox001.webp"),
-    (r"^legendary module$",           "legendary_module",     "score_game_legendarymodule.webp"),
-    (r"^basic repair kits?$",         "repair_kit",           "atx_utility_repairkit_basic.webp"),
-    (r"^carry weight booster$",       "carry_weight_booster", "score_utility_carryweight.webp"),
-    (r"^nuclear keycards?$",          "nuclear_keycard",      "score_utility_nuclearkeycard.webp"),
-    (r"nukashine",                    "nukashine",            "score_item_nukashine_sugarfree.webp"),
+    (r"^atoms$",                      "atoms",                "score_currency_atoms.avif"),
+    (r"^caps$",                       "caps",                 "score_currency_caps.avif"),
+    (r"^gold bullion$",               "gold_bullion",         "score_currency_bullion.avif"),
+    (r"^legendary scrip$",            "legendary_scrip",      "score_currency_scrip.avif"),
+    (r"^perk coins?$",                "perk_coins",           "score_currency_perkcoin.avif"),
+    (r"^lunchboxe?s?$",               "lunchbox",             "atx_store_lunchbox001.avif"),
+    (r"^legendary module$",           "legendary_module",     "score_game_legendarymodule.avif"),
+    (r"^basic repair kits?$",         "repair_kit",           "atx_utility_repairkit_basic.avif"),
+    (r"^carry weight booster$",       "carry_weight_booster", "score_utility_carryweight.avif"),
+    (r"^nuclear keycards?$",          "nuclear_keycard",      "score_utility_nuclearkeycard.avif"),
+    (r"nukashine",                    "nukashine",            "score_item_nukashine_sugarfree.avif"),
     # No shared artwork exists for these yet - they get a category but no image.
     (r"^perk card pack$",             "perk_card_pack",       ""),
     (r"^scrap kits?$",                "scrap_kit",            ""),

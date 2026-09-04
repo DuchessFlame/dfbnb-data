@@ -321,8 +321,16 @@ def merge_original_run(season_num, pts_items, label):
                     item["ptsName"] = pts_name
             if not item.get("description"):
                 item["description"] = (row.get("description") or "").strip()
-            if not item.get("imageUrl") and (row.get("imageUrl") or "").strip():
-                item["imageUrl"] = row["imageUrl"].strip()
+            # Curated artwork wins, for the same reason curated names do. The
+            # curated row records what was actually UPLOADED; the PTS side only
+            # guesses a filename from the source texture. Those diverge whenever
+            # a reward's art does not live in the season folder at all - every
+            # S4 Player Icon is served from /guide-images/atom-shop/player-icons/
+            # as atx_playericon_score_NN.avif, so preferring the PTS guess put
+            # seven 404s on this page that the Scoreboard page did not have.
+            curated_img = (row.get("imageUrl") or "").strip()
+            if curated_img:
+                item["imageUrl"] = curated_img
         else:
             item = _curated_item(row, season_num)
 

@@ -53,21 +53,21 @@ UTIL = "/wp-content/uploads/season_images/utility/"
 # "s c o r e booster x3" and "Re-Roller x5" as "re roller x5".
 #   pattern -> (tallyCategory, image filename under UTIL)
 CONSUMABLES = [
-    (r"^\d+ atoms$",                  "atoms",                "score_currency_atoms.webp"),
-    (r"^caps x",                      "caps",                 "score_currency_caps.webp"),
-    (r"^gold bullion x",              "gold_bullion",         "score_currency_bullion.webp"),
-    (r"^perk coins? x",               "perk_coins",           "score_currency_perkcoin.webp"),
-    (r"^stamps x",                    "stamps",               "score_currency_stamps.webp"),
-    (r"^legendary modules? x",        "legendary_module",     "score_game_legendarymodule.webp"),
-    (r"^lunchbox x",                  "lunchbox",             "atx_store_lunchbox001.webp"),
-    (r"^mystery bobblehead x",        "mystery_bobblehead",   "score_utility_mysterybobblehead.webp"),
-    (r"^mystery magazine package x",  "mystery_magazine",     "score_utility_magazinebookbox.webp"),
-    (r"^nuclear keycard x",           "nuclear_keycard",      "score_utility_nuclearkeycard.webp"),
-    (r"^re roller x",                 "re_roller",            "score_utility_reroller.webp"),
-    (r"^(basic )?repair kit",         "repair_kit",           "atx_utility_repairkit_basic.webp"),
-    (r"^carry weight booster x",      "carry_weight_booster", "score_utility_carryweight.webp"),
-    (r"^s c o r e booster x",         "score_booster",        "score_utility_scorebooster.webp"),
-    (r"s c o r e boost$",             "score_booster",        "score_s24_account_scoreboost_1.webp"),
+    (r"^\d+ atoms$",                  "atoms",                "score_currency_atoms.avif"),
+    (r"^caps x",                      "caps",                 "score_currency_caps.avif"),
+    (r"^gold bullion x",              "gold_bullion",         "score_currency_bullion.avif"),
+    (r"^perk coins? x",               "perk_coins",           "score_currency_perkcoin.avif"),
+    (r"^stamps x",                    "stamps",               "score_currency_stamps.avif"),
+    (r"^legendary modules? x",        "legendary_module",     "score_game_legendarymodule.avif"),
+    (r"^lunchbox x",                  "lunchbox",             "atx_store_lunchbox001.avif"),
+    (r"^mystery bobblehead x",        "mystery_bobblehead",   "score_utility_mysterybobblehead.avif"),
+    (r"^mystery magazine package x",  "mystery_magazine",     "score_utility_magazinebookbox.avif"),
+    (r"^nuclear keycard x",           "nuclear_keycard",      "score_utility_nuclearkeycard.avif"),
+    (r"^re roller x",                 "re_roller",            "score_utility_reroller.avif"),
+    (r"^(basic )?repair kit",         "repair_kit",           "atx_utility_repairkit_basic.avif"),
+    (r"^carry weight booster x",      "carry_weight_booster", "score_utility_carryweight.avif"),
+    (r"^s c o r e booster x",         "score_booster",        "score_utility_scorebooster.avif"),
+    (r"s c o r e boost$",             "score_booster",        "score_s24_account_scoreboost_1.avif"),
 ]
 
 # Board caption -> PTS name, for the handful the loose join cannot bridge.
@@ -161,7 +161,7 @@ def load_reward_images(folder):
 
 def image_from_entitlement(ent, stems):
     """SCORE_S26_ENTM_Apparel_Headwear_BloodyNurse_Hat
-         -> /wp-content/uploads/season_images/score_s26_apparel_headwear_bloodynurse_hat.webp
+         -> /wp-content/uploads/season_images/score_s26_apparel_headwear_bloodynurse_hat.avif
 
     The exported icon drops the ENTM segment for most rewards but keeps it for
     a few (the power armour paints), so both spellings are tried. The .webp
