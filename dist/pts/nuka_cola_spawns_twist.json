@@ -1,9 +1,9 @@
 {
  "_meta": {
-  "generated": "2026-09-02",
+  "generated": "2026-09-04",
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
   "source_formids": [],
-  "lists_in_closure": 0,
+  "lists_in_closure": 15,
   "source_totals": {},
   "unresolved": {}
  },
@@ -53,8 +53,151 @@
    "locations": []
   }
  ],
- "used_for": {},
- "farming_tips": {},
- "events_activities": [],
+ "used_for": {
+  "consumption": {
+   "object_type": "Drink",
+   "weight": 1.0,
+   "value": 10,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Nuka Cola Twist is a drink consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Restore Health",
+     "display": "Restores 40 Health",
+     "duration": "10s"
+    },
+    {
+     "name": "Restore Action Points",
+     "display": "Restore Action Points",
+     "duration": "5s"
+    },
+    {
+     "name": "Nuka Cola Twist",
+     "display": "+1 Nuka Cola Twist",
+     "duration": "5 min"
+    },
+    {
+     "name": "Quench Thirst",
+     "display": "Quenches thirst (540/9 min)",
+     "duration": null
+    },
+    {
+     "name": "Bottlecap Collector",
+     "display": "Bottlecap Collector",
+     "duration": null
+    },
+    {
+     "name": "Rads",
+     "display": "Rads",
+     "duration": null
+    }
+   ]
+  }
+ },
+ "farming_tips": {
+  "spoils": false,
+  "spoil_duration_hours": null,
+  "base_weight": 1.0,
+  "object_type": "Drink",
+  "yield_perk": null,
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.55
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.1
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.1,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.8
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.6
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.1
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": false
+ },
+ "events_activities": [
+  {
+   "list_id": "0065E293",
+   "edid": "E09D_GWWS_LL_QuestReward",
+   "name": "Event: Most Wanted",
+   "type": "Public Event",
+   "note": "Chance the item is in the Event: Most Wanted reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
+  },
+  {
+   "list_id": "00665762",
+   "edid": "E09A_Launcher_QuestReward_LL",
+   "name": "Event: Seismic Activity",
+   "type": "Public Event",
+   "note": "Chance the item is in the Event: Seismic Activity reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
+  },
+  {
+   "list_id": "00647B22",
+   "edid": "E09B_Wheel_LL_QuestReward",
+   "name": "Event: Spin The Wheel",
+   "type": "Public Event",
+   "note": "Chance the item is in the Event: Spin The Wheel reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
+  },
+  {
+   "list_id": "006772EB",
+   "edid": "E09C_LL_LoveTunnel_QuestReward",
+   "name": "Event: Tunnel Of Love",
+   "type": "Public Event",
+   "note": "Chance the item is in the Event: Tunnel Of Love reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
+  }
+ ],
  "special_sources": {}
 }
