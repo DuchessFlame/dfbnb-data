@@ -1,11 +1,11 @@
 {
  "_meta": {
-  "generated": "2026-09-04",
+  "generated": "2026-09-05",
   "source": "Game-file exports (WEAP/OMOD/COBJ/BOOK/CURV/LVLI/CONT) + Mappalachia Position (cached for CI)",
   "weapon_form_id": "0004DF01",
-  "lists_in_closure": 16,
+  "lists_in_closure": 15,
   "source_totals": {
-   "direct": 29
+   "direct": 3
   },
   "unresolved": {}
  },
@@ -119,7 +119,7 @@
    },
    {
     "edid": "ap_gun_Appearance",
-    "name": "Default Appearance"
+    "name": "Appearance"
    },
    {
     "edid": "ap_Misc",
@@ -131,7 +131,7 @@
    },
    {
     "edid": "ap_customName",
-    "name": "Unique Effect"
+    "name": "Custom Name"
    },
    {
     "edid": "ap_Legendary2",
@@ -189,7 +189,7 @@
     "cobj_edid": "RD01_co_Weapon_Melee_Cauterizer"
    }
   ],
-  "count": 18,
+  "count": 17,
   "groups": [
    {
     "slot": "Barrel",
@@ -404,31 +404,15 @@
     ]
    },
    {
-    "slot": "Default Appearance",
+    "slot": "Appearance",
     "cosmetic": true,
     "mods": [
-     {
-      "form_id": "008DE0A0",
-      "edid": "SCORE_S26_mod_Chainsaw_Weapon_Paint_BloodMess",
-      "name": "Bloody Mess Paint",
-      "description": "",
-      "slot": "Default Appearance",
-      "attach_point": "ap_gun_Appearance",
-      "cosmetic": true,
-      "default": false,
-      "unique_variant": null,
-      "plan": "",
-      "plan_form_id": "",
-      "workbench": "Weapon Workbench",
-      "loose_mod": "",
-      "effects": []
-     },
      {
       "form_id": "00796EB3",
       "edid": "RD01_Mod_Custom_Cauterizer_Appearance",
       "name": "Cauterizer Paint",
       "description": "",
-      "slot": "Default Appearance",
+      "slot": "Appearance",
       "attach_point": "ap_gun_Appearance",
       "cosmetic": true,
       "default": false,
@@ -444,7 +428,7 @@
       "edid": "ATX_mod_Cauterizer_Weapon_Paint_Enclave",
       "name": "Enclave Paint",
       "description": "",
-      "slot": "Default Appearance",
+      "slot": "Appearance",
       "attach_point": "ap_gun_Appearance",
       "cosmetic": true,
       "default": false,
@@ -460,7 +444,7 @@
       "edid": "mod_Chainsaw_Weapon_Paint_GhostlyGrinder",
       "name": "Ghostly Grinder Paint",
       "description": "",
-      "slot": "Default Appearance",
+      "slot": "Appearance",
       "attach_point": "ap_gun_Appearance",
       "cosmetic": true,
       "default": false,
@@ -476,7 +460,7 @@
       "edid": "ATX_mod_Chainsaw_Weapon_Paint_Grinder",
       "name": "Grinder Paint",
       "description": "",
-      "slot": "Default Appearance",
+      "slot": "Appearance",
       "attach_point": "ap_gun_Appearance",
       "cosmetic": true,
       "default": false,
@@ -492,7 +476,7 @@
       "edid": "ATX_Event_mod_Chainsaw_Weapon_Paint_Halloween",
       "name": "Halloween Paint",
       "description": "",
-      "slot": "Default Appearance",
+      "slot": "Appearance",
       "attach_point": "ap_gun_Appearance",
       "cosmetic": true,
       "default": false,
@@ -504,27 +488,11 @@
       "effects": []
      },
      {
-      "form_id": "00677BCB",
-      "edid": "SCORE_S11_mod_Chainsaw_Weapon_ModelSwap_JackhammerDrill",
-      "name": "Jackhammer Drill Style",
-      "description": "Jackhammer Drill Paint",
-      "slot": "Default Appearance",
-      "attach_point": "ap_melee_Appearance",
-      "cosmetic": true,
-      "default": false,
-      "unique_variant": null,
-      "plan": "",
-      "plan_form_id": "",
-      "workbench": "",
-      "loose_mod": "",
-      "effects": []
-     },
-     {
       "form_id": "0076FFBD",
       "edid": "mod_Chainsaw_Weapon_Paint_LaserChainsaw",
       "name": "Laser Chainsaw Paint",
       "description": "",
-      "slot": "Default Appearance",
+      "slot": "Appearance",
       "attach_point": "ap_gun_Appearance",
       "cosmetic": true,
       "default": false,
@@ -540,7 +508,7 @@
       "edid": "SCORE_S15_mod_Chainsaw_Weapon_Paint_Poker",
       "name": "Poker Paint",
       "description": "Poker Paint",
-      "slot": "Default Appearance",
+      "slot": "Appearance",
       "attach_point": "ap_gun_Appearance",
       "cosmetic": true,
       "default": false,
@@ -556,7 +524,7 @@
       "edid": "mod_Chainsaw_Weapon_Paint_Skeptikill",
       "name": "Skeptikill Paint",
       "description": "",
-      "slot": "Default Appearance",
+      "slot": "Appearance",
       "attach_point": "ap_gun_Appearance",
       "cosmetic": true,
       "default": false,
@@ -572,7 +540,7 @@
       "edid": "SCORE_S21_mod_Chainsaw_Weapon_Paint_Spitfire",
       "name": "Spitfire Paint",
       "description": "",
-      "slot": "Default Appearance",
+      "slot": "Appearance",
       "attach_point": "ap_gun_Appearance",
       "cosmetic": true,
       "default": false,
@@ -586,7 +554,7 @@
     ]
    },
    {
-    "slot": "Unique Effect",
+    "slot": "Custom Name",
     "cosmetic": true,
     "mods": [
      {
@@ -594,8 +562,30 @@
       "edid": "RD01_Mod_Custom_Cauterizer_CustomName",
       "name": "Cauterizer Custom Name",
       "description": "",
-      "slot": "Unique Effect",
+      "slot": "Custom Name",
       "attach_point": "ap_customName",
+      "cosmetic": true,
+      "default": false,
+      "unique_variant": "Cauterizer",
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "",
+      "effects": []
+     }
+    ]
+   },
+   {
+    "slot": "Melee Appearance",
+    "cosmetic": true,
+    "mods": [
+     {
+      "form_id": "00677BCB",
+      "edid": "SCORE_S11_mod_Chainsaw_Weapon_ModelSwap_JackhammerDrill",
+      "name": "Jackhammer Drill Style",
+      "description": "Jackhammer Drill Paint",
+      "slot": "Melee Appearance",
+      "attach_point": "ap_melee_Appearance",
       "cosmetic": true,
       "default": false,
       "unique_variant": null,
@@ -603,18 +593,7 @@
       "plan_form_id": "",
       "workbench": "",
       "loose_mod": "",
-      "effects": [
-       {
-        "label": "Damage Type Values",
-        "value": "+0.6",
-        "kind": "stat"
-       },
-       {
-        "label": "AP cost",
-        "value": "+25%",
-        "kind": "stat"
-       }
-      ]
+      "effects": []
      }
     ]
    }
@@ -659,415 +638,23 @@
   },
   {
    "region": "Atlantic City",
-   "locations": [
-    {
-     "marker": "Community Center",
-     "count": 1,
-     "sources": {
-      "direct": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "755F8F"
-     ],
-     "coords": [
-      3882.0,
-      4440.6
-     ],
-     "spawns": [
-      {
-       "label": "Chainsaw",
-       "ref": "755F8F",
-       "source_type": "direct",
-       "coords": [
-        3882.0,
-        4440.6
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    }
-   ]
+   "locations": []
   },
   {
    "region": "Burning Springs",
-   "locations": [
-    {
-     "marker": "Sand Fork Lumber",
-     "count": 2,
-     "sources": {
-      "direct": 2
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "8261C2",
-      "83C0A5"
-     ],
-     "coords": [
-      -216753.1,
-      -6461.7
-     ],
-     "spawns": [
-      {
-       "label": "Chainsaw #1",
-       "ref": "8261C2",
-       "source_type": "direct",
-       "coords": [
-        -214895.3,
-        -4592.0
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Chainsaw #2",
-       "ref": "83C0A5",
-       "source_type": "direct",
-       "coords": [
-        -216753.1,
-        -6461.7
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Starlight Drive-in",
-     "count": 1,
-     "sources": {
-      "direct": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "81C260"
-     ],
-     "coords": [
-      -195760.5,
-      113678.4
-     ],
-     "spawns": [
-      {
-       "label": "Chainsaw",
-       "ref": "81C260",
-       "source_type": "direct",
-       "coords": [
-        -195760.5,
-        113678.4
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    }
-   ]
+   "locations": []
   },
   {
    "region": "Cranberry Bog",
-   "locations": [
-    {
-     "marker": "Crimson Prospect",
-     "count": 1,
-     "sources": {
-      "direct": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "537769"
-     ],
-     "coords": [
-      140332.6,
-      -105108.1
-     ],
-     "spawns": [
-      {
-       "label": "Chainsaw",
-       "ref": "537769",
-       "source_type": "direct",
-       "coords": [
-        140332.6,
-        -105108.1
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Ranger District Office",
-     "count": 1,
-     "sources": {
-      "direct": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "2DC343"
-     ],
-     "coords": [
-      150717.7,
-      -89107.2
-     ],
-     "spawns": [
-      {
-       "label": "Chainsaw",
-       "ref": "2DC343",
-       "source_type": "direct",
-       "coords": [
-        150717.7,
-        -89107.2
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    }
-   ]
+   "locations": []
   },
   {
    "region": "Forest",
-   "locations": [
-    {
-     "marker": "Gilman Lumber Mill",
-     "count": 6,
-     "sources": {
-      "direct": 6
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "27A7D7",
-      "27A7D8",
-      "28D689",
-      "2A9AF9",
-      "3114BA",
-      "6F5838"
-     ],
-     "coords": [
-      -102823.4,
-      68422.9
-     ],
-     "spawns": [
-      {
-       "label": "Chainsaw #1",
-       "ref": "27A7D7",
-       "source_type": "direct",
-       "coords": [
-        -103976.0,
-        69295.5
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Chainsaw #2",
-       "ref": "27A7D8",
-       "source_type": "direct",
-       "coords": [
-        -105886.4,
-        70724.4
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Chainsaw #3",
-       "ref": "28D689",
-       "source_type": "direct",
-       "coords": [
-        -102823.4,
-        68422.9
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Chainsaw #4",
-       "ref": "2A9AF9",
-       "source_type": "direct",
-       "coords": [
-        -107426.4,
-        60663.9
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Chainsaw #5",
-       "ref": "3114BA",
-       "source_type": "direct",
-       "coords": [
-        -104144.4,
-        69544.3
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Chainsaw #6",
-       "ref": "6F5838",
-       "source_type": "direct",
-       "coords": [
-        -104652.6,
-        70702.6
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Poseidon Energy Plant Expansion",
-     "count": 1,
-     "sources": {
-      "direct": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "592343"
-     ],
-     "coords": [
-      -4095.3,
-      -2043.9
-     ],
-     "spawns": [
-      {
-       "label": "Chainsaw",
-       "ref": "592343",
-       "source_type": "direct",
-       "coords": [
-        -4095.3,
-        -2043.9
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "WV Lumber Co.",
-     "count": 1,
-     "sources": {
-      "direct": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "3CFF53"
-     ],
-     "coords": [
-      -169298.0,
-      193998.3
-     ],
-     "spawns": [
-      {
-       "label": "Chainsaw",
-       "ref": "3CFF53",
-       "source_type": "direct",
-       "coords": [
-        -169298.0,
-        193998.3
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "WV Lumber Co. Office",
-     "count": 1,
-     "sources": {
-      "direct": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "42E41C"
-     ],
-     "coords": [
-      2520.3,
-      214.6
-     ],
-     "spawns": [
-      {
-       "label": "Chainsaw",
-       "ref": "42E41C",
-       "source_type": "direct",
-       "coords": [
-        2520.3,
-        214.6
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    }
-   ]
+   "locations": []
   },
   {
    "region": "Savage Divide",
    "locations": [
-    {
-     "marker": "Metal Dome",
-     "count": 1,
-     "sources": {
-      "direct": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "60637A"
-     ],
-     "coords": [
-      69227.9,
-      101324.7
-     ],
-     "spawns": [
-      {
-       "label": "Chainsaw",
-       "ref": "60637A",
-       "source_type": "direct",
-       "coords": [
-        69227.9,
-        101324.7
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
     {
      "marker": "Middle Mountain Pitstop",
      "count": 1,
@@ -1100,37 +687,6 @@
      ]
     },
     {
-     "marker": "Mountainside Bed & Breakfast",
-     "count": 1,
-     "sources": {
-      "direct": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "3C5E15"
-     ],
-     "coords": [
-      7618.4,
-      -98536.2
-     ],
-     "spawns": [
-      {
-       "label": "Chainsaw",
-       "ref": "3C5E15",
-       "source_type": "direct",
-       "coords": [
-        7618.4,
-        -98536.2
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
      "marker": "Old Danielson Cabin",
      "count": 1,
      "sources": {
@@ -1154,68 +710,6 @@
        "coords": [
         163989.9,
         215876.5
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Skullbone Vantage",
-     "count": 1,
-     "sources": {
-      "direct": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "211418"
-     ],
-     "coords": [
-      24569.3,
-      26353.2
-     ],
-     "spawns": [
-      {
-       "label": "Chainsaw",
-       "ref": "211418",
-       "source_type": "direct",
-       "coords": [
-        24569.3,
-        26353.2
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "The Rose Room",
-     "count": 1,
-     "sources": {
-      "direct": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "6A531F"
-     ],
-     "coords": [
-      24961.3,
-      100368.6
-     ],
-     "spawns": [
-      {
-       "label": "Chainsaw",
-       "ref": "6A531F",
-       "source_type": "direct",
-       "coords": [
-        24961.3,
-        100368.6
        ],
        "image_top": "",
        "directions": "",
@@ -1267,144 +761,179 @@
   },
   {
    "region": "The Pitt",
-   "locations": [
-    {
-     "marker": "The Foundry",
-     "count": 6,
-     "sources": {
-      "direct": 6
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "6553C8",
-      "665850",
-      "6682B1",
-      "7383B7",
-      "7390BE",
-      "739413"
-     ],
-     "coords": [
-      5134.8,
-      5800.4
-     ],
-     "spawns": [
-      {
-       "label": "Chainsaw #1",
-       "ref": "6553C8",
-       "source_type": "direct",
-       "coords": [
-        1858.1,
-        10162.6
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Chainsaw #2",
-       "ref": "665850",
-       "source_type": "direct",
-       "coords": [
-        2253.8,
-        5458.1
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Chainsaw #3",
-       "ref": "6682B1",
-       "source_type": "direct",
-       "coords": [
-        5134.8,
-        5800.4
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Chainsaw #4",
-       "ref": "7383B7",
-       "source_type": "direct",
-       "coords": [
-        1858.1,
-        10162.6
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Chainsaw #5",
-       "ref": "7390BE",
-       "source_type": "direct",
-       "coords": [
-        2253.8,
-        5458.1
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "Chainsaw #6",
-       "ref": "739413",
-       "source_type": "direct",
-       "coords": [
-        5134.8,
-        5800.4
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    }
-   ]
+   "locations": []
   },
   {
    "region": "Toxic Valley",
-   "locations": [
-    {
-     "marker": "Clarksburg",
-     "count": 1,
-     "sources": {
-      "direct": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "346B90"
-     ],
-     "coords": [
-      -25884.1,
-      166957.8
-     ],
-     "spawns": [
-      {
-       "label": "Chainsaw",
-       "ref": "346B90",
-       "source_type": "direct",
-       "coords": [
-        -25884.1,
-        166957.8
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    }
-   ]
+   "locations": []
   }
  ],
+ "chance_spawns": {
+  "regions": [
+   {
+    "region": "Atlantic City",
+    "markers": [
+     {
+      "name": "Community Center",
+      "placements": 1,
+      "refs": [
+       "755F8F"
+      ]
+     }
+    ],
+    "placements": 1
+   },
+   {
+    "region": "Burning Springs",
+    "markers": [
+     {
+      "name": "Sand Fork Lumber",
+      "placements": 2,
+      "refs": [
+       "8261C2",
+       "83C0A5"
+      ]
+     },
+     {
+      "name": "Starlight Drive-in",
+      "placements": 1,
+      "refs": [
+       "81C260"
+      ]
+     }
+    ],
+    "placements": 3
+   },
+   {
+    "region": "Cranberry Bog",
+    "markers": [
+     {
+      "name": "Crimson Prospect",
+      "placements": 1,
+      "refs": [
+       "537769"
+      ]
+     },
+     {
+      "name": "Ranger District Office",
+      "placements": 1,
+      "refs": [
+       "2DC343"
+      ]
+     }
+    ],
+    "placements": 2
+   },
+   {
+    "region": "Forest",
+    "markers": [
+     {
+      "name": "Gilman Lumber Mill",
+      "placements": 6,
+      "refs": [
+       "27A7D7",
+       "27A7D8",
+       "28D689",
+       "2A9AF9",
+       "3114BA",
+       "6F5838"
+      ]
+     },
+     {
+      "name": "Poseidon Energy Plant Expansion",
+      "placements": 1,
+      "refs": [
+       "592343"
+      ]
+     },
+     {
+      "name": "WV Lumber Co.",
+      "placements": 1,
+      "refs": [
+       "3CFF53"
+      ]
+     },
+     {
+      "name": "WV Lumber Co. Office",
+      "placements": 1,
+      "refs": [
+       "42E41C"
+      ]
+     }
+    ],
+    "placements": 9
+   },
+   {
+    "region": "Savage Divide",
+    "markers": [
+     {
+      "name": "Metal Dome",
+      "placements": 1,
+      "refs": [
+       "60637A"
+      ]
+     },
+     {
+      "name": "Mountainside Bed & Breakfast",
+      "placements": 1,
+      "refs": [
+       "3C5E15"
+      ]
+     },
+     {
+      "name": "Skullbone Vantage",
+      "placements": 1,
+      "refs": [
+       "211418"
+      ]
+     },
+     {
+      "name": "The Rose Room",
+      "placements": 1,
+      "refs": [
+       "6A531F"
+      ]
+     }
+    ],
+    "placements": 4
+   },
+   {
+    "region": "The Pitt",
+    "markers": [
+     {
+      "name": "The Foundry",
+      "placements": 6,
+      "refs": [
+       "6553C8",
+       "665850",
+       "6682B1",
+       "7383B7",
+       "7390BE",
+       "739413"
+      ]
+     }
+    ],
+    "placements": 6
+   },
+   {
+    "region": "Toxic Valley",
+    "markers": [
+     {
+      "name": "Clarksburg",
+      "placements": 1,
+      "refs": [
+       "346B90"
+      ]
+     }
+    ],
+    "placements": 1
+   }
+  ],
+  "total_markers": 15,
+  "total": 26
+ },
  "fixed_spawn_totals": {
-  "markers": 18,
-  "placements": 29
+  "markers": 3,
+  "placements": 3
  }
 }
