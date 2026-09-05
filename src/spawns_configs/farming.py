@@ -23,7 +23,7 @@ from spawns_engine.geo import Geo
 from spawns_engine import sources as esources
 from spawns_engine import build as ebuild
 from spawns_engine import events as eevents
-from spawns_engine.classify import farming_classify
+from spawns_engine.classify import make_farming_classify
 from prune_outputs import prune_outputs
 
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db")
@@ -207,7 +207,13 @@ def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir):
             if mk in new_to_old:
                 keep.setdefault((reg, new_to_old[mk]), val)
 
-    src = esources.get_sources(cfg["items"], tbls, farming_classify,
+    # A nest is only its own source on a page about what lives in it (the config
+    # declares the label). Everywhere else it is an ordinary container whose loot can
+    # roll the item — a shared pool, so never a fixed spawn. See make_farming_classify.
+    nest_label = ((cfg.get("drop_rates") or {}).get("containers") or {}).get("marker_label")
+    classifier = make_farming_classify(nests=bool(nest_label))
+
+    src = esources.get_sources(cfg["items"], tbls, classifier,
                                extra_world_bases=cfg.get("extra_world_bases"),
                                placed_sigs=esources.PLACED_SIGS_FLORA,
                                place_item_bases=cfg.get("place_item_bases", False))
@@ -215,6 +221,8 @@ def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir):
     _drop_excluded(cfg, tbls, seen)
     regions_out, src_totals, unresolved, total, placements = ebuild.group_regions(
         seen, ALL_REGIONS, keep)
+    # Shared-loot-pool points held back by group_regions — names only (see group_chance).
+    chance_spawns = ebuild.group_chance(seen, ALL_REGIONS)
     _attach_breakdowns(cfg, tbls, seen, regions_out)
 
     # Marker renames (display-only) — applied after breakdowns, which key on the
@@ -258,6 +266,7 @@ def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir):
         "random_encounters_intro": cfg.get("random_encounters_intro"),
         "events_activities": events_activities,
         "regions": regions_out,
+        "chance_spawns": chance_spawns,
     }
     os.makedirs(dist_dir, exist_ok=True)
     json.dump(doc, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)

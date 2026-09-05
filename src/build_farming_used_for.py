@@ -1595,6 +1595,18 @@ def main(argv=None):
     except Exception as e:  # pragma: no cover - collapse is best-effort
         print(f"  [warn] chem_loot_collapse skipped ({e})")
 
+    # Fixed Spawn Locations vs Chance to Spawn Locations. A world point only counts
+    # as a fixed spawn when the leveled list placed there is DEDICATED to the item
+    # (LPI_Chems_Addictol); a shared pool like LPI_Chems_Prewar rolls nine chems, so
+    # its points move to the Chance to Spawn expand. Also drops nest placements from
+    # pages that never declared a nest as their source. Idempotent — a doc built by
+    # the fixed engine has nothing left to move. See split_chance_spawns.py.
+    try:
+        import split_chance_spawns
+        split_chance_spawns.run(args.dist_dir)
+    except Exception as e:  # pragma: no cover - split is best-effort
+        print(f"  [warn] split_chance_spawns skipped ({e})")
+
 
 if __name__ == "__main__":
     main()

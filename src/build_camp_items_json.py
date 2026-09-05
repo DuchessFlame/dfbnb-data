@@ -30,6 +30,8 @@ except ImportError:
         sys.path.insert(0, str(_SRC_DIR))
     from rng76 import Rng76Data, read_tsv_columns
 
+import camp_config         # hand-maintained per-page override tables
+import reusable_images     # art the site already serves (dist-derived, no manifest file)
 import tsv_source          # one resolver for every export selection
 import gold_vendor         # generative Gold Bullion route (ENTM -> vendor plan)
 # Populated once in main() from the TSV root; resolve_drops_via_rng76() reads it.
@@ -157,24 +159,18 @@ def item_status(edid, modes=None, has_reso=True):
     return "live"
 
 # Images already uploaded elsewhere on the site are REUSED, never duplicated —
-# storage costs money. The Atom Shop "request an item" set already hosts main
-# tiles for several collectrons; keyed on ENTM EDID so the match is exact.
-_REUSABLE_IMAGE_BY_EDID = {}
+# storage costs money and a tile uploaded twice is a tile that drifts. The
+# lookup used to read only the Atom Shop and bundle sets, keyed on ENTM EDID.
+# It now goes through src/reusable_images.py, which also reads the per-season
+# upload manifests in dist/season_images/ and matches on texture stem as well
+# as EDID — so an item arriving on the next TSV drop finds the tile that was
+# already published for its Scoreboard page instead of getting a brand-new
+# path nothing has ever been uploaded to.
+HOSTED = reusable_images.Index()
 
 def load_reusable_images(outdir):
-    idx = {}
-    for fname in ("atom_shop.json", "bundles.json"):
-        try:
-            with open(os.path.join(outdir, fname), encoding="utf-8") as f:
-                data = json.load(f)
-        except Exception:
-            continue
-        for it in data.get("items", []):
-            e = clean_str(it.get("edid") or "")
-            u = clean_str(it.get("imageUrl") or "")
-            if e and u and u.lower().endswith((".avif", ".webp", ".png", ".jpg")):
-                idx.setdefault(e.upper(), u)
-    return idx
+    """Kept as the old name so nothing else has to change; returns the index."""
+    return reusable_images.build_index(outdir)
 
 def clean_str(s):
     if s is None: return ""
@@ -841,15 +837,32 @@ def classify_producer_bucket(drops, *edids):
 # /wp-content/uploads/guide-images/camp-items/collectrons/, named after the ENTM
 # texture handles rather than the ENTM EDID: the main tile is the ETDI stem plus
 # the "_l" (large) suffix the storefront textures carry, and each carousel frame
-# is its ECIL stem. Resource producers still point at the older
-# /uploads/storefront/... .webp set — leave them until that art is redone too.
+# is its ECIL stem. Resource producer art has now had the same treatment, so it
+# uses the identical ETDI-stem/.avif scheme under its own camp-items subfolder;
+# the old ENTM-EDID/.webp naming it used to emit pointed at files that were
+# never uploaded.
 IMAGE_SETS = {
     "collectrons": {
         "base": "/wp-content/uploads/guide-images/camp-items/collectrons",
         "ext": ".avif",
         "main_from": "etdi",
     },
+    "camp-items-resource-producers": {
+        "base": "/wp-content/uploads/guide-images/camp-items/resource-producers",
+        "ext": ".avif",
+        "main_from": "etdi",
+    },
 }
+
+# A handful of physical producers have an ENTM row that carries no ETDI, so no
+# tile name can be derived even though the art exists. camp_config supplies the
+# stem by display name from data/camp/resource_producers.json — an override
+# table, kept out of here for the reason every other CAMP page keeps its own out
+# of the Python.
+_PRODUCER_ETDI_BY_NAME = {}
+
+def producer_etdi_fallback(display_name):
+    return _PRODUCER_ETDI_BY_NAME.get(clean_str(display_name or ""), "")
 
 def _image_set(subfolder):
     return IMAGE_SETS.get(subfolder, {
@@ -858,15 +871,18 @@ def _image_set(subfolder):
         "main_from": "edid",
     })
 
-def image_webp_url(entm_row, subfolder):
-    if not entm_row: return None
+def image_webp_url(entm_row, subfolder, etdi_override=""):
+    if not entm_row and not etdi_override: return None
+    entm_row = entm_row or {}
     # Reuse an image already hosted elsewhere on the site before inventing a new
     # path — no point uploading the same tile twice.
-    reuse = _REUSABLE_IMAGE_BY_EDID.get(clean_str(entm_row.get("EDID") or "").upper())
+    reuse = HOSTED.find(edid=clean_str(entm_row.get("EDID") or ""),
+                        texture=clean_str(entm_row.get("ETDI") or "") or etdi_override)
     if reuse: return reuse
     cfg = _image_set(subfolder)
     if cfg["main_from"] == "etdi":
-        stem = os.path.splitext(clean_str(entm_row.get("ETDI") or ""))[0].lower()
+        raw = clean_str(entm_row.get("ETDI") or "") or clean_str(etdi_override or "")
+        stem = os.path.splitext(raw)[0].lower()
         if not stem: return None
         # A few ETDI handles already carry the "_l" (large) suffix — SirLoin is
         # one — so only append it when it isn't there, or the name doubles up
@@ -1241,14 +1257,19 @@ def build_station_item(reso_rows, cont_row, entm_row, cobj_row, book_row,
     if not resource_name:
         resource_name = next((m.get("resourceName") for m in modes if m.get("resourceName")), "")
     season_num = obtain.get("seasonNumber")
+    # Producers whose ENTM row has no ETDI still have art on disk; the override
+    # table names its stem so the tile is linked instead of silently dropped.
+    _etdi_fallback = ""
+    if not (entm_row and clean_str(entm_row.get("ETDI") or "")):
+        _etdi_fallback = producer_etdi_fallback(display_name)
     item = {
         "formId": entm_fid or primary_fid, "edid": entm_edid,
         "resoFormId": primary_fid, "contFormId": cont_fid,
         "entmFormId": entm_fid,
         "displayName": display_name, "description": description,
-        "imageUrl": image_webp_url(entm_row, subfolder),
+        "imageUrl": image_webp_url(entm_row, subfolder, _etdi_fallback),
         "imageCarousel": image_carousel_urls(entm_row, subfolder),
-        "imageDds": clean_str(entm_row.get("ETDI") or "") if entm_row else "",
+        "imageDds": (clean_str(entm_row.get("ETDI") or "") if entm_row else "") or _etdi_fallback,
         "imageFolder": clean_str(entm_row.get("ETIP") or "") if entm_row else "",
         "isCollectron": is_collectron,
         "production": {
@@ -1327,9 +1348,14 @@ def main():
     else:
         print("[WARN] No --tsv-root; drop rates will be empty.", file=sys.stderr)
     os.makedirs(args.outdir, exist_ok=True)
-    global _REUSABLE_IMAGE_BY_EDID
-    _REUSABLE_IMAGE_BY_EDID = load_reusable_images(args.outdir)
-    print("  reusable images found (already hosted): {}".format(len(_REUSABLE_IMAGE_BY_EDID)), file=sys.stderr)
+    global HOSTED, _PRODUCER_ETDI_BY_NAME
+    try:
+        _PRODUCER_ETDI_BY_NAME = camp_config.load("resource_producers").get("etdi_by_name", {})
+    except FileNotFoundError:
+        _PRODUCER_ETDI_BY_NAME = {}
+    print("  producer ETDI overrides loaded: {}".format(len(_PRODUCER_ETDI_BY_NAME)), file=sys.stderr)
+    HOSTED = load_reusable_images(args.outdir)
+    print("  " + HOSTED.summary(), file=sys.stderr)
     today = today_ymd()
     prev_col = load_previous_release_dates(os.path.join(args.outdir, "collectrons.json"))
     prev_res = load_previous_release_dates(os.path.join(args.outdir, "resource_producers.json"))

@@ -20,7 +20,15 @@ Outputs, per item, mirroring the existing Cream layout:
   02 Numbered Maps (4096)/<slug>_numbered.jpg
   03 Region Tiles/<RegionSlug>_<slug>.jpg  +  <RegionSlug>_coords.csv
   04 Interior Maps/<spaceEditorID>_<slug>.jpg  +  interior_cells.csv
+  05 Chance Maps/<slug>_chance.jpg, <slug>_chance_numbered.jpg,
+                 <region-slug>-chance-map.jpg  +  <RegionSlug>_coords.csv
   <slug>_exterior_coords.csv
+
+01-04 are the GUARANTEED fixed spawns. 05 is the Chance to Spawn Locations expand's
+shared-loot-pool points (spawn-guide 9k) - the place is real but the item is a roll,
+so they get their own maps and never contaminate the fixed-spawn tiles. Those tiles
+are named exactly as the site expects, so uploading is a straight drag into
+/wp-content/uploads/guide-images/<category>/<item>/ (converted to .avif).
 
 Sources (--source): the family whose doc + geo cache to read. All of them write the
 same doc shape, so only the two paths differ — see SOURCES.
@@ -79,6 +87,9 @@ TYPE_LABELS = {
     # is a fixed world point that hands you the weapon, so it IS a place to walk to
     # and belongs on the map — unlike a vendor or a chance container.
     "machine": "Weapon rack",
+    # Shared-loot-pool points (spawn-guide 9k). The place is real, the item is a roll,
+    # so they get their OWN maps — never mixed into the fixed-spawn tiles.
+    "chance": "Chance spawn",
 }
 TYPE_COLOURS = {
     "direct": (255, 193, 7),            # amber
@@ -91,6 +102,7 @@ TYPE_COLOURS = {
     "enlightened-flora": (0, 209, 255), # cyan
     "npc": (244, 67, 54),               # red
     "machine": (0, 209, 255),           # cyan
+    "chance": (120, 160, 255),          # pale blue — reads as "maybe", not "go here"
 }
 
 
@@ -393,7 +405,7 @@ def render_exterior(bg_path, rows, title, out_plain, out_numbered):
     return plain, numbered
 
 
-def render_region_tiles(numbered_img, rows, boxes, to_px, out_dir, slug):
+def render_region_tiles(numbered_img, rows, boxes, to_px, out_dir, slug, name_fn=None):
     os.makedirs(out_dir, exist_ok=True)
     made = []
     by_region = defaultdict(list)
@@ -420,7 +432,7 @@ def render_region_tiles(numbered_img, rows, boxes, to_px, out_dir, slug):
         w, h = crop.size
         crop = crop.resize((TILE_WIDTH, max(1, int(h * TILE_WIDTH / w))), Image.LANCZOS)
         rslug = region.replace(" ", "")
-        path = os.path.join(out_dir, f"{rslug}_{slug}.jpg")
+        path = os.path.join(out_dir, name_fn(region) if name_fn else f"{rslug}_{slug}.jpg")
         crop.save(path, "JPEG", quality=88, optimize=True)
 
         with open(os.path.join(out_dir, f"{rslug}_coords.csv"), "w",
@@ -434,6 +446,66 @@ def render_region_tiles(numbered_img, rows, boxes, to_px, out_dir, slug):
                              round(r["x"], 1), round(r["y"], 1), " ".join(r["refs"])])
         made.append((region, path))
     return made
+
+
+def _region_slug(name):
+    return re.sub(r"-+$", "", re.sub(r"[^a-z0-9]+", "-", str(name or "").lower()).lstrip("-"))
+
+
+def load_chance_points(slug, source):
+    """Points for the Chance to Spawn maps, from the doc's chance_spawns refs.
+
+    These are the shared-loot-pool placements (spawn-guide 9k) — the place is real
+    but the item is a roll, so they are NEVER drawn on the fixed-spawn tiles. The
+    page lists them by name only and links out to these maps, one per ITEM per
+    region: a shared blank region tile would have to carry every farming page's
+    points at once, which is useless."""
+    dist, geo_p = source_paths(slug, source)
+    if not os.path.exists(dist):
+        return "", []
+    data = json.load(open(dist, encoding="utf-8"))
+    geo = json.load(open(geo_p, encoding="utf-8")) if os.path.exists(geo_p) else {}
+    pts = []
+    for reg in (data.get("chance_spawns") or {}).get("regions", []):
+        for m in reg.get("markers", []):
+            name = m.get("name", "") if isinstance(m, dict) else str(m)
+            for ref in (m.get("refs") or []) if isinstance(m, dict) else []:
+                g = geo.get(str(int(ref, 16)))
+                if not g:
+                    continue
+                pts.append({"ref": ref, "space": int(g["space"]),
+                            "x": float(g["x"]), "y": float(g["y"]),
+                            "region": reg.get("region", ""), "marker": name,
+                            "label": "", "source_type": "chance"})
+    return data.get("name", slug), pts
+
+
+def render_chance(slug, source, out_root, spaces, boxes):
+    """Per-item chance maps: one full map + one tile per region.
+
+    Tiles are named EXACTLY as the site expects them, so uploading is a straight
+    drag into the item's guide-images folder:
+        <region-slug>-chance-map.jpg   ->   .../guide-images/<cat>/<item>/<same>.avif
+    """
+    name, pts = load_chance_points(slug, source)
+    ext = [p for p in pts if p["space"] == APPALACHIA_SPACE]
+    if not ext:
+        return []
+
+    out_dir = os.path.join(out_root, "05 Chance Maps")
+    os.makedirs(out_dir, exist_ok=True)
+    to_px = projector(spaces[APPALACHIA_SPACE])
+    rows = cluster_by_marker(ext, to_px)
+    bg = os.path.join(MAPPALACHIA, "img", "wrld", "Appalachia_menu.jpg")
+
+    _plain, numbered = render_exterior(
+        bg, rows, f"{name} — chance spawns",
+        os.path.join(out_dir, f"{slug}_chance.jpg"),
+        os.path.join(out_dir, f"{slug}_chance_numbered.jpg"))
+
+    tiles = render_region_tiles(numbered, rows, boxes, to_px, out_dir, slug,
+                                name_fn=lambda r: f"{_region_slug(r)}-chance-map.jpg")
+    return tiles
 
 
 def render_interiors(pts, spaces, out_dir, slug, item_name):
@@ -513,6 +585,8 @@ def render_set(slug, source, out_root, conn, spaces, boxes, verbose=True):
     tiles = render_region_tiles(numbered, rows, boxes, to_px,
                                 os.path.join(out_root, "03 Region Tiles"), slug)
     ints = render_interiors(pts, spaces, os.path.join(out_root, "04 Interior Maps"), slug, name)
+    # Chance to Spawn maps — their own files, never mixed into the fixed-spawn tiles.
+    chance = render_chance(slug, source, out_root, spaces, boxes)
 
     with open(os.path.join(out_root, f"{slug}_exterior_coords.csv"), "w",
               newline="", encoding="utf-8") as fh:
@@ -528,10 +602,11 @@ def render_set(slug, source, out_root, conn, spaces, boxes, verbose=True):
         off = ("  off-map=" + ",".join(f"{k}:{v}" for k, v in sorted(off_map.items()))
                if off_map else "")
         print(f"  {slug:28} ext={len(ext):5} markers={len(rows):4} "
-              f"tiles={len(tiles):2} interiors={len(ints):3}"
+              f"tiles={len(tiles):2} chance-tiles={len(chance):2} interiors={len(ints):3}"
               + (f" dropped={dropped}" if dropped else "") + off)
     return {"slug": slug, "markers": len(rows), "ext": len(ext),
-            "tiles": len(tiles), "interiors": len(ints), "dropped": dropped,
+            "tiles": len(tiles), "chance_tiles": len(chance),
+            "interiors": len(ints), "dropped": dropped,
             "off_map": off_map}
 
 

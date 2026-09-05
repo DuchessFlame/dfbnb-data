@@ -27,6 +27,8 @@ import csv
 import glob
 import json
 import os
+
+import reusable_images   # art the site already serves (dist-derived, no manifest file)
 import re
 import argparse
 from pathlib import Path
@@ -59,6 +61,14 @@ args = parser.parse_args()
 TSV_DIR = Path(args.tsv_dir)
 OUT_DIR = Path(args.out_dir)
 OUT_DIR.mkdir(parents=True, exist_ok=True)
+
+# Index the art the site already serves before anything is built, so a new item
+# arriving on the next TSV drop finds its existing tile instead of being given a
+# freshly-invented path that nothing has ever uploaded to. Read straight out of
+# dist/ — the season upload manifests plus atom shop and bundles — so there is
+# no separate index file to fall out of date. See src/reusable_images.py.
+HOSTED = reusable_images.build_index(str(OUT_DIR))
+print("  " + HOSTED.summary())
 
 
 _MONTH_ORD = {"jan": 1, "feb": 2, "mar": 3, "march": 3, "apr": 4, "april": 4,
@@ -364,22 +374,65 @@ def is_cut(edid):
     return s.startswith(("ZZZ", "ZZZZ", "DEL_", "DELETE_", "CUT_"))
 
 
+# The original /wp-content/uploads/storefront/ tree was abandoned — every URL
+# under it 404s on the live site. Pets, allies and fridges/cryos move to the
+# guide-images/camp-items/<page>/ scheme the pages that DO work (weather
+# stations, repair bots, collectrons, resource producers) already use. Pet
+# furniture and pet apparel have no camp-items folder yet, so they keep the old
+# token: their URLs are dead either way and inventing a folder name would only
+# move the 404 somewhere harder to find.
+LEGACY_STOREFRONT = "/wp-content/uploads/storefront"
+CAMP_ITEMS_BASE   = "/wp-content/uploads/guide-images/camp-items"
+IMAGE_BASES = {
+    "pets":              CAMP_ITEMS_BASE + "/camp-pets",
+    "allies":            CAMP_ITEMS_BASE + "/camp-allies",
+    "fridges-and-cryos": CAMP_ITEMS_BASE + "/fridges-and-cryos",
+}
+
 def storefront_img_url(ecil_val, folder=""):
     """
-    Convert a .dds ECIL image value to a storefront avif URL.
-    ECIL values look like: ATX_CAMP_Utility_WeatherStation_Standard_Clear_C1.dds
-    Storefront URLs follow the pattern:
-      /wp-content/uploads/storefront/<folder>/<lowercase_name_no_ext>.avif
+    Convert a .dds ECIL/ETDI image value to its published avif URL.
+    Values look like: ATX_CAMP_Utility_WeatherStation_Standard_Clear_C1.dds
     """
     if not ecil_val or not ecil_val.strip():
         return None
     name = os.path.splitext(os.path.basename(ecil_val.strip()))[0].lower()
     if not name:
         return None
-    base = "/wp-content/uploads/storefront"
+    base = IMAGE_BASES.get(folder)
+    if base:
+        return f"{base}/{name}.avif"
     if folder:
-        return f"{base}/{folder}/{name}.avif"
-    return f"{base}/{name}.avif"
+        return f"{LEGACY_STOREFRONT}/{folder}/{name}.avif"
+    return f"{LEGACY_STOREFRONT}/{name}.avif"
+
+
+def main_image(etdi, folder, carousel=None, edid=""):
+    """The image at the top of an item expand.
+
+    It is ALWAYS the single-item tile on a transparent background — the ETDI
+    texture — never a carousel frame. Carousel frames are ``_C1``/``_C2``/``_C3``
+    scene shots of the item placed in a CAMP, which read as clutter at thumbnail
+    size and are not what the row is meant to show. See the camp-item-expands
+    skill; verify_camp_items_json.py fails the build if one leaks through.
+
+    Art the site already hosts wins over a freshly-derived path, because that
+    URL is known to resolve and re-uploading the same tile costs storage for
+    nothing.
+
+    When neither exists this returns "" — deliberately. The old behaviour was to
+    fall back to ``carousel[0]``, which is why whole pages ended up showing
+    shack interiors at 40px. An item with no tile should render the placeholder
+    and show up in the missing-images report, not quietly wear the wrong photo.
+    """
+    hit = HOSTED.find(edid=edid, texture=etdi or "")
+    if hit:
+        return hit
+    if etdi:
+        url = storefront_img_url(etdi, folder)
+        if url:
+            return url
+    return ""
 
 
 def xalg_to_source(xalg):
@@ -1281,7 +1334,7 @@ def build_weather_stations():
             image_url = carousel[0]
         else:
             carousel  = ecil_images(entm, "camp-utility")
-            image_url = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-utility") if _etdi else "")
+            image_url = main_image(_etdi, "camp-utility", carousel, entm.get("EDID") if entm else "")
 
         season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
         season_num = int(season_m.group(1)) if season_m else None
@@ -1618,7 +1671,7 @@ def build_repair_bots():
         else:
             _etdi     = entm.get("ETDI", "").strip()
             carousel  = ecil_images(entm, "camp-utility")
-            image_url = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-utility") if _etdi else "")
+            image_url = main_image(_etdi, "camp-utility", carousel, entm.get("EDID") if entm else "")
 
         # --- Output data (from the pod FURN PRPS) ---
         repair_rate = fmt_num(furn_prps_value(furn_id, "ATX_RepairBot_RepairRate")) or "2"
@@ -2192,8 +2245,8 @@ def build_allies():
 
         # Use ETDI for the primary icon image (not ECIL_1 which has _C1 suffix)
         _etdi    = entm.get("ETDI", "").strip() if entm else ""
-        carousel = ecil_images(entm, "camp-allies") if entm else []
-        img      = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-allies") if _etdi else "")
+        carousel = ecil_images(entm, "allies") if entm else []
+        img      = main_image(_etdi, "allies", carousel, entm.get("EDID") if entm else "")
 
         # Use FURN XALG to refine source if available
         xalg = furn.get("XALG_Flags", "")
@@ -2372,11 +2425,11 @@ def build_pets():
         entm      = entm_by_id.get(entm_id, {})
         desc      = clean_desc(entm.get("DESC", ""))
         entm_full = entm.get("FULL", "").strip()
-        carousel  = ecil_images(entm, "camp-pets") if entm else []
+        carousel  = ecil_images(entm, "pets") if entm else []
 
         # Use ETDI for primary pet image, second carousel image for bed/home
         _etdi    = entm.get("ETDI", "").strip() if entm else ""
-        pet_img  = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-pets") if _etdi else "")
+        pet_img  = main_image(_etdi, "pets", carousel, entm.get("EDID") if entm else "")
         home_img = carousel[1] if len(carousel) > 1 else (carousel[0] if carousel else "")
 
         # Season number: check FURN EDID first, then ENTM EDID
@@ -2450,7 +2503,7 @@ def build_pet_furniture():
 
         # Use ETDI for primary image (icon), ECIL for carousel
         _etdi = entm.get("ETDI", "").strip()
-        img   = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-pets") if _etdi else "")
+        img   = main_image(_etdi, "camp-pets", carousel, entm.get("EDID") if entm else "")
 
         season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
         season_num = int(season_m.group(1)) if season_m else None
@@ -2529,7 +2582,7 @@ def build_pet_apparel():
         # ECIL_1 has a _C1 suffix which does NOT match the uploaded texture icon.
         # ETDI must take priority; fall back to ECIL carousel only if ETDI is missing.
         _etdi    = entm.get("ETDI", "").strip()
-        img      = storefront_img_url(_etdi, "camp-pets") if _etdi else (carousel[0] if carousel else "")
+        img      = main_image(_etdi, "camp-pets", carousel, entm.get("EDID") if entm else "")
         edid     = entm.get("EDID", "")
 
         season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
@@ -2618,8 +2671,8 @@ def build_cryos():
         xalg     = entm.get("XALG", "")
         source   = xalg_to_source(xalg) or "Atom Shop"
         _etdi    = entm.get("ETDI", "").strip()
-        carousel = ecil_images(entm, "camp-utility")
-        img      = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-utility") if _etdi else "")
+        carousel = ecil_images(entm, "fridges-and-cryos")
+        img      = main_image(_etdi, "fridges-and-cryos", carousel, entm.get("EDID") if entm else "")
         gv       = CRYO_PLAN_BOOKS.get(entm_id, "")
         edid     = entm.get("EDID", "")
 
@@ -2709,8 +2762,8 @@ def build_fridges():
         xalg     = entm.get("XALG", "")
         source   = xalg_to_source(xalg) or "Atom Shop"
         _etdi    = entm.get("ETDI", "").strip()
-        carousel = ecil_images(entm, "camp-utility")
-        img      = carousel[0] if carousel else (storefront_img_url(_etdi, "camp-utility") if _etdi else "")
+        carousel = ecil_images(entm, "fridges-and-cryos")
+        img      = main_image(_etdi, "fridges-and-cryos", carousel, entm.get("EDID") if entm else "")
 
         season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
         season_num = int(season_m.group(1)) if season_m else None

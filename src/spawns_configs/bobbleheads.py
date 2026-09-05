@@ -451,6 +451,8 @@ def run(argv=None):
     seen, lists_n = ebuild.resolve_placements(src, geo, cur, cache, db_ok)
     regions_out, src_totals, unresolved, total, placements = ebuild.group_regions(
         seen, ALL_REGIONS, keep)
+    # Shared-loot-pool points held back by group_regions — names only (group_chance).
+    chance_spawns = ebuild.group_chance(seen, ALL_REGIONS)
     attach_labels(regions_out)
     attach_breakdowns(regions_out, rate_display)
 
@@ -509,6 +511,7 @@ def run(argv=None):
         "item_breakdown": build_item_breakdown(alch_items, alch_display_names()),
         "fixed_spawn_index": {"base": URL_BASE, "regions": index},
         "regions": regions_out,
+        "chance_spawns": chance_spawns,
     }
     json.dump(doc, open(OUT_FILE, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 

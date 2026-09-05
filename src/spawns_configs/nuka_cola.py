@@ -149,6 +149,8 @@ def build_variant(v, tbls, geo, cur, cache, db_ok, generated, appearance_fn=None
     seen, lists_n = ebuild.resolve_placements(src, geo, cur, cache, db_ok)
     regions_out, src_totals, unresolved, total, placements = ebuild.group_regions(
         seen, ALL_REGIONS, keep)
+    # Shared-loot-pool points held back by group_regions — names only (see group_chance).
+    chance_spawns = ebuild.group_chance(seen, ALL_REGIONS)
 
     # Events & Activities — event/activity reward ROOTS in the closure (§9k):
     # keyword pass + QUEST reward registry, nested loot bags collapsed to their
@@ -170,6 +172,7 @@ def build_variant(v, tbls, geo, cur, cache, db_ok, generated, appearance_fn=None
         "page_title": f"{v['name']} Locations",
         "blurb": v["blurb"],
         "regions": regions_out,
+        "chance_spawns": chance_spawns,
         "used_for": _uf,
         "farming_tips": _tips,
         "events_activities": events_activities,

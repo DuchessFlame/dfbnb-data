@@ -14,7 +14,7 @@ Each item FAMILY (drinks, farming/eggs) supplies its own thin driver
 helpers, then assembles its exact output doc. The heavy lifting lives here once.
 """
 
-import os, json
+import os, json, re
 from collections import defaultdict
 
 SQL_CHUNK = 900  # stay under SQLite's 999-variable limit
@@ -97,7 +97,13 @@ def resolve_placements(src, geo, cur, cache, db_ok):
     DB absent  -> reconstruct from the committed cache + the TSV source closure.
     """
     base_type = {int(fid, 16): meta["source_type"] for fid, meta in src["placed_bases"].items()}
-    direct_ints = {int(fid, 16) for fid in src["direct_refrs"]}
+    # A placed REFR is only a FIXED spawn when the list behind it is dedicated to this
+    # item (spawns_engine.sources.dedicated_lists). A shared loot pool's point is real
+    # but what appears there is a gamble -> "chance", which group_regions keeps out of
+    # Fixed Spawn Locations and group_chance renders separately.
+    direct_type = {int(fid, 16): ("direct" if meta.get("dedicated", True) else "chance")
+                   for fid, meta in src["direct_refrs"].items()}
+    direct_ints = set(direct_type)
     lists_n = len(src["lvli_closure"])
 
     seen = {}
@@ -115,7 +121,7 @@ def resolve_placements(src, geo, cur, cache, db_ok):
             region, marker, how = geo.resolve(space, x, y)
             cache[str(inst)] = {"base": None, "space": space, "x": round(x, 1),
                                 "y": round(y, 1), "region": region, "marker": marker}
-            seen[inst] = (x, y, region, marker, "direct")
+            seen[inst] = (x, y, region, marker, direct_type[inst])
     else:
         for key, e in cache.items():
             inst = int(key)
@@ -127,20 +133,74 @@ def resolve_placements(src, geo, cur, cache, db_ok):
             e = cache.get(str(inst))
             if e and inst not in seen:
                 seen[inst] = (e.get("x"), e.get("y"), e.get("region", ""),
-                              e.get("marker", ""), "direct")
+                              e.get("marker", ""), direct_type[inst])
 
     return seen, lists_n
 
 
 # ── region / marker grouping ─────────────────────────────────────────────────
-def group_regions(seen, all_regions, keep):
+CHANCE_TYPES = ("chance",)     # shared-loot-pool points -> Chance to Spawn Locations
+
+# The Chance to Spawn map is PER ITEM, per region — a shared blank region tile would
+# be useless, because it would have to carry every farming page's points at once.
+# Files follow the site's established spawn-photo convention:
+#   /wp-content/uploads/guide-images/<category>/<item>/<region-slug>-chance-map.avif
+UPLOADS = "/wp-content/uploads/guide-images/"
+_IMAGE_BASE_RE = re.compile(r"(/wp-content/uploads/guide-images/[^/\"']+/[^/\"']+/)")
+
+# slug prefix / membership -> category folder. Same families the guide folders use.
+_EGG_SLUGS = {"deathclaw-egg", "frog-egg", "mirelurk-egg", "mothman-egg",
+              "radscorpion-egg", "radtoad-egg"}
+
+
+def region_slug(name):
+    """'Ash Heap' -> 'ash-heap'. The filename half of a region map."""
+    return re.sub(r"-+$", "", re.sub(r"[^a-z0-9]+", "-",
+                                     str(name or "").lower()).lstrip("-"))
+
+
+def image_base(doc, slug, name="", category=None):
+    """The item's guide-images folder, as a site-absolute path ending in '/'.
+
+    Rule 1 (authoritative): if the doc already carries a hand-authored spawn photo
+    under guide-images/<cat>/<item>/, reuse THAT folder. The live site is the truth —
+    e.g. deathclaw-egg's folder is `deathclaw-eggs`, plural, which no slug rule would
+    have guessed.
+    Rule 2: derive it — category from the slug family, item folder from the display
+    name. Only used for items that have no photos on the page yet.
+    """
+    blob = json.dumps(doc) if isinstance(doc, (dict, list)) else str(doc or "")
+    m = _IMAGE_BASE_RE.search(blob)
+    if m:
+        return m.group(1)
+
+    if category is None:
+        if slug.startswith("chems-"):
+            category = "farming-chems"
+        elif slug in _EGG_SLUGS:
+            category = "farming-eggs"
+        elif slug.startswith("nuka") or slug in ("sunset-sarsaparilla", "nukashine"):
+            category = "farming-nuka-cola"
+        else:
+            category = "farming-non-perishable"
+    item = region_slug(name) or region_slug(slug)
+    return f"{UPLOADS}{category}/{item}/" if item else ""
+
+
+def group_regions(seen, all_regions, keep, exclude_types=CHANCE_TYPES):
     """Group resolved placements into the per-region location lists. Returns
         (regions_out, src_totals, unresolved, total, placements)
-    with the exact shapes the pre-refactor builds emitted."""
+    with the exact shapes the pre-refactor builds emitted.
+
+    `exclude_types` are held back for group_chance() — a point whose list is a shared
+    loot pool is not a fixed spawn and must never be counted here."""
+    exclude = set(exclude_types or ())
     grouped = defaultdict(lambda: {"count": 0, "refs": [], "coords": None,
                                    "sources": defaultdict(int), "places": []})
     unresolved = defaultdict(int)
     for inst, (x, y, region, marker, stype) in seen.items():
+        if stype in exclude:
+            continue
         if region not in all_regions:
             unresolved[marker or f"instance {inst:06X}"] += 1
             continue
@@ -204,3 +264,45 @@ def group_regions(seen, all_regions, keep):
 
     return (regions_out, dict(sorted(src_totals.items())),
             {k: unresolved[k] for k in sorted(unresolved)}, total, placements)
+
+
+def group_chance(seen, all_regions, chance_types=CHANCE_TYPES):
+    """Build the `chance_spawns` block: the world points whose leveled list is a
+    SHARED loot pool, so the item is only one of several things that can appear.
+
+    Deliberately NAMES ONLY on the page. These points are far too numerous and too
+    low-odds to photograph individually (Addictol alone has 307 of them), so the
+    expand lists marker names A-Z inside each region A-Z and links out to that
+    ITEM's map for that region. No photo slots — that is what makes Fixed Spawn
+    Locations worth reading.
+
+    Each marker still carries its `refs`, because the map is per ITEM: a shared blank
+    region tile would be useless (it would have to carry every farming page's points
+    at once). `render_spawn_maps.py` resolves these refs through the geo cache to draw
+    `03 Region Tiles/<RegionSlug>_<slug>_chance.jpg`. Refs are data for the map
+    builder, never rendered on the page.
+    """
+    types = set(chance_types or ())
+    by_region = defaultdict(lambda: defaultdict(list))
+    total = 0
+    for inst, (_x, _y, region, marker, stype) in seen.items():
+        if stype not in types or region not in all_regions or not marker:
+            continue
+        by_region[region][marker].append(f"{int(inst):06X}")
+        total += 1
+
+    regions_out = []
+    for region in all_regions:
+        markers = by_region.get(region)
+        if not markers:
+            continue
+        regions_out.append({
+            "region": region,
+            "markers": [{"name": m, "placements": len(markers[m]),
+                         "refs": sorted(set(markers[m]))}
+                        for m in sorted(markers, key=lambda m: m.lower())],
+            "placements": sum(len(v) for v in markers.values()),
+        })
+    return {"regions": regions_out,
+            "total_markers": sum(len(r["markers"]) for r in regions_out),
+            "total": total}

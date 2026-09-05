@@ -631,6 +631,8 @@ def build_page(cfg, tables, geo, cur, cache, db_ok, generated, resolver, appeara
     seen, lists_n = ebuild.resolve_placements(src, geo, cur, cache, db_ok)
     regions_out, src_totals, unresolved, total, placements = ebuild.group_regions(
         seen, ALL_REGIONS, keep)
+    # Shared-loot-pool points held back by group_regions — names only (group_chance).
+    chance_spawns = ebuild.group_chance(seen, ALL_REGIONS)
     _label_spawns(regions_out, cfg["name"])
 
     targets = {weap_fid}
@@ -682,6 +684,7 @@ def build_page(cfg, tables, geo, cur, cache, db_ok, generated, resolver, appeara
         "vendor_list": build_vendors(closure, targets, appearance_fn),
         "events_activities": events_activities,
         "regions": regions_out,
+        "chance_spawns": chance_spawns,
         "fixed_spawn_totals": {"markers": total, "placements": placements},
     }
 

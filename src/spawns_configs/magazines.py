@@ -85,6 +85,12 @@ REGION_SLUGS = {
 # recipe_mod_*_Magazine_* weapon-mag recipes (start recipe_/zzz) and zzz_Babylon_*
 # cut Nuclear Winter issues (caught by DEV_EDID_RE too).
 PICKUP_EDID_RE = re.compile(r"^Magazine_[A-Za-z]+\d+_Book$")
+# Every BOOK the game calls a magazine — the numbered issues above PLUS the four
+# holotape magazines. Used ONLY to widen the fixed-spawn dedication test (see
+# spawns_engine.sources.get_sources dedication_seeds): LPI_Loot_Magazines hands out
+# both, so measured against the 96 numbered issues alone it would read as a shared
+# loot pool and every magazine spawn point would be demoted to a chance point.
+CATEGORY_EDID_RE = re.compile(r"^Magazine_", re.I)
 
 # QA / debug / cut-content holders inherit loot lists but aren't reachable in game.
 DEV_EDID_RE = re.compile(r"(^qa|^test|_test|debug|zzz_|babylon|^recipe_)", re.I)
@@ -108,6 +114,21 @@ def _newest(pattern, exclude=None):
 
 
 # ── seeds ────────────────────────────────────────────────────────────────────
+def load_dedication_seeds():
+    """FormIDs of every magazine BOOK (numbered issues + holotape magazines), for
+    the fixed-spawn dedication test only. Keyword-driven, no FormIDs typed."""
+    out = set()
+    book = _newest("BOOK_Export_*.tsv", exclude="_Locations")
+    if not book:
+        return out
+    with open(book, encoding="utf-8", errors="replace") as f:
+        for r in csv.DictReader(f, delimiter="\t"):
+            edid = (r.get("EDID") or "").strip()
+            if CATEGORY_EDID_RE.match(edid) and not DEV_EDID_RE.search(edid):
+                out.add((r.get("FormID") or "").strip().upper())
+    return out
+
+
 def load_item_records():
     """Every live magazine issue that seeds the closure: the BOOK records the
     leveled lists place. Returns (records, book_names) where book_names is
@@ -313,7 +334,8 @@ def run(argv=None):
           f"(GLOB {glob_edid or 'n/a'} = {cn_value} ChanceNone)")
 
     tbls = esources.load_tables()
-    src = esources.get_sources(item_records, tbls, nuka_classify)
+    src = esources.get_sources(item_records, tbls, nuka_classify,
+                               dedication_seeds=load_dedication_seeds() | set(targets))
     print(f"[magazines] closure {len(src['lvli_closure'])} lists · "
           f"{len(src['direct_refrs'])} direct placements · "
           f"{len(src['placed_bases'])} holder bases")
@@ -345,6 +367,8 @@ def run(argv=None):
     seen, lists_n = ebuild.resolve_placements(src, geo, cur, cache, db_ok)
     regions_out, src_totals, unresolved, total, placements = ebuild.group_regions(
         seen, ALL_REGIONS, keep)
+    # Shared-loot-pool points held back by group_regions — names only (group_chance).
+    chance_spawns = ebuild.group_chance(seen, ALL_REGIONS)
     attach_labels(regions_out)
     attach_breakdowns(regions_out, rate_display)
 
@@ -400,6 +424,7 @@ def run(argv=None):
         "item_breakdown": [],
         "fixed_spawn_index": {"base": URL_BASE, "regions": index},
         "regions": regions_out,
+        "chance_spawns": chance_spawns,
     }
     json.dump(doc, open(OUT_FILE, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
