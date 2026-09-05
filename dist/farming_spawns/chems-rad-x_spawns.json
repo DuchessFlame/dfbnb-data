@@ -588,6 +588,74 @@
   },
   "creatures": {
    "note": "Around 2,295 creatures can drop Rad-X as generic loot; they are not listed individually. See the Containers expand for the per-container drop rates and How to Obtain for the crafting recipe."
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Communist Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Communist",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "4 min 48 sec",
+     "items": [
+      {
+       "name": "Rad-X",
+       "form_id": "00024057",
+       "rate": 0.033333,
+       "rate_display": "3.33%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Raider Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Raider",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "6 min",
+     "items": [
+      {
+       "name": "Rad-X",
+       "form_id": "00024057",
+       "rate": 0.033333,
+       "rate_display": "3.33%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Free States Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_FreeStates",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "9 min",
+     "items": [
+      {
+       "name": "Rad-X",
+       "form_id": "00024057",
+       "rate": 0.0,
+       "rate_display": "0%",
+       "rate_source": "computed_zero"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Ashforge",
+     "edid": "AshResource",
+     "obtain": "Available in the base game.",
+     "interval": "3 min",
+     "items": [
+      {
+       "name": "Rad-X",
+       "form_id": "00024057",
+       "rate": 0.009722,
+       "rate_display": "0.97%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
   }
  },
  "farming_tips": {
@@ -1493,18 +1561,6 @@
    ]
   },
   {
-   "list_id": "007720B6",
-   "edid": "Storm_DangerousPastimes_LL_QuestRewards_Generic",
-   "name": "Dangerous Pastimes Quest Rewards Generic",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Dangerous Pastimes Quest Rewards Generic reward pool per event/activity payout.",
-   "rate_value": 0.3,
-   "rate_display": "30%",
-   "rate_lines": [
-    "30%"
-   ]
-  },
-  {
    "list_id": "00837FED",
    "edid": "Burn_E02_LL_QuestRewards",
    "name": "E02 Quest Rewards",
@@ -1565,18 +1621,6 @@
    ]
   },
   {
-   "list_id": "0076F55F",
-   "edid": "Storm_RegionBoss_LL_QuestRewards_Generic",
-   "name": "Region Boss Quest Rewards Generic",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Region Boss Quest Rewards Generic reward pool per event/activity payout.",
-   "rate_value": 0.3,
-   "rate_display": "30%",
-   "rate_lines": [
-    "30%"
-   ]
-  },
-  {
    "list_id": "0055AB7D",
    "edid": "W05_Daily_R02_MidquestReward_Hunter1_LL_Meds",
    "name": "Daily: Retirement Plan",
@@ -1613,18 +1657,6 @@
    ]
   },
   {
-   "list_id": "0039CF82",
-   "edid": "zzzTWZ11_LL_QuestReward_Daily",
-   "name": "Zzz TWZ11 Quest Reward Daily",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Zzz TWZ11 Quest Reward Daily reward pool per event/activity payout.",
-   "rate_value": 0.142857,
-   "rate_display": "14.29%",
-   "rate_lines": [
-    "14.29%"
-   ]
-  },
-  {
    "list_id": "003FB9B0",
    "edid": "CB04_RewardContainerList",
    "name": "CB04 Reward Container List",
@@ -1649,18 +1681,6 @@
    ]
   },
   {
-   "list_id": "00853D3F",
-   "edid": "SCORE_S23_LL_ChemMysteryMachine_Uncommon",
-   "name": "SCORE S23 Chem Mystery Machine Uncommon",
-   "type": "Seasonal / Public Event",
-   "note": "Chance the item is in the SCORE S23 Chem Mystery Machine Uncommon reward pool per event/activity payout.",
-   "rate_value": 0.111111,
-   "rate_display": "11.11%",
-   "rate_lines": [
-    "11.11%"
-   ]
-  },
-  {
    "list_id": "005A38E6",
    "edid": "W05_COMP_RQ_Rescue_LL_Quest_Reward",
    "name": "<Alias=QuestNameOverride>",
@@ -1673,18 +1693,6 @@
    ]
   },
   {
-   "list_id": "003EFC5D",
-   "edid": "SFS09_Habitat_LLS_Quest_Reward_ChemPak",
-   "name": "SFS09 Habitat Quest Reward Chem Pak",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the SFS09 Habitat Quest Reward Chem Pak reward pool per event/activity payout.",
-   "rate_value": 0.083333,
-   "rate_display": "8.33%",
-   "rate_lines": [
-    "8.33%"
-   ]
-  },
-  {
    "list_id": "00577BBF",
    "edid": "zzz_E03A_SpookyScorched_LL_RewardList",
    "name": "Event: Mischief Night",
@@ -1694,30 +1702,6 @@
    "rate_display": "7.5%",
    "rate_lines": [
     "7.5%"
-   ]
-  },
-  {
-   "list_id": "0086A8B8",
-   "edid": "RA_LL_Rewards_General_AidItems",
-   "name": "Rewards General Aid Items",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the Rewards General Aid Items reward pool per event/activity payout.",
-   "rate_value": 0.075,
-   "rate_display": "7.5%",
-   "rate_lines": [
-    "7.5%"
-   ]
-  },
-  {
-   "list_id": "00519A29",
-   "edid": "zzzFFZ03_LL_QuestReward",
-   "name": "Zzz FFZ03 Quest Reward",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Zzz FFZ03 Quest Reward reward pool per event/activity payout.",
-   "rate_value": 0.068379,
-   "rate_display": "6.84%",
-   "rate_lines": [
-    "6.84%"
    ]
   },
   {
@@ -2213,42 +2197,6 @@
    ]
   },
   {
-   "list_id": "00519A2F",
-   "edid": "FFZ10_LL_QuestReward_Event",
-   "name": "Quest Reward Event",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Quest Reward Event reward pool per event/activity payout.",
-   "rate_value": 0.023333,
-   "rate_display": "2.33%",
-   "rate_lines": [
-    "2.33%"
-   ]
-  },
-  {
-   "list_id": "00519A2B",
-   "edid": "zzzFFZ04_LL_QuestReward",
-   "name": "Zzz FFZ04 Quest Reward",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Zzz FFZ04 Quest Reward reward pool per event/activity payout.",
-   "rate_value": 0.023333,
-   "rate_display": "2.33%",
-   "rate_lines": [
-    "2.33%"
-   ]
-  },
-  {
-   "list_id": "0032E1A0",
-   "edid": "DELETED_SFL02_Track_Rewards",
-   "name": "DELETED SFL02 Track Rewards",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the DELETED SFL02 Track Rewards reward pool per event/activity payout.",
-   "rate_value": 0.014583,
-   "rate_display": "1.46%",
-   "rate_lines": [
-    "1.46%"
-   ]
-  },
-  {
    "list_id": "00582151",
    "edid": "LL_E05_Radiation_Quest_RewardList_Lvl3",
    "name": "Event: Radiation Rumble",
@@ -2258,18 +2206,6 @@
    "rate_display": "1.25%",
    "rate_lines": [
     "1.25%"
-   ]
-  },
-  {
-   "list_id": "0000408A",
-   "edid": "SFM01_Glow_Rewards",
-   "name": "SFM01 Glow Rewards",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the SFM01 Glow Rewards reward pool per event/activity payout.",
-   "rate_value": 0.009722,
-   "rate_display": "0.97%",
-   "rate_lines": [
-    "0.97%"
    ]
   },
   {
@@ -2299,9 +2235,9 @@
   {
    "list_id": "0035D0C7",
    "edid": "FF12_LL_QuestReward_Event_Basic",
-   "name": "Quest Reward Event Basic",
+   "name": "The Bell Tolls",
    "type": "Quest Reward",
-   "note": "Chance the item is in the Quest Reward Event Basic reward pool per event/activity payout.",
+   "note": "Chance the item is in the The Bell Tolls reward pool per event/activity payout.",
    "rate_value": 0.004167,
    "rate_display": "0.42%",
    "rate_lines": [

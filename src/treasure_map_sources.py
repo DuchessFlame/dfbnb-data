@@ -62,15 +62,27 @@ from typing import Any, Dict, List, Optional, Sequence
 # split is data-driven rather than a second hardcoded list.
 TREASURE_MAP_REWARD_ROOT = "001A7220"
 
+# LL_TreasureMap_TeammateReward — the SECOND pool the 35 region-map mound
+# activators roll, paying a teammate standing at the dig. It is one shared list
+# with no GetIsInRegion branch, so every region map pays it at the same chance.
+# It used to surface in Events & Activities as "Treasure Map Teammate Reward",
+# which told the reader nothing about which map to dig; it belongs here.
+TREASURE_MAP_TEAMMATE_ROOT = "001A721E"
+
 # Group headings, their order in the expand, and the page each links to.
 GROUP_TREASURE = "Treasure Maps"
+GROUP_TEAMMATE = "Teammate Reward"
 GROUP_LUCKY = "Lucky Strike"
 GROUP_PHANTOM = "Pint-Sized Phantoms"
 
-GROUP_ORDER = [GROUP_TREASURE, GROUP_LUCKY, GROUP_PHANTOM]
+GROUP_ORDER = [GROUP_TREASURE, GROUP_TEAMMATE, GROUP_LUCKY, GROUP_PHANTOM]
 
 GROUP_LINKS = {
     GROUP_TREASURE: {
+        "href": "https://www.buffsnbrew.com/df/treasure-maps/rewards/",
+        "label": "Treasure map rewards",
+    },
+    GROUP_TEAMMATE: {
         "href": "https://www.buffsnbrew.com/df/treasure-maps/rewards/",
         "label": "Treasure map rewards",
     },
@@ -267,6 +279,24 @@ def build_maps(dist_dir: str, targets: set, appearance, lvli: Any,
             rows.append(_row(GROUP_TREASURE, m.get("name") or "", region.get("name") or "",
                              m.get("form_id") or "", m.get("edid") or "",
                              rate, sources, fmt_rate))
+
+    # 1b. Teammate reward ────────────────────────────────────────────────────
+    # A separate roll made for a teammate at the dig, from ONE shared pool with
+    # no region branch — so it resolves once and every region map carries the
+    # same chance. Mirrors the map table above (one row per MAP, with its region)
+    # so the reader looks their own map up the same way; kept as its own group
+    # rather than folded into "Chance per dig", which would overstate the number
+    # for anyone digging solo.
+    teammate = _pool_rates(appearance, [TREASURE_MAP_TEAMMATE_ROOT], targets, lvli)
+    teammate_rate = combine([s["rate"] for s in teammate])
+    if teammate and teammate_rate > 0:
+        for rkey, region in regions.items():
+            for m in (region.get("maps") or []):
+                rows.append(_row(GROUP_TEAMMATE,
+                                 (m.get("name") or "") + " Teammate Reward",
+                                 region.get("name") or "",
+                                 m.get("form_id") or "", m.get("edid") or "",
+                                 teammate_rate, teammate, fmt_rate))
 
     # 2. Lucky Strike (U Mine It) ────────────────────────────────────────────
     # The tier's own mining list plus the shared quest-reward pools that fire on

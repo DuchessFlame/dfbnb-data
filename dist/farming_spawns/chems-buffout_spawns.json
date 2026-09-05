@@ -515,6 +515,74 @@
   },
   "creatures": {
    "note": "Around 1,904 creatures can drop Buffout as generic loot; they are not listed individually. See the Containers expand for the per-container drop rates and How to Obtain for the crafting recipe."
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Raider Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Raider",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "6 min",
+     "items": [
+      {
+       "name": "Buffout",
+       "form_id": "00033778",
+       "rate": 0.033333,
+       "rate_display": "3.33%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Free States Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_FreeStates",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "9 min",
+     "items": [
+      {
+       "name": "Buffout",
+       "form_id": "00033778",
+       "rate": 0.0,
+       "rate_display": "0%",
+       "rate_source": "computed_zero"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Doctor's Orders Cigarette Machine",
+     "edid": "ATX_ENTM_CAMP_Collector_DoctorsOrdersCigaretteMachine",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Buffout",
+       "form_id": "00033778",
+       "rate": 0.020833,
+       "rate_display": "2.08%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Ashforge",
+     "edid": "AshResource",
+     "obtain": "Available in the base game.",
+     "interval": "3 min",
+     "items": [
+      {
+       "name": "Buffout",
+       "form_id": "00033778",
+       "rate": 0.009722,
+       "rate_display": "0.97%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
   }
  },
  "farming_tips": {
@@ -929,35 +997,11 @@
  "random_encounters_intro": null,
  "events_activities": [
   {
-   "list_id": "0075FB5E",
-   "edid": "AC_SQ04_LL_Rewards",
-   "name": "AC SQ04 Rewards",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the AC SQ04 Rewards reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
    "list_id": "00767E75",
    "edid": "AC_SQ01_LL_Rewards",
    "name": "Custodial Compulsions",
    "type": "Secondary",
    "note": "Chance the item is in the Custodial Compulsions reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "006820F7",
-   "edid": "NWOT_LL_Del_Consumable",
-   "name": "Del Consumable",
-   "type": "Seasonal / Public Event",
-   "note": "Chance the item is in the Del Consumable reward pool per event/activity payout.",
    "rate_value": 1.0,
    "rate_display": "100%",
    "rate_lines": [
@@ -1085,18 +1129,6 @@
    ]
   },
   {
-   "list_id": "0039CF82",
-   "edid": "zzzTWZ11_LL_QuestReward_Daily",
-   "name": "Zzz TWZ11 Quest Reward Daily",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Zzz TWZ11 Quest Reward Daily reward pool per event/activity payout.",
-   "rate_value": 0.142857,
-   "rate_display": "14.29%",
-   "rate_lines": [
-    "14.29%"
-   ]
-  },
-  {
    "list_id": "003FB9B0",
    "edid": "CB04_RewardContainerList",
    "name": "CB04 Reward Container List",
@@ -1118,42 +1150,6 @@
    "rate_display": "11.67%",
    "rate_lines": [
     "11.67%"
-   ]
-  },
-  {
-   "list_id": "00853D3F",
-   "edid": "SCORE_S23_LL_ChemMysteryMachine_Uncommon",
-   "name": "SCORE S23 Chem Mystery Machine Uncommon",
-   "type": "Seasonal / Public Event",
-   "note": "Chance the item is in the SCORE S23 Chem Mystery Machine Uncommon reward pool per event/activity payout.",
-   "rate_value": 0.111111,
-   "rate_display": "11.11%",
-   "rate_lines": [
-    "11.11%"
-   ]
-  },
-  {
-   "list_id": "0086A8B8",
-   "edid": "RA_LL_Rewards_General_AidItems",
-   "name": "Rewards General Aid Items",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the Rewards General Aid Items reward pool per event/activity payout.",
-   "rate_value": 0.075,
-   "rate_display": "7.5%",
-   "rate_lines": [
-    "7.5%"
-   ]
-  },
-  {
-   "list_id": "00519A29",
-   "edid": "zzzFFZ03_LL_QuestReward",
-   "name": "Zzz FFZ03 Quest Reward",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Zzz FFZ03 Quest Reward reward pool per event/activity payout.",
-   "rate_value": 0.068379,
-   "rate_display": "6.84%",
-   "rate_lines": [
-    "6.84%"
    ]
   },
   {
@@ -1661,59 +1657,11 @@
    ]
   },
   {
-   "list_id": "00519A2F",
-   "edid": "FFZ10_LL_QuestReward_Event",
-   "name": "Quest Reward Event",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Quest Reward Event reward pool per event/activity payout.",
-   "rate_value": 0.023333,
-   "rate_display": "2.33%",
-   "rate_lines": [
-    "2.33%"
-   ]
-  },
-  {
-   "list_id": "00519A2B",
-   "edid": "zzzFFZ04_LL_QuestReward",
-   "name": "Zzz FFZ04 Quest Reward",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Zzz FFZ04 Quest Reward reward pool per event/activity payout.",
-   "rate_value": 0.023333,
-   "rate_display": "2.33%",
-   "rate_lines": [
-    "2.33%"
-   ]
-  },
-  {
-   "list_id": "0032E1A0",
-   "edid": "DELETED_SFL02_Track_Rewards",
-   "name": "DELETED SFL02 Track Rewards",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the DELETED SFL02 Track Rewards reward pool per event/activity payout.",
-   "rate_value": 0.014583,
-   "rate_display": "1.46%",
-   "rate_lines": [
-    "1.46%"
-   ]
-  },
-  {
-   "list_id": "0000408A",
-   "edid": "SFM01_Glow_Rewards",
-   "name": "SFM01 Glow Rewards",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the SFM01 Glow Rewards reward pool per event/activity payout.",
-   "rate_value": 0.009722,
-   "rate_display": "0.97%",
-   "rate_lines": [
-    "0.97%"
-   ]
-  },
-  {
    "list_id": "0035D0C7",
    "edid": "FF12_LL_QuestReward_Event_Basic",
-   "name": "Quest Reward Event Basic",
+   "name": "The Bell Tolls",
    "type": "Quest Reward",
-   "note": "Chance the item is in the Quest Reward Event Basic reward pool per event/activity payout.",
+   "note": "Chance the item is in the The Bell Tolls reward pool per event/activity payout.",
    "rate_value": 0.004167,
    "rate_display": "0.42%",
    "rate_lines": [

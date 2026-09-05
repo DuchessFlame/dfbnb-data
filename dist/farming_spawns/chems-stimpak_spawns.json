@@ -649,6 +649,89 @@
   },
   "creatures": {
    "note": "Around 5,852 creatures can drop Stimpak as generic loot; they are not listed individually. See the Containers expand for the per-container drop rates and How to Obtain for the crafting recipe."
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Communist Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Communist",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "4 min 48 sec",
+     "items": [
+      {
+       "name": "Stimpak",
+       "form_id": "00023736",
+       "rate": 0.033333,
+       "rate_display": "3.33%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Raider Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Raider",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "6 min",
+     "items": [
+      {
+       "name": "Stimpak",
+       "form_id": "00023736",
+       "rate": 0.0125,
+       "rate_display": "1.25%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "BoS Collectron Station",
+     "edid": "ATX_Community2020_ATLAS_ENTM_CAMP_Utility_Collectron_BoS",
+     "obtain": "Awarded through a Bethesda community event or promotion.",
+     "interval": "7 min 12 sec",
+     "items": [
+      {
+       "name": "Stimpak",
+       "form_id": "00023736",
+       "rate": 0.0,
+       "rate_display": "0%",
+       "rate_source": "computed_zero"
+      }
+     ]
+    },
+    {
+     "name": "Free States Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_FreeStates",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "9 min",
+     "items": [
+      {
+       "name": "Stimpak",
+       "form_id": "00023736",
+       "rate": 0.0,
+       "rate_display": "0%",
+       "rate_source": "computed_zero"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Ashforge",
+     "edid": "AshResource",
+     "obtain": "Available in the base game.",
+     "interval": "3 min",
+     "items": [
+      {
+       "name": "Stimpak",
+       "form_id": "00023736",
+       "rate": 0.005625,
+       "rate_display": "0.56%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
   }
  },
  "farming_tips": {
@@ -1991,138 +2074,6 @@
    ]
   },
   {
-   "list_id": "006820F7",
-   "edid": "NWOT_LL_Del_Consumable",
-   "name": "Del Consumable",
-   "type": "Seasonal / Public Event",
-   "note": "Chance the item is in the Del Consumable reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0067F5F9",
-   "edid": "DEL_LL_MutatedEvents_Mutation_Double_BlisteringCold_Rewards_Weapon",
-   "name": "DEL Mutated Events Mutation Double Blistering Cold Rewards Weapon",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the DEL Mutated Events Mutation Double Blistering Cold Rewards Weapon reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0067F5FA",
-   "edid": "DEL_LL_MutatedEvents_Mutation_Double_ChillingMend_Rewards_Weapon",
-   "name": "DEL Mutated Events Mutation Double Chilling Mend Rewards Weapon",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the DEL Mutated Events Mutation Double Chilling Mend Rewards Weapon reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0067F5FB",
-   "edid": "DEL_LL_MutatedEvents_Mutation_Double_CloudedToxins_Rewards_Weapon",
-   "name": "DEL Mutated Events Mutation Double Clouded Toxins Rewards Weapon",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the DEL Mutated Events Mutation Double Clouded Toxins Rewards Weapon reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0067F5FC",
-   "edid": "DEL_LL_MutatedEvents_Mutation_Double_Relentless_Rewards_Weapon",
-   "name": "DEL Mutated Events Mutation Double Relentless Rewards Weapon",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the DEL Mutated Events Mutation Double Relentless Rewards Weapon reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0067F5FD",
-   "edid": "DEL_LL_MutatedEvents_Mutation_Double_StingingFrost_Rewards_Weapon",
-   "name": "DEL Mutated Events Mutation Double Stinging Frost Rewards Weapon",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the DEL Mutated Events Mutation Double Stinging Frost Rewards Weapon reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0067F5FE",
-   "edid": "DEL_LL_MutatedEvents_Mutation_Double_SwiftStalker_Rewards_Weapon",
-   "name": "DEL Mutated Events Mutation Double Swift Stalker Rewards Weapon",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the DEL Mutated Events Mutation Double Swift Stalker Rewards Weapon reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0067F5FF",
-   "edid": "DEL_LL_MutatedEvents_Mutation_Double_Unstable_Rewards_Weapon",
-   "name": "DEL Mutated Events Mutation Double Unstable Rewards Weapon",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the DEL Mutated Events Mutation Double Unstable Rewards Weapon reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0067F603",
-   "edid": "DEL_LL_MutatedEvents_Mutation_Resilient_Rewards_Weapon",
-   "name": "DEL Mutated Events Mutation Resilient Rewards Weapon",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the DEL Mutated Events Mutation Resilient Rewards Weapon reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0067F604",
-   "edid": "DEL_LL_MutatedEvents_Mutation_Swiftfooted_Rewards_Weapon",
-   "name": "DEL Mutated Events Mutation Swiftfooted Rewards Weapon",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the DEL Mutated Events Mutation Swiftfooted Rewards Weapon reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0067F605",
-   "edid": "DEL_LL_MutatedEvents_Mutation_ToxicBlood_Rewards_Weapon",
-   "name": "DEL Mutated Events Mutation Toxic Blood Rewards Weapon",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the DEL Mutated Events Mutation Toxic Blood Rewards Weapon reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
    "list_id": "005E803D",
    "edid": "BS01_MQ04_Arms_LL_Quest_Reward",
    "name": "Disarming Discovery",
@@ -2411,18 +2362,6 @@
    ]
   },
   {
-   "list_id": "00603256",
-   "edid": "BS02_MQ02_Missing_LL_Quest_Reward",
-   "name": "Missing Quest Reward",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Missing Quest Reward reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
    "list_id": "005D0388",
    "edid": "BS01_MQ02_Invention_LL_Quest_Rewards_Bad",
    "name": "Mother of Invention",
@@ -2555,30 +2494,6 @@
    ]
   },
   {
-   "list_id": "003F5E9B",
-   "edid": "P01B_Mini_Albino01_LL_Quest_Reward",
-   "name": "P01B Mini Albino01 Quest Reward",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the P01B Mini Albino01 Quest Reward reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "00603255",
-   "edid": "BS02_MQ01_Penance_LL_Quest_Reward",
-   "name": "Penance Quest Reward",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Penance Quest Reward reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
    "list_id": "005E812C",
    "edid": "BS01_MQ05_Raiders_LL_Quest_Reward",
    "name": "Property Rights",
@@ -2596,18 +2511,6 @@
    "name": "Refuge Daily: A Refugee's Guide",
    "type": "Daily",
    "note": "Chance the item is in the Refuge Daily: A Refugee's Guide reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0076F55F",
-   "edid": "Storm_RegionBoss_LL_QuestRewards_Generic",
-   "name": "Region Boss Quest Rewards Generic",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Region Boss Quest Rewards Generic reward pool per event/activity payout.",
    "rate_value": 1.0,
    "rate_display": "100%",
    "rate_lines": [
@@ -2879,90 +2782,6 @@
    ]
   },
   {
-   "list_id": "006446B6",
-   "edid": "XPD_Fuel_CodeBlue_Rewards",
-   "name": "XPD Fuel Code Blue Rewards",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the XPD Fuel Code Blue Rewards reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "00519A1F",
-   "edid": "zzzFF05_LL_QuestReward_Daily",
-   "name": "Zzz FF05 Quest Reward Daily",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Zzz FF05 Quest Reward Daily reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0014E800",
-   "edid": "zzzMTNZ05_LL_QuestReward_Event_Repeatable_Large",
-   "name": "Zzz MTNZ05 Quest Reward Event Repeatable Large",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Zzz MTNZ05 Quest Reward Event Repeatable Large reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0014E82C",
-   "edid": "zzzMTNZ05_LL_QuestReward_Event_Repeatable_Medium",
-   "name": "Zzz MTNZ05 Quest Reward Event Repeatable Medium",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Zzz MTNZ05 Quest Reward Event Repeatable Medium reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0014E8D0",
-   "edid": "zzzMTNZ05_LL_QuestReward_Event_Repeatable_Small",
-   "name": "Zzz MTNZ05 Quest Reward Event Repeatable Small",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Zzz MTNZ05 Quest Reward Event Repeatable Small reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0039D520",
-   "edid": "zzzTW005_LL_QuestReward",
-   "name": "Zzz TW005 Quest Reward",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Zzz TW005 Quest Reward reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0039CF82",
-   "edid": "zzzTWZ11_LL_QuestReward_Daily",
-   "name": "Zzz TWZ11 Quest Reward Daily",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Zzz TWZ11 Quest Reward Daily reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
    "list_id": "0041F887",
    "edid": "V94_1_LL_VaultSystemRewards_Standard",
    "name": "Vault Mission: Dead in the Water<Alias=DifficultyModeLoc><Alias=RespiteZoneStateLoc>",
@@ -3047,18 +2866,6 @@
    ]
   },
   {
-   "list_id": "007720B6",
-   "edid": "Storm_DangerousPastimes_LL_QuestRewards_Generic",
-   "name": "Dangerous Pastimes Quest Rewards Generic",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Dangerous Pastimes Quest Rewards Generic reward pool per event/activity payout.",
-   "rate_value": 0.9,
-   "rate_display": "90%",
-   "rate_lines": [
-    "90%"
-   ]
-  },
-  {
    "list_id": "00837FED",
    "edid": "Burn_E02_LL_QuestRewards",
    "name": "E02 Quest Rewards",
@@ -3088,18 +2895,6 @@
    "name": "Might Makes Right",
    "type": "Primary",
    "note": "Chance the item is in the Might Makes Right reward pool per event/activity payout.",
-   "rate_value": 0.9,
-   "rate_display": "90%",
-   "rate_lines": [
-    "90%"
-   ]
-  },
-  {
-   "list_id": "006B3C2E",
-   "edid": "MOON_LL_QuestReward_Basic",
-   "name": "Quest Reward Basic",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Quest Reward Basic reward pool per event/activity payout.",
    "rate_value": 0.9,
    "rate_display": "90%",
    "rate_lines": [
@@ -3224,30 +3019,6 @@
    "rate_display": "42.96%",
    "rate_lines": [
     "42.96%"
-   ]
-  },
-  {
-   "list_id": "001A721E",
-   "edid": "LL_TreasureMap_TeammateReward",
-   "name": "Treasure Map Teammate Reward",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the Treasure Map Teammate Reward reward pool per event/activity payout.",
-   "rate_value": 0.408333,
-   "rate_display": "40.83%",
-   "rate_lines": [
-    "40.83%"
-   ]
-  },
-  {
-   "list_id": "0075FB5E",
-   "edid": "AC_SQ04_LL_Rewards",
-   "name": "AC SQ04 Rewards",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the AC SQ04 Rewards reward pool per event/activity payout.",
-   "rate_value": 0.380952,
-   "rate_display": "38.1%",
-   "rate_lines": [
-    "38.1%"
    ]
   },
   {
@@ -3743,18 +3514,6 @@
    ]
   },
   {
-   "list_id": "0032E1A0",
-   "edid": "DELETED_SFL02_Track_Rewards",
-   "name": "DELETED SFL02 Track Rewards",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the DELETED SFL02 Track Rewards reward pool per event/activity payout.",
-   "rate_value": 0.2975,
-   "rate_display": "29.75%",
-   "rate_lines": [
-    "29.75%"
-   ]
-  },
-  {
    "list_id": "00635071",
    "edid": "E07A_Mothman_CultistHighPriestReward_Loot",
    "name": "Mothman Cultist High Priest Reward Loot",
@@ -3803,18 +3562,6 @@
    ]
   },
   {
-   "list_id": "001A7220",
-   "edid": "LL_TreasureMap_Reward",
-   "name": "Treasure Map Reward",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the Treasure Map Reward reward pool per event/activity payout.",
-   "rate_value": 0.225,
-   "rate_display": "22.5%",
-   "rate_lines": [
-    "22.5%"
-   ]
-  },
-  {
    "list_id": "00585569",
    "edid": "W05_LL_JohnnyRepeatableReward",
    "name": "Johnny Repeatable Reward",
@@ -3824,30 +3571,6 @@
    "rate_display": "21.35%",
    "rate_lines": [
     "21.35%"
-   ]
-  },
-  {
-   "list_id": "0000408A",
-   "edid": "SFM01_Glow_Rewards",
-   "name": "SFM01 Glow Rewards",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the SFM01 Glow Rewards reward pool per event/activity payout.",
-   "rate_value": 0.198333,
-   "rate_display": "19.83%",
-   "rate_lines": [
-    "19.83%"
-   ]
-  },
-  {
-   "list_id": "003C2C1C",
-   "edid": "DEBUG_LL_QP_Rewards_TDM_Chems",
-   "name": "DEBUG QP Rewards TDM Chems",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the DEBUG QP Rewards TDM Chems reward pool per event/activity payout.",
-   "rate_value": 0.166667,
-   "rate_display": "16.67%",
-   "rate_lines": [
-    "16.67%"
    ]
   },
   {
@@ -4175,119 +3898,11 @@
    ]
   },
   {
-   "list_id": "006371C2",
-   "edid": "XPD_LocationQuest_Location01_Beat1_LL_Rewards",
-   "name": "XPD Location Quest Location01 Beat1 Rewards",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the XPD Location Quest Location01 Beat1 Rewards reward pool per event/activity payout.",
-   "rate_value": 0.134921,
-   "rate_display": "13.49%",
-   "rate_lines": [
-    "13.49%"
-   ]
-  },
-  {
-   "list_id": "006371C3",
-   "edid": "XPD_LocationQuest_Location01_Beat2_LL_Rewards",
-   "name": "XPD Location Quest Location01 Beat2 Rewards",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the XPD Location Quest Location01 Beat2 Rewards reward pool per event/activity payout.",
-   "rate_value": 0.134921,
-   "rate_display": "13.49%",
-   "rate_lines": [
-    "13.49%"
-   ]
-  },
-  {
-   "list_id": "006371C4",
-   "edid": "XPD_LocationQuest_Location01_Beat3_LL_Rewards",
-   "name": "XPD Location Quest Location01 Beat3 Rewards",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the XPD Location Quest Location01 Beat3 Rewards reward pool per event/activity payout.",
-   "rate_value": 0.134921,
-   "rate_display": "13.49%",
-   "rate_lines": [
-    "13.49%"
-   ]
-  },
-  {
-   "list_id": "00853D3F",
-   "edid": "SCORE_S23_LL_ChemMysteryMachine_Uncommon",
-   "name": "SCORE S23 Chem Mystery Machine Uncommon",
-   "type": "Seasonal / Public Event",
-   "note": "Chance the item is in the SCORE S23 Chem Mystery Machine Uncommon reward pool per event/activity payout.",
-   "rate_value": 0.111111,
-   "rate_display": "11.11%",
-   "rate_lines": [
-    "11.11%"
-   ]
-  },
-  {
-   "list_id": "003EFC5D",
-   "edid": "SFS09_Habitat_LLS_Quest_Reward_ChemPak",
-   "name": "SFS09 Habitat Quest Reward Chem Pak",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the SFS09 Habitat Quest Reward Chem Pak reward pool per event/activity payout.",
-   "rate_value": 0.083333,
-   "rate_display": "8.33%",
-   "rate_lines": [
-    "8.33%"
-   ]
-  },
-  {
-   "list_id": "0086A8B8",
-   "edid": "RA_LL_Rewards_General_AidItems",
-   "name": "Rewards General Aid Items",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the Rewards General Aid Items reward pool per event/activity payout.",
-   "rate_value": 0.075,
-   "rate_display": "7.5%",
-   "rate_lines": [
-    "7.5%"
-   ]
-  },
-  {
-   "list_id": "00519A29",
-   "edid": "zzzFFZ03_LL_QuestReward",
-   "name": "Zzz FFZ03 Quest Reward",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Zzz FFZ03 Quest Reward reward pool per event/activity payout.",
-   "rate_value": 0.039956,
-   "rate_display": "4%",
-   "rate_lines": [
-    "4%"
-   ]
-  },
-  {
-   "list_id": "00519A2F",
-   "edid": "FFZ10_LL_QuestReward_Event",
-   "name": "Quest Reward Event",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Quest Reward Event reward pool per event/activity payout.",
-   "rate_value": 0.0135,
-   "rate_display": "1.35%",
-   "rate_lines": [
-    "1.35%"
-   ]
-  },
-  {
-   "list_id": "00519A2B",
-   "edid": "zzzFFZ04_LL_QuestReward",
-   "name": "Zzz FFZ04 Quest Reward",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Zzz FFZ04 Quest Reward reward pool per event/activity payout.",
-   "rate_value": 0.0135,
-   "rate_display": "1.35%",
-   "rate_lines": [
-    "1.35%"
-   ]
-  },
-  {
    "list_id": "0035D0C7",
    "edid": "FF12_LL_QuestReward_Event_Basic",
-   "name": "Quest Reward Event Basic",
+   "name": "The Bell Tolls",
    "type": "Quest Reward",
-   "note": "Chance the item is in the Quest Reward Event Basic reward pool per event/activity payout.",
+   "note": "Chance the item is in the The Bell Tolls reward pool per event/activity payout.",
    "rate_value": 0.004167,
    "rate_display": "0.42%",
    "rate_lines": [
@@ -17623,6 +17238,601 @@
       "edid": "LLS_TreasureMap_Reward_RegionCB_SF",
       "rate": 0.225,
       "rate_display": "22.5%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Ash Heap Treasure Map #01 Teammate Reward",
+    "region": "Ash Heap",
+    "form_id": "0051B8A8",
+    "edid": "TreasureMap04",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Ash Heap Treasure Map #02 Teammate Reward",
+    "region": "Ash Heap",
+    "form_id": "0051B8AC",
+    "edid": "TreasureMap07",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Cranberry Bog Treasure Map #01 Teammate Reward",
+    "region": "Cranberry Bog",
+    "form_id": "0051B8CD",
+    "edid": "TreasureMap26",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Cranberry Bog Treasure Map #02 Teammate Reward",
+    "region": "Cranberry Bog",
+    "form_id": "0051B8D6",
+    "edid": "TreasureMap30",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Cranberry Bog Treasure Map #03 Teammate Reward",
+    "region": "Cranberry Bog",
+    "form_id": "0051B8D9",
+    "edid": "TreasureMap33",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Cranberry Bog Treasure Map #04 Teammate Reward",
+    "region": "Cranberry Bog",
+    "form_id": "0051B8DE",
+    "edid": "TreasureMap35",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #01 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B7A2",
+    "edid": "TreasureMap01",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #02 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8A6",
+    "edid": "TreasureMap02",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #03 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8A7",
+    "edid": "TreasureMap03",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #04 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8A9",
+    "edid": "TreasureMap05",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #05 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8AA",
+    "edid": "TreasureMap06",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #06 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8AE",
+    "edid": "TreasureMap08",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #07 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8B0",
+    "edid": "TreasureMap09",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #08 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8B2",
+    "edid": "TreasureMap11",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #09 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8B6",
+    "edid": "TreasureMap12",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #10 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8B9",
+    "edid": "TreasureMap14",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Mire Treasure Map #01 Teammate Reward",
+    "region": "The Mire",
+    "form_id": "0051B8CE",
+    "edid": "TreasureMap27",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Mire Treasure Map #02 Teammate Reward",
+    "region": "The Mire",
+    "form_id": "0051B8D2",
+    "edid": "TreasureMap28",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Mire Treasure Map #03 Teammate Reward",
+    "region": "The Mire",
+    "form_id": "0051B8D7",
+    "edid": "TreasureMap31",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Mire Treasure Map #04 Teammate Reward",
+    "region": "The Mire",
+    "form_id": "0051B8D8",
+    "edid": "TreasureMap32",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Mire Treasure Map #05 Teammate Reward",
+    "region": "The Mire",
+    "form_id": "0051B8DB",
+    "edid": "TreasureMap34",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #01 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8BA",
+    "edid": "TreasureMap15",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #02 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8C0",
+    "edid": "TreasureMap17",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #03 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8C2",
+    "edid": "TreasureMap19",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #04 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8C4",
+    "edid": "TreasureMap20",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #05 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8C6",
+    "edid": "TreasureMap21",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #06 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8C7",
+    "edid": "TreasureMap22",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #07 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8C8",
+    "edid": "TreasureMap23",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #08 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8CA",
+    "edid": "TreasureMap24",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #09 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8CC",
+    "edid": "TreasureMap25",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #10 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8D4",
+    "edid": "TreasureMap29",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Toxic Valley Treasure Map #01 Teammate Reward",
+    "region": "Toxic Valley",
+    "form_id": "0051B8B1",
+    "edid": "TreasureMap10",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Toxic Valley Treasure Map #02 Teammate Reward",
+    "region": "Toxic Valley",
+    "form_id": "0051B8B8",
+    "edid": "TreasureMap13",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Toxic Valley Treasure Map #03 Teammate Reward",
+    "region": "Toxic Valley",
+    "form_id": "0051B8BC",
+    "edid": "TreasureMap16",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Toxic Valley Treasure Map #04 Teammate Reward",
+    "region": "Toxic Valley",
+    "form_id": "0051B8C1",
+    "edid": "TreasureMap18",
+    "rate": 0.408333,
+    "rate_display": "40.83%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.408333,
+      "rate_display": "40.83%"
      }
     ]
    },

@@ -57,11 +57,29 @@ INCLUDE_RE = re.compile(
 # put a route players cannot take on every one of those pages. Checked Sep 2026.
 
 # Other source families — these own their own expands, never route them here.
+#
+#   mystery_?machine : the Mystery Machines are CAMP resource generators. Their
+#     season pools read event-like (SCORE_S23_LL_ChemMysteryMachine_Uncommon
+#     matches both `score_s\d` and `seasonal`), but §9k routes `MysteryMachine`
+#     to Resource Generators, which already renders them as producer cards.
+#   treasure_?map    : the Treasure Maps expand (§9l) owns every dig-reward pool
+#     and states the chance per dig per MAP. Listing LL_TreasureMap_Reward here
+#     as well just duplicated that number under a meaningless name.
 EXCLUDE_RE = re.compile(
     r"(lld_creature|lls_creature|lle_creature|_creature|creature_|vendor|collectron|"
-    r"slowroaster|morbidwell|cultistwell|atx_resource|resources?_|container_|dispenser)",
+    r"slowroaster|morbidwell|cultistwell|atx_resource|resources?_|container_|dispenser|"
+    r"mystery_?machine|treasure_?map)",
     re.I,
 )
+
+# A pool nested under a VENDOR list is that vendor's stock, not an event payout —
+# the Vendors expand (§9j) already names the merchant. Only the vendor family gets
+# this ancestor test: event loot reached via containers/creatures/aliases DURING an
+# event is a deliberate catch of the keyword pass, so those families must not be
+# walked up. Example: NWOT_LL_Del_Consumable's only parents are NWOT_Del_VendorChest
+# and NWOT_LL_Vendor_Del — Del is a Nuka-World on Tour merchant, and he already
+# appears in Vendors, so the "Del Consumable" event row was a straight duplicate.
+VENDOR_ANCESTOR_RE = re.compile(r"vendor", re.I)
 
 # Leading quest/event ID token to strip for a friendlier display name.
 _ID_PREFIX_RE = re.compile(
@@ -146,6 +164,118 @@ def load_reward_registry(tsv_root=None):
     return reg
 
 
+# ── orphan reward pools (script-invoked, no owning event) ────────────────────
+_REFCOUNT_CACHE = {}
+
+
+def load_ref_counts(tsv_root=None):
+    """{LVLI FormID -> ReferencedByCount} from the LVLI_Refs export.
+
+    Used to spot a reward pool that NOTHING in the game data references — no
+    parent list, no container, no activator, no quest. Such a pool is invoked
+    from a script, so there is no event or activity name to put against it, and
+    a row reading "Rewards General Aid Items" tells the reader nothing.
+
+    The Refs export is ~6,900 columns wide (one RefN per referencing record), so
+    read ONLY the two columns needed — reading it whole OOMs a local build.
+    """
+    if tsv_root is None:
+        here = os.path.dirname(os.path.abspath(__file__))
+        tsv_root = os.path.join(os.path.dirname(os.path.dirname(here)), "tsv")
+    if tsv_root in _REFCOUNT_CACHE:
+        return _REFCOUNT_CACHE[tsv_root]
+
+    counts = {}
+    path = _newest(["LVLI_Export_*_LVLI_Refs.tsv"], tsv_root)
+    if path:
+        try:
+            import rng76
+            for row in rng76.read_tsv_columns(path, ("LVLI_FormID", "ReferencedByCount")):
+                fid = (row.get("LVLI_FormID") or "").strip().upper()
+                if not fid:
+                    continue
+                try:
+                    counts[fid] = int((row.get("ReferencedByCount") or "0").strip() or 0)
+                except ValueError:
+                    counts[fid] = 0
+        except Exception:
+            counts = {}          # export missing/unreadable -> drop nothing
+    _REFCOUNT_CACHE[tsv_root] = counts
+    return counts
+
+
+def is_orphan_pool(list_id, edid, ref_counts, in_registry):
+    """True when a candidate has no owning event and should not be listed.
+
+    Self-healing by design: the ONLY thing that keeps a pool out is that nothing
+    references it AND no quest hands it out. The moment Bethesda nests it under
+    an event list, hangs it on a container/activator, or wires it to a QUEST/GMRW
+    reward, refcount or registry membership flips and the row comes back on every
+    item page automatically — with the real event name attached. Never add a
+    FormID or EDID to a block list to achieve this.
+    """
+    if in_registry:
+        return False
+    if not ref_counts:                  # no Refs export -> can't tell, keep it
+        return False
+    fid = (list_id or "").strip().upper()
+    if fid not in ref_counts:           # not in the export -> can't tell, keep it
+        return False
+    return ref_counts[fid] <= 0
+
+
+# ── quest name by EDID prefix ────────────────────────────────────────────────
+_QPREFIX_CACHE = {}
+# Quest-ID shaped leading token: FF12, MQ04, E01, D03a, W05, BS02, TW01, MTNM03 …
+_QUEST_ID_TOKEN_RE = re.compile(
+    r"^(?:ff|mq|sq|e0|d0|w0|bs|bo|sr|tw|cb|v9|p|mtn[mr]?|mtr|mile|nwot|sdow)\d+[a-z]?$",
+    re.I,
+)
+
+
+def load_quest_prefix_index(tsv_root=None):
+    """{leading EDID token -> (quest FULL name, Quest Type)} from the QUEST export.
+
+    Many reward lists carry their quest's ID as the first EDID token but are never
+    wired to a GMRW, so the registry misses them and prettify_event_name() emits
+    something useless: FF12_LL_QuestReward_Event_Basic became "Quest Reward Event
+    Basic", when FF12 is FF12_Bell — "The Bell Tolls". Only tokens that look like a
+    quest ID are indexed, and only when exactly ONE named quest claims the token,
+    so an ambiguous prefix resolves to nothing rather than to the wrong quest.
+    """
+    if tsv_root is None:
+        here = os.path.dirname(os.path.abspath(__file__))
+        tsv_root = os.path.join(os.path.dirname(os.path.dirname(here)), "tsv")
+    if tsv_root in _QPREFIX_CACHE:
+        return _QPREFIX_CACHE[tsv_root]
+
+    by_token = {}
+    qpath = _newest(["QUEST_Export_*.tsv"], tsv_root)
+    if qpath:
+        with open(qpath, encoding="utf-8", errors="replace") as f:
+            for row in csv.DictReader(f, delimiter="\t"):
+                edid = (row.get("EDID") or "").strip()
+                name = (row.get("FULL - Name") or "").strip()
+                if not (edid and name) or "_" not in edid:
+                    continue
+                token = edid.split("_", 1)[0]
+                if not _QUEST_ID_TOKEN_RE.match(token):
+                    continue
+                by_token.setdefault(token.upper(), set()).add(
+                    (name, (row.get("Quest Type") or "").strip()))
+    # Ambiguous tokens (two differently-named quests) resolve to nothing.
+    index = {t: next(iter(v)) for t, v in by_token.items() if len(v) == 1}
+    _QPREFIX_CACHE[tsv_root] = index
+    return index
+
+
+def quest_by_prefix(edid, index):
+    """(name, type) for a reward list whose EDID leads with a quest ID, else None."""
+    if not (edid and index and "_" in edid):
+        return None
+    return index.get(edid.split("_", 1)[0].upper())
+
+
 # ── name / type helpers ──────────────────────────────────────────────────────
 def _event_type(edid: str) -> str:
     e = (edid or "").lower()
@@ -210,6 +340,8 @@ def detect(closure, parent_edid, c2p=None, tsv_root=None, registry=None):
     """
     if registry is None:
         registry = load_reward_registry(tsv_root)
+    ref_counts = load_ref_counts(tsv_root)
+    qprefix = load_quest_prefix_index(tsv_root)
 
     cand = {}
     for lv in closure:
@@ -217,13 +349,26 @@ def detect(closure, parent_edid, c2p=None, tsv_root=None, registry=None):
         if EXCLUDE_RE.search(ed):
             continue
         in_registry = lv in registry
-        if in_registry or (ed and INCLUDE_RE.search(ed)):
-            cand[lv] = (ed, in_registry)
+        if not (in_registry or (ed and INCLUDE_RE.search(ed))):
+            continue
+        cand[lv] = (ed, in_registry)
 
     candset = set(cand)
     roots = candset
     if c2p:
         roots = {lv for lv in candset if not (_ancestors(lv, c2p) & (candset - {lv}))}
+        # Vendor stock, not an event payout — the Vendors expand names the merchant.
+        roots = {lv for lv in roots
+                 if not any(VENDOR_ANCESTOR_RE.search(parent_edid.get(a, "") or "")
+                            for a in _ancestors(lv, c2p))}
+
+    # A ROOT with no owning event at all — nothing references it and no quest hands
+    # it out. Filtered here rather than during candidate selection on purpose: drop
+    # it earlier and its children stop being collapsed, so the equally nameless
+    # sub-pool is promoted in its place (RA_LL_Rewards_General_AidItems giving way
+    # to RA_LL_Rewards_General_AidItems_Rare). Removing the root drops the branch.
+    roots = {lv for lv in roots
+             if not is_orphan_pool(lv, cand[lv][0], ref_counts, cand[lv][1])}
 
     out = []
     for lv in roots:
@@ -233,7 +378,16 @@ def detect(closure, parent_edid, c2p=None, tsv_root=None, registry=None):
             name = qname or prettify_event_name(ed)
             typ = qtype or _event_type(ed)
         else:
-            name, typ = prettify_event_name(ed), _event_type(ed)
+            # Not wired to a GMRW, but the EDID may still lead with its quest's ID.
+            hit = quest_by_prefix(ed, qprefix)
+            if hit:
+                qname, qtype = hit
+                name = qname
+                # "Miscellaneous" is the export's catch-all and reads as noise in
+                # the Type column — fall back to the EDID's own signal instead.
+                typ = qtype if qtype and qtype.lower() != "miscellaneous" else _event_type(ed)
+            else:
+                name, typ = prettify_event_name(ed), _event_type(ed)
         out.append({"list_id": lv, "edid": ed, "name": name, "type": typ})
     return sorted(out, key=lambda r: (r["name"].lower(), r["list_id"]))
 

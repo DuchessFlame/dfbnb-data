@@ -940,15 +940,29 @@ class HarvestProduce:
 
 
 def _patch_events_activities(doc: Dict[str, Any], rates: Optional["VendorRates"],
-                             targets: set) -> None:
-    """Fill in per-source drop rates for the Events & Activities expand.
+                             targets: set, closure_lists: Any = None,
+                             tables: Any = None) -> None:
+    """Re-detect, then rate, the Events & Activities expand.
 
-    The engine (spawns_engine.events) already put the raw event/activity reward
-    lists into doc['events_activities'] as {list_id, edid, name, type}. Here we
-    resolve each list's per-roll appearance chance for the item with rng76 (never
-    typed), add the rate fields + a blurb, and sort by chance (desc). Left as-is
-    when rng76 is unavailable, so a build without the engine still renders (rate
-    just shows blank)."""
+    The spawn build (spawns_engine.events.detect) is what first fills
+    doc['events_activities'] with {list_id, edid, name, type}. That build needs
+    the Mappalachia DB to resolve placements, so it can't be re-run just to pick
+    up a routing or naming change — which is why detection is repeated here from
+    the SAME engine call whenever the closure is available. detect() is a pure
+    function of the closure, so both paths always agree; this one simply makes a
+    DB-free `build_farming_used_for.py` rebuild enough to correct the table.
+
+    Then each list's per-roll appearance chance is resolved with rng76 (never
+    typed), rate fields + a blurb are added, and rows sort by chance (desc). Left
+    as-is when rng76 is unavailable, so a build without the engine still renders
+    (rate just shows blank).
+    """
+    if closure_lists and tables is not None:
+        parent_edid = (tables.get("parent_edid") or {}) if hasattr(tables, "get") else {}
+        c2p = (tables.get("c2p") or {}) if hasattr(tables, "get") else None
+        if parent_edid:
+            doc["events_activities"] = _events_engine.detect(
+                closure_lists, parent_edid, c2p=c2p)
     evs = doc.get("events_activities")
     if not (rates and isinstance(evs, list) and evs):
         return
@@ -1411,7 +1425,8 @@ def inject(slug: str, used_for: Dict[str, Any], cfg: Dict[str, Any], dist_dir: s
                     object_pairs_hook=collections.OrderedDict)
     extra_ids = [b.get("formid") for b in (cfg.get("extra_world_bases") or []) if b.get("formid")]
     _patch_drop_rates(doc, rates, _target_fids(cfg), harvest=harvest, extra_base_ids=extra_ids)
-    _patch_events_activities(doc, rates, _target_fids(cfg))
+    _patch_events_activities(doc, rates, _target_fids(cfg),
+                             closure_lists=closure_lists, tables=tables)
     _patch_camp_producers(doc, _target_fids(cfg), dist_dir)
     _patch_treasure_maps(doc, rates, _target_fids(cfg), dist_dir)
     # Containers expand → container-type → rng76 rate (runs AFTER _patch_drop_rates

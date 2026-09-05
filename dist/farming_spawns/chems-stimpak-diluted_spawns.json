@@ -581,6 +581,44 @@
   },
   "creatures": {
    "note": "Around 9,632 creatures can drop Stimpak: Diluted as generic loot; they are not listed individually. See the Containers expand for the per-container drop rates and How to Obtain for the crafting recipe."
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Communist Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Communist",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "4 min 48 sec",
+     "items": [
+      {
+       "name": "Stimpak: Diluted",
+       "form_id": "003078C2",
+       "rate": 0.033333,
+       "rate_display": "3.33%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Ashforge",
+     "edid": "AshResource",
+     "obtain": "Available in the base game.",
+     "interval": "3 min",
+     "items": [
+      {
+       "name": "Stimpak: Diluted",
+       "form_id": "003078C2",
+       "rate": 0.003261,
+       "rate_display": "0.33%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
   }
  },
  "farming_tips": {
@@ -1166,18 +1204,6 @@
  "random_encounters_intro": null,
  "events_activities": [
   {
-   "list_id": "006820F7",
-   "edid": "NWOT_LL_Del_Consumable",
-   "name": "Del Consumable",
-   "type": "Seasonal / Public Event",
-   "note": "Chance the item is in the Del Consumable reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
    "list_id": "007965E2",
    "edid": "RD01_LL_Raids_Rewards_Enc02",
    "name": "Drill Complex Module",
@@ -1286,18 +1312,6 @@
    ]
   },
   {
-   "list_id": "00519A29",
-   "edid": "zzzFFZ03_LL_QuestReward",
-   "name": "Zzz FFZ03 Quest Reward",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Zzz FFZ03 Quest Reward reward pool per event/activity payout.",
-   "rate_value": 0.784,
-   "rate_display": "78.4%",
-   "rate_lines": [
-    "78.4%"
-   ]
-  },
-  {
    "list_id": "005B2FF6",
    "edid": "LLS_DailyOps_Stimpak",
    "name": "Daily Ops Stimpak",
@@ -1331,30 +1345,6 @@
    "rate_display": "43.54%",
    "rate_lines": [
     "43.54%"
-   ]
-  },
-  {
-   "list_id": "00519A2F",
-   "edid": "FFZ10_LL_QuestReward_Event",
-   "name": "Quest Reward Event",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Quest Reward Event reward pool per event/activity payout.",
-   "rate_value": 0.4,
-   "rate_display": "40%",
-   "rate_lines": [
-    "40%"
-   ]
-  },
-  {
-   "list_id": "00519A2B",
-   "edid": "zzzFFZ04_LL_QuestReward",
-   "name": "Zzz FFZ04 Quest Reward",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Zzz FFZ04 Quest Reward reward pool per event/activity payout.",
-   "rate_value": 0.4,
-   "rate_display": "40%",
-   "rate_lines": [
-    "40%"
    ]
   },
   {
@@ -1874,18 +1864,6 @@
    ]
   },
   {
-   "list_id": "00853D3D",
-   "edid": "SCORE_S23_LL_ChemMysteryMachine_Common",
-   "name": "SCORE S23 Chem Mystery Machine Common",
-   "type": "Seasonal / Public Event",
-   "note": "Chance the item is in the SCORE S23 Chem Mystery Machine Common reward pool per event/activity payout.",
-   "rate_value": 0.2,
-   "rate_display": "20%",
-   "rate_lines": [
-    "20%"
-   ]
-  },
-  {
    "list_id": "00478940",
    "edid": "QuestReward_LLS_Aid_Workshop",
    "name": "Event: Defend <Alias=AttackLocation>",
@@ -2018,23 +1996,11 @@
    ]
   },
   {
-   "list_id": "0086A8BF",
-   "edid": "RA_LL_Rewards_General_Ammo",
-   "name": "Rewards General Ammo",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the Rewards General Ammo reward pool per event/activity payout.",
-   "rate_value": 0.043478,
-   "rate_display": "4.35%",
-   "rate_lines": [
-    "4.35%"
-   ]
-  },
-  {
    "list_id": "0035D0C7",
    "edid": "FF12_LL_QuestReward_Event_Basic",
-   "name": "Quest Reward Event Basic",
+   "name": "The Bell Tolls",
    "type": "Quest Reward",
-   "note": "Chance the item is in the Quest Reward Event Basic reward pool per event/activity payout.",
+   "note": "Chance the item is in the The Bell Tolls reward pool per event/activity payout.",
    "rate_value": 0.009142,
    "rate_display": "0.91%",
    "rate_lines": [

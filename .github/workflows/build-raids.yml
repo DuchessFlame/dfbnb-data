@@ -1,5 +1,13 @@
 name: Build Raids Data
 
+# Gleaming Depths All Rewards — dist/raids/raids_rewards.json.
+#
+# This used to chain drop-rates -> events -> raids, because the old builder read
+# dist/events/events_rewards.json. It no longer does: build_raids_json.py walks
+# the RD01_LL_Raids_Rewards_Enc0N leveled lists straight out of tsv/ with rng76,
+# so the only inputs are the TSV exports and dist/legendary_mods.json (for the
+# legendary-shard effect text). One job, no cross-workflow dependency.
+
 on:
   workflow_dispatch:
 
@@ -7,9 +15,8 @@ on:
     paths:
       - 'tsv/**'
       - 'src/build_raids_json.py'
-      - 'src/events_page_pools.py'
-      - 'src/build_events_rewards_json.py'
-      - 'src/build_drop_rates.py'
+      - 'src/rng76.py'
+      - 'dist/legendary_mods.json'
 
 permissions:
   contents: write
@@ -19,60 +26,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Step 1: Build shared drop rates first
-  drop-rates:
-    uses: ./.github/workflows/build-drop-rates.yml
-
-  # Step 2: Build events rewards (rewards depends on events_rewards.json)
-  events:
-    needs: drop-rates
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-          ref: main
-
-      - name: Pull latest (includes drop_rates.json)
-        run: git pull origin main
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.11"
-
-      - name: Build Events Rewards JSON
-        run: |
-          python -V
-          python src/build_events_rewards_json.py
-
-      - name: Commit events dist
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          git add dist/events/events_rewards.json dist/events/events_rewards_by_page.json dist/patchlogs/patchlog_latest_df_events.json
-          # by_page_slices.py prunes retired slices; -A stages the deletions too,
-          # otherwise the prune runs on the runner and is thrown away.
-          git add -A dist/events/by_page
-
-          if git diff --cached --quiet; then
-            echo "No events changes to commit."
-            exit 0
-          fi
-
-          git commit -m "Build Events Rewards JSON"
-
-          git fetch origin main
-          git pull --rebase origin main
-          git push origin main
-
-  # Step 3: Build Raids using shared JSON + events_rewards.json
   build:
-    needs: events
     runs-on: ubuntu-latest
 
     steps:
@@ -82,7 +36,7 @@ jobs:
           fetch-depth: 0
           ref: main
 
-      - name: Pull latest (includes drop_rates.json + events_rewards.json)
+      - name: Pull latest
         run: git pull origin main
 
       - name: Set up Python
@@ -90,12 +44,12 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Verify dependencies exist
+      - name: Verify inputs exist
         run: |
-          echo "--- drop_rates.json ---"
-          ls -la dist/drop_rates.json || echo "NOT FOUND"
-          echo "--- events_rewards.json ---"
-          ls -la dist/events/events_rewards.json || echo "NOT FOUND"
+          echo "--- newest LVLI entries export ---"
+          ls -la tsv/LVLI_Export_*_LVLI_Entries.tsv | tail -1 || echo "NOT FOUND"
+          echo "--- legendary_mods.json (shard effect text) ---"
+          ls -la dist/legendary_mods.json || echo "NOT FOUND (shards will show no effect text)"
 
       - name: Build Raids Data
         run: |
