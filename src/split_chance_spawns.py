@@ -34,6 +34,7 @@ if HERE not in sys.path:
     sys.path.insert(0, HERE)
 
 from spawns_engine import sources as esources
+from spawns_engine import build as ebuild
 
 
 # ── the dedication test ──────────────────────────────────────────────────────
@@ -59,17 +60,78 @@ def dedicated_refs(item_records, tbls, dedication_seeds=None):
     return ok
 
 
+def chance_points(item_records, tbls, ok_refs, geo_cache, all_regions):
+    """{region: {marker: [ref, ...]}} for every placed REFR that is NOT a fixed spawn.
+
+    Derived from the SOURCE data (LVLI closure + geo cache), not from whatever is
+    currently sitting in the doc — so this rebuilds correctly no matter how many
+    times it runs, and repairs a doc whose points were already moved by an earlier
+    version of this script."""
+    seeds = {str(r["formid"]).upper() for r in item_records}
+    closure = esources._closure(seeds, tbls["c2p"])
+    refs = set()
+    for lv in closure:
+        for rf, _edid, rsig in tbls["lvli_refs"].get(lv, ()):
+            if rsig == "REFR":
+                refs.add(int(rf, 16))
+
+    regions = set(all_regions or ())
+    out = defaultdict(dict)
+    for inst in refs:
+        if inst in ok_refs:
+            continue                       # a genuine fixed spawn — belongs above
+        e = geo_cache.get(str(inst))
+        if not e:
+            continue                       # never resolved to a place
+        region, marker = e.get("region", ""), e.get("marker", "")
+        if not region or not marker or (regions and region not in regions):
+            continue
+        out[region].setdefault(marker, []).append(f"{inst:06X}")
+    return out
+
+
+def chance_block(moved, order, doc):
+    """The `chance_spawns` payload: regions A-Z as the doc orders them, markers A-Z,
+    each carrying its refs so the per-item region tile can be drawn from them."""
+    for reg in moved:
+        if reg not in order:
+            order.append(reg)
+    regions_out = []
+    for reg in order:
+        markers = moved.get(reg)
+        if not markers:
+            continue
+        regions_out.append({
+            "region": reg,
+            "markers": [{"name": m, "placements": len(markers[m]),
+                         "refs": sorted(set(markers[m]))}
+                        for m in sorted(markers, key=lambda m: m.lower())],
+            "placements": sum(len(v) for v in markers.values()),
+        })
+    return {
+        "regions": regions_out,
+        "total_markers": sum(len(r["markers"]) for r in regions_out),
+        "total": sum(r["placements"] for r in regions_out),
+        # per-ITEM map folder; the region tile filename is appended by the renderer
+        "map_base": ebuild.image_base(doc, doc.get("set") or "", doc.get("name") or ""),
+    }
+
+
 # ── the split ────────────────────────────────────────────────────────────────
-def split(doc, ok_refs, drop_nests=False):
-    """Move non-dedicated `direct` placements out of `regions` into `chance_spawns`.
-    Returns the number of placements changed (0 = nothing to fix).
+def split(doc, ok_refs, drop_nests=False, moved=None):
+    """Strip non-fixed placements from `regions`, then (re)build `chance_spawns`.
+    Returns the number of doc changes (0 = already correct).
+
+    `moved` is the source-derived {region: {marker: [refs]}} from chance_points(); when
+    given it REPLACES chance_spawns outright, so the block is rebuilt from the game
+    data every run rather than accumulated from whatever the doc happened to hold.
 
     `drop_nests` removes `nest` placements as well, for a page that never declared a
     nest as its source (spawns_engine.classify.make_farming_classify). There a
     Deathclaw Nest is an ordinary container, so it belongs in Containers with its
     rng76 rate — the same treatment chem_loot_collapse gives every other container.
     The Containers row appears after the next build_farming_used_for.py --all."""
-    moved = defaultdict(Counter)
+    stripped = defaultdict(dict)   # region -> marker -> [ref, ...]
     n_moved = 0
     n_nest = 0
 
@@ -89,7 +151,9 @@ def split(doc, ok_refs, drop_nests=False):
                     except ValueError:
                         is_fixed = True
                     if not is_fixed:
-                        moved[region.get("region", "")][loc.get("marker", "")] += 1
+                        # keep the ref — the per-item region tile is drawn from it
+                        stripped[region.get("region", "")].setdefault(
+                            loc.get("marker", ""), []).append(ref)
                         n_moved += 1
                         continue
                 kept.append(s)
@@ -105,7 +169,18 @@ def split(doc, ok_refs, drop_nests=False):
             kept_locs.append(loc)
         region["locations"] = kept_locs
 
-    if not n_moved and not n_nest:
+    # Region order follows the doc's own `regions` list (already the canonical
+    # ALL_REGIONS order); markers are A-Z inside each region.
+    order = [r.get("region", "") for r in doc.get("regions", []) or []]
+    source = moved if moved is not None else stripped
+    block = chance_block(dict(source), order, doc) if source else None
+
+    changed = n_moved + n_nest
+    if block and block != doc.get("chance_spawns"):
+        doc["chance_spawns"] = block
+        changed = changed or 1
+
+    if not changed:
         return 0
 
     doc["total"] = sum(l.get("count", 0) for r in doc.get("regions", []) or []
@@ -117,30 +192,7 @@ def split(doc, ok_refs, drop_nests=False):
             for l in r.get("locations", []) or []:
                 totals.update(l.get("sources") or {})
         meta["source_totals"] = dict(sorted(totals.items()))
-
-    # Region order follows the doc's own `regions` list (already the canonical
-    # ALL_REGIONS order); markers are A-Z inside each region.
-    order = [r.get("region", "") for r in doc.get("regions", []) or []]
-    for reg in moved:
-        if reg not in order:
-            order.append(reg)
-    if n_moved:
-        regions_out = []
-        for reg in order:
-            markers = moved.get(reg)
-            if not markers:
-                continue
-            regions_out.append({
-                "region": reg,
-                "markers": sorted(markers, key=lambda m: m.lower()),
-                "placements": sum(markers.values()),
-            })
-        doc["chance_spawns"] = {
-            "regions": regions_out,
-            "total_markers": sum(len(r["markers"]) for r in regions_out),
-            "total": n_moved,
-        }
-    return n_moved + n_nest
+    return changed
 
 
 # ── per-family seed resolution ───────────────────────────────────────────────
@@ -184,16 +236,46 @@ def _collectable_targets(module):
         return None, None
 
 
+# ── geo caches (where the chance points' coords/markers live) ────────────────
+REPO = os.path.dirname(HERE)
+_GEO_CACHE = {}
+
+
+def geo_cache(path):
+    if path not in _GEO_CACHE:
+        try:
+            _GEO_CACHE[path] = json.load(open(path, encoding="utf-8"))
+        except Exception:
+            _GEO_CACHE[path] = {}
+    return _GEO_CACHE[path]
+
+
+def farming_geo(slug):
+    return geo_cache(os.path.join(REPO, "data", "farming_spawns",
+                                  f"geo_cache_{slug.replace('-', '_')}.json"))
+
+
+def drinks_geo():
+    return geo_cache(os.path.join(REPO, "data", "nuka_cola_spawns", "geo_cache.json"))
+
+
 # ── driver ───────────────────────────────────────────────────────────────────
-def _apply(path, item_records, tbls, log, dedication_seeds=None, drop_nests=False):
+def _apply(path, item_records, tbls, log, dedication_seeds=None, drop_nests=False,
+           geo=None):
     try:
         doc = json.load(open(path, encoding="utf-8"))
     except Exception:
         return 0
-    n = split(doc, dedicated_refs(item_records, tbls, dedication_seeds), drop_nests)
+    ok = dedicated_refs(item_records, tbls, dedication_seeds)
+    moved = None
+    if geo:
+        all_regions = [r.get("region", "") for r in doc.get("regions", []) or []]
+        moved = chance_points(item_records, tbls, ok, geo, all_regions)
+    n = split(doc, ok, drop_nests, moved)
     if n:
         json.dump(doc, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
-        log.append((os.path.basename(path), n, doc["total"]))
+        cs = (doc.get("chance_spawns") or {}).get("total", 0)
+        log.append((os.path.basename(path), cs, doc["total"]))
     return n
 
 
@@ -208,12 +290,15 @@ def run(dist_dir="dist"):
         for fn in sorted(os.listdir(root)):
             if fn.endswith("_spawns.json") and fn in targets:
                 recs, drop_nests = targets[fn]
-                _apply(os.path.join(root, fn), recs, tbls, log, None, drop_nests)
+                slug = fn[:-len("_spawns.json")]
+                _apply(os.path.join(root, fn), recs, tbls, log, None, drop_nests,
+                       farming_geo(slug))
 
     drinks = sorted(glob.glob(os.path.join(dist_dir, "nuka_cola_spawns_*.json")))
     if drinks:
+        dgeo = drinks_geo()
         for fn, recs in _drink_targets(drinks).items():
-            _apply(os.path.join(dist_dir, fn), recs, tbls, log)
+            _apply(os.path.join(dist_dir, fn), recs, tbls, log, None, False, dgeo)
 
     for module, sub in (("bobbleheads", "bobblehead_spawns"),
                         ("magazines", "magazine_spawns")):
@@ -230,7 +315,7 @@ def run(dist_dir="dist"):
     if log:
         print("[split_chance_spawns] moved shared-loot-pool points out of Fixed Spawn:")
         for fn, n, total in log:
-            print(f"  {fn:<46} -{n:>5} chance  ->  {total:>5} fixed")
+            print(f"  {fn:<46} {n:>5} chance  |  {total:>5} fixed")
     print(f"[split_chance_spawns] {len(log)} docs changed (dist={dist_dir})")
 
 

@@ -14,7 +14,7 @@ Each item FAMILY (drinks, farming/eggs) supplies its own thin driver
 helpers, then assembles its exact output doc. The heavy lifting lives here once.
 """
 
-import os, json
+import os, json, re
 from collections import defaultdict
 
 SQL_CHUNK = 900  # stay under SQLite's 999-variable limit
@@ -141,6 +141,51 @@ def resolve_placements(src, geo, cur, cache, db_ok):
 # ── region / marker grouping ─────────────────────────────────────────────────
 CHANCE_TYPES = ("chance",)     # shared-loot-pool points -> Chance to Spawn Locations
 
+# The Chance to Spawn map is PER ITEM, per region — a shared blank region tile would
+# be useless, because it would have to carry every farming page's points at once.
+# Files follow the site's established spawn-photo convention:
+#   /wp-content/uploads/guide-images/<category>/<item>/<region-slug>-chance-map.avif
+UPLOADS = "/wp-content/uploads/guide-images/"
+_IMAGE_BASE_RE = re.compile(r"(/wp-content/uploads/guide-images/[^/\"']+/[^/\"']+/)")
+
+# slug prefix / membership -> category folder. Same families the guide folders use.
+_EGG_SLUGS = {"deathclaw-egg", "frog-egg", "mirelurk-egg", "mothman-egg",
+              "radscorpion-egg", "radtoad-egg"}
+
+
+def region_slug(name):
+    """'Ash Heap' -> 'ash-heap'. The filename half of a region map."""
+    return re.sub(r"-+$", "", re.sub(r"[^a-z0-9]+", "-",
+                                     str(name or "").lower()).lstrip("-"))
+
+
+def image_base(doc, slug, name="", category=None):
+    """The item's guide-images folder, as a site-absolute path ending in '/'.
+
+    Rule 1 (authoritative): if the doc already carries a hand-authored spawn photo
+    under guide-images/<cat>/<item>/, reuse THAT folder. The live site is the truth —
+    e.g. deathclaw-egg's folder is `deathclaw-eggs`, plural, which no slug rule would
+    have guessed.
+    Rule 2: derive it — category from the slug family, item folder from the display
+    name. Only used for items that have no photos on the page yet.
+    """
+    blob = json.dumps(doc) if isinstance(doc, (dict, list)) else str(doc or "")
+    m = _IMAGE_BASE_RE.search(blob)
+    if m:
+        return m.group(1)
+
+    if category is None:
+        if slug.startswith("chems-"):
+            category = "farming-chems"
+        elif slug in _EGG_SLUGS:
+            category = "farming-eggs"
+        elif slug.startswith("nuka") or slug in ("sunset-sarsaparilla", "nukashine"):
+            category = "farming-nuka-cola"
+        else:
+            category = "farming-non-perishable"
+    item = region_slug(name) or region_slug(slug)
+    return f"{UPLOADS}{category}/{item}/" if item else ""
+
 
 def group_regions(seen, all_regions, keep, exclude_types=CHANCE_TYPES):
     """Group resolved placements into the per-region location lists. Returns
@@ -225,19 +270,25 @@ def group_chance(seen, all_regions, chance_types=CHANCE_TYPES):
     """Build the `chance_spawns` block: the world points whose leveled list is a
     SHARED loot pool, so the item is only one of several things that can appear.
 
-    Deliberately NAMES ONLY. These points are far too numerous and too low-odds to
-    photograph or map individually (Addictol alone has 306 of them), so the expand
-    lists marker names A-Z inside each region A-Z and links out to a per-region map
-    the reader can zoom. No coords, no refs, no photo slots — that is what makes
-    Fixed Spawn Locations worth reading.
+    Deliberately NAMES ONLY on the page. These points are far too numerous and too
+    low-odds to photograph individually (Addictol alone has 307 of them), so the
+    expand lists marker names A-Z inside each region A-Z and links out to that
+    ITEM's map for that region. No photo slots — that is what makes Fixed Spawn
+    Locations worth reading.
+
+    Each marker still carries its `refs`, because the map is per ITEM: a shared blank
+    region tile would be useless (it would have to carry every farming page's points
+    at once). `render_spawn_maps.py` resolves these refs through the geo cache to draw
+    `03 Region Tiles/<RegionSlug>_<slug>_chance.jpg`. Refs are data for the map
+    builder, never rendered on the page.
     """
     types = set(chance_types or ())
-    by_region = defaultdict(lambda: defaultdict(int))
+    by_region = defaultdict(lambda: defaultdict(list))
     total = 0
-    for _inst, (_x, _y, region, marker, stype) in seen.items():
+    for inst, (_x, _y, region, marker, stype) in seen.items():
         if stype not in types or region not in all_regions or not marker:
             continue
-        by_region[region][marker] += 1
+        by_region[region][marker].append(f"{int(inst):06X}")
         total += 1
 
     regions_out = []
@@ -247,8 +298,10 @@ def group_chance(seen, all_regions, chance_types=CHANCE_TYPES):
             continue
         regions_out.append({
             "region": region,
-            "markers": sorted(markers, key=lambda m: m.lower()),
-            "placements": sum(markers.values()),
+            "markers": [{"name": m, "placements": len(markers[m]),
+                         "refs": sorted(set(markers[m]))}
+                        for m in sorted(markers, key=lambda m: m.lower())],
+            "placements": sum(len(v) for v in markers.values()),
         })
     return {"regions": regions_out,
             "total_markers": sum(len(r["markers"]) for r in regions_out),

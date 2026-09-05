@@ -1,0 +1,26 @@
+{
+  "etdi_by_name": {
+    "Amm-O-Matic (.308)": "ATX_CAMP_Collector_AmmOMatic.dds",
+    "Amm-O-Matic (.44)": "ATX_CAMP_Collector_AmmOMatic.dds",
+    "Amm-O-Matic (.45)": "ATX_CAMP_Collector_AmmOMatic.dds",
+    "Amm-O-Matic (10mm)": "ATX_CAMP_Collector_AmmOMatic.dds",
+    "Amm-O-Matic (5.56)": "ATX_CAMP_Collector_AmmOMatic.dds",
+    "Amm-O-Matic (Shotgun Shells)": "ATX_CAMP_Collector_AmmOMatic.dds",
+    "Brewing Vat": "SCORE_S18_CAMP_Collector_BrewingVat.dds",
+    "Budding Apothecary": "ATX_CAMP_Collector_BuddingApothecary.dds",
+    "Cookie Jar": "ATX_CAMP_Collector_CookieJar.dds",
+    "Enclave Water Collector": "SCORE_S19_CAMP_Collector_EnclaveWaterCooler.dds",
+    "Jumpy Juice Company Tea Machine": "ATX_CAMP_Collector_JumpyJuiceCompanyTeaMachine.dds",
+    "Live Bait Barrel": "ATX_CAMP_Collector_LiveBaitBarrel.dds",
+    "Morbid Well Collector": "ATX_CAMP_Utility_Collector_MorbidWell.dds",
+    "Raider Fish Trap": "SCORE_S23_CAMP_Collector_RaidFishTrap.dds",
+    "The Nodding Donkey": "ATX_CAMP_Collector_TheNoddingDonkey.dds"
+  },
+  "etdi_by_name_notes": {
+    "why": "These producers' ENTM rows carry no ETDI, so image_webp_url() can derive no tile stem and the item rendered with no art even though the texture exists in .CAMP Items. Keyed by displayName because that is the only stable handle these rows share with the on-disk tiles.",
+    "naming": "Value is the ETDI-style .dds name. The builder lowercases it, drops the extension and appends '_l' when absent, so 'ATX_CAMP_Collector_CookieJar.dds' resolves to atx_camp_collector_cookiejar_l.avif.",
+    "amm-o-matic": "All six calibre rows are sub-rows of one physical station and deliberately share its single tile.",
+    "unresolved": "Altar of Bones, Birthday Cake, Brahmin Milk Machine, Nuka Victory Couch, Popcorn Machine, Slime Cake, Tea Wizard and Vault-Tec Gelatin Cake have an ETDI but no tile in .CAMP Items — art gap, not a wiring gap. Do not add them here."
+  },
+  "_note": "Hand-maintained tables for the resource-producers CAMP page. Edit here rather than src/build_camp_items_json.py; loaded by src/camp_config.py."
+}

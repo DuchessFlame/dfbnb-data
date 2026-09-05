@@ -26,8 +26,14 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
+import os
 import sys
 from pathlib import Path
+
+# _C1 / _C2 / _C3 immediately before the extension — a carousel frame, never a
+# main tile. See the camp-item-expands skill, "Item Image".
+CAROUSEL_FRAME = re.compile(r"_c\d+\.(?:avif|webp|png|jpg|jpeg)$", re.IGNORECASE)
 
 # ---------------------------------------------------------------------------
 # Per-page contract
@@ -116,6 +122,27 @@ def check_file(dist: Path, name: str, spec: dict) -> list[str]:
             problems.append(
                 f"{name}: {len(missing)}/{len(items)} items missing required '{field}' ({shown})"
             )
+
+    # --- the main image must be the single-item transparent tile ---------------
+    # The image at the top of an item expand (and the row thumbnail) is what the
+    # reader identifies the item by, so it has to be the item cut out on a
+    # transparent background — the ETDI texture. Carousel frames are _C1/_C2/_C3
+    # scene shots of the thing placed in a CAMP: fine further down the expand,
+    # useless at 40px. This check exists because several builders used to take
+    # carousel[0] as the main image whenever ECIL happened to be populated,
+    # which silently turned whole pages into thumbnails of shacks.
+    frames = [
+        (it.get("formId") or it.get("edid") or "?", it["imageUrl"])
+        for it in items
+        if isinstance(it.get("imageUrl"), str) and CAROUSEL_FRAME.search(it["imageUrl"])
+    ]
+    if frames:
+        shown = ", ".join(f"{fid} -> {os.path.basename(u)}" for fid, u in frames[:4])
+        problems.append(
+            f"{name}: {len(frames)}/{len(items)} items use a carousel frame as their "
+            f"main image instead of the single-item tile ({shown}"
+            f"{' …' if len(frames) > 4 else ''})"
+        )
 
     for field, floor in spec.get("coverage", {}).items():
         have = sum(1 for it in items if it.get(field))
