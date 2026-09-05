@@ -386,6 +386,14 @@ TRADEABLE_OVERRIDES = _CFG["tradeable_overrides"]
 # ENTM matches the FULL-name auto-lookup can't resolve (shared or differing names)
 ENTM_OVERRIDES = _CFG["entm_overrides"]
 
+# The season that actually awards the item, when the EDID disagrees. A bonus
+# rewards page re-offers items built for an earlier season, so SCORE_Sxx_ in
+# the EDID is the asset's origin season and not always the granting one.
+# Overriding here fixes seasonNumber, the How to Obtain line and the Scoreboard
+# route together, because all three derive from this number. imageUrl is NOT
+# affected - it resolves from the EDID, which is correct as-is.
+SEASON_OVERRIDES = {k: int(v) for k, v in _CFG.get("season_overrides", {}).items()}
+
 # Custom Output text for non-SPECIAL, non-instrument, non-rested items
 BUFF_TEXT = {
     "0089ADB0": "Accuracy Boost: +25% V.A.T.S. Accuracy for 2 hours.",
@@ -716,7 +724,7 @@ for fid in sorted(discovered):
                or ((entm["FULL"] or "").strip() if entm else "")
                or furn_edid or fid)
     desc = clean_desc(entm["DESC"]) if entm else ""
-    season = season_from_edid(furn_edid, entm["EDID"] if entm else "")
+    season = SEASON_OVERRIDES.get(fid, season_from_edid(furn_edid, entm["EDID"] if entm else ""))
 
     premium = "Premium" in ((entm and entm["XALG_Flags"]) or "") or \
               "Premium" in ((fr and fr.get("XALG_Flags")) or "")
