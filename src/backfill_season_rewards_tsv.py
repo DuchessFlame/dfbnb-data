@@ -215,11 +215,11 @@ def resolve_utility(item: dict) -> tuple[str, str]:
         return tally, UTILITY_ROOT + fname
 
     if _BOOST_RE.search(norm(raw)):
-        # Tier is encoded in the entitlement (…_Account_ScoreBoost_1/_2/_3); the art
-        # is shared across seasons, so point every season at the S24 files that exist.
-        m = re.search(r"scoreboost_(\d)", (item.get("storefrontEntitlement") or "").lower())
-        tier = m.group(1) if m else "1"
-        return "score_booster", f"{UTILITY_ROOT}score_s24_account_scoreboost_{tier}.avif"
+        # The entitlement encodes a tier (…_Account_ScoreBoost_1/_2/_3) but all
+        # three are the SAME texture (utility/score_account_scoreboost.dds) and
+        # only _1 was ever uploaded. Ignore the tier - one texture, one file.
+        # See asset_paths.py, which enforces the same rule at render time.
+        return "score_booster", f"{UTILITY_ROOT}score_s24_account_scoreboost_1.avif"
 
     return "", ""
 

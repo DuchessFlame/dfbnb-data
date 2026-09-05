@@ -14,6 +14,10 @@ season-{N}:
     player icons                             -> /guide-images/atom-shop/player-icons/
     everything unique to one season          -> /season_images/season-{N}/
 
+Art shared by several rewards is stored once too. The S.C.O.R.E. Boost is the
+worked example: 5%, 10% and the second 10% are one texture, so all three route
+to utility/score_s24_account_scoreboost_1.avif on every season page.
+
 This is the Python twin of dfbnbAssetUrl() in the four renderers
 (df-bnb-titles.js, df-bnb-seasons.js, df-bnb-calculators.js,
 df-bnb-upcoming-rewards.js). The two MUST agree. If you change the rule, change
@@ -54,6 +58,14 @@ _WEBP_RE = re.compile(r"\.webp$", re.IGNORECASE)
 # others (SCORE_S4_). Every upload is unpadded, so normalise once, here.
 _PAD_RE = re.compile(r"^(score_s)0+(\d)", re.IGNORECASE)
 _SEASON_RE = re.compile(r"^score_s0*(\d+)_", re.IGNORECASE)
+# Every S.C.O.R.E. Boost tier - 5%, 10%, 10% again - is the SAME in-game
+# texture (textures/atx/storefront/utility/score_account_scoreboost.dds). It was
+# exported under three names, only _1 was ever uploaded, and the data files
+# scattered the rest across three folders, so the 10% rows 404'd on almost every
+# season. One texture, one file: collapse the tier and force the shared folder.
+_BOOST_RE = re.compile(r"account_scoreboost", re.IGNORECASE)
+_BOOST_TIER_RE = re.compile(r"(_account_scoreboost)_\d+", re.IGNORECASE)
+BOOST_FILE = "score_s24_account_scoreboost_1.avif"
 
 
 def asset_url(url: str) -> str:
@@ -68,6 +80,12 @@ def asset_url(url: str) -> str:
 
     file = _PAD_RE.sub(r"\1\2", u.rsplit("/", 1)[-1])
     name = file.lower()
+
+    # One texture for all three boost tiers - see _BOOST_RE above. Checked
+    # before the folder rules because the older data files put the same art
+    # under season_images/, season-24/ and utility/.
+    if _BOOST_RE.search(name):
+        return SHARED["utility"] + _BOOST_TIER_RE.sub(r"\1_1", file)
 
     if "/utility/" in u:
         return SHARED["utility"] + file
@@ -122,6 +140,18 @@ CASES = [
      "/wp-content/uploads/guide-images/atom-shop/request-item-images/ATX_Camp_Display_Mannequin_Male_Clean.avif"),
     ("/wp-content/uploads/storefront/titles-player/ATX_PlayerTitles_Prefix_Contessa.avif",
      "/wp-content/uploads/guide-images/titles/titles-player/ATX_PlayerTitles_Prefix_Contessa.avif"),
+    # All three S.C.O.R.E. Boost tiers collapse to the one uploaded file,
+    # whichever folder or tier the data row happens to carry.
+    ("/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_1.webp",
+     "/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_1.avif"),
+    ("/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_2.avif",
+     "/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_1.avif"),
+    ("/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_3.avif",
+     "/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_1.avif"),
+    ("/wp-content/uploads/season_images/season-24/score_s24_account_scoreboost_3.avif",
+     "/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_1.avif"),
+    ("/wp-content/uploads/season_images/score_s24_account_scoreboost_1.webp",
+     "/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_1.avif"),
     ("", ""),
 ]
 

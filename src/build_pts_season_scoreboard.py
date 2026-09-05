@@ -84,10 +84,14 @@ CATEGORY_RULES = [
     ("CAMP_WallDecor_",             "camp_walldecor",  18),
 ]
 
+# All three S.C.O.R.E. Boost tiers are ONE in-game texture
+# (utility/score_account_scoreboost.dds) and one uploaded file. See asset_paths.py.
+_BOOST_IMAGE = "/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_1.avif"
+
 UTILITY_IMAGES = {
-    "Account_ScoreBoost_1": "/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_1.avif",
-    "Account_ScoreBoost_2": "/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_2.avif",
-    "Account_ScoreBoost_3": "/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_2.avif",
+    "Account_ScoreBoost_1": _BOOST_IMAGE,
+    "Account_ScoreBoost_2": _BOOST_IMAGE,
+    "Account_ScoreBoost_3": _BOOST_IMAGE,
 }
 
 NOTES = {
