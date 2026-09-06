@@ -1,8 +1,197 @@
 {
-  "generatedAt": "2026-09-06T06:17:13+00:00",
+  "generatedAt": "2026-09-06T08:06:07+00:00",
   "type": "resource_producers",
-  "count": 106,
+  "count": 108,
   "items": [
+    {
+      "formId": "008F84F5",
+      "edid": "ATX_ENTM_CAMP_Collector_AbandonedNest",
+      "resoFormId": "008F84FB",
+      "contFormId": "",
+      "entmFormId": "008F84F5",
+      "displayName": "Abandoned Nest",
+      "description": "Even an abandoned nest can still serve a purpose. Generates various scraps with chance at a Deathclaw Egg.",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/resource-producers/atx_camp_collector_abandonednest_l.avif",
+      "imageCarousel": [
+        "/wp-content/uploads/guide-images/camp-items/resource-producers/atx_camp_collector_abandonednest_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/resource-producers/atx_camp_collector_abandonednest_c2.avif"
+      ],
+      "imageDds": "ATX_CAMP_Collector_AbandonedNest.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
+      "isCollectron": false,
+      "production": {
+        "intervalHours": 0.17,
+        "intervalDisplay": "10 min 12 sec",
+        "resourceName": "",
+        "resourceEdid": "ATX_ResourceAV_AbandonedNest_resource",
+        "drops": [
+          {
+            "item": "DeathclawEgg",
+            "name": "Deathclaw Egg",
+            "formId": "00046939",
+            "chance": 60.0
+          },
+          {
+            "item": "c_Acid_scrap",
+            "name": "Waste Acid",
+            "formId": "001BF72D",
+            "chance": 0.0
+          },
+          {
+            "item": "c_Antiseptic_scrap",
+            "name": "Waste Antiseptic",
+            "formId": "001BF72F",
+            "chance": 0.0
+          },
+          {
+            "item": "c_Bone_scrap",
+            "name": "Bone Shards",
+            "formId": "000AEC5D",
+            "chance": 0.0
+          },
+          {
+            "item": "c_Leather_scrap",
+            "name": "Raw Leather",
+            "formId": "000AEC64",
+            "chance": 0.0
+          }
+        ],
+        "modes": [
+          {
+            "name": "Default",
+            "resoFormId": "008F84FB",
+            "lvliFormId": "008F84FA",
+            "resourceName": "",
+            "drops": [
+              {
+                "item": "DeathclawEgg",
+                "name": "Deathclaw Egg",
+                "formId": "00046939",
+                "chance": 60.0
+              },
+              {
+                "item": "c_Acid_scrap",
+                "name": "Waste Acid",
+                "formId": "001BF72D",
+                "chance": 0.0
+              },
+              {
+                "item": "c_Antiseptic_scrap",
+                "name": "Waste Antiseptic",
+                "formId": "001BF72F",
+                "chance": 0.0
+              },
+              {
+                "item": "c_Bone_scrap",
+                "name": "Bone Shards",
+                "formId": "000AEC5D",
+                "chance": 0.0
+              },
+              {
+                "item": "c_Leather_scrap",
+                "name": "Raw Leather",
+                "formId": "000AEC64",
+                "chance": 0.0
+              }
+            ]
+          }
+        ]
+      },
+      "station": {
+        "capacity": null,
+        "powerRequired": false,
+        "flamingoUnits": null,
+        "lockable": null
+      },
+      "crafting": {
+        "components": []
+      },
+      "craftingRequirements": [],
+      "howToObtain": {
+        "method": "atom",
+        "seasonNumber": null,
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Purchase from the Atom Shop.",
+        "badge": "atom"
+      },
+      "obtainRoutes": [
+        {
+          "route": "Caps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Stamps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Scoreboard",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Gold Bullion",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Atom Shop",
+          "populated": true,
+          "lines": [
+            "Purchase from the Atom Shop."
+          ],
+          "tradeable": null,
+          "dropRate": "N/A"
+        },
+        {
+          "route": "Limited Time Bundle",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Events & Activities",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Quests",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Challenges",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        }
+      ],
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: —",
+      "seasonNumber": null,
+      "releaseDate": "2026-09-06",
+      "cutContent": false,
+      "status": "live",
+      "subcategory": "food",
+      "bucket": "Scrap & Crafting Materials"
+    },
     {
       "formId": "000897E9",
       "edid": "AdhesiveResource",
@@ -8471,6 +8660,133 @@
       "status": "live",
       "subcategory": "other",
       "bucket": "Purified Water"
+    },
+    {
+      "formId": "008FAE0F",
+      "edid": "ATX_ENTM_CAMP_Collector_FeastSideTable",
+      "resoFormId": "008FAE16",
+      "contFormId": "",
+      "entmFormId": "008FAE0F",
+      "displayName": "Feast Side Table",
+      "description": "",
+      "imageUrl": "/wp-content/uploads/guide-images/camp-items/resource-producers/atx_camp_collector_feastsidetable_l.avif",
+      "imageCarousel": [
+        "/wp-content/uploads/guide-images/camp-items/resource-producers/atx_camp_collector_feastsidetable_c1.avif",
+        "/wp-content/uploads/guide-images/camp-items/resource-producers/atx_camp_collector_feastsidetable_c2.avif"
+      ],
+      "imageDds": "ATX_CAMP_Collector_FeastSideTable.dds",
+      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
+      "isCollectron": false,
+      "production": {
+        "intervalHours": 0.17,
+        "intervalDisplay": "10 min 12 sec",
+        "resourceName": "",
+        "resourceEdid": "ATX_ResourceAV_FeastSideTable_resource",
+        "drops": [],
+        "modes": [
+          {
+            "name": "Default",
+            "resoFormId": "008FAE16",
+            "lvliFormId": "008FAE14",
+            "resourceName": "",
+            "drops": []
+          }
+        ]
+      },
+      "station": {
+        "capacity": null,
+        "powerRequired": false,
+        "flamingoUnits": null,
+        "lockable": null
+      },
+      "crafting": {
+        "components": []
+      },
+      "craftingRequirements": [],
+      "howToObtain": {
+        "method": "atom",
+        "seasonNumber": null,
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Purchase from the Atom Shop.",
+        "badge": "atom"
+      },
+      "obtainRoutes": [
+        {
+          "route": "Caps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Stamps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Scoreboard",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Gold Bullion",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Atom Shop",
+          "populated": true,
+          "lines": [
+            "Purchase from the Atom Shop."
+          ],
+          "tradeable": null,
+          "dropRate": "N/A"
+        },
+        {
+          "route": "Limited Time Bundle",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Events & Activities",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Quests",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Challenges",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        }
+      ],
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: —",
+      "seasonNumber": null,
+      "releaseDate": "2026-09-06",
+      "cutContent": false,
+      "status": "live",
+      "subcategory": "other",
+      "bucket": "Misc Junk"
     },
     {
       "formId": "003C4E10",

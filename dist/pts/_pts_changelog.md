@@ -1687,7 +1687,11 @@ _Couldn't key this file to records; contents differ._
 **Changed (1)**
 - ATX_ENTM_CAMP_Utility_RepairBot_EmergencyTech  `ATX_ENTM_CAMP_Utility_RepairBot_EmergencyTech` — fields: imageCarousel, imageUrl
 
-## `resource_producers.json`  ·  +0 / -0 / ~95
+## `resource_producers.json`  ·  +2 / -0 / ~95
+
+**Added (2)**
+- ATX_ENTM_CAMP_Collector_AbandonedNest  `ATX_ENTM_CAMP_Collector_AbandonedNest`
+- ATX_ENTM_CAMP_Collector_FeastSideTable  `ATX_ENTM_CAMP_Collector_FeastSideTable`
 
 **Changed (95)**
 - ATX_DirtyWaterResource  `ATX_DirtyWaterResource` — fields: releaseDate
@@ -1834,7 +1838,7 @@ _Couldn't key this file to records; contents differ._
 ## `unique_weapons/unique_weapons.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `unique_weapons_armour/unique_weapons_armour.json`  ·  +6 / -4 / ~57
+## `unique_weapons_armour/unique_weapons_armour.json`  ·  +6 / -4 / ~55
 
 **Added (6)**
 - Zeta's Revenge  `alienblaster-2`
@@ -1850,7 +1854,7 @@ _Couldn't key this file to records; contents differ._
 - Brotherhood Recon Rifle  `huntingrifle-3`
 - Storm Cutter  `stormcutter-2`
 
-**Changed (57)**
+**Changed (55)**
 - Old Guard  `10mmsmg` — fields: howToObtain, name, sourceType, starEffects
 - Perfect Storm  `10mmsmg-2` — fields: howToObtain, inCurrentExport, name, questName, sourceRef, sourceType, starEffects
 - Anchorage Ace  `10mmsmg-3` — fields: craftable, howToObtain, name, planName, questName, sourceRef, sourceType, starEffects, tradeable
@@ -1890,8 +1894,8 @@ _Couldn't key this file to records; contents differ._
 - Vault 63 Laser Rifle  `lasergun-3` — fields: starEffects
 - Crushing Blow  `m79` — fields: inCurrentExport
 - Foundations Vengeance  `minigun` — fields: inherentEffect, starEffects
-- Cultist Piercer  `pickaxe` — fields: edid
-- …and 17 more
+- Abraxo Gun  `plasmagun` — fields: inherentEffect, starEffects
+- …and 15 more
 
 ## `vendors.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
