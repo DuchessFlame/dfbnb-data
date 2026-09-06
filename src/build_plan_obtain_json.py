@@ -34,6 +34,24 @@ with the plan's rng76-resolved appearance chance for that source. Distinct
 rates are listed separately, identical rates dedupe, 0% is dropped, sorted by
 rate desc. Buckets: container / vendor / creature / event-quest / fixed.
 
+BACKPACK: MOD vs SKIN vs FLAIR
+------------------------------
+Every backpack plan is an OMOD recipe, so the backpack-mod bucket used to hold
+functional mods, paint skins and cosmetic flair together. `backpack_class`
+splits them on the created OMOD's EDID (`_Effect_` / `_Material_` / `_Flair`),
+falling back to the plan name for the few with no CNAM link. Only class "mod"
+is published — /df/plan-checklists/backpack-mod/ is a mod checklist, not a
+cosmetics list. Skins and flair are dropped from the roster and counted in the
+report under "backpack_cosmetic_dropped".
+
+OUTPUT & EFFECTS (what the mod actually does)
+---------------------------------------------
+For any plan whose created object is an OMOD, `resolve_effects` walks
+OMOD properties -> ENCH -> MGEF (or the PERK that MGEF applies) for the
+readable line, and Actor Values / Damage Type Values -> CURV points for the
+level-scaled numbers ("+15 at Lv 1 -> +90 at Lv 50"). Nothing is hand-written;
+a mod with no resolvable properties gets no effects block rather than a guess.
+
 FLAGS (Technical)
 -----------------
 tradeable          : BOOK KYWDs. NonPlayerTradable or NonDroppable -> False,
@@ -204,6 +222,256 @@ def resolve_stops_dropping(entries):
         return True
     return False
 
+
+# ── backpack: mod vs skin vs flair ───────────────────────────────────────────
+# The backpack-mod bucket used to be a dumping ground. Functional mods, paint
+# skins and cosmetic flair all landed in it because every one of them is an
+# OMOD recipe, so classify_plan() could not tell them apart. The distinction is
+# carried by the created OMOD's own EDID:
+#     mod_BackPack_Effect_*      -> functional MOD  (changes how the pack works)
+#     mod_BackPack_*_Material_*  -> SKIN / paint    (appearance only)
+#     mod_BackPack_*_Flair*      -> cosmetic FLAIR
+# A handful of plans carry no COBJ -> CNAM link at all. For those the plan's own
+# FULL name is reliable: Bethesda suffixes the functional ones " Mod" and the
+# cosmetic ones " Flair" ("Plan: Scrap Rat Backpack Mod" vs "Plan: Black Cloth
+# Backpack"). Only class "mod" is published to /plan-checklists/backpack-mod/.
+_BP_FLAIR    = re.compile(r"_flair|\bflair\b", re.I)
+_BP_EFFECT   = re.compile(r"_effect_", re.I)
+_BP_MATERIAL = re.compile(r"_material_", re.I)
+
+def backpack_class(cnam_edid, cobj_edid, name):
+    """Return 'mod' | 'skin' | 'flair' for a backpack-mod bucket plan."""
+    blob = f"{cnam_edid or ''} {cobj_edid or ''}"
+    if _BP_FLAIR.search(blob) or _BP_FLAIR.search(name or ""):
+        return "flair"
+    if _BP_EFFECT.search(blob):
+        return "mod"
+    if _BP_MATERIAL.search(blob):
+        return "skin"
+    return "mod" if re.search(r"\bmod\s*$", (name or "").strip(), re.I) else "skin"
+
+
+# ── Output & Effects ─────────────────────────────────────────────────────────
+# For a plan that creates an OMOD, resolve what the mod actually DOES, in plain
+# English plus the real numbers — never a hand-written blurb.
+#
+#   OMOD properties (OMOD_Export_*_Properties.tsv)
+#     ├─ "Enchantments"       -> ENCH -> MGEF DNAM description  ─┐ the readable
+#     │                                  (empty DNAM -> the PERK  │ summary line
+#     │                                   that MGEF applies)     ─┘
+#     ├─ "Actor Values"       -> AVIF name  + CurveTable ─┐ level-scaled numbers
+#     ├─ "Damage Type Value"  -> DMGT -> resistance name  ┘ (CURV points 1..50)
+#     └─ "Keywords"           -> internal plumbing, dropped
+#
+# Nothing here is backpack-specific: any plan whose created object is an OMOD
+# gets an effects block, so armour/weapon mod plans pick it up for free.
+
+_DMGT_LABEL = {
+    "dtphysical":          "Damage Resistance",
+    "dtenergy":            "Energy Resistance",
+    "dtradiationexposure": "Radiation Resistance",
+    "dtradiation":         "Radiation Resistance",
+    "dtpoison":            "Poison Resistance",
+    "dtcryo":              "Cryo Resistance",
+    "dtfire":              "Fire Resistance",
+}
+_QUOTED  = re.compile(r'"+([^"]+)"+')
+_FID_TAG = re.compile(r"\[[A-Za-z_]{4}:([0-9A-Fa-f]{8})\]")
+_MAG_TOK = re.compile(r"<\s*mag\s*>", re.I)
+_SKIP_MGEF = re.compile(r"^zzz|emptyeffect", re.I)
+
+def _first_quoted(s):
+    m = _QUOTED.search(s or "")
+    return m.group(1).strip() if m else ""
+
+def _first_fid(s):
+    m = _FID_TAG.search(s or "")
+    return m.group(1).upper() if m else ""
+
+def _num(v):
+    """Trim a float to the shortest honest form and sign it: 30.0 -> '+30'."""
+    try:
+        f = float(v)
+    except (TypeError, ValueError):
+        return str(v or "")
+    s = f"{f:.2f}".rstrip("0").rstrip(".")
+    if s in ("", "-"):
+        s = "0"
+    return s if s.startswith("-") else ("+" + s)
+
+# CURV: EDID -> [(level, value), ...] ascending. The final point is a
+# level-1000 sentinel that only repeats the cap, so it is dropped for display.
+def build_curve_index():
+    f = newest("CURV_Export_*_POINTS.tsv")
+    out = collections.defaultdict(list)
+    if not f:
+        return {}
+    for row in read_rows(f):
+        eid = (row.get("EDID") or "").strip()
+        if not eid:
+            continue
+        try:
+            out[eid.lower()].append((float(row.get("X") or 0), float(row.get("Y") or 0)))
+        except ValueError:
+            continue
+    for k in out:
+        out[k] = sorted(p for p in out[k] if p[0] <= 100)
+    return dict(out)
+
+def _curve_display(curve_idx, curve_field):
+    """'+15 at Lv 1 -> +90 at Lv 50' for a level-scaled property, or None."""
+    eid = (curve_field or "").split("[")[0].strip()
+    pts = curve_idx.get(eid.lower())
+    if not pts:
+        return None
+    lo, hi = pts[0], pts[-1]
+    if lo[1] == hi[1]:
+        return _num(lo[1])
+    return f"{_num(lo[1])} at Lv {int(lo[0])} → {_num(hi[1])} at Lv {int(hi[0])}"
+
+# ENCH: FormID -> {edid, full, effects[{mgef, mag, curv}]}
+def build_ench_index():
+    f = newest("ENCH_Export_*.tsv")
+    out = {}
+    if not f:
+        return out
+    for row in read_rows(f):
+        fid = (row.get("ENCH_FormID") or "").strip().upper()
+        if not fid:
+            continue
+        effs = []
+        for i in range(1, 9):
+            mg = (row.get(f"Effect_{i}_MGEF_FID") or "").strip()
+            if not mg:
+                continue
+            effs.append({
+                "mgef": mg.split(":")[0].strip().upper(),
+                "mag":  (row.get(f"Effect_{i}_Magnitude") or "").strip(),
+                "curv": (row.get(f"Effect_{i}_CURV_EID") or "").strip(),
+            })
+        out[fid] = {"edid": (row.get("ENCH_EDID") or "").strip(),
+                    "full": (row.get("ENCH_FULL") or "").strip(),
+                    "effects": effs}
+    return out
+
+# MGEF: FormID -> {edid, full, desc}
+def build_mgef_index():
+    f = newest("MGEF_Export_*.tsv")
+    out = {}
+    if not f:
+        return out
+    for row in read_rows(f):
+        fid = (row.get("MGEF_FormID") or "").strip().upper()
+        if fid:
+            out[fid] = {"edid": (row.get("EDID") or "").strip(),
+                        "full": (row.get("FULL") or "").strip(),
+                        "desc": (row.get("DNAM_MagicItemDescription") or "").strip()}
+    return out
+
+# PERK: MGEF FormID -> perk DESC. Several backpack mods carry an empty MGEF
+# description because the real text lives on the perk the effect applies
+# (ScrapRat -> "-90% Scrap Weight"). The PERK's ReferencedBy list points back at
+# that MGEF, so index the reverse direction once.
+def build_perk_desc_by_mgef():
+    f = newest("PERK_Export_*.tsv")
+    out = {}
+    if not f:
+        return out
+    for row in read_rows(f):
+        desc = (row.get("DESC") or "").strip()
+        if not desc:
+            continue
+        for j in range(1, 41):
+            v = (row.get(f"Ref_{j}") or "").strip()
+            if v.upper().endswith(":MGEF"):
+                out.setdefault(v.split(":")[0].strip().upper(), desc)
+    return out
+
+def _apply_magnitude(text, mag):
+    """Substitute <mag> in an MGEF description.
+
+    Bethesda stores some magnitudes as a fraction and some as whole percent:
+    Refrigerated is 0.5 against the template '-<mag>% Food Spoilage Rate' (i.e.
+    50%), while Pillager is 90.0 against '-<mag>% Chem Weight'. A fraction next
+    to a '%' is therefore scaled; anything else is printed as stored.
+    """
+    if not text or not _MAG_TOK.search(text):
+        return text
+    try:
+        f = float(mag)
+    except (TypeError, ValueError):
+        return _MAG_TOK.sub("", text).strip()
+    if 0 < abs(f) <= 1 and "%" in text:
+        f *= 100
+    s = f"{f:.2f}".rstrip("0").rstrip(".") or "0"
+    return _MAG_TOK.sub(s, text)
+
+def resolve_effects(omod_fid, prop_idx, ench_idx, mgef_idx, perk_idx, curve_idx):
+    """Return the Output & Effects block for an OMOD, or None if it has none."""
+    props = prop_idx.get((omod_fid or "").upper()) or []
+    if not props:
+        return None
+
+    summary, rows, seen = [], [], set()
+    for p in props:
+        pname = (p.get("PropertyName") or "").strip()
+        v1    = p.get("Value1") or ""
+        v2    = p.get("Value2") or ""
+        curve = p.get("CurveTable") or ""
+
+        if pname == "Keywords":
+            continue                       # internal plumbing, never shown
+
+        if pname == "Enchantments":
+            ench = ench_idx.get(_first_fid(v1))
+            if not ench:
+                continue
+            for eff in ench["effects"]:
+                mg = mgef_idx.get(eff["mgef"])
+                if not mg or _SKIP_MGEF.search(mg["edid"]):
+                    continue
+                text = mg["desc"] or perk_idx.get(eff["mgef"], "") or mg["full"]
+                text = _apply_magnitude(text, eff["mag"])
+                if text and text not in summary:
+                    summary.append(text)
+            continue
+
+        if pname == "Damage Type Value":
+            key   = (v1.split()[0] if v1.split() else "").lower()
+            label = _DMGT_LABEL.get(key) or _first_quoted(v1) or key.title()
+        elif pname == "Actor Values":
+            label = _first_quoted(v1) or (v1.split()[0] if v1.split() else "Value")
+        else:
+            continue
+
+        value = _curve_display(curve_idx, curve)
+        if value is None:
+            value = _num(v2)
+            if value in ("+0", "0"):
+                continue                   # no curve and no flat value -> nothing to say
+        k = (label, value)
+        if k in seen:
+            continue
+        seen.add(k)
+        rows.append({"label": label, "value": value,
+                     "curve": (curve.split("[")[0].strip() or None)})
+
+    if not summary and not rows:
+        return None
+    return {"summary": " · ".join(summary), "rows": rows[:10]}
+
+# OMOD properties: FormID -> [property rows]
+def build_omod_prop_index():
+    f = newest("OMOD_Export_*_Properties.tsv")
+    out = collections.defaultdict(list)
+    if not f:
+        return {}
+    for row in read_rows(f):
+        fid = (row.get("OMOD_FormID") or "").strip().upper()
+        if fid:
+            out[fid].append(row)
+    return dict(out)
+
 # ── route resolution (container-type -> drop%, generalised) ──────────────────
 def humanize(edid):
     s = re.sub(r"^(LL[ESV]?_|LLD_|LL_|co_|Recipe_|recipe_)", "", edid or "")
@@ -329,6 +597,15 @@ def main(argv=None):
     SIG_INDEX = build_sig_index()
     cobj_idx  = build_cobj_index()
     book_ent  = build_book_entry_index()
+    # Output & Effects inputs. Cheap table loads — no rng76 involved.
+    prop_idx  = build_omod_prop_index()
+    ench_idx  = build_ench_index()
+    mgef_idx  = build_mgef_index()
+    perk_idx  = build_perk_desc_by_mgef()
+    curve_idx = build_curve_index()
+    print(f"[plan-obtain] effects tables: {len(prop_idx)} OMOD props, "
+          f"{len(ench_idx)} ENCH, {len(mgef_idx)} MGEF, {len(perk_idx)} perk-desc, "
+          f"{len(curve_idx)} curves")
     tables = rates = cont_names = None
     if not args.no_routes:
         tables    = ssrc.load_tables(TSV)
@@ -361,7 +638,8 @@ def main(argv=None):
     print(f"[plan-obtain] building {len(roster)} plans ...")
 
     items = []
-    unresolved = {"created_object": [], "tradeable": [], "stops_dropping": [], "no_routes": []}
+    unresolved = {"created_object": [], "tradeable": [], "stops_dropping": [],
+                  "no_routes": [], "backpack_cosmetic_dropped": [], "no_effects": []}
     for i, row in enumerate(roster):
         fid  = (row.get("FormID") or "").strip().upper()
         edid = (row.get("EDID") or "").strip()
@@ -391,6 +669,23 @@ def main(argv=None):
         if not cnam_sig and not (cobj or {}).get("edid"):
             unresolved["created_object"].append(name)
 
+        # Backpack bucket: publish the functional mods only. Skins and flair are
+        # dropped here, before any rng76 route work is spent on them.
+        bp_class = None
+        if cat == "backpack-mod":
+            bp_class = backpack_class(cnam_edid, (cobj or {}).get("edid"), name)
+            if bp_class != "mod":
+                unresolved["backpack_cosmetic_dropped"].append(f"{name} [{bp_class}]")
+                continue
+
+        # Output & Effects — only a created OMOD can have any.
+        effects = None
+        if cnam_sig == "OMOD" and cnam_fid:
+            effects = resolve_effects(cnam_fid, prop_idx, ench_idx, mgef_idx,
+                                      perk_idx, curve_idx)
+            if effects is None:
+                unresolved["no_effects"].append(name)
+
         tradeable = resolve_tradeable(kwblob)
         if tradeable is None: unresolved["tradeable"].append(name)
         stops = resolve_stops_dropping(entries)
@@ -416,8 +711,11 @@ def main(argv=None):
             "cobj": ({"formid": co_fid, "edid": cobj["edid"]} if cobj else None),
             "cnam": ({"formid": cnam_fid, "edid": cnam_edid, "sig": cnam_sig} if cnam_fid else None),
             "tradeable": tradeable, "stops_dropping": stops,
+            "effects": effects,
             "cut": False,
         }
+        if bp_class:
+            item["backpack_class"] = bp_class
         items.append(item)
         if (i+1) % 250 == 0:
             print(f"   ... {i+1}/{len(roster)}")
@@ -440,6 +738,8 @@ def main(argv=None):
     print("  image box :", dict(Counter(it["has_image_box"] for it in items)))
     print("  tradeable :", dict(Counter(it["tradeable"] for it in items)))
     print("  stops_drop:", dict(Counter(it["stops_dropping"] for it in items)))
+    print("  effects   :", sum(1 for it in items if it.get("effects")), "of", len(items))
+    print("  backpack cosmetics dropped:", len(unresolved["backpack_cosmetic_dropped"]))
     print("  UNRESOLVED created_object:", len(unresolved["created_object"]),
           "| tradeable:", len(unresolved["tradeable"]),
           "| stops_dropping:", len(unresolved["stops_dropping"]),
