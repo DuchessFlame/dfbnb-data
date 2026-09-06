@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-09-04",
+  "generated": "2026-09-06",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -12,6 +12,7 @@
   ],
   "source_totals": {
    "ambush": 4,
+   "placement": 4,
    "spawn": 7
   },
   "unresolved": {}
@@ -547,11 +548,89 @@
    },
    {
     "region": "Forest",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Organ Cave South",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "553E75"
+      ],
+      "coords": [
+       -118213.8,
+       85660.2
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn",
+        "ref": "553E75",
+        "source_type": "placement",
+        "coords": [
+         -118213.8,
+         85660.2
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "Savage Divide",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Enclave Research Facility",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5DD486"
+      ],
+      "coords": [
+       -3067.5,
+       2999.8
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn",
+        "ref": "5DD486",
+        "source_type": "placement",
+        "coords": [
+         -3067.5,
+         2999.8
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "Skyline Valley",
@@ -562,15 +641,18 @@
     "locations": [
      {
       "marker": "Dyer Chemical",
-      "count": 1,
+      "count": 3,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 2
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "45025A"
+       "45025A",
+       "45025B",
+       "45025C"
       ],
       "coords": [
        175293.5,
@@ -588,6 +670,30 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #1",
+        "ref": "45025B",
+        "source_type": "placement",
+        "coords": [
+         175647.0,
+         71376.2
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "45025C",
+        "source_type": "placement",
+        "coords": [
+         175811.9,
+         71424.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -595,6 +701,11 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
        }
       ]
      },
@@ -795,8 +906,8 @@
     "locations": []
    }
   ],
-  "total_markers": 3,
-  "total_placements": 11
+  "total_markers": 5,
+  "total_placements": 15
  },
  "chance_spawns": {
   "locations": [
@@ -961,16 +1072,6 @@
     "count": 6
    },
    {
-    "marker": "Dyer Chemical",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Gulper"
-    ],
-    "count": 2
-   },
-   {
     "marker": "Eastern Regional Penitentiary",
     "region": "Toxic Valley",
     "chance_value": 0.1538,
@@ -989,16 +1090,6 @@
      "Gulper"
     ],
     "count": 4
-   },
-   {
-    "marker": "Enclave Research Facility",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Gulper"
-    ],
-    "count": 1
    },
    {
     "marker": "Firebase Major",
@@ -1149,16 +1240,6 @@
      "Gulper"
     ],
     "count": 3
-   },
-   {
-    "marker": "Organ Cave South",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Gulper"
-    ],
-    "count": 1
    },
    {
     "marker": "Overgrown Sundew Grove",
@@ -1401,8 +1482,8 @@
     "count": 4
    }
   ],
-  "total": 60,
+  "total": 57,
   "note": null
  },
- "blurb": "The Gulper in Fallout 76 — drops Gulper Innards, 20 NPC variants, 11 known spawn points."
+ "blurb": "The Gulper in Fallout 76 — drops Gulper Innards, 20 NPC variants, 15 known spawn points."
 }

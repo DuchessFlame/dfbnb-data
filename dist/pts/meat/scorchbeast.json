@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-09-04",
+  "generated": "2026-09-06",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -9,7 +9,8 @@
   ],
   "source_totals": {
    "ambush": 30,
-   "nest": 9
+   "nest": 9,
+   "placement": 2
   },
   "unresolved": {}
  },
@@ -1089,14 +1090,17 @@
      },
      {
       "marker": "Glassed Cavern",
-      "count": 1,
+      "count": 3,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 2
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "3534DE",
+       "43A919",
        "491473"
       ],
       "coords": [
@@ -1115,6 +1119,30 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Scorchbeast spawn #1",
+        "ref": "3534DE",
+        "source_type": "placement",
+        "coords": [
+         -8321.4,
+         4948.3
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Scorchbeast spawn #2",
+        "ref": "43A919",
+        "source_type": "placement",
+        "coords": [
+         201657.8,
+         -161232.8
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -1122,6 +1150,11 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
        }
       ]
      },
@@ -1983,23 +2016,12 @@
    }
   ],
   "total_markers": 27,
-  "total_placements": 39
+  "total_placements": 41
  },
  "chance_spawns": {
-  "locations": [
-   {
-    "marker": "Glassed Cavern",
-    "region": "Cranberry Bog",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Scorchbeast"
-    ],
-    "count": 2
-   }
-  ],
-  "total": 1,
+  "locations": [],
+  "total": 0,
   "note": null
  },
- "blurb": "The Scorchbeast in Fallout 76 — drops Scorchbeast Brain, Scorchbeast Heart, Scorchbeast Liver, Scorchbeast Lung, Scorchbeast Meat, 12 NPC variants, 39 known spawn points."
+ "blurb": "The Scorchbeast in Fallout 76 — drops Scorchbeast Brain, Scorchbeast Heart, Scorchbeast Liver, Scorchbeast Lung, Scorchbeast Meat, 12 NPC variants, 41 known spawn points."
 }

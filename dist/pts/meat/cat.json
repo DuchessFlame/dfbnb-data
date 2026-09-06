@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-09-04",
+  "generated": "2026-09-06",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -14,7 +14,7 @@
    }
   ],
   "source_totals": {
-   "placement": 12
+   "placement": 18
   },
   "unresolved": {}
  },
@@ -301,6 +301,83 @@
     "region": "Savage Divide",
     "locations": [
      {
+      "marker": "Beckwith Farm",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "43CCE4",
+       "43CCE5",
+       "43CCE6",
+       "43CCE7"
+      ],
+      "coords": [
+       34087.9,
+       -5792.3
+      ],
+      "spawns": [
+       {
+        "label": "Cat spawn #1",
+        "ref": "43CCE4",
+        "source_type": "placement",
+        "coords": [
+         34037.3,
+         -5546.7
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Cat spawn #2",
+        "ref": "43CCE5",
+        "source_type": "placement",
+        "coords": [
+         34056.1,
+         -5634.9
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Cat spawn #3",
+        "ref": "43CCE6",
+        "source_type": "placement",
+        "coords": [
+         34087.9,
+         -5792.3
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Cat spawn #4",
+        "ref": "43CCE7",
+        "source_type": "placement",
+        "coords": [
+         34070.9,
+         -5710.1
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
       "marker": "Foundation Interior",
       "count": 1,
       "sources": {
@@ -467,6 +544,57 @@
     "region": "The Mire",
     "locations": [
      {
+      "marker": "Delano Grange",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2B91B0",
+       "2B91B1"
+      ],
+      "coords": [
+       174686.4,
+       13322.5
+      ],
+      "spawns": [
+       {
+        "label": "Cat spawn #1",
+        "ref": "2B91B0",
+        "source_type": "placement",
+        "coords": [
+         174686.4,
+         13322.5
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Cat spawn #2",
+        "ref": "2B91B1",
+        "source_type": "placement",
+        "coords": [
+         174752.4,
+         13313.4
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
       "marker": "Fisherman's Rest",
       "count": 2,
       "sources": {
@@ -569,31 +697,11 @@
     "locations": []
    }
   ],
-  "total_markers": 11,
-  "total_placements": 12
+  "total_markers": 13,
+  "total_placements": 18
  },
  "chance_spawns": {
   "locations": [
-   {
-    "marker": "Beckwith Farm",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Cat"
-    ],
-    "count": 4
-   },
-   {
-    "marker": "Delano Grange",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Cat"
-    ],
-    "count": 2
-   },
    {
     "marker": "Vault-Tec Agricultural Research Center",
     "region": "Forest",
@@ -605,8 +713,8 @@
     "count": 3
    }
   ],
-  "total": 3,
+  "total": 1,
   "note": null
  },
- "blurb": "The Cat in Fallout 76 — drops Cat Meat, 26 NPC variants, 12 known spawn points."
+ "blurb": "The Cat in Fallout 76 — drops Cat Meat, 26 NPC variants, 18 known spawn points."
 }

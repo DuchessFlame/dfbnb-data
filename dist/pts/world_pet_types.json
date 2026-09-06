@@ -218,41 +218,41 @@
   "buffs": {
     "signatureUnlockLevels": {
       "sig1": [
-        5,
-        40,
-        85
+        null,
+        null,
+        null
       ],
       "sig2": [
-        20,
-        60,
-        120
+        null,
+        null,
+        null
       ]
     },
     "allPet": {
       "fortifyCarryWeight": {
         "ranks": [
-          5,
-          10,
-          15
+          null,
+          null,
+          null
         ],
         "levels": [
-          30,
-          70,
-          170
+          null,
+          null,
+          null
         ]
       },
       "petCombatProwess": {
         "levels": [
-          50,
-          100,
-          150,
-          200
+          null,
+          null,
+          null,
+          null
         ],
         "damage": [
-          200,
-          350,
-          550,
-          800
+          null,
+          null,
+          null,
+          null
         ],
         "damageMult": [
           2,
@@ -420,7 +420,7 @@
     ]
   },
   "playerGift": {
-    "interval": 7000,
+    "interval": 1801,
     "note": "Each species haul delivery also includes one random player gift."
   },
   "species": [
@@ -432,14 +432,14 @@
       "sig1": "Bait Finder",
       "sig2": "Mega Bits",
       "sig1Mag": [
-        2,
-        4,
-        6
+        null,
+        null,
+        null
       ],
       "sig2Mag": [
-        25,
-        50,
-        75
+        1,
+        2,
+        3
       ],
       "activity": "Catch Fish with an active Pet Cat",
       "treasure": {
@@ -1306,14 +1306,14 @@
       "sig1": "Meat Lover",
       "sig2": "Fun-Festation",
       "sig1Mag": [
-        2,
-        4,
-        6
+        null,
+        null,
+        null
       ],
       "sig2Mag": [
-        1,
-        2,
-        3
+        null,
+        null,
+        null
       ],
       "activity": "Kill Infestation enemies with an active Pet Deathclaw",
       "treasure": {
@@ -1519,14 +1519,14 @@
       "sig1": "Stimpak Fetcher",
       "sig2": "Bounty Sniffer",
       "sig1Mag": [
-        2,
-        4,
-        6
+        null,
+        null,
+        null
       ],
       "sig2Mag": [
-        3,
-        25,
-        100
+        null,
+        null,
+        null
       ],
       "activity": "Complete Bounty Hunts with an active Pet Dog",
       "treasure": {
@@ -1850,6 +1850,81 @@
           "obtainSource": "Atom Shop",
           "tradeable": false,
           "description": "Failure to pet Goodboy may result in emotional damage.",
+          "obtainRoutes": [
+            {
+              "route": "Caps",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Stamps",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Scoreboard",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Gold Bullion",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Atom Shop",
+              "populated": true,
+              "lines": [
+                "Purchased from the Atomic Shop — sold individually or as part of a bundle."
+              ],
+              "tradeable": false,
+              "dropRate": "N/A"
+            },
+            {
+              "route": "Limited Time Bundle",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Events & Activities",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Quests",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Challenges",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            }
+          ]
+        },
+        {
+          "name": "Hunting Dog",
+          "formId": "008F4E10",
+          "edid": "ATX_CAMPPets_Actor_Dog_HuntingDog",
+          "obtainSource": "Atom Shop",
+          "tradeable": false,
+          "description": "- C.A.M.P. PETS APPEAR ONCE THEIR FURNITURE IS PLACED IN C.A.M.P. MODE. -",
           "obtainRoutes": [
             {
               "route": "Caps",
@@ -2392,14 +2467,14 @@
       "sig1": "Rad Magnet",
       "sig2": "Nuke Harvest",
       "sig1Mag": [
-        2,
-        4,
-        6
+        null,
+        null,
+        null
       ],
       "sig2Mag": [
-        25,
-        50,
-        75
+        null,
+        null,
+        null
       ],
       "activity": "Collect Flux with an active Pet Radhog",
       "treasure": {

@@ -1,5 +1,5 @@
 {
-  "generatedAt":"2026-09-04T16:22:47+00:00",
+  "generatedAt":"2026-09-06T06:15:09+00:00",
   "type":"player_titles",
   "items":[
     {
@@ -259,6 +259,37 @@
         "chalEdid":"HTO_Challenge_Lifetime_Complete_HostileTakeover_076",
         "chalCNAM":"Challenge",
         "chalFULL":"Complete an Infestation x76"
+      }
+    },
+    {
+      "formId":"008F6AE6",
+      "edid":"ATX_PlayerTitles_Prefix_Apex",
+      "titleMale":"Apex",
+      "imageUrl":"/wp-content/uploads/storefront/titles-player/atx_playertitles_prefix_apex.avif",
+      "titleFemale":"Apex",
+      "title":"Apex",
+      "isPrefix":true,
+      "isSuffix":false,
+      "affixType":"Prefix",
+      "conditions":[
+        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Prefix_Apex \"\"\"Apex\"\" Player Title Prefix\" [ENTM:008F6AE5]) = 1.000000"
+      ],
+      "condCount":1,
+      "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
+      "dropRate":"N/A",
+      "releaseDate":"2026-09-01",
+      "releaseYear":2026,
+      "releaseLabel":"September 2026",
+      "isNew":true,
+      "tradeable":false,
+      "unlockType":"atx",
+      "seasonNumber":null,
+      "cutContent":false,
+      "debug":{
+        "entitlementEdids":[
+          "ATX_ENTM_PlayerTitles_Prefix_Apex"
+        ],
+        "imageEntitlementEdid":"ATX_ENTM_PlayerTitles_Prefix_Apex"
       }
     },
     {
@@ -556,7 +587,7 @@
       "isSuffix":true,
       "affixType":"Suffix",
       "conditions":[
-        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Suffix_Beauty \"Beauty\" [ENTM:008B7A33]) = 1.000000"
+        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Suffix_Beauty \"\"\"Beauty\"\" Player Title Suffix\" [ENTM:008B7A33]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
@@ -620,7 +651,7 @@
       "isSuffix":false,
       "affixType":"Prefix",
       "conditions":[
-        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Prefix_Radhog01 [COBJ:008B1FEE]) = 1.000000"
+        "Top:Subject.HasEntitlement(WorldPets_ENTM_Radhog_TITL_Prefix01_Boarish \"Player Title Prefix Boarish\" [ENTM:00921CB9]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Radhog to Level 10",
@@ -630,23 +661,14 @@
       "releaseLabel":"June 2026",
       "isNew":false,
       "tradeable":false,
-      "unlockType":"event_activity",
+      "unlockType":"entitlement",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "cobjToken":"008B1FEE",
-        "cobjFormId":"008B1FEE",
-        "bookLvliGmrwViaEntries":{
-          "candidateLvliFormIdsAll":[],
-          "candidateLvliFormIdsFiltered":[]
-        },
-        "bookLvliGmrw":{},
-        "cobjLvliCandidatesAll":[],
-        "cobjLvliCandidatesFiltered":[],
-        "cobjReferencedByLvli":null,
-        "cobjGNAM_EDID":"WorldPets_PetLevelling_Radhog_COS_PlayerTitlePrefix01",
-        "cobjGNAM_FULL":"Radhog - Reach Level 10",
-        "cobjGNAM_FormID":"008B1F74"
+        "entitlementEdids":[
+          "WorldPets_ENTM_Radhog_TITL_Prefix01_Boarish"
+        ],
+        "imageEntitlementEdid":""
       }
     },
     {
@@ -955,7 +977,7 @@
       "isSuffix":true,
       "affixType":"Suffix",
       "conditions":[
-        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Suffix_Deathclaw02 [COBJ:008C90D2]) = 1.000000"
+        "Top:Subject.HasEntitlement(WorldPets_ENTM_Deathclaw_TITL_Suffix02_Brute \"Player Title Suffix Brute\" [ENTM:00921C99]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Deathclaw to Level 130",
@@ -965,23 +987,14 @@
       "releaseLabel":"June 2026",
       "isNew":false,
       "tradeable":false,
-      "unlockType":"event_activity",
+      "unlockType":"entitlement",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "cobjToken":"008C90D2",
-        "cobjFormId":"008C90D2",
-        "bookLvliGmrwViaEntries":{
-          "candidateLvliFormIdsAll":[],
-          "candidateLvliFormIdsFiltered":[]
-        },
-        "bookLvliGmrw":{},
-        "cobjLvliCandidatesAll":[],
-        "cobjLvliCandidatesFiltered":[],
-        "cobjReferencedByLvli":null,
-        "cobjGNAM_EDID":"WorldPets_PetLevelling_Deathclaw_COS_PlayerTitleSuffix02",
-        "cobjGNAM_FULL":"Deathclaw - Reach Level 130",
-        "cobjGNAM_FormID":"008C909D"
+        "entitlementEdids":[
+          "WorldPets_ENTM_Deathclaw_TITL_Suffix02_Brute"
+        ],
+        "imageEntitlementEdid":""
       }
     },
     {
@@ -1146,16 +1159,17 @@
       "formId":"007A8D06",
       "edid":"SCORE_S17_PlayerTitles_Suffix_Camper",
       "titleMale":"Camper",
-      "imageUrl":null,
+      "imageUrl":"/wp-content/uploads/storefront/titles-player/atx_playertitles_suffix_cozycamper.avif",
       "titleFemale":"Camper",
       "title":"Camper",
       "isPrefix":false,
       "isSuffix":true,
       "affixType":"Suffix",
       "conditions":[
-        "Top:Subject.HasEntitlement(SCORE_S17_ENTM_CAMP_WallDecor_EndofSeasonArt \"Framed Skyline Valley Wall Art\" [ENTM:0077B59D]) = 1.000000"
+        "Top:Subject.HasEntitlement(SCORE_S17_ENTM_CAMP_WallDecor_EndofSeasonArt \"Framed Skyline Valley Wall Art\" [ENTM:0077B59D]) = 1.000000",
+        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Suffix_CozyCamper \"\"\"Cozy Camper\"\" Player Title Suffix\" [ENTM:008B213C]) = 1.000000"
       ],
-      "condCount":1,
+      "condCount":2,
       "howToObtain":"Unlocked if you have claimed the Pioneer Scouts: Skyline Valley (Season 17) Framed Art.",
       "dropRate":"N/A",
       "releaseDate":"2024-01-01",
@@ -1168,42 +1182,12 @@
       "cutContent":false,
       "debug":{
         "entitlementEdids":[
-          "SCORE_S17_ENTM_CAMP_WallDecor_EndofSeasonArt"
+          "SCORE_S17_ENTM_CAMP_WallDecor_EndofSeasonArt",
+          "ATX_ENTM_PlayerTitles_Suffix_CozyCamper"
         ],
-        "imageEntitlementEdid":"",
+        "imageEntitlementEdid":"ATX_ENTM_PlayerTitles_Suffix_CozyCamper",
         "seasonNumber":17,
         "seasonName":"Pioneer Scouts: Skyline Valley"
-      }
-    },
-    {
-      "formId":"008B213D",
-      "edid":"ATX_PlayerTitles_Suffix_Camper",
-      "titleMale":"Camper",
-      "imageUrl":"/wp-content/uploads/storefront/titles-player/atx_playertitles_suffix_camper.avif",
-      "titleFemale":"Camper",
-      "title":"Camper",
-      "isPrefix":false,
-      "isSuffix":true,
-      "affixType":"Suffix",
-      "conditions":[
-        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Suffix_Camper \"\"\"Camper\"\" Player Title Suffix\" [ENTM:008B213C]) = 1.000000"
-      ],
-      "condCount":1,
-      "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
-      "dropRate":"N/A",
-      "releaseDate":"2026-04-01",
-      "releaseYear":2026,
-      "releaseLabel":"April 2026",
-      "isNew":false,
-      "tradeable":false,
-      "unlockType":"atx",
-      "seasonNumber":null,
-      "cutContent":false,
-      "debug":{
-        "entitlementEdids":[
-          "ATX_ENTM_PlayerTitles_Suffix_Camper"
-        ],
-        "imageEntitlementEdid":"ATX_ENTM_PlayerTitles_Suffix_Camper"
       }
     },
     {
@@ -1217,7 +1201,7 @@
       "isSuffix":false,
       "affixType":"Prefix",
       "conditions":[
-        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Prefix_Dog01 [COBJ:008B1FEC]) = 1.000000"
+        "Top:Subject.HasEntitlement(WorldPets_ENTM_Dog_TITL_Prefix01_Canine \"Player Title Prefix Canine\" [ENTM:00921C92]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Dog to Level 10",
@@ -1227,23 +1211,14 @@
       "releaseLabel":"June 2026",
       "isNew":false,
       "tradeable":false,
-      "unlockType":"event_activity",
+      "unlockType":"entitlement",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "cobjToken":"008B1FEC",
-        "cobjFormId":"008B1FEC",
-        "bookLvliGmrwViaEntries":{
-          "candidateLvliFormIdsAll":[],
-          "candidateLvliFormIdsFiltered":[]
-        },
-        "bookLvliGmrw":{},
-        "cobjLvliCandidatesAll":[],
-        "cobjLvliCandidatesFiltered":[],
-        "cobjReferencedByLvli":null,
-        "cobjGNAM_EDID":"WorldPets_PetLevelling_Dog_COS_PlayerTitlePrefix01",
-        "cobjGNAM_FULL":"Dog - Reach Level 10",
-        "cobjGNAM_FormID":"008B1F3A"
+        "entitlementEdids":[
+          "WorldPets_ENTM_Dog_TITL_Prefix01_Canine"
+        ],
+        "imageEntitlementEdid":""
       }
     },
     {
@@ -1647,7 +1622,7 @@
       "isSuffix":false,
       "affixType":"Prefix",
       "conditions":[
-        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Prefix_Deathclaw02 [COBJ:008C90D0]) = 1.000000"
+        "Top:Subject.HasEntitlement(WorldPets_ENTM_Deathclaw_TITL_Prefix02_ColdBlooded \"Player Title Prefix Cold Blooded\" [ENTM:00921CB4]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Deathclaw to Level 90",
@@ -1657,23 +1632,14 @@
       "releaseLabel":"June 2026",
       "isNew":false,
       "tradeable":false,
-      "unlockType":"event_activity",
+      "unlockType":"entitlement",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "cobjToken":"008C90D0",
-        "cobjFormId":"008C90D0",
-        "bookLvliGmrwViaEntries":{
-          "candidateLvliFormIdsAll":[],
-          "candidateLvliFormIdsFiltered":[]
-        },
-        "bookLvliGmrw":{},
-        "cobjLvliCandidatesAll":[],
-        "cobjLvliCandidatesFiltered":[],
-        "cobjReferencedByLvli":null,
-        "cobjGNAM_EDID":"WorldPets_PetLevelling_Deathclaw_COS_PlayerTitlePrefix02",
-        "cobjGNAM_FULL":"Deathclaw - Reach Level 90",
-        "cobjGNAM_FormID":"008C909B"
+        "entitlementEdids":[
+          "WorldPets_ENTM_Deathclaw_TITL_Prefix02_ColdBlooded"
+        ],
+        "imageEntitlementEdid":""
       }
     },
     {
@@ -1930,6 +1896,41 @@
         "miniSeasonRaw":"SunsetStranger",
         "miniSeasonName":"Sunset Stranger",
         "miniSeasonYear":"2025"
+      }
+    },
+    {
+      "formId":"008B213D",
+      "edid":"ATX_PlayerTitles_Suffix_CozyCamper",
+      "titleMale":"Cozy Camper",
+      "imageUrl":"/wp-content/uploads/storefront/titles-player/atx_playertitles_suffix_cozycamper.avif",
+      "titleFemale":"Cozy Camper",
+      "title":"Cozy Camper",
+      "isPrefix":false,
+      "isSuffix":true,
+      "affixType":"Suffix",
+      "conditions":[
+        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Suffix_CozyCamper \"\"\"Cozy Camper\"\" Player Title Suffix\" [ENTM:008B213C]) = 1.000000",
+        "Top:Subject.HasEntitlement(SCORE_S17_ENTM_CAMP_WallDecor_EndofSeasonArt \"Framed Skyline Valley Wall Art\" [ENTM:0077B59D]) = 1.000000"
+      ],
+      "condCount":2,
+      "howToObtain":"Unlocked if you have claimed the Pioneer Scouts: Skyline Valley (Season 17) Framed Art.",
+      "dropRate":"N/A",
+      "releaseDate":"2026-04-01",
+      "releaseYear":2026,
+      "releaseLabel":"April 2026",
+      "isNew":false,
+      "tradeable":false,
+      "unlockType":"season_score",
+      "seasonNumber":17,
+      "cutContent":false,
+      "debug":{
+        "entitlementEdids":[
+          "ATX_ENTM_PlayerTitles_Suffix_CozyCamper",
+          "SCORE_S17_ENTM_CAMP_WallDecor_EndofSeasonArt"
+        ],
+        "imageEntitlementEdid":"ATX_ENTM_PlayerTitles_Suffix_CozyCamper",
+        "seasonNumber":17,
+        "seasonName":"Pioneer Scouts: Skyline Valley"
       }
     },
     {
@@ -3088,6 +3089,37 @@
       }
     },
     {
+      "formId":"008F66B9",
+      "edid":"ATX_PlayerTitles_Prefix_Favorite",
+      "titleMale":"Favorite",
+      "imageUrl":"/wp-content/uploads/storefront/titles-player/atx_playertitles_prefix_favorite.avif",
+      "titleFemale":"Favorite",
+      "title":"Favorite",
+      "isPrefix":true,
+      "isSuffix":false,
+      "affixType":"Prefix",
+      "conditions":[
+        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Prefix_Favorite \"\"\"Favorite\"\" Player Title Prefix\" [ENTM:008F66B8]) = 1.000000"
+      ],
+      "condCount":1,
+      "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
+      "dropRate":"N/A",
+      "releaseDate":"2026-09-01",
+      "releaseYear":2026,
+      "releaseLabel":"September 2026",
+      "isNew":true,
+      "tradeable":false,
+      "unlockType":"atx",
+      "seasonNumber":null,
+      "cutContent":false,
+      "debug":{
+        "entitlementEdids":[
+          "ATX_ENTM_PlayerTitles_Prefix_Favorite"
+        ],
+        "imageEntitlementEdid":"ATX_ENTM_PlayerTitles_Prefix_Favorite"
+      }
+    },
+    {
       "formId":"008C90D3",
       "edid":"WorldPets_PlayerTitles_Prefix_Deathclaw01",
       "titleMale":"Fearsome",
@@ -3098,7 +3130,7 @@
       "isSuffix":false,
       "affixType":"Prefix",
       "conditions":[
-        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Prefix_Deathclaw01 [COBJ:008C90CF]) = 1.000000"
+        "Top:Subject.HasEntitlement(WorldPets_ENTM_Deathclaw_TITL_Prefix01_Fearsome \"Player Title Prefix Fearsome\" [ENTM:00921CA6]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Deathclaw to Level 10",
@@ -3108,23 +3140,14 @@
       "releaseLabel":"June 2026",
       "isNew":false,
       "tradeable":false,
-      "unlockType":"event_activity",
+      "unlockType":"entitlement",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "cobjToken":"008C90CF",
-        "cobjFormId":"008C90CF",
-        "bookLvliGmrwViaEntries":{
-          "candidateLvliFormIdsAll":[],
-          "candidateLvliFormIdsFiltered":[]
-        },
-        "bookLvliGmrw":{},
-        "cobjLvliCandidatesAll":[],
-        "cobjLvliCandidatesFiltered":[],
-        "cobjReferencedByLvli":null,
-        "cobjGNAM_EDID":"WorldPets_PetLevelling_Deathclaw_COS_PlayerTitlePrefix01",
-        "cobjGNAM_FULL":"Deathclaw - Reach Level 10",
-        "cobjGNAM_FormID":"008C909A"
+        "entitlementEdids":[
+          "WorldPets_ENTM_Deathclaw_TITL_Prefix01_Fearsome"
+        ],
+        "imageEntitlementEdid":""
       }
     },
     {
@@ -3138,7 +3161,7 @@
       "isSuffix":false,
       "affixType":"Prefix",
       "conditions":[
-        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Prefix_Cat01 [COBJ:008B1FEA]) = 1.000000"
+        "Top:Subject.HasEntitlement(WorldPets_ENTM_Cat_TITL_Prefix01_Feline \"Player Title Prefix Feline\" [ENTM:0091C636]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Cat to Level 10",
@@ -3148,23 +3171,14 @@
       "releaseLabel":"June 2026",
       "isNew":false,
       "tradeable":false,
-      "unlockType":"event_activity",
+      "unlockType":"entitlement",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "cobjToken":"008B1FEA",
-        "cobjFormId":"008B1FEA",
-        "bookLvliGmrwViaEntries":{
-          "candidateLvliFormIdsAll":[],
-          "candidateLvliFormIdsFiltered":[]
-        },
-        "bookLvliGmrw":{},
-        "cobjLvliCandidatesAll":[],
-        "cobjLvliCandidatesFiltered":[],
-        "cobjReferencedByLvli":null,
-        "cobjGNAM_EDID":"WorldPets_PetLevelling_Cat_COS_PlayerTitlePrefix01",
-        "cobjGNAM_FULL":"Cat - Reach Level 10",
-        "cobjGNAM_FormID":"008B1F1E"
+        "entitlementEdids":[
+          "WorldPets_ENTM_Cat_TITL_Prefix01_Feline"
+        ],
+        "imageEntitlementEdid":""
       }
     },
     {
@@ -3325,10 +3339,10 @@
       "condCount":1,
       "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
       "dropRate":"N/A",
-      "releaseDate":"2026-08-01",
+      "releaseDate":"2026-09-01",
       "releaseYear":2026,
-      "releaseLabel":"August 2026",
-      "isNew":false,
+      "releaseLabel":"September 2026",
+      "isNew":true,
       "tradeable":false,
       "unlockType":"atx",
       "seasonNumber":null,
@@ -3470,7 +3484,7 @@
       "isSuffix":false,
       "affixType":"Prefix",
       "conditions":[
-        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Prefix_Flipped \"Flipped\" [ENTM:008B7A32]) = 1.000000"
+        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Prefix_Flipped \"\"\"Flipped\"\" Player Title Prefix\" [ENTM:008B7A32]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
@@ -3794,68 +3808,6 @@
       }
     },
     {
-      "formId":"008E41AE",
-      "edid":"ATX_PlayerTitles_Prefix_Glazed",
-      "titleMale":"Glazed",
-      "imageUrl":"/wp-content/uploads/storefront/titles-player/atx_playertitles_prefix_glazed.avif",
-      "titleFemale":"Glazed",
-      "title":"Glazed",
-      "isPrefix":true,
-      "isSuffix":false,
-      "affixType":"Prefix",
-      "conditions":[
-        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Prefix_Glazed \"Glazed\" [ENTM:008E41AD]) = 1.000000"
-      ],
-      "condCount":1,
-      "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
-      "dropRate":"N/A",
-      "releaseDate":"2026-06-01",
-      "releaseYear":2026,
-      "releaseLabel":"June 2026",
-      "isNew":false,
-      "tradeable":false,
-      "unlockType":"atx",
-      "seasonNumber":null,
-      "cutContent":false,
-      "debug":{
-        "entitlementEdids":[
-          "ATX_ENTM_PlayerTitles_Prefix_Glazed"
-        ],
-        "imageEntitlementEdid":"ATX_ENTM_PlayerTitles_Prefix_Glazed"
-      }
-    },
-    {
-      "formId":"0092D1E8",
-      "edid":"ATX_PlayerTitles_Suffix_Sprinkles",
-      "titleMale":"Glazed",
-      "imageUrl":"/wp-content/uploads/storefront/titles-player/atx_playertitles_suffix_sprinkles.avif",
-      "titleFemale":"Glazed",
-      "title":"Glazed",
-      "isPrefix":false,
-      "isSuffix":true,
-      "affixType":"Suffix",
-      "conditions":[
-        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Suffix_Sprinkles \"\"\"Sprinkles\"\" Player Title Suffix\" [ENTM:0092D1E7]) = 1.000000"
-      ],
-      "condCount":1,
-      "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
-      "dropRate":"N/A",
-      "releaseDate":"2026-08-01",
-      "releaseYear":2026,
-      "releaseLabel":"August 2026",
-      "isNew":false,
-      "tradeable":false,
-      "unlockType":"atx",
-      "seasonNumber":null,
-      "cutContent":false,
-      "debug":{
-        "entitlementEdids":[
-          "ATX_ENTM_PlayerTitles_Suffix_Sprinkles"
-        ],
-        "imageEntitlementEdid":"ATX_ENTM_PlayerTitles_Suffix_Sprinkles"
-      }
-    },
-    {
       "formId":"007A8CE5",
       "edid":"ATX_PlayerTitles_Prefix_Gleaming",
       "titleMale":"Gleaming",
@@ -4093,7 +4045,7 @@
       "isSuffix":true,
       "affixType":"Suffix",
       "conditions":[
-        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Suffix_Radhog01 [COBJ:008B1FF4]) = 1.000000"
+        "Top:Subject.HasEntitlement(WorldPets_ENTM_Radhog_TITL_Suffix01_Glutton \"Player Title Suffix Glutton\" [ENTM:00921CAB]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Radhog to Level 55",
@@ -4103,23 +4055,14 @@
       "releaseLabel":"June 2026",
       "isNew":false,
       "tradeable":false,
-      "unlockType":"event_activity",
+      "unlockType":"entitlement",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "cobjToken":"008B1FF4",
-        "cobjFormId":"008B1FF4",
-        "bookLvliGmrwViaEntries":{
-          "candidateLvliFormIdsAll":[],
-          "candidateLvliFormIdsFiltered":[]
-        },
-        "bookLvliGmrw":{},
-        "cobjLvliCandidatesAll":[],
-        "cobjLvliCandidatesFiltered":[],
-        "cobjReferencedByLvli":null,
-        "cobjGNAM_EDID":"WorldPets_PetLevelling_Radhog_COS_PlayerTitleSuffix01",
-        "cobjGNAM_FULL":"Radhog - Reach Level 55",
-        "cobjGNAM_FormID":"008B1F76"
+        "entitlementEdids":[
+          "WorldPets_ENTM_Radhog_TITL_Suffix01_Glutton"
+        ],
+        "imageEntitlementEdid":""
       }
     },
     {
@@ -4316,37 +4259,6 @@
         "cobjGNAM_EDID":"SFS08_PlayerTitle_Recipe_Prefix_Green",
         "cobjGNAM_FULL":"Player Title: Green",
         "cobjGNAM_FormID":"0085B0BC"
-      }
-    },
-    {
-      "formId":"008B4B90",
-      "edid":"ATX_PlayerTitles_Prefix_Green",
-      "titleMale":"Green",
-      "imageUrl":"/wp-content/uploads/storefront/titles-player/atx_playertitles_prefix_green.avif",
-      "titleFemale":"Green",
-      "title":"Green",
-      "isPrefix":true,
-      "isSuffix":false,
-      "affixType":"Prefix",
-      "conditions":[
-        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Prefix_Green \"Green\" [ENTM:008B4B8F]) = 1.000000"
-      ],
-      "condCount":1,
-      "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
-      "dropRate":"N/A",
-      "releaseDate":"2026-06-01",
-      "releaseYear":2026,
-      "releaseLabel":"June 2026",
-      "isNew":false,
-      "tradeable":false,
-      "unlockType":"atx",
-      "seasonNumber":null,
-      "cutContent":false,
-      "debug":{
-        "entitlementEdids":[
-          "ATX_ENTM_PlayerTitles_Prefix_Green"
-        ],
-        "imageEntitlementEdid":"ATX_ENTM_PlayerTitles_Prefix_Green"
       }
     },
     {
@@ -4943,37 +4855,6 @@
       }
     },
     {
-      "formId":"008B1EEB",
-      "edid":"ATX_PlayerTitles_Suffix_WingedWatcher",
-      "titleMale":"Hero",
-      "imageUrl":"/wp-content/uploads/storefront/titles-player/atx_playertitles_suffix_wingedwatcher.avif",
-      "titleFemale":"Hero",
-      "title":"Hero",
-      "isPrefix":false,
-      "isSuffix":true,
-      "affixType":"Suffix",
-      "conditions":[
-        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Suffix_WingedWatcher \"\"\"Winged Watcher\"\" Player Title Suffix\" [ENTM:008B1EEA]) = 1.000000"
-      ],
-      "condCount":1,
-      "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
-      "dropRate":"N/A",
-      "releaseDate":"2026-04-01",
-      "releaseYear":2026,
-      "releaseLabel":"April 2026",
-      "isNew":false,
-      "tradeable":false,
-      "unlockType":"atx",
-      "seasonNumber":null,
-      "cutContent":false,
-      "debug":{
-        "entitlementEdids":[
-          "ATX_ENTM_PlayerTitles_Suffix_WingedWatcher"
-        ],
-        "imageEntitlementEdid":"ATX_ENTM_PlayerTitles_Suffix_WingedWatcher"
-      }
-    },
-    {
       "formId":"0084A7C9",
       "edid":"Burn_PlayerTitles_Prefix_HogWild",
       "titleMale":"Hog-wild",
@@ -5079,7 +4960,7 @@
       "isSuffix":true,
       "affixType":"Suffix",
       "conditions":[
-        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Suffix_Dog01 [COBJ:008B1FF2]) = 1.000000"
+        "Top:Subject.HasEntitlement(WorldPets_ENTM_Dog_TITL_Suffix01_Hound \"Player Title Suffix Hound\" [ENTM:00921CBA]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Dog to Level 55",
@@ -5089,23 +4970,14 @@
       "releaseLabel":"June 2026",
       "isNew":false,
       "tradeable":false,
-      "unlockType":"event_activity",
+      "unlockType":"entitlement",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "cobjToken":"008B1FF2",
-        "cobjFormId":"008B1FF2",
-        "bookLvliGmrwViaEntries":{
-          "candidateLvliFormIdsAll":[],
-          "candidateLvliFormIdsFiltered":[]
-        },
-        "bookLvliGmrw":{},
-        "cobjLvliCandidatesAll":[],
-        "cobjLvliCandidatesFiltered":[],
-        "cobjReferencedByLvli":null,
-        "cobjGNAM_EDID":"WorldPets_PetLevelling_Dog_COS_PlayerTitleSuffix01",
-        "cobjGNAM_FULL":"Dog - Reach Level 55",
-        "cobjGNAM_FormID":"008B1F3C"
+        "entitlementEdids":[
+          "WorldPets_ENTM_Dog_TITL_Suffix01_Hound"
+        ],
+        "imageEntitlementEdid":""
       }
     },
     {
@@ -5262,7 +5134,7 @@
     },
     {
       "formId":"0090E1CC",
-      "edid":"SCORE_S20_PlayerTitles_Suffix_Icebreaker",
+      "edid":"SCORE_S4_PlayerTitles_Suffix_Icebreaker",
       "titleMale":"Icebreaker",
       "imageUrl":"/wp-content/uploads/storefront/titles-player/score_s4_playertitles_suffix_icebreaker.avif",
       "titleFemale":"Icebreaker",
@@ -5891,7 +5763,7 @@
       "isSuffix":true,
       "affixType":"Suffix",
       "conditions":[
-        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Suffix_Dog02 [COBJ:008B1FF3]) = 1.000000"
+        "Top:Subject.HasEntitlement(WorldPets_ENTM_Dog_TITL_Suffix02_Loyal \"Player Title Suffix Loyal\" [ENTM:00921C8D]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Dog to Level 130",
@@ -5901,23 +5773,14 @@
       "releaseLabel":"June 2026",
       "isNew":false,
       "tradeable":false,
-      "unlockType":"event_activity",
+      "unlockType":"entitlement",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "cobjToken":"008B1FF3",
-        "cobjFormId":"008B1FF3",
-        "bookLvliGmrwViaEntries":{
-          "candidateLvliFormIdsAll":[],
-          "candidateLvliFormIdsFiltered":[]
-        },
-        "bookLvliGmrw":{},
-        "cobjLvliCandidatesAll":[],
-        "cobjLvliCandidatesFiltered":[],
-        "cobjReferencedByLvli":null,
-        "cobjGNAM_EDID":"WorldPets_PetLevelling_Dog_COS_PlayerTitleSuffix02",
-        "cobjGNAM_FULL":"Dog - Reach Level 130",
-        "cobjGNAM_FormID":"008B1F3D"
+        "entitlementEdids":[
+          "WorldPets_ENTM_Dog_TITL_Suffix02_Loyal"
+        ],
+        "imageEntitlementEdid":""
       }
     },
     {
@@ -6333,7 +6196,7 @@
       "isSuffix":true,
       "affixType":"Suffix",
       "conditions":[
-        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Suffix_Cat02 [COBJ:008B1FF1]) = 1.000000"
+        "Top:Subject.HasEntitlement(WorldPets_ENTM_Cat_TITL_Suffix02_Meow \"Player Title Suffix Meow\" [ENTM:0091C63C]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Cat to Level 130",
@@ -6343,23 +6206,14 @@
       "releaseLabel":"June 2026",
       "isNew":false,
       "tradeable":false,
-      "unlockType":"event_activity",
+      "unlockType":"entitlement",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "cobjToken":"008B1FF1",
-        "cobjFormId":"008B1FF1",
-        "bookLvliGmrwViaEntries":{
-          "candidateLvliFormIdsAll":[],
-          "candidateLvliFormIdsFiltered":[]
-        },
-        "bookLvliGmrw":{},
-        "cobjLvliCandidatesAll":[],
-        "cobjLvliCandidatesFiltered":[],
-        "cobjReferencedByLvli":null,
-        "cobjGNAM_EDID":"WorldPets_PetLevelling_Cat_COS_PlayerTitleSuffix02",
-        "cobjGNAM_FULL":"Cat - Reach Level 130",
-        "cobjGNAM_FormID":"008B1F21"
+        "entitlementEdids":[
+          "WorldPets_ENTM_Cat_TITL_Suffix02_Meow"
+        ],
+        "imageEntitlementEdid":""
       }
     },
     {
@@ -6896,6 +6750,37 @@
       }
     },
     {
+      "formId":"008B4B90",
+      "edid":"ATX_PlayerTitles_Prefix_Overgrown",
+      "titleMale":"Overgrown",
+      "imageUrl":"/wp-content/uploads/storefront/titles-player/atx_playertitles_prefix_overgrown.avif",
+      "titleFemale":"Overgrown",
+      "title":"Overgrown",
+      "isPrefix":true,
+      "isSuffix":false,
+      "affixType":"Prefix",
+      "conditions":[
+        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Prefix_Overgrown \"\"\"Overgrown\"\" Player Title Prefix\" [ENTM:008B4B8F]) = 1.000000"
+      ],
+      "condCount":1,
+      "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
+      "dropRate":"N/A",
+      "releaseDate":"2026-06-01",
+      "releaseYear":2026,
+      "releaseLabel":"June 2026",
+      "isNew":false,
+      "tradeable":false,
+      "unlockType":"atx",
+      "seasonNumber":null,
+      "cutContent":false,
+      "debug":{
+        "entitlementEdids":[
+          "ATX_ENTM_PlayerTitles_Prefix_Overgrown"
+        ],
+        "imageEntitlementEdid":"ATX_ENTM_PlayerTitles_Prefix_Overgrown"
+      }
+    },
+    {
       "formId":"008154FD",
       "edid":"SCORE_S21_PlayerTitles_Prefix_Paranoid",
       "titleMale":"Paranoid",
@@ -7136,7 +7021,7 @@
       "isSuffix":false,
       "affixType":"Prefix",
       "conditions":[
-        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Prefix_Radhog02 [COBJ:008B1FEF]) = 1.000000"
+        "Top:Subject.HasEntitlement(WorldPets_ENTM_Radhog_TITL_Prefix02_Porcine \"Player Title Prefix Porcine\" [ENTM:00921CA1]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Radhog to Level 90",
@@ -7146,23 +7031,14 @@
       "releaseLabel":"June 2026",
       "isNew":false,
       "tradeable":false,
-      "unlockType":"event_activity",
+      "unlockType":"entitlement",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "cobjToken":"008B1FEF",
-        "cobjFormId":"008B1FEF",
-        "bookLvliGmrwViaEntries":{
-          "candidateLvliFormIdsAll":[],
-          "candidateLvliFormIdsFiltered":[]
-        },
-        "bookLvliGmrw":{},
-        "cobjLvliCandidatesAll":[],
-        "cobjLvliCandidatesFiltered":[],
-        "cobjReferencedByLvli":null,
-        "cobjGNAM_EDID":"WorldPets_PetLevelling_Radhog_COS_PlayerTitlePrefix02",
-        "cobjGNAM_FULL":"Radhog - Reach Level 90",
-        "cobjGNAM_FormID":"008B1F75"
+        "entitlementEdids":[
+          "WorldPets_ENTM_Radhog_TITL_Prefix02_Porcine"
+        ],
+        "imageEntitlementEdid":""
       }
     },
     {
@@ -7198,7 +7074,7 @@
     },
     {
       "formId":"0090E1CB",
-      "edid":"SCORE_S14_PlayerTitles_Prefix_PowerPatrol",
+      "edid":"SCORE_S4_PlayerTitles_Prefix_PowerPatrol",
       "titleMale":"Power Patrol",
       "imageUrl":"/wp-content/uploads/storefront/titles-player/score_s4_playertitles_prefix_powerpatrol.avif",
       "titleFemale":"Power Patrol",
@@ -7369,7 +7245,7 @@
       "isSuffix":true,
       "affixType":"Suffix",
       "conditions":[
-        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Suffix_Protector \"Protector\" [ENTM:008F108B]) = 1.000000"
+        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Suffix_Protector \"\"\"Protector\"\" Player Title Suffix\" [ENTM:008F108B]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
@@ -7400,7 +7276,7 @@
       "isSuffix":false,
       "affixType":"Prefix",
       "conditions":[
-        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Prefix_Cat02 [COBJ:008B1FEB]) = 1.000000"
+        "Top:Subject.HasEntitlement(WorldPets_ENTM_Cat_TITL_Prefix02_Prowling \"Player Title Prefix Prowling\" [ENTM:0091C645]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Cat to Level 90",
@@ -7410,23 +7286,14 @@
       "releaseLabel":"June 2026",
       "isNew":false,
       "tradeable":false,
-      "unlockType":"event_activity",
+      "unlockType":"entitlement",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "cobjToken":"008B1FEB",
-        "cobjFormId":"008B1FEB",
-        "bookLvliGmrwViaEntries":{
-          "candidateLvliFormIdsAll":[],
-          "candidateLvliFormIdsFiltered":[]
-        },
-        "bookLvliGmrw":{},
-        "cobjLvliCandidatesAll":[],
-        "cobjLvliCandidatesFiltered":[],
-        "cobjReferencedByLvli":null,
-        "cobjGNAM_EDID":"WorldPets_PetLevelling_Cat_COS_PlayerTitlePrefix02",
-        "cobjGNAM_FULL":"Cat - Reach Level 90",
-        "cobjGNAM_FormID":"008B1F1F"
+        "entitlementEdids":[
+          "WorldPets_ENTM_Cat_TITL_Prefix02_Prowling"
+        ],
+        "imageEntitlementEdid":""
       }
     },
     {
@@ -7504,7 +7371,7 @@
       "isSuffix":false,
       "affixType":"Prefix",
       "conditions":[
-        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Prefix_Dog02 [COBJ:008B1FED]) = 1.000000"
+        "Top:Subject.HasEntitlement(WorldPets_ENTM_Dog_TITL_Prefix02_Pup \"Player Title Prefix Pup\" [ENTM:00921CA0]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Dog to Level 90",
@@ -7514,23 +7381,14 @@
       "releaseLabel":"June 2026",
       "isNew":false,
       "tradeable":false,
-      "unlockType":"event_activity",
+      "unlockType":"entitlement",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "cobjToken":"008B1FED",
-        "cobjFormId":"008B1FED",
-        "bookLvliGmrwViaEntries":{
-          "candidateLvliFormIdsAll":[],
-          "candidateLvliFormIdsFiltered":[]
-        },
-        "bookLvliGmrw":{},
-        "cobjLvliCandidatesAll":[],
-        "cobjLvliCandidatesFiltered":[],
-        "cobjReferencedByLvli":null,
-        "cobjGNAM_EDID":"WorldPets_PetLevelling_Dog_COS_PlayerTitlePrefix02",
-        "cobjGNAM_FULL":"Dog - Reach Level 90",
-        "cobjGNAM_FormID":"008B1F3B"
+        "entitlementEdids":[
+          "WorldPets_ENTM_Dog_TITL_Prefix02_Pup"
+        ],
+        "imageEntitlementEdid":""
       }
     },
     {
@@ -8005,7 +7863,7 @@
       "isSuffix":true,
       "affixType":"Suffix",
       "conditions":[
-        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Suffix_Deathclaw01 [COBJ:008C90D1]) = 1.000000"
+        "Top:Subject.HasEntitlement(WorldPets_ENTM_Deathclaw_TITL_Suffix01_Reptilian \"Player Title Suffix Reptilian\" [ENTM:00921C88]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Deathclaw to Level 55",
@@ -8015,23 +7873,14 @@
       "releaseLabel":"June 2026",
       "isNew":false,
       "tradeable":false,
-      "unlockType":"event_activity",
+      "unlockType":"entitlement",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "cobjToken":"008C90D1",
-        "cobjFormId":"008C90D1",
-        "bookLvliGmrwViaEntries":{
-          "candidateLvliFormIdsAll":[],
-          "candidateLvliFormIdsFiltered":[]
-        },
-        "bookLvliGmrw":{},
-        "cobjLvliCandidatesAll":[],
-        "cobjLvliCandidatesFiltered":[],
-        "cobjReferencedByLvli":null,
-        "cobjGNAM_EDID":"WorldPets_PetLevelling_Deathclaw_COS_PlayerTitleSuffix01",
-        "cobjGNAM_FULL":"Deathclaw - Reach Level 55",
-        "cobjGNAM_FormID":"008C909C"
+        "entitlementEdids":[
+          "WorldPets_ENTM_Deathclaw_TITL_Suffix01_Reptilian"
+        ],
+        "imageEntitlementEdid":""
       }
     },
     {
@@ -8063,17 +7912,17 @@
         "cobjFormId":"007B2452",
         "bookLvliGmrwViaEntries":{
           "candidateLvliFormIdsAll":[
-            "0085AD25",
-            "0085B2AF",
             "0053B786",
             "0053B785",
-            "0053B787"
+            "0053B787",
+            "0085AD25",
+            "0085B2AF"
           ],
           "candidateLvliFormIdsFiltered":[
-            "0085AD25",
             "0053B786",
             "0053B785",
-            "0053B787"
+            "0053B787",
+            "0085AD25"
           ],
           "pickedLvliFormId":"0053B786",
           "pickedParentQuest":"\"Event: Project Paradise\""
@@ -8307,6 +8156,37 @@
         "imageEntitlementEdid":"SCORE_S20_ENTM_PlayerTitles_Prefix_Rotten",
         "seasonNumber":20,
         "seasonName":"Glow of the Ghoul"
+      }
+    },
+    {
+      "formId":"008F84EF",
+      "edid":"ATX_PlayerTitles_Prefix_Rugged",
+      "titleMale":"Rugged",
+      "imageUrl":"/wp-content/uploads/storefront/titles-player/atx_playertitles_prefix_rugged.avif",
+      "titleFemale":"Rugged",
+      "title":"Rugged",
+      "isPrefix":true,
+      "isSuffix":false,
+      "affixType":"Prefix",
+      "conditions":[
+        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Prefix_Rugged \"\"\"Rugged\"\" Player Title Prefix\" [ENTM:008F84EE]) = 1.000000"
+      ],
+      "condCount":1,
+      "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
+      "dropRate":"N/A",
+      "releaseDate":"2026-09-01",
+      "releaseYear":2026,
+      "releaseLabel":"September 2026",
+      "isNew":true,
+      "tradeable":false,
+      "unlockType":"atx",
+      "seasonNumber":null,
+      "cutContent":false,
+      "debug":{
+        "entitlementEdids":[
+          "ATX_ENTM_PlayerTitles_Prefix_Rugged"
+        ],
+        "imageEntitlementEdid":"ATX_ENTM_PlayerTitles_Prefix_Rugged"
       }
     },
     {
@@ -9435,6 +9315,37 @@
       }
     },
     {
+      "formId":"0092D1E8",
+      "edid":"ATX_PlayerTitles_Suffix_Sprinkles",
+      "titleMale":"Sprinkles",
+      "imageUrl":"/wp-content/uploads/storefront/titles-player/atx_playertitles_suffix_sprinkles.avif",
+      "titleFemale":"Sprinkles",
+      "title":"Sprinkles",
+      "isPrefix":false,
+      "isSuffix":true,
+      "affixType":"Suffix",
+      "conditions":[
+        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Suffix_Sprinkles \"\"\"Sprinkles\"\" Player Title Suffix\" [ENTM:0092D1E7]) = 1.000000"
+      ],
+      "condCount":1,
+      "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
+      "dropRate":"N/A",
+      "releaseDate":"2026-09-01",
+      "releaseYear":2026,
+      "releaseLabel":"September 2026",
+      "isNew":true,
+      "tradeable":false,
+      "unlockType":"atx",
+      "seasonNumber":null,
+      "cutContent":false,
+      "debug":{
+        "entitlementEdids":[
+          "ATX_ENTM_PlayerTitles_Suffix_Sprinkles"
+        ],
+        "imageEntitlementEdid":"ATX_ENTM_PlayerTitles_Suffix_Sprinkles"
+      }
+    },
+    {
       "formId":"007AE15F",
       "edid":"RD01_PlayerTitles_Suffix_SquadDestroyer",
       "titleMale":"Squad Destroyer",
@@ -10086,7 +9997,7 @@
       "isSuffix":true,
       "affixType":"Suffix",
       "conditions":[
-        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Suffix_Radhog02 [COBJ:008B1FF5]) = 1.000000"
+        "Top:Subject.HasEntitlement(WorldPets_ENTM_Radhog_TITL_Suffix02_Swine \"Player Title Suffix Swine\" [ENTM:00921C91]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Radhog to Level 130",
@@ -10096,23 +10007,14 @@
       "releaseLabel":"June 2026",
       "isNew":false,
       "tradeable":false,
-      "unlockType":"event_activity",
+      "unlockType":"entitlement",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "cobjToken":"008B1FF5",
-        "cobjFormId":"008B1FF5",
-        "bookLvliGmrwViaEntries":{
-          "candidateLvliFormIdsAll":[],
-          "candidateLvliFormIdsFiltered":[]
-        },
-        "bookLvliGmrw":{},
-        "cobjLvliCandidatesAll":[],
-        "cobjLvliCandidatesFiltered":[],
-        "cobjReferencedByLvli":null,
-        "cobjGNAM_EDID":"WorldPets_PetLevelling_Radhog_COS_PlayerTitleSuffix02",
-        "cobjGNAM_FULL":"Radhog - Reach Level 130",
-        "cobjGNAM_FormID":"008B1F77"
+        "entitlementEdids":[
+          "WorldPets_ENTM_Radhog_TITL_Suffix02_Swine"
+        ],
+        "imageEntitlementEdid":""
       }
     },
     {
@@ -11283,7 +11185,7 @@
       "isSuffix":true,
       "affixType":"Suffix",
       "conditions":[
-        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Suffix_Cat01 [COBJ:008B1FF0]) = 1.000000"
+        "Top:Subject.HasEntitlement(WorldPets_ENTM_Cat_TITL_Suffix01_Whiskers \"Player Title Suffix Whiskers\" [ENTM:0091C646]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Cat to Level 55",
@@ -11293,23 +11195,14 @@
       "releaseLabel":"June 2026",
       "isNew":false,
       "tradeable":false,
-      "unlockType":"event_activity",
+      "unlockType":"entitlement",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "cobjToken":"008B1FF0",
-        "cobjFormId":"008B1FF0",
-        "bookLvliGmrwViaEntries":{
-          "candidateLvliFormIdsAll":[],
-          "candidateLvliFormIdsFiltered":[]
-        },
-        "bookLvliGmrw":{},
-        "cobjLvliCandidatesAll":[],
-        "cobjLvliCandidatesFiltered":[],
-        "cobjReferencedByLvli":null,
-        "cobjGNAM_EDID":"WorldPets_PetLevelling_Cat_COS_PlayerTitleSuffix01",
-        "cobjGNAM_FULL":"Cat - Reach Level 55",
-        "cobjGNAM_FormID":"008B1F20"
+        "entitlementEdids":[
+          "WorldPets_ENTM_Cat_TITL_Suffix01_Whiskers"
+        ],
+        "imageEntitlementEdid":""
       }
     },
     {
@@ -11341,6 +11234,37 @@
           "ATX_ENTM_PlayerTitles_Suffix_Whopper"
         ],
         "imageEntitlementEdid":"ATX_ENTM_PlayerTitles_Suffix_Whopper"
+      }
+    },
+    {
+      "formId":"008B1EEB",
+      "edid":"ATX_PlayerTitles_Suffix_WingedWatcher",
+      "titleMale":"Winged Watcher",
+      "imageUrl":"/wp-content/uploads/storefront/titles-player/atx_playertitles_suffix_wingedwatcher.avif",
+      "titleFemale":"Winged Watcher",
+      "title":"Winged Watcher",
+      "isPrefix":false,
+      "isSuffix":true,
+      "affixType":"Suffix",
+      "conditions":[
+        "Top:Subject.HasEntitlement(ATX_ENTM_PlayerTitles_Suffix_WingedWatcher \"\"\"Winged Watcher\"\" Player Title Suffix\" [ENTM:008B1EEA]) = 1.000000"
+      ],
+      "condCount":1,
+      "howToObtain":"Can be purchased with certain bundles from the Atom Shop.",
+      "dropRate":"N/A",
+      "releaseDate":"2026-04-01",
+      "releaseYear":2026,
+      "releaseLabel":"April 2026",
+      "isNew":false,
+      "tradeable":false,
+      "unlockType":"atx",
+      "seasonNumber":null,
+      "cutContent":false,
+      "debug":{
+        "entitlementEdids":[
+          "ATX_ENTM_PlayerTitles_Suffix_WingedWatcher"
+        ],
+        "imageEntitlementEdid":"ATX_ENTM_PlayerTitles_Suffix_WingedWatcher"
       }
     },
     {
@@ -11609,12 +11533,12 @@
         "cobjFormId":"007B245F",
         "bookLvliGmrwViaEntries":{
           "candidateLvliFormIdsAll":[
-            "0085AD1D",
-            "005380CC"
+            "005380CC",
+            "0085AD1D"
           ],
           "candidateLvliFormIdsFiltered":[
-            "0085AD1D",
-            "005380CC"
+            "005380CC",
+            "0085AD1D"
           ],
           "pickedLvliFormId":"005380CC",
           "pickedParentQuest":"\"Event: Project Paradise\""
@@ -12304,10 +12228,10 @@
       "condCount":1,
       "howToObtain":"Complete the Event/Activity: (unknown)",
       "dropRate":"N/A",
-      "releaseDate":"2026-08-01",
+      "releaseDate":"2026-09-01",
       "releaseYear":2026,
-      "releaseLabel":"August 2026",
-      "isNew":false,
+      "releaseLabel":"September 2026",
+      "isNew":true,
       "tradeable":false,
       "unlockType":"event_activity",
       "seasonNumber":null,
@@ -12326,6 +12250,37 @@
         "cobjGNAM_EDID":"recipe_Dummy_Uncraftable_Item_NOCRAFT",
         "cobjGNAM_FULL":"",
         "cobjGNAM_FormID":"00054A1F"
+      }
+    },
+    {
+      "formId":"008E41AE",
+      "edid":"zzzATX_PlayerTitles_Prefix_Glazed",
+      "titleMale":"Glazed",
+      "imageUrl":"/wp-content/uploads/storefront/titles-player/zzzatx_playertitles_prefix_glazed.avif",
+      "titleFemale":"Glazed",
+      "title":"Glazed",
+      "isPrefix":true,
+      "isSuffix":false,
+      "affixType":"Prefix",
+      "conditions":[
+        "Top:Subject.HasEntitlement(zzzATX_ENTM_PlayerTitles_Prefix_Glazed \"Glazed\" [ENTM:008E41AD]) = 1.000000"
+      ],
+      "condCount":1,
+      "howToObtain":"Unlocked via account entitlement.",
+      "dropRate":"N/A",
+      "releaseDate":"2026-06-01",
+      "releaseYear":2026,
+      "releaseLabel":"June 2026",
+      "isNew":false,
+      "tradeable":false,
+      "unlockType":"entitlement",
+      "seasonNumber":null,
+      "cutContent":true,
+      "debug":{
+        "entitlementEdids":[
+          "zzzATX_ENTM_PlayerTitles_Prefix_Glazed"
+        ],
+        "imageEntitlementEdid":"zzzATX_ENTM_PlayerTitles_Prefix_Glazed"
       }
     },
     {

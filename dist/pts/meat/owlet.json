@@ -1,13 +1,15 @@
 {
  "_meta": {
-  "generated": "2026-09-04",
+  "generated": "2026-09-06",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
     "edid": "OwlRace"
    }
   ],
-  "source_totals": {},
+  "source_totals": {
+   "placement": 2
+  },
   "unresolved": {}
  },
  "set": "meat",
@@ -88,7 +90,46 @@
    },
    {
     "region": "Forest",
-    "locations": []
+    "locations": [
+     {
+      "marker": "The Deep",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "553ABD"
+      ],
+      "coords": [
+       1599.2,
+       -231.0
+      ],
+      "spawns": [
+       {
+        "label": "Owlet spawn",
+        "ref": "553ABD",
+        "source_type": "placement",
+        "coords": [
+         1599.2,
+         -231.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "Savage Divide",
@@ -100,7 +141,46 @@
    },
    {
     "region": "The Mire",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Haven Church",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "619400"
+      ],
+      "coords": [
+       177066.6,
+       42894.2
+      ],
+      "spawns": [
+       {
+        "label": "Owlet spawn",
+        "ref": "619400",
+        "source_type": "placement",
+        "coords": [
+         177066.6,
+         42894.2
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "The Pitt",
@@ -111,34 +191,13 @@
     "locations": []
    }
   ],
-  "total_markers": 0,
-  "total_placements": 0
+  "total_markers": 2,
+  "total_placements": 2
  },
  "chance_spawns": {
-  "locations": [
-   {
-    "marker": "Haven Church",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Owlet"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "The Deep",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Owlet"
-    ],
-    "count": 1
-   }
-  ],
-  "total": 2,
+  "locations": [],
+  "total": 0,
   "note": null
  },
- "blurb": "The Owlet in Fallout 76 — drops Owlet Meat, 3 NPC variants."
+ "blurb": "The Owlet in Fallout 76 — drops Owlet Meat, 3 NPC variants, 2 known spawn points."
 }

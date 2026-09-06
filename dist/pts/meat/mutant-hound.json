@@ -1,13 +1,15 @@
 {
  "_meta": {
-  "generated": "2026-09-04",
+  "generated": "2026-09-06",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
     "edid": "FEVHoundRace"
    }
   ],
-  "source_totals": {},
+  "source_totals": {
+   "placement": 6
+  },
   "unresolved": {}
  },
  "set": "meat",
@@ -113,7 +115,59 @@
    },
    {
     "region": "Cranberry Bog",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Watoga Civic Center",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5A2444",
+       "5A2447"
+      ],
+      "coords": [
+       136419.2,
+       -138206.6
+      ],
+      "spawns": [
+       {
+        "label": "Mutant Hound spawn #1",
+        "ref": "5A2444",
+        "source_type": "placement",
+        "coords": [
+         136419.2,
+         -138206.6
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mutant Hound spawn #2",
+        "ref": "5A2447",
+        "source_type": "placement",
+        "coords": [
+         137850.3,
+         -139019.4
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "Forest",
@@ -121,11 +175,102 @@
    },
    {
     "region": "Savage Divide",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Atlas Substructure",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5D7985",
+       "5D98FD"
+      ],
+      "coords": [
+       3301.5,
+       -12211.0
+      ],
+      "spawns": [
+       {
+        "label": "Mutant Hound spawn #1",
+        "ref": "5D7985",
+        "source_type": "placement",
+        "coords": [
+         3301.5,
+         -12211.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mutant Hound spawn #2",
+        "ref": "5D98FD",
+        "source_type": "placement",
+        "coords": [
+         -5265.0,
+         -12387.4
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "Skyline Valley",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Stony Man Lookout",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6F03E5"
+      ],
+      "coords": [
+       59718.5,
+       -228632.5
+      ],
+      "spawns": [
+       {
+        "label": "Mutant Hound spawn",
+        "ref": "6F03E5",
+        "source_type": "placement",
+        "coords": [
+         59718.5,
+         -228632.5
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "The Mire",
@@ -137,57 +282,55 @@
    },
    {
     "region": "Toxic Valley",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Grafton Dam",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3BE064"
+      ],
+      "coords": [
+       4391.6,
+       121739.3
+      ],
+      "spawns": [
+       {
+        "label": "Mutant Hound spawn",
+        "ref": "3BE064",
+        "source_type": "placement",
+        "coords": [
+         4391.6,
+         121739.3
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    }
   ],
-  "total_markers": 0,
-  "total_placements": 0
+  "total_markers": 4,
+  "total_placements": 6
  },
  "chance_spawns": {
-  "locations": [
-   {
-    "marker": "Atlas Substructure",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mutant Hound"
-    ],
-    "count": 2
-   },
-   {
-    "marker": "Grafton Dam",
-    "region": "Toxic Valley",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mutant Hound"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Stony Man Lookout",
-    "region": "Skyline Valley",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mutant Hound"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Watoga Civic Center",
-    "region": "Cranberry Bog",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mutant Hound"
-    ],
-    "count": 2
-   }
-  ],
-  "total": 4,
+  "locations": [],
+  "total": 0,
   "note": null
  },
- "blurb": "The Mutant Hound in Fallout 76 — drops Mutant Hound Meat, 16 NPC variants."
+ "blurb": "The Mutant Hound in Fallout 76 — drops Mutant Hound Meat, 16 NPC variants, 6 known spawn points."
 }
