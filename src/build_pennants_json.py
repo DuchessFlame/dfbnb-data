@@ -296,7 +296,7 @@ TEX_BY_TOKEN = [
 # (pennant STATs are only gated by a HasEntitlement check).
 def unlock_hint(source: str) -> str:
     return {
-        "PTS": "Log into the Public Test Server (PTS) while this pennant's test cycle is active to unlock it. Once granted it carries over to your live account.",
+        "PTS": "Spend at least 15 minutes on the Public Test Server during that update's test cycle, and/or complete any challenges and tasks specific to that update. Once granted it carries over to your live account.",
         "Nuclear Winter": "Earned for taking part in Nuclear Winter. With that mode retired it can no longer be obtained.",
         "Milestone": "Granted automatically as a milestone / login reward.",
         "Atom Shop": "Purchased from the Atom Shop with Atoms.",

@@ -92,7 +92,9 @@ CURATED_LOCATIONS = [
     ("Morgantown",                       "The Forest",    "00048318"),
     ("Morgantown Trainyard",             "The Forest",    "0008CD53"),
     ("New Gad",                          "The Forest",    "0009A24F"),
-    ("Poseidon Energy Plant WV-06",      "The Forest",    ""),
+    # Poseidon Energy Plant WV-06 removed Sept 2026 -- it carried no FormID and
+    # is absent from HTO_HostileTakeOver_Master_EventPlayList_AllRegions
+    # [TEPF:00897401], the game's actual infestation location list.
     ("Summersville Dam",                 "The Forest",    "002E8048"),
     ("Summersville Docks",               "The Forest",    "0009A18D"),
     ("Tyler County Fairgrounds",         "The Forest",    "000A1B7E"),

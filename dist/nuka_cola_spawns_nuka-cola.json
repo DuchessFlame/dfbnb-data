@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-09-04",
+  "generated": "2026-09-07",
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
   "source_formids": [
    3834214,
@@ -183605,224 +183605,6 @@
    ]
   }
  ],
- "used_for": {
-  "consumption": {
-   "object_type": "Drink",
-   "weight": 1.0,
-   "value": 10,
-   "addiction": null,
-   "herbivore": false,
-   "carnivore": false,
-   "note": "Nuka Cola is a drink consumable. It grants no timed stat buff on its own.",
-   "effects": [
-    {
-     "name": "Restore Health",
-     "display": "Restores 40 Health",
-     "duration": "10s"
-    },
-    {
-     "name": "Restore Action Points",
-     "display": "Restore Action Points",
-     "duration": "5s"
-    },
-    {
-     "name": "Quench Thirst",
-     "display": "Quenches thirst (540/9 min)",
-     "duration": null
-    },
-    {
-     "name": "Bottlecap Collector",
-     "display": "Bottlecap Collector",
-     "duration": null
-    },
-    {
-     "name": "Rads",
-     "display": "Rads",
-     "duration": null
-    }
-   ]
-  }
- },
- "farming_tips": {
-  "spoils": false,
-  "spoil_duration_hours": null,
-  "base_weight": 1.0,
-  "object_type": "Drink",
-  "yield_perk": null,
-  "weight_perk": "thru_hiker",
-  "weight_perk_ranks": [
-   {
-    "rank": 1,
-    "reduction": "45%",
-    "weight": 0.55
-   },
-   {
-    "rank": 2,
-    "reduction": "90%",
-    "weight": 0.1
-   }
-  ],
-  "backpack_mod": "grocers",
-  "backpack_weight": 0.1,
-  "armour_mod": "thru_hikers",
-  "armour_mod_per_piece": 0.2,
-  "armour_mod_weights": [
-   {
-    "pieces": 1,
-    "reduction": "20%",
-    "weight": 0.8
-   },
-   {
-    "pieces": 2,
-    "reduction": "40%",
-    "weight": 0.6
-   },
-   {
-    "pieces": 3,
-    "reduction": "60%",
-    "weight": 0.4
-   },
-   {
-    "pieces": 4,
-    "reduction": "80%",
-    "weight": 0.2
-   },
-   {
-    "pieces": 5,
-    "reduction": "90% cap",
-    "weight": 0.1
-   }
-  ],
-  "magazines_affect_yield": false,
-  "good_with_salt": false
- },
- "events_activities": [
-  {
-   "list_id": "0065E293",
-   "edid": "E09D_GWWS_LL_QuestReward",
-   "name": "Event: Most Wanted",
-   "type": "Public Event",
-   "note": "Chance the item is in the Event: Most Wanted reward pool per event/activity payout.",
-   "rate_value": 0.5,
-   "rate_display": "50%",
-   "rate_lines": [
-    "50%"
-   ]
-  },
-  {
-   "list_id": "00665762",
-   "edid": "E09A_Launcher_QuestReward_LL",
-   "name": "Event: Seismic Activity",
-   "type": "Public Event",
-   "note": "Chance the item is in the Event: Seismic Activity reward pool per event/activity payout.",
-   "rate_value": 0.5,
-   "rate_display": "50%",
-   "rate_lines": [
-    "50%"
-   ]
-  },
-  {
-   "list_id": "00647B22",
-   "edid": "E09B_Wheel_LL_QuestReward",
-   "name": "Event: Spin The Wheel",
-   "type": "Public Event",
-   "note": "Chance the item is in the Event: Spin The Wheel reward pool per event/activity payout.",
-   "rate_value": 0.5,
-   "rate_display": "50%",
-   "rate_lines": [
-    "50%"
-   ]
-  },
-  {
-   "list_id": "006772EB",
-   "edid": "E09C_LL_LoveTunnel_QuestReward",
-   "name": "Event: Tunnel Of Love",
-   "type": "Public Event",
-   "note": "Chance the item is in the Event: Tunnel Of Love reward pool per event/activity payout.",
-   "rate_value": 0.5,
-   "rate_display": "50%",
-   "rate_lines": [
-    "50%"
-   ]
-  },
-  {
-   "list_id": "003FB9B0",
-   "edid": "CB04_RewardContainerList",
-   "name": "CB04 Reward Container List",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the CB04 Reward Container List reward pool per event/activity payout.",
-   "rate_value": 0.143621,
-   "rate_display": "14.36%",
-   "rate_lines": [
-    "14.36%"
-   ]
-  },
-  {
-   "list_id": "0033B090",
-   "edid": "LL_Snacks_RE_ScenePS02",
-   "name": "Story time with Miss Nanny",
-   "type": "Miscellaneous",
-   "note": "Chance the item is in the Story time with Miss Nanny reward pool per event/activity payout.",
-   "rate_value": 0.066667,
-   "rate_display": "6.67%",
-   "rate_lines": [
-    "6.67%"
-   ]
-  },
-  {
-   "list_id": "00210B67",
-   "edid": "LLI_LunchBoxKidsDropsRare",
-   "name": "Lunch Box Kids Drops Rare",
-   "type": "Loot Bag",
-   "note": "Chance the item is in the Lunch Box Kids Drops Rare reward pool per event/activity payout.",
-   "rate_value": 0.058333,
-   "rate_display": "5.83%",
-   "rate_lines": [
-    "5.83%"
-   ]
-  },
-  {
-   "list_id": "0035D0C7",
-   "edid": "FF12_LL_QuestReward_Event_Basic",
-   "name": "Quest Reward Event Basic",
-   "type": "Quest Reward",
-   "note": "Chance the item is in the Quest Reward Event Basic reward pool per event/activity payout.",
-   "rate_value": 0.000625,
-   "rate_display": "0.06%",
-   "rate_lines": [
-    "0.06%"
-   ]
-  }
- ],
- "special_sources": {
-  "collectrons": [
-   {
-    "name": "Nuka-Cola Collectron Station",
-    "edid": "ATX_CollectronPod_NukaCola",
-    "obtain": "Atom Shop",
-    "note": "CAMP collectron pod that periodically deposits Nuka-Cola into its stash."
-   }
-  ],
-  "resource_generators": [
-   {
-    "name": "Nuka-Cola Mystery Machine",
-    "edid": "NukaCola_MysteryMachine",
-    "obtain": "Atom Shop",
-    "note": "CAMP vending machine that dispenses a random classic Nuka-Cola flavour on a timer. Skins: Pristine, Americana."
-   }
-  ],
-  "vendors": [
-   {
-    "name": "Nuka-World on Tour — Nuka-Cola Vendor",
-    "edid": "NWOT_VendingMachine_VendorChest_NukaCola",
-    "region": "Ash Heap",
-    "marker": "Nuka-World on Tour",
-    "guaranteed": true,
-    "note": "Dedicated vendor that always stocks Nuka-Cola during the Nuka-World on Tour event (instanced — no fixed map coordinates)."
-   }
-  ]
- },
- "total": 13315,
  "chance_spawns": {
   "regions": [
    {
@@ -189342,10 +189124,223 @@
    }
   ],
   "total_markers": 389,
-  "total": 3121,
-  "map_base": "/wp-content/uploads/guide-images/farming-nuka-cola/nuka-cola/"
+  "total": 3121
  },
- "treasure_maps": {
-  "maps": []
+ "used_for": {
+  "consumption": {
+   "object_type": "Drink",
+   "weight": 1.0,
+   "value": 10,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Nuka Cola is a drink consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Restore Health",
+     "display": "Restores 40 Health",
+     "duration": "10s"
+    },
+    {
+     "name": "Restore Action Points",
+     "display": "Restore Action Points",
+     "duration": "5s"
+    },
+    {
+     "name": "Quench Thirst",
+     "display": "Quenches thirst (540/9 min)",
+     "duration": null
+    },
+    {
+     "name": "Bottlecap Collector",
+     "display": "Bottlecap Collector",
+     "duration": null
+    },
+    {
+     "name": "Rads",
+     "display": "Rads",
+     "duration": null
+    }
+   ]
+  }
+ },
+ "farming_tips": {
+  "spoils": false,
+  "spoil_duration_hours": null,
+  "base_weight": 1.0,
+  "object_type": "Drink",
+  "yield_perk": null,
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.55
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.1
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.1,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.8
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.6
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.1
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": false
+ },
+ "events_activities": [
+  {
+   "list_id": "0065E293",
+   "edid": "E09D_GWWS_LL_QuestReward",
+   "name": "Event: Most Wanted",
+   "type": "Public Event",
+   "note": "Chance the item is in the Event: Most Wanted reward pool per event/activity payout.",
+   "rate_value": 0.5,
+   "rate_display": "50%",
+   "rate_lines": [
+    "50%"
+   ]
+  },
+  {
+   "list_id": "00665762",
+   "edid": "E09A_Launcher_QuestReward_LL",
+   "name": "Event: Seismic Activity",
+   "type": "Public Event",
+   "note": "Chance the item is in the Event: Seismic Activity reward pool per event/activity payout.",
+   "rate_value": 0.5,
+   "rate_display": "50%",
+   "rate_lines": [
+    "50%"
+   ]
+  },
+  {
+   "list_id": "00647B22",
+   "edid": "E09B_Wheel_LL_QuestReward",
+   "name": "Event: Spin The Wheel",
+   "type": "Public Event",
+   "note": "Chance the item is in the Event: Spin The Wheel reward pool per event/activity payout.",
+   "rate_value": 0.5,
+   "rate_display": "50%",
+   "rate_lines": [
+    "50%"
+   ]
+  },
+  {
+   "list_id": "006772EB",
+   "edid": "E09C_LL_LoveTunnel_QuestReward",
+   "name": "Event: Tunnel Of Love",
+   "type": "Public Event",
+   "note": "Chance the item is in the Event: Tunnel Of Love reward pool per event/activity payout.",
+   "rate_value": 0.5,
+   "rate_display": "50%",
+   "rate_lines": [
+    "50%"
+   ]
+  },
+  {
+   "list_id": "003FB9B0",
+   "edid": "CB04_RewardContainerList",
+   "name": "CB04 Reward Container List",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the CB04 Reward Container List reward pool per event/activity payout.",
+   "rate_value": 0.143621,
+   "rate_display": "14.36%",
+   "rate_lines": [
+    "14.36%"
+   ]
+  },
+  {
+   "list_id": "0033B090",
+   "edid": "LL_Snacks_RE_ScenePS02",
+   "name": "Story time with Miss Nanny",
+   "type": "Miscellaneous",
+   "note": "Chance the item is in the Story time with Miss Nanny reward pool per event/activity payout.",
+   "rate_value": 0.066667,
+   "rate_display": "6.67%",
+   "rate_lines": [
+    "6.67%"
+   ]
+  },
+  {
+   "list_id": "00210B67",
+   "edid": "LLI_LunchBoxKidsDropsRare",
+   "name": "Lunch Box Kids Drops Rare",
+   "type": "Loot Bag",
+   "note": "Chance the item is in the Lunch Box Kids Drops Rare reward pool per event/activity payout.",
+   "rate_value": 0.058333,
+   "rate_display": "5.83%",
+   "rate_lines": [
+    "5.83%"
+   ]
+  },
+  {
+   "list_id": "0035D0C7",
+   "edid": "FF12_LL_QuestReward_Event_Basic",
+   "name": "The Bell Tolls",
+   "type": "Quest Reward",
+   "note": "Chance the item is in the The Bell Tolls reward pool per event/activity payout.",
+   "rate_value": 0.000625,
+   "rate_display": "0.06%",
+   "rate_lines": [
+    "0.06%"
+   ]
+  }
+ ],
+ "special_sources": {
+  "collectrons": [
+   {
+    "name": "Nuka-Cola Collectron Station",
+    "edid": "ATX_CollectronPod_NukaCola",
+    "obtain": "Atom Shop",
+    "note": "CAMP collectron pod that periodically deposits Nuka-Cola into its stash."
+   }
+  ],
+  "resource_generators": [
+   {
+    "name": "Nuka-Cola Mystery Machine",
+    "edid": "NukaCola_MysteryMachine",
+    "obtain": "Atom Shop",
+    "note": "CAMP vending machine that dispenses a random classic Nuka-Cola flavour on a timer. Skins: Pristine, Americana."
+   }
+  ],
+  "vendors": [
+   {
+    "name": "Nuka-World on Tour — Nuka-Cola Vendor",
+    "edid": "NWOT_VendingMachine_VendorChest_NukaCola",
+    "region": "Ash Heap",
+    "marker": "Nuka-World on Tour",
+    "guaranteed": true,
+    "note": "Dedicated vendor that always stocks Nuka-Cola during the Nuka-World on Tour event (instanced — no fixed map coordinates)."
+   }
+  ]
  }
 }
