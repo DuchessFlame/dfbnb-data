@@ -301,7 +301,11 @@ def run(argv=None):
             pg["used_for_url"] = URL_OF(pg["slug"])
             cache = os.path.join(GEO_DIR, pg["slug"] + ".json")
             keep = _keep_from_doc(os.path.join(OUT_DIR, pg["slug"] + ".json"))
-            bundle = C.compute_bundle(pg, cache, keep=keep, ctx=ctx)
+            # promote_placements: a directly placed creature IS a fixed spawn here —
+            # every base behind one is this page's own species. See
+            # cryptids.tier_spawns for why the leveled ones count too.
+            bundle = C.compute_bundle(pg, cache, keep=keep, ctx=ctx,
+                                      promote_placements=True)
             placements = bundle["fixed_spawns"]["total_placements"]
             doc = {
                 "_meta": {"generated": generated, "source": SOURCE_TAG,
@@ -326,7 +330,9 @@ def run(argv=None):
 
         # assertion: spawns[] == count on every location
         bad = [(r["region"], l["marker"]) for r in doc["fixed_spawns"]["regions"]
-               for l in r["locations"] if len(l.get("spawns") or []) != l["count"]]
+               for l in r["locations"]
+               if not l.get("spawns_compacted")
+               and len(l.get("spawns") or []) != l["count"]]
         if bad:
             raise AssertionError(f"[{pg['slug']}] spawns/count mismatch at {bad[:5]}")
 

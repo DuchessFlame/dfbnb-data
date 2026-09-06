@@ -1,0 +1,2058 @@
+{
+ "_meta": {
+  "generated": "2026-09-06",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "YaoGuaiRace"
+   }
+  ],
+  "source_totals": {
+   "placement": 30,
+   "spawn": 4
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "yao-guai",
+ "name": "Yao Guai",
+ "page_title": "Farming - Meat - Yao Guai",
+ "url": "/bnb/farming/meat/yao-guai/yao-guai-location-guide/",
+ "npc_summary": {
+  "npc_count": 28,
+  "level_min": 16,
+  "level_max": 100,
+  "health_max": 1950
+ },
+ "meat_items": [
+  {
+   "name": "Yao Guai Meat",
+   "form_id": "00047660",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Daily",
+   "name": "Cook Yao Guai Ribs",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Craft_YaoGuai_Ribs",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Kill a Yao Guai",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Kill_YaoGuai",
+   "page": "daily"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of a Glowing Yao Guai",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Glowing_SUB_YaoGuai_Camera",
+   "page": "world"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of an Albino Yao Guai",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Albino_SUB_YaoGuai_Camera",
+   "page": "world"
+  },
+  {
+   "type": "Weekly",
+   "name": "Sell Yao Guai Ribs to an NPC vendor",
+   "required": 1,
+   "edid": "SCORE_Challenge_Weekly_Barter_Sell_Yao_guai_ribs",
+   "page": "weekly"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_YaoGuai",
+    "form_id": "0008E3B8",
+    "row_count": 8,
+    "direct_items": 3,
+    "pool_count": 5,
+    "item_count": 2680,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Ammo Loot Contextual Open World",
+      "sub_id": "006CD246",
+      "edid": "LL_Ammo_Loot_Contextual_OpenWorld",
+      "item_count": 1106,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "42.75%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "23.75%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "23.75%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "23.75%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "23.75%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (medium)",
+      "sub_id": "003DF3F8",
+      "edid": "LLS_Creature_Medium",
+      "item_count": 1106,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "38.48%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "21.38%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Boss Component Yao Guai",
+      "sub_id": "0043438F",
+      "edid": "LLE_Creature_Boss_Component_YaoGuai",
+      "item_count": 6,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Loose Spring",
+        "rate_display": "100%"
+       },
+       {
+        "name": "Waste Acid",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Pelt",
+      "form_id": "00634738",
+      "edid": "XPD_Hub_Mark_Pelt",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Spotlight Back To Nature",
+      "sub_id": "004845CB",
+      "edid": "LLD_Spotlight_BackToNature",
+      "item_count": 19,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Backwoodsman 3",
+        "rate_display": "6.25%"
+       },
+       {
+        "name": "Backwoodsman 5",
+        "rate_display": "6.25%"
+       },
+       {
+        "name": "Guns and Bullets 5",
+        "rate_display": "6.25%"
+       },
+       {
+        "name": "Guns and Bullets 8",
+        "rate_display": "6.25%"
+       },
+       {
+        "name": "Leather Left Arm",
+        "rate_display": "3.33%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Yao Guai",
+      "sub_id": "003DF3F6",
+      "edid": "LLS_Creature_YaoGuai",
+      "item_count": 440,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Baby Rattle",
+        "rate_display": "0.23%"
+       },
+       {
+        "name": "Baseball",
+        "rate_display": "0.23%"
+       },
+       {
+        "name": "Bobby Pin",
+        "rate_display": "0.23%"
+       },
+       {
+        "name": "Cigarette",
+        "rate_display": "0.23%"
+       },
+       {
+        "name": "Pack of Cigarettes",
+        "rate_display": "0.23%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Yao Guai Hide",
+      "form_id": "0022B62A",
+      "edid": "YaoGuaiHide",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "item",
+      "name": "Yao Guai Meat",
+      "form_id": "00047660",
+      "edid": "YaoGuaiMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [
+  {
+   "form_id": "003B8155",
+   "edid": "RE_AssaultMJP04",
+   "name": "Scorched Baseball vs Yao Guai",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "007444F9",
+   "edid": "Storm_RE_AssaultBG01",
+   "name": "Super Mutants vs. Yao Guai",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "00529E17",
+   "edid": "RE_TravelCMB01",
+   "name": "Yao Guai",
+   "type": "Travel Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0058CEBC",
+   "edid": "W05_RE_Camp_JP30_MobCamp_YaoGuai",
+   "name": "Yao Guai Hostile Camp",
+   "type": "CAMP Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0035EC0A",
+   "edid": "RE_TravelMP09",
+   "name": "Yao Guai vs. Deathclaw",
+   "type": "Travel Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "00333850",
+   "edid": "RE_AssaultMJP01",
+   "name": "Yao Guai vs. Honey Beasts",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0035EBF8",
+   "edid": "RE_AssaultMP09",
+   "name": "Yao Guai vs. Super Mutants",
+   "type": "Assault Encounters",
+   "location": ""
+  }
+ ],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": []
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": []
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": [
+     {
+      "marker": "Fissure Site",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "386D88",
+       "386D89"
+      ],
+      "coords": [
+       173817.234375,
+       -160289.546875
+      ],
+      "spawns": [
+       {
+        "label": "Stunted Yao Guai",
+        "ref": "386D88",
+        "source_type": "placement",
+        "coords": [
+         173817.234375,
+         -160289.546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Stunted Yao Guai"
+       },
+       {
+        "label": "Stunted Yao Guai",
+        "ref": "386D89",
+        "source_type": "placement",
+        "coords": [
+         174128.1875,
+         -159874.078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Stunted Yao Guai"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Pylon V-13",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "439944"
+      ],
+      "coords": [
+       194761.28125,
+       -85320.171875
+      ],
+      "spawns": [
+       {
+        "label": "Stunted Yao Guai",
+        "ref": "439944",
+        "source_type": "placement",
+        "coords": [
+         194761.28125,
+         -85320.171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Stunted Yao Guai"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Quarry X3",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "434D33"
+      ],
+      "coords": [
+       166415.25,
+       -106116.203125
+      ],
+      "spawns": [
+       {
+        "label": "Stunted Yao Guai",
+        "ref": "434D33",
+        "source_type": "placement",
+        "coords": [
+         166415.25,
+         -106116.203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Stunted Yao Guai"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Sparse Sundew Grove",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4391D0"
+      ],
+      "coords": [
+       132186.234375,
+       -179990.453125
+      ],
+      "spawns": [
+       {
+        "label": "Stunted Yao Guai",
+        "ref": "4391D0",
+        "source_type": "placement",
+        "coords": [
+         132186.234375,
+         -179990.453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Stunted Yao Guai"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Clancy Manor",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "386E34"
+      ],
+      "coords": [
+       -99677.6953125,
+       178405.59375
+      ],
+      "spawns": [
+       {
+        "label": "Stunted Yao Guai",
+        "ref": "386E34",
+        "source_type": "placement",
+        "coords": [
+         -99677.6953125,
+         178405.59375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Stunted Yao Guai"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Fissure Site",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "386F27"
+      ],
+      "coords": [
+       -38156.0390625,
+       -69093.578125
+      ],
+      "spawns": [
+       {
+        "label": "Stunted Yao Guai",
+        "ref": "386F27",
+        "source_type": "placement",
+        "coords": [
+         -38156.0390625,
+         -69093.578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Stunted Yao Guai"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Organ Cave South",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "54A559"
+      ],
+      "coords": [
+       -117326.9296875,
+       87475.1875
+      ],
+      "spawns": [
+       {
+        "label": "Yao Guai spawn",
+        "ref": "54A559",
+        "source_type": "placement",
+        "coords": [
+         -117326.9296875,
+         87475.1875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "Big Fred's BBQ Shack",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3786D5",
+       "41768D"
+      ],
+      "coords": [
+       67621.8125,
+       -30459.197265625
+      ],
+      "spawns": [
+       {
+        "label": "Stunted Yao Guai",
+        "ref": "3786D5",
+        "source_type": "placement",
+        "coords": [
+         67621.8125,
+         -30459.197265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Stunted Yao Guai"
+       },
+       {
+        "label": "Son of Fluffy",
+        "ref": "41768D",
+        "source_type": "placement",
+        "coords": [
+         66045.890625,
+         -22365.208984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Son of Fluffy"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Enclave Research Facility",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5DD490",
+       "5E7037"
+      ],
+      "coords": [
+       -3356.26879882812,
+       1754.37219238281
+      ],
+      "spawns": [
+       {
+        "label": "Yao Guai spawn #1",
+        "ref": "5DD490",
+        "source_type": "placement",
+        "coords": [
+         -3356.26879882812,
+         1754.37219238281
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Yao Guai spawn #2",
+        "ref": "5E7037",
+        "source_type": "placement",
+        "coords": [
+         275.596160888672,
+         5841.263671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Fissure Site",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "386DB5"
+      ],
+      "coords": [
+       154729.234375,
+       182552.859375
+      ],
+      "spawns": [
+       {
+        "label": "Stunted Yao Guai",
+        "ref": "386DB5",
+        "source_type": "placement",
+        "coords": [
+         154729.234375,
+         182552.859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Stunted Yao Guai"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Miners Monument",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3CD45B"
+      ],
+      "coords": [
+       -19511.640625,
+       -79968.09375
+      ],
+      "spawns": [
+       {
+        "label": "Yao Guai spawn",
+        "ref": "3CD45B",
+        "source_type": "placement",
+        "coords": [
+         -19511.640625,
+         -79968.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Monongah Overlook",
+      "count": 1,
+      "sources": {
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2C768C"
+      ],
+      "coords": [
+       43204.65625,
+       103734.4921875
+      ],
+      "spawns": [
+       {
+        "label": "Yao Guai spawn",
+        "ref": "2C768C",
+        "source_type": "spawn",
+        "coords": [
+         43204.65625,
+         103734.4921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Mountainside Bed & Breakfast",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4398B0",
+       "4398B1"
+      ],
+      "coords": [
+       730.228881835938,
+       -95232.8046875
+      ],
+      "spawns": [
+       {
+        "label": "Yao Guai spawn #1",
+        "ref": "4398B0",
+        "source_type": "placement",
+        "coords": [
+         730.228881835938,
+         -95232.8046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Yao Guai spawn #2",
+        "ref": "4398B1",
+        "source_type": "placement",
+        "coords": [
+         -636.145751953125,
+         -96083.1328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Radiant Hills",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7CEA79"
+      ],
+      "coords": [
+       169611.125,
+       232885.625
+      ],
+      "spawns": [
+       {
+        "label": "Yao Guai spawn",
+        "ref": "7CEA79",
+        "source_type": "placement",
+        "coords": [
+         169611.125,
+         232885.625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Red Rocket Mega Stop",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "09D9D6"
+      ],
+      "coords": [
+       136033.53125,
+       161987.421875
+      ],
+      "spawns": [
+       {
+        "label": "Stunted Yao Guai",
+        "ref": "09D9D6",
+        "source_type": "placement",
+        "coords": [
+         136033.53125,
+         161987.421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Stunted Yao Guai"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Site Alpha",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "46A034"
+      ],
+      "coords": [
+       80433.609375,
+       -13574.1328125
+      ],
+      "spawns": [
+       {
+        "label": "Yao Guai spawn",
+        "ref": "46A034",
+        "source_type": "placement",
+        "coords": [
+         80433.609375,
+         -13574.1328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Vault 79",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "56FA76"
+      ],
+      "coords": [
+       -11246.29296875,
+       -10165.0615234375
+      ],
+      "spawns": [
+       {
+        "label": "Yao Guai spawn",
+        "ref": "56FA76",
+        "source_type": "placement",
+        "coords": [
+         -11246.29296875,
+         -10165.0615234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Vault 96",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "782B99"
+      ],
+      "coords": [
+       27504.103515625,
+       -170975.4375
+      ],
+      "spawns": [
+       {
+        "label": "Yao Guai spawn",
+        "ref": "782B99",
+        "source_type": "placement",
+        "coords": [
+         27504.103515625,
+         -170975.4375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": [
+     {
+      "marker": "Camp Liberty",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6F7F35",
+       "76A489"
+      ],
+      "coords": [
+       67670.625,
+       -242002.671875
+      ],
+      "spawns": [
+       {
+        "label": "Commie Bear",
+        "ref": "6F7F35",
+        "source_type": "placement",
+        "coords": [
+         67670.625,
+         -242002.671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Commie Bear"
+       },
+       {
+        "label": "Glowing Yao Guai",
+        "ref": "76A489",
+        "source_type": "placement",
+        "coords": [
+         66296.0,
+         -249224.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Glowing Yao Guai"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "High Knob Lookout",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "769809"
+      ],
+      "coords": [
+       -23161.98828125,
+       -217513.625
+      ],
+      "spawns": [
+       {
+        "label": "Yao Guai spawn",
+        "ref": "769809",
+        "source_type": "placement",
+        "coords": [
+         -23161.98828125,
+         -217513.625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Rapidan Camp",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "759B5C"
+      ],
+      "coords": [
+       -3679.521484375,
+       -232078.53125
+      ],
+      "spawns": [
+       {
+        "label": "Yao Guai spawn",
+        "ref": "759B5C",
+        "source_type": "placement",
+        "coords": [
+         -3679.521484375,
+         -232078.53125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Research Site Rhineland",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6F5549",
+       "6F8F20",
+       "6F8F21"
+      ],
+      "coords": [
+       -8337.5302734375,
+       -210266.765625
+      ],
+      "spawns": [
+       {
+        "label": "Yao Guai spawn #1",
+        "ref": "6F5549",
+        "source_type": "placement",
+        "coords": [
+         -8337.5302734375,
+         -210266.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Yao Guai spawn #2",
+        "ref": "6F8F20",
+        "source_type": "placement",
+        "coords": [
+         -6674.80615234375,
+         -212056.640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Yao Guai spawn #3",
+        "ref": "6F8F21",
+        "source_type": "placement",
+        "coords": [
+         -7240.015625,
+         -211728.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Substation TM-03",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7538BB"
+      ],
+      "coords": [
+       46465.71484375,
+       -206511.5625
+      ],
+      "spawns": [
+       {
+        "label": "Yao Guai spawn",
+        "ref": "7538BB",
+        "source_type": "placement",
+        "coords": [
+         46465.71484375,
+         -206511.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Mire",
+    "locations": [
+     {
+      "marker": "Abandoned Waste Dump",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3DC3DC"
+      ],
+      "coords": [
+       184869.5625,
+       26819.4453125
+      ],
+      "spawns": [
+       {
+        "label": "Yao Guai spawn",
+        "ref": "3DC3DC",
+        "source_type": "placement",
+        "coords": [
+         184869.5625,
+         26819.4453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Dolly Sods Wilderness",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "36BEBB",
+       "3E613B"
+      ],
+      "coords": [
+       156677.265625,
+       84044.734375
+      ],
+      "spawns": [
+       {
+        "label": "Yao Guai spawn #1",
+        "ref": "36BEBB",
+        "source_type": "spawn",
+        "coords": [
+         156677.265625,
+         84044.734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Yao Guai spawn #2",
+        "ref": "3E613B",
+        "source_type": "spawn",
+        "coords": [
+         158384.203125,
+         89128.578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": [
+     {
+      "marker": "Philippi Battlefield Cemetery",
+      "count": 1,
+      "sources": {
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "52B2D1"
+      ],
+      "coords": [
+       39763.41015625,
+       175761.46875
+      ],
+      "spawns": [
+       {
+        "label": "Yao Guai spawn",
+        "ref": "52B2D1",
+        "source_type": "spawn",
+        "coords": [
+         39763.41015625,
+         175761.46875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "total_markers": 26,
+  "total_placements": 34
+ },
+ "chance_spawns": {
+  "locations": [
+   {
+    "marker": "Abandoned Bog Town",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Abandoned Mine Shaft 1",
+    "region": "Ash Heap",
+    "chance_value": 0.0588,
+    "chance_display": "5.9%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Abandoned Mine Shaft 5",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Abandoned Mine Site Kittery",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Abbie's Bunker",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Appalachian Antiques",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Autumn Acre Cabin",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Beckwith Farm",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Berkeley Springs West",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Crevasse Dam",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Dagger's Den",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Dent & Sons Construction",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Dolly Sods Lookout",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Drop Site G3",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Ella Ames' Bunker",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Firebase Major",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Firebase Major",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Fissure Site",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Flooded Trainyard",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Forward Station Alpha",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Garrahan Mining Headquarters",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Garrahan Mining Headquarters",
+    "region": "Ash Heap",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Gleaming Depths",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Gnarled Shallows",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Gulper Lagoon",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Hawksbill Weather Station",
+    "region": "Skyline Valley",
+    "chance_value": 0.1938,
+    "chance_display": "19.4%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Highland Marsh",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Hornwright Estate",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Hornwright Testing Site #02",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Hornwright Testing Site #03",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Mire's Eye",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Monongah Power Substation MZ-01",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 13
+   },
+   {
+    "marker": "Mosstown",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Moth-Home",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Mount Blair",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "National Isolated Radio Array",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "National Radio Astronomy Research Center",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Pylon Ambush Site",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Ranger Lookout",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Relay Tower HG-B7-09",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "RobCo Research Center",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Seneca Rocks Visitor Center",
+    "region": "Savage Divide",
+    "chance_value": 0.5,
+    "chance_display": "50%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Site Bravo",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Striker Row",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Sugar Grove",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Sunday Brothers' Cabin",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Sunnytop Ski Lanes Base Lodge",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Sunnytop Station",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "The Bounty",
+    "region": "Savage Divide",
+    "chance_value": 0.5,
+    "chance_display": "50%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "The Burning Mine",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "The Thorn",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "The Whitespring Golf Club",
+    "region": "Savage Divide",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "The Whitespring North Entrance",
+    "region": "Savage Divide",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Thunder Mountain Power Plant",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Thunder Mountain Substation TM-01",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Thunder Mountain Substation TM-02",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Widow's Perch",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Yellow Sandy's Still",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Yao Guai"
+    ],
+    "count": 6
+   }
+  ],
+  "total": 58,
+  "note": null
+ },
+ "blurb": "The Yao Guai in Fallout 76 — drops Yao Guai Meat, 28 NPC variants, 34 known spawn points.",
+ "map_base": "/wp-content/uploads/guide-images/farming-meat/yao-guai/"
+}

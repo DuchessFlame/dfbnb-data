@@ -187,6 +187,40 @@ def image_base(doc, slug, name="", category=None):
     return f"{UPLOADS}{category}/{item}/" if item else ""
 
 
+# Above this many placements a page is DENSE: the renderers stop drawing a slot per
+# spawn and show one marker-level slot instead (df-bnb-farming-plants.js /
+# -meat.js DENSE_PAGE). Keep the two in step.
+DENSE_PAGE = 250
+
+
+def compact_spawns(regions_out):
+    """Strip the per-spawn slots a dense page will never show, in place.
+
+    On a dense page the renderer already collapses to ONE marker-level photo slot,
+    so the per-spawn `spawns[]` entries are invisible — but they still ship. Once the
+    plants pipeline started resolving leveled-placed flora, Blackberries went to
+    13,342 placements and a 3.9 MB document of empty slots nobody can see.
+
+    What survives: every entry that carries authored content (a photo or directions),
+    because that is real work and must never be thrown away, and the marker-level
+    `refs` / `coords`, which is what render_spawn_maps plots. Only blank placeholders
+    go. Returns the number of entries dropped."""
+    dropped = 0
+    for reg in regions_out:
+        for loc in reg.get("locations") or []:
+            spawns = loc.get("spawns") or []
+            kept = [sp for sp in spawns
+                    if sp.get("image_top") or sp.get("directions") or sp.get("image_bottom")]
+            if len(kept) != len(spawns):
+                dropped += len(spawns) - len(kept)
+                loc["spawns"] = kept
+                # The builders assert spawns[] == count on every location, which is a
+                # good guard against silently losing a placement. Flag the ones that
+                # were trimmed deliberately so that check still catches real drops.
+                loc["spawns_compacted"] = True
+    return dropped
+
+
 def group_regions(seen, all_regions, keep, exclude_types=CHANCE_TYPES):
     """Group resolved placements into the per-region location lists. Returns
         (regions_out, src_totals, unresolved, total, placements)

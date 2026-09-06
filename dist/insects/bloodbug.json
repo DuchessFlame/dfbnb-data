@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-08-23",
+  "generated": "2026-09-06",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -9,6 +9,7 @@
   ],
   "source_totals": {
    "ambush": 14,
+   "placement": 13,
    "spawn": 22
   },
   "unresolved": {}
@@ -473,15 +474,58 @@
     "region": "Savage Divide",
     "locations": [
      {
-      "marker": "Dent & Sons Construction",
+      "marker": "Atlas Substructure",
       "count": 1,
       "sources": {
-       "ambush": 1
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "5B6DD7"
+      ],
+      "coords": [
+       1488.7958984375,
+       -395.840240478516
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn",
+        "ref": "5B6DD7",
+        "source_type": "placement",
+        "coords": [
+         1488.7958984375,
+         -395.840240478516
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Dent & Sons Construction",
+      "count": 5,
+      "sources": {
+       "ambush": 1,
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3532AE",
+       "3532CB",
+       "3532D0",
+       "3532D1",
        "50B341"
       ],
       "coords": [
@@ -500,6 +544,54 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "3532AE",
+        "source_type": "placement",
+        "coords": [
+         -22705.06640625,
+         -167215.5
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "3532CB",
+        "source_type": "placement",
+        "coords": [
+         -23941.77734375,
+         -167561.359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "3532D0",
+        "source_type": "placement",
+        "coords": [
+         -23826.7734375,
+         -167748.859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "3532D1",
+        "source_type": "placement",
+        "coords": [
+         -23723.416015625,
+         -168048.640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -507,6 +599,50 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Enclave Research Facility",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5DC9A6"
+      ],
+      "coords": [
+       -1661.64929199219,
+       6817.19091796875
+      ],
+      "spawns": [
+       {
+        "label": "Scorched Bloodbug",
+        "ref": "5DC9A6",
+        "source_type": "placement",
+        "coords": [
+         -1661.64929199219,
+         6817.19091796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Scorched Bloodbug"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      }
@@ -514,7 +650,72 @@
    },
    {
     "region": "Skyline Valley",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Old Rag Lookout",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75AC96",
+       "75AC97",
+       "75AC98"
+      ],
+      "coords": [
+       22063.99609375,
+       -234888.0
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "75AC96",
+        "source_type": "placement",
+        "coords": [
+         22063.99609375,
+         -234888.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "75AC97",
+        "source_type": "placement",
+        "coords": [
+         22512.0,
+         -234840.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "75AC98",
+        "source_type": "placement",
+        "coords": [
+         22336.0,
+         -235280.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "The Mire",
@@ -832,6 +1033,83 @@
         "source_type": "spawn"
        }
       ]
+     },
+     {
+      "marker": "Southhampton Estate",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3A4DEC",
+       "3A4DED",
+       "3A4DEE",
+       "3A4DEF"
+      ],
+      "coords": [
+       168929.453125,
+       125009.171875
+      ],
+      "spawns": [
+       {
+        "label": "Bloodbug spawn #1",
+        "ref": "3A4DEC",
+        "source_type": "placement",
+        "coords": [
+         168929.453125,
+         125009.171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #2",
+        "ref": "3A4DED",
+        "source_type": "placement",
+        "coords": [
+         168958.203125,
+         124901.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #3",
+        "ref": "3A4DEE",
+        "source_type": "placement",
+        "coords": [
+         170729.671875,
+         125306.015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Bloodbug spawn #4",
+        "ref": "3A4DEF",
+        "source_type": "placement",
+        "coords": [
+         170898.6875,
+         124946.3828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
      }
     ]
    },
@@ -844,8 +1122,8 @@
     "locations": []
    }
   ],
-  "total_markers": 7,
-  "total_placements": 36
+  "total_markers": 11,
+  "total_placements": 49
  },
  "chance_spawns": {
   "locations": [
@@ -878,16 +1156,6 @@
      "Bloodbug"
     ],
     "count": 3
-   },
-   {
-    "marker": "Atlas Substructure",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Bloodbug"
-    ],
-    "count": 1
    },
    {
     "marker": "Berkeley Springs West",
@@ -960,16 +1228,6 @@
     "count": 9
    },
    {
-    "marker": "Dent & Sons Construction",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Bloodbug"
-    ],
-    "count": 4
-   },
-   {
     "marker": "Dolly Sods Lookout",
     "region": "The Mire",
     "chance_value": 0.1667,
@@ -998,16 +1256,6 @@
      "Bloodbug"
     ],
     "count": 4
-   },
-   {
-    "marker": "Enclave Research Facility",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Scorched Bloodbug"
-    ],
-    "count": 1
    },
    {
     "marker": "Fort Defiance",
@@ -1100,16 +1348,6 @@
     "count": 3
    },
    {
-    "marker": "Old Rag Lookout",
-    "region": "Skyline Valley",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Bloodbug"
-    ],
-    "count": 3
-   },
-   {
     "marker": "Raleigh Clay's Bunker",
     "region": "The Mire",
     "chance_value": 0.1111,
@@ -1138,16 +1376,6 @@
      "Bloodbug"
     ],
     "count": 3
-   },
-   {
-    "marker": "Southhampton Estate",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Bloodbug"
-    ],
-    "count": 4
    },
    {
     "marker": "Sunday Brothers' Cabin",
@@ -1240,8 +1468,9 @@
     "count": 6
    }
   ],
-  "total": 39,
+  "total": 34,
   "note": null
  },
- "blurb": "The Bloodbug in Fallout 76 — drops Bloodbug Meat, 16 NPC variants, 36 known spawn points."
+ "blurb": "The Bloodbug in Fallout 76 — drops Bloodbug Meat, 16 NPC variants, 49 known spawn points.",
+ "map_base": "/wp-content/uploads/guide-images/farming-insects/bloodbug/"
 }

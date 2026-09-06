@@ -1,0 +1,5054 @@
+{
+ "_meta": {
+  "generated": "2026-09-06",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "MirelurkHunterRace"
+   },
+   {
+    "edid": "MirelurkKingRace"
+   },
+   {
+    "edid": "MirelurkRace"
+   }
+  ],
+  "source_totals": {
+   "ambush": 37,
+   "placement": 118,
+   "spawn": 79
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "mirelurk",
+ "name": "Mirelurk",
+ "page_title": "Farming - Meat - Mirelurk",
+ "url": "/bnb/farming/meat/mirelurk/mirelurk-location-guide/",
+ "npc_summary": {
+  "npc_count": 76,
+  "level_min": 1,
+  "level_max": 100,
+  "health_max": 4500
+ },
+ "meat_items": [
+  {
+   "name": "Mirelurk Meat",
+   "form_id": "000330FF",
+   "rate_display": "100%"
+  },
+  {
+   "name": "Softshell Mirelurk Meat",
+   "form_id": "00033100",
+   "rate_display": "31.46%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Daily",
+   "name": "Collect Mirelurk Eggs",
+   "required": 5,
+   "edid": "SCORE_Challenge_Daily_Collect_Eggs_Mirelurk",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Cook Roasted Mirelurk Meat",
+   "required": 3,
+   "edid": "SCORE_Challenge_Daily_Craft_Roasted_MirelurkMeat",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Cripple a Mirelurk's Limb",
+   "required": 2,
+   "edid": "SCORE_Challenge_Daily_Cripple_Mirelurk_Limbs",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Epic - Kill a Mirelurk with a Blunt Weapon",
+   "required": 15,
+   "edid": "SCORE_Challenge_Daily_Kill_Mirelurks_BluntWeapon_Epic",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Epic - Take a Camera Picture of a Mirelurk King",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Picture_Creatures_Mirelurk_King_While_Well_Rested_Camera_Epic",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Kill a Mirelurk",
+   "required": 5,
+   "edid": "SCORE_Challenge_Daily_Kill_Mirelurks",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Take a Camera Picture of a Mirelurk Hunter",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Picture_Creatures_Mirelurk_Hunter_Camera",
+   "page": "daily"
+  },
+  {
+   "type": "Event",
+   "name": "Burning Love: Kill a Mirelurk while on a Team using the Hot Rod Pink Flamer",
+   "required": 15,
+   "edid": "ATX_DE2024_Valentines_Week1_Challenge_Kill_Mirelurks",
+   "page": "events"
+  },
+  {
+   "type": "Event",
+   "name": "Kill a Mirelurk Queen with the Marshal Mallow Fishing Hat equipped",
+   "required": 3,
+   "edid": "ATX_DE2025_MMMFE_Week2_Challenge_Kill_Mirelurk_Queen",
+   "page": "fishing"
+  },
+  {
+   "type": "Event",
+   "name": "Kill a Mirelurk with the Marshal Mallow Fishing Hat equipped",
+   "required": 20,
+   "edid": "ATX_DE2025_MMMFE_Week1_Challenge_Kill_Mirelurks",
+   "page": "fishing"
+  },
+  {
+   "type": "Event",
+   "name": "Summer Camp: Collect Mirelurk Queen Meat with the Squirrel Backpack equipped",
+   "required": 1,
+   "edid": "ATX_DE2023_SummerCamp_Challenge_Collect_MirelurkSteak",
+   "page": "events"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of a Glowing Mirelurk Hunter",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Glowing_SUB_MirelurkHunter_Camera",
+   "page": "world"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of a Glowing Mirelurk King",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Glowing_SUB_MirelurkKing_Camera",
+   "page": "world"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of a Glowing Mirelurk Queen",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Glowing_SUB_MirelurkQueen_Camera",
+   "page": "world"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of a Legendary Mirelurk",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Legendary_SUB_Mirelurk_Camera",
+   "page": "world"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of an Albino Mirelurk Hunter",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Albino_SUB_MirelurkHunter_Camera",
+   "page": "world"
+  },
+  {
+   "type": "Weekly",
+   "name": "Kill a Mirelurk Queen",
+   "required": 1,
+   "edid": "SCORE_Challenge_Weekly_Kill_HugeMonsters_SUB_MirelurkQueen_Med",
+   "page": "weekly"
+  },
+  {
+   "type": "Weekly",
+   "name": "Sell Mirelurk Queen Steak to an NPC vendor",
+   "required": 1,
+   "edid": "SCORE_Challenge_Weekly_Barter_Sell_Mirelurk_queen_steak",
+   "page": "weekly"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_MirelurkHunter",
+    "form_id": "003533D9",
+    "row_count": 4,
+    "direct_items": 1,
+    "pool_count": 3,
+    "item_count": 1180,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (medium)",
+      "sub_id": "003DF3F8",
+      "edid": "LLS_Creature_Medium",
+      "item_count": 1106,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "38.48%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "21.38%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Mirelurk Hunter",
+      "sub_id": "003DF3F9",
+      "edid": "LLS_Creature_MirelurkHunter",
+      "item_count": 72,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Mirelurk Meat",
+        "rate_display": "8.33%"
+       },
+       {
+        "name": "Softshell Mirelurk Meat",
+        "rate_display": "2.08%"
+       },
+       {
+        "name": "Pre-War Money",
+        "rate_display": "0.83%"
+       },
+       {
+        "name": "Caps",
+        "rate_display": "0.46%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Mirelurk Meat",
+      "form_id": "000330FF",
+      "edid": "MirelurkMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Mirelurk Softshell Meat 25",
+      "sub_id": "0002EF6A",
+      "edid": "LLS_Mirelurk_SoftshellMeat_25",
+      "item_count": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Softshell Mirelurk Meat",
+        "rate_display": "25%"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "edid": "LLD_Creature_Mirelurk",
+    "form_id": "0002EF69",
+    "row_count": 4,
+    "direct_items": 1,
+    "pool_count": 3,
+    "item_count": 50,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "LLE Creature Small",
+      "sub_id": "003DF3FB",
+      "edid": "LLE_Creature_Small",
+      "item_count": 0,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": []
+     },
+     {
+      "kind": "pool",
+      "name": "Mirelurk",
+      "sub_id": "003533DF",
+      "edid": "LLS_Creature_Mirelurk",
+      "item_count": 48,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Mirelurk Meat",
+        "rate_display": "4.17%"
+       },
+       {
+        "name": "Softshell Mirelurk Meat",
+        "rate_display": "1.04%"
+       },
+       {
+        "name": "Caps",
+        "rate_display": "0.69%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Mirelurk Meat",
+      "form_id": "000330FF",
+      "edid": "MirelurkMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Mirelurk Softshell Meat 25",
+      "sub_id": "0002EF6A",
+      "edid": "LLS_Mirelurk_SoftshellMeat_25",
+      "item_count": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Softshell Mirelurk Meat",
+        "rate_display": "25%"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [
+  {
+   "form_id": "0035EC04",
+   "edid": "RE_AssaultMP08",
+   "name": "Gulpers vs. Mirelurks",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0056A0BE",
+   "edid": "W05_RE_AssaultZW07",
+   "name": "Mirelurks v Settlers",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "003D7873",
+   "edid": "RE_TravelMP04",
+   "name": "Mirelurks vs. Gulpers",
+   "type": "Travel Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "004FC063",
+   "edid": "RE_AssaultKMK07",
+   "name": "Mirelurks vs. Scorched",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "004FC068",
+   "edid": "RE_AssaultKMK12",
+   "name": "Mirelurks vs. Super Mutants",
+   "type": "Assault Encounters",
+   "location": ""
+  }
+ ],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": [
+     {
+      "marker": "Lake Reynolds",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2225CB",
+       "2225CC",
+       "2225CD",
+       "2225CE"
+      ],
+      "coords": [
+       -65347.421875,
+       -121210.390625
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "2225CB",
+        "source_type": "spawn",
+        "coords": [
+         -65347.421875,
+         -121210.390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "2225CC",
+        "source_type": "spawn",
+        "coords": [
+         -65780.7578125,
+         -121284.671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "2225CD",
+        "source_type": "spawn",
+        "coords": [
+         -65552.1484375,
+         -121540.1328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "2225CE",
+        "source_type": "spawn",
+        "coords": [
+         -65138.2890625,
+         -121296.4296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Vault 94 G.E.C.K. Wing",
+      "count": 10,
+      "sources": {
+       "placement": 10
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5DC1CF",
+       "5DC1D0",
+       "5DC1D3",
+       "5DC1E0",
+       "5DC209",
+       "5DC20C",
+       "5DC20F",
+       "5DC277",
+       "5DC278",
+       "5DC279"
+      ],
+      "coords": [
+       -868.959655761719,
+       -9892.4111328125
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "5DC1CF",
+        "source_type": "placement",
+        "coords": [
+         -1616.95837402344,
+         -10555.673828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "5DC1D0",
+        "source_type": "placement",
+        "coords": [
+         -868.959655761719,
+         -9892.4111328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "5DC1D3",
+        "source_type": "placement",
+        "coords": [
+         -604.663208007812,
+         -8190.6435546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "5DC1E0",
+        "source_type": "placement",
+        "coords": [
+         -3181.77075195313,
+         -6125.08984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #5",
+        "ref": "5DC209",
+        "source_type": "placement",
+        "coords": [
+         -22.3976516723633,
+         -4721.2841796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #6",
+        "ref": "5DC20C",
+        "source_type": "placement",
+        "coords": [
+         -3576.06713867188,
+         -4993.54296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #7",
+        "ref": "5DC20F",
+        "source_type": "placement",
+        "coords": [
+         -2794.58984375,
+         -5101.83203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #8",
+        "ref": "5DC277",
+        "source_type": "placement",
+        "coords": [
+         333.785461425781,
+         -7946.94580078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #9",
+        "ref": "5DC278",
+        "source_type": "placement",
+        "coords": [
+         -5.20234680175781,
+         -7235.447265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #10",
+        "ref": "5DC279",
+        "source_type": "placement",
+        "coords": [
+         96.1286315917969,
+         -8198.0654296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 10,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Atlantic City",
+    "locations": [
+     {
+      "marker": "The Boardwalk",
+      "count": 7,
+      "sources": {
+       "ambush": 2,
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6C771E",
+       "6C7751",
+       "6C7752",
+       "6C7765",
+       "6C7766",
+       "6CDC85",
+       "6CDC86"
+      ],
+      "coords": [
+       2841.984375,
+       -7039.64404296875
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk ambush #1",
+        "ref": "6C771E",
+        "source_type": "ambush",
+        "coords": [
+         2841.984375,
+         -7039.64404296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #2",
+        "ref": "6CDC86",
+        "source_type": "ambush",
+        "coords": [
+         2974.50341796875,
+         -7532.548828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "6C7751",
+        "source_type": "placement",
+        "coords": [
+         1998.20336914062,
+         -9750.6884765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "6C7752",
+        "source_type": "placement",
+        "coords": [
+         2172.560546875,
+         -9522.52734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "6C7765",
+        "source_type": "placement",
+        "coords": [
+         2830.953125,
+         -7223.4375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "6C7766",
+        "source_type": "placement",
+        "coords": [
+         1809.10827636719,
+         -9379.904296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #5",
+        "ref": "6CDC85",
+        "source_type": "placement",
+        "coords": [
+         3062.12280273438,
+         -7646.07958984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Burning Springs",
+    "locations": []
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": [
+     {
+      "marker": "Glassed Cavern",
+      "count": 10,
+      "sources": {
+       "placement": 6,
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "437B3B",
+       "437B52",
+       "4EA50B",
+       "4EA50C",
+       "4EA513",
+       "4EA514",
+       "52FBE4",
+       "52FBE5",
+       "52FBE6",
+       "52FC04"
+      ],
+      "coords": [
+       -7428.5703125,
+       5840.3994140625
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "437B3B",
+        "source_type": "placement",
+        "coords": [
+         -3026.74072265625,
+         -5733.64404296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "437B52",
+        "source_type": "placement",
+        "coords": [
+         5859.580078125,
+         -8425.1162109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "52FBE4",
+        "source_type": "placement",
+        "coords": [
+         -7255.1728515625,
+         6020.68115234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "52FBE5",
+        "source_type": "placement",
+        "coords": [
+         -7676.1806640625,
+         6182.32470703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #5",
+        "ref": "52FBE6",
+        "source_type": "placement",
+        "coords": [
+         -7428.5703125,
+         5840.3994140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #6",
+        "ref": "52FC04",
+        "source_type": "placement",
+        "coords": [
+         -6668.46240234375,
+         6457.63232421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "4EA50B",
+        "source_type": "spawn",
+        "coords": [
+         -5508.568359375,
+         -4494.18896484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "4EA50C",
+        "source_type": "spawn",
+        "coords": [
+         -5476.1376953125,
+         -4617.13818359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "4EA513",
+        "source_type": "spawn",
+        "coords": [
+         659.539916992188,
+         180.912689208984
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "4EA514",
+        "source_type": "spawn",
+        "coords": [
+         532.652160644531,
+         125.121154785156
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       },
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Mac's Farm",
+      "count": 5,
+      "sources": {
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31245A",
+       "31245B",
+       "31245E",
+       "3696DC",
+       "3696DD"
+      ],
+      "coords": [
+       170347.1875,
+       -69102.3671875
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "31245A",
+        "source_type": "spawn",
+        "coords": [
+         170347.1875,
+         -69102.3671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "31245B",
+        "source_type": "spawn",
+        "coords": [
+         168915.84375,
+         -71619.921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "31245E",
+        "source_type": "spawn",
+        "coords": [
+         169159.921875,
+         -72718.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "3696DC",
+        "source_type": "spawn",
+        "coords": [
+         171232.0,
+         -72016.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #5",
+        "ref": "3696DD",
+        "source_type": "spawn",
+        "coords": [
+         171024.0,
+         -68256.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Quarry X3",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "323777",
+       "323778",
+       "37FAB2",
+       "3AB988"
+      ],
+      "coords": [
+       156537.171875,
+       -109233.765625
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "323777",
+        "source_type": "spawn",
+        "coords": [
+         156537.171875,
+         -109233.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "323778",
+        "source_type": "spawn",
+        "coords": [
+         157662.75,
+         -108925.1640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "37FAB2",
+        "source_type": "spawn",
+        "coords": [
+         158421.9375,
+         -109478.140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "3AB988",
+        "source_type": "spawn",
+        "coords": [
+         158230.015625,
+         -109210.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Sunrise Field",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "360FAD",
+       "360FAF",
+       "360FB1",
+       "360FB3",
+       "360FB5",
+       "360FBF"
+      ],
+      "coords": [
+       153953.640625,
+       -163624.546875
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "360FAD",
+        "source_type": "spawn",
+        "coords": [
+         153953.640625,
+         -163624.546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "360FAF",
+        "source_type": "spawn",
+        "coords": [
+         152628.453125,
+         -161425.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "360FB1",
+        "source_type": "spawn",
+        "coords": [
+         152676.328125,
+         -161326.71875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "360FB3",
+        "source_type": "spawn",
+        "coords": [
+         152968.59375,
+         -161250.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #5",
+        "ref": "360FB5",
+        "source_type": "spawn",
+        "coords": [
+         152989.8125,
+         -162172.453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #6",
+        "ref": "360FBF",
+        "source_type": "spawn",
+        "coords": [
+         153625.53125,
+         -163368.0625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Superior Sunset Farm",
+      "count": 5,
+      "sources": {
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "37A00C",
+       "37A00D",
+       "37A00E",
+       "37A013",
+       "37A015"
+      ],
+      "coords": [
+       121781.0,
+       -101526.609375
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "37A00C",
+        "source_type": "spawn",
+        "coords": [
+         121781.0,
+         -101526.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "37A00D",
+        "source_type": "spawn",
+        "coords": [
+         121890.65625,
+         -101338.015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "37A00E",
+        "source_type": "spawn",
+        "coords": [
+         121954.2890625,
+         -101703.0546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "37A013",
+        "source_type": "spawn",
+        "coords": [
+         124216.0390625,
+         -104486.9609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #5",
+        "ref": "37A015",
+        "source_type": "spawn",
+        "coords": [
+         124228.296875,
+         -104350.15625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Arktos Pharma Biome Lab",
+      "count": 9,
+      "sources": {
+       "ambush": 7,
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3FBCF0",
+       "420FFF",
+       "421000",
+       "421002",
+       "421003",
+       "421004",
+       "421005",
+       "421006",
+       "536C13"
+      ],
+      "coords": [
+       -10448.0,
+       -5312.0
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk ambush #1",
+        "ref": "420FFF",
+        "source_type": "ambush",
+        "coords": [
+         -10448.0,
+         -5312.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #2",
+        "ref": "421000",
+        "source_type": "ambush",
+        "coords": [
+         -9552.0,
+         -5536.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #3",
+        "ref": "421002",
+        "source_type": "ambush",
+        "coords": [
+         -8144.0,
+         -5152.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #4",
+        "ref": "421003",
+        "source_type": "ambush",
+        "coords": [
+         -7812.25537109375,
+         -4746.212890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #5",
+        "ref": "421004",
+        "source_type": "ambush",
+        "coords": [
+         -9456.0,
+         -240.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #6",
+        "ref": "421005",
+        "source_type": "ambush",
+        "coords": [
+         -11424.0,
+         -3184.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #7",
+        "ref": "421006",
+        "source_type": "ambush",
+        "coords": [
+         -11171.2314453125,
+         -1923.89270019531
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "3FBCF0",
+        "source_type": "placement",
+        "coords": [
+         -11200.6337890625,
+         -4752.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "536C13",
+        "source_type": "placement",
+        "coords": [
+         -7581.533203125,
+         -3985.14892578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 7,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "New River Gorge Resort",
+      "count": 5,
+      "sources": {
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D127F",
+       "3D1280",
+       "3D1281",
+       "3D1282",
+       "3D1283"
+      ],
+      "coords": [
+       -77566.9609375,
+       13229.580078125
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "3D127F",
+        "source_type": "placement",
+        "coords": [
+         -77566.9609375,
+         13229.580078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "3D1280",
+        "source_type": "placement",
+        "coords": [
+         -75302.2578125,
+         15065.150390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "3D1281",
+        "source_type": "placement",
+        "coords": [
+         -77558.4140625,
+         13333.560546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "3D1282",
+        "source_type": "placement",
+        "coords": [
+         -79061.6953125,
+         9565.74609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #5",
+        "ref": "3D1283",
+        "source_type": "placement",
+        "coords": [
+         -79879.9453125,
+         9500.5712890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Ohio River Adventures",
+      "count": 5,
+      "sources": {
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "57CF85",
+       "595310",
+       "595315",
+       "595320",
+       "59532A"
+      ],
+      "coords": [
+       -190460.140625,
+       -34902.765625
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "57CF85",
+        "source_type": "placement",
+        "coords": [
+         -190460.140625,
+         -34902.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "595310",
+        "source_type": "placement",
+        "coords": [
+         -187266.390625,
+         -36680.98046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "595315",
+        "source_type": "placement",
+        "coords": [
+         -189043.1875,
+         -36562.7578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "595320",
+        "source_type": "placement",
+        "coords": [
+         -182522.453125,
+         -32028.5078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #5",
+        "ref": "59532A",
+        "source_type": "placement",
+        "coords": [
+         -184503.78125,
+         -30657.2890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Organ Cave South",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "54A5A7"
+      ],
+      "coords": [
+       -118062.2734375,
+       86329.3359375
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk Razorclaw",
+        "ref": "54A5A7",
+        "source_type": "placement",
+        "coords": [
+         -118062.2734375,
+         86329.3359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Mirelurk Razorclaw"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Summersville",
+      "count": 7,
+      "sources": {
+       "ambush": 4,
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2B1223",
+       "2B65A9",
+       "31132A",
+       "6D905A",
+       "6D905B",
+       "6D9062",
+       "6D9063"
+      ],
+      "coords": [
+       -47898.71484375,
+       -8913.91796875
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk ambush #1",
+        "ref": "6D905A",
+        "source_type": "ambush",
+        "coords": [
+         -49332.16796875,
+         -13742.9765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #2",
+        "ref": "6D905B",
+        "source_type": "ambush",
+        "coords": [
+         -48682.171875,
+         -14247.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #3",
+        "ref": "6D9062",
+        "source_type": "ambush",
+        "coords": [
+         -47898.71484375,
+         -8913.91796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #4",
+        "ref": "6D9063",
+        "source_type": "ambush",
+        "coords": [
+         -48128.75390625,
+         -9422.7734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "2B1223",
+        "source_type": "spawn",
+        "coords": [
+         -47330.234375,
+         -8945.998046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "2B65A9",
+        "source_type": "spawn",
+        "coords": [
+         -48328.765625,
+         -8981.9365234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "31132A",
+        "source_type": "spawn",
+        "coords": [
+         -49692.19921875,
+         -13673.607421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 4,
+        "source_type": "ambush"
+       },
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Tygart Water Treatment",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3DEDCD",
+       "3DEDD0"
+      ],
+      "coords": [
+       -32458.73046875,
+       4379.93359375
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "3DEDCD",
+        "source_type": "spawn",
+        "coords": [
+         -32458.73046875,
+         4379.93359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "3DEDD0",
+        "source_type": "spawn",
+        "coords": [
+         -32614.515625,
+         5027.869140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "Enclave Research Facility",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5E41C6",
+       "5E41C8",
+       "5E41C9",
+       "5E41CB",
+       "5EACC6",
+       "61228C"
+      ],
+      "coords": [
+       -1535.76586914062,
+       9217.9580078125
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "5E41C6",
+        "source_type": "placement",
+        "coords": [
+         -1535.76586914062,
+         9217.9580078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk Razorclaw",
+        "ref": "5E41C8",
+        "source_type": "placement",
+        "coords": [
+         -1027.92663574219,
+         8958.1220703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Mirelurk Razorclaw"
+       },
+       {
+        "label": "Mirelurk Razorclaw",
+        "ref": "5E41C9",
+        "source_type": "placement",
+        "coords": [
+         -1803.70959472656,
+         8966.7890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Mirelurk Razorclaw"
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "5E41CB",
+        "source_type": "placement",
+        "coords": [
+         -1277.13818359375,
+         9214.779296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk Razorclaw",
+        "ref": "5EACC6",
+        "source_type": "placement",
+        "coords": [
+         -4779.482421875,
+         2674.16577148438
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Mirelurk Razorclaw"
+       },
+       {
+        "label": "Mirelurk King",
+        "ref": "61228C",
+        "source_type": "placement",
+        "coords": [
+         -3575.38647460937,
+         1531.73706054687
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Mirelurk King"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Fissure Site",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "386E2A",
+       "386E2B"
+      ],
+      "coords": [
+       57095.98046875,
+       -150998.171875
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk Killclaw",
+        "ref": "386E2A",
+        "source_type": "placement",
+        "coords": [
+         57095.98046875,
+         -150998.171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Mirelurk Killclaw"
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "386E2B",
+        "source_type": "placement",
+        "coords": [
+         57624.44921875,
+         -152501.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hidden Crevice",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "605F50"
+      ],
+      "coords": [
+       674.429931640625,
+       1606.22644042969
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk Razorclaw",
+        "ref": "605F50",
+        "source_type": "placement",
+        "coords": [
+         674.429931640625,
+         1606.22644042969
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Mirelurk Razorclaw"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Miners Monument",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "1A81D4",
+       "1A82C8",
+       "1A82CE",
+       "1A8334"
+      ],
+      "coords": [
+       -13530.3798828125,
+       -77952.8125
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "1A81D4",
+        "source_type": "placement",
+        "coords": [
+         -13530.3798828125,
+         -77952.8125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "1A82C8",
+        "source_type": "placement",
+        "coords": [
+         -13338.5224609375,
+         -77700.96875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "1A82CE",
+        "source_type": "placement",
+        "coords": [
+         -14019.8359375,
+         -77769.25
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "1A8334",
+        "source_type": "placement",
+        "coords": [
+         -13585.07421875,
+         -77809.46875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Mountainside Bed & Breakfast",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C751E",
+       "3C751F",
+       "3C7520"
+      ],
+      "coords": [
+       21525.087890625,
+       -105401.953125
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "3C751E",
+        "source_type": "placement",
+        "coords": [
+         21525.087890625,
+         -105401.953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "3C751F",
+        "source_type": "placement",
+        "coords": [
+         21496.67578125,
+         -105035.5859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "3C7520",
+        "source_type": "placement",
+        "coords": [
+         21354.3671875,
+         -105176.28125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Spruce Knob Lake",
+      "count": 12,
+      "sources": {
+       "placement": 9,
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2C7673",
+       "2C7674",
+       "2C7675",
+       "4EC263",
+       "4EC265",
+       "4EC267",
+       "4EC26D",
+       "4EC26F",
+       "4EC271",
+       "4EC276",
+       "4EC277",
+       "4EC27E"
+      ],
+      "coords": [
+       33907.546875,
+       -121018.8671875
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "4EC263",
+        "source_type": "placement",
+        "coords": [
+         33907.546875,
+         -121018.8671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "4EC265",
+        "source_type": "placement",
+        "coords": [
+         31917.572265625,
+         -119709.28125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "4EC267",
+        "source_type": "placement",
+        "coords": [
+         31670.216796875,
+         -120388.8828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "4EC26D",
+        "source_type": "placement",
+        "coords": [
+         36141.671875,
+         -122447.265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #5",
+        "ref": "4EC26F",
+        "source_type": "placement",
+        "coords": [
+         34745.51171875,
+         -125299.5703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #6",
+        "ref": "4EC271",
+        "source_type": "placement",
+        "coords": [
+         33798.32421875,
+         -123029.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #7",
+        "ref": "4EC276",
+        "source_type": "placement",
+        "coords": [
+         37709.53125,
+         -123870.484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #8",
+        "ref": "4EC277",
+        "source_type": "placement",
+        "coords": [
+         38341.09375,
+         -123342.7578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #9",
+        "ref": "4EC27E",
+        "source_type": "placement",
+        "coords": [
+         38622.35546875,
+         -122145.28125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "2C7673",
+        "source_type": "spawn",
+        "coords": [
+         39370.71484375,
+         -119187.015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "2C7674",
+        "source_type": "spawn",
+        "coords": [
+         39909.96484375,
+         -119246.5390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "2C7675",
+        "source_type": "spawn",
+        "coords": [
+         39481.44921875,
+         -118619.3671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 9,
+        "source_type": "placement"
+       },
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Uncanny Caverns",
+      "count": 14,
+      "sources": {
+       "placement": 3,
+       "spawn": 11
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "049BB4",
+       "049BE5",
+       "049BE9",
+       "049BF0",
+       "049BF2",
+       "11CED5",
+       "121853",
+       "29FB3E",
+       "530809",
+       "53080A",
+       "53080B",
+       "605841",
+       "605843",
+       "6154D0"
+      ],
+      "coords": [
+       -935.462280273437,
+       5784.79345703125
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "605841",
+        "source_type": "placement",
+        "coords": [
+         -935.462280273437,
+         5784.79345703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "605843",
+        "source_type": "placement",
+        "coords": [
+         -501.090637207031,
+         3549.587890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk Razorclaw",
+        "ref": "6154D0",
+        "source_type": "placement",
+        "coords": [
+         7135.16943359375,
+         1246.26184082031
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Mirelurk Razorclaw"
+       },
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "049BB4",
+        "source_type": "spawn",
+        "coords": [
+         -1439.51892089844,
+         5497.88818359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "049BE5",
+        "source_type": "spawn",
+        "coords": [
+         4062.28393554687,
+         4980.6787109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "049BE9",
+        "source_type": "spawn",
+        "coords": [
+         2658.525390625,
+         8124.84619140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "049BF0",
+        "source_type": "spawn",
+        "coords": [
+         2590.7158203125,
+         7840.42138671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #5",
+        "ref": "049BF2",
+        "source_type": "spawn",
+        "coords": [
+         679.937255859375,
+         6012.68359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #6",
+        "ref": "11CED5",
+        "source_type": "spawn",
+        "coords": [
+         5769.08544921875,
+         6703.87548828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #7",
+        "ref": "121853",
+        "source_type": "spawn",
+        "coords": [
+         2816.8017578125,
+         4929.28173828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #8",
+        "ref": "29FB3E",
+        "source_type": "spawn",
+        "coords": [
+         -42321.0078125,
+         -90005.96875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #9",
+        "ref": "530809",
+        "source_type": "spawn",
+        "coords": [
+         5672.59423828125,
+         6972.91748046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #10",
+        "ref": "53080A",
+        "source_type": "spawn",
+        "coords": [
+         645.023071289063,
+         6139.7109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #11",
+        "ref": "53080B",
+        "source_type": "spawn",
+        "coords": [
+         1636.04931640625,
+         7514.5126953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       },
+       {
+        "label": "spawn points",
+        "count": 11,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Wendigo Cave",
+      "count": 14,
+      "sources": {
+       "spawn": 14
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "15585B",
+       "2AD98A",
+       "2AD98B",
+       "2AD98C",
+       "2AD98D",
+       "2AD9C5",
+       "2AD9C6",
+       "2AD9C7",
+       "2AD9CA",
+       "386F97",
+       "4E44D1",
+       "4E44D2",
+       "4E44D4",
+       "4E44D5"
+      ],
+      "coords": [
+       17121.509765625,
+       -419.318267822266
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "15585B",
+        "source_type": "spawn",
+        "coords": [
+         17121.509765625,
+         -419.318267822266
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "2AD98A",
+        "source_type": "spawn",
+        "coords": [
+         12432.890625,
+         3389.1318359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "2AD98B",
+        "source_type": "spawn",
+        "coords": [
+         10028.498046875,
+         3647.1689453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "2AD98C",
+        "source_type": "spawn",
+        "coords": [
+         13811.0556640625,
+         3895.41650390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #5",
+        "ref": "2AD98D",
+        "source_type": "spawn",
+        "coords": [
+         11647.724609375,
+         4628.6669921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #6",
+        "ref": "2AD9C5",
+        "source_type": "spawn",
+        "coords": [
+         14306.818359375,
+         -178.705535888672
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #7",
+        "ref": "2AD9C6",
+        "source_type": "spawn",
+        "coords": [
+         12199.7314453125,
+         -323.953399658203
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #8",
+        "ref": "2AD9C7",
+        "source_type": "spawn",
+        "coords": [
+         13182.904296875,
+         -2986.29516601562
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #9",
+        "ref": "2AD9CA",
+        "source_type": "spawn",
+        "coords": [
+         15544.3515625,
+         -6892.76171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #10",
+        "ref": "386F97",
+        "source_type": "spawn",
+        "coords": [
+         12571.3359375,
+         -3109.708984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #11",
+        "ref": "4E44D1",
+        "source_type": "spawn",
+        "coords": [
+         15129.068359375,
+         -1780.46325683594
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #12",
+        "ref": "4E44D2",
+        "source_type": "spawn",
+        "coords": [
+         15167.529296875,
+         -6587.07275390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #13",
+        "ref": "4E44D4",
+        "source_type": "spawn",
+        "coords": [
+         14870.158203125,
+         -6742.35595703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #14",
+        "ref": "4E44D5",
+        "source_type": "spawn",
+        "coords": [
+         15266.228515625,
+         -6495.30517578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 14,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": [
+     {
+      "marker": "Abandoned Convoy",
+      "count": 4,
+      "sources": {
+       "ambush": 2,
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75D2C1",
+       "75D2C2",
+       "75D2C4",
+       "75D2C5"
+      ],
+      "coords": [
+       60255.2109375,
+       -209947.34375
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk ambush #1",
+        "ref": "75D2C1",
+        "source_type": "ambush",
+        "coords": [
+         60255.2109375,
+         -209947.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #2",
+        "ref": "75D2C2",
+        "source_type": "ambush",
+        "coords": [
+         60469.16796875,
+         -209368.546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "75D2C4",
+        "source_type": "placement",
+        "coords": [
+         60255.71875,
+         -210174.984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "75D2C5",
+        "source_type": "placement",
+        "coords": [
+         60596.67578125,
+         -209241.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hemlock Springs Dump",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6E16B4",
+       "6E16B5",
+       "6E16B6",
+       "6E16B7",
+       "6E16B8",
+       "6E16B9"
+      ],
+      "coords": [
+       74445.203125,
+       -203578.453125
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "6E16B4",
+        "source_type": "spawn",
+        "coords": [
+         74445.203125,
+         -203578.453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "6E16B5",
+        "source_type": "spawn",
+        "coords": [
+         73228.625,
+         -203207.53125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "6E16B6",
+        "source_type": "spawn",
+        "coords": [
+         73119.90625,
+         -204034.703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "6E16B7",
+        "source_type": "spawn",
+        "coords": [
+         74013.1484375,
+         -202467.453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #5",
+        "ref": "6E16B8",
+        "source_type": "spawn",
+        "coords": [
+         74013.1484375,
+         -202467.453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #6",
+        "ref": "6E16B9",
+        "source_type": "spawn",
+        "coords": [
+         74445.203125,
+         -203578.453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Slumber Mill Motel",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75D1AF"
+      ],
+      "coords": [
+       23033.072265625,
+       -251168.34375
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn",
+        "ref": "75D1AF",
+        "source_type": "placement",
+        "coords": [
+         23033.072265625,
+         -251168.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Mire",
+    "locations": [
+     {
+      "marker": "Crevasse Dam",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "382A34"
+      ],
+      "coords": [
+       170228.0625,
+       87489.3671875
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk ambush",
+        "ref": "382A34",
+        "source_type": "ambush",
+        "coords": [
+         170228.0625,
+         87489.3671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Dolly Sods Wilderness",
+      "count": 5,
+      "sources": {
+       "ambush": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "382A2A",
+       "382A2D",
+       "382A2F",
+       "382A32",
+       "382A37"
+      ],
+      "coords": [
+       168007.21875,
+       87111.078125
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk ambush #1",
+        "ref": "382A2A",
+        "source_type": "ambush",
+        "coords": [
+         168007.21875,
+         87111.078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #2",
+        "ref": "382A2D",
+        "source_type": "ambush",
+        "coords": [
+         168065.890625,
+         87152.2109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #3",
+        "ref": "382A2F",
+        "source_type": "ambush",
+        "coords": [
+         168349.515625,
+         88340.4921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #4",
+        "ref": "382A32",
+        "source_type": "ambush",
+        "coords": [
+         168315.109375,
+         88216.984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #5",
+        "ref": "382A37",
+        "source_type": "ambush",
+        "coords": [
+         170092.40625,
+         87457.921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 5,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Harpers Ferry Tunnel",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "60839B",
+       "6083A4",
+       "6083A5",
+       "6083B2",
+       "6083B3",
+       "6083B4"
+      ],
+      "coords": [
+       -7797.44189453125,
+       2511.580078125
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "60839B",
+        "source_type": "placement",
+        "coords": [
+         -9396.076171875,
+         2188.515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "6083A4",
+        "source_type": "placement",
+        "coords": [
+         -3145.91650390625,
+         -137.625595092773
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "6083A5",
+        "source_type": "placement",
+        "coords": [
+         -2957.142578125,
+         247.8115234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "6083B2",
+        "source_type": "placement",
+        "coords": [
+         -9122.140625,
+         1165.77331542969
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #5",
+        "ref": "6083B3",
+        "source_type": "placement",
+        "coords": [
+         -5873.30908203125,
+         1278.6181640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #6",
+        "ref": "6083B4",
+        "source_type": "placement",
+        "coords": [
+         -7797.44189453125,
+         2511.580078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Highland Marsh",
+      "count": 12,
+      "sources": {
+       "ambush": 7,
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "43BDD5",
+       "43BDD6",
+       "43BDD7",
+       "45011A",
+       "45011B",
+       "45011C",
+       "45011D",
+       "45011E",
+       "525351",
+       "525352",
+       "525353",
+       "525354"
+      ],
+      "coords": [
+       173071.046875,
+       133575.515625
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk ambush #1",
+        "ref": "43BDD5",
+        "source_type": "ambush",
+        "coords": [
+         173071.046875,
+         133575.515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #2",
+        "ref": "43BDD6",
+        "source_type": "ambush",
+        "coords": [
+         173805.234375,
+         133176.578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #3",
+        "ref": "43BDD7",
+        "source_type": "ambush",
+        "coords": [
+         173000.921875,
+         132078.90625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #4",
+        "ref": "45011B",
+        "source_type": "ambush",
+        "coords": [
+         172049.171875,
+         132810.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #5",
+        "ref": "45011C",
+        "source_type": "ambush",
+        "coords": [
+         172319.421875,
+         132210.328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #6",
+        "ref": "45011D",
+        "source_type": "ambush",
+        "coords": [
+         174077.71875,
+         132395.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #7",
+        "ref": "45011E",
+        "source_type": "ambush",
+        "coords": [
+         172208.65625,
+         132347.234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "45011A",
+        "source_type": "spawn",
+        "coords": [
+         172415.5,
+         132993.40625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "525351",
+        "source_type": "spawn",
+        "coords": [
+         173045.0625,
+         131942.0625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "525352",
+        "source_type": "spawn",
+        "coords": [
+         172905.8125,
+         133783.3125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "525353",
+        "source_type": "spawn",
+        "coords": [
+         172535.890625,
+         132641.828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #5",
+        "ref": "525354",
+        "source_type": "spawn",
+        "coords": [
+         173847.53125,
+         133366.71875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 7,
+        "source_type": "ambush"
+       },
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Mire's Eye",
+      "count": 12,
+      "sources": {
+       "placement": 12
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2B9EF3",
+       "2B9EF4",
+       "2B9EF5",
+       "3954A8",
+       "5B6600",
+       "5B6603",
+       "5B6604",
+       "5B6F15",
+       "5B6F63",
+       "5B6F64",
+       "5B733E",
+       "5B7341"
+      ],
+      "coords": [
+       197948.390625,
+       185112.640625
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "2B9EF3",
+        "source_type": "placement",
+        "coords": [
+         197948.390625,
+         185112.640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "2B9EF4",
+        "source_type": "placement",
+        "coords": [
+         198390.5,
+         185003.078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "2B9EF5",
+        "source_type": "placement",
+        "coords": [
+         198208.390625,
+         184922.859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "3954A8",
+        "source_type": "placement",
+        "coords": [
+         198163.28125,
+         185150.390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk Razorclaw",
+        "ref": "5B6600",
+        "source_type": "placement",
+        "coords": [
+         -972.40966796875,
+         -844.222290039063
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Mirelurk Razorclaw"
+       },
+       {
+        "label": "Mirelurk Razorclaw",
+        "ref": "5B6603",
+        "source_type": "placement",
+        "coords": [
+         -717.853881835938,
+         -1004.01770019531
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Mirelurk Razorclaw"
+       },
+       {
+        "label": "Mirelurk Razorclaw",
+        "ref": "5B6604",
+        "source_type": "placement",
+        "coords": [
+         -1093.34729003906,
+         -805.835266113281
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Mirelurk Razorclaw"
+       },
+       {
+        "label": "Mirelurk Razorclaw",
+        "ref": "5B6F15",
+        "source_type": "placement",
+        "coords": [
+         -540.724670410156,
+         307.714691162109
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Mirelurk Razorclaw"
+       },
+       {
+        "label": "Mirelurk King",
+        "ref": "5B6F63",
+        "source_type": "placement",
+        "coords": [
+         -671.098815917969,
+         -1482.89599609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Mirelurk King"
+       },
+       {
+        "label": "Mirelurk King",
+        "ref": "5B6F64",
+        "source_type": "placement",
+        "coords": [
+         -702.090759277344,
+         -1409.84362792969
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Mirelurk King"
+       },
+       {
+        "label": "Mirelurk Razorclaw",
+        "ref": "5B733E",
+        "source_type": "placement",
+        "coords": [
+         193666.875,
+         186950.9375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Mirelurk Razorclaw"
+       },
+       {
+        "label": "Mirelurk King",
+        "ref": "5B7341",
+        "source_type": "placement",
+        "coords": [
+         194250.484375,
+         187225.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Mirelurk King"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 12,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Vault 94",
+      "count": 41,
+      "sources": {
+       "ambush": 6,
+       "placement": 35
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5D871A",
+       "5D8732",
+       "5DB428",
+       "5DB42B",
+       "5DB42F",
+       "5DB430",
+       "5DB435",
+       "5DB44A",
+       "5DB44C",
+       "5DB44D",
+       "5DB451",
+       "5DB458",
+       "5DB459",
+       "5DB462",
+       "5DB463",
+       "5DB469",
+       "5DB473",
+       "5DB47B",
+       "5DB483",
+       "5DB485",
+       "5DB50A",
+       "5DB510",
+       "5DB558",
+       "5DB56E",
+       "5DB56F",
+       "5DB570",
+       "5DB571",
+       "5DB57B",
+       "5DB57E",
+       "5DB57F",
+       "5DB590",
+       "5DB936",
+       "5DB952",
+       "5DB953",
+       "5DB956",
+       "5DC8F8",
+       "5DC8F9",
+       "5DC8FA",
+       "5DC8FB",
+       "5DC8FC",
+       "5DC8FD"
+      ],
+      "coords": [
+       -15273.3359375,
+       3487.94482421875
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk ambush #1",
+        "ref": "5DC8F8",
+        "source_type": "ambush",
+        "coords": [
+         -15273.3359375,
+         3487.94482421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #2",
+        "ref": "5DC8F9",
+        "source_type": "ambush",
+        "coords": [
+         -15745.123046875,
+         1976.98828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #3",
+        "ref": "5DC8FA",
+        "source_type": "ambush",
+        "coords": [
+         -14765.1025390625,
+         -1020.27923583984
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #4",
+        "ref": "5DC8FB",
+        "source_type": "ambush",
+        "coords": [
+         -14458.6591796875,
+         -341.771820068359
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #5",
+        "ref": "5DC8FC",
+        "source_type": "ambush",
+        "coords": [
+         -12180.703125,
+         -3843.07080078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #6",
+        "ref": "5DC8FD",
+        "source_type": "ambush",
+        "coords": [
+         -10535.4111328125,
+         -3170.86450195313
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "5D871A",
+        "source_type": "placement",
+        "coords": [
+         -16274.994140625,
+         -1362.87670898438
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "5D8732",
+        "source_type": "placement",
+        "coords": [
+         -14337.2265625,
+         -1238.95874023438
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "5DB428",
+        "source_type": "placement",
+        "coords": [
+         -13617.0732421875,
+         -1758.87585449219
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "5DB42B",
+        "source_type": "placement",
+        "coords": [
+         -13807.7626953125,
+         390.523559570313
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #5",
+        "ref": "5DB42F",
+        "source_type": "placement",
+        "coords": [
+         -11160.1328125,
+         -1521.31604003906
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #6",
+        "ref": "5DB430",
+        "source_type": "placement",
+        "coords": [
+         -12189.7353515625,
+         -361.855804443359
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #7",
+        "ref": "5DB435",
+        "source_type": "placement",
+        "coords": [
+         -13063.34765625,
+         -876.392517089844
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #8",
+        "ref": "5DB44A",
+        "source_type": "placement",
+        "coords": [
+         -12945.0869140625,
+         257.701141357422
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #9",
+        "ref": "5DB44C",
+        "source_type": "placement",
+        "coords": [
+         -11167.8466796875,
+         506.833923339844
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #10",
+        "ref": "5DB44D",
+        "source_type": "placement",
+        "coords": [
+         -11271.0537109375,
+         621.414978027344
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #11",
+        "ref": "5DB451",
+        "source_type": "placement",
+        "coords": [
+         -11989.166015625,
+         789.606811523437
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #12",
+        "ref": "5DB458",
+        "source_type": "placement",
+        "coords": [
+         -9975.9501953125,
+         2182.5439453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #13",
+        "ref": "5DB459",
+        "source_type": "placement",
+        "coords": [
+         -10786.46875,
+         2156.9345703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #14",
+        "ref": "5DB462",
+        "source_type": "placement",
+        "coords": [
+         -16750.140625,
+         -995.356018066406
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #15",
+        "ref": "5DB463",
+        "source_type": "placement",
+        "coords": [
+         -16781.927734375,
+         -522.471496582031
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #16",
+        "ref": "5DB469",
+        "source_type": "placement",
+        "coords": [
+         -17327.28515625,
+         1863.01721191406
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #17",
+        "ref": "5DB473",
+        "source_type": "placement",
+        "coords": [
+         -14714.4599609375,
+         1367.47570800781
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #18",
+        "ref": "5DB47B",
+        "source_type": "placement",
+        "coords": [
+         -15062.763671875,
+         1086.59411621094
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #19",
+        "ref": "5DB483",
+        "source_type": "placement",
+        "coords": [
+         -14753.04296875,
+         4067.70458984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #20",
+        "ref": "5DB485",
+        "source_type": "placement",
+        "coords": [
+         -13674.23828125,
+         4072.61450195313
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #21",
+        "ref": "5DB50A",
+        "source_type": "placement",
+        "coords": [
+         -12811.3876953125,
+         2693.37841796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #22",
+        "ref": "5DB510",
+        "source_type": "placement",
+        "coords": [
+         -15033.58984375,
+         2047.61047363281
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #23",
+        "ref": "5DB558",
+        "source_type": "placement",
+        "coords": [
+         -13047.7392578125,
+         2852.21240234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #24",
+        "ref": "5DB56E",
+        "source_type": "placement",
+        "coords": [
+         -15255.806640625,
+         3324.27270507812
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #25",
+        "ref": "5DB56F",
+        "source_type": "placement",
+        "coords": [
+         -15527.8525390625,
+         2057.44897460938
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #26",
+        "ref": "5DB570",
+        "source_type": "placement",
+        "coords": [
+         -13610.0771484375,
+         3336.4365234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #27",
+        "ref": "5DB571",
+        "source_type": "placement",
+        "coords": [
+         -15983.5966796875,
+         3285.35864257812
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #28",
+        "ref": "5DB57B",
+        "source_type": "placement",
+        "coords": [
+         -12268.0830078125,
+         -5182.89208984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #29",
+        "ref": "5DB57E",
+        "source_type": "placement",
+        "coords": [
+         -13466.1806640625,
+         -3924.81665039063
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #30",
+        "ref": "5DB57F",
+        "source_type": "placement",
+        "coords": [
+         -14583.1298828125,
+         -5201.3427734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #31",
+        "ref": "5DB590",
+        "source_type": "placement",
+        "coords": [
+         -15404.4599609375,
+         -3989.23681640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #32",
+        "ref": "5DB936",
+        "source_type": "placement",
+        "coords": [
+         -9726.45703125,
+         -3582.93115234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #33",
+        "ref": "5DB952",
+        "source_type": "placement",
+        "coords": [
+         -10726.9970703125,
+         -3168.38525390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #34",
+        "ref": "5DB953",
+        "source_type": "placement",
+        "coords": [
+         -11907.0087890625,
+         -3832.24487304687
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #35",
+        "ref": "5DB956",
+        "source_type": "placement",
+        "coords": [
+         -11804.2626953125,
+         -3838.4482421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 6,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 35,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": [
+     {
+      "marker": "Grafton Steel",
+      "count": 1,
+      "sources": {
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3B405F"
+      ],
+      "coords": [
+       11928.740234375,
+       131636.8125
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn",
+        "ref": "3B405F",
+        "source_type": "spawn",
+        "coords": [
+         11928.740234375,
+         131636.8125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Pioneer Scout Camp",
+      "count": 3,
+      "sources": {
+       "ambush": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "35E42A",
+       "35E42D",
+       "35E431"
+      ],
+      "coords": [
+       6098.59765625,
+       135035.515625
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk ambush #1",
+        "ref": "35E42A",
+        "source_type": "ambush",
+        "coords": [
+         6098.59765625,
+         135035.515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #2",
+        "ref": "35E42D",
+        "source_type": "ambush",
+        "coords": [
+         6074.337890625,
+         134779.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk ambush #3",
+        "ref": "35E431",
+        "source_type": "ambush",
+        "coords": [
+         6284.06201171875,
+         134547.703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Toxic Dried Lakebed",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "33DF19",
+       "33DF1F",
+       "33F2AB",
+       "33F2AD",
+       "33F2AE",
+       "3D3B91"
+      ],
+      "coords": [
+       -10094.2822265625,
+       172419.359375
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk spawn #1",
+        "ref": "33DF19",
+        "source_type": "spawn",
+        "coords": [
+         -10094.2822265625,
+         172419.359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #2",
+        "ref": "33DF1F",
+        "source_type": "spawn",
+        "coords": [
+         -10695.1474609375,
+         172252.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #3",
+        "ref": "33F2AB",
+        "source_type": "spawn",
+        "coords": [
+         -17254.951171875,
+         172754.984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #4",
+        "ref": "33F2AD",
+        "source_type": "spawn",
+        "coords": [
+         -17271.580078125,
+         175146.828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #5",
+        "ref": "33F2AE",
+        "source_type": "spawn",
+        "coords": [
+         -18622.466796875,
+         173950.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk spawn #6",
+        "ref": "3D3B91",
+        "source_type": "spawn",
+        "coords": [
+         -17696.984375,
+         179442.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "total_markers": 34,
+  "total_placements": 234
+ },
+ "chance_spawns": {
+  "locations": [
+   {
+    "marker": "Abandoned Bog Town",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Abandoned Waste Dump",
+    "region": "The Mire",
+    "chance_value": 0.1111,
+    "chance_display": "11.1%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Abbie's Bunker",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Appalachian Antiques",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Becker Farm",
+    "region": "Toxic Valley",
+    "chance_value": 0.1818,
+    "chance_display": "18.2%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Beckwith Farm",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Berkeley Springs West",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Big Bend Tunnel East",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Black Bear Lodge",
+    "region": "Toxic Valley",
+    "chance_value": 0.1818,
+    "chance_display": "18.2%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Blakes Offering",
+    "region": "The Mire",
+    "chance_value": 0.1111,
+    "chance_display": "11.1%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Camp Venture",
+    "region": "The Mire",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Carleton Mine",
+    "region": "Toxic Valley",
+    "chance_value": 0.1818,
+    "chance_display": "18.2%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Clarksburg Shooting Club",
+    "region": "Toxic Valley",
+    "chance_value": 0.1538,
+    "chance_display": "15.4%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Crater Watchstation",
+    "region": "Toxic Valley",
+    "chance_value": 0.1818,
+    "chance_display": "18.2%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Crevasse Dam",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Crimson Prospect",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Dabney Homestead",
+    "region": "The Mire",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Dolly Sods Lookout",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Drop Site G3",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Drop Site V9",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Eastern Regional Penitentiary",
+    "region": "Toxic Valley",
+    "chance_value": 0.1538,
+    "chance_display": "15.4%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Ella Ames' Bunker",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Firebase Major",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Fissure Site",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Flooded Trainyard",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Forward Station Alpha",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Glassed Cavern",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Gnarled Shallows",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Grafton Station",
+    "region": "Toxic Valley",
+    "chance_value": 0.1538,
+    "chance_display": "15.4%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Graninger Farm",
+    "region": "Toxic Valley",
+    "chance_value": 0.1818,
+    "chance_display": "18.2%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Gulper Lagoon",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Hemlock Holes",
+    "region": "Toxic Valley",
+    "chance_value": 0.1538,
+    "chance_display": "15.4%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Hemlock Holes Maintenance",
+    "region": "Toxic Valley",
+    "chance_value": 0.1538,
+    "chance_display": "15.4%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Highland Marsh",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Knife Edge",
+    "region": "Toxic Valley",
+    "chance_value": 0.1818,
+    "chance_display": "18.2%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Mire's Eye",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Mosstown",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Overgrown Sundew Grove",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Philippi Battlefield Cemetery",
+    "region": "Toxic Valley",
+    "chance_value": 0.1818,
+    "chance_display": "18.2%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Pioneer Scout Camp",
+    "region": "Toxic Valley",
+    "chance_value": 0.1818,
+    "chance_display": "18.2%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Pioneer Scout Lookout",
+    "region": "Toxic Valley",
+    "chance_value": 0.1538,
+    "chance_display": "15.4%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Prickett's Fort",
+    "region": "Toxic Valley",
+    "chance_value": 0.1538,
+    "chance_display": "15.4%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Quarry X3",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Raleigh Clay's Bunker",
+    "region": "The Mire",
+    "chance_value": 0.1111,
+    "chance_display": "11.1%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "Ranger Lookout",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Research Site Bavaria",
+    "region": "Skyline Valley",
+    "chance_value": 0.1208,
+    "chance_display": "12.1%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "RobCo Research Center",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Sacramental Glade",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "Shining Creek Cavern",
+    "region": "Skyline Valley",
+    "chance_value": 0.1208,
+    "chance_display": "12.1%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Stony Man Lookout",
+    "region": "Skyline Valley",
+    "chance_value": 0.16,
+    "chance_display": "16%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Sunday Brothers' Cabin",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Sunrise Field",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Survey Camp Alpha",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "The Crater",
+    "region": "Toxic Valley",
+    "chance_value": 0.1818,
+    "chance_display": "18.2%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "The Freak Show",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "The Thorn",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "The Trading Post",
+    "region": "Skyline Valley",
+    "chance_value": 0.1208,
+    "chance_display": "12.1%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Thunder Mountain Power Plant",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Thunder Mountain Substation TM-01",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Thunder Mountain Substation TM-02",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Toxic Dried Lakebed",
+    "region": "Toxic Valley",
+    "chance_value": 0.1818,
+    "chance_display": "18.2%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Veiled Sundew Grove",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Watoga",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Watoga Station",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Watoga Underground",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mirelurk"
+    ],
+    "count": 4
+   }
+  ],
+  "total": 65,
+  "note": null
+ },
+ "blurb": "The Mirelurk in Fallout 76 — drops Mirelurk Meat, Softshell Mirelurk Meat, 76 NPC variants, 234 known spawn points.",
+ "map_base": "/wp-content/uploads/guide-images/farming-meat/mirelurk/"
+}

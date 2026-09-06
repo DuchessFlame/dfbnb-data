@@ -1,0 +1,528 @@
+{
+ "_meta": {
+  "generated": "2026-09-06",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "FrogRace"
+   }
+  ],
+  "source_totals": {
+   "placement": 19
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "glowing-meat",
+ "name": "Glowing Meat",
+ "page_title": "Farming - Meat - Glowing Meat",
+ "url": "/bnb/farming/meat/glowing-meat/glowing-meat-location-guide/",
+ "npc_summary": {
+  "npc_count": 4,
+  "level_min": 1,
+  "level_max": 1,
+  "health_max": 10
+ },
+ "meat_items": [
+  {
+   "name": "Frog Leg",
+   "form_id": "004FE51D",
+   "rate_display": "20%"
+  },
+  {
+   "name": "Glowing Meat",
+   "form_id": "003657E1",
+   "rate_display": "30%"
+  }
+ ],
+ "used_for": [],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Radfrog",
+    "form_id": "003B9761",
+    "row_count": 4,
+    "direct_items": 2,
+    "pool_count": 2,
+    "item_count": 5,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Ammo Creature Critter",
+      "sub_id": "003DF3D9",
+      "edid": "LLS_Ammo_Creature_Critter",
+      "item_count": 0,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": []
+     },
+     {
+      "kind": "item",
+      "name": "Frog Egg",
+      "form_id": "004FE51C",
+      "edid": "RadFrogEgg",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Radfrog",
+      "sub_id": "0043C16D",
+      "edid": "LLE_Creature_Radfrog",
+      "item_count": 3,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Uranium Ore",
+        "rate_display": "49%"
+       },
+       {
+        "name": "Glowing Meat",
+        "rate_display": "30%"
+       },
+       {
+        "name": "Glowing Blood Pack",
+        "rate_display": "21%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Frog Leg",
+      "form_id": "004FE51D",
+      "edid": "RadFrogLeg",
+      "sig": "ALCH",
+      "qty": 4,
+      "rate_value": 0.2,
+      "rate_display": "20%"
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [
+  {
+   "form_id": "0081ACCE",
+   "edid": "Burn_RE_Object_LD01",
+   "name": "DANGER: FROG",
+   "type": "Object Encounters",
+   "location": ""
+  }
+ ],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": []
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": []
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": []
+   },
+   {
+    "region": "Forest",
+    "locations": []
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "The Whitespring Golf Club",
+      "count": 5,
+      "sources": {
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "50BBFF",
+       "50BC00",
+       "50BC01",
+       "50BC02",
+       "50BC03"
+      ],
+      "coords": [
+       -10527.14453125,
+       -55166.890625
+      ],
+      "spawns": [
+       {
+        "label": "Glowing Meat spawn #1",
+        "ref": "50BBFF",
+        "source_type": "placement",
+        "coords": [
+         -10527.14453125,
+         -55166.890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Glowing Meat spawn #2",
+        "ref": "50BC00",
+        "source_type": "placement",
+        "coords": [
+         -10456.419921875,
+         -55273.578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Glowing Meat spawn #3",
+        "ref": "50BC01",
+        "source_type": "placement",
+        "coords": [
+         -10385.6953125,
+         -55380.265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Glowing Meat spawn #4",
+        "ref": "50BC02",
+        "source_type": "placement",
+        "coords": [
+         -10314.970703125,
+         -55486.953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Glowing Meat spawn #5",
+        "ref": "50BC03",
+        "source_type": "placement",
+        "coords": [
+         -10244.24609375,
+         -55593.640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Toxic Larry's Meat 'n Go",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5228CA",
+       "5228CC",
+       "5228CD",
+       "5228CE"
+      ],
+      "coords": [
+       118452.9609375,
+       50019.2265625
+      ],
+      "spawns": [
+       {
+        "label": "Glowing Meat spawn #1",
+        "ref": "5228CA",
+        "source_type": "placement",
+        "coords": [
+         118452.9609375,
+         50019.2265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Glowing Meat spawn #2",
+        "ref": "5228CC",
+        "source_type": "placement",
+        "coords": [
+         118324.9609375,
+         50147.2265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Glowing Meat spawn #3",
+        "ref": "5228CD",
+        "source_type": "placement",
+        "coords": [
+         118452.9609375,
+         50147.2265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Glowing Meat spawn #4",
+        "ref": "5228CE",
+        "source_type": "placement",
+        "coords": [
+         118580.9609375,
+         50147.2265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": []
+   },
+   {
+    "region": "The Mire",
+    "locations": []
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": [
+     {
+      "marker": "Carleton Mine",
+      "count": 10,
+      "sources": {
+       "placement": 10
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "556493",
+       "556494",
+       "556497",
+       "55649B",
+       "55649C",
+       "556EB1",
+       "556EB4",
+       "556EB6",
+       "556F6B",
+       "556F9F"
+      ],
+      "coords": [
+       -6404.01123046875,
+       21701.2109375
+      ],
+      "spawns": [
+       {
+        "label": "Frog",
+        "ref": "556493",
+        "source_type": "placement",
+        "coords": [
+         -6404.01123046875,
+         21701.2109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Frog"
+       },
+       {
+        "label": "Frog",
+        "ref": "556494",
+        "source_type": "placement",
+        "coords": [
+         -6448.8779296875,
+         20325.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Frog"
+       },
+       {
+        "label": "Frog",
+        "ref": "556497",
+        "source_type": "placement",
+        "coords": [
+         -7648.9580078125,
+         19423.43359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Frog"
+       },
+       {
+        "label": "Frog",
+        "ref": "55649B",
+        "source_type": "placement",
+        "coords": [
+         -9366.666015625,
+         18898.861328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Frog"
+       },
+       {
+        "label": "Frog",
+        "ref": "55649C",
+        "source_type": "placement",
+        "coords": [
+         -8798.6611328125,
+         20978.27734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Frog"
+       },
+       {
+        "label": "Frog",
+        "ref": "556EB1",
+        "source_type": "placement",
+        "coords": [
+         -9936.1064453125,
+         22019.09765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Frog"
+       },
+       {
+        "label": "Frog",
+        "ref": "556EB4",
+        "source_type": "placement",
+        "coords": [
+         -10266.8603515625,
+         24209.423828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Frog"
+       },
+       {
+        "label": "Frog",
+        "ref": "556EB6",
+        "source_type": "placement",
+        "coords": [
+         -9553.3154296875,
+         23279.751953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Frog"
+       },
+       {
+        "label": "Frog",
+        "ref": "556F6B",
+        "source_type": "placement",
+        "coords": [
+         -7671.70263671875,
+         22347.1328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Frog"
+       },
+       {
+        "label": "Frog",
+        "ref": "556F9F",
+        "source_type": "placement",
+        "coords": [
+         -7445.63623046875,
+         23482.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Frog"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 10,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "total_markers": 3,
+  "total_placements": 19
+ },
+ "chance_spawns": {
+  "locations": [
+   {
+    "marker": "Superior Sunset Farm",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Glowing Meat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Vault-Tec Agricultural Research Center",
+    "region": "Forest",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Glowing Meat"
+    ],
+    "count": 3
+   }
+  ],
+  "total": 2,
+  "note": null
+ },
+ "blurb": "The Glowing Meat in Fallout 76 — drops Frog Leg, Glowing Meat, 4 NPC variants, 19 known spawn points.",
+ "editorial_note": "Glowing Meat is dropped only by glowing Rad Frogs (30% chance) per the game data — this page is seeded from the Rad Frog. It overlaps the Frog meat page, which shares the same creature.",
+ "map_base": "/wp-content/uploads/guide-images/farming-meat/glowing-meat/"
+}

@@ -1,0 +1,723 @@
+{
+ "_meta": {
+  "generated": "2026-09-04",
+  "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
+  "source_formids": [],
+  "lists_in_closure": 56,
+  "source_totals": {
+   "direct": 1
+  },
+  "unresolved": {}
+ },
+ "set": "nukashine",
+ "name": "Nukashine",
+ "page_title": "Nukashine Locations",
+ "blurb": "Every known world spawn for Nukashine, grouped by region.",
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": []
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": []
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": []
+  },
+  {
+   "region": "Forest",
+   "locations": [
+    {
+     "marker": "Pi House",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "46D77E"
+     ],
+     "coords": [
+      114.5,
+      1239.8
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "46D77E",
+       "source_type": "direct",
+       "coords": [
+        114.5,
+        1239.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Savage Divide",
+   "locations": []
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": []
+  },
+  {
+   "region": "The Mire",
+   "locations": []
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": []
+  }
+ ],
+ "used_for": {
+  "consumption": {
+   "object_type": "Drink",
+   "weight": 1.0,
+   "value": 5,
+   "addiction": "Alcohol Addiction",
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Nukashine is a drink consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Duration",
+     "display": "Duration",
+     "duration": "2 min"
+    },
+    {
+     "name": "Fortify",
+     "display": "Fortify",
+     "duration": "2 min"
+    },
+    {
+     "name": "Reduce Sprint AP Cost",
+     "display": "+80 Reduce Sprint AP Cost",
+     "duration": "2 min"
+    },
+    {
+     "name": "Regen",
+     "display": "+5 Regen",
+     "duration": "2 min"
+    },
+    {
+     "name": "Chance Addiction Alcohol",
+     "display": "20% chance to catch a disease",
+     "duration": null
+    },
+    {
+     "name": "Quench Thirst",
+     "display": "Quenches thirst (900/15 min)",
+     "duration": null
+    },
+    {
+     "name": "Rads",
+     "display": "Rads",
+     "duration": null
+    }
+   ]
+  }
+ },
+ "farming_tips": {
+  "spoils": false,
+  "spoil_duration_hours": null,
+  "base_weight": 1.0,
+  "object_type": "Drink",
+  "yield_perk": null,
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.55
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.1
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.1,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.8
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.6
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.1
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": false
+ },
+ "events_activities": [
+  {
+   "list_id": "003F45FA",
+   "edid": "D01A_Tipsy_LL_Event_Reward",
+   "name": "Repeatable: Tipsy Taste-Test",
+   "type": "Daily",
+   "note": "Chance the item is in the Repeatable: Tipsy Taste-Test reward pool per event/activity payout.",
+   "rate_value": 0.142857,
+   "rate_display": "14.29%",
+   "rate_lines": [
+    "14.29%"
+   ]
+  },
+  {
+   "list_id": "003F4746",
+   "edid": "D01A_WastedOn_LL_Event_Reward",
+   "name": "Repeatable: Wasted on <Alias=Loc_AlcoholName>",
+   "type": "Daily",
+   "note": "Chance the item is in the Repeatable: Wasted on <Alias=Loc_AlcoholName> reward pool per event/activity payout.",
+   "rate_value": 0.142857,
+   "rate_display": "14.29%",
+   "rate_lines": [
+    "14.29%"
+   ]
+  },
+  {
+   "list_id": "005B7598",
+   "edid": "BS00_LL_ContributionRewards",
+   "name": "Contribution Rewards",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the Contribution Rewards reward pool per event/activity payout.",
+   "rate_value": 0.113512,
+   "rate_display": "11.35%",
+   "rate_lines": [
+    "11.35%"
+   ]
+  },
+  {
+   "list_id": "005D805A",
+   "edid": "LL_TreasureHunt_Chest_Loot_Tier_03",
+   "name": "Treasure Hunt Chest Loot Tier 03",
+   "type": "Treasure Hunter",
+   "note": "Chance the item is in the Treasure Hunt Chest Loot Tier 03 reward pool per event/activity payout.",
+   "rate_value": 0.113512,
+   "rate_display": "11.35%",
+   "rate_lines": [
+    "11.35%"
+   ]
+  },
+  {
+   "list_id": "0075FB5E",
+   "edid": "AC_SQ04_LL_Rewards",
+   "name": "AC SQ04 Rewards",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the AC SQ04 Rewards reward pool per event/activity payout.",
+   "rate_value": 0.071429,
+   "rate_display": "7.14%",
+   "rate_lines": [
+    "7.14%"
+   ]
+  },
+  {
+   "list_id": "007605DB",
+   "edid": "AC_SQ03_LL_Rewards",
+   "name": "Custodial Compulsions",
+   "type": "Secondary",
+   "note": "Chance the item is in the Custodial Compulsions reward pool per event/activity payout.",
+   "rate_value": 0.071429,
+   "rate_display": "7.14%",
+   "rate_lines": [
+    "7.14%"
+   ]
+  },
+  {
+   "list_id": "00767E75",
+   "edid": "AC_SQ01_LL_Rewards",
+   "name": "Custodial Compulsions",
+   "type": "Secondary",
+   "note": "Chance the item is in the Custodial Compulsions reward pool per event/activity payout.",
+   "rate_value": 0.071429,
+   "rate_display": "7.14%",
+   "rate_lines": [
+    "7.14%"
+   ]
+  },
+  {
+   "list_id": "0075FB5D",
+   "edid": "AC_SQ05_LL_Rewards",
+   "name": "Regent of the Dead",
+   "type": "Secondary",
+   "note": "Chance the item is in the Regent of the Dead reward pool per event/activity payout.",
+   "rate_value": 0.071429,
+   "rate_display": "7.14%",
+   "rate_lines": [
+    "7.14%"
+   ]
+  },
+  {
+   "list_id": "005DCA85",
+   "edid": "LL_Festive_Holiday_Crafted_Tier_03",
+   "name": "Festive Holiday Crafted Tier 03",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the Festive Holiday Crafted Tier 03 reward pool per event/activity payout.",
+   "rate_value": 0.069741,
+   "rate_display": "6.97%",
+   "rate_lines": [
+    "6.97%"
+   ]
+  },
+  {
+   "list_id": "005D8059",
+   "edid": "LL_TreasureHunt_Chest_Crafted_Tier_02",
+   "name": "Treasure Hunt Chest Crafted Tier 02",
+   "type": "Treasure Hunter",
+   "note": "Chance the item is in the Treasure Hunt Chest Crafted Tier 02 reward pool per event/activity payout.",
+   "rate_value": 0.069741,
+   "rate_display": "6.97%",
+   "rate_lines": [
+    "6.97%"
+   ]
+  },
+  {
+   "list_id": "005D8053",
+   "edid": "LL_TreasureHunt_Chest_Crafted_Tier_03",
+   "name": "Treasure Hunt Chest Crafted Tier 03",
+   "type": "Treasure Hunter",
+   "note": "Chance the item is in the Treasure Hunt Chest Crafted Tier 03 reward pool per event/activity payout.",
+   "rate_value": 0.069741,
+   "rate_display": "6.97%",
+   "rate_lines": [
+    "6.97%"
+   ]
+  },
+  {
+   "list_id": "005D8054",
+   "edid": "LL_TreasureHunt_Chest_Loot_Tier_02",
+   "name": "Treasure Hunt Chest Loot Tier 02",
+   "type": "Treasure Hunter",
+   "note": "Chance the item is in the Treasure Hunt Chest Loot Tier 02 reward pool per event/activity payout.",
+   "rate_value": 0.069741,
+   "rate_display": "6.97%",
+   "rate_lines": [
+    "6.97%"
+   ]
+  },
+  {
+   "list_id": "005DCA86",
+   "edid": "LL_Festive_Holiday_Crafted_Tier_01",
+   "name": "Festive Holiday Crafted Tier 01",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the Festive Holiday Crafted Tier 01 reward pool per event/activity payout.",
+   "rate_value": 0.047052,
+   "rate_display": "4.71%",
+   "rate_lines": [
+    "4.71%"
+   ]
+  },
+  {
+   "list_id": "005D8055",
+   "edid": "LL_TreasureHunt_Chest_Crafted_Tier_01",
+   "name": "Treasure Hunt Chest Crafted Tier 01",
+   "type": "Treasure Hunter",
+   "note": "Chance the item is in the Treasure Hunt Chest Crafted Tier 01 reward pool per event/activity payout.",
+   "rate_value": 0.047052,
+   "rate_display": "4.71%",
+   "rate_lines": [
+    "4.71%"
+   ]
+  },
+  {
+   "list_id": "005D8056",
+   "edid": "LL_TreasureHunt_Chest_Loot_Tier_01",
+   "name": "Treasure Hunt Chest Loot Tier 01",
+   "type": "Treasure Hunter",
+   "note": "Chance the item is in the Treasure Hunt Chest Loot Tier 01 reward pool per event/activity payout.",
+   "rate_value": 0.047052,
+   "rate_display": "4.71%",
+   "rate_lines": [
+    "4.71%"
+   ]
+  },
+  {
+   "list_id": "006BEE20",
+   "edid": "MOON_LL_Carver_QuestReward",
+   "name": "Costa Business: Carver",
+   "type": "Daily",
+   "note": "Chance the item is in the Costa Business: Carver reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "006BEC94",
+   "edid": "MOON_LL_Eugenie_QuestReward",
+   "name": "Costa Business: Eugenie",
+   "type": "Daily",
+   "note": "Chance the item is in the Costa Business: Eugenie reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "006B448F",
+   "edid": "MOON_LL_Herschel_QuestReward",
+   "name": "Costa Business: Herschel",
+   "type": "Daily",
+   "note": "Chance the item is in the Costa Business: Herschel reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "006BEE1F",
+   "edid": "MOON_LL_Kieran_QuestReward",
+   "name": "Costa Business: Kieran",
+   "type": "Daily",
+   "note": "Chance the item is in the Costa Business: Kieran reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "006B4188",
+   "edid": "MOON_LL_Libby_QuestReward",
+   "name": "Costa Business: Libby",
+   "type": "Daily",
+   "note": "Chance the item is in the Costa Business: Libby reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "006BEC9A",
+   "edid": "MOON_LL_Rudy_QuestReward",
+   "name": "Costa Business: Rudy",
+   "type": "Daily",
+   "note": "Chance the item is in the Costa Business: Rudy reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "006BBAAD",
+   "edid": "MOON_LL_Vera_QuestReward",
+   "name": "Costa Business: Vera",
+   "type": "Daily",
+   "note": "Chance the item is in the Costa Business: Vera reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "0059CAC9",
+   "edid": "DEPRECATED_LL_Festive_Holiday_Crafted_High",
+   "name": "DEPRECATED Festive Holiday Crafted High",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the DEPRECATED Festive Holiday Crafted High reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "0059CAC7",
+   "edid": "DEPRECATED_LL_Festive_Holiday_Crafted_Low",
+   "name": "DEPRECATED Festive Holiday Crafted Low",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the DEPRECATED Festive Holiday Crafted Low reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "0059CAC8",
+   "edid": "DEPRECATED_LL_Festive_Holiday_Crafted_Medium",
+   "name": "DEPRECATED Festive Holiday Crafted Medium",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the DEPRECATED Festive Holiday Crafted Medium reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "0059CACA",
+   "edid": "DEPRECATED_LL_Festive_Holiday_Loot_High",
+   "name": "DEPRECATED Festive Holiday Loot High",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the DEPRECATED Festive Holiday Loot High reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "0059CACB",
+   "edid": "DEPRECATED_LL_Festive_Holiday_Loot_Low",
+   "name": "DEPRECATED Festive Holiday Loot Low",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the DEPRECATED Festive Holiday Loot Low reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "0059CACC",
+   "edid": "DEPRECATED_LL_Festive_Holiday_Loot_Medium",
+   "name": "DEPRECATED Festive Holiday Loot Medium",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the DEPRECATED Festive Holiday Loot Medium reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "005AE0A0",
+   "edid": "DEPRECATED_LL_TreasureHunt_Chest_Crafted_High",
+   "name": "DEPRECATED Treasure Hunt Chest Crafted High",
+   "type": "Treasure Hunter",
+   "note": "Chance the item is in the DEPRECATED Treasure Hunt Chest Crafted High reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "005AE0A1",
+   "edid": "DEPRECATED_LL_TreasureHunt_Chest_Crafted_Low",
+   "name": "DEPRECATED Treasure Hunt Chest Crafted Low",
+   "type": "Treasure Hunter",
+   "note": "Chance the item is in the DEPRECATED Treasure Hunt Chest Crafted Low reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "005AE0A2",
+   "edid": "DEPRECATED_LL_TreasureHunt_Chest_Crafted_Med",
+   "name": "DEPRECATED Treasure Hunt Chest Crafted Med",
+   "type": "Treasure Hunter",
+   "note": "Chance the item is in the DEPRECATED Treasure Hunt Chest Crafted Med reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "005A7558",
+   "edid": "DEPRECATED_LL_TreasureHunt_Chest_Loot_High",
+   "name": "DEPRECATED Treasure Hunt Chest Loot High",
+   "type": "Treasure Hunter",
+   "note": "Chance the item is in the DEPRECATED Treasure Hunt Chest Loot High reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "005A7557",
+   "edid": "DEPRECATED_LL_TreasureHunt_Chest_Loot_Low",
+   "name": "DEPRECATED Treasure Hunt Chest Loot Low",
+   "type": "Treasure Hunter",
+   "note": "Chance the item is in the DEPRECATED Treasure Hunt Chest Loot Low reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "005A7556",
+   "edid": "DEPRECATED_LL_TreasureHunt_Chest_Loot_Med",
+   "name": "DEPRECATED Treasure Hunt Chest Loot Med",
+   "type": "Treasure Hunter",
+   "note": "Chance the item is in the DEPRECATED Treasure Hunt Chest Loot Med reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "005DCA87",
+   "edid": "LL_Festive_Holiday_Crafted_Tier_02",
+   "name": "Festive Holiday Crafted Tier 02",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the Festive Holiday Crafted Tier 02 reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "005DCA89",
+   "edid": "LL_Festive_Holiday_Loot_Tier_01",
+   "name": "Festive Holiday Loot Tier 01",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the Festive Holiday Loot Tier 01 reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "005DCA8A",
+   "edid": "LL_Festive_Holiday_Loot_Tier_02",
+   "name": "Festive Holiday Loot Tier 02",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the Festive Holiday Loot Tier 02 reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "005DCA88",
+   "edid": "LL_Festive_Holiday_Loot_Tier_03",
+   "name": "Festive Holiday Loot Tier 03",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the Festive Holiday Loot Tier 03 reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "00635071",
+   "edid": "E07A_Mothman_CultistHighPriestReward_Loot",
+   "name": "Mothman Cultist High Priest Reward Loot",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the Mothman Cultist High Priest Reward Loot reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "006BEE21",
+   "edid": "MOON_LL_Aries_QuestReward",
+   "name": "Protocol Adonais",
+   "type": "Secondary",
+   "note": "Chance the item is in the Protocol Adonais reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "0062038D",
+   "edid": "LL_Spooky_TreatBag_Loot",
+   "name": "Spooky Treat Bag Loot",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the Spooky Treat Bag Loot reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "006371C2",
+   "edid": "XPD_LocationQuest_Location01_Beat1_LL_Rewards",
+   "name": "XPD Location Quest Location01 Beat1 Rewards",
+   "type": "Quest Reward",
+   "note": "Chance the item is in the XPD Location Quest Location01 Beat1 Rewards reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "006371C3",
+   "edid": "XPD_LocationQuest_Location01_Beat2_LL_Rewards",
+   "name": "XPD Location Quest Location01 Beat2 Rewards",
+   "type": "Quest Reward",
+   "note": "Chance the item is in the XPD Location Quest Location01 Beat2 Rewards reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  },
+  {
+   "list_id": "006371C4",
+   "edid": "XPD_LocationQuest_Location01_Beat3_LL_Rewards",
+   "name": "XPD Location Quest Location01 Beat3 Rewards",
+   "type": "Quest Reward",
+   "note": "Chance the item is in the XPD Location Quest Location01 Beat3 Rewards reward pool per event/activity payout.",
+   "rate_value": 0.02381,
+   "rate_display": "2.38%",
+   "rate_lines": [
+    "2.38%"
+   ]
+  }
+ ],
+ "special_sources": {},
+ "map_base": "/wp-content/uploads/guide-images/farming-nuka-cola/nukashine/"
+}

@@ -176,6 +176,26 @@ def pet_name(edid):
     return _decamel(edid)
 
 
+def _read_tsv_rows(path):
+    """Rows from an xEdit export, tolerant of non-UTF-8 bytes.
+
+    xEdit exports are not always clean UTF-8 — a name with an accent comes
+    through as a single cp1252 byte (0xE9 for 'é'), and a strict utf-8 open
+    raises UnicodeDecodeError partway through the file. That took the PTS
+    build down on the 2026-09-05 ENTM pull. Same fallback chain the rest of
+    the builders use (build_fishing_json.py, build_healing_calculator_json.py,
+    build_axolotl_guide_json.py …).
+    """
+    for enc in ("utf-8-sig", "utf-8", "cp1252", "latin-1"):
+        try:
+            with open(path, encoding=enc, newline="") as f:
+                return list(csv.DictReader(f, delimiter="\t"))
+        except UnicodeDecodeError:
+            continue
+    print(f"[emotes] Could not decode {path}", file=sys.stderr)
+    return []
+
+
 def main():
     emot_path = _newest_tsv("EMOT")
     if not emot_path:
@@ -185,48 +205,46 @@ def main():
 
     entm_by_edid = {}
     if entm_path:
-        with open(entm_path, encoding="utf-8", newline="") as f:
-            for r in csv.DictReader(f, delimiter="\t"):
-                entm_by_edid[(r.get("EDID") or "").strip()] = r
+        for r in _read_tsv_rows(entm_path):
+            entm_by_edid[(r.get("EDID") or "").strip()] = r
 
     emotes, pets = [], []
     categories = {}  # edid -> {formId, edid, name}
 
-    with open(emot_path, encoding="utf-8", newline="") as f:
-        for r in csv.DictReader(f, delimiter="\t"):
-            edid = (r.get("EDID") or "").strip()
-            if not edid:
-                continue
-            rent = (r.get("RENT") or "").strip()
-            snam = (r.get("SNAM") or "").strip()
-            dnam = (r.get("DNAM") or "").strip()
-            full = (r.get("FULL") or "").strip()
-            formId = (r.get("FormID") or "").strip().upper()
+    for r in _read_tsv_rows(emot_path):
+        edid = (r.get("EDID") or "").strip()
+        if not edid:
+            continue
+        rent = (r.get("RENT") or "").strip()
+        snam = (r.get("SNAM") or "").strip()
+        dnam = (r.get("DNAM") or "").strip()
+        full = (r.get("FULL") or "").strip()
+        formId = (r.get("FormID") or "").strip().upper()
 
-            if _is_pet(edid):
-                if "Pet_Payer_Pair" in edid:      # internal, not a real pet emote
-                    continue
-                pets.append({
-                    "formId": formId, "edid": edid, "name": pet_name(edid),
-                    "rent": rent, "snam": snam, "dnam": dnam,
-                })
+        if _is_pet(edid):
+            if "Pet_Payer_Pair" in edid:      # internal, not a real pet emote
                 continue
-
-            cat = parse_cnam(r.get("CNAM"))
-            if not cat:
-                continue                          # uncategorised = dev/internal
-            if _is_dev(edid, rent):
-                continue
-
-            categories.setdefault(cat["edid"], {
-                "formId": cat["formId"], "edid": cat["edid"], "name": cat["name"],
+            pets.append({
+                "formId": formId, "edid": edid, "name": pet_name(edid),
+                "rent": rent, "snam": snam, "dnam": dnam,
             })
-            emotes.append({
-                "formId": formId, "edid": edid,
-                "name": resolve_name(full, rent, entm_by_edid),
-                "rent": rent, "snam": snam,
-                "catEdid": cat["edid"], "dnam": dnam,
-            })
+            continue
+
+        cat = parse_cnam(r.get("CNAM"))
+        if not cat:
+            continue                          # uncategorised = dev/internal
+        if _is_dev(edid, rent):
+            continue
+
+        categories.setdefault(cat["edid"], {
+            "formId": cat["formId"], "edid": cat["edid"], "name": cat["name"],
+        })
+        emotes.append({
+            "formId": formId, "edid": edid,
+            "name": resolve_name(full, rent, entm_by_edid),
+            "rent": rent, "snam": snam,
+            "catEdid": cat["edid"], "dnam": dnam,
+        })
 
     # Categories sorted A-Z by display name; catOrder appends "Pets" last.
     cat_list = sorted(categories.values(), key=lambda c: c["name"].lower())

@@ -1,0 +1,498 @@
+{
+ "_meta": {
+  "generated": "2026-09-06",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "DLC03_RadRabbitRace"
+   }
+  ],
+  "source_totals": {
+   "placement": 13
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "rabbit",
+ "name": "Rabbit",
+ "page_title": "Farming - Meat - Rabbit",
+ "url": "/bnb/farming/meat/rabbit/rabbit-location-guide/",
+ "npc_summary": {
+  "npc_count": 5,
+  "level_min": 1,
+  "level_max": 1,
+  "health_max": 10
+ },
+ "meat_items": [
+  {
+   "name": "Intestine",
+   "form_id": "003EEA40",
+   "rate_display": "100%"
+  },
+  {
+   "name": "Rabbit Leg",
+   "form_id": "00111966",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Daily",
+   "name": "Hunt Rabbits",
+   "required": 2,
+   "edid": "SCORE_Challenge_Daily_Kill_Rabbits_Easter",
+   "page": "daily"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Rabbit",
+    "form_id": "00111968",
+    "row_count": 5,
+    "direct_items": 2,
+    "pool_count": 3,
+    "item_count": 4,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Ammo Creature Critter",
+      "sub_id": "003DF3D9",
+      "edid": "LLS_Ammo_Creature_Critter",
+      "item_count": 0,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": []
+     },
+     {
+      "kind": "pool",
+      "name": "Loot Critters Intestines",
+      "sub_id": "00477AF3",
+      "edid": "LLS_Loot_Critters_Intestines",
+      "item_count": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Intestine",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Rabbit Leg",
+      "form_id": "00111966",
+      "edid": "RabbitMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Loot Critters Intestines",
+      "sub_id": "00477AF3",
+      "edid": "LLS_Loot_Critters_Intestines",
+      "item_count": 1,
+      "rate_value": 0.6,
+      "rate_display": "60%",
+      "top_items": [
+       {
+        "name": "Intestine",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Rabbit Hide",
+      "form_id": "004FE51F",
+      "edid": "RabbitHide",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 0.5,
+      "rate_display": "50%"
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": [
+     {
+      "marker": "Rollins Labor Camp",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "572603",
+       "572604",
+       "572605"
+      ],
+      "coords": [
+       -97293.9140625,
+       -115115.15625
+      ],
+      "spawns": [
+       {
+        "label": "Rabbit spawn #1",
+        "ref": "572603",
+        "source_type": "placement",
+        "coords": [
+         -97293.9140625,
+         -115115.15625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rabbit spawn #2",
+        "ref": "572604",
+        "source_type": "placement",
+        "coords": [
+         -97306.3203125,
+         -115099.6640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rabbit spawn #3",
+        "ref": "572605",
+        "source_type": "placement",
+        "coords": [
+         -97344.3203125,
+         -115133.890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": []
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": [
+     {
+      "marker": "Watoga Underground",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "59E669",
+       "59E66A"
+      ],
+      "coords": [
+       -7160.91650390625,
+       7028.9306640625
+      ],
+      "spawns": [
+       {
+        "label": "Rabbit spawn #1",
+        "ref": "59E669",
+        "source_type": "placement",
+        "coords": [
+         -7160.91650390625,
+         7028.9306640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rabbit spawn #2",
+        "ref": "59E66A",
+        "source_type": "placement",
+        "coords": [
+         -7242.96728515625,
+         7373.02978515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Moonshiner's Shack",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "554243"
+      ],
+      "coords": [
+       -116251.9609375,
+       86699.5703125
+      ],
+      "spawns": [
+       {
+        "label": "Rabbit spawn",
+        "ref": "554243",
+        "source_type": "placement",
+        "coords": [
+         -116251.9609375,
+         86699.5703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "Whitespring Bunker",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D63F9",
+       "3D7520",
+       "3D7521"
+      ],
+      "coords": [
+       6443.11279296875,
+       -61765.90625
+      ],
+      "spawns": [
+       {
+        "label": "Rabbit spawn #1",
+        "ref": "3D63F9",
+        "source_type": "placement",
+        "coords": [
+         6443.11279296875,
+         -61765.90625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rabbit spawn #2",
+        "ref": "3D7520",
+        "source_type": "placement",
+        "coords": [
+         6187.1220703125,
+         -61763.75390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rabbit spawn #3",
+        "ref": "3D7521",
+        "source_type": "placement",
+        "coords": [
+         7893.70751953125,
+         -63631.953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Yellow Sandy's Still",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "43CC72",
+       "52940C",
+       "52940E",
+       "52940F"
+      ],
+      "coords": [
+       82277.234375,
+       28659.265625
+      ],
+      "spawns": [
+       {
+        "label": "Rabbit spawn #1",
+        "ref": "43CC72",
+        "source_type": "placement",
+        "coords": [
+         82277.234375,
+         28659.265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rabbit spawn #2",
+        "ref": "52940C",
+        "source_type": "placement",
+        "coords": [
+         82338.2265625,
+         28523.69140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rabbit spawn #3",
+        "ref": "52940E",
+        "source_type": "placement",
+        "coords": [
+         82485.890625,
+         28570.451171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rabbit spawn #4",
+        "ref": "52940F",
+        "source_type": "placement",
+        "coords": [
+         82613.890625,
+         28570.451171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": []
+   },
+   {
+    "region": "The Mire",
+    "locations": []
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": []
+   }
+  ],
+  "total_markers": 5,
+  "total_placements": 13
+ },
+ "chance_spawns": {
+  "locations": [
+   {
+    "marker": "Superior Sunset Farm",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Rabbit"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Vault-Tec Agricultural Research Center",
+    "region": "Forest",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Rabbit"
+    ],
+    "count": 3
+   }
+  ],
+  "total": 2,
+  "note": null
+ },
+ "blurb": "The Rabbit in Fallout 76 — drops Intestine, Rabbit Leg, 5 NPC variants, 13 known spawn points.",
+ "map_base": "/wp-content/uploads/guide-images/farming-meat/rabbit/"
+}

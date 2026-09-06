@@ -1,0 +1,6678 @@
+{
+ "_meta": {
+  "generated": "2026-09-06",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "DLC03_AnglerRace"
+   }
+  ],
+  "source_totals": {
+   "ambush": 3,
+   "placement": 1131,
+   "spawn": 3
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "angler",
+ "name": "Angler",
+ "page_title": "Farming - Meat - Angler",
+ "url": "/bnb/farming/meat/angler/angler-location-guide/",
+ "npc_summary": {
+  "npc_count": 20,
+  "level_min": 1,
+  "level_max": 100,
+  "health_max": 2200
+ },
+ "meat_items": [
+  {
+   "name": "Angler Meat",
+   "form_id": "00110BA4",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Daily",
+   "name": "Kill an Angler",
+   "required": 5,
+   "edid": "SCORE_Challenge_Daily_Kill_Angler",
+   "page": "daily"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of a Glowing Angler",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Glowing_SUB_Angler_Camera",
+   "page": "world"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of an Albino Angler",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Albino_SUB_Angler_Camera",
+   "page": "world"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Angler",
+    "form_id": "0011077A",
+    "row_count": 5,
+    "direct_items": 2,
+    "pool_count": 3,
+    "item_count": 7909,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Angler",
+      "sub_id": "00111600",
+      "edid": "LLS_Creature_Angler",
+      "item_count": 6796,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Disease Cure",
+        "rate_display": "3.04%"
+       },
+       {
+        "name": "Cutting Fluid",
+        "rate_display": "3.01%"
+       },
+       {
+        "name": "Vegetable Starch",
+        "rate_display": "3.01%"
+       },
+       {
+        "name": "Hard Hat",
+        "rate_display": "1.56%"
+       },
+       {
+        "name": "Blood Pack",
+        "rate_display": "0.7%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Angler Meat",
+      "form_id": "00110BA4",
+      "edid": "AnglerMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (medium)",
+      "sub_id": "003DF3F8",
+      "edid": "LLS_Creature_Medium",
+      "item_count": 1106,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "38.48%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "21.38%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Boss Component Angler",
+      "sub_id": "00434381",
+      "edid": "LLE_Creature_Boss_Component_Angler",
+      "item_count": 5,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Raw Asbestos",
+        "rate_display": "100%"
+       },
+       {
+        "name": "Excess Adhesive",
+        "rate_display": "50%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Plan: Puncturing Pole Hook",
+      "form_id": "002B42B9",
+      "edid": "recipe_DLC03_mod_melee_polehook_Multihook",
+      "sig": "BOOK",
+      "qty": 1,
+      "rate_value": 0.03,
+      "rate_display": "3%"
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [
+  {
+   "form_id": "00529E1D",
+   "edid": "RE_TravelCMB07",
+   "name": "Anglers vs. Fog Crawler",
+   "type": "Travel Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "004FC060",
+   "edid": "RE_AssaultKMK04",
+   "name": "Anglers vs. Scorched",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "004FC066",
+   "edid": "RE_AssaultKMK10",
+   "name": "Anglers vs. Super Mutants",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "00454C49",
+   "edid": "RE_SceneCMB02",
+   "name": "Brahmin Wrangler",
+   "type": "Scene Encounters",
+   "location": ""
+  }
+ ],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": [
+     {
+      "marker": "Abandoned Mine Shaft 1",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4E4A3E",
+       "4E4A3F",
+       "4E4A42",
+       "4E4A43"
+      ],
+      "coords": [
+       -140564.1875,
+       -156988.953125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Abandoned Mine Shaft 6",
+      "count": 9,
+      "sources": {
+       "placement": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "355AE2",
+       "355AE3",
+       "355AE4",
+       "4EA4B2",
+       "4EA4B5",
+       "4EA4B6",
+       "4EA4B7",
+       "4EA4C4",
+       "4EA4CA"
+      ],
+      "coords": [
+       -121240.8984375,
+       -104675.3125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 9,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Abandoned Mine Shaft Elaine",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "355AE0",
+       "4E3F5E",
+       "4E3F61"
+      ],
+      "coords": [
+       -133856.21875,
+       -108815.3984375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Beckley",
+      "count": 9,
+      "sources": {
+       "placement": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "32FAF5",
+       "32FAF6",
+       "32FB05",
+       "3C5CC1",
+       "3CAC08",
+       "3CAC0D",
+       "3CAC0F",
+       "3CAC38",
+       "3CAC3E"
+      ],
+      "coords": [
+       -185368.40625,
+       -122986.96875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 9,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Beckley Mine Exhibit",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "32FAE3",
+       "32FAE7",
+       "3CAC3A",
+       "3CAC3D"
+      ],
+      "coords": [
+       -188874.375,
+       -131057.3828125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Camden Park",
+      "count": 9,
+      "sources": {
+       "placement": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31DBBF",
+       "31DBC0",
+       "31DBC1",
+       "31DBC2",
+       "31DBC3",
+       "31DBC4",
+       "31DBD5",
+       "31DBD6",
+       "31DBD7"
+      ],
+      "coords": [
+       -182060.53125,
+       -74423.984375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 9,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Garrahan Mining HQ",
+      "count": 9,
+      "sources": {
+       "placement": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2F6EA0",
+       "2F6EA1",
+       "2F6EA2",
+       "2F6F57",
+       "2F6F58",
+       "2F6F59",
+       "2F6F5A",
+       "2F6F5B",
+       "2F6F5C"
+      ],
+      "coords": [
+       -2431.994140625,
+       1552.00805664062
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 9,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hornwright Air Purifier Site #03",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D2635",
+       "3D2636"
+      ],
+      "coords": [
+       -118832.0,
+       -123552.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hornwright Testing Site #02",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3A3436",
+       "3A3437",
+       "3A3438"
+      ],
+      "coords": [
+       -153926.046875,
+       -165829.375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Monongah Power Substation MZ-03",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D3BB1",
+       "4E4AA6",
+       "4E4AA7",
+       "4E4AAA"
+      ],
+      "coords": [
+       -47522.3359375,
+       -131429.078125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Mount Blair",
+      "count": 17,
+      "sources": {
+       "placement": 17
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "355ADC",
+       "355ADD",
+       "355ADE",
+       "355ADF",
+       "355AE1",
+       "355AE5",
+       "355AE6",
+       "355B24",
+       "355B28",
+       "357A60",
+       "357A61",
+       "357A62",
+       "357A64",
+       "357A65",
+       "4EA4AE",
+       "4EA4D5",
+       "4EA4DC"
+      ],
+      "coords": [
+       -128954.5703125,
+       -105828.5234375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 17,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Red Rocket Filling Station",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D2632",
+       "3D2633",
+       "3D2634"
+      ],
+      "coords": [
+       -117664.15625,
+       -123460.984375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Relay Tower HG-B7-09",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4E4AE6",
+       "4E4AE9",
+       "4E4AEA",
+       "4E4AEB"
+      ],
+      "coords": [
+       -141808.453125,
+       -79801.1953125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Sal's Grinders",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "23C859",
+       "242EAA",
+       "329706",
+       "329707",
+       "32FAF7",
+       "3CAC14"
+      ],
+      "coords": [
+       -190188.4375,
+       -120931.8359375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Burning Mine",
+      "count": 11,
+      "sources": {
+       "placement": 11
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2B5A45",
+       "2B5A76",
+       "2DDC09",
+       "2DDC0A",
+       "2DDC0B",
+       "2DDC16",
+       "2DDC17",
+       "2DDC18",
+       "2DDC19",
+       "2DDC1A",
+       "3D42B9"
+      ],
+      "coords": [
+       3917.89599609375,
+       -7388.26953125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 11,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Unfinished Mansion",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4E3E62",
+       "4E3E63",
+       "4E3E66"
+      ],
+      "coords": [
+       -72202.5703125,
+       -142480.484375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Vault 63",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4E3E21",
+       "4E3E22",
+       "4E3E25",
+       "4E3E2C"
+      ],
+      "coords": [
+       -91241.9375,
+       -148190.078125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Welch",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4E4581",
+       "4E4582",
+       "4E4583",
+       "4E4584"
+      ],
+      "coords": [
+       -150914.984375,
+       -134235.515625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Welch Station",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4E4585",
+       "4E4586"
+      ],
+      "coords": [
+       -150908.4375,
+       -129424.8671875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": [
+     {
+      "marker": "Albany",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "844789",
+       "84478A",
+       "84478D"
+      ],
+      "coords": [
+       -220359.59375,
+       62554.0703125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Ash Cave",
+      "count": 5,
+      "sources": {
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "83FD87",
+       "83FDDA",
+       "83FDDB",
+       "8429B4",
+       "8429B8"
+      ],
+      "coords": [
+       -250136.765625,
+       115443.3046875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Athens",
+      "count": 18,
+      "sources": {
+       "placement": 18
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8447AF",
+       "8447B0",
+       "8447B3",
+       "8447BA",
+       "8447BB",
+       "8447BE",
+       "845161",
+       "84517D",
+       "84517E",
+       "846265",
+       "846279",
+       "84627A",
+       "8464A0",
+       "8464A1",
+       "8464A4",
+       "8464AB",
+       "8464AC",
+       "8464AF"
+      ],
+      "coords": [
+       -233677.40625,
+       166798.53125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 18,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Dino Peaks Mini Golf",
+      "count": 12,
+      "sources": {
+       "placement": 12
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82B955",
+       "82B956",
+       "82B959",
+       "82E083",
+       "82E084",
+       "82E087",
+       "82E08F",
+       "82E090",
+       "82E093",
+       "8316EA",
+       "831706",
+       "831707"
+      ],
+      "coords": [
+       -198619.828125,
+       137010.875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 12,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Fort Steuben",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "83B63F",
+       "83B640",
+       "83B641",
+       "83B6A0",
+       "83B6A1",
+       "83B6A4"
+      ],
+      "coords": [
+       -207904.90625,
+       39376.6953125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hamley Run Camp",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "84789A",
+       "8478B1",
+       "8478B3"
+      ],
+      "coords": [
+       -258015.65625,
+       173988.328125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hocking Hills Train Station",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "845D9D",
+       "845D9E",
+       "845DA1"
+      ],
+      "coords": [
+       -249546.53125,
+       72401.15625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Honey Well Apiary",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8236A0",
+       "8236A3",
+       "8236AB",
+       "8236AC",
+       "8236D7",
+       "8236DF"
+      ],
+      "coords": [
+       -232192.125,
+       83094.0859375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Jackson Junkyard",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82B680",
+       "82B694",
+       "82B695",
+       "83A189",
+       "83A18A",
+       "83A18C"
+      ],
+      "coords": [
+       -264903.9375,
+       47204.33984375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Prospect Hill",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82B182",
+       "82B183",
+       "82B186"
+      ],
+      "coords": [
+       -206696.84375,
+       96629.875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Railroad Service Yard",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82B6B1",
+       "82B6B2",
+       "82B6B5",
+       "82B6C0",
+       "82B6C1",
+       "82B6C4"
+      ],
+      "coords": [
+       -228658.296875,
+       20969.275390625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Sand Fork Lumber",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82A390",
+       "82A39F",
+       "82A3A1",
+       "84630E",
+       "846320",
+       "846321"
+      ],
+      "coords": [
+       -214842.0625,
+       406.143310546875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Sandy's Sock Hop",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "84072C",
+       "84072D",
+       "840730"
+      ],
+      "coords": [
+       -245236.125,
+       99721.6171875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Shade Hill Church",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "83FD93",
+       "83FDCB",
+       "83FDD5",
+       "8429B5"
+      ],
+      "coords": [
+       -249449.4375,
+       119541.2578125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Super Duper Mart",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82B6D9",
+       "82B6DB",
+       "82B6DC"
+      ],
+      "coords": [
+       -227752.0,
+       134208.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Chop Shop",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "82369A",
+       "8236C8",
+       "8236C9"
+      ],
+      "coords": [
+       -223123.15625,
+       79569.8359375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "World of Corn",
+      "count": 10,
+      "sources": {
+       "placement": 10
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "83A188",
+       "83A18B",
+       "83A18D",
+       "84477D",
+       "84477E",
+       "844781",
+       "844783",
+       "844792",
+       "844793",
+       "844796"
+      ],
+      "coords": [
+       -251974.34375,
+       59477.00390625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 10,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": [
+     {
+      "marker": "Abandoned Bog Town",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "35E73A",
+       "55977E",
+       "55977F",
+       "559780"
+      ],
+      "coords": [
+       181596.71875,
+       -104745.3359375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Big Bend Tunnel East",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39D1FC",
+       "39D1FD",
+       "39D200",
+       "3D3BA9"
+      ],
+      "coords": [
+       112405.4765625,
+       -156076.84375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Drop Site V9",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3A2759",
+       "3A275C",
+       "3D3B95"
+      ],
+      "coords": [
+       185124.046875,
+       -163318.0625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Flooded Trainyard",
+      "count": 9,
+      "sources": {
+       "placement": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2EFD2C",
+       "3A2742",
+       "3A2743",
+       "3A2746",
+       "3A27BA",
+       "3A27BB",
+       "3A27BE",
+       "3D3B96",
+       "3D3BAD"
+      ],
+      "coords": [
+       183038.03125,
+       -134854.25
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 9,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Fort Defiance",
+      "count": 12,
+      "sources": {
+       "placement": 12
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31BF15",
+       "31BF9B",
+       "31BF9E",
+       "31BF9F",
+       "31BFA3",
+       "31BFA6",
+       "31BFA9",
+       "31BFAC",
+       "31BFAF",
+       "31BFB2",
+       "31BFC7",
+       "4E543A"
+      ],
+      "coords": [
+       -2928.0,
+       1304.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 12,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Glassed Cavern",
+      "count": 9,
+      "sources": {
+       "placement": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2EFDEE",
+       "2EFDEF",
+       "2EFDF0",
+       "2EFDF2",
+       "44D516",
+       "4EA50B",
+       "4EA50C",
+       "4EA513",
+       "4EA514"
+      ],
+      "coords": [
+       202208.921875,
+       -154991.71875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 9,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Kerwood Mine",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "051E69",
+       "051EBF",
+       "05425A",
+       "05425F",
+       "073BA4",
+       "0B21E9"
+      ],
+      "coords": [
+       -3542.54711914063,
+       -147.03645324707
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "NAR Repair Yard",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "34ED06",
+       "34ED07"
+      ],
+      "coords": [
+       132170.15625,
+       -148122.78125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Overgrown Sundew Grove",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3A2758",
+       "3D3BAF"
+      ],
+      "coords": [
+       185137.71875,
+       -163769.34375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Ranger Lookout",
+      "count": 5,
+      "sources": {
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "05A726",
+       "399DFF",
+       "399E00",
+       "399E03",
+       "3D3BAB"
+      ],
+      "coords": [
+       149414.453125,
+       -80829.703125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "RobCo Research Center",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "13B79F",
+       "13B7B5"
+      ],
+      "coords": [
+       198111.375,
+       -71028.703125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Sacramental Glade",
+      "count": 5,
+      "sources": {
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2EFDD5",
+       "2EFDE8",
+       "2EFDE9",
+       "2EFDEA",
+       "2EFDEB"
+      ],
+      "coords": [
+       193713.40625,
+       -137289.5625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The General's Steakhouse",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C3355",
+       "3C3356",
+       "3C3357",
+       "3C3358"
+      ],
+      "coords": [
+       177834.625,
+       -59572.015625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Substation TM-02",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "50AFC3",
+       "50AFC4",
+       "529DC8",
+       "529DC9"
+      ],
+      "coords": [
+       142957.359375,
+       -121049.4375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Watoga",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "34ECEF",
+       "34ECF0",
+       "34ECF1"
+      ],
+      "coords": [
+       144924.703125,
+       -131097.8125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Watoga Emergency Services",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3B8187",
+       "3B818D",
+       "3B8195",
+       "3B8196"
+      ],
+      "coords": [
+       -778.218811035156,
+       889.986511230469
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Watoga High School",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "12BC72",
+       "12BC73",
+       "12BC78",
+       "12BC80",
+       "12BC81",
+       "5191C0"
+      ],
+      "coords": [
+       2488.0,
+       1264.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Watoga Shopping Plaza",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "34E928",
+       "34E92D",
+       "34E92E"
+      ],
+      "coords": [
+       149079.84375,
+       -134002.15625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Watoga Underground",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2EFD3F",
+       "2EFD40",
+       "2EFD41",
+       "2EFD42"
+      ],
+      "coords": [
+       164182.078125,
+       -140193.890625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Aaronholt Homestead",
+      "count": 11,
+      "sources": {
+       "placement": 11
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "09074F",
+       "090750",
+       "090751",
+       "090756",
+       "090761",
+       "1215A0",
+       "1215B4",
+       "325AF1",
+       "325AF2",
+       "325AF3",
+       "325AF4"
+      ],
+      "coords": [
+       -125088.0,
+       175200.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 11,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Arktos Pharma",
+      "count": 9,
+      "sources": {
+       "placement": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "314394",
+       "314395",
+       "314396",
+       "314397",
+       "314399",
+       "3144CD",
+       "450BA5",
+       "450BA6",
+       "450BA7"
+      ],
+      "coords": [
+       -44161.69140625,
+       50561.58984375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 9,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Arktos Pharma Biome Lab",
+      "count": 26,
+      "sources": {
+       "placement": 26
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3EC5CB",
+       "3EC5D7",
+       "3F814D",
+       "3FBD1D",
+       "3FBD21",
+       "3FBD27",
+       "3FBD29",
+       "3FC0B4",
+       "3FC0B9",
+       "3FC0BB",
+       "3FC0CC",
+       "3FCC5A",
+       "3FCC60",
+       "3FCC62",
+       "3FCC65",
+       "40F4C9",
+       "47D239",
+       "47D23F",
+       "47D240",
+       "47D241",
+       "47D242",
+       "47D246",
+       "53637C",
+       "536C00",
+       "536C01",
+       "536DCB"
+      ],
+      "coords": [
+       -4320.0,
+       -4936.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 26,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Black Mountain Ordnance Works",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "20AF36",
+       "20AF37",
+       "20AF38"
+      ],
+      "coords": [
+       -163851.28125,
+       102001.1015625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Bolton Greens",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C2951"
+      ],
+      "coords": [
+       9733.1669921875,
+       59615.734375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Camp McClintock",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31D23F",
+       "31D240"
+      ],
+      "coords": [
+       -56610.359375,
+       -8002.31103515625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Clancy Manor",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2090DC",
+       "2090EF",
+       "2090F9",
+       "209141"
+      ],
+      "coords": [
+       -101003.3203125,
+       176264.59375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Cliffwatch",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "398540"
+      ],
+      "coords": [
+       -14517.294921875,
+       -15493.9189453125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Cow Spots Creamery",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31D13A",
+       "31D13B",
+       "31D13C"
+      ],
+      "coords": [
+       -129982.8828125,
+       -17276.11328125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Darling Sister's Lab",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2FD8E0",
+       "2FD8E2",
+       "2FD8E3"
+      ],
+      "coords": [
+       -141147.375,
+       161776.71875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Gauley Mine Exit",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4E57B9",
+       "4E57BA",
+       "4E57BE"
+      ],
+      "coords": [
+       -49685.7265625,
+       63483.296875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Gorge Junkyard",
+      "count": 5,
+      "sources": {
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3B1BB5",
+       "48757E",
+       "48757F",
+       "517560",
+       "517561"
+      ],
+      "coords": [
+       -63982.34375,
+       83654.984375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Helvetia",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31D26E",
+       "31D26F",
+       "31D270",
+       "3D3BB0"
+      ],
+      "coords": [
+       -48078.55078125,
+       38425.37890625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hornwright Industrial Headquarters",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "33FFFA",
+       "33FFFB",
+       "33FFFC",
+       "33FFFD",
+       "52EEF3",
+       "52EEF4"
+      ],
+      "coords": [
+       -107337.0859375,
+       -47271.33984375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hornwright Industrial HQ",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3E83D1"
+      ],
+      "coords": [
+       -113.849021911621,
+       -885.031188964844
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hunter's Ridge",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "20AF6F",
+       "20AFBC",
+       "3D3B9E"
+      ],
+      "coords": [
+       -145199.46875,
+       60270.3828125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Kanawha Nuka-Cola Plant",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3B5F58",
+       "3B5F5A",
+       "3B5F5C",
+       "3B5F5D"
+      ],
+      "coords": [
+       -157344.1875,
+       -52607.96875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Lady Janet's Soft Serve",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31D107",
+       "31D10A"
+      ],
+      "coords": [
+       -97474.953125,
+       136857.8125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Landview Lighthouse",
+      "count": 8,
+      "sources": {
+       "placement": 8
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31D0C0",
+       "31D0C2",
+       "31DD28",
+       "31DD29",
+       "31DD2A",
+       "31DD2B",
+       "39163A",
+       "3B1BB4"
+      ],
+      "coords": [
+       -67361.875,
+       80764.9453125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 8,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Mama Dolce's Food Processing",
+      "count": 19,
+      "sources": {
+       "placement": 19
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "06AD9E",
+       "28E957",
+       "28E959",
+       "28E95F",
+       "28E960",
+       "28E961",
+       "33C900",
+       "33C901",
+       "33C902",
+       "33C903",
+       "3DAAA9",
+       "3DAAAC",
+       "3DAAB2",
+       "3DAAB3",
+       "3DAAB7",
+       "3DAAB9",
+       "3DAABA",
+       "3DAAC3",
+       "3DAAC7"
+      ],
+      "coords": [
+       808.0029296875,
+       1000.00134277344
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 19,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "New River Gorge Bridge - East",
+      "count": 10,
+      "sources": {
+       "placement": 10
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2DEB44",
+       "2DEB45",
+       "2DEB46",
+       "2DEB52",
+       "2DEB53",
+       "2DEB5D",
+       "2DEB5E",
+       "2DEB5F",
+       "4E5B85",
+       "4E5B90"
+      ],
+      "coords": [
+       -89217.390625,
+       21087.0546875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 10,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "New River Gorge Bridge - West",
+      "count": 5,
+      "sources": {
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4E5B88",
+       "4E5B89",
+       "4E5B8B",
+       "4E5B8C",
+       "4E5B91"
+      ],
+      "coords": [
+       -110692.6953125,
+       -481.263671875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "New River Gorge Resort",
+      "count": 9,
+      "sources": {
+       "placement": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D128D",
+       "3D128E",
+       "3D128F",
+       "3D1292",
+       "3D1293",
+       "3D1294",
+       "3D1295",
+       "3D1296",
+       "3D12C3"
+      ],
+      "coords": [
+       -81799.765625,
+       14608.2470703125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 9,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "North Kanawha Lookout",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31D0DF",
+       "31D0E0",
+       "31D0E1"
+      ],
+      "coords": [
+       -75929.8984375,
+       98643.53125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Organ Cave South",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "1C7593",
+       "1C7594",
+       "1C75B0"
+      ],
+      "coords": [
+       -120051.984375,
+       88556.46875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Orwell Orchards",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "28B2F3",
+       "28B2F4",
+       "28B2F6"
+      ],
+      "coords": [
+       -140880.5,
+       -5525.8154296875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Overseer's Home",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3BA6DF",
+       "3BA6E0"
+      ],
+      "coords": [
+       -57673.19921875,
+       30761.4921875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Poseidon Energy Plant WV-06",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "237DB4",
+       "237DB9",
+       "237DBE",
+       "237DC3",
+       "237DC8",
+       "3C2DF4"
+      ],
+      "coords": [
+       -3430.0908203125,
+       2483.54296875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Relay Tower HN-B1-12",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31D24F",
+       "31D250",
+       "31D253",
+       "3D3BAE"
+      ],
+      "coords": [
+       -9442.755859375,
+       29465.5078125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Riverside Manor",
+      "count": 10,
+      "sources": {
+       "placement": 10
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "189A2E",
+       "189A6D",
+       "189A6E",
+       "189A6F",
+       "189A7C",
+       "194D32",
+       "194D35",
+       "194D37",
+       "194E69",
+       "3B3740"
+      ],
+      "coords": [
+       -69193.1875,
+       -71199.6796875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 10,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Slocum's Joe",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31DD32",
+       "31DD33",
+       "31DD34"
+      ],
+      "coords": [
+       -69426.8203125,
+       64096.0625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Summersville",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2B1223",
+       "2B65A9",
+       "31132A"
+      ],
+      "coords": [
+       -47330.234375,
+       -8945.998046875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Summersville Dam",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "194E6A"
+      ],
+      "coords": [
+       -76978.6875,
+       -67616.0625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Summersville Docks",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "065295",
+       "297580",
+       "2975B1",
+       "2975B2",
+       "297656",
+       "3B1BC8"
+      ],
+      "coords": [
+       -80863.546875,
+       -48645.0390625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Sutton",
+      "count": 7,
+      "sources": {
+       "placement": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3BA6C0",
+       "3BA6C1",
+       "3BA6DB",
+       "3BA6DC",
+       "3BA6DD",
+       "3BA6F3",
+       "3BA6F4"
+      ],
+      "coords": [
+       -63534.86328125,
+       24764.84375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 7,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Sutton Station",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31D22F",
+       "31D230",
+       "31D231"
+      ],
+      "coords": [
+       -58840.77734375,
+       5320.18408203125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Coop",
+      "count": 7,
+      "sources": {
+       "placement": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "207D33",
+       "207D34",
+       "207DDA",
+       "207E32",
+       "208F12",
+       "208F19",
+       "208F20"
+      ],
+      "coords": [
+       -134948.8125,
+       115719.3359375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 7,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Giant Teapot",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3A474A",
+       "528D0A"
+      ],
+      "coords": [
+       -131660.90625,
+       -27349.291015625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Wayward",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2DD257"
+      ],
+      "coords": [
+       -91156.65625,
+       50411.2578125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Twin Pine Cabins",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31D0FF",
+       "31D100",
+       "31D102",
+       "3D3B9F"
+      ],
+      "coords": [
+       -76219.609375,
+       124818.359375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Tygart Water Treatment",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31D214",
+       "31D215",
+       "31D216",
+       "31D217",
+       "3DEDCD",
+       "3DEDD0"
+      ],
+      "coords": [
+       -28369.38671875,
+       18555.708984375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Vault-Tec Agricultural Research Center",
+      "count": 5,
+      "sources": {
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31D113",
+       "31D115",
+       "31D116",
+       "31D117",
+       "31D118"
+      ],
+      "coords": [
+       -115101.6171875,
+       8733.333984375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Wade Airport",
+      "count": 12,
+      "sources": {
+       "placement": 12
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "065291",
+       "065293",
+       "065294",
+       "065296",
+       "065297",
+       "065298",
+       "33DC6A",
+       "33DC6E",
+       "33DC74",
+       "33DC75",
+       "33DC7C",
+       "33DC7D"
+      ],
+      "coords": [
+       -86277.9296875,
+       -43856.9921875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 12,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Wilson Brother's Auto Repair",
+      "count": 5,
+      "sources": {
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31DD14",
+       "31DD15",
+       "31DD16",
+       "4E27D2",
+       "4E27D3"
+      ],
+      "coords": [
+       -49111.015625,
+       101621.8984375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Wixon Homestead",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2DD258",
+       "2DD259"
+      ],
+      "coords": [
+       -91259.4375,
+       50594.73828125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "WV Lumber Co.",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "20A34B",
+       "20A350",
+       "20A351"
+      ],
+      "coords": [
+       -165895.578125,
+       181996.0625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "Ammo Dump",
+      "count": 5,
+      "sources": {
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39383B",
+       "39383C",
+       "39383F",
+       "3D3BA0",
+       "3D3BA8"
+      ],
+      "coords": [
+       96780.4921875,
+       107862.796875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Autumn Acre Cabin",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "30B4F1",
+       "30B4F2",
+       "30B4F3"
+      ],
+      "coords": [
+       100061.390625,
+       36280.39453125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Beckwith Farm",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "398560",
+       "398561",
+       "398564"
+      ],
+      "coords": [
+       37141.36328125,
+       -18144.25390625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Blackwater Mine",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C1FC6",
+       "3C1FC7",
+       "3C1FC9"
+      ],
+      "coords": [
+       -1776.45690917969,
+       -1241.49780273438
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Cliffwatch",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "398541",
+       "398544",
+       "3D3BA6"
+      ],
+      "coords": [
+       -14335.533203125,
+       -15681.0654296875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Dent & Sons Construction",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2B912E",
+       "3A63F0",
+       "3A63F3"
+      ],
+      "coords": [
+       -36384.19140625,
+       -155651.0625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Devil's Backbone",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39B173",
+       "39B174",
+       "39B177"
+      ],
+      "coords": [
+       88569.0234375,
+       -88738.0625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Federal Disposal Field HZ-21",
+      "count": 12,
+      "sources": {
+       "placement": 12
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "109C94",
+       "109C95",
+       "109C9C",
+       "109C9D",
+       "109C9E",
+       "4DE213",
+       "4DE214",
+       "4DE21F",
+       "4DE220",
+       "4DEB31",
+       "4DEB32",
+       "50C1EE"
+      ],
+      "coords": [
+       962.3291015625,
+       -151629.828125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 12,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Gleaming Depths",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4E4A35",
+       "4E4A36",
+       "4E4A38"
+      ],
+      "coords": [
+       -135882.125,
+       -174174.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hopewell Cave",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "30BE1D",
+       "30BE1E",
+       "30BE20",
+       "4F582B"
+      ],
+      "coords": [
+       114066.5078125,
+       114087.671875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hornwright Testing Site #03",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39B11D",
+       "39B11E",
+       "39B121",
+       "3D3B9A"
+      ],
+      "coords": [
+       -92960.7109375,
+       -161493.609375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Lucky Hole Mine",
+      "count": 9,
+      "sources": {
+       "placement": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2C48E0",
+       "2C48E2",
+       "2C48E4",
+       "2C48E6",
+       "2C48E8",
+       "2C48EA",
+       "39B178",
+       "39B179",
+       "39B17C"
+      ],
+      "coords": [
+       406.179931640625,
+       -2397.3935546875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 9,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Miners Monument",
+      "count": 5,
+      "sources": {
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39B155",
+       "39B156",
+       "39B159",
+       "3D3BA1",
+       "3D3BB2"
+      ],
+      "coords": [
+       -28308.3359375,
+       -91784.640625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Monongah",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31DD78",
+       "31DD79",
+       "31DD7A"
+      ],
+      "coords": [
+       45632.89453125,
+       85752.4375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Monongah Overlook",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31DD8A",
+       "31DD8B"
+      ],
+      "coords": [
+       39457.609375,
+       89942.5546875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Monongah Power Plant",
+      "count": 17,
+      "sources": {
+       "placement": 17
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2B5D64",
+       "2B5D65",
+       "2B5D66",
+       "2B5D67",
+       "2B5D68",
+       "2B5D69",
+       "2B5D6A",
+       "2B5D6B",
+       "2B5D6C",
+       "2B5D6D",
+       "2B5D6E",
+       "2B5D6F",
+       "2B5D70",
+       "2B5D71",
+       "2B5D72",
+       "31DD8C",
+       "3D3B9C"
+      ],
+      "coords": [
+       32953.20703125,
+       75272.5625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 17,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Monongah Power Plant Yard",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31DD5F",
+       "31DD60",
+       "31DD61"
+      ],
+      "coords": [
+       51757.94921875,
+       74245.4609375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Monongah Power Substation MZ-01",
+      "count": 5,
+      "sources": {
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3931A4",
+       "3931A5",
+       "3931A8",
+       "3D3B97",
+       "3D3BB3"
+      ],
+      "coords": [
+       74467.25,
+       149391.390625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Monongah Power Substation MZ-03",
+      "count": 5,
+      "sources": {
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "52C8CB",
+       "52C8CC",
+       "52C8CD",
+       "52C8CE",
+       "52C8CF"
+      ],
+      "coords": [
+       -44509.80078125,
+       -126816.1953125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Mysterious Cave",
+      "count": 7,
+      "sources": {
+       "placement": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3930B9",
+       "3930BA",
+       "3930BD",
+       "3930FA",
+       "3930FB",
+       "393101",
+       "3D3BB4"
+      ],
+      "coords": [
+       127803.296875,
+       198658.734375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 7,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "National Isolated Radio Array",
+      "count": 7,
+      "sources": {
+       "placement": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2C69EE",
+       "2C69F4",
+       "2C69F8",
+       "39857C",
+       "39857D",
+       "398580",
+       "3D3BAA"
+      ],
+      "coords": [
+       76724.140625,
+       -34738.23828125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 7,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "National Radio Astronomy Research Center",
+      "count": 7,
+      "sources": {
+       "placement": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "09CB66",
+       "09CB76",
+       "09CB7B",
+       "398AD4",
+       "398AD5",
+       "398AD8",
+       "3D3B94"
+      ],
+      "coords": [
+       129532.0625,
+       -45683.76171875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 7,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Palace of the Winding Path",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D4EAE"
+      ],
+      "coords": [
+       57896.98828125,
+       172221.640625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "R & G Processing Services",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39B12C",
+       "39B12D",
+       "39B130"
+      ],
+      "coords": [
+       604.145812988281,
+       -128652.640625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Red Rocket Mega Stop",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "342933",
+       "342935",
+       "342936"
+      ],
+      "coords": [
+       132350.46875,
+       151444.796875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Relay Tower LW-B1-22",
+      "count": 5,
+      "sources": {
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "393858",
+       "393859",
+       "39385C",
+       "3D3B98",
+       "3D3BA4"
+      ],
+      "coords": [
+       108762.53125,
+       83676.75
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Seneca Rocks Visitor Center",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "31DD4C",
+       "31DD4D",
+       "31DD4E",
+       "3AFE28"
+      ],
+      "coords": [
+       53368.0,
+       62400.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Site Alpha",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "398528",
+       "398529",
+       "39852C",
+       "3D3BA5"
+      ],
+      "coords": [
+       82748.1640625,
+       -3813.5791015625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Site Bravo",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3931DD",
+       "3931DE",
+       "3931E1"
+      ],
+      "coords": [
+       40005.66796875,
+       133612.765625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "South Mountain Lookout",
+      "count": 7,
+      "sources": {
+       "placement": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39B136",
+       "39B137",
+       "39B13A",
+       "39B140",
+       "39B141",
+       "39B144",
+       "3D3B92"
+      ],
+      "coords": [
+       54686.37109375,
+       -130015.4375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 7,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Spruce Knob Lake",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2C7673",
+       "2C7674",
+       "2C7675"
+      ],
+      "coords": [
+       39909.96484375,
+       -119246.5390625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Striker Row",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39B113",
+       "39B114",
+       "39B117"
+      ],
+      "coords": [
+       -93151.21875,
+       -179271.765625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Sugar Grove",
+      "count": 13,
+      "sources": {
+       "placement": 13
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "17CD2D",
+       "17CD31",
+       "17CD32",
+       "2D0C26",
+       "2D0C28",
+       "312239",
+       "31223F",
+       "398ABA",
+       "398ABB",
+       "398ABE",
+       "3BB1BA",
+       "3BB1BB",
+       "3BB1BC"
+      ],
+      "coords": [
+       119462.1796875,
+       -20195.3828125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 13,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Sunnytop Ski Lanes",
+      "count": 8,
+      "sources": {
+       "placement": 8
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "282934",
+       "282935",
+       "282936",
+       "282937",
+       "282938",
+       "282940",
+       "282944",
+       "3EAF36"
+      ],
+      "coords": [
+       85397.96875,
+       129003.6015625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 8,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Sunnytop Station",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "399D35",
+       "399D36"
+      ],
+      "coords": [
+       60152.58984375,
+       129326.109375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Freak Show",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D02E0",
+       "3D02E1",
+       "3D02E2",
+       "3D02E3"
+      ],
+      "coords": [
+       85919.0546875,
+       -100569.1796875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Whitespring Golf Club",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "1FAF3B",
+       "1FAFC5"
+      ],
+      "coords": [
+       -6888.84912109375,
+       -47032.1171875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Whitespring North Entrance",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "1FAF4F",
+       "1FAFC6",
+       "1FAFC9"
+      ],
+      "coords": [
+       -3080.83935546875,
+       -44791.99609375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Twin Lakes",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39B15F",
+       "39B160",
+       "39B163"
+      ],
+      "coords": [
+       44782.63671875,
+       -87206.2578125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Uncanny Caverns",
+      "count": 11,
+      "sources": {
+       "placement": 11
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "049BCF",
+       "049BD7",
+       "29FB3D",
+       "29FB4D",
+       "29FB5E",
+       "2CE620",
+       "2CE622",
+       "336B93",
+       "336B94",
+       "51AABC",
+       "53080C"
+      ],
+      "coords": [
+       3841.70141601562,
+       9909.4208984375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 11,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Wendigo Cave",
+      "count": 12,
+      "sources": {
+       "placement": 12
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "053A0D",
+       "2AD967",
+       "2AD969",
+       "2AD985",
+       "2AD9C3",
+       "2AD9CF",
+       "2AD9D1",
+       "4E44CE",
+       "4E44CF",
+       "4E44D0",
+       "4E44D3",
+       "4E450D"
+      ],
+      "coords": [
+       4986.0546875,
+       1499.16296386719
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 12,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": [
+     {
+      "marker": "Camp Liberty",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "769BCE",
+       "769BCF",
+       "769BD0"
+      ],
+      "coords": [
+       61846.78125,
+       -239930.390625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Dark Hollow Manor",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "749074",
+       "749075"
+      ],
+      "coords": [
+       11285.859375,
+       -203471.5625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hawksbill Weather Station",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "74E516",
+       "74E517"
+      ],
+      "coords": [
+       -20364.359375,
+       -205965.609375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hemlock Springs Dump",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75861C",
+       "75861D",
+       "75861E",
+       "758621",
+       "758622",
+       "758623"
+      ],
+      "coords": [
+       75344.015625,
+       -207136.984375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "High Knob Lookout",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "758CE7",
+       "758CE8",
+       "758CE9",
+       "758CEE",
+       "758CEF",
+       "758CF0"
+      ],
+      "coords": [
+       -14592.0,
+       -215152.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Johnson's Acre",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "758624",
+       "758625",
+       "758626",
+       "758627",
+       "758628",
+       "758629"
+      ],
+      "coords": [
+       83464.0,
+       -186592.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Makeout Point",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "74F4CF",
+       "74F4D0"
+      ],
+      "coords": [
+       63353.44921875,
+       -199834.921875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Naked Creek",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "758CF4"
+      ],
+      "coords": [
+       -26856.0,
+       -227552.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Old Rag Lookout",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "74FC26",
+       "74FC27",
+       "74FC28"
+      ],
+      "coords": [
+       18591.3046875,
+       -226894.796875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Ranger Station Bunker",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "74F4E4",
+       "74F4E5",
+       "74F4E6"
+      ],
+      "coords": [
+       51469.18359375,
+       -191595.765625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Rapidan Camp",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "759B7C",
+       "759B7D",
+       "759B7E",
+       "76906F",
+       "769070",
+       "769071"
+      ],
+      "coords": [
+       14020.517578125,
+       -222124.765625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Research Site Bavaria",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "769EA3",
+       "769EA4",
+       "769EA5"
+      ],
+      "coords": [
+       80479.4375,
+       -234603.8125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Research Site Rhineland",
+      "count": 11,
+      "sources": {
+       "placement": 11
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "74907A",
+       "74907B",
+       "74907C",
+       "758CE3",
+       "758CE4",
+       "758CE5",
+       "758CE6",
+       "759B5D",
+       "759B5E",
+       "759B5F",
+       "759B60"
+      ],
+      "coords": [
+       -2632.67138671875,
+       -205375.71875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 11,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Slumber Mill Motel",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "769067",
+       "769068",
+       "769069"
+      ],
+      "coords": [
+       14675.716796875,
+       -242332.3125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "South River Bridge",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "769BE9",
+       "769BEA",
+       "769BEB"
+      ],
+      "coords": [
+       42543.40234375,
+       -246503.421875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Stony Man Lookout",
+      "count": 7,
+      "sources": {
+       "placement": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75C700",
+       "75C701",
+       "75C702",
+       "75C703",
+       "75C713",
+       "75C714",
+       "75C715"
+      ],
+      "coords": [
+       55963.8046875,
+       -230833.03125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 7,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Susan's Cabin",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "758614",
+       "758615",
+       "758616"
+      ],
+      "coords": [
+       88072.0,
+       -201576.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Trading Post",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7539FD",
+       "7539FE",
+       "7539FF"
+      ],
+      "coords": [
+       37692.34765625,
+       -229332.484375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Three Ponds",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "748795",
+       "748796",
+       "748797"
+      ],
+      "coords": [
+       -52580.76953125,
+       -198805.0625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Substation TM-03",
+      "count": 8,
+      "sources": {
+       "placement": 8
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "74E1CF",
+       "74E1D0",
+       "74E1D1",
+       "74E1D2",
+       "74E1D3",
+       "74F4D8",
+       "74F4DA",
+       "74F4DB"
+      ],
+      "coords": [
+       38445.43359375,
+       -194968.5625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 8,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Mire",
+    "locations": [
+     {
+      "marker": "Abandoned Waste Dump",
+      "count": 5,
+      "sources": {
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3953F9",
+       "3953FA",
+       "3953FD",
+       "395483",
+       "3D3B99"
+      ],
+      "coords": [
+       182775.984375,
+       34568.8359375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Camp Venture",
+      "count": 7,
+      "sources": {
+       "placement": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "002E0B",
+       "161308",
+       "16213D",
+       "2BEB9E",
+       "2BEBA0",
+       "2BEBA3",
+       "2BEBA4"
+      ],
+      "coords": [
+       161316.109375,
+       -40908.6875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 7,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Crevasse Dam",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3520B6",
+       "3520B7",
+       "3520B8",
+       "39549B",
+       "39549C",
+       "39549F"
+      ],
+      "coords": [
+       183166.015625,
+       82195.53125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Dabney Homestead",
+      "count": 9,
+      "sources": {
+       "placement": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "049638",
+       "3953C1",
+       "3953C2",
+       "3953C5",
+       "3953C6",
+       "4E3D6A",
+       "4E3D6B",
+       "4E3D6C",
+       "4E3D6D"
+      ],
+      "coords": [
+       186534.546875,
+       -25747.728515625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 9,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Dolly Sods Lookout",
+      "count": 7,
+      "sources": {
+       "placement": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "061B7C",
+       "061BB4",
+       "395505",
+       "395506",
+       "395509",
+       "39550A",
+       "3D3B9B"
+      ],
+      "coords": [
+       151962.625,
+       85979.46875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 7,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Dolly Sods Wilderness",
+      "count": 7,
+      "sources": {
+       "placement": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "061B7E",
+       "061B82",
+       "061BB9",
+       "36BEBF",
+       "51AA66",
+       "51AA76",
+       "51AA77"
+      ],
+      "coords": [
+       151243.078125,
+       84571.4609375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 7,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Dyer Chemical",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "32E05B",
+       "3DA43B",
+       "3DA43C",
+       "3DA490"
+      ],
+      "coords": [
+       173568.015625,
+       68120.015625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Dyer Chemical Sewer",
+      "count": 8,
+      "sources": {
+       "placement": 8
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2E33C6",
+       "2E33C7",
+       "2E33C8",
+       "2E33C9",
+       "2E33CA",
+       "2E33CB",
+       "2E33CC",
+       "2E33CD"
+      ],
+      "coords": [
+       6628.59375,
+       3069.0234375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 8,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Ella Ames' Bunker",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C042A"
+      ],
+      "coords": [
+       162342.984375,
+       107329.3125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Freddy Fear's House of Scares",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "30E929",
+       "30E92A",
+       "30E92B"
+      ],
+      "coords": [
+       161346.625,
+       151419.203125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Gnarled Shallows",
+      "count": 8,
+      "sources": {
+       "ambush": 3,
+       "placement": 2,
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3954CA",
+       "3954CD",
+       "4863BF",
+       "4863C0",
+       "4863C1",
+       "5253D4",
+       "5253D7",
+       "5253D9"
+      ],
+      "coords": [
+       199021.03125,
+       139781.4375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       },
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Gulper Lagoon",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C0300",
+       "3C042B"
+      ],
+      "coords": [
+       162285.265625,
+       107522.6640625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Harpers Ferry",
+      "count": 21,
+      "sources": {
+       "placement": 21
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3E7C8E",
+       "3E7C8F",
+       "3E7C90",
+       "3E7C91",
+       "3E7C93",
+       "3E7C96",
+       "3E7C97",
+       "3E7CA6",
+       "3E7CA7",
+       "3E7CB1",
+       "3E7CB2",
+       "3E7CB3",
+       "3E7CB4",
+       "3E7CB7",
+       "3E7CB8",
+       "3E7CB9",
+       "3E7CBA",
+       "3E8BAB",
+       "3E8BAC",
+       "3E8BAD",
+       "3E8BAE"
+      ],
+      "coords": [
+       159939.890625,
+       6729.52978515625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 21,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Haven Church",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "343FFC",
+       "3DAA45",
+       "3DAA48"
+      ],
+      "coords": [
+       175697.71875,
+       43003.41796875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Highland Marsh",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3954E0",
+       "3954E1",
+       "3954E4",
+       "3D3B9D"
+      ],
+      "coords": [
+       183350.75,
+       124906.9609375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Mire's Eye",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3954B9",
+       "3954BA",
+       "3954BD"
+      ],
+      "coords": [
+       190692.53125,
+       173445.890625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Mosstown",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39551B",
+       "39551C",
+       "39551F"
+      ],
+      "coords": [
+       137906.34375,
+       79466.65625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Tanagra Town",
+      "count": 10,
+      "sources": {
+       "placement": 10
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "368262",
+       "368263",
+       "368265",
+       "368266",
+       "3689BE",
+       "50982E",
+       "50982F",
+       "509854",
+       "509855",
+       "509856"
+      ],
+      "coords": [
+       192169.0,
+       14620.5078125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 10,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Burrows",
+      "count": 74,
+      "sources": {
+       "placement": 74
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3EC1FD",
+       "3EC1FE",
+       "3EC1FF",
+       "3EC200",
+       "3EC205",
+       "3EC20E",
+       "3EC214",
+       "3EC217",
+       "3EC218",
+       "3EC222",
+       "3EC231",
+       "3EC232",
+       "3EC23A",
+       "3EC2D0",
+       "3EC2D1",
+       "3EC2D2",
+       "3EC2D3",
+       "3EC38A",
+       "3EC4C8",
+       "3EC4CA",
+       "3EC4D2",
+       "3EC4D3",
+       "3EC4E8",
+       "3F3113",
+       "3F311D",
+       "3F311E",
+       "3F3123",
+       "3F3128",
+       "3F312D",
+       "3F3131",
+       "3F3132",
+       "3F3142",
+       "3F314E",
+       "3F314F",
+       "3F3150",
+       "3F3151",
+       "454C0D",
+       "454C11",
+       "454C12",
+       "47CF41",
+       "47CF4C",
+       "47CF4F",
+       "47CF58",
+       "47CF65",
+       "47CF68",
+       "47F08B",
+       "47F08C",
+       "47F098",
+       "47F0C0",
+       "47F0E0",
+       "47F0EB",
+       "47F0FB",
+       "47F104",
+       "47F128",
+       "47F129",
+       "482471",
+       "482473",
+       "48247A",
+       "4824F2",
+       "4824F3",
+       "4824F4",
+       "482509",
+       "48250A",
+       "48250B",
+       "482534",
+       "482535",
+       "482545",
+       "482546",
+       "482547",
+       "48254F",
+       "482550",
+       "482552",
+       "482558",
+       "482559"
+      ],
+      "coords": [
+       814.656494140625,
+       -873.374328613281
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 74,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Burrows South",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3E8BB7",
+       "3E8BB8",
+       "3E8BB9"
+      ],
+      "coords": [
+       161333.359375,
+       -2921.61743164063
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Power Plant",
+      "count": 14,
+      "sources": {
+       "placement": 14
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "351AE7",
+       "351B06",
+       "351B0E",
+       "351B15",
+       "35297A",
+       "3529C2",
+       "3529C4",
+       "3529C6",
+       "3529C8",
+       "3529CA",
+       "3529CC",
+       "39542A",
+       "39542B",
+       "39542E"
+      ],
+      "coords": [
+       196823.109375,
+       100653.7734375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 14,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Substation TM-01",
+      "count": 5,
+      "sources": {
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "395374",
+       "395377",
+       "50AFB5",
+       "50AFB7",
+       "50AFB8"
+      ],
+      "coords": [
+       145119.6875,
+       11265.888671875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": [
+     {
+      "marker": "Clarksburg",
+      "count": 9,
+      "sources": {
+       "placement": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "1A17A4",
+       "1A17A6",
+       "1A17A8",
+       "1A17AA",
+       "1A17AE",
+       "1A17B3",
+       "1A17B5",
+       "1A17B7",
+       "1A17D9"
+      ],
+      "coords": [
+       -27284.73828125,
+       169757.734375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 9,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Clarksburg Shooting Club",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3B365A",
+       "3B365B",
+       "3B3662",
+       "3B3663",
+       "3B3668",
+       "3B3669"
+      ],
+      "coords": [
+       -7450.13916015625,
+       165219.796875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Eastern Regional Penitentiary",
+      "count": 18,
+      "sources": {
+       "placement": 18
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "187D6E",
+       "187D73",
+       "187D87",
+       "187DA3",
+       "189250",
+       "189251",
+       "189252",
+       "189254",
+       "189255",
+       "189256",
+       "189258",
+       "18925C",
+       "189550",
+       "1898A3",
+       "3DF2A6",
+       "3DF2A7",
+       "3DF2D6",
+       "3DF2DF"
+      ],
+      "coords": [
+       -30865.818359375,
+       130133.1796875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 18,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Grafton",
+      "count": 16,
+      "sources": {
+       "placement": 16
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3195BD",
+       "3195C0",
+       "3CFC23",
+       "3CFC24",
+       "3CFC25",
+       "3CFC26",
+       "3CFC27",
+       "3CFC28",
+       "3CFC2A",
+       "3CFC2B",
+       "3CFC2C",
+       "3CFC2D",
+       "3CFC2E",
+       "3CFC2F",
+       "3CFC30",
+       "3CFC31"
+      ],
+      "coords": [
+       -50968.82421875,
+       155322.25
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 16,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Grafton Station",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "00116D",
+       "00116E",
+       "3CFC29"
+      ],
+      "coords": [
+       -51268.00390625,
+       139921.28125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Graninger Farm",
+      "count": 9,
+      "sources": {
+       "placement": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "393186",
+       "393187",
+       "39318A",
+       "3B368A",
+       "3B368C",
+       "3B368D",
+       "3B368E",
+       "3B3690",
+       "3B3691"
+      ],
+      "coords": [
+       23632.447265625,
+       177576.09375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 9,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hemlock Holes",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "35D109",
+       "35D10B"
+      ],
+      "coords": [
+       -75385.171875,
+       173528.625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hemlock Holes Maintenance",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3931E7",
+       "3931E8",
+       "3931EB",
+       "3931EC"
+      ],
+      "coords": [
+       -50255.1640625,
+       194702.875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Knife Edge",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "393239",
+       "39323A",
+       "39323D"
+      ],
+      "coords": [
+       55352.0,
+       202448.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Philippi Battlefield Cemetery",
+      "count": 9,
+      "sources": {
+       "placement": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "14C71F",
+       "14C721",
+       "14C722",
+       "3E039F",
+       "3E03A0",
+       "50C1FA",
+       "518B96",
+       "518B98",
+       "518B99"
+      ],
+      "coords": [
+       38053.57421875,
+       170029.078125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 9,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Pioneer Scout Camp",
+      "count": 7,
+      "sources": {
+       "placement": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3DF8A9",
+       "3DF8AA",
+       "3DF8AC",
+       "3DF8AD",
+       "3DF8AE",
+       "3DF8AF",
+       "3DF8B0"
+      ],
+      "coords": [
+       2976.80444335937,
+       138913.484375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 7,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Pioneer Scout Lookout",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "390F42",
+       "390F44"
+      ],
+      "coords": [
+       -13351.3369140625,
+       148600.1875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Prickett's Fort",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D3BAC"
+      ],
+      "coords": [
+       55880.0,
+       202232.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Toxic Dried Lakebed",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "33DF24",
+       "33DF28",
+       "33FE90"
+      ],
+      "coords": [
+       -13513.017578125,
+       173359.765625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "total_markers": 198,
+  "total_placements": 1137
+ },
+ "chance_spawns": {
+  "locations": [
+   {
+    "marker": "Abandoned Bog Town",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Abandoned Waste Dump",
+    "region": "The Mire",
+    "chance_value": 0.1111,
+    "chance_display": "11.1%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Abbie's Bunker",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Appalachian Antiques",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Becker Farm",
+    "region": "Toxic Valley",
+    "chance_value": 0.1818,
+    "chance_display": "18.2%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Beckwith Farm",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Berkeley Springs West",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Black Bear Lodge",
+    "region": "Toxic Valley",
+    "chance_value": 0.1818,
+    "chance_display": "18.2%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Blakes Offering",
+    "region": "The Mire",
+    "chance_value": 0.1111,
+    "chance_display": "11.1%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Carleton Mine",
+    "region": "Toxic Valley",
+    "chance_value": 0.1818,
+    "chance_display": "18.2%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Crater Watchstation",
+    "region": "Toxic Valley",
+    "chance_value": 0.1818,
+    "chance_display": "18.2%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Dolly Sods Campground",
+    "region": "The Mire",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Drop Site G3",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Ella Ames' Bunker",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Firebase Major",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Fissure Site",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Forward Station Alpha",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Gnarled Shallows",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Graninger Farm",
+    "region": "Toxic Valley",
+    "chance_value": 0.1818,
+    "chance_display": "18.2%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Gulper Lagoon",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Knife Edge",
+    "region": "Toxic Valley",
+    "chance_value": 0.1818,
+    "chance_display": "18.2%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Mire's Eye",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Philippi Battlefield Cemetery",
+    "region": "Toxic Valley",
+    "chance_value": 0.1818,
+    "chance_display": "18.2%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Pioneer Scout Camp",
+    "region": "Toxic Valley",
+    "chance_value": 0.1818,
+    "chance_display": "18.2%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Pylon V-13",
+    "region": "Cranberry Bog",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Raleigh Clay's Bunker",
+    "region": "The Mire",
+    "chance_value": 0.1111,
+    "chance_display": "11.1%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "Sunday Brothers' Cabin",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "The Crater",
+    "region": "Toxic Valley",
+    "chance_value": 0.1818,
+    "chance_display": "18.2%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "The Thorn",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Thunder Mountain Substation TM-02",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Toxic Dried Lakebed",
+    "region": "Toxic Valley",
+    "chance_value": 0.1818,
+    "chance_display": "18.2%",
+    "variants": [
+     "Angler"
+    ],
+    "count": 1
+   }
+  ],
+  "total": 31,
+  "note": null
+ },
+ "blurb": "The Angler in Fallout 76 — drops Angler Meat, 20 NPC variants, 1137 known spawn points.",
+ "map_base": "/wp-content/uploads/guide-images/farming-meat/angler/"
+}

@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-08-23",
+  "generated": "2026-09-06",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -8,6 +8,7 @@
    }
   ],
   "source_totals": {
+   "placement": 14,
    "spawn": 5
   },
   "unresolved": {}
@@ -116,15 +117,236 @@
    },
    {
     "region": "Cranberry Bog",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Watoga Underground",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "58B909",
+       "58B90A",
+       "58C9A7",
+       "58C9A9"
+      ],
+      "coords": [
+       2849.02734375,
+       11793.07421875
+      ],
+      "spawns": [
+       {
+        "label": "Rad Ant spawn #1",
+        "ref": "58B909",
+        "source_type": "placement",
+        "coords": [
+         2849.02734375,
+         11793.07421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Ant spawn #2",
+        "ref": "58B90A",
+        "source_type": "placement",
+        "coords": [
+         3427.52880859375,
+         11793.07421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Ant spawn #3",
+        "ref": "58C9A7",
+        "source_type": "placement",
+        "coords": [
+         3313.7021484375,
+         -1943.81762695313
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Ant spawn #4",
+        "ref": "58C9A9",
+        "source_type": "placement",
+        "coords": [
+         4055.32153320313,
+         -2143.96484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "Forest",
-    "locations": []
+    "locations": [
+     {
+      "marker": "RobCo Auto-Cache #001",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "417FCB",
+       "417FCC",
+       "53B6BE"
+      ],
+      "coords": [
+       -1505.10681152344,
+       2993.6962890625
+      ],
+      "spawns": [
+       {
+        "label": "Rad Ant spawn #1",
+        "ref": "417FCB",
+        "source_type": "placement",
+        "coords": [
+         -1505.10681152344,
+         2993.6962890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Ant spawn #2",
+        "ref": "417FCC",
+        "source_type": "placement",
+        "coords": [
+         -3004.71728515625,
+         2475.39794921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Ant spawn #3",
+        "ref": "53B6BE",
+        "source_type": "placement",
+        "coords": [
+         -5556.96044921875,
+         2049.90063476562
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Van Lowe Taxidermy",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "46F232"
+      ],
+      "coords": [
+       2002.58386230469,
+       296.933807373047
+      ],
+      "spawns": [
+       {
+        "label": "Small Soldier Ant",
+        "ref": "46F232",
+        "source_type": "placement",
+        "coords": [
+         2002.58386230469,
+         296.933807373047
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Small Soldier Ant"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "Savage Divide",
     "locations": [
+     {
+      "marker": "Enclave Research Facility",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5DC99F"
+      ],
+      "coords": [
+       -2623.86254882813,
+       7097.41015625
+      ],
+      "spawns": [
+       {
+        "label": "Scorched Ant",
+        "ref": "5DC99F",
+        "source_type": "placement",
+        "coords": [
+         -2623.86254882813,
+         7097.41015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Scorched Ant"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
      {
       "marker": "Monongah Power Substation MZ-03",
       "count": 5,
@@ -219,7 +441,123 @@
    },
    {
     "region": "Skyline Valley",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Old Rag Lookout",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6F5727",
+       "6F5728"
+      ],
+      "coords": [
+       32719.994140625,
+       -236887.984375
+      ],
+      "spawns": [
+       {
+        "label": "Rad Ant spawn #1",
+        "ref": "6F5727",
+        "source_type": "placement",
+        "coords": [
+         32719.994140625,
+         -236887.984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Ant spawn #2",
+        "ref": "6F5728",
+        "source_type": "placement",
+        "coords": [
+         33094.046875,
+         -237334.28125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "South River Bridge",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6F5729",
+       "6F572A",
+       "6F572B"
+      ],
+      "coords": [
+       33437.828125,
+       -237010.046875
+      ],
+      "spawns": [
+       {
+        "label": "Rad Ant spawn #1",
+        "ref": "6F5729",
+        "source_type": "placement",
+        "coords": [
+         33437.828125,
+         -237010.046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Ant spawn #2",
+        "ref": "6F572A",
+        "source_type": "placement",
+        "coords": [
+         34071.99609375,
+         -240191.984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Rad Ant spawn #3",
+        "ref": "6F572B",
+        "source_type": "placement",
+        "coords": [
+         34535.99609375,
+         -239735.984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "The Mire",
@@ -234,8 +572,8 @@
     "locations": []
    }
   ],
-  "total_markers": 1,
-  "total_placements": 5
+  "total_markers": 7,
+  "total_placements": 19
  },
  "chance_spawns": {
   "locations": [
@@ -288,16 +626,6 @@
      "Rad Ant"
     ],
     "count": 7
-   },
-   {
-    "marker": "Enclave Research Facility",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Scorched Ant"
-    ],
-    "count": 1
    },
    {
     "marker": "Fort Defiance",
@@ -387,7 +715,7 @@
     "variants": [
      "Rad Ant"
     ],
-    "count": 9
+    "count": 7
    },
    {
     "marker": "Ranger Station Bunker",
@@ -404,16 +732,6 @@
     "region": "Skyline Valley",
     "chance_value": 0.2,
     "chance_display": "20%",
-    "variants": [
-     "Rad Ant"
-    ],
-    "count": 3
-   },
-   {
-    "marker": "RobCo Auto-Cache #001",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
     "variants": [
      "Rad Ant"
     ],
@@ -447,7 +765,7 @@
     "variants": [
      "Rad Ant"
     ],
-    "count": 9
+    "count": 6
    },
    {
     "marker": "Sunnytop Ski Lanes",
@@ -500,16 +818,6 @@
     "count": 7
    },
    {
-    "marker": "Van Lowe Taxidermy",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Small Soldier Ant"
-    ],
-    "count": 1
-   },
-   {
     "marker": "Watoga High School",
     "region": "Cranberry Bog",
     "chance_value": 0.25,
@@ -518,20 +826,11 @@
      "Rad Ant"
     ],
     "count": 6
-   },
-   {
-    "marker": "Watoga Underground",
-    "region": "Cranberry Bog",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Rad Ant"
-    ],
-    "count": 4
    }
   ],
-  "total": 29,
+  "total": 25,
   "note": null
  },
- "blurb": "The Rad Ant in Fallout 76 — drops Ant Meat, 20 NPC variants, 5 known spawn points."
+ "blurb": "The Rad Ant in Fallout 76 — drops Ant Meat, 20 NPC variants, 19 known spawn points.",
+ "map_base": "/wp-content/uploads/guide-images/farming-insects/rad-ant/"
 }

@@ -389,6 +389,12 @@ jobs:
       - name: Build Weapon Spin Wheel JSON (PTS)
         run: python src/build_spin_wheel_json.py --pts
 
+      - name: Build Weapon Keyword Index JSON (PTS)
+        # Shares its weapon filter with the spin wheel builder above, so it
+        # runs straight after it — the two must never disagree about what
+        # counts as a player weapon.
+        run: python src/build_weapon_keywords_json.py --pts
+
       # --- DF SCOREBOARDS (placeholder patchlog) ---
       - name: Stage scoreboards patchlog feed (placeholder)
         # No dedicated builder for the scoreboards category yet — the Season

@@ -238,6 +238,87 @@ def _static_pass(flora_ids, slug, cur, geo, cache, seen):
         C._record(cache, seen, slug, inst, space, ref, x, y, region, marker, "static")
 
 
+# LVLI editorID (lowercased) -> LVLI FormID, filled from the Mappalachia DB in run().
+# Empty in CI, where the cache-only rebuild is used instead.
+LPI_INDEX = {}
+
+
+def lpi_edid(flor_edid):
+    """`UseLPI_FloraBloodLeaf01` -> `lpi_florableedleaf01`-style lookup key.
+
+    A FLOR whose EDID starts with `UseLPI_` is NEVER placed in the world directly.
+    The prefix means "this FLOR is used BY a Leveled Placed Item": the world REFR
+    points at the LVLI `LPI_<rest>`, whose entries are the plant's own states — the
+    normal node, its nuke-zone irradiated twin and the depleted model — chosen by
+    condition, not by chance. So the point is always that plant: a guaranteed spawn.
+
+    The pairing is the game's own naming contract, which is why this matches on the
+    name instead of guessing from list contents. Case differs in places
+    (`UseLPI_FloraFireCap01` pairs with `LPI_FloraFirecap01`), so fold case.
+    """
+    e = str(flor_edid or "")
+    if not e.lower().startswith("uselpi_"):
+        return ""
+    return ("LPI_" + e[len("UseLPI_"):]).lower()
+
+
+def load_lpi_index(cur):
+    """lowercased LVLI editorID -> LVLI FormID, from Mappalachia's own Entity table.
+
+    Mappalachia indexes the PLACED record, so for UseLPI flora that is the LVLI and
+    never the FLOR. Reading the pairing out of Entity keeps this in step with
+    whatever DB is on disk and needs no extra export."""
+    out = {}
+    for fid, edid in cur.execute(
+            "SELECT entityFormID, editorID FROM Entity WHERE signature = 'LVLI'"):
+        if edid:
+            out[str(edid).lower()] = int(fid)
+    return out
+
+
+def _lpi_pass(flora, slug, cur, geo, cache, seen, lpi_index):
+    """Flora placed through a Leveled Placed Item (see lpi_edid).
+
+    Without this pass a Position lookup on the FLOR base returns nothing and the
+    plant reads as having no spawns AT ALL — which is how 20 of the 43 plant pages
+    (bloodleaf, tarberry, firecap, aster, cranberries, prickeye, silt bean, snaptail
+    reed …) shipped completely empty while the plants are all over Appalachia. If a
+    plant page goes blank again, check here first.
+
+    These are guaranteed points, so they record as `static` exactly like a directly
+    placed flora REFR."""
+    if not lpi_index:
+        return 0
+    hits = 0
+    lvli_ids = []
+    for fr in flora:
+        key = lpi_edid(fr.get("edid"))
+        if not key:
+            continue
+        fid = lpi_index.get(key)
+        if fid is not None:
+            if fid not in lvli_ids:
+                lvli_ids.append(fid)
+            continue
+        # The numeric suffix does not always survive the pairing: the FLOR is
+        # `UseLPI_FloraRhododendron` but the list is `LPI_FloraRhododendron01`. Fall
+        # back to a prefix match, which also picks up an 01/02/03 family from a single
+        # unnumbered FLOR. Exact is tried first so a numbered FLOR never sweeps in its
+        # siblings' lists.
+        for k, v in lpi_index.items():
+            if k.startswith(key) and v not in lvli_ids:
+                lvli_ids.append(v)
+    if not lvli_ids:
+        return 0
+    for x, y, z, inst, space, ref in ebuild.pull_by_base(cur, lvli_ids):
+        if inst in seen[slug]:
+            continue
+        region, marker, _ = geo.resolve(space, x, y)
+        C._record(cache, seen, slug, inst, space, ref, x, y, region, marker, "static")
+        hits += 1
+    return hits
+
+
 def _rebuild_from_cache(cache, slug, seen, allowed_bases=None):
     """DB absent → reconstruct this plant's placements from the committed geo cache
     (page-scoped keys `<slug>:<inst>`, written by C._record).
@@ -302,6 +383,16 @@ def build_plant(pg, flor, geo, cur, db_ok, cache_path, generated):
     flora_ids = [fr["form_id"] for fr in flora]
 
     allowed_bases = {int(fid, 16) for fid in flora_ids if fid}
+    # The LPI placements' cached `base` is the LVLI, not the FLOR, so it has to be an
+    # allowed base as well — otherwise the CI (cache-only) rebuild filters out every
+    # leveled-placed point and the page goes empty again with the DB nowhere in sight.
+    for fr in flora:
+        key = lpi_edid(fr.get("edid"))
+        if not key:
+            continue
+        for k, v in LPI_INDEX.items():
+            if k == key or k.startswith(key):
+                allowed_bases.add(int(v))
 
     seen = {slug: {}}
     if db_ok:
@@ -316,6 +407,9 @@ def build_plant(pg, flor, geo, cur, db_ok, cache_path, generated):
             pool_size[inst] = n
         _npc_pass(mapp, slug, cur, geo, cache, seen, pool_size)   # PRIMARY
         _static_pass(flora_ids, slug, cur, geo, cache, seen)      # FALLBACK
+        # Leveled-placed flora. Must run alongside the static pass, not instead of
+        # it: a plant like Corn has BOTH directly placed stalks and UseLPI ones.
+        _lpi_pass(flora, slug, cur, geo, cache, seen, LPI_INDEX)
     else:
         cache = ebuild.load_cache(cache_path)
         # prune cache to this plant (page-scoped keys)
@@ -329,6 +423,11 @@ def build_plant(pg, flor, geo, cur, db_ok, cache_path, generated):
     keep = _keep_from_doc(os.path.join(OUT_DIR, slug + ".json"))
     regions_out, src_totals, unresolved, total, placements = ebuild.group_regions(
         guaranteed, ALL_REGIONS, keep or {})
+    # A dense page renders one marker-level slot, so the blank per-spawn slots below
+    # it are invisible weight — Blackberries alone was 13,342 of them / 3.9 MB.
+    # Authored photos and directions are always kept; only placeholders go.
+    if placements > ebuild.DENSE_PAGE:
+        ebuild.compact_spawns(regions_out)
     C.label_spawns(regions_out, name)
     C.attach_breakdowns(regions_out)
 
@@ -357,7 +456,9 @@ def build_plant(pg, flor, geo, cur, db_ok, cache_path, generated):
     }
     # assertion: spawns[] == count on every guaranteed location
     bad = [(r["region"], l["marker"]) for r in regions_out
-           for l in r["locations"] if len(l.get("spawns") or []) != l["count"]]
+           for l in r["locations"]
+           if not l.get("spawns_compacted")
+           and len(l.get("spawns") or []) != l["count"]]
     if bad:
         raise AssertionError(f"[{slug}] spawns/count mismatch at {bad[:5]}")
     return doc, placements, len(flora), len(chance_spawns)
@@ -417,7 +518,10 @@ def run(argv=None):
     if db_ok:
         geo = Geo(MAPPALACHIA_DB)
         con = sqlite3.connect(MAPPALACHIA_DB); cur = con.cursor()
+        global LPI_INDEX
+        LPI_INDEX = load_lpi_index(cur)
         print("[plants] Mappalachia DB found — resolving placements + refreshing geo caches.")
+        print(f"[plants] {len(LPI_INDEX)} leveled-placed-item lists indexed.")
     else:
         print("[plants] No Mappalachia DB — rebuilding from committed geo caches (CI mode).")
 

@@ -1,0 +1,668 @@
+{
+ "_meta": {
+  "generated": "2026-09-06",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "SheepsquatchRace"
+   }
+  ],
+  "source_totals": {
+   "ambush": 18,
+   "placement": 1
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "sheepsquatch",
+ "name": "Sheepsquatch",
+ "page_title": "Farming - Meat - Sheepsquatch",
+ "url": "/bnb/farming/meat/sheepsquatch/sheepsquatch-location-guide/",
+ "npc_summary": {
+  "npc_count": 11,
+  "level_min": 50,
+  "level_max": 100,
+  "health_max": 10000
+ },
+ "meat_items": [
+  {
+   "name": "Sheepsquatch Meat",
+   "form_id": "0046C85D",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Daily",
+   "name": "Epic - Kill a Sheepsquatch",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Kill_Sheepsquatch",
+   "page": "daily"
+  },
+  {
+   "type": "Weekly",
+   "name": "Epic - Take a Camera Picture of a Cryptid",
+   "required": 1,
+   "edid": "SCORE_Challenge_Weekly_Picture_Creatures_LegendaryCryptid_Camera_Epic",
+   "page": "weekly"
+  },
+  {
+   "type": "Weekly",
+   "name": "Epic: Take a Camera Picture of a Glowing Cryptid",
+   "required": 1,
+   "edid": "SCORE_Challenge_Weekly_Picture_Creatures_GlowingCryptid_Camera_Epic",
+   "page": "weekly"
+  },
+  {
+   "type": "Weekly",
+   "name": "Kill a Sheepsquatch",
+   "required": 1,
+   "edid": "SCORE_Challenge_Weekly_Kill_HugeMonsters_SUB_Sheepsquatch_Med",
+   "page": "weekly"
+  },
+  {
+   "type": "Weekly",
+   "name": "Take a Picture of a Sheepsquatch",
+   "required": 1,
+   "edid": "SCORE_Challenge_Weekly_Picture_Creatures_Sheepsquatch_Camera",
+   "page": "weekly"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Sheepsquatch",
+    "form_id": "00479D47",
+    "row_count": 2,
+    "direct_items": 0,
+    "pool_count": 2,
+    "item_count": 11543,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (large)",
+      "sub_id": "003DF3F4",
+      "edid": "LLS_Creature_Large",
+      "item_count": 11535,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Raw Cobalt Flux",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Raw Fluorescent Flux",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Raw Violet Flux",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Raw Crimson Flux",
+        "rate_display": "20%"
+       },
+       {
+        "name": "Raw Yellowcake Flux",
+        "rate_display": "20%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Sheepsquatch Misc",
+      "sub_id": "0046C85C",
+      "edid": "LLS_Creature_Sheepsquatch_Misc",
+      "item_count": 8,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Mysterious Quill",
+        "rate_display": "100%"
+       },
+       {
+        "name": "Sheepsquatch Meat",
+        "rate_display": "100%"
+       },
+       {
+        "name": "Mysterious Fur",
+        "rate_display": "100%"
+       },
+       {
+        "name": "Sheepsquatch Skull",
+        "rate_display": "100%"
+       },
+       {
+        "name": "Large Sheepsquatch Horn",
+        "rate_display": "100%"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [
+  {
+   "form_id": "00571ACA",
+   "edid": "W05_RE_Camp_JP10_CryptidStories_Sheepsquatch",
+   "name": "Cryptid Stories Sheepsquatch",
+   "type": "CAMP Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "00460611",
+   "edid": "RE_SceneDWD07",
+   "name": "Sheepsquatch vs Albino Radstags",
+   "type": "Scene Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0045DF09",
+   "edid": "RE_AssaultDWD03",
+   "name": "Sheepsquatch vs. Mole Miners",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0045DF08",
+   "edid": "RE_AssaultDWD02",
+   "name": "Sheepsquatch vs. Scorched",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0045DF06",
+   "edid": "RE_AssaultDWD01",
+   "name": "Sheepsquatch vs. Super Mutants",
+   "type": "Assault Encounters",
+   "location": ""
+  }
+ ],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": [
+     {
+      "marker": "Welch",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5561EB",
+       "5561EE"
+      ],
+      "coords": [
+       -156006.109375,
+       -123254.296875
+      ],
+      "spawns": [
+       {
+        "label": "Sheepsquatch ambush #1",
+        "ref": "5561EB",
+        "source_type": "ambush",
+        "coords": [
+         -156006.109375,
+         -123254.296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Sheepsquatch ambush #2",
+        "ref": "5561EE",
+        "source_type": "ambush",
+        "coords": [
+         -155042.65625,
+         -124783.3203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Welch Station",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5561EC",
+       "5561ED"
+      ],
+      "coords": [
+       -154159.859375,
+       -120162.1640625
+      ],
+      "spawns": [
+       {
+        "label": "Sheepsquatch ambush #1",
+        "ref": "5561EC",
+        "source_type": "ambush",
+        "coords": [
+         -154159.859375,
+         -120162.1640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Sheepsquatch ambush #2",
+        "ref": "5561ED",
+        "source_type": "ambush",
+        "coords": [
+         -153733.625,
+         -123604.921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": []
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": []
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Aaronholt Homestead",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4161C0",
+       "4161C1"
+      ],
+      "coords": [
+       -125301.453125,
+       180059.609375
+      ],
+      "spawns": [
+       {
+        "label": "Sheepsquatch ambush #1",
+        "ref": "4161C0",
+        "source_type": "ambush",
+        "coords": [
+         -125301.453125,
+         180059.609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Sheepsquatch ambush #2",
+        "ref": "4161C1",
+        "source_type": "ambush",
+        "coords": [
+         -128362.6953125,
+         179305.734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Arktos Pharma Biome Lab",
+      "count": 8,
+      "sources": {
+       "ambush": 8
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "53B4A8",
+       "53B4A9",
+       "53B4AA",
+       "53B4AB",
+       "53B4AC",
+       "53B4AD",
+       "53B4AE",
+       "53B4AF"
+      ],
+      "coords": [
+       -2797.27758789062,
+       487.373199462891
+      ],
+      "spawns": [
+       {
+        "label": "Sheepsquatch ambush #1",
+        "ref": "53B4A8",
+        "source_type": "ambush",
+        "coords": [
+         -2797.27758789062,
+         487.373199462891
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Sheepsquatch ambush #2",
+        "ref": "53B4A9",
+        "source_type": "ambush",
+        "coords": [
+         -2160.3662109375,
+         1360.54748535156
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Sheepsquatch ambush #3",
+        "ref": "53B4AA",
+        "source_type": "ambush",
+        "coords": [
+         -3486.88891601562,
+         2610.43774414062
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Sheepsquatch ambush #4",
+        "ref": "53B4AB",
+        "source_type": "ambush",
+        "coords": [
+         -4867.9873046875,
+         2569.77856445313
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Sheepsquatch ambush #5",
+        "ref": "53B4AC",
+        "source_type": "ambush",
+        "coords": [
+         -4956.06494140625,
+         1988.57275390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Sheepsquatch ambush #6",
+        "ref": "53B4AD",
+        "source_type": "ambush",
+        "coords": [
+         -4098.78369140625,
+         890.332092285156
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Sheepsquatch ambush #7",
+        "ref": "53B4AE",
+        "source_type": "ambush",
+        "coords": [
+         -2859.5517578125,
+         2616.1103515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Sheepsquatch ambush #8",
+        "ref": "53B4AF",
+        "source_type": "ambush",
+        "coords": [
+         -2222.51489257813,
+         800.61865234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 8,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "Beckwith Farm",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4161C2",
+       "4161C3"
+      ],
+      "coords": [
+       43323.0703125,
+       -6520.51220703125
+      ],
+      "spawns": [
+       {
+        "label": "Sheepsquatch ambush #1",
+        "ref": "4161C2",
+        "source_type": "ambush",
+        "coords": [
+         43323.0703125,
+         -6520.51220703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Sheepsquatch ambush #2",
+        "ref": "4161C3",
+        "source_type": "ambush",
+        "coords": [
+         43380.3828125,
+         -8157.72607421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": [
+     {
+      "marker": "South River Bridge",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "769BED"
+      ],
+      "coords": [
+       42610.203125,
+       -253943.390625
+      ],
+      "spawns": [
+       {
+        "label": "Sheepsquatch spawn",
+        "ref": "769BED",
+        "source_type": "placement",
+        "coords": [
+         42610.203125,
+         -253943.390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Mire",
+    "locations": [
+     {
+      "marker": "Delano Grange",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4161CF",
+       "4161D0"
+      ],
+      "coords": [
+       183436.625,
+       9771.90234375
+      ],
+      "spawns": [
+       {
+        "label": "Sheepsquatch ambush #1",
+        "ref": "4161CF",
+        "source_type": "ambush",
+        "coords": [
+         183436.625,
+         9771.90234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Sheepsquatch ambush #2",
+        "ref": "4161D0",
+        "source_type": "ambush",
+        "coords": [
+         183769.03125,
+         11829.96875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": []
+   }
+  ],
+  "total_markers": 7,
+  "total_placements": 19
+ },
+ "chance_spawns": {
+  "locations": [],
+  "total": 0,
+  "note": null
+ },
+ "blurb": "The Sheepsquatch in Fallout 76 — drops Sheepsquatch Meat, 11 NPC variants, 19 known spawn points.",
+ "map_base": "/wp-content/uploads/guide-images/farming-meat/sheepsquatch/"
+}

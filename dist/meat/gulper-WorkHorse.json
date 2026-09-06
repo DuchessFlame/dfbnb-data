@@ -1,0 +1,1490 @@
+{
+ "_meta": {
+  "generated": "2026-09-06",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "DLC03_GulperRace"
+   },
+   {
+    "edid": "DLC03_GulperSmallRace"
+   }
+  ],
+  "source_totals": {
+   "ambush": 4,
+   "placement": 4,
+   "spawn": 7
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "gulper",
+ "name": "Gulper",
+ "page_title": "Farming - Meat - Gulper",
+ "url": "/bnb/farming/meat/gulper/gulper-location-guide/",
+ "npc_summary": {
+  "npc_count": 20,
+  "level_min": 1,
+  "level_max": 200,
+  "health_max": 1800
+ },
+ "meat_items": [
+  {
+   "name": "Gulper Innards",
+   "form_id": "001115E9",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Daily",
+   "name": "Kill a Gulper",
+   "required": 3,
+   "edid": "SCORE_Challenge_Daily_Kill_Gulper",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Kill a Gulper while intoxicated by Mire Magic Moonshine",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Kill_Gulper_When_Intoxicated_Moonshine",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Take a Camera Picture of a Gulper",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Picture_Creatures_Gulper_Camera",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Take a Camera Picture of a Gulper while intoxicated by Mire Magic Moonshine",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Picture_Creatures_Gulper_While_Intoxicated_Moonshine_Camera",
+   "page": "daily"
+  },
+  {
+   "type": "Event",
+   "name": "Burning Love: Kill a Gulper while on a Team using the Hot Rod Pink Flamer",
+   "required": 10,
+   "edid": "ATX_DE2024_Valentines_Week1_Challenge_Kill_Gulpers",
+   "page": "events"
+  },
+  {
+   "type": "Event",
+   "name": "Kill a Gulper with the Marshal Mallow Fishing Hat equipped",
+   "required": 20,
+   "edid": "ATX_DE2025_MMMFE_Week2_Challenge_Kill_Gulpers",
+   "page": "fishing"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of a Glowing Gulper",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Glowing_SUB_Gulper_Camera",
+   "page": "world"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Gulper",
+    "form_id": "001113BC",
+    "row_count": 4,
+    "direct_items": 1,
+    "pool_count": 3,
+    "item_count": 9328,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (medium)",
+      "sub_id": "003DF3F8",
+      "edid": "LLS_Creature_Medium",
+      "item_count": 1106,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "38.48%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "21.38%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Gulper",
+      "sub_id": "003533DD",
+      "edid": "LLS_Creature_Gulper",
+      "item_count": 6532,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Gulper Innards",
+        "rate_display": "60%"
+       },
+       {
+        "name": "Disease Cure",
+        "rate_display": "8.74%"
+       },
+       {
+        "name": "Hard Hat",
+        "rate_display": "4.5%"
+       },
+       {
+        "name": "Caps",
+        "rate_display": "3.33%"
+       },
+       {
+        "name": "Plan: Puncturing Pole Hook",
+        "rate_display": "3%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Gulper Innards",
+      "form_id": "001115E9",
+      "edid": "GulperMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Junk Small",
+      "sub_id": "0003678C",
+      "edid": "LL_Junk_Small",
+      "item_count": 1689,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Disease Cure",
+        "rate_display": "48.57%"
+       },
+       {
+        "name": "Cutting Fluid",
+        "rate_display": "48.21%"
+       },
+       {
+        "name": "Vegetable Starch",
+        "rate_display": "48.21%"
+       },
+       {
+        "name": "Hard Hat",
+        "rate_display": "25%"
+       },
+       {
+        "name": "Blood Pack",
+        "rate_display": "11.25%"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "edid": "E08A_LLD_Creature_ToxAcidGulper",
+    "form_id": "0064722D",
+    "row_count": 7,
+    "direct_items": 2,
+    "pool_count": 5,
+    "item_count": 9332,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "E08A LL Gulper Hand",
+      "sub_id": "00658D13",
+      "edid": "E08A_LL_GulperHand",
+      "item_count": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Acidic Gulper Hand",
+        "rate_display": "5%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "E08A LL Gulper Venom",
+      "sub_id": "00647A3C",
+      "edid": "E08A_LL_GulperVenom",
+      "item_count": 2,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Acidic Gulper Venom",
+        "rate_display": "80%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (medium)",
+      "sub_id": "003DF3F8",
+      "edid": "LLS_Creature_Medium",
+      "item_count": 1106,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "38.48%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "21.38%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Gulper",
+      "sub_id": "003533DD",
+      "edid": "LLS_Creature_Gulper",
+      "item_count": 6532,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Gulper Innards",
+        "rate_display": "60%"
+       },
+       {
+        "name": "Disease Cure",
+        "rate_display": "8.74%"
+       },
+       {
+        "name": "Hard Hat",
+        "rate_display": "4.5%"
+       },
+       {
+        "name": "Caps",
+        "rate_display": "3.33%"
+       },
+       {
+        "name": "Plan: Puncturing Pole Hook",
+        "rate_display": "3%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Gulper Innards",
+      "form_id": "001115E9",
+      "edid": "GulperMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Junk Small",
+      "sub_id": "0003678C",
+      "edid": "LL_Junk_Small",
+      "item_count": 1689,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Disease Cure",
+        "rate_display": "48.57%"
+       },
+       {
+        "name": "Cutting Fluid",
+        "rate_display": "48.21%"
+       },
+       {
+        "name": "Vegetable Starch",
+        "rate_display": "48.21%"
+       },
+       {
+        "name": "Hard Hat",
+        "rate_display": "25%"
+       },
+       {
+        "name": "Blood Pack",
+        "rate_display": "11.25%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Acidic Gulper Gland",
+      "form_id": "00658D14",
+      "edid": "E08A_AcidGulperGland",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 0.8,
+      "rate_display": "80%"
+     }
+    ]
+   },
+   {
+    "edid": "E08A_LLD_Creature_AcidGulper",
+    "form_id": "00647A3D",
+    "row_count": 6,
+    "direct_items": 2,
+    "pool_count": 4,
+    "item_count": 9331,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "E08A LL Gulper Venom",
+      "sub_id": "00647A3C",
+      "edid": "E08A_LL_GulperVenom",
+      "item_count": 2,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Acidic Gulper Venom",
+        "rate_display": "80%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (medium)",
+      "sub_id": "003DF3F8",
+      "edid": "LLS_Creature_Medium",
+      "item_count": 1106,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "38.48%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "21.38%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "Gulper",
+      "sub_id": "003533DD",
+      "edid": "LLS_Creature_Gulper",
+      "item_count": 6532,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Gulper Innards",
+        "rate_display": "60%"
+       },
+       {
+        "name": "Disease Cure",
+        "rate_display": "8.74%"
+       },
+       {
+        "name": "Hard Hat",
+        "rate_display": "4.5%"
+       },
+       {
+        "name": "Caps",
+        "rate_display": "3.33%"
+       },
+       {
+        "name": "Plan: Puncturing Pole Hook",
+        "rate_display": "3%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Gulper Innards",
+      "form_id": "001115E9",
+      "edid": "GulperMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Junk Small",
+      "sub_id": "0003678C",
+      "edid": "LL_Junk_Small",
+      "item_count": 1689,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Disease Cure",
+        "rate_display": "48.57%"
+       },
+       {
+        "name": "Cutting Fluid",
+        "rate_display": "48.21%"
+       },
+       {
+        "name": "Vegetable Starch",
+        "rate_display": "48.21%"
+       },
+       {
+        "name": "Hard Hat",
+        "rate_display": "25%"
+       },
+       {
+        "name": "Blood Pack",
+        "rate_display": "11.25%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Acidic Gulper Gland",
+      "form_id": "00658D14",
+      "edid": "E08A_AcidGulperGland",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 0.8,
+      "rate_display": "80%"
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [
+  {
+   "form_id": "0035EC04",
+   "edid": "RE_AssaultMP08",
+   "name": "Gulpers vs. Mirelurks",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "004FC061",
+   "edid": "RE_AssaultKMK05",
+   "name": "Gulpers vs. Scorched",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "004FC067",
+   "edid": "RE_AssaultKMK11",
+   "name": "Gulpers vs. Super Mutants",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "003D7873",
+   "edid": "RE_TravelMP04",
+   "name": "Mirelurks vs. Gulpers",
+   "type": "Travel Encounters",
+   "location": ""
+  }
+ ],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": []
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": []
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": []
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Organ Cave South",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "553E75"
+      ],
+      "coords": [
+       -118213.7734375,
+       85660.25
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn",
+        "ref": "553E75",
+        "source_type": "placement",
+        "coords": [
+         -118213.7734375,
+         85660.25
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "Enclave Research Facility",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5DD486"
+      ],
+      "coords": [
+       -3067.4521484375,
+       2999.81030273438
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn",
+        "ref": "5DD486",
+        "source_type": "placement",
+        "coords": [
+         -3067.4521484375,
+         2999.81030273438
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": []
+   },
+   {
+    "region": "The Mire",
+    "locations": [
+     {
+      "marker": "Dyer Chemical",
+      "count": 3,
+      "sources": {
+       "ambush": 1,
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "45025A",
+       "45025B",
+       "45025C"
+      ],
+      "coords": [
+       175293.46875,
+       71468.625
+      ],
+      "spawns": [
+       {
+        "label": "Gulper ambush",
+        "ref": "45025A",
+        "source_type": "ambush",
+        "coords": [
+         175293.46875,
+         71468.625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #1",
+        "ref": "45025B",
+        "source_type": "placement",
+        "coords": [
+         175647.0,
+         71376.203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "45025C",
+        "source_type": "placement",
+        "coords": [
+         175811.90625,
+         71424.015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Gulper Lagoon",
+      "count": 7,
+      "sources": {
+       "ambush": 3,
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D10B2",
+       "3D10B3",
+       "3D10B4",
+       "5253A6",
+       "5253A7",
+       "5253A8",
+       "5253A9"
+      ],
+      "coords": [
+       157618.921875,
+       111698.6484375
+      ],
+      "spawns": [
+       {
+        "label": "Gulper ambush #1",
+        "ref": "3D10B2",
+        "source_type": "ambush",
+        "coords": [
+         157618.921875,
+         111698.6484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper ambush #2",
+        "ref": "3D10B3",
+        "source_type": "ambush",
+        "coords": [
+         156516.0,
+         111149.6640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper ambush #3",
+        "ref": "3D10B4",
+        "source_type": "ambush",
+        "coords": [
+         158925.765625,
+         111835.5703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #1",
+        "ref": "5253A6",
+        "source_type": "spawn",
+        "coords": [
+         157637.171875,
+         111593.203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "5253A7",
+        "source_type": "spawn",
+        "coords": [
+         158910.78125,
+         111794.7109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "5253A8",
+        "source_type": "spawn",
+        "coords": [
+         158050.0,
+         111124.2421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #4",
+        "ref": "5253A9",
+        "source_type": "spawn",
+        "coords": [
+         156471.640625,
+         111138.28125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       },
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Substation TM-01",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "52AB63",
+       "52AB65",
+       "52AB66"
+      ],
+      "coords": [
+       145555.34375,
+       10844.8046875
+      ],
+      "spawns": [
+       {
+        "label": "Gulper spawn #1",
+        "ref": "52AB63",
+        "source_type": "spawn",
+        "coords": [
+         145555.34375,
+         10844.8046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #2",
+        "ref": "52AB65",
+        "source_type": "spawn",
+        "coords": [
+         145609.90625,
+         10686.51953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Gulper spawn #3",
+        "ref": "52AB66",
+        "source_type": "spawn",
+        "coords": [
+         145757.40625,
+         10758.029296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": []
+   }
+  ],
+  "total_markers": 5,
+  "total_placements": 15
+ },
+ "chance_spawns": {
+  "locations": [
+   {
+    "marker": "Abandoned Bog Town",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Abandoned Waste Dump",
+    "region": "The Mire",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Abbie's Bunker",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Appalachian Antiques",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Beckwith Farm",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Berkeley Springs West",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Big Bend Tunnel East",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Camp Venture",
+    "region": "The Mire",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Clarksburg Shooting Club",
+    "region": "Toxic Valley",
+    "chance_value": 0.1538,
+    "chance_display": "15.4%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Crevasse Dam",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Crimson Prospect",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Dabney Homestead",
+    "region": "The Mire",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Dolly Sods Campground",
+    "region": "The Mire",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Dolly Sods Lookout",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Drop Site G3",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Drop Site V9",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Eastern Regional Penitentiary",
+    "region": "Toxic Valley",
+    "chance_value": 0.1538,
+    "chance_display": "15.4%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Ella Ames' Bunker",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Firebase Major",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Fissure Site",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Flooded Trainyard",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Forward Station Alpha",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Glassed Cavern",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Gnarled Shallows",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Grafton Station",
+    "region": "Toxic Valley",
+    "chance_value": 0.1538,
+    "chance_display": "15.4%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Graninger Farm",
+    "region": "Toxic Valley",
+    "chance_value": 0.1538,
+    "chance_display": "15.4%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Gulper Lagoon",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Hemlock Holes",
+    "region": "Toxic Valley",
+    "chance_value": 0.1538,
+    "chance_display": "15.4%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Hemlock Holes Maintenance",
+    "region": "Toxic Valley",
+    "chance_value": 0.1538,
+    "chance_display": "15.4%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Highland Marsh",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Knife Edge",
+    "region": "Toxic Valley",
+    "chance_value": 0.1538,
+    "chance_display": "15.4%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Mire's Eye",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Mosstown",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Overgrown Sundew Grove",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Philippi Battlefield Cemetery",
+    "region": "Toxic Valley",
+    "chance_value": 0.1538,
+    "chance_display": "15.4%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Pioneer Scout Lookout",
+    "region": "Toxic Valley",
+    "chance_value": 0.1538,
+    "chance_display": "15.4%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Prickett's Fort",
+    "region": "Toxic Valley",
+    "chance_value": 0.1538,
+    "chance_display": "15.4%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Pylon V-13",
+    "region": "Cranberry Bog",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Quarry X3",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Ranger Lookout",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Research Site Bavaria",
+    "region": "Skyline Valley",
+    "chance_value": 0.1594,
+    "chance_display": "15.9%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "RobCo Research Center",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Sacramental Glade",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "Shining Creek Cavern",
+    "region": "Skyline Valley",
+    "chance_value": 0.1594,
+    "chance_display": "15.9%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Stony Man Lookout",
+    "region": "Skyline Valley",
+    "chance_value": 0.1594,
+    "chance_display": "15.9%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Sunday Brothers' Cabin",
+    "region": "The Mire",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Sunrise Field",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Survey Camp Alpha",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "The Thorn",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "The Trading Post",
+    "region": "Skyline Valley",
+    "chance_value": 0.1594,
+    "chance_display": "15.9%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Thunder Mountain Power Plant",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Thunder Mountain Substation TM-01",
+    "region": "The Mire",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Thunder Mountain Substation TM-02",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Veiled Sundew Grove",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Watoga",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Watoga Station",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Watoga Underground",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Gulper"
+    ],
+    "count": 4
+   }
+  ],
+  "total": 57,
+  "note": null
+ },
+ "blurb": "The Gulper in Fallout 76 — drops Gulper Innards, 20 NPC variants, 15 known spawn points.",
+ "map_base": "/wp-content/uploads/guide-images/farming-meat/gulper/"
+}

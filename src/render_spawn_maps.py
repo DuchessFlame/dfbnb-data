@@ -30,16 +30,27 @@ so they get their own maps and never contaminate the fixed-spawn tiles. Those ti
 are named exactly as the site expects, so uploading is a straight drag into
 /wp-content/uploads/guide-images/<category>/<item>/ (converted to .avif).
 
-Sources (--source): the family whose doc + geo cache to read. All of them write the
-same doc shape, so only the two paths differ — see SOURCES.
-  farming   dist/farming_spawns/<slug>_spawns.json
-  nuka      dist/nuka_cola_spawns_<slug>.json
-  chainsaw  dist/chainsaws/<slug>.json
+The 03 Region Tiles folder holds each tile TWICE: `<Region>_<slug>.jpg` for the
+archive, and `<region-slug>-spawn-map.jpg` under the name the website expects, so the
+"View {Region} spawn map →" link in Fixed Spawn Locations resolves once the file is
+converted to .avif and dropped into guide-images/<category>/<item>/.
+
+Sources (--source): the family whose doc + geo cache to read.
+  farming   dist/farming_spawns/<slug>_spawns.json    regions[]
+  nuka      dist/nuka_cola_spawns_<slug>.json         regions[]
+  chainsaw  dist/chainsaws/<slug>.json                regions[]
+  meat      dist/meat/<slug>.json                     fixed_spawns.regions[]
+  plants    dist/plants/<slug>.json                   fixed_spawns.regions[]
+  insects   dist/insects/<slug>.json                  fixed_spawns.regions[]
+`doc_regions()` reads both shapes, so everything downstream is shape-agnostic.
 
 Usage:
   python render_spawn_maps.py --set deathclaw-egg --out "<...>/.Farming - Eggs/Deathclaw Eggs"
-  python render_spawn_maps.py --set chainsaw --source chainsaw --out "<...>/.Weapons/Chainsaws"
-  python render_spawn_maps.py --all-farming --root "<...>/Guides and Stuff"
+  python render_spawn_maps.py --set angler --source meat --out "<...>/.Farming - Meat/Angler"
+  python render_spawn_maps.py --manifest jobs.json
+
+To render EVERY farming page in one go, use the driver instead:
+  python src/render_all_maps.py
 """
 
 import argparse, csv, json, os, re, sqlite3, sys
@@ -90,6 +101,11 @@ TYPE_LABELS = {
     # Shared-loot-pool points (spawn-guide 9k). The place is real, the item is a roll,
     # so they get their OWN maps — never mixed into the fixed-spawn tiles.
     "chance": "Chance spawn",
+    # Creature pages (meat / insects / cryptids). Without these the legend fell back
+    # to a capitalised source_type and read "Placement (53)" on the Radstag map.
+    "placement": "Fixed spawn",
+    "spawn": "Spawn point",
+    "ambush": "Ambush",
 }
 TYPE_COLOURS = {
     "direct": (255, 193, 7),            # amber
@@ -103,6 +119,9 @@ TYPE_COLOURS = {
     "npc": (244, 67, 54),               # red
     "machine": (0, 209, 255),           # cyan
     "chance": (120, 160, 255),          # pale blue — reads as "maybe", not "go here"
+    "placement": (244, 67, 54),         # red, same as npc — it IS a creature
+    "spawn": (255, 138, 30),            # orange — a spawn point, not the creature itself
+    "ambush": (139, 92, 246),           # violet
 }
 
 
@@ -161,22 +180,44 @@ def load_spaces(conn):
     return out
 
 
+# Region editor-ID family -> the display name the spawn docs use.
+#
+# TWO naming schemes exist and BOTH are matched, because which one a Mappalachia DB
+# carries depends on the build: the older `LocRegion<Family>` tilings, and the
+# current `<Family>SubRegion##` ones. Matching only LocRegion* silently produced an
+# EMPTY box table, and every region tile then fell back to a padded box around the
+# item's own dots — a 3-dot region cropped to a few hundred px of dirt instead of the
+# region. If a whole run's tiles look zoomed in, check this table first.
+#
+# Ash Heap is `MountainRemoval` (the strip mines) and Skyline Valley is `Storm`;
+# neither is guessable from the display name, so never "simplify" this map.
 REGION_FAMILIES = {
+    # LocRegion<Family>
     "Forest": "Forest", "Mountains": "Savage Divide", "Swamp": "The Mire",
     "Cranberry": "Cranberry Bog", "Toxic": "Toxic Valley", "Ash": "Ash Heap",
+    # <Family>SubRegion##
+    "Mountain": "Savage Divide", "MountainRemoval": "Ash Heap",
+    "ToxicValley": "Toxic Valley", "BurningSprings": "Burning Springs",
+    "Storm": "Skyline Valley",
 }
-# Regions with no LocRegion* tiling in the DB (newer content, or instanced spaces).
-# These fall back to a padded bounding box around their own spawn points.
-NO_POLYGON_REGIONS = {"Skyline Valley", "Burning Springs", "Atlantic City", "The Pitt"}
+# Regions with no tiling in the DB at all (instanced worldspaces). These fall back to
+# a padded bounding box around their own spawn points, which is the right answer for
+# a space that has no Appalachian extent.
+NO_POLYGON_REGIONS = {"Atlantic City", "The Pitt"}
+
+_REGION_EDID_RE = re.compile(r"^(?:LocRegion([A-Za-z]+)|([A-Za-z]+)SubRegion\d)")
 
 
 def region_bboxes(conn):
     """Region display name -> (minx, miny, maxx, maxy) from the region tilings."""
     fam_ids = defaultdict(list)
     for fid, eid in conn.execute("SELECT regionFormID, regionEditorID FROM Region"):
-        m = re.match(r"LocRegion([A-Za-z]+)", eid or "")
-        if m and m.group(1) in REGION_FAMILIES:
-            fam_ids[REGION_FAMILIES[m.group(1)]].append(int(fid))
+        m = _REGION_EDID_RE.match(eid or "")
+        if not m:
+            continue
+        fam = m.group(1) or m.group(2)
+        if fam in REGION_FAMILIES:
+            fam_ids[REGION_FAMILIES[fam]].append(int(fid))
     boxes = {}
     for name, ids in fam_ids.items():
         q = ("SELECT MIN(x), MIN(y), MAX(x), MAX(y) FROM RegionPoints WHERE regionFormID IN (%s)"
@@ -248,8 +289,13 @@ def _slug_us(slug):
     return slug.replace("-", "_")
 
 
-# slug -> (doc path, geo cache path), per family. Every family writes the same doc
-# shape (regions[] -> locations[] -> spawns[]), so only the two paths differ.
+# slug -> (doc path, geo cache path), per family.
+#
+# Two doc shapes exist and `doc_regions()` reads both:
+#   A. regions[] at the top level            — farming, nuka, chainsaw
+#   B. fixed_spawns.regions[]                — meat, plants, insects
+# Under either, a region is {region, locations[]} and a location is
+# {marker, coords, spawns[]}, so everything below this point is shape-agnostic.
 SOURCES = {
     "farming":  lambda slug: (
         os.path.join(REPO, "dist", "farming_spawns", f"{slug}_spawns.json"),
@@ -260,6 +306,15 @@ SOURCES = {
     "chainsaw": lambda slug: (
         os.path.join(REPO, "dist", "chainsaws", f"{slug}.json"),
         os.path.join(REPO, "data", "chainsaw_spawns", "geo_cache.json")),
+    "meat":     lambda slug: (
+        os.path.join(REPO, "dist", "meat", f"{slug}.json"),
+        os.path.join(REPO, "data", "meat_spawns", f"{slug}.json")),
+    "plants":   lambda slug: (
+        os.path.join(REPO, "dist", "plants", f"{slug}.json"),
+        os.path.join(REPO, "data", "plant_spawns", f"{slug}.json")),
+    "insects":  lambda slug: (
+        os.path.join(REPO, "dist", "insects", f"{slug}.json"),
+        os.path.join(REPO, "data", "insect_spawns", f"{slug}.json")),
 }
 
 
@@ -268,6 +323,41 @@ def source_paths(slug, source):
     if not fn:
         raise SystemExit(f"unknown source {source!r}; expected one of {sorted(SOURCES)}")
     return fn(slug)
+
+
+def doc_regions(data):
+    """The region list, whichever shape the family writes it in (see SOURCES)."""
+    if isinstance(data.get("regions"), list):
+        return data["regions"]
+    fs = data.get("fixed_spawns")
+    if isinstance(fs, dict) and isinstance(fs.get("regions"), list):
+        return fs["regions"]
+    return []
+
+
+def load_geo(geo_p):
+    """Geo cache as {decimal-ref-string: row}.
+
+    The farming / nuka caches are keyed by the bare decimal ref. The meat, plant and
+    insect caches are keyed `<page>:<decimal ref>` because one file holds one page,
+    so the suffix is indexed as well and both shapes look the same from here."""
+    if not os.path.exists(geo_p):
+        return {}
+    raw = json.load(open(geo_p, encoding="utf-8"))
+    out = {}
+    for k, v in raw.items():
+        out[str(k)] = v
+        if ":" in str(k):
+            out[str(k).rsplit(":", 1)[1]] = v
+    return out
+
+
+def _marker_type(loc):
+    """The marker's dominant source type — used for a ref recovered from the
+    marker-level list, which carries no type of its own. Keeps the dot colour and
+    legend honest on dense pages."""
+    srcs = loc.get("sources") or {}
+    return max(srcs, key=srcs.get) if srcs else ""
 
 
 def load_points(slug, source):
@@ -280,12 +370,23 @@ def load_points(slug, source):
         raise SystemExit(f"no doc at {dist} — build the page first.")
 
     data = json.load(open(dist, encoding="utf-8"))
-    geo = json.load(open(geo_p, encoding="utf-8")) if os.path.exists(geo_p) else {}
+    geo = load_geo(geo_p)
 
     pts = []
-    for reg in data.get("regions", []):
+    for reg in doc_regions(data):
         for loc in reg.get("locations", []):
-            for sp in loc.get("spawns", []):
+            # A DENSE page keeps only the spawn entries that carry authored photos —
+            # the blank placeholders are stripped at build time because the renderer
+            # collapses to one marker-level slot anyway (spawns_engine.build
+            # .compact_spawns). The marker-level `refs` are always complete, so fall
+            # back to those and every point still lands on the map. Without this the
+            # 13,342-point Blackberries map would draw nothing.
+            entries = loc.get("spawns") or []
+            if len(entries) < len(loc.get("refs") or []):
+                have = {e.get("ref") for e in entries}
+                entries = list(entries) + [{"ref": r} for r in loc["refs"]
+                                           if r not in have]
+            for sp in entries:
                 ref = sp.get("ref") or ""
                 g = geo.get(str(int(ref, 16))) if ref else None
                 if g:
@@ -300,7 +401,7 @@ def load_points(slug, source):
                     "region": reg.get("region", ""),
                     "marker": loc.get("marker", ""),
                     "label": sp.get("label", ""),
-                    "source_type": sp.get("source_type", ""),
+                    "source_type": sp.get("source_type") or _marker_type(loc),
                 })
     return data.get("name", slug), data.get("page_title", slug), pts
 
@@ -333,7 +434,7 @@ def apply_base_filter(slug, source, pts):
     if not keep:
         return pts, 0
     _, geo_p = source_paths(slug, source)
-    geo = json.load(open(geo_p, encoding="utf-8")) if os.path.exists(geo_p) else {}
+    geo = load_geo(geo_p)
     out, dropped = [], 0
     for p in pts:
         g = geo.get(str(int(p["ref"], 16))) if p["ref"] else None
@@ -405,7 +506,15 @@ def render_exterior(bg_path, rows, title, out_plain, out_numbered):
     return plain, numbered
 
 
-def render_region_tiles(numbered_img, rows, boxes, to_px, out_dir, slug, name_fn=None):
+def render_region_tiles(numbered_img, rows, boxes, to_px, out_dir, slug,
+                        name_fn=None, also_name_fn=None):
+    """Crop one tile per region out of the numbered map.
+
+    `name_fn` names the tile; `also_name_fn` saves a SECOND copy under the name the
+    website expects, so uploading is a straight drag into the item's guide-images
+    folder. The fixed-spawn tiles keep their working `<Region>_<slug>.jpg` name for
+    the archive AND get `<region-slug>-spawn-map.jpg` for the site — the sibling of
+    the chance tiles' `<region-slug>-chance-map.jpg`."""
     os.makedirs(out_dir, exist_ok=True)
     made = []
     by_region = defaultdict(list)
@@ -434,6 +543,9 @@ def render_region_tiles(numbered_img, rows, boxes, to_px, out_dir, slug, name_fn
         rslug = region.replace(" ", "")
         path = os.path.join(out_dir, name_fn(region) if name_fn else f"{rslug}_{slug}.jpg")
         crop.save(path, "JPEG", quality=88, optimize=True)
+        if also_name_fn:
+            crop.save(os.path.join(out_dir, also_name_fn(region)),
+                      "JPEG", quality=88, optimize=True)
 
         with open(os.path.join(out_dir, f"{rslug}_coords.csv"), "w",
                   newline="", encoding="utf-8") as fh:
@@ -464,8 +576,12 @@ def load_chance_points(slug, source):
     if not os.path.exists(dist):
         return "", []
     data = json.load(open(dist, encoding="utf-8"))
-    geo = json.load(open(geo_p, encoding="utf-8")) if os.path.exists(geo_p) else {}
+    geo = load_geo(geo_p)
     pts = []
+    # Only the families whose chance_spawns carry `regions[].markers[].refs` can be
+    # drawn. Meat / plants / insects list chance points as a flat `locations[]` with
+    # no refs, so there is nothing to resolve through the geo cache and they get no
+    # chance maps — that is a data gap, not a render failure.
     for reg in (data.get("chance_spawns") or {}).get("regions", []):
         for m in reg.get("markers", []):
             name = m.get("name", "") if isinstance(m, dict) else str(m)
@@ -583,7 +699,8 @@ def render_set(slug, source, out_root, conn, spaces, boxes, verbose=True):
     plain, numbered = render_exterior(bg, rows, name, p_plain, p_num)
 
     tiles = render_region_tiles(numbered, rows, boxes, to_px,
-                                os.path.join(out_root, "03 Region Tiles"), slug)
+                                os.path.join(out_root, "03 Region Tiles"), slug,
+                                also_name_fn=lambda r: f"{_region_slug(r)}-spawn-map.jpg")
     ints = render_interiors(pts, spaces, os.path.join(out_root, "04 Interior Maps"), slug, name)
     # Chance to Spawn maps — their own files, never mixed into the fixed-spawn tiles.
     chance = render_chance(slug, source, out_root, spaces, boxes)

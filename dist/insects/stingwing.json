@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-08-23",
+  "generated": "2026-09-06",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -9,6 +9,7 @@
   ],
   "source_totals": {
    "ambush": 3,
+   "placement": 16,
    "spawn": 3
   },
   "unresolved": {}
@@ -159,7 +160,140 @@
    },
    {
     "region": "Burning Springs",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Abraxodyne Chemical Power Substation",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "81BD07",
+       "81BD08",
+       "81BD09",
+       "81BD0A"
+      ],
+      "coords": [
+       -214228.078125,
+       15050.3642578125
+      ],
+      "spawns": [
+       {
+        "label": "Corrosive Stingwing",
+        "ref": "81BD07",
+        "source_type": "placement",
+        "coords": [
+         -214228.078125,
+         15050.3642578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Corrosive Stingwing"
+       },
+       {
+        "label": "Corrosive Stingwing",
+        "ref": "81BD08",
+        "source_type": "placement",
+        "coords": [
+         -215171.171875,
+         13149.43359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Corrosive Stingwing"
+       },
+       {
+        "label": "Corrosive Stingwing",
+        "ref": "81BD09",
+        "source_type": "placement",
+        "coords": [
+         -216800.0,
+         13664.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Corrosive Stingwing"
+       },
+       {
+        "label": "Corrosive Stingwing",
+        "ref": "81BD0A",
+        "source_type": "placement",
+        "coords": [
+         -215526.203125,
+         14966.91796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Corrosive Stingwing"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hocking Hills Train Station",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "83A183",
+       "83A184"
+      ],
+      "coords": [
+       -255599.828125,
+       65943.703125
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "83A183",
+        "source_type": "placement",
+        "coords": [
+         -255599.828125,
+         65943.703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "83A184",
+        "source_type": "placement",
+        "coords": [
+         -255497.046875,
+         65760.21875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "Cranberry Bog",
@@ -231,6 +365,45 @@
         "source_type": "spawn"
        }
       ]
+     },
+     {
+      "marker": "Organ Cave South",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "54A57F"
+      ],
+      "coords": [
+       -116394.9765625,
+       89245.734375
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing Darter",
+        "ref": "54A57F",
+        "source_type": "placement",
+        "coords": [
+         -116394.9765625,
+         89245.734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Stingwing Darter"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
      }
     ]
    },
@@ -238,10 +411,88 @@
     "region": "Savage Divide",
     "locations": [
      {
-      "marker": "Miners Monument",
-      "count": 3,
+      "marker": "Atlas Substructure",
+      "count": 1,
       "sources": {
-       "ambush": 3
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5B6DE6"
+      ],
+      "coords": [
+       3062.68969726562,
+       -865.455017089844
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn",
+        "ref": "5B6DE6",
+        "source_type": "placement",
+        "coords": [
+         3062.68969726562,
+         -865.455017089844
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hidden Crevice",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5FBE75"
+      ],
+      "coords": [
+       221.716918945313,
+       2107.85180664062
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing Darter",
+        "ref": "5FBE75",
+        "source_type": "placement",
+        "coords": [
+         221.716918945313,
+         2107.85180664062
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Stingwing Darter"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Miners Monument",
+      "count": 6,
+      "sources": {
+       "ambush": 3,
+       "placement": 3
       },
       "image_top": "",
       "directions": "",
@@ -249,7 +500,10 @@
       "refs": [
        "3D60CA",
        "3D60CD",
-       "3D60D0"
+       "3D60D0",
+       "3D60D1",
+       "3D60D2",
+       "3D60D3"
       ],
       "coords": [
        -15424.765625,
@@ -291,6 +545,42 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "3D60D1",
+        "source_type": "placement",
+        "coords": [
+         -15584.1142578125,
+         -71702.1015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "3D60D2",
+        "source_type": "placement",
+        "coords": [
+         -14942.794921875,
+         -71760.5625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "3D60D3",
+        "source_type": "placement",
+        "coords": [
+         -15652.9931640625,
+         -72065.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -298,6 +588,11 @@
         "label": "ambush points",
         "count": 3,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
        }
       ]
      }
@@ -305,11 +600,115 @@
    },
    {
     "region": "Skyline Valley",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Hemlock Springs Dump",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75861A"
+      ],
+      "coords": [
+       72206.015625,
+       -199678.921875
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn",
+        "ref": "75861A",
+        "source_type": "placement",
+        "coords": [
+         72206.015625,
+         -199678.921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "The Mire",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Big B's Rest Stop",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3953DB",
+       "3953DE",
+       "556DB5"
+      ],
+      "coords": [
+       169917.515625,
+       -22888.0
+      ],
+      "spawns": [
+       {
+        "label": "Stingwing spawn #1",
+        "ref": "3953DB",
+        "source_type": "placement",
+        "coords": [
+         169917.515625,
+         -22888.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #2",
+        "ref": "3953DE",
+        "source_type": "placement",
+        "coords": [
+         169654.484375,
+         -22886.81640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Stingwing spawn #3",
+        "ref": "556DB5",
+        "source_type": "placement",
+        "coords": [
+         169779.59375,
+         -22882.79296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "The Pitt",
@@ -320,8 +719,8 @@
     "locations": []
    }
   ],
-  "total_markers": 2,
-  "total_placements": 6
+  "total_markers": 9,
+  "total_placements": 22
  },
  "chance_spawns": {
   "locations": [
@@ -341,10 +740,9 @@
     "chance_value": 0.1429,
     "chance_display": "14.3%",
     "variants": [
-     "Corrosive Stingwing",
      "Stingwing"
     ],
-    "count": 9
+    "count": 5
    },
    {
     "marker": "Albany",
@@ -377,30 +775,10 @@
     "count": 12
    },
    {
-    "marker": "Atlas Substructure",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Stingwing"
-    ],
-    "count": 1
-   },
-   {
     "marker": "Beckwith Farm",
     "region": "Savage Divide",
     "chance_value": 0.1429,
     "chance_display": "14.3%",
-    "variants": [
-     "Stingwing"
-    ],
-    "count": 3
-   },
-   {
-    "marker": "Big B's Rest Stop",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
     "variants": [
      "Stingwing"
     ],
@@ -534,17 +912,7 @@
     "variants": [
      "Stingwing"
     ],
-    "count": 3
-   },
-   {
-    "marker": "Hidden Crevice",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Stingwing Darter"
-    ],
-    "count": 1
+    "count": 2
    },
    {
     "marker": "Highland Marsh",
@@ -574,7 +942,7 @@
     "variants": [
      "Stingwing"
     ],
-    "count": 17
+    "count": 15
    },
    {
     "marker": "Honey Well Apiary",
@@ -607,16 +975,6 @@
     "count": 6
    },
    {
-    "marker": "Miners Monument",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Stingwing"
-    ],
-    "count": 3
-   },
-   {
     "marker": "Mosstown",
     "region": "The Mire",
     "chance_value": 0.0714,
@@ -635,16 +993,6 @@
      "Stingwing"
     ],
     "count": 4
-   },
-   {
-    "marker": "Organ Cave South",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Stingwing Darter"
-    ],
-    "count": 1
    },
    {
     "marker": "Prospect Hill",
@@ -837,8 +1185,9 @@
     "count": 7
    }
   ],
-  "total": 51,
+  "total": 46,
   "note": null
  },
- "blurb": "The Stingwing in Fallout 76 — drops Stingwing Meat, 23 NPC variants, 6 known spawn points."
+ "blurb": "The Stingwing in Fallout 76 — drops Stingwing Meat, 23 NPC variants, 22 known spawn points.",
+ "map_base": "/wp-content/uploads/guide-images/farming-insects/stingwing/"
 }

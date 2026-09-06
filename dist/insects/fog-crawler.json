@@ -1,13 +1,15 @@
 {
  "_meta": {
-  "generated": "2026-08-23",
+  "generated": "2026-09-06",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
     "edid": "DLC03_FogCrawlerRace"
    }
   ],
-  "source_totals": {},
+  "source_totals": {
+   "placement": 11
+  },
   "unresolved": {}
  },
  "set": "insects",
@@ -208,7 +210,150 @@
    },
    {
     "region": "Cranberry Bog",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Glassed Cavern",
+      "count": 9,
+      "sources": {
+       "placement": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "437B36",
+       "437B37",
+       "437B74",
+       "437B77",
+       "50F83E",
+       "52FBF0",
+       "52FBF1",
+       "52FBFE",
+       "53049E"
+      ],
+      "coords": [
+       -8198.21875,
+       7235.953125
+      ],
+      "spawns": [
+       {
+        "label": "Fog Crawler spawn #1",
+        "ref": "437B36",
+        "source_type": "placement",
+        "coords": [
+         760.677124023437,
+         -6257.83984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Fog Crawler spawn #2",
+        "ref": "437B37",
+        "source_type": "placement",
+        "coords": [
+         1471.21643066406,
+         -5373.49267578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Fog Crawler spawn #3",
+        "ref": "437B74",
+        "source_type": "placement",
+        "coords": [
+         -8063.265625,
+         7713.3955078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Fog Crawler spawn #4",
+        "ref": "437B77",
+        "source_type": "placement",
+        "coords": [
+         -8198.21875,
+         7235.953125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Fog Crawler spawn #5",
+        "ref": "50F83E",
+        "source_type": "placement",
+        "coords": [
+         -5878.96142578125,
+         5222.12548828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Fog Crawler spawn #6",
+        "ref": "52FBF0",
+        "source_type": "placement",
+        "coords": [
+         -5590.51904296875,
+         4496.47314453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Fog Crawler spawn #7",
+        "ref": "52FBF1",
+        "source_type": "placement",
+        "coords": [
+         -5374.62060546875,
+         4920.75146484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Fog Crawler spawn #8",
+        "ref": "52FBFE",
+        "source_type": "placement",
+        "coords": [
+         -4829.72607421875,
+         4976.85986328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Fog Crawler spawn #9",
+        "ref": "53049E",
+        "source_type": "placement",
+        "coords": [
+         -4964.91943359375,
+         4018.80688476562
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 9,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "Forest",
@@ -232,11 +377,63 @@
    },
    {
     "region": "Toxic Valley",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Carleton Mine",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "54B39F",
+       "556E9F"
+      ],
+      "coords": [
+       -8018.6171875,
+       22646.0078125
+      ],
+      "spawns": [
+       {
+        "label": "Fog Crawler spawn #1",
+        "ref": "54B39F",
+        "source_type": "placement",
+        "coords": [
+         -8018.6171875,
+         22646.0078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Fog Crawler spawn #2",
+        "ref": "556E9F",
+        "source_type": "placement",
+        "coords": [
+         -9210.82421875,
+         25265.185546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    }
   ],
-  "total_markers": 0,
-  "total_placements": 0
+  "total_markers": 2,
+  "total_placements": 11
  },
  "chance_spawns": {
   "locations": [
@@ -295,16 +492,6 @@
     "region": "The Mire",
     "chance_value": 0.0769,
     "chance_display": "7.7%",
-    "variants": [
-     "Fog Crawler"
-    ],
-    "count": 2
-   },
-   {
-    "marker": "Carleton Mine",
-    "region": "Toxic Valley",
-    "chance_value": null,
-    "chance_display": "possible",
     "variants": [
      "Fog Crawler"
     ],
@@ -399,16 +586,6 @@
      "Fog Crawler"
     ],
     "count": 2
-   },
-   {
-    "marker": "Glassed Cavern",
-    "region": "Cranberry Bog",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Fog Crawler"
-    ],
-    "count": 9
    },
    {
     "marker": "Gnarled Shallows",
@@ -521,8 +698,9 @@
     "count": 1
    }
   ],
-  "total": 28,
+  "total": 26,
   "note": null
  },
- "blurb": "The Fog Crawler in Fallout 76 — drops Raw Fog Crawler Meat, 15 NPC variants."
+ "blurb": "The Fog Crawler in Fallout 76 — drops Raw Fog Crawler Meat, 15 NPC variants, 11 known spawn points.",
+ "map_base": "/wp-content/uploads/guide-images/farming-insects/fog-crawler/"
 }

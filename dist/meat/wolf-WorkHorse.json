@@ -1,0 +1,1954 @@
+{
+ "_meta": {
+  "generated": "2026-09-06",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "MutatedWolfRace"
+   }
+  ],
+  "source_totals": {
+   "placement": 20,
+   "spawn": 9
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "wolf",
+ "name": "Wolf",
+ "page_title": "Farming - Meat - Wolf",
+ "url": "/bnb/farming/meat/wolf/wolf-location-guide/",
+ "npc_summary": {
+  "npc_count": 28,
+  "level_min": 10,
+  "level_max": 100,
+  "health_max": 1050
+ },
+ "meat_items": [
+  {
+   "name": "Raw Wolf Meat",
+   "form_id": "00110A48",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Daily",
+   "name": "Sell Wolf Ribs to an NPC vendor",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Barter_Sell_Wolf_ribs",
+   "page": "daily"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of a Glowing Wolf",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Glowing_SUB_Wolf_Camera",
+   "page": "world"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [
+  {
+   "name": "[Misc - Wolf in Sheep's Clothing]",
+   "edid": "P01B_Wolf_Misc",
+   "type": "Miscellaneous",
+   "location": "",
+   "form_id": "00404A9A"
+  },
+  {
+   "name": "Wolf in Sheep's Clothing",
+   "edid": "P01B_Wolf",
+   "type": "Secondary",
+   "location": "",
+   "form_id": "003FBF2E"
+  }
+ ],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Wolf",
+    "form_id": "00110A49",
+    "row_count": 4,
+    "direct_items": 1,
+    "pool_count": 3,
+    "item_count": 1113,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (medium)",
+      "sub_id": "003DF3F8",
+      "edid": "LLS_Creature_Medium",
+      "item_count": 1106,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "38.48%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "21.38%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "21.38%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "PWMLoose 10",
+      "sub_id": "00126395",
+      "edid": "LLD_Creature_PWMLoose_10",
+      "item_count": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Pre-War Money",
+        "rate_display": "10%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Raw Wolf Meat",
+      "form_id": "00110A48",
+      "edid": "WolfMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Wolf",
+      "sub_id": "003DF3CD",
+      "edid": "LLS_Creature_Wolf",
+      "item_count": 5,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Raw Wolf Meat",
+        "rate_display": "0%"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": []
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": [
+     {
+      "marker": "Fort Steuben",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7F267C"
+      ],
+      "coords": [
+       -217177.515625,
+       34196.3515625
+      ],
+      "spawns": [
+       {
+        "label": "Wolf spawn",
+        "ref": "7F267C",
+        "source_type": "placement",
+        "coords": [
+         -217177.515625,
+         34196.3515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": []
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Van Lowe Taxidermy",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "473C9E"
+      ],
+      "coords": [
+       2001.51611328125,
+       -451.144134521484
+      ],
+      "spawns": [
+       {
+        "label": "Feral Wolf",
+        "ref": "473C9E",
+        "source_type": "placement",
+        "coords": [
+         2001.51611328125,
+         -451.144134521484
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Feral Wolf"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Widow's Perch",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "50DD33",
+       "50DD34",
+       "50DD35",
+       "50DD36"
+      ],
+      "coords": [
+       -86763.265625,
+       -76664.390625
+      ],
+      "spawns": [
+       {
+        "label": "Wolf spawn #1",
+        "ref": "50DD33",
+        "source_type": "placement",
+        "coords": [
+         -86763.265625,
+         -76664.390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Wolf spawn #2",
+        "ref": "50DD34",
+        "source_type": "placement",
+        "coords": [
+         -86928.4296875,
+         -76574.7421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Wolf spawn #3",
+        "ref": "50DD35",
+        "source_type": "placement",
+        "coords": [
+         -86774.6875,
+         -76569.5546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Wolf spawn #4",
+        "ref": "50DD36",
+        "source_type": "placement",
+        "coords": [
+         -86922.3046875,
+         -76666.671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "Autumn Acre Cabin",
+      "count": 6,
+      "sources": {
+       "spawn": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "18AD79",
+       "18C1D9",
+       "18C1DC",
+       "18C1DF",
+       "18C1E4",
+       "18C1E6"
+      ],
+      "coords": [
+       100865.375,
+       47006.84375
+      ],
+      "spawns": [
+       {
+        "label": "Wolf spawn #1",
+        "ref": "18AD79",
+        "source_type": "spawn",
+        "coords": [
+         100865.375,
+         47006.84375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Wolf spawn #2",
+        "ref": "18C1D9",
+        "source_type": "spawn",
+        "coords": [
+         100707.015625,
+         46755.77734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Wolf spawn #3",
+        "ref": "18C1DC",
+        "source_type": "spawn",
+        "coords": [
+         100965.6875,
+         46778.12109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Wolf spawn #4",
+        "ref": "18C1DF",
+        "source_type": "spawn",
+        "coords": [
+         101274.0625,
+         46674.71484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Wolf spawn #5",
+        "ref": "18C1E4",
+        "source_type": "spawn",
+        "coords": [
+         101013.078125,
+         47002.66796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Wolf spawn #6",
+        "ref": "18C1E6",
+        "source_type": "spawn",
+        "coords": [
+         101066.78125,
+         46903.08984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 6,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Enclave Research Facility",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5E8869"
+      ],
+      "coords": [
+       -2763.677734375,
+       6679.3369140625
+      ],
+      "spawns": [
+       {
+        "label": "Scorched Wolf",
+        "ref": "5E8869",
+        "source_type": "placement",
+        "coords": [
+         -2763.677734375,
+         6679.3369140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Scorched Wolf"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Fissure Site",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "386E8A",
+       "386E8B",
+       "386E8C"
+      ],
+      "coords": [
+       114187.671875,
+       124201.71875
+      ],
+      "spawns": [
+       {
+        "label": "Grey Wolf",
+        "ref": "386E8A",
+        "source_type": "placement",
+        "coords": [
+         114187.671875,
+         124201.71875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Grey Wolf"
+       },
+       {
+        "label": "Grey Wolf",
+        "ref": "386E8B",
+        "source_type": "placement",
+        "coords": [
+         114238.5390625,
+         124757.1796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Grey Wolf"
+       },
+       {
+        "label": "Grey Wolf",
+        "ref": "386E8C",
+        "source_type": "placement",
+        "coords": [
+         113724.2734375,
+         124679.1171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Grey Wolf"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Investigator's Cabin",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "12C69F",
+       "12C6A1",
+       "12C6B1"
+      ],
+      "coords": [
+       55831.9765625,
+       -68856.21875
+      ],
+      "spawns": [
+       {
+        "label": "Wolf spawn #1",
+        "ref": "12C69F",
+        "source_type": "spawn",
+        "coords": [
+         55831.9765625,
+         -68856.21875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Wolf spawn #2",
+        "ref": "12C6A1",
+        "source_type": "spawn",
+        "coords": [
+         55842.3828125,
+         -69588.4609375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Wolf spawn #3",
+        "ref": "12C6B1",
+        "source_type": "spawn",
+        "coords": [
+         54820.0234375,
+         -69940.8046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "The Bounty",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "552771",
+       "552772"
+      ],
+      "coords": [
+       64701.9296875,
+       -147323.28125
+      ],
+      "spawns": [
+       {
+        "label": "Scorched Wolf",
+        "ref": "552771",
+        "source_type": "placement",
+        "coords": [
+         64701.9296875,
+         -147323.28125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Scorched Wolf"
+       },
+       {
+        "label": "Scorched Wolf",
+        "ref": "552772",
+        "source_type": "placement",
+        "coords": [
+         64968.1796875,
+         -147280.234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Scorched Wolf"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Vault 96",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7819EA"
+      ],
+      "coords": [
+       22522.671875,
+       -162091.328125
+      ],
+      "spawns": [
+       {
+        "label": "Wolf spawn",
+        "ref": "7819EA",
+        "source_type": "placement",
+        "coords": [
+         22522.671875,
+         -162091.328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": [
+     {
+      "marker": "Hawksbill Weather Station",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "74E40B"
+      ],
+      "coords": [
+       -39547.1484375,
+       -185277.71875
+      ],
+      "spawns": [
+       {
+        "label": "Wolf spawn",
+        "ref": "74E40B",
+        "source_type": "placement",
+        "coords": [
+         -39547.1484375,
+         -185277.71875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Old Rag Lookout",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "753A04",
+       "753A05"
+      ],
+      "coords": [
+       26204.65234375,
+       -224617.046875
+      ],
+      "spawns": [
+       {
+        "label": "Wolf spawn #1",
+        "ref": "753A04",
+        "source_type": "placement",
+        "coords": [
+         26204.65234375,
+         -224617.046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Wolf spawn #2",
+        "ref": "753A05",
+        "source_type": "placement",
+        "coords": [
+         26675.2421875,
+         -224510.515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Research Site Bavaria",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "769E97",
+       "769E98",
+       "769E99"
+      ],
+      "coords": [
+       84195.0390625,
+       -243911.46875
+      ],
+      "spawns": [
+       {
+        "label": "Wolf spawn #1",
+        "ref": "769E97",
+        "source_type": "placement",
+        "coords": [
+         84195.0390625,
+         -243911.46875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Wolf spawn #2",
+        "ref": "769E98",
+        "source_type": "placement",
+        "coords": [
+         83748.8515625,
+         -243911.46875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Wolf spawn #3",
+        "ref": "769E99",
+        "source_type": "placement",
+        "coords": [
+         83748.8515625,
+         -243496.640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Mire",
+    "locations": [
+     {
+      "marker": "The Retreat",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "450291"
+      ],
+      "coords": [
+       158614.84375,
+       36149.69140625
+      ],
+      "spawns": [
+       {
+        "label": "Feral Wolf",
+        "ref": "450291",
+        "source_type": "placement",
+        "coords": [
+         158614.84375,
+         36149.69140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Feral Wolf"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": []
+   }
+  ],
+  "total_markers": 13,
+  "total_placements": 29
+ },
+ "chance_spawns": {
+  "locations": [
+   {
+    "marker": "Abraxodyne Chemical Power Substation",
+    "region": "Burning Springs",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Albany",
+    "region": "Burning Springs",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Ammo Dump",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Ash Cave",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 21
+   },
+   {
+    "marker": "Athens",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 12
+   },
+   {
+    "marker": "Autumn Acre Cabin",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Bailey Family Cabin",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Beckwith Farm",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Big Bend Tunnel West",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Big Fred's BBQ Shack",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Big Meadows Gas Well",
+    "region": "Skyline Valley",
+    "chance_value": 0.3214,
+    "chance_display": "32.1%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Blackwater Mine",
+    "region": "Savage Divide",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Bolton Greens",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Converted Munitions Factory",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 12
+   },
+   {
+    "marker": "Dagger's Den",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Dark Hollow Manor",
+    "region": "Skyline Valley",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Dent & Sons Construction",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Devil's Backbone",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Dino Peaks Mini Golf",
+    "region": "Burning Springs",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 21
+   },
+   {
+    "marker": "East Mountain Lookout",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Federal Disposal Field HZ-21",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Firebase Major",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Fort Atlas",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Fort Steuben",
+    "region": "Burning Springs",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Forward Station Alpha",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Garrahan Mining Headquarters",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Garrahan Mining Headquarters",
+    "region": "Ash Heap",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Gleaming Depths",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Grindstone Arch",
+    "region": "Skyline Valley",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 12
+   },
+   {
+    "marker": "Hamley Run Camp",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 13
+   },
+   {
+    "marker": "Hawksbill Weather Station",
+    "region": "Skyline Valley",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Hemlock Springs Dump",
+    "region": "Skyline Valley",
+    "chance_value": 0.1712,
+    "chance_display": "17.1%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "High Knob Lookout",
+    "region": "Skyline Valley",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "Highway Town",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Hocking Hills Train Station",
+    "region": "Burning Springs",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 15
+   },
+   {
+    "marker": "Honey Well Apiary",
+    "region": "Burning Springs",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Hopewell Cave",
+    "region": "Savage Divide",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Hornwright Estate",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Hornwright Testing Site #03",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Huntersville",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Jackson Junkyard",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Johnson's Acre",
+    "region": "Skyline Valley",
+    "chance_value": 0.1712,
+    "chance_display": "17.1%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Lucky Hole Mine",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Makeout Point",
+    "region": "Skyline Valley",
+    "chance_value": 0.5,
+    "chance_display": "50%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Meadow Breeze Storage Depot",
+    "region": "Burning Springs",
+    "chance_value": 0.0312,
+    "chance_display": "3.1%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Metal Dome",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Miners Monument",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Monongah",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Monongah Mine",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Monongah Overlook",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Monongah Power Plant",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Monongah Power Plant Yard",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Monongah Power Substation MZ-01",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 13
+   },
+   {
+    "marker": "Monongah Power Substation MZ-03",
+    "region": "Ash Heap",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Moth-Home",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Mysterious Cave",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 12
+   },
+   {
+    "marker": "Naked Creek",
+    "region": "Skyline Valley",
+    "chance_value": 0.3214,
+    "chance_display": "32.1%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "National Isolated Radio Array",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "National Radio Astronomy Research Center",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "North Cutthroat Camp",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "North Mountain Lookout",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Old Rag Lookout",
+    "region": "Skyline Valley",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 10
+   },
+   {
+    "marker": "Prospect Hill",
+    "region": "Burning Springs",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 10
+   },
+   {
+    "marker": "Pumpkin House",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "R & G Processing Services",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Railroad Service Yard",
+    "region": "Burning Springs",
+    "chance_value": 0.0476,
+    "chance_display": "4.8%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Rapidan Camp",
+    "region": "Skyline Valley",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Relay Tower LW-B1-22",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Research Site Rhineland",
+    "region": "Skyline Valley",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Sand Fork Lumber",
+    "region": "Burning Springs",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Sandy's Sock Hop",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Scenic Overlook",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Seneca Rocks Visitor Center",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Shade Hill Church",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Shenandoah Visitor Center",
+    "region": "Skyline Valley",
+    "chance_value": 0.1073,
+    "chance_display": "10.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Site Alpha",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Site Bravo",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Slumber Mill Motel",
+    "region": "Skyline Valley",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "South Mountain Lookout",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "South River Bridge",
+    "region": "Skyline Valley",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Starlight Drive-in",
+    "region": "Burning Springs",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Striker Row",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Sugar Grove",
+    "region": "Savage Divide",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 17
+   },
+   {
+    "marker": "Sunnytop Ski Lanes",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "Sunnytop Ski Lanes Base Lodge",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Sunnytop Station",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Super Duper Mart",
+    "region": "Burning Springs",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Susan's Cabin",
+    "region": "Skyline Valley",
+    "chance_value": 0.1712,
+    "chance_display": "17.1%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Sylvie & Sons Logging Camp",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "The Chop Shop",
+    "region": "Burning Springs",
+    "chance_value": 0.1176,
+    "chance_display": "11.8%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "The Freak Show",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "The Rust Kingdom",
+    "region": "Burning Springs",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "The Whitespring Golf Club",
+    "region": "Savage Divide",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "The Whitespring North Entrance",
+    "region": "Savage Divide",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Three Ponds",
+    "region": "Skyline Valley",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Thunder Mountain Substation TM-03",
+    "region": "Skyline Valley",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Twin Lakes",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Tycoon Lake",
+    "region": "Burning Springs",
+    "chance_value": 0.037,
+    "chance_display": "3.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Uncanny Caverns",
+    "region": "Savage Divide",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Unfinished Mansion",
+    "region": "Ash Heap",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "White Powder Winter Sports",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "World of Corn",
+    "region": "Burning Springs",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Yellow Sandy's Still",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Wolf"
+    ],
+    "count": 6
+   }
+  ],
+  "total": 103,
+  "note": null
+ },
+ "blurb": "The Wolf in Fallout 76 — drops Raw Wolf Meat, 28 NPC variants, 29 known spawn points.",
+ "map_base": "/wp-content/uploads/guide-images/farming-meat/wolf/"
+}

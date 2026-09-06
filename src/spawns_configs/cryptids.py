@@ -843,7 +843,8 @@ def _pct(w):
     return s + "%"
 
 
-def tier_spawns(seen_slug, cache, slug, page_name, promote_unique=False):
+def tier_spawns(seen_slug, cache, slug, page_name, promote_unique=False,
+                promote_placements=False):
     """Split a page's resolved placements into two tiers (spawn-guide):
 
       GUARANTEED — ambush / nest markers, and NPC-table points where the creature's
@@ -868,6 +869,23 @@ def tier_spawns(seen_slug, cache, slug, page_name, promote_unique=False):
         variant = rec.get("variant") or page_name
         is_guaranteed = (stype in ("ambush", "nest")) or (
             stype == "spawn" and weight is not None and weight >= 0.999 and not shared)
+        # `promote_placements` — a DIRECT world placement is a guaranteed spawn.
+        #
+        # Every base behind a `placement` row belongs to THIS page's creature: the
+        # specific templates (EncCritterFox01Template), the species-only leveled ones
+        # (LvlCritterFox, LvlCritterFox_NoActorCap, LvlRadStag, LvlAlbinoRadStag) and
+        # the harvestable corpses (Corpse_EncCritterRabbit01Template). A leveled list
+        # that can only ever produce this species still guarantees the species —
+        # dedication is about WHAT spawns, not how often (spawn-guide §9k) — so these
+        # are fixed spawns, not gambles. Leaving them in Chance to Spawn is what left
+        # chicken, fox, rabbit, radstag, opossum and eleven more with no Fixed Spawn
+        # Locations and therefore no maps at all.
+        #
+        # `spawn` rows are a DIFFERENT thing and stay weighted: those come from
+        # Mappalachia's NPC table, where one point carries a pool that really can roll
+        # several species. Only their weight decides.
+        if promote_placements and stype == "placement":
+            is_guaranteed = True
         # opt-in: a `placement` that is a UNIQUE NAMED INDIVIDUAL (placed exactly once,
         # with its own FULL name distinct from the page) is a guaranteed static spawn —
         # e.g. the named story cats. Generic/leveled placements (variant == page name,
@@ -965,7 +983,7 @@ def close_ctx(ctx):
         ctx["con"].close()
 
 
-def compute_bundle(pg, geo_cache_path, keep=None, ctx=None):
+def compute_bundle(pg, geo_cache_path, keep=None, ctx=None, promote_placements=None):
     """Compute one cryptid's full content bundle (used_for challenges, events,
     drops, random encounters, fixed-spawn regions) WITHOUT it being a listed page.
     Used by the Honeycomb non-perishable page (Honey Beast) and the Meat family.
@@ -993,10 +1011,19 @@ def compute_bundle(pg, geo_cache_path, keep=None, ctx=None):
 
     seen = resolve_fixed_spawns([pg], {pg["slug"]: npcs}, geo, cur, cache, db_ok)
     # Tier: Fixed Spawn Locations = GUARANTEED only; Chance to Spawn = weighted rest.
-    guaranteed, chance_spawns = tier_spawns(seen[pg["slug"]], cache, pg["slug"], pg["name"],
-                                            promote_unique=pg.get("promote_unique_placements", False))
+    if promote_placements is None:
+        promote_placements = pg.get("promote_placements", False)
+    guaranteed, chance_spawns = tier_spawns(
+        seen[pg["slug"]], cache, pg["slug"], pg["name"],
+        promote_unique=pg.get("promote_unique_placements", False),
+        promote_placements=promote_placements)
     regions_out, src_totals, unresolved, total, placements = ebuild.group_regions(
         guaranteed, ALL_REGIONS, keep or {})
+    # A dense page renders one marker-level slot per marker, so the blank per-spawn
+    # slots underneath are invisible weight — Mongrel Dog is 3,205 placements. Photos
+    # and directions anyone has authored are always kept; only placeholders go.
+    if placements > ebuild.DENSE_PAGE:
+        ebuild.compact_spawns(regions_out)
     label_spawns(regions_out, pg["name"])
     attach_breakdowns(regions_out)
     # Name guaranteed placements after the individual (e.g. the named story cats) when

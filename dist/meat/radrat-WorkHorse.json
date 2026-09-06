@@ -1,0 +1,2545 @@
+{
+ "_meta": {
+  "generated": "2026-09-06",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "DLC04_RadRatRace"
+   }
+  ],
+  "source_totals": {
+   "placement": 28,
+   "spawn": 8
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "radrat",
+ "name": "Radrat",
+ "page_title": "Farming - Meat - Radrat",
+ "url": "/bnb/farming/meat/radrat/radrat-location-guide/",
+ "npc_summary": {
+  "npc_count": 15,
+  "level_min": 1,
+  "level_max": 56,
+  "health_max": 300
+ },
+ "meat_items": [
+  {
+   "name": "Radrat Meat",
+   "form_id": "00112F04",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Event",
+   "name": "Summer Camp: Kill Radrat or Molerat with the Squirrel Backpack equipped",
+   "required": 10,
+   "edid": "ATX_DE2023_SummerCamp_Challenge_Kill_Radrats",
+   "page": "events"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of a Glowing Radrat",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Glowing_SUB_RadRat_Camera",
+   "page": "world"
+  },
+  {
+   "type": "Mini Season",
+   "name": "Kill a Radrat",
+   "required": 5,
+   "edid": "ATX_DE2022_Anniversary_Challenge_Weekly_Kill_Enemies_SUB_Radrat",
+   "page": "season:anniversary"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Radrat",
+    "form_id": "00112F03",
+    "row_count": 3,
+    "direct_items": 1,
+    "pool_count": 2,
+    "item_count": 2,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Ammo Creature Critter",
+      "sub_id": "003DF3D9",
+      "edid": "LLS_Ammo_Creature_Critter",
+      "item_count": 0,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": []
+     },
+     {
+      "kind": "item",
+      "name": "Radrat Meat",
+      "form_id": "00112F04",
+      "edid": "RadRatMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Rad Rat",
+      "sub_id": "00114882",
+      "edid": "LLE_Creature_RadRat",
+      "item_count": 1,
+      "rate_value": 0.5,
+      "rate_display": "50%",
+      "top_items": [
+       {
+        "name": "Radrat Meat",
+        "rate_display": "0%"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": []
+   },
+   {
+    "region": "Atlantic City",
+    "locations": [
+     {
+      "marker": "Casino Quarter",
+      "count": 7,
+      "sources": {
+       "placement": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6CCA87",
+       "6CCA8B",
+       "6D2295",
+       "6F77D6",
+       "6F77D7",
+       "6F8387",
+       "6F838D"
+      ],
+      "coords": [
+       -3998.259765625,
+       1736.38696289062
+      ],
+      "spawns": [
+       {
+        "label": "Radrat spawn #1",
+        "ref": "6CCA87",
+        "source_type": "placement",
+        "coords": [
+         -3998.259765625,
+         1736.38696289062
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #2",
+        "ref": "6CCA8B",
+        "source_type": "placement",
+        "coords": [
+         -4265.89111328125,
+         1745.67053222656
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #3",
+        "ref": "6D2295",
+        "source_type": "placement",
+        "coords": [
+         -3904.63061523438,
+         -411.931549072266
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #4",
+        "ref": "6F77D6",
+        "source_type": "placement",
+        "coords": [
+         -5899.0771484375,
+         -1398.22924804688
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #5",
+        "ref": "6F77D7",
+        "source_type": "placement",
+        "coords": [
+         -6336.60205078125,
+         -1186.90856933594
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #6",
+        "ref": "6F8387",
+        "source_type": "placement",
+        "coords": [
+         -559.660400390625,
+         -2216.94067382813
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #7",
+        "ref": "6F838D",
+        "source_type": "placement",
+        "coords": [
+         -793.175964355469,
+         -2296.65478515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 7,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Community Center",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75EC65",
+       "75EC6B",
+       "75EC7D"
+      ],
+      "coords": [
+       343.350921630859,
+       2618.494140625
+      ],
+      "spawns": [
+       {
+        "label": "Radrat spawn #1",
+        "ref": "75EC65",
+        "source_type": "placement",
+        "coords": [
+         343.350921630859,
+         2618.494140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #2",
+        "ref": "75EC6B",
+        "source_type": "placement",
+        "coords": [
+         136.347366333008,
+         2582.171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #3",
+        "ref": "75EC7D",
+        "source_type": "placement",
+        "coords": [
+         251.069488525391,
+         -449.202026367188
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Burning Springs",
+    "locations": [
+     {
+      "marker": "Ash Cave",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "83FDEA",
+       "83FDEC",
+       "83FDED"
+      ],
+      "coords": [
+       -258739.5625,
+       121469.859375
+      ],
+      "spawns": [
+       {
+        "label": "Radrat spawn #1",
+        "ref": "83FDEA",
+        "source_type": "placement",
+        "coords": [
+         -258739.5625,
+         121469.859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #2",
+        "ref": "83FDEC",
+        "source_type": "placement",
+        "coords": [
+         -258970.09375,
+         121273.3359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #3",
+        "ref": "83FDED",
+        "source_type": "placement",
+        "coords": [
+         -258430.859375,
+         120848.8359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": [
+     {
+      "marker": "Watoga Underground",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "58D589",
+       "58D58A"
+      ],
+      "coords": [
+       5776.947265625,
+       667.949951171875
+      ],
+      "spawns": [
+       {
+        "label": "Radrat spawn #1",
+        "ref": "58D589",
+        "source_type": "placement",
+        "coords": [
+         5776.947265625,
+         667.949951171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #2",
+        "ref": "58D58A",
+        "source_type": "placement",
+        "coords": [
+         5341.1787109375,
+         1163.27111816406
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Charleston Fire Department",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2ED907"
+      ],
+      "coords": [
+       -104599.28125,
+       -70267.5
+      ],
+      "spawns": [
+       {
+        "label": "Radrat spawn",
+        "ref": "2ED907",
+        "source_type": "placement",
+        "coords": [
+         -104599.28125,
+         -70267.5
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Organ Cave",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "73CBF9"
+      ],
+      "coords": [
+       5126.17822265625,
+       -6787.5078125
+      ],
+      "spawns": [
+       {
+        "label": "Radrat spawn",
+        "ref": "73CBF9",
+        "source_type": "placement",
+        "coords": [
+         5126.17822265625,
+         -6787.5078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Summersville Docks",
+      "count": 5,
+      "sources": {
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "297580",
+       "2975B1",
+       "2975B2",
+       "297656",
+       "3B1BC8"
+      ],
+      "coords": [
+       -70094.8359375,
+       -40848.1171875
+      ],
+      "spawns": [
+       {
+        "label": "Radrat spawn #1",
+        "ref": "297580",
+        "source_type": "spawn",
+        "coords": [
+         -70094.8359375,
+         -40848.1171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #2",
+        "ref": "2975B1",
+        "source_type": "spawn",
+        "coords": [
+         -74579.75,
+         -40564.4296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #3",
+        "ref": "2975B2",
+        "source_type": "spawn",
+        "coords": [
+         -74926.78125,
+         -40650.33984375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #4",
+        "ref": "297656",
+        "source_type": "spawn",
+        "coords": [
+         -71755.765625,
+         -40702.140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #5",
+        "ref": "3B1BC8",
+        "source_type": "spawn",
+        "coords": [
+         -70181.90625,
+         -47052.62109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Van Lowe Taxidermy",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "46838D",
+       "478F23"
+      ],
+      "coords": [
+       1273.4140625,
+       60.0336456298828
+      ],
+      "spawns": [
+       {
+        "label": "Radrat spawn #1",
+        "ref": "46838D",
+        "source_type": "placement",
+        "coords": [
+         1500.26940917969,
+         824.299438476563
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #2",
+        "ref": "478F23",
+        "source_type": "placement",
+        "coords": [
+         1273.4140625,
+         60.0336456298828
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "Enclave Research Facility",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5DC9AC"
+      ],
+      "coords": [
+       -1571.20080566406,
+       7467.92529296875
+      ],
+      "spawns": [
+       {
+        "label": "Radrat spawn",
+        "ref": "5DC9AC",
+        "source_type": "placement",
+        "coords": [
+         -1571.20080566406,
+         7467.92529296875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Wendigo Cave",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3E0D65",
+       "3E0D66",
+       "3E0D67"
+      ],
+      "coords": [
+       92858.84375,
+       32745.431640625
+      ],
+      "spawns": [
+       {
+        "label": "Radrat spawn #1",
+        "ref": "3E0D65",
+        "source_type": "placement",
+        "coords": [
+         92858.84375,
+         32745.431640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #2",
+        "ref": "3E0D66",
+        "source_type": "placement",
+        "coords": [
+         92600.5625,
+         32409.166015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #3",
+        "ref": "3E0D67",
+        "source_type": "placement",
+        "coords": [
+         93205.546875,
+         32359.912109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": []
+   },
+   {
+    "region": "The Mire",
+    "locations": [
+     {
+      "marker": "Freddy Fear's House of Scares",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "30E929",
+       "30E92A",
+       "30E92B"
+      ],
+      "coords": [
+       161390.375,
+       151539.328125
+      ],
+      "spawns": [
+       {
+        "label": "Radrat spawn #1",
+        "ref": "30E929",
+        "source_type": "spawn",
+        "coords": [
+         161390.375,
+         151539.328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #2",
+        "ref": "30E92A",
+        "source_type": "spawn",
+        "coords": [
+         161335.921875,
+         151288.140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #3",
+        "ref": "30E92B",
+        "source_type": "spawn",
+        "coords": [
+         161346.625,
+         151419.203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "The Burrows",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "47CF2D",
+       "47F052",
+       "47F059",
+       "482462"
+      ],
+      "coords": [
+       800.0,
+       -5928.0
+      ],
+      "spawns": [
+       {
+        "label": "Radrat spawn #1",
+        "ref": "47CF2D",
+        "source_type": "placement",
+        "coords": [
+         800.0,
+         -5928.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #2",
+        "ref": "47F052",
+        "source_type": "placement",
+        "coords": [
+         1810.70520019531,
+         -145.507720947266
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #3",
+        "ref": "47F059",
+        "source_type": "placement",
+        "coords": [
+         2200.4990234375,
+         1598.01428222656
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radrat spawn #4",
+        "ref": "482462",
+        "source_type": "placement",
+        "coords": [
+         -8862.8505859375,
+         189.103912353516
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": [
+     {
+      "marker": "Grafton Steel Underground",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "421488"
+      ],
+      "coords": [
+       -614.325073242188,
+       -11806.9326171875
+      ],
+      "spawns": [
+       {
+        "label": "Radrat spawn",
+        "ref": "421488",
+        "source_type": "placement",
+        "coords": [
+         -614.325073242188,
+         -11806.9326171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "total_markers": 13,
+  "total_placements": 36
+ },
+ "chance_spawns": {
+  "locations": [
+   {
+    "marker": "Abandoned Bog Town",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Abandoned Mine Shaft 1",
+    "region": "Ash Heap",
+    "chance_value": 0.0588,
+    "chance_display": "5.9%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Abandoned Mine Shaft 2",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Abandoned Mine Shaft 4",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Abandoned Mine Shaft 5",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Abandoned Mine Shaft Elaine",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Abandoned Mine Site Kittery",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Ammo Dump",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "AMS Testing Site",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Appalachian Antiques",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Ash Cave",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 21
+   },
+   {
+    "marker": "Athens",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 12
+   },
+   {
+    "marker": "Autumn Acre Cabin",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Bailey Family Cabin",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Becker Farm",
+    "region": "Toxic Valley",
+    "chance_value": 0.0909,
+    "chance_display": "9.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Beckwith Farm",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Big Bend Tunnel East",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Big Bend Tunnel West",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Big Bend Tunnel West",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Big Fred's BBQ Shack",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Black Bear Lodge",
+    "region": "Toxic Valley",
+    "chance_value": 0.0909,
+    "chance_display": "9.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Blackwater Mine",
+    "region": "Savage Divide",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Bolton Greens",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Brim Quarry",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Camp Liberty",
+    "region": "Skyline Valley",
+    "chance_value": 0.5,
+    "chance_display": "50%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Camp McClintock",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Carleton Mine",
+    "region": "Toxic Valley",
+    "chance_value": 0.0909,
+    "chance_display": "9.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Clarksburg Shooting Club",
+    "region": "Toxic Valley",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Converted Munitions Factory",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 12
+   },
+   {
+    "marker": "Crater Watchstation",
+    "region": "Toxic Valley",
+    "chance_value": 0.0909,
+    "chance_display": "9.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Crimson Prospect",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Dagger's Den",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Dark Hollow Manor",
+    "region": "Skyline Valley",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Dent & Sons Construction",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Devil's Backbone",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Dino Peaks Mini Golf",
+    "region": "Burning Springs",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 21
+   },
+   {
+    "marker": "Drop Site G3",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Drop Site V9",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "East Mountain Lookout",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Eastern Regional Penitentiary",
+    "region": "Toxic Valley",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Federal Disposal Field HZ-21",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Firebase Major",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Firebase Major",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Fissure Site",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Flooded Trainyard",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Fort Atlas",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Fort Defiance",
+    "region": "Cranberry Bog",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 12
+   },
+   {
+    "marker": "Forward Station Alpha",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Garrahan Mining Headquarters",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Garrahan Mining Headquarters",
+    "region": "Ash Heap",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Glassed Cavern",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Gleaming Depths",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Grafton Station",
+    "region": "Toxic Valley",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Graninger Farm",
+    "region": "Toxic Valley",
+    "chance_value": 0.0909,
+    "chance_display": "9.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Grindstone Arch",
+    "region": "Skyline Valley",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Hamley Run Camp",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 13
+   },
+   {
+    "marker": "Hawksbill Weather Station",
+    "region": "Skyline Valley",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Hemlock Holes",
+    "region": "Toxic Valley",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Hemlock Holes Maintenance",
+    "region": "Toxic Valley",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "High Knob Lookout",
+    "region": "Skyline Valley",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Highway Town",
+    "region": "Burning Springs",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Honey Well Apiary",
+    "region": "Burning Springs",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Hopewell Cave",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Hornwright Air Purifier Site #03",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Hornwright Air Purifier Site #04",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Hornwright Estate",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Hornwright Testing Site #02",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Hornwright Testing Site #03",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Hornwright Testing Site #04",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Huntersville",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Kanawha Nuka-Cola Plant",
+    "region": "Forest",
+    "chance_value": 0.5,
+    "chance_display": "50%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Kerwood Mine",
+    "region": "Cranberry Bog",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Knife Edge",
+    "region": "Toxic Valley",
+    "chance_value": 0.0909,
+    "chance_display": "9.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Lake Reynolds",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Lewisburg Station",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Lucky Hole Mine",
+    "region": "Savage Divide",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Makeout Point",
+    "region": "Skyline Valley",
+    "chance_value": 0.1111,
+    "chance_display": "11.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Metal Dome",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Miners Monument",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Monongah",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Monongah Mine",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Monongah Overlook",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Monongah Power Plant",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Monongah Power Plant Yard",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Monongah Power Substation MZ-01",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 13
+   },
+   {
+    "marker": "Monongah Power Substation MZ-03",
+    "region": "Ash Heap",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Moth-Home",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Mount Blair",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Mysterious Cave",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 12
+   },
+   {
+    "marker": "Naked Creek",
+    "region": "Skyline Valley",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "National Isolated Radio Array",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "National Radio Astronomy Research Center",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "North Cutthroat Camp",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "North Mountain Lookout",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Old Crimora Mines",
+    "region": "Skyline Valley",
+    "chance_value": 0.1634,
+    "chance_display": "16.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Old Rag Lookout",
+    "region": "Skyline Valley",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Overgrown Sundew Grove",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Overseer's Home",
+    "region": "Forest",
+    "chance_value": 0.5,
+    "chance_display": "50%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Philippi Battlefield Cemetery",
+    "region": "Toxic Valley",
+    "chance_value": 0.0909,
+    "chance_display": "9.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Pioneer Scout Camp",
+    "region": "Toxic Valley",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Pioneer Scout Lookout",
+    "region": "Toxic Valley",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Prickett's Fort",
+    "region": "Toxic Valley",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Prospect Hill",
+    "region": "Burning Springs",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Pumpkin House",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Pylon Ambush Site",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Quarry X3",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "R & G Processing Services",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Ranger Lookout",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Red Rocket Filling Station",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Relay Tower HG-B7-09",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "Relay Tower LW-B1-22",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Research Site Rhineland",
+    "region": "Skyline Valley",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "RobCo Research Center",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Sacramental Glade",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "Sand Fork Lumber",
+    "region": "Burning Springs",
+    "chance_value": 0.495,
+    "chance_display": "49.5%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Sandy's Sock Hop",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Scenic Overlook",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Seneca Rocks Visitor Center",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Shade Hill Church",
+    "region": "Burning Springs",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Site Alpha",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Site Bravo",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "South Mountain Lookout",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "South River Bridge",
+    "region": "Skyline Valley",
+    "chance_value": 0.5,
+    "chance_display": "50%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Starlight Drive-in",
+    "region": "Burning Springs",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Striker Row",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Sugar Grove",
+    "region": "Savage Divide",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 17
+   },
+   {
+    "marker": "Sunnytop Ski Lanes",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "Sunnytop Ski Lanes Base Lodge",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Sunnytop Station",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Sunrise Field",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Super Duper Mart",
+    "region": "Burning Springs",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Survey Camp Alpha",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Sutton",
+    "region": "Forest",
+    "chance_value": 0.5,
+    "chance_display": "50%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Sylvie & Sons Logging Camp",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "The Burning Mine",
+    "region": "Ash Heap",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 12
+   },
+   {
+    "marker": "The Chop Shop",
+    "region": "Burning Springs",
+    "chance_value": 0.0588,
+    "chance_display": "5.9%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "The Crater",
+    "region": "Toxic Valley",
+    "chance_value": 0.0909,
+    "chance_display": "9.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "The Freak Show",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "The General's Steakhouse",
+    "region": "Cranberry Bog",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "The Giant Teapot",
+    "region": "Forest",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "The Thorn",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Three Ponds",
+    "region": "Skyline Valley",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Thunder Mountain Substation TM-02",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Thunder Mountain Substation TM-03",
+    "region": "Skyline Valley",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Toxic Dried Lakebed",
+    "region": "Toxic Valley",
+    "chance_value": 0.0909,
+    "chance_display": "9.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Twin Lakes",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Uncanny Caverns",
+    "region": "Savage Divide",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Unfinished Mansion",
+    "region": "Ash Heap",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Vault 63",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Veiled Sundew Grove",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Watoga",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Watoga High School",
+    "region": "Cranberry Bog",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Watoga Station",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Watoga Underground",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Welch",
+    "region": "Ash Heap",
+    "chance_value": 0.0667,
+    "chance_display": "6.7%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "White Powder Winter Sports",
+    "region": "Forest",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Widow's Perch",
+    "region": "Ash Heap",
+    "chance_value": 0.0625,
+    "chance_display": "6.2%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Yellow Sandy's Still",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Radrat"
+    ],
+    "count": 6
+   }
+  ],
+  "total": 158,
+  "note": null
+ },
+ "blurb": "The Radrat in Fallout 76 — drops Radrat Meat, 15 NPC variants, 36 known spawn points.",
+ "map_base": "/wp-content/uploads/guide-images/farming-meat/radrat/"
+}

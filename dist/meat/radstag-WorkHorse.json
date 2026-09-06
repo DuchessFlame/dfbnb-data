@@ -1,0 +1,1535 @@
+{
+ "_meta": {
+  "generated": "2026-09-06",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "RadStagRace"
+   }
+  ],
+  "source_totals": {
+   "placement": 55
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "radstag",
+ "name": "Radstag",
+ "page_title": "Farming - Meat - Radstag",
+ "url": "/bnb/farming/meat/radstag/radstag-location-guide/",
+ "npc_summary": {
+  "npc_count": 20,
+  "level_min": 1,
+  "level_max": 40,
+  "health_max": 300
+ },
+ "meat_items": [
+  {
+   "name": "Radstag Meat",
+   "form_id": "0004A14F",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Daily",
+   "name": "Kill a Radstag",
+   "required": 5,
+   "edid": "SCORE_Challenge_Daily_Kill_Radstag",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Kill Radstags during The Mothman Equinox event",
+   "required": 5,
+   "edid": "SCORE_Challenge_Daily_Kill_Radstag_Mothman_Equinox",
+   "page": "daily"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of a Glowing Radstag",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Glowing_SUB_RadStag_Camera",
+   "page": "world"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of an Albino Radstag",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Albino_SUB_Radstag_Camera",
+   "page": "world"
+  },
+  {
+   "type": "Weekly",
+   "name": "Epic: Take a Camera Picture of an Albino or Glowing Radstag",
+   "required": 1,
+   "edid": "SCORE_Challenge_Weekly_Picture_Creatures_AlbinoRadstag_Camera_Epic",
+   "page": "weekly"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Radstag",
+    "form_id": "0008E3B5",
+    "row_count": 4,
+    "direct_items": 2,
+    "pool_count": 2,
+    "item_count": 3,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "LLE Creature Small",
+      "sub_id": "003DF3FB",
+      "edid": "LLE_Creature_Small",
+      "item_count": 0,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": []
+     },
+     {
+      "kind": "item",
+      "name": "Radstag Hide",
+      "form_id": "0022B626",
+      "edid": "RadstagHide",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "item",
+      "name": "Radstag Meat",
+      "form_id": "0004A14F",
+      "edid": "RadstagMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Radstag",
+      "sub_id": "0008E3B6",
+      "edid": "LLE_Creature_Radstag",
+      "item_count": 1,
+      "rate_value": 0.5,
+      "rate_display": "50%",
+      "top_items": [
+       {
+        "name": "Radstag Meat",
+        "rate_display": "0%"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "edid": "E07A_Mothman_LLD_Creature_AlbinoRadStags",
+    "form_id": "0079B4F0",
+    "row_count": 1,
+    "direct_items": 1,
+    "pool_count": 0,
+    "item_count": 1,
+    "rows": [
+     {
+      "kind": "item",
+      "name": "Albino Radstag Blood",
+      "form_id": "0061D14C",
+      "edid": "E07A_Mothman_Blood_MiscItem",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [
+  {
+   "form_id": "0055C408",
+   "edid": "W05_RE_SceneAF01",
+   "name": "Scene - Radstag Hunter",
+   "type": "Scene Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "00460611",
+   "edid": "RE_SceneDWD07",
+   "name": "Sheepsquatch vs Albino Radstags",
+   "type": "Scene Encounters",
+   "location": ""
+  }
+ ],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": []
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": []
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": [
+     {
+      "marker": "Appalachian Antiques",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "439934"
+      ],
+      "coords": [
+       115605.7890625,
+       -119920.171875
+      ],
+      "spawns": [
+       {
+        "label": "Radstag Doe",
+        "ref": "439934",
+        "source_type": "placement",
+        "coords": [
+         115605.7890625,
+         -119920.171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Radstag Doe"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Green Country Lodge",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "43CCF9"
+      ],
+      "coords": [
+       -93918.9453125,
+       33928.546875
+      ],
+      "spawns": [
+       {
+        "label": "Radstag Yearling",
+        "ref": "43CCF9",
+        "source_type": "placement",
+        "coords": [
+         -93918.9453125,
+         33928.546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Radstag Yearling"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "New River Gorge Bridge - West",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "452FD2"
+      ],
+      "coords": [
+       -120174.515625,
+       -7092.84716796875
+      ],
+      "spawns": [
+       {
+        "label": "Radstag Yearling",
+        "ref": "452FD2",
+        "source_type": "placement",
+        "coords": [
+         -120174.515625,
+         -7092.84716796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Radstag Yearling"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Wixon Homestead",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "28EA46"
+      ],
+      "coords": [
+       -108132.4921875,
+       58602.05859375
+      ],
+      "spawns": [
+       {
+        "label": "Radstag Doe",
+        "ref": "28EA46",
+        "source_type": "placement",
+        "coords": [
+         -108132.4921875,
+         58602.05859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Radstag Doe"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "Big Fred's BBQ Shack",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3786EE"
+      ],
+      "coords": [
+       67840.6328125,
+       -30156.05859375
+      ],
+      "spawns": [
+       {
+        "label": "Radstag Doe",
+        "ref": "3786EE",
+        "source_type": "placement",
+        "coords": [
+         67840.6328125,
+         -30156.05859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Radstag Doe"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Dent & Sons Construction",
+      "count": 6,
+      "sources": {
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3971C5",
+       "3971C6",
+       "3971C7",
+       "3971C8",
+       "3971C9",
+       "3971CA"
+      ],
+      "coords": [
+       -14198.5205078125,
+       -167452.171875
+      ],
+      "spawns": [
+       {
+        "label": "Albino Radstag",
+        "ref": "3971C5",
+        "source_type": "placement",
+        "coords": [
+         -12567.50390625,
+         -168410.71875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Albino Radstag"
+       },
+       {
+        "label": "Albino Radstag",
+        "ref": "3971C6",
+        "source_type": "placement",
+        "coords": [
+         -13186.2451171875,
+         -168246.03125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Albino Radstag"
+       },
+       {
+        "label": "Albino Radstag",
+        "ref": "3971C7",
+        "source_type": "placement",
+        "coords": [
+         -11248.7265625,
+         -167292.65625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Albino Radstag"
+       },
+       {
+        "label": "Albino Radstag",
+        "ref": "3971C8",
+        "source_type": "placement",
+        "coords": [
+         -10904.0,
+         -169112.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Albino Radstag"
+       },
+       {
+        "label": "Albino Radstag",
+        "ref": "3971C9",
+        "source_type": "placement",
+        "coords": [
+         -12922.16015625,
+         -166195.734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Albino Radstag"
+       },
+       {
+        "label": "Albino Radstag",
+        "ref": "3971CA",
+        "source_type": "placement",
+        "coords": [
+         -14198.5205078125,
+         -167452.171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Albino Radstag"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Enclave Research Facility",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5DD487",
+       "5E704D"
+      ],
+      "coords": [
+       -4761.017578125,
+       2113.07568359375
+      ],
+      "spawns": [
+       {
+        "label": "Radstag Yearling",
+        "ref": "5DD487",
+        "source_type": "placement",
+        "coords": [
+         -4761.017578125,
+         2113.07568359375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Radstag Yearling"
+       },
+       {
+        "label": "Radstag Yearling",
+        "ref": "5E704D",
+        "source_type": "placement",
+        "coords": [
+         289.225982666016,
+         5872.68994140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Radstag Yearling"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hopewell Cave",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "00F6C2",
+       "09CAC1"
+      ],
+      "coords": [
+       132125.421875,
+       104479.3125
+      ],
+      "spawns": [
+       {
+        "label": "Radstag Doe",
+        "ref": "00F6C2",
+        "source_type": "placement",
+        "coords": [
+         132210.890625,
+         104070.109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Radstag Doe"
+       },
+       {
+        "label": "Radstag spawn #2",
+        "ref": "09CAC1",
+        "source_type": "placement",
+        "coords": [
+         132125.421875,
+         104479.3125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Monongah Overlook",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "10E3D1"
+      ],
+      "coords": [
+       39619.69140625,
+       91098.34375
+      ],
+      "spawns": [
+       {
+        "label": "Radstag Doe",
+        "ref": "10E3D1",
+        "source_type": "placement",
+        "coords": [
+         39619.69140625,
+         91098.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Radstag Doe"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Safe 'n Clean Disposal",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3A0BD6",
+       "3A0BD7",
+       "3D7102"
+      ],
+      "coords": [
+       12442.017578125,
+       -39802.86328125
+      ],
+      "spawns": [
+       {
+        "label": "Radstag spawn #1",
+        "ref": "3A0BD6",
+        "source_type": "placement",
+        "coords": [
+         12442.017578125,
+         -39802.86328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #2",
+        "ref": "3A0BD7",
+        "source_type": "placement",
+        "coords": [
+         12530.734375,
+         -39871.03515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag Yearling",
+        "ref": "3D7102",
+        "source_type": "placement",
+        "coords": [
+         9092.724609375,
+         -38667.14453125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Radstag Yearling"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Skullbone Vantage",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "43CC43",
+       "43CC44",
+       "43CC45",
+       "43CC46"
+      ],
+      "coords": [
+       43222.5859375,
+       47060.328125
+      ],
+      "spawns": [
+       {
+        "label": "Radstag spawn #1",
+        "ref": "43CC43",
+        "source_type": "placement",
+        "coords": [
+         42969.1015625,
+         47319.6484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #2",
+        "ref": "43CC44",
+        "source_type": "placement",
+        "coords": [
+         43222.5859375,
+         47060.328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #3",
+        "ref": "43CC45",
+        "source_type": "placement",
+        "coords": [
+         42945.76171875,
+         47006.71875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #4",
+        "ref": "43CC46",
+        "source_type": "placement",
+        "coords": [
+         43184.42578125,
+         47604.71875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Freak Show",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "38E565",
+       "38E566"
+      ],
+      "coords": [
+       85708.890625,
+       -101232.8203125
+      ],
+      "spawns": [
+       {
+        "label": "Radstag Doe",
+        "ref": "38E565",
+        "source_type": "placement",
+        "coords": [
+         85971.671875,
+         -101357.78125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Radstag Doe"
+       },
+       {
+        "label": "Radstag spawn #2",
+        "ref": "38E566",
+        "source_type": "placement",
+        "coords": [
+         85708.890625,
+         -101232.8203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Whitespring Golf Club",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "50BBC5",
+       "50BBC6"
+      ],
+      "coords": [
+       -11731.5361328125,
+       -48222.05859375
+      ],
+      "spawns": [
+       {
+        "label": "Radstag spawn #1",
+        "ref": "50BBC5",
+        "source_type": "placement",
+        "coords": [
+         -11731.5361328125,
+         -48222.05859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #2",
+        "ref": "50BBC6",
+        "source_type": "placement",
+        "coords": [
+         -11637.484375,
+         -48271.73046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": [
+     {
+      "marker": "Camp Liberty",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "769E8C"
+      ],
+      "coords": [
+       75921.5234375,
+       -247923.796875
+      ],
+      "spawns": [
+       {
+        "label": "Radstag spawn",
+        "ref": "769E8C",
+        "source_type": "placement",
+        "coords": [
+         75921.5234375,
+         -247923.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Naked Creek",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75DDEA",
+       "75DDEB",
+       "75DDEC"
+      ],
+      "coords": [
+       -26283.087890625,
+       -242528.4375
+      ],
+      "spawns": [
+       {
+        "label": "Radstag spawn #1",
+        "ref": "75DDEA",
+        "source_type": "placement",
+        "coords": [
+         -26283.087890625,
+         -242528.4375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #2",
+        "ref": "75DDEB",
+        "source_type": "placement",
+        "coords": [
+         -26624.4921875,
+         -242359.484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #3",
+        "ref": "75DDEC",
+        "source_type": "placement",
+        "coords": [
+         -26440.88671875,
+         -242945.671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Old Crimora Mines",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75864D",
+       "75864E",
+       "75864F"
+      ],
+      "coords": [
+       -34860.7734375,
+       -249599.125
+      ],
+      "spawns": [
+       {
+        "label": "Radstag spawn #1",
+        "ref": "75864D",
+        "source_type": "placement",
+        "coords": [
+         -34860.7734375,
+         -249599.125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #2",
+        "ref": "75864E",
+        "source_type": "placement",
+        "coords": [
+         -35232.0,
+         -249568.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #3",
+        "ref": "75864F",
+        "source_type": "placement",
+        "coords": [
+         -35008.0,
+         -249296.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Old Rag Lookout",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6E66E4"
+      ],
+      "coords": [
+       22419.974609375,
+       -231810.28125
+      ],
+      "spawns": [
+       {
+        "label": "Radstag Yearling",
+        "ref": "6E66E4",
+        "source_type": "placement",
+        "coords": [
+         22419.974609375,
+         -231810.28125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Radstag Yearling"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Rapidan Camp",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "76907D",
+       "78F365",
+       "78F366"
+      ],
+      "coords": [
+       621.777770996094,
+       -238173.859375
+      ],
+      "spawns": [
+       {
+        "label": "Radstag spawn #1",
+        "ref": "76907D",
+        "source_type": "placement",
+        "coords": [
+         621.777770996094,
+         -238173.859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #2",
+        "ref": "78F365",
+        "source_type": "placement",
+        "coords": [
+         432.257690429687,
+         -238100.34375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #3",
+        "ref": "78F366",
+        "source_type": "placement",
+        "coords": [
+         515.005065917969,
+         -237903.9375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Slumber Mill Motel",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75ACA8",
+       "75ACA9",
+       "75ACAA"
+      ],
+      "coords": [
+       30640.0,
+       -250968.0
+      ],
+      "spawns": [
+       {
+        "label": "Radstag spawn #1",
+        "ref": "75ACA8",
+        "source_type": "placement",
+        "coords": [
+         30640.0,
+         -250968.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #2",
+        "ref": "75ACA9",
+        "source_type": "placement",
+        "coords": [
+         31128.0,
+         -250792.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #3",
+        "ref": "75ACAA",
+        "source_type": "placement",
+        "coords": [
+         31128.001953125,
+         -251368.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "South River Bridge",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75ACAB",
+       "75ACAC",
+       "75ACAD"
+      ],
+      "coords": [
+       34742.1953125,
+       -244672.1875
+      ],
+      "spawns": [
+       {
+        "label": "Radstag spawn #1",
+        "ref": "75ACAB",
+        "source_type": "placement",
+        "coords": [
+         34742.1953125,
+         -244672.1875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #2",
+        "ref": "75ACAC",
+        "source_type": "placement",
+        "coords": [
+         35056.0,
+         -244880.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #3",
+        "ref": "75ACAD",
+        "source_type": "placement",
+        "coords": [
+         34711.99609375,
+         -245112.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Mire",
+    "locations": [
+     {
+      "marker": "Fisherman's Rest",
+      "count": 9,
+      "sources": {
+       "placement": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4E822E",
+       "4E822F",
+       "7A8AAF",
+       "7A8AB0",
+       "7A8AB1",
+       "7A8AB7",
+       "7AA73B",
+       "7AA73C",
+       "7AA73D"
+      ],
+      "coords": [
+       221843.890625,
+       -8468.1572265625
+      ],
+      "spawns": [
+       {
+        "label": "Radstag Doe",
+        "ref": "4E822E",
+        "source_type": "placement",
+        "coords": [
+         271630.53125,
+         16722.5390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Radstag Doe"
+       },
+       {
+        "label": "Radstag Doe",
+        "ref": "4E822F",
+        "source_type": "placement",
+        "coords": [
+         272093.84375,
+         16770.3046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Radstag Doe"
+       },
+       {
+        "label": "Radstag spawn #3",
+        "ref": "7A8AAF",
+        "source_type": "placement",
+        "coords": [
+         221843.890625,
+         -8468.1572265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #4",
+        "ref": "7A8AB0",
+        "source_type": "placement",
+        "coords": [
+         222154.828125,
+         -7683.12451171875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #5",
+        "ref": "7A8AB1",
+        "source_type": "placement",
+        "coords": [
+         220616.34375,
+         -8938.908203125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #6",
+        "ref": "7A8AB7",
+        "source_type": "placement",
+        "coords": [
+         220762.109375,
+         -7767.560546875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #7",
+        "ref": "7AA73B",
+        "source_type": "placement",
+        "coords": [
+         221845.703125,
+         -9514.544921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #8",
+        "ref": "7AA73C",
+        "source_type": "placement",
+        "coords": [
+         219484.84375,
+         -8999.0673828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radstag spawn #9",
+        "ref": "7AA73D",
+        "source_type": "placement",
+        "coords": [
+         222086.046875,
+         -6443.74853515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 9,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Haven Church",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2EEFE8",
+       "2EEFE9"
+      ],
+      "coords": [
+       168546.890625,
+       37200.7890625
+      ],
+      "spawns": [
+       {
+        "label": "Radstag Doe",
+        "ref": "2EEFE8",
+        "source_type": "placement",
+        "coords": [
+         168546.890625,
+         37200.7890625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Radstag Doe"
+       },
+       {
+        "label": "Radstag Doe",
+        "ref": "2EEFE9",
+        "source_type": "placement",
+        "coords": [
+         169146.296875,
+         38560.703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Radstag Doe"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": []
+   }
+  ],
+  "total_markers": 22,
+  "total_placements": 55
+ },
+ "chance_spawns": {
+  "locations": [
+   {
+    "marker": "Superior Sunset Farm",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Radstag"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Vault-Tec Agricultural Research Center",
+    "region": "Forest",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Radstag"
+    ],
+    "count": 3
+   }
+  ],
+  "total": 2,
+  "note": null
+ },
+ "blurb": "The Radstag in Fallout 76 — drops Radstag Meat, 20 NPC variants, 55 known spawn points.",
+ "map_base": "/wp-content/uploads/guide-images/farming-meat/radstag/"
+}

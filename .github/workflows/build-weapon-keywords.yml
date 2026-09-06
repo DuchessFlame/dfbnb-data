@@ -1,0 +1,40 @@
+name: Build Weapon Keyword Index Data
+
+on:
+  workflow_dispatch:
+
+  push:
+    paths:
+      - 'tsv/**'
+      - 'src/build_weapon_keywords_json.py'
+      # The weapon filter is imported from the spin wheel builder, so a change
+      # there changes this page's contents too.
+      - 'src/build_spin_wheel_json.py'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Run build script
+        run: python src/build_weapon_keywords_json.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add dist/
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Build Weapon Keyword Index data"
+            git push
+          fi

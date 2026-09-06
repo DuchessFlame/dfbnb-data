@@ -1,0 +1,1373 @@
+{
+ "_meta": {
+  "generated": "2026-09-06",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "BrahminRace"
+   },
+   {
+    "edid": "DLC04_BrahmiluffRace"
+   }
+  ],
+  "source_totals": {
+   "ambush": 1,
+   "placement": 44
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "brahmin",
+ "name": "Brahmin",
+ "page_title": "Farming - Meat - Brahmin",
+ "url": "/bnb/farming/meat/brahmin/brahmin-location-guide/",
+ "npc_summary": {
+  "npc_count": 46,
+  "level_min": 1,
+  "level_max": 50,
+  "health_max": 3700
+ },
+ "meat_items": [
+  {
+   "name": "Brahmin Meat",
+   "form_id": "0004A13F",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Daily",
+   "name": "Epic - Kill a Brahmin with Fire Damage",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Kill_Brahmin_Fire_Epic",
+   "page": "daily"
+  },
+  {
+   "type": "Event",
+   "name": "Birthday: Gather Milk from Brahmin while wearing the Birthday Suit",
+   "required": 3,
+   "edid": "ATX_DE2023_Birthday_Challenge_Collect_MilkBrahmin",
+   "page": "events"
+  },
+  {
+   "type": "Mini Season",
+   "name": "Kill a Brahmin",
+   "required": 5,
+   "edid": "ATX_DE2022_Anniversary_Challenge_Weekly_Kill_Enemies_SUB_Brahmin",
+   "page": "season:anniversary"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Brahmin",
+    "form_id": "0008E3AB",
+    "row_count": 3,
+    "direct_items": 2,
+    "pool_count": 1,
+    "item_count": 1702,
+    "rows": [
+     {
+      "kind": "item",
+      "name": "Brahmin Hide",
+      "form_id": "0022B623",
+      "edid": "BrahminHide",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "item",
+      "name": "Brahmin Meat",
+      "form_id": "0004A13F",
+      "edid": "BrahminMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Brahmin",
+      "sub_id": "0008E3AC",
+      "edid": "LLE_Creature_Brahmin",
+      "item_count": 1700,
+      "rate_value": 0.5,
+      "rate_display": "50%",
+      "top_items": [
+       {
+        "name": "Disease Cure",
+        "rate_display": "24.29%"
+       },
+       {
+        "name": "Cutting Fluid",
+        "rate_display": "24.11%"
+       },
+       {
+        "name": "Vegetable Starch",
+        "rate_display": "24.11%"
+       },
+       {
+        "name": "Hard Hat",
+        "rate_display": "12.5%"
+       },
+       {
+        "name": "Blood Pack",
+        "rate_display": "5.62%"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [
+  {
+   "form_id": "00402CBC",
+   "edid": "RE_ObjectDWD03",
+   "name": "Brahmin Quill Attack",
+   "type": "Object Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "00454C49",
+   "edid": "RE_SceneCMB02",
+   "name": "Brahmin Wrangler",
+   "type": "Scene Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0052E47D",
+   "edid": "RE_SceneMJP01",
+   "name": "Dead Brahmin Herd",
+   "type": "Scene Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0061DADA",
+   "edid": "RE_Travel_Zetan_04",
+   "name": "Flaming Brahmin",
+   "type": "Invaders from Beyond",
+   "location": ""
+  },
+  {
+   "form_id": "0052E49C",
+   "edid": "RE_SceneMD02",
+   "name": "Wolves and dead brahmin",
+   "type": "Scene Encounters",
+   "location": ""
+  }
+ ],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": [
+     {
+      "marker": "Big Bend Tunnel West",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "58395E",
+       "58395F"
+      ],
+      "coords": [
+       -45444.54296875,
+       -120178.765625
+      ],
+      "spawns": [
+       {
+        "label": "Brahmin spawn #1",
+        "ref": "58395E",
+        "source_type": "placement",
+        "coords": [
+         -45444.54296875,
+         -120178.765625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Brahmin spawn #2",
+        "ref": "58395F",
+        "source_type": "placement",
+        "coords": [
+         -46104.23828125,
+         -119550.6640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": [
+     {
+      "marker": "Abraxodyne Chemical Power Substation",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "824490"
+      ],
+      "coords": [
+       -221765.953125,
+       8125.7802734375
+      ],
+      "spawns": [
+       {
+        "label": "Brahmin spawn",
+        "ref": "824490",
+        "source_type": "placement",
+        "coords": [
+         -221765.953125,
+         8125.7802734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Highway Town",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7F1DC6",
+       "7F1DC7",
+       "8338FF"
+      ],
+      "coords": [
+       -233148.546875,
+       99034.234375
+      ],
+      "spawns": [
+       {
+        "label": "Brahmin spawn #1",
+        "ref": "7F1DC6",
+        "source_type": "placement",
+        "coords": [
+         -233148.546875,
+         99034.234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Brahmin spawn #2",
+        "ref": "7F1DC7",
+        "source_type": "placement",
+        "coords": [
+         -233083.21875,
+         98708.1015625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pack Brahmin",
+        "ref": "8338FF",
+        "source_type": "placement",
+        "coords": [
+         -233584.1875,
+         100351.734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Pack Brahmin"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Westbrook Horse Ranch",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "854253",
+       "854254"
+      ],
+      "coords": [
+       -212152.0,
+       46784.0
+      ],
+      "spawns": [
+       {
+        "label": "Brahmin spawn #1",
+        "ref": "854253",
+        "source_type": "placement",
+        "coords": [
+         -212152.0,
+         46784.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Brahmin spawn #2",
+        "ref": "854254",
+        "source_type": "placement",
+        "coords": [
+         -211737.859375,
+         46434.1875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": [
+     {
+      "marker": "Big Bend Tunnel East",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "56F4C0",
+       "56F4C1",
+       "56F4C2"
+      ],
+      "coords": [
+       115411.609375,
+       -149162.4375
+      ],
+      "spawns": [
+       {
+        "label": "Brahmin spawn #1",
+        "ref": "56F4C0",
+        "source_type": "placement",
+        "coords": [
+         115411.609375,
+         -149162.4375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Brahmin spawn #2",
+        "ref": "56F4C1",
+        "source_type": "placement",
+        "coords": [
+         115152.3125,
+         -149307.875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Brahmin spawn #3",
+        "ref": "56F4C2",
+        "source_type": "placement",
+        "coords": [
+         115376.3828125,
+         -148718.671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Sacramental Glade",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6A1739"
+      ],
+      "coords": [
+       192187.375,
+       -121054.234375
+      ],
+      "spawns": [
+       {
+        "label": "Brahmin ambush",
+        "ref": "6A1739",
+        "source_type": "ambush",
+        "coords": [
+         192187.375,
+         -121054.234375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Anchor Farm",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "53C3E7",
+       "53C3E8"
+      ],
+      "coords": [
+       -121018.3125,
+       119147.828125
+      ],
+      "spawns": [
+       {
+        "label": "Brahmin spawn #1",
+        "ref": "53C3E7",
+        "source_type": "placement",
+        "coords": [
+         -121018.3125,
+         119147.828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Brahmin spawn #2",
+        "ref": "53C3E8",
+        "source_type": "placement",
+        "coords": [
+         -120678.0625,
+         119313.96875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Blue Ridge Bunkhouse",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "731EE4"
+      ],
+      "coords": [
+       -136320.28125,
+       87836.1484375
+      ],
+      "spawns": [
+       {
+        "label": "Brahmin spawn",
+        "ref": "731EE4",
+        "source_type": "placement",
+        "coords": [
+         -136320.28125,
+         87836.1484375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Flatwoods",
+      "count": 9,
+      "sources": {
+       "placement": 9
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3DB3DB",
+       "3DB3DC",
+       "3DB3DD",
+       "3DB3DE",
+       "3DB3DF",
+       "3DB3E0",
+       "3DB3E1",
+       "3DB3E2",
+       "3DB3E5"
+      ],
+      "coords": [
+       -106556.3984375,
+       24908.580078125
+      ],
+      "spawns": [
+       {
+        "label": "Brahmin spawn #1",
+        "ref": "3DB3DB",
+        "source_type": "placement",
+        "coords": [
+         -109939.796875,
+         15377.7412109375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Brahmin spawn #2",
+        "ref": "3DB3DC",
+        "source_type": "placement",
+        "coords": [
+         -109241.7578125,
+         15923.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Brahmin spawn #3",
+        "ref": "3DB3DD",
+        "source_type": "placement",
+        "coords": [
+         -108671.015625,
+         14510.5498046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Brahmin spawn #4",
+        "ref": "3DB3DE",
+        "source_type": "placement",
+        "coords": [
+         -109602.8125,
+         13384.2900390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Brahmin spawn #5",
+        "ref": "3DB3DF",
+        "source_type": "placement",
+        "coords": [
+         -105909.046875,
+         24937.556640625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Brahmin spawn #6",
+        "ref": "3DB3E0",
+        "source_type": "placement",
+        "coords": [
+         -106556.3984375,
+         24908.580078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Brahmin spawn #7",
+        "ref": "3DB3E1",
+        "source_type": "placement",
+        "coords": [
+         -105664.53125,
+         19435.7265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Brahmin spawn #8",
+        "ref": "3DB3E2",
+        "source_type": "placement",
+        "coords": [
+         -104414.1640625,
+         20228.328125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Brahmin spawn #9",
+        "ref": "3DB3E5",
+        "source_type": "placement",
+        "coords": [
+         -105993.2421875,
+         25567.044921875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 9,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Lewis & Sons Farming Supply",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5C44B1"
+      ],
+      "coords": [
+       -173459.296875,
+       -41620.2421875
+      ],
+      "spawns": [
+       {
+        "label": "Brahmin spawn",
+        "ref": "5C44B1",
+        "source_type": "placement",
+        "coords": [
+         -173459.296875,
+         -41620.2421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Wayward",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "404363",
+       "404364",
+       "404365"
+      ],
+      "coords": [
+       -80480.0078125,
+       48342.23046875
+      ],
+      "spawns": [
+       {
+        "label": "Brahmin spawn #1",
+        "ref": "404363",
+        "source_type": "placement",
+        "coords": [
+         -80480.0078125,
+         48342.23046875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Brahmin spawn #2",
+        "ref": "404364",
+        "source_type": "placement",
+        "coords": [
+         -80692.6484375,
+         48847.4140625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Brahmin spawn #3",
+        "ref": "404365",
+        "source_type": "placement",
+        "coords": [
+         -80188.0,
+         48668.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "Enclave Research Facility",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5EACE5"
+      ],
+      "coords": [
+       -4654.87548828125,
+       3483.60375976562
+      ],
+      "spawns": [
+       {
+        "label": "Brahmin spawn",
+        "ref": "5EACE5",
+        "source_type": "placement",
+        "coords": [
+         -4654.87548828125,
+         3483.60375976562
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Fort Atlas",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "605F16"
+      ],
+      "coords": [
+       84147.171875,
+       72581.2734375
+      ],
+      "spawns": [
+       {
+        "label": "Minos",
+        "ref": "605F16",
+        "source_type": "placement",
+        "coords": [
+         84147.171875,
+         72581.2734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Minos"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Foundation",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4253AB",
+       "6058CB"
+      ],
+      "coords": [
+       33945.3359375,
+       -100022.828125
+      ],
+      "spawns": [
+       {
+        "label": "Brahmin spawn #1",
+        "ref": "4253AB",
+        "source_type": "placement",
+        "coords": [
+         33945.3359375,
+         -100022.828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Minos",
+        "ref": "6058CB",
+        "source_type": "placement",
+        "coords": [
+         32509.169921875,
+         -102764.09375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Minos"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Middle Mountain Pitstop",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "693D96",
+       "693D97",
+       "693D98",
+       "693D9A"
+      ],
+      "coords": [
+       46209.38671875,
+       -38050.796875
+      ],
+      "spawns": [
+       {
+        "label": "Boil & Foil",
+        "ref": "693D96",
+        "source_type": "placement",
+        "coords": [
+         46402.04296875,
+         -37697.05859375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Boil & Foil"
+       },
+       {
+        "label": "Shock & Awe",
+        "ref": "693D97",
+        "source_type": "placement",
+        "coords": [
+         46209.38671875,
+         -38050.796875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Shock & Awe"
+       },
+       {
+        "label": "Vikki & Vance",
+        "ref": "693D98",
+        "source_type": "placement",
+        "coords": [
+         46472.3515625,
+         -37937.671875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Vikki & Vance"
+       },
+       {
+        "label": "Hocus & Pocus",
+        "ref": "693D9A",
+        "source_type": "placement",
+        "coords": [
+         46023.18359375,
+         -37890.67578125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Hocus & Pocus"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Monongah",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C7124"
+      ],
+      "coords": [
+       57974.4609375,
+       84595.25
+      ],
+      "spawns": [
+       {
+        "label": "Pack Brahmin",
+        "ref": "3C7124",
+        "source_type": "placement",
+        "coords": [
+         57974.4609375,
+         84595.25
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Pack Brahmin"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Monongah Power Plant",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "44D49F"
+      ],
+      "coords": [
+       38647.6640625,
+       67488.515625
+      ],
+      "spawns": [
+       {
+        "label": "Chally the Moo-Moo",
+        "ref": "44D49F",
+        "source_type": "placement",
+        "coords": [
+         38647.6640625,
+         67488.515625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Chally the Moo-Moo"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Pleasant Valley Station",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "43CC56",
+       "43CC57",
+       "43CC58"
+      ],
+      "coords": [
+       64686.45703125,
+       5651.01220703125
+      ],
+      "spawns": [
+       {
+        "label": "Brahmin spawn #1",
+        "ref": "43CC56",
+        "source_type": "placement",
+        "coords": [
+         64686.45703125,
+         5651.01220703125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Brahmin spawn #2",
+        "ref": "43CC57",
+        "source_type": "placement",
+        "coords": [
+         64349.76953125,
+         5494.35400390625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Brahmin spawn #3",
+        "ref": "43CC58",
+        "source_type": "placement",
+        "coords": [
+         64105.75390625,
+         5606.02734375
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Rose Room",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6A5913"
+      ],
+      "coords": [
+       27641.001953125,
+       100565.0078125
+      ],
+      "spawns": [
+       {
+        "label": "Brahmin spawn",
+        "ref": "6A5913",
+        "source_type": "placement",
+        "coords": [
+         27641.001953125,
+         100565.0078125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Whitespring Resort",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "65B0EA"
+      ],
+      "coords": [
+       6940.12109375,
+       -49738.7265625
+      ],
+      "spawns": [
+       {
+        "label": "Minos",
+        "ref": "65B0EA",
+        "source_type": "placement",
+        "coords": [
+         6940.12109375,
+         -49738.7265625
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Minos"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": [
+     {
+      "marker": "Stony Man Lookout",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "76B16D"
+      ],
+      "coords": [
+       59367.84765625,
+       -228021.828125
+      ],
+      "spawns": [
+       {
+        "label": "Pack Brahmin",
+        "ref": "76B16D",
+        "source_type": "placement",
+        "coords": [
+         59367.84765625,
+         -228021.828125
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Pack Brahmin"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Mire",
+    "locations": []
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": [
+     {
+      "marker": "The Crater",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "605F1A"
+      ],
+      "coords": [
+       22255.958984375,
+       198897.421875
+      ],
+      "spawns": [
+       {
+        "label": "Minos",
+        "ref": "605F1A",
+        "source_type": "placement",
+        "coords": [
+         22255.958984375,
+         198897.421875
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Minos"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "total_markers": 22,
+  "total_placements": 45
+ },
+ "chance_spawns": {
+  "locations": [],
+  "total": 0,
+  "note": null
+ },
+ "blurb": "The Brahmin in Fallout 76 — drops Brahmin Meat, 46 NPC variants, 45 known spawn points.",
+ "map_base": "/wp-content/uploads/guide-images/farming-meat/brahmin/"
+}

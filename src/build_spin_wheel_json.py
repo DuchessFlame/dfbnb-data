@@ -113,7 +113,10 @@ _WEAPON_TYPE_RULES = [
 
 _WEAP_SKIP_EDID = [
     re.compile(r"^cr[A-Z]"), re.compile(r"NONPLAYABLE", re.I),
-    re.compile(r"^Turret", re.I), re.compile(r"^WorkshopTurret", re.I),
+    # Turrets are NPC/CAMP objects, never player-held. Match anywhere in the
+    # EDID -- anchoring to ^ missed DLC04_TurretMountedLaserGunSpaceBlue, which
+    # leaked "Turret Laser Gun" into the wheel.
+    re.compile(r"Turret", re.I), re.compile(r"^WorkshopTurret", re.I),
     re.compile(r"^HTO_cr", re.I), re.compile(r"^DailyOps_cr", re.I),
     re.compile(r"^SDOW_cr", re.I), re.compile(r"^RD\d+_cr", re.I),
     re.compile(r"^Burn_cr", re.I), re.compile(r"_TESTDMG_", re.I),

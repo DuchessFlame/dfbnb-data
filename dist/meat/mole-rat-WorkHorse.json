@@ -1,0 +1,4914 @@
+{
+ "_meta": {
+  "generated": "2026-09-06",
+  "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "DummyActorRace"
+   },
+   {
+    "edid": "MoleratRace"
+   }
+  ],
+  "source_totals": {
+   "ambush": 196,
+   "placement": 155,
+   "spawn": 37
+  },
+  "unresolved": {}
+ },
+ "set": "meat",
+ "slug": "mole-rat",
+ "name": "Mole Rat",
+ "page_title": "Farming - Meat - Mole Rat",
+ "url": "/bnb/farming/meat/mole-rat/mole-rat-location-guide/",
+ "npc_summary": {
+  "npc_count": 135,
+  "level_min": 1,
+  "level_max": 150,
+  "health_max": 800
+ },
+ "meat_items": [
+  {
+   "name": "Mole Rat Meat",
+   "form_id": "00033101",
+   "rate_display": "100%"
+  }
+ ],
+ "used_for": [
+  {
+   "type": "Daily",
+   "name": "Cook Mole Rat Chunks",
+   "required": 3,
+   "edid": "SCORE_Challenge_Daily_Craft_Molerat_Chunks",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Epic - Consume Ground Mole Rat",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Consume_GroundMoleRat_Epic",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Epic - Kill a Mole Rat with Explosives",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Kill_MoleRat_Explosive_Epic",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Kill a Mole Rat",
+   "required": 5,
+   "edid": "SCORE_Challenge_Daily_Kill_Molerats",
+   "page": "daily"
+  },
+  {
+   "type": "Event",
+   "name": "Summer Camp: Kill Radrat or Molerat with the Squirrel Backpack equipped",
+   "required": 10,
+   "edid": "ATX_DE2023_SummerCamp_Challenge_Kill_Radrats",
+   "page": "events"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of a Glowing Mole Rat",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Glowing_SUB_Molerat_Camera",
+   "page": "world"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of a Legendary Mole Rat",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Legendary_SUB_Molerat_Camera",
+   "page": "world"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Molerat",
+    "form_id": "0002EF68",
+    "row_count": 3,
+    "direct_items": 1,
+    "pool_count": 2,
+    "item_count": 4,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "LLE Creature Small",
+      "sub_id": "003DF3FB",
+      "edid": "LLE_Creature_Small",
+      "item_count": 0,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": []
+     },
+     {
+      "kind": "item",
+      "name": "Mole Rat Meat",
+      "form_id": "00033101",
+      "edid": "MoleratMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Molerat",
+      "sub_id": "0008E3B0",
+      "edid": "LLE_Creature_Molerat",
+      "item_count": 3,
+      "rate_value": 0.5,
+      "rate_display": "50%",
+      "top_items": [
+       {
+        "name": "Mole Rat Hide",
+        "rate_display": "25%"
+       },
+       {
+        "name": "Mole Rat Teeth",
+        "rate_display": "7.5%"
+       },
+       {
+        "name": "Mole Rat Meat",
+        "rate_display": "0%"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "edid": "LLD_Creature_Molerat_Broodmother",
+    "form_id": "00452A60",
+    "row_count": 5,
+    "direct_items": 3,
+    "pool_count": 2,
+    "item_count": 1171,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Base Item Super Mutant Melee",
+      "sub_id": "0044191D",
+      "edid": "LLD_Creature_BaseItem_SuperMutant_Melee",
+      "item_count": 1165,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "15.25%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "8.47%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "8.47%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "8.47%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "8.47%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Mole Rat Hide",
+      "form_id": "0022B628",
+      "edid": "MoleratHide",
+      "sig": "MISC",
+      "qty": 2,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "item",
+      "name": "Mole Rat Meat",
+      "form_id": "00033101",
+      "edid": "MoleratMeat",
+      "sig": "ALCH",
+      "qty": 3,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "item",
+      "name": "Mole Rat Teeth",
+      "form_id": "00034603",
+      "edid": "MoleRatTeeth",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Molerat",
+      "sub_id": "0008E3B0",
+      "edid": "LLE_Creature_Molerat",
+      "item_count": 3,
+      "rate_value": 0.5,
+      "rate_display": "50%",
+      "top_items": [
+       {
+        "name": "Mole Rat Hide",
+        "rate_display": "25%"
+       },
+       {
+        "name": "Mole Rat Teeth",
+        "rate_display": "7.5%"
+       },
+       {
+        "name": "Mole Rat Meat",
+        "rate_display": "0%"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "edid": "LLD_Creature_Molerat_E09C",
+    "form_id": "0068D9B2",
+    "row_count": 4,
+    "direct_items": 1,
+    "pool_count": 3,
+    "item_count": 1110,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "LLE Creature Small",
+      "sub_id": "003DF3FB",
+      "edid": "LLE_Creature_Small",
+      "item_count": 0,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": []
+     },
+     {
+      "kind": "item",
+      "name": "Mole Rat Meat",
+      "form_id": "00033101",
+      "edid": "MoleratMeat",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "pool",
+      "name": "Ammo Loot Contextual Open World",
+      "sub_id": "006CD246",
+      "edid": "LL_Ammo_Loot_Contextual_OpenWorld",
+      "item_count": 1106,
+      "rate_value": 0.91,
+      "rate_display": "91%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "42.75%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "23.75%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "23.75%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "23.75%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "23.75%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Molerat",
+      "sub_id": "0008E3B0",
+      "edid": "LLE_Creature_Molerat",
+      "item_count": 3,
+      "rate_value": 0.5,
+      "rate_display": "50%",
+      "top_items": [
+       {
+        "name": "Mole Rat Hide",
+        "rate_display": "25%"
+       },
+       {
+        "name": "Mole Rat Teeth",
+        "rate_display": "7.5%"
+       },
+       {
+        "name": "Mole Rat Meat",
+        "rate_display": "0%"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [
+  {
+   "form_id": "00529E1E",
+   "edid": "RE_TravelCMB08",
+   "name": "Molerats vs. Ghouls",
+   "type": "Travel Encounters",
+   "location": ""
+  }
+ ],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": [
+     {
+      "marker": "Gleaming Depths",
+      "count": 12,
+      "sources": {
+       "ambush": 9,
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "78BEBA",
+       "78F7A9",
+       "793860",
+       "7981D2",
+       "7981D3",
+       "7981D4",
+       "7981D5",
+       "7981D6",
+       "7981D7",
+       "7981D8",
+       "7981DB",
+       "7981E7"
+      ],
+      "coords": [
+       -8576.0,
+       6528.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 9,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Lewisburg Station",
+      "count": 2,
+      "sources": {
+       "ambush": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "68381F",
+       "683820"
+      ],
+      "coords": [
+       -67208.546875,
+       -113057.34375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Nuka-World On Tour",
+      "count": 7,
+      "sources": {
+       "ambush": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6749E7",
+       "6749E8",
+       "6749E9",
+       "6749EA",
+       "6749EB",
+       "6749EC",
+       "68381E"
+      ],
+      "coords": [
+       -69632.0,
+       -114304.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 7,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "The Rusty Pick",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "620A7F"
+      ],
+      "coords": [
+       1675.32995605469,
+       4203.208984375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Tunnel of Love",
+      "count": 6,
+      "sources": {
+       "ambush": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "668AB7",
+       "66929D",
+       "6692A1",
+       "6692A6",
+       "6692A7",
+       "6692B1"
+      ],
+      "coords": [
+       4836.20703125,
+       -1517.91809082031
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 6,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Welch",
+      "count": 8,
+      "sources": {
+       "ambush": 3,
+       "placement": 3,
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4E4583",
+       "4E4584",
+       "67E90A",
+       "67E90B",
+       "67E90C",
+       "67E90E",
+       "67E90F",
+       "67E910"
+      ],
+      "coords": [
+       -159663.453125,
+       -129087.2265625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       },
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Welch Station",
+      "count": 2,
+      "sources": {
+       "spawn": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4E4585",
+       "4E4586"
+      ],
+      "coords": [
+       -150908.4375,
+       -129424.8671875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 2,
+        "source_type": "spawn"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Atlantic City",
+    "locations": [
+     {
+      "marker": "Casino Quarter",
+      "count": 5,
+      "sources": {
+       "ambush": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6D3B91",
+       "6F77CB",
+       "6F77CC",
+       "6F8386",
+       "6F838E"
+      ],
+      "coords": [
+       -3760.30419921875,
+       -381.738037109375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 5,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Burning Springs",
+    "locations": [
+     {
+      "marker": "Athens",
+      "count": 6,
+      "sources": {
+       "ambush": 3,
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "8395B0",
+       "8395B1",
+       "8395B2",
+       "8395B5",
+       "8395B6",
+       "8395B7"
+      ],
+      "coords": [
+       -231071.3125,
+       149620.59375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hamley Run Camp",
+      "count": 10,
+      "sources": {
+       "ambush": 5,
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "826D6C",
+       "826D6E",
+       "826D71",
+       "826D73",
+       "826D76",
+       "826D78",
+       "826D7B",
+       "826D7D",
+       "826D80",
+       "826D82"
+      ],
+      "coords": [
+       -252138.203125,
+       179193.8125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 5,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hocking Hills Train Station",
+      "count": 6,
+      "sources": {
+       "ambush": 3,
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7FBA9F",
+       "7FBAA1",
+       "81BEF8",
+       "81BEF9",
+       "81BEFA",
+       "81BF0F"
+      ],
+      "coords": [
+       -257268.15625,
+       77998.3828125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": [
+     {
+      "marker": "Appalachian Antiques",
+      "count": 2,
+      "sources": {
+       "ambush": 1,
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3B7725",
+       "3B7727"
+      ],
+      "coords": [
+       120230.3125,
+       -125831.46875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Big Bend Tunnels",
+      "count": 8,
+      "sources": {
+       "ambush": 4,
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "58D3D7",
+       "58D3D9",
+       "58D3DC",
+       "58D3DE",
+       "58D3E5",
+       "58D3E7",
+       "58D3EA",
+       "58D3EC"
+      ],
+      "coords": [
+       -5152.1845703125,
+       25406.857421875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 4,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Crimson Prospect",
+      "count": 4,
+      "sources": {
+       "ambush": 2,
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3CE899",
+       "3CE89B",
+       "3CE89E",
+       "3CE8A0"
+      ],
+      "coords": [
+       136056.921875,
+       -96242.3359375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Forward Station Delta",
+      "count": 4,
+      "sources": {
+       "ambush": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D374D",
+       "3D3753",
+       "3D3864",
+       "3D3869"
+      ],
+      "coords": [
+       202791.125,
+       -171275.8125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 4,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Kerwood Mine",
+      "count": 4,
+      "sources": {
+       "ambush": 2,
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "37E266",
+       "37E268",
+       "37E26B",
+       "37E26D"
+      ],
+      "coords": [
+       -3207.03100585937,
+       1467.87280273438
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "NAR Repair Yard",
+      "count": 10,
+      "sources": {
+       "ambush": 4,
+       "placement": 6
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "42C1B4",
+       "42C1EA",
+       "439194",
+       "439196",
+       "5368CB",
+       "5368CD",
+       "5368CE",
+       "5368D0",
+       "5368D1",
+       "5368D2"
+      ],
+      "coords": [
+       138959.6875,
+       -164726.046875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 4,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Overgrown Sundew Grove",
+      "count": 2,
+      "sources": {
+       "ambush": 1,
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3CE871",
+       "3CE873"
+      ],
+      "coords": [
+       182559.296875,
+       -170780.875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Sunrise Field",
+      "count": 5,
+      "sources": {
+       "ambush": 2,
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "42C1A9",
+       "42C1AA",
+       "42C1B1",
+       "42C1B2",
+       "5959F3"
+      ],
+      "coords": [
+       139348.53125,
+       -164454.109375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Veiled Sundew Grove",
+      "count": 2,
+      "sources": {
+       "ambush": 1,
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3CE866",
+       "3CE868"
+      ],
+      "coords": [
+       173585.890625,
+       -122468.046875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Aaronholt Homestead",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3B7715"
+      ],
+      "coords": [
+       -121944.0,
+       171640.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Arktos Pharma Biome Lab",
+      "count": 42,
+      "sources": {
+       "ambush": 42
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "536C2E",
+       "536C2F",
+       "536C30",
+       "536C31",
+       "536C32",
+       "536C33",
+       "536C34",
+       "536C35",
+       "536C36",
+       "536C37",
+       "536C38",
+       "536C39",
+       "536C3A",
+       "536C3B",
+       "536C3C",
+       "536C3D",
+       "536C3E",
+       "536C3F",
+       "536C40",
+       "536C41",
+       "536C42",
+       "536C43",
+       "536C44",
+       "536C45",
+       "536C46",
+       "536C47",
+       "536C48",
+       "536C49",
+       "536C4A",
+       "536C4B",
+       "536C5C",
+       "536C5D",
+       "536C5E",
+       "536C5F",
+       "536C60",
+       "536C61",
+       "536C62",
+       "536C63",
+       "536C64",
+       "536C65",
+       "536C66",
+       "536C67"
+      ],
+      "coords": [
+       751.60888671875,
+       -4689.21435546875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 42,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Charleston Landfill",
+      "count": 4,
+      "sources": {
+       "ambush": 1,
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "32E9A8",
+       "32E9A9",
+       "32E9AA",
+       "50AE0C"
+      ],
+      "coords": [
+       -133108.84375,
+       -53004.3671875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Flatwoods",
+      "count": 2,
+      "sources": {
+       "ambush": 1,
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D0FF2",
+       "3D0FF4"
+      ],
+      "coords": [
+       -108909.6796875,
+       10240.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Fraternity Row",
+      "count": 2,
+      "sources": {
+       "ambush": 1,
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "50B57C",
+       "50B57E"
+      ],
+      "coords": [
+       10021.98828125,
+       92788.171875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Gauley Mine",
+      "count": 17,
+      "sources": {
+       "placement": 17
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "58FED9",
+       "58FEDA",
+       "58FEDB",
+       "58FEDC",
+       "58FEDD",
+       "58FEDE",
+       "58FEDF",
+       "58FEE0",
+       "58FEE1",
+       "58FEE2",
+       "58FEE3",
+       "58FEE4",
+       "58FEE5",
+       "58FEE6",
+       "58FEFC",
+       "58FEFD",
+       "58FEFE"
+      ],
+      "coords": [
+       2620.13256835938,
+       4692.6396484375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 17,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Gorge Junkyard",
+      "count": 5,
+      "sources": {
+       "ambush": 2,
+       "placement": 2,
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2F8A3D",
+       "2F8A3F",
+       "2F8A42",
+       "2F8A44",
+       "3B1BB5"
+      ],
+      "coords": [
+       -57917.74609375,
+       94040.09375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       },
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Green Country Lodge",
+      "count": 3,
+      "sources": {
+       "spawn": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D059A",
+       "3D059B",
+       "3D059C"
+      ],
+      "coords": [
+       -99565.328125,
+       29784.572265625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 3,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Hillfolk Hotdogs",
+      "count": 8,
+      "sources": {
+       "ambush": 3,
+       "spawn": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "28EC05",
+       "28EC06",
+       "28EC07",
+       "28EC08",
+       "28EC09",
+       "3D029C",
+       "3D029D",
+       "3D029E"
+      ],
+      "coords": [
+       -149312.90625,
+       22446.271484375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       },
+       {
+        "label": "spawn points",
+        "count": 5,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Hornwright Summer Villa",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "28DCD9",
+       "28DCDA",
+       "28DCDB"
+      ],
+      "coords": [
+       -39251.25390625,
+       -58764.65234375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Landview Lighthouse",
+      "count": 1,
+      "sources": {
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3B1BB4"
+      ],
+      "coords": [
+       -67361.875,
+       80764.9453125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Organ Cave",
+      "count": 2,
+      "sources": {
+       "ambush": 1,
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "73DB09",
+       "73DB0B"
+      ],
+      "coords": [
+       71.746940612793,
+       -5723.0107421875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Poseidon Energy Plant Expansion",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "564062"
+      ],
+      "coords": [
+       -2297.94189453125,
+       -3964.66064453125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Poseidon Power Substation PX-02",
+      "count": 7,
+      "sources": {
+       "spawn": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "52C8A2",
+       "52C8A3",
+       "52C8A6",
+       "52C8A8",
+       "52C8A9",
+       "52C8AA",
+       "52C8AB"
+      ],
+      "coords": [
+       -35580.21484375,
+       -258.985900878906
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 7,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Riverside Manor",
+      "count": 10,
+      "sources": {
+       "spawn": 10
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "189A2E",
+       "189A6D",
+       "189A6E",
+       "189A6F",
+       "189A7C",
+       "194D32",
+       "194D35",
+       "194D37",
+       "194E69",
+       "3B3740"
+      ],
+      "coords": [
+       -69193.1875,
+       -71199.6796875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 10,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "RobCo Auto-Cache #001",
+      "count": 4,
+      "sources": {
+       "ambush": 2,
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "55FCEE",
+       "55FCF0",
+       "56007F",
+       "560080"
+      ],
+      "coords": [
+       -2489.060546875,
+       3882.38110351562
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Silva Homestead",
+      "count": 27,
+      "sources": {
+       "ambush": 27
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "43BCE1",
+       "43BCE2",
+       "43BCE4",
+       "43BCE5",
+       "43BCE6",
+       "43BCE7",
+       "43BCE8",
+       "43BCE9",
+       "43BCEA",
+       "43BCEB",
+       "43BCEC",
+       "43BCED",
+       "43BCEE",
+       "43BCEF",
+       "43BCF0",
+       "43BCF1",
+       "43BCF2",
+       "43BCF3",
+       "43BCF4",
+       "43BCF5",
+       "43BCF6",
+       "43BCF7",
+       "43BCF8",
+       "43BCF9",
+       "43BCFA",
+       "43BCFB",
+       "43BCFC"
+      ],
+      "coords": [
+       -157469.40625,
+       -1410.29443359375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 27,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Summersville Dam",
+      "count": 1,
+      "sources": {
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "194E6A"
+      ],
+      "coords": [
+       -76978.6875,
+       -67616.0625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "The Giant Teapot",
+      "count": 6,
+      "sources": {
+       "ambush": 3,
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D36BF",
+       "3D36C2",
+       "3D36C4",
+       "3D37D6",
+       "3D37D8",
+       "3D37DB"
+      ],
+      "coords": [
+       -136088.0,
+       -29200.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Transmission Station 1AT-U03",
+      "count": 4,
+      "sources": {
+       "spawn": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "05EE9E",
+       "05EEA5",
+       "05EEA6",
+       "05EEAB"
+      ],
+      "coords": [
+       -154630.015625,
+       125992.1171875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "spawn points",
+        "count": 4,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Vault-Tec University",
+      "count": 2,
+      "sources": {
+       "ambush": 1,
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4F8573",
+       "4F8575"
+      ],
+      "coords": [
+       -1362.01159667969,
+       1063.67077636719
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": [
+     {
+      "marker": "Atlas Substructure",
+      "count": 13,
+      "sources": {
+       "ambush": 9,
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5C2DCE",
+       "5C2DCF",
+       "5C2DD0",
+       "5C2DD2",
+       "5C8E7F",
+       "5C8E80",
+       "5C8E81",
+       "5C8E82",
+       "5C8E83",
+       "5DD45E",
+       "5DD467",
+       "5DD46F",
+       "5EE0D2"
+      ],
+      "coords": [
+       1433.48657226562,
+       -714.00634765625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 9,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Autumn Acre Cabin",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4E71A8",
+       "4E71A9",
+       "4E71AA",
+       "4E71AB"
+      ],
+      "coords": [
+       94976.0,
+       54976.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Bastion Park",
+      "count": 8,
+      "sources": {
+       "ambush": 4,
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D36F7",
+       "3D36F9",
+       "3D36FC",
+       "3D36FE",
+       "3D380E",
+       "3D3810",
+       "3D3813",
+       "3D3815"
+      ],
+      "coords": [
+       -19416.228515625,
+       -106863.953125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 4,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Beckwith Farm",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "1497AD"
+      ],
+      "coords": [
+       46848.0,
+       -19304.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Big Fred's BBQ Shack",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "1497AE",
+       "1497AF"
+      ],
+      "coords": [
+       47371.53125,
+       -19233.158203125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Colonel Kelly Monument",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "520D0C",
+       "520D0D",
+       "520D0E"
+      ],
+      "coords": [
+       37151.8046875,
+       156328.015625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Dent & Sons Construction",
+      "count": 2,
+      "sources": {
+       "ambush": 1,
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "39DDA6",
+       "39DE4D"
+      ],
+      "coords": [
+       -3003.06640625,
+       -179491.96875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Enclave Research Facility",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5DD4B0",
+       "5EACCA"
+      ],
+      "coords": [
+       -3852.89331054687,
+       1760.07971191406
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Fissure Site",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "386E2C",
+       "386E2D",
+       "386E2E"
+      ],
+      "coords": [
+       58404.1484375,
+       -149907.703125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Freddy Fear's House of Scares",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3E0D74",
+       "3E0D75",
+       "3E0D76"
+      ],
+      "coords": [
+       153484.421875,
+       165396.015625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hopewell Cave",
+      "count": 2,
+      "sources": {
+       "ambush": 1,
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3E400C",
+       "3E400E"
+      ],
+      "coords": [
+       114157.6953125,
+       113423.4296875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Monongah Overlook",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "10E3D3",
+       "10E3D5"
+      ],
+      "coords": [
+       39667.4765625,
+       90404.65625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Palace of the Winding Path",
+      "count": 3,
+      "sources": {
+       "placement": 2,
+       "spawn": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3215D2",
+       "3215D4",
+       "3D4EAE"
+      ],
+      "coords": [
+       71952.4296875,
+       159676.625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       },
+       {
+        "label": "spawn point",
+        "count": 1,
+        "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Pleasant Valley Cabins",
+      "count": 7,
+      "sources": {
+       "ambush": 2,
+       "placement": 5
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3219A7",
+       "3219AA",
+       "3219AC",
+       "43CC4F",
+       "43CC50",
+       "43CC51",
+       "43CC52"
+      ],
+      "coords": [
+       51655.9140625,
+       21135.236328125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Pleasant Valley Ski Resort",
+      "count": 3,
+      "sources": {
+       "ambush": 1,
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3219AF",
+       "3219B1",
+       "333479"
+      ],
+      "coords": [
+       51050.92578125,
+       20768.609375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Red Rocket Mega Stop",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "43BBA6"
+      ],
+      "coords": [
+       133353.234375,
+       149429.125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Relay Tower LW-B1-22",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3215A8"
+      ],
+      "coords": [
+       101289.125,
+       73856.8125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "South Mountain Lookout",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3CE8DE",
+       "3CE8DF",
+       "3CE8E0"
+      ],
+      "coords": [
+       45897.1328125,
+       -132229.671875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Freak Show",
+      "count": 3,
+      "sources": {
+       "ambush": 1,
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "38E4D3",
+       "39DE48",
+       "39DE4A"
+      ],
+      "coords": [
+       81968.890625,
+       -110871.640625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Whitespring Resort",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D73AB",
+       "3D73AC",
+       "3D73AD"
+      ],
+      "coords": [
+       11145.6181640625,
+       -54083.7265625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Uncanny Caverns",
+      "count": 2,
+      "sources": {
+       "ambush": 1,
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2CB352",
+       "2CB356"
+      ],
+      "coords": [
+       -41694.8203125,
+       -88731.3359375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Vault 79",
+      "count": 6,
+      "sources": {
+       "ambush": 3,
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "547C9F",
+       "547CA0",
+       "547CA1",
+       "547CA2",
+       "547CA3",
+       "547CA4"
+      ],
+      "coords": [
+       -2034.49877929687,
+       -3170.86865234375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Wendigo Cave",
+      "count": 4,
+      "sources": {
+       "ambush": 2,
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "386F8C",
+       "386F8E",
+       "386F91",
+       "386F93"
+      ],
+      "coords": [
+       9960.51953125,
+       1464.48120117187
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "White Powder Winter Sports",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3215B3"
+      ],
+      "coords": [
+       11230.4599609375,
+       5429.78271484375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": [
+     {
+      "marker": "Atrium Lower Level",
+      "count": 3,
+      "sources": {
+       "ambush": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7352ED",
+       "7352EE",
+       "76F1FB"
+      ],
+      "coords": [
+       2654.51708984375,
+       -421.13623046875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 3,
+        "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "Big Meadows Gas Well",
+      "count": 3,
+      "sources": {
+       "ambush": 1,
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "6F556C",
+       "6FBE82",
+       "6FBE8C"
+      ],
+      "coords": [
+       -3633.70092773438,
+       -249253.734375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Shenandoah Visitor Center",
+      "count": 4,
+      "sources": {
+       "ambush": 2,
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "77E8AC",
+       "78429A",
+       "78429B",
+       "78429C"
+      ],
+      "coords": [
+       4489.1650390625,
+       2688.86694335938
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 2,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Substation TM-03",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7538B8",
+       "7538B9",
+       "7538BA"
+      ],
+      "coords": [
+       46756.99609375,
+       -206457.90625
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Mire",
+    "locations": [
+     {
+      "marker": "Ella Ames' Bunker",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2A6A1C"
+      ],
+      "coords": [
+       1759.63891601562,
+       1668.34741210938
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "The Pitt",
+    "locations": [
+     {
+      "marker": "The Pitt - Trench",
+      "count": 20,
+      "sources": {
+       "ambush": 10,
+       "placement": 10
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "66AEE3",
+       "66AEE6",
+       "66AEE9",
+       "66AEF5",
+       "66AEFA",
+       "66AF0A",
+       "66AF12",
+       "66AF15",
+       "66AF2D",
+       "66AF2F",
+       "66AF36",
+       "66AF38",
+       "66AF40",
+       "66AF44",
+       "66AF46",
+       "66AF47",
+       "66AF48",
+       "66AF49",
+       "66AF4A",
+       "66AF50"
+      ],
+      "coords": [
+       -7691.77392578125,
+       -10381.46875
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 10,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 10,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": [
+     {
+      "marker": "Carleton Mine",
+      "count": 12,
+      "sources": {
+       "ambush": 5,
+       "placement": 7
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "556E35",
+       "556E83",
+       "5591F6",
+       "5591F8",
+       "5591FE",
+       "5591FF",
+       "559200",
+       "559201",
+       "559202",
+       "559204",
+       "559209",
+       "55920A"
+      ],
+      "coords": [
+       -2710.7763671875,
+       22467.02734375
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush points",
+        "count": 5,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 7,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Philippi Battlefield Cemetery",
+      "count": 2,
+      "sources": {
+       "ambush": 1,
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3C70F3",
+       "3C70F5"
+      ],
+      "coords": [
+       41341.171875,
+       175232.28125
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
+   }
+  ],
+  "total_markers": 73,
+  "total_placements": 388
+ },
+ "chance_spawns": {
+  "locations": [
+   {
+    "marker": "Aaronholt Homestead",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Abandoned Bog Town",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Abandoned Mine Shaft 1",
+    "region": "Ash Heap",
+    "chance_value": 0.1176,
+    "chance_display": "11.8%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Abandoned Mine Shaft 2",
+    "region": "Ash Heap",
+    "chance_value": 0.1333,
+    "chance_display": "13.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Abandoned Mine Shaft 4",
+    "region": "Ash Heap",
+    "chance_value": 0.1333,
+    "chance_display": "13.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Abandoned Mine Shaft 5",
+    "region": "Ash Heap",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Abandoned Mine Shaft Elaine",
+    "region": "Ash Heap",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Abandoned Mine Site Kittery",
+    "region": "Ash Heap",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Alpine River Cabins",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Ammo Dump",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "AMS Testing Site",
+    "region": "Ash Heap",
+    "chance_value": 0.1333,
+    "chance_display": "13.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Anchor Farm",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Appalachian Antiques",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Arktos Pharma",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Autumn Acre Cabin",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Bailey Family Cabin",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Becker Farm",
+    "region": "Toxic Valley",
+    "chance_value": 0.0909,
+    "chance_display": "9.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Becker Farm",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Beckwith Farm",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Big Bend Tunnel East",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Big Bend Tunnel West",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Big Bend Tunnel West",
+    "region": "Ash Heap",
+    "chance_value": 0.1333,
+    "chance_display": "13.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Big Fred's BBQ Shack",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Black Bear Lodge",
+    "region": "Toxic Valley",
+    "chance_value": 0.0909,
+    "chance_display": "9.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Black Mountain Ordnance Works",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Blackwater Mine",
+    "region": "Savage Divide",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Bolton Greens",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Bolton Greens",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "Brim Quarry",
+    "region": "Ash Heap",
+    "chance_value": 0.1333,
+    "chance_display": "13.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Camden Park",
+    "region": "Ash Heap",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Camp Adams Lookout",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Camp Liberty",
+    "region": "Skyline Valley",
+    "chance_value": 0.5,
+    "chance_display": "50%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Camp McClintock",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Carleton Mine",
+    "region": "Toxic Valley",
+    "chance_value": 0.0909,
+    "chance_display": "9.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Charleston Landfill",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Charleston Station",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Clancy Manor",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Clarksburg Shooting Club",
+    "region": "Toxic Valley",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Cliffwatch",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Cliffwatch",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Converted Munitions Factory",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 12
+   },
+   {
+    "marker": "Cow Spots Creamery",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Crater Watchstation",
+    "region": "Toxic Valley",
+    "chance_value": 0.0909,
+    "chance_display": "9.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Crimson Prospect",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Dagger's Den",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Dark Hollow Manor",
+    "region": "Skyline Valley",
+    "chance_value": 0.2564,
+    "chance_display": "25.6%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Darling Sister's Lab",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Dent & Sons Construction",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Devil's Backbone",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Drop Site G3",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Drop Site V9",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "East Mountain Lookout",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Eastern Regional Penitentiary",
+    "region": "Toxic Valley",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Federal Disposal Field HZ-21",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Firebase Major",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Firebase Major",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Fissure Site",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Flatwoods",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Flooded Trainyard",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Fort Atlas",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Forward Station Alpha",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Garrahan Mining Headquarters",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Garrahan Mining Headquarters",
+    "region": "Ash Heap",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Gauley Mine",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Gauley Mine Exit",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Glassed Cavern",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Gleaming Depths",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Grafton Station",
+    "region": "Toxic Valley",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Graninger Farm",
+    "region": "Toxic Valley",
+    "chance_value": 0.0909,
+    "chance_display": "9.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Greg's Mine Supply",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Grindstone Arch",
+    "region": "Skyline Valley",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 12
+   },
+   {
+    "marker": "Hawksbill Weather Station",
+    "region": "Skyline Valley",
+    "chance_value": 0.1073,
+    "chance_display": "10.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Helvetia",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Hemlock Holes",
+    "region": "Toxic Valley",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Hemlock Holes Maintenance",
+    "region": "Toxic Valley",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Hemlock Springs Dump",
+    "region": "Skyline Valley",
+    "chance_value": 0.1712,
+    "chance_display": "17.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "Hillfolk Hotdogs",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Hopewell Cave",
+    "region": "Savage Divide",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Horizon's Rest",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Hornwright Air Purifier Site #03",
+    "region": "Ash Heap",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Hornwright Air Purifier Site #04",
+    "region": "Ash Heap",
+    "chance_value": 0.1333,
+    "chance_display": "13.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Hornwright Estate",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Hornwright Summer Villa",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Hornwright Testing Site #02",
+    "region": "Ash Heap",
+    "chance_value": 0.1333,
+    "chance_display": "13.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Hornwright Testing Site #03",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Hornwright Testing Site #04",
+    "region": "Ash Heap",
+    "chance_value": 0.1333,
+    "chance_display": "13.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Hunter's Ridge",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Huntersville",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Isolated Cabin",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Johnson's Acre",
+    "region": "Skyline Valley",
+    "chance_value": 0.1712,
+    "chance_display": "17.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Kanawha Nuka-Cola Plant",
+    "region": "Ash Heap",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Kanawha Nuka-Cola Plant",
+    "region": "Forest",
+    "chance_value": 0.5,
+    "chance_display": "50%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Kerwood Mine",
+    "region": "Cranberry Bog",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Knife Edge",
+    "region": "Toxic Valley",
+    "chance_value": 0.0909,
+    "chance_display": "9.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Lady Janet's Soft Serve",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Lake Reynolds",
+    "region": "Ash Heap",
+    "chance_value": 0.1333,
+    "chance_display": "13.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Landview Lighthouse",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Lewisburg Station",
+    "region": "Ash Heap",
+    "chance_value": 0.1333,
+    "chance_display": "13.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Lucky Hole Mine",
+    "region": "Savage Divide",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Makeout Point",
+    "region": "Skyline Valley",
+    "chance_value": 0.1111,
+    "chance_display": "11.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Metal Dome",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Miners Monument",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Monongah",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Monongah Mine",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Monongah Overlook",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Monongah Power Plant",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Monongah Power Plant Yard",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Monongah Power Substation MZ-01",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 13
+   },
+   {
+    "marker": "Monongah Power Substation MZ-03",
+    "region": "Ash Heap",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Morgantown High School",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Moth-Home",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Mount Blair",
+    "region": "Ash Heap",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Mysterious Cave",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 12
+   },
+   {
+    "marker": "National Isolated Radio Array",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "National Radio Astronomy Research Center",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "New River Gorge Bridge - East",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 14
+   },
+   {
+    "marker": "New River Gorge Bridge - West",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "North Cutthroat Camp",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "North Kanawha Lookout",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "North Mountain Lookout",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Old Crimora Mines",
+    "region": "Skyline Valley",
+    "chance_value": 0.1634,
+    "chance_display": "16.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Old Rag Lookout",
+    "region": "Skyline Valley",
+    "chance_value": 0.2564,
+    "chance_display": "25.6%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 13
+   },
+   {
+    "marker": "Organ Cave North",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Organ Cave South",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Orwell Orchards",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Overgrown Sundew Grove",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Overseer's Camp",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Overseer's Home",
+    "region": "Forest",
+    "chance_value": 0.5,
+    "chance_display": "50%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Philippi Battlefield Cemetery",
+    "region": "Toxic Valley",
+    "chance_value": 0.0909,
+    "chance_display": "9.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Pioneer Scout Camp",
+    "region": "Toxic Valley",
+    "chance_value": 0.0909,
+    "chance_display": "9.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Pioneer Scout Lookout",
+    "region": "Toxic Valley",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Poseidon Power Substation PX-01",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Poseidon Power Substation PX-02",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Prickett's Fort",
+    "region": "Toxic Valley",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Pumpkin House",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Pylon Ambush Site",
+    "region": "Ash Heap",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Quarry X3",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "R & G Processing Services",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Ranger Lookout",
+    "region": "Cranberry Bog",
+    "chance_value": 0.5,
+    "chance_display": "50%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Rapidan Camp",
+    "region": "Skyline Valley",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Red Rocket Filling Station",
+    "region": "Ash Heap",
+    "chance_value": 0.1333,
+    "chance_display": "13.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Red Rocket Mega Stop",
+    "region": "Savage Divide",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Relay Tower HG-B7-09",
+    "region": "Ash Heap",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "Relay Tower HN-B1-12",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Relay Tower LW-B1-22",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Research Site Bavaria",
+    "region": "Skyline Valley",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Research Site Rhineland",
+    "region": "Skyline Valley",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "RobCo Research Center",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Sacramental Glade",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "Scenic Overlook",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Seneca Rocks Visitor Center",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Settler's Ridge",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Shenandoah Visitor Center",
+    "region": "Skyline Valley",
+    "chance_value": 0.1073,
+    "chance_display": "10.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Silva Homestead",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 10
+   },
+   {
+    "marker": "Site Alpha",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Site Bravo",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Slocum's Joe",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Slumber Mill Motel",
+    "region": "Skyline Valley",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "South Mountain Lookout",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "South River Bridge",
+    "region": "Skyline Valley",
+    "chance_value": 0.5,
+    "chance_display": "50%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "Striker Row",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Sugar Grove",
+    "region": "Savage Divide",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 17
+   },
+   {
+    "marker": "Summersville",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Summersville Dam",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Sunnytop Ski Lanes",
+    "region": "Savage Divide",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "Sunnytop Ski Lanes Base Lodge",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Sunnytop Station",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Sunrise Field",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Sunshine Meadows Industrial Farm",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Survey Camp Alpha",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Susan's Cabin",
+    "region": "Skyline Valley",
+    "chance_value": 0.1712,
+    "chance_display": "17.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Sutton",
+    "region": "Forest",
+    "chance_value": 0.5,
+    "chance_display": "50%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Sutton Station",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Sylvie & Sons Logging Camp",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "The Burning Mine",
+    "region": "Ash Heap",
+    "chance_value": 0.3333,
+    "chance_display": "33.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 12
+   },
+   {
+    "marker": "The Coop",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 9
+   },
+   {
+    "marker": "The Crater",
+    "region": "Toxic Valley",
+    "chance_value": 0.0909,
+    "chance_display": "9.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "The Freak Show",
+    "region": "Savage Divide",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "The General's Steakhouse",
+    "region": "Cranberry Bog",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "The Giant Teapot",
+    "region": "Forest",
+    "chance_value": 0.25,
+    "chance_display": "25%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "The Thorn",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0769,
+    "chance_display": "7.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "The Wayward",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Three Ponds",
+    "region": "Skyline Valley",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Thunder Mountain Substation TM-02",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Thunder Mountain Substation TM-03",
+    "region": "Skyline Valley",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Toxic Dried Lakebed",
+    "region": "Toxic Valley",
+    "chance_value": 0.0909,
+    "chance_display": "9.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Twin Lakes",
+    "region": "Savage Divide",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Twin Pine Cabins",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Tygart Water Treatment",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Tyler County Dirt Track",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Uncanny Caverns",
+    "region": "Savage Divide",
+    "chance_value": 0.2,
+    "chance_display": "20%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 11
+   },
+   {
+    "marker": "Unfinished Mansion",
+    "region": "Ash Heap",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Vault 63",
+    "region": "Ash Heap",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Vault 76",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Vault-Tec Agricultural Research Center",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "Veiled Sundew Grove",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Watoga",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Watoga Station",
+    "region": "Cranberry Bog",
+    "chance_value": 0.1,
+    "chance_display": "10%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Watoga Underground",
+    "region": "Cranberry Bog",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Welch",
+    "region": "Ash Heap",
+    "chance_value": 0.1333,
+    "chance_display": "13.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "White Powder Winter Sports",
+    "region": "Forest",
+    "chance_value": 0.0833,
+    "chance_display": "8.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Widow's Perch",
+    "region": "Ash Heap",
+    "chance_value": 0.125,
+    "chance_display": "12.5%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Wilson Brother's Auto Repair",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Wixon Homestead",
+    "region": "Forest",
+    "chance_value": 0.1667,
+    "chance_display": "16.7%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "WV Lumber Co.",
+    "region": "Forest",
+    "chance_value": 0.1429,
+    "chance_display": "14.3%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Yellow Sandy's Still",
+    "region": "Savage Divide",
+    "chance_value": 0.0714,
+    "chance_display": "7.1%",
+    "variants": [
+     "Mole Rat"
+    ],
+    "count": 6
+   }
+  ],
+  "total": 206,
+  "note": null
+ },
+ "blurb": "The Mole Rat in Fallout 76 — drops Mole Rat Meat, 135 NPC variants, 388 known spawn points.",
+ "map_base": "/wp-content/uploads/guide-images/farming-meat/mole-rat/"
+}
