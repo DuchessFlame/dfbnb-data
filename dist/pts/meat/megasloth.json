@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-09-04",
+  "generated": "2026-09-06",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -8,7 +8,8 @@
    }
   ],
   "source_totals": {
-   "ambush": 12
+   "ambush": 12,
+   "placement": 15
   },
   "unresolved": {}
  },
@@ -280,7 +281,100 @@
    },
    {
     "region": "Cranberry Bog",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Fissure Site",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "386DF5",
+       "386DF6"
+      ],
+      "coords": [
+       151916.0,
+       -67499.4
+      ],
+      "spawns": [
+       {
+        "label": "Mega Sloth",
+        "ref": "386DF5",
+        "source_type": "placement",
+        "coords": [
+         151916.0,
+         -67499.4
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Mega Sloth"
+       },
+       {
+        "label": "Mega Sloth",
+        "ref": "386DF6",
+        "source_type": "placement",
+        "coords": [
+         153384.8,
+         -65841.6
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Mega Sloth"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Fissure Site Prime",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "386EDB"
+      ],
+      "coords": [
+       196245.9,
+       -166897.9
+      ],
+      "spawns": [
+       {
+        "label": "Hulking Mega Sloth",
+        "ref": "386EDB",
+        "source_type": "placement",
+        "coords": [
+         196245.9,
+         -166897.9
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Hulking Mega Sloth"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "Forest",
@@ -295,15 +389,17 @@
     "locations": [
      {
       "marker": "Dark Hollow Manor",
-      "count": 1,
+      "count": 2,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "75762D"
+       "75762D",
+       "757655"
       ],
       "coords": [
        30952.0,
@@ -321,6 +417,18 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Megasloth spawn",
+        "ref": "757655",
+        "source_type": "placement",
+        "coords": [
+         30821.2,
+         -219947.4
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -328,6 +436,11 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      },
@@ -397,14 +510,17 @@
      },
      {
       "marker": "The Trading Post",
-      "count": 1,
+      "count": 3,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 2
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "753A0A",
+       "753A0B",
        "753A0D"
       ],
       "coords": [
@@ -423,6 +539,30 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Megasloth spawn #1",
+        "ref": "753A0A",
+        "source_type": "placement",
+        "coords": [
+         38630.6,
+         -231760.2
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Megasloth spawn #2",
+        "ref": "753A0B",
+        "source_type": "placement",
+        "coords": [
+         39169.9,
+         -231711.1
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -430,6 +570,11 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
        }
       ]
      }
@@ -440,15 +585,17 @@
     "locations": [
      {
       "marker": "Dabney Homestead",
-      "count": 1,
+      "count": 2,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "4502B8"
+       "4502B8",
+       "4502BB"
       ],
       "coords": [
        176223.0,
@@ -466,6 +613,18 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Megasloth spawn",
+        "ref": "4502BB",
+        "source_type": "placement",
+        "coords": [
+         175930.6,
+         -29692.6
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -473,21 +632,29 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "KMAX Transmission",
-      "count": 2,
+      "count": 4,
       "sources": {
-       "ambush": 2
+       "ambush": 2,
+       "placement": 2
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "48CC55",
        "48CC56",
-       "48CC59"
+       "48CC59",
+       "48CC5A"
       ],
       "coords": [
        179595.6,
@@ -517,6 +684,30 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Megasloth spawn #1",
+        "ref": "48CC55",
+        "source_type": "placement",
+        "coords": [
+         179528.4,
+         -42074.9
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Megasloth spawn #2",
+        "ref": "48CC5A",
+        "source_type": "placement",
+        "coords": [
+         177867.7,
+         -41982.6
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -524,22 +715,69 @@
         "label": "ambush points",
         "count": 2,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
        }
       ]
      },
      {
-      "marker": "Southern Belle Motel",
-      "count": 3,
+      "marker": "Mosstown",
+      "count": 1,
       "sources": {
-       "ambush": 3
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "43CCA1"
+      ],
+      "coords": [
+       130296.9,
+       58520.3
+      ],
+      "spawns": [
+       {
+        "label": "Megasloth spawn",
+        "ref": "43CCA1",
+        "source_type": "placement",
+        "coords": [
+         130296.9,
+         58520.3
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Southern Belle Motel",
+      "count": 6,
+      "sources": {
+       "ambush": 3,
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "45026E",
        "45026F",
        "4502A1",
-       "4502A6"
+       "4502A4",
+       "4502A6",
+       "4502A7"
       ],
       "coords": [
        164754.7,
@@ -581,6 +819,42 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Megasloth spawn #1",
+        "ref": "45026E",
+        "source_type": "placement",
+        "coords": [
+         164513.8,
+         30895.1
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Megasloth spawn #2",
+        "ref": "4502A4",
+        "source_type": "placement",
+        "coords": [
+         170346.3,
+         15192.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Megasloth spawn #3",
+        "ref": "4502A7",
+        "source_type": "placement",
+        "coords": [
+         170060.3,
+         14874.6
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -588,20 +862,27 @@
         "label": "ambush points",
         "count": 3,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Sunday Brothers' Cabin",
-      "count": 1,
+      "count": 2,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "4502A9"
+       "4502A9",
+       "4502AC"
       ],
       "coords": [
        135627.3,
@@ -619,6 +900,18 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Megasloth spawn",
+        "ref": "4502AC",
+        "source_type": "placement",
+        "coords": [
+         135874.5,
+         -7166.7
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -626,6 +919,49 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Tanagra Town",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2FF477"
+      ],
+      "coords": [
+       193535.9,
+       16678.2
+      ],
+      "spawns": [
+       {
+        "label": "Megasloth spawn",
+        "ref": "2FF477",
+        "source_type": "placement",
+        "coords": [
+         193535.9,
+         16678.2
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      }
@@ -640,8 +976,8 @@
     "locations": []
    }
   ],
-  "total_markers": 7,
-  "total_placements": 12
+  "total_markers": 11,
+  "total_placements": 27
  },
  "chance_spawns": {
   "locations": [
@@ -703,17 +1039,7 @@
     "variants": [
      "Megasloth"
     ],
-    "count": 5
-   },
-   {
-    "marker": "Dark Hollow Manor",
-    "region": "Skyline Valley",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Megasloth"
-    ],
-    "count": 1
+    "count": 4
    },
    {
     "marker": "Dolly Sods Lookout",
@@ -742,26 +1068,6 @@
     "chance_display": "7.1%",
     "variants": [
      "Megasloth"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Fissure Site",
-    "region": "Cranberry Bog",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mega Sloth"
-    ],
-    "count": 2
-   },
-   {
-    "marker": "Fissure Site Prime",
-    "region": "Cranberry Bog",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Hulking Mega Sloth"
     ],
     "count": 1
    },
@@ -826,16 +1132,6 @@
     "count": 4
    },
    {
-    "marker": "KMAX Transmission",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Megasloth"
-    ],
-    "count": 2
-   },
-   {
     "marker": "Mosstown",
     "region": "The Mire",
     "chance_value": 0.0714,
@@ -843,7 +1139,7 @@
     "variants": [
      "Megasloth"
     ],
-    "count": 4
+    "count": 3
    },
    {
     "marker": "Overgrown Sundew Grove",
@@ -884,46 +1180,6 @@
      "Megasloth"
     ],
     "count": 5
-   },
-   {
-    "marker": "Southern Belle Motel",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Megasloth"
-    ],
-    "count": 3
-   },
-   {
-    "marker": "Sunday Brothers' Cabin",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Megasloth"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Tanagra Town",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Megasloth"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "The Trading Post",
-    "region": "Skyline Valley",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Megasloth"
-    ],
-    "count": 2
    },
    {
     "marker": "Thunder Mountain Power Plant",
@@ -976,8 +1232,8 @@
     "count": 4
    }
   ],
-  "total": 33,
+  "total": 25,
   "note": null
  },
- "blurb": "The Megasloth in Fallout 76 — drops Megasloth Meat, 15 NPC variants, 12 known spawn points."
+ "blurb": "The Megasloth in Fallout 76 — drops Megasloth Meat, 15 NPC variants, 27 known spawn points."
 }

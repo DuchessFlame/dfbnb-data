@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-09-04",
+  "generated": "2026-09-06",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -12,6 +12,7 @@
   ],
   "source_totals": {
    "ambush": 196,
+   "placement": 155,
    "spawn": 37
   },
   "unresolved": {}
@@ -340,14 +341,18 @@
     "locations": [
      {
       "marker": "Gleaming Depths",
-      "count": 9,
+      "count": 12,
       "sources": {
-       "ambush": 9
+       "ambush": 9,
+       "placement": 3
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "78BEBA",
+       "78F7A9",
+       "793860",
        "7981D2",
        "7981D3",
        "7981D4",
@@ -362,121 +367,18 @@
        -8576.0,
        6528.0
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "7981D2",
-        "source_type": "ambush",
-        "coords": [
-         -8312.7,
-         9083.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "7981D3",
-        "source_type": "ambush",
-        "coords": [
-         -8283.6,
-         6273.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "7981D4",
-        "source_type": "ambush",
-        "coords": [
-         -7814.4,
-         7036.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #4",
-        "ref": "7981D5",
-        "source_type": "ambush",
-        "coords": [
-         -8576.0,
-         6528.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #5",
-        "ref": "7981D6",
-        "source_type": "ambush",
-        "coords": [
-         -6784.0,
-         6528.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #6",
-        "ref": "7981D7",
-        "source_type": "ambush",
-        "coords": [
-         -6016.0,
-         9088.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #7",
-        "ref": "7981D8",
-        "source_type": "ambush",
-        "coords": [
-         -8128.0,
-         8576.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #8",
-        "ref": "7981DB",
-        "source_type": "ambush",
-        "coords": [
-         -8177.6,
-         6649.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #9",
-        "ref": "7981E7",
-        "source_type": "ambush",
-        "coords": [
-         -8957.1,
-         7707.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 9,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
        }
       ]
      },
@@ -497,32 +399,8 @@
        -67208.5,
        -113057.3
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "68381F",
-        "source_type": "ambush",
-        "coords": [
-         -67208.5,
-         -113057.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "683820",
-        "source_type": "ambush",
-        "coords": [
-         -67433.9,
-         -112256.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
@@ -553,97 +431,39 @@
        -69632.0,
        -114304.0
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "6749E7",
-        "source_type": "ambush",
-        "coords": [
-         -69632.0,
-         -114304.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "6749E8",
-        "source_type": "ambush",
-        "coords": [
-         -69408.0,
-         -113400.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "6749E9",
-        "source_type": "ambush",
-        "coords": [
-         -69136.0,
-         -113360.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #4",
-        "ref": "6749EA",
-        "source_type": "ambush",
-        "coords": [
-         -69136.0,
-         -113360.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #5",
-        "ref": "6749EB",
-        "source_type": "ambush",
-        "coords": [
-         -69696.0,
-         -114048.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #6",
-        "ref": "6749EC",
-        "source_type": "ambush",
-        "coords": [
-         -69656.0,
-         -113808.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #7",
-        "ref": "68381E",
-        "source_type": "ambush",
-        "coords": [
-         -70340.3,
-         -112386.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 7,
         "source_type": "ambush"
+       }
+      ]
+     },
+     {
+      "marker": "The Rusty Pick",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "620A7F"
+      ],
+      "coords": [
+       1675.3,
+       4203.2
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      },
@@ -668,80 +488,8 @@
        4836.2,
        -1517.9
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "668AB7",
-        "source_type": "ambush",
-        "coords": [
-         4836.2,
-         -1517.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "66929D",
-        "source_type": "ambush",
-        "coords": [
-         4369.6,
-         166.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "6692A1",
-        "source_type": "ambush",
-        "coords": [
-         4142.0,
-         4080.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #4",
-        "ref": "6692A6",
-        "source_type": "ambush",
-        "coords": [
-         3268.2,
-         3105.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #5",
-        "ref": "6692A7",
-        "source_type": "ambush",
-        "coords": [
-         5130.2,
-         2549.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #6",
-        "ref": "6692B1",
-        "source_type": "ambush",
-        "coords": [
-         5457.5,
-         -5159.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
@@ -752,9 +500,10 @@
      },
      {
       "marker": "Welch",
-      "count": 5,
+      "count": 8,
       "sources": {
        "ambush": 3,
+       "placement": 3,
        "spawn": 2
       },
       "image_top": "",
@@ -763,81 +512,29 @@
       "refs": [
        "4E4583",
        "4E4584",
+       "67E90A",
+       "67E90B",
        "67E90C",
        "67E90E",
+       "67E90F",
        "67E910"
       ],
       "coords": [
        -159663.5,
        -129087.2
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "67E90C",
-        "source_type": "ambush",
-        "coords": [
-         -159663.5,
-         -129087.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "67E90E",
-        "source_type": "ambush",
-        "coords": [
-         -160374.9,
-         -129752.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "67E910",
-        "source_type": "ambush",
-        "coords": [
-         -159979.0,
-         -130122.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #1",
-        "ref": "4E4583",
-        "source_type": "spawn",
-        "coords": [
-         -156366.8,
-         -129966.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #2",
-        "ref": "4E4584",
-        "source_type": "spawn",
-        "coords": [
-         -156524.8,
-         -129915.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 3,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
        },
        {
         "label": "spawn points",
@@ -863,32 +560,8 @@
        -150908.4,
        -129424.9
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat spawn #1",
-        "ref": "4E4585",
-        "source_type": "spawn",
-        "coords": [
-         -150908.4,
-         -129424.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #2",
-        "ref": "4E4586",
-        "source_type": "spawn",
-        "coords": [
-         -150997.8,
-         -129245.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "spawn points",
@@ -922,68 +595,8 @@
        -3760.3,
        -381.7
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "6D3B91",
-        "source_type": "ambush",
-        "coords": [
-         -3760.3,
-         -381.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "6F77CB",
-        "source_type": "ambush",
-        "coords": [
-         -5438.3,
-         -1327.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "6F77CC",
-        "source_type": "ambush",
-        "coords": [
-         -6785.1,
-         -1346.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #4",
-        "ref": "6F8386",
-        "source_type": "ambush",
-        "coords": [
-         -452.1,
-         -2069.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #5",
-        "ref": "6F838E",
-        "source_type": "ambush",
-        "coords": [
-         -1231.0,
-         -2119.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
@@ -999,9 +612,10 @@
     "locations": [
      {
       "marker": "Athens",
-      "count": 3,
+      "count": 6,
       "sources": {
-       "ambush": 3
+       "ambush": 3,
+       "placement": 3
       },
       "image_top": "",
       "directions": "",
@@ -1009,209 +623,105 @@
       "refs": [
        "8395B0",
        "8395B1",
-       "8395B2"
+       "8395B2",
+       "8395B5",
+       "8395B6",
+       "8395B7"
       ],
       "coords": [
        -231071.3,
        149620.6
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "8395B0",
-        "source_type": "ambush",
-        "coords": [
-         -231071.3,
-         149620.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "8395B1",
-        "source_type": "ambush",
-        "coords": [
-         -231770.3,
-         149144.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "8395B2",
-        "source_type": "ambush",
-        "coords": [
-         -230588.7,
-         149656.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 3,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Hamley Run Camp",
-      "count": 5,
+      "count": 10,
       "sources": {
-       "ambush": 5
+       "ambush": 5,
+       "placement": 5
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "826D6C",
        "826D6E",
+       "826D71",
        "826D73",
+       "826D76",
        "826D78",
+       "826D7B",
        "826D7D",
+       "826D80",
        "826D82"
       ],
       "coords": [
        -252138.2,
        179193.8
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "826D6E",
-        "source_type": "ambush",
-        "coords": [
-         -251439.7,
-         179180.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "826D73",
-        "source_type": "ambush",
-        "coords": [
-         -252138.2,
-         179193.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "826D78",
-        "source_type": "ambush",
-        "coords": [
-         -252937.6,
-         179192.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #4",
-        "ref": "826D7D",
-        "source_type": "ambush",
-        "coords": [
-         -252395.9,
-         178591.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #5",
-        "ref": "826D82",
-        "source_type": "ambush",
-        "coords": [
-         -251770.6,
-         178705.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 5,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Hocking Hills Train Station",
-      "count": 3,
+      "count": 6,
       "sources": {
-       "ambush": 3
+       "ambush": 3,
+       "placement": 3
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "7FBA9F",
        "7FBAA1",
+       "81BEF8",
        "81BEF9",
+       "81BEFA",
        "81BF0F"
       ],
       "coords": [
        -257268.2,
        77998.4
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "7FBAA1",
-        "source_type": "ambush",
-        "coords": [
-         -257268.2,
-         77998.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "81BEF9",
-        "source_type": "ambush",
-        "coords": [
-         -257651.8,
-         88332.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "81BF0F",
-        "source_type": "ambush",
-        "coords": [
-         -257522.2,
-         88486.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 3,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
        }
       ]
      }
@@ -1222,167 +732,108 @@
     "locations": [
      {
       "marker": "Appalachian Antiques",
-      "count": 1,
+      "count": 2,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "3B7725",
        "3B7727"
       ],
       "coords": [
        120230.3,
        -125831.5
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush",
-        "ref": "3B7727",
-        "source_type": "ambush",
-        "coords": [
-         120230.3,
-         -125831.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Big Bend Tunnels",
-      "count": 4,
+      "count": 8,
       "sources": {
-       "ambush": 4
+       "ambush": 4,
+       "placement": 4
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "58D3D7",
        "58D3D9",
+       "58D3DC",
        "58D3DE",
+       "58D3E5",
        "58D3E7",
+       "58D3EA",
        "58D3EC"
       ],
       "coords": [
        -5152.2,
        25406.9
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "58D3D9",
-        "source_type": "ambush",
-        "coords": [
-         -5152.2,
-         25406.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "58D3DE",
-        "source_type": "ambush",
-        "coords": [
-         -1538.0,
-         26290.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "58D3E7",
-        "source_type": "ambush",
-        "coords": [
-         109.3,
-         10661.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #4",
-        "ref": "58D3EC",
-        "source_type": "ambush",
-        "coords": [
-         962.0,
-         9321.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 4,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Crimson Prospect",
-      "count": 2,
+      "count": 4,
       "sources": {
-       "ambush": 2
+       "ambush": 2,
+       "placement": 2
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "3CE899",
        "3CE89B",
+       "3CE89E",
        "3CE8A0"
       ],
       "coords": [
        136056.9,
        -96242.3
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "3CE89B",
-        "source_type": "ambush",
-        "coords": [
-         136056.9,
-         -96242.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "3CE8A0",
-        "source_type": "ambush",
-        "coords": [
-         136037.1,
-         -96637.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 2,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
        }
       ]
      },
@@ -1405,56 +856,8 @@
        202791.1,
        -171275.8
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "3D374D",
-        "source_type": "ambush",
-        "coords": [
-         202791.1,
-         -171275.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "3D3753",
-        "source_type": "ambush",
-        "coords": [
-         202817.5,
-         -169059.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "3D3864",
-        "source_type": "ambush",
-        "coords": [
-         202791.1,
-         -171275.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #4",
-        "ref": "3D3869",
-        "source_type": "ambush",
-        "coords": [
-         202817.5,
-         -169059.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
@@ -1465,256 +868,179 @@
      },
      {
       "marker": "Kerwood Mine",
-      "count": 2,
+      "count": 4,
       "sources": {
-       "ambush": 2
+       "ambush": 2,
+       "placement": 2
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "37E266",
        "37E268",
+       "37E26B",
        "37E26D"
       ],
       "coords": [
        -3207.0,
        1467.9
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "37E268",
-        "source_type": "ambush",
-        "coords": [
-         -3207.0,
-         1467.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "37E26D",
-        "source_type": "ambush",
-        "coords": [
-         2145.9,
-         444.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 2,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "NAR Repair Yard",
-      "count": 4,
+      "count": 10,
       "sources": {
-       "ambush": 4
+       "ambush": 4,
+       "placement": 6
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
        "42C1B4",
+       "42C1EA",
+       "439194",
+       "439196",
+       "5368CB",
        "5368CD",
        "5368CE",
+       "5368D0",
+       "5368D1",
        "5368D2"
       ],
       "coords": [
        138959.7,
        -164726.0
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "42C1B4",
-        "source_type": "ambush",
-        "coords": [
-         138959.7,
-         -164726.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "5368CD",
-        "source_type": "ambush",
-        "coords": [
-         139012.7,
-         -160476.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "5368CE",
-        "source_type": "ambush",
-        "coords": [
-         138963.1,
-         -159371.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #4",
-        "ref": "5368D2",
-        "source_type": "ambush",
-        "coords": [
-         137572.1,
-         -159563.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 4,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 6,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Overgrown Sundew Grove",
-      "count": 1,
+      "count": 2,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "3CE871",
        "3CE873"
       ],
       "coords": [
        182559.3,
        -170780.9
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush",
-        "ref": "3CE873",
-        "source_type": "ambush",
-        "coords": [
-         182559.3,
-         -170780.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Sunrise Field",
-      "count": 2,
+      "count": 5,
       "sources": {
-       "ambush": 2
+       "ambush": 2,
+       "placement": 3
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
        "42C1A9",
-       "42C1AA"
+       "42C1AA",
+       "42C1B1",
+       "42C1B2",
+       "5959F3"
       ],
       "coords": [
        139348.5,
        -164454.1
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "42C1A9",
-        "source_type": "ambush",
-        "coords": [
-         139348.5,
-         -164454.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "42C1AA",
-        "source_type": "ambush",
-        "coords": [
-         139640.2,
-         -165009.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 2,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Veiled Sundew Grove",
-      "count": 1,
+      "count": 2,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "3CE866",
        "3CE868"
       ],
       "coords": [
        173585.9,
        -122468.0
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush",
-        "ref": "3CE868",
-        "source_type": "ambush",
-        "coords": [
-         173585.9,
-         -122468.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      }
@@ -1723,6 +1049,32 @@
    {
     "region": "Forest",
     "locations": [
+     {
+      "marker": "Aaronholt Homestead",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3B7715"
+      ],
+      "coords": [
+       -121944.0,
+       171640.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
      {
       "marker": "Arktos Pharma Biome Lab",
       "count": 42,
@@ -1780,512 +1132,8 @@
        751.6,
        -4689.2
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "536C2E",
-        "source_type": "ambush",
-        "coords": [
-         751.6,
-         -4689.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "536C2F",
-        "source_type": "ambush",
-        "coords": [
-         693.5,
-         -4769.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "536C30",
-        "source_type": "ambush",
-        "coords": [
-         671.7,
-         -4790.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #4",
-        "ref": "536C31",
-        "source_type": "ambush",
-        "coords": [
-         614.6,
-         -4780.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #5",
-        "ref": "536C32",
-        "source_type": "ambush",
-        "coords": [
-         1433.7,
-         -4715.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #6",
-        "ref": "536C33",
-        "source_type": "ambush",
-        "coords": [
-         1460.7,
-         -4759.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #7",
-        "ref": "536C34",
-        "source_type": "ambush",
-        "coords": [
-         1435.1,
-         -4658.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #8",
-        "ref": "536C35",
-        "source_type": "ambush",
-        "coords": [
-         1480.5,
-         -4608.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #9",
-        "ref": "536C36",
-        "source_type": "ambush",
-        "coords": [
-         1634.1,
-         -3668.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #10",
-        "ref": "536C37",
-        "source_type": "ambush",
-        "coords": [
-         1701.3,
-         -3703.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #11",
-        "ref": "536C38",
-        "source_type": "ambush",
-        "coords": [
-         1631.8,
-         -3643.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #12",
-        "ref": "536C39",
-        "source_type": "ambush",
-        "coords": [
-         1729.6,
-         -3723.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #13",
-        "ref": "536C3A",
-        "source_type": "ambush",
-        "coords": [
-         1654.0,
-         -3678.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #14",
-        "ref": "536C3B",
-        "source_type": "ambush",
-        "coords": [
-         1630.2,
-         -3546.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #15",
-        "ref": "536C3C",
-        "source_type": "ambush",
-        "coords": [
-         1632.8,
-         -3487.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #16",
-        "ref": "536C3D",
-        "source_type": "ambush",
-        "coords": [
-         723.2,
-         -4724.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #17",
-        "ref": "536C3E",
-        "source_type": "ambush",
-        "coords": [
-         1642.2,
-         -5391.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #18",
-        "ref": "536C3F",
-        "source_type": "ambush",
-        "coords": [
-         1608.5,
-         -5442.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #19",
-        "ref": "536C40",
-        "source_type": "ambush",
-        "coords": [
-         1567.6,
-         -5489.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #20",
-        "ref": "536C41",
-        "source_type": "ambush",
-        "coords": [
-         1551.3,
-         -5566.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #21",
-        "ref": "536C42",
-        "source_type": "ambush",
-        "coords": [
-         1190.0,
-         -5842.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #22",
-        "ref": "536C43",
-        "source_type": "ambush",
-        "coords": [
-         1352.8,
-         -5729.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #23",
-        "ref": "536C44",
-        "source_type": "ambush",
-        "coords": [
-         1261.1,
-         -5801.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #24",
-        "ref": "536C45",
-        "source_type": "ambush",
-        "coords": [
-         1316.1,
-         -5759.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #25",
-        "ref": "536C46",
-        "source_type": "ambush",
-        "coords": [
-         -2300.0,
-         -4540.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #26",
-        "ref": "536C47",
-        "source_type": "ambush",
-        "coords": [
-         -1232.1,
-         -5636.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #27",
-        "ref": "536C48",
-        "source_type": "ambush",
-        "coords": [
-         -1285.5,
-         -5675.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #28",
-        "ref": "536C49",
-        "source_type": "ambush",
-        "coords": [
-         -1197.4,
-         -5647.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #29",
-        "ref": "536C4A",
-        "source_type": "ambush",
-        "coords": [
-         -1283.8,
-         -5647.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #30",
-        "ref": "536C4B",
-        "source_type": "ambush",
-        "coords": [
-         -2305.0,
-         -4493.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #31",
-        "ref": "536C5C",
-        "source_type": "ambush",
-        "coords": [
-         -2327.5,
-         -4553.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #32",
-        "ref": "536C5D",
-        "source_type": "ambush",
-        "coords": [
-         -2326.5,
-         -4446.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #33",
-        "ref": "536C5E",
-        "source_type": "ambush",
-        "coords": [
-         -1141.3,
-         -3794.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #34",
-        "ref": "536C5F",
-        "source_type": "ambush",
-        "coords": [
-         -1100.3,
-         -3796.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #35",
-        "ref": "536C60",
-        "source_type": "ambush",
-        "coords": [
-         -1811.5,
-         -4618.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #36",
-        "ref": "536C61",
-        "source_type": "ambush",
-        "coords": [
-         -1811.5,
-         -4618.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #37",
-        "ref": "536C62",
-        "source_type": "ambush",
-        "coords": [
-         -1811.5,
-         -4618.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #38",
-        "ref": "536C63",
-        "source_type": "ambush",
-        "coords": [
-         -1811.5,
-         -4618.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #39",
-        "ref": "536C64",
-        "source_type": "ambush",
-        "coords": [
-         -1262.5,
-         -5624.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #40",
-        "ref": "536C65",
-        "source_type": "ambush",
-        "coords": [
-         -1289.7,
-         -5647.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #41",
-        "ref": "536C66",
-        "source_type": "ambush",
-        "coords": [
-         -1308.8,
-         -5697.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #42",
-        "ref": "536C67",
-        "source_type": "ambush",
-        "coords": [
-         -1285.8,
-         -5713.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
@@ -2296,130 +1144,162 @@
      },
      {
       "marker": "Charleston Landfill",
-      "count": 1,
+      "count": 4,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 3
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "32E9A8",
+       "32E9A9",
+       "32E9AA",
        "50AE0C"
       ],
       "coords": [
        -133108.8,
        -53004.4
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush",
-        "ref": "50AE0C",
-        "source_type": "ambush",
-        "coords": [
-         -133108.8,
-         -53004.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Flatwoods",
-      "count": 1,
+      "count": 2,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "3D0FF2",
        "3D0FF4"
       ],
       "coords": [
        -108909.7,
        10240.0
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush",
-        "ref": "3D0FF4",
-        "source_type": "ambush",
-        "coords": [
-         -108909.7,
-         10240.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Fraternity Row",
-      "count": 1,
+      "count": 2,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "50B57C",
        "50B57E"
       ],
       "coords": [
        10022.0,
        92788.2
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush",
-        "ref": "50B57E",
-        "source_type": "ambush",
-        "coords": [
-         10022.0,
-         92788.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Gauley Mine",
+      "count": 17,
+      "sources": {
+       "placement": 17
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "58FED9",
+       "58FEDA",
+       "58FEDB",
+       "58FEDC",
+       "58FEDD",
+       "58FEDE",
+       "58FEDF",
+       "58FEE0",
+       "58FEE1",
+       "58FEE2",
+       "58FEE3",
+       "58FEE4",
+       "58FEE5",
+       "58FEE6",
+       "58FEFC",
+       "58FEFD",
+       "58FEFE"
+      ],
+      "coords": [
+       2620.1,
+       4692.6
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 17,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Gorge Junkyard",
-      "count": 3,
+      "count": 5,
       "sources": {
        "ambush": 2,
+       "placement": 2,
        "spawn": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "2F8A3D",
        "2F8A3F",
+       "2F8A42",
        "2F8A44",
        "3B1BB5"
       ],
@@ -2427,49 +1307,18 @@
        -57917.7,
        94040.1
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "2F8A3F",
-        "source_type": "ambush",
-        "coords": [
-         -57917.7,
-         94040.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "2F8A44",
-        "source_type": "ambush",
-        "coords": [
-         -53016.8,
-         89513.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn",
-        "ref": "3B1BB5",
-        "source_type": "spawn",
-        "coords": [
-         -63982.3,
-         83655.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 2,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
        },
        {
         "label": "spawn point",
@@ -2496,44 +1345,8 @@
        -99565.3,
        29784.6
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat spawn #1",
-        "ref": "3D059A",
-        "source_type": "spawn",
-        "coords": [
-         -99565.3,
-         29784.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #2",
-        "ref": "3D059B",
-        "source_type": "spawn",
-        "coords": [
-         -99353.3,
-         29973.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #3",
-        "ref": "3D059C",
-        "source_type": "spawn",
-        "coords": [
-         -99641.3,
-         30054.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "spawn points",
@@ -2566,104 +1379,8 @@
        -149312.9,
        22446.3
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "3D029C",
-        "source_type": "ambush",
-        "coords": [
-         -150223.1,
-         22833.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "3D029D",
-        "source_type": "ambush",
-        "coords": [
-         -149770.3,
-         22064.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "3D029E",
-        "source_type": "ambush",
-        "coords": [
-         -149312.9,
-         22446.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #1",
-        "ref": "28EC05",
-        "source_type": "spawn",
-        "coords": [
-         -149924.9,
-         22282.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #2",
-        "ref": "28EC06",
-        "source_type": "spawn",
-        "coords": [
-         -148990.2,
-         22130.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #3",
-        "ref": "28EC07",
-        "source_type": "spawn",
-        "coords": [
-         -148924.5,
-         23411.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #4",
-        "ref": "28EC08",
-        "source_type": "spawn",
-        "coords": [
-         -150164.4,
-         22478.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #5",
-        "ref": "28EC09",
-        "source_type": "spawn",
-        "coords": [
-         -149809.6,
-         22393.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
@@ -2674,6 +1391,34 @@
         "label": "spawn points",
         "count": 5,
         "source_type": "spawn"
+       }
+      ]
+     },
+     {
+      "marker": "Hornwright Summer Villa",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "28DCD9",
+       "28DCDA",
+       "28DCDB"
+      ],
+      "coords": [
+       -39251.3,
+       -58764.7
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
        }
       ]
      },
@@ -2693,20 +1438,8 @@
        -67361.9,
        80764.9
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat spawn",
-        "ref": "3B1BB4",
-        "source_type": "spawn",
-        "coords": [
-         -67361.9,
-         80764.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "spawn point",
@@ -2717,39 +1450,60 @@
      },
      {
       "marker": "Organ Cave",
-      "count": 1,
+      "count": 2,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "73DB09",
        "73DB0B"
       ],
       "coords": [
        71.7,
        -5723.0
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush",
-        "ref": "73DB0B",
-        "source_type": "ambush",
-        "coords": [
-         71.7,
-         -5723.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Poseidon Energy Plant Expansion",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "564062"
+      ],
+      "coords": [
+       -2297.9,
+       -3964.7
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      },
@@ -2775,92 +1529,8 @@
        -35580.2,
        -259.0
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat spawn #1",
-        "ref": "52C8A2",
-        "source_type": "spawn",
-        "coords": [
-         -35580.2,
-         -259.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #2",
-        "ref": "52C8A3",
-        "source_type": "spawn",
-        "coords": [
-         -35611.7,
-         -124.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #3",
-        "ref": "52C8A6",
-        "source_type": "spawn",
-        "coords": [
-         -35247.9,
-         -1099.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #4",
-        "ref": "52C8A8",
-        "source_type": "spawn",
-        "coords": [
-         -35952.0,
-         -1267.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #5",
-        "ref": "52C8A9",
-        "source_type": "spawn",
-        "coords": [
-         -35284.8,
-         -816.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #6",
-        "ref": "52C8AA",
-        "source_type": "spawn",
-        "coords": [
-         -36228.7,
-         -313.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #7",
-        "ref": "52C8AB",
-        "source_type": "spawn",
-        "coords": [
-         -35959.3,
-         -879.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "spawn points",
@@ -2894,128 +1564,8 @@
        -69193.2,
        -71199.7
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat spawn #1",
-        "ref": "189A2E",
-        "source_type": "spawn",
-        "coords": [
-         -69193.2,
-         -71199.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #2",
-        "ref": "189A6D",
-        "source_type": "spawn",
-        "coords": [
-         -67976.3,
-         -70888.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #3",
-        "ref": "189A6E",
-        "source_type": "spawn",
-        "coords": [
-         -67865.0,
-         -70903.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #4",
-        "ref": "189A6F",
-        "source_type": "spawn",
-        "coords": [
-         -70349.2,
-         -73161.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #5",
-        "ref": "189A7C",
-        "source_type": "spawn",
-        "coords": [
-         -70455.4,
-         -73205.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #6",
-        "ref": "194D32",
-        "source_type": "spawn",
-        "coords": [
-         -72452.0,
-         -72142.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #7",
-        "ref": "194D35",
-        "source_type": "spawn",
-        "coords": [
-         -72590.5,
-         -72271.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #8",
-        "ref": "194D37",
-        "source_type": "spawn",
-        "coords": [
-         -70249.7,
-         -73109.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #9",
-        "ref": "194E69",
-        "source_type": "spawn",
-        "coords": [
-         -77154.9,
-         -68411.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #10",
-        "ref": "3B3740",
-        "source_type": "spawn",
-        "coords": [
-         -77534.8,
-         -68372.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "spawn points",
@@ -3026,52 +1576,36 @@
      },
      {
       "marker": "RobCo Auto-Cache #001",
-      "count": 2,
+      "count": 4,
       "sources": {
-       "ambush": 2
+       "ambush": 2,
+       "placement": 2
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "55FCEE",
        "55FCF0",
-       "56007F"
+       "56007F",
+       "560080"
       ],
       "coords": [
        -2489.1,
        3882.4
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "55FCF0",
-        "source_type": "ambush",
-        "coords": [
-         -2489.1,
-         3882.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "56007F",
-        "source_type": "ambush",
-        "coords": [
-         -2521.5,
-         3975.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 2,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
        }
       ]
      },
@@ -3117,332 +1651,8 @@
        -157469.4,
        -1410.3
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "43BCE1",
-        "source_type": "ambush",
-        "coords": [
-         -157469.4,
-         -1410.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "43BCE2",
-        "source_type": "ambush",
-        "coords": [
-         -158056.3,
-         -3362.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "43BCE4",
-        "source_type": "ambush",
-        "coords": [
-         -155619.9,
-         -2035.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #4",
-        "ref": "43BCE5",
-        "source_type": "ambush",
-        "coords": [
-         -157258.2,
-         -2229.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #5",
-        "ref": "43BCE6",
-        "source_type": "ambush",
-        "coords": [
-         -156798.5,
-         -2725.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #6",
-        "ref": "43BCE7",
-        "source_type": "ambush",
-        "coords": [
-         -158811.6,
-         -3263.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #7",
-        "ref": "43BCE8",
-        "source_type": "ambush",
-        "coords": [
-         -157342.7,
-         -528.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #8",
-        "ref": "43BCE9",
-        "source_type": "ambush",
-        "coords": [
-         -155680.3,
-         -2728.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #9",
-        "ref": "43BCEA",
-        "source_type": "ambush",
-        "coords": [
-         -157996.4,
-         -4010.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #10",
-        "ref": "43BCEB",
-        "source_type": "ambush",
-        "coords": [
-         -156876.8,
-         -952.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #11",
-        "ref": "43BCEC",
-        "source_type": "ambush",
-        "coords": [
-         -156897.8,
-         -346.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #12",
-        "ref": "43BCED",
-        "source_type": "ambush",
-        "coords": [
-         -158641.0,
-         -3748.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #13",
-        "ref": "43BCEE",
-        "source_type": "ambush",
-        "coords": [
-         -156176.1,
-         -2375.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #14",
-        "ref": "43BCEF",
-        "source_type": "ambush",
-        "coords": [
-         -157759.4,
-         -2611.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #15",
-        "ref": "43BCF0",
-        "source_type": "ambush",
-        "coords": [
-         -158205.0,
-         -4290.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #16",
-        "ref": "43BCF1",
-        "source_type": "ambush",
-        "coords": [
-         -158238.2,
-         -1501.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #17",
-        "ref": "43BCF2",
-        "source_type": "ambush",
-        "coords": [
-         -155795.4,
-         -1632.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #18",
-        "ref": "43BCF3",
-        "source_type": "ambush",
-        "coords": [
-         -159063.2,
-         -2749.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #19",
-        "ref": "43BCF4",
-        "source_type": "ambush",
-        "coords": [
-         -156218.7,
-         -3595.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #20",
-        "ref": "43BCF5",
-        "source_type": "ambush",
-        "coords": [
-         -156144.1,
-         -3203.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #21",
-        "ref": "43BCF6",
-        "source_type": "ambush",
-        "coords": [
-         -157735.5,
-         -651.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #22",
-        "ref": "43BCF7",
-        "source_type": "ambush",
-        "coords": [
-         -156633.5,
-         -1556.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #23",
-        "ref": "43BCF8",
-        "source_type": "ambush",
-        "coords": [
-         -156429.3,
-         -4070.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #24",
-        "ref": "43BCF9",
-        "source_type": "ambush",
-        "coords": [
-         -157760.3,
-         -3108.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #25",
-        "ref": "43BCFA",
-        "source_type": "ambush",
-        "coords": [
-         -155946.3,
-         -810.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #26",
-        "ref": "43BCFB",
-        "source_type": "ambush",
-        "coords": [
-         -155131.1,
-         -1998.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #27",
-        "ref": "43BCFC",
-        "source_type": "ambush",
-        "coords": [
-         -158285.7,
-         -2165.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
@@ -3467,20 +1677,8 @@
        -76978.7,
        -67616.1
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat spawn",
-        "ref": "194E6A",
-        "source_type": "spawn",
-        "coords": [
-         -76978.7,
-         -67616.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "spawn point",
@@ -3491,65 +1689,38 @@
      },
      {
       "marker": "The Giant Teapot",
-      "count": 3,
+      "count": 6,
       "sources": {
-       "ambush": 3
+       "ambush": 3,
+       "placement": 3
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
        "3D36BF",
+       "3D36C2",
        "3D36C4",
-       "3D37D8"
+       "3D37D6",
+       "3D37D8",
+       "3D37DB"
       ],
       "coords": [
        -136088.0,
        -29200.0
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "3D36BF",
-        "source_type": "ambush",
-        "coords": [
-         -136088.0,
-         -29200.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "3D36C4",
-        "source_type": "ambush",
-        "coords": [
-         -131637.1,
-         -26875.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "3D37D8",
-        "source_type": "ambush",
-        "coords": [
-         -134544.0,
-         -31760.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 3,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
        }
       ]
      },
@@ -3572,56 +1743,8 @@
        -154630.0,
        125992.1
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat spawn #1",
-        "ref": "05EE9E",
-        "source_type": "spawn",
-        "coords": [
-         -154630.0,
-         125992.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #2",
-        "ref": "05EEA5",
-        "source_type": "spawn",
-        "coords": [
-         -153344.0,
-         125773.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #3",
-        "ref": "05EEA6",
-        "source_type": "spawn",
-        "coords": [
-         -154506.5,
-         126427.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat spawn #4",
-        "ref": "05EEAB",
-        "source_type": "spawn",
-        "coords": [
-         -154714.8,
-         126284.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "spawn points",
@@ -3632,39 +1755,34 @@
      },
      {
       "marker": "Vault-Tec University",
-      "count": 1,
+      "count": 2,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "4F8573",
        "4F8575"
       ],
       "coords": [
        -1362.0,
        1063.7
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush",
-        "ref": "4F8575",
-        "source_type": "ambush",
-        "coords": [
-         -1362.0,
-         1063.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      }
@@ -3675,9 +1793,10 @@
     "locations": [
      {
       "marker": "Atlas Substructure",
-      "count": 9,
+      "count": 13,
       "sources": {
-       "ambush": 9
+       "ambush": 9,
+       "placement": 4
       },
       "image_top": "",
       "directions": "",
@@ -3691,314 +1810,383 @@
        "5C8E80",
        "5C8E81",
        "5C8E82",
-       "5C8E83"
+       "5C8E83",
+       "5DD45E",
+       "5DD467",
+       "5DD46F",
+       "5EE0D2"
       ],
       "coords": [
        1433.5,
        -714.0
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "5C2DCE",
-        "source_type": "ambush",
-        "coords": [
-         1433.5,
-         -714.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "5C2DCF",
-        "source_type": "ambush",
-        "coords": [
-         1653.0,
-         -6.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "5C2DD0",
-        "source_type": "ambush",
-        "coords": [
-         2341.5,
-         -103.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #4",
-        "ref": "5C2DD2",
-        "source_type": "ambush",
-        "coords": [
-         1971.6,
-         -938.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #5",
-        "ref": "5C8E7F",
-        "source_type": "ambush",
-        "coords": [
-         2219.1,
-         743.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #6",
-        "ref": "5C8E80",
-        "source_type": "ambush",
-        "coords": [
-         3417.3,
-         -597.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #7",
-        "ref": "5C8E81",
-        "source_type": "ambush",
-        "coords": [
-         2427.6,
-         255.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #8",
-        "ref": "5C8E82",
-        "source_type": "ambush",
-        "coords": [
-         1456.8,
-         502.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #9",
-        "ref": "5C8E83",
-        "source_type": "ambush",
-        "coords": [
-         2882.1,
-         578.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 9,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
        }
       ]
      },
      {
-      "marker": "Bastion Park",
+      "marker": "Autumn Acre Cabin",
       "count": 4,
       "sources": {
-       "ambush": 4
+       "placement": 4
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "4E71A8",
+       "4E71A9",
+       "4E71AA",
+       "4E71AB"
+      ],
+      "coords": [
+       94976.0,
+       54976.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Bastion Park",
+      "count": 8,
+      "sources": {
+       "ambush": 4,
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3D36F7",
        "3D36F9",
+       "3D36FC",
        "3D36FE",
+       "3D380E",
        "3D3810",
+       "3D3813",
        "3D3815"
       ],
       "coords": [
        -19416.2,
        -106864.0
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "3D36F9",
-        "source_type": "ambush",
-        "coords": [
-         -19416.2,
-         -106864.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "3D36FE",
-        "source_type": "ambush",
-        "coords": [
-         -22560.2,
-         -111424.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "3D3810",
-        "source_type": "ambush",
-        "coords": [
-         -19416.2,
-         -106864.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #4",
-        "ref": "3D3815",
-        "source_type": "ambush",
-        "coords": [
-         -22560.2,
-         -111424.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 4,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Beckwith Farm",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "1497AD"
+      ],
+      "coords": [
+       46848.0,
+       -19304.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Big Fred's BBQ Shack",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "1497AE",
+       "1497AF"
+      ],
+      "coords": [
+       47371.5,
+       -19233.2
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Colonel Kelly Monument",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "520D0C",
+       "520D0D",
+       "520D0E"
+      ],
+      "coords": [
+       37151.8,
+       156328.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Dent & Sons Construction",
-      "count": 1,
+      "count": 2,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "39DDA6"
+       "39DDA6",
+       "39DE4D"
       ],
       "coords": [
        -3003.1,
        -179492.0
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush",
-        "ref": "39DDA6",
-        "source_type": "ambush",
-        "coords": [
-         -3003.1,
-         -179492.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      },
      {
-      "marker": "Hopewell Cave",
-      "count": 1,
+      "marker": "Enclave Research Facility",
+      "count": 2,
       "sources": {
-       "ambush": 1
+       "placement": 2
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "5DD4B0",
+       "5EACCA"
+      ],
+      "coords": [
+       -3852.9,
+       1760.1
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Fissure Site",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "386E2C",
+       "386E2D",
+       "386E2E"
+      ],
+      "coords": [
+       58404.1,
+       -149907.7
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Freddy Fear's House of Scares",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3E0D74",
+       "3E0D75",
+       "3E0D76"
+      ],
+      "coords": [
+       153484.4,
+       165396.0
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Hopewell Cave",
+      "count": 2,
+      "sources": {
+       "ambush": 1,
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3E400C",
        "3E400E"
       ],
       "coords": [
        114157.7,
        113423.4
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush",
-        "ref": "3E400E",
-        "source_type": "ambush",
-        "coords": [
-         114157.7,
-         113423.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Monongah Overlook",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "10E3D3",
+       "10E3D5"
+      ],
+      "coords": [
+       39667.5,
+       90404.7
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Palace of the Winding Path",
-      "count": 1,
+      "count": 3,
       "sources": {
+       "placement": 2,
        "spawn": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "3215D2",
+       "3215D4",
        "3D4EAE"
       ],
       "coords": [
-       57897.0,
-       172221.6
+       71952.4,
+       159676.6
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat spawn",
-        "ref": "3D4EAE",
-        "source_type": "spawn",
-        "coords": [
-         57897.0,
-         172221.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       },
        {
         "label": "spawn point",
         "count": 1,
@@ -4008,90 +2196,73 @@
      },
      {
       "marker": "Pleasant Valley Cabins",
-      "count": 2,
+      "count": 7,
       "sources": {
-       "ambush": 2
+       "ambush": 2,
+       "placement": 5
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
        "3219A7",
-       "3219AC"
+       "3219AA",
+       "3219AC",
+       "43CC4F",
+       "43CC50",
+       "43CC51",
+       "43CC52"
       ],
       "coords": [
        51655.9,
        21135.2
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "3219A7",
-        "source_type": "ambush",
-        "coords": [
-         51603.4,
-         20871.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "3219AC",
-        "source_type": "ambush",
-        "coords": [
-         51655.9,
-         21135.2
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 2,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 5,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Pleasant Valley Ski Resort",
-      "count": 1,
+      "count": 3,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 2
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "3219B1"
+       "3219AF",
+       "3219B1",
+       "333479"
       ],
       "coords": [
        51050.9,
        20768.6
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush",
-        "ref": "3219B1",
-        "source_type": "ambush",
-        "coords": [
-         51050.9,
-         20768.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
        }
       ]
      },
@@ -4111,20 +2282,8 @@
        133353.2,
        149429.1
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush",
-        "ref": "43BBA6",
-        "source_type": "ambush",
-        "coords": [
-         133353.2,
-         149429.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush point",
@@ -4134,193 +2293,249 @@
       ]
      },
      {
-      "marker": "The Freak Show",
+      "marker": "Relay Tower LW-B1-22",
       "count": 1,
       "sources": {
-       "ambush": 1
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "3215A8"
+      ],
+      "coords": [
+       101289.1,
+       73856.8
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "South Mountain Lookout",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3CE8DE",
+       "3CE8DF",
+       "3CE8E0"
+      ],
+      "coords": [
+       45897.1,
+       -132229.7
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "The Freak Show",
+      "count": 3,
+      "sources": {
+       "ambush": 1,
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "38E4D3",
+       "39DE48",
        "39DE4A"
       ],
       "coords": [
        81968.9,
        -110871.6
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush",
-        "ref": "39DE4A",
-        "source_type": "ambush",
-        "coords": [
-         81968.9,
-         -110871.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
        }
       ]
      },
      {
-      "marker": "Uncanny Caverns",
-      "count": 1,
+      "marker": "The Whitespring Resort",
+      "count": 3,
       "sources": {
-       "ambush": 1
+       "placement": 3
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "2CB352"
+       "3D73AB",
+       "3D73AC",
+       "3D73AD"
+      ],
+      "coords": [
+       11145.6,
+       -54083.7
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Uncanny Caverns",
+      "count": 2,
+      "sources": {
+       "ambush": 1,
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2CB352",
+       "2CB356"
       ],
       "coords": [
        -41694.8,
        -88731.3
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush",
-        "ref": "2CB352",
-        "source_type": "ambush",
-        "coords": [
-         -41694.8,
-         -88731.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Vault 79",
-      "count": 3,
+      "count": 6,
       "sources": {
-       "ambush": 3
+       "ambush": 3,
+       "placement": 3
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
        "547C9F",
+       "547CA0",
        "547CA1",
+       "547CA2",
+       "547CA3",
        "547CA4"
       ],
       "coords": [
        -2034.5,
        -3170.9
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "547C9F",
-        "source_type": "ambush",
-        "coords": [
-         -2034.5,
-         -3170.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "547CA1",
-        "source_type": "ambush",
-        "coords": [
-         -1625.6,
-         -3474.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "547CA4",
-        "source_type": "ambush",
-        "coords": [
-         -1647.8,
-         -2221.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 3,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Wendigo Cave",
-      "count": 2,
+      "count": 4,
       "sources": {
-       "ambush": 2
+       "ambush": 2,
+       "placement": 2
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "386F8C",
        "386F8E",
+       "386F91",
        "386F93"
       ],
       "coords": [
        9960.5,
        1464.5
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "386F8E",
-        "source_type": "ambush",
-        "coords": [
-         9960.5,
-         1464.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "386F93",
-        "source_type": "ambush",
-        "coords": [
-         7164.2,
-         -3123.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 2,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "White Powder Winter Sports",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3215B3"
+      ],
+      "coords": [
+       11230.5,
+       5429.8
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      }
@@ -4347,44 +2562,8 @@
        2654.5,
        -421.1
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "7352ED",
-        "source_type": "ambush",
-        "coords": [
-         2654.5,
-         -421.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "7352EE",
-        "source_type": "ambush",
-        "coords": [
-         4277.7,
-         1169.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "76F1FB",
-        "source_type": "ambush",
-        "coords": [
-         2531.2,
-         -479.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
@@ -4395,52 +2574,51 @@
      },
      {
       "marker": "Big Meadows Gas Well",
-      "count": 1,
+      "count": 3,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 2
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "6FBE82"
+       "6F556C",
+       "6FBE82",
+       "6FBE8C"
       ],
       "coords": [
        -3633.7,
        -249253.7
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush",
-        "ref": "6FBE82",
-        "source_type": "ambush",
-        "coords": [
-         -3633.7,
-         -249253.7
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Shenandoah Visitor Center",
-      "count": 2,
+      "count": 4,
       "sources": {
-       "ambush": 2
+       "ambush": 2,
+       "placement": 2
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "77E8AC",
+       "78429A",
        "78429B",
        "78429C"
       ],
@@ -4448,37 +2626,46 @@
        4489.2,
        2688.9
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "78429B",
-        "source_type": "ambush",
-        "coords": [
-         4489.2,
-         2688.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "78429C",
-        "source_type": "ambush",
-        "coords": [
-         4121.2,
-         1252.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 2,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Thunder Mountain Substation TM-03",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7538B8",
+       "7538B9",
+       "7538BA"
+      ],
+      "coords": [
+       46757.0,
+       -206457.9
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
        }
       ]
      }
@@ -4486,16 +2673,44 @@
    },
    {
     "region": "The Mire",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Ella Ames' Bunker",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "2A6A1C"
+      ],
+      "coords": [
+       1759.6,
+       1668.3
+      ],
+      "spawns": [],
+      "spawns_compacted": true,
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "The Pitt",
     "locations": [
      {
       "marker": "The Pitt - Trench",
-      "count": 10,
+      "count": 20,
       "sources": {
-       "ambush": 10
+       "ambush": 10,
+       "placement": 10
       },
       "image_top": "",
       "directions": "",
@@ -4510,139 +2725,34 @@
        "66AF12",
        "66AF15",
        "66AF2D",
-       "66AF2F"
+       "66AF2F",
+       "66AF36",
+       "66AF38",
+       "66AF40",
+       "66AF44",
+       "66AF46",
+       "66AF47",
+       "66AF48",
+       "66AF49",
+       "66AF4A",
+       "66AF50"
       ],
       "coords": [
        -7691.8,
        -10381.5
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "66AEE3",
-        "source_type": "ambush",
-        "coords": [
-         -7691.8,
-         -10381.5
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "66AEE6",
-        "source_type": "ambush",
-        "coords": [
-         -8213.5,
-         -10094.8
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "66AEE9",
-        "source_type": "ambush",
-        "coords": [
-         -8101.7,
-         -10791.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #4",
-        "ref": "66AEF5",
-        "source_type": "ambush",
-        "coords": [
-         -1246.6,
-         -5162.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #5",
-        "ref": "66AEFA",
-        "source_type": "ambush",
-        "coords": [
-         -5709.3,
-         -370.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #6",
-        "ref": "66AF0A",
-        "source_type": "ambush",
-        "coords": [
-         -13305.3,
-         -5128.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #7",
-        "ref": "66AF12",
-        "source_type": "ambush",
-        "coords": [
-         -9210.8,
-         -13729.9
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #8",
-        "ref": "66AF15",
-        "source_type": "ambush",
-        "coords": [
-         -9481.7,
-         -14391.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #9",
-        "ref": "66AF2D",
-        "source_type": "ambush",
-        "coords": [
-         -14134.3,
-         -15448.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #10",
-        "ref": "66AF2F",
-        "source_type": "ambush",
-        "coords": [
-         -13890.4,
-         -15126.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 10,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 10,
+        "source_type": "placement"
        }
       ]
      }
@@ -4653,137 +2763,85 @@
     "locations": [
      {
       "marker": "Carleton Mine",
-      "count": 5,
+      "count": 12,
       "sources": {
-       "ambush": 5
+       "ambush": 5,
+       "placement": 7
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "556E35",
+       "556E83",
+       "5591F6",
        "5591F8",
+       "5591FE",
        "5591FF",
+       "559200",
        "559201",
+       "559202",
        "559204",
+       "559209",
        "55920A"
       ],
       "coords": [
        -2710.8,
        22467.0
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush #1",
-        "ref": "5591F8",
-        "source_type": "ambush",
-        "coords": [
-         -2710.8,
-         22467.0
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #2",
-        "ref": "5591FF",
-        "source_type": "ambush",
-        "coords": [
-         -2416.5,
-         22647.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #3",
-        "ref": "559201",
-        "source_type": "ambush",
-        "coords": [
-         -2510.4,
-         22352.1
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #4",
-        "ref": "559204",
-        "source_type": "ambush",
-        "coords": [
-         -3407.8,
-         22875.6
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       },
-       {
-        "label": "Mole Rat ambush #5",
-        "ref": "55920A",
-        "source_type": "ambush",
-        "coords": [
-         -2950.5,
-         22962.4
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush points",
         "count": 5,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 7,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Philippi Battlefield Cemetery",
-      "count": 1,
+      "count": 2,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "3C70F3",
        "3C70F5"
       ],
       "coords": [
        41341.2,
        175232.3
       ],
-      "spawns": [
-       {
-        "label": "Mole Rat ambush",
-        "ref": "3C70F5",
-        "source_type": "ambush",
-        "coords": [
-         41341.2,
-         175232.3
-        ],
-        "image_top": "",
-        "directions": "",
-        "image_bottom": ""
-       }
-      ],
+      "spawns": [],
+      "spawns_compacted": true,
       "breakdown": [
        {
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      }
     ]
    }
   ],
-  "total_markers": 54,
-  "total_placements": 233
+  "total_markers": 73,
+  "total_placements": 388
  },
  "chance_spawns": {
   "locations": [
@@ -4795,7 +2853,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 5
+    "count": 4
    },
    {
     "marker": "Abandoned Bog Town",
@@ -4915,7 +2973,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 4
+    "count": 3
    },
    {
     "marker": "Arktos Pharma",
@@ -4928,26 +2986,6 @@
     "count": 11
    },
    {
-    "marker": "Athens",
-    "region": "Burning Springs",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 3
-   },
-   {
-    "marker": "Atlas Substructure",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 4
-   },
-   {
     "marker": "Autumn Acre Cabin",
     "region": "Savage Divide",
     "chance_value": 0.0714,
@@ -4955,7 +2993,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 7
+    "count": 3
    },
    {
     "marker": "Bailey Family Cabin",
@@ -4966,16 +3004,6 @@
      "Mole Rat"
     ],
     "count": 3
-   },
-   {
-    "marker": "Bastion Park",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 4
    },
    {
     "marker": "Becker Farm",
@@ -5005,7 +3033,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 8
+    "count": 7
    },
    {
     "marker": "Big Bend Tunnel East",
@@ -5038,30 +3066,10 @@
     "count": 1
    },
    {
-    "marker": "Big Bend Tunnels",
-    "region": "Cranberry Bog",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 4
-   },
-   {
     "marker": "Big Fred's BBQ Shack",
     "region": "Savage Divide",
     "chance_value": 0.0833,
     "chance_display": "8.3%",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 4
-   },
-   {
-    "marker": "Big Meadows Gas Well",
-    "region": "Skyline Valley",
-    "chance_value": null,
-    "chance_display": "possible",
     "variants": [
      "Mole Rat"
     ],
@@ -5173,10 +3181,9 @@
     "chance_value": 0.0909,
     "chance_display": "9.1%",
     "variants": [
-     "Mole Rat",
-     "Mole Rat Brood Mother"
+     "Mole Rat"
     ],
-    "count": 9
+    "count": 2
    },
    {
     "marker": "Charleston Landfill",
@@ -5186,7 +3193,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 7
+    "count": 4
    },
    {
     "marker": "Charleston Station",
@@ -5239,16 +3246,6 @@
     "count": 3
    },
    {
-    "marker": "Colonel Kelly Monument",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 3
-   },
-   {
     "marker": "Converted Munitions Factory",
     "region": "Savage Divide",
     "chance_value": 0.0833,
@@ -5286,7 +3283,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 3
+    "count": 1
    },
    {
     "marker": "Dagger's Den",
@@ -5326,7 +3323,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 7
+    "count": 6
    },
    {
     "marker": "Devil's Backbone",
@@ -5379,26 +3376,6 @@
     "count": 2
    },
    {
-    "marker": "Ella Ames' Bunker",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Scorched Mole Rat"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Enclave Research Facility",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat Brood Mother"
-    ],
-    "count": 2
-   },
-   {
     "marker": "Federal Disposal Field HZ-21",
     "region": "Savage Divide",
     "chance_value": 0.0833,
@@ -5430,16 +3407,6 @@
    },
    {
     "marker": "Fissure Site",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Rabid Mole Rat"
-    ],
-    "count": 3
-   },
-   {
-    "marker": "Fissure Site",
     "region": "Cranberry Bog",
     "chance_value": 0.1,
     "chance_display": "10%",
@@ -5456,7 +3423,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 4
+    "count": 3
    },
    {
     "marker": "Flooded Trainyard",
@@ -5489,26 +3456,6 @@
     "count": 4
    },
    {
-    "marker": "Fraternity Row",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Freddy Fear's House of Scares",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 3
-   },
-   {
     "marker": "Garrahan Mining Headquarters",
     "region": "Savage Divide",
     "chance_value": 0.0714,
@@ -5536,7 +3483,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 20
+    "count": 3
    },
    {
     "marker": "Gauley Mine Exit",
@@ -5560,18 +3507,6 @@
    },
    {
     "marker": "Gleaming Depths",
-    "region": "Ash Heap",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Drill",
-     "Drill Progress",
-     "Ultragenetic Horde"
-    ],
-    "count": 3
-   },
-   {
-    "marker": "Gleaming Depths",
     "region": "Savage Divide",
     "chance_value": 0.0714,
     "chance_display": "7.1%",
@@ -5579,16 +3514,6 @@
      "Mole Rat"
     ],
     "count": 7
-   },
-   {
-    "marker": "Gorge Junkyard",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 2
    },
    {
     "marker": "Grafton Station",
@@ -5629,16 +3554,6 @@
      "Mole Rat"
     ],
     "count": 12
-   },
-   {
-    "marker": "Hamley Run Camp",
-    "region": "Burning Springs",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 5
    },
    {
     "marker": "Hawksbill Weather Station",
@@ -5701,16 +3616,6 @@
     "count": 3
    },
    {
-    "marker": "Hocking Hills Train Station",
-    "region": "Burning Springs",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 3
-   },
-   {
     "marker": "Hopewell Cave",
     "region": "Savage Divide",
     "chance_value": 0.3333,
@@ -5718,7 +3623,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 12
+    "count": 11
    },
    {
     "marker": "Horizon's Rest",
@@ -5768,7 +3673,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 4
+    "count": 1
    },
    {
     "marker": "Hornwright Testing Site #02",
@@ -5868,7 +3773,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 8
+    "count": 6
    },
    {
     "marker": "Knife Edge",
@@ -5986,11 +3891,9 @@
     "chance_value": 0.0833,
     "chance_display": "8.3%",
     "variants": [
-     "Glowing Mole Rat",
-     "Mole Rat",
-     "Rabid Mole Rat"
+     "Mole Rat"
     ],
-    "count": 7
+    "count": 5
    },
    {
     "marker": "Monongah Power Plant",
@@ -6071,17 +3974,6 @@
      "Mole Rat"
     ],
     "count": 12
-   },
-   {
-    "marker": "NAR Repair Yard",
-    "region": "Cranberry Bog",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat",
-     "Rabid Mole Rat"
-    ],
-    "count": 6
    },
    {
     "marker": "National Isolated Radio Array",
@@ -6174,16 +4066,6 @@
     "count": 13
    },
    {
-    "marker": "Organ Cave",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 1
-   },
-   {
     "marker": "Organ Cave North",
     "region": "Forest",
     "chance_value": 0.1667,
@@ -6221,7 +4103,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 7
+    "count": 6
    },
    {
     "marker": "Overseer's Camp",
@@ -6244,16 +4126,6 @@
     "count": 2
    },
    {
-    "marker": "Palace of the Winding Path",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 2
-   },
-   {
     "marker": "Philippi Battlefield Cemetery",
     "region": "Toxic Valley",
     "chance_value": 0.0909,
@@ -6261,7 +4133,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 5
+    "count": 4
    },
    {
     "marker": "Pioneer Scout Camp",
@@ -6282,36 +4154,6 @@
      "Mole Rat"
     ],
     "count": 2
-   },
-   {
-    "marker": "Pleasant Valley Cabins",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 5
-   },
-   {
-    "marker": "Pleasant Valley Ski Resort",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 2
-   },
-   {
-    "marker": "Poseidon Energy Plant Expansion",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Frenzied Mole Rat"
-    ],
-    "count": 1
    },
    {
     "marker": "Poseidon Power Substation PX-01",
@@ -6451,7 +4293,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 6
+    "count": 5
    },
    {
     "marker": "Research Site Bavaria",
@@ -6472,16 +4314,6 @@
      "Mole Rat"
     ],
     "count": 3
-   },
-   {
-    "marker": "RobCo Auto-Cache #001",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 2
    },
    {
     "marker": "RobCo Research Center",
@@ -6541,7 +4373,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 4
+    "count": 2
    },
    {
     "marker": "Silva Homestead",
@@ -6601,7 +4433,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 14
+    "count": 11
    },
    {
     "marker": "South River Bridge",
@@ -6691,7 +4523,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 7
+    "count": 4
    },
    {
     "marker": "Sunshine Meadows Industrial Farm",
@@ -6789,10 +4621,9 @@
     "chance_value": 0.1429,
     "chance_display": "14.3%",
     "variants": [
-     "Mole Rat",
-     "Rabid Mole Rat"
+     "Mole Rat"
     ],
-    "count": 13
+    "count": 11
    },
    {
     "marker": "The General's Steakhouse",
@@ -6812,27 +4643,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 5
-   },
-   {
-    "marker": "The Pitt - Trench",
-    "region": "The Pitt",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 10
-   },
-   {
-    "marker": "The Rusty Pick",
-    "region": "Ash Heap",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 1
+    "count": 2
    },
    {
     "marker": "The Thorn",
@@ -6853,16 +4664,6 @@
      "Mole Rat"
     ],
     "count": 1
-   },
-   {
-    "marker": "The Whitespring Resort",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 3
    },
    {
     "marker": "Three Ponds",
@@ -6892,7 +4693,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 8
+    "count": 5
    },
    {
     "marker": "Toxic Dried Lakebed",
@@ -6952,7 +4753,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 12
+    "count": 11
    },
    {
     "marker": "Unfinished Mansion",
@@ -6985,16 +4786,6 @@
     "count": 1
    },
    {
-    "marker": "Vault 79",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 3
-   },
-   {
     "marker": "Vault-Tec Agricultural Research Center",
     "region": "Forest",
     "chance_value": 0.1667,
@@ -7005,16 +4796,6 @@
     "count": 8
    },
    {
-    "marker": "Vault-Tec University",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 1
-   },
-   {
     "marker": "Veiled Sundew Grove",
     "region": "Cranberry Bog",
     "chance_value": 0.1,
@@ -7022,7 +4803,7 @@
     "variants": [
      "Mole Rat"
     ],
-    "count": 4
+    "count": 3
    },
    {
     "marker": "Watoga",
@@ -7059,27 +4840,6 @@
     "region": "Ash Heap",
     "chance_value": 0.1333,
     "chance_display": "13.3%",
-    "variants": [
-     "Mole Rat",
-     "Ultramite"
-    ],
-    "count": 4
-   },
-   {
-    "marker": "Wendigo Cave",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mole Rat"
-    ],
-    "count": 2
-   },
-   {
-    "marker": "White Powder Winter Sports",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
     "variants": [
      "Mole Rat"
     ],
@@ -7146,8 +4906,8 @@
     "count": 6
    }
   ],
-  "total": 235,
+  "total": 206,
   "note": null
  },
- "blurb": "The Mole Rat in Fallout 76 — drops Mole Rat Meat, 142 NPC variants, 233 known spawn points."
+ "blurb": "The Mole Rat in Fallout 76 — drops Mole Rat Meat, 142 NPC variants, 388 known spawn points."
 }

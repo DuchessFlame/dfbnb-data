@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-09-04",
+  "generated": "2026-09-06",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -9,6 +9,7 @@
   ],
   "source_totals": {
    "ambush": 1,
+   "placement": 8,
    "spawn": 19
   },
   "unresolved": {}
@@ -304,11 +305,192 @@
    },
    {
     "region": "Skyline Valley",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Hemlock Springs Dump",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "75268C",
+       "75268D",
+       "75861F",
+       "758620"
+      ],
+      "coords": [
+       85190.9,
+       -193708.5
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "75268C",
+        "source_type": "placement",
+        "coords": [
+         85190.9,
+         -193708.5
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "75268D",
+        "source_type": "placement",
+        "coords": [
+         85190.9,
+         -194089.6
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "75861F",
+        "source_type": "placement",
+        "coords": [
+         71901.0,
+         -199270.9
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #4",
+        "ref": "758620",
+        "source_type": "placement",
+        "coords": [
+         72343.6,
+         -199471.6
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "The Mire",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Big Maw",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "43CC7D",
+       "43CC7E",
+       "43CC89"
+      ],
+      "coords": [
+       135037.1,
+       47639.8
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn #1",
+        "ref": "43CC7D",
+        "source_type": "placement",
+        "coords": [
+         135037.1,
+         47639.8
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #2",
+        "ref": "43CC7E",
+        "source_type": "placement",
+        "coords": [
+         134852.7,
+         46775.8
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Radtoad spawn #3",
+        "ref": "43CC89",
+        "source_type": "placement",
+        "coords": [
+         135088.5,
+         46869.2
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Bloody Frank's",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "43CC7C"
+      ],
+      "coords": [
+       134440.4,
+       47264.3
+      ],
+      "spawns": [
+       {
+        "label": "Radtoad spawn",
+        "ref": "43CC7C",
+        "source_type": "placement",
+        "coords": [
+         134440.4,
+         47264.3
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "The Pitt",
@@ -591,8 +773,8 @@
     ]
    }
   ],
-  "total_markers": 4,
-  "total_placements": 20
+  "total_markers": 7,
+  "total_placements": 28
  },
  "chance_spawns": {
   "locations": [
@@ -637,16 +819,6 @@
     "count": 1
    },
    {
-    "marker": "Big Maw",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Radtoad"
-    ],
-    "count": 3
-   },
-   {
     "marker": "Blakes Offering",
     "region": "The Mire",
     "chance_value": 0.1111,
@@ -655,16 +827,6 @@
      "Radtoad"
     ],
     "count": 4
-   },
-   {
-    "marker": "Bloody Frank's",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Radtoad"
-    ],
-    "count": 1
    },
    {
     "marker": "Camp Venture",
@@ -741,16 +903,6 @@
     "region": "The Mire",
     "chance_value": 0.0833,
     "chance_display": "8.3%",
-    "variants": [
-     "Radtoad"
-    ],
-    "count": 4
-   },
-   {
-    "marker": "Hemlock Springs Dump",
-    "region": "Skyline Valley",
-    "chance_value": null,
-    "chance_display": "possible",
     "variants": [
      "Radtoad"
     ],
@@ -877,8 +1029,8 @@
     "count": 2
    }
   ],
-  "total": 28,
+  "total": 25,
   "note": null
  },
- "blurb": "The Radtoad in Fallout 76 — drops Radtoad Leg, 19 NPC variants, 20 known spawn points."
+ "blurb": "The Radtoad in Fallout 76 — drops Radtoad Leg, 19 NPC variants, 28 known spawn points."
 }

@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-09-04",
+  "generated": "2026-09-06",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -8,6 +8,7 @@
    }
   ],
   "source_totals": {
+   "placement": 20,
    "spawn": 9
   },
   "unresolved": {}
@@ -163,7 +164,46 @@
    },
    {
     "region": "Burning Springs",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Fort Steuben",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7F267C"
+      ],
+      "coords": [
+       -217177.5,
+       34196.4
+      ],
+      "spawns": [
+       {
+        "label": "Wolf spawn",
+        "ref": "7F267C",
+        "source_type": "placement",
+        "coords": [
+         -217177.5,
+         34196.4
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "Cranberry Bog",
@@ -171,7 +211,124 @@
    },
    {
     "region": "Forest",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Van Lowe Taxidermy",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "473C9E"
+      ],
+      "coords": [
+       2001.5,
+       -451.1
+      ],
+      "spawns": [
+       {
+        "label": "Feral Wolf",
+        "ref": "473C9E",
+        "source_type": "placement",
+        "coords": [
+         2001.5,
+         -451.1
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Feral Wolf"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Widow's Perch",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "50DD33",
+       "50DD34",
+       "50DD35",
+       "50DD36"
+      ],
+      "coords": [
+       -86763.3,
+       -76664.4
+      ],
+      "spawns": [
+       {
+        "label": "Wolf spawn #1",
+        "ref": "50DD33",
+        "source_type": "placement",
+        "coords": [
+         -86763.3,
+         -76664.4
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Wolf spawn #2",
+        "ref": "50DD34",
+        "source_type": "placement",
+        "coords": [
+         -86928.4,
+         -76574.7
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Wolf spawn #3",
+        "ref": "50DD35",
+        "source_type": "placement",
+        "coords": [
+         -86774.7,
+         -76569.6
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Wolf spawn #4",
+        "ref": "50DD36",
+        "source_type": "placement",
+        "coords": [
+         -86922.3,
+         -76666.7
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "Savage Divide",
@@ -280,6 +437,112 @@
       ]
      },
      {
+      "marker": "Enclave Research Facility",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "5E8869"
+      ],
+      "coords": [
+       -2763.7,
+       6679.3
+      ],
+      "spawns": [
+       {
+        "label": "Scorched Wolf",
+        "ref": "5E8869",
+        "source_type": "placement",
+        "coords": [
+         -2763.7,
+         6679.3
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Scorched Wolf"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Fissure Site",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "386E8A",
+       "386E8B",
+       "386E8C"
+      ],
+      "coords": [
+       114187.7,
+       124201.7
+      ],
+      "spawns": [
+       {
+        "label": "Grey Wolf",
+        "ref": "386E8A",
+        "source_type": "placement",
+        "coords": [
+         114187.7,
+         124201.7
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Grey Wolf"
+       },
+       {
+        "label": "Grey Wolf",
+        "ref": "386E8B",
+        "source_type": "placement",
+        "coords": [
+         114238.5,
+         124757.2
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Grey Wolf"
+       },
+       {
+        "label": "Grey Wolf",
+        "ref": "386E8C",
+        "source_type": "placement",
+        "coords": [
+         113724.3,
+         124679.1
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Grey Wolf"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
       "marker": "Investigator's Cabin",
       "count": 3,
       "sources": {
@@ -342,16 +605,301 @@
         "source_type": "spawn"
        }
       ]
+     },
+     {
+      "marker": "The Bounty",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "552771",
+       "552772"
+      ],
+      "coords": [
+       64701.9,
+       -147323.3
+      ],
+      "spawns": [
+       {
+        "label": "Scorched Wolf",
+        "ref": "552771",
+        "source_type": "placement",
+        "coords": [
+         64701.9,
+         -147323.3
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Scorched Wolf"
+       },
+       {
+        "label": "Scorched Wolf",
+        "ref": "552772",
+        "source_type": "placement",
+        "coords": [
+         64968.2,
+         -147280.2
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Scorched Wolf"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Vault 96",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7819EA"
+      ],
+      "coords": [
+       22522.7,
+       -162091.3
+      ],
+      "spawns": [
+       {
+        "label": "Wolf spawn",
+        "ref": "7819EA",
+        "source_type": "placement",
+        "coords": [
+         22522.7,
+         -162091.3
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
      }
     ]
    },
    {
     "region": "Skyline Valley",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Hawksbill Weather Station",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "74E40B"
+      ],
+      "coords": [
+       -39547.1,
+       -185277.7
+      ],
+      "spawns": [
+       {
+        "label": "Wolf spawn",
+        "ref": "74E40B",
+        "source_type": "placement",
+        "coords": [
+         -39547.1,
+         -185277.7
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Old Rag Lookout",
+      "count": 2,
+      "sources": {
+       "placement": 2
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "753A04",
+       "753A05"
+      ],
+      "coords": [
+       26204.7,
+       -224617.0
+      ],
+      "spawns": [
+       {
+        "label": "Wolf spawn #1",
+        "ref": "753A04",
+        "source_type": "placement",
+        "coords": [
+         26204.7,
+         -224617.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Wolf spawn #2",
+        "ref": "753A05",
+        "source_type": "placement",
+        "coords": [
+         26675.2,
+         -224510.5
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Research Site Bavaria",
+      "count": 3,
+      "sources": {
+       "placement": 3
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "769E97",
+       "769E98",
+       "769E99"
+      ],
+      "coords": [
+       84195.0,
+       -243911.5
+      ],
+      "spawns": [
+       {
+        "label": "Wolf spawn #1",
+        "ref": "769E97",
+        "source_type": "placement",
+        "coords": [
+         84195.0,
+         -243911.5
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Wolf spawn #2",
+        "ref": "769E98",
+        "source_type": "placement",
+        "coords": [
+         83748.9,
+         -243911.5
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Wolf spawn #3",
+        "ref": "769E99",
+        "source_type": "placement",
+        "coords": [
+         83748.9,
+         -243496.6
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "The Mire",
-    "locations": []
+    "locations": [
+     {
+      "marker": "The Retreat",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "450291"
+      ],
+      "coords": [
+       158614.8,
+       36149.7
+      ],
+      "spawns": [
+       {
+        "label": "Feral Wolf",
+        "ref": "450291",
+        "source_type": "placement",
+        "coords": [
+         158614.8,
+         36149.7
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": "",
+        "variant": "Feral Wolf"
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "The Pitt",
@@ -362,8 +910,8 @@
     "locations": []
    }
   ],
-  "total_markers": 2,
-  "total_placements": 9
+  "total_markers": 13,
+  "total_placements": 29
  },
  "chance_spawns": {
   "locations": [
@@ -568,16 +1116,6 @@
     "count": 3
    },
    {
-    "marker": "Enclave Research Facility",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Scorched Wolf"
-    ],
-    "count": 1
-   },
-   {
     "marker": "Federal Disposal Field HZ-21",
     "region": "Savage Divide",
     "chance_value": 0.1667,
@@ -598,16 +1136,6 @@
     "count": 2
    },
    {
-    "marker": "Fissure Site",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Grey Wolf"
-    ],
-    "count": 3
-   },
-   {
     "marker": "Fort Atlas",
     "region": "Savage Divide",
     "chance_value": 0.1667,
@@ -625,7 +1153,7 @@
     "variants": [
      "Wolf"
     ],
-    "count": 10
+    "count": 9
    },
    {
     "marker": "Forward Station Alpha",
@@ -695,7 +1223,7 @@
     "variants": [
      "Wolf"
     ],
-    "count": 12
+    "count": 11
    },
    {
     "marker": "Hemlock Springs Dump",
@@ -1005,7 +1533,7 @@
     "variants": [
      "Wolf"
     ],
-    "count": 12
+    "count": 10
    },
    {
     "marker": "Prospect Hill",
@@ -1066,16 +1594,6 @@
      "Wolf"
     ],
     "count": 5
-   },
-   {
-    "marker": "Research Site Bavaria",
-    "region": "Skyline Valley",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Wolf"
-    ],
-    "count": 3
    },
    {
     "marker": "Research Site Rhineland",
@@ -1288,16 +1806,6 @@
     "count": 2
    },
    {
-    "marker": "The Bounty",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Scorched Wolf"
-    ],
-    "count": 2
-   },
-   {
     "marker": "The Chop Shop",
     "region": "Burning Springs",
     "chance_value": 0.1176,
@@ -1316,16 +1824,6 @@
      "Wolf"
     ],
     "count": 11
-   },
-   {
-    "marker": "The Retreat",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Feral Wolf"
-    ],
-    "count": 1
    },
    {
     "marker": "The Rust Kingdom",
@@ -1418,26 +1916,6 @@
     "count": 3
    },
    {
-    "marker": "Van Lowe Taxidermy",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Feral Wolf"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Vault 96",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Wolf"
-    ],
-    "count": 1
-   },
-   {
     "marker": "White Powder Winter Sports",
     "region": "Forest",
     "chance_value": 0.1667,
@@ -1446,16 +1924,6 @@
      "Wolf"
     ],
     "count": 3
-   },
-   {
-    "marker": "Widow's Perch",
-    "region": "Forest",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Wolf"
-    ],
-    "count": 4
    },
    {
     "marker": "World of Corn",
@@ -1478,8 +1946,8 @@
     "count": 6
    }
   ],
-  "total": 111,
+  "total": 103,
   "note": null
  },
- "blurb": "The Wolf in Fallout 76 — drops Raw Wolf Meat, 28 NPC variants, 9 known spawn points."
+ "blurb": "The Wolf in Fallout 76 — drops Raw Wolf Meat, 28 NPC variants, 29 known spawn points."
 }

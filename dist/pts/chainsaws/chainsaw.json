@@ -1,9 +1,9 @@
 {
  "_meta": {
-  "generated": "2026-09-05",
+  "generated": "2026-09-06",
   "source": "Game-file exports (WEAP/OMOD/COBJ/BOOK/CURV/LVLI/CONT) + Mappalachia Position (cached for CI)",
   "weapon_form_id": "0004DF01",
-  "lists_in_closure": 15,
+  "lists_in_closure": 16,
   "source_totals": {
    "direct": 3
   },
@@ -119,7 +119,7 @@
    },
    {
     "edid": "ap_gun_Appearance",
-    "name": "Appearance"
+    "name": "Default Appearance"
    },
    {
     "edid": "ap_Misc",
@@ -131,7 +131,7 @@
    },
    {
     "edid": "ap_customName",
-    "name": "Custom Name"
+    "name": "Unique Effect"
    },
    {
     "edid": "ap_Legendary2",
@@ -189,7 +189,7 @@
     "cobj_edid": "RD01_co_Weapon_Melee_Cauterizer"
    }
   ],
-  "count": 17,
+  "count": 18,
   "groups": [
    {
     "slot": "Barrel",
@@ -404,15 +404,31 @@
     ]
    },
    {
-    "slot": "Appearance",
+    "slot": "Default Appearance",
     "cosmetic": true,
     "mods": [
+     {
+      "form_id": "008DE0A0",
+      "edid": "SCORE_S26_mod_Chainsaw_Weapon_Paint_BloodMess",
+      "name": "Bloody Mess Paint",
+      "description": "",
+      "slot": "Default Appearance",
+      "attach_point": "ap_gun_Appearance",
+      "cosmetic": true,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "Weapon Workbench",
+      "loose_mod": "",
+      "effects": []
+     },
      {
       "form_id": "00796EB3",
       "edid": "RD01_Mod_Custom_Cauterizer_Appearance",
       "name": "Cauterizer Paint",
       "description": "",
-      "slot": "Appearance",
+      "slot": "Default Appearance",
       "attach_point": "ap_gun_Appearance",
       "cosmetic": true,
       "default": false,
@@ -428,7 +444,7 @@
       "edid": "ATX_mod_Cauterizer_Weapon_Paint_Enclave",
       "name": "Enclave Paint",
       "description": "",
-      "slot": "Appearance",
+      "slot": "Default Appearance",
       "attach_point": "ap_gun_Appearance",
       "cosmetic": true,
       "default": false,
@@ -444,7 +460,7 @@
       "edid": "mod_Chainsaw_Weapon_Paint_GhostlyGrinder",
       "name": "Ghostly Grinder Paint",
       "description": "",
-      "slot": "Appearance",
+      "slot": "Default Appearance",
       "attach_point": "ap_gun_Appearance",
       "cosmetic": true,
       "default": false,
@@ -460,7 +476,7 @@
       "edid": "ATX_mod_Chainsaw_Weapon_Paint_Grinder",
       "name": "Grinder Paint",
       "description": "",
-      "slot": "Appearance",
+      "slot": "Default Appearance",
       "attach_point": "ap_gun_Appearance",
       "cosmetic": true,
       "default": false,
@@ -476,7 +492,7 @@
       "edid": "ATX_Event_mod_Chainsaw_Weapon_Paint_Halloween",
       "name": "Halloween Paint",
       "description": "",
-      "slot": "Appearance",
+      "slot": "Default Appearance",
       "attach_point": "ap_gun_Appearance",
       "cosmetic": true,
       "default": false,
@@ -488,11 +504,27 @@
       "effects": []
      },
      {
+      "form_id": "00677BCB",
+      "edid": "SCORE_S11_mod_Chainsaw_Weapon_ModelSwap_JackhammerDrill",
+      "name": "Jackhammer Drill Style",
+      "description": "Jackhammer Drill Paint",
+      "slot": "Default Appearance",
+      "attach_point": "ap_melee_Appearance",
+      "cosmetic": true,
+      "default": false,
+      "unique_variant": null,
+      "plan": "",
+      "plan_form_id": "",
+      "workbench": "",
+      "loose_mod": "",
+      "effects": []
+     },
+     {
       "form_id": "0076FFBD",
       "edid": "mod_Chainsaw_Weapon_Paint_LaserChainsaw",
       "name": "Laser Chainsaw Paint",
       "description": "",
-      "slot": "Appearance",
+      "slot": "Default Appearance",
       "attach_point": "ap_gun_Appearance",
       "cosmetic": true,
       "default": false,
@@ -508,7 +540,7 @@
       "edid": "SCORE_S15_mod_Chainsaw_Weapon_Paint_Poker",
       "name": "Poker Paint",
       "description": "Poker Paint",
-      "slot": "Appearance",
+      "slot": "Default Appearance",
       "attach_point": "ap_gun_Appearance",
       "cosmetic": true,
       "default": false,
@@ -524,7 +556,7 @@
       "edid": "mod_Chainsaw_Weapon_Paint_Skeptikill",
       "name": "Skeptikill Paint",
       "description": "",
-      "slot": "Appearance",
+      "slot": "Default Appearance",
       "attach_point": "ap_gun_Appearance",
       "cosmetic": true,
       "default": false,
@@ -540,7 +572,7 @@
       "edid": "SCORE_S21_mod_Chainsaw_Weapon_Paint_Spitfire",
       "name": "Spitfire Paint",
       "description": "",
-      "slot": "Appearance",
+      "slot": "Default Appearance",
       "attach_point": "ap_gun_Appearance",
       "cosmetic": true,
       "default": false,
@@ -554,7 +586,7 @@
     ]
    },
    {
-    "slot": "Custom Name",
+    "slot": "Unique Effect",
     "cosmetic": true,
     "mods": [
      {
@@ -562,30 +594,8 @@
       "edid": "RD01_Mod_Custom_Cauterizer_CustomName",
       "name": "Cauterizer Custom Name",
       "description": "",
-      "slot": "Custom Name",
+      "slot": "Unique Effect",
       "attach_point": "ap_customName",
-      "cosmetic": true,
-      "default": false,
-      "unique_variant": "Cauterizer",
-      "plan": "",
-      "plan_form_id": "",
-      "workbench": "",
-      "loose_mod": "",
-      "effects": []
-     }
-    ]
-   },
-   {
-    "slot": "Melee Appearance",
-    "cosmetic": true,
-    "mods": [
-     {
-      "form_id": "00677BCB",
-      "edid": "SCORE_S11_mod_Chainsaw_Weapon_ModelSwap_JackhammerDrill",
-      "name": "Jackhammer Drill Style",
-      "description": "Jackhammer Drill Paint",
-      "slot": "Melee Appearance",
-      "attach_point": "ap_melee_Appearance",
       "cosmetic": true,
       "default": false,
       "unique_variant": null,
@@ -593,7 +603,18 @@
       "plan_form_id": "",
       "workbench": "",
       "loose_mod": "",
-      "effects": []
+      "effects": [
+       {
+        "label": "Damage Type Values",
+        "value": "+0.6",
+        "kind": "stat"
+       },
+       {
+        "label": "AP cost",
+        "value": "+25%",
+        "kind": "stat"
+       }
+      ]
      }
     ]
    }

@@ -1,8 +1,8 @@
 {
  "_meta": {
-  "generated": "2026-09-04",
+  "generated": "2026-09-06",
   "source": "Game-file exports (LVLI/ALCH/MISC) + Mappalachia Position (cached for CI)",
-  "lists_in_closure": 17,
+  "lists_in_closure": 18,
   "source_totals": {
    "direct": 15,
    "nest": 19,
@@ -33,6 +33,21 @@
   "collectrons": {
    "entries": [
     {
+     "name": "Sir Loin Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_SirLoin",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "9 min",
+     "items": [
+      {
+       "name": "Deathclaw Egg",
+       "form_id": "00046939",
+       "rate": 0.0625,
+       "rate_display": "6.25%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
      "name": "F.E.T.C.H. Collectron Station",
      "edid": "SCORE_S6_ENTM_CAMP_Utility_Collectron_FETCH",
      "obtain": "Claim from the Unstoppables! vs the Diabolicals Scoreboard (Season 6)",
@@ -59,21 +74,6 @@
        "rate": 0.001023,
        "rate_display": "0.1%",
        "rate_source": "computed"
-      }
-     ]
-    },
-    {
-     "name": "Sir Loin Collectron Station",
-     "edid": "ATX_ENTM_CAMP_Utility_Collectron_SirLoin",
-     "obtain": "Purchase from the Atom Shop.",
-     "interval": "9 min",
-     "items": [
-      {
-       "name": "Deathclaw Egg",
-       "form_id": "00046939",
-       "rate": 0.0,
-       "rate_display": "0%",
-       "rate_source": "computed_zero"
       }
      ]
     }
@@ -378,20 +378,7 @@
   }
  ],
  "random_encounters_intro": "Object random encounters place a <b>static Deathclaw nest</b> at a fixed Appalachia random-encounter spot. Each nest rolls the same loot as any other Deathclaw nest — the encounter just decides where the nest appears.",
- "events_activities": [
-  {
-   "manual": true,
-   "name": "Hunter for Hire — Liebowitz's Deathclaw Egg",
-   "type": "Quest",
-   "edid": "W05_MQ_002P_Radical_TylerCounty",
-   "rate_display": "One-time hand-in",
-   "rate_lines": [
-    "One-time hand-in"
-   ],
-   "rate_value": null,
-   "note": "Optional sub-quest under the main questline Hunter for Hire (given by Duchess at the Wayward). Liebowitz, found on the rooftops of Tyler County Fairgrounds, asks you to retrieve a Deathclaw Egg from Deathclaw Island. You can keep the egg instead of handing it over by passing the required SPECIAL checks. Not repeatable."
-  }
- ],
+ "events_activities": [],
  "regions": [
   {
    "region": "Ash Heap",
@@ -1332,6 +1319,11 @@
    "locations": []
   }
  ],
+ "chance_spawns": {
+  "regions": [],
+  "total_markers": 0,
+  "total": 0
+ },
  "treasure_maps": {
   "maps": []
  }

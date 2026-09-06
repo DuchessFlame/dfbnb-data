@@ -1,13 +1,15 @@
 {
  "_meta": {
-  "generated": "2026-09-04",
+  "generated": "2026-09-06",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
     "edid": "RadPheasantRace"
    }
   ],
-  "source_totals": {},
+  "source_totals": {
+   "placement": 12
+  },
   "unresolved": {}
  },
  "set": "meat",
@@ -116,7 +118,214 @@
    },
    {
     "region": "Skyline Valley",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Naked Creek",
+      "count": 8,
+      "sources": {
+       "placement": 8
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "7338D3",
+       "75DDE3",
+       "75DDE4",
+       "75DDE5",
+       "788C5F",
+       "788C61",
+       "788C62",
+       "788C63"
+      ],
+      "coords": [
+       -32301.3,
+       -236411.3
+      ],
+      "spawns": [
+       {
+        "label": "Pheasant spawn #1",
+        "ref": "7338D3",
+        "source_type": "placement",
+        "coords": [
+         -33532.3,
+         -236230.4
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pheasant spawn #2",
+        "ref": "75DDE3",
+        "source_type": "placement",
+        "coords": [
+         -20368.8,
+         -248320.8
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pheasant spawn #3",
+        "ref": "75DDE4",
+        "source_type": "placement",
+        "coords": [
+         -20215.3,
+         -247414.3
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pheasant spawn #4",
+        "ref": "75DDE5",
+        "source_type": "placement",
+        "coords": [
+         -20104.5,
+         -248170.2
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pheasant spawn #5",
+        "ref": "788C5F",
+        "source_type": "placement",
+        "coords": [
+         -32301.3,
+         -236411.3
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pheasant spawn #6",
+        "ref": "788C61",
+        "source_type": "placement",
+        "coords": [
+         -31949.9,
+         -236758.3
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pheasant spawn #7",
+        "ref": "788C62",
+        "source_type": "placement",
+        "coords": [
+         -32990.9,
+         -236702.2
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pheasant spawn #8",
+        "ref": "788C63",
+        "source_type": "placement",
+        "coords": [
+         -31218.1,
+         -236421.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 8,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Research Site Bavaria",
+      "count": 4,
+      "sources": {
+       "placement": 4
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "76AA24",
+       "76AA25",
+       "76AA26",
+       "76AA27"
+      ],
+      "coords": [
+       82389.8,
+       -232450.3
+      ],
+      "spawns": [
+       {
+        "label": "Pheasant spawn #1",
+        "ref": "76AA24",
+        "source_type": "placement",
+        "coords": [
+         82389.8,
+         -232450.3
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pheasant spawn #2",
+        "ref": "76AA25",
+        "source_type": "placement",
+        "coords": [
+         82083.5,
+         -232630.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pheasant spawn #3",
+        "ref": "76AA26",
+        "source_type": "placement",
+        "coords": [
+         82154.9,
+         -232016.5
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Pheasant spawn #4",
+        "ref": "76AA27",
+        "source_type": "placement",
+        "coords": [
+         82409.2,
+         -232243.3
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 4,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "The Mire",
@@ -131,34 +340,13 @@
     "locations": []
    }
   ],
-  "total_markers": 0,
-  "total_placements": 0
+  "total_markers": 2,
+  "total_placements": 12
  },
  "chance_spawns": {
-  "locations": [
-   {
-    "marker": "Naked Creek",
-    "region": "Skyline Valley",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Pheasant"
-    ],
-    "count": 8
-   },
-   {
-    "marker": "Research Site Bavaria",
-    "region": "Skyline Valley",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Pheasant"
-    ],
-    "count": 4
-   }
-  ],
-  "total": 2,
+  "locations": [],
+  "total": 0,
   "note": null
  },
- "blurb": "The Pheasant in Fallout 76 — drops Intestine, 6 NPC variants."
+ "blurb": "The Pheasant in Fallout 76 — drops Intestine, 6 NPC variants, 12 known spawn points."
 }

@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-09-04",
+  "generated": "2026-09-06",
   "source": "Game-file exports (NPC/LVLI/ALCH) + challenges.json + Mappalachia Position/Entity (cached for CI)",
   "races": [
    {
@@ -8,7 +8,8 @@
    }
   ],
   "source_totals": {
-   "ambush": 16
+   "ambush": 16,
+   "placement": 10
   },
   "unresolved": {}
  },
@@ -500,16 +501,82 @@
     "region": "Cranberry Bog",
     "locations": [
      {
-      "marker": "Mac's Farm",
-      "count": 1,
+      "marker": "Glassed Cavern",
+      "count": 3,
       "sources": {
-       "ambush": 1
+       "placement": 3
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "3AB961"
+       "437B3D",
+       "52FBFB",
+       "53049D"
+      ],
+      "coords": [
+       5898.8,
+       -8981.8
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk Queen spawn #1",
+        "ref": "437B3D",
+        "source_type": "placement",
+        "coords": [
+         5898.8,
+         -8981.8
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk Queen spawn #2",
+        "ref": "52FBFB",
+        "source_type": "placement",
+        "coords": [
+         -8482.2,
+         6228.3
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk Queen spawn #3",
+        "ref": "53049D",
+        "source_type": "placement",
+        "coords": [
+         -5587.2,
+         2893.7
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawns",
+        "count": 3,
+        "source_type": "placement"
+       }
+      ]
+     },
+     {
+      "marker": "Mac's Farm",
+      "count": 2,
+      "sources": {
+       "ambush": 1,
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "3AB961",
+       "3AB962"
       ],
       "coords": [
        170060.1,
@@ -527,6 +594,18 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk Queen spawn",
+        "ref": "3AB962",
+        "source_type": "placement",
+        "coords": [
+         169998.3,
+         -72543.0
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -534,19 +613,26 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Quarry X3",
-      "count": 2,
+      "count": 3,
       "sources": {
-       "ambush": 2
+       "ambush": 2,
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "37FAB1",
        "3AB986",
        "43E31D"
       ],
@@ -578,6 +664,18 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk Queen spawn",
+        "ref": "37FAB1",
+        "source_type": "placement",
+        "coords": [
+         158218.6,
+         -109605.4
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -585,19 +683,26 @@
         "label": "ambush points",
         "count": 2,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      },
      {
       "marker": "Sunrise Field",
-      "count": 1,
+      "count": 2,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "360FAB",
        "360FC3"
       ],
       "coords": [
@@ -616,6 +721,18 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk Queen spawn",
+        "ref": "360FAB",
+        "source_type": "placement",
+        "coords": [
+         153404.5,
+         -163520.2
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -623,6 +740,11 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      }
@@ -634,7 +756,46 @@
    },
    {
     "region": "Savage Divide",
-    "locations": []
+    "locations": [
+     {
+      "marker": "Spruce Knob Lake",
+      "count": 1,
+      "sources": {
+       "placement": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "4EC26A"
+      ],
+      "coords": [
+       34507.5,
+       -122422.7
+      ],
+      "spawns": [
+       {
+        "label": "Mirelurk Queen spawn",
+        "ref": "4EC26A",
+        "source_type": "placement",
+        "coords": [
+         34507.5,
+         -122422.7
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
+       }
+      ]
+     }
+    ]
    },
    {
     "region": "Skyline Valley",
@@ -835,15 +996,18 @@
      },
      {
       "marker": "Mire's Eye",
-      "count": 1,
+      "count": 3,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 2
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
-       "450238"
+       "450236",
+       "450238",
+       "5B6F5E"
       ],
       "coords": [
        197526.2,
@@ -861,6 +1025,30 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk Queen spawn #1",
+        "ref": "450236",
+        "source_type": "placement",
+        "coords": [
+         197569.7,
+         185642.9
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk Queen spawn #2",
+        "ref": "5B6F5E",
+        "source_type": "placement",
+        "coords": [
+         433.2,
+         -310.1
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -868,6 +1056,11 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawns",
+        "count": 2,
+        "source_type": "placement"
        }
       ]
      },
@@ -911,14 +1104,16 @@
      },
      {
       "marker": "The Retreat",
-      "count": 1,
+      "count": 2,
       "sources": {
-       "ambush": 1
+       "ambush": 1,
+       "placement": 1
       },
       "image_top": "",
       "directions": "",
       "image_bottom": "",
       "refs": [
+       "450286",
        "450287"
       ],
       "coords": [
@@ -937,6 +1132,18 @@
         "image_top": "",
         "directions": "",
         "image_bottom": ""
+       },
+       {
+        "label": "Mirelurk Queen spawn",
+        "ref": "450286",
+        "source_type": "placement",
+        "coords": [
+         158896.9,
+         35745.9
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
        }
       ],
       "breakdown": [
@@ -944,6 +1151,11 @@
         "label": "ambush point",
         "count": 1,
         "source_type": "ambush"
+       },
+       {
+        "label": "static spawn",
+        "count": 1,
+        "source_type": "placement"
        }
       ]
      }
@@ -1061,84 +1273,13 @@
     ]
    }
   ],
-  "total_markers": 13,
-  "total_placements": 16
+  "total_markers": 15,
+  "total_placements": 26
  },
  "chance_spawns": {
-  "locations": [
-   {
-    "marker": "Glassed Cavern",
-    "region": "Cranberry Bog",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mirelurk Queen"
-    ],
-    "count": 3
-   },
-   {
-    "marker": "Mac's Farm",
-    "region": "Cranberry Bog",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mirelurk Queen"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Mire's Eye",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mirelurk Queen"
-    ],
-    "count": 2
-   },
-   {
-    "marker": "Quarry X3",
-    "region": "Cranberry Bog",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mirelurk Queen"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Spruce Knob Lake",
-    "region": "Savage Divide",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mirelurk Queen"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "Sunrise Field",
-    "region": "Cranberry Bog",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mirelurk Queen"
-    ],
-    "count": 1
-   },
-   {
-    "marker": "The Retreat",
-    "region": "The Mire",
-    "chance_value": null,
-    "chance_display": "possible",
-    "variants": [
-     "Mirelurk Queen"
-    ],
-    "count": 1
-   }
-  ],
-  "total": 7,
+  "locations": [],
+  "total": 0,
   "note": null
  },
- "blurb": "The Mirelurk Queen in Fallout 76 — drops Queen Mirelurk Meat, 22 NPC variants, 16 known spawn points."
+ "blurb": "The Mirelurk Queen in Fallout 76 — drops Queen Mirelurk Meat, 22 NPC variants, 26 known spawn points."
 }
