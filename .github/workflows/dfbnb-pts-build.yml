@@ -451,16 +451,6 @@ jobs:
             --tsv-root tsv \
             --outdir dist
 
-      # --- PLAN CHECKLISTS (How to Obtain) ---
-      # Writes dist/plan_master.json from the PTS tsvs; the relocate step below
-      # moves it to dist/pts/plan_master.json for the PTS plan-checklist pages.
-      - name: Build Plan Checklists (How to Obtain) JSON
-        run: |
-          python src/build_plan_obtain_json.py \
-            --data-dir tsv \
-            --outdir dist \
-            --report dist/plan_master_unresolved.json
-
       # --- VENDORS (must run before Allies — ally inventory reads vendor data) ---
       - name: Build Vendors JSON
         run: python src/build_vendors_json.py
@@ -595,11 +585,40 @@ jobs:
           PERK_TSV:      ${{ env.PERK_TSV }}
           COBJ_TSV:      ${{ env.COBJ_TSV }}
 
-      # --- PLAN MASTER ---
-      - name: Build Plan Master JSON
+      # --- PLAN MASTER + PLAN CHECKLISTS (How to Obtain) ---
+      # The node step only copies the checked-in (LIVE) copy-source
+      # src/plan-system/plan_master.json into dist/, so on the PTS channel it is
+      # a fallback and nothing more. The Python builder below rebuilds the whole
+      # roster from THIS run's PTS tsvs and overwrites it; the relocate step at
+      # the end of the job then moves dist/ -> dist/pts/.
+      #
+      # These used to be the other way round: plan-obtain ran early (right after
+      # Camp Items) and the node copy ran ~140 lines later, so every PTS build
+      # published the LIVE plan roster to dist/pts/plan_master.json. The order
+      # here is the fix — do not move the Python step back above the node step.
+      # Nothing writes back to src/plan-system/plan_master.json on this channel:
+      # that file is the live copy-source and PTS must never touch it.
+      - name: Build Plan Master JSON (copy-source fallback)
         run: |
           mkdir -p dist
           node src/plan-system/build-plan-master.mjs
+
+      - name: Build Plan Checklists (How to Obtain) JSON
+        run: |
+          python src/build_plan_obtain_json.py \
+            --data-dir tsv \
+            --outdir dist \
+            --report dist/plan_master_unresolved.json
+
+      - name: Sanity check plan_master.json is the PTS build
+        run: |
+          python - <<'PYCHK'
+          import json
+          d = json.load(open("dist/plan_master.json"))
+          n = len(d.get("items", []))
+          print(f"plan_master.json items: {n}")
+          assert n > 0, "no plans built"
+          PYCHK
 
       # --- AXOLOTL ---
       - name: Build Axolotl Rotations JSON

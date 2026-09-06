@@ -239,6 +239,24 @@ _BP_FLAIR    = re.compile(r"_flair|\bflair\b", re.I)
 _BP_EFFECT   = re.compile(r"_effect_", re.I)
 _BP_MATERIAL = re.compile(r"_material_", re.I)
 
+_PLAN_PREFIX = re.compile(r"^\s*(?:Plan|Recipe)\s*:\s*", re.I)
+
+def backpack_display_name(name):
+    """Row title for the backpack-mod page: "Plan: Backpack Armor Plated Mod"
+    -> "Armor Plated".
+
+    Every row on that page is a plan for a backpack mod, so "Plan", "Backpack"
+    and "Mod" appear on all nine and carry no information — they just push the
+    part that differs off the right-hand side at phone width. The full in-game
+    title stays on the item as `name` (rendered in How to Obtain and searchable
+    there), so nothing is lost.
+    """
+    s = _PLAN_PREFIX.sub("", name or "")
+    s = re.sub(r"\bBackpack\b", " ", s, flags=re.I)
+    s = re.sub(r"\bMod\b\s*$", " ", s, flags=re.I)
+    s = re.sub(r"\s+", " ", s).strip(" -\u2013\u2014")
+    return s or (name or "")
+
 def backpack_class(cnam_edid, cobj_edid, name):
     """Return 'mod' | 'skin' | 'flair' for a backpack-mod bucket plan."""
     blob = f"{cnam_edid or ''} {cobj_edid or ''}"
@@ -279,6 +297,18 @@ _QUOTED  = re.compile(r'"+([^"]+)"+')
 _FID_TAG = re.compile(r"\[[A-Za-z_]{4}:([0-9A-Fa-f]{8})\]")
 _MAG_TOK = re.compile(r"<\s*mag\s*>", re.I)
 _SKIP_MGEF = re.compile(r"^zzz|emptyeffect", re.I)
+# An MGEF FULL is only a usable last-resort description when it reads as
+# English. Most weapon/armour mod effects carry an internal name instead
+# ("ModEnergyWeaponFireDamage", "FX Shader Fire", "Bleed dmg health"), which is
+# worse than saying nothing — so a jammed CamelCase name or an obvious
+# engine-side token is rejected and the mod simply gets no summary line.
+_INTERNAL_FULL = re.compile(r"\b(fx|vfx|shader|dmg|dbg|test|deprecated|placeholder)\b", re.I)
+
+def _readable_full(text):
+    t = (text or "").strip()
+    if " " not in t or _INTERNAL_FULL.search(t):
+        return ""
+    return t
 
 def _first_quoted(s):
     m = _QUOTED.search(s or "")
@@ -318,8 +348,26 @@ def build_curve_index():
         out[k] = sorted(p for p in out[k] if p[0] <= 100)
     return dict(out)
 
+def _curve_points(curve_idx, curve_field):
+    """Every breakpoint the curve actually defines, as [{"lv": 1, "v": "+15"}…].
+
+    These properties scale with player level and the game interpolates between
+    the points; the points ARE the ladder (typically 1/10/20/30/40/50). The page
+    shows all of them rather than just the ends, so a level-22 player can read
+    their own number instead of guessing between two extremes. A flat property
+    (every y identical) returns no ladder — one repeated value is not a table.
+    """
+    eid = (curve_field or "").split("[")[0].strip()
+    pts = curve_idx.get(eid.lower())
+    if not pts:
+        return None
+    if len({y for _, y in pts}) <= 1:
+        return None
+    return [{"lv": int(x), "v": _num(y)} for x, y in pts]
+
 def _curve_display(curve_idx, curve_field):
-    """'+15 at Lv 1 -> +90 at Lv 50' for a level-scaled property, or None."""
+    """One-line summary of a level-scaled property: '+15 at Lv 1 → +90 at Lv 50'.
+    Kept alongside the ladder as the collapsed/print fallback."""
     eid = (curve_field or "").split("[")[0].strip()
     pts = curve_idx.get(eid.lower())
     if not pts:
@@ -344,9 +392,23 @@ def build_ench_index():
             mg = (row.get(f"Effect_{i}_MGEF_FID") or "").strip()
             if not mg:
                 continue
+            # The export merges FormID and EDID into the MGEF_FID column
+            # ("0042E51B:Backpack_ReduceFoodSpoilageEffect"), which shifts every
+            # later Effect_N_* field one to the left — the real magnitude lands
+            # in Effect_N_MGEF_EID. Take the first of the two that parses as a
+            # number so a future un-merged export keeps working.
+            mag = ""
+            for col in (f"Effect_{i}_MGEF_EID", f"Effect_{i}_Magnitude"):
+                v = (row.get(col) or "").strip()
+                try:
+                    float(v)
+                except ValueError:
+                    continue
+                mag = v
+                break
             effs.append({
                 "mgef": mg.split(":")[0].strip().upper(),
-                "mag":  (row.get(f"Effect_{i}_Magnitude") or "").strip(),
+                "mag":  mag,
                 "curv": (row.get(f"Effect_{i}_CURV_EID") or "").strip(),
             })
         out[fid] = {"edid": (row.get("ENCH_EDID") or "").strip(),
@@ -430,9 +492,14 @@ def resolve_effects(omod_fid, prop_idx, ench_idx, mgef_idx, perk_idx, curve_idx)
                 mg = mgef_idx.get(eff["mgef"])
                 if not mg or _SKIP_MGEF.search(mg["edid"]):
                     continue
-                text = mg["desc"] or perk_idx.get(eff["mgef"], "") or mg["full"]
+                text = (mg["desc"] or perk_idx.get(eff["mgef"], "")
+                        or _readable_full(mg["full"]))
                 text = _apply_magnitude(text, eff["mag"])
-                if text and text not in summary:
+                # Several ENCHs carry a second, near-identical MGEF for a
+                # variant (Canteen ships a ghoul-only restatement). Keep the
+                # first wording and drop anything that merely extends it.
+                if text and not any(text.startswith(x) or x.startswith(text)
+                                    for x in summary):
                     summary.append(text)
             continue
 
@@ -454,11 +521,47 @@ def resolve_effects(omod_fid, prop_idx, ench_idx, mgef_idx, perk_idx, curve_idx)
             continue
         seen.add(k)
         rows.append({"label": label, "value": value,
+                     "points": _curve_points(curve_idx, curve),
                      "curve": (curve.split("[")[0].strip() or None)})
 
     if not summary and not rows:
         return None
     return {"summary": " · ".join(summary), "rows": rows[:10]}
+
+# OMOD: EDID (lower) -> {fid, edid}. Used only as a last-resort created-object
+# resolve when a plan's COBJ is a CondProxy with no CNAM.
+def build_omod_edid_index():
+    f = newest("OMOD_Export_*.tsv")
+    out = {}
+    if not f:
+        return out
+    for row in read_rows(f):
+        eid = (row.get("OMOD_EDID") or "").strip()
+        fid = (row.get("OMOD_FormID") or "").strip().upper()
+        if eid and fid:
+            out.setdefault(eid.lower(), {"fid": fid, "edid": eid})
+    return out
+
+_RECIPE_TOK = re.compile(r"(?:^|_)recipe_", re.I)
+_VENDOR_TAIL = re.compile(r"_(GoldVendor|AtomShop|Atom|Vendor|Purveyor|Reward|Quest)$", re.I)
+_PLUGIN_PFX  = re.compile(r"^[A-Za-z0-9]{2,6}_")
+
+def omod_from_book_edid(book_edid, omod_by_edid):
+    """Recover the created OMOD from the plan BOOK's own EDID.
+
+    Recipe BOOKs are named after the mod they teach —
+    ATX_Recipe_mod_BackPack_Effect_ScrapRat_GoldVendor teaches
+    ATX_mod_BackPack_Effect_ScrapRat — so when the COBJ is a CondProxy carrying
+    no CNAM the mod is still recoverable by stripping the recipe wrapper and the
+    vendor tail. This is an exact EDID lookup, so it either hits the right
+    record or returns nothing; it never guesses.
+    """
+    base = _VENDOR_TAIL.sub("", _RECIPE_TOK.sub("_", book_edid or "").lstrip("_"))
+    for cand in (base, _PLUGIN_PFX.sub("", base)):
+        hit = omod_by_edid.get(cand.lower())
+        if hit:
+            return hit
+    return None
 
 # OMOD properties: FormID -> [property rows]
 def build_omod_prop_index():
@@ -603,6 +706,7 @@ def main(argv=None):
     mgef_idx  = build_mgef_index()
     perk_idx  = build_perk_desc_by_mgef()
     curve_idx = build_curve_index()
+    omod_by_edid = build_omod_edid_index()
     print(f"[plan-obtain] effects tables: {len(prop_idx)} OMOD props, "
           f"{len(ench_idx)} ENCH, {len(mgef_idx)} MGEF, {len(perk_idx)} perk-desc, "
           f"{len(curve_idx)} curves")
@@ -665,6 +769,12 @@ def main(argv=None):
                     ce = c.get("edid","").lower()
                     if c.get("cnam_fid") and stem in ce and "condproxy" not in ce:
                         co_fid, cobj = cfid, c; break
+        # Still no created object? Recover it from the BOOK's own EDID.
+        if not (cobj or {}).get("cnam_fid"):
+            om = omod_from_book_edid(edid, omod_by_edid)
+            if om:
+                cobj = dict(cobj or {"formid": co_fid, "edid": ""})
+                cobj["cnam_fid"], cobj["cnam_edid"] = om["fid"], om["edid"]
         cat, has_img, cnam_sig, cnam_fid, cnam_edid = classify_plan(edid, cobj)
         if not cnam_sig and not (cobj or {}).get("edid"):
             unresolved["created_object"].append(name)
@@ -716,6 +826,7 @@ def main(argv=None):
         }
         if bp_class:
             item["backpack_class"] = bp_class
+            item["display_name"] = backpack_display_name(name)
         items.append(item)
         if (i+1) % 250 == 0:
             print(f"   ... {i+1}/{len(roster)}")

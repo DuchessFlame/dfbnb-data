@@ -539,10 +539,43 @@ jobs:
           COBJ_TSV:      ${{ env.COBJ_TSV }}
 
       # --- PLAN MASTER ---
-      - name: Build Plan Master JSON
+      # Two steps, and the ORDER is load-bearing. The node step only copies the
+      # checked-in src/plan-system/plan_master.json into dist/, so it must run
+      # FIRST — it is the fallback that guarantees dist/plan_master.json exists.
+      # The Python builder below is the authority: it rebuilds the whole plan
+      # roster from this run's TSVs (rng76-resolved drop routes, tradeable /
+      # stops-dropping flags, backpack mod-vs-cosmetic split, Output & Effects)
+      # and overwrites what node just laid down. Run them the other way round
+      # and the stale copy silently wins.
+      #
+      # Before this step existed, the live channel had NO Python plan build at
+      # all: dist/plan_master.json only ever refreshed via the separate
+      # build-plan-obtain.yml workflow, so any patch build landing after new
+      # TSVs reverted the plan checklists to the previous month's data.
+      - name: Build Plan Master JSON (copy-source fallback)
         run: |
           mkdir -p dist
           node src/plan-system/build-plan-master.mjs
+
+      - name: Build Plan Checklists (How to Obtain) JSON
+        run: |
+          python src/build_plan_obtain_json.py \
+            --data-dir tsv \
+            --outdir dist \
+            --report dist/plan_master_unresolved.json
+          # Keep the node copy-source in step with the real routed output, so a
+          # later run's fallback step cannot revert dist/ to a stale roster.
+          cp dist/plan_master.json src/plan-system/plan_master.json
+
+      - name: Sanity check plan_master.json
+        run: |
+          python - <<'PYCHK'
+          import json
+          d = json.load(open("dist/plan_master.json"))
+          n = len(d.get("items", []))
+          print(f"plan_master.json items: {n}")
+          assert n > 0, "no plans built"
+          PYCHK
 
       # --- AXOLOTL ---
       - name: Build Axolotl Rotations JSON
@@ -1155,6 +1188,9 @@ jobs:
           git config user.email "github-actions@users.noreply.github.com"
 
           git add dist/
+          # The node fallback step reads this file, so it has to travel with
+          # dist/ or the next run reverts the plan checklists to a stale roster.
+          git add src/plan-system/plan_master.json 2>/dev/null || true
           git add tsv/BnB_Menu_Items.tsv
           # Stage regenerated CURV POINTS TSV (built by build_curv_points_tsv.py)
           git add tsv/CURV_Export_*_POINTS.tsv 2>/dev/null || true

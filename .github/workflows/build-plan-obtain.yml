@@ -6,6 +6,11 @@ name: Build Plan Checklists (How to Obtain)
 # with rng76 (src/rng76.py) via spawns_engine — no bare ChanceNone, no
 # hardcoded FormIDs. The PTS channel is built separately by dfbnb-pts-build.yml
 # (which points --data-dir at the PTS tsvs and relocates dist/ -> dist/pts/).
+#
+# dfbnb-patch-build.yml now runs this same builder inline on the live channel,
+# so a patch build no longer reverts the plan checklists to the previous
+# roster. This workflow stays for TSV-only pushes and manual re-runs; both
+# entry points call the identical command, so they cannot drift.
 
 on:
   workflow_dispatch:
