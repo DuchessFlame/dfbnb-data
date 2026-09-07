@@ -729,6 +729,14 @@ jobs:
       - name: Build Pennants JSON
         run: python src/build_pennants_json.py --data-dir tsv --outdir dist
 
+      # --- DISPLAYS (Display Checklist page) ---
+      # Outputs dist/displays.json for df-bnb-plan-checklists.js. Image stems come
+      # from "staged_images" in data/checklists/displays.json, refreshed locally
+      # with --avif-dir when art is staged — CI cannot see that folder, so it must
+      # NOT pass --avif-dir here or every row would come back with images: [].
+      - name: Build Displays JSON
+        run: python src/build_displays_json.py --tsv-root tsv --outdir dist
+
       # --- WORLD PET CHALLENGES (World Pet Challenges page) ---
       # Outputs dist/world_pet_challenges.json for df-bnb-world-pets.js.
       - name: Build World Pet Challenges JSON
@@ -1131,6 +1139,7 @@ jobs:
           test -f dist/minerva/minerva_plans.json      && echo "OK minerva/minerva_plans.json"       || (echo "MISSING minerva/minerva_plans.json" && exit 1)
           test -f dist/mule-defaults.json            && echo "OK mule-defaults.json (static seed)" || echo "WARN missing mule-defaults.json (static seed, not built by patch)"
           test -f dist/pennants.json                 && echo "OK pennants.json"                 || (echo "MISSING pennants.json" && exit 1)
+          test -f dist/displays.json                 && echo "OK displays.json"                 || (echo "MISSING displays.json" && exit 1)
           test -f dist/world_pet_challenges.json     && echo "OK world_pet_challenges.json"     || (echo "MISSING world_pet_challenges.json" && exit 1)
           test -f dist/world_pet_types.json          && echo "OK world_pet_types.json"          || (echo "MISSING world_pet_types.json" && exit 1)
           test -f dist/calculators/weak_spot_multipliers.json && echo "OK weak_spot_multipliers.json" || (echo "MISSING weak_spot_multipliers.json" && exit 1)

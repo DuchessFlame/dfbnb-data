@@ -153,24 +153,48 @@ def build(tsv_root, avif_dir, overrides_path=""):
         if full:
             by_full[full.lower()].append(r)
 
-    staged = {os.path.splitext(f)[0].lower()
-              for f in os.listdir(avif_dir) if f.lower().endswith(".avif")} if avif_dir and os.path.isdir(avif_dir) else set()
-    print("  staged .avif stems: {}".format(len(staged)), file=sys.stderr)
-
-    # Stem -> absolute wp-content path. Art already hosted elsewhere on the site
-    # (season_images/season-N, atom-shop tiles) is reused verbatim instead of a
-    # second copy being staged here; the renderer passes any value starting with
-    # "/" straight through. Season art takes priority over a local re-upload.
     overrides = {}
     extra_pat = []
+    _cfg_staged = []
     if overrides_path and os.path.isfile(overrides_path):
         with open(overrides_path, encoding="utf-8") as fh:
             _cfg = json.load(fh)
         overrides = {k.lower(): v for k, v in
                      (_cfg.get("image_overrides") or {}).items()}
         extra_pat = _cfg.get("extra_roster_entm") or []
+        _cfg_staged = _cfg.get("staged_images") or []
         print("  image overrides: {}".format(len(overrides)), file=sys.stderr)
 
+    # Which .avif stems exist in guide-images/plan-checklist/displays/.
+    #
+    # The staging folder lives on a local drive, so CI cannot see it. Passing
+    # --avif-dir scans that folder AND persists the stem list into the config as
+    # "staged_images"; every later run (CI included) rebuilds from that list.
+    # Without this, a CI run would find an empty folder, emit images: [] for
+    # every row and silently blank the page.
+    #
+    # So: run locally with --avif-dir whenever art is added or removed, then
+    # commit the config alongside dist/displays.json.
+    scanned = avif_dir and os.path.isdir(avif_dir)
+    if scanned:
+        staged = {os.path.splitext(f)[0].lower()
+                  for f in os.listdir(avif_dir) if f.lower().endswith(".avif")}
+        print("  staged .avif stems: {} (scanned {})".format(len(staged), avif_dir),
+              file=sys.stderr)
+    else:
+        staged = {s.lower() for s in (_cfg_staged or [])}
+        if avif_dir:
+            print("  WARNING: --avif-dir {!r} is not a directory".format(avif_dir),
+                  file=sys.stderr)
+        print("  staged .avif stems: {} (from config)".format(len(staged)), file=sys.stderr)
+        if not staged:
+            print("  WARNING: no staged stems — every row will have images: []",
+                  file=sys.stderr)
+
+    # Stem -> absolute wp-content path. Art already hosted elsewhere on the site
+    # (season_images/season-N, atom-shop tiles) is reused verbatim instead of a
+    # second copy being staged here; the renderer passes any value starting with
+    # "/" straight through. Season art takes priority over a local re-upload.
     items = []
     n_ent = n_img = 0
     for it in roster:
@@ -264,6 +288,19 @@ def build(tsv_root, avif_dir, overrides_path=""):
             if imgs:
                 n_img += 1
         print("  extra ENTM roster rows: {}".format(n_extra), file=sys.stderr)
+
+    # Persist a freshly scanned list so CI can rebuild without the staging folder.
+    if scanned and overrides_path and os.path.isfile(overrides_path):
+        with open(overrides_path, encoding="utf-8") as fh:
+            _out = json.load(fh)
+        _new = sorted(staged)
+        if _out.get("staged_images") != _new:
+            _out["staged_images"] = _new
+            with open(overrides_path, "w", encoding="utf-8", newline="\n") as fh:
+                json.dump(_out, fh, ensure_ascii=False, indent=2)
+                fh.write("\n")
+            print("  wrote {} staged stems into {}".format(len(_new), overrides_path),
+                  file=sys.stderr)
 
     items.sort(key=lambda x: x["name"].lower())
 
