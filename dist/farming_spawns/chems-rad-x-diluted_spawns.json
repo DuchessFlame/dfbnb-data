@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-09-04",
+  "generated": "2026-09-07",
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
   "lists_in_closure": 257,
   "source_totals": {
@@ -404,7 +404,7 @@
     },
     {
      "name": "Tent",
-     "rate": 6.075000000000002e-05,
+     "rate": 0.00010125000000000002,
      "rate_display": "0.01%"
     },
     {
@@ -426,25 +426,6 @@
   },
   "creatures": {
    "note": "Around 1,958 creatures can drop Rad-X: Diluted as generic loot; they are not listed individually. See the Containers expand for the per-container drop rates and How to Obtain for the crafting recipe."
-  },
-  "collectrons": {
-   "entries": [
-    {
-     "name": "Communist Collectron Station",
-     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Communist",
-     "obtain": "Purchase from the Atom Shop.",
-     "interval": "4 min 48 sec",
-     "items": [
-      {
-       "name": "Rad-X: Diluted",
-       "form_id": "0012D3F1",
-       "rate": 0.033333,
-       "rate_display": "3.33%",
-       "rate_source": "computed"
-      }
-     ]
-    }
-   ]
   }
  },
  "farming_tips": {
@@ -1436,6 +1417,24 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "386DC4",
+      "386DC5",
+      "386DC6",
+      "386DC7",
+      "389B6A",
+      "40450C",
+      "40450D",
+      "40450E",
+      "404510",
+      "4045DD",
+      "43C5A7",
+      "43C5B4",
+      "43C5B6",
+      "43C5B8",
+      "4925E0",
+      "601DAB",
+      "601DB5",
+      "601ED4",
       "605F1A"
      ],
      "coords": [
@@ -1460,62 +1459,6 @@
    ]
   }
  ],
- "treasure_maps": {
-  "maps": [
-   {
-    "group": "Lucky Strike",
-    "name": "Excavator Map",
-    "region": "",
-    "form_id": "0032AD61",
-    "edid": "MTRz05_LL_03_ExcavatorMine",
-    "rate": 0.022222,
-    "rate_display": "2.22%",
-    "sources": [
-     {
-      "form_id": "0043934D",
-      "edid": "QuestReward_LLS_Aid_All",
-      "rate": 0.022222,
-      "rate_display": "2.22%"
-     }
-    ]
-   },
-   {
-    "group": "Lucky Strike",
-    "name": "Miner Map",
-    "region": "",
-    "form_id": "0032AD5F",
-    "edid": "MTRz05_LL_01_MinerMine",
-    "rate": 0.022222,
-    "rate_display": "2.22%",
-    "sources": [
-     {
-      "form_id": "0043934D",
-      "edid": "QuestReward_LLS_Aid_All",
-      "rate": 0.022222,
-      "rate_display": "2.22%"
-     }
-    ]
-   },
-   {
-    "group": "Lucky Strike",
-    "name": "Prospector Map",
-    "region": "",
-    "form_id": "0032AD60",
-    "edid": "MTRz05_LL_02_ProspectorMine",
-    "rate": 0.022222,
-    "rate_display": "2.22%",
-    "sources": [
-     {
-      "form_id": "0043934D",
-      "edid": "QuestReward_LLS_Aid_All",
-      "rate": 0.022222,
-      "rate_display": "2.22%"
-     }
-    ]
-   }
-  ]
- },
- "total": 4,
  "chance_spawns": {
   "regions": [
    {
@@ -2911,5 +2854,61 @@
   "total_markers": 152,
   "total": 417,
   "map_base": "/wp-content/uploads/guide-images/farming-chems/rad-x-diluted/"
- }
+ },
+ "treasure_maps": {
+  "maps": [
+   {
+    "group": "Lucky Strike",
+    "name": "Excavator Map",
+    "region": "",
+    "form_id": "0032AD61",
+    "edid": "MTRz05_LL_03_ExcavatorMine",
+    "rate": 0.022222,
+    "rate_display": "2.22%",
+    "sources": [
+     {
+      "form_id": "0043934D",
+      "edid": "QuestReward_LLS_Aid_All",
+      "rate": 0.022222,
+      "rate_display": "2.22%"
+     }
+    ]
+   },
+   {
+    "group": "Lucky Strike",
+    "name": "Miner Map",
+    "region": "",
+    "form_id": "0032AD5F",
+    "edid": "MTRz05_LL_01_MinerMine",
+    "rate": 0.022222,
+    "rate_display": "2.22%",
+    "sources": [
+     {
+      "form_id": "0043934D",
+      "edid": "QuestReward_LLS_Aid_All",
+      "rate": 0.022222,
+      "rate_display": "2.22%"
+     }
+    ]
+   },
+   {
+    "group": "Lucky Strike",
+    "name": "Prospector Map",
+    "region": "",
+    "form_id": "0032AD60",
+    "edid": "MTRz05_LL_02_ProspectorMine",
+    "rate": 0.022222,
+    "rate_display": "2.22%",
+    "sources": [
+     {
+      "form_id": "0043934D",
+      "edid": "QuestReward_LLS_Aid_All",
+      "rate": 0.022222,
+      "rate_display": "2.22%"
+     }
+    ]
+   }
+  ]
+ },
+ "total": 4
 }

@@ -1,6 +1,6 @@
 {
-  "generated": "2026-09-07T18:43:04.491272Z",
-  "source": "FISH_Export_July_2026.tsv",
+  "generated": "2026-09-07T18:43:08.859942Z",
+  "source": "FISH_Export_PTS_2026-09-05_2001.tsv",
   "seasonRule": {
     "rolloverDates": [
       {
@@ -578,110 +578,6 @@
           ]
         },
         {
-          "id": "008A5820",
-          "edid": "SeasonalFish_Fish_Medium_Festerkoi",
-          "name": "Fester Koi",
-          "size": "Medium",
-          "region": "Special",
-          "image": "/wp-content/uploads/guide-images/fishing/seasonal-fish-images/Fester Koi.avif",
-          "value": null,
-          "fishBits": 3,
-          "legendary": false,
-          "splash": null,
-          "stats": {
-            "startProgress": 0.3,
-            "drawInSpeed": 0.15,
-            "escapeSpeed": 0.4,
-            "maxStamina": 5,
-            "minStamina": 4,
-            "maxJumpDelay": 2.0,
-            "minJumpDelay": 1.5,
-            "jumpSpeed": 100,
-            "maxJumpDistance": 85,
-            "minJumpDistance": 50,
-            "minInitialAngle": 65,
-            "maxInitialAngle": 110
-          },
-          "keywords": [
-            {
-              "id": "007ABE88",
-              "name": "Fishing_FishSize_Medium"
-            },
-            {
-              "id": "007ABE8A",
-              "name": "ObjectTypeFish"
-            },
-            {
-              "id": "008B3D60",
-              "name": "Fishing_FishType_Seasonal_Fall"
-            }
-          ],
-          "recipes": [
-            {
-              "name": "Fall Filet",
-              "station": "",
-              "effect": "",
-              "ingredients": [
-                {
-                  "item": "Medium Raw Festerkoi",
-                  "qty": 1
-                }
-              ]
-            }
-          ],
-          "challenges": {
-            "lifetime": [],
-            "daily": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while Intoxicated",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Epic - Catch a Fish while not intoxicated",
-                "reward": "Score"
-              }
-            ],
-            "weekly": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while it is Raining",
-                "reward": "Score"
-              }
-            ]
-          },
-          "weather": [
-            "Clear",
-            "Rain",
-            "Rad Storm",
-            "Sandstorm"
-          ],
-          "bait": [
-            "Basic",
-            "Improved",
-            "Superior"
-          ],
-          "season": "Fall",
-          "catchRegions": [
-            "Toxic Valley",
-            "Ash Heap"
-          ]
-        },
-        {
           "id": "008A5821",
           "edid": "SeasonalFish_Fish_Medium_OrangeOverseer",
           "name": "Orange Overseer",
@@ -785,6 +681,346 @@
             "Savage Divide",
             "Skyline Valley"
           ]
+        },
+        {
+          "id": "008A5820",
+          "edid": "SeasonalFish_Fish_Medium_Festerkoi",
+          "name": "Fester Koi",
+          "size": "Medium",
+          "region": "Special",
+          "image": "/wp-content/uploads/guide-images/fishing/seasonal-fish-images/Fester Koi.avif",
+          "value": null,
+          "fishBits": 3,
+          "legendary": false,
+          "splash": null,
+          "stats": {
+            "startProgress": 0.3,
+            "drawInSpeed": 0.15,
+            "escapeSpeed": 0.4,
+            "maxStamina": 5,
+            "minStamina": 4,
+            "maxJumpDelay": 2.0,
+            "minJumpDelay": 1.5,
+            "jumpSpeed": 100,
+            "maxJumpDistance": 85,
+            "minJumpDistance": 50,
+            "minInitialAngle": 65,
+            "maxInitialAngle": 110
+          },
+          "keywords": [
+            {
+              "id": "007ABE88",
+              "name": "Fishing_FishSize_Medium"
+            },
+            {
+              "id": "007ABE8A",
+              "name": "ObjectTypeFish"
+            },
+            {
+              "id": "008B3D60",
+              "name": "Fishing_FishType_Seasonal_Fall"
+            }
+          ],
+          "recipes": [
+            {
+              "name": "Fall Sour Eelgrass",
+              "station": "",
+              "effect": "",
+              "ingredients": [
+                {
+                  "item": "Medium Raw Festerkoi",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "name": "Spicy Eelgrass Soup",
+              "station": "",
+              "effect": "+60 Health for 60 min",
+              "ingredients": [
+                {
+                  "item": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "item": "Flavor Spices",
+                  "qty": 1
+                },
+                {
+                  "item": "Swamp Tofu",
+                  "qty": 1
+                },
+                {
+                  "item": "Vegetable Slipper Cactus",
+                  "qty": 1
+                },
+                {
+                  "item": "Fall Sour Eelgrass",
+                  "qty": 5
+                }
+              ]
+            },
+            {
+              "name": "River Salad",
+              "station": "",
+              "effect": "+100 Poison Resist for 60 min",
+              "ingredients": [
+                {
+                  "item": "Tato Vegetable",
+                  "qty": 1
+                },
+                {
+                  "item": "Carrot",
+                  "qty": 2
+                },
+                {
+                  "item": "Flavor Pepper",
+                  "qty": 1
+                },
+                {
+                  "item": "Fall Sour Eelgrass",
+                  "qty": 1
+                }
+              ]
+            }
+          ],
+          "challenges": {
+            "lifetime": [
+              {
+                "name": "Catch A Fall Seasonal Fish",
+                "reward": "—",
+                "note": "Counts toward: Catch Fish From Every Season"
+              },
+              {
+                "name": "Catch Fall Seasonal Fish",
+                "reward": "—",
+                "note": "Counts toward: Catch Fish From Every Season"
+              }
+            ],
+            "daily": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while Intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Epic - Catch a Fish while not intoxicated",
+                "reward": "Score"
+              }
+            ],
+            "weekly": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while it is Raining",
+                "reward": "Score"
+              }
+            ]
+          },
+          "weather": [
+            "Clear",
+            "Rain",
+            "Rad Storm",
+            "Sandstorm"
+          ],
+          "bait": [
+            "Basic",
+            "Improved",
+            "Superior"
+          ],
+          "season": "Fall",
+          "catchRegions": [
+            "Toxic Valley",
+            "Ash Heap"
+          ]
+        },
+        {
+          "id": "008EFCB5",
+          "edid": "SeasonalFish_Fish_LocalLegend_SludgeEye",
+          "name": "Sludge Eye",
+          "size": "Small",
+          "region": "Ash Heap",
+          "image": "/wp-content/uploads/guide-images/fishing/local-legends/Sludge Eye.avif",
+          "value": null,
+          "fishBits": 1,
+          "legendary": true,
+          "splash": "WaterSplash_ExtraLarge_Glowing",
+          "stats": {
+            "startProgress": 0.35,
+            "drawInSpeed": 0.05,
+            "escapeSpeed": 0.5,
+            "maxStamina": 10,
+            "minStamina": 7,
+            "maxJumpDelay": 2.5,
+            "minJumpDelay": 2.0,
+            "jumpSpeed": 125,
+            "maxJumpDistance": 120,
+            "minJumpDistance": 50,
+            "minInitialAngle": 75,
+            "maxInitialAngle": 150
+          },
+          "keywords": [
+            {
+              "id": "007ABE8A",
+              "name": "ObjectTypeFish"
+            },
+            {
+              "id": "007ABE8B",
+              "name": "Fishing_FishSize_Small"
+            },
+            {
+              "id": "007BC5EA",
+              "name": "Fishing_FishType_AshHeap"
+            },
+            {
+              "id": "00804F7E",
+              "name": "Fishing_FishType_LocalLegend"
+            },
+            {
+              "id": "008B3D60",
+              "name": "Fishing_FishType_Seasonal_Fall"
+            }
+          ],
+          "recipes": [
+            {
+              "name": "Fall Sour Eelgrass",
+              "station": "",
+              "effect": "",
+              "ingredients": [
+                {
+                  "item": "Local Legend Raw Sludge Eye",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "name": "Spicy Eelgrass Soup",
+              "station": "",
+              "effect": "+60 Health for 60 min",
+              "ingredients": [
+                {
+                  "item": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "item": "Flavor Spices",
+                  "qty": 1
+                },
+                {
+                  "item": "Swamp Tofu",
+                  "qty": 1
+                },
+                {
+                  "item": "Vegetable Slipper Cactus",
+                  "qty": 1
+                },
+                {
+                  "item": "Fall Sour Eelgrass",
+                  "qty": 5
+                }
+              ]
+            },
+            {
+              "name": "River Salad",
+              "station": "",
+              "effect": "+100 Poison Resist for 60 min",
+              "ingredients": [
+                {
+                  "item": "Tato Vegetable",
+                  "qty": 1
+                },
+                {
+                  "item": "Carrot",
+                  "qty": 2
+                },
+                {
+                  "item": "Flavor Pepper",
+                  "qty": 1
+                },
+                {
+                  "item": "Fall Sour Eelgrass",
+                  "qty": 1
+                }
+              ]
+            }
+          ],
+          "challenges": {
+            "lifetime": [
+              {
+                "name": "Catch A Fall Seasonal Fish",
+                "reward": "—",
+                "note": "Counts toward: Catch Fish From Every Season"
+              },
+              {
+                "name": "Catch Fall Seasonal Fish",
+                "reward": "—",
+                "note": "Counts toward: Catch Fish From Every Season"
+              }
+            ],
+            "daily": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while Intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Epic - Catch a Fish while not intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Ash Heap Region",
+                "reward": "Score"
+              }
+            ],
+            "weekly": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while it is Raining",
+                "reward": "Score"
+              }
+            ]
+          },
+          "weather": [
+            "Clear",
+            "Rain",
+            "Rad Storm",
+            "Sandstorm"
+          ],
+          "bait": [
+            "Basic",
+            "Improved",
+            "Superior"
+          ],
+          "season": "Fall",
+          "hole": "The Sludge Works",
+          "description": "Can only be caught at <b>The Sludge Works</b> in the Ash Heap, and only while <b>Fall</b> is in season. Once the season turns, the Sludge Eye vanishes until next fall."
         }
       ]
     },
@@ -1699,6 +1935,181 @@
           "season": "Summer",
           "hole": "Glassed Cavern",
           "description": "Can only be caught at <b>Glassed Cavern</b> in the Cranberry Bog, and only while <b>Summer</b> is in season. Once the season turns, the Glass Ghost vanishes until next summer."
+        },
+        {
+          "id": "008EFCB5",
+          "edid": "SeasonalFish_Fish_LocalLegend_SludgeEye",
+          "name": "Sludge Eye",
+          "size": "Small",
+          "region": "Ash Heap",
+          "image": "/wp-content/uploads/guide-images/fishing/local-legends/Sludge Eye.avif",
+          "value": null,
+          "fishBits": 1,
+          "legendary": true,
+          "splash": "WaterSplash_ExtraLarge_Glowing",
+          "stats": {
+            "startProgress": 0.35,
+            "drawInSpeed": 0.05,
+            "escapeSpeed": 0.5,
+            "maxStamina": 10,
+            "minStamina": 7,
+            "maxJumpDelay": 2.5,
+            "minJumpDelay": 2.0,
+            "jumpSpeed": 125,
+            "maxJumpDistance": 120,
+            "minJumpDistance": 50,
+            "minInitialAngle": 75,
+            "maxInitialAngle": 150
+          },
+          "keywords": [
+            {
+              "id": "007ABE8A",
+              "name": "ObjectTypeFish"
+            },
+            {
+              "id": "007ABE8B",
+              "name": "Fishing_FishSize_Small"
+            },
+            {
+              "id": "007BC5EA",
+              "name": "Fishing_FishType_AshHeap"
+            },
+            {
+              "id": "00804F7E",
+              "name": "Fishing_FishType_LocalLegend"
+            },
+            {
+              "id": "008B3D60",
+              "name": "Fishing_FishType_Seasonal_Fall"
+            }
+          ],
+          "recipes": [
+            {
+              "name": "Fall Sour Eelgrass",
+              "station": "",
+              "effect": "",
+              "ingredients": [
+                {
+                  "item": "Local Legend Raw Sludge Eye",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "name": "Spicy Eelgrass Soup",
+              "station": "",
+              "effect": "+60 Health for 60 min",
+              "ingredients": [
+                {
+                  "item": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "item": "Flavor Spices",
+                  "qty": 1
+                },
+                {
+                  "item": "Swamp Tofu",
+                  "qty": 1
+                },
+                {
+                  "item": "Vegetable Slipper Cactus",
+                  "qty": 1
+                },
+                {
+                  "item": "Fall Sour Eelgrass",
+                  "qty": 5
+                }
+              ]
+            },
+            {
+              "name": "River Salad",
+              "station": "",
+              "effect": "+100 Poison Resist for 60 min",
+              "ingredients": [
+                {
+                  "item": "Tato Vegetable",
+                  "qty": 1
+                },
+                {
+                  "item": "Carrot",
+                  "qty": 2
+                },
+                {
+                  "item": "Flavor Pepper",
+                  "qty": 1
+                },
+                {
+                  "item": "Fall Sour Eelgrass",
+                  "qty": 1
+                }
+              ]
+            }
+          ],
+          "challenges": {
+            "lifetime": [
+              {
+                "name": "Catch A Fall Seasonal Fish",
+                "reward": "—",
+                "note": "Counts toward: Catch Fish From Every Season"
+              },
+              {
+                "name": "Catch Fall Seasonal Fish",
+                "reward": "—",
+                "note": "Counts toward: Catch Fish From Every Season"
+              }
+            ],
+            "daily": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while Intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Epic - Catch a Fish while not intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Ash Heap Region",
+                "reward": "Score"
+              }
+            ],
+            "weekly": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while it is Raining",
+                "reward": "Score"
+              }
+            ]
+          },
+          "weather": [
+            "Clear",
+            "Rain",
+            "Rad Storm",
+            "Sandstorm"
+          ],
+          "bait": [
+            "Basic",
+            "Improved",
+            "Superior"
+          ],
+          "season": "Fall",
+          "hole": "The Sludge Works",
+          "description": "Can only be caught at <b>The Sludge Works</b> in the Ash Heap, and only while <b>Fall</b> is in season. Once the season turns, the Sludge Eye vanishes until next fall."
         }
       ]
     },
@@ -3195,12 +3606,12 @@
       "blurb": "Twelve colour morphs of the prize amphibian, one per calendar month. Only rolls on Improved or Superb bait.",
       "fish": [
         {
-          "id": "00800704",
-          "edid": "Fishing_Fish_Small_Axolotl03_BrownAxolotl",
-          "name": "Clay Axolotl",
+          "id": "0080070E",
+          "edid": "Fishing_Fish_Small_Axolotl04_DottedAxolotl",
+          "name": "Dotted Axolotl",
           "size": "Small",
           "region": "Special",
-          "image": "/wp-content/uploads/guide-images/fishing/axolotl-images/axolotl_clay.avif",
+          "image": "/wp-content/uploads/guide-images/fishing/axolotl-images/axolotl_dotted.avif",
           "value": null,
           "fishBits": 25,
           "legendary": true,
@@ -3240,7 +3651,7 @@
               "effect": "",
               "ingredients": [
                 {
-                  "item": "Fishing Fish Meal Small Raw Axolotl03 Brown Axolotl",
+                  "item": "Fishing Fish Meal Small Raw Axolotl04 Dotted Axolotl",
                   "qty": 1
                 }
               ]
@@ -3368,10 +3779,370 @@
             "Improved",
             "Superior"
           ],
-          "month": "March",
+          "month": "April",
+          "regions": [
+            "Mire",
+            "Burning Springs"
+          ]
+        },
+        {
+          "id": "0080070F",
+          "edid": "Fishing_Fish_Small_Axolotl10_SpottedAxolotl",
+          "name": "Spotted Axolotl",
+          "size": "Small",
+          "region": "Special",
+          "image": "/wp-content/uploads/guide-images/fishing/axolotl-images/axolotl_spotted.avif",
+          "value": null,
+          "fishBits": 25,
+          "legendary": true,
+          "splash": "WaterSplash_ExtraLarge_Glowing",
+          "stats": {
+            "startProgress": 0.3,
+            "drawInSpeed": 0.15,
+            "escapeSpeed": 0.4,
+            "maxStamina": 5,
+            "minStamina": 4,
+            "maxJumpDelay": 2.0,
+            "minJumpDelay": 1.5,
+            "jumpSpeed": 100,
+            "maxJumpDistance": 85,
+            "minJumpDistance": 50,
+            "minInitialAngle": 65,
+            "maxInitialAngle": 110
+          },
+          "keywords": [
+            {
+              "id": "007ABE8A",
+              "name": "ObjectTypeFish"
+            },
+            {
+              "id": "007ABE8B",
+              "name": "Fishing_FishSize_Small"
+            },
+            {
+              "id": "00800713",
+              "name": "Fishing_FishType_Axolotl"
+            }
+          ],
+          "recipes": [
+            {
+              "name": "Fish Bits",
+              "station": "",
+              "effect": "",
+              "ingredients": [
+                {
+                  "item": "Fishing Fish Meal Small Raw Axolotl10 Spotted Axolotl",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "name": "Fish and Tatos",
+              "station": "",
+              "effect": "+5% XP for 30 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Cooking Oil",
+                  "qty": 1
+                },
+                {
+                  "item": "Tato Vegetable",
+                  "qty": 2
+                },
+                {
+                  "item": "Razorgrain Flour",
+                  "qty": 1
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 3
+                }
+              ]
+            },
+            {
+              "name": "Grilled Fish",
+              "station": "",
+              "effect": "+1 Max Bobber Reduction for 20 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Salt",
+                  "qty": 3
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 4
+                }
+              ]
+            },
+            {
+              "name": "Fish Chowder",
+              "station": "",
+              "effect": "+25 Reduced Hunger for 30 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "item": "Salt",
+                  "qty": 1
+                },
+                {
+                  "item": "Flavor Pepper",
+                  "qty": 1
+                },
+                {
+                  "item": "Cream",
+                  "qty": 1
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 5
+                }
+              ]
+            }
+          ],
+          "challenges": {
+            "lifetime": [],
+            "daily": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while Intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Epic - Catch a Fish while not intoxicated",
+                "reward": "Score"
+              }
+            ],
+            "weekly": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while it is Raining",
+                "reward": "Score"
+              }
+            ]
+          },
+          "weather": [
+            "Clear",
+            "Rain",
+            "Rad Storm",
+            "Sandstorm"
+          ],
+          "bait": [
+            "Improved",
+            "Superior"
+          ],
+          "month": "October",
+          "regions": [
+            "Toxic Valley",
+            "Savage Divide"
+          ]
+        },
+        {
+          "id": "00800709",
+          "edid": "Fishing_Fish_Small_Axolotl05_PurpleAxolotl",
+          "name": "Purple Axolotl",
+          "size": "Small",
+          "region": "Special",
+          "image": "/wp-content/uploads/guide-images/fishing/axolotl-images/axolotl_purple.avif",
+          "value": null,
+          "fishBits": 25,
+          "legendary": true,
+          "splash": "WaterSplash_ExtraLarge_Glowing",
+          "stats": {
+            "startProgress": 0.3,
+            "drawInSpeed": 0.15,
+            "escapeSpeed": 0.4,
+            "maxStamina": 5,
+            "minStamina": 4,
+            "maxJumpDelay": 2.0,
+            "minJumpDelay": 1.5,
+            "jumpSpeed": 100,
+            "maxJumpDistance": 85,
+            "minJumpDistance": 50,
+            "minInitialAngle": 65,
+            "maxInitialAngle": 110
+          },
+          "keywords": [
+            {
+              "id": "007ABE8A",
+              "name": "ObjectTypeFish"
+            },
+            {
+              "id": "007ABE8B",
+              "name": "Fishing_FishSize_Small"
+            },
+            {
+              "id": "00800713",
+              "name": "Fishing_FishType_Axolotl"
+            }
+          ],
+          "recipes": [
+            {
+              "name": "Fish Bits",
+              "station": "",
+              "effect": "",
+              "ingredients": [
+                {
+                  "item": "Fishing Fish Meal Small Raw Axolotl05 Purple Axolotl",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "name": "Fish and Tatos",
+              "station": "",
+              "effect": "+5% XP for 30 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Cooking Oil",
+                  "qty": 1
+                },
+                {
+                  "item": "Tato Vegetable",
+                  "qty": 2
+                },
+                {
+                  "item": "Razorgrain Flour",
+                  "qty": 1
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 3
+                }
+              ]
+            },
+            {
+              "name": "Grilled Fish",
+              "station": "",
+              "effect": "+1 Max Bobber Reduction for 20 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Salt",
+                  "qty": 3
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 4
+                }
+              ]
+            },
+            {
+              "name": "Fish Chowder",
+              "station": "",
+              "effect": "+25 Reduced Hunger for 30 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "item": "Salt",
+                  "qty": 1
+                },
+                {
+                  "item": "Flavor Pepper",
+                  "qty": 1
+                },
+                {
+                  "item": "Cream",
+                  "qty": 1
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 5
+                }
+              ]
+            }
+          ],
+          "challenges": {
+            "lifetime": [],
+            "daily": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while Intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Epic - Catch a Fish while not intoxicated",
+                "reward": "Score"
+              }
+            ],
+            "weekly": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while it is Raining",
+                "reward": "Score"
+              }
+            ]
+          },
+          "weather": [
+            "Clear",
+            "Rain",
+            "Rad Storm",
+            "Sandstorm"
+          ],
+          "bait": [
+            "Improved",
+            "Superior"
+          ],
+          "month": "May",
           "regions": [
             "Skyline Valley",
-            "Toxic Valley"
+            "Cranberry Bog"
           ]
         },
         {
@@ -3555,12 +4326,12 @@
           ]
         },
         {
-          "id": "00800708",
-          "edid": "Fishing_Fish_Small_Axolotl02_PinkAxolotl",
-          "name": "Pink Axolotl",
+          "id": "00800704",
+          "edid": "Fishing_Fish_Small_Axolotl03_BrownAxolotl",
+          "name": "Clay Axolotl",
           "size": "Small",
           "region": "Special",
-          "image": "/wp-content/uploads/guide-images/fishing/axolotl-images/axolotl_pink.avif",
+          "image": "/wp-content/uploads/guide-images/fishing/axolotl-images/axolotl_clay.avif",
           "value": null,
           "fishBits": 25,
           "legendary": true,
@@ -3600,7 +4371,7 @@
               "effect": "",
               "ingredients": [
                 {
-                  "item": "Fishing Fish Meal Small Raw Axolotl02 Pink Axolotl",
+                  "item": "Fishing Fish Meal Small Raw Axolotl03 Brown Axolotl",
                   "qty": 1
                 }
               ]
@@ -3728,19 +4499,19 @@
             "Improved",
             "Superior"
           ],
-          "month": "February",
+          "month": "March",
           "regions": [
-            "Cranberry Bog",
-            "Forest"
+            "Skyline Valley",
+            "Toxic Valley"
           ]
         },
         {
-          "id": "00800709",
-          "edid": "Fishing_Fish_Small_Axolotl05_PurpleAxolotl",
-          "name": "Purple Axolotl",
+          "id": "00800710",
+          "edid": "Fishing_Fish_Small_Axolotl08_StripedAxolotl",
+          "name": "Striped Axolotl",
           "size": "Small",
           "region": "Special",
-          "image": "/wp-content/uploads/guide-images/fishing/axolotl-images/axolotl_purple.avif",
+          "image": "/wp-content/uploads/guide-images/fishing/axolotl-images/axolotl_striped.avif",
           "value": null,
           "fishBits": 25,
           "legendary": true,
@@ -3780,7 +4551,7 @@
               "effect": "",
               "ingredients": [
                 {
-                  "item": "Fishing Fish Meal Small Raw Axolotl05 Purple Axolotl",
+                  "item": "Fishing Fish Meal Small Raw Axolotl08 Striped Axolotl",
                   "qty": 1
                 }
               ]
@@ -3908,10 +4679,190 @@
             "Improved",
             "Superior"
           ],
-          "month": "May",
+          "month": "August",
           "regions": [
-            "Skyline Valley",
-            "Cranberry Bog"
+            "Mire",
+            "Skyline Valley"
+          ]
+        },
+        {
+          "id": "00800711",
+          "edid": "Fishing_Fish_Small_Axolotl07_ScaledAxolotl",
+          "name": "Scaled Axolotl",
+          "size": "Small",
+          "region": "Special",
+          "image": "/wp-content/uploads/guide-images/fishing/axolotl-images/axolotl_scaled.avif",
+          "value": null,
+          "fishBits": 25,
+          "legendary": true,
+          "splash": "WaterSplash_ExtraLarge_Glowing",
+          "stats": {
+            "startProgress": 0.3,
+            "drawInSpeed": 0.15,
+            "escapeSpeed": 0.4,
+            "maxStamina": 5,
+            "minStamina": 4,
+            "maxJumpDelay": 2.0,
+            "minJumpDelay": 1.5,
+            "jumpSpeed": 100,
+            "maxJumpDistance": 85,
+            "minJumpDistance": 50,
+            "minInitialAngle": 65,
+            "maxInitialAngle": 110
+          },
+          "keywords": [
+            {
+              "id": "007ABE8A",
+              "name": "ObjectTypeFish"
+            },
+            {
+              "id": "007ABE8B",
+              "name": "Fishing_FishSize_Small"
+            },
+            {
+              "id": "00800713",
+              "name": "Fishing_FishType_Axolotl"
+            }
+          ],
+          "recipes": [
+            {
+              "name": "Fish Bits",
+              "station": "",
+              "effect": "",
+              "ingredients": [
+                {
+                  "item": "Fishing Fish Meal Small Raw Axolotl07 Scaled Axolotl",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "name": "Fish and Tatos",
+              "station": "",
+              "effect": "+5% XP for 30 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Cooking Oil",
+                  "qty": 1
+                },
+                {
+                  "item": "Tato Vegetable",
+                  "qty": 2
+                },
+                {
+                  "item": "Razorgrain Flour",
+                  "qty": 1
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 3
+                }
+              ]
+            },
+            {
+              "name": "Grilled Fish",
+              "station": "",
+              "effect": "+1 Max Bobber Reduction for 20 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Salt",
+                  "qty": 3
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 4
+                }
+              ]
+            },
+            {
+              "name": "Fish Chowder",
+              "station": "",
+              "effect": "+25 Reduced Hunger for 30 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "item": "Salt",
+                  "qty": 1
+                },
+                {
+                  "item": "Flavor Pepper",
+                  "qty": 1
+                },
+                {
+                  "item": "Cream",
+                  "qty": 1
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 5
+                }
+              ]
+            }
+          ],
+          "challenges": {
+            "lifetime": [],
+            "daily": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while Intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Epic - Catch a Fish while not intoxicated",
+                "reward": "Score"
+              }
+            ],
+            "weekly": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while it is Raining",
+                "reward": "Score"
+              }
+            ]
+          },
+          "weather": [
+            "Clear",
+            "Rain",
+            "Rad Storm",
+            "Sandstorm"
+          ],
+          "bait": [
+            "Improved",
+            "Superior"
+          ],
+          "month": "July",
+          "regions": [
+            "Ash Heap",
+            "Forest"
           ]
         },
         {
@@ -4635,12 +5586,12 @@
           ]
         },
         {
-          "id": "0080070E",
-          "edid": "Fishing_Fish_Small_Axolotl04_DottedAxolotl",
-          "name": "Dotted Axolotl",
+          "id": "00800708",
+          "edid": "Fishing_Fish_Small_Axolotl02_PinkAxolotl",
+          "name": "Pink Axolotl",
           "size": "Small",
           "region": "Special",
-          "image": "/wp-content/uploads/guide-images/fishing/axolotl-images/axolotl_dotted.avif",
+          "image": "/wp-content/uploads/guide-images/fishing/axolotl-images/axolotl_pink.avif",
           "value": null,
           "fishBits": 25,
           "legendary": true,
@@ -4680,7 +5631,7 @@
               "effect": "",
               "ingredients": [
                 {
-                  "item": "Fishing Fish Meal Small Raw Axolotl04 Dotted Axolotl",
+                  "item": "Fishing Fish Meal Small Raw Axolotl02 Pink Axolotl",
                   "qty": 1
                 }
               ]
@@ -4808,549 +5759,9 @@
             "Improved",
             "Superior"
           ],
-          "month": "April",
+          "month": "February",
           "regions": [
-            "Mire",
-            "Burning Springs"
-          ]
-        },
-        {
-          "id": "0080070F",
-          "edid": "Fishing_Fish_Small_Axolotl10_SpottedAxolotl",
-          "name": "Spotted Axolotl",
-          "size": "Small",
-          "region": "Special",
-          "image": "/wp-content/uploads/guide-images/fishing/axolotl-images/axolotl_spotted.avif",
-          "value": null,
-          "fishBits": 25,
-          "legendary": true,
-          "splash": "WaterSplash_ExtraLarge_Glowing",
-          "stats": {
-            "startProgress": 0.3,
-            "drawInSpeed": 0.15,
-            "escapeSpeed": 0.4,
-            "maxStamina": 5,
-            "minStamina": 4,
-            "maxJumpDelay": 2.0,
-            "minJumpDelay": 1.5,
-            "jumpSpeed": 100,
-            "maxJumpDistance": 85,
-            "minJumpDistance": 50,
-            "minInitialAngle": 65,
-            "maxInitialAngle": 110
-          },
-          "keywords": [
-            {
-              "id": "007ABE8A",
-              "name": "ObjectTypeFish"
-            },
-            {
-              "id": "007ABE8B",
-              "name": "Fishing_FishSize_Small"
-            },
-            {
-              "id": "00800713",
-              "name": "Fishing_FishType_Axolotl"
-            }
-          ],
-          "recipes": [
-            {
-              "name": "Fish Bits",
-              "station": "",
-              "effect": "",
-              "ingredients": [
-                {
-                  "item": "Fishing Fish Meal Small Raw Axolotl10 Spotted Axolotl",
-                  "qty": 1
-                }
-              ]
-            },
-            {
-              "name": "Fish and Tatos",
-              "station": "",
-              "effect": "+5% XP for 30 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Cooking Oil",
-                  "qty": 1
-                },
-                {
-                  "item": "Tato Vegetable",
-                  "qty": 2
-                },
-                {
-                  "item": "Razorgrain Flour",
-                  "qty": 1
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 3
-                }
-              ]
-            },
-            {
-              "name": "Grilled Fish",
-              "station": "",
-              "effect": "+1 Max Bobber Reduction for 20 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Salt",
-                  "qty": 3
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 4
-                }
-              ]
-            },
-            {
-              "name": "Fish Chowder",
-              "station": "",
-              "effect": "+25 Reduced Hunger for 30 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Boiled Water",
-                  "qty": 1
-                },
-                {
-                  "item": "Salt",
-                  "qty": 1
-                },
-                {
-                  "item": "Flavor Pepper",
-                  "qty": 1
-                },
-                {
-                  "item": "Cream",
-                  "qty": 1
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 5
-                }
-              ]
-            }
-          ],
-          "challenges": {
-            "lifetime": [],
-            "daily": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while Intoxicated",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Epic - Catch a Fish while not intoxicated",
-                "reward": "Score"
-              }
-            ],
-            "weekly": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while it is Raining",
-                "reward": "Score"
-              }
-            ]
-          },
-          "weather": [
-            "Clear",
-            "Rain",
-            "Rad Storm",
-            "Sandstorm"
-          ],
-          "bait": [
-            "Improved",
-            "Superior"
-          ],
-          "month": "October",
-          "regions": [
-            "Toxic Valley",
-            "Savage Divide"
-          ]
-        },
-        {
-          "id": "00800710",
-          "edid": "Fishing_Fish_Small_Axolotl08_StripedAxolotl",
-          "name": "Striped Axolotl",
-          "size": "Small",
-          "region": "Special",
-          "image": "/wp-content/uploads/guide-images/fishing/axolotl-images/axolotl_striped.avif",
-          "value": null,
-          "fishBits": 25,
-          "legendary": true,
-          "splash": "WaterSplash_ExtraLarge_Glowing",
-          "stats": {
-            "startProgress": 0.3,
-            "drawInSpeed": 0.15,
-            "escapeSpeed": 0.4,
-            "maxStamina": 5,
-            "minStamina": 4,
-            "maxJumpDelay": 2.0,
-            "minJumpDelay": 1.5,
-            "jumpSpeed": 100,
-            "maxJumpDistance": 85,
-            "minJumpDistance": 50,
-            "minInitialAngle": 65,
-            "maxInitialAngle": 110
-          },
-          "keywords": [
-            {
-              "id": "007ABE8A",
-              "name": "ObjectTypeFish"
-            },
-            {
-              "id": "007ABE8B",
-              "name": "Fishing_FishSize_Small"
-            },
-            {
-              "id": "00800713",
-              "name": "Fishing_FishType_Axolotl"
-            }
-          ],
-          "recipes": [
-            {
-              "name": "Fish Bits",
-              "station": "",
-              "effect": "",
-              "ingredients": [
-                {
-                  "item": "Fishing Fish Meal Small Raw Axolotl08 Striped Axolotl",
-                  "qty": 1
-                }
-              ]
-            },
-            {
-              "name": "Fish and Tatos",
-              "station": "",
-              "effect": "+5% XP for 30 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Cooking Oil",
-                  "qty": 1
-                },
-                {
-                  "item": "Tato Vegetable",
-                  "qty": 2
-                },
-                {
-                  "item": "Razorgrain Flour",
-                  "qty": 1
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 3
-                }
-              ]
-            },
-            {
-              "name": "Grilled Fish",
-              "station": "",
-              "effect": "+1 Max Bobber Reduction for 20 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Salt",
-                  "qty": 3
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 4
-                }
-              ]
-            },
-            {
-              "name": "Fish Chowder",
-              "station": "",
-              "effect": "+25 Reduced Hunger for 30 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Boiled Water",
-                  "qty": 1
-                },
-                {
-                  "item": "Salt",
-                  "qty": 1
-                },
-                {
-                  "item": "Flavor Pepper",
-                  "qty": 1
-                },
-                {
-                  "item": "Cream",
-                  "qty": 1
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 5
-                }
-              ]
-            }
-          ],
-          "challenges": {
-            "lifetime": [],
-            "daily": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while Intoxicated",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Epic - Catch a Fish while not intoxicated",
-                "reward": "Score"
-              }
-            ],
-            "weekly": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while it is Raining",
-                "reward": "Score"
-              }
-            ]
-          },
-          "weather": [
-            "Clear",
-            "Rain",
-            "Rad Storm",
-            "Sandstorm"
-          ],
-          "bait": [
-            "Improved",
-            "Superior"
-          ],
-          "month": "August",
-          "regions": [
-            "Mire",
-            "Skyline Valley"
-          ]
-        },
-        {
-          "id": "00800711",
-          "edid": "Fishing_Fish_Small_Axolotl07_ScaledAxolotl",
-          "name": "Scaled Axolotl",
-          "size": "Small",
-          "region": "Special",
-          "image": "/wp-content/uploads/guide-images/fishing/axolotl-images/axolotl_scaled.avif",
-          "value": null,
-          "fishBits": 25,
-          "legendary": true,
-          "splash": "WaterSplash_ExtraLarge_Glowing",
-          "stats": {
-            "startProgress": 0.3,
-            "drawInSpeed": 0.15,
-            "escapeSpeed": 0.4,
-            "maxStamina": 5,
-            "minStamina": 4,
-            "maxJumpDelay": 2.0,
-            "minJumpDelay": 1.5,
-            "jumpSpeed": 100,
-            "maxJumpDistance": 85,
-            "minJumpDistance": 50,
-            "minInitialAngle": 65,
-            "maxInitialAngle": 110
-          },
-          "keywords": [
-            {
-              "id": "007ABE8A",
-              "name": "ObjectTypeFish"
-            },
-            {
-              "id": "007ABE8B",
-              "name": "Fishing_FishSize_Small"
-            },
-            {
-              "id": "00800713",
-              "name": "Fishing_FishType_Axolotl"
-            }
-          ],
-          "recipes": [
-            {
-              "name": "Fish Bits",
-              "station": "",
-              "effect": "",
-              "ingredients": [
-                {
-                  "item": "Fishing Fish Meal Small Raw Axolotl07 Scaled Axolotl",
-                  "qty": 1
-                }
-              ]
-            },
-            {
-              "name": "Fish and Tatos",
-              "station": "",
-              "effect": "+5% XP for 30 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Cooking Oil",
-                  "qty": 1
-                },
-                {
-                  "item": "Tato Vegetable",
-                  "qty": 2
-                },
-                {
-                  "item": "Razorgrain Flour",
-                  "qty": 1
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 3
-                }
-              ]
-            },
-            {
-              "name": "Grilled Fish",
-              "station": "",
-              "effect": "+1 Max Bobber Reduction for 20 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Salt",
-                  "qty": 3
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 4
-                }
-              ]
-            },
-            {
-              "name": "Fish Chowder",
-              "station": "",
-              "effect": "+25 Reduced Hunger for 30 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Boiled Water",
-                  "qty": 1
-                },
-                {
-                  "item": "Salt",
-                  "qty": 1
-                },
-                {
-                  "item": "Flavor Pepper",
-                  "qty": 1
-                },
-                {
-                  "item": "Cream",
-                  "qty": 1
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 5
-                }
-              ]
-            }
-          ],
-          "challenges": {
-            "lifetime": [],
-            "daily": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while Intoxicated",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Epic - Catch a Fish while not intoxicated",
-                "reward": "Score"
-              }
-            ],
-            "weekly": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while it is Raining",
-                "reward": "Score"
-              }
-            ]
-          },
-          "weather": [
-            "Clear",
-            "Rain",
-            "Rad Storm",
-            "Sandstorm"
-          ],
-          "bait": [
-            "Improved",
-            "Superior"
-          ],
-          "month": "July",
-          "regions": [
-            "Ash Heap",
+            "Cranberry Bog",
             "Forest"
           ]
         }
@@ -5361,546 +5772,6 @@
       "label": "Uncommon",
       "blurb": "Region signature fish, two per region. The middle of the cascade.",
       "fish": [
-        {
-          "id": "007CE50E",
-          "edid": "Fishing_Fish_Large_Toxic_PotbellyKelt",
-          "name": "Potbelly Kelt",
-          "size": "Large",
-          "region": "Toxic Valley",
-          "image": "/wp-content/uploads/guide-images/fishing/uncommon-fish/Potbelly Kelt.avif",
-          "value": null,
-          "fishBits": 5,
-          "legendary": false,
-          "splash": null,
-          "stats": {
-            "startProgress": 0.35,
-            "drawInSpeed": 0.1,
-            "escapeSpeed": 0.45,
-            "maxStamina": 6,
-            "minStamina": 5,
-            "maxJumpDelay": 2.5,
-            "minJumpDelay": 1.8,
-            "jumpSpeed": 125,
-            "maxJumpDistance": 105,
-            "minJumpDistance": 60,
-            "minInitialAngle": 75,
-            "maxInitialAngle": 135
-          },
-          "keywords": [
-            {
-              "id": "007ABE89",
-              "name": "Fishing_FishSize_Large"
-            },
-            {
-              "id": "007ABE8A",
-              "name": "ObjectTypeFish"
-            },
-            {
-              "id": "007BC5EE",
-              "name": "Fishing_FishType_ToxicValley"
-            }
-          ],
-          "recipes": [
-            {
-              "name": "Fish Bits",
-              "station": "",
-              "effect": "",
-              "ingredients": [
-                {
-                  "item": "Fishing Fish Meal Large Raw Toxic Potbelly Kelt",
-                  "qty": 1
-                }
-              ]
-            },
-            {
-              "name": "Fish and Tatos",
-              "station": "",
-              "effect": "+5% XP for 30 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Cooking Oil",
-                  "qty": 1
-                },
-                {
-                  "item": "Tato Vegetable",
-                  "qty": 2
-                },
-                {
-                  "item": "Razorgrain Flour",
-                  "qty": 1
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 3
-                }
-              ]
-            },
-            {
-              "name": "Grilled Fish",
-              "station": "",
-              "effect": "+1 Max Bobber Reduction for 20 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Salt",
-                  "qty": 3
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 4
-                }
-              ]
-            },
-            {
-              "name": "Fish Chowder",
-              "station": "",
-              "effect": "+25 Reduced Hunger for 30 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Boiled Water",
-                  "qty": 1
-                },
-                {
-                  "item": "Salt",
-                  "qty": 1
-                },
-                {
-                  "item": "Flavor Pepper",
-                  "qty": 1
-                },
-                {
-                  "item": "Cream",
-                  "qty": 1
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 5
-                }
-              ]
-            }
-          ],
-          "challenges": {
-            "lifetime": [],
-            "daily": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while Intoxicated",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Epic - Catch a Fish while not intoxicated",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Toxic Valley Region",
-                "reward": "Score"
-              }
-            ],
-            "weekly": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while it is Raining",
-                "reward": "Score"
-              }
-            ]
-          },
-          "weather": [
-            "Clear",
-            "Rain",
-            "Rad Storm",
-            "Sandstorm"
-          ],
-          "bait": [
-            "Basic",
-            "Improved",
-            "Superior"
-          ]
-        },
-        {
-          "id": "007CE50F",
-          "edid": "Fishing_Fish_Large_Savage_ArmoredSpinefish",
-          "name": "Armored Spinefish",
-          "size": "Large",
-          "region": "Savage Divide",
-          "image": "/wp-content/uploads/guide-images/fishing/uncommon-fish/Armored Spinefish.avif",
-          "value": null,
-          "fishBits": 5,
-          "legendary": false,
-          "splash": null,
-          "stats": {
-            "startProgress": 0.35,
-            "drawInSpeed": 0.1,
-            "escapeSpeed": 0.45,
-            "maxStamina": 6,
-            "minStamina": 5,
-            "maxJumpDelay": 2.5,
-            "minJumpDelay": 1.8,
-            "jumpSpeed": 125,
-            "maxJumpDistance": 105,
-            "minJumpDistance": 60,
-            "minInitialAngle": 75,
-            "maxInitialAngle": 135
-          },
-          "keywords": [
-            {
-              "id": "007ABE89",
-              "name": "Fishing_FishSize_Large"
-            },
-            {
-              "id": "007ABE8A",
-              "name": "ObjectTypeFish"
-            },
-            {
-              "id": "007BC5ED",
-              "name": "Fishing_FishType_SavageDivide"
-            }
-          ],
-          "recipes": [
-            {
-              "name": "Fish Bits",
-              "station": "",
-              "effect": "",
-              "ingredients": [
-                {
-                  "item": "Fishing Fish Meal Large Raw Savage Armored Spinefish",
-                  "qty": 1
-                }
-              ]
-            },
-            {
-              "name": "Fish and Tatos",
-              "station": "",
-              "effect": "+5% XP for 30 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Cooking Oil",
-                  "qty": 1
-                },
-                {
-                  "item": "Tato Vegetable",
-                  "qty": 2
-                },
-                {
-                  "item": "Razorgrain Flour",
-                  "qty": 1
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 3
-                }
-              ]
-            },
-            {
-              "name": "Grilled Fish",
-              "station": "",
-              "effect": "+1 Max Bobber Reduction for 20 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Salt",
-                  "qty": 3
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 4
-                }
-              ]
-            },
-            {
-              "name": "Fish Chowder",
-              "station": "",
-              "effect": "+25 Reduced Hunger for 30 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Boiled Water",
-                  "qty": 1
-                },
-                {
-                  "item": "Salt",
-                  "qty": 1
-                },
-                {
-                  "item": "Flavor Pepper",
-                  "qty": 1
-                },
-                {
-                  "item": "Cream",
-                  "qty": 1
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 5
-                }
-              ]
-            }
-          ],
-          "challenges": {
-            "lifetime": [],
-            "daily": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while Intoxicated",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Epic - Catch a Fish while not intoxicated",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Savage Divide Region",
-                "reward": "Score"
-              }
-            ],
-            "weekly": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while it is Raining",
-                "reward": "Score"
-              }
-            ]
-          },
-          "weather": [
-            "Clear",
-            "Rain",
-            "Rad Storm",
-            "Sandstorm"
-          ],
-          "bait": [
-            "Basic",
-            "Improved",
-            "Superior"
-          ]
-        },
-        {
-          "id": "007CE511",
-          "edid": "Fishing_Fish_Large_Skyline_Stormswimmer",
-          "name": "Stormswimmer",
-          "size": "Large",
-          "region": "Skyline Valley",
-          "image": "/wp-content/uploads/guide-images/fishing/uncommon-fish/Stormswimmer.avif",
-          "value": null,
-          "fishBits": 5,
-          "legendary": false,
-          "splash": null,
-          "stats": {
-            "startProgress": 0.35,
-            "drawInSpeed": 0.1,
-            "escapeSpeed": 0.45,
-            "maxStamina": 6,
-            "minStamina": 5,
-            "maxJumpDelay": 2.5,
-            "minJumpDelay": 1.8,
-            "jumpSpeed": 125,
-            "maxJumpDistance": 105,
-            "minJumpDistance": 60,
-            "minInitialAngle": 75,
-            "maxInitialAngle": 135
-          },
-          "keywords": [
-            {
-              "id": "007ABE89",
-              "name": "Fishing_FishSize_Large"
-            },
-            {
-              "id": "007ABE8A",
-              "name": "ObjectTypeFish"
-            },
-            {
-              "id": "007BC5E8",
-              "name": "Fishing_FishType_SkylineValley"
-            }
-          ],
-          "recipes": [
-            {
-              "name": "Fish Bits",
-              "station": "",
-              "effect": "",
-              "ingredients": [
-                {
-                  "item": "Fishing Fish Meal Large Raw Skyline Stormswimmer",
-                  "qty": 1
-                }
-              ]
-            },
-            {
-              "name": "Fish and Tatos",
-              "station": "",
-              "effect": "+5% XP for 30 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Cooking Oil",
-                  "qty": 1
-                },
-                {
-                  "item": "Tato Vegetable",
-                  "qty": 2
-                },
-                {
-                  "item": "Razorgrain Flour",
-                  "qty": 1
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 3
-                }
-              ]
-            },
-            {
-              "name": "Grilled Fish",
-              "station": "",
-              "effect": "+1 Max Bobber Reduction for 20 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Salt",
-                  "qty": 3
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 4
-                }
-              ]
-            },
-            {
-              "name": "Fish Chowder",
-              "station": "",
-              "effect": "+25 Reduced Hunger for 30 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Boiled Water",
-                  "qty": 1
-                },
-                {
-                  "item": "Salt",
-                  "qty": 1
-                },
-                {
-                  "item": "Flavor Pepper",
-                  "qty": 1
-                },
-                {
-                  "item": "Cream",
-                  "qty": 1
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 5
-                }
-              ]
-            }
-          ],
-          "challenges": {
-            "lifetime": [],
-            "daily": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while Intoxicated",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Epic - Catch a Fish while not intoxicated",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Skyline Valley Region",
-                "reward": "Score"
-              }
-            ],
-            "weekly": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while it is Raining",
-                "reward": "Score"
-              }
-            ]
-          },
-          "weather": [
-            "Clear",
-            "Rain",
-            "Rad Storm",
-            "Sandstorm"
-          ],
-          "bait": [
-            "Basic",
-            "Improved",
-            "Superior"
-          ]
-        },
         {
           "id": "007CE514",
           "edid": "Fishing_Fish_Small_Savage_Leatherback",
@@ -7162,6 +7033,546 @@
           ]
         },
         {
+          "id": "007CE50E",
+          "edid": "Fishing_Fish_Large_Toxic_PotbellyKelt",
+          "name": "Potbelly Kelt",
+          "size": "Large",
+          "region": "Toxic Valley",
+          "image": "/wp-content/uploads/guide-images/fishing/uncommon-fish/Potbelly Kelt.avif",
+          "value": null,
+          "fishBits": 5,
+          "legendary": false,
+          "splash": null,
+          "stats": {
+            "startProgress": 0.35,
+            "drawInSpeed": 0.1,
+            "escapeSpeed": 0.45,
+            "maxStamina": 6,
+            "minStamina": 5,
+            "maxJumpDelay": 2.5,
+            "minJumpDelay": 1.8,
+            "jumpSpeed": 125,
+            "maxJumpDistance": 105,
+            "minJumpDistance": 60,
+            "minInitialAngle": 75,
+            "maxInitialAngle": 135
+          },
+          "keywords": [
+            {
+              "id": "007ABE89",
+              "name": "Fishing_FishSize_Large"
+            },
+            {
+              "id": "007ABE8A",
+              "name": "ObjectTypeFish"
+            },
+            {
+              "id": "007BC5EE",
+              "name": "Fishing_FishType_ToxicValley"
+            }
+          ],
+          "recipes": [
+            {
+              "name": "Fish Bits",
+              "station": "",
+              "effect": "",
+              "ingredients": [
+                {
+                  "item": "Fishing Fish Meal Large Raw Toxic Potbelly Kelt",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "name": "Fish and Tatos",
+              "station": "",
+              "effect": "+5% XP for 30 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Cooking Oil",
+                  "qty": 1
+                },
+                {
+                  "item": "Tato Vegetable",
+                  "qty": 2
+                },
+                {
+                  "item": "Razorgrain Flour",
+                  "qty": 1
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 3
+                }
+              ]
+            },
+            {
+              "name": "Grilled Fish",
+              "station": "",
+              "effect": "+1 Max Bobber Reduction for 20 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Salt",
+                  "qty": 3
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 4
+                }
+              ]
+            },
+            {
+              "name": "Fish Chowder",
+              "station": "",
+              "effect": "+25 Reduced Hunger for 30 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "item": "Salt",
+                  "qty": 1
+                },
+                {
+                  "item": "Flavor Pepper",
+                  "qty": 1
+                },
+                {
+                  "item": "Cream",
+                  "qty": 1
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 5
+                }
+              ]
+            }
+          ],
+          "challenges": {
+            "lifetime": [],
+            "daily": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while Intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Epic - Catch a Fish while not intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Toxic Valley Region",
+                "reward": "Score"
+              }
+            ],
+            "weekly": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while it is Raining",
+                "reward": "Score"
+              }
+            ]
+          },
+          "weather": [
+            "Clear",
+            "Rain",
+            "Rad Storm",
+            "Sandstorm"
+          ],
+          "bait": [
+            "Basic",
+            "Improved",
+            "Superior"
+          ]
+        },
+        {
+          "id": "007CE50F",
+          "edid": "Fishing_Fish_Large_Savage_ArmoredSpinefish",
+          "name": "Armored Spinefish",
+          "size": "Large",
+          "region": "Savage Divide",
+          "image": "/wp-content/uploads/guide-images/fishing/uncommon-fish/Armored Spinefish.avif",
+          "value": null,
+          "fishBits": 5,
+          "legendary": false,
+          "splash": null,
+          "stats": {
+            "startProgress": 0.35,
+            "drawInSpeed": 0.1,
+            "escapeSpeed": 0.45,
+            "maxStamina": 6,
+            "minStamina": 5,
+            "maxJumpDelay": 2.5,
+            "minJumpDelay": 1.8,
+            "jumpSpeed": 125,
+            "maxJumpDistance": 105,
+            "minJumpDistance": 60,
+            "minInitialAngle": 75,
+            "maxInitialAngle": 135
+          },
+          "keywords": [
+            {
+              "id": "007ABE89",
+              "name": "Fishing_FishSize_Large"
+            },
+            {
+              "id": "007ABE8A",
+              "name": "ObjectTypeFish"
+            },
+            {
+              "id": "007BC5ED",
+              "name": "Fishing_FishType_SavageDivide"
+            }
+          ],
+          "recipes": [
+            {
+              "name": "Fish Bits",
+              "station": "",
+              "effect": "",
+              "ingredients": [
+                {
+                  "item": "Fishing Fish Meal Large Raw Savage Armored Spinefish",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "name": "Fish and Tatos",
+              "station": "",
+              "effect": "+5% XP for 30 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Cooking Oil",
+                  "qty": 1
+                },
+                {
+                  "item": "Tato Vegetable",
+                  "qty": 2
+                },
+                {
+                  "item": "Razorgrain Flour",
+                  "qty": 1
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 3
+                }
+              ]
+            },
+            {
+              "name": "Grilled Fish",
+              "station": "",
+              "effect": "+1 Max Bobber Reduction for 20 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Salt",
+                  "qty": 3
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 4
+                }
+              ]
+            },
+            {
+              "name": "Fish Chowder",
+              "station": "",
+              "effect": "+25 Reduced Hunger for 30 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "item": "Salt",
+                  "qty": 1
+                },
+                {
+                  "item": "Flavor Pepper",
+                  "qty": 1
+                },
+                {
+                  "item": "Cream",
+                  "qty": 1
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 5
+                }
+              ]
+            }
+          ],
+          "challenges": {
+            "lifetime": [],
+            "daily": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while Intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Epic - Catch a Fish while not intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Savage Divide Region",
+                "reward": "Score"
+              }
+            ],
+            "weekly": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while it is Raining",
+                "reward": "Score"
+              }
+            ]
+          },
+          "weather": [
+            "Clear",
+            "Rain",
+            "Rad Storm",
+            "Sandstorm"
+          ],
+          "bait": [
+            "Basic",
+            "Improved",
+            "Superior"
+          ]
+        },
+        {
+          "id": "007CE511",
+          "edid": "Fishing_Fish_Large_Skyline_Stormswimmer",
+          "name": "Stormswimmer",
+          "size": "Large",
+          "region": "Skyline Valley",
+          "image": "/wp-content/uploads/guide-images/fishing/uncommon-fish/Stormswimmer.avif",
+          "value": null,
+          "fishBits": 5,
+          "legendary": false,
+          "splash": null,
+          "stats": {
+            "startProgress": 0.35,
+            "drawInSpeed": 0.1,
+            "escapeSpeed": 0.45,
+            "maxStamina": 6,
+            "minStamina": 5,
+            "maxJumpDelay": 2.5,
+            "minJumpDelay": 1.8,
+            "jumpSpeed": 125,
+            "maxJumpDistance": 105,
+            "minJumpDistance": 60,
+            "minInitialAngle": 75,
+            "maxInitialAngle": 135
+          },
+          "keywords": [
+            {
+              "id": "007ABE89",
+              "name": "Fishing_FishSize_Large"
+            },
+            {
+              "id": "007ABE8A",
+              "name": "ObjectTypeFish"
+            },
+            {
+              "id": "007BC5E8",
+              "name": "Fishing_FishType_SkylineValley"
+            }
+          ],
+          "recipes": [
+            {
+              "name": "Fish Bits",
+              "station": "",
+              "effect": "",
+              "ingredients": [
+                {
+                  "item": "Fishing Fish Meal Large Raw Skyline Stormswimmer",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "name": "Fish and Tatos",
+              "station": "",
+              "effect": "+5% XP for 30 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Cooking Oil",
+                  "qty": 1
+                },
+                {
+                  "item": "Tato Vegetable",
+                  "qty": 2
+                },
+                {
+                  "item": "Razorgrain Flour",
+                  "qty": 1
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 3
+                }
+              ]
+            },
+            {
+              "name": "Grilled Fish",
+              "station": "",
+              "effect": "+1 Max Bobber Reduction for 20 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Salt",
+                  "qty": 3
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 4
+                }
+              ]
+            },
+            {
+              "name": "Fish Chowder",
+              "station": "",
+              "effect": "+25 Reduced Hunger for 30 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "item": "Salt",
+                  "qty": 1
+                },
+                {
+                  "item": "Flavor Pepper",
+                  "qty": 1
+                },
+                {
+                  "item": "Cream",
+                  "qty": 1
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 5
+                }
+              ]
+            }
+          ],
+          "challenges": {
+            "lifetime": [],
+            "daily": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while Intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Epic - Catch a Fish while not intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Skyline Valley Region",
+                "reward": "Score"
+              }
+            ],
+            "weekly": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while it is Raining",
+                "reward": "Score"
+              }
+            ]
+          },
+          "weather": [
+            "Clear",
+            "Rain",
+            "Rad Storm",
+            "Sandstorm"
+          ],
+          "bait": [
+            "Basic",
+            "Improved",
+            "Superior"
+          ]
+        },
+        {
           "id": "007D2AFF",
           "edid": "Fishing_Fish_Large_Ash_Deathjaw",
           "name": "Deathjaw",
@@ -7882,12 +8293,12 @@
           ]
         },
         {
-          "id": "008482A5",
-          "edid": "Burn_Fish_Medium_BurningSprings_TwoHeaded",
-          "name": "Brahfin",
+          "id": "008482A7",
+          "edid": "Burn_Fish_Medium_BurningSprings_Walleye",
+          "name": "Withered Radeye",
           "size": "Medium",
           "region": "Burning Springs",
-          "image": "/wp-content/uploads/guide-images/fishing/uncommon-fish/Brahfin.avif",
+          "image": "/wp-content/uploads/guide-images/fishing/uncommon-fish/Withered Radeye.avif",
           "value": null,
           "fishBits": 3,
           "legendary": false,
@@ -7927,7 +8338,7 @@
               "effect": "",
               "ingredients": [
                 {
-                  "item": "Burn Fish Meal Medium Raw Burning Springs Two Headed",
+                  "item": "Burn Fish Meal Medium Raw Burning Springs Walleye",
                   "qty": 1
                 }
               ]
@@ -8070,12 +8481,12 @@
           ]
         },
         {
-          "id": "008482A7",
-          "edid": "Burn_Fish_Medium_BurningSprings_Walleye",
-          "name": "Withered Radeye",
+          "id": "008482A5",
+          "edid": "Burn_Fish_Medium_BurningSprings_TwoHeaded",
+          "name": "Brahfin",
           "size": "Medium",
           "region": "Burning Springs",
-          "image": "/wp-content/uploads/guide-images/fishing/uncommon-fish/Withered Radeye.avif",
+          "image": "/wp-content/uploads/guide-images/fishing/uncommon-fish/Brahfin.avif",
           "value": null,
           "fishBits": 3,
           "legendary": false,
@@ -8115,7 +8526,7 @@
               "effect": "",
               "ingredients": [
                 {
-                  "item": "Burn Fish Meal Medium Raw Burning Springs Walleye",
+                  "item": "Burn Fish Meal Medium Raw Burning Springs Two Headed",
                   "qty": 1
                 }
               ]
@@ -8537,110 +8948,6 @@
           ]
         },
         {
-          "id": "008A5820",
-          "edid": "SeasonalFish_Fish_Medium_Festerkoi",
-          "name": "Fester Koi",
-          "size": "Medium",
-          "region": "Special",
-          "image": "/wp-content/uploads/guide-images/fishing/seasonal-fish-images/Fester Koi.avif",
-          "value": null,
-          "fishBits": 3,
-          "legendary": false,
-          "splash": null,
-          "stats": {
-            "startProgress": 0.3,
-            "drawInSpeed": 0.15,
-            "escapeSpeed": 0.4,
-            "maxStamina": 5,
-            "minStamina": 4,
-            "maxJumpDelay": 2.0,
-            "minJumpDelay": 1.5,
-            "jumpSpeed": 100,
-            "maxJumpDistance": 85,
-            "minJumpDistance": 50,
-            "minInitialAngle": 65,
-            "maxInitialAngle": 110
-          },
-          "keywords": [
-            {
-              "id": "007ABE88",
-              "name": "Fishing_FishSize_Medium"
-            },
-            {
-              "id": "007ABE8A",
-              "name": "ObjectTypeFish"
-            },
-            {
-              "id": "008B3D60",
-              "name": "Fishing_FishType_Seasonal_Fall"
-            }
-          ],
-          "recipes": [
-            {
-              "name": "Fall Filet",
-              "station": "",
-              "effect": "",
-              "ingredients": [
-                {
-                  "item": "Medium Raw Festerkoi",
-                  "qty": 1
-                }
-              ]
-            }
-          ],
-          "challenges": {
-            "lifetime": [],
-            "daily": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while Intoxicated",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Epic - Catch a Fish while not intoxicated",
-                "reward": "Score"
-              }
-            ],
-            "weekly": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while it is Raining",
-                "reward": "Score"
-              }
-            ]
-          },
-          "weather": [
-            "Clear",
-            "Rain",
-            "Rad Storm",
-            "Sandstorm"
-          ],
-          "bait": [
-            "Basic",
-            "Improved",
-            "Superior"
-          ],
-          "season": "Fall",
-          "catchRegions": [
-            "Toxic Valley",
-            "Ash Heap"
-          ]
-        },
-        {
           "id": "008A5821",
           "edid": "SeasonalFish_Fish_Medium_OrangeOverseer",
           "name": "Orange Overseer",
@@ -8743,6 +9050,171 @@
             "Toxic Valley",
             "Savage Divide",
             "Skyline Valley"
+          ]
+        },
+        {
+          "id": "008A5820",
+          "edid": "SeasonalFish_Fish_Medium_Festerkoi",
+          "name": "Fester Koi",
+          "size": "Medium",
+          "region": "Special",
+          "image": "/wp-content/uploads/guide-images/fishing/seasonal-fish-images/Fester Koi.avif",
+          "value": null,
+          "fishBits": 3,
+          "legendary": false,
+          "splash": null,
+          "stats": {
+            "startProgress": 0.3,
+            "drawInSpeed": 0.15,
+            "escapeSpeed": 0.4,
+            "maxStamina": 5,
+            "minStamina": 4,
+            "maxJumpDelay": 2.0,
+            "minJumpDelay": 1.5,
+            "jumpSpeed": 100,
+            "maxJumpDistance": 85,
+            "minJumpDistance": 50,
+            "minInitialAngle": 65,
+            "maxInitialAngle": 110
+          },
+          "keywords": [
+            {
+              "id": "007ABE88",
+              "name": "Fishing_FishSize_Medium"
+            },
+            {
+              "id": "007ABE8A",
+              "name": "ObjectTypeFish"
+            },
+            {
+              "id": "008B3D60",
+              "name": "Fishing_FishType_Seasonal_Fall"
+            }
+          ],
+          "recipes": [
+            {
+              "name": "Fall Sour Eelgrass",
+              "station": "",
+              "effect": "",
+              "ingredients": [
+                {
+                  "item": "Medium Raw Festerkoi",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "name": "Spicy Eelgrass Soup",
+              "station": "",
+              "effect": "+60 Health for 60 min",
+              "ingredients": [
+                {
+                  "item": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "item": "Flavor Spices",
+                  "qty": 1
+                },
+                {
+                  "item": "Swamp Tofu",
+                  "qty": 1
+                },
+                {
+                  "item": "Vegetable Slipper Cactus",
+                  "qty": 1
+                },
+                {
+                  "item": "Fall Sour Eelgrass",
+                  "qty": 5
+                }
+              ]
+            },
+            {
+              "name": "River Salad",
+              "station": "",
+              "effect": "+100 Poison Resist for 60 min",
+              "ingredients": [
+                {
+                  "item": "Tato Vegetable",
+                  "qty": 1
+                },
+                {
+                  "item": "Carrot",
+                  "qty": 2
+                },
+                {
+                  "item": "Flavor Pepper",
+                  "qty": 1
+                },
+                {
+                  "item": "Fall Sour Eelgrass",
+                  "qty": 1
+                }
+              ]
+            }
+          ],
+          "challenges": {
+            "lifetime": [
+              {
+                "name": "Catch A Fall Seasonal Fish",
+                "reward": "—",
+                "note": "Counts toward: Catch Fish From Every Season"
+              },
+              {
+                "name": "Catch Fall Seasonal Fish",
+                "reward": "—",
+                "note": "Counts toward: Catch Fish From Every Season"
+              }
+            ],
+            "daily": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while Intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Epic - Catch a Fish while not intoxicated",
+                "reward": "Score"
+              }
+            ],
+            "weekly": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while it is Raining",
+                "reward": "Score"
+              }
+            ]
+          },
+          "weather": [
+            "Clear",
+            "Rain",
+            "Rad Storm",
+            "Sandstorm"
+          ],
+          "bait": [
+            "Basic",
+            "Improved",
+            "Superior"
+          ],
+          "season": "Fall",
+          "catchRegions": [
+            "Toxic Valley",
+            "Ash Heap"
           ]
         }
       ]
@@ -10240,654 +10712,6 @@
       "blurb": "Plain fish found in any water. Bottom of the cascade, right before the junk.",
       "fish": [
         {
-          "id": "007CE50C",
-          "edid": "Fishing_Fish_Small_Generic_Redbelly",
-          "name": "Redbelly",
-          "size": "Small",
-          "region": "All regions",
-          "image": "/wp-content/uploads/guide-images/fishing/generic-fish/Redbelly.avif",
-          "value": null,
-          "fishBits": 1,
-          "legendary": false,
-          "splash": null,
-          "stats": {
-            "startProgress": 0.3,
-            "drawInSpeed": 0.3,
-            "escapeSpeed": 0.15,
-            "maxStamina": 1,
-            "minStamina": 1,
-            "maxJumpDelay": 2.5,
-            "minJumpDelay": 1.8,
-            "jumpSpeed": 65,
-            "maxJumpDistance": 60,
-            "minJumpDistance": 30,
-            "minInitialAngle": 45,
-            "maxInitialAngle": 50
-          },
-          "keywords": [
-            {
-              "id": "007ABE8A",
-              "name": "ObjectTypeFish"
-            },
-            {
-              "id": "007ABE8B",
-              "name": "Fishing_FishSize_Small"
-            },
-            {
-              "id": "007BC5E9",
-              "name": "Fishing_FishType_Generic"
-            }
-          ],
-          "recipes": [
-            {
-              "name": "Fish Bits",
-              "station": "",
-              "effect": "",
-              "ingredients": [
-                {
-                  "item": "Fishing Fish Meal Small Raw Generic Redbelly",
-                  "qty": 1
-                }
-              ]
-            },
-            {
-              "name": "Fish and Tatos",
-              "station": "",
-              "effect": "+5% XP for 30 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Cooking Oil",
-                  "qty": 1
-                },
-                {
-                  "item": "Tato Vegetable",
-                  "qty": 2
-                },
-                {
-                  "item": "Razorgrain Flour",
-                  "qty": 1
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 3
-                }
-              ]
-            },
-            {
-              "name": "Grilled Fish",
-              "station": "",
-              "effect": "+1 Max Bobber Reduction for 20 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Salt",
-                  "qty": 3
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 4
-                }
-              ]
-            },
-            {
-              "name": "Fish Chowder",
-              "station": "",
-              "effect": "+25 Reduced Hunger for 30 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Boiled Water",
-                  "qty": 1
-                },
-                {
-                  "item": "Salt",
-                  "qty": 1
-                },
-                {
-                  "item": "Flavor Pepper",
-                  "qty": 1
-                },
-                {
-                  "item": "Cream",
-                  "qty": 1
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 5
-                }
-              ]
-            }
-          ],
-          "challenges": {
-            "lifetime": [],
-            "daily": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while Intoxicated",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Epic - Catch a Fish while not intoxicated",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Cranberry Bog Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Skyline Valley Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Savage Divide Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Mire Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Ash Heap Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Forest Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Toxic Valley Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Burning Springs Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Epic - Catch a Fish in the Burning Springs Region",
-                "reward": "Score"
-              }
-            ],
-            "weekly": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while it is Raining",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Burning Springs Region",
-                "reward": "Score"
-              }
-            ]
-          },
-          "weather": [
-            "Clear",
-            "Rain",
-            "Rad Storm",
-            "Sandstorm"
-          ],
-          "bait": [
-            "Basic",
-            "Improved",
-            "Superior"
-          ]
-        },
-        {
-          "id": "007CE50D",
-          "edid": "Fishing_Fish_Medium_Generic_YellowBullhead",
-          "name": "Yellow Bullhead",
-          "size": "Medium",
-          "region": "All regions",
-          "image": "/wp-content/uploads/guide-images/fishing/generic-fish/Yellow Bullhead.avif",
-          "value": null,
-          "fishBits": 3,
-          "legendary": false,
-          "splash": null,
-          "stats": {
-            "startProgress": 0.3,
-            "drawInSpeed": 0.16,
-            "escapeSpeed": 0.3,
-            "maxStamina": 3,
-            "minStamina": 3,
-            "maxJumpDelay": 2.5,
-            "minJumpDelay": 1.8,
-            "jumpSpeed": 85,
-            "maxJumpDistance": 90,
-            "minJumpDistance": 50,
-            "minInitialAngle": 50,
-            "maxInitialAngle": 75
-          },
-          "keywords": [
-            {
-              "id": "007ABE88",
-              "name": "Fishing_FishSize_Medium"
-            },
-            {
-              "id": "007ABE8A",
-              "name": "ObjectTypeFish"
-            },
-            {
-              "id": "007BC5E9",
-              "name": "Fishing_FishType_Generic"
-            }
-          ],
-          "recipes": [
-            {
-              "name": "Fish Bits",
-              "station": "",
-              "effect": "",
-              "ingredients": [
-                {
-                  "item": "Fishing Fish Meal Medium Raw Generic Yellow Bullhead",
-                  "qty": 1
-                }
-              ]
-            },
-            {
-              "name": "Fish and Tatos",
-              "station": "",
-              "effect": "+5% XP for 30 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Cooking Oil",
-                  "qty": 1
-                },
-                {
-                  "item": "Tato Vegetable",
-                  "qty": 2
-                },
-                {
-                  "item": "Razorgrain Flour",
-                  "qty": 1
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 3
-                }
-              ]
-            },
-            {
-              "name": "Grilled Fish",
-              "station": "",
-              "effect": "+1 Max Bobber Reduction for 20 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Salt",
-                  "qty": 3
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 4
-                }
-              ]
-            },
-            {
-              "name": "Fish Chowder",
-              "station": "",
-              "effect": "+25 Reduced Hunger for 30 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Boiled Water",
-                  "qty": 1
-                },
-                {
-                  "item": "Salt",
-                  "qty": 1
-                },
-                {
-                  "item": "Flavor Pepper",
-                  "qty": 1
-                },
-                {
-                  "item": "Cream",
-                  "qty": 1
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 5
-                }
-              ]
-            }
-          ],
-          "challenges": {
-            "lifetime": [],
-            "daily": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while Intoxicated",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Epic - Catch a Fish while not intoxicated",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Cranberry Bog Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Skyline Valley Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Savage Divide Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Mire Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Ash Heap Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Forest Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Toxic Valley Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Burning Springs Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Epic - Catch a Fish in the Burning Springs Region",
-                "reward": "Score"
-              }
-            ],
-            "weekly": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while it is Raining",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Burning Springs Region",
-                "reward": "Score"
-              }
-            ]
-          },
-          "weather": [
-            "Clear",
-            "Rain",
-            "Rad Storm",
-            "Sandstorm"
-          ],
-          "bait": [
-            "Basic",
-            "Improved",
-            "Superior"
-          ]
-        },
-        {
-          "id": "007CE510",
-          "edid": "Fishing_Fish_Small_Generic_BrookSilverside",
-          "name": "Brook Silverside",
-          "size": "Small",
-          "region": "All regions",
-          "image": "/wp-content/uploads/guide-images/fishing/generic-fish/Brook Silverside.avif",
-          "value": null,
-          "fishBits": 1,
-          "legendary": false,
-          "splash": null,
-          "stats": {
-            "startProgress": 0.3,
-            "drawInSpeed": 0.3,
-            "escapeSpeed": 0.15,
-            "maxStamina": 1,
-            "minStamina": 1,
-            "maxJumpDelay": 2.5,
-            "minJumpDelay": 1.8,
-            "jumpSpeed": 65,
-            "maxJumpDistance": 60,
-            "minJumpDistance": 30,
-            "minInitialAngle": 45,
-            "maxInitialAngle": 50
-          },
-          "keywords": [
-            {
-              "id": "007ABE8A",
-              "name": "ObjectTypeFish"
-            },
-            {
-              "id": "007ABE8B",
-              "name": "Fishing_FishSize_Small"
-            },
-            {
-              "id": "007BC5E9",
-              "name": "Fishing_FishType_Generic"
-            }
-          ],
-          "recipes": [
-            {
-              "name": "Fish Bits",
-              "station": "",
-              "effect": "",
-              "ingredients": [
-                {
-                  "item": "Fishing Fish Meal Small Raw Generic Brook Silverside",
-                  "qty": 1
-                }
-              ]
-            },
-            {
-              "name": "Fish and Tatos",
-              "station": "",
-              "effect": "+5% XP for 30 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Cooking Oil",
-                  "qty": 1
-                },
-                {
-                  "item": "Tato Vegetable",
-                  "qty": 2
-                },
-                {
-                  "item": "Razorgrain Flour",
-                  "qty": 1
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 3
-                }
-              ]
-            },
-            {
-              "name": "Grilled Fish",
-              "station": "",
-              "effect": "+1 Max Bobber Reduction for 20 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Salt",
-                  "qty": 3
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 4
-                }
-              ]
-            },
-            {
-              "name": "Fish Chowder",
-              "station": "",
-              "effect": "+25 Reduced Hunger for 30 min",
-              "ingredients": [
-                {
-                  "item": "Wood",
-                  "qty": 3
-                },
-                {
-                  "item": "Boiled Water",
-                  "qty": 1
-                },
-                {
-                  "item": "Salt",
-                  "qty": 1
-                },
-                {
-                  "item": "Flavor Pepper",
-                  "qty": 1
-                },
-                {
-                  "item": "Cream",
-                  "qty": 1
-                },
-                {
-                  "item": "Fish Bits",
-                  "qty": 5
-                }
-              ]
-            }
-          ],
-          "challenges": {
-            "lifetime": [],
-            "daily": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while Intoxicated",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Epic - Catch a Fish while not intoxicated",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Cranberry Bog Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Skyline Valley Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Savage Divide Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Mire Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Ash Heap Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Forest Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Toxic Valley Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Burning Springs Region",
-                "reward": "Score"
-              },
-              {
-                "name": "Epic - Catch a Fish in the Burning Springs Region",
-                "reward": "Score"
-              }
-            ],
-            "weekly": [
-              {
-                "name": "Epic - Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish while it is Raining",
-                "reward": "Score"
-              },
-              {
-                "name": "Catch a Fish in the Burning Springs Region",
-                "reward": "Score"
-              }
-            ]
-          },
-          "weather": [
-            "Clear",
-            "Rain",
-            "Rad Storm",
-            "Sandstorm"
-          ],
-          "bait": [
-            "Basic",
-            "Improved",
-            "Superior"
-          ]
-        },
-        {
           "id": "007CE513",
           "edid": "Fishing_Fish_Medium_Generic_RidgeTrout",
           "name": "Ridge Trout",
@@ -10934,6 +10758,222 @@
               "ingredients": [
                 {
                   "item": "Fishing Fish Meal Medium Raw Generic Ridge Trout",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "name": "Fish and Tatos",
+              "station": "",
+              "effect": "+5% XP for 30 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Cooking Oil",
+                  "qty": 1
+                },
+                {
+                  "item": "Tato Vegetable",
+                  "qty": 2
+                },
+                {
+                  "item": "Razorgrain Flour",
+                  "qty": 1
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 3
+                }
+              ]
+            },
+            {
+              "name": "Grilled Fish",
+              "station": "",
+              "effect": "+1 Max Bobber Reduction for 20 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Salt",
+                  "qty": 3
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 4
+                }
+              ]
+            },
+            {
+              "name": "Fish Chowder",
+              "station": "",
+              "effect": "+25 Reduced Hunger for 30 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "item": "Salt",
+                  "qty": 1
+                },
+                {
+                  "item": "Flavor Pepper",
+                  "qty": 1
+                },
+                {
+                  "item": "Cream",
+                  "qty": 1
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 5
+                }
+              ]
+            }
+          ],
+          "challenges": {
+            "lifetime": [],
+            "daily": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while Intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Epic - Catch a Fish while not intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Cranberry Bog Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Skyline Valley Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Savage Divide Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Mire Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Ash Heap Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Forest Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Toxic Valley Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Burning Springs Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Epic - Catch a Fish in the Burning Springs Region",
+                "reward": "Score"
+              }
+            ],
+            "weekly": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while it is Raining",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Burning Springs Region",
+                "reward": "Score"
+              }
+            ]
+          },
+          "weather": [
+            "Clear",
+            "Rain",
+            "Rad Storm",
+            "Sandstorm"
+          ],
+          "bait": [
+            "Basic",
+            "Improved",
+            "Superior"
+          ]
+        },
+        {
+          "id": "007CE529",
+          "edid": "Fishing_Fish_Medium_Generic_ChainPickerel",
+          "name": "Chain Pickerel",
+          "size": "Medium",
+          "region": "All regions",
+          "image": "/wp-content/uploads/guide-images/fishing/generic-fish/Chain Pickerel.avif",
+          "value": null,
+          "fishBits": 3,
+          "legendary": false,
+          "splash": null,
+          "stats": {
+            "startProgress": 0.3,
+            "drawInSpeed": 0.16,
+            "escapeSpeed": 0.3,
+            "maxStamina": 3,
+            "minStamina": 3,
+            "maxJumpDelay": 2.5,
+            "minJumpDelay": 1.8,
+            "jumpSpeed": 85,
+            "maxJumpDistance": 90,
+            "minJumpDistance": 50,
+            "minInitialAngle": 50,
+            "maxInitialAngle": 75
+          },
+          "keywords": [
+            {
+              "id": "007ABE88",
+              "name": "Fishing_FishSize_Medium"
+            },
+            {
+              "id": "007ABE8A",
+              "name": "ObjectTypeFish"
+            },
+            {
+              "id": "007BC5E9",
+              "name": "Fishing_FishType_Generic"
+            }
+          ],
+          "recipes": [
+            {
+              "name": "Fish Bits",
+              "station": "",
+              "effect": "",
+              "ingredients": [
+                {
+                  "item": "Fishing Fish Meal Medium Raw Generic Chain Pickerel",
                   "qty": 1
                 }
               ]
@@ -11752,12 +11792,228 @@
           ]
         },
         {
-          "id": "007CE529",
-          "edid": "Fishing_Fish_Medium_Generic_ChainPickerel",
-          "name": "Chain Pickerel",
+          "id": "007CE50C",
+          "edid": "Fishing_Fish_Small_Generic_Redbelly",
+          "name": "Redbelly",
+          "size": "Small",
+          "region": "All regions",
+          "image": "/wp-content/uploads/guide-images/fishing/generic-fish/Redbelly.avif",
+          "value": null,
+          "fishBits": 1,
+          "legendary": false,
+          "splash": null,
+          "stats": {
+            "startProgress": 0.3,
+            "drawInSpeed": 0.3,
+            "escapeSpeed": 0.15,
+            "maxStamina": 1,
+            "minStamina": 1,
+            "maxJumpDelay": 2.5,
+            "minJumpDelay": 1.8,
+            "jumpSpeed": 65,
+            "maxJumpDistance": 60,
+            "minJumpDistance": 30,
+            "minInitialAngle": 45,
+            "maxInitialAngle": 50
+          },
+          "keywords": [
+            {
+              "id": "007ABE8A",
+              "name": "ObjectTypeFish"
+            },
+            {
+              "id": "007ABE8B",
+              "name": "Fishing_FishSize_Small"
+            },
+            {
+              "id": "007BC5E9",
+              "name": "Fishing_FishType_Generic"
+            }
+          ],
+          "recipes": [
+            {
+              "name": "Fish Bits",
+              "station": "",
+              "effect": "",
+              "ingredients": [
+                {
+                  "item": "Fishing Fish Meal Small Raw Generic Redbelly",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "name": "Fish and Tatos",
+              "station": "",
+              "effect": "+5% XP for 30 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Cooking Oil",
+                  "qty": 1
+                },
+                {
+                  "item": "Tato Vegetable",
+                  "qty": 2
+                },
+                {
+                  "item": "Razorgrain Flour",
+                  "qty": 1
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 3
+                }
+              ]
+            },
+            {
+              "name": "Grilled Fish",
+              "station": "",
+              "effect": "+1 Max Bobber Reduction for 20 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Salt",
+                  "qty": 3
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 4
+                }
+              ]
+            },
+            {
+              "name": "Fish Chowder",
+              "station": "",
+              "effect": "+25 Reduced Hunger for 30 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "item": "Salt",
+                  "qty": 1
+                },
+                {
+                  "item": "Flavor Pepper",
+                  "qty": 1
+                },
+                {
+                  "item": "Cream",
+                  "qty": 1
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 5
+                }
+              ]
+            }
+          ],
+          "challenges": {
+            "lifetime": [],
+            "daily": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while Intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Epic - Catch a Fish while not intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Cranberry Bog Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Skyline Valley Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Savage Divide Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Mire Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Ash Heap Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Forest Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Toxic Valley Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Burning Springs Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Epic - Catch a Fish in the Burning Springs Region",
+                "reward": "Score"
+              }
+            ],
+            "weekly": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while it is Raining",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Burning Springs Region",
+                "reward": "Score"
+              }
+            ]
+          },
+          "weather": [
+            "Clear",
+            "Rain",
+            "Rad Storm",
+            "Sandstorm"
+          ],
+          "bait": [
+            "Basic",
+            "Improved",
+            "Superior"
+          ]
+        },
+        {
+          "id": "007CE50D",
+          "edid": "Fishing_Fish_Medium_Generic_YellowBullhead",
+          "name": "Yellow Bullhead",
           "size": "Medium",
           "region": "All regions",
-          "image": "/wp-content/uploads/guide-images/fishing/generic-fish/Chain Pickerel.avif",
+          "image": "/wp-content/uploads/guide-images/fishing/generic-fish/Yellow Bullhead.avif",
           "value": null,
           "fishBits": 3,
           "legendary": false,
@@ -11797,7 +12053,223 @@
               "effect": "",
               "ingredients": [
                 {
-                  "item": "Fishing Fish Meal Medium Raw Generic Chain Pickerel",
+                  "item": "Fishing Fish Meal Medium Raw Generic Yellow Bullhead",
+                  "qty": 1
+                }
+              ]
+            },
+            {
+              "name": "Fish and Tatos",
+              "station": "",
+              "effect": "+5% XP for 30 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Cooking Oil",
+                  "qty": 1
+                },
+                {
+                  "item": "Tato Vegetable",
+                  "qty": 2
+                },
+                {
+                  "item": "Razorgrain Flour",
+                  "qty": 1
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 3
+                }
+              ]
+            },
+            {
+              "name": "Grilled Fish",
+              "station": "",
+              "effect": "+1 Max Bobber Reduction for 20 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Salt",
+                  "qty": 3
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 4
+                }
+              ]
+            },
+            {
+              "name": "Fish Chowder",
+              "station": "",
+              "effect": "+25 Reduced Hunger for 30 min",
+              "ingredients": [
+                {
+                  "item": "Wood",
+                  "qty": 3
+                },
+                {
+                  "item": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "item": "Salt",
+                  "qty": 1
+                },
+                {
+                  "item": "Flavor Pepper",
+                  "qty": 1
+                },
+                {
+                  "item": "Cream",
+                  "qty": 1
+                },
+                {
+                  "item": "Fish Bits",
+                  "qty": 5
+                }
+              ]
+            }
+          ],
+          "challenges": {
+            "lifetime": [],
+            "daily": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while Intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Epic - Catch a Fish while not intoxicated",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Cranberry Bog Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Skyline Valley Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Savage Divide Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Mire Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Ash Heap Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Forest Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Toxic Valley Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Burning Springs Region",
+                "reward": "Score"
+              },
+              {
+                "name": "Epic - Catch a Fish in the Burning Springs Region",
+                "reward": "Score"
+              }
+            ],
+            "weekly": [
+              {
+                "name": "Epic - Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish while it is Raining",
+                "reward": "Score"
+              },
+              {
+                "name": "Catch a Fish in the Burning Springs Region",
+                "reward": "Score"
+              }
+            ]
+          },
+          "weather": [
+            "Clear",
+            "Rain",
+            "Rad Storm",
+            "Sandstorm"
+          ],
+          "bait": [
+            "Basic",
+            "Improved",
+            "Superior"
+          ]
+        },
+        {
+          "id": "007CE510",
+          "edid": "Fishing_Fish_Small_Generic_BrookSilverside",
+          "name": "Brook Silverside",
+          "size": "Small",
+          "region": "All regions",
+          "image": "/wp-content/uploads/guide-images/fishing/generic-fish/Brook Silverside.avif",
+          "value": null,
+          "fishBits": 1,
+          "legendary": false,
+          "splash": null,
+          "stats": {
+            "startProgress": 0.3,
+            "drawInSpeed": 0.3,
+            "escapeSpeed": 0.15,
+            "maxStamina": 1,
+            "minStamina": 1,
+            "maxJumpDelay": 2.5,
+            "minJumpDelay": 1.8,
+            "jumpSpeed": 65,
+            "maxJumpDistance": 60,
+            "minJumpDistance": 30,
+            "minInitialAngle": 45,
+            "maxInitialAngle": 50
+          },
+          "keywords": [
+            {
+              "id": "007ABE8A",
+              "name": "ObjectTypeFish"
+            },
+            {
+              "id": "007ABE8B",
+              "name": "Fishing_FishSize_Small"
+            },
+            {
+              "id": "007BC5E9",
+              "name": "Fishing_FishType_Generic"
+            }
+          ],
+          "recipes": [
+            {
+              "name": "Fish Bits",
+              "station": "",
+              "effect": "",
+              "ingredients": [
+                {
+                  "item": "Fishing Fish Meal Small Raw Generic Brook Silverside",
                   "qty": 1
                 }
               ]
@@ -12023,54 +12495,6 @@
           "scrapYield": "3x Leather, 1x Cloth"
         },
         {
-          "id": "007B926B",
-          "edid": "Fishing_Fish_Junk_Common03",
-          "name": "Doll Head",
-          "size": null,
-          "region": "Special",
-          "image": "/wp-content/uploads/guide-images/fishing/junk-and-gifts/Doll Head.avif",
-          "value": null,
-          "fishBits": null,
-          "legendary": false,
-          "splash": null,
-          "stats": {
-            "startProgress": 0.3,
-            "drawInSpeed": 0.15,
-            "escapeSpeed": 0.15,
-            "maxStamina": 0,
-            "minStamina": 0,
-            "maxJumpDelay": 0.0,
-            "minJumpDelay": 0.0,
-            "jumpSpeed": 0,
-            "maxJumpDistance": 0,
-            "minJumpDistance": 0,
-            "minInitialAngle": 40,
-            "maxInitialAngle": 40
-          },
-          "keywords": [
-            {
-              "id": "007ABE8B",
-              "name": "Fishing_FishSize_Small"
-            }
-          ],
-          "recipes": [],
-          "challenges": {
-            "lifetime": [],
-            "daily": [],
-            "weekly": []
-          },
-          "weather": [
-            "Clear",
-            "Rain",
-            "Rad Storm",
-            "Sandstorm"
-          ],
-          "bait": [
-            "Basic"
-          ],
-          "scrapYield": "2x Leather, 3x Cloth"
-        },
-        {
           "id": "007B926C",
           "edid": "Fishing_Fish_Junk_Common02",
           "name": "Handcuffs",
@@ -12215,6 +12639,150 @@
           "scrapYield": "2x Cloth"
         },
         {
+          "id": "007B926B",
+          "edid": "Fishing_Fish_Junk_Common03",
+          "name": "Doll Head",
+          "size": null,
+          "region": "Special",
+          "image": "/wp-content/uploads/guide-images/fishing/junk-and-gifts/Doll Head.avif",
+          "value": null,
+          "fishBits": null,
+          "legendary": false,
+          "splash": null,
+          "stats": {
+            "startProgress": 0.3,
+            "drawInSpeed": 0.15,
+            "escapeSpeed": 0.15,
+            "maxStamina": 0,
+            "minStamina": 0,
+            "maxJumpDelay": 0.0,
+            "minJumpDelay": 0.0,
+            "jumpSpeed": 0,
+            "maxJumpDistance": 0,
+            "minJumpDistance": 0,
+            "minInitialAngle": 40,
+            "maxInitialAngle": 40
+          },
+          "keywords": [
+            {
+              "id": "007ABE8B",
+              "name": "Fishing_FishSize_Small"
+            }
+          ],
+          "recipes": [],
+          "challenges": {
+            "lifetime": [],
+            "daily": [],
+            "weekly": []
+          },
+          "weather": [
+            "Clear",
+            "Rain",
+            "Rad Storm",
+            "Sandstorm"
+          ],
+          "bait": [
+            "Basic"
+          ],
+          "scrapYield": "2x Leather, 3x Cloth"
+        },
+        {
+          "id": "0082962E",
+          "edid": "Fishing_Fish_Junk_Rare03",
+          "name": "Pack of Duct Tape",
+          "size": null,
+          "region": "Special",
+          "image": "/wp-content/uploads/guide-images/fishing/junk-and-gifts/Pack of Duct Tape.avif",
+          "value": null,
+          "fishBits": null,
+          "legendary": false,
+          "splash": null,
+          "stats": {
+            "startProgress": 0.3,
+            "drawInSpeed": 0.15,
+            "escapeSpeed": 0.15,
+            "maxStamina": 0,
+            "minStamina": 0,
+            "maxJumpDelay": 0.0,
+            "minJumpDelay": 0.0,
+            "jumpSpeed": 0,
+            "maxJumpDistance": 0,
+            "minJumpDistance": 0,
+            "minInitialAngle": 40,
+            "maxInitialAngle": 40
+          },
+          "keywords": [
+            {
+              "id": "007ABE8B",
+              "name": "Fishing_FishSize_Small"
+            }
+          ],
+          "recipes": [],
+          "challenges": {
+            "lifetime": [],
+            "daily": [],
+            "weekly": []
+          },
+          "weather": [
+            "Clear",
+            "Rain",
+            "Rad Storm",
+            "Sandstorm"
+          ],
+          "bait": [
+            "Basic"
+          ],
+          "scrapYield": "4x Adhesive, 1x Cloth"
+        },
+        {
+          "id": "0082962F",
+          "edid": "Fishing_Fish_Junk_Rare02",
+          "name": "Military Ammo Bag",
+          "size": null,
+          "region": "Special",
+          "image": "/wp-content/uploads/guide-images/fishing/junk-and-gifts/Military Ammo Bag.avif",
+          "value": null,
+          "fishBits": null,
+          "legendary": false,
+          "splash": null,
+          "stats": {
+            "startProgress": 0.3,
+            "drawInSpeed": 0.15,
+            "escapeSpeed": 0.15,
+            "maxStamina": 0,
+            "minStamina": 0,
+            "maxJumpDelay": 0.0,
+            "minJumpDelay": 0.0,
+            "jumpSpeed": 0,
+            "maxJumpDistance": 0,
+            "minJumpDistance": 0,
+            "minInitialAngle": 40,
+            "maxInitialAngle": 40
+          },
+          "keywords": [
+            {
+              "id": "007ABE8B",
+              "name": "Fishing_FishSize_Small"
+            }
+          ],
+          "recipes": [],
+          "challenges": {
+            "lifetime": [],
+            "daily": [],
+            "weekly": []
+          },
+          "weather": [
+            "Clear",
+            "Rain",
+            "Rad Storm",
+            "Sandstorm"
+          ],
+          "bait": [
+            "Basic"
+          ],
+          "scrapYield": "3x Ballistic Fiber, 1x Steel, 2x Cloth"
+        },
+        {
           "id": "0082962B",
           "edid": "Fishing_Fish_Junk_Rare05",
           "name": "Luxobrew Coffee Pot",
@@ -12357,102 +12925,6 @@
             "Basic"
           ],
           "scrapYield": "2x Oil, 1x Aluminum"
-        },
-        {
-          "id": "0082962E",
-          "edid": "Fishing_Fish_Junk_Rare03",
-          "name": "Pack of Duct Tape",
-          "size": null,
-          "region": "Special",
-          "image": "/wp-content/uploads/guide-images/fishing/junk-and-gifts/Pack of Duct Tape.avif",
-          "value": null,
-          "fishBits": null,
-          "legendary": false,
-          "splash": null,
-          "stats": {
-            "startProgress": 0.3,
-            "drawInSpeed": 0.15,
-            "escapeSpeed": 0.15,
-            "maxStamina": 0,
-            "minStamina": 0,
-            "maxJumpDelay": 0.0,
-            "minJumpDelay": 0.0,
-            "jumpSpeed": 0,
-            "maxJumpDistance": 0,
-            "minJumpDistance": 0,
-            "minInitialAngle": 40,
-            "maxInitialAngle": 40
-          },
-          "keywords": [
-            {
-              "id": "007ABE8B",
-              "name": "Fishing_FishSize_Small"
-            }
-          ],
-          "recipes": [],
-          "challenges": {
-            "lifetime": [],
-            "daily": [],
-            "weekly": []
-          },
-          "weather": [
-            "Clear",
-            "Rain",
-            "Rad Storm",
-            "Sandstorm"
-          ],
-          "bait": [
-            "Basic"
-          ],
-          "scrapYield": "4x Adhesive, 1x Cloth"
-        },
-        {
-          "id": "0082962F",
-          "edid": "Fishing_Fish_Junk_Rare02",
-          "name": "Military Ammo Bag",
-          "size": null,
-          "region": "Special",
-          "image": "/wp-content/uploads/guide-images/fishing/junk-and-gifts/Military Ammo Bag.avif",
-          "value": null,
-          "fishBits": null,
-          "legendary": false,
-          "splash": null,
-          "stats": {
-            "startProgress": 0.3,
-            "drawInSpeed": 0.15,
-            "escapeSpeed": 0.15,
-            "maxStamina": 0,
-            "minStamina": 0,
-            "maxJumpDelay": 0.0,
-            "minJumpDelay": 0.0,
-            "jumpSpeed": 0,
-            "maxJumpDistance": 0,
-            "minJumpDistance": 0,
-            "minInitialAngle": 40,
-            "maxInitialAngle": 40
-          },
-          "keywords": [
-            {
-              "id": "007ABE8B",
-              "name": "Fishing_FishSize_Small"
-            }
-          ],
-          "recipes": [],
-          "challenges": {
-            "lifetime": [],
-            "daily": [],
-            "weekly": []
-          },
-          "weather": [
-            "Clear",
-            "Rain",
-            "Rad Storm",
-            "Sandstorm"
-          ],
-          "bait": [
-            "Basic"
-          ],
-          "scrapYield": "3x Ballistic Fiber, 1x Steel, 2x Cloth"
         }
       ]
     },

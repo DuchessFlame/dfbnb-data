@@ -1,10 +1,11 @@
 {
  "_meta": {
-  "generated": "2026-09-04",
+  "generated": "2026-09-07",
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
   "lists_in_closure": 225,
   "source_totals": {
    "direct": 52,
+   "quest-reward": 35,
    "vendor": 5
   },
   "unresolved": {}
@@ -270,40 +271,6 @@
   },
   "creatures": {
    "note": "Around 75 creatures can drop Day Tripper as generic loot; they are not listed individually. See the Containers expand for the per-container drop rates and How to Obtain for the crafting recipe."
-  },
-  "resource_generators": {
-   "entries": [
-    {
-     "name": "Doctor's Orders Cigarette Machine",
-     "edid": "ATX_ENTM_CAMP_Collector_DoctorsOrdersCigaretteMachine",
-     "obtain": "Purchase from the Atom Shop.",
-     "interval": "10 min 12 sec",
-     "items": [
-      {
-       "name": "Day Tripper",
-       "form_id": "00150729",
-       "rate": 0.006944,
-       "rate_display": "0.69%",
-       "rate_source": "computed"
-      }
-     ]
-    },
-    {
-     "name": "Ashforge",
-     "edid": "AshResource",
-     "obtain": "Available in the base game.",
-     "interval": "3 min",
-     "items": [
-      {
-       "name": "Day Tripper",
-       "form_id": "00150729",
-       "rate": 0.001042,
-       "rate_display": "0.1%",
-       "rate_source": "computed"
-      }
-     ]
-    }
-   ]
   }
  },
  "farming_tips": {
@@ -1156,7 +1123,108 @@
  "regions": [
   {
    "region": "Ash Heap",
-   "locations": []
+   "locations": [
+    {
+     "marker": "AMS Testing Site",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "0008C2",
+      "0008C3",
+      "0008D2",
+      "38B1F2"
+     ],
+     "coords": [
+      -122535.4,
+      -146595.5
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B1F2",
+       "source_type": "quest-reward",
+       "coords": [
+        -126027.7,
+        -143726.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Hornwright Air Purifier Site #01",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "311E29",
+      "38B1D7",
+      "39CFB2"
+     ],
+     "coords": [
+      -102639.8,
+      -80424.6
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B1D7",
+       "source_type": "quest-reward",
+       "coords": [
+        -101486.9,
+        -81484.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Widow's Perch",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "311AC5",
+      "38B176",
+      "3A9526"
+     ],
+     "coords": [
+      -79462.4,
+      -83779.5
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B176",
+       "source_type": "quest-reward",
+       "coords": [
+        -78384.2,
+        -84171.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
   },
   {
    "region": "Atlantic City",
@@ -1171,7 +1239,21 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "6DED50",
+      "6EB516",
+      "6EB533",
+      "6EB54F",
+      "6EBA3F",
+      "6EC628",
       "6EF6AC",
+      "6EF6C6",
+      "7406C2",
+      "741566",
+      "74157B",
+      "741598",
+      "741683",
+      "741ABD",
+      "743A94",
       "743AAD"
      ],
      "coords": [
@@ -1215,10 +1297,19 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "6DBAAC",
       "6DEE4A",
       "6DEE4B",
       "6DEE4C",
+      "6E0E81",
+      "6E1B3B",
+      "6E1B59",
+      "6E1BAC",
+      "6E29E7",
+      "6E2DD9",
       "6E2E04",
+      "6E2E8C",
+      "6E2E8D",
       "6E842B",
       "6E842C",
       "6E842D",
@@ -1355,7 +1446,23 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
-      "80E019"
+      "80DFCE",
+      "80DFF1",
+      "80E019",
+      "80E01D",
+      "80E01E",
+      "80E022",
+      "81A9E7",
+      "83B0C7",
+      "83B812",
+      "83B822",
+      "83B823",
+      "83C37C",
+      "83E971",
+      "83E972",
+      "84EA0D",
+      "84EA0E",
+      "84EA0F"
      ],
      "coords": [
       -261751.3,
@@ -1386,9 +1493,45 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "8005D6",
+      "80FB2D",
+      "80FB59",
+      "80FB5A",
+      "80FB5D",
+      "80FB71",
+      "80FB89",
+      "80FB99",
+      "80FB9F",
+      "80FBAB",
+      "80FBC6",
+      "80FBC7",
+      "80FBCB",
+      "80FBD1",
+      "8113C5",
+      "8113C7",
+      "81AA8A",
+      "81AA8D",
+      "81AA92",
+      "81AA93",
+      "81AAA5",
+      "81AAAD",
+      "81AAAE",
+      "81CD0F",
+      "81ED52",
+      "824C2E",
+      "83370B",
       "83FEE9",
+      "8405B6",
+      "84075A",
+      "840771",
       "840788",
-      "84078B"
+      "84078B",
+      "85E203",
+      "85E2C5",
+      "87D159",
+      "87D17D",
+      "8835D2",
+      "883614"
      ],
      "coords": [
       -252032.5,
@@ -1444,10 +1587,23 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "8050C8",
+      "8051FA",
+      "809087",
+      "809C40",
+      "809C43",
+      "809C4E",
+      "809C50",
+      "809C5A",
+      "809C64",
+      "80E6A3",
+      "831013",
       "831105",
       "831106",
       "831107",
-      "845A6F"
+      "8408CB",
+      "845A6F",
+      "85CD56"
      ],
      "coords": [
       -2920.0,
@@ -1516,8 +1672,44 @@
      "refs": [
       "807B8D",
       "807B8E",
+      "815BC3",
+      "815BC4",
+      "815BC5",
+      "815BC7",
+      "815BCB",
+      "815BEE",
+      "815C0A",
+      "815C39",
+      "815C40",
+      "815C44",
+      "818E83",
+      "81A79B",
+      "832F8D",
+      "832F8E",
+      "832F8F",
+      "847D40",
+      "847D41",
+      "84B235",
+      "84D1ED",
+      "84E37D",
+      "84E3A7",
+      "84E3AE",
+      "84F139",
       "84F14D",
-      "84F14E"
+      "84F14E",
+      "84F16E",
+      "85257E",
+      "8534E5",
+      "8534E6",
+      "8534ED",
+      "853501",
+      "853503",
+      "853519",
+      "853650",
+      "856964",
+      "85DB58",
+      "868F94",
+      "86995D"
      ],
      "coords": [
       -235812.9,
@@ -1580,6 +1772,40 @@
    "region": "Cranberry Bog",
    "locations": [
     {
+     "marker": "Appalachian Antiques",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "033A22",
+      "38ADAB",
+      "3B95EB",
+      "450CAD"
+     ],
+     "coords": [
+      119101.8,
+      -129375.7
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38ADAB",
+       "source_type": "quest-reward",
+       "coords": [
+        130433.7,
+        -129577.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
      "marker": "Big Bend Tunnel East",
      "count": 1,
      "sources": {
@@ -1589,7 +1815,9 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
-      "570BC4"
+      "570BC4",
+      "593C60",
+      "593C61"
      ],
      "coords": [
       116421.9,
@@ -1609,12 +1837,180 @@
        "image_bottom": ""
       }
      ]
+    },
+    {
+     "marker": "Overgrown Sundew Grove",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "36C31B",
+      "379FEC",
+      "38AD47"
+     ],
+     "coords": [
+      185441.9,
+      -172789.4
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AD47",
+       "source_type": "quest-reward",
+       "coords": [
+        175651.8,
+        -176662.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Pylon V-13",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "38ACBD",
+      "3A3D0D",
+      "3A3D15"
+     ],
+     "coords": [
+      190853.7,
+      -92817.5
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38ACBD",
+       "source_type": "quest-reward",
+       "coords": [
+        192578.8,
+        -89122.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Ranger Lookout",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "38AD50",
+      "4F8E1A"
+     ],
+     "coords": [
+      152589.3,
+      -87863.0
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AD50",
+       "source_type": "quest-reward",
+       "coords": [
+        157542.4,
+        -88259.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
     }
    ]
   },
   {
    "region": "Forest",
    "locations": [
+    {
+     "marker": "Anchor Farm",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "04A5DF",
+      "322842",
+      "322849",
+      "32284C",
+      "38B1DA",
+      "390ECD",
+      "390EFE"
+     ],
+     "coords": [
+      -120705.3,
+      120568.3
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B1DA",
+       "source_type": "quest-reward",
+       "coords": [
+        -119683.6,
+        119820.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Camp Adams Lookout",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "356F29",
+      "38B252",
+      "4F8E17"
+     ],
+     "coords": [
+      -152684.1,
+      -33781.6
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B252",
+       "source_type": "quest-reward",
+       "coords": [
+        -158059.8,
+        -40684.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
     {
      "marker": "Charleston Capitol Building",
      "count": 1,
@@ -1625,7 +2021,42 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
-      "4FE0E7"
+      "4FE0E7",
+      "52A6B5",
+      "52C846",
+      "55035D",
+      "550506",
+      "550822",
+      "55086C",
+      "55093A",
+      "550949",
+      "55094A",
+      "550BCD",
+      "5517A9",
+      "551A7B",
+      "551C9F",
+      "551CAE",
+      "551CAF",
+      "551CDF",
+      "551CE5",
+      "551D2C",
+      "67219B",
+      "6721E1",
+      "6721E7",
+      "672217",
+      "672445",
+      "6732D6",
+      "673558",
+      "673559",
+      "673568",
+      "673636",
+      "673680",
+      "673B27",
+      "673F87",
+      "67408D",
+      "674091",
+      "674519",
+      "674610"
      ],
      "coords": [
       685.0,
@@ -1639,6 +2070,75 @@
        "coords": [
         -87571.1,
         -59092.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Charleston Trainyard",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "323875",
+      "32387A",
+      "38B1F0",
+      "4FBD48",
+      "4FBD4A",
+      "5B702C"
+     ],
+     "coords": [
+      -117698.2,
+      -48521.3
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B1F0",
+       "source_type": "quest-reward",
+       "coords": [
+        -122167.5,
+        -49725.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Gauley Mine Exit",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "15E25C",
+      "38B156",
+      "43931B"
+     ],
+     "coords": [
+      -40658.3,
+      79217.9
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B156",
+       "source_type": "quest-reward",
+       "coords": [
+        -41079.3,
+        72407.9
        ],
        "image_top": "",
        "directions": "",
@@ -1685,6 +2185,121 @@
      ]
     },
     {
+     "marker": "Greg's Mine Supply",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "093C0C",
+      "32AD33",
+      "38B109",
+      "3B06FB"
+     ],
+     "coords": [
+      -9131.1,
+      50367.6
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B109",
+       "source_type": "quest-reward",
+       "coords": [
+        -25714.6,
+        43075.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Point Pleasant",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "1676EF",
+      "187D5F",
+      "191922",
+      "29D1A8",
+      "29D1AA",
+      "29D1B4",
+      "29D1D0",
+      "29D1E5",
+      "29D1E8",
+      "29D1ED",
+      "38B328",
+      "4EC1D0",
+      "4ED994",
+      "4ED99A",
+      "4F574B",
+      "522D06",
+      "8251A7",
+      "825B5C"
+     ],
+     "coords": [
+      -178788.2,
+      77374.6
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B328",
+       "source_type": "quest-reward",
+       "coords": [
+        -177856.2,
+        66008.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Relay Tower HG-B7-09",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "27881B",
+      "2EEBE3",
+      "38B220"
+     ],
+     "coords": [
+      -145668.3,
+      -61587.6
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B220",
+       "source_type": "quest-reward",
+       "coords": [
+        -135648.6,
+        -65181.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
      "marker": "Riverside Manor",
      "count": 2,
      "sources": {
@@ -1694,8 +2309,18 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "01924E",
+      "138000",
+      "138008",
+      "138022",
+      "13802E",
+      "138052",
+      "16B4F0",
+      "16B4F6",
+      "3A8B37",
       "45C5DE",
-      "45CB37"
+      "45CB37",
+      "4ECFBB"
      ],
      "coords": [
       -71128.1,
@@ -1729,6 +2354,88 @@
      ]
     },
     {
+     "marker": "Summersville",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2B6E24",
+      "2D5C8E",
+      "311A0C",
+      "311A0D",
+      "311A1B",
+      "311A1C",
+      "31D1E5",
+      "38B14D",
+      "3A8705",
+      "3A90B0",
+      "3ABFA8",
+      "404AB7",
+      "417D13",
+      "424A65",
+      "534C14",
+      "58F996",
+      "6D8A71",
+      "6D8A75",
+      "6D8A85",
+      "6D8A87",
+      "6D8A88"
+     ],
+     "coords": [
+      -50724.7,
+      -20272.9
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B14D",
+       "source_type": "quest-reward",
+       "coords": [
+        -41273.7,
+        -24995.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Wayward",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "38B198"
+     ],
+     "coords": [
+      -81548.5,
+      48992.0
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B198",
+       "source_type": "quest-reward",
+       "coords": [
+        -81548.5,
+        48992.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
      "marker": "Tygart Water Treatment",
      "count": 1,
      "sources": {
@@ -1738,7 +2445,9 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
-      "29C841"
+      "29C841",
+      "4FBD33",
+      "4FCBD7"
      ],
      "coords": [
       -31066.4,
@@ -1808,6 +2517,10 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "042D43",
+      "2E8910",
+      "3C3E29",
+      "3C3E2E",
       "59EC38"
      ],
      "coords": [
@@ -1839,7 +2552,15 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
-      "541211"
+      "3CFF64",
+      "3CFF6D",
+      "42C6E5",
+      "42C6E7",
+      "42C6FA",
+      "50C82C",
+      "50C855",
+      "541211",
+      "5483DD"
      ],
      "coords": [
       -169349.2,
@@ -1865,6 +2586,86 @@
   {
    "region": "Savage Divide",
    "locations": [
+    {
+     "marker": "Autumn Acre Cabin",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "05EFAC",
+      "05EFB2",
+      "0615EA",
+      "18AB35",
+      "2FE79F",
+      "38ADD7",
+      "3A8CD7"
+     ],
+     "coords": [
+      112302.5,
+      51489.8
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38ADD7",
+       "source_type": "quest-reward",
+       "coords": [
+        98820.3,
+        42795.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Blackwater Mine",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "145780",
+      "17835E",
+      "2DBBFF",
+      "2DBC23",
+      "2FC898",
+      "38AF64",
+      "3C1F82",
+      "4ED90A",
+      "4ED912",
+      "4ED913",
+      "4ED915",
+      "4ED919",
+      "529ABA"
+     ],
+     "coords": [
+      30131.5,
+      -39414.4
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AF64",
+       "source_type": "quest-reward",
+       "coords": [
+        33260.1,
+        -47051.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
     {
      "marker": "Enclave Research Facility",
      "count": 1,
@@ -1914,6 +2715,109 @@
      ]
     },
     {
+     "marker": "Federal Disposal Field HZ-21",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2E2AF5",
+      "38B0DD",
+      "50D664"
+     ],
+     "coords": [
+      288.5,
+      -152814.5
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B0DD",
+       "source_type": "quest-reward",
+       "coords": [
+        -8329.7,
+        -157138.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Fissure Site",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2716E8",
+      "385D39",
+      "38AD61",
+      "3BFF80",
+      "3BFF81",
+      "3D1E58",
+      "50DC4A"
+     ],
+     "coords": [
+      117062.3,
+      77683.8
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AD61",
+       "source_type": "quest-reward",
+       "coords": [
+        150924.8,
+        180168.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Gulper Lagoon",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "38ADA2",
+      "3B382B",
+      "51B899"
+     ],
+     "coords": [
+      139490.5,
+      111846.8
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38ADA2",
+       "source_type": "quest-reward",
+       "coords": [
+        140590.7,
+        111465.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
      "marker": "Metal Dome",
      "count": 1,
      "sources": {
@@ -1923,6 +2827,7 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "3A7648",
       "60637E"
      ],
      "coords": [
@@ -1954,7 +2859,22 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
-      "34D8D6"
+      "25461C",
+      "2B289F",
+      "2D8077",
+      "2D88CF",
+      "34D8CA",
+      "34D8CD",
+      "34D8D6",
+      "3615D8",
+      "3AEB9F",
+      "3B3437",
+      "3B3562",
+      "3B5A3A",
+      "3B5ADE",
+      "3D4746",
+      "4FBD4D",
+      "4FBD51"
      ],
      "coords": [
       34150.7,
@@ -1976,19 +2896,111 @@
      ]
     },
     {
-     "marker": "Palace of the Winding Path",
-     "count": 4,
+     "marker": "New Appalachian Central Trainyard",
+     "count": 1,
      "sources": {
-      "direct": 4
+      "quest-reward": 1
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "1F7A08",
+      "28BD20",
+      "28E758",
+      "28E86E",
+      "305D6E",
+      "305DB4",
+      "30A78C",
+      "336B2D",
+      "38B06A",
+      "3C3665",
+      "3C368F",
+      "3C36A5"
+     ],
+     "coords": [
+      11875.4,
+      -23190.1
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B06A",
+       "source_type": "quest-reward",
+       "coords": [
+        16156.7,
+        -16360.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "North Cutthroat Camp",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "044E42",
+      "241FA4",
+      "241FA5",
+      "2FD610",
+      "303A96",
+      "304EF2",
+      "38ADDC",
+      "50CD0D"
+     ],
+     "coords": [
+      66283.3,
+      30582.4
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38ADDC",
+       "source_type": "quest-reward",
+       "coords": [
+        66572.6,
+        30560.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Palace of the Winding Path",
+     "count": 5,
+     "sources": {
+      "direct": 4,
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2F032C",
       "2F032F",
+      "35142A",
+      "3516B2",
+      "3516B9",
       "365E09",
       "3668E5",
-      "36690C"
+      "36690C",
+      "36B888",
+      "36B88F",
+      "36B8A7",
+      "36B8DA",
+      "36B8EB",
+      "38AF4C",
+      "3D4ED1"
      ],
      "coords": [
       58708.6,
@@ -2038,6 +3050,122 @@
        "coords": [
         59986.6,
         170616.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38AF4C",
+       "source_type": "quest-reward",
+       "coords": [
+        56127.0,
+        176659.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Skullbone Vantage",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "30B607",
+      "30B609",
+      "38AF8C"
+     ],
+     "coords": [
+      40145.8,
+      35865.1
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AF8C",
+       "source_type": "quest-reward",
+       "coords": [
+        32254.2,
+        27944.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Solomon's Pond",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "31A1CF",
+      "31A1FB",
+      "34E895",
+      "34E897",
+      "38AF66",
+      "55A99A",
+      "5A1683"
+     ],
+     "coords": [
+      40728.8,
+      -64362.4
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AF66",
+       "source_type": "quest-reward",
+       "coords": [
+        36779.8,
+        -62224.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "South Mountain Lookout",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "389BEA",
+      "38AE4D",
+      "38E419",
+      "528019"
+     ],
+     "coords": [
+      44272.2,
+      -131752.5
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AE4D",
+       "source_type": "quest-reward",
+       "coords": [
+        61745.3,
+        -124896.1
        ],
        "image_top": "",
        "directions": "",
@@ -2269,7 +3397,10 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
-      "5555DF"
+      "5555DF",
+      "5555E4",
+      "555606",
+      "5678FB"
      ],
      "coords": [
       199452.1,
@@ -2283,6 +3414,141 @@
        "coords": [
         201259.1,
         -38410.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Crevasse Dam",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "353D49",
+      "38AD4A",
+      "3D167B",
+      "52C906"
+     ],
+     "coords": [
+      182147.3,
+      83194.3
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AD4A",
+       "source_type": "quest-reward",
+       "coords": [
+        175781.5,
+        78368.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Excelsior Model Home",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "38A838",
+      "38AD1A"
+     ],
+     "coords": [
+      172777.6,
+      106825.4
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AD1A",
+       "source_type": "quest-reward",
+       "coords": [
+        181776.0,
+        104687.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Moth-Home",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "369BD6",
+      "37A77D",
+      "38AD9E",
+      "52C572",
+      "52D1BE",
+      "55C70C"
+     ],
+     "coords": [
+      144345.2,
+      -27367.4
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AD9E",
+       "source_type": "quest-reward",
+       "coords": [
+        142882.9,
+        -26589.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Southern Belle Motel",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "38A87F",
+      "38AD4D",
+      "51017C"
+     ],
+     "coords": [
+      172293.0,
+      26029.3
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AD4D",
+       "source_type": "quest-reward",
+       "coords": [
+        160578.3,
+        18416.2
        ],
        "image_top": "",
        "directions": "",
@@ -2305,8 +3571,40 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "647B96",
+      "647BB4",
+      "650C57",
+      "6553D5",
+      "6553D8",
+      "6553E3",
+      "655406",
+      "6558A7",
+      "655CBB",
+      "655EB0",
+      "6571E8",
+      "657284",
+      "6618B2",
       "66577C",
-      "7390AA"
+      "667F21",
+      "667F4C",
+      "6682CA",
+      "735884",
+      "7372B2",
+      "7372CF",
+      "737DFE",
+      "73837D",
+      "73839D",
+      "7383A8",
+      "7383AB",
+      "738615",
+      "73868B",
+      "73879E",
+      "7387F5",
+      "738872",
+      "738ECC",
+      "7390AA",
+      "7393B7",
+      "7393FC"
      ],
      "coords": [
       3375.9,
@@ -2349,7 +3647,17 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "6337F1",
+      "6355CE",
+      "6355D3",
+      "6355D6",
+      "65A49F",
+      "65BE5F",
+      "65EB14",
+      "65F383",
+      "666EC9",
       "6674DC",
+      "668A17",
       "668D7F",
       "668D99"
      ],
@@ -2406,7 +3714,54 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
-      "6645EB"
+      "65360A",
+      "65369F",
+      "6536A4",
+      "6536A9",
+      "6536AF",
+      "653C9C",
+      "653C9F",
+      "654783",
+      "654D43",
+      "654D88",
+      "654D92",
+      "654DA8",
+      "65B4DD",
+      "661298",
+      "661EEC",
+      "6621AB",
+      "662A9F",
+      "662AA2",
+      "6633C9",
+      "6645D6",
+      "6645DA",
+      "6645E2",
+      "6645E7",
+      "6645EB",
+      "664604",
+      "665019",
+      "66501A",
+      "66501B",
+      "666615",
+      "666620",
+      "666621",
+      "666622",
+      "666640",
+      "6666D6",
+      "667307",
+      "66730E",
+      "667327",
+      "668615",
+      "668617",
+      "668622",
+      "66862A",
+      "66863F",
+      "668641",
+      "668644",
+      "669192",
+      "6691E3",
+      "66AF3A",
+      "66C848"
      ],
      "coords": [
       4412.9,
@@ -2433,9 +3788,129 @@
    "region": "Toxic Valley",
    "locations": [
     {
-     "marker": "The Crater",
+     "marker": "Becker Farm",
      "count": 1,
      "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2A01C0",
+      "2A01C7",
+      "38B159",
+      "3EADEE",
+      "3EAE08",
+      "3EAE09"
+     ],
+     "coords": [
+      -67649.9,
+      149912.9
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B159",
+       "source_type": "quest-reward",
+       "coords": [
+        -77637.7,
+        150060.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Clarksburg",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "19FAEF",
+      "346B25",
+      "346B26",
+      "346BA0",
+      "346BBC",
+      "38B147",
+      "3BCB98",
+      "3BCBA2",
+      "3BCBE9",
+      "3BF53F",
+      "3BF541",
+      "437318"
+     ],
+     "coords": [
+      -25675.3,
+      168021.2
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B147",
+       "source_type": "quest-reward",
+       "coords": [
+        -31294.2,
+        163443.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Pioneer Scout Camp",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "000E1E",
+      "278B42",
+      "278B9F",
+      "278BF5",
+      "298731",
+      "2B57AA",
+      "2B57CF",
+      "38B0DA",
+      "38DA2E",
+      "38E375",
+      "527ADF"
+     ],
+     "coords": [
+      -1148.3,
+      134814.0
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B0DA",
+       "source_type": "quest-reward",
+       "coords": [
+        5849.5,
+        134711.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Crater",
+     "count": 2,
+     "sources": {
+      "quest-reward": 1,
       "vendor": 1
      },
      "image_top": "",
@@ -2456,6 +3931,18 @@
      "spawns": [
       {
        "label": "",
+       "ref": "38AF9D",
+       "source_type": "quest-reward",
+       "coords": [
+        26592.5,
+        192093.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
        "ref": "4270EA",
        "source_type": "vendor",
        "coords": [
@@ -2471,810 +3958,6 @@
    ]
   }
  ],
- "treasure_maps": {
-  "maps": [
-   {
-    "group": "Treasure Maps",
-    "name": "Cranberry Bog Treasure Map #01",
-    "region": "Cranberry Bog",
-    "form_id": "0051B8CD",
-    "edid": "TreasureMap26",
-    "rate": 0.041667,
-    "rate_display": "4.17%",
-    "sources": [
-     {
-      "form_id": "0050CC2D",
-      "edid": "LLS_TreasureMap_Reward_RegionCB_SF",
-      "rate": 0.041667,
-      "rate_display": "4.17%"
-     }
-    ]
-   },
-   {
-    "group": "Treasure Maps",
-    "name": "Cranberry Bog Treasure Map #02",
-    "region": "Cranberry Bog",
-    "form_id": "0051B8D6",
-    "edid": "TreasureMap30",
-    "rate": 0.041667,
-    "rate_display": "4.17%",
-    "sources": [
-     {
-      "form_id": "0050CC2D",
-      "edid": "LLS_TreasureMap_Reward_RegionCB_SF",
-      "rate": 0.041667,
-      "rate_display": "4.17%"
-     }
-    ]
-   },
-   {
-    "group": "Treasure Maps",
-    "name": "Cranberry Bog Treasure Map #03",
-    "region": "Cranberry Bog",
-    "form_id": "0051B8D9",
-    "edid": "TreasureMap33",
-    "rate": 0.041667,
-    "rate_display": "4.17%",
-    "sources": [
-     {
-      "form_id": "0050CC2D",
-      "edid": "LLS_TreasureMap_Reward_RegionCB_SF",
-      "rate": 0.041667,
-      "rate_display": "4.17%"
-     }
-    ]
-   },
-   {
-    "group": "Treasure Maps",
-    "name": "Cranberry Bog Treasure Map #04",
-    "region": "Cranberry Bog",
-    "form_id": "0051B8DE",
-    "edid": "TreasureMap35",
-    "rate": 0.041667,
-    "rate_display": "4.17%",
-    "sources": [
-     {
-      "form_id": "0050CC2D",
-      "edid": "LLS_TreasureMap_Reward_RegionCB_SF",
-      "rate": 0.041667,
-      "rate_display": "4.17%"
-     }
-    ]
-   },
-   {
-    "group": "Treasure Maps",
-    "name": "Mire Treasure Map #01",
-    "region": "The Mire",
-    "form_id": "0051B8CE",
-    "edid": "TreasureMap27",
-    "rate": 0.041667,
-    "rate_display": "4.17%",
-    "sources": [
-     {
-      "form_id": "0050CC2D",
-      "edid": "LLS_TreasureMap_Reward_RegionCB_SF",
-      "rate": 0.041667,
-      "rate_display": "4.17%"
-     }
-    ]
-   },
-   {
-    "group": "Treasure Maps",
-    "name": "Mire Treasure Map #02",
-    "region": "The Mire",
-    "form_id": "0051B8D2",
-    "edid": "TreasureMap28",
-    "rate": 0.041667,
-    "rate_display": "4.17%",
-    "sources": [
-     {
-      "form_id": "0050CC2D",
-      "edid": "LLS_TreasureMap_Reward_RegionCB_SF",
-      "rate": 0.041667,
-      "rate_display": "4.17%"
-     }
-    ]
-   },
-   {
-    "group": "Treasure Maps",
-    "name": "Mire Treasure Map #03",
-    "region": "The Mire",
-    "form_id": "0051B8D7",
-    "edid": "TreasureMap31",
-    "rate": 0.041667,
-    "rate_display": "4.17%",
-    "sources": [
-     {
-      "form_id": "0050CC2D",
-      "edid": "LLS_TreasureMap_Reward_RegionCB_SF",
-      "rate": 0.041667,
-      "rate_display": "4.17%"
-     }
-    ]
-   },
-   {
-    "group": "Treasure Maps",
-    "name": "Mire Treasure Map #04",
-    "region": "The Mire",
-    "form_id": "0051B8D8",
-    "edid": "TreasureMap32",
-    "rate": 0.041667,
-    "rate_display": "4.17%",
-    "sources": [
-     {
-      "form_id": "0050CC2D",
-      "edid": "LLS_TreasureMap_Reward_RegionCB_SF",
-      "rate": 0.041667,
-      "rate_display": "4.17%"
-     }
-    ]
-   },
-   {
-    "group": "Treasure Maps",
-    "name": "Mire Treasure Map #05",
-    "region": "The Mire",
-    "form_id": "0051B8DB",
-    "edid": "TreasureMap34",
-    "rate": 0.041667,
-    "rate_display": "4.17%",
-    "sources": [
-     {
-      "form_id": "0050CC2D",
-      "edid": "LLS_TreasureMap_Reward_RegionCB_SF",
-      "rate": 0.041667,
-      "rate_display": "4.17%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Ash Heap Treasure Map #01 Teammate Reward",
-    "region": "Ash Heap",
-    "form_id": "0051B8A8",
-    "edid": "TreasureMap04",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Ash Heap Treasure Map #02 Teammate Reward",
-    "region": "Ash Heap",
-    "form_id": "0051B8AC",
-    "edid": "TreasureMap07",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Cranberry Bog Treasure Map #01 Teammate Reward",
-    "region": "Cranberry Bog",
-    "form_id": "0051B8CD",
-    "edid": "TreasureMap26",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Cranberry Bog Treasure Map #02 Teammate Reward",
-    "region": "Cranberry Bog",
-    "form_id": "0051B8D6",
-    "edid": "TreasureMap30",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Cranberry Bog Treasure Map #03 Teammate Reward",
-    "region": "Cranberry Bog",
-    "form_id": "0051B8D9",
-    "edid": "TreasureMap33",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Cranberry Bog Treasure Map #04 Teammate Reward",
-    "region": "Cranberry Bog",
-    "form_id": "0051B8DE",
-    "edid": "TreasureMap35",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Forest Treasure Map #01 Teammate Reward",
-    "region": "Forest",
-    "form_id": "0051B7A2",
-    "edid": "TreasureMap01",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Forest Treasure Map #02 Teammate Reward",
-    "region": "Forest",
-    "form_id": "0051B8A6",
-    "edid": "TreasureMap02",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Forest Treasure Map #03 Teammate Reward",
-    "region": "Forest",
-    "form_id": "0051B8A7",
-    "edid": "TreasureMap03",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Forest Treasure Map #04 Teammate Reward",
-    "region": "Forest",
-    "form_id": "0051B8A9",
-    "edid": "TreasureMap05",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Forest Treasure Map #05 Teammate Reward",
-    "region": "Forest",
-    "form_id": "0051B8AA",
-    "edid": "TreasureMap06",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Forest Treasure Map #06 Teammate Reward",
-    "region": "Forest",
-    "form_id": "0051B8AE",
-    "edid": "TreasureMap08",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Forest Treasure Map #07 Teammate Reward",
-    "region": "Forest",
-    "form_id": "0051B8B0",
-    "edid": "TreasureMap09",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Forest Treasure Map #08 Teammate Reward",
-    "region": "Forest",
-    "form_id": "0051B8B2",
-    "edid": "TreasureMap11",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Forest Treasure Map #09 Teammate Reward",
-    "region": "Forest",
-    "form_id": "0051B8B6",
-    "edid": "TreasureMap12",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Forest Treasure Map #10 Teammate Reward",
-    "region": "Forest",
-    "form_id": "0051B8B9",
-    "edid": "TreasureMap14",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Mire Treasure Map #01 Teammate Reward",
-    "region": "The Mire",
-    "form_id": "0051B8CE",
-    "edid": "TreasureMap27",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Mire Treasure Map #02 Teammate Reward",
-    "region": "The Mire",
-    "form_id": "0051B8D2",
-    "edid": "TreasureMap28",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Mire Treasure Map #03 Teammate Reward",
-    "region": "The Mire",
-    "form_id": "0051B8D7",
-    "edid": "TreasureMap31",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Mire Treasure Map #04 Teammate Reward",
-    "region": "The Mire",
-    "form_id": "0051B8D8",
-    "edid": "TreasureMap32",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Mire Treasure Map #05 Teammate Reward",
-    "region": "The Mire",
-    "form_id": "0051B8DB",
-    "edid": "TreasureMap34",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Savage Divide Treasure Map #01 Teammate Reward",
-    "region": "Savage Divide",
-    "form_id": "0051B8BA",
-    "edid": "TreasureMap15",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Savage Divide Treasure Map #02 Teammate Reward",
-    "region": "Savage Divide",
-    "form_id": "0051B8C0",
-    "edid": "TreasureMap17",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Savage Divide Treasure Map #03 Teammate Reward",
-    "region": "Savage Divide",
-    "form_id": "0051B8C2",
-    "edid": "TreasureMap19",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Savage Divide Treasure Map #04 Teammate Reward",
-    "region": "Savage Divide",
-    "form_id": "0051B8C4",
-    "edid": "TreasureMap20",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Savage Divide Treasure Map #05 Teammate Reward",
-    "region": "Savage Divide",
-    "form_id": "0051B8C6",
-    "edid": "TreasureMap21",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Savage Divide Treasure Map #06 Teammate Reward",
-    "region": "Savage Divide",
-    "form_id": "0051B8C7",
-    "edid": "TreasureMap22",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Savage Divide Treasure Map #07 Teammate Reward",
-    "region": "Savage Divide",
-    "form_id": "0051B8C8",
-    "edid": "TreasureMap23",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Savage Divide Treasure Map #08 Teammate Reward",
-    "region": "Savage Divide",
-    "form_id": "0051B8CA",
-    "edid": "TreasureMap24",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Savage Divide Treasure Map #09 Teammate Reward",
-    "region": "Savage Divide",
-    "form_id": "0051B8CC",
-    "edid": "TreasureMap25",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Savage Divide Treasure Map #10 Teammate Reward",
-    "region": "Savage Divide",
-    "form_id": "0051B8D4",
-    "edid": "TreasureMap29",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Toxic Valley Treasure Map #01 Teammate Reward",
-    "region": "Toxic Valley",
-    "form_id": "0051B8B1",
-    "edid": "TreasureMap10",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Toxic Valley Treasure Map #02 Teammate Reward",
-    "region": "Toxic Valley",
-    "form_id": "0051B8B8",
-    "edid": "TreasureMap13",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Toxic Valley Treasure Map #03 Teammate Reward",
-    "region": "Toxic Valley",
-    "form_id": "0051B8BC",
-    "edid": "TreasureMap16",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Teammate Reward",
-    "name": "Toxic Valley Treasure Map #04 Teammate Reward",
-    "region": "Toxic Valley",
-    "form_id": "0051B8C1",
-    "edid": "TreasureMap18",
-    "rate": 0.013889,
-    "rate_display": "1.39%",
-    "sources": [
-     {
-      "form_id": "001A721E",
-      "edid": "LL_TreasureMap_TeammateReward",
-      "rate": 0.013889,
-      "rate_display": "1.39%"
-     }
-    ]
-   },
-   {
-    "group": "Lucky Strike",
-    "name": "Excavator Map",
-    "region": "",
-    "form_id": "0032AD61",
-    "edid": "MTRz05_LL_03_ExcavatorMine",
-    "rate": 0.004375,
-    "rate_display": "0.44%",
-    "sources": [
-     {
-      "form_id": "0043934D",
-      "edid": "QuestReward_LLS_Aid_All",
-      "rate": 0.004375,
-      "rate_display": "0.44%"
-     }
-    ]
-   },
-   {
-    "group": "Lucky Strike",
-    "name": "Miner Map",
-    "region": "",
-    "form_id": "0032AD5F",
-    "edid": "MTRz05_LL_01_MinerMine",
-    "rate": 0.004375,
-    "rate_display": "0.44%",
-    "sources": [
-     {
-      "form_id": "0043934D",
-      "edid": "QuestReward_LLS_Aid_All",
-      "rate": 0.004375,
-      "rate_display": "0.44%"
-     }
-    ]
-   },
-   {
-    "group": "Lucky Strike",
-    "name": "Prospector Map",
-    "region": "",
-    "form_id": "0032AD60",
-    "edid": "MTRz05_LL_02_ProspectorMine",
-    "rate": 0.004375,
-    "rate_display": "0.44%",
-    "sources": [
-     {
-      "form_id": "0043934D",
-      "edid": "QuestReward_LLS_Aid_All",
-      "rate": 0.004375,
-      "rate_display": "0.44%"
-     }
-    ]
-   }
-  ]
- },
- "total": 57,
  "chance_spawns": {
   "regions": [
    {
@@ -5638,5 +6321,809 @@
   "total_markers": 248,
   "total": 809,
   "map_base": "/wp-content/uploads/guide-images/farming-chems/day-tripper/"
- }
+ },
+ "treasure_maps": {
+  "maps": [
+   {
+    "group": "Treasure Maps",
+    "name": "Cranberry Bog Treasure Map #01",
+    "region": "Cranberry Bog",
+    "form_id": "0051B8CD",
+    "edid": "TreasureMap26",
+    "rate": 0.041667,
+    "rate_display": "4.17%",
+    "sources": [
+     {
+      "form_id": "0050CC2D",
+      "edid": "LLS_TreasureMap_Reward_RegionCB_SF",
+      "rate": 0.041667,
+      "rate_display": "4.17%"
+     }
+    ]
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Cranberry Bog Treasure Map #02",
+    "region": "Cranberry Bog",
+    "form_id": "0051B8D6",
+    "edid": "TreasureMap30",
+    "rate": 0.041667,
+    "rate_display": "4.17%",
+    "sources": [
+     {
+      "form_id": "0050CC2D",
+      "edid": "LLS_TreasureMap_Reward_RegionCB_SF",
+      "rate": 0.041667,
+      "rate_display": "4.17%"
+     }
+    ]
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Cranberry Bog Treasure Map #03",
+    "region": "Cranberry Bog",
+    "form_id": "0051B8D9",
+    "edid": "TreasureMap33",
+    "rate": 0.041667,
+    "rate_display": "4.17%",
+    "sources": [
+     {
+      "form_id": "0050CC2D",
+      "edid": "LLS_TreasureMap_Reward_RegionCB_SF",
+      "rate": 0.041667,
+      "rate_display": "4.17%"
+     }
+    ]
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Cranberry Bog Treasure Map #04",
+    "region": "Cranberry Bog",
+    "form_id": "0051B8DE",
+    "edid": "TreasureMap35",
+    "rate": 0.041667,
+    "rate_display": "4.17%",
+    "sources": [
+     {
+      "form_id": "0050CC2D",
+      "edid": "LLS_TreasureMap_Reward_RegionCB_SF",
+      "rate": 0.041667,
+      "rate_display": "4.17%"
+     }
+    ]
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Mire Treasure Map #01",
+    "region": "The Mire",
+    "form_id": "0051B8CE",
+    "edid": "TreasureMap27",
+    "rate": 0.041667,
+    "rate_display": "4.17%",
+    "sources": [
+     {
+      "form_id": "0050CC2D",
+      "edid": "LLS_TreasureMap_Reward_RegionCB_SF",
+      "rate": 0.041667,
+      "rate_display": "4.17%"
+     }
+    ]
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Mire Treasure Map #02",
+    "region": "The Mire",
+    "form_id": "0051B8D2",
+    "edid": "TreasureMap28",
+    "rate": 0.041667,
+    "rate_display": "4.17%",
+    "sources": [
+     {
+      "form_id": "0050CC2D",
+      "edid": "LLS_TreasureMap_Reward_RegionCB_SF",
+      "rate": 0.041667,
+      "rate_display": "4.17%"
+     }
+    ]
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Mire Treasure Map #03",
+    "region": "The Mire",
+    "form_id": "0051B8D7",
+    "edid": "TreasureMap31",
+    "rate": 0.041667,
+    "rate_display": "4.17%",
+    "sources": [
+     {
+      "form_id": "0050CC2D",
+      "edid": "LLS_TreasureMap_Reward_RegionCB_SF",
+      "rate": 0.041667,
+      "rate_display": "4.17%"
+     }
+    ]
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Mire Treasure Map #04",
+    "region": "The Mire",
+    "form_id": "0051B8D8",
+    "edid": "TreasureMap32",
+    "rate": 0.041667,
+    "rate_display": "4.17%",
+    "sources": [
+     {
+      "form_id": "0050CC2D",
+      "edid": "LLS_TreasureMap_Reward_RegionCB_SF",
+      "rate": 0.041667,
+      "rate_display": "4.17%"
+     }
+    ]
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Mire Treasure Map #05",
+    "region": "The Mire",
+    "form_id": "0051B8DB",
+    "edid": "TreasureMap34",
+    "rate": 0.041667,
+    "rate_display": "4.17%",
+    "sources": [
+     {
+      "form_id": "0050CC2D",
+      "edid": "LLS_TreasureMap_Reward_RegionCB_SF",
+      "rate": 0.041667,
+      "rate_display": "4.17%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Ash Heap Treasure Map #01 Teammate Reward",
+    "region": "Ash Heap",
+    "form_id": "0051B8A8",
+    "edid": "TreasureMap04",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Ash Heap Treasure Map #02 Teammate Reward",
+    "region": "Ash Heap",
+    "form_id": "0051B8AC",
+    "edid": "TreasureMap07",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Cranberry Bog Treasure Map #01 Teammate Reward",
+    "region": "Cranberry Bog",
+    "form_id": "0051B8CD",
+    "edid": "TreasureMap26",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Cranberry Bog Treasure Map #02 Teammate Reward",
+    "region": "Cranberry Bog",
+    "form_id": "0051B8D6",
+    "edid": "TreasureMap30",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Cranberry Bog Treasure Map #03 Teammate Reward",
+    "region": "Cranberry Bog",
+    "form_id": "0051B8D9",
+    "edid": "TreasureMap33",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Cranberry Bog Treasure Map #04 Teammate Reward",
+    "region": "Cranberry Bog",
+    "form_id": "0051B8DE",
+    "edid": "TreasureMap35",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #01 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B7A2",
+    "edid": "TreasureMap01",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #02 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8A6",
+    "edid": "TreasureMap02",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #03 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8A7",
+    "edid": "TreasureMap03",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #04 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8A9",
+    "edid": "TreasureMap05",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #05 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8AA",
+    "edid": "TreasureMap06",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #06 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8AE",
+    "edid": "TreasureMap08",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #07 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8B0",
+    "edid": "TreasureMap09",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #08 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8B2",
+    "edid": "TreasureMap11",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #09 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8B6",
+    "edid": "TreasureMap12",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #10 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8B9",
+    "edid": "TreasureMap14",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Mire Treasure Map #01 Teammate Reward",
+    "region": "The Mire",
+    "form_id": "0051B8CE",
+    "edid": "TreasureMap27",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Mire Treasure Map #02 Teammate Reward",
+    "region": "The Mire",
+    "form_id": "0051B8D2",
+    "edid": "TreasureMap28",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Mire Treasure Map #03 Teammate Reward",
+    "region": "The Mire",
+    "form_id": "0051B8D7",
+    "edid": "TreasureMap31",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Mire Treasure Map #04 Teammate Reward",
+    "region": "The Mire",
+    "form_id": "0051B8D8",
+    "edid": "TreasureMap32",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Mire Treasure Map #05 Teammate Reward",
+    "region": "The Mire",
+    "form_id": "0051B8DB",
+    "edid": "TreasureMap34",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #01 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8BA",
+    "edid": "TreasureMap15",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #02 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8C0",
+    "edid": "TreasureMap17",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #03 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8C2",
+    "edid": "TreasureMap19",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #04 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8C4",
+    "edid": "TreasureMap20",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #05 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8C6",
+    "edid": "TreasureMap21",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #06 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8C7",
+    "edid": "TreasureMap22",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #07 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8C8",
+    "edid": "TreasureMap23",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #08 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8CA",
+    "edid": "TreasureMap24",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #09 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8CC",
+    "edid": "TreasureMap25",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #10 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8D4",
+    "edid": "TreasureMap29",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Toxic Valley Treasure Map #01 Teammate Reward",
+    "region": "Toxic Valley",
+    "form_id": "0051B8B1",
+    "edid": "TreasureMap10",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Toxic Valley Treasure Map #02 Teammate Reward",
+    "region": "Toxic Valley",
+    "form_id": "0051B8B8",
+    "edid": "TreasureMap13",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Toxic Valley Treasure Map #03 Teammate Reward",
+    "region": "Toxic Valley",
+    "form_id": "0051B8BC",
+    "edid": "TreasureMap16",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Toxic Valley Treasure Map #04 Teammate Reward",
+    "region": "Toxic Valley",
+    "form_id": "0051B8C1",
+    "edid": "TreasureMap18",
+    "rate": 0.013889,
+    "rate_display": "1.39%",
+    "sources": [
+     {
+      "form_id": "001A721E",
+      "edid": "LL_TreasureMap_TeammateReward",
+      "rate": 0.013889,
+      "rate_display": "1.39%"
+     }
+    ]
+   },
+   {
+    "group": "Lucky Strike",
+    "name": "Excavator Map",
+    "region": "",
+    "form_id": "0032AD61",
+    "edid": "MTRz05_LL_03_ExcavatorMine",
+    "rate": 0.004375,
+    "rate_display": "0.44%",
+    "sources": [
+     {
+      "form_id": "0043934D",
+      "edid": "QuestReward_LLS_Aid_All",
+      "rate": 0.004375,
+      "rate_display": "0.44%"
+     }
+    ]
+   },
+   {
+    "group": "Lucky Strike",
+    "name": "Miner Map",
+    "region": "",
+    "form_id": "0032AD5F",
+    "edid": "MTRz05_LL_01_MinerMine",
+    "rate": 0.004375,
+    "rate_display": "0.44%",
+    "sources": [
+     {
+      "form_id": "0043934D",
+      "edid": "QuestReward_LLS_Aid_All",
+      "rate": 0.004375,
+      "rate_display": "0.44%"
+     }
+    ]
+   },
+   {
+    "group": "Lucky Strike",
+    "name": "Prospector Map",
+    "region": "",
+    "form_id": "0032AD60",
+    "edid": "MTRz05_LL_02_ProspectorMine",
+    "rate": 0.004375,
+    "rate_display": "0.44%",
+    "sources": [
+     {
+      "form_id": "0043934D",
+      "edid": "QuestReward_LLS_Aid_All",
+      "rate": 0.004375,
+      "rate_display": "0.44%"
+     }
+    ]
+   }
+  ]
+ },
+ "total": 92
 }

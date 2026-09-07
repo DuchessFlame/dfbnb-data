@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-09-04",
+  "generated": "2026-09-07",
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
   "lists_in_closure": 476,
   "source_totals": {
@@ -580,45 +580,7 @@
    ]
   },
   "creatures": {
-   "note": "Around 9,632 creatures can drop Stimpak: Diluted as generic loot; they are not listed individually. See the Containers expand for the per-container drop rates and How to Obtain for the crafting recipe."
-  },
-  "collectrons": {
-   "entries": [
-    {
-     "name": "Communist Collectron Station",
-     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Communist",
-     "obtain": "Purchase from the Atom Shop.",
-     "interval": "4 min 48 sec",
-     "items": [
-      {
-       "name": "Stimpak: Diluted",
-       "form_id": "003078C2",
-       "rate": 0.033333,
-       "rate_display": "3.33%",
-       "rate_source": "computed"
-      }
-     ]
-    }
-   ]
-  },
-  "resource_generators": {
-   "entries": [
-    {
-     "name": "Ashforge",
-     "edid": "AshResource",
-     "obtain": "Available in the base game.",
-     "interval": "3 min",
-     "items": [
-      {
-       "name": "Stimpak: Diluted",
-       "form_id": "003078C2",
-       "rate": 0.003261,
-       "rate_display": "0.33%",
-       "rate_source": "computed"
-      }
-     ]
-    }
-   ]
+   "note": "Around 9,633 creatures can drop Stimpak: Diluted as generic loot; they are not listed individually. See the Containers expand for the per-container drop rates and How to Obtain for the crafting recipe."
   }
  },
  "farming_tips": {
@@ -5354,6 +5316,26 @@
    ]
   }
  ],
+ "chance_spawns": {
+  "regions": [
+   {
+    "region": "Forest",
+    "markers": [
+     {
+      "name": "New River Gorge Resort",
+      "placements": 1,
+      "refs": [
+       "2BE95D"
+      ]
+     }
+    ],
+    "placements": 1
+   }
+  ],
+  "total_markers": 1,
+  "total": 1,
+  "map_base": "/wp-content/uploads/guide-images/farming-chems/stimpak-diluted/"
+ },
  "treasure_maps": {
   "maps": [
    {
@@ -5409,25 +5391,5 @@
    }
   ]
  },
- "total": 92,
- "chance_spawns": {
-  "regions": [
-   {
-    "region": "Forest",
-    "markers": [
-     {
-      "name": "New River Gorge Resort",
-      "placements": 1,
-      "refs": [
-       "2BE95D"
-      ]
-     }
-    ],
-    "placements": 1
-   }
-  ],
-  "total_markers": 1,
-  "total": 1,
-  "map_base": "/wp-content/uploads/guide-images/farming-chems/stimpak-diluted/"
- }
+ "total": 92
 }
