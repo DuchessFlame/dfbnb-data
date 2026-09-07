@@ -73,17 +73,36 @@ UTILITY_RULES: list[tuple[str, str, str]] = [
     (r"^carry weight booster$",       "carry_weight_booster", "score_utility_carryweight.avif"),
     (r"^nuclear keycards?$",          "nuclear_keycard",      "score_utility_nuclearkeycard.avif"),
     (r"nukashine",                    "nukashine",            "score_item_nukashine_sugarfree.avif"),
-    # No shared artwork exists for these yet - they get a category but no image.
-    (r"^perk card pack$",             "perk_card_pack",       ""),
-    (r"^scrap kits?$",                "scrap_kit",            ""),
+    (r"^perk card pack$",             "perk_card_pack",       "score_item_perkcardpack.avif"),
+    # The scrap kit's texture is named for what it does - scrap to stash - not for
+    # what the scoreboard calls it. Same file for x3 / x6 / x15; the count-badged
+    # variants (_6pack, _15pack) exist locally but are not uploaded.
+    (r"^scrap kits?$",                "scrap_kit",            "atx_utility_repairkit_scraptostash.avif"),
     # NB: patterns are matched against norm(), which has already stripped
     # punctuation - so "Vault-Tec" is "vault tec" by the time we get here.
-    (r"vault tec supply (package|crate)", "supply_package",   ""),
-    (r"^perfect bubblegum$",          "perfect_bubblegum",    ""),
-    (r"^liquid courage$",             "liquid_courage",       ""),
-    (r"fireworks$",                   "fireworks",            ""),
-    (r"^legendary core$",             "legendary_core",       ""),
-    (r"^tadpole badge$",              "tadpole_badge",        ""),
+    #
+    # The supply package art is named scrapball_<size> - one, two and three stars
+    # on the Vault-Tec footlocker - so size has to be matched before the generic
+    # pattern, and "Supply Crate (Level N)" is the same art as size N.
+    (r"^small vault tec supply (package|crate)",  "supply_package", "score_utility_scrapball_small.avif"),
+    (r"^medium vault tec supply (package|crate)", "supply_package", "score_utility_scrapball_medium.avif"),
+    (r"^large vault tec supply (package|crate)",  "supply_package", "score_utility_scrapball_large.avif"),
+    (r"vault tec supply crate .?level 1",         "supply_package", "score_utility_scrapball_small.avif"),
+    (r"vault tec supply crate .?level 2",         "supply_package", "score_utility_scrapball_medium.avif"),
+    (r"vault tec supply crate .?level 3",         "supply_package", "score_utility_scrapball_large.avif"),
+    (r"vault tec supply (package|crate)",         "supply_package", ""),
+    (r"^perfect bubblegum$",          "perfect_bubblegum",    "score_utility_bubblegumperfect.avif"),
+    (r"^liquid courage$",             "liquid_courage",       "score_game_liquidcourage.avif"),
+    # Only one fireworks texture was ever shipped; Crackle, Trail and the plain
+    # S4 "Fireworks" all share it.
+    (r"fireworks$",                   "fireworks",            "score_utility_fireworks_crackle.avif"),
+    (r"^legendary core$",             "legendary_core",       "score_game_legendary_core.avif"),
+    (r"^tadpole badge$",              "tadpole_badge",        "score_currency_tadpolebadge.avif"),
+    (r"^turbo fert fertilizer$",      "",                     "score_item_turbofertgrenade.avif"),
+    (r"^perfectly preserved pie$",    "",                     "score_item_preservedpie.avif"),
+    (r"^ghost boy$",                  "",                     "score_game_ghostboy.avif"),
+    # No shared artwork exists for these yet - they get a category but no image.
+    (r"^(health|rad) kit bundle$",    "",                     ""),
 ]
 
 # (season, name on the board) -> name in season_rewards.tsv.
