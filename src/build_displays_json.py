@@ -116,7 +116,7 @@ def ecil_stems(row):
     return out
 
 
-def build(tsv_root, avif_dir):
+def build(tsv_root, avif_dir, overrides_path=""):
     kywd_path = latest(tsv_root, "KYWD_Export_*_Refs.tsv")
     lvli_path = latest(tsv_root, "LVLI_Export_*_LVLI_Entries.tsv")
     entm_path = latest(tsv_root, "ENTM_Export_*.tsv")
@@ -157,6 +157,20 @@ def build(tsv_root, avif_dir):
               for f in os.listdir(avif_dir) if f.lower().endswith(".avif")} if avif_dir and os.path.isdir(avif_dir) else set()
     print("  staged .avif stems: {}".format(len(staged)), file=sys.stderr)
 
+    # Stem -> absolute wp-content path. Art already hosted elsewhere on the site
+    # (season_images/season-N, atom-shop tiles) is reused verbatim instead of a
+    # second copy being staged here; the renderer passes any value starting with
+    # "/" straight through. Season art takes priority over a local re-upload.
+    overrides = {}
+    extra_pat = []
+    if overrides_path and os.path.isfile(overrides_path):
+        with open(overrides_path, encoding="utf-8") as fh:
+            _cfg = json.load(fh)
+        overrides = {k.lower(): v for k, v in
+                     (_cfg.get("image_overrides") or {}).items()}
+        extra_pat = _cfg.get("extra_roster_entm") or []
+        print("  image overrides: {}".format(len(overrides)), file=sys.stderr)
+
     items = []
     n_ent = n_img = 0
     for it in roster:
@@ -179,7 +193,8 @@ def build(tsv_root, avif_dir):
         # Transparent tile first (row thumb + lead Item Image frame), then the
         # carousel shots. Only stems with a staged .avif are emitted.
         ordered = ([stem + "_l"] if stem else []) + (ecil_stems(row) if row else [])
-        images = [s.lower() for s in ordered if s.lower() in staged]
+        images = [overrides.get(s.lower(), s.lower()) for s in ordered
+                  if s.lower() in staged or s.lower() in overrides]
         if images:
             n_img += 1
 
@@ -203,6 +218,55 @@ def build(tsv_root, avif_dir):
 
     items.sort(key=lambda x: (x["name"].lower(), x["id"]))
     print("  with entitlement: {}   with staged art: {}".format(n_ent, n_img), file=sys.stderr)
+    # --- second roster pass: ENTM-driven families -------------------------
+    # Mannequins and power-armour displays are NPC_ records, not ACTI, so the
+    # PlayerDisplayCaseKeyword sweep above cannot see them however much art
+    # exists. The KYWD export is also an incomplete source here (it lists only
+    # the female mannequins), so the entitlement export drives these rows: any
+    # ENTM whose EDID matches a configured pattern and is not cut content.
+    if extra_pat:
+        pats = [re.compile(p, re.I) for p in extra_pat]
+        seen = {i["id"] for i in items}
+        n_extra = 0
+        for row in entm_rows:
+            edid = (row.get("EDID") or "").strip()
+            if not edid or is_cut(edid):
+                continue
+            if not any(p.search(edid) for p in pats):
+                continue
+            fid = (row.get("FormID") or "").strip().upper()
+            did = "DISPLAY_" + fid
+            if did in seen:
+                continue
+            etdi = (row.get("ETDI") or "").strip()
+            stem = etdi[:-4] if etdi.lower().endswith(".dds") else etdi
+            ordered = ([stem + "_l"] if stem else []) + ecil_stems(row)
+            imgs = [overrides.get(x.lower(), x.lower()) for x in ordered
+                    if x.lower() in staged or x.lower() in overrides]
+            name = (row.get("FULL") or "").strip() or edid
+            source, hint = classify_source(edid)
+            items.append({
+                "id": did,
+                "name": name,
+                "source": source,
+                "obtain": "Unlocked by the \"{}\" entitlement.".format(name),
+                "unlock_hint": hint,
+                "desc": (row.get("DESC") or "").strip(),
+                "added": "",
+                "images": imgs,
+                "entitlement": {"edid": edid, "formid": fid},
+                "items": [{"label": name, "edid": edid, "formid": fid,
+                           "kind": "npc", "texture": stem}],
+                "cut": False,
+            })
+            seen.add(did)
+            n_extra += 1
+            if imgs:
+                n_img += 1
+        print("  extra ENTM roster rows: {}".format(n_extra), file=sys.stderr)
+
+    items.sort(key=lambda x: x["name"].lower())
+
     return {
         "version": 1,
         "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -218,10 +282,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--tsv-root", default="tsv")
     ap.add_argument("--avif-dir", default="")
+    ap.add_argument("--overrides", default=os.path.join("data", "checklists", "displays.json"))
     ap.add_argument("--outdir", default="dist")
     ap.add_argument("--pts", action="store_true", help="write to dist/pts/ instead")
     a = ap.parse_args()
-    data = build(a.tsv_root, a.avif_dir)
+    data = build(a.tsv_root, a.avif_dir, a.overrides)
     outdir = os.path.join(a.outdir, "pts") if a.pts else a.outdir
     os.makedirs(outdir, exist_ok=True)
     out = os.path.join(outdir, "displays.json")

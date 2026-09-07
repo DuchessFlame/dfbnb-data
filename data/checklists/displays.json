@@ -1,0 +1,22 @@
+{
+  "_note": "Display Checklist config for build_displays_json.py.",
+
+  "_note_image_overrides": "Key = the stem the builder derives (ETDI '<stem>_l' or an ECIL carousel stem). Value = an ABSOLUTE wp-content path, used verbatim by df-bnb-plan-checklists.js, so art already hosted elsewhere on the site is reused instead of a second copy being staged in guide-images/plan-checklist/displays/. Season art takes priority: when a display is a scoreboard reward and its tile already sits in season_images/season-N/, point at that file rather than staging a copy. Every URL below was HEAD-verified 200.",
+  "image_overrides": {
+    "score_s19_camp_display_weaponrack_enclaveoval_l": "/wp-content/uploads/season_images/season-19/score_s19_camp_display_weaponrack_enclaveoval.avif",
+    "score_s19_camp_display_weaponrack_enclaverectangular_l": "/wp-content/uploads/season_images/season-19/score_s19_camp_display_weaponrack_enclaverectangular.avif",
+    "score_s21_camp_display_fishdisplay_fishhook_l": "/wp-content/uploads/season_images/season-21/score_s21_camp_display_fishdisplay_fishhook.avif",
+    "score_s21_camp_display_weaponrack_fishheadfishingroddisplay_l": "/wp-content/uploads/season_images/season-21/score_s21_camp_display_weaponrack_fishheadfishingroddisplay.avif",
+    "score_s21_camp_display_weaponrack_fishingroddisplay_l": "/wp-content/uploads/season_images/season-21/score_s21_camp_display_weaponrack_boatfishingroddisplay.avif",
+    "score_s22_camp_displaycase_bowlingballrack_nukacola_l": "/wp-content/uploads/season_images/season-22/score_s22_camp_displaycase_bowlingballrack_nukacola.avif",
+    "score_s24_camp_displaycase_aliendisplay_l": "/wp-content/uploads/season_images/season-24/score_s24_camp_displaycase_aliendisplay.avif",
+    "score_s24_displaycase_beersteins_bigfootsteindisplay_l": "/wp-content/uploads/season_images/season-24/score_s24_displaycase_beersteins_bigfootsteindisplay.avif",
+    "score_s24_pipboy_displaystand_l": "/wp-content/uploads/season_images/season-24/score_s24_pipboyreplica_displaystand.avif"
+  },
+
+  "_note_extra_roster_entm": "The main roster is ACTI records carrying PlayerDisplayCaseKeyword. Mannequins and power-armour displays are NPC_ records instead, so that sweep cannot reach them no matter what art exists — and the KYWD export is an incomplete source here, listing only the female mannequins. These EDID patterns pull the family from the ENTM entitlement export instead, which carries both genders and every pose. Cut records (the zzz-prefixed Mannequin Rack colour variants, the Armor Display Frame, and the Ready poses) are still filtered by is_cut(), so only shipped items appear.",
+  "extra_roster_entm": [
+    "^ATX_ENTM_CAMP_Display_Mannequin",
+    "^SCORE_S\\d+_ENTM_CAMP_Display_Mannequin"
+  ]
+}
