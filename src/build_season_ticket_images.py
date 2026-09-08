@@ -129,6 +129,34 @@ def emote_image_url(raw_name: str) -> str:
     return "/wp-content/uploads/guide-images/atom-shop/emotes/" + s + ".webp"
 
 
+# Rewards whose TSV row carries NO storefront entitlement. Almost all are
+# Fallout 1st exclusives - their entitlements live under F1_SCORE_* and never
+# reach the reward rows - so neither the entitlement lookup nor the fuzzy name
+# match can ever find their art. There is nothing to match on, so the file is
+# named here, keyed by the row's stable id (names are not unique: three S3
+# rows are called "Gold Bullion x 50"). Values are bare filenames; asset_url()
+# decides which folder each one lives in.
+ID_IMAGE_OVERRIDES = {
+    "S3_R5_brotherhood_photomode_frame":
+        "score_s3_photomode_frame_bos.avif",
+    "S3_R12_brotherhood_player_icon":
+        "atx_playericon_score_17.avif",
+    "S3_R35_herringbone_wood_floor_and_foundations":
+        "score_s3_camp_floor_woodherringbone.avif",
+    "S3_R39_clean_industrial_fan":
+        "score_s3_camp_walldeco_industrialfan_clean.avif",
+    # Two tank helmets ship with SCORE_S2_ texture names: the plain one, which
+    # really is S2 rank 92, and this red Armor Ace one, which Bethesda moved to
+    # the S3 board without renaming the texture. The upload is renamed to
+    # score_s3_ so the filename-driven rule puts it under season-3 - keeping
+    # the s2 name would file it with the plain helmet it is not.
+    "S3_R65_american_tank_helmet":
+        "score_s3_apparel_headwear_tank_helmet_armorace.avif",
+    "S3_R95_clandestine_service_t_65_power_armor_paint":
+        "score_s3_skin_powerarmor_paint_t65_clandestine.avif",
+}
+
+
 def to_dds_path(etip: str, etdi: str) -> str:
     p = (etip or "").strip().replace("\\", "/") + (etdi or "").strip().replace("\\", "/")
     p = p.lstrip("/")
@@ -204,6 +232,13 @@ def main() -> int:
     for it in items:
         raw_name = str(it.get("name") or "").strip()
         if not raw_name:
+            continue
+
+        # Hand-named art for entitlement-less rows. Checked first: these rows
+        # have nothing for the lookups below to match on.
+        ov = ID_IMAGE_OVERRIDES.get(str(it.get("id") or ""))
+        if ov:
+            it["imageUrl"] = asset_url(ov)
             continue
 
         # Utility override: imageUrl only (conversion handled by run_season_ticket_images.ps1 $UtilityIcons list)
