@@ -89,6 +89,14 @@ def utility_image_url(raw_name: str) -> str:
         return root + "score_utility_mysterybobblehead.avif"
     if base in ("basic repair kit", "repair kit", "repairkit"):
         return root + "atx_utility_repairkit_basic.avif"
+    # Health/Rad Kit Bundles carry no ENTM entitlement and no texture path, so
+    # the entitlement->filename path can never reach them. Named here instead.
+    # They are two different icons - a white medical cross and a radiation
+    # trefoil - so they must never be collapsed onto one file.
+    if base in ("health kit bundle", "health kit", "healthkit"):
+        return root + "score_utility_healthkit.avif"
+    if base in ("rad kit bundle", "rad kit", "radkit"):
+        return root + "score_utility_radkit.avif"
     if base in ("sugar-free nukashine", "sugar free nukashine", "nukashine sugarfree"):
         return root + "score_item_nukashine_sugarfree.avif"
 
