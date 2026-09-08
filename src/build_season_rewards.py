@@ -18,6 +18,9 @@ import re
 from datetime import datetime
 from pathlib import Path
 
+# The one routing rule, shared with the renderers. See src/asset_paths.py.
+from asset_paths import fill_emote_images
+
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
@@ -264,6 +267,21 @@ def build_season_json(season_num: int, items: list[dict], meta: dict) -> dict:
         output["unlockLineText"] = ult
 
     output["items"] = [build_item(row) for row in items]
+
+    # Emote artwork, for any row that does not already carry it.
+    #
+    # Emotes are stored under their DISPLAY NAME in a folder shared with the
+    # Atom Shop page - "One More Time.webp", not score_s12_emotes_onceagain -
+    # and that name cannot be derived from the editor ID. Every emote that
+    # renders today does so because someone hand-wrote the URL into
+    # season_rewards.tsv, and a season whose row was never written showed no
+    # art at all. Resolved from dist/emotes.json instead, through the same
+    # helper build_upcoming_rewards_json.py uses so the two pages agree.
+    #
+    # Gap-fill only: a curated imageUrl still wins, because the TSV records
+    # what was actually uploaded.
+    fill_emote_images(output["items"], key="storefrontEntitlement",
+                      repo_root=REPO_ROOT)
 
     # layout — how df-bnb-seasons.js should group this season.
     #

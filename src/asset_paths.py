@@ -127,6 +127,79 @@ def season_url(filename: str, season_num: int) -> str:
 
 
 # --------------------------------------------------------------------------
+# Emotes: the one class routing alone cannot reach.
+# --------------------------------------------------------------------------
+#
+# asset_url() can route an emote URL it is HANDED, because it matches on the
+# folder. It cannot BUILD one, because emote files are stored under the display
+# name and that name is not derivable from the editor ID:
+# SCORE_S12_ENTM_Emotes_OnceAgain is "One More Time". So a generator that only
+# has an entitlement has nothing to route, and the .dds-name guess 404s on
+# every emote a season has ever given out.
+#
+# dist/emotes.json closes it: `rent` is the entitlement, `name` is the display
+# name. Both season builders resolve through here so they cannot drift.
+
+# The uploads drop trailing "!" - "Absolutely!" is stored as Absolutely.webp.
+_EMOTE_PUNCT_RE = re.compile(r"[!?]+$")
+
+
+def emote_url(display_name: str) -> str:
+    """The shared URL for one emote, from its DISPLAY NAME."""
+    name = _EMOTE_PUNCT_RE.sub("", (display_name or "").strip()).strip()
+    if not name:
+        return ""
+    return SHARED["emotes"] + name + ".webp"
+
+
+def load_emote_images(repo_root=None) -> dict:
+    """Entitlement (lowercased) -> shared emote artwork URL.
+
+    The PTS copy is read as a fallback so an unreleased season's emote resolves
+    before it ships; the live file is read first and wins once it does.
+    """
+    import json
+    from pathlib import Path
+
+    root = Path(repo_root) if repo_root else Path(__file__).resolve().parents[1]
+    out: dict = {}
+    for rel in ("emotes.json", "pts/emotes.json"):
+        path = root / "dist" / rel
+        if not path.exists():
+            continue
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        for e in (data.get("emotes") or []) + (data.get("petEmotes") or []):
+            ent = (e.get("rent") or "").strip().lower()
+            url = emote_url(e.get("name") or "")
+            if ent and url:
+                out.setdefault(ent, url)
+    return out
+
+
+def fill_emote_images(items, key="edid", repo_root=None) -> int:
+    """Fill in emote artwork on any item that has none. Returns how many.
+
+    Gap-fill only: a curated imageUrl always wins, because the curated row
+    records what was actually uploaded.
+    """
+    art = load_emote_images(repo_root)
+    if not art:
+        return 0
+    n = 0
+    for item in items:
+        if (item.get("imageUrl") or "").strip():
+            continue
+        url = art.get((item.get(key) or "").strip().lower())
+        if url:
+            item["imageUrl"] = url
+            n += 1
+    return n
+
+
+# --------------------------------------------------------------------------
 # Parity check against the JavaScript twin.
 # --------------------------------------------------------------------------
 

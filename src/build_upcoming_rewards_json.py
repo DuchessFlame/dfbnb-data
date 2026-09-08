@@ -60,6 +60,9 @@ from pathlib import Path
 
 import tsv_source          # one resolver for every export selection
 
+# The one routing rule, shared with the renderers. See src/asset_paths.py.
+from asset_paths import fill_emote_images
+
 # Shared drop-rate engine — SAME source of truth used by build_drop_rates.py and
 # build_camp_items_json.py. Resource-generator OUTPUT lists are resolved through
 # this (never a standalone re-implementation, per the drop-rate-engine skill's
@@ -947,10 +950,26 @@ def build_season_json(season_num, items, meta, source_name, observed,
     # The season image manifest is the only thing that knows the uploaded name,
     # so take it from there, keyed on entitlement. Items with no manifest entry
     # keep no imageUrl and the renderer falls back to the .dds guess.
+    #
+    # A curated imageUrl already on the item WINS, and this only fills the gaps.
+    # The manifest records what the texture export WOULD name a file if it wrote
+    # it into the season folder; it is not a record of what was uploaded. Art
+    # that lives in a shared folder was never exported that way, so overwriting
+    # here pointed all seven S4 Player Icons at
+    # season-4/score_s4_playericon_*.avif when the real files are
+    # /guide-images/atom-shop/player-icons/atx_playericon_score_NN.avif - seven
+    # 404s on this page that the Scoreboard page did not have. Same reason
+    # merge_original_run() lets the curated row win the join.
+    # Emotes are resolved BEFORE the season manifest, not after. The manifest
+    # would otherwise claim them for the season folder under their editor ID,
+    # and the gap-fill below would then leave that wrong path in place. See
+    # asset_paths.load_emote_images() for why no filename rule can reach these.
+    fill_emote_images(items, key="edid", repo_root=REPO_ROOT)
+
     art = load_uploaded_images(season_num)
     for item in items:
         url = art.get((item.get("edid") or "").lower())
-        if url:
+        if url and not (item.get("imageUrl") or "").strip():
             item["imageUrl"] = url
 
     # A-Z by name (case-insensitive); rarity as a stable secondary key
