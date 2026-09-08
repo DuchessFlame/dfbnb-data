@@ -12,6 +12,7 @@ season-{N}:
     C.A.M.P. titles                          -> /guide-images/titles/titles-camp/
     player titles                            -> /guide-images/titles/titles-player/
     player icons                             -> /guide-images/atom-shop/player-icons/
+    emotes                                   -> /guide-images/atom-shop/emotes/
     everything unique to one season          -> /season_images/season-{N}/
 
 Art shared by several rewards is stored once too. The S.C.O.R.E. Boost is the
@@ -49,11 +50,18 @@ SHARED = {
     "titles_camp":   UPLOADS + "guide-images/titles/titles-camp/",
     "titles_player": UPLOADS + "guide-images/titles/titles-player/",
     "player_icons":  UPLOADS + "guide-images/atom-shop/player-icons/",
+    "emotes":        UPLOADS + "guide-images/atom-shop/emotes/",
 }
 
 SEASON_ROOT = UPLOADS + "season_images/season-{n}/"
 
 _WEBP_RE = re.compile(r"\.webp$", re.IGNORECASE)
+# Emote art is the ONE asset class that stays .webp. The files are animated
+# (19 frames for "Watching You"), shared with the Atom Shop emotes page, and
+# keyed by display name rather than editor ID - so they are matched on their
+# FOLDER, not their filename, and skip the .webp -> .avif rewrite. Flattening
+# one to .avif would drop every frame but the first.
+_EMOTE_DIR_RE = re.compile(r"/atom-shop/emotes/", re.IGNORECASE)
 # Bethesda zero-pads the season in some texture names (SCORE_S04_) and not in
 # others (SCORE_S4_). Every upload is unpadded, so normalise once, here.
 _PAD_RE = re.compile(r"^(score_s)0+(\d)", re.IGNORECASE)
@@ -76,6 +84,11 @@ def asset_url(url: str) -> str:
     u = (url or "").strip()
     if not u:
         return ""
+
+    # Emotes first: they must keep .webp, so this runs before the rewrite.
+    if _EMOTE_DIR_RE.search(u):
+        return SHARED["emotes"] + u.rsplit("/", 1)[-1]
+
     u = _WEBP_RE.sub(".avif", u)
 
     file = _PAD_RE.sub(r"\1\2", u.rsplit("/", 1)[-1])
@@ -152,6 +165,11 @@ CASES = [
      "/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_1.avif"),
     ("/wp-content/uploads/season_images/score_s24_account_scoreboost_1.webp",
      "/wp-content/uploads/season_images/utility/score_s24_account_scoreboost_1.avif"),
+    # Emotes keep .webp and their display-name filename, and route on folder.
+    ("/wp-content/uploads/guide-images/atom-shop/emotes/Watching You.webp",
+     "/wp-content/uploads/guide-images/atom-shop/emotes/Watching You.webp"),
+    ("/wp-content/uploads/guide-images/atom-shop/emotes/The Hills Are Alive.webp",
+     "/wp-content/uploads/guide-images/atom-shop/emotes/The Hills Are Alive.webp"),
     ("", ""),
 ]
 

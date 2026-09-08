@@ -103,6 +103,32 @@ def utility_image_url(raw_name: str) -> str:
     return ""
 
 
+# Emote rewards have no ENTM texture path, so no storefront render was ever
+# exported for them. The art that DOES exist is the animated .webp the Atom
+# Shop emotes page uses, keyed by the emote's DISPLAY name - so match on the
+# reward name and point both pages at the one file. asset_url() knows to leave
+# these as .webp; see the emote branch in src/asset_paths.py.
+_EMOTE_TAIL_RE = re.compile(r"\s+emote$", re.IGNORECASE)
+# Same sanitiser the emotes page applies before building its filename.
+_EMOTE_SAFE_RE = re.compile(r"[^a-zA-Z0-9 _.'-]")
+# Reward name and emote display name disagree on these. Keyed lowercase.
+EMOTE_NAME_OVERRIDES = {
+    "hills are alive": "The Hills Are Alive",
+}
+
+
+def emote_image_url(raw_name: str) -> str:
+    s = (raw_name or "").strip()
+    if not _EMOTE_TAIL_RE.search(s):
+        return ""
+    s = _EMOTE_TAIL_RE.sub("", s).strip()
+    s = EMOTE_NAME_OVERRIDES.get(s.lower(), s)
+    s = _EMOTE_SAFE_RE.sub("", s).strip()
+    if not s:
+        return ""
+    return "/wp-content/uploads/guide-images/atom-shop/emotes/" + s + ".webp"
+
+
 def to_dds_path(etip: str, etdi: str) -> str:
     p = (etip or "").strip().replace("\\", "/") + (etdi or "").strip().replace("\\", "/")
     p = p.lstrip("/")
@@ -184,6 +210,12 @@ def main() -> int:
         u = utility_image_url(raw_name)
         if u:
             it["imageUrl"] = asset_url(u)
+            continue
+
+        # Emote override: shared animated art, see emote_image_url above.
+        e = emote_image_url(raw_name)
+        if e:
+            it["imageUrl"] = asset_url(e)
             continue
 
         base0 = raw_name
