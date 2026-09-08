@@ -135,21 +135,24 @@ INGREDIENT_NAMES = {
     "SeasonalFish_Meal_FallEelgrass": "Fall Sour Eelgrass",
 }
 
-# Season rollover schedule -- first Tuesday strictly after the NA equinox/solstice.
+# Season rollover schedule -- first Tuesday ON OR AFTER the NA equinox/solstice,
+# at 16:00 UTC (the weekly reset). If the equinox itself lands on a Tuesday, that
+# day IS the rollover -- Kevin confirmed this on 8 Sep 2026 for the fall 2026
+# changeover (Tue 22 Sep 2026, 16:00 UTC).
 # (Kept in sync with dist/seasonal-fish.json; the renderer uses this to show the
 # current season and each fish's next active window.)
 ROLLOVER_DATES = [
-    {"date": "2024-03-26", "season": "spring"}, {"date": "2024-06-25", "season": "summer"},
+    {"date": "2024-03-19", "season": "spring"}, {"date": "2024-06-25", "season": "summer"},
     {"date": "2024-09-24", "season": "fall"},   {"date": "2024-12-24", "season": "winter"},
     {"date": "2025-03-25", "season": "spring"}, {"date": "2025-06-24", "season": "summer"},
     {"date": "2025-09-23", "season": "fall"},   {"date": "2025-12-23", "season": "winter"},
     {"date": "2026-03-24", "season": "spring"}, {"date": "2026-06-23", "season": "summer"},
-    {"date": "2026-09-29", "season": "fall"},   {"date": "2026-12-22", "season": "winter"},
+    {"date": "2026-09-22", "season": "fall"},   {"date": "2026-12-22", "season": "winter"},
     {"date": "2027-03-23", "season": "spring"}, {"date": "2027-06-22", "season": "summer"},
     {"date": "2027-09-28", "season": "fall"},   {"date": "2027-12-28", "season": "winter"},
-    {"date": "2028-03-21", "season": "spring"}, {"date": "2028-06-27", "season": "summer"},
+    {"date": "2028-03-21", "season": "spring"}, {"date": "2028-06-20", "season": "summer"},
     {"date": "2028-09-26", "season": "fall"},   {"date": "2028-12-26", "season": "winter"},
-    {"date": "2029-03-27", "season": "spring"}, {"date": "2029-06-26", "season": "summer"},
+    {"date": "2029-03-20", "season": "spring"}, {"date": "2029-06-26", "season": "summer"},
     {"date": "2029-09-25", "season": "fall"},   {"date": "2029-12-25", "season": "winter"},
     {"date": "2030-03-26", "season": "spring"}, {"date": "2030-06-25", "season": "summer"},
     {"date": "2030-09-24", "season": "fall"},   {"date": "2030-12-24", "season": "winter"},
@@ -487,10 +490,11 @@ def main():
             },
             "timezone": "America/New_York",
             "seasonRule": {
-                "method": "first_tuesday_after_equinox_na",
+                "method": "first_tuesday_on_or_after_equinox_na",
                 "description": "Each seasonal fish is catchable for its whole "
                                "season. The season rotates on the first Tuesday "
-                               "strictly after the North American equinox/solstice.",
+                               "on or after the North American equinox/solstice, "
+                               "at 16:00 UTC.",
                 "rolloverDates": ROLLOVER_DATES,
             },
             "weekendEvent": {
