@@ -1,0 +1,13 @@
+{
+  "_note": "Hand-maintained overrides for the Collectrons page (dist/collectrons.json), loaded by src/camp_config.py. Add rows here rather than in build_camp_items_json.py — this table gains an entry every season while the surrounding logic does not.",
+
+  "excluded": {
+    "0062F43C": "Cut content. zzzSCORE_S7_ENTM_CAMP_Utility_Collectron_Zetan — the Zetan Matrix Collectron Station was curated for Season 7 and never shipped. Its texture was never in the extraction, so score_s7_camp_utility_collectron_zetan.avif cannot exist and the row rendered a permanent placeholder on both this page and the S7 scoreboard."
+  },
+
+  "excluded_notes": {
+    "why_this_table_exists": "build_entitlement_only_items() appends every collectron entitlement that has no RESO record, so the page is a complete list rather than only what the RESO grouping found. That is the right call for something unreleased that might still ship, and the wrong one for something that never will: it leaves a row whose art cannot exist, so the page shows a placeholder forever and every missing-image sweep reports it again.",
+    "how_to_decide": "Exclude only records confirmed cut — a zzz / CUT / DEL prefix on the ENTM EDID plus no leveled list behind it. An entitlement that is merely unreleased stays on the page with status 'unreleased'; that is information, not noise.",
+    "0062F43C": "Confirmed cut with Duchess, September 2026. Referenced only as a curated Season 7 reward row; no ATX_workshop_LL_* leveled list points at it."
+  }
+}

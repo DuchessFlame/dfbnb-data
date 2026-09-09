@@ -861,6 +861,31 @@ IMAGE_SETS = {
 # of the Python.
 _PRODUCER_ETDI_BY_NAME = {}
 
+# FormID -> why the item is deliberately off its page, from the "excluded" table
+# in data/camp/<page>.json. Cut records Bethesda never shipped still arrive in
+# the ENTM export and are appended by build_entitlement_only_items() to keep the
+# page complete, which is right for something that MIGHT ship and wrong for
+# something that never will: it leaves a row whose art cannot exist, so the page
+# shows a permanent placeholder and every missing-image sweep reports it again.
+# Excluding it here keeps the reasoning as data instead of losing it.
+_EXCLUDED_BY_PAGE = {}
+
+def drop_excluded(items, page):
+    """Remove the rows data/camp/<page>.json marks excluded. Logs each one."""
+    table = _EXCLUDED_BY_PAGE.get(page) or {}
+    if not table:
+        return items
+    kept, dropped = [], []
+    for it in items:
+        reason = table.get((it.get("formId") or "").strip().upper())
+        if reason:
+            dropped.append("{} ({})".format(it.get("displayName") or it.get("formId"), reason))
+        else:
+            kept.append(it)
+    for d in dropped:
+        print("  excluded from {}: {}".format(page, d), file=sys.stderr)
+    return kept
+
 def producer_etdi_fallback(display_name):
     return _PRODUCER_ETDI_BY_NAME.get(clean_str(display_name or ""), "")
 
@@ -1348,12 +1373,22 @@ def main():
     else:
         print("[WARN] No --tsv-root; drop rates will be empty.", file=sys.stderr)
     os.makedirs(args.outdir, exist_ok=True)
-    global HOSTED, _PRODUCER_ETDI_BY_NAME
+    global HOSTED, _PRODUCER_ETDI_BY_NAME, _EXCLUDED_BY_PAGE
     try:
         _PRODUCER_ETDI_BY_NAME = camp_config.load("resource_producers").get("etdi_by_name", {})
     except FileNotFoundError:
         _PRODUCER_ETDI_BY_NAME = {}
     print("  producer ETDI overrides loaded: {}".format(len(_PRODUCER_ETDI_BY_NAME)), file=sys.stderr)
+    _EXCLUDED_BY_PAGE = {}
+    for _page in ("collectrons", "resource_producers"):
+        try:
+            _EXCLUDED_BY_PAGE[_page] = {
+                str(k).strip().upper(): v
+                for k, v in (camp_config.load(_page).get("excluded") or {}).items()}
+        except FileNotFoundError:
+            _EXCLUDED_BY_PAGE[_page] = {}
+    print("  exclusions loaded: {}".format(
+        ", ".join("{}={}".format(k, len(v)) for k, v in _EXCLUDED_BY_PAGE.items())), file=sys.stderr)
     HOSTED = load_reusable_images(args.outdir)
     print("  " + HOSTED.summary(), file=sys.stderr)
     today = today_ymd()
@@ -1457,6 +1492,8 @@ def main():
         print("  entitlement-only collectrons added: {}".format(
             ", ".join("{} [{}]".format(e["displayName"], e["status"]) for e in extra)), file=sys.stderr)
         col_items.extend(extra)
+    col_items = drop_excluded(col_items, "collectrons")
+    res_items = drop_excluded(res_items, "resource_producers")
     # Live first, then unreleased, then cut; alphabetical within each band.
     _rank = {"live": 0, "unreleased": 1, "cut": 2}
     sk = lambda x: (_rank.get(x.get("status"), 0 if not x.get("cutContent") else 2),
