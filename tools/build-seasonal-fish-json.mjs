@@ -125,8 +125,15 @@ function pickLatestLvliEntriesTsv(repoRoot) {
 /* ------------------------------------------------------------------ */
 //
 // The in-game LCP_Fishing_SeasonalFish_SeasonIndex auto-rotates on the FIRST
-// TUESDAY strictly after the North American astronomical equinox/solstice.
+// TUESDAY ON OR AFTER the North American astronomical equinox/solstice, at
+// 16:00 UTC (the weekly reset).
 // (Source: Kevin, the dev who wrote the seasonal fish system.)
+//
+// NOTE: this used to read "strictly after". Kevin confirmed on 8 Sep 2026 that
+// the fall 2026 changeover is Tue 22 Sep 2026 at 16:00 UTC -- the equinox day
+// itself, which is a Tuesday. So the equinox day counts when it lands on a
+// Tuesday. This only changes years where that happens: 2024 spring,
+// 2026 fall, 2028 summer, 2029 spring.
 //
 // We hard-code the equinox/solstice dates per year so the build is deterministic
 // and doesn't depend on an astronomy library at build time. Add new years here
@@ -142,15 +149,16 @@ const EQUINOX_SOLSTICE_NA = {
   2030: { spring: "2030-03-20", summer: "2030-06-21", fall: "2030-09-22", winter: "2030-12-21" }
 };
 
-// Return the ISO date of the first Tuesday strictly AFTER the given ISO date.
+// Return the ISO date of the first Tuesday ON OR AFTER the given ISO date.
+// If the equinox/solstice itself falls on a Tuesday, that day IS the rollover.
 // Uses UTC math so the result is stable regardless of the build server tz.
 function firstTuesdayAfter(iso) {
   const [y, m, d] = iso.split("-").map(Number);
   const dt = new Date(Date.UTC(y, m - 1, d));
-  // Advance at least one day (strictly after).
-  do {
+  // Advance to the next Tuesday, but stay put if we're already on one.
+  while (dt.getUTCDay() !== 2) { // 2 = Tuesday
     dt.setUTCDate(dt.getUTCDate() + 1);
-  } while (dt.getUTCDay() !== 2); // 2 = Tuesday
+  }
   const yy = dt.getUTCFullYear();
   const mm = String(dt.getUTCMonth() + 1).padStart(2, "0");
   const dd = String(dt.getUTCDate()).padStart(2, "0");
@@ -603,8 +611,8 @@ function main() {
     // rolloverDates is the source of truth for the client; monthToSeason is a
     // soft fallback only (used if the client ever lands outside the known years).
     seasonRule: {
-      method: "first_tuesday_after_equinox_na",
-      description: "Season rotates on the first Tuesday strictly after the NA equinox/solstice.",
+      method: "first_tuesday_on_or_after_equinox_na",
+      description: "Season rotates on the first Tuesday on or after the NA equinox/solstice, at 16:00 UTC.",
       rolloverDates: buildRolloverDates(),
       monthToSeason: {
         "1":"winter","2":"winter","3":"spring","4":"spring","5":"spring",
