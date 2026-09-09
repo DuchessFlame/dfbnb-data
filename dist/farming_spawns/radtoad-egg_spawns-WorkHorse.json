@@ -1,0 +1,410 @@
+{
+ "_meta": {
+  "generated": "2026-09-09",
+  "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
+  "lists_in_closure": 6,
+  "source_totals": {
+   "container": 16,
+   "loot-list": 1,
+   "npc": 8
+  },
+  "unresolved": {}
+ },
+ "set": "radtoad-egg",
+ "name": "Radtoad Egg",
+ "page_title": "Radtoad Egg Spawn Locations",
+ "blurb": "Every known world spawn for Radtoad Eggs, grouped by region. Directions and photos are added by hand.",
+ "drop_rates": {
+  "world_spawns": null,
+  "creature_drops": {
+   "list_edid": "LLD_Creature_Radtoad",
+   "list_id": "00047185",
+   "mechanism": "UseAll list with 5 entries. Entry 0: RadToadEgg at CN=0 (guaranteed 1 egg). Additional bonus egg via LLE_Creature_RadToad entry 2 (CN=50) gated by LLS_Creature_RadToad level-scaled ChanceNone (60% fire rate at level 40+).",
+   "note": "Every radtoad kill guarantees 1 egg. At max level there is roughly a 30% chance of a bonus egg (60% list fire × 50% entry chance). No world-placed spawns or vendor sources exist.",
+   "rate": 1.0,
+   "rate_lines": [
+    "100%",
+    "30%",
+    "20%",
+    "15%",
+    "10%"
+   ],
+   "rate_display": "100% / 30% / 20% / 15% / 10%"
+  },
+  "vendors": null,
+  "resource_generators": null,
+  "containers": {
+   "types": [
+    {
+     "name": "Egg Cluster",
+     "rate": 1.0,
+     "rate_display": "100%"
+    }
+   ]
+  }
+ },
+ "farming_tips": {
+  "spoils": true,
+  "spoil_duration_hours": null,
+  "base_weight": 0.25,
+  "object_type": "Food",
+  "yield_perk": "butchers_bounty",
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.14
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.03
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.03,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.15
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.1
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.05
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.03
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": true
+ },
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.25,
+   "value": 9,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": true,
+   "note": "Radtoad Egg is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Disease Chance",
+     "display": "15% chance to catch a disease",
+     "duration": null
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (360/6 min)",
+     "duration": null
+    },
+    {
+     "name": "Rads",
+     "display": "+15 Rads",
+     "duration": null
+    }
+   ]
+  },
+  "challenges": [],
+  "recipes": [
+   {
+    "name": "Radtoad Omelette",
+    "form_id": "0003E053",
+    "recipe_edid": "co_meal_RadToadEggCooked",
+    "category": "Food",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/df/farming/junk/wood/"
+     },
+     {
+      "name": "Radtoad Egg",
+      "qty": 1,
+      "url": "https://www.buffsnbrew.com/bnb/farming/eggs/radtoad/radtoad-guide/",
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 25 Health",
+      "duration": "25s"
+     },
+     {
+      "name": "Fortify Endurance",
+      "display": "+1 Fortify Endurance",
+      "duration": "30 min"
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (720/12 min)",
+      "duration": null
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null
+     }
+    ],
+    "how_to_obtain": "Known by default."
+   }
+  ],
+  "obtain": {
+   "recipes": [],
+   "note": null
+  }
+ },
+ "vendor_list": [],
+ "additional_expands": null,
+ "info_notes": null,
+ "random_encounters": null,
+ "random_encounters_intro": null,
+ "events_activities": [
+  {
+   "list_id": "003EE383",
+   "edid": "LLQ_E01F_Fasnacht_EggClusters",
+   "name": "Fasnacht Egg Clusters",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the Fasnacht Egg Clusters reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
+  }
+ ],
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": []
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": []
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": []
+  },
+  {
+   "region": "Forest",
+   "locations": []
+  },
+  {
+   "region": "Savage Divide",
+   "locations": []
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": [
+    {
+     "marker": "Hemlock Springs Dump",
+     "count": 4,
+     "sources": {
+      "npc": 4
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "75268C",
+      "75268D",
+      "75861F",
+      "758620"
+     ],
+     "coords": [
+      85190.9,
+      -193708.5
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "75268C",
+       "source_type": "npc",
+       "coords": [
+        85190.9,
+        -193708.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "75268D",
+       "source_type": "npc",
+       "coords": [
+        85190.9,
+        -194089.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "75861F",
+       "source_type": "npc",
+       "coords": [
+        71901.0,
+        -199270.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "758620",
+       "source_type": "npc",
+       "coords": [
+        72343.6,
+        -199471.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Mire",
+   "locations": [
+    {
+     "marker": "Big Maw",
+     "count": 3,
+     "sources": {
+      "npc": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "43CC7D",
+      "43CC7E",
+      "43CC89"
+     ],
+     "coords": [
+      135037.1,
+      47639.8
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "43CC7D",
+       "source_type": "npc",
+       "coords": [
+        135037.1,
+        47639.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "43CC7E",
+       "source_type": "npc",
+       "coords": [
+        134852.7,
+        46775.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "43CC89",
+       "source_type": "npc",
+       "coords": [
+        135088.5,
+        46869.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Bloody Frank's",
+     "count": 1,
+     "sources": {
+      "npc": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "43CC7C"
+     ],
+     "coords": [
+      134440.4,
+      47264.3
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "43CC7C",
+       "source_type": "npc",
+       "coords": [
+        134440.4,
+        47264.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": []
+  }
+ ],
+ "chance_spawns": {
+  "regions": [],
+  "total_markers": 0,
+  "total": 0
+ },
+ "treasure_maps": {
+  "maps": []
+ },
+ "total": 8
+}

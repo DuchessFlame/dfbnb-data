@@ -663,7 +663,11 @@ def regions_of(r):
     memberships (in a fixed display order). Non-region collections are ignored."""
     found = set()
     for coll in colls(r):
-        m = re.match(r"Fishing_LLS_FishCollection_([A-Za-z]+)_", coll)
+        # NOT anchored: the Burning Springs list carries a worldspace prefix --
+        # Burn_Fishing_LLS_FishCollection_BurningSprings_Uncommon. An anchored
+        # re.match here silently dropped Burning Springs from every fish in it
+        # (e.g. the Fester Koi showed Toxic Valley + Ash Heap only).
+        m = re.search(r"FishCollection_([A-Za-z]+)_", coll)
         if m and m.group(1) in COLL_REGION:
             found.add(COLL_REGION[m.group(1)])
     return [x for x in _REGION_DISPLAY_ORDER if x in found]

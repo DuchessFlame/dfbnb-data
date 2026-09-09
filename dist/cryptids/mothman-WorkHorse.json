@@ -1,0 +1,2987 @@
+{
+ "_meta": {
+  "generated": "2026-09-09",
+  "source": "Game-file exports (KYWD/NPC/LVLI) + challenges.json + Mappalachia Position/Entity (cached for CI)",
+  "races": [
+   {
+    "edid": "MothmanRace"
+   }
+  ],
+  "source_totals": {
+   "ambush": 1
+  },
+  "unresolved": {},
+  "hold": false
+ },
+ "set": "cryptids",
+ "slug": "mothman",
+ "name": "Mothman",
+ "page_title": "Cryptids - Mothman",
+ "url": "/df/cryptids/mothman/",
+ "blurb": "The Mothman in Fallout 76 — 20 NPC variants, 1 known spawn point, 12647 possible drops.",
+ "npc_summary": {
+  "npc_count": 20,
+  "level_min": 30,
+  "level_max": 65,
+  "health_max": 1700
+ },
+ "used_for": [
+  {
+   "type": "Daily",
+   "name": "Collect Mothman Eggs",
+   "required": 5,
+   "edid": "SCORE_Challenge_Daily_Collect_eggs_mothman",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Complete the Event: \"The Mothman Equinox\"",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_QuestComplete_Event_Seasonal_MothmanEquinox",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Epic - Collect Mothman Eggs",
+   "required": 5,
+   "edid": "SCORE_Challenge_Daily_Collect_eggs_mothman_Epic",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Epic - Kill the Mothman",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Kill_Mothmen",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Kill Cultists during The Mothman Equinox event",
+   "required": 10,
+   "edid": "SCORE_Challenge_Daily_Kill_Cultists_Mothman_Equinox",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Kill Cultists during The Mothman Equinox event with the Cold Shoulder",
+   "required": 10,
+   "edid": "SCORE_Challenge_Daily_Kill_Cultists_Mothman_Equinox_Cold_Shoulder",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Kill Radstags during The Mothman Equinox event",
+   "required": 5,
+   "edid": "SCORE_Challenge_Daily_Kill_Radstag_Mothman_Equinox",
+   "page": "daily"
+  },
+  {
+   "type": "Daily",
+   "name": "Sell Mothman Egg Omelette to an NPC vendor",
+   "required": 1,
+   "edid": "SCORE_Challenge_Daily_Barter_Sell_Mothman_egg_omelette",
+   "page": "daily"
+  },
+  {
+   "type": "Event",
+   "name": "Birthday: Collect a Mothman Egg while wearing the Birthday Suit",
+   "required": 1,
+   "edid": "ATX_DE2023_Birthday_Challenge_Collect_MothmanEgg",
+   "page": "events"
+  },
+  {
+   "type": "Lifetime",
+   "name": "Take a Camera Picture of a Glowing Mothman",
+   "required": 1,
+   "edid": "Challenge_Lifetime_Picture_Glowing_SUB_Mothman_Camera",
+   "page": "world"
+  },
+  {
+   "type": "Weekly",
+   "name": "Complete the \"The Mothman Equinox\" Daily Challenge",
+   "required": 5,
+   "edid": "SCORE_Challenge_Weekly_ChallengeComplete_Event_Seasonal_MothmanEquinox_Daily",
+   "page": "weekly"
+  },
+  {
+   "type": "Weekly",
+   "name": "Epic - Take a Camera Picture of a Cryptid",
+   "required": 1,
+   "edid": "SCORE_Challenge_Weekly_Picture_Creatures_LegendaryCryptid_Camera_Epic",
+   "page": "weekly"
+  },
+  {
+   "type": "Weekly",
+   "name": "Epic: Take a Camera Picture of a Glowing Cryptid",
+   "required": 1,
+   "edid": "SCORE_Challenge_Weekly_Picture_Creatures_GlowingCryptid_Camera_Epic",
+   "page": "weekly"
+  }
+ ],
+ "farming_tips": null,
+ "events_activities": [
+  {
+   "name": "Mothman Sighting",
+   "edid": "MILE_CaravanEscort_Module_Mothman",
+   "type": "Module",
+   "location": "",
+   "form_id": "00769CF0"
+  },
+  {
+   "name": "Event: The Mothman Equinox",
+   "edid": "E07A_Mothman",
+   "type": "Public Event",
+   "location": "",
+   "form_id": "006173A1"
+  }
+ ],
+ "drops": {
+  "lists": [
+   {
+    "edid": "LLD_Creature_Mothman",
+    "form_id": "0033AB91",
+    "row_count": 4,
+    "direct_items": 2,
+    "pool_count": 2,
+    "item_count": 12644,
+    "rows": [
+     {
+      "kind": "pool",
+      "name": "Generic creature loot (very large)",
+      "sub_id": "003DF3DA",
+      "edid": "LLS_Creature_VeryLarge",
+      "item_count": 12636,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ammo Grenade Launcher",
+        "rate_display": "40.18%"
+       },
+       {
+        "name": "Ammo2mm EC",
+        "rate_display": "22.32%"
+       },
+       {
+        "name": "Ammo38Caliber",
+        "rate_display": "22.32%"
+       },
+       {
+        "name": "Ammo45Caliber",
+        "rate_display": "22.32%"
+       },
+       {
+        "name": "Ammo10mm",
+        "rate_display": "22.32%"
+       }
+      ]
+     },
+     {
+      "kind": "pool",
+      "name": "LLE Creature Boss Component Mothman",
+      "sub_id": "0043438A",
+      "edid": "LLE_Creature_Boss_Component_Mothman",
+      "item_count": 6,
+      "rate_value": 1.0,
+      "rate_display": "100%",
+      "top_items": [
+       {
+        "name": "Ballistic Fiber Scrap",
+        "rate_display": "100%"
+       },
+       {
+        "name": "Waste Oil",
+        "rate_display": "100%"
+       }
+      ]
+     },
+     {
+      "kind": "item",
+      "name": "Torn Mothman Wing",
+      "form_id": "003315B6",
+      "edid": "MothmanWing",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 0.51,
+      "rate_display": "51%"
+     },
+     {
+      "kind": "item",
+      "name": "Neurotoxic Dust",
+      "form_id": "003315B5",
+      "edid": "NeurotoxicDust",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 0.2,
+      "rate_display": "20%"
+     }
+    ]
+   },
+   {
+    "edid": "LLD_Creature_Mothman_Wise",
+    "form_id": "003EC2F4",
+    "row_count": 3,
+    "direct_items": 3,
+    "pool_count": 0,
+    "item_count": 3,
+    "rows": [
+     {
+      "kind": "item",
+      "name": "Mothman Egg",
+      "form_id": "0008E922",
+      "edid": "MothmanEgg",
+      "sig": "ALCH",
+      "qty": 1,
+      "rate_value": 1.0,
+      "rate_display": "100%"
+     },
+     {
+      "kind": "item",
+      "name": "Torn Mothman Wing",
+      "form_id": "003315B6",
+      "edid": "MothmanWing",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 0.3,
+      "rate_display": "30%"
+     },
+     {
+      "kind": "item",
+      "name": "Neurotoxic Dust",
+      "form_id": "003315B5",
+      "edid": "NeurotoxicDust",
+      "sig": "MISC",
+      "qty": 1,
+      "rate_value": 0.2,
+      "rate_display": "20%"
+     }
+    ]
+   }
+  ],
+  "inherited_only": false,
+  "empty_reason": ""
+ },
+ "random_encounters": [
+  {
+   "form_id": "0056368F",
+   "edid": "W05_RE_ObjectZW01",
+   "name": "Mothman Cultist Totem Worship",
+   "type": "Object Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "00333851",
+   "edid": "RE_AssaultMJP02",
+   "name": "Mothman vs Glowing One",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "00523DA4",
+   "edid": "RE_TravelKMK04",
+   "name": "Mothman!",
+   "type": "Travel Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "00528CF1",
+   "edid": "RE_SceneKMK08",
+   "name": "Wise Mothman!",
+   "type": "Scene Encounters",
+   "location": ""
+  }
+ ],
+ "fixed_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "locations": []
+   },
+   {
+    "region": "Atlantic City",
+    "locations": []
+   },
+   {
+    "region": "Burning Springs",
+    "locations": []
+   },
+   {
+    "region": "Cranberry Bog",
+    "locations": []
+   },
+   {
+    "region": "Forest",
+    "locations": [
+     {
+      "marker": "Point Pleasant",
+      "count": 1,
+      "sources": {
+       "ambush": 1
+      },
+      "image_top": "",
+      "directions": "",
+      "image_bottom": "",
+      "refs": [
+       "62FD84"
+      ],
+      "coords": [
+       -177264.7,
+       74309.6
+      ],
+      "spawns": [
+       {
+        "label": "Mothman ambush",
+        "ref": "62FD84",
+        "source_type": "ambush",
+        "coords": [
+         -177264.7,
+         74309.6
+        ],
+        "image_top": "",
+        "directions": "",
+        "image_bottom": ""
+       }
+      ],
+      "breakdown": [
+       {
+        "label": "ambush point",
+        "count": 1,
+        "source_type": "ambush"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "region": "Savage Divide",
+    "locations": []
+   },
+   {
+    "region": "Skyline Valley",
+    "locations": []
+   },
+   {
+    "region": "The Mire",
+    "locations": []
+   },
+   {
+    "region": "The Pitt",
+    "locations": []
+   },
+   {
+    "region": "Toxic Valley",
+    "locations": []
+   }
+  ],
+  "total_markers": 1,
+  "total_placements": 1
+ },
+ "chance_spawns": {
+  "locations": [
+   {
+    "marker": "98 NAR Regional",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Aaronholt Homestead",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Abandoned Bog Town",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Abandoned Bunker",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Abandoned Mine Shaft 4",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Abandoned Mine Shaft 5",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Abandoned Mine Site Kittery",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Abandoned Waste Dump",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Abbie's Bunker",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Alpine River Cabins",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Ammo Dump",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Anchor Farm",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Arktos Pharma",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Autumn Acre Cabin",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "AVR Medical Center",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Bastion Park",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Becker Farm",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Beckwith Farm",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Berkeley Springs Station",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Berkeley Springs West",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Berkeley Springs West",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Big Al's Tattoo Parlor",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Big Bend Tunnel East",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Big Fred's BBQ Shack",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Big Maw",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Billings Homestead",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Black Bear Lodge",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Black Mountain Ordnance Works",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Blakes Offering",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Bloody Frank's",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Blue Ridge Bunkhouse",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Braxson's Quality Medical Supplies",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Brim Quarry",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Camp Adams",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Camp Adams Lookout",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Camp McClintock",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Camp Venture",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Carleton Mine",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Carson Family Bunker",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Central Mountain Lookout",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Charleston Station",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Clancy Manor",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Clancy Manor",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Clarksburg",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Cliffwatch",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Cliffwatch",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Cobbleton Farm",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Cobbleton Farm",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Colonel Kelly Monument",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Converted Munitions Factory",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Cow Spots Creamery",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Crashed Plane",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Crater Watchstation",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Creekside Sundew Grove",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Crevasse Dam",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 5
+   },
+   {
+    "marker": "Crimson Prospect",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Dabney Homestead",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Dagger's Den",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Darling Sister's Lab",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Dent & Sons Construction",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Devil's Backbone",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Dolly Sods Lookout",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Drop Site V9",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "East Kanawha Lookout",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "East Mountain Lookout",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "East Ridge Lookout",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Eastern Regional Penitentiary",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Eastern Regional Penitentiary",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Emmett Mountain Disposal Site",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Enclave Research Facility",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Scorched Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Excelsior Model Home",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Federal Disposal Field HZ-21",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Firebase Hancock",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Firebase LT",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Fissure Site",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 8
+   },
+   {
+    "marker": "Fissure Site",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Fissure Site",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Flatwoods Lookout",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Flooded Trainyard",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Fort Atlas",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Forward Station Alpha",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Forward Station Alpha",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Forward Station Tango",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Foundation",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Foundation Outpost",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Fraternity Row",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Freddy Fear's House of Scares",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Garrahan Mining Headquarters",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Gauley Mine Exit",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Gilman Lumber Mill",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Gnarled Shallows",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Grafton",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Grafton Dam",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Grafton Steel Yard",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Green Country Lodge",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Greg's Mine Supply",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Groves Family Cabin",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Gulper Lagoon",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Gulper Lagoon",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Harpers Ferry Tunnel",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Hemlock Holes",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Hillside Cavern",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Hopewell Cave",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Hornwright Air Purifier Site #02",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Hornwright Air Purifier Site #03",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Hornwright Air Purifier Site #04",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Hornwright Estate",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Hornwright Estate",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Hornwright Testing Site #02",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Hornwright Testing Site #03",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Hornwright Testing Site #04",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Hunter's Ridge",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Hunter's Shack",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Investigator's Cabin",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Johnson's Acre",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Kanawha County Cemetery",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Kanawha Nuka-Cola Plant",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Kerwood Mine",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Kerwood Mine",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "KMAX Transmission",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Lady Janet's Soft Serve",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Lake Eloise",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Landview Lighthouse",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman",
+     "Wise Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Lucky Hole Mine",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Makeshift Vault",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Marigold Pavilion",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Metal Dome",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Middle Mountain Pitstop",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Miners Monument",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Miners Monument",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Mire's Eye",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Monongah",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Monongah Mine",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Monongah Overlook",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Monongah Power Plant",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Monongah Power Plant Yard",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Monongah Power Substation MZ-01",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Monongah Power Substation MZ-03",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Monorail Elevator",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Moonshiner's Shack",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Morgantown Station",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Morgantown Trainyard",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Mosstown",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Moth-Home",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Moth-Home",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Mountainside Bed & Breakfast",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Mysterious Cave",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "National Isolated Radio Array",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "National Radio Astronomy Research Center",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "New River Gorge Resort",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Nicholson's End",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "North Cutthroat Camp",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "North Kanawha Lookout",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "North Mountain Lookout",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Old Mold Quarry",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Organ Cave North",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Organ Cave South",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Orwell Orchards",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Overgrown Sundew Grove",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Overseer's Camp",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Palace of the Winding Path",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Philippi Battlefield Cemetery",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Pioneer Scout Lookout",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Pleasant Hills Cemetery",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Pleasant Hills Cemetery",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Pleasant Valley Station",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Point Pleasant",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman",
+     "Wise Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Poseidon Power Substation PX-01",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Poseidon Power Substation PX-03",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Prickett's Fort",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Pumpkin House",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Pylon V-13",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "R&G Station",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Raleigh Clay's Bunker",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Ranger District Office",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Relay Tower DP-B5-21",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Relay Tower DP-B5-21",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Relay Tower EL-B1-02",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Relay Tower EM-B1-27",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Relay Tower HG-B7-09",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Relay Tower HN-B1-12",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Relay Tower LW-B1-22",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Ripper Alley",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Rollins Labor Camp",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Sacrament",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 7
+   },
+   {
+    "marker": "Sacramental Glade",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Safe 'n Clean Disposal",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Scenic Overlook",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Seneca Gang Camp",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Seneca Rocks",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Seneca Rocks Visitor Center",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Settler's Ridge",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Shenandoah Visitor Center",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Silva Homestead",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Site Alpha",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 4
+   },
+   {
+    "marker": "Site Bravo",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Site Charlie",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Skullbone Vantage",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Slocum's Joe",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Smith Farm",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Solomon's Pond",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "South Mountain Lookout",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Southern Belle Motel",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Southhampton Estate",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Sparse Sundew Grove",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Spruce Knob Channels",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Sugar Grove",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Summersville",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Sunday Brothers' Cabin",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Sunnytop Ski Lanes",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Sunnytop Ski Lanes Base Lodge",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Sunrise Field",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Superior Sunset Farm",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Surly's Shack",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Surly's Shack",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Sylvie & Sons Logging Camp",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Tanagra Town",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "The Bounty",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "The Burrows South",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "The Coop",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "The Crater",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "The Crosshair",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "The Deep",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "The Deep",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "The Pigsty",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "The Retreat",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "The Rose Room",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "The Sludge Hole",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "The Thorn",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "The Thorn",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "The Vantage",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Thunder Mountain Power Plant",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Thunder Mt. Power Plant Yard",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Top of the World",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Toxic Dried Lakebed",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Toxic Larry's Meat 'n Go",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Toxic Larry's Meat 'n Go",
+    "region": "The Mire",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Transmission Station 1AT-U03",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Twin Lakes",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Twin Pine Cabins",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Tygart Water Treatment",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Tyler County Fairgrounds",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Unfinished Mansion",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "US-13C Bivouac",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 3
+   },
+   {
+    "marker": "Vault 51",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Vault 79",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Vault 94",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Vault 96",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 6
+   },
+   {
+    "marker": "Veiled Sundew Grove",
+    "region": "Cranberry Bog",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Wendigo Cave",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "West Tek Research Center",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "White Powder Winter Sports",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Whitespring Bunker",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Whitespring Lookout",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Widow's Perch",
+    "region": "Ash Heap",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Wilson Brother's Auto Repair",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Wixon Homestead",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "Woods Estate",
+    "region": "Toxic Valley",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 1
+   },
+   {
+    "marker": "WV Lumber Co.",
+    "region": "Forest",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   },
+   {
+    "marker": "Yellow Sandy's Still",
+    "region": "Savage Divide",
+    "chance_value": null,
+    "chance_display": "possible",
+    "variants": [
+     "Mothman"
+    ],
+    "count": 2
+   }
+  ],
+  "total": 260,
+  "note": "These are NIGHT spawns — the Mothman only appears after roughly 6&nbsp;pm in-game, and each is a chance (not guaranteed) spawn. See the separate night-spawn map for where they can appear. Its one guaranteed fixed spawn (Enclave Research Facility) is in Fixed Spawn Locations above."
+ }
+}
