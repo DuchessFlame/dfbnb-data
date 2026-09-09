@@ -1,0 +1,670 @@
+{
+  "_generated": "2026-09-09T05:57:08Z",
+  "_note": "Manifest rows whose image is NOT on the server. A season manifest is a TO-DO list ('extract each ddsPath ... then upload with sync_season_images_to_site.ps1'), not a record of what was uploaded, so reusable_images.py must subtract this file before treating a manifest row as hosted art. Regenerate with src/check_season_image_uploads.py, which HEAD-checks every manifest URL against the live site. Do not hand-edit: an entry that is wrong in either direction sends a CAMP page to a 404 or re-uploads a tile that already exists.",
+  "_method": "HTTP HEAD against https://www.buffsnbrew.com for every outAvif in dist/season_images/season_*_images.json",
+  "_checked": 1702,
+  "_excludes": "Player icons, player titles and CAMP titles are left out: they are shared-folder art that df-bnb-*.js reroutes by filename, so their season-folder URL is expected to 404 and is never used.",
+  "count": 110,
+  "images": [
+    {
+      "outAvif": "score_s10_camp_floor_catacombs.avif",
+      "season": 10,
+      "name": "Catacombs Floor and Foundations",
+      "entitlement": "SCORE_S10_ENTM_CAMP_Floor_Catacombs"
+    },
+    {
+      "outAvif": "score_s10_camp_wallpaper_catacombs.avif",
+      "season": 10,
+      "name": "Catacombs Wallpaper",
+      "entitlement": "SCORE_S10_ENTM_CAMP_WallPaper_Catacombs"
+    },
+    {
+      "outAvif": "score_s11_apparel_headwear_sodajerkcap.avif",
+      "season": 11,
+      "name": "Soda Jerk Cap",
+      "entitlement": "SCORE_S11_ENTM_Apparel_Headwear_SodaJerkCap"
+    },
+    {
+      "outAvif": "score_s11_apparel_headwear_sodajerkhat.avif",
+      "season": 11,
+      "name": "Soda Jerk Hat",
+      "entitlement": "SCORE_S11_ENTM_Apparel_Headwear_SodaJerkHat"
+    },
+    {
+      "outAvif": "score_s11_apparel_outfit_sodajerkdress.avif",
+      "season": 11,
+      "name": "Soda Jerk Dress Outfit",
+      "entitlement": "SCORE_S11_ENTM_Apparel_Outfit_SodaJerkDress"
+    },
+    {
+      "outAvif": "score_s11_apparel_outfit_sodajerkuniform.avif",
+      "season": 11,
+      "name": "Soda Jerk Uniform Outfit",
+      "entitlement": "SCORE_S11_ENTM_Apparel_Outfit_SodaJerkUniform"
+    },
+    {
+      "outAvif": "score_s11_camp_walldecor_paintingchrysluscherrybomb.avif",
+      "season": 11,
+      "name": "Painting Chryslus Cherry Bomb",
+      "entitlement": "SCORE_S11_ENTM_CAMP_WallDecor_PaintingChryslusCherryBomb"
+    },
+    {
+      "outAvif": "score_s11_camp_wallpaper_walnutpanel.avif",
+      "season": 11,
+      "name": "Walnut Panel Wallpaper",
+      "entitlement": "SCORE_S11_ENTM_CAMP_WallPaper_WalnutPanel"
+    },
+    {
+      "outAvif": "score_s11_emotes_hillsarealive.avif",
+      "season": 11,
+      "name": "Hills are Alive Emote",
+      "entitlement": "SCORE_S11_ENTM_Emotes_HillsAreAlive"
+    },
+    {
+      "outAvif": "score_s11_skin_backpack_emptycase.avif",
+      "season": 11,
+      "name": "Empty Case Backpack",
+      "entitlement": "SCORE_S11_ENTM_Skin_Backpack_EmptyCase"
+    },
+    {
+      "outAvif": "score_s11_skin_weaponmodel_chainsaw_jackhammerdrill.avif",
+      "season": 11,
+      "name": "Jackhammer Drill (Chainsaw)",
+      "entitlement": "SCORE_S11_ENTM_Skin_WeaponModel_Chainsaw_JackhammerDrill"
+    },
+    {
+      "outAvif": "score_s12_apparel_outfit_hunterspelts.avif",
+      "season": 12,
+      "name": "Hunter's Pelts Outfit",
+      "entitlement": "SCORE_S12_ENTM_Apparel_Outfit_HuntersPelts"
+    },
+    {
+      "outAvif": "score_s12_apparel_outfit_rippeddaringoutfit.avif",
+      "season": 12,
+      "name": "Ripped Daring Outfit",
+      "entitlement": "SCORE_S12_ENTM_Apparel_Outfit_RippedDaringOutfit"
+    },
+    {
+      "outAvif": "score_s12_camp_floordecor_prewardeskfan.avif",
+      "season": 12,
+      "name": "Pre-War Desk Fan",
+      "entitlement": "SCORE_S12_ENTM_CAMP_FloorDecor_PreWarDeskFan"
+    },
+    {
+      "outAvif": "score_s12_camp_floordecor_prewartoaster.avif",
+      "season": 12,
+      "name": "Pre-War Toaster",
+      "entitlement": "SCORE_S12_ENTM_CAMP_FloorDecor_PreWarToaster"
+    },
+    {
+      "outAvif": "score_s12_camp_floordecor_prewartypewriter.avif",
+      "season": 12,
+      "name": "Pre-War Typewriter",
+      "entitlement": "SCORE_S12_ENTM_CAMP_FloorDecor_PreWarTypewriter"
+    },
+    {
+      "outAvif": "score_s12_camp_walldecor_poweredposter_ripdaring01.avif",
+      "season": 12,
+      "name": "Rip Daring \"On The Hunt\" Poster",
+      "entitlement": "SCORE_S12_ENTM_CAMP_WallDecor_PoweredPoster_RipDaring01"
+    },
+    {
+      "outAvif": "score_s12_camp_walldecor_poweredposter_ripdaring02.avif",
+      "season": 12,
+      "name": "Rip Daring \"The Chase\" Poster",
+      "entitlement": "SCORE_S12_ENTM_CAMP_WallDecor_PoweredPoster_RipDaring02"
+    },
+    {
+      "outAvif": "score_s12_camp_walldecor_poweredposter_ripdaring03.avif",
+      "season": 12,
+      "name": "Rip Daring \"The Shot\" Poster",
+      "entitlement": "SCORE_S12_ENTM_CAMP_WallDecor_PoweredPoster_RipDaring03"
+    },
+    {
+      "outAvif": "score_s12_camp_walldecor_poweredposter_ripdaring04.avif",
+      "season": 12,
+      "name": "Rip Daring \"Deadliest Predator\" Poster",
+      "entitlement": "SCORE_S12_ENTM_CAMP_WallDecor_PoweredPoster_RipDaring04"
+    },
+    {
+      "outAvif": "score_s12_camp_walldecor_poweredposter_ripdaring05.avif",
+      "season": 12,
+      "name": "Rip Daring \"Hunter's Trophy\" Poster",
+      "entitlement": "SCORE_S12_ENTM_CAMP_WallDecor_PoweredPoster_RipDaring05"
+    },
+    {
+      "outAvif": "score_s12_emotes_onceagain.avif",
+      "season": 12,
+      "name": "One More Time Emote",
+      "entitlement": "SCORE_S12_ENTM_Emotes_OnceAgain"
+    },
+    {
+      "outAvif": "score_s13_apparel_outfit_blueridgescout.avif",
+      "season": 13,
+      "name": "Blue Ridge Scout Outfit",
+      "entitlement": "zzzSCORE_S13_ENTM_Apparel_Outfit_BlueRidgeScout"
+    },
+    {
+      "outAvif": "score_s13_camp_floor_hollywoodstars.avif",
+      "season": 13,
+      "name": "Hollywood Stars Floor and Foundations",
+      "entitlement": "SCORE_S13_ENTM_CAMP_Floor_HollywoodStars"
+    },
+    {
+      "outAvif": "score_s13_camp_floordecor_movieprojector.avif",
+      "season": 13,
+      "name": "The Devil's Moon",
+      "entitlement": "SCORE_S13_ENTM_CAMP_FloorDecor_MovieProjector"
+    },
+    {
+      "outAvif": "score_s13_camp_walldecor_movieposter_honkhonkstabstab.avif",
+      "season": 13,
+      "name": "Honk Honk Stab Stab Movie Poster",
+      "entitlement": "SCORE_S13_ENTM_CAMP_WallDecor_MoviePoster_HonkHonkStabStab"
+    },
+    {
+      "outAvif": "score_s13_emotes_eatingpopcorn.avif",
+      "season": 13,
+      "name": "Popcorn Emote",
+      "entitlement": "SCORE_S13_ENTM_Emotes_EatingPopcorn"
+    },
+    {
+      "outAvif": "score_s13_emotes_waitforme.avif",
+      "season": 13,
+      "name": "Wait For Me Emote",
+      "entitlement": "SCORE_S13_ENTM_Emotes_WaitForMe"
+    },
+    {
+      "outAvif": "score_s14_photomode_frame_birthdayframe.avif",
+      "season": 14,
+      "name": "Birthday Photomode Frame",
+      "entitlement": "SCORE_S14_ENTM_Photomode_Frame_BirthdayFrame"
+    },
+    {
+      "outAvif": "score_s14_skin_powerarmor_paint_deepspace.avif",
+      "season": 14,
+      "name": "Deep Space Power Armor Paint",
+      "entitlement": "ZZZSCORE_S14_ENTM_Skin_PowerArmor_Paint_DeepSpace"
+    },
+    {
+      "outAvif": "score_s14_skin_weaponskin_ceremonialmace.avif",
+      "season": 14,
+      "name": "Ceremonial Mace",
+      "entitlement": "SCORE_S14_ENTM_Skin_WeaponSkin_CeremonialMace"
+    },
+    {
+      "outAvif": "score_s15_skin_powerarmor_model_centurion.avif",
+      "season": 15,
+      "name": "Conqueror Power Armor Paint",
+      "entitlement": "SCORE_S15_ENTM_Skin_PowerArmor_Model_Centurion"
+    },
+    {
+      "outAvif": "score_s16_account_battlepass.avif",
+      "season": 16,
+      "name": "BattlePass",
+      "entitlement": "SCORE_S16_ENTM_Account_BattlePass"
+    },
+    {
+      "outAvif": "score_s16_camp_walldecor_poweredposter_ripdaring01.avif",
+      "season": 16,
+      "name": "Rip Daring \"Duel with the Devil\" Poster",
+      "entitlement": "SCORE_S16_ENTM_CAMP_WallDecor_PoweredPoster_RipDaring01"
+    },
+    {
+      "outAvif": "score_s16_camp_walldecor_poweredposter_ripdaring02.avif",
+      "season": 16,
+      "name": "Rip Daring \"Field Research\" Poster",
+      "entitlement": "SCORE_S16_ENTM_CAMP_WallDecor_PoweredPoster_RipDaring02"
+    },
+    {
+      "outAvif": "score_s16_emotes_goodluck.avif",
+      "season": 16,
+      "name": "Good Luck Emote",
+      "entitlement": "SCORE_S16_ENTM_Emotes_GoodLuck"
+    },
+    {
+      "outAvif": "score_s18_apparel_headwear_desperadohat.avif",
+      "season": 18,
+      "name": "Desperado Cowboy Hat",
+      "entitlement": "SCORE_S18_ENTM_Apparel_Headwear_DesperadoHat"
+    },
+    {
+      "outAvif": "score_s18_camp_floordecor_persianrug_white.avif",
+      "season": 18,
+      "name": "White Persian Rug",
+      "entitlement": "SCORE_S18_ENTM_CAMP_FloorDecor_PersianRug_White"
+    },
+    {
+      "outAvif": "score_s18_skin_powerarmor_model_roadsidewarrior.avif",
+      "season": 18,
+      "name": "Roadside Warrior Power Armor Paint",
+      "entitlement": "SCORE_S18_ENTM_Skin_PowerArmor_Model_RoadsideWarrior"
+    },
+    {
+      "outAvif": "score_s18_skin_weaponskin_handmadegun_rusted.avif",
+      "season": 18,
+      "name": "Rusted Paint (Handmade Rifle)",
+      "entitlement": "SCORE_S18_ENTM_Skin_WeaponSkin_HandmadeGun_Rusted"
+    },
+    {
+      "outAvif": "score_s19_camp_machinery_resource_extractor_enclave.avif",
+      "season": 19,
+      "name": "Enclave Extractor",
+      "entitlement": "SCORE_S19_ENTM_CAMP_Machinery_Resource_Extractor_Enclave"
+    },
+    {
+      "outAvif": "score_s19_camp_misc_cryotube_deathclaw.avif",
+      "season": 19,
+      "name": "Deathclaw Cryo Tube",
+      "entitlement": "zzzSCORE_S19_ENTM_CAMP_Misc_CryoTube_Deathclaw"
+    },
+    {
+      "outAvif": "score_s1_camp_door_vault.avif",
+      "season": 1,
+      "name": "Vault Door",
+      "entitlement": "SCORE_S1_ENTM_CAMP_Door_Vault"
+    },
+    {
+      "outAvif": "score_s20_camp_floordecor_ghoulmovieprojector.avif",
+      "season": 20,
+      "name": "Glow of the Ghoul",
+      "entitlement": "SCORE_S20_ENTM_CAMP_FloorDecor_GhoulMovieProjector"
+    },
+    {
+      "outAvif": "score_s20_camp_floordecor_planter_boneyardpatch.avif",
+      "season": 20,
+      "name": "Boneyard Planter Kit",
+      "entitlement": "SCORE_S20_ENTM_CAMP_FloorDecor_Planter_BoneyardPatch"
+    },
+    {
+      "outAvif": "score_s20_camp_walldecor_poster_ghoul_01.avif",
+      "season": 20,
+      "name": "Glow of the Ghoul \"Resurrection\" Poster",
+      "entitlement": "SCORE_S20_ENTM_CAMP_WallDecor_Poster_Ghoul_01"
+    },
+    {
+      "outAvif": "score_s20_camp_walldecor_poster_ghoul_02.avif",
+      "season": 20,
+      "name": "Glow of the Ghoul \"Duty\" Poster",
+      "entitlement": "SCORE_S20_ENTM_CAMP_WallDecor_Poster_Ghoul_02"
+    },
+    {
+      "outAvif": "score_s20_camp_walldecor_poster_ghoul_03.avif",
+      "season": 20,
+      "name": "Glow of the Ghoul \"Last Stand\" Poster",
+      "entitlement": "SCORE_S20_ENTM_CAMP_WallDecor_Poster_Ghoul_03"
+    },
+    {
+      "outAvif": "score_s21_camp_ceilingdecor_fishingnets.avif",
+      "season": 21,
+      "name": "Hanging Fishing Net",
+      "entitlement": "zzzSCORE_S21_ENTM_CAMP_CeilingDecor_FishingNets"
+    },
+    {
+      "outAvif": "score_s21_skin_backpackflair_sharktooth.avif",
+      "season": 21,
+      "name": "Shark Tooth Backpack Flair",
+      "entitlement": "SCORE_S21_ENTM_Skin_BackpackFlair_SharkTooth"
+    },
+    {
+      "outAvif": "score_s23_camp_floordecor_plushie_armordeathclaw.avif",
+      "season": 23,
+      "name": "Armored Deathclaw Plushie",
+      "entitlement": "SCORE_S23_ENTM_CAMP_FloorDecor_Plushie_ArmorDeathclaw"
+    },
+    {
+      "outAvif": "score_s23_camp_floordecor_plushie_rustplush.avif",
+      "season": 23,
+      "name": "Rust King Plushie",
+      "entitlement": "SCORE_S23_ENTM_CAMP_FloorDecor_Plushie_RustPlush"
+    },
+    {
+      "outAvif": "score_s2_apparel_headwear_redviper.avif",
+      "season": 2,
+      "name": "Red Viper Hat",
+      "entitlement": "SCORE_S2_ENTM_Apparel_Headwear_RedViper"
+    },
+    {
+      "outAvif": "score_s2_skin_weaponskin_huntingrifle_communist.avif",
+      "season": 2,
+      "name": "Communist Hunting Rifle Paint",
+      "entitlement": "SCORE_S2_ENTM_Skin_WeaponSkin_HuntingRifle_Communist"
+    },
+    {
+      "outAvif": "score_s3_apparel_headwear_kdinkwell.avif",
+      "season": 3,
+      "name": "K.D. Inkwell Headwear",
+      "entitlement": "SCORE_S3_ENTM_Apparel_Headwear_KDInkwell"
+    },
+    {
+      "outAvif": "score_s3_apparel_outfit_solomonhardy.avif",
+      "season": 3,
+      "name": "Solomon Hardy Outfit",
+      "entitlement": "SCORE_S3_ENTM_Apparel_Outfit_SolomonHardy"
+    },
+    {
+      "outAvif": "score_s5_apparel_headwear_bloodeaglemerc_charmer2.avif",
+      "season": 5,
+      "name": "Blood Eagle Charmer Helmet",
+      "entitlement": "SCORE_S5_ENTM_Apparel_Headwear_BloodEagleMerc_Charmer2"
+    },
+    {
+      "outAvif": "score_s5_camp_walldeco_poster_set1.avif",
+      "season": 5,
+      "name": "M.I.N.D. Propoganda Poster Set 1",
+      "entitlement": "zzzSCORE_S5_ENTM_CAMP_WallDeco_Poster_Set1"
+    },
+    {
+      "outAvif": "score_s5_camp_walldeco_poster_set2.avif",
+      "season": 5,
+      "name": "M.I.N.D. Propoganda Poster Set 2",
+      "entitlement": "SCORE_S5_ENTM_CAMP_WallDeco_Poster_Set2"
+    },
+    {
+      "outAvif": "score_s5_camp_wallpaper_guild_set.avif",
+      "season": 5,
+      "name": "Guild Wallpaper Set",
+      "entitlement": "SCORE_S5_ENTM_CAMP_WallPaper_Guild_Set"
+    },
+    {
+      "outAvif": "score_s5_skin_weaponskin_doublebarrelshotgun.avif",
+      "season": 5,
+      "name": "Double-Barrel Paint (Double-Barrel Shotgun)",
+      "entitlement": "zzzSCORE_S5_ENTM_Skin_WeaponSkin_DoubleBarrelShotgun"
+    },
+    {
+      "outAvif": "score_s6_apparel_headwear_reuse.avif",
+      "season": 6,
+      "name": "Blood Eagle Mercenary Headwear",
+      "entitlement": "SCORE_S6_ENTM_Apparel_Headwear_REUSE"
+    },
+    {
+      "outAvif": "score_s6_apparel_outfit_reuse.avif",
+      "season": 6,
+      "name": "Blood Eagle Mercenary  Outfit",
+      "entitlement": "SCORE_S6_ENTM_Apparel_Outfit_REUSE"
+    },
+    {
+      "outAvif": "score_s6_camp_floordecor_unstoppables.avif",
+      "season": 6,
+      "name": "Unstoppables! Poster",
+      "entitlement": "SCORE_S6_ENTM_CAMP_FloorDecor_Unstoppables"
+    },
+    {
+      "outAvif": "score_s6_camp_walldeco_poster_hubriscomics_grognak.avif",
+      "season": 6,
+      "name": "Grognak the Barbarian Poster",
+      "entitlement": "SCORE_S6_ENTM_CAMP_WallDeco_Poster_HubrisComics_Grognak"
+    },
+    {
+      "outAvif": "score_s6_camp_walldeco_poster_hubriscomics_pterror.avif",
+      "season": 6,
+      "name": "Unstoppables Vs Pterror-Dactyls Posters",
+      "entitlement": "SCORE_S6_ENTM_CAMP_WallDeco_Poster_HubrisComics_Pterror"
+    },
+    {
+      "outAvif": "score_s6_skin_powerarmor_paint_hellcat_mistress.avif",
+      "season": 6,
+      "name": "Mistress Power Armor HELLCAT Paint",
+      "entitlement": "zzzSCORE_S6_ENTM_Skin_PowerArmor_Paint_Hellcat_Mistress"
+    },
+    {
+      "outAvif": "score_s7_camp_utility_collectron_zetan.avif",
+      "season": 7,
+      "name": "Zetan Matrix Collectron Station",
+      "entitlement": "zzzSCORE_S7_ENTM_CAMP_Utility_Collectron_Zetan"
+    },
+    {
+      "outAvif": "score_s7_emotes_confused_scorched.avif",
+      "season": 7,
+      "name": "Confusion Emote",
+      "entitlement": "SCORE_S7_ENTM_Emotes_Confused_Scorched"
+    },
+    {
+      "outAvif": "score_s7_emotes_taunt_wanted.avif",
+      "season": 7,
+      "name": "Come Get Me! Emote",
+      "entitlement": "SCORE_S7_ENTM_Emotes_Taunt_Wanted"
+    },
+    {
+      "outAvif": "score_s8_apparel_outfit_jumpsuit_robco.avif",
+      "season": 8,
+      "name": "RobCo Jumpsuit",
+      "entitlement": "SCORE_S8_ENTM_Apparel_Outfit_Jumpsuit_RobCo"
+    },
+    {
+      "outAvif": "score_s8_camp_bed_twinbed_vaulttec.avif",
+      "season": 8,
+      "name": "Vault-Tec Twin Bed",
+      "entitlement": "SCORE_S8_ENTM_CAMP_Bed_Twinbed_VaultTec"
+    },
+    {
+      "outAvif": "score_s8_camp_floor_shagcarpetblue.avif",
+      "season": 8,
+      "name": "Blue Shag Carpet Floor and Foundations",
+      "entitlement": "SCORE_S8_ENTM_CAMP_Floor_ShagCarpetBlue"
+    },
+    {
+      "outAvif": "score_s8_camp_floordecor_modularmainframe_black.avif",
+      "season": 8,
+      "name": "Black Modular Mainframe Set",
+      "entitlement": "SCORE_S8_ENTM_CAMP_FloorDecor_ModularMainFrame_Black"
+    },
+    {
+      "outAvif": "score_s8_camp_furniture_couch_modularsofaset_cream.avif",
+      "season": 8,
+      "name": "Cream Modular Sofa Set",
+      "entitlement": "SCORE_S8_ENTM_CAMP_Furniture_Couch_ModularSofaSet_Cream"
+    },
+    {
+      "outAvif": "score_s8_camp_lights_ceiling_elaboratesilver.avif",
+      "season": 8,
+      "name": "Elaborate Silver Chandelier",
+      "entitlement": "SCORE_S8_ENTM_CAMP_Lights_Ceiling_ElaborateSilver"
+    },
+    {
+      "outAvif": "score_s8_camp_structure_vaulttecstoragefacility.avif",
+      "season": 8,
+      "name": "Communist Bunker",
+      "entitlement": "zzzSCORE_S8_ENTM_CAMP_Structure_VaultTecStorageFacility"
+    },
+    {
+      "outAvif": "score_s8_camp_utility_collectron_silver.avif",
+      "season": 8,
+      "name": "Silver Collectron Station",
+      "entitlement": "SCORE_S8_ENTM_CAMP_Utility_Collectron_Silver"
+    },
+    {
+      "outAvif": "score_s8_camp_utility_mailbox_hot_rod.avif",
+      "season": 8,
+      "name": "Hot Rod Mailbox",
+      "entitlement": "SCORE_S8_ENTM_CAMP_Utility_Mailbox_Hot_Rod"
+    },
+    {
+      "outAvif": "score_s8_camp_utility_mailbox_rooster.avif",
+      "season": 8,
+      "name": "Rooster Mailbox",
+      "entitlement": "SCORE_S8_ENTM_CAMP_Utility_Mailbox_Rooster"
+    },
+    {
+      "outAvif": "score_s8_camp_walldeco_curtain_double_yellow.avif",
+      "season": 8,
+      "name": "Yellow Wide Curtains",
+      "entitlement": "zzzSCORE_S8_ENTM_CAMP_WallDeco_Curtain_Double_Yellow"
+    },
+    {
+      "outAvif": "score_s8_camp_walldeco_curtain_yellow_set.avif",
+      "season": 8,
+      "name": "Yellow Curtains",
+      "entitlement": "SCORE_S8_ENTM_CAMP_WallDeco_Curtain_Yellow_Set"
+    },
+    {
+      "outAvif": "score_s8_camp_walldeco_doorbell.avif",
+      "season": 8,
+      "name": "Doorbell",
+      "entitlement": "SCORE_S8_ENTM_CAMP_WallDeco_Doorbell"
+    },
+    {
+      "outAvif": "score_s8_camp_walldeco_mobile_floater_purple.avif",
+      "season": 8,
+      "name": "Purple Floater Mobile",
+      "entitlement": "SCORE_S8_ENTM_CAMP_WallDeco_Mobile_Floater_Purple"
+    },
+    {
+      "outAvif": "score_s8_photomode_frame_flowers.avif",
+      "season": 8,
+      "name": "Floral Frame",
+      "entitlement": "SCORE_S8_ENTM_Photomode_Frame_Flowers"
+    },
+    {
+      "outAvif": "score_s8_skin_armorskin_combat_freestates.avif",
+      "season": 8,
+      "name": "Free States Combat Armor Paint",
+      "entitlement": "SCORE_S8_ENTM_Skin_ArmorSkin_Combat_FreeStates"
+    },
+    {
+      "outAvif": "score_s8_skin_armorskin_leather_freestates.avif",
+      "season": 8,
+      "name": "Free States Leather Armor Paint",
+      "entitlement": "SCORE_S8_ENTM_Skin_ArmorSkin_Leather_FreeStates"
+    },
+    {
+      "outAvif": "score_s8_skin_armorskin_marine_freestates.avif",
+      "season": 8,
+      "name": "Free States Marine Armor Paint",
+      "entitlement": "SCORE_S8_ENTM_Skin_ArmorSkin_Marine_FreeStates"
+    },
+    {
+      "outAvif": "score_s8_skin_armorskin_metal_freestates.avif",
+      "season": 8,
+      "name": "Free States Metal Armor Paint",
+      "entitlement": "SCORE_S8_ENTM_Skin_ArmorSkin_Metal_FreeStates"
+    },
+    {
+      "outAvif": "score_s8_skin_armorskin_robot_freestates.avif",
+      "season": 8,
+      "name": "Free States Robot Armor Paint",
+      "entitlement": "SCORE_S8_ENTM_Skin_ArmorSkin_Robot_FreeStates"
+    },
+    {
+      "outAvif": "score_s8_skin_armorskin_wood_freestates.avif",
+      "season": 8,
+      "name": "Free States Wood Armor Paint",
+      "entitlement": "SCORE_S8_ENTM_Skin_ArmorSkin_Wood_FreeStates"
+    },
+    {
+      "outAvif": "score_s8_skin_powerarmor_paint_excavator_basicyellow.avif",
+      "season": 8,
+      "name": "Yellow Excavator Power Armor Paint",
+      "entitlement": "SCORE_S8_ENTM_Skin_PowerArmor_Paint_Excavator_BasicYellow"
+    },
+    {
+      "outAvif": "score_s8_skin_powerarmor_paint_t45_basicyellow.avif",
+      "season": 8,
+      "name": "Yellow T-45 Power Armor Paint",
+      "entitlement": "SCORE_S8_ENTM_Skin_PowerArmor_Paint_T45_BasicYellow"
+    },
+    {
+      "outAvif": "score_s8_skin_weaponskin_railwayrifle_locomotive.avif",
+      "season": 8,
+      "name": "Locomotive Railway Rifle Paint",
+      "entitlement": "SCORE_S8_ENTM_Skin_WeaponSkin_RailwayRifle_Locomotive"
+    },
+    {
+      "outAvif": "score_s8_weapon_alienblaster_zetasrevenge.avif",
+      "season": 8,
+      "name": "Zeta's Revenge (Alien Blaster)",
+      "entitlement": "SCORE_S8_ENTM_Weapon_AlienBlaster_ZetasRevenge"
+    },
+    {
+      "outAvif": "score_s9_camp_floor_mouldedcarpet_blue.avif",
+      "season": 9,
+      "name": "Blue Moulded Carpet Floor and Foundations",
+      "entitlement": "SCORE_S9_ENTM_CAMP_Floor_MouldedCarpet_Blue"
+    },
+    {
+      "outAvif": "score_s9_camp_floor_mouldedcarpet_green.avif",
+      "season": 9,
+      "name": "Green Moulded Carpet Floor and Foundations",
+      "entitlement": "SCORE_S9_ENTM_CAMP_Floor_MouldedCarpet_Green"
+    },
+    {
+      "outAvif": "score_s9_camp_floor_mouldedcarpet_yellow.avif",
+      "season": 9,
+      "name": "Yellow Moulded Carpet Floor and Foundations",
+      "entitlement": "SCORE_S9_ENTM_CAMP_Floor_MouldedCarpet_Yellow"
+    },
+    {
+      "outAvif": "score_s9_camp_furniture_horseracinggame.avif",
+      "season": 9,
+      "name": "Mechanical Derby Game",
+      "entitlement": "SCORE_S9_ENTM_CAMP_Furniture_HorseRacingGame"
+    },
+    {
+      "outAvif": "score_s9_camp_statue_dog_iron.avif",
+      "season": 9,
+      "name": "Rusted Iron Secret Service Dog Statues",
+      "entitlement": "SCORE_S9_ENTM_CAMP_Statue_Dog_Iron"
+    },
+    {
+      "outAvif": "score_s9_camp_statue_medieval_armor.avif",
+      "season": 9,
+      "name": "Medieval Suit of Armor",
+      "entitlement": "SCORE_S9_ENTM_CAMP_Statue_Medieval_Armor"
+    },
+    {
+      "outAvif": "score_s9_camp_structure_shippingcontainer_blue_open.avif",
+      "season": 9,
+      "name": "Blue Open Shipping Container",
+      "entitlement": "SCORE_S9_ENTM_CAMP_Structure_ShippingContainer_Blue_Open"
+    },
+    {
+      "outAvif": "score_s9_camp_structure_shippingcontainer_blue_solid.avif",
+      "season": 9,
+      "name": "Solid Blue Shipping Container",
+      "entitlement": "SCORE_S9_ENTM_CAMP_Structure_ShippingContainer_Blue_Solid"
+    },
+    {
+      "outAvif": "score_s9_camp_walldeco_steelpittwallbust.avif",
+      "season": 9,
+      "name": "Steel Pitt Wall Bust",
+      "entitlement": "zzzSCORE_S9_ENTM_CAMP_WallDeco_SteelPittWallBust"
+    },
+    {
+      "outAvif": "score_s9_camp_wallpaper_rustedbrick.avif",
+      "season": 9,
+      "name": "Rusted Brick Wallpaper",
+      "entitlement": "SCORE_S9_ENTM_CAMP_WallPaper_RustedBrick"
+    },
+    {
+      "outAvif": "score_s9_camp_wallpaper_rustedbrick_red.avif",
+      "season": 9,
+      "name": "Rusted Red Brick Wallpaper",
+      "entitlement": "SCORE_S9_ENTM_CAMP_WallPaper_RustedBrick_Red"
+    },
+    {
+      "outAvif": "score_s9_emotes_yes_checksign_absolutely.avif",
+      "season": 9,
+      "name": "Absolutely! Emote",
+      "entitlement": "SCORE_S9_ENTM_Emotes_Yes_CheckSign_Absolutely"
+    },
+    {
+      "outAvif": "score_s9_skin_backpackflair_skull.avif",
+      "season": 9,
+      "name": "Skull Flair",
+      "entitlement": "SCORE_S9_ENTM_Skin_BackpackFlair_Skull"
+    },
+    {
+      "outAvif": "score_s9_skin_powerarmor_paint_mercenarycompany_hellcat.avif",
+      "season": 9,
+      "name": "Mercenary Company Hellcat Power Armor Paint",
+      "entitlement": "zzzSCORE_S9_ENTM_Skin_PowerArmor_Paint_MercenaryCompany_Hellcat"
+    },
+    {
+      "outAvif": "score_s9_skin_weaponskin_shotgun_dastardlyduo.avif",
+      "season": 9,
+      "name": "Dastardly Duo Paint (Shotgun)",
+      "entitlement": "SCORE_S9_ENTM_Skin_WeaponSkin_Shotgun_DastardlyDuo"
+    }
+  ]
+}

@@ -11,11 +11,25 @@ Sources, in the order a hit wins:
 
   1. ``dist/season_images/season_*_images.json`` — the per-season upload
      manifests. 1,700-odd entries, each carrying the entitlement EDID, the
-     source ``.dds`` path and the ``.avif`` name it was published under. This is
-     the set that matters most: anything that came off a Scoreboard already has
-     its tile here, whatever page it later shows up on.
+     source ``.dds`` path and the ``.avif`` name it would be published under.
+     This is the set that matters most: anything that came off a Scoreboard
+     usually has its tile here, whatever page it later shows up on.
+
+     A manifest is a TO-DO list, not a receipt. Its own note reads "extract each
+     ddsPath ... then upload with sync_season_images_to_site.ps1", so a row
+     exists from the moment a reward is curated — long before, and sometimes
+     instead of, anyone uploading the file. Treating every row as hosted is what
+     sent the Silver Collectron on the CAMP page to a season-8 URL that was
+     never uploaded, while the tile it needed sat in the collectrons folder
+     under its ETDI name. So the manifests are filtered through
+     ``dist/season_images/unpublished_images.json`` — the verified-missing list
+     that ``src/check_season_image_uploads.py`` writes by HEAD-checking every
+     manifest URL against the live site. Refresh it after an upload run; a stale
+     entry costs a reuse hit, and a missing one costs a 404 on a page.
+
   2. ``dist/atom_shop.json`` and ``dist/bundles.json`` — the Atom Shop and
-     bundle sets, which carry main tiles for a scattering of CAMP items.
+     bundle sets, which carry main tiles for a scattering of CAMP items. These
+     are genuine records: the URL is what the page already serves.
 
 Two keys are indexed for every image:
 
@@ -41,6 +55,29 @@ import re
 
 _IMG_EXT = (".avif", ".webp", ".png", ".jpg", ".jpeg")
 _SUFFIX = re.compile(r"_(?:l|c\d)$", re.IGNORECASE)
+
+# Manifest rows the site does not actually serve. See the module docstring.
+_UNPUBLISHED = os.path.join("season_images", "unpublished_images.json")
+
+
+def load_unpublished(dist_dir):
+    """Names from unpublished_images.json, lowercased. Empty set if absent.
+
+    Absent is not an error — a checkout that has never run the checker simply
+    trusts every manifest row, which is the old behaviour.
+    """
+    path = os.path.join(dist_dir or "", _UNPUBLISHED)
+    try:
+        with open(path, encoding="utf-8") as fh:
+            data = json.load(fh)
+    except Exception:
+        return set()
+    out = set()
+    for img in data.get("images") or []:
+        name = str(img.get("outAvif") or "").strip().lower()
+        if name:
+            out.add(name)
+    return out
 
 
 def texture_stem(value):
@@ -117,8 +154,9 @@ def build_index(dist_dir):
         return idx
 
     # --- 1. season upload manifests -----------------------------------------
+    unpublished = load_unpublished(dist_dir)
     season_files = sorted(glob.glob(os.path.join(dist_dir, "season_images", "season_*_images.json")))
-    n = 0
+    n = skipped = 0
     for path in season_files:
         try:
             with open(path, encoding="utf-8") as fh:
@@ -130,6 +168,13 @@ def build_index(dist_dir):
             out = str(img.get("outAvif") or "").strip()
             if not out:
                 continue
+            # A manifest row is a plan to upload, not proof of one. Skipping the
+            # rows the checker found missing is what lets the caller fall
+            # through to its own derived path — which is usually art that IS
+            # hosted, under the ETDI name.
+            if out.lower() in unpublished:
+                skipped += 1
+                continue
             folder = str(img.get("uploadTo") or base or "").rstrip("/")
             if not folder:
                 continue
@@ -138,6 +183,8 @@ def build_index(dist_dir):
             n += 1
     if n:
         idx.sources.append("{} season manifest(s)".format(len(season_files)))
+    if skipped:
+        idx.sources.append("{} unpublished row(s) skipped".format(skipped))
 
     # --- 2. atom shop + bundles ---------------------------------------------
     for fname in ("atom_shop.json", "bundles.json"):
