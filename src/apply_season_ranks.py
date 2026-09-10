@@ -106,6 +106,20 @@ UTILITY_RULES: list[tuple[str, str, str]] = [
     (r"fireworks$",                   "fireworks",            "score_utility_fireworks_crackle.avif"),
     (r"^legendary core$",             "legendary_core",       "score_game_legendary_core.avif"),
     (r"^tadpole badge$",              "tadpole_badge",        "score_currency_tadpolebadge.avif"),
+    # Shared scoreboard consumables that ENTM never carries, so every board
+    # season creates them fresh. They all live in the utility folder; without
+    # these rules each new season lands ~100 rows reading "No image".
+    # No tallyCategory: the tally table's keys are a closed set in
+    # build_season_rewards.py, and an unknown one renders as nothing.
+    (r"^stamps$",                     "",                     "score_currency_stamps.avif"),
+    # norm() has already turned "Scout's" into "scout s".
+    (r"^scout s banner$",             "",                     "score_coen_utility_banner.avif"),
+    (r"^re roller$",                  "",                     "score_utility_reroller.avif"),
+    (r"^score booster$",              "",                     "score_utility_scorebooster.avif"),
+    (r"^nuka cola 6 pack$",           "",                     "score_item_6pack_nuka-cola.avif"),
+    (r"^nuka cola mix pack$",         "",                     "score_item_6pack_nukavariety.avif"),
+    (r"^nuka cola twist 6 pack$",     "",                     "score_item_6pack_nuka-twist.avif"),
+    (r"^mystery bobblehead box$",     "",                     "score_utility_mysterybobblehead.avif"),
     (r"^turbo fert fertilizer$",      "",                     "score_item_turbofertgrenade.avif"),
     (r"^perfectly preserved pie$",    "",                     "score_item_preservedpie.avif"),
     (r"^ghost boy$",                  "",                     "score_game_ghostboy.avif"),
