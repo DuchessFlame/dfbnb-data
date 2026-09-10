@@ -2,13 +2,21 @@
 """
 apply_season_ranks.py
 ---------------------
-Rebuilds the Season 1-8 rows of tsv/season_rewards.tsv from the researched
+Rebuilds the board-game seasons in tsv/season_rewards.tsv from the researched
 rank-by-rank board list in tsv/season_ranks_s1_s8.tsv.
 
+WHICH SEASONS IT TOUCHES
+    Exactly the ones present in the ranks TSV - nothing is hardcoded. Add a
+    season's board to that file and it is rebuilt on the next run; every other
+    season in season_rewards.tsv is left untouched. The filename still says
+    s1_s8 because that is what it started as, and renaming it would only orphan
+    the old copy in the repo; it now holds S1-S9 and will hold the rest of the
+    board-game seasons (up to S17) as they are researched.
+
 WHY THIS EXISTS
-    Seasons 1-8 were the old 100-rank board game. They have no "pages" - the
+    Seasons 1-17 were the old 100-rank board game. They have no "pages" - the
     in-game reward viewer lists them as RANK 1 .. RANK 100. Before this script
-    the S1-S8 rows carried synthetic page numbers invented by
+    those rows carried synthetic page numbers invented by
     build_pts_season_scoreboard.py, which grouped items by category ~8 per page.
     That is why Page 1 of Season 1 was nothing but player icons.
 
@@ -20,12 +28,13 @@ WHY THIS EXISTS
 WHAT IT DOES
     - Reads the curated rank list (source: fallout.wiki, cross-checked against
       fallout.fandom.com - see docs/season_ranks_sources.md).
-    - Matches each rank entry to the existing curated S1-S8 row by name so the
-      artwork, in-game description and storefront entitlement survive.
+    - Matches each rank entry to the existing curated row in the same season by
+      name so the artwork, in-game description and storefront entitlement
+      survive.
     - Emits a new row for every reward the datamine never had, tagging the
       currency/consumable ones with a tallyCategory and the shared utility art.
-    - Writes the `rank` column. `page` is left blank for S1-S8: the renderer
-      switches to a flat rank list when a season has ranks.
+    - Writes the `rank` column. `page` is left blank on a board season: the
+      renderer switches to a flat rank list when a season has ranks.
     - Any existing curated row that the rank list does not account for is KEPT,
       with a blank rank, and listed in the report so it can be checked by hand.
 
@@ -54,7 +63,6 @@ RANKS_TSV = TSV_DIR / "season_ranks_s1_s8.tsv"
 REWARDS_TSV = TSV_DIR / "season_rewards.tsv"
 REPORT_TXT = DIST_DIR / "season_ranks_report.txt"
 
-SEASONS = range(1, 9)
 TAG = "[apply_season_ranks]"
 
 UTILITY = "/wp-content/uploads/season_images/utility/"
@@ -131,6 +139,12 @@ ALIASES: dict[tuple[int, str], str] = {
     (7, "Floating Face Flagon"):                    "Floating Face Farrah's Flagon",
     (7, "Ally: Xerxo"):                             "Lite Ally: Xerxo",
     (8, "First Responders CAMP Kit"):               "Responders Kit",
+    # Without this the board's abbreviated "T-45 Paint" scores 0.85 against
+    # "Mercenary Company Pip-Boy Paint" and takes it, which then leaves the
+    # real Pip-Boy paint at rank 32 with no artwork.
+    (9, "Mercenary Company T-45 Paint"):            "Mercenary Company T-45 Power Armor Paint",
+    # The board drops the "and Foundations" the other two carpets keep.
+    (9, "Yellow Moulded Carpet Floor"):             "Yellow Moulded Carpet Floor and Foundations",
 }
 
 # Same-season matching runs first. Anything still unplaced then gets one pass
@@ -242,6 +256,15 @@ def main() -> int:
     _, rank_rows = read_tsv(RANKS_TSV)
     fields, reward_rows = read_tsv(REWARDS_TSV)
 
+    # The board seasons are whichever ones the ranks TSV actually covers.
+    # Nothing else in season_rewards.tsv is read, rewritten or reordered, so
+    # researching one more legacy board is a data change, not a code change.
+    SEASONS = sorted({int(e["season"]) for e in rank_rows if (e.get("season") or "").strip()})
+    if not SEASONS:
+        raise SystemExit(f"{TAG} [ERROR] no seasons found in {RANKS_TSV.name}")
+    print(f"{TAG} rebuilding seasons: "
+          + ", ".join(f"S{s}" for s in SEASONS))
+
     if "rank" not in fields:
         fields = fields + ["rank"]
 
@@ -262,7 +285,18 @@ def main() -> int:
     new_by_season: dict[int, list[dict]] = {s: [] for s in SEASONS}
     matched_ids: dict[int, set[str]] = {s: set() for s in SEASONS}
 
-    def best_match(target: str, pool: list[dict], season: int) -> tuple[dict | None, float]:
+    def best_match(targets: list[str], pool: list[dict],
+                   season: int) -> tuple[dict | None, float]:
+        """Best candidate row for a board entry, scored against every spelling.
+
+        `targets` is the board name (or its alias) AND the display name this
+        script would give the row - "Atoms" and "Atoms x 150". Both are needed
+        or the script is not idempotent: on the first run it creates a row
+        called "Atoms x 150", and on the second run the board's bare "Atoms"
+        scores 0.63 against it, under the threshold, so it creates a SECOND
+        one and orphans the first. That silently doubled every currency,
+        lunchbox and repair-kit row on each re-run.
+        """
         best, best_score = None, 0.0
         for cand in pool:
             try:
@@ -271,7 +305,8 @@ def main() -> int:
                 cand_season = 0
             if cand["id"] in matched_ids[cand_season]:
                 continue
-            score = similarity(target, cand.get("name", ""))
+            name = cand.get("name", "")
+            score = max(similarity(t, name) for t in targets)
             if score > best_score:
                 best, best_score = cand, score
         return best, best_score
@@ -281,9 +316,14 @@ def main() -> int:
     for entry in rank_rows:
         season = int(entry["season"])
         raw_name = entry["name"].strip()
+        qty = (entry.get("qty") or "").strip()
         target = ALIASES.get((season, raw_name), raw_name)
+        targets = [target]
+        shown = display_name(raw_name, qty)
+        if shown != target:
+            targets.append(shown)
 
-        best, score = best_match(target, old_by_season[season], season)
+        best, score = best_match(targets, old_by_season[season], season)
         placed = None
         if best is not None and score >= MATCH_THRESHOLD:
             matched_ids[season].add(best["id"])
@@ -298,7 +338,8 @@ def main() -> int:
             "rank": int(entry["rank"]),
             "raw_name": raw_name,
             "target": target,
-            "qty": (entry.get("qty") or "").strip(),
+            "targets": targets,
+            "qty": qty,
             "is_first": (entry.get("isFirst") or "").strip().upper() == "TRUE",
             "row": placed,
             "score": score,
@@ -309,7 +350,7 @@ def main() -> int:
     for item in entries:
         if item["row"] is not None:
             continue
-        best, score = best_match(item["target"], everything, item["season"])
+        best, score = best_match(item["targets"], everything, item["season"])
         if best is None or score < CROSS_SEASON_THRESHOLD:
             continue
         best_season = int(best.get("seasonNumber", "0"))
