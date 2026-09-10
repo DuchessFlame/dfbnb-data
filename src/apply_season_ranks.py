@@ -188,7 +188,6 @@ ALIASES: dict[tuple[int, str], str] = {
     (13, "Gilded Paint (10mm Pistol)"):             "Gilded Paint (10mm)",
     (13, "Racecar Driver Underarmor"):              "Racecar Driver Outfit",
     (13, "Luchador (Masked Wrestler) Underarmor"):  "Luchador Underarmor",
-    (13, "The Devil's Moon Movie Projector"):       "The Devil's Moon",
     (13, "The Bada-Boom"):                          "The Bada-Boom (Super Sledge)",
     # --- Season 14: Fight for Freedom ---
     # Four Season 13 rewards were held back and issued on the S14 board; their
