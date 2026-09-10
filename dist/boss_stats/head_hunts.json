@@ -1,0 +1,5424 @@
+{
+ "generated": "2026-09-10T14:19:39+00:00",
+ "channel": "live",
+ "isPts": false,
+ "sources": {
+  "CURV_POINTS": "tsv/CURV_Export_July_2026_POINTS.tsv",
+  "FLST_Entries": "tsv/FLST_Export_July_2026_Entries.tsv",
+  "GLOB": "tsv/GLOB_Export_July_2026.tsv",
+  "KYWD": "tsv/KYWD_Export_July_2026.tsv",
+  "LVLI_Entries": "tsv/LVLI_Export_July_2026_LVLI_Entries.tsv",
+  "NPC": "tsv/NPC_Export_July_2026.tsv",
+  "NPC_PRPS": "tsv/NPC_Export_July_2026_PRPS.tsv",
+  "NPC_Refs": "tsv/NPC_Export_July_2026_Refs.tsv",
+  "SPEL_HEADER": "tsv/SPEL_Export_July_2026_HEADER.tsv",
+  "WEAP_DNAM": "tsv/WEAP_Export_July_2026_DNAM.tsv",
+  "head_hunt_bosses": "dist/bounty-hunting/head_hunt_bosses.json"
+ },
+ "page": "head_hunts",
+ "intro": {
+  "title": "Bounty Hunting - Head Hunt Boss Stats",
+  "blurb": "Each Head Hunt boss comes with a distinct weapon setup and a signature mechanic, and the gang they bring follows the same theme. This page lists every boss by group with their weapons, health, damage and resistances, plus the gang members and support wave that fight alongside them. Tick bosses off as you complete them.",
+  "profiles": "Bosses are grouped the same way as the Head Hunt Groups lifetime challenges. Tick a boss when you have killed it — ticking every boss in a group completes the group.",
+  "mutations": "Mutation effects used by bounty targets. One-star outlaws are named after theirs, and some Head Hunt bosses carry a forced mutation as part of their signature attack.",
+  "mechanics": "Head Hunt bosses share the following stats.",
+  "health": "Health is read from the curve table assigned to each boss across the bounty level range. Bosses on the same curve share a row.",
+  "damage": "Damage per hit from each boss's main weapon at the bottom and top of the bounty level range.",
+  "support": "Every Head Hunt also sends a support wave that fights alongside the boss and its gang.",
+  "npcs": "Each boss brings its own gang members, listed with the boss they belong to."
+ },
+ "storeKey": "dfbnb_hh_bosses_v1",
+ "allChallenge": {
+  "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_All_META",
+  "formId": "0084312F",
+  "name": "Complete All Head Hunt Groups"
+ },
+ "groups": [
+  {
+   "groupNumber": 1,
+   "label": "Head Hunter Group 1",
+   "seasonal": false,
+   "bosses": [
+    {
+     "edid": "Burn_BountyTarget_BIG_Famine",
+     "formId": "007D2B37",
+     "name": "The Black Horseman",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 2868,
+     "hpMax": 30035,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+     "statsFrom": "",
+     "resist": {
+      "DR": 783,
+      "ER": 559,
+      "Fire": 660,
+      "Cryo": 660,
+      "Poison": 783,
+      "Rad": 783
+     },
+     "speedMult": 120.0,
+     "gang": "Famine",
+     "imageSlug": "the-black-horseman",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillFamine_SUB",
+      "formId": "00843111",
+      "name": "Kill the Target - The Black Horseman"
+     },
+     "weapons": [
+      {
+       "edid": "crGatlingPlasma",
+       "name": "Gatling Plasma",
+       "ammo": "Plasma Core",
+       "range": 3619,
+       "type": "Gun",
+       "damageMin": 7,
+       "damageMax": 54,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier13",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Poison Damage",
+       "text": "9 damage per second for 8 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Ravenous Glutton"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_Death",
+     "formId": "007CFAA9",
+     "name": "The Pale Horseman",
+     "race": "Ghoul",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 2868,
+     "hpMax": 30035,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+     "statsFrom": "",
+     "resist": {
+      "DR": 854,
+      "ER": 559,
+      "Fire": 719,
+      "Cryo": 719,
+      "Poison": 719,
+      "Rad": 719
+     },
+     "speedMult": 120.0,
+     "gang": "Death",
+     "imageSlug": "the-pale-horseman",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillDeath_SUB",
+      "formId": "00843141",
+      "name": "Kill the Target - The Pale Horseman"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "11 damage per second for 6 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Killer Reaper"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_War",
+     "formId": "007D2B32",
+     "name": "The Red Rider",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 2868,
+     "hpMax": 30035,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+     "statsFrom": "",
+     "resist": {
+      "DR": 854,
+      "ER": 476,
+      "Fire": 933,
+      "Cryo": 660,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "War",
+     "imageSlug": "the-red-rider",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillWar_SUB",
+      "formId": "00843120",
+      "name": "Kill the Target - The Red Rider"
+     },
+     "weapons": [
+      {
+       "edid": "crCremator",
+       "name": "Cremator",
+       "ammo": "Fuel",
+       "range": 3850,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterFlamerGrenade",
+       "name": "Floater Flamer Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Fire Damage",
+       "text": "10 damage per second for 3 seconds"
+      }
+     ],
+     "gangMembers": [
+      "Brutal Combatant"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_Pestilence",
+     "formId": "007D2B35",
+     "name": "The White Horseman",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 2868,
+     "hpMax": 30035,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+     "statsFrom": "",
+     "resist": {
+      "DR": 660,
+      "ER": 559,
+      "Fire": 660,
+      "Cryo": 660,
+      "Poison": 933,
+      "Rad": 933
+     },
+     "speedMult": 120.0,
+     "gang": "Pestilence",
+     "imageSlug": "the-white-horseman",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillPest_SUB",
+      "formId": "00843107",
+      "name": "Kill the Target - The White Horseman"
+     },
+     "weapons": [
+      {
+       "edid": "crPlasmaCaster",
+       "name": "Plasma Caster",
+       "ammo": "Plasma Cartridge",
+       "range": 4410,
+       "type": "Gun",
+       "damageMin": 24,
+       "damageMax": 144,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier24",
+       "slot": "Main"
+      },
+      {
+       "edid": "crNukaGrenade",
+       "name": "Nuka Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Radiation Damage",
+       "text": "Magnitude 8"
+      }
+     ],
+     "gangMembers": [
+      "Corrosive Stingwing"
+     ]
+    }
+   ],
+   "metaChallenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_META",
+    "formId": "0084310A",
+    "name": "Kill Bounties from Group 1"
+   }
+  },
+  {
+   "groupNumber": 2,
+   "label": "Head Hunter Group 2",
+   "seasonal": false,
+   "bosses": [
+    {
+     "edid": "Burn_BountyTarget_BIG_NukaQueen",
+     "formId": "0082073C",
+     "name": "Anna The Nuka-Queen",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 440,
+      "ER": 407,
+      "Fire": 407,
+      "Cryo": 607,
+      "Poison": 349,
+      "Rad": 349
+     },
+     "speedMult": 120.0,
+     "gang": "Nuka",
+     "imageSlug": "anna-the-nuka-queen",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillNuka_SUB",
+      "formId": "00843117",
+      "name": "Kill the Target - Anna The Nuka-Queen"
+     },
+     "weapons": [
+      {
+       "edid": "crHuntingRifle",
+       "name": "Nuka Hunting Rifle",
+       "ammo": ".308 Round",
+       "range": 5225,
+       "type": "Gun",
+       "damageMin": 36,
+       "damageMax": 205,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier28",
+       "slot": "Main",
+       "legendary": [
+        "1★ Instigating",
+        "2★ Hitman's",
+        "3★ Ghost's"
+       ]
+      },
+      {
+       "edid": "crNukaGrenade",
+       "name": "Nuka Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [],
+     "gangMembers": [
+      "Soda Junkie"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_AntiGhoul",
+     "formId": "00820735",
+     "name": "Cletus Brimstone",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 607,
+      "ER": 607,
+      "Fire": 1117,
+      "Cryo": 324,
+      "Poison": 349,
+      "Rad": 242
+     },
+     "speedMult": 120.0,
+     "gang": "Rad Cleaners",
+     "imageSlug": "cletus-brimstone",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillRadCleaners_SUB",
+      "formId": "00843118",
+      "name": "Kill the Target - Cletus Brimstone"
+     },
+     "weapons": [
+      {
+       "edid": "crCremator",
+       "name": "Purifier Cremator",
+       "ammo": "Fuel",
+       "range": 3850,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterFlamerGrenade",
+       "name": "Floater Flamer Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Purifier",
+       "text": ""
+      },
+      {
+       "name": "Burning Environment",
+       "text": "Burning Environment — Taking fire damage every second"
+      }
+     ],
+     "gangMembers": [
+      "Ghoul Hunter"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_Irradiated",
+     "formId": "00820736",
+     "name": "Irene The Irradiated",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 476,
+      "ER": 607,
+      "Fire": 607,
+      "Cryo": 607,
+      "Poison": 607,
+      "Rad": 1224
+     },
+     "speedMult": 120.0,
+     "gang": "Rad Cult",
+     "imageSlug": "irene-the-irradiated",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillRadCult_SUB",
+      "formId": "0084311D",
+      "name": "Kill the Target - Irene The Irradiated"
+     },
+     "weapons": [
+      {
+       "edid": "crGammaGun",
+       "name": "Gamma Gun",
+       "ammo": "Gamma Round",
+       "range": 1880,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Main"
+      },
+      {
+       "edid": "crNukaGrenade",
+       "name": "Nuka Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bonus Damage to High RADS",
+       "text": "Magnitude 100"
+      }
+     ],
+     "gangMembers": [
+      "Irradiated Raider"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_Abraxo",
+     "formId": "0083AE9F",
+     "name": "The Cleaner",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 407,
+      "ER": 407,
+      "Fire": 559,
+      "Cryo": 407,
+      "Poison": 719,
+      "Rad": 607
+     },
+     "speedMult": 120.0,
+     "gang": "Abraxo",
+     "imageSlug": "the-cleaner",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillAbraxo_SUB",
+      "formId": "0084310F",
+      "name": "Kill the Target - The Cleaner"
+     },
+     "weapons": [
+      {
+       "edid": "crPlasmaGun",
+       "name": "Meadow Breeze Sprayer",
+       "ammo": "Plasma Cartridge",
+       "range": 1880,
+       "type": "Gun",
+       "damageMin": 10,
+       "damageMax": 71,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier16",
+       "slot": "Main",
+       "legendary": [
+        "1★ Anti-armor",
+        "2★ Vital",
+        "3★ Lightweight"
+       ]
+      },
+      {
+       "edid": "crHalluciGenGrenade_Bounty",
+       "name": "HalluciGen Gas Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": 1,
+       "damageMax": 1,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Meadow Breeze Sprayer Bounty",
+       "text": "Sprays Meadow Breeze"
+      }
+     ],
+     "gangMembers": [
+      "Clean-up Crewmember"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_QuackDoctor",
+     "formId": "0082073D",
+     "name": "The Malpractitioner",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 476,
+      "ER": 476,
+      "Fire": 407,
+      "Cryo": 407,
+      "Poison": 719,
+      "Rad": 719
+     },
+     "speedMult": 120.0,
+     "gang": "Quack Doctors",
+     "imageSlug": "the-malpractitioner",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillQuackDocs_SUB",
+      "formId": "00843133",
+      "name": "Kill the Target - The Malpractitioner"
+     },
+     "weapons": [
+      {
+       "edid": "cr44_MedicalMalpractice",
+       "name": "Medical Malpractice",
+       "ammo": ".44 Round",
+       "range": 2978,
+       "type": "Gun",
+       "damageMin": 100,
+       "damageMax": 497,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier38",
+       "slot": "Main",
+       "legendary": [
+        "1★ Medic's",
+        "2★ V.A.T.S. Enhanced",
+        "3★ V.A.T.S. Optimized"
+       ]
+      },
+      {
+       "edid": "crD01C_BugGrenade",
+       "name": "Bug Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Random Cocktail Of Effects",
+       "text": "5 damage per second for 20 seconds · 9 damage per second for 1 seconds · 16 damage per second for 5 seconds · 19 damage per second for 20 seconds · 60 damage per second for 20 seconds"
+      },
+      {
+       "name": "Debuff Cocktail",
+       "text": ""
+      }
+     ],
+     "gangMembers": [
+      "Crazed Physician"
+     ]
+    }
+   ],
+   "metaChallenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_META",
+    "formId": "00843134",
+    "name": "Kill Bounties from Group 2"
+   }
+  },
+  {
+   "groupNumber": 3,
+   "label": "Head Hunter Group 3",
+   "seasonal": false,
+   "bosses": [
+    {
+     "edid": "Burn_BountyTarget_BIG_BarryTone",
+     "formId": "0082444E",
+     "name": "Ragtime Randy",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 150,
+     "hpMin": 3405,
+     "hpMax": 25742,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 532,
+      "ER": 532,
+      "Fire": 353,
+      "Cryo": 353,
+      "Poison": 302,
+      "Rad": 302
+     },
+     "speedMult": 120.0,
+     "gang": "Jazz",
+     "imageSlug": "ragtime-randy",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillJazz_SUB",
+      "formId": "0084313E",
+      "name": "Kill the Target - Ragtime Randy"
+     },
+     "weapons": [
+      {
+       "edid": "crE09A_Broadsider_GrandFinale",
+       "name": "Grand Finale",
+       "ammo": "Cannonball",
+       "range": 4400,
+       "type": "Gun",
+       "damageMin": 5,
+       "damageMax": 5,
+       "damageCurve": "",
+       "slot": "Main",
+       "legendary": [
+        "1★ Two Shot",
+        "2★ Last Shot",
+        "3★ Swift"
+       ],
+       "custom": [
+        {
+         "name": "Grand Finale",
+         "effect": "Increases Damage by 10% & Explodes with fireworks"
+        },
+        {
+         "name": "Bleed Effect",
+         "effect": "11 damage per second for 6 seconds"
+        }
+       ]
+      },
+      {
+       "edid": "crGuitarSword",
+       "name": "Guitar Sword",
+       "ammo": "",
+       "range": 10,
+       "type": "OneHandSword",
+       "damageMin": 19,
+       "damageMax": 89,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier22",
+       "slot": "Secondary",
+       "legendary": [
+        "1★ Anti-armor",
+        "2★ Crippling"
+       ]
+      },
+      {
+       "edid": "crBaseballGrenade",
+       "name": "Baseball Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [],
+     "gangMembers": [
+      "Out of Tune Musician"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_Pilot",
+     "formId": "00820739",
+     "name": "The Ace",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 4043,
+     "hpMax": 41128,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier36",
+     "statsFrom": "",
+     "resist": {
+      "DR": 607,
+      "ER": 607,
+      "Fire": 407,
+      "Cryo": 607,
+      "Poison": 349,
+      "Rad": 349
+     },
+     "speedMult": 120.0,
+     "gang": "Pilot",
+     "imageSlug": "the-ace",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillPilot_SUB",
+      "formId": "00843114",
+      "name": "Kill the Target - The Ace"
+     },
+     "weapons": [
+      {
+       "edid": "crMobsterAutoGrenadeLauncher",
+       "name": "Auto Grenade Launcher",
+       "ammo": "40mm Grenade Round",
+       "range": 256,
+       "type": "Gun",
+       "damageMin": 1,
+       "damageMax": 1,
+       "damageCurve": "",
+       "slot": "Main"
+      },
+      {
+       "edid": "crPulseGrenade",
+       "name": "Pulse Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [],
+     "gangMembers": [
+      "Loyal Wingman"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_Researcher",
+     "formId": "0082444B",
+     "name": "The Chief Researcher",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 476,
+      "ER": 719,
+      "Fire": 407,
+      "Cryo": 407,
+      "Poison": 349,
+      "Rad": 660
+     },
+     "speedMult": 120.0,
+     "gang": "Vault-Tec",
+     "imageSlug": "the-chief-researcher",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillVaultTec_SUB",
+      "formId": "00843108",
+      "name": "Kill the Target - The Chief Researcher"
+     },
+     "weapons": [
+      {
+       "edid": "crMeltdown",
+       "name": "V63 Laser Carbine",
+       "ammo": "Fusion Cell",
+       "range": 4189,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Main"
+      },
+      {
+       "edid": "crPulseGrenade",
+       "name": "Pulse Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [],
+     "gangMembers": [
+      "Science School Dropout"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_Commie",
+     "formId": "0083AE9D",
+     "name": "The Proletariat Punisher",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 150,
+     "hpMin": 3405,
+     "hpMax": 25742,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 532,
+      "ER": 532,
+      "Fire": 353,
+      "Cryo": 353,
+      "Poison": 302,
+      "Rad": 302
+     },
+     "speedMult": 120.0,
+     "gang": "Commie",
+     "imageSlug": "the-proletariat-punisher",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillCommies_SUB",
+      "formId": "00843131",
+      "name": "Kill the Target - The Proletariat Punisher"
+     },
+     "weapons": [
+      {
+       "edid": "crHandMadeGun",
+       "name": "Communist Handmade",
+       "ammo": "5.56 Round",
+       "range": 3173,
+       "type": "Gun",
+       "damageMin": 12,
+       "damageMax": 62,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier18",
+       "slot": "Main",
+       "legendary": [
+        "1★ Junkie's",
+        "2★ Explosive",
+        "3★ Lightweight"
+       ]
+      },
+      {
+       "edid": "crFragGrenade",
+       "name": "Fragmentation Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [],
+     "gangMembers": [
+      "Aspiring Commie"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_Astronaut",
+     "formId": "00820734",
+     "name": "The Space Ranger",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 516,
+      "ER": 719,
+      "Fire": 660,
+      "Cryo": 719,
+      "Poison": 349,
+      "Rad": 349
+     },
+     "speedMult": 120.0,
+     "gang": "Astronaut",
+     "imageSlug": "the-space-ranger",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillAstronauts_SUB",
+      "formId": "00843113",
+      "name": "Kill the Target - The Space Ranger"
+     },
+     "weapons": [
+      {
+       "edid": "crAlienBlaster_Cryo",
+       "name": "Alien Blaster",
+       "ammo": "Alien Blaster Round",
+       "range": 2115,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Main"
+      },
+      {
+       "edid": "crCryoGrenade",
+       "name": "Cryogenic Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Cryo Damage",
+       "text": "11 damage per second for 1 seconds"
+      },
+      {
+       "name": "Low Gravity",
+       "text": "Mutation: Reduce Fall Speed · Fortify · Astro Message"
+      }
+     ],
+     "gangMembers": [
+      "Lost Astronaut"
+     ]
+    }
+   ],
+   "metaChallenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_META",
+    "formId": "00843145",
+    "name": "Kill Bounties from Group 3"
+   }
+  },
+  {
+   "groupNumber": 4,
+   "label": "Head Hunter Group 4",
+   "seasonal": false,
+   "bosses": [
+    {
+     "edid": "Burn_BountyTarget_BIG_Rich",
+     "formId": "00824452",
+     "name": "Baron Boris Wazie",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 2868,
+     "hpMax": 30035,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+     "statsFrom": "",
+     "resist": {
+      "DR": 854,
+      "ER": 854,
+      "Fire": 660,
+      "Cryo": 660,
+      "Poison": 242,
+      "Rad": 242
+     },
+     "speedMult": 120.0,
+     "gang": "Old Money",
+     "imageSlug": "baron-boris-wazie",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillOldMoney_SUB",
+      "formId": "00843132",
+      "name": "Kill the Target - Baron Boris Wazie"
+     },
+     "weapons": [
+      {
+       "edid": "crBlackPowder_Rifle_Dragon",
+       "name": "The Dragon",
+       "ammo": ".50 Caliber Ball",
+       "range": 4469,
+       "type": "Gun",
+       "damageMin": 288,
+       "damageMax": 1240,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier48",
+       "slot": "Main",
+       "legendary": [
+        "1★ Executioner's",
+        "2★ Last Shot"
+       ],
+       "custom": [
+        {
+         "name": "Bleed Effect",
+         "effect": "11 damage per second for 6 seconds"
+        }
+       ]
+      },
+      {
+       "edid": "crWalkingCane",
+       "name": "Walking Cane",
+       "ammo": "",
+       "range": 10,
+       "type": "OneHandSword",
+       "damageMin": 19,
+       "damageMax": 121,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier22",
+       "slot": "Secondary"
+      },
+      {
+       "edid": "crFragGrenade",
+       "name": "Fragmentation Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [],
+     "gangMembers": [
+      "Posh Socialite"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_RoboBrain",
+     "formId": "008349D3",
+     "name": "Chief Engineer Lewis",
+     "race": "DLC01RoboBrain",
+     "levelMin": 100,
+     "levelMax": 100,
+     "hpMin": 11804,
+     "hpMax": 11804,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+     "statsFrom": "",
+     "resist": {
+      "DR": 327,
+      "ER": 556,
+      "Fire": 424,
+      "Cryo": 424,
+      "Poison": 182,
+      "Rad": 182
+     },
+     "speedMult": 120.0,
+     "gang": "Robobrain",
+     "imageSlug": "chief-engineer-lewis",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillRobobrains_SUB",
+      "formId": "00843124",
+      "name": "Kill the Target - Chief Engineer Lewis"
+     },
+     "weapons": [
+      {
+       "edid": "crPlasmaGun",
+       "name": "Plasma Gun",
+       "ammo": "Plasma Cartridge",
+       "range": 1880,
+       "type": "Gun",
+       "damageMin": 27,
+       "damageMax": 27,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier16",
+       "slot": "Main",
+       "legendary": [
+        "1★ Anti-armor",
+        "2★ Vital",
+        "3★ Lightweight"
+       ]
+      },
+      {
+       "edid": "crPulseGrenade",
+       "name": "Pulse Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [],
+     "gangMembers": [
+      "Assaultron Intern"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_Patriot",
+     "formId": "00824449",
+     "name": "Corporal Jane",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 2868,
+     "hpMax": 30035,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+     "statsFrom": "",
+     "resist": {
+      "DR": 783,
+      "ER": 559,
+      "Fire": 660,
+      "Cryo": 660,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "Patriot",
+     "imageSlug": "corporal-jane",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillPatriots_SUB",
+      "formId": "0084310B",
+      "name": "Kill the Target - Corporal Jane"
+     },
+     "weapons": [
+      {
+       "edid": "crMissileLauncher",
+       "name": "Patriot Missile Launcher",
+       "ammo": "Missile",
+       "range": 5225,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFragGrenade",
+       "name": "Fragmentation Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "BonusDamage 20%",
+       "text": "Hit Harder"
+      }
+     ],
+     "gangMembers": [
+      "Patriotic Soldier"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_Mechanist",
+     "formId": "00825CC6",
+     "name": "Tincan Toni",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 476,
+      "ER": 933,
+      "Fire": 301,
+      "Cryo": 607,
+      "Poison": 349,
+      "Rad": 349
+     },
+     "speedMult": 120.0,
+     "gang": "Robot",
+     "imageSlug": "tincan-toni",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillRobots_SUB",
+      "formId": "00843105",
+      "name": "Kill the Target - Tincan Toni"
+     },
+     "weapons": [
+      {
+       "edid": "cr10mm_CircuitBreaker",
+       "name": "Circuit Breaker",
+       "ammo": "Fusion Cell",
+       "range": 2637,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Main"
+      },
+      {
+       "edid": "crPulseGrenade",
+       "name": "Pulse Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Mech Bay-beeeeeeeee",
+       "text": "Mech Bay-beeeeeeeee"
+      },
+      {
+       "name": "Frenzy Cloud - Spells",
+       "text": "Bounty Frenzy Effect"
+      }
+     ],
+     "gangMembers": [
+      "Raging Robot"
+     ]
+    }
+   ],
+   "metaChallenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_META",
+    "formId": "0084311A",
+    "name": "Kill Bounties from Group 4"
+   }
+  },
+  {
+   "groupNumber": 5,
+   "label": "Head Hunter Group 5",
+   "seasonal": false,
+   "bosses": [
+    {
+     "edid": "Burn_BountyTarget_BIG_Boxer",
+     "formId": "00839C0A",
+     "name": "Becca The Heavyweight",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 150,
+     "hpMin": 3405,
+     "hpMax": 25742,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 532,
+      "ER": 532,
+      "Fire": 353,
+      "Cryo": 353,
+      "Poison": 302,
+      "Rad": 302
+     },
+     "speedMult": 120.0,
+     "gang": "Boxer",
+     "imageSlug": "becca-the-heavyweight",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillBoxer_SUB",
+      "formId": "0084313B",
+      "name": "Kill the Target - Becca The Heavyweight"
+     },
+     "weapons": [
+      {
+       "edid": "crKnuckles",
+       "name": "Knuckles",
+       "ammo": "",
+       "range": 0,
+       "type": "HandToHandMelee",
+       "damageMin": 14,
+       "damageMax": 68,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier19",
+       "slot": "Main",
+       "legendary": [
+        "2★ Rapid",
+        "4★ Fracturer's"
+       ]
+      },
+      {
+       "edid": "crThrowing_Knife",
+       "name": "Throwing Knife",
+       "ammo": "",
+       "range": 2115,
+       "type": "Grenade",
+       "damageMin": 24,
+       "damageMax": 107,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier24",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [],
+     "gangMembers": [
+      "Boxer"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_Sniper",
+     "formId": "00839C07",
+     "name": "Charlie Half-Cocked",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 150,
+     "hpMin": 3405,
+     "hpMax": 25742,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 532,
+      "ER": 532,
+      "Fire": 353,
+      "Cryo": 353,
+      "Poison": 302,
+      "Rad": 302
+     },
+     "speedMult": 120.0,
+     "gang": "Sniper",
+     "imageSlug": "charlie-half-cocked",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillSniper_SUB",
+      "formId": "00843125",
+      "name": "Kill the Target - Charlie Half-Cocked"
+     },
+     "weapons": [
+      {
+       "edid": "crHuntingRifle",
+       "name": "Sniper Hunting Rifle",
+       "ammo": ".308 Round",
+       "range": 5225,
+       "type": "Gun",
+       "damageMin": 36,
+       "damageMax": 153,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier28",
+       "slot": "Main",
+       "legendary": [
+        "1★ Instigating",
+        "2★ Hitman's",
+        "3★ Ghost's"
+       ]
+      },
+      {
+       "edid": "crFragGrenade",
+       "name": "Fragmentation Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "BonusDamage x5",
+       "text": "Hit Harder"
+      }
+     ],
+     "gangMembers": [
+      "Vicious Sharpshooter"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_Gunslinger",
+     "formId": "00839C0B",
+     "name": "Cowgirl Janine",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 150,
+     "hpMin": 3405,
+     "hpMax": 25742,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 532,
+      "ER": 532,
+      "Fire": 353,
+      "Cryo": 353,
+      "Poison": 302,
+      "Rad": 302
+     },
+     "speedMult": 120.0,
+     "gang": "Gunslinger",
+     "imageSlug": "cowgirl-janine",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillGunslinger_SUB",
+      "formId": "0084310C",
+      "name": "Kill the Target - Cowgirl Janine"
+     },
+     "weapons": [
+      {
+       "edid": "crRevolver",
+       "name": "Western Revolver",
+       "ammo": ".44 Round",
+       "range": 3216,
+       "type": "Gun",
+       "damageMin": 24,
+       "damageMax": 107,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier24",
+       "slot": "Main"
+      },
+      {
+       "edid": "crThrowing_Knife",
+       "name": "Throwing Knife",
+       "ammo": "",
+       "range": 2115,
+       "type": "Grenade",
+       "damageMin": 24,
+       "damageMax": 107,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier24",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [],
+     "gangMembers": [
+      "Gunslinger"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_BigGun",
+     "formId": "00839C0D",
+     "name": "Richie Finesse",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 719,
+      "ER": 476,
+      "Fire": 407,
+      "Cryo": 407,
+      "Poison": 349,
+      "Rad": 349
+     },
+     "speedMult": 120.0,
+     "gang": "Big Gun",
+     "imageSlug": "richie-finesse",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillBigGun_SUB",
+      "formId": "00843136",
+      "name": "Kill the Target - Richie Finesse"
+     },
+     "weapons": [
+      {
+       "edid": "crMinigun",
+       "name": "Minigun",
+       "ammo": "5mm Round",
+       "range": 5147,
+       "type": "Gun",
+       "damageMin": 6,
+       "damageMax": 49,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier12",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFragGrenade",
+       "name": "Fragmentation Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "BonusDamage 25%",
+       "text": "Hit Harder"
+      }
+     ],
+     "gangMembers": [
+      "Gatling Gunsmith"
+     ]
+    }
+   ],
+   "metaChallenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_META",
+    "formId": "00843121",
+    "name": "Kill Bounties from Group 5"
+   }
+  },
+  {
+   "groupNumber": 6,
+   "label": "Head Hunter Group 6",
+   "seasonal": false,
+   "bosses": [
+    {
+     "edid": "Burn_BountyTarget_BIG_Hunter",
+     "formId": "0083D598",
+     "name": "Colt the Bolt",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 476,
+      "ER": 783,
+      "Fire": 407,
+      "Cryo": 407,
+      "Poison": 349,
+      "Rad": 349
+     },
+     "speedMult": 120.0,
+     "gang": "Hunter",
+     "imageSlug": "colt-the-bolt",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillHunter_SUB",
+      "formId": "00843148",
+      "name": "Kill the Target - Colt the Bolt"
+     },
+     "weapons": [
+      {
+       "edid": "crLightningGun",
+       "name": "Automatic Tesla Rifle",
+       "ammo": "Fusion Cell",
+       "range": 3966,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Main",
+       "legendary": [
+        "1★ Two Shot",
+        "2★ Rapid",
+        "3★ Swift"
+       ]
+      },
+      {
+       "edid": "crMeatHook",
+       "name": "Meat Hook",
+       "ammo": "",
+       "range": 0,
+       "type": "HandToHandMelee",
+       "damageMin": 21,
+       "damageMax": 132,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier23",
+       "slot": "Secondary"
+      },
+      {
+       "edid": "crFragGrenade",
+       "name": "Fragmentation Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Electricians No Stun",
+       "text": ""
+      }
+     ],
+     "gangMembers": [
+      "Deranged Hunter"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_Granny",
+     "formId": "007D2B3C",
+     "name": "Granny Dolores",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 150,
+     "hpMin": 3405,
+     "hpMax": 25742,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 532,
+      "ER": 532,
+      "Fire": 353,
+      "Cryo": 353,
+      "Poison": 302,
+      "Rad": 302
+     },
+     "speedMult": 120.0,
+     "gang": "Golden Oldies",
+     "imageSlug": "granny-dolores",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillGolden_SUB",
+      "formId": "00843149",
+      "name": "Kill the Target - Granny Dolores"
+     },
+     "weapons": [
+      {
+       "edid": "crWalkingCane",
+       "name": "Walking Cane",
+       "ammo": "",
+       "range": 10,
+       "type": "OneHandSword",
+       "damageMin": 19,
+       "damageMax": 89,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier22",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFragGrenade",
+       "name": "Fragmentation Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bonus Damage to Fed Target",
+       "text": "Magnitude 44"
+      },
+      {
+       "name": "Granny",
+       "text": ""
+      }
+     ],
+     "gangMembers": [
+      "Enraged Old Lady"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_Devil",
+     "formId": "00824450",
+     "name": "The Devil of Defiance",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 607,
+      "ER": 607,
+      "Fire": 324,
+      "Cryo": 301,
+      "Poison": 476,
+      "Rad": 349
+     },
+     "speedMult": 120.0,
+     "gang": "Blue Devils",
+     "imageSlug": "the-devil-of-defiance",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillBlueDevils_SUB",
+      "formId": "00843129",
+      "name": "Kill the Target - The Devil of Defiance"
+     },
+     "weapons": [
+      {
+       "edid": "crDoubleBarrelShotgun",
+       "name": "Double-Barrel Shotgun",
+       "ammo": "Shotgun Shell",
+       "range": 1439,
+       "type": "Gun",
+       "damageMin": 39,
+       "damageMax": 224,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier29",
+       "slot": "Main",
+       "legendary": [
+        "1★ Executioner's",
+        "2★ Last Shot"
+       ],
+       "custom": [
+        {
+         "name": "Bleed Effect",
+         "effect": "11 damage per second for 6 seconds"
+        }
+       ]
+      },
+      {
+       "edid": "crFloaterFlamerGrenade",
+       "name": "Floater Flamer Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Fire Damage",
+       "text": "10 damage per second for 3 seconds"
+      }
+     ],
+     "gangMembers": [
+      "White Wolf"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_Gambler",
+     "formId": "00825A9F",
+     "name": "Vito \"The Vic\" Bronco",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 150,
+     "hpMin": 3405,
+     "hpMax": 25742,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 532,
+      "ER": 532,
+      "Fire": 353,
+      "Cryo": 353,
+      "Poison": 302,
+      "Rad": 302
+     },
+     "speedMult": 120.0,
+     "gang": "Gambler",
+     "imageSlug": "vito-the-vic-bronco",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillGambler_SUB",
+      "formId": "0084311E",
+      "name": "Kill the Target - Vito \"The Vic\" Bronco"
+     },
+     "weapons": [
+      {
+       "edid": "crPipeRevolver",
+       "name": "Pipe Revolver",
+       "ammo": ".45 Round",
+       "range": 2792,
+       "type": "Gun",
+       "damageMin": 21,
+       "damageMax": 98,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier23",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFragGrenade",
+       "name": "Fragmentation Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bonus Damage At Random",
+       "text": "Magnitude 228"
+      },
+      {
+       "name": "I love gambling",
+       "text": "I love gambling"
+      }
+     ],
+     "gangMembers": [
+      "Indebted Gambler"
+     ]
+    }
+   ],
+   "metaChallenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_META",
+    "formId": "0084311C",
+    "name": "Kill Bounties from Group 6"
+   }
+  },
+  {
+   "groupNumber": 7,
+   "label": "Head Hunter Group 7",
+   "seasonal": false,
+   "bosses": [
+    {
+     "edid": "Burn_BountyTarget_BIG_Fisherman",
+     "formId": "00833083",
+     "name": "Amadi the Piranha",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 476,
+      "ER": 719,
+      "Fire": 301,
+      "Cryo": 719,
+      "Poison": 349,
+      "Rad": 349
+     },
+     "speedMult": 120.0,
+     "gang": "Fishermen",
+     "imageSlug": "amadi-the-piranha",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillFisherman_SUB",
+      "formId": "00843116",
+      "name": "Kill the Target - Amadi the Piranha"
+     },
+     "weapons": [
+      {
+       "edid": "crLightningGun",
+       "name": "Fishing Tesla Rifle",
+       "ammo": "Fusion Cell",
+       "range": 3966,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Main",
+       "legendary": [
+        "1★ Two Shot",
+        "2★ Rapid",
+        "3★ Swift"
+       ]
+      },
+      {
+       "edid": "crDLC03_HarpoonGun",
+       "name": "Harpoon Gun",
+       "ammo": "Harpoon",
+       "range": 5060,
+       "type": "Grenade",
+       "damageMin": 90,
+       "damageMax": 454,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier37",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Hooked!",
+       "text": "1 damage per second for 10 seconds · 4 damage per second for 10 seconds · 0.65 damage per second for 10 seconds · 90 damage per second for 10 seconds"
+      },
+      {
+       "name": "Hooked!",
+       "text": "Hooked!"
+      },
+      {
+       "name": "Hookable",
+       "text": "Add the Hookable Ability"
+      }
+     ],
+     "gangMembers": [
+      "Hostile Fisherman"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_Crusher",
+     "formId": "0083A26F",
+     "name": "Gentle Gary",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 150,
+     "hpMin": 3405,
+     "hpMax": 25742,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 532,
+      "ER": 532,
+      "Fire": 353,
+      "Cryo": 353,
+      "Poison": 302,
+      "Rad": 302
+     },
+     "speedMult": 120.0,
+     "gang": "Crusher",
+     "imageSlug": "gentle-gary",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillCrusher_SUB",
+      "formId": "00843142",
+      "name": "Kill the Target - Gentle Gary"
+     },
+     "weapons": [
+      {
+       "edid": "crGaussRifle",
+       "name": "Flatliner",
+       "ammo": "2mm Electromagnetic Cartridge",
+       "range": 5500,
+       "type": "Gun",
+       "damageMin": 124,
+       "damageMax": 458,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier40",
+       "slot": "Main"
+      },
+      {
+       "edid": "crSuperSledge",
+       "name": "Super Sledge",
+       "ammo": "",
+       "range": 10,
+       "type": "TwoHandSword",
+       "damageMin": 44,
+       "damageMax": 184,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier30",
+       "slot": "Secondary"
+      },
+      {
+       "edid": "crNukaGrenade",
+       "name": "Nuka Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "BonusDamage x4",
+       "text": "Hit Harder"
+      }
+     ],
+     "gangMembers": [
+      "Brutal Basher"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_ScoutLeader",
+     "formId": "0082444D",
+     "name": "Scout Leader Karen",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+     "statsFrom": "",
+     "resist": {
+      "DR": 607,
+      "ER": 476,
+      "Fire": 407,
+      "Cryo": 407,
+      "Poison": 607,
+      "Rad": 196
+     },
+     "speedMult": 120.0,
+     "gang": "Scout",
+     "imageSlug": "scout-leader-karen",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillScout_SUB",
+      "formId": "00843126",
+      "name": "Kill the Target - Scout Leader Karen"
+     },
+     "weapons": [
+      {
+       "edid": "crcrossbow",
+       "name": "Crossbow",
+       "ammo": "Crossbow Bolt",
+       "range": 5237,
+       "type": "Gun",
+       "damageMin": 32,
+       "damageMax": 188,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier27",
+       "slot": "Main"
+      },
+      {
+       "edid": "crTomahawk",
+       "name": "Tomahawk",
+       "ammo": "",
+       "range": 2115,
+       "type": "Grenade",
+       "damageMin": 32,
+       "damageMax": 188,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier27",
+       "slot": "Secondary"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Scout Invisibility Spell",
+       "text": "Stealth Field — Invisibility for 10 seconds."
+      }
+     ],
+     "gangMembers": [
+      "Pioneer Poser"
+     ]
+    },
+    {
+     "edid": "Burn_BountyTarget_BIG_Foreman",
+     "formId": "0082444A",
+     "name": "The Foreman",
+     "race": "Human",
+     "levelMin": 25,
+     "levelMax": 175,
+     "hpMin": 2868,
+     "hpMax": 30035,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+     "statsFrom": "",
+     "resist": {
+      "DR": 783,
+      "ER": 559,
+      "Fire": 783,
+      "Cryo": 660,
+      "Poison": 301,
+      "Rad": 301
+     },
+     "speedMult": 120.0,
+     "gang": "Miner",
+     "imageSlug": "the-foreman",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillMiner_SUB",
+      "formId": "00843123",
+      "name": "Kill the Target - The Foreman"
+     },
+     "weapons": [
+      {
+       "edid": "crCombatRifle",
+       "name": "Combat Rifle",
+       "ammo": ".45 Round",
+       "range": 4231,
+       "type": "Gun",
+       "damageMin": 11,
+       "damageMax": 77,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crPickaxe",
+       "name": "Pickaxe",
+       "ammo": "",
+       "range": 10,
+       "type": "TwoHandSword",
+       "damageMin": 29,
+       "damageMax": 172,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier26",
+       "slot": "Secondary",
+       "legendary": [
+        "1★ Assassin's",
+        "2★ Rapid",
+        "3★ Lightweight"
+       ]
+      },
+      {
+       "edid": "crDynamiteBundleGrenade",
+       "name": "Dynamite Bundle",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [],
+     "gangMembers": [
+      "Disgruntled Miner"
+     ]
+    }
+   ],
+   "metaChallenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_META",
+    "formId": "0084311F",
+    "name": "Kill Bounties from Group 7"
+   }
+  }
+ ],
+ "bosses": [
+  {
+   "edid": "Burn_BountyTarget_BIG_Famine",
+   "formId": "007D2B37",
+   "name": "The Black Horseman",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 2868,
+   "hpMax": 30035,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+   "statsFrom": "",
+   "resist": {
+    "DR": 783,
+    "ER": 559,
+    "Fire": 660,
+    "Cryo": 660,
+    "Poison": 783,
+    "Rad": 783
+   },
+   "speedMult": 120.0,
+   "gang": "Famine",
+   "imageSlug": "the-black-horseman",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillFamine_SUB",
+    "formId": "00843111",
+    "name": "Kill the Target - The Black Horseman"
+   },
+   "weapons": [
+    {
+     "edid": "crGatlingPlasma",
+     "name": "Gatling Plasma",
+     "ammo": "Plasma Core",
+     "range": 3619,
+     "type": "Gun",
+     "damageMin": 7,
+     "damageMax": 54,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier13",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Poison Damage",
+     "text": "9 damage per second for 8 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Ravenous Glutton"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Death",
+   "formId": "007CFAA9",
+   "name": "The Pale Horseman",
+   "race": "Ghoul",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 2868,
+   "hpMax": 30035,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+   "statsFrom": "",
+   "resist": {
+    "DR": 854,
+    "ER": 559,
+    "Fire": 719,
+    "Cryo": 719,
+    "Poison": 719,
+    "Rad": 719
+   },
+   "speedMult": 120.0,
+   "gang": "Death",
+   "imageSlug": "the-pale-horseman",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillDeath_SUB",
+    "formId": "00843141",
+    "name": "Kill the Target - The Pale Horseman"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "11 damage per second for 6 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Killer Reaper"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_War",
+   "formId": "007D2B32",
+   "name": "The Red Rider",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 2868,
+   "hpMax": 30035,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+   "statsFrom": "",
+   "resist": {
+    "DR": 854,
+    "ER": 476,
+    "Fire": 933,
+    "Cryo": 660,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "War",
+   "imageSlug": "the-red-rider",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillWar_SUB",
+    "formId": "00843120",
+    "name": "Kill the Target - The Red Rider"
+   },
+   "weapons": [
+    {
+     "edid": "crCremator",
+     "name": "Cremator",
+     "ammo": "Fuel",
+     "range": 3850,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterFlamerGrenade",
+     "name": "Floater Flamer Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Fire Damage",
+     "text": "10 damage per second for 3 seconds"
+    }
+   ],
+   "gangMembers": [
+    "Brutal Combatant"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Pestilence",
+   "formId": "007D2B35",
+   "name": "The White Horseman",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 2868,
+   "hpMax": 30035,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+   "statsFrom": "",
+   "resist": {
+    "DR": 660,
+    "ER": 559,
+    "Fire": 660,
+    "Cryo": 660,
+    "Poison": 933,
+    "Rad": 933
+   },
+   "speedMult": 120.0,
+   "gang": "Pestilence",
+   "imageSlug": "the-white-horseman",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillPest_SUB",
+    "formId": "00843107",
+    "name": "Kill the Target - The White Horseman"
+   },
+   "weapons": [
+    {
+     "edid": "crPlasmaCaster",
+     "name": "Plasma Caster",
+     "ammo": "Plasma Cartridge",
+     "range": 4410,
+     "type": "Gun",
+     "damageMin": 24,
+     "damageMax": 144,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier24",
+     "slot": "Main"
+    },
+    {
+     "edid": "crNukaGrenade",
+     "name": "Nuka Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Radiation Damage",
+     "text": "Magnitude 8"
+    }
+   ],
+   "gangMembers": [
+    "Corrosive Stingwing"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_NukaQueen",
+   "formId": "0082073C",
+   "name": "Anna The Nuka-Queen",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 440,
+    "ER": 407,
+    "Fire": 407,
+    "Cryo": 607,
+    "Poison": 349,
+    "Rad": 349
+   },
+   "speedMult": 120.0,
+   "gang": "Nuka",
+   "imageSlug": "anna-the-nuka-queen",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillNuka_SUB",
+    "formId": "00843117",
+    "name": "Kill the Target - Anna The Nuka-Queen"
+   },
+   "weapons": [
+    {
+     "edid": "crHuntingRifle",
+     "name": "Nuka Hunting Rifle",
+     "ammo": ".308 Round",
+     "range": 5225,
+     "type": "Gun",
+     "damageMin": 36,
+     "damageMax": 205,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier28",
+     "slot": "Main",
+     "legendary": [
+      "1★ Instigating",
+      "2★ Hitman's",
+      "3★ Ghost's"
+     ]
+    },
+    {
+     "edid": "crNukaGrenade",
+     "name": "Nuka Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [],
+   "gangMembers": [
+    "Soda Junkie"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_AntiGhoul",
+   "formId": "00820735",
+   "name": "Cletus Brimstone",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 607,
+    "ER": 607,
+    "Fire": 1117,
+    "Cryo": 324,
+    "Poison": 349,
+    "Rad": 242
+   },
+   "speedMult": 120.0,
+   "gang": "Rad Cleaners",
+   "imageSlug": "cletus-brimstone",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillRadCleaners_SUB",
+    "formId": "00843118",
+    "name": "Kill the Target - Cletus Brimstone"
+   },
+   "weapons": [
+    {
+     "edid": "crCremator",
+     "name": "Purifier Cremator",
+     "ammo": "Fuel",
+     "range": 3850,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterFlamerGrenade",
+     "name": "Floater Flamer Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Purifier",
+     "text": ""
+    },
+    {
+     "name": "Burning Environment",
+     "text": "Burning Environment — Taking fire damage every second"
+    }
+   ],
+   "gangMembers": [
+    "Ghoul Hunter"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Irradiated",
+   "formId": "00820736",
+   "name": "Irene The Irradiated",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 476,
+    "ER": 607,
+    "Fire": 607,
+    "Cryo": 607,
+    "Poison": 607,
+    "Rad": 1224
+   },
+   "speedMult": 120.0,
+   "gang": "Rad Cult",
+   "imageSlug": "irene-the-irradiated",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillRadCult_SUB",
+    "formId": "0084311D",
+    "name": "Kill the Target - Irene The Irradiated"
+   },
+   "weapons": [
+    {
+     "edid": "crGammaGun",
+     "name": "Gamma Gun",
+     "ammo": "Gamma Round",
+     "range": 1880,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Main"
+    },
+    {
+     "edid": "crNukaGrenade",
+     "name": "Nuka Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bonus Damage to High RADS",
+     "text": "Magnitude 100"
+    }
+   ],
+   "gangMembers": [
+    "Irradiated Raider"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Abraxo",
+   "formId": "0083AE9F",
+   "name": "The Cleaner",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 407,
+    "ER": 407,
+    "Fire": 559,
+    "Cryo": 407,
+    "Poison": 719,
+    "Rad": 607
+   },
+   "speedMult": 120.0,
+   "gang": "Abraxo",
+   "imageSlug": "the-cleaner",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillAbraxo_SUB",
+    "formId": "0084310F",
+    "name": "Kill the Target - The Cleaner"
+   },
+   "weapons": [
+    {
+     "edid": "crPlasmaGun",
+     "name": "Meadow Breeze Sprayer",
+     "ammo": "Plasma Cartridge",
+     "range": 1880,
+     "type": "Gun",
+     "damageMin": 10,
+     "damageMax": 71,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier16",
+     "slot": "Main",
+     "legendary": [
+      "1★ Anti-armor",
+      "2★ Vital",
+      "3★ Lightweight"
+     ]
+    },
+    {
+     "edid": "crHalluciGenGrenade_Bounty",
+     "name": "HalluciGen Gas Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": 1,
+     "damageMax": 1,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Meadow Breeze Sprayer Bounty",
+     "text": "Sprays Meadow Breeze"
+    }
+   ],
+   "gangMembers": [
+    "Clean-up Crewmember"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_QuackDoctor",
+   "formId": "0082073D",
+   "name": "The Malpractitioner",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 476,
+    "ER": 476,
+    "Fire": 407,
+    "Cryo": 407,
+    "Poison": 719,
+    "Rad": 719
+   },
+   "speedMult": 120.0,
+   "gang": "Quack Doctors",
+   "imageSlug": "the-malpractitioner",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillQuackDocs_SUB",
+    "formId": "00843133",
+    "name": "Kill the Target - The Malpractitioner"
+   },
+   "weapons": [
+    {
+     "edid": "cr44_MedicalMalpractice",
+     "name": "Medical Malpractice",
+     "ammo": ".44 Round",
+     "range": 2978,
+     "type": "Gun",
+     "damageMin": 100,
+     "damageMax": 497,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier38",
+     "slot": "Main",
+     "legendary": [
+      "1★ Medic's",
+      "2★ V.A.T.S. Enhanced",
+      "3★ V.A.T.S. Optimized"
+     ]
+    },
+    {
+     "edid": "crD01C_BugGrenade",
+     "name": "Bug Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Random Cocktail Of Effects",
+     "text": "5 damage per second for 20 seconds · 9 damage per second for 1 seconds · 16 damage per second for 5 seconds · 19 damage per second for 20 seconds · 60 damage per second for 20 seconds"
+    },
+    {
+     "name": "Debuff Cocktail",
+     "text": ""
+    }
+   ],
+   "gangMembers": [
+    "Crazed Physician"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_BarryTone",
+   "formId": "0082444E",
+   "name": "Ragtime Randy",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 150,
+   "hpMin": 3405,
+   "hpMax": 25742,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 532,
+    "ER": 532,
+    "Fire": 353,
+    "Cryo": 353,
+    "Poison": 302,
+    "Rad": 302
+   },
+   "speedMult": 120.0,
+   "gang": "Jazz",
+   "imageSlug": "ragtime-randy",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillJazz_SUB",
+    "formId": "0084313E",
+    "name": "Kill the Target - Ragtime Randy"
+   },
+   "weapons": [
+    {
+     "edid": "crE09A_Broadsider_GrandFinale",
+     "name": "Grand Finale",
+     "ammo": "Cannonball",
+     "range": 4400,
+     "type": "Gun",
+     "damageMin": 5,
+     "damageMax": 5,
+     "damageCurve": "",
+     "slot": "Main",
+     "legendary": [
+      "1★ Two Shot",
+      "2★ Last Shot",
+      "3★ Swift"
+     ],
+     "custom": [
+      {
+       "name": "Grand Finale",
+       "effect": "Increases Damage by 10% & Explodes with fireworks"
+      },
+      {
+       "name": "Bleed Effect",
+       "effect": "11 damage per second for 6 seconds"
+      }
+     ]
+    },
+    {
+     "edid": "crGuitarSword",
+     "name": "Guitar Sword",
+     "ammo": "",
+     "range": 10,
+     "type": "OneHandSword",
+     "damageMin": 19,
+     "damageMax": 89,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier22",
+     "slot": "Secondary",
+     "legendary": [
+      "1★ Anti-armor",
+      "2★ Crippling"
+     ]
+    },
+    {
+     "edid": "crBaseballGrenade",
+     "name": "Baseball Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [],
+   "gangMembers": [
+    "Out of Tune Musician"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Pilot",
+   "formId": "00820739",
+   "name": "The Ace",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 4043,
+   "hpMax": 41128,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier36",
+   "statsFrom": "",
+   "resist": {
+    "DR": 607,
+    "ER": 607,
+    "Fire": 407,
+    "Cryo": 607,
+    "Poison": 349,
+    "Rad": 349
+   },
+   "speedMult": 120.0,
+   "gang": "Pilot",
+   "imageSlug": "the-ace",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillPilot_SUB",
+    "formId": "00843114",
+    "name": "Kill the Target - The Ace"
+   },
+   "weapons": [
+    {
+     "edid": "crMobsterAutoGrenadeLauncher",
+     "name": "Auto Grenade Launcher",
+     "ammo": "40mm Grenade Round",
+     "range": 256,
+     "type": "Gun",
+     "damageMin": 1,
+     "damageMax": 1,
+     "damageCurve": "",
+     "slot": "Main"
+    },
+    {
+     "edid": "crPulseGrenade",
+     "name": "Pulse Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [],
+   "gangMembers": [
+    "Loyal Wingman"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Researcher",
+   "formId": "0082444B",
+   "name": "The Chief Researcher",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 476,
+    "ER": 719,
+    "Fire": 407,
+    "Cryo": 407,
+    "Poison": 349,
+    "Rad": 660
+   },
+   "speedMult": 120.0,
+   "gang": "Vault-Tec",
+   "imageSlug": "the-chief-researcher",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillVaultTec_SUB",
+    "formId": "00843108",
+    "name": "Kill the Target - The Chief Researcher"
+   },
+   "weapons": [
+    {
+     "edid": "crMeltdown",
+     "name": "V63 Laser Carbine",
+     "ammo": "Fusion Cell",
+     "range": 4189,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Main"
+    },
+    {
+     "edid": "crPulseGrenade",
+     "name": "Pulse Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [],
+   "gangMembers": [
+    "Science School Dropout"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Commie",
+   "formId": "0083AE9D",
+   "name": "The Proletariat Punisher",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 150,
+   "hpMin": 3405,
+   "hpMax": 25742,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 532,
+    "ER": 532,
+    "Fire": 353,
+    "Cryo": 353,
+    "Poison": 302,
+    "Rad": 302
+   },
+   "speedMult": 120.0,
+   "gang": "Commie",
+   "imageSlug": "the-proletariat-punisher",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillCommies_SUB",
+    "formId": "00843131",
+    "name": "Kill the Target - The Proletariat Punisher"
+   },
+   "weapons": [
+    {
+     "edid": "crHandMadeGun",
+     "name": "Communist Handmade",
+     "ammo": "5.56 Round",
+     "range": 3173,
+     "type": "Gun",
+     "damageMin": 12,
+     "damageMax": 62,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier18",
+     "slot": "Main",
+     "legendary": [
+      "1★ Junkie's",
+      "2★ Explosive",
+      "3★ Lightweight"
+     ]
+    },
+    {
+     "edid": "crFragGrenade",
+     "name": "Fragmentation Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [],
+   "gangMembers": [
+    "Aspiring Commie"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Astronaut",
+   "formId": "00820734",
+   "name": "The Space Ranger",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 516,
+    "ER": 719,
+    "Fire": 660,
+    "Cryo": 719,
+    "Poison": 349,
+    "Rad": 349
+   },
+   "speedMult": 120.0,
+   "gang": "Astronaut",
+   "imageSlug": "the-space-ranger",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillAstronauts_SUB",
+    "formId": "00843113",
+    "name": "Kill the Target - The Space Ranger"
+   },
+   "weapons": [
+    {
+     "edid": "crAlienBlaster_Cryo",
+     "name": "Alien Blaster",
+     "ammo": "Alien Blaster Round",
+     "range": 2115,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Main"
+    },
+    {
+     "edid": "crCryoGrenade",
+     "name": "Cryogenic Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Cryo Damage",
+     "text": "11 damage per second for 1 seconds"
+    },
+    {
+     "name": "Low Gravity",
+     "text": "Mutation: Reduce Fall Speed · Fortify · Astro Message"
+    }
+   ],
+   "gangMembers": [
+    "Lost Astronaut"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Rich",
+   "formId": "00824452",
+   "name": "Baron Boris Wazie",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 2868,
+   "hpMax": 30035,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+   "statsFrom": "",
+   "resist": {
+    "DR": 854,
+    "ER": 854,
+    "Fire": 660,
+    "Cryo": 660,
+    "Poison": 242,
+    "Rad": 242
+   },
+   "speedMult": 120.0,
+   "gang": "Old Money",
+   "imageSlug": "baron-boris-wazie",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillOldMoney_SUB",
+    "formId": "00843132",
+    "name": "Kill the Target - Baron Boris Wazie"
+   },
+   "weapons": [
+    {
+     "edid": "crBlackPowder_Rifle_Dragon",
+     "name": "The Dragon",
+     "ammo": ".50 Caliber Ball",
+     "range": 4469,
+     "type": "Gun",
+     "damageMin": 288,
+     "damageMax": 1240,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier48",
+     "slot": "Main",
+     "legendary": [
+      "1★ Executioner's",
+      "2★ Last Shot"
+     ],
+     "custom": [
+      {
+       "name": "Bleed Effect",
+       "effect": "11 damage per second for 6 seconds"
+      }
+     ]
+    },
+    {
+     "edid": "crWalkingCane",
+     "name": "Walking Cane",
+     "ammo": "",
+     "range": 10,
+     "type": "OneHandSword",
+     "damageMin": 19,
+     "damageMax": 121,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier22",
+     "slot": "Secondary"
+    },
+    {
+     "edid": "crFragGrenade",
+     "name": "Fragmentation Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [],
+   "gangMembers": [
+    "Posh Socialite"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_RoboBrain",
+   "formId": "008349D3",
+   "name": "Chief Engineer Lewis",
+   "race": "DLC01RoboBrain",
+   "levelMin": 100,
+   "levelMax": 100,
+   "hpMin": 11804,
+   "hpMax": 11804,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+   "statsFrom": "",
+   "resist": {
+    "DR": 327,
+    "ER": 556,
+    "Fire": 424,
+    "Cryo": 424,
+    "Poison": 182,
+    "Rad": 182
+   },
+   "speedMult": 120.0,
+   "gang": "Robobrain",
+   "imageSlug": "chief-engineer-lewis",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillRobobrains_SUB",
+    "formId": "00843124",
+    "name": "Kill the Target - Chief Engineer Lewis"
+   },
+   "weapons": [
+    {
+     "edid": "crPlasmaGun",
+     "name": "Plasma Gun",
+     "ammo": "Plasma Cartridge",
+     "range": 1880,
+     "type": "Gun",
+     "damageMin": 27,
+     "damageMax": 27,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier16",
+     "slot": "Main",
+     "legendary": [
+      "1★ Anti-armor",
+      "2★ Vital",
+      "3★ Lightweight"
+     ]
+    },
+    {
+     "edid": "crPulseGrenade",
+     "name": "Pulse Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [],
+   "gangMembers": [
+    "Assaultron Intern"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Patriot",
+   "formId": "00824449",
+   "name": "Corporal Jane",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 2868,
+   "hpMax": 30035,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+   "statsFrom": "",
+   "resist": {
+    "DR": 783,
+    "ER": 559,
+    "Fire": 660,
+    "Cryo": 660,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "Patriot",
+   "imageSlug": "corporal-jane",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillPatriots_SUB",
+    "formId": "0084310B",
+    "name": "Kill the Target - Corporal Jane"
+   },
+   "weapons": [
+    {
+     "edid": "crMissileLauncher",
+     "name": "Patriot Missile Launcher",
+     "ammo": "Missile",
+     "range": 5225,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFragGrenade",
+     "name": "Fragmentation Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "BonusDamage 20%",
+     "text": "Hit Harder"
+    }
+   ],
+   "gangMembers": [
+    "Patriotic Soldier"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Mechanist",
+   "formId": "00825CC6",
+   "name": "Tincan Toni",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 476,
+    "ER": 933,
+    "Fire": 301,
+    "Cryo": 607,
+    "Poison": 349,
+    "Rad": 349
+   },
+   "speedMult": 120.0,
+   "gang": "Robot",
+   "imageSlug": "tincan-toni",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillRobots_SUB",
+    "formId": "00843105",
+    "name": "Kill the Target - Tincan Toni"
+   },
+   "weapons": [
+    {
+     "edid": "cr10mm_CircuitBreaker",
+     "name": "Circuit Breaker",
+     "ammo": "Fusion Cell",
+     "range": 2637,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Main"
+    },
+    {
+     "edid": "crPulseGrenade",
+     "name": "Pulse Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Mech Bay-beeeeeeeee",
+     "text": "Mech Bay-beeeeeeeee"
+    },
+    {
+     "name": "Frenzy Cloud - Spells",
+     "text": "Bounty Frenzy Effect"
+    }
+   ],
+   "gangMembers": [
+    "Raging Robot"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Boxer",
+   "formId": "00839C0A",
+   "name": "Becca The Heavyweight",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 150,
+   "hpMin": 3405,
+   "hpMax": 25742,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 532,
+    "ER": 532,
+    "Fire": 353,
+    "Cryo": 353,
+    "Poison": 302,
+    "Rad": 302
+   },
+   "speedMult": 120.0,
+   "gang": "Boxer",
+   "imageSlug": "becca-the-heavyweight",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillBoxer_SUB",
+    "formId": "0084313B",
+    "name": "Kill the Target - Becca The Heavyweight"
+   },
+   "weapons": [
+    {
+     "edid": "crKnuckles",
+     "name": "Knuckles",
+     "ammo": "",
+     "range": 0,
+     "type": "HandToHandMelee",
+     "damageMin": 14,
+     "damageMax": 68,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier19",
+     "slot": "Main",
+     "legendary": [
+      "2★ Rapid",
+      "4★ Fracturer's"
+     ]
+    },
+    {
+     "edid": "crThrowing_Knife",
+     "name": "Throwing Knife",
+     "ammo": "",
+     "range": 2115,
+     "type": "Grenade",
+     "damageMin": 24,
+     "damageMax": 107,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier24",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [],
+   "gangMembers": [
+    "Boxer"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Sniper",
+   "formId": "00839C07",
+   "name": "Charlie Half-Cocked",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 150,
+   "hpMin": 3405,
+   "hpMax": 25742,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 532,
+    "ER": 532,
+    "Fire": 353,
+    "Cryo": 353,
+    "Poison": 302,
+    "Rad": 302
+   },
+   "speedMult": 120.0,
+   "gang": "Sniper",
+   "imageSlug": "charlie-half-cocked",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillSniper_SUB",
+    "formId": "00843125",
+    "name": "Kill the Target - Charlie Half-Cocked"
+   },
+   "weapons": [
+    {
+     "edid": "crHuntingRifle",
+     "name": "Sniper Hunting Rifle",
+     "ammo": ".308 Round",
+     "range": 5225,
+     "type": "Gun",
+     "damageMin": 36,
+     "damageMax": 153,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier28",
+     "slot": "Main",
+     "legendary": [
+      "1★ Instigating",
+      "2★ Hitman's",
+      "3★ Ghost's"
+     ]
+    },
+    {
+     "edid": "crFragGrenade",
+     "name": "Fragmentation Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "BonusDamage x5",
+     "text": "Hit Harder"
+    }
+   ],
+   "gangMembers": [
+    "Vicious Sharpshooter"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Gunslinger",
+   "formId": "00839C0B",
+   "name": "Cowgirl Janine",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 150,
+   "hpMin": 3405,
+   "hpMax": 25742,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 532,
+    "ER": 532,
+    "Fire": 353,
+    "Cryo": 353,
+    "Poison": 302,
+    "Rad": 302
+   },
+   "speedMult": 120.0,
+   "gang": "Gunslinger",
+   "imageSlug": "cowgirl-janine",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillGunslinger_SUB",
+    "formId": "0084310C",
+    "name": "Kill the Target - Cowgirl Janine"
+   },
+   "weapons": [
+    {
+     "edid": "crRevolver",
+     "name": "Western Revolver",
+     "ammo": ".44 Round",
+     "range": 3216,
+     "type": "Gun",
+     "damageMin": 24,
+     "damageMax": 107,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier24",
+     "slot": "Main"
+    },
+    {
+     "edid": "crThrowing_Knife",
+     "name": "Throwing Knife",
+     "ammo": "",
+     "range": 2115,
+     "type": "Grenade",
+     "damageMin": 24,
+     "damageMax": 107,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier24",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [],
+   "gangMembers": [
+    "Gunslinger"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_BigGun",
+   "formId": "00839C0D",
+   "name": "Richie Finesse",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 719,
+    "ER": 476,
+    "Fire": 407,
+    "Cryo": 407,
+    "Poison": 349,
+    "Rad": 349
+   },
+   "speedMult": 120.0,
+   "gang": "Big Gun",
+   "imageSlug": "richie-finesse",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillBigGun_SUB",
+    "formId": "00843136",
+    "name": "Kill the Target - Richie Finesse"
+   },
+   "weapons": [
+    {
+     "edid": "crMinigun",
+     "name": "Minigun",
+     "ammo": "5mm Round",
+     "range": 5147,
+     "type": "Gun",
+     "damageMin": 6,
+     "damageMax": 49,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier12",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFragGrenade",
+     "name": "Fragmentation Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "BonusDamage 25%",
+     "text": "Hit Harder"
+    }
+   ],
+   "gangMembers": [
+    "Gatling Gunsmith"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Hunter",
+   "formId": "0083D598",
+   "name": "Colt the Bolt",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 476,
+    "ER": 783,
+    "Fire": 407,
+    "Cryo": 407,
+    "Poison": 349,
+    "Rad": 349
+   },
+   "speedMult": 120.0,
+   "gang": "Hunter",
+   "imageSlug": "colt-the-bolt",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillHunter_SUB",
+    "formId": "00843148",
+    "name": "Kill the Target - Colt the Bolt"
+   },
+   "weapons": [
+    {
+     "edid": "crLightningGun",
+     "name": "Automatic Tesla Rifle",
+     "ammo": "Fusion Cell",
+     "range": 3966,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Main",
+     "legendary": [
+      "1★ Two Shot",
+      "2★ Rapid",
+      "3★ Swift"
+     ]
+    },
+    {
+     "edid": "crMeatHook",
+     "name": "Meat Hook",
+     "ammo": "",
+     "range": 0,
+     "type": "HandToHandMelee",
+     "damageMin": 21,
+     "damageMax": 132,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier23",
+     "slot": "Secondary"
+    },
+    {
+     "edid": "crFragGrenade",
+     "name": "Fragmentation Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Electricians No Stun",
+     "text": ""
+    }
+   ],
+   "gangMembers": [
+    "Deranged Hunter"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Granny",
+   "formId": "007D2B3C",
+   "name": "Granny Dolores",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 150,
+   "hpMin": 3405,
+   "hpMax": 25742,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 532,
+    "ER": 532,
+    "Fire": 353,
+    "Cryo": 353,
+    "Poison": 302,
+    "Rad": 302
+   },
+   "speedMult": 120.0,
+   "gang": "Golden Oldies",
+   "imageSlug": "granny-dolores",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillGolden_SUB",
+    "formId": "00843149",
+    "name": "Kill the Target - Granny Dolores"
+   },
+   "weapons": [
+    {
+     "edid": "crWalkingCane",
+     "name": "Walking Cane",
+     "ammo": "",
+     "range": 10,
+     "type": "OneHandSword",
+     "damageMin": 19,
+     "damageMax": 89,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier22",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFragGrenade",
+     "name": "Fragmentation Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bonus Damage to Fed Target",
+     "text": "Magnitude 44"
+    },
+    {
+     "name": "Granny",
+     "text": ""
+    }
+   ],
+   "gangMembers": [
+    "Enraged Old Lady"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Devil",
+   "formId": "00824450",
+   "name": "The Devil of Defiance",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 607,
+    "ER": 607,
+    "Fire": 324,
+    "Cryo": 301,
+    "Poison": 476,
+    "Rad": 349
+   },
+   "speedMult": 120.0,
+   "gang": "Blue Devils",
+   "imageSlug": "the-devil-of-defiance",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillBlueDevils_SUB",
+    "formId": "00843129",
+    "name": "Kill the Target - The Devil of Defiance"
+   },
+   "weapons": [
+    {
+     "edid": "crDoubleBarrelShotgun",
+     "name": "Double-Barrel Shotgun",
+     "ammo": "Shotgun Shell",
+     "range": 1439,
+     "type": "Gun",
+     "damageMin": 39,
+     "damageMax": 224,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier29",
+     "slot": "Main",
+     "legendary": [
+      "1★ Executioner's",
+      "2★ Last Shot"
+     ],
+     "custom": [
+      {
+       "name": "Bleed Effect",
+       "effect": "11 damage per second for 6 seconds"
+      }
+     ]
+    },
+    {
+     "edid": "crFloaterFlamerGrenade",
+     "name": "Floater Flamer Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Fire Damage",
+     "text": "10 damage per second for 3 seconds"
+    }
+   ],
+   "gangMembers": [
+    "White Wolf"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Gambler",
+   "formId": "00825A9F",
+   "name": "Vito \"The Vic\" Bronco",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 150,
+   "hpMin": 3405,
+   "hpMax": 25742,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 532,
+    "ER": 532,
+    "Fire": 353,
+    "Cryo": 353,
+    "Poison": 302,
+    "Rad": 302
+   },
+   "speedMult": 120.0,
+   "gang": "Gambler",
+   "imageSlug": "vito-the-vic-bronco",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillGambler_SUB",
+    "formId": "0084311E",
+    "name": "Kill the Target - Vito \"The Vic\" Bronco"
+   },
+   "weapons": [
+    {
+     "edid": "crPipeRevolver",
+     "name": "Pipe Revolver",
+     "ammo": ".45 Round",
+     "range": 2792,
+     "type": "Gun",
+     "damageMin": 21,
+     "damageMax": 98,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier23",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFragGrenade",
+     "name": "Fragmentation Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bonus Damage At Random",
+     "text": "Magnitude 228"
+    },
+    {
+     "name": "I love gambling",
+     "text": "I love gambling"
+    }
+   ],
+   "gangMembers": [
+    "Indebted Gambler"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Fisherman",
+   "formId": "00833083",
+   "name": "Amadi the Piranha",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 476,
+    "ER": 719,
+    "Fire": 301,
+    "Cryo": 719,
+    "Poison": 349,
+    "Rad": 349
+   },
+   "speedMult": 120.0,
+   "gang": "Fishermen",
+   "imageSlug": "amadi-the-piranha",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillFisherman_SUB",
+    "formId": "00843116",
+    "name": "Kill the Target - Amadi the Piranha"
+   },
+   "weapons": [
+    {
+     "edid": "crLightningGun",
+     "name": "Fishing Tesla Rifle",
+     "ammo": "Fusion Cell",
+     "range": 3966,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Main",
+     "legendary": [
+      "1★ Two Shot",
+      "2★ Rapid",
+      "3★ Swift"
+     ]
+    },
+    {
+     "edid": "crDLC03_HarpoonGun",
+     "name": "Harpoon Gun",
+     "ammo": "Harpoon",
+     "range": 5060,
+     "type": "Grenade",
+     "damageMin": 90,
+     "damageMax": 454,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier37",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Hooked!",
+     "text": "1 damage per second for 10 seconds · 4 damage per second for 10 seconds · 0.65 damage per second for 10 seconds · 90 damage per second for 10 seconds"
+    },
+    {
+     "name": "Hooked!",
+     "text": "Hooked!"
+    },
+    {
+     "name": "Hookable",
+     "text": "Add the Hookable Ability"
+    }
+   ],
+   "gangMembers": [
+    "Hostile Fisherman"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Crusher",
+   "formId": "0083A26F",
+   "name": "Gentle Gary",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 150,
+   "hpMin": 3405,
+   "hpMax": 25742,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 532,
+    "ER": 532,
+    "Fire": 353,
+    "Cryo": 353,
+    "Poison": 302,
+    "Rad": 302
+   },
+   "speedMult": 120.0,
+   "gang": "Crusher",
+   "imageSlug": "gentle-gary",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillCrusher_SUB",
+    "formId": "00843142",
+    "name": "Kill the Target - Gentle Gary"
+   },
+   "weapons": [
+    {
+     "edid": "crGaussRifle",
+     "name": "Flatliner",
+     "ammo": "2mm Electromagnetic Cartridge",
+     "range": 5500,
+     "type": "Gun",
+     "damageMin": 124,
+     "damageMax": 458,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier40",
+     "slot": "Main"
+    },
+    {
+     "edid": "crSuperSledge",
+     "name": "Super Sledge",
+     "ammo": "",
+     "range": 10,
+     "type": "TwoHandSword",
+     "damageMin": 44,
+     "damageMax": 184,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier30",
+     "slot": "Secondary"
+    },
+    {
+     "edid": "crNukaGrenade",
+     "name": "Nuka Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "BonusDamage x4",
+     "text": "Hit Harder"
+    }
+   ],
+   "gangMembers": [
+    "Brutal Basher"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_ScoutLeader",
+   "formId": "0082444D",
+   "name": "Scout Leader Karen",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+   "statsFrom": "",
+   "resist": {
+    "DR": 607,
+    "ER": 476,
+    "Fire": 407,
+    "Cryo": 407,
+    "Poison": 607,
+    "Rad": 196
+   },
+   "speedMult": 120.0,
+   "gang": "Scout",
+   "imageSlug": "scout-leader-karen",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillScout_SUB",
+    "formId": "00843126",
+    "name": "Kill the Target - Scout Leader Karen"
+   },
+   "weapons": [
+    {
+     "edid": "crcrossbow",
+     "name": "Crossbow",
+     "ammo": "Crossbow Bolt",
+     "range": 5237,
+     "type": "Gun",
+     "damageMin": 32,
+     "damageMax": 188,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier27",
+     "slot": "Main"
+    },
+    {
+     "edid": "crTomahawk",
+     "name": "Tomahawk",
+     "ammo": "",
+     "range": 2115,
+     "type": "Grenade",
+     "damageMin": 32,
+     "damageMax": 188,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier27",
+     "slot": "Secondary"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Scout Invisibility Spell",
+     "text": "Stealth Field — Invisibility for 10 seconds."
+    }
+   ],
+   "gangMembers": [
+    "Pioneer Poser"
+   ]
+  },
+  {
+   "edid": "Burn_BountyTarget_BIG_Foreman",
+   "formId": "0082444A",
+   "name": "The Foreman",
+   "race": "Human",
+   "levelMin": 25,
+   "levelMax": 175,
+   "hpMin": 2868,
+   "hpMax": 30035,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+   "statsFrom": "",
+   "resist": {
+    "DR": 783,
+    "ER": 559,
+    "Fire": 783,
+    "Cryo": 660,
+    "Poison": 301,
+    "Rad": 301
+   },
+   "speedMult": 120.0,
+   "gang": "Miner",
+   "imageSlug": "the-foreman",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillMiner_SUB",
+    "formId": "00843123",
+    "name": "Kill the Target - The Foreman"
+   },
+   "weapons": [
+    {
+     "edid": "crCombatRifle",
+     "name": "Combat Rifle",
+     "ammo": ".45 Round",
+     "range": 4231,
+     "type": "Gun",
+     "damageMin": 11,
+     "damageMax": 77,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crPickaxe",
+     "name": "Pickaxe",
+     "ammo": "",
+     "range": 10,
+     "type": "TwoHandSword",
+     "damageMin": 29,
+     "damageMax": 172,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier26",
+     "slot": "Secondary",
+     "legendary": [
+      "1★ Assassin's",
+      "2★ Rapid",
+      "3★ Lightweight"
+     ]
+    },
+    {
+     "edid": "crDynamiteBundleGrenade",
+     "name": "Dynamite Bundle",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [],
+   "gangMembers": [
+    "Disgruntled Miner"
+   ]
+  }
+ ],
+ "mutations": {
+  "intro": "Mutation effects used by bounty targets. One-star outlaws are named after theirs, and some Head Hunt bosses carry a forced mutation as part of their signature attack.",
+  "list": [
+   {
+    "edid": "Burn_Bounty_Mutation_Chameleon",
+    "name": "Chameleon",
+    "summary": "",
+    "detail": "Turns invisible while it stands still."
+   },
+   {
+    "edid": "Burn_Bounty_Mutation_ElectricallyCharged",
+    "name": "Electrically Charged",
+    "summary": "Slow targets down on attack",
+    "detail": "Can shock melee attackers."
+   },
+   {
+    "edid": "Burn_Bounty_Mutation_FreezingTouch",
+    "name": "Freezing Touch",
+    "summary": "Slow targets down on attack",
+    "detail": "Melee hits slow the target down."
+   },
+   {
+    "edid": "Burn_Bounty_Mutation_HerdMentality",
+    "name": "Herd Mentality",
+    "summary": "-2 SPECIAL solo, +2 SPECIAL grouped",
+    "detail": "Weaker alone, stronger while grouped with its gang."
+   },
+   {
+    "edid": "Burn_Bounty_Mutation_PlagueWalker",
+    "name": "Plague Walker",
+    "summary": "",
+    "detail": "Emits a poison aura while it is sick."
+   },
+   {
+    "edid": "Burn_Bounty_Mutation_UnstableIsotope",
+    "name": "Unstable Isotope",
+    "summary": "",
+    "detail": "Forced Unstable Isotope — can release a radiation burst when struck."
+   }
+  ],
+  "outlaws": [
+   "Frosty Outlaw",
+   "Healing Outlaw",
+   "Resilient Outlaw",
+   "Stealthy Outlaw",
+   "Swift-Footed Outlaw",
+   "Toxic Outlaw",
+   "Volatile Outlaw"
+  ]
+ },
+ "mechanics": {
+  "intro": "Head Hunt bosses share the following stats.",
+  "rows": [
+   [
+    "Bounty level range",
+    "25 – 175"
+   ],
+   [
+    "Move speed",
+    "120% of normal"
+   ],
+   [
+    "Bosses",
+    "30 across 7 groups"
+   ],
+   [
+    "Support wave",
+    "Rust Raiders"
+   ]
+  ],
+  "resist": [
+   {
+    "name": "The Black Horseman",
+    "DR": 783,
+    "ER": 559,
+    "Fire": 660,
+    "Cryo": 660,
+    "Poison": 783,
+    "Rad": 783
+   },
+   {
+    "name": "The Pale Horseman",
+    "DR": 854,
+    "ER": 559,
+    "Fire": 719,
+    "Cryo": 719,
+    "Poison": 719,
+    "Rad": 719
+   },
+   {
+    "name": "The Red Rider",
+    "DR": 854,
+    "ER": 476,
+    "Fire": 933,
+    "Cryo": 660,
+    "Poison": 301,
+    "Rad": 301
+   },
+   {
+    "name": "The White Horseman",
+    "DR": 660,
+    "ER": 559,
+    "Fire": 660,
+    "Cryo": 660,
+    "Poison": 933,
+    "Rad": 933
+   },
+   {
+    "name": "Anna The Nuka-Queen",
+    "DR": 440,
+    "ER": 407,
+    "Fire": 407,
+    "Cryo": 607,
+    "Poison": 349,
+    "Rad": 349
+   },
+   {
+    "name": "Cletus Brimstone",
+    "DR": 607,
+    "ER": 607,
+    "Fire": 1117,
+    "Cryo": 324,
+    "Poison": 349,
+    "Rad": 242
+   },
+   {
+    "name": "Irene The Irradiated",
+    "DR": 476,
+    "ER": 607,
+    "Fire": 607,
+    "Cryo": 607,
+    "Poison": 607,
+    "Rad": 1224
+   },
+   {
+    "name": "The Cleaner",
+    "DR": 407,
+    "ER": 407,
+    "Fire": 559,
+    "Cryo": 407,
+    "Poison": 719,
+    "Rad": 607
+   },
+   {
+    "name": "The Malpractitioner",
+    "DR": 476,
+    "ER": 476,
+    "Fire": 407,
+    "Cryo": 407,
+    "Poison": 719,
+    "Rad": 719
+   },
+   {
+    "name": "Ragtime Randy",
+    "DR": 532,
+    "ER": 532,
+    "Fire": 353,
+    "Cryo": 353,
+    "Poison": 302,
+    "Rad": 302
+   },
+   {
+    "name": "The Ace",
+    "DR": 607,
+    "ER": 607,
+    "Fire": 407,
+    "Cryo": 607,
+    "Poison": 349,
+    "Rad": 349
+   },
+   {
+    "name": "The Chief Researcher",
+    "DR": 476,
+    "ER": 719,
+    "Fire": 407,
+    "Cryo": 407,
+    "Poison": 349,
+    "Rad": 660
+   },
+   {
+    "name": "The Proletariat Punisher",
+    "DR": 532,
+    "ER": 532,
+    "Fire": 353,
+    "Cryo": 353,
+    "Poison": 302,
+    "Rad": 302
+   },
+   {
+    "name": "The Space Ranger",
+    "DR": 516,
+    "ER": 719,
+    "Fire": 660,
+    "Cryo": 719,
+    "Poison": 349,
+    "Rad": 349
+   },
+   {
+    "name": "Baron Boris Wazie",
+    "DR": 854,
+    "ER": 854,
+    "Fire": 660,
+    "Cryo": 660,
+    "Poison": 242,
+    "Rad": 242
+   },
+   {
+    "name": "Chief Engineer Lewis",
+    "DR": 327,
+    "ER": 556,
+    "Fire": 424,
+    "Cryo": 424,
+    "Poison": 182,
+    "Rad": 182
+   },
+   {
+    "name": "Corporal Jane",
+    "DR": 783,
+    "ER": 559,
+    "Fire": 660,
+    "Cryo": 660,
+    "Poison": 301,
+    "Rad": 301
+   },
+   {
+    "name": "Tincan Toni",
+    "DR": 476,
+    "ER": 933,
+    "Fire": 301,
+    "Cryo": 607,
+    "Poison": 349,
+    "Rad": 349
+   },
+   {
+    "name": "Becca The Heavyweight",
+    "DR": 532,
+    "ER": 532,
+    "Fire": 353,
+    "Cryo": 353,
+    "Poison": 302,
+    "Rad": 302
+   },
+   {
+    "name": "Charlie Half-Cocked",
+    "DR": 532,
+    "ER": 532,
+    "Fire": 353,
+    "Cryo": 353,
+    "Poison": 302,
+    "Rad": 302
+   },
+   {
+    "name": "Cowgirl Janine",
+    "DR": 532,
+    "ER": 532,
+    "Fire": 353,
+    "Cryo": 353,
+    "Poison": 302,
+    "Rad": 302
+   },
+   {
+    "name": "Richie Finesse",
+    "DR": 719,
+    "ER": 476,
+    "Fire": 407,
+    "Cryo": 407,
+    "Poison": 349,
+    "Rad": 349
+   },
+   {
+    "name": "Colt the Bolt",
+    "DR": 476,
+    "ER": 783,
+    "Fire": 407,
+    "Cryo": 407,
+    "Poison": 349,
+    "Rad": 349
+   },
+   {
+    "name": "Granny Dolores",
+    "DR": 532,
+    "ER": 532,
+    "Fire": 353,
+    "Cryo": 353,
+    "Poison": 302,
+    "Rad": 302
+   },
+   {
+    "name": "The Devil of Defiance",
+    "DR": 607,
+    "ER": 607,
+    "Fire": 324,
+    "Cryo": 301,
+    "Poison": 476,
+    "Rad": 349
+   },
+   {
+    "name": "Vito \"The Vic\" Bronco",
+    "DR": 532,
+    "ER": 532,
+    "Fire": 353,
+    "Cryo": 353,
+    "Poison": 302,
+    "Rad": 302
+   },
+   {
+    "name": "Amadi the Piranha",
+    "DR": 476,
+    "ER": 719,
+    "Fire": 301,
+    "Cryo": 719,
+    "Poison": 349,
+    "Rad": 349
+   },
+   {
+    "name": "Gentle Gary",
+    "DR": 532,
+    "ER": 532,
+    "Fire": 353,
+    "Cryo": 353,
+    "Poison": 302,
+    "Rad": 302
+   },
+   {
+    "name": "Scout Leader Karen",
+    "DR": 607,
+    "ER": 476,
+    "Fire": 407,
+    "Cryo": 407,
+    "Poison": 607,
+    "Rad": 196
+   },
+   {
+    "name": "The Foreman",
+    "DR": 783,
+    "ER": 559,
+    "Fire": 783,
+    "Cryo": 660,
+    "Poison": 301,
+    "Rad": 301
+   }
+  ]
+ },
+ "health": {
+  "intro": "Health is read from the curve table assigned to each boss across the bounty level range. Bosses on the same curve share a row.",
+  "levels": [
+   25,
+   50,
+   75,
+   100,
+   125,
+   150,
+   175
+  ],
+  "rows": [
+   {
+    "label": "The Black Horseman, The Pale Horseman, The Red Rider, The White Horseman, Baron Boris Wazie, Chief Engineer Lewis, Corporal Jane, The Foreman",
+    "bosses": [
+     "The Black Horseman",
+     "The Pale Horseman",
+     "The Red Rider",
+     "The White Horseman",
+     "Baron Boris Wazie",
+     "Chief Engineer Lewis",
+     "Corporal Jane",
+     "The Foreman"
+    ],
+    "curve": "CT_Creatures_Health_Universal_Tier34",
+    "values": [
+     2868,
+     5449,
+     8357,
+     11804,
+     16134,
+     21905,
+     30035
+    ]
+   },
+   {
+    "label": "Anna The Nuka-Queen, Cletus Brimstone, Irene The Irradiated, The Cleaner, The Malpractitioner, Ragtime Randy, The Chief Researcher, The Proletariat Punisher, The Space Ranger, Tincan Toni, Becca The Heavyweight, Charlie Half-Cocked, Cowgirl Janine, Richie Finesse, Colt the Bolt, Granny Dolores, The Devil of Defiance, Vito \"The Vic\" Bronco, Amadi the Piranha, Gentle Gary, Scout Leader Karen",
+    "bosses": [
+     "Anna The Nuka-Queen",
+     "Cletus Brimstone",
+     "Irene The Irradiated",
+     "The Cleaner",
+     "The Malpractitioner",
+     "Ragtime Randy",
+     "The Chief Researcher",
+     "The Proletariat Punisher",
+     "The Space Ranger",
+     "Tincan Toni",
+     "Becca The Heavyweight",
+     "Charlie Half-Cocked",
+     "Cowgirl Janine",
+     "Richie Finesse",
+     "Colt the Bolt",
+     "Granny Dolores",
+     "The Devil of Defiance",
+     "Vito \"The Vic\" Bronco",
+     "Amadi the Piranha",
+     "Gentle Gary",
+     "Scout Leader Karen"
+    ],
+    "curve": "CT_Creatures_Health_Universal_Tier35",
+    "values": [
+     3405,
+     6463,
+     9900,
+     13958,
+     19026,
+     25742,
+     35139
+    ]
+   },
+   {
+    "label": "The Ace",
+    "bosses": [
+     "The Ace"
+    ],
+    "curve": "CT_Creatures_Health_Universal_Tier36",
+    "values": [
+     4043,
+     7666,
+     11729,
+     16506,
+     22443,
+     30261,
+     41128
+    ]
+   }
+  ]
+ },
+ "damage": {
+  "intro": "Damage per hit from each boss's main weapon at the bottom and top of the bounty level range.",
+  "rows": [
+   {
+    "boss": "Baron Boris Wazie",
+    "weapon": "The Dragon",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 288,
+    "damageMax": 1240
+   },
+   {
+    "boss": "The Malpractitioner",
+    "weapon": "Medical Malpractice",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 100,
+    "damageMax": 497
+   },
+   {
+    "boss": "Gentle Gary",
+    "weapon": "Flatliner",
+    "levelMin": 25,
+    "levelMax": 150,
+    "damageMin": 124,
+    "damageMax": 458
+   },
+   {
+    "boss": "The Devil of Defiance",
+    "weapon": "Double-Barrel Shotgun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 39,
+    "damageMax": 224
+   },
+   {
+    "boss": "Anna The Nuka-Queen",
+    "weapon": "Nuka Hunting Rifle",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 36,
+    "damageMax": 205
+   },
+   {
+    "boss": "Scout Leader Karen",
+    "weapon": "Crossbow",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 32,
+    "damageMax": 188
+   },
+   {
+    "boss": "The Foreman",
+    "weapon": "Pickaxe",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 29,
+    "damageMax": 172
+   },
+   {
+    "boss": "Charlie Half-Cocked",
+    "weapon": "Sniper Hunting Rifle",
+    "levelMin": 25,
+    "levelMax": 150,
+    "damageMin": 36,
+    "damageMax": 153
+   },
+   {
+    "boss": "The White Horseman",
+    "weapon": "Plasma Caster",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 24,
+    "damageMax": 144
+   },
+   {
+    "boss": "Colt the Bolt",
+    "weapon": "Meat Hook",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 21,
+    "damageMax": 132
+   },
+   {
+    "boss": "Cowgirl Janine",
+    "weapon": "Western Revolver",
+    "levelMin": 25,
+    "levelMax": 150,
+    "damageMin": 24,
+    "damageMax": 107
+   },
+   {
+    "boss": "Vito \"The Vic\" Bronco",
+    "weapon": "Pipe Revolver",
+    "levelMin": 25,
+    "levelMax": 150,
+    "damageMin": 21,
+    "damageMax": 98
+   },
+   {
+    "boss": "Ragtime Randy",
+    "weapon": "Guitar Sword",
+    "levelMin": 25,
+    "levelMax": 150,
+    "damageMin": 19,
+    "damageMax": 89
+   },
+   {
+    "boss": "Granny Dolores",
+    "weapon": "Walking Cane",
+    "levelMin": 25,
+    "levelMax": 150,
+    "damageMin": 19,
+    "damageMax": 89
+   },
+   {
+    "boss": "The Pale Horseman",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 11,
+    "damageMax": 77
+   },
+   {
+    "boss": "The Cleaner",
+    "weapon": "Meadow Breeze Sprayer",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 10,
+    "damageMax": 71
+   },
+   {
+    "boss": "Becca The Heavyweight",
+    "weapon": "Knuckles",
+    "levelMin": 25,
+    "levelMax": 150,
+    "damageMin": 14,
+    "damageMax": 68
+   },
+   {
+    "boss": "The Proletariat Punisher",
+    "weapon": "Communist Handmade",
+    "levelMin": 25,
+    "levelMax": 150,
+    "damageMin": 12,
+    "damageMax": 62
+   },
+   {
+    "boss": "The Black Horseman",
+    "weapon": "Gatling Plasma",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 7,
+    "damageMax": 54
+   },
+   {
+    "boss": "Richie Finesse",
+    "weapon": "Minigun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 6,
+    "damageMax": 49
+   },
+   {
+    "boss": "Chief Engineer Lewis",
+    "weapon": "Plasma Gun",
+    "levelMin": 100,
+    "levelMax": 100,
+    "damageMin": 27,
+    "damageMax": 27
+   },
+   {
+    "boss": "The Ace",
+    "weapon": "Auto Grenade Launcher",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 1,
+    "damageMax": 1
+   },
+   {
+    "boss": "The Red Rider",
+    "weapon": "—",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": null,
+    "damageMax": null
+   },
+   {
+    "boss": "Cletus Brimstone",
+    "weapon": "—",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": null,
+    "damageMax": null
+   },
+   {
+    "boss": "Irene The Irradiated",
+    "weapon": "—",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": null,
+    "damageMax": null
+   },
+   {
+    "boss": "The Chief Researcher",
+    "weapon": "—",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": null,
+    "damageMax": null
+   },
+   {
+    "boss": "The Space Ranger",
+    "weapon": "—",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": null,
+    "damageMax": null
+   },
+   {
+    "boss": "Corporal Jane",
+    "weapon": "—",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": null,
+    "damageMax": null
+   },
+   {
+    "boss": "Tincan Toni",
+    "weapon": "—",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": null,
+    "damageMax": null
+   },
+   {
+    "boss": "Amadi the Piranha",
+    "weapon": "—",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": null,
+    "damageMax": null
+   }
+  ]
+ },
+ "support": {
+  "intro": "Every Head Hunt also sends a support wave that fights alongside the boss and its gang.",
+  "rows": [
+   {
+    "edid": "Burn_LvlRustRaider_RaiderRanged_Workshop",
+    "formId": "008244C3",
+    "name": "Rust Raider (Ranged)",
+    "race": "Human",
+    "levelMin": 5,
+    "levelMax": 60,
+    "hpMin": 102,
+    "hpMax": 731,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 40,
+     "ER": 28,
+     "Fire": 34,
+     "Cryo": 14,
+     "Poison": 28,
+     "Rad": 14
+    },
+    "speedMult": 100.0
+   }
+  ]
+ },
+ "npcs": {
+  "intro": "Each boss brings its own gang members, listed with the boss they belong to.",
+  "rows": [
+   {
+    "edid": "Burn_BountyTarget_REG_FarmerGhoul",
+    "formId": "007D2B3A",
+    "name": "Ravenous Glutton",
+    "race": "FeralGhoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 224,
+    "hpMax": 3032,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier19",
+    "statsFrom": "",
+    "resist": {
+     "DR": 61,
+     "ER": 91,
+     "Fire": 52,
+     "Cryo": 0.0,
+     "Poison": 0.0,
+     "Rad": 280
+    },
+    "speedMult": 100.0,
+    "boss": "The Black Horseman",
+    "gang": "Famine"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_DeathCultist",
+    "formId": "007D2B36",
+    "name": "Killer Reaper",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 559,
+     "ER": 516,
+     "Fire": 440,
+     "Cryo": 440,
+     "Poison": 516,
+     "Rad": 516
+    },
+    "speedMult": 100.0,
+    "boss": "The Pale Horseman",
+    "gang": "Death"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_War",
+    "formId": "007D2B34",
+    "name": "Brutal Combatant",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 559,
+     "ER": 476,
+     "Fire": 476,
+     "Cryo": 407,
+     "Poison": 476,
+     "Rad": 476
+    },
+    "speedMult": 100.0,
+    "boss": "The Red Rider",
+    "gang": "War"
+   },
+   {
+    "edid": "Burn_EncStingwing",
+    "formId": "007EF1D9",
+    "name": "Corrosive Stingwing",
+    "race": "Stingwing",
+    "levelMin": 1,
+    "levelMax": 100,
+    "hpMin": 26,
+    "hpMax": 614,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier16",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "boss": "The White Horseman",
+    "gang": "Pestilence"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_NukaSoldier",
+    "formId": "00820738",
+    "name": "Soda Junkie",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 476,
+     "ER": 476,
+     "Fire": 407,
+     "Cryo": 440,
+     "Poison": 476,
+     "Rad": 516
+    },
+    "speedMult": 100.0,
+    "boss": "Anna The Nuka-Queen",
+    "gang": "Nuka"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Cleaner",
+    "formId": "0082073B",
+    "name": "Ghoul Hunter",
+    "race": "Human",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 516,
+     "ER": 516,
+     "Fire": 516,
+     "Cryo": 377,
+     "Poison": 476,
+     "Rad": 377
+    },
+    "speedMult": 100.0,
+    "boss": "Cletus Brimstone",
+    "gang": "Rad Cleaners"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Irradiated",
+    "formId": "0082073A",
+    "name": "Irradiated Raider",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 476,
+     "ER": 516,
+     "Fire": 440,
+     "Cryo": 440,
+     "Poison": 559,
+     "Rad": 559
+    },
+    "speedMult": 100.0,
+    "boss": "Irene The Irradiated",
+    "gang": "Rad Cult"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Abraxo",
+    "formId": "0083AE9E",
+    "name": "Clean-up Crewmember",
+    "race": "Ghoul",
+    "levelMin": 20,
+    "levelMax": 100,
+    "hpMin": 2827,
+    "hpMax": 13958,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 276,
+     "ER": 276,
+     "Fire": 276,
+     "Cryo": 254,
+     "Poison": 388,
+     "Rad": 388
+    },
+    "speedMult": 100.0,
+    "boss": "The Cleaner",
+    "gang": "Abraxo"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Nurse",
+    "formId": "00820737",
+    "name": "Crazed Physician",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 516,
+     "ER": 516,
+     "Fire": 407,
+     "Cryo": 407,
+     "Poison": 516,
+     "Rad": 516
+    },
+    "speedMult": 100.0,
+    "boss": "The Malpractitioner",
+    "gang": "Quack Doctors"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Musician",
+    "formId": "007D2B3B",
+    "name": "Out of Tune Musician",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 516,
+     "ER": 516,
+     "Fire": 407,
+     "Cryo": 407,
+     "Poison": 476,
+     "Rad": 476
+    },
+    "speedMult": 100.0,
+    "boss": "Ragtime Randy",
+    "gang": "Jazz"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Co-Pilot",
+    "formId": "007CFAA4",
+    "name": "Loyal Wingman",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 516,
+     "ER": 516,
+     "Fire": 407,
+     "Cryo": 440,
+     "Poison": 476,
+     "Rad": 476
+    },
+    "speedMult": 100.0,
+    "boss": "The Ace",
+    "gang": "Pilot"
+   },
+   {
+    "edid": "Burn_Bounty_REG_LvlFeralGhoul",
+    "formId": "0082444C",
+    "name": "Science School Dropout",
+    "race": "FeralGhoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 224,
+    "hpMax": 3032,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier19",
+    "statsFrom": "",
+    "resist": {
+     "DR": 61,
+     "ER": 91,
+     "Fire": 52,
+     "Cryo": 0.0,
+     "Poison": 0.0,
+     "Rad": 280
+    },
+    "speedMult": 100.0,
+    "boss": "The Chief Researcher",
+    "gang": "Vault-Tec"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Commie",
+    "formId": "0083AEA0",
+    "name": "Aspiring Commie",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 516,
+     "ER": 516,
+     "Fire": 407,
+     "Cryo": 407,
+     "Poison": 476,
+     "Rad": 476
+    },
+    "speedMult": 100.0,
+    "boss": "The Proletariat Punisher",
+    "gang": "Commie"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Astronaut",
+    "formId": "007CFA9F",
+    "name": "Lost Astronaut",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 476,
+     "ER": 516,
+     "Fire": 407,
+     "Cryo": 440,
+     "Poison": 476,
+     "Rad": 476
+    },
+    "speedMult": 100.0,
+    "boss": "The Space Ranger",
+    "gang": "Astronaut"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Millionaire",
+    "formId": "007D1143",
+    "name": "Posh Socialite",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 559,
+     "ER": 559,
+     "Fire": 407,
+     "Cryo": 407,
+     "Poison": 407,
+     "Rad": 407
+    },
+    "speedMult": 100.0,
+    "boss": "Baron Boris Wazie",
+    "gang": "Old Money"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Assaultron",
+    "formId": "008349D4",
+    "name": "Assaultron Intern",
+    "race": "Assaultron",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 516,
+     "ER": 516,
+     "Fire": 407,
+     "Cryo": 407,
+     "Poison": 476,
+     "Rad": 476
+    },
+    "speedMult": 100.0,
+    "boss": "Chief Engineer Lewis",
+    "gang": "Robobrain"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Patriot",
+    "formId": "007CFA9E",
+    "name": "Patriotic Soldier",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 516,
+     "ER": 516,
+     "Fire": 407,
+     "Cryo": 407,
+     "Poison": 476,
+     "Rad": 476
+    },
+    "speedMult": 100.0,
+    "boss": "Corporal Jane",
+    "gang": "Patriot"
+   },
+   {
+    "edid": "Burn_Bounty_Mech_Protectron",
+    "formId": "00825CC5",
+    "name": "Raging Robot",
+    "race": "ProtectronFast",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 516,
+     "ER": 516,
+     "Fire": 407,
+     "Cryo": 407,
+     "Poison": 476,
+     "Rad": 476
+    },
+    "speedMult": 100.0,
+    "boss": "Tincan Toni",
+    "gang": "Robot"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Boxer",
+    "formId": "00839C09",
+    "name": "Boxer",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 516,
+     "ER": 516,
+     "Fire": 407,
+     "Cryo": 407,
+     "Poison": 476,
+     "Rad": 476
+    },
+    "speedMult": 100.0,
+    "boss": "Becca The Heavyweight",
+    "gang": "Boxer"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Sniper",
+    "formId": "00839C08",
+    "name": "Vicious Sharpshooter",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 516,
+     "ER": 516,
+     "Fire": 407,
+     "Cryo": 407,
+     "Poison": 476,
+     "Rad": 476
+    },
+    "speedMult": 100.0,
+    "boss": "Charlie Half-Cocked",
+    "gang": "Sniper"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Gunslinger",
+    "formId": "00839C0C",
+    "name": "Gunslinger",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 516,
+     "ER": 516,
+     "Fire": 407,
+     "Cryo": 407,
+     "Poison": 476,
+     "Rad": 476
+    },
+    "speedMult": 100.0,
+    "boss": "Cowgirl Janine",
+    "gang": "Gunslinger"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_BigGun",
+    "formId": "00839C0E",
+    "name": "Gatling Gunsmith",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 559,
+     "ER": 516,
+     "Fire": 407,
+     "Cryo": 407,
+     "Poison": 476,
+     "Rad": 476
+    },
+    "speedMult": 100.0,
+    "boss": "Richie Finesse",
+    "gang": "Big Gun"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Trapper",
+    "formId": "0083D597",
+    "name": "Deranged Hunter",
+    "race": "Human",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 476,
+     "ER": 559,
+     "Fire": 407,
+     "Cryo": 407,
+     "Poison": 476,
+     "Rad": 476
+    },
+    "speedMult": 100.0,
+    "boss": "Colt the Bolt",
+    "gang": "Hunter"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Granny",
+    "formId": "007D2B33",
+    "name": "Enraged Old Lady",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 516,
+     "ER": 516,
+     "Fire": 407,
+     "Cryo": 407,
+     "Poison": 476,
+     "Rad": 476
+    },
+    "speedMult": 100.0,
+    "boss": "Granny Dolores",
+    "gang": "Golden Oldies"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Wolf",
+    "formId": "008513D6",
+    "name": "White Wolf",
+    "race": "MutatedWolf",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 516,
+     "ER": 516,
+     "Fire": 407,
+     "Cryo": 407,
+     "Poison": 476,
+     "Rad": 476
+    },
+    "speedMult": 100.0,
+    "boss": "The Devil of Defiance",
+    "gang": "Blue Devils"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Gambler",
+    "formId": "007D1144",
+    "name": "Indebted Gambler",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 516,
+     "ER": 516,
+     "Fire": 407,
+     "Cryo": 407,
+     "Poison": 476,
+     "Rad": 476
+    },
+    "speedMult": 100.0,
+    "boss": "Vito \"The Vic\" Bronco",
+    "gang": "Gambler"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Fisherman",
+    "formId": "008333E9",
+    "name": "Hostile Fisherman",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 476,
+     "ER": 559,
+     "Fire": 377,
+     "Cryo": 440,
+     "Poison": 476,
+     "Rad": 476
+    },
+    "speedMult": 100.0,
+    "boss": "Amadi the Piranha",
+    "gang": "Fishermen"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Basher",
+    "formId": "0083A270",
+    "name": "Brutal Basher",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 516,
+     "ER": 516,
+     "Fire": 407,
+     "Cryo": 407,
+     "Poison": 476,
+     "Rad": 476
+    },
+    "speedMult": 100.0,
+    "boss": "Gentle Gary",
+    "gang": "Crusher"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Scout",
+    "formId": "0082444F",
+    "name": "Pioneer Poser",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 516,
+     "ER": 476,
+     "Fire": 407,
+     "Cryo": 407,
+     "Poison": 516,
+     "Rad": 440
+    },
+    "speedMult": 100.0,
+    "boss": "Scout Leader Karen",
+    "gang": "Scout"
+   },
+   {
+    "edid": "Burn_BountyTarget_REG_Miner",
+    "formId": "007D1145",
+    "name": "Disgruntled Miner",
+    "race": "Ghoul",
+    "levelMin": 25,
+    "levelMax": 175,
+    "hpMin": 3405,
+    "hpMax": 35139,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 516,
+     "ER": 516,
+     "Fire": 440,
+     "Cryo": 407,
+     "Poison": 476,
+     "Rad": 476
+    },
+    "speedMult": 100.0,
+    "boss": "The Foreman",
+    "gang": "Miner"
+   }
+  ]
+ }
+}
