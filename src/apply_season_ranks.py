@@ -10,7 +10,7 @@ WHICH SEASONS IT TOUCHES
     season's board to that file and it is rebuilt on the next run; every other
     season in season_rewards.tsv is left untouched. The filename still says
     s1_s8 because that is what it started as, and renaming it would only orphan
-    the old copy in the repo; it now holds S1-S9 and will hold the rest of the
+    the old copy in the repo; it now holds S1-S15 and will hold the rest of the
     board-game seasons (up to S17) as they are researched.
 
 WHY THIS EXISTS
@@ -145,6 +145,55 @@ ALIASES: dict[tuple[int, str], str] = {
     (9, "Mercenary Company T-45 Paint"):            "Mercenary Company T-45 Power Armor Paint",
     # The board drops the "and Foundations" the other two carpets keep.
     (9, "Yellow Moulded Carpet Floor"):             "Yellow Moulded Carpet Floor and Foundations",
+    # --- Season 10: The City of Steel ---
+    # The datamined row keeps Bethesda's typo, so similarity alone never
+    # reaches it from the board's spelling.
+    (10, "Fanatic Foreman Player Icon"):            "Player Icon: Fanatic Formean",
+    (10, "Fanatic Player Icon"):                    "Player Icon: Fanatic",
+    # --- Season 11: Nuka-World ---
+    (11, "Nuka-Launcher"):                          "Nuka-Launcher Crafting",
+    (11, "Herringbone Red Brick Floor"):            "Herringbone Red Brick Floor and Foundations",
+    (11, "Abandoned Prison Car"):                   "Prison Car",
+    (11, "Nuka-Quantum Collectron"):                "Nuka-Cola Quantum Collectron Station",
+    # Three Mr. Fuzzy plushies in one season - Nuka-Cola, Nuka-Twist and
+    # Nuka-Cola Quantum - so both of the board's abbreviated names are pinned
+    # rather than left to scores that separate them by a hair.
+    (11, "Nuka-Cola Mr. Fuzzy"):                    "Nuka-Cola Mr. Fuzzy Plushie",
+    (11, "Nuka-Quantum Mr. Fuzzy Plushie"):         "Nuka-Cola Quantum Mr. Fuzzy Plushie",
+    (11, "Framed Nuka-World Gameboard"):            "Nuka World On Tour Gameboard",
+    # --- Season 12: Rip Daring and the Cryptid Hunt ---
+    (12, "Smiling Man Bandana"):                    "Smile Bandana Mask",
+    (12, "Rustic Bed with Furs"):                   "Rustic Fur Bed",
+    (12, "On the Hunt Poster"):                     'Rip Daring "On The Hunt" Poster',
+    (12, "'The Shot' Poster"):                      'Rip Daring "The Shot" Poster',
+    (12, "Cryptid Teeth Trophy Flair"):             "Cryptid Teeth Backpack Flair",
+    # --- Season 13: Shoot for the Stars ---
+    # Without this the board's "(10mm Pistol)" scores 0.87 against
+    # "Gilded Paint (.44 Pistol)" and takes it, which then leaves the real .44
+    # paint at rank 46 with no artwork.
+    (13, "Gilded Paint (10mm Pistol)"):             "Gilded Paint (10mm)",
+    (13, "Racecar Driver Underarmor"):              "Racecar Driver Outfit",
+    (13, "Luchador (Masked Wrestler) Underarmor"):  "Luchador Underarmor",
+    (13, "The Devil's Moon Movie Projector"):       "The Devil's Moon",
+    (13, "The Bada-Boom"):                          "The Bada-Boom (Super Sledge)",
+    # --- Season 14: Fight for Freedom ---
+    # Four Season 13 rewards were held back and issued on the S14 board; their
+    # curated rows are still filed under Season 13, so the cross-season pass
+    # recovers them once the names line up.
+    (14, "Flatwoods Monster Poster"):               "Flatwoods Poster",
+    (14, "Revolution Painting"):                    "Fight For Freedom: Revolution Painting",
+    (14, "Storming the Beach Painting"):            "Fight For Freedom: Storming the Beach Painting",
+    (14, "Moon Mission Painting"):                  "Fight For Freedom: Moon Mission Painting",
+    (14, "Alaska Liberation Painting"):             "Fight For Freedom: Alaska Liberation Painting",
+    (14, "Assured Victory Painting"):               "Fight For Freedom: Assured Victory Painting",
+    (14, "Wine Rack Display"):                      "Wine Rack",
+    # --- Season 15: The Big Score ---
+    # The board names the weapon family; the entitlement spells out every
+    # weapon the paint covers.
+    (15, "Poker Paint (Combat Rifle)"):             "Poker Paint (Combat Rifle + The Fixer)",
+    (15, "Poker Paint (Plasma Gun)"):               "Poker Paint (Plasma Gun + Enclave Plasma Gun)",
+    (15, "Poker Paint (Gatling Laser)"):            "Poker Paint (Gatling Laser + Ultracite Gatling Laser)",
+    (15, "Company Tea Kettle"):                     "Company Tea Machine",
 }
 
 # Same-season matching runs first. Anything still unplaced then gets one pass
