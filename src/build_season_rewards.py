@@ -19,7 +19,7 @@ from datetime import datetime
 from pathlib import Path
 
 # The one routing rule, shared with the renderers. See src/asset_paths.py.
-from asset_paths import fill_emote_images
+from asset_paths import fill_emote_images, fill_tent_images
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -282,6 +282,15 @@ def build_season_json(season_num: int, items: list[dict], meta: dict) -> dict:
     # what was actually uploaded.
     fill_emote_images(output["items"], key="storefrontEntitlement",
                       repo_root=REPO_ROOT)
+
+    # Survival tent artwork. Same story as emotes - one file shared with the
+    # Atom Shop tents page, stored under the display name - with one
+    # difference: this one OVERRIDES a season_images/ URL rather than only
+    # filling a blank. The per-season tent copies are the wrong copy and were
+    # never uploaded, so S12, S14, S15 and S21 all rendered "No image" while
+    # the shared file was sitting there the whole time.
+    fill_tent_images(output["items"], key="storefrontEntitlement",
+                     name_key="name", repo_root=REPO_ROOT)
 
     # layout — how df-bnb-seasons.js should group this season.
     #
