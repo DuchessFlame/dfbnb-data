@@ -1744,7 +1744,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +11 / -5 / ~35
+## `titles_player.json`  ·  +11 / -5 / ~34
 
 **Added (11)**
 - ATX_PlayerTitles_Prefix_Apex  `ATX_PlayerTitles_Prefix_Apex`
@@ -1766,7 +1766,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S14_PlayerTitles_Prefix_PowerPatrol  `SCORE_S14_PlayerTitles_Prefix_PowerPatrol`
 - SCORE_S20_PlayerTitles_Suffix_Icebreaker  `SCORE_S20_PlayerTitles_Suffix_Icebreaker`
 
-**Changed (35)**
+**Changed (34)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel
 - ATX_PlayerTitles_Prefix_Flipped  `ATX_PlayerTitles_Prefix_Flipped` — fields: conditions
@@ -1783,7 +1783,6 @@ _Couldn't key this file to records; contents differ._
 - SDOW_PlayerTitles_Prefix_PintSized  `SDOW_PlayerTitles_Prefix_PintSized` — fields: debug, dropRate
 - SDOW_PlayerTitles_Suffix_Keeper  `SDOW_PlayerTitles_Suffix_Keeper` — fields: debug, dropRate
 - SDOW_PlayerTitles_Suffix_Slasher  `SDOW_PlayerTitles_Suffix_Slasher` — fields: debug, dropRate
-- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 - WorldPets_PlayerTitles_Prefix_AnyPet01  `WorldPets_PlayerTitles_Prefix_AnyPet01` — fields: debug, howToObtain, unlockType
 - WorldPets_PlayerTitles_Prefix_AnyPet02  `WorldPets_PlayerTitles_Prefix_AnyPet02` — fields: debug, howToObtain, unlockType
 - WorldPets_PlayerTitles_Prefix_Cat01  `WorldPets_PlayerTitles_Prefix_Cat01` — fields: conditions, debug, unlockType
