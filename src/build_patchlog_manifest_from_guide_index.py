@@ -222,6 +222,28 @@ def main() -> None:
 
     by_page: Dict[str, Dict[str, str]] = {}
 
+    # 0) Per-page logs (src/page_patchlog.py) win over every rule below. A page
+    #    listed here has its OWN log, built from what that page shows, instead of
+    #    a category-wide feed shared with hundreds of other pages.
+    per_page: Dict[str, str] = {}
+    idx_path = os.path.join(os.path.dirname(os.path.abspath(args.out)),
+                            "patchlogs", "pages", "_index.json")
+    try:
+        with open(idx_path, encoding="utf-8") as fh:
+            per_page = {norm_path(k): v for k, v in (json.load(fh).get("pages") or {}).items()}
+    except (OSError, ValueError):
+        # The PTS job wipes dist/ before building, so read the committed index.
+        try:
+            import subprocess
+            raw_idx = subprocess.check_output(
+                ["git", "show", "HEAD:dist/patchlogs/pages/_index.json"],
+                stderr=subprocess.DEVNULL, timeout=30)
+            per_page = {norm_path(k): v for k, v in
+                        (json.loads(raw_idx.decode("utf-8")).get("pages") or {}).items()}
+        except Exception:
+            per_page = {}
+    print(f"[patchlog_manifest] per-page logs available: {len(per_page)}")
+
     scanned = 0
     matched = 0
 
@@ -246,6 +268,12 @@ def main() -> None:
 
         # We only map actual pages
         if node_type != "page":
+            continue
+
+        if path in per_page:
+            by_page[path] = {"url": feed_url(args.dist_base_url, "patchlogs/pages/" + per_page[path]),
+                             "label": "page"}
+            matched += 1
             continue
 
         # 1) Exact URL rules (highest priority)
