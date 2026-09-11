@@ -1,8 +1,9 @@
 {
   "meta": {
-    "export": "June 2026",
+    "export": "July 2026",
     "featureAdded": "Jun 2026",
-    "channel": "live"
+    "channel": "live",
+    "hasWorldPetsData": false
   },
   "routes": [
     "Caps",
@@ -230,6 +231,7 @@
     },
     "allPet": {
       "fortifyCarryWeight": {
+        "name": "Pet Carrier",
         "ranks": [
           null,
           null,
@@ -267,6 +269,198 @@
           0.2
         ]
       }
+    }
+  },
+  "rewardTrack": {
+    "source": "FLST WorldPets_LvRewards_<Species> + GMRW + ENTM",
+    "claimedIn": "Pip-Boy PETS - Pet Progression Menu",
+    "species": {
+      "cat": [],
+      "deathclaw": [],
+      "dog": [],
+      "radhog": []
+    },
+    "unusedAltCaps": []
+  },
+  "levelling": {
+    "totalXp": 303770,
+    "xpCurve": [
+      [
+        1,
+        0
+      ],
+      [
+        2,
+        210
+      ],
+      [
+        5,
+        250
+      ],
+      [
+        10,
+        300
+      ],
+      [
+        15,
+        350
+      ],
+      [
+        20,
+        400
+      ],
+      [
+        25,
+        450
+      ],
+      [
+        30,
+        500
+      ],
+      [
+        35,
+        550
+      ],
+      [
+        40,
+        600
+      ],
+      [
+        45,
+        650
+      ],
+      [
+        50,
+        700
+      ],
+      [
+        55,
+        775
+      ],
+      [
+        60,
+        850
+      ],
+      [
+        65,
+        925
+      ],
+      [
+        70,
+        1000
+      ],
+      [
+        75,
+        1075
+      ],
+      [
+        80,
+        1150
+      ],
+      [
+        85,
+        1225
+      ],
+      [
+        90,
+        1300
+      ],
+      [
+        95,
+        1375
+      ],
+      [
+        100,
+        1450
+      ],
+      [
+        105,
+        1525
+      ],
+      [
+        110,
+        1600
+      ],
+      [
+        115,
+        1675
+      ],
+      [
+        120,
+        1750
+      ],
+      [
+        125,
+        1825
+      ],
+      [
+        130,
+        1900
+      ],
+      [
+        135,
+        1975
+      ],
+      [
+        140,
+        2050
+      ],
+      [
+        145,
+        2125
+      ],
+      [
+        150,
+        2200
+      ],
+      [
+        155,
+        2300
+      ],
+      [
+        160,
+        2400
+      ],
+      [
+        165,
+        2500
+      ],
+      [
+        170,
+        2600
+      ],
+      [
+        175,
+        2700
+      ],
+      [
+        180,
+        2800
+      ],
+      [
+        185,
+        2900
+      ],
+      [
+        190,
+        3000
+      ],
+      [
+        195,
+        3100
+      ],
+      [
+        200,
+        3200
+      ]
+    ],
+    "tickSeconds": null,
+    "rested": null,
+    "help": {
+      "overview": [],
+      "leveling": [],
+      "buffs": [],
+      "controls": []
     }
   },
   "stats": {
@@ -392,7 +586,8 @@
   },
   "playerGift": {
     "interval": null,
-    "note": "Each species haul delivery also includes one random player gift."
+    "intervalMin": null,
+    "note": "The finder buff delivers its item on this timer while the pet is active."
   },
   "species": [
     {
@@ -414,13 +609,26 @@
       ],
       "activity": "Catch Fish with an active Pet Cat",
       "treasure": {
-        "item": "Improved Fishing Bait",
+        "item": "",
         "isList": false,
-        "qtyByRank": [
-          2,
-          4,
-          6
-        ]
+        "qtyByRank": []
+      },
+      "buffs": {
+        "sig1": {
+          "name": "Bait Finder",
+          "spell": "WorldPets_CatBuff_Buff01",
+          "descs": [],
+          "intervalMin": null,
+          "ranks": []
+        },
+        "sig2": {
+          "name": "Mega Bits",
+          "spell": "WorldPets_CatBuff_Buff02",
+          "descs": [],
+          "trigger": "catch",
+          "intervalMin": null,
+          "ranks": []
+        }
       },
       "foodTypes": [
         "Meat"
@@ -1263,7 +1471,7 @@
       "name": "Deathclaw",
       "diet": "Carnivore",
       "buffSpell": "Deathclaw Pet",
-      "sig1": "Meat Lover",
+      "sig1": "Dark Titan",
       "sig2": "Fun-Festation",
       "sig1Mag": [
         null,
@@ -1277,32 +1485,26 @@
       ],
       "activity": "Kill Infestation enemies with an active Pet Deathclaw",
       "treasure": {
-        "item": "random Meat",
-        "isList": true,
-        "list": [
-          "Dogmeat",
-          "Cat Meat",
-          "Mole Rat Meat",
-          "Bloodbug Meat",
-          "Squirrel",
-          "Radroach Meat",
-          "Bloatfly Meat",
-          "Mirelurk Meat",
-          "Iguana",
-          "Stingwing",
-          "Glowing Meat",
-          "Rad Rat Meat",
-          "Rad Ant Meat",
-          "Chicken",
-          "Rabbit",
-          "Hermit Crab Meat",
-          "Wolf Meat"
-        ],
-        "qtyByRank": [
-          2,
-          4,
-          6
-        ]
+        "item": "",
+        "isList": false,
+        "qtyByRank": []
+      },
+      "buffs": {
+        "sig1": {
+          "name": "Dark Titan",
+          "spell": "WorldPets_DeathclawBuff_Buff01",
+          "descs": [],
+          "intervalMin": null,
+          "ranks": []
+        },
+        "sig2": {
+          "name": "Fun-Festation",
+          "spell": "WorldPets_DeathclawBuff_Buff02",
+          "descs": [],
+          "trigger": "infestation",
+          "intervalMin": null,
+          "ranks": []
+        }
       },
       "foodTypes": [
         "Meat"
@@ -1477,15 +1679,28 @@
         null,
         null
       ],
-      "activity": "Complete Bounty Hunts with an active Pet Dog",
+      "activity": "Complete Grunt Hunts with an active Pet Dog",
       "treasure": {
-        "item": "Stimpak",
+        "item": "",
         "isList": false,
-        "qtyByRank": [
-          2,
-          4,
-          6
-        ]
+        "qtyByRank": []
+      },
+      "buffs": {
+        "sig1": {
+          "name": "Stimpak Fetcher",
+          "spell": "WorldPets_DogBuff_Buff01",
+          "descs": [],
+          "intervalMin": null,
+          "ranks": []
+        },
+        "sig2": {
+          "name": "Bounty Sniffer",
+          "spell": "WorldPets_DogBuff_Buff02",
+          "descs": [],
+          "trigger": "grunt-hunt",
+          "intervalMin": null,
+          "ranks": []
+        }
       },
       "foodTypes": [
         "Meat",
@@ -2177,8 +2392,8 @@
       "name": "Radhog",
       "diet": "Omnivore",
       "buffSpell": "Radhog Pet",
-      "sig1": "Rad Magnet",
-      "sig2": "Nuke Harvest",
+      "sig1": "Goo-Getter",
+      "sig2": "Rad-Dration",
       "sig1Mag": [
         null,
         null,
@@ -2191,13 +2406,26 @@
       ],
       "activity": "Collect Flux with an active Pet Radhog",
       "treasure": {
-        "item": "RadAway",
+        "item": "",
         "isList": false,
-        "qtyByRank": [
-          2,
-          4,
-          6
-        ]
+        "qtyByRank": []
+      },
+      "buffs": {
+        "sig1": {
+          "name": "Goo-Getter",
+          "spell": "WorldPets_RadhogBuff_Buff01",
+          "descs": [],
+          "intervalMin": null,
+          "ranks": []
+        },
+        "sig2": {
+          "name": "Rad-Dration",
+          "spell": "WorldPets_RadhogBuff_Buff02",
+          "descs": [],
+          "trigger": "nuke-zone",
+          "intervalMin": null,
+          "ranks": []
+        }
       },
       "foodTypes": [
         "Meat",
