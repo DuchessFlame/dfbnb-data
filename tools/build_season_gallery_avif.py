@@ -15,9 +15,10 @@ Output  : <season folder>/AVIF/          (working copy, lives with the source)
           and, with --stage, a mirror into the WP upload staging folder:
           1 site-data/json/uploads/fo76/season_images/season-{N}/AVIF/
 
-Page keys are taken from the ORDER of the source files, with any file whose
-name contains "bonus" treated as B1, B2, ... matching the page keys used in
-season_tickets_s{N}.json.
+Page keys are taken from the page NUMBER in each file name (see page_info), with
+"Bonus"/"Page_B1" files keyed b1, b2, ... matching season_tickets_s{N}.json.
+Ticket-cost charts and ticket checklists become their own entries; duplicate
+shots of one page and unnamed portrait images are skipped with a warning.
 
 A gallery.json manifest is written alongside the images. df-bnb-seasons.js
 reads THAT rather than guessing filenames, so a season whose reward JSON is
@@ -40,10 +41,14 @@ import glob
 import shutil
 
 try:
-    import pillow_avif  # noqa: F401  (registers the AVIF plugin)
-    from PIL import Image
+    from PIL import Image, features
 except ImportError:
     sys.exit("Missing deps. Run: pip install pillow pillow-avif-plugin")
+try:
+    import pillow_avif  # noqa: F401  (registers the AVIF plugin on Pillow < 11.3)
+except ImportError:
+    if not features.check("avif"):
+        sys.exit("No AVIF encoder. Run: pip install pillow-avif-plugin (or Pillow >= 11.3)")
 
 
 def _mount_root():
@@ -74,25 +79,58 @@ def season_folder(n):
     return hits[0]
 
 
+def page_info(path):
+    """(is_bonus, page_number) for a board-page file.
+
+    Only the number that belongs to the page counts. Matching any digit let the
+    "2" in "BP2" and the "21" in "Season_21_Page_3" decide the order, which
+    slotted the "Tickets to reach BP2" charts in as pages 3-6 (S20, S21) and
+    shifted every real page after them.
+
+    Handles: "Page 3", "S22_Page_3", "Page_Bonus_1", "S24_Page_B1", "Bonus Page 2",
+    "pg 3", and names with no "page" at all ("VB_S26_BloodMoon_3_ria85z").
+    """
+    name = os.path.splitext(os.path.basename(path))[0].lower()
+    bonus = "bonus" in name
+    m = re.search(r"(?:page|pg)[\s_-]*(?:bonus[\s_-]*)?(b)?[\s_-]*(\d+)", name)
+    if m:
+        return (bonus or bool(m.group(1)), int(m.group(2)))
+    rest = re.sub(r"season[\s_-]*\d+|s\d+|20\d\d", " ", name)
+    m = re.search(r"\d+", rest)
+    return (bonus, int(m.group(0)) if m else 0)
+
+
 def natural_key(path):
-    """Sort page_2 before page_10, and push bonus pages to the end."""
+    bonus, num = page_info(path)
+    return (1 if bonus else 0, num, len(os.path.basename(path)), os.path.basename(path).lower())
+
+
+# Ticket-cost charts and ticket checklists are not board pages. They get their
+# own gallery entries (colour versions only - black-and-white ones are print copies):
+#   "Tickets to reach BP2 - FOF.png", "Season 21 Minimum Ticket Cost - BP2 NON FOF.jpg"
+#   "Season 24 Ticket Checklist - FOF.jpg"
+TICKET_CHART_RE = re.compile(r"ticket\s*cost|tickets?\s*to\s*reach|\bbp\s*2\b|ticket\s*checklist", re.I)
+
+
+def ticket_chart_name(path, season):
     name = os.path.basename(path).lower()
-    bonus = 1 if "bonus" in name else 0
-    nums = [int(x) for x in re.findall(r"\d+", re.sub(r"s\d+|20\d\d", "", name))]
-    return (bonus, nums or [0], name)
+    if re.search(r"\b(bnw|black\s*n?\s*white|b\s*&\s*w)\b", name):
+        return None
+    kind = "nonfof" if re.search(r"non[\s_-]*fof|non[\s_-]*fallout", name) else "fof"
+    what = "ticket_checklist" if re.search(r"ticket\s*checklist", name) else "bp2_tickets"
+    return "s%d_%s_%s.avif" % (season, what, kind)
 
 
-def page_keys(files):
-    """Assign the season_tickets page keys: 1..N then B1..Bn."""
-    keys, n, b = [], 0, 0
-    for f in files:
-        if "bonus" in os.path.basename(f).lower():
-            b += 1
-            keys.append("b%d" % b)
-        else:
-            n += 1
-            keys.append(str(n))
-    return keys
+def is_portrait(path):
+    """Board pages are landscape screenshots. A portrait image with no chart
+    keyword in its name is something else (a checklist saved from Facebook, a
+    poster) and must not be numbered as a page. Unreadable (cloud-only) files
+    are assumed to be pages so --require-complete can report them."""
+    try:
+        with Image.open(path) as im:
+            return im.height > im.width
+    except OSError:
+        return False
 
 
 def caption_for(name, season):
@@ -106,6 +144,12 @@ def caption_for(name, season):
         if not tail:
             return "Community Calendar"
         return "Community Calendar (%s)" % (tail.upper() if re.fullmatch(r"q\d", tail) else tail)
+    m = re.fullmatch(r"ticket_checklist_(fof|nonfof)", stem)
+    if m:
+        return "Season Ticket Checklist (%sFallout 1st)" % ("Non " if m.group(1) == "nonfof" else "")
+    m = re.fullmatch(r"bp2_tickets_(fof|nonfof)", stem)
+    if m:
+        return "Tickets to Reach Bonus Page 2 (%sFallout 1st)" % ("Non " if m.group(1) == "nonfof" else "")
     m = re.fullmatch(r"page_b(\d+)", stem)
     if m:
         return "Bonus Page %s" % m.group(1)
@@ -157,13 +201,38 @@ def main():
 
     # 2. board / ticket-price pages
     tp = os.path.join(folder, "Season %d - Ticket Prices" % n)
-    pages = sorted((p for p in glob.glob(os.path.join(tp, "*"))
-                    if p.lower().endswith(IMG_EXT)), key=natural_key)
+    all_imgs = [p for p in glob.glob(os.path.join(tp, "*")) if p.lower().endswith(IMG_EXT)]
+    charts = sorted(p for p in all_imgs if TICKET_CHART_RE.search(os.path.basename(p)))
+    others = [p for p in all_imgs if p not in charts]
+    odd = [p for p in others if is_portrait(p)]
+    for p in odd:
+        print("  SKIPPED %s - portrait image, not a board page. If it is a ticket chart,"
+              " rename it to include 'Ticket Cost' or 'Ticket Checklist' plus 'FOF' or"
+              " 'Non FOF'." % os.path.basename(p))
+    pages, claimed = [], {}
+    for p in sorted((p for p in others if p not in odd), key=natural_key):
+        key = page_info(p)
+        if key in claimed:
+            # Two files for one page (an alternate shot like "Page_7_DoctorsAidBox",
+            # or a social graphic like "graphic rewards pg 1"). natural_key puts the
+            # shortest name first, so the plain page file wins.
+            print("  SKIPPED %s - duplicate of %s"
+                  % (os.path.basename(p), os.path.basename(claimed[key])))
+            continue
+        claimed[key] = p
+        pages.append(p)
     if len(pages) == 1:
         jobs.append((pages[0], "s%d_board.avif" % n))
     else:
-        for src, key in zip(pages, page_keys(pages)):
-            jobs.append((src, "s%d_page_%s.avif" % (n, key)))
+        for src in pages:
+            bonus, num = page_info(src)
+            jobs.append((src, "s%d_page_%s%d.avif" % (n, "b" if bonus else "", num)))
+    seen = set()
+    for src in charts:
+        name = ticket_chart_name(src, n)
+        if name and name not in seen:
+            seen.add(name)
+            jobs.append((src, name))
 
     if not jobs:
         sys.exit("Nothing to convert for Season %d" % n)
