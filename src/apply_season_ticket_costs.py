@@ -287,11 +287,19 @@ def main() -> None:
     print(f"{TAG} Backup written: {bak.name}")
 
     with REWARDS_TSV.open("w", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=COLUMNS, delimiter="\t",
+        # Keep every column the file already has. COLUMNS predates `rank`
+        # (S1-S15 board positions) and `origPage` / `origPageRank` (the S16-S23
+        # original runs); writing COLUMNS alone would silently delete all three.
+        fields = list(COLUMNS)
+        for r in merged:
+            for k in r:
+                if k and k not in fields:
+                    fields.append(k)
+        w = csv.DictWriter(f, fieldnames=fields, delimiter="\t",
                            lineterminator="\n", extrasaction="ignore")
         w.writeheader()
         for r in merged:
-            w.writerow({c: r.get(c, "") for c in COLUMNS})
+            w.writerow({c: r.get(c, "") for c in fields})
 
     print(f"{TAG} Written: {REWARDS_TSV.name} ({len(merged)} rows)")
     print(f"{TAG} Done. Now run: python src/build_season_rewards.py")

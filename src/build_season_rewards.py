@@ -169,6 +169,23 @@ def build_item(row: dict) -> dict:
     if rank:
         item["rank"] = safe_int(rank)
 
+    # origPage / origPageRank - the ORIGINAL run of a paged legacy season
+    # (S16-S23), written by apply_season_pages.py. `page` in the TSV is kept
+    # for the re-run's pages; the renderer puts origPage rows inside the
+    # Original Run expand and page rows in the Page 1-9 stack above it.
+    #
+    # `page` is back-filled from origPage in the JSON (only when the TSV row
+    # has no re-run page of its own) so the Season Ticket Calculator, which
+    # groups and prices by `page`, keeps working on these seasons unchanged.
+    orig_page = (row.get("origPage") or "").strip().upper()
+    if orig_page:
+        item["origPage"] = orig_page
+        orig_rank = (row.get("origPageRank") or "").strip()
+        if orig_rank:
+            item["origPageRank"] = safe_int(orig_rank)
+        if not item["page"]:
+            item["page"] = orig_page
+
     # isFirst: only include if True (matches original hand-built convention)
     if to_bool(row.get("isFirst", "")):
         item["isFirst"] = True
@@ -302,7 +319,31 @@ def build_season_json(season_num: int, items: list[dict], meta: dict) -> dict:
     # numbers on S1-S8 were invented by the datamined backfill, which bucketed
     # rewards by category, so "Page 1" of Season 1 was nothing but player icons.
     ranked = [it for it in output["items"] if "rank" in it]
-    output["layout"] = "rank" if ranked else "pages"
+    orig = [it for it in output["items"] if "origPage" in it]
+    output["layout"] = "rank" if ranked else ("legacyPages" if orig else "pages")
+
+    # legacyPages - a paged season (S16-S23) that has become a legacy season.
+    # The original run's pages sit inside one Original Run expand, each with
+    # the S.C.O.R.E. rank that unlocked it; the Page 1-9 stack above it is
+    # kept for the re-run. Same contract as "rank" for anything unplaced.
+    if orig:
+        pages: dict[str, dict] = {}
+        for it in orig:
+            pk = it["origPage"]
+            ent = pages.setdefault(pk, {"page": pk, "count": 0})
+            ent["count"] += 1
+            if "origPageRank" in it and "unlockRank" not in ent:
+                ent["unlockRank"] = it["origPageRank"]
+        def _pk(k: str) -> tuple[int, int]:
+            return (1, int(k[1:])) if k.startswith("B") else (0, int(k))
+        output["originalPages"] = [pages[k] for k in sorted(pages, key=_pk)]
+        unplaced = 0
+        for it in output["items"]:
+            if "origPage" in it or it.get("addedInRerun") or it.get("page"):
+                continue
+            it["unplaced"] = True
+            unplaced += 1
+        output["unplacedCount"] = unplaced
     if ranked:
         output["maxRank"] = max(it["rank"] for it in ranked)
 
