@@ -7,7 +7,7 @@ Reads the master season_rewards.tsv and fallout76_seasons.tsv, then outputs:
   - dist/calculators/all_seasons.json            (full season index)
 
 STATUS: active
-INPUT:  tsv/season_rewards.tsv, tsv/fallout76_seasons.tsv
+INPUT:  tsv/season_rewards.tsv, tsv/fallout76_seasons.tsv, tsv/season_page_ranks.tsv (optional)
 OUTPUT: dist/calculators/season_tickets_s*.json, dist/calculators/all_seasons.json
 USAGE:  python src/build_season_rewards.py
 """
@@ -30,6 +30,9 @@ DIST_DIR = REPO_ROOT / "dist" / "calculators"
 
 REWARDS_TSV = TSV_DIR / "season_rewards.tsv"
 SEASONS_TSV = TSV_DIR / "fallout76_seasons.tsv"
+# Unlock rank of each page on a MODERN paged season (S24 on). Legacy paged
+# seasons carry theirs per row in origPageRank instead. Optional file.
+PAGE_RANKS_TSV = TSV_DIR / "season_page_ranks.tsv"
 
 TAG = "[build_season_rewards]"
 
@@ -255,6 +258,21 @@ def load_season_metadata(path: Path) -> dict:
     return meta
 
 
+def load_page_ranks(path: Path) -> dict[int, dict[str, int]]:
+    """season_page_ranks.tsv -> {season: {page: unlockRank}}. Missing file = {}."""
+    if not path.exists():
+        return {}
+    out: dict[int, dict[str, int]] = {}
+    for row in read_tsv(path):
+        sn = safe_int(row.get("seasonNumber", ""), -1)
+        pk = (row.get("page") or "").strip().upper()
+        rank = (row.get("unlockRank") or "").strip()
+        if sn < 1 or not pk or not rank:
+            continue
+        out.setdefault(sn, {})[pk] = safe_int(rank)
+    return out
+
+
 # ---------------------------------------------------------------------------
 # Build per-season JSON
 # ---------------------------------------------------------------------------
@@ -321,6 +339,17 @@ def build_season_json(season_num: int, items: list[dict], meta: dict) -> dict:
     ranked = [it for it in output["items"] if "rank" in it]
     orig = [it for it in output["items"] if "origPage" in it]
     output["layout"] = "rank" if ranked else ("legacyPages" if orig else "pages")
+
+    # pages - the modern scoreboard's page list with the rank that unlocks each
+    # page, from season_page_ranks.tsv. df-bnb-seasons.js puts "Unlocks at
+    # Rank N" on the page headers from it, the same note originalPages drives
+    # on a legacy season. Only written when the season has been researched.
+    page_ranks = sm.get("pageRanks") or {}
+    if output["layout"] == "pages" and page_ranks:
+        def _prk(k: str) -> tuple[int, int]:
+            return (1, int(k[1:])) if k.startswith("B") else (0, int(k))
+        output["pages"] = [{"page": k, "unlockRank": page_ranks[k]}
+                           for k in sorted(page_ranks, key=_prk)]
 
     # legacyPages - a paged season (S16-S23) that has become a legacy season.
     # The original run's pages sit inside one Original Run expand, each with
@@ -485,6 +514,8 @@ def main() -> None:
     print(f"{TAG} Loaded {len(rewards)} reward rows from {REWARDS_TSV.name}")
 
     meta = load_season_metadata(SEASONS_TSV)
+    for sn, ranks in load_page_ranks(PAGE_RANKS_TSV).items():
+        meta.setdefault(sn, {})["pageRanks"] = ranks
     print(f"{TAG} Loaded metadata for {len(meta)} seasons from {SEASONS_TSV.name}")
 
     # --- Cross-reference reappearances (no-op until data available) ---

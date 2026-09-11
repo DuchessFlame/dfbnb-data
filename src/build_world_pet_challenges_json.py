@@ -102,6 +102,45 @@ KYWD = read_tsv(newest("KYWD_Export_*.tsv"))
 ENTM = read_tsv(newest("ENTM_Export_*.tsv"))
 MISC = read_tsv(newest("MISC_Export_*.tsv"))
 
+# ---------------------------------------------------------------------------
+# Current reward amounts — GMRW (reward record) -> NAM8 caps GLOB.
+# The CHAL MNAM "Reward Display" text is authored separately and went stale in
+# the Sept 2026 PTS (MNAM still says "Caps (10)" / "Caps (100)" while the GLOBs
+# the GMRW actually pays out were raised to 50 / 300). The GMRW + GLOB pair is
+# what the game awards, so it wins over MNAM when present.
+# ---------------------------------------------------------------------------
+def _read_filtered(path, keep):
+    if not path or not os.path.exists(path):
+        return []
+    with open(path, encoding="utf-8", errors="replace") as f:
+        return [r for r in csv.DictReader(f, delimiter="\t") if keep(r)]
+
+GMRW = _read_filtered(newest("GMRW_Export_*.tsv"),
+                      lambda r: "WorldPets_ChallengeReward" in (r.get("EDID") or ""))
+GLOB_WP = _read_filtered(newest("GLOB_Export_*.tsv"),
+                         lambda r: "WorldPets" in (r.get("EDID") or ""))
+glob_val_by_fid = {}
+for r in GLOB_WP:
+    try:
+        glob_val_by_fid[(r.get("FormID") or "").upper()] = float(r.get("FLTV") or "")
+    except ValueError:
+        pass
+
+def _fmt_amount(v):
+    return f"{int(v):,}" if float(v).is_integer() else f"{v:g}"
+
+gmrw_reward_by_chal = {}          # CHAL FormID -> "300 Caps"
+for g in GMRW:
+    caps_ref = (g.get("NAM8_CapsGlobal") or "").split(":")[0].upper()
+    cur = g.get("QRCO_CurrencyObject") or ""
+    if not caps_ref or caps_ref not in glob_val_by_fid:
+        continue
+    unit = "Caps" if ("Caps" in cur or not cur) else cur.split(":")[1] if ":" in cur else cur
+    label = f"{_fmt_amount(glob_val_by_fid[caps_ref])} {unit}"
+    for k, v in g.items():
+        if k and k.startswith("Ref") and v and v.endswith(":CHAL"):
+            gmrw_reward_by_chal[v.split(":")[0].upper()] = label
+
 kywd_by_fid = {pick(r, "FormID").upper(): r for r in KYWD if pick(r, "FormID")}
 cndf_by_fid = {pick(r, "FormID").upper(): r for r in CNDF if pick(r, "FormID")}
 entm_by_fid = {pick(r, "FormID"): r for r in ENTM if pick(r, "FormID")}
@@ -218,24 +257,24 @@ def extract_conditions(row):
 # Editorial overlay
 # ---------------------------------------------------------------------------
 OVERLAY = {
-    "AnyPet_ActivatePet01":   ("Activate a World Pet from your Pip-Boy. Only one pet can be active at a time.", "10 Caps"),
-    "AnyPet_GivePetCommand01":("Issue a command to your active pet.", "10 Caps"),
-    "AnyPet_HealPet01":       ("Heal your active pet when it takes damage.", ""),
-    "AnyPet_HealPet02":       ("Heal your active pet when it takes damage.", ""),
-    "AnyPet_HealPet03":       ("Heal your active pet when it takes damage.", ""),
-    "AnyPet_PetKill01":       ("Kill hostiles while your World Pet is active and out with you.", ""),
-    "AnyPet_PetKill02":       ("Kill hostiles while your World Pet is active and out with you.", ""),
-    "AnyPet_PetKill03":       ("Kill hostiles while your World Pet is active and out with you.", ""),
-    "Cat_CatchFish01":        ("Catch fish while a Pet Cat is your active World Pet.", "100 Caps"),
+    "AnyPet_ActivatePet01":   ("Activate a World Pet from your Pip-Boy. Only one pet can be active at a time.", "50 Caps"),
+    "AnyPet_GivePetCommand01":("Issue a command to your active pet from the Pet Command Wheel (Follow, Stay, Attack or Protect).", "50 Caps"),
+    "AnyPet_HealPet01":       ("Heal your active pet with a Stimpak when it is hurt or wounded.", ""),
+    "AnyPet_HealPet02":       ("Heal your active pet with a Stimpak when it is hurt or wounded.", ""),
+    "AnyPet_HealPet03":       ("Heal your active pet with a Stimpak when it is hurt or wounded.", ""),
+    "AnyPet_PetKill01":       ("Have your active World Pet land the killing blow on hostiles.", ""),
+    "AnyPet_PetKill02":       ("Have your active World Pet land the killing blow on hostiles.", ""),
+    "AnyPet_PetKill03":       ("Have your active World Pet land the killing blow on hostiles.", ""),
+    "Cat_CatchFish01":        ("Catch fish while a Pet Cat is your active World Pet.", "300 Caps"),
     "Cat_CatchFish02":        ("Catch fish while a Pet Cat is your active World Pet.", ""),
     "Cat_CatchFish03":        ("Catch fish while a Pet Cat is your active World Pet.", ""),
-    "Dog_BountyHunt01":       ("Complete Bounty Hunts while a Pet Dog is active.", "100 Caps"),
-    "Dog_BountyHunt02":       ("Complete Bounty Hunts while a Pet Dog is active.", ""),
-    "Dog_BountyHunt03":       ("Complete Bounty Hunts while a Pet Dog is active.", ""),
-    "Radhog_CollectFlux01":   ("Collect Flux while a Pet Radhog is active.", "100 Caps"),
+    "Dog_BountyHunt01":       ("Complete Grunt Hunts or Head Hunts while a Pet Dog is active.", "300 Caps"),
+    "Dog_BountyHunt02":       ("Complete Grunt Hunts or Head Hunts while a Pet Dog is active.", ""),
+    "Dog_BountyHunt03":       ("Complete Grunt Hunts or Head Hunts while a Pet Dog is active.", ""),
+    "Radhog_CollectFlux01":   ("Collect Flux while a Pet Radhog is active.", "300 Caps"),
     "Radhog_CollectFlux02":   ("Collect Flux while a Pet Radhog is active.", ""),
     "Radhog_CollectFlux03":   ("Collect Flux while a Pet Radhog is active.", ""),
-    "Deathclaw_InfestationKills01": ("Kill Infestation enemies while a Pet Deathclaw is active.", "100 Caps"),
+    "Deathclaw_InfestationKills01": ("Kill Infestation enemies while a Pet Deathclaw is active.", "300 Caps"),
     "Deathclaw_InfestationKills02": ("Kill Infestation enemies while a Pet Deathclaw is active.", ""),
     "Deathclaw_InfestationKills03": ("Kill Infestation enemies while a Pet Deathclaw is active.", ""),
 }
@@ -294,6 +333,10 @@ for r in wp_rows:
     mnam = pick(r, "MNAM")
     if mnam and re.search(r"[A-Za-z0-9]", mnam):
         reward = mnam
+    # The GMRW actually paid out wins over MNAM (see gmrw_reward_by_chal).
+    paid = gmrw_reward_by_chal.get(pick(r, "FormID").upper())
+    if paid:
+        reward = paid
     required = pick(r, "TNAM")
     item = {
         "form_id":   pick(r, "FormID"),
