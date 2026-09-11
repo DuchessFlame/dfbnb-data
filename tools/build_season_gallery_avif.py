@@ -109,6 +109,22 @@ def natural_key(path):
 # own gallery entries (colour versions only - black-and-white ones are print copies):
 #   "Tickets to reach BP2 - FOF.png", "Season 21 Minimum Ticket Cost - BP2 NON FOF.jpg"
 #   "Season 24 Ticket Checklist - FOF.jpg"
+HERO_RE = re.compile(r"key[\s_-]*hero|key[\s_-]*art", re.I)
+
+
+def hero_files(folder):
+    """F76_S20_Key_HERO_2_logo.webp -> ('cover', path); others -> keyart.
+    The cover (logo version preferred) sits above the scoreboard header and is
+    NOT in gallery.json; the plain key art is the first gallery image."""
+    heroes = sorted(p for p in glob.glob(os.path.join(folder, "*"))
+                    if p.lower().endswith(IMG_EXT) and HERO_RE.search(os.path.basename(p)))
+    if not heroes:
+        return None, []
+    logo = [p for p in heroes if "logo" in os.path.basename(p).lower()]
+    cover = logo[0] if logo else heroes[0]
+    return cover, [p for p in heroes if p != cover]
+
+
 TICKET_CHART_RE = re.compile(r"ticket\s*cost|tickets?\s*to\s*reach|\bbp\s*2\b|ticket\s*checklist", re.I)
 
 
@@ -139,6 +155,8 @@ def caption_for(name, season):
     stem = re.sub(r"^s%d_" % season, "", os.path.splitext(name)[0])
     if stem == "board":
         return "Scoreboard"
+    if stem.startswith("keyart"):
+        return "Key Art"
     if stem.startswith("calendar"):
         tail = stem[len("calendar"):].lstrip("_")
         if not tail:
@@ -190,6 +208,12 @@ def main():
     print("Season %d: %s" % (n, os.path.basename(folder)))
 
     jobs = []
+
+    # 0. key art: the logo version becomes the page cover (s{N}_cover.avif,
+    # not in the manifest); any other hero shot is the first gallery image.
+    cover, keyart = hero_files(folder)
+    for i, k in enumerate(keyart):
+        jobs.append((k, "s%d_keyart%s.avif" % (n, "" if i == 0 else "_%d" % (i + 1))))
 
     # 1. community calendar (there may be more than one, e.g. (Q1)/(Q2))
     cals = sorted(g for g in glob.glob(os.path.join(folder, "Community Calender*"))
@@ -295,6 +319,16 @@ def main():
         print("    If these are OneDrive cloud-only files, right-click the")
         print("    .Season Images folder -> 'Always keep on this device', wait")
         print("    for the sync to finish, then re-run this command.")
+
+    if cover:
+        try:
+            size, bi, bo = convert(cover, os.path.join(out, "s%d_cover.avif" % n),
+                                   a.max_width, a.quality)
+            print("  %-22s %5dx%-5d %7.2f MB -> %6.2f MB   (%s)  [page cover]"
+                  % ("s%d_cover.avif" % n, size[0], size[1], bi / 1e6, bo / 1e6,
+                     os.path.basename(cover)))
+        except OSError as e:
+            skipped.append((os.path.basename(cover), e))
 
     if not manifest:
         sys.exit("  Nothing converted for Season %d - manifest not written." % n)
