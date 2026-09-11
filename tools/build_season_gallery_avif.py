@@ -112,17 +112,34 @@ def natural_key(path):
 HERO_RE = re.compile(r"key[\s_-]*hero|key[\s_-]*art", re.I)
 
 
-def hero_files(folder):
-    """F76_S20_Key_HERO_2_logo.webp -> ('cover', path); others -> keyart.
-    The cover (logo version preferred) sits above the scoreboard header and is
-    NOT in gallery.json; the plain key art is the first gallery image."""
+def hero_files(folder, season):
+    """Pick the season's key art out of the season folder.
+
+    Preference order for the COVER (s{N}_cover.avif, the banner above the
+    scoreboard header, not a gallery entry):
+      1. a file with "logo" in its name (S20's F76_S20_Key_HERO_2_logo.webp)
+      2. the plain hero over a numbered alternate (F76_S13_Key_HERO.png beats
+         F76_S13_Key_HERO_2_OnceInABlueMoon.png)
+    Files naming another season are ignored - the Season 7 folder holds
+    F76_S6_Key_HERO.png, which was picking itself as Season 7's cover.
+    Every remaining hero becomes s{N}_keyart.avif, a gallery entry.
+    """
     heroes = sorted(p for p in glob.glob(os.path.join(folder, "*"))
                     if p.lower().endswith(IMG_EXT) and HERO_RE.search(os.path.basename(p)))
+    own = [p for p in heroes
+           if re.search(r"(?<![0-9])s0*%d(?![0-9])" % season, os.path.basename(p), re.I)]
+    if own:
+        heroes = own
     if not heroes:
         return None, []
-    logo = [p for p in heroes if "logo" in os.path.basename(p).lower()]
-    cover = logo[0] if logo else heroes[0]
-    return cover, [p for p in heroes if p != cover]
+
+    def rank(path):
+        base = os.path.basename(path).lower()
+        return (0 if "logo" in base else 1,
+                1 if re.search(r"hero[_\s-]*\d", base) else 0,
+                base)
+    heroes.sort(key=rank)
+    return heroes[0], heroes[1:]
 
 
 TICKET_CHART_RE = re.compile(r"ticket\s*cost|tickets?\s*to\s*reach|\bbp\s*2\b|ticket\s*checklist", re.I)
@@ -195,6 +212,11 @@ def main():
     ap.add_argument("--quality", type=int, default=68)
     ap.add_argument("--stage", action="store_true",
                     help="also copy into the WP upload staging folder")
+    ap.add_argument("--ticket-charts", action="store_true",
+                    help="also put the Minimum Ticket Cost / Season Ticket "
+                         "Checklist charts in the gallery. Off by default - "
+                         "they are their own thing on the site, not board pages, "
+                         "and Duchess does not want them in the scoreboard strip.")
     ap.add_argument("--require-complete", action="store_true",
                     help="build ONLY if every source file is readable; a season "
                          "with any cloud-only placeholder is left untouched "
@@ -211,7 +233,7 @@ def main():
 
     # 0. key art: the logo version becomes the page cover (s{N}_cover.avif,
     # not in the manifest); any other hero shot is the first gallery image.
-    cover, keyart = hero_files(folder)
+    cover, keyart = hero_files(folder, n)
     for i, k in enumerate(keyart):
         jobs.append((k, "s%d_keyart%s.avif" % (n, "" if i == 0 else "_%d" % (i + 1))))
 
@@ -251,12 +273,20 @@ def main():
         for src in pages:
             bonus, num = page_info(src)
             jobs.append((src, "s%d_page_%s%d.avif" % (n, "b" if bonus else "", num)))
-    seen = set()
-    for src in charts:
-        name = ticket_chart_name(src, n)
-        if name and name not in seen:
-            seen.add(name)
-            jobs.append((src, name))
+    # Ticket charts (Minimum Ticket Cost to reach BP2, Season Ticket Checklist)
+    # are NOT board pages and are not wanted in the gallery strip; they only
+    # ever landed there because the old sort could not tell them apart. Opt in
+    # with --ticket-charts if a season ever needs them.
+    if a.ticket_charts:
+        seen = set()
+        for src in charts:
+            name = ticket_chart_name(src, n)
+            if name and name not in seen:
+                seen.add(name)
+                jobs.append((src, name))
+    elif charts:
+        print("  %d ticket chart(s) skipped (pass --ticket-charts to include them)"
+              % len(charts))
 
     if not jobs:
         sys.exit("Nothing to convert for Season %d" % n)
