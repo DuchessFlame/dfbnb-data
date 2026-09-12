@@ -78,7 +78,7 @@ LIVE_TSV_DIR = os.path.join(SCRIPT_DIR, "..", "tsv")
 DIST_DIR = os.path.join(SCRIPT_DIR, "..", "dist", "pts" if PTS else "")
 DIST_FILE = os.path.join(DIST_DIR, "player_icons.json")
 
-IMAGE_BASE = ("https://www.buffsnbrew.com/wp-content/uploads/"
+IMAGE_BASE = ("/wp-content/uploads/"
               "guide-images/atom-shop/player-icons/")
 
 TAG = "[player-icons]"

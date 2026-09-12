@@ -161,7 +161,7 @@ except Exception:                                             # pragma: no cover
 # Page definitions
 # ---------------------------------------------------------------------------
 
-IMAGE_BASE = "https://www.buffsnbrew.com/wp-content/uploads/guide-images/buffs/"
+IMAGE_BASE = "/wp-content/uploads/guide-images/buffs/"
 
 # Location guides to cross-link from How to Obtain. Filled in from the spawn
 # manifests at build time where one exists; these are the fallbacks.

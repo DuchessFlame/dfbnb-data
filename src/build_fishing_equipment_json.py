@@ -25,8 +25,8 @@ LIVE_TSV_DIR = os.path.join(SCRIPT_DIR, "..", "tsv")
 DIST_DIR = os.path.join(SCRIPT_DIR, "..", "dist", "pts" if PTS else "")
 DIST_FILE = os.path.join(DIST_DIR, "fishing_equipment.json")
 
-IMAGE_BASE_ROD_SKIN = "https://www.buffsnbrew.com/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/"
-IMAGE_BASE_BOBBER   = "https://www.buffsnbrew.com/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/"
+IMAGE_BASE_ROD_SKIN = "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/"
+IMAGE_BASE_BOBBER   = "/wp-content/uploads/guide-images/fishing/rods-bobbers-float-skins/"
 
 # -----------------------------------------------------------------------
 # First-seen persistence — tracks when each FormID was first observed by

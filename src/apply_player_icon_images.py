@@ -57,14 +57,22 @@ REPO = os.path.join(SCRIPT_DIR, "..")
 REWARDS_TSV = os.path.join(REPO, "tsv", "season_rewards.tsv")
 ICONS_JSON = os.path.join(REPO, "dist", "player_icons.json")
 
-SITE_ROOT = "https://www.buffsnbrew.com"
+SITE_ROOTS = (
+    "https://www.theduchessflame.com",
+    "https://theduchessflame.com",
+    "https://www.buffsnbrew.com",
+    "https://buffsnbrew.com",
+)
 TAG = "[player-icon-images]"
 DRY = "--dry-run" in sys.argv
 
 
 def site_relative(url: str) -> str:
-    """season_rewards.tsv stores site-relative URLs; player_icons.json absolute."""
-    return url[len(SITE_ROOT):] if url.startswith(SITE_ROOT) else url
+    """season_rewards.tsv stores site-relative URLs; strip any known host prefix."""
+    for root in SITE_ROOTS:
+        if url.startswith(root):
+            return url[len(root):]
+    return url
 
 
 def load_cut_icon_images() -> dict:

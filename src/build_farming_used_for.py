@@ -507,7 +507,7 @@ def build_recipes(item_name: str, recipe_guide: Dict[str, Any],
 # The lookup is built from tsv/guide_index.tsv (item-hub rows), so a new guide
 # page is linkable the moment it exists — no hardcoded URLs.
 _GUIDE_URL_CACHE: Optional[Dict[str, str]] = None
-SITE_BASE = "https://www.buffsnbrew.com"
+SITE_BASE = ""   # site-relative: URLs resolve against whatever host serves the page
 
 # Recipe ingredient names that differ from the guide page's display name.
 _ING_ALIASES = {

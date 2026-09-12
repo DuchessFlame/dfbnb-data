@@ -79,19 +79,19 @@ GROUP_ORDER = [GROUP_TREASURE, GROUP_TEAMMATE, GROUP_LUCKY, GROUP_PHANTOM]
 
 GROUP_LINKS = {
     GROUP_TREASURE: {
-        "href": "https://www.buffsnbrew.com/df/treasure-maps/rewards/",
+        "href": "/df/treasure-maps/rewards/",
         "label": "Treasure map rewards",
     },
     GROUP_TEAMMATE: {
-        "href": "https://www.buffsnbrew.com/df/treasure-maps/rewards/",
+        "href": "/df/treasure-maps/rewards/",
         "label": "Treasure map rewards",
     },
     GROUP_LUCKY: {
-        "href": "https://www.buffsnbrew.com/df/treasure-maps/lucky-strike/rewards/",
+        "href": "/df/treasure-maps/lucky-strike/rewards/",
         "label": "Lucky Strike rewards",
     },
     GROUP_PHANTOM: {
-        "href": "https://www.buffsnbrew.com/df/treasure-maps/pint-sized-phantoms/rewards/",
+        "href": "/df/treasure-maps/pint-sized-phantoms/rewards/",
         "label": "Pint-Sized Phantoms rewards",
     },
 }

@@ -645,7 +645,7 @@ _EXCLUDE_EDIDS = {
     "questreward_lls_allregions_grabbag",
 }
 
-IMAGE_BASE = "https://www.buffsnbrew.com/wp-content/uploads/guide-images/seasonal-events/"
+IMAGE_BASE = "/wp-content/uploads/guide-images/seasonal-events/"
 
 # ---------------------------------------------------------------------------
 # Per-event image manifests
