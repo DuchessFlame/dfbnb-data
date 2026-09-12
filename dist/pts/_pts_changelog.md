@@ -204,28 +204,31 @@ _Couldn't key this file to records; contents differ._
 ## `activities/by_page/uranium-fever-all-rewards.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `allies.json`  ·  +2 / -0 / ~15
+## `allies.json`  ·  +2 / -0 / ~18
 
 **Added (2)**
 -   ``
 - COMP_Furniture_CampObject_Cambot_Console  `COMP_Furniture_CampObject_Cambot_Console`
 
-**Changed (15)**
-- ATX_CAMP_Astronomer_KatherineFurniture_CampObject  `ATX_CAMP_Astronomer_KatherineFurniture_CampObject` — fields: imageUrl
-- ATX_COMP_Ghoul_XerxoFurniture_CampObject  `ATX_COMP_Ghoul_XerxoFurniture_CampObject` — fields: imageUrl
-- ATX_Furniture_LiteAllyTheInitiate_Lawson  `ATX_Furniture_LiteAllyTheInitiate_Lawson` — fields: inventory
-- BS01_COMP_Cooking_YasminFurniture_CampObject  `BS01_COMP_Cooking_YasminFurniture_CampObject` — fields: imageUrl
-- BS01_COMP_Medic_Furniture_CampObject  `BS01_COMP_Medic_Furniture_CampObject` — fields: imageUrl
-- COMP_Furniture_CampObject_Dottie_Boxes  `COMP_Furniture_CampObject_Dottie_Boxes` — fields: imageUrl
-- COMP_Furniture_CampObject_RaiderPunk_ChairWithRadio  `COMP_Furniture_CampObject_RaiderPunk_ChairWithRadio` — fields: buffsAndEffects
-- COMP_Furniture_CampObject_Scavenger  `COMP_Furniture_CampObject_Scavenger` — fields: buffsAndEffects
-- COMP_Furniture_CampObject_Wanderer_Guitar  `COMP_Furniture_CampObject_Wanderer_Guitar` — fields: buffsAndEffects
-- SCORE_S11_CAMP_LeoPetrov_Nukaagent_FURN  `SCORE_S11_CAMP_LeoPetrov_Nukaagent_FURN` — fields: imageUrl
-- SCORE_S12_CAMP_Scarberry_Shrine_FURN  `SCORE_S12_CAMP_Scarberry_Shrine_FURN` — fields: imageUrl
-- SCORE_S13_CAMP_JoeyBello_Stage_FURN  `SCORE_S13_CAMP_JoeyBello_Stage_FURN` — fields: imageUrl
-- SCORE_S14_CAMP_GrandmaJunko_Chair_FURN  `SCORE_S14_CAMP_GrandmaJunko_Chair_FURN` — fields: imageUrl
-- SCORE_S16_CAMP_Adelaide_Table_FURN  `SCORE_S16_CAMP_Adelaide_Table_FURN` — fields: imageUrl
-- SCORE_S5_COMP_SuperMutant_Furniture_CampObject  `SCORE_S5_COMP_SuperMutant_Furniture_CampObject` — fields: imageUrl
+**Changed (18)**
+- ATX_CAMP_Astronomer_KatherineFurniture_CampObject  `ATX_CAMP_Astronomer_KatherineFurniture_CampObject` — fields: dialog, imageUrl
+- ATX_COMP_Furniture_Weapons_Mechanic_Sam  `ATX_COMP_Furniture_Weapons_Mechanic_Sam` — fields: dialog
+- ATX_COMP_Ghoul_XerxoFurniture_CampObject  `ATX_COMP_Ghoul_XerxoFurniture_CampObject` — fields: dialog, imageUrl
+- ATX_Furniture_LiteAllyTheInitiate_Lawson  `ATX_Furniture_LiteAllyTheInitiate_Lawson` — fields: dialog, inventory
+- BS01_COMP_Cooking_YasminFurniture_CampObject  `BS01_COMP_Cooking_YasminFurniture_CampObject` — fields: dialog, imageUrl
+- BS01_COMP_Medic_Furniture_CampObject  `BS01_COMP_Medic_Furniture_CampObject` — fields: dialog, imageUrl
+- COMP_Furniture_CampObject_Astronaut_Console  `COMP_Furniture_CampObject_Astronaut_Console` — fields: dialog
+- COMP_Furniture_CampObject_Beckett_Bar  `COMP_Furniture_CampObject_Beckett_Bar` — fields: dialog
+- COMP_Furniture_CampObject_Dottie_Boxes  `COMP_Furniture_CampObject_Dottie_Boxes` — fields: dialog, imageUrl
+- COMP_Furniture_CampObject_RaiderPunk_ChairWithRadio  `COMP_Furniture_CampObject_RaiderPunk_ChairWithRadio` — fields: buffsAndEffects, dialog
+- COMP_Furniture_CampObject_Scavenger  `COMP_Furniture_CampObject_Scavenger` — fields: buffsAndEffects, dialog
+- COMP_Furniture_CampObject_Wanderer_Guitar  `COMP_Furniture_CampObject_Wanderer_Guitar` — fields: buffsAndEffects, dialog
+- SCORE_S11_CAMP_LeoPetrov_Nukaagent_FURN  `SCORE_S11_CAMP_LeoPetrov_Nukaagent_FURN` — fields: dialog, imageUrl
+- SCORE_S12_CAMP_Scarberry_Shrine_FURN  `SCORE_S12_CAMP_Scarberry_Shrine_FURN` — fields: dialog, imageUrl
+- SCORE_S13_CAMP_JoeyBello_Stage_FURN  `SCORE_S13_CAMP_JoeyBello_Stage_FURN` — fields: dialog, imageUrl
+- SCORE_S14_CAMP_GrandmaJunko_Chair_FURN  `SCORE_S14_CAMP_GrandmaJunko_Chair_FURN` — fields: dialog, imageUrl
+- SCORE_S16_CAMP_Adelaide_Table_FURN  `SCORE_S16_CAMP_Adelaide_Table_FURN` — fields: dialog, imageUrl
+- SCORE_S5_COMP_SuperMutant_Furniture_CampObject  `SCORE_S5_COMP_SuperMutant_Furniture_CampObject` — fields: dialog, imageUrl
 
 ## `atom_shop.json`  ·  +0 / -0 / ~1
 
@@ -1168,6 +1171,9 @@ _Couldn't key this file to records; contents differ._
 ## `farming_spawns/chems-psychobuff_spawns.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
+## `farming_spawns/chems-psychotats_spawns.json`  ·  changed (structural)
+_Couldn't key this file to records; contents differ._
+
 ## `farming_spawns/chems-rad-x-diluted_spawns.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
@@ -1244,9 +1250,6 @@ _Couldn't key this file to records; contents differ._
 _Couldn't key this file to records; contents differ._
 
 ## `farming_spawns/royal-jelly_spawns.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `farming_spawns/salt-pepper-spices-sugar_spawns.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
 ## `farming_spawns/sugar-bombs_spawns.json`  ·  changed (structural)
