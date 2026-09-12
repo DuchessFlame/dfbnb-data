@@ -679,6 +679,61 @@ jobs:
             ${LVLI:+--lvli-entries "$LVLI"} \
             --outdir dist
 
+      # --- STAMPS ---
+      # BOOK_TSV is already set by the "Pick BOOK TSV (Allies/Pets/Weather)" step
+      # above. build_stamps_json.py walks the stamp vendor's leveled list rather
+      # than scanning BOOK EDIDs, so the LVLI entries export is required, not
+      # optional — several *_StampVendor plans have since moved to a gold vendor
+      # and only the list says who actually stocks what. ALCH covers the
+      # non-plan stock (the Mystery Bobblehead Box).
+      - name: Build Stamps JSON
+        shell: bash
+        run: |
+          newest() {
+            ls -1 $1 2>/dev/null | grep -iv "${2:-__no_such_exclude__}" | awk -F'[_./]' '
+            BEGIN {
+              m["jan"]=1;m["january"]=1;m["feb"]=2;m["february"]=2;
+              m["mar"]=3;m["march"]=3;m["apr"]=4;m["april"]=4;
+              m["may"]=5;m["jun"]=6;m["june"]=6;m["jul"]=7;m["july"]=7;
+              m["aug"]=8;m["august"]=8;m["sep"]=9;m["sept"]=9;m["september"]=9;
+              m["oct"]=10;m["october"]=10;m["nov"]=11;m["november"]=11;
+              m["dec"]=12;m["december"]=12
+            }
+            { cm=0;cy=0
+              for(i=1;i<=NF;i++){v=tolower($i);if(v in m)cm=m[v];if($i~/^[0-9]{4}$/)cy=$i+0}
+              printf "%04d%02d %s\n",cy,cm,$0
+            }' | sort -k1,1 | tail -n 1 | cut -d' ' -f2-
+          }
+          LVLI=$(newest "tsv/LVLI_Export_*_LVLI_Entries.tsv")
+          ALCH=$(newest "tsv/ALCH_Export_*.tsv" "_effects")
+          if [ -z "$LVLI" ]; then
+            echo "ERROR: No LVLI_Export_*_LVLI_Entries.tsv found in tsv/ — stamp vendor stock cannot be resolved."
+            exit 1
+          fi
+          echo "Using LVLI Entries: $LVLI"
+          echo "Using ALCH TSV: ${ALCH:-none}"
+          python src/build_stamps_json.py \
+            --book-tsv "$BOOK_TSV" \
+            --lvli-entries "$LVLI" \
+            ${ALCH:+--alch-tsv "$ALCH"} \
+            --outdir dist
+
+      - name: Sanity check Stamps output
+        run: |
+          test -f dist/stamps.json \
+            && echo "OK stamps.json ($(wc -c < dist/stamps.json) bytes)" \
+            || (echo "MISSING dist/stamps.json" && exit 1)
+          python3 -c "
+          import json
+          d = json.load(open('dist/stamps.json'))
+          assert 'items' in d, 'Missing items key'
+          assert len(d['items']) > 0, 'items list is empty'
+          assert all(i['stamps'] > 0 for i in d['items']), 'an item has no stamp price'
+          assert d['meta']['total_plans'] > 0, 'no plans resolved'
+          print(f'  items: {len(d[\"items\"])} (plans: {d[\"meta\"][\"total_plans\"]}, other: {d[\"meta\"][\"total_other\"]})')
+          print(f'  full set: {d[\"meta\"][\"full_set_cost\"]} stamps')
+          "
+
       # --- DATA MINING ---
       - name: Build Data Mining JSON
         run: python src/build_data_mining_json.py
