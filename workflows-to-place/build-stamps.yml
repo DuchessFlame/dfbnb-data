@@ -1,0 +1,113 @@
+name: Build Stamps Data
+
+on:
+  workflow_dispatch:
+
+  push:
+    paths:
+      - 'tsv/BOOK_Export_*.tsv'
+      - 'tsv/ALCH_Export_*.tsv'
+      - 'tsv/LVLI_Export_*_LVLI_Entries.tsv'
+      - 'src/build_stamps_json.py'
+      - '.github/workflows/build-stamps.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Locate latest export TSVs
+        shell: bash
+        run: |
+          # Pick file with latest Month_Year in filename (mtimes are equal on Actions)
+          newest() {
+            ls -1 $1 2>/dev/null | grep -iv "${2:-__no_such_exclude__}" | awk -F'[_./]' '
+            BEGIN {
+              m["jan"]=1;m["january"]=1;m["feb"]=2;m["february"]=2;
+              m["mar"]=3;m["march"]=3;m["apr"]=4;m["april"]=4;
+              m["may"]=5;m["jun"]=6;m["june"]=6;m["jul"]=7;m["july"]=7;
+              m["aug"]=8;m["august"]=8;m["sep"]=9;m["sept"]=9;m["september"]=9;
+              m["oct"]=10;m["october"]=10;m["nov"]=11;m["november"]=11;
+              m["dec"]=12;m["december"]=12
+            }
+            { cm=0;cy=0
+              for(i=1;i<=NF;i++){v=tolower($i);if(v in m)cm=m[v];if($i~/^[0-9]{4}$/)cy=$i+0}
+              printf "%04d%02d %s\n",cy,cm,$0
+            }' | sort -k1,1 | tail -n 1 | cut -d' ' -f2-
+          }
+
+          # The Locations companion sorts after the real BOOK export — exclude it
+          # explicitly or the build silently reads the wrong file.
+          BOOK=$(newest "tsv/BOOK_Export_*.tsv" "_locations")
+          LVLI=$(newest "tsv/LVLI_Export_*_LVLI_Entries.tsv")
+          ALCH=$(newest "tsv/ALCH_Export_*.tsv" "_effects")
+
+          if [ -z "$BOOK" ]; then
+            echo "ERROR: No BOOK_Export_*.tsv (non-Locations) found in tsv/"
+            exit 1
+          fi
+          if [ -z "$LVLI" ]; then
+            echo "ERROR: No LVLI_Export_*_LVLI_Entries.tsv found in tsv/ — stamp vendor stock cannot be resolved."
+            exit 1
+          fi
+
+          echo "BOOK_TSV=$BOOK"         >> $GITHUB_ENV
+          echo "LVLI_ENTRIES_TSV=$LVLI" >> $GITHUB_ENV
+          echo "ALCH_TSV=${ALCH:-}"     >> $GITHUB_ENV
+          echo "Using BOOK TSV:      $BOOK"
+          echo "Using LVLI Entries:  $LVLI"
+          echo "Using ALCH TSV:      ${ALCH:-none}"
+
+      - name: Build Stamps JSON
+        shell: bash
+        run: |
+          mkdir -p dist
+          python src/build_stamps_json.py \
+            --book-tsv "$BOOK_TSV" \
+            --lvli-entries "$LVLI_ENTRIES_TSV" \
+            ${ALCH_TSV:+--alch-tsv "$ALCH_TSV"} \
+            --outdir dist
+
+      - name: Sanity check Stamps output
+        run: |
+          test -f dist/stamps.json \
+            && echo "OK stamps.json ($(wc -c < dist/stamps.json) bytes)" \
+            || (echo "MISSING dist/stamps.json" && exit 1)
+          python3 -c "
+          import json
+          d = json.load(open('dist/stamps.json'))
+          assert 'items' in d, 'Missing items key'
+          assert len(d['items']) > 0, 'items list is empty'
+          assert all(i['stamps'] > 0 for i in d['items']), 'an item has no stamp price'
+          assert d['meta']['total_plans'] > 0, 'no plans resolved'
+          print(f'  items: {len(d[\"items\"])} (plans: {d[\"meta\"][\"total_plans\"]}, other: {d[\"meta\"][\"total_other\"]})')
+          print(f'  vendors: {[v[\"name\"] for v in d[\"vendors\"]]}')
+          print(f'  full set: {d[\"meta\"][\"full_set_cost\"]} stamps')
+          "
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add dist/stamps.json dist/patchlog_latest_df_stamps.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Build Stamps data"
+            git fetch origin main
+            git pull --rebase origin main
+            git push
+          fi

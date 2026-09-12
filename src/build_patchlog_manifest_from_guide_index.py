@@ -206,6 +206,13 @@ def main() -> None:
         # patch log. Overrides the "/df/minerva/" prefix rule above.
         ("/df/minerva/gold-bullion-calculator/",
          "patchlog_latest_df_minerva_calculator.json", "df-minerva-calculator"),
+
+        # The stamp calculator lists Giuseppe's whole shelf, which turns over on
+        # its own schedule — nothing to do with the gold/scrip/caps guides that
+        # share the "/df/currency/" prefix rule. Its own feed so a new stamp plan
+        # shows on this page and only this page.
+        ("/df/currency/stamp-grind-calculator/",
+         "patchlog_latest_df_stamps.json", "df-stamps"),
     ]
 
     prefix_rules = [(norm_path(p), feed, label) for (p, feed, label) in PREFIX_RULES]
