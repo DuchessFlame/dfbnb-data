@@ -156,9 +156,65 @@ def check_file(dist: Path, name: str, spec: dict) -> list[str]:
     return problems
 
 
+def check_ally_roster(tsv_dir: Path) -> list[str]:
+    """Every storefront ally in the TSVs must appear in data/camp/allies.json.
+
+    ally_cobj_furn is hand-maintained, so a new ally is invisible until someone
+    remembers to add a row — Cambot Nine shipped and simply never appeared on
+    the page, with nothing failing to say so. The ENTM EDID marker
+    "ENTM_CAMP_Ally" is an exact key for the storefront allies; the store
+    CATEGORY keyword is NOT, because CAMP Pets carries the same one.
+
+    Quest allies (Beckett, Daguerre, Raider Punk, the two Settlers) have no
+    ENTM at all, so this only ever checks one direction: every ENTM ally is in
+    the table. Extra hand-added rows are fine and are not flagged.
+    """
+    import csv, glob
+
+    pats = glob.glob(str(tsv_dir / "ENTM_Export_*.tsv"))
+    if not pats:
+        return []  # no TSVs in this checkout — not an error
+    newest = max(pats, key=os.path.getmtime)
+
+    table_path = tsv_dir.parent / "data" / "camp" / "allies.json"
+    try:
+        with open(table_path, encoding="utf-8") as fh:
+            doc = json.load(fh)
+        table = doc["ally_cobj_furn"]
+    except Exception:
+        return []
+    known = {(v.get("ally") or "").strip().lower() for v in table.values()}
+    # ONE exclusion list, shared with the builder's own drift warning. It is
+    # keyed by COBJ FormID, so each ENTM is resolved to its COBJ through
+    # ReferencedBy ("<fid>:<edid>:COBJ") before being tested.
+    drift_exclude = {k for k in (doc.get("drift_exclude") or {}) if not k.startswith("_")}
+
+    missing = []
+    with open(newest, encoding="utf-8", errors="replace") as fh:
+        for row in csv.DictReader(fh, delimiter="\t"):
+            edid = row.get("EDID") or ""
+            if not re.search(r"ENTM_CAMP_Ally", edid, re.I):
+                continue
+            if edid.lower().startswith("zzz"):      # cut content
+                continue
+            refs = row.get("ReferencedBy") or ""
+            cobjs = {m.group(1).upper() for m in
+                     re.finditer(r"([0-9A-Fa-f]{8}):[^:|]*:COBJ", refs)}
+            if cobjs & drift_exclude:
+                continue
+            name = (row.get("FULL") or "").replace("Lite Ally: ", "").strip()
+            if name and name.lower() not in known:
+                missing.append(
+                    f"allies.json: {edid} ({name}) is a CAMP ally in the TSVs but has no "
+                    f"ally_cobj_furn row — it will not render on the page at all"
+                )
+    return missing
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--dist", default="dist", help="Folder holding the built JSON")
+    ap.add_argument("--tsv", default="tsv", help="Folder holding the xEdit TSV exports")
     ap.add_argument(
         "--allow-missing",
         action="store_true",
@@ -180,6 +236,14 @@ def main() -> int:
             all_problems.extend(found)
         else:
             print(f"  OK   {name}")
+
+    # Roster check: the dist JSON can be perfectly well-formed and still be
+    # missing a whole ally, because membership comes from a hand-kept table.
+    roster = check_ally_roster(Path(args.tsv))
+    if roster:
+        all_problems.extend(roster)
+    else:
+        print("  OK   allies.json roster (every TSV ally has a row)")
 
     if all_problems:
         print(f"\nCamp-items JSON contract FAILED ({len(all_problems)} problem(s)):",

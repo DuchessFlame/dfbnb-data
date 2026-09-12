@@ -1789,11 +1789,13 @@ ALLY_COBJ_FURN = _CFG_ALLIES["ally_cobj_furn"]
 # Ally COBJ EDIDs match COMP_Constructible_CampObject (or LiteAlly for the
 # Initiate). Allies need a manual COBJ→FURN pair, so new ones are flagged.
 _known_ally_cobjs = set(ALLY_COBJ_FURN)
+# Moved into data/camp/allies.json so the builder's warning below and the roster
+# check in verify_camp_items_json.py read the SAME list. While it lived here as
+# a literal, the verifier could not see it and would have re-flagged the three
+# cut allies every run — two exclusion lists is exactly the drift this table is
+# meant to prevent. Reasons live with the entries.
 _ALLY_DRIFT_EXCLUDE = {
-    # Cut content (confirmed by Duchess, 7 Jun 2026) — never shipped:
-    "005856BA",  # Beggar
-    "00585CD1",  # Hunter (Chopping Block)
-    "00620A16",  # Doberman (Doghouse)
+    k for k in (_CFG_ALLIES.get("drift_exclude") or {}) if not k.startswith("_")
 }
 for _c in cobj_rows:
     _ce = _c.get("COBJ_EDID", "")
@@ -2145,6 +2147,30 @@ def _load_inventory_state():
         print(f"  [WARN] rng76 unavailable — ally inventory drop rates skipped: {e}")
 
 
+def vendor_base_for(token):
+    """The ally's merchant-container base EDID, found from its token.
+
+    Every ally that sells anything has a container named ...<token>...VendorChest
+    (ATX_COMP_Adelaide_VendorChest, SCORE_S5_COMP_Inspector_VendorChest,
+    COMP_VisitorVendor_VendorChest_Beckett) — checked against all 20 rows of the
+    old hand table, which is why vendor_base no longer has to be typed out.
+    Returns "" when the ally has no shop, which is a real state: Cambot Nine has
+    no container at all, so he correctly gets no Inventory expand.
+    """
+    if not token:
+        return ""
+    _load_inventory_state()
+    keys = _INV_STATE.get("vendors_by_base") or {}
+    tl = token.lower()
+    hits = [k for k in keys if tl in k.lower() and "vendorchest" in k.lower()]
+    if len(hits) == 1:
+        return hits[0]
+    if len(hits) > 1:
+        print(f"  [WARN] ally token {token!r} matches {len(hits)} vendor containers "
+              f"({', '.join(sorted(hits)[:3])}…) — add a 'vendor_base' override")
+    return ""
+
+
 def resolve_ally_inventory(vendor_base):
     """Return {"totalItems", "groups":[{"label","drops":[{name,formId,chance}]}]}
     for the ally whose merchant container base EDID is ``vendor_base``. Empty
@@ -2221,9 +2247,114 @@ def resolve_ally_inventory(vendor_base):
     return {"totalItems": len(best), "groups": out_groups}
 
 
+_ALLY_TOKEN_RE = re.compile(r"Constructible_CampObject_?(.*)$", re.I)
+
+
+def ally_token(cobj_edid: str) -> str:
+    """The ally's short token from its COBJ EDID.
+
+    ATX_co_COMP_Constructible_CampObject_Cambot -> Cambot
+    SCORE_S5_co_COMP_Constructible_CampObject_Inspector -> Inspector
+
+    Bethesda names some by character (Cambot, Adelaide) and some by archetype
+    (Inspector, Medic, Ghoul); either way it is the string the SPEL/MGEF and
+    vendor-container EDIDs are built from, which is what makes the rest of the
+    row derivable.
+    """
+    m = _ALLY_TOKEN_RE.search(cobj_edid or "")
+    if m:
+        return (m.group(1) or "").strip("_")
+    # Second naming shape, used by the Initiate:
+    # ATX_workshop_co_Furniture_LiteAllyTheInitiate_Lawson -> Lawson.
+    # The character name is the trailing segment, and it is that — not the
+    # "TheInitiate" role — that the vendor container and buff records use.
+    m = re.search(r"LiteAlly(.*)$", cobj_edid or "", re.I)
+    if m:
+        tail = (m.group(1) or "").strip("_")
+        return tail.rsplit("_", 1)[-1] if "_" in tail else tail
+    return ""
+
+
+def discover_allies() -> dict:
+    """Every CAMP ally in the TSVs, derived — overrides merged on top.
+
+    The roster used to be a hand-written whitelist, so a new ally simply did
+    not exist on the page until someone added a row; Cambot Nine shipped that
+    way. Everything the whitelist held is recoverable from the records:
+
+        furn          COBJ CNAM_FormID (a PKIN resolves via _pkin_furn)
+        name          COBJ CNAM_FULL          - exact on all 20
+        vendor_base   container EDID carrying the token - exact on all 20
+        buff_token    the token; resolve_ally_buff already substring-matches
+        ally          ENTM FULL minus "Lite Ally: "
+
+    ALLY_COBJ_FURN is now an EXCEPTIONS table, not a roster. It still holds the
+    pre-storefront quest allies (Beckett, Daguerre, Raider Punk, the two
+    Settlers), which have no ENTM and so no derivable display name, plus any
+    row where a derived value is wrong. A new seasonal ally needs nothing.
+    """
+    out = {}
+    for row in cobj_rows:
+        edid = row.get("COBJ_EDID", "")
+        if not re.search(r"COMP_Constructible_CampObject|LiteAlly", edid, re.I):
+            continue
+        if is_cut(edid):
+            continue
+        cid = (row.get("COBJ_FormID") or "").strip()
+        if not cid or cid in _ALLY_DRIFT_EXCLUDE:
+            continue
+
+        token = ally_token(edid)
+        furn_id = (row.get("CNAM_FormID") or "").strip()
+        # A CNAM that is not in the FURN export is a PKIN — a pack-in dropping
+        # several pieces at once (Maul, Raider Punk, Sam, Daphne). A PKIN has no
+        # PRPS, so Power and Flamingo Units come out blank unless a row pins the
+        # piece a player actually sees. Those four already carry that override;
+        # this warns rather than guessing if a new one turns up.
+        if furn_id and furn_id not in furn_by_id and not (ALLY_COBJ_FURN.get(cid) or {}).get("furn"):
+            print(f"  [WARN] ally {cid} ({edid}) builds pack-in {furn_id}, not a FURN "
+                  f"— add a 'furn' override in data/camp/allies.json for the visible piece")
+
+        # The storefront flag lives on the FURN, not the COBJ — the COBJ's own
+        # XALG is blank for every ally, so reading it there silently labelled
+        # Atom Shop allies as Companion Quest.
+        _xalg = (furn_by_id.get(furn_id, {}) or {}).get("XALG_Flags", "")
+        derived = {
+            "furn":        furn_id,
+            "name":        (row.get("CNAM_FULL") or "").strip(),
+            "obtain":      xalg_to_source(_xalg) or "Companion Quest",
+            "ally":        "",          # filled from ENTM inside build_allies()
+            "vendor_base": "",          # resolved by token at inventory time
+            "buff_token":  token,
+            "rom_token":   "",
+            "_token":      token,
+        }
+        # Season lives on the FURN EDID, not the COBJ: Adelaide's constructible
+        # is ATX_co_..._Adelaide while her furniture is SCORE_S16_CAMP_Adelaide_
+        # Table_FURN. Matching the COBJ alone labelled five Scoreboard allies as
+        # Atom Shop, because their FURN carries the Premium storefront flag too.
+        _furn_edid = (furn_by_id.get(furn_id, {}) or {}).get("FURN_EDID", "")
+        if re.match(r"SCORE_S\d+_", _furn_edid or edid, re.I):
+            derived["obtain"] = "Scoreboard"
+
+        # A hand row wins field by field, so an override fixes ONE value
+        # without freezing the other five at whatever they were that season.
+        over = ALLY_COBJ_FURN.get(cid) or {}
+        for k, v in over.items():
+            if v not in ("", None):
+                derived[k] = v
+        out[cid] = derived
+
+    # Hand rows for allies with no discoverable COBJ are kept verbatim.
+    for cid, meta in ALLY_COBJ_FURN.items():
+        if cid not in out:
+            out[cid] = dict(meta)
+    return out
+
+
 def build_allies():
     items = []
-    for cobj_id, meta in ALLY_COBJ_FURN.items():
+    for cobj_id, meta in discover_allies().items():
         furn_id  = meta["furn"]
         furn     = furn_by_id.get(furn_id, {})
 
@@ -2242,7 +2373,16 @@ def build_allies():
                 entm = find_ally_entm_by_token(meta["name"], int(_sm.group(1)) if _sm else None)
 
         furniture_name = meta["name"]
-        display  = meta.get("ally") or furniture_name   # row label = the ALLY
+        # Row label is the ALLY, not the furniture. A hand row wins; otherwise
+        # the storefront name ("Lite Ally: Cambot Nine") is the ally's own, and
+        # is what makes a new seasonal ally need no table entry at all. The
+        # quest allies predate the storefront and have no ENTM, so they keep
+        # their hand-written names and fall back to the furniture only if even
+        # that is missing.
+        display = meta.get("ally") or ""
+        if not display and entm:
+            display = re.sub(r"^\s*Lite Ally:\s*", "", entm.get("FULL", "")).strip()
+        display = display or furniture_name
         obtain   = meta["obtain"]
         source   = obtain
 
@@ -2299,7 +2439,8 @@ def build_allies():
         }
 
         # Inventory: items the ally sells, grouped, with rng76 drop rates
-        _ally_inventory = resolve_ally_inventory(meta.get("vendor_base", ""))
+        _ally_inventory = resolve_ally_inventory(
+            meta.get("vendor_base") or vendor_base_for(meta.get("_token", "")))
 
         # Build Information. No WorkshopCount GLOB exists for allies, so no
         # token is passed: printing "As many as your CAMP budget allows" would

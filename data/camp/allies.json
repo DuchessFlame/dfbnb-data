@@ -174,7 +174,37 @@
       "vendor_base": "ATX_COMP_Dottie_VendorChest",
       "buff_token": "Unshakeable_Beliefs_Dottie",
       "rom_token": ""
+    },
+    "008B4502": {
+      "furn": "008B4505",
+      "name": "Cambot's Charging Console",
+      "obtain": "Atom Shop",
+      "ally": "Cambot Nine",
+      "vendor_base": "",
+      "buff_token": "Reporters_Instinct_Cambot",
+      "rom_token": "",
+      "_added": "Added 12 Sep 2026. ENTM 008B4503 ATX_ENTM_CAMP_Ally_CamBot 'Lite Ally: Cambot Nine', NPC 008B3C96, quest ATX_COMP_Quest_Camp_Lite_Cambot. XALG Premium -> Atom Shop. Buff from MGEF 009005EC ATX_Reporters_Instinct_Cambot (Reporter's Instinct). No vendor chest exists, so no Inventory expand. Art not yet extracted: atx_camp_ally_cambot_{l,c1,c2} are absent from the camp-allies folder."
     }
   },
-  "_note": "Hand-maintained tables for this CAMP page. Edit here rather than src/build_allies_pets_weather_json.py — these gain an entry every season while the build logic does not."
+  "_note": "EXCEPTIONS, not a roster. The ally list is now DISCOVERED in src/build_allies_pets_weather_json.py (discover_allies): any COBJ whose EDID matches COMP_Constructible_CampObject or LiteAlly and is not in drift_exclude. A new seasonal ally needs NOTHING here — furn comes from CNAM_FormID, name from CNAM_FULL, obtain from the FURN's XALG/SCORE_S prefix, the display name from the ENTM's 'Lite Ally: X', vendor_base from a token search, and buff_token from the token itself. All verified against all 20 allies. Rows below are kept because they OVERRIDE a field the derivation cannot get right: the five pre-storefront quest allies have no ENTM and so no derivable display name; Maul, Raider Punk, Sam and Daphne build a PKIN pack-in rather than a FURN; Daphne and Leo need an entm_override; Grandma Junko and Joey Bello have buff EDIDs their token does not match. Merging is field by field, so a row only has to carry the value that differs — anything left blank is derived.",
+  "furniture_frame": {
+    "_note": "Which carousel frame is the ally's FURNITURE, for the Allies Furniture expand. Bethesda's frame order is not consistent, so the default is a rule and the exceptions are data. Verified frame-by-frame 12 Sep 2026 against the avif set.",
+    "default": "c2",
+    "overrides": {
+      "0073E940": "c3",
+      "00674961": "c4",
+      "005C60D0": ""
+    },
+    "overrides_why": {
+      "0073E940": "Adelaide - c2 is the robot standing; c3 is Adelaide's Table.",
+      "00674961": "Leo Petrov - c2 shows him AT the desk, but c4 (was score_s11_camp_ally_nukaagent_leo_l, mis-named as a cover tile) is a clean shot of Leo's Desk alone.",
+      "005C60D0": "Solomon Hardy - only c1 exists and it shows him with a clipboard, no Medic Station. Empty means no furniture frame; the expand omits the image rather than showing the NPC."
+    }
+  },
+  "drift_exclude": {
+    "_note": "Ally COBJs the drift check should NOT flag. Keyed by COBJ FormID. Moved here out of _ALLY_DRIFT_EXCLUDE in build_allies_pets_weather_json.py so the builder's warning and verify_camp_items_json.py's roster check read ONE list — two lists in two files is the drift this table exists to prevent.",
+    "005856BA": "Beggar — cut content, never shipped (confirmed by Duchess, 7 Jun 2026).",
+    "00585CD1": "Hunter / Chopping Block — cut content, never shipped (confirmed by Duchess, 7 Jun 2026).",
+    "00620A16": "Doberman / Doghouse — cut content, never shipped (confirmed by Duchess, 7 Jun 2026). Its ENTM 'Lite Ally: Dog Name Goes Here' still exists, which is why the roster check needs this list too."
+  }
 }
