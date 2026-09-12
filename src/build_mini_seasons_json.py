@@ -264,16 +264,16 @@ GUIDE_ALIASES = {
     'fermentable nuka-cola dark': ('Nuka Cola Dark Guide', '/bnb/farming/nuka-cola/dark-locations/'),
 
     # ── Scrap / raw variants → base junk guide ──
-    'steel scrap':          ('Steel Farming Guide',        '/df/farming/junk/steel/farming-guide/'),
-    'ceramic scrap':        ('Ceramic Farming Guide',      '/df/farming/junk/ceramic/farming-guide/'),
-    'glass shards':         ('Glass Farming Guide',        '/df/farming/junk/glass/farming-guide/'),
-    'gold scrap':           ('Gold Farming Guide',         '/df/farming/junk/gold/farming-guide/'),
-    'silver scrap':         ('Silver Farming Guide',       '/df/farming/junk/silver/farming-guide/'),
-    'fiber optics bundle':  ('Fiber Optics Farming Guide', '/df/farming/junk/fiber-optics/farming-guide/'),
-    'waste acid':           ('Acid Farming Guide',         '/df/farming/junk/acid/farming-guide/'),
-    'raw fertilizer':       ('Fertilizer Farming Guide',   '/df/farming/junk/fertilizer/farming-guide/'),
-    'molded plastic':       ('Plastic Farming Guide',      '/df/farming/junk/plastic/farming-guide/'),
-    'nuclear waste':        ('Nuclear Material Farming Guide', '/df/farming/junk/nuclear-material/farming-guide/'),
+    'steel scrap':          ('Steel Farming Guide',        '/df/farming/junk/steel/steel-farming-guide/'),
+    'ceramic scrap':        ('Ceramic Farming Guide',      '/df/farming/junk/ceramic/ceramic-farming-guide/'),
+    'glass shards':         ('Glass Farming Guide',        '/df/farming/junk/glass/glass-farming-guide/'),
+    'gold scrap':           ('Gold Farming Guide',         '/df/farming/junk/gold/gold-farming-guide/'),
+    'silver scrap':         ('Silver Farming Guide',       '/df/farming/junk/silver/silver-farming-guide/'),
+    'fiber optics bundle':  ('Fiber Optics Farming Guide', '/df/farming/junk/fiber-optics/fiber-optics-farming-guide/'),
+    'waste acid':           ('Acid Farming Guide',         '/df/farming/junk/acid/acid-farming-guide/'),
+    'raw fertilizer':       ('Fertilizer Farming Guide',   '/df/farming/junk/fertilizer/fertilizer-farming-guide/'),
+    'molded plastic':       ('Plastic Farming Guide',      '/df/farming/junk/plastic/plastic-farming-guide/'),
+    'nuclear waste':        ('Nuclear Material Farming Guide', '/df/farming/junk/nuclear-material/nuclear-material-farming-guide/'),
 
     # ── Eggs (condition uses singular, guide subCategory uses plural) ──
     'deathclaw egg':        ('Deathclaw Egg Guide',        '/bnb/farming/eggs/deathclaw/deathclaw-guide/'),
@@ -297,8 +297,8 @@ GUIDE_ALIASES = {
     'fev hound':            ('Mongrel Dog Meat Guide',     '/bnb/farming/meat/mongrel-dog/mongrel-dog-location-guide/'),
     'floater':              ('Glowing Meat Guide',         '/bnb/farming/meat/glowing-meat/glowing-meat-location-guide/'),
     'scorched':             ('Glowing Meat Guide',         '/bnb/farming/meat/glowing-meat/glowing-meat-location-guide/'),
-    'protectron':           ('Circuitry Farming Guide',    '/df/farming/junk/circuitry/farming-guide/'),
-    'robobrain':            ('Circuitry Farming Guide',    '/df/farming/junk/circuitry/farming-guide/'),
+    'protectron':           ('Circuitry Farming Guide',    '/df/farming/junk/circuitry/circuitry-farming-guide/'),
+    'robobrain':            ('Circuitry Farming Guide',    '/df/farming/junk/circuitry/circuitry-farming-guide/'),
     'trog':                 ('Glowing Meat Guide',         '/bnb/farming/meat/glowing-meat/glowing-meat-location-guide/'),
     'ghoul':                ('Glowing Meat Guide',         '/bnb/farming/meat/glowing-meat/glowing-meat-location-guide/'),
     'alien':                ('Glowing Meat Guide',         '/bnb/farming/meat/glowing-meat/glowing-meat-location-guide/'),
@@ -326,31 +326,31 @@ GUIDE_ALIASES = {
     'fermentable wine':     ('Alcohol Buffs Guide',        '/bnb/buffs/alcohol/alcohol-buffs/'),
 
     # ── Junk items referenced by non-standard names ──
-    'pre-war money':        ('Cloth Farming Guide',        '/df/farming/junk/cloth/farming-guide/'),
-    'bag of chlorine':      ('Acid Farming Guide',         '/df/farming/junk/acid/farming-guide/'),
+    'pre-war money':        ('Cloth Farming Guide',        '/df/farming/junk/cloth/cloth-farming-guide/'),
+    'bag of chlorine':      ('Acid Farming Guide',         '/df/farming/junk/acid/acid-farming-guide/'),
 
     # ── Tobacco / cigarette items → no dedicated guide, link to junk overview ──
-    'pack of cigarettes':       ('Plastic Farming Guide',  '/df/farming/junk/plastic/farming-guide/'),
-    'preserved cigarette pack': ('Plastic Farming Guide',  '/df/farming/junk/plastic/farming-guide/'),
-    'undamaged cigarettes':     ('Plastic Farming Guide',  '/df/farming/junk/plastic/farming-guide/'),
-    'cigar box':                ('Wood Farming Guide',     '/df/farming/junk/wood/farming-guide/'),
-    'cigarette carton':         ('Cloth Farming Guide',    '/df/farming/junk/cloth/farming-guide/'),
-    'box of san francisco sunlights': ('Plastic Farming Guide', '/df/farming/junk/plastic/farming-guide/'),
+    'pack of cigarettes':       ('Plastic Farming Guide',  '/df/farming/junk/plastic/plastic-farming-guide/'),
+    'preserved cigarette pack': ('Plastic Farming Guide',  '/df/farming/junk/plastic/plastic-farming-guide/'),
+    'undamaged cigarettes':     ('Plastic Farming Guide',  '/df/farming/junk/plastic/plastic-farming-guide/'),
+    'cigar box':                ('Wood Farming Guide',     '/df/farming/junk/wood/wood-farming-guide/'),
+    'cigarette carton':         ('Cloth Farming Guide',    '/df/farming/junk/cloth/cloth-farming-guide/'),
+    'box of san francisco sunlights': ('Plastic Farming Guide', '/df/farming/junk/plastic/plastic-farming-guide/'),
 
     # ── Cleaning items → relevant junk guide ──
-    'abraxo cleaner':              ('Acid Farming Guide',       '/df/farming/junk/acid/farming-guide/'),
-    'abraxo cleaner industrial grade': ('Acid Farming Guide',   '/df/farming/junk/acid/farming-guide/'),
-    'undamaged abraxo cleaner':    ('Acid Farming Guide',       '/df/farming/junk/acid/farming-guide/'),
+    'abraxo cleaner':              ('Acid Farming Guide',       '/df/farming/junk/acid/acid-farming-guide/'),
+    'abraxo cleaner industrial grade': ('Acid Farming Guide',   '/df/farming/junk/acid/acid-farming-guide/'),
+    'undamaged abraxo cleaner':    ('Acid Farming Guide',       '/df/farming/junk/acid/acid-farming-guide/'),
 
     # ── Skull parts → bone junk guide ──
-    'skull':                ('Bone Farming Guide',         '/df/farming/junk/bone/farming-guide/'),
-    'skull cap bone':       ('Bone Farming Guide',         '/df/farming/junk/bone/farming-guide/'),
-    'skull eye socket':     ('Bone Farming Guide',         '/df/farming/junk/bone/farming-guide/'),
-    'skull faceplate':      ('Bone Farming Guide',         '/df/farming/junk/bone/farming-guide/'),
-    'skull fragment':       ('Bone Farming Guide',         '/df/farming/junk/bone/farming-guide/'),
-    'upper skull':          ('Bone Farming Guide',         '/df/farming/junk/bone/farming-guide/'),
-    'capless skull':        ('Bone Farming Guide',         '/df/farming/junk/bone/farming-guide/'),
-    'human jaw':            ('Bone Farming Guide',         '/df/farming/junk/bone/farming-guide/'),
+    'skull':                ('Bone Farming Guide',         '/df/farming/junk/bone/bone-farming-guide/'),
+    'skull cap bone':       ('Bone Farming Guide',         '/df/farming/junk/bone/bone-farming-guide/'),
+    'skull eye socket':     ('Bone Farming Guide',         '/df/farming/junk/bone/bone-farming-guide/'),
+    'skull faceplate':      ('Bone Farming Guide',         '/df/farming/junk/bone/bone-farming-guide/'),
+    'skull fragment':       ('Bone Farming Guide',         '/df/farming/junk/bone/bone-farming-guide/'),
+    'upper skull':          ('Bone Farming Guide',         '/df/farming/junk/bone/bone-farming-guide/'),
+    'capless skull':        ('Bone Farming Guide',         '/df/farming/junk/bone/bone-farming-guide/'),
+    'human jaw':            ('Bone Farming Guide',         '/df/farming/junk/bone/bone-farming-guide/'),
 
     # ── Spice items ──
     'spices':               ('Spices Guide',               '/bnb/farming/non-perishable/salt-pepper-spices-sugar/salt-pepper-spices-sugar-guide/'),

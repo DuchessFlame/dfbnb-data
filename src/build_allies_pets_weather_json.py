@@ -632,7 +632,13 @@ def camp_build_block(furn_id: str = "", *wc_tokens, extra_lines=None) -> str:
         lines.append(f"Build Limit per Camp: {_limit_str(camp)}")
         lines.append(f"Build Limit per Workshop: {_limit_str(workshop)}")
 
-    if furn_id:
+    # Only read PRPS when the id actually resolves to a FURN row. A few CAMP
+    # items are placed by a PKIN (pack-in) rather than a single FURN — Daphne's
+    # Toy Box is one — and a pack-in carries no PRPS at all. Falling through to
+    # the "0" / "1" defaults below would print a Power and Flamingo figure that
+    # no record supports, which is exactly the invented number this block is
+    # meant to avoid, so the rows are omitted instead.
+    if furn_id and furn_by_id.get(furn_id):
         _power_raw = furn_prps_value(furn_id, "PowerRequired")
         try:
             _power = str(int(float(_power_raw))) if _power_raw else "0"
