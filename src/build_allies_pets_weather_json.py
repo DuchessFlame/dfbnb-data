@@ -2250,6 +2250,229 @@ def resolve_ally_inventory(vendor_base):
 _ALLY_TOKEN_RE = re.compile(r"Constructible_CampObject_?(.*)$", re.I)
 
 
+# ---------------------------------------------------------------------------
+# ALLY DIALOGUE  (ALLYDLG export -> the "Dialog" sub-expand)
+# ---------------------------------------------------------------------------
+# Source: ALLYDLG_Export_*_Lines.tsv, written by the xEdit pass
+# "!!!Wordpress - ExportCampAllyDialogToTSV.pas". One row per SPOKEN LINE,
+# already carrying QuestEDID / AllyGuess / TopicOrder / TopicPrompt, so nothing
+# here has to re-walk the dialogue tree — it only has to group and join.
+#
+# Optional, like every other secondary export: no file means allies render with
+# no Dialog box, never a fabricated one. The renderer omits the sub-expand
+# rather than showing an empty shell.
+
+try:
+    ALLYDLG_LINES_PATH = _resolve_tsv(
+        "ALLYDLG_LINES_TSV", "ALLYDLG_Export_*_Lines.tsv", "ALLYDLG_Export_Lines.tsv")
+except FileNotFoundError:
+    ALLYDLG_LINES_PATH = None
+
+
+# Condition functions that only assert WHO is speaking. They sit on 1,755 of
+# the 9,562 spoken lines and say nothing a reader of the script wants — the
+# ally's own name under the ally's own line. Dropped, not rendered small.
+_DIALOG_COND_NOISE = {"getisaliasref", "getisid", "getisvoicetype", "getisrace"}
+
+# Prefixes stripped off a resolved condition record so the cell reads
+# "Cambot_Hint_1" rather than "ATX_COMP_AV_Cambot_Hint_1 [AVIF:008F610D]".
+_DIALOG_AV_PREFIX = re.compile(r"^(?:ATX_|SCORE_S\d+_|BS01_)?COMP_(?:AV_)?", re.I)
+
+
+def _dialog_condition(cell: str) -> str:
+    """One short human line for a CTDA cell, or ''.
+
+    The cell is Type|CompareValue|Function|Params|RunOn|Reference, the same
+    shape ExportCNDFToTSV writes. The function name ALONE is not worth
+    printing — "GetValue" sits on 3,688 lines and tells you nothing. What
+    matters is the record it reads, which arrives inside the params as
+    "ATX_COMP_AV_Cambot_Hint_1 [AVIF:008F610D]".
+    """
+    out = []
+    for one in (cell or "").split(" ; "):
+        parts = one.split("|")
+        if len(parts) < 3:
+            continue
+        fn = parts[2].strip()
+        if not fn or fn.lower() in _DIALOG_COND_NOISE:
+            continue
+
+        rec = ""
+        for p in parts[3:]:
+            p = p.strip()
+            if "[" in p and ":" in p:
+                rec = p.split("[")[0].strip()
+                break
+        if rec:
+            rec = _DIALOG_AV_PREFIX.sub("", rec)
+            label = f"{fn}: {rec}"
+        else:
+            label = fn
+        if label not in out:
+            out.append(label)
+    return ", ".join(out)
+
+
+def _dialog_group_label(quest_edid: str, ally: str) -> str:
+    """A readable name for one of an ally's quests.
+
+    COMP_Quest_Camp_Lite_Beggar                    -> Camp Lite
+    COMP_Quest_Intro_Lite_Beggar                   -> Intro Lite
+    COMP_Conversation_Astronaut_Emerson_003_FirstMet -> Emerson 003 FirstMet
+
+    The ally's own name is stripped: it is already the heading these sit under,
+    and repeating it eleven times down the Astronaut's list is noise.
+    """
+    s = re.sub(r"^(?:ATX_|SCORE_S\d+_|BS01_)+", "", quest_edid or "", flags=re.I)
+    s = re.sub(r"^COMP_", "", s, flags=re.I)
+    s = re.sub(r"^(?:Quest|Conversation|Dialogue)_", "", s, flags=re.I)
+    if ally:
+        s = re.sub(rf"_?{re.escape(ally)}_?", "_", s, flags=re.I)
+    parts = [p for p in s.split("_") if p]
+    return " ".join(parts) if parts else "Dialogue"
+
+
+def _load_ally_dialog():
+    """ally key(lower) -> the dialogue block the renderer consumes.
+
+    ONE ALLY OWNS SEVERAL QUESTS. Beggar, Hunter, RaiderPunk, Scavenger and
+    Wanderer each have an Intro and a Camp quest; Beckett has four and the
+    Astronaut eleven. Keying on the first quest seen and discarding the rest
+    lost 2,700 of the Astronaut's 3,158 lines on the first pass — so quests are
+    merged per ally and, when there is more than one, emitted as `groups` so
+    the reader can still tell the intro from the main script.
+
+    Indexed by BOTH the AllyGuess column and every contributing quest EDID,
+    because the two naming systems do not always agree: the roster's token
+    comes off the COBJ (Cambot, Inspector, Lawson) while AllyGuess comes off
+    the quest EDID.
+    """
+    index = {}
+    if not ALLYDLG_LINES_PATH:
+        return index
+
+    # ally key -> quest FormID -> accumulating record
+    by_ally = {}
+    for row in load_tsv(ALLYDLG_LINES_PATH):
+        text = (row.get("ResponseText") or "").strip()
+        # Silent INFOs earn a row in the TSV so the branch structure survives.
+        # They have nothing to say, so they do not earn one on the page.
+        if not text:
+            continue
+
+        qfid = (row.get("QuestFormID") or "").strip()
+        ally = (row.get("AllyGuess") or "").strip()
+        if not qfid or not ally:
+            continue
+
+        quests = by_ally.setdefault(ally.lower(), {"ally": ally, "quests": {}})
+        rec = quests["quests"].setdefault(qfid, {
+            "questFormId": qfid,
+            "questEdid":   (row.get("QuestEDID") or "").strip(),
+            "_topics":     {},          # TopicOrder -> topic dict
+        })
+
+        # TopicOrder is the tree order, and it is the only ordering the game
+        # data gives us. Sorting by prompt text alphabetically instead would
+        # scramble a conversation into a glossary.
+        try:
+            order = int((row.get("TopicOrder") or "0").strip() or 0)
+        except ValueError:
+            order = 0
+
+        topic = rec["_topics"].setdefault(order, {"prompt": "", "lines": []})
+        if not topic["prompt"]:
+            # The DIAL's FULL is the player's line, but it is set on only
+            # about half the topics — the rest are ambient and scene lines
+            # with no player choice at all. RNAM on the INFO is the other
+            # place the game keeps that string, so fall back to it before
+            # giving up and rendering the replies on their own.
+            topic["prompt"] = ((row.get("TopicPrompt") or "").strip()
+                               or (row.get("PlayerPrompt") or "").strip())
+
+        line = {"text": text}
+        cond = _dialog_condition(row.get("Conditions") or "")
+        if cond:
+            line["condition"] = cond
+        # NAM2 — the writers' own voice direction, on half the lines and
+        # far better content than the emotion field FO76 does not carry.
+        # Some entries are just a casting name ("Daphne", "Inspector");
+        # those are not direction and say nothing next to the line.
+        note = (row.get("ScriptNotes") or "").strip()
+        if note and note.lower() != ally.lower() and " " in note:
+            line["note"] = note
+        topic["lines"].append(line)
+
+    for key, rec in by_ally.items():
+        groups = []
+        for qfid, q in rec["quests"].items():
+            topics = [q["_topics"][k] for k in sorted(q["_topics"])]
+            if not topics:
+                continue
+            groups.append({
+                "label":       _dialog_group_label(q["questEdid"], rec["ally"]),
+                "questFormId": qfid,
+                "questEdid":   q["questEdid"],
+                "topics":      topics,
+                "_lines":      sum(len(t["lines"]) for t in topics),
+            })
+        if not groups:
+            continue
+
+        # Biggest script first. Someone opening an ally's Dialog wants the
+        # conversation, not the thirty-line intro they heard once.
+        groups.sort(key=lambda g: -g["_lines"])
+        entry = {
+            "topicCount": sum(len(g["topics"]) for g in groups),
+            "lineCount":  sum(g["_lines"] for g in groups),
+        }
+        if len(groups) == 1:
+            entry["questFormId"] = groups[0]["questFormId"]
+            entry["questEdid"]   = groups[0]["questEdid"]
+            entry["topics"]      = groups[0]["topics"]
+        else:
+            for g in groups:
+                g.pop("_lines", None)
+            entry["groups"] = groups
+
+        index[key] = entry
+        for g in groups:
+            if g.get("questEdid"):
+                index.setdefault(g["questEdid"].lower(), entry)
+
+    return index
+
+
+ALLY_DIALOG_INDEX = _load_ally_dialog()
+if ALLYDLG_LINES_PATH and not ALLY_DIALOG_INDEX:
+    print(f"  [WARN] {ALLYDLG_LINES_PATH.name} parsed to zero dialogue — "
+          f"check the ResponseText / QuestFormID / TopicOrder column names")
+
+
+def resolve_ally_dialog(token: str, display_name: str = ""):
+    """The dialogue block for one ally, or None.
+
+    Exact token match first, then a substring scan over the indexed keys.
+    The scan is what catches the allies whose quest is named for the character
+    while the roster token is the archetype (and the reverse) — but it is also
+    the part that could mis-attach one ally's script to another, so it requires
+    a token of at least four characters. "Sam" matching "Samurai" is exactly
+    the class of bug this guard exists for.
+    """
+    for cand in (token, display_name):
+        key = (cand or "").strip().lower()
+        if key and key in ALLY_DIALOG_INDEX:
+            return ALLY_DIALOG_INDEX[key]
+
+    key = (token or "").strip().lower()
+    if len(key) < 4:
+        return None
+    for indexed, entry in ALLY_DIALOG_INDEX.items():
+        if key in indexed:
+            return entry
+    return None
+
+
 def ally_token(cobj_edid: str) -> str:
     """The ally's short token from its COBJ EDID.
 
@@ -2477,6 +2700,10 @@ def build_allies():
             "imageCarousel":    carousel,
             "xalgFlags":        xalg,
             "buffsAndEffects":  _buffs_effects,
+            # Dialog sub-expand. None for the Atom Shop allies, which have no
+            # quest and so no lines; the renderer drops the section entirely
+            # rather than showing an empty box on half the roster.
+            "dialog":           resolve_ally_dialog(meta.get("_token", ""), display),
             "inventory":        _ally_inventory,
             "buildInfo":        _ally_build_info,
             "craftingRequirements": _ally_craft,

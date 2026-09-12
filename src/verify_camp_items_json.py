@@ -17,6 +17,9 @@ things the renderer actually reads, and nothing else:
   * per-page EXPECTED_COVERAGE fields are present on at least N% of items —
     a soft floor that catches "the join broke and 90% lost their images"
     without failing on the handful of records Bethesda genuinely leaves blank
+  * every CAMP ally in the ENTM export has a row in data/camp/allies.json —
+    membership comes from a hand-kept table, so a well-formed JSON can still
+    be missing a whole ally (see check_ally_roster)
 
 Run with --dist dist (live) or --dist dist/pts (PTS preview).
 Exit code 1 on any violation, with every problem printed — not just the first.
@@ -30,6 +33,9 @@ import re
 import os
 import sys
 from pathlib import Path
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import tsv_source          # one resolver for every export selection
 
 # _C1 / _C2 / _C3 immediately before the extension — a carousel frame, never a
 # main tile. See the camp-item-expands skill, "Item Image".
@@ -156,6 +162,35 @@ def check_file(dist: Path, name: str, spec: dict) -> list[str]:
     return problems
 
 
+def resolve_entm(tsv_dir: Path):
+    """The ENTM export the BUILDER reads — resolved exactly the way it does.
+
+    Three rules, in order, and none of them is mtime:
+
+      1. $ENTM_TSV when it is set and present. Every workflow picks the export
+         once in its "resolve TSVs" step and writes it to $GITHUB_ENV, so
+         honouring it here guarantees this check and
+         build_allies_pets_weather_json.py read the SAME file.
+      2. the newest ENTM_Export_*.tsv by the DATE IN THE FILENAME, via
+         tsv_source.export_key — the repo's one resolver.
+      3. None. An empty checkout is not a failure.
+
+    Rule 2 used to be max(..., key=os.path.getmtime), which is the whole reason
+    this function exists. actions/checkout stamps every file with the checkout
+    time, so CI picked an arbitrary ENTM export while a dev box picked the
+    genuinely newest one. Only the current export carries a ReferencedBy column,
+    so CI resolved no COBJs at all, matched nothing in drift_exclude, and failed
+    the build over the cut Doberman ally — green locally, red in Actions. See
+    tsv_source.py's module docstring: mtime selection is the second flavour of
+    the bug that module was written to end.
+    """
+    env = os.environ.get("ENTM_TSV", "").strip()
+    if env and Path(env).exists():
+        return Path(env)
+    hits = sorted(tsv_dir.glob("ENTM_Export_*.tsv"), key=tsv_source.export_key)
+    return hits[-1] if hits else None
+
+
 def check_ally_roster(tsv_dir: Path) -> list[str]:
     """Every storefront ally in the TSVs must appear in data/camp/allies.json.
 
@@ -169,12 +204,12 @@ def check_ally_roster(tsv_dir: Path) -> list[str]:
     ENTM at all, so this only ever checks one direction: every ENTM ally is in
     the table. Extra hand-added rows are fine and are not flagged.
     """
-    import csv, glob
+    import csv
 
-    pats = glob.glob(str(tsv_dir / "ENTM_Export_*.tsv"))
-    if not pats:
+    entm = resolve_entm(tsv_dir)
+    if entm is None:
         return []  # no TSVs in this checkout — not an error
-    newest = max(pats, key=os.path.getmtime)
+    print(f"  ..   roster source: {os.path.basename(str(entm))}")
 
     table_path = tsv_dir.parent / "data" / "camp" / "allies.json"
     try:
@@ -190,8 +225,24 @@ def check_ally_roster(tsv_dir: Path) -> list[str]:
     drift_exclude = {k for k in (doc.get("drift_exclude") or {}) if not k.startswith("_")}
 
     missing = []
-    with open(newest, encoding="utf-8", errors="replace") as fh:
-        for row in csv.DictReader(fh, delimiter="\t"):
+    with open(entm, encoding="utf-8", errors="replace") as fh:
+        reader = csv.DictReader(fh, delimiter="\t")
+
+        # ReferencedBy is the ONLY column that maps an ENTM to its COBJ, and
+        # drift_exclude is keyed by COBJ FormID. Without the column every
+        # exclusion silently misses and the cut allies get reported as missing
+        # rows — so name the real problem instead of an innocent ally. The old
+        # exports (Dec 2025 - May 2026) have no such column; only the current
+        # one does.
+        if "ReferencedBy" not in (reader.fieldnames or []):
+            return [
+                f"allies.json roster: {os.path.basename(str(entm))} has no "
+                f"'ReferencedBy' column, so an ENTM cannot be resolved to its "
+                f"COBJ and drift_exclude cannot be applied. Re-export ENTM with "
+                f"ReferencedBy, or point $ENTM_TSV at an export that has it."
+            ]
+
+        for row in reader:
             edid = row.get("EDID") or ""
             if not re.search(r"ENTM_CAMP_Ally", edid, re.I):
                 continue
