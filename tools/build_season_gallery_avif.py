@@ -109,6 +109,11 @@ def natural_key(path):
 # own gallery entries (colour versions only - black-and-white ones are print copies):
 #   "Tickets to reach BP2 - FOF.png", "Season 21 Minimum Ticket Cost - BP2 NON FOF.jpg"
 #   "Season 24 Ticket Checklist - FOF.jpg"
+# One image of the WHOLE board (the early seasons that were one big sheet, and
+# the odd "S9_scoreboard_full.jpg" sitting in a paged season's folder). Not a
+# page - it has no page number, and numbering it "Page 0" is nonsense.
+BOARD_RE = re.compile(r"scoreboard|board[_\s-]*full", re.I)
+
 HERO_RE = re.compile(r"key[\s_-]*hero|key[\s_-]*art", re.I)
 
 
@@ -249,7 +254,11 @@ def main():
     tp = os.path.join(folder, "Season %d - Ticket Prices" % n)
     all_imgs = [p for p in glob.glob(os.path.join(tp, "*")) if p.lower().endswith(IMG_EXT)]
     charts = sorted(p for p in all_imgs if TICKET_CHART_RE.search(os.path.basename(p)))
-    others = [p for p in all_imgs if p not in charts]
+    boards = sorted(p for p in all_imgs
+                    if p not in charts and BOARD_RE.search(os.path.basename(p)))
+    for i, b in enumerate(boards):
+        jobs.append((b, "s%d_board%s.avif" % (n, "" if i == 0 else "_%d" % (i + 1))))
+    others = [p for p in all_imgs if p not in charts and p not in boards]
     odd = [p for p in others if is_portrait(p)]
     for p in odd:
         print("  SKIPPED %s - portrait image, not a board page. If it is a ticket chart,"
