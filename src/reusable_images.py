@@ -53,6 +53,8 @@ import json
 import os
 import re
 
+from asset_paths import asset_url
+
 _IMG_EXT = (".avif", ".webp", ".png", ".jpg", ".jpeg")
 _SUFFIX = re.compile(r"_(?:l|c\d)$", re.IGNORECASE)
 
@@ -104,23 +106,51 @@ def _rank(url):
     return 1
 
 
+def _is_frame(url):
+    """True for a _c1/_c2/_c3 carousel frame.
+
+    Ranking alone is not enough to keep frames out of a main image: it only
+    orders the candidates for a stem, so when a frame is the ONLY hosted image
+    for that stem it wins by default and find() hands back a shack interior.
+    verify_camp_items_json.py then fails the build on an imageUrl ending _c<N>,
+    which is the right outcome but a late and confusing one. Frames are
+    excluded here instead, at the point find() promises a main tile — callers
+    that genuinely want them ask find_all().
+    """
+    return bool(re.search(r"_c\d$", os.path.splitext(os.path.basename(url))[0].lower()))
+
+
 class Index:
     """EDID and texture-stem lookup over the art the site already serves."""
 
     def __init__(self):
         self.by_edid = {}
         self.by_stem = {}
+        # Every URL sharing a stem, not just the best-ranked one. by_stem still
+        # answers "the one main tile for this item", which is what almost every
+        # caller wants; the ally carousel needs the _c1/_c2/_c3 frames that
+        # ranking deliberately discards, and is the only caller of find_all().
+        self.by_stem_all = {}
         self.sources = []
 
     def _add(self, edid, stem, url):
         if not url or not url.lower().endswith(_IMG_EXT):
             return
+        # Route every URL through the one asset rule before indexing it. A
+        # manifest records where a file was UPLOADED, which is not always where
+        # it now LIVES — CAMP ally art moved out of season_images/season-{N}/
+        # into the shared camp-allies folder, so an unrouted row would hand
+        # back a 404 under the ally's old season path.
+        url = asset_url(url) or url
         if edid:
             self.by_edid.setdefault(edid.strip().upper(), url)
         if stem:
             cur = self.by_stem.get(stem)
             if cur is None or _rank(url) < _rank(cur):
                 self.by_stem[stem] = url
+            bucket = self.by_stem_all.setdefault(stem, [])
+            if url not in bucket:
+                bucket.append(url)
 
     def find(self, edid="", stem="", texture=""):
         """Return a hosted URL for this item, or "" if the site has no art.
@@ -130,14 +160,28 @@ class Index:
         """
         if edid:
             hit = self.by_edid.get(str(edid).strip().upper())
-            if hit:
+            if hit and not _is_frame(hit):
                 return hit
         key = stem or texture_stem(texture)
         if key:
             hit = self.by_stem.get(_SUFFIX.sub("", str(key).strip().lower()))
-            if hit:
+            if hit and not _is_frame(hit):
                 return hit
         return ""
+
+    def find_all(self, stem="", texture=""):
+        """Every hosted URL sharing this texture stem, main tile first.
+
+        For the ally carousel, which wants the _c1/_c2/_c3 frames alongside the
+        _l tile. ``find()`` deliberately returns only the main tile, because an
+        item expand's main image must never be a carousel frame — so callers
+        that want the extras have to ask for them explicitly.
+        """
+        key = stem or texture_stem(texture)
+        if not key:
+            return []
+        urls = self.by_stem_all.get(_SUFFIX.sub("", str(key).strip().lower()), [])
+        return sorted(urls, key=_rank)
 
     def __len__(self):
         return len(self.by_stem) + len(self.by_edid)

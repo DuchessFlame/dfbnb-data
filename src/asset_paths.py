@@ -12,6 +12,7 @@ season-{N}:
     C.A.M.P. titles                          -> /guide-images/titles/titles-camp/
     player titles                            -> /guide-images/titles/titles-player/
     player icons                             -> /guide-images/atom-shop/player-icons/
+    C.A.M.P. allies                          -> /guide-images/camp-items/camp-allies/
     emotes                                   -> /guide-images/atom-shop/emotes/
     survival tent skins                      -> /guide-images/atom-shop/survival-tents/
     everything unique to one season          -> /season_images/season-{N}/
@@ -53,6 +54,7 @@ SHARED = {
     "player_icons":  UPLOADS + "guide-images/atom-shop/player-icons/",
     "emotes":        UPLOADS + "guide-images/atom-shop/emotes/",
     "survival_tents": UPLOADS + "guide-images/atom-shop/survival-tents/",
+    "camp_allies":   UPLOADS + "guide-images/camp-items/camp-allies/",
 }
 
 SEASON_ROOT = UPLOADS + "season_images/season-{n}/"
@@ -121,6 +123,19 @@ def asset_url(url: str) -> str:
         return SHARED["titles_player"] + file
     if "playericon" in name:
         return SHARED["player_icons"] + file
+    # CAMP allies. The ally pages are the one place the carousel frames
+    # (_c1/_c2/_c3) are shown, and a season-scoped copy would mean the same
+    # ally's art living under season-3, season-6, season-16 ... while the
+    # allies page wants them all in one place. Every ally texture carries
+    # CAMP_Ally in its stem (ATX_CAMP_Ally_Cambot,
+    # SCORE_S16_CAMP_Ally_Adelaide), so the match is on the filename like
+    # every other rule here.
+    #
+    # This MUST sit above the _SEASON_RE fall-through below: the seasonal
+    # allies are all named score_s{N}_camp_ally_*, so the season rule would
+    # otherwise claim them and send the page back to season-{N}.
+    if "camp_ally" in name:
+        return SHARED["camp_allies"] + file
 
     # Unique season art. The season comes from the FILENAME, never from the
     # season being generated - a reused texture keeps the season it was
@@ -336,6 +351,21 @@ CASES = [
      "/wp-content/uploads/guide-images/atom-shop/player-icons/atx_playericon_score_22.avif"),
     ("/wp-content/uploads/season_images/score_s4_camp_floor_coldsteel.webp",
      "/wp-content/uploads/season_images/season-4/score_s4_camp_floor_coldsteel.avif"),
+    # CAMP allies beat the season rule even though they are named score_s{N}_.
+    ("/wp-content/uploads/season_images/season-16/score_s16_camp_ally_adelaide.webp",
+     "/wp-content/uploads/guide-images/camp-items/camp-allies/score_s16_camp_ally_adelaide.avif"),
+    # Carousel frame: same folder, suffix preserved — the allies page needs it.
+    ("/wp-content/uploads/season_images/season-16/score_s16_camp_ally_adelaide_c1.avif",
+     "/wp-content/uploads/guide-images/camp-items/camp-allies/score_s16_camp_ally_adelaide_c1.avif"),
+    # Non-season ally (Atom Shop): no season prefix to route on, same folder.
+    ("/wp-content/uploads/season_images/atx_camp_ally_cambot.webp",
+     "/wp-content/uploads/guide-images/camp-items/camp-allies/atx_camp_ally_cambot.avif"),
+    # Idempotent: routing an already-routed ally URL returns it unchanged.
+    ("/wp-content/uploads/guide-images/camp-items/camp-allies/score_s3_camp_ally_medic_solomonhardy.avif",
+     "/wp-content/uploads/guide-images/camp-items/camp-allies/score_s3_camp_ally_medic_solomonhardy.avif"),
+    # A CAMP item that is NOT an ally still routes to its season folder.
+    ("/wp-content/uploads/season_images/score_s16_camp_floor_tile.webp",
+     "/wp-content/uploads/season_images/season-16/score_s16_camp_floor_tile.avif"),
     ("/wp-content/uploads/season_images/score_s3_camp_floor_shelters_vaulttile_checkered.webp",
      "/wp-content/uploads/season_images/season-3/score_s3_camp_floor_shelters_vaulttile_checkered.avif"),
     ("/wp-content/uploads/season_images/score_s04_camp_walldecor_endofseasonart.avif",
