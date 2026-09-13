@@ -250,6 +250,28 @@ def _resolve_dmgt_effects(props, curve_idx):
     return {"summary": "", "rows": rows} if rows else None
 
 
+# Style mods grant S.P.E.C.I.A.L. straight off the OMOD as Actor Values, with no
+# curve behind them — a flat number that does not scale with level.
+def _resolve_av_effects(props):
+    rows, seen = [], set()
+    for p in props:
+        if (p.get("PropertyName") or "").strip() != "Actor Values":
+            continue
+        v1 = (p.get("Value1") or "").strip()
+        label = v1.split()[0] if v1.split() else ""
+        if not label:
+            continue
+        value = _num(p.get("Value2"))
+        if value in ("+0", "0"):
+            continue
+        k = (label, value)
+        if k in seen:
+            continue
+        seen.add(k)
+        rows.append({"label": label, "value": value, "points": None, "curve": None})
+    return {"summary": "", "rows": rows} if rows else None
+
+
 # Includes_Flat is emitted as  EDID "FULL" [OMOD:xxxxxxxx] | EDID "FULL" [...]
 _RX_INCL_FID = re.compile(r"\[OMOD:([0-9A-Fa-f]{8})\]")
 
@@ -473,6 +495,37 @@ def main(argv=None):
               "lining->parent link falls back to the tier-name join. Re-export OMOD with "
               "ExportOMODToTSV.pas v3 or newer to use the real link.")
 
+    # ── what a skin actually shows in game ───────────────────────────────────
+    # Every one of the 70 underarmour garments has a Default object template of
+    # Standard Lining + Standard Style (checked against
+    # ARMO_Export_*_ObjectTemplate.tsv: 70/70 style_standard, and the lining is
+    # always the Standard tier of that garment's own set). All Standard linings
+    # include the one _PARENT_mod_UnderArmorMaterial_Standard record, so the
+    # resistances are identical across every skin; the style OMOD is the same
+    # record on all of them. Hence one shared effects block, not per-skin.
+    STYLE_DEFAULT_EDID = "mod_armor_UnderArmor_style_standard"
+    style_fid = omod_by_edid.get(STYLE_DEFAULT_EDID.lower())
+    style_fx  = _resolve_av_effects(omod_props.get(style_fid) or []) if style_fid else None
+    lining_fx = parent_effects.get("Mk1")
+
+    skin_default_effects = None
+    if lining_fx or style_fx:
+        skin_default_effects = {
+            "summary": "These are the two mods every skin comes fitted with — "
+                       "Standard Lining and Standard Style. Swap either at an "
+                       "armour workbench and these numbers change. The garment "
+                       "itself has no stats of its own.",
+            "rows": (lining_fx or {}).get("rows", []) + (style_fx or {}).get("rows", []),
+        }
+    else:
+        print("[underarmour] WARNING: could not resolve the default-mod effects for "
+              "skins (Standard lining and/or Standard style missing from the OMOD "
+              "export). Skin rows will show no Buffs & Effects.")
+    print(f"[underarmour] skin default effects: "
+          f"{len((skin_default_effects or {}).get('rows', []))} row(s) "
+          f"({len((lining_fx or {}).get('rows', []))} resistance, "
+          f"{len((style_fx or {}).get('rows', []))} S.P.E.C.I.A.L.)")
+
     # ── build the rows ──────────────────────────────────────────────────────
     buckets = {k: [] for k, _ in GROUPS}
     no_set, no_effects, tier_conflicts = [], [], []
@@ -535,10 +588,22 @@ def main(argv=None):
             if not fx:
                 no_effects.append(it.get("name"))
         elif grp == "skin":
-            # Garments carry no effects at all — see WHERE THE BUFFS LIVE. The
-            # renderer omits the box entirely rather than showing an empty one.
-            row["effects"] = None
-            row["no_effects_by_design"] = True
+            # The garment RECORD carries nothing — verified on all 70 of them,
+            # every DAMA field empty and no Actor Values. But a player never
+            # holds a bare garment: every one ships with its Default object
+            # template already fitted, which is Standard Lining (of its own set)
+            # plus Standard Style, on all 70 without exception. So the item card
+            # in game always reads +12 to all six resistances and +2 END / +2 CHA
+            # / +2 AGI, and the page has to show that or it contradicts the game.
+            #
+            # These are the same numbers for every skin, because all the
+            # Standard linings inherit one parent material record and the
+            # Standard Style is literally the same OMOD on all of them.
+            row["effects"] = skin_default_effects
+            row["effects_source"] = "default mods"
+            row["effects_from_defaults"] = True
+            row["default_mods"] = {"lining": "Standard Lining",
+                                   "style": "Standard Style"}
         buckets[grp].append(row)
 
     buckets["skin"].sort(key=lambda r: (r["name"] or "").lower())

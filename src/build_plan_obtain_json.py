@@ -594,19 +594,167 @@ def plan_classify(sig, edid, via_edid):
 BUCKET_LABEL = {"container":"container","vendor":"vendor","creature":"creature",
                 "event-quest":"event / quest","fixed":"fixed spawn","loot-list":"loot pool"}
 
-# Collapse a variant-heavy source name to a family (e.g. all Deathclaw NPC
-# variants -> "Deathclaw") so creature/event routes are distinct-rate rows, not
-# a location/enemy dump.
-_STOPWORDS = {"lvl","scorched","assault","consort","glowing","legendary","mq07",
-              "e01","kk05","bs01","bs02","mq02","audio","template","01","02","03",
-              "stage9000","stage","missing","ll"}
+# ── source naming ───────────────────────────────────────────────────────────
+# A leveled list's EditorID is built as  <listPrefix>_<areaCode>_<plumbing>,
+# e.g. LLS_MutatedEvents_Rewards_RarePlans or AC_SQ01_LL_Rewards.  The AREA CODE
+# is the only part a player recognises; everything after it is internal wiring.
+# The old family_name() kept the LAST one or two tokens, which threw the area
+# code away and surfaced the wiring instead ("SQ01 Rewards", "Rewards Tranche05",
+# "XX").  source_label() does the reverse: resolve the area code, drop the
+# wiring, and return None for lists that are not real world sources at all.
+#
+# Every entry below was read off the game data (quest EDID -> FULL name in the
+# QUEST export), not guessed.  An unknown code is left as-is rather than
+# invented — a raw token is a smaller error than a wrong name.
+AREA_CODE = {
+    "ac":            "Atlantic City",
+    "xpd":           "Expeditions",
+    "xpd_ac":        "Atlantic City Expedition",
+    "mutatedevents": "Mutated Public Events",
+    "dailyops":      "Daily Ops",
+    "rd01":          "Raids",
+    "hto":           "Infestations",
+    "burn":          "Burning Springs",
+    "storm":         "Skyline Valley",
+    "p62":           "The Drifter",
+    "moon":          "Milepost Zero",
+    "w05":           "Wastelanders",
+    "bs01":          "Steel Dawn",
+    "bs02":          "Steel Reign",
+    "v94":           "Vault 94",
+    "v96":           "Vault 96",
+    "atx":           "Atom Shop",
+    "score":         "Season Scoreboard",
+    "fishing":       "Fishing",
+    "workshop":      "Workshop",
+    "legendary":     "Legendary",
+}
+
+# Lists that exist only inside the editor.  A route named from one of these is
+# dropped outright — it is not somewhere a player can go.
+_DEV_CODES = {"cut", "debug", "deleted", "del", "deprecated", "zzz", "zzzatx",
+              "test", "unused", "obsolete", "xx", "template", "placeholder"}
+
+# Wiring tokens: true of every list, so they carry no information for a reader.
+# NB "items" is deliberately NOT here — "Chase Items" and "Unique Items" are
+# things a player recognises, unlike "Rewards" or "Tranche", which are true of
+# every list in the file.
+_PLUMBING = {"ll", "lls", "lld", "lle", "llv", "llq", "list", "lists",
+             "reward", "rewards", "questreward", "questrewards", "loot",
+             "lootlist", "pool", "table", "tier", "tranche", "sub", "shared",
+             "generic", "misc", "all", "any", "main",
+             "stage", "stage9000", "lvl", "audio", "missing",
+             "entry", "entries", "set", "group", "co", "recipe",
+             "enc", "lpi", "star",
+             # dev markers that also turn up mid-name, not just as the lead code
+             "xx", "temp", "tmp", "todo", "wip", "backlog", "old", "new2"}
+
+# Map-cell codes like TW006 / LC129 / WL020 name an interior, not a place a
+# player would call by that name. Three or more digits distinguishes them from
+# the two-digit content codes (RD01, BS02, W05, V94), which ARE meaningful.
+_RX_CELL_CODE = re.compile(r"^[A-Za-z]{2,4}\d{3,}$")
+
+_RX_LIST_PFX = re.compile(r"^(LL[SDEVQ]?|co|Recipe|recipe|QuestRewards?)_", re.I)
+_RX_CAMEL    = re.compile(r"([a-z0-9])([A-Z])")
+_RX_TRAILNUM = re.compile(r"^([A-Za-z]{3,})(\d+)$")   # Tranche05 -> Tranche | 05
+
+
+def _tokens(edid):
+    s = _RX_LIST_PFX.sub("", edid or "")
+    s = _RX_CAMEL.sub(r"\1 \2", s).replace("_", " ")
+    out = []
+    for t in re.split(r"\s+", s):
+        if not t:
+            continue
+        # Split a word welded to a number (Tranche05, Tier01) so the word can be
+        # judged as plumbing and the number dropped as a bare index. Area codes
+        # (RD01, BS02, V94, W05) are short and stay whole — the {3,} guard.
+        m = _RX_TRAILNUM.match(t)
+        out.extend([m.group(1), m.group(2)] if m else [t])
+    return out
+
+
+def source_label(edid):
+    """Readable name for a leveled list, or None if it is not a real source.
+
+    Returns e.g. 'Mutated Public Events - Rare Plans', 'Atlantic City Side
+    Quests', 'The Drifter'.  Lists whose leading code is editor-only return
+    None so the caller can drop the route entirely.
+    """
+    toks = _tokens(edid)
+    if not toks:
+        return None
+
+    low = [t.lower() for t in toks]
+    if any(t in _DEV_CODES for t in low[:2]):
+        return None
+
+    # Area code: longest match wins, so the specific name beats the general one
+    # (xpd_ac -> Atlantic City Expedition, not Expeditions). Candidates are the
+    # first n tokens both underscore-joined and run together, because the camel
+    # split has already broken "MutatedEvents" into two tokens.
+    area, rest = None, toks
+    for n in (3, 2, 1):
+        if len(low) < n:
+            continue
+        for key in ("_".join(low[:n]), "".join(low[:n])):
+            if key in AREA_CODE:
+                area, rest = AREA_CODE[key], toks[n:]
+                break
+        if area:
+            break
+
+    # SQ01 / SQ12 -> the set of side quests for that area, not one numbered list.
+    # MQ / DQ get the same treatment.  These collapse together by design: the
+    # data does not say which side quest, and pretending it does would be worse.
+    kind, keep = None, []
+    for t in rest:
+        if re.fullmatch(r"(SQ|MQ|DQ)\d*", t, re.I):
+            kind = {"sq": "Side Quests", "mq": "Main Quests",
+                    "dq": "Daily Quests"}[t[:2].lower()]
+        elif t.lower() in ("sidequest", "sidequests"):
+            kind = "Side Quests"
+        elif t.lower() in ("mainquest", "mainquests"):
+            kind = "Main Quests"
+        else:
+            keep.append(t)
+    rest = keep
+
+    # Whatever is left that is not wiring and not a bare number is the detail.
+    detail = [t for t in rest
+              if t.lower() not in _PLUMBING
+              and not re.fullmatch(r"\d+", t)
+              and not _RX_CELL_CODE.match(t)]
+    # An area code and its detail often repeat each other: P62_LL_Drifter ->
+    # "The Drifter - Drifter", and HTO_HostileTakeOver -> "Infestations -
+    # Hostile Take Over", where the detail is just the acronym spelled out.
+    # Drop detail the area name already carries, by word and by initials.
+    if area:
+        awords = set(area.lower().split())
+        ainit = "".join(w[0] for w in area.lower().split())
+        detail = [t for t in detail if t.lower() not in awords]
+        if detail and "".join(t[0].lower() for t in detail) in (ainit, area.lower()):
+            detail = []
+
+    if area and kind:
+        return f"{area} {kind}"
+    if area and detail:
+        return f"{area} - {' '.join(detail)}"
+    if area:
+        return area
+    if kind and detail:
+        return f"{' '.join(detail)} {kind}"
+    if kind:
+        return kind
+    if detail:
+        return " ".join(detail)
+    # Nothing survived the filters: the list was wiring end to end.
+    return None
+
+
 def family_name(name):
-    toks = [t for t in re.split(r"[\s_]+", name or "") if t]
-    keep = [t for t in toks if t.lower() not in _STOPWORDS and not re.fullmatch(r"[0-9]+", t)]
-    # take the last 1-2 meaningful tokens (the noun), else fall back to the whole
-    if not keep:
-        return (name or "Source").strip()
-    return " ".join(keep[-2:]) if len(keep) >= 2 and keep[-1].istitle() else keep[-1]
+    """Back-compat shim — source_label() reads the EditorID itself."""
+    return source_label(name) or (name or "Source").strip()
 
 def resolve_routes(target_fid, tables, rates, cont_names):
     target = {target_fid}
@@ -666,7 +814,12 @@ def resolve_routes(target_fid, tables, rates, cont_names):
                 routes.append({"route": name, "source_type": "vendor",
                                "rate": round(rate, 6), "rate_display": bfu._fmt_rate(rate)})
             continue
-        fam = family_name(humanize(via or L))
+        # source_label reads the raw EditorID (not humanize()'d) because it needs
+        # the underscore boundaries to find the area code. None = editor-only
+        # list or wiring end to end, so it is not a route a player can take.
+        fam = source_label(via or str(L))
+        if not fam:
+            continue
         k = (bucket, fam.lower(), round(rate, 4))
         if k not in seen_n:
             seen_n[k] = {"route": fam, "source_type": bucket,
