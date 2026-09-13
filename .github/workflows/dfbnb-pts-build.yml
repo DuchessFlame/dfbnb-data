@@ -59,6 +59,29 @@ jobs:
         run: python src/tsv_source.py --lint
 
       # ===== PTS CHANNEL SETUP =====
+      # Keep a pristine copy of the LIVE BOOK exports BEFORE the normalize step
+      # below overwrites tsv/ with the PTS pull. Everything that takes a
+      # --baseline-dir (New Plans, Underarmour) must read the baseline from
+      # HERE, not from tsv/.
+      #
+      # Why: normalize_pts_tsv.py rewrites the newest PTS export under a
+      # live-style name — BOOK_Export_PTS_2026-08-22_0946.tsv becomes
+      # tsv/BOOK_Export_August_2026.tsv — and August then outranks every genuine
+      # live BOOK export in tsv/ (newest live is July_2026). A baseline read
+      # from tsv/ is therefore the PTS file diffed against itself: zero new
+      # plans and an empty page. The sanity checks cannot catch it either — the
+      # normalized name carries no "PTS", so the "baseline must be LIVE" assert
+      # passes on PTS data. Only the BOOK exports are copied; resolve_baseline()
+      # reads nothing else. tsv_live/ is untracked and never committed.
+      - name: Snapshot LIVE TSV baseline (must run before the normalize)
+        run: |
+          mkdir -p tsv_live
+          cp tsv/BOOK_Export_*.tsv tsv_live/
+          n=$(ls -1 tsv_live/BOOK_Export_*.tsv 2>/dev/null | grep -v Locations | wc -l)
+          echo "tsv_live holds $n live BOOK export(s):"
+          ls -1 tsv_live
+          test "$n" -gt 0 || { echo "::error::no live BOOK export to use as a baseline"; exit 1; }
+
       # Overwrite the dated exports in the (ephemeral) tsv/ checkout with the
       # newest PTS pull, normalized to live-style names so every downstream
       # builder works unchanged. Then wipe dist/ so whatever remains after the
@@ -621,8 +644,12 @@ jobs:
           PYCHK
 
       # --- NEW PLANS (PTS channel) ---
-      # --baseline-dir tsv makes this the NEWEST PTS export against the NEWEST
-      # LIVE one, so the PTS page answers "what is coming in the next update".
+      # --baseline-dir tsv_live makes this the NEWEST PTS export against the
+      # NEWEST LIVE one, so the PTS page answers "what is coming in the next
+      # update". It must be tsv_live and NOT tsv: the normalize step at the top
+      # of this job has already overwritten tsv/ with the PTS pull under
+      # live-style names, so a tsv/ baseline is PTS-vs-PTS and the page comes
+      # out empty. See the "Snapshot LIVE TSV baseline" step.
       #
       # It deliberately does NOT diff PTS-against-PTS. That was the first cut and
       # it was wrong in practice: consecutive PTS exports are usually the same
@@ -639,7 +666,7 @@ jobs:
         run: |
           python src/build_new_plans_json.py \
             --data-dir tsv/pts \
-            --baseline-dir tsv \
+            --baseline-dir tsv_live \
             --outdir dist
 
       - name: Sanity check new_plans.json is the PTS-vs-live diff
@@ -665,8 +692,10 @@ jobs:
       # --- UNDERARMOUR (PTS channel) ---
       # Three groups (Skins / Lining / Style) sliced out of the PTS plan_master
       # built above. MUST stay after the plan-obtain step.
-      # --baseline-dir tsv so the ★ NEW pill marks what the LIVE game has not
-      # seen, matching the New Plans page's PTS behaviour.
+      # --baseline-dir tsv_live so the ★ NEW pill marks what the LIVE game has
+      # not seen, matching the New Plans page's PTS behaviour. Same rule as
+      # above: tsv/ is PTS data by this point, so the baseline must come from
+      # the tsv_live snapshot or every pill silently disappears.
       #
       # It also resolves the lining resistances, which plan_master cannot: a
       # lining OMOD carries only a dn_VaultSuitLiningN keyword, and the real
@@ -677,7 +706,7 @@ jobs:
         run: |
           python src/build_underarmour_json.py \
             --data-dir tsv/pts \
-            --baseline-dir tsv \
+            --baseline-dir tsv_live \
             --outdir dist
 
       - name: Sanity check underarmour.json (PTS)
