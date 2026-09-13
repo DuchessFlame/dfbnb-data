@@ -6,22 +6,53 @@ WHAT IT IS
 ----------
 A rolling "what arrived in this patch" list. It is NOT a hand-maintained page
 and it is NOT cumulative: it holds exactly the plans that exist in the NEWEST
-BOOK export but did not exist in the one before it. Upload a newer BOOK export
-and the previous batch drops off on its own, replaced by whatever that export
-added. Nothing to prune, nothing to date-stamp by hand.
+BOOK export but did not exist in the baseline it is diffed against. Upload a
+newer BOOK export and the previous batch drops off on its own, replaced by
+whatever that export added. Nothing to prune, nothing to date-stamp by hand.
 
     newest BOOK export   ──┐
                            ├── set difference ──> the plans on this page
-    previous BOOK export ──┘
+    baseline BOOK export ──┘
 
-Both sides come from tsv_source.newest_pair(), which ranks exports by the date
-in the FILENAME — never by mtime. (In CI, actions/checkout stamps every file
-with the checkout time, so "newest by mtime" is meaningless.) The same call
-resolves the PTS channel when --data-dir points at tsv/pts, so the PTS page
-diffs PTS-vs-PTS and never against a live export.
+TWO MODES — "new" MEANS SOMETHING DIFFERENT PER CHANNEL
+-------------------------------------------------------
+    LIVE  (mode "vs-previous")      "what the last patch added"
+        newest live export   vs   previous live export
 
-If only ONE BOOK export exists, the page is EMPTY, not "everything is new".
-A first-run page listing all 2,800 plans as new would be a lie.
+    PTS   (mode "vs-live")          "what's coming in the next update"
+        newest PTS export    vs   newest LIVE export
+
+The PTS page deliberately does NOT diff PTS-against-PTS. Consecutive PTS
+exports are usually the same build re-exported, so a PTS-vs-PTS diff comes out
+empty while the PTS is carrying dozens of plans the live game has never seen —
+which is exactly what a PTS reader is there for. The PTS job selects this mode
+by passing `--baseline-dir tsv`; the sanity check in that workflow asserts the
+newest side is PTS and the baseline is live, so either half of the wiring
+breaking fails the build rather than publishing a wrong page.
+
+The renderer words the page from the `mode` field, so the live page says
+"added by the latest game data update" and the PTS page says "not in the live
+game yet".
+
+DUPLICATE BASELINES
+-------------------
+An export re-uploaded from the same game build has an identical plan roster to
+the one before it. Diffing against it yields nothing and blanks the page even
+though the patch genuinely added plans — which is exactly what the live May and
+July 2026 exports do (2,866 plans each).
+
+So in `vs-previous` mode the baseline walks back past any export whose plan
+roster is IDENTICAL to the newest, stopping at the first that actually differs.
+It cannot run away: a real patch always differs, so the walk stops at the real
+previous patch. Skipped exports are listed in `baseline.skipped_duplicates` and
+shown on the page, so an accidental re-upload is visible rather than silent.
+
+Every side is resolved through tsv_source, which ranks exports by the date in
+the FILENAME — never by mtime. (In CI, actions/checkout stamps every file with
+the checkout time, so "newest by mtime" is meaningless.)
+
+If no usable baseline exists at all, the page is EMPTY, not "everything is
+new". A first-run page listing all 2,800 plans as new would be a lie.
 
 WHERE THE ROWS COME FROM
 ------------------------
@@ -47,21 +78,33 @@ plan_master lumps both into its single "recipe" bucket: CAMP is placeable
 (buildings, furniture, decorations, workshop objects), Recipes is consumable
 (food, chems, drinks).
 
-`group_for()` prefers the COBJ/OMOD EditorIDs over the plan_master `type`
-bucket, because that bucket misfiles a known minority: weapon mods sold by the
-stamp/score vendors land in "recipe" (co_Weapon_* EDIDs) and the odd magazine
-mod lands in "armour". Those EDIDs say plainly what the plan is for, so this
-page reads them first and falls back to the bucket only when they resolve
-nothing. This is deliberately a display-time refinement for THIS page only —
-it does not move any plan between checklist pages. If the same misfiling
-should be fixed at the source, that belongs in classify_plan() in
-build_plan_obtain_json.py, and this function can then be reduced to the
-bucket map.
+`group_for()` is an ordered ladder, and its SHAPE matters more than any pattern
+in it:
+
+    plan_master's apparel / armour / weapon / backpack-mod buckets are EARNED —
+    the builder resolved the plan's created object to a real ARMO or WEAP
+    record. That is stronger evidence than any word in an EditorID, so those
+    buckets are trusted and passed straight through. Word-matching exists to
+    refine the ONE bucket that was never resolved ("recipe", the catch-all) and
+    to fix the single documented cross-bucket error (weapon mods filed under
+    "recipe" or "armour", caught by a weapon mod SLOT name in the EditorID).
+
+Getting that backwards is a real bug, not a nicety. An earlier cut word-matched
+first and put "Plan: Trucker Uniform" under CAMP (its recipe is crafted at a
+workshop) and "Plan: Thorn Armor Chest Piece" under Armour (its EditorID says
+"Armor"), when plan_master had both correctly as apparel. Across the roster it
+dragged 182 plans off the page they actually live on.
+
+This is deliberately a display-time refinement for THIS page only — it does not
+move any plan between checklist pages. If the same misfiling should be fixed at
+the source, that belongs in classify_plan() in build_plan_obtain_json.py, and
+this function can then be reduced to the bucket map.
 
 USAGE
 -----
     python src/build_new_plans_json.py --data-dir tsv --outdir dist
-    python src/build_new_plans_json.py --data-dir tsv/pts --outdir dist   # PTS job relocates dist/ later
+    python src/build_new_plans_json.py --data-dir tsv/pts --baseline-dir tsv --outdir dist
+        # PTS job relocates dist/ -> dist/pts/ afterwards
 """
 import os, re, csv, json, argparse, sys
 from datetime import datetime, timezone
@@ -73,6 +116,14 @@ DIST = os.path.join(REPO, "dist")
 sys.path.insert(0, HERE)
 
 import tsv_source
+
+# ── the BOOK export selector, shared ─────────────────────────────────────────
+# BOOK_Export_*.tsv also catches the _Locations companion, which carries no FULL
+# column and would diff to "everything is new". Every caller must exclude it.
+# build_underarmour_json.py imports both of these plus book_plan_ids() and
+# resolve_baseline() so the two pages always agree on what "new" means.
+BOOK_GLOB    = "BOOK_Export_*.tsv"
+BOOK_EXCLUDE = "Locations"
 
 # ── group definitions ────────────────────────────────────────────────────────
 # key -> label. Rendered A–Z by label, so the dict order here is cosmetic.
@@ -96,11 +147,19 @@ _TYPE_FALLBACK = {
 
 # Manual last word, for the handful the data cannot settle. Key is the plan's
 # BOOK FormID (the `plan_item.formid` on the row, shown in Technical); value is
-# a GROUPS key. Use it only where the EDIDs genuinely do not say — e.g. a CAMP
-# build whose COBJ never resolved to a placeable upstream, so it falls to
-# Recipes. Runs last and wins over everything below it.
-#     "008BA7F3": "weapon",
-GROUP_OVERRIDES = {}
+# a GROUPS key. Runs FIRST and wins over everything below it.
+#
+# Use it only where the data genuinely does not say. Every entry here is a CAMP
+# placeable whose COBJ never resolved to a placeable upstream, so it lands in
+# the "recipe" catch-all and nothing in its EditorID says otherwise — the EDIDs
+# below literally read "Recipe". Fixing it properly means fixing the COBJ
+# resolution in build_plan_obtain_json.py; until then these three would be the
+# only rows on a two-plan page, filed under the wrong heading.
+GROUP_OVERRIDES = {
+    "008EE1B0": "camp",   # Plan: Healing Arch  (SCORE_S24_Recipe_HealingArch_StampVendor)
+    "008EE1AF": "camp",   # Plan: Phoropter     (SCORE_S24_Recipe_Phoropter_StampVendor)
+    "008F5215": "camp",   # Plan: Pint-Sized Slasher Photo Frame (PTS; SDOW_Recipe_PhotoMode_Frame_SlasherFrame)
+}
 
 _RX_BACKPACK = re.compile(r"backpack", re.I)
 # Weapon mod SLOT names. A mod recipe whose EditorID names one of these is a
@@ -136,32 +195,45 @@ def group_for(item):
     # The BOOK's own EditorID is always present; the COBJ/CNAM links are not.
     blob      = f"{cobj_edid} {cnam_edid} {book_edid}"
 
-    # 1. Backpack is unambiguous wherever it appears.
-    if typ == "backpack-mod" or _RX_BACKPACK.search(blob):
-        return "backpack-mod"
-
-    # 2. A workshop / furniture COBJ is a CAMP build, whatever the bucket says.
-    if _RX_WORKSHOP.search(blob):
-        return "camp"
-
-    # 3. A weapon mod slot in the EditorID settles it before anything else.
+    # 1. A weapon mod SLOT name in the EditorID is the one documented
+    #    cross-bucket rescue, and it runs before the buckets because it is
+    #    correcting them: stamp/score-vendor weapon mods land in "recipe" and
+    #    the odd magazine mod lands in "armour". Armour and power-armour mods
+    #    use Material / Lining / Torso / Arm / Leg / Helmet instead, so there
+    #    is no overlap and this cannot steal a genuine armour mod.
     if _RX_WEAP_SLOT.search(blob):
         return "weapon"
 
-    # 4. The created object's own EDID beats the bucket: this is what rescues
-    #    co_Weapon_* stamp-vendor mods from the "recipe" bucket.
+    # 2. RESOLVED BUCKETS WIN. apparel / armour / weapon / backpack-mod mean
+    #    the upstream builder matched the plan's created object to a real ARMO
+    #    or WEAP record. No word in an EditorID outranks that — see GROUPING in
+    #    the module docstring for the 182 plans that moved when this was the
+    #    other way round.
+    if typ in _TYPE_FALLBACK:
+        return _TYPE_FALLBACK[typ]
+
+    # ── Below here the bucket is "recipe", the catch-all that resolved nothing.
+    #    Only now does word-matching get a say. ───────────────────────────────
+
+    # 3. Backpack mods that never resolved to a backpack record.
+    if _RX_BACKPACK.search(blob):
+        return "backpack-mod"
+
+    # 4. A workshop / furniture COBJ is a CAMP build.
+    if _RX_WORKSHOP.search(blob):
+        return "camp"
+
+    # 5. The created object's own EDID — this is what rescues co_Weapon_*
+    #    stamp-vendor mods that carry no mod-slot name.
     if _RX_WEAPON.search(blob):  return "weapon"
     if _RX_APPAREL.search(blob): return "apparel"
     if _RX_ARMOUR.search(blob):  return "armour"
     if cnam_sig == "ALCH" or _RX_CONSUM.search(blob):
         return "recipe"
 
-    # 5. Nothing in the EDIDs — fall back to the page bucket.
-    if typ in _TYPE_FALLBACK:
-        return _TYPE_FALLBACK[typ]
-
-    # 6. The "recipe" bucket splits on whether the plan makes something you can
-    #    place. has_image_box is exactly that test upstream.
+    # 6. Nothing said anything. The "recipe" bucket splits on whether the plan
+    #    makes something you can place. has_image_box is exactly that test
+    #    upstream.
     return "camp" if item.get("has_image_box") else "recipe"
 
 
@@ -189,10 +261,62 @@ def book_plan_ids(path):
     return out
 
 
+def resolve_baseline(data_dir, baseline_dir, cur_ids, newest_f):
+    """(baseline_file, mode, skipped) — what to diff `newest_f` against.
+
+    Shared with build_underarmour_json.py so the two pages can never disagree
+    about what "new" means. `cur_ids` is book_plan_ids(newest_f), passed in so
+    the caller does not parse the newest export twice.
+
+    mode "vs-live"     : baseline_dir given. The newest export THERE, whatever
+                         its roster. No walk-back — the two roots are different
+                         channels, so an identical roster is a real answer
+                         ("the PTS adds nothing"), not a re-upload to skip.
+
+    mode "vs-previous" : single root. The previous export, walking BACK past
+                         any whose plan roster is identical to the newest,
+                         because that is a re-upload of the same game build and
+                         diffing against it blanks the page. See DUPLICATE
+                         BASELINES in the module docstring. Returns None when
+                         no usable baseline survives — an empty page, never
+                         "everything is new".
+    """
+    if baseline_dir:
+        base_hits = tsv_source.all_matching(
+            os.path.join(baseline_dir, BOOK_GLOB), exclude=BOOK_EXCLUDE)
+        if not base_hits:
+            raise SystemExit(
+                f"[new-plans] --baseline-dir {baseline_dir} holds no BOOK export. "
+                f"Publishing every plan as new would be a lie — fix the path."
+            )
+        return base_hits[-1], "vs-live", []
+
+    hits = tsv_source.all_matching(
+        os.path.join(data_dir, BOOK_GLOB), exclude=BOOK_EXCLUDE)
+    newest_abs = os.path.abspath(newest_f)
+    older = [h for h in hits if os.path.abspath(h) != newest_abs]
+
+    # A real patch always differs, so this stops at the real previous patch —
+    # it cannot run away past one.
+    skipped = []
+    newest_roster = set(cur_ids)
+    for cand in reversed(older):
+        if set(book_plan_ids(cand)) == newest_roster:
+            skipped.append(os.path.basename(cand))
+            continue
+        return cand, "vs-previous", skipped
+
+    return None, "vs-previous", skipped
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--data-dir", default=TSV,
                     help="TSV export root; tsv/pts on the PTS channel")
+    ap.add_argument("--baseline-dir", default="",
+                    help="diff against the newest export HERE instead of the "
+                         "previous one under --data-dir. The PTS job passes "
+                         "'tsv' so 'new' means new-versus-live.")
     ap.add_argument("--outdir", default=DIST,
                     help="output dir (the PTS job relocates dist/ -> dist/pts/ afterwards)")
     ap.add_argument("--master", default="",
@@ -206,26 +330,31 @@ def main(argv=None):
     out_path    = args.out    or os.path.join(outdir, "new_plans.json")
 
     # ── the two BOOK exports ────────────────────────────────────────────────
-    # exclude="Locations" — BOOK_Export_*.tsv also catches the _Locations
-    # companion, which carries no FULL column and would diff to "everything new".
-    pattern = os.path.join(args.data_dir, "BOOK_Export_*.tsv")
-    newest_f, prev_f = tsv_source.newest_pair(pattern, exclude="Locations")
+    newest_f = tsv_source.newest(os.path.join(args.data_dir, BOOK_GLOB),
+                                 exclude=BOOK_EXCLUDE, required=False)
     if not newest_f:
         raise SystemExit(f"[new-plans] no BOOK export found under {args.data_dir}")
-
     new_ids = book_plan_ids(newest_f)
+    prev_f, mode, skipped_dupes = resolve_baseline(
+        args.data_dir, args.baseline_dir, new_ids, newest_f)
+
     if prev_f:
         old_ids = book_plan_ids(prev_f)
         added   = set(new_ids) - set(old_ids)
     else:
-        # One export only: there is no "before", so nothing is demonstrably new.
+        # No usable baseline: there is no "before", so nothing is demonstrably
+        # new. An empty page beats calling all 2,800 plans new.
         old_ids = {}
         added   = set()
-        print("[new-plans] only one BOOK export on this channel — "
+        print("[new-plans] no usable baseline on this channel — "
               "publishing an empty page rather than calling every plan new.")
 
+    print(f"[new-plans] mode    : {mode}")
     print(f"[new-plans] newest  : {os.path.basename(newest_f)}  ({len(new_ids)} plans)")
-    print(f"[new-plans] previous: {os.path.basename(prev_f) if prev_f else '(none)'}  ({len(old_ids)} plans)")
+    print(f"[new-plans] baseline: {os.path.basename(prev_f) if prev_f else '(none)'}  ({len(old_ids)} plans)")
+    for s in skipped_dupes:
+        print(f"[new-plans] skipped : {s} — identical plan roster to the newest "
+              f"(re-upload of the same game build)")
     print(f"[new-plans] added   : {len(added)}")
 
     # ── pull the finished rows out of plan_master ───────────────────────────
@@ -261,11 +390,17 @@ def main(argv=None):
     out = {
         "version": 1,
         "generated": datetime.now(timezone.utc).isoformat(),
+        # The renderer words the page from this: "vs-previous" -> "added by the
+        # latest game data update", "vs-live" -> "not in the live game yet".
+        "mode": mode,
         "baseline": {
             "newest":   os.path.basename(newest_f),
             "previous": os.path.basename(prev_f) if prev_f else None,
             "newest_plan_count":   len(new_ids),
             "previous_plan_count": len(old_ids),
+            # Re-uploads of the same game build that the walk-back stepped over.
+            # Shown on the page so an accidental re-upload is visible, not silent.
+            "skipped_duplicates": skipped_dupes,
         },
         "count": len(rows),
         "skipped_not_in_master": sorted(skipped),

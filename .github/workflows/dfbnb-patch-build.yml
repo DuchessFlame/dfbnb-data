@@ -605,6 +605,46 @@ jobs:
                 f"[{d['baseline']['newest']} vs {d['baseline']['previous']}]")
           PYCHK
 
+
+      # --- UNDERARMOUR (/df/plan-checklists/underarmour/) ---
+      # Three groups (Skins / Lining / Style) sliced out of the plan_master built
+      # above, so the rows are identical to the same plan's row on its own
+      # checklist page. MUST stay after the plan-obtain step for that reason.
+      #
+      # It also resolves the lining resistances, which plan_master cannot: a
+      # lining OMOD carries only a dn_VaultSuitLiningN keyword, and the real
+      # Damage Type Values live on the five shared _PARENT_mod_UnderArmorMaterial_*
+      # records. Losing those is silent, so the check below fails the build if a
+      # lining comes back with no resistances.
+      - name: Build Underarmour JSON
+        run: |
+          python src/build_underarmour_json.py \
+            --data-dir tsv \
+            --outdir dist
+
+      - name: Sanity check underarmour.json
+        run: |
+          python - <<'PYCHK'
+          import json
+          d = json.load(open("dist/underarmour.json"))
+          groups = {g["key"]: g for g in d.get("groups", [])}
+          total = sum(len(g["items"]) for g in groups.values())
+          assert total == d.get("count"), f"count {d.get('count')} != {total} rows"
+          for k in ("skin", "lining", "style"):
+              assert k in groups and groups[k]["items"], f"group {k!r} is empty"
+          # Every lining must carry resolved resistances. An empty one means the
+          # _PARENT_mod_UnderArmorMaterial_* join broke — see PARENT_BY_TIER.
+          bad = [i["name"] for i in groups["lining"]["items"] if not (i.get("effects") or {}).get("rows")]
+          assert not bad, f"{len(bad)} lining(s) resolved no resistances: {bad[:5]}"
+          # Skins carry no effects by design; a stray effects block means the
+          # garment/mod split has drifted.
+          stray = [i["name"] for i in groups["skin"]["items"] if i.get("effects")]
+          assert not stray, f"skins should have no effects: {stray[:5]}"
+          print(f"underarmour.json: {total} plans "
+                f"({groups['skin']['count']} skins / {groups['lining']['count']} linings / "
+                f"{groups['style']['count']} styles), {d['new_pill']['count']} NEW")
+          PYCHK
+
       # --- AXOLOTL ---
       - name: Build Axolotl Rotations JSON
         run: node tools/build-axolotl-rotations-json.mjs
