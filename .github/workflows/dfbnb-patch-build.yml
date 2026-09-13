@@ -577,6 +577,34 @@ jobs:
           assert n > 0, "no plans built"
           PYCHK
 
+      # --- NEW PLANS (/df/plan-checklists/new-plans/) ---
+      # Diffs the newest BOOK export against the previous one and copies the
+      # matching rows straight out of the plan_master.json built above, so the
+      # New Plans row and the row on the plan's own checklist page are the same
+      # bytes. That dependency is why this MUST stay after the plan-obtain step.
+      #
+      # Self-pruning by design: the page holds one export's worth of additions,
+      # and the next export's build replaces them. An empty result is a valid
+      # outcome (two exports can carry the same plan roster), so there is no
+      # "must be > 0" assertion here — only that the file is well-formed.
+      - name: Build New Plans JSON
+        run: |
+          python src/build_new_plans_json.py \
+            --data-dir tsv \
+            --outdir dist
+
+      - name: Sanity check new_plans.json
+        run: |
+          python - <<'PYCHK'
+          import json
+          d = json.load(open("dist/new_plans.json"))
+          groups = d.get("groups", [])
+          total = sum(len(g.get("items", [])) for g in groups)
+          assert total == d.get("count"), f"count {d.get('count')} != {total} rows in groups"
+          print(f"new_plans.json: {total} new plan(s) in {len(groups)} group(s) "
+                f"[{d['baseline']['newest']} vs {d['baseline']['previous']}]")
+          PYCHK
+
       # --- AXOLOTL ---
       - name: Build Axolotl Rotations JSON
         run: node tools/build-axolotl-rotations-json.mjs

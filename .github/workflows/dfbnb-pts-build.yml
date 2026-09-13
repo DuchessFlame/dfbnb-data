@@ -620,6 +620,47 @@ jobs:
           assert n > 0, "no plans built"
           PYCHK
 
+      # --- NEW PLANS (PTS channel) ---
+      # --baseline-dir tsv makes this the NEWEST PTS export against the NEWEST
+      # LIVE one, so the PTS page answers "what is coming in the next update".
+      #
+      # It deliberately does NOT diff PTS-against-PTS. That was the first cut and
+      # it was wrong in practice: consecutive PTS exports are usually the same
+      # build re-exported, so the page came out empty while the PTS was carrying
+      # ~69 plans the live game had never seen — exactly the plans a PTS reader
+      # is there for. Do not drop --baseline-dir.
+      #
+      # The relocate step at the end of the job moves dist/ -> dist/pts/, so the
+      # page reads dist/pts/new_plans.json with no extra path handling here.
+      #
+      # Must stay after the plan-obtain step above: it copies its rows out of the
+      # plan_master.json that step produces.
+      - name: Build New Plans JSON (PTS)
+        run: |
+          python src/build_new_plans_json.py \
+            --data-dir tsv/pts \
+            --baseline-dir tsv \
+            --outdir dist
+
+      - name: Sanity check new_plans.json is the PTS-vs-live diff
+        run: |
+          python - <<'PYCHK'
+          import json
+          d = json.load(open("dist/new_plans.json"))
+          b = d["baseline"]
+          # The newest side must be PTS and the baseline must be LIVE. Either one
+          # wrong means the channel wiring broke: a PTS baseline is the empty-page
+          # bug above, a live "newest" would publish live data on the PTS page.
+          assert d.get("mode") == "vs-live", f"expected mode vs-live, got {d.get('mode')}"
+          assert "PTS" in b["newest"], f"newest is not a PTS export: {b['newest']}"
+          assert b["previous"] and "PTS" not in b["previous"], \
+              f"baseline should be a LIVE export, got: {b['previous']}"
+          total = sum(len(g.get("items", [])) for g in d.get("groups", []))
+          assert total == d.get("count"), f"count {d.get('count')} != {total} rows in groups"
+          print(f"new_plans.json (PTS): {total} plan(s) not yet live "
+                f"[{b['newest']} vs {b['previous']}]")
+          PYCHK
+
       # --- AXOLOTL ---
       - name: Build Axolotl Rotations JSON
         run: node tools/build-axolotl-rotations-json.mjs
