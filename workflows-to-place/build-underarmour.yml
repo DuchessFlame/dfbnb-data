@@ -1,0 +1,111 @@
+name: Build Underarmour JSON
+
+# Builds dist/underarmour.json for /df/plan-checklists/underarmour/, rendered by
+# df-bnb-plan-checklists.js -> renderUnderarmour.
+#
+# Three groups — Skins / Lining / Style — because every underarmour garment has
+# exactly two mod slots (ap_armor_Lining and ap_underarmor_style) and both
+# linings and styles fit any garment.
+#
+# Rows are sliced VERBATIM out of dist/plan_master.json, so an underarmour row
+# and the same plan's row on the Apparel or Body Armour checklist are the same
+# bytes. On top of that the builder resolves the lining resistances, which
+# plan_master cannot: a lining OMOD holds only a dn_VaultSuitLiningN keyword, and
+# the real Damage Type Values sit on five shared _PARENT_mod_UnderArmorMaterial_*
+# records joined by tier name.
+#
+# THIS WORKFLOW IS THE MANUAL / CODE-CHANGE PATH ONLY.
+# The automated paths, which rebuild the plan roster in the same run, are:
+#   * dfbnb-patch-build.yml   — full live patch build
+#   * dfbnb-pts-build.yml     — PTS channel, --data-dir tsv/pts --baseline-dir tsv
+# Both call the identical builder, so they cannot drift.
+#
+# It deliberately does NOT trigger on tsv/**: that would race build-plan-obtain
+# for the same commit, and this job reads the committed dist/plan_master.json
+# rather than rebuilding it. On a TSV push, let the patch build do both.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - "src/build_underarmour_json.py"
+      - ".github/workflows/build-underarmour.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-underarmour-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Require an existing plan_master.json
+        run: |
+          test -f dist/plan_master.json || {
+            echo "dist/plan_master.json is missing — run build-plan-obtain.yml first."
+            exit 1
+          }
+
+      - name: Build Underarmour JSON
+        run: |
+          mkdir -p dist
+          python src/build_underarmour_json.py \
+            --data-dir tsv \
+            --outdir dist
+
+      - name: Sanity check output
+        run: |
+          python - <<'PY'
+          import json
+          d = json.load(open("dist/underarmour.json"))
+          groups = {g["key"]: g for g in d.get("groups", [])}
+          total = sum(len(g["items"]) for g in groups.values())
+          assert total == d.get("count"), f"count {d.get('count')} != {total} rows"
+          for k in ("skin", "lining", "style"):
+              assert k in groups and groups[k]["items"], f"group {k!r} is empty"
+          # A lining with no resistances means the _PARENT_mod_UnderArmorMaterial_*
+          # join broke. That failure is otherwise silent, so fail the build.
+          bad = [i["name"] for i in groups["lining"]["items"] if not (i.get("effects") or {}).get("rows")]
+          assert not bad, f"{len(bad)} lining(s) resolved no resistances: {bad[:5]}"
+          # Skins carry no effects by design — a stray block means the
+          # garment/mod split has drifted.
+          stray = [i["name"] for i in groups["skin"]["items"] if i.get("effects")]
+          assert not stray, f"skins should have no effects: {stray[:5]}"
+          # Every lining must land on a real tier, or the group mis-sorts.
+          notier = [i["name"] for i in groups["lining"]["items"] if not i.get("tier")]
+          assert not notier, f"lining(s) with no tier: {notier[:5]}"
+          print(f"underarmour.json: {total} plans "
+                f"({groups['skin']['count']} skins / {groups['lining']['count']} linings / "
+                f"{groups['style']['count']} styles), {d['new_pill']['count']} NEW")
+          PY
+
+      - name: Commit dist output
+        shell: bash
+        run: |
+          if git status --porcelain | grep -q .; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add dist/underarmour.json
+            git diff --cached --quiet && echo "No changes staged." && exit 0
+            git commit -m "Build underarmour.json"
+            git fetch origin main
+            git pull --rebase origin main
+            git push origin main
+          else
+            echo "No changes."
+          fi
