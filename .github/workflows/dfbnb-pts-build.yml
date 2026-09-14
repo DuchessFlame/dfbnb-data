@@ -195,6 +195,49 @@ jobs:
             --records-tsv "$RECORDS" \
             --json-root data/curvetables/json
 
+      # The step above is the LIVE one, inherited verbatim from
+      # dfbnb-patch-build.yml — every glob in it is tsv/, never tsv/pts/. So on
+      # this workflow it rebuilt the live points file and the PTS channel never
+      # got one at all. Nothing complained, because a missing POINTS export just
+      # makes the curve lookup return None and every level-scaled value falls
+      # back to its Value2 — which is 0.000000 on the records that matter. That
+      # is how 28 underarmour linings came back with no resistances while the
+      # live build was green.
+      #
+      # PTS export filenames are ISO-dated (CURV_Export_PTS_2026-09-14_2013), so
+      # a plain lexical sort IS chronological — no month-name table needed here,
+      # and the awk one above cannot read these names anyway.
+      - name: Regenerate PTS CURV POINTS TSV from records + JSONs
+        shell: bash
+        run: |
+          set -e
+          RECORDS=$({ ls -1 tsv/pts/CURV_Export_*_CURV.tsv 2>/dev/null || true; } \
+                    | grep -v '_POINTS' | sort | tail -n 1)
+
+          if [ -z "$RECORDS" ]; then
+            echo "No PTS CURV records TSV in tsv/pts/ — skipping."
+            echo "(PTS builders that need curve points will find none. Export CURV on PTS.)"
+            exit 0
+          fi
+
+          if [ ! -d data/curvetables/json ]; then
+            echo "data/curvetables/json missing — skipping regeneration."
+            exit 0
+          fi
+
+          echo "Using PTS records TSV: $RECORDS"
+          python src/build_curv_points_tsv.py \
+            --records-tsv "$RECORDS" \
+            --json-root data/curvetables/json
+
+          OUT="${RECORDS%_CURV.tsv}_POINTS.tsv"
+          if [ ! -s "$OUT" ]; then
+            echo "ERROR: expected $OUT and it is missing or empty."
+            echo "Check _derive_output_path in src/build_curv_points_tsv.py."
+            exit 1
+          fi
+          echo "PTS points rows: $(( $(wc -l < "$OUT") - 1 ))"
+
       - name: Locate latest CURV points TSV
         shell: bash
         run: |
@@ -1447,6 +1490,24 @@ jobs:
           # ephemeral checkout; commit dist/pts, then discard everything else so
           # the rebase/push stays clean and live tsv/ + dist/ are untouched.
           git add dist/pts
+          # dist/pts/fish_journal.json is built by the LIVE workflow, not this
+          # one: dfbnb-patch-build.yml's "Build Fish Journal JSON" step writes
+          # BOTH channels in one go, and its own comment says not to duplicate
+          # the step here. This run wipes dist/ before rebuilding, so that file
+          # is simply absent from the working tree — and `git add dist/pts`
+          # reads an absent tracked file as a DELETION and commits it away.
+          #
+          # That is what breaks the live build. The patch run has the same file
+          # staged as MODIFIED, so whichever of the two pushes second gets:
+          #   CONFLICT (modify/delete): dist/pts/fish_journal.json
+          #     deleted in HEAD and modified in <the replayed commit>
+          # `-X theirs` cannot resolve modify/delete — it only settles content
+          # conflicts — so every retry hit the identical conflict and the job
+          # failed. The two workflows were also flip-flopping the file on every
+          # run, which is why the PTS twin 404'd on and off.
+          #
+          # Not building a file is not the same as deleting it.
+          git reset -q -- dist/pts/fish_journal.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No PTS changes to commit."
           else
@@ -1462,7 +1523,18 @@ jobs:
               if git pull --rebase -X theirs origin main; then
                 if git push origin main; then pushed=1; break; fi
               else
+                # A rebase that stops on a conflict is NOT a push race. Retrying
+                # replays the same commit onto the same upstream and fails the
+                # same way — five identical failures with sleeps between them
+                # only buried the cause. Name the paths and stop.
+                echo "ERROR: rebase stopped on a conflict, not a push race."
+                echo "Unmerged paths:"
+                git diff --name-only --diff-filter=U || true
+                git status --porcelain | grep -E "^(DU|UD|AA|UU) " || true
+                echo "A modify/delete conflict here means two workflows disagree"
+                echo "about who owns that path; -X theirs cannot resolve those."
                 git rebase --abort 2>/dev/null || true
+                exit 1
               fi
               echo "push race, retry $attempt"; sleep $((RANDOM % 6 + 3))
             done

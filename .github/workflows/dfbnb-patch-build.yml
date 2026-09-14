@@ -1359,7 +1359,18 @@ jobs:
               if git pull --rebase --autostash -X theirs origin main; then
                 if git push origin main; then pushed=1; break; fi
               else
+                # A rebase that stops on a conflict is NOT a push race. Retrying
+                # replays the same commit onto the same upstream and fails the
+                # same way — five identical failures with sleeps between them
+                # only buried the cause. Name the paths and stop.
+                echo "ERROR: rebase stopped on a conflict, not a push race."
+                echo "Unmerged paths:"
+                git diff --name-only --diff-filter=U || true
+                git status --porcelain | grep -E "^(DU|UD|AA|UU) " || true
+                echo "A modify/delete conflict here means two workflows disagree"
+                echo "about who owns that path; -X theirs cannot resolve those."
                 git rebase --abort 2>/dev/null || true
+                exit 1
               fi
               echo "push race, retry $attempt"; sleep $((RANDOM % 6 + 3))
             done
