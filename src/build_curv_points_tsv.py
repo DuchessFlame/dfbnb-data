@@ -218,16 +218,28 @@ def _fmt_num(f: float) -> str:
 # --------------------------------------------------------------------------
 
 def _derive_output_path(records_tsv: Path) -> Path:
-    """`CURV_Export_Apr_2026_CURV.tsv` -> `CURV_Export_Apr_2026_POINTS.tsv`.
-    Legacy `CURV_Export_Apr_2026.tsv_CURV.tsv` also maps to the new
-    `_POINTS.tsv` naming so both CI and local produce the same thing."""
-    name = records_tsv.name
-    m = re.match(r"^(CURV_Export_[A-Za-z]+_\d{4})", name)
-    if m:
-        stem = m.group(1)
-    else:
-        stem = re.sub(r"(?:\.tsv)?_CURV\.tsv$", "", name)
-        stem = re.sub(r"\.tsv$", "", stem)
+    """`CURV_Export_Apr_2026_CURV.tsv` -> `CURV_Export_Apr_2026_POINTS.tsv`, and
+    `CURV_Export_PTS_2026-09-14_2013_CURV.tsv` ->
+    `CURV_Export_PTS_2026-09-14_2013_POINTS.tsv`.
+
+    Strip the `_CURV.tsv` suffix and swap in `_POINTS.tsv`. Nothing else.
+
+    The rule here used to be `^(CURV_Export_[A-Za-z]+_\\d{4})` and it REBUILT the
+    name from that match, which is fine for a live export (`CURV_Export_July_2026`)
+    and wrong for every PTS one: the `[A-Za-z]+` eats `PTS`, the `\\d{4}` eats the
+    year out of the ISO date, and the day and time are dropped — so
+    `CURV_Export_PTS_2026-09-14_2013_CURV.tsv` came out as
+    `CURV_Export_PTS_2026_POINTS.tsv`. tsv_source.export_key then scores that
+    name as undated, so it loses the newest-export pick to any dated file and
+    the PTS channel quietly builds with no curve points at all. That is a silent
+    failure: the curve lookup just returns None and every level-scaled value
+    falls back to its Value2, which is 0 on the records that matter.
+
+    Legacy `CURV_Export_Apr_2026.tsv_CURV.tsv` still lands on the modern
+    `_POINTS.tsv` naming, exactly as before.
+    """
+    stem = re.sub(r"(?:\.tsv)?_CURV\.tsv$", "", records_tsv.name, flags=re.IGNORECASE)
+    stem = re.sub(r"\.tsv$", "", stem, flags=re.IGNORECASE)
     return records_tsv.parent / f"{stem}_POINTS.tsv"
 
 

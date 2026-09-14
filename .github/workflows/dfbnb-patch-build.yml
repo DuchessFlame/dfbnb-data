@@ -636,10 +636,17 @@ jobs:
           # _PARENT_mod_UnderArmorMaterial_* join broke — see PARENT_BY_TIER.
           bad = [i["name"] for i in groups["lining"]["items"] if not (i.get("effects") or {}).get("rows")]
           assert not bad, f"{len(bad)} lining(s) resolved no resistances: {bad[:5]}"
-          # Skins carry no effects by design; a stray effects block means the
-          # garment/mod split has drifted.
-          stray = [i["name"] for i in groups["skin"]["items"] if i.get("effects")]
-          assert not stray, f"skins should have no effects: {stray[:5]}"
+          # Skins DO carry effects: every garment ships with its Default object
+          # template already fitted (Standard Lining + Standard Style), and the
+          # page has to show those numbers or it contradicts the item card in
+          # game. They are the shared default-mod block, flagged
+          # effects_from_defaults — never the garment's own stats, which are empty.
+          bare = [i["name"] for i in groups["skin"]["items"]
+                  if not (i.get("effects") or {}).get("rows")]
+          assert not bare, f"{len(bare)} skin(s) show no default-mod effects: {bare[:5]}"
+          odd = [i["name"] for i in groups["skin"]["items"]
+                 if i.get("effects") and not i.get("effects_from_defaults")]
+          assert not odd, f"skin effects not sourced from the default mods: {odd[:5]}"
           print(f"underarmour.json: {total} plans "
                 f"({groups['skin']['count']} skins / {groups['lining']['count']} linings / "
                 f"{groups['style']['count']} styles), {d['new_pill']['count']} NEW")

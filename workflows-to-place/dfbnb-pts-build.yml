@@ -195,6 +195,49 @@ jobs:
             --records-tsv "$RECORDS" \
             --json-root data/curvetables/json
 
+      # The step above is the LIVE one, inherited verbatim from
+      # dfbnb-patch-build.yml — every glob in it is tsv/, never tsv/pts/. So on
+      # this workflow it rebuilt the live points file and the PTS channel never
+      # got one at all. Nothing complained, because a missing POINTS export just
+      # makes the curve lookup return None and every level-scaled value falls
+      # back to its Value2 — which is 0.000000 on the records that matter. That
+      # is how 28 underarmour linings came back with no resistances while the
+      # live build was green.
+      #
+      # PTS export filenames are ISO-dated (CURV_Export_PTS_2026-09-14_2013), so
+      # a plain lexical sort IS chronological — no month-name table needed here,
+      # and the awk one above cannot read these names anyway.
+      - name: Regenerate PTS CURV POINTS TSV from records + JSONs
+        shell: bash
+        run: |
+          set -e
+          RECORDS=$({ ls -1 tsv/pts/CURV_Export_*_CURV.tsv 2>/dev/null || true; } \
+                    | grep -v '_POINTS' | sort | tail -n 1)
+
+          if [ -z "$RECORDS" ]; then
+            echo "No PTS CURV records TSV in tsv/pts/ — skipping."
+            echo "(PTS builders that need curve points will find none. Export CURV on PTS.)"
+            exit 0
+          fi
+
+          if [ ! -d data/curvetables/json ]; then
+            echo "data/curvetables/json missing — skipping regeneration."
+            exit 0
+          fi
+
+          echo "Using PTS records TSV: $RECORDS"
+          python src/build_curv_points_tsv.py \
+            --records-tsv "$RECORDS" \
+            --json-root data/curvetables/json
+
+          OUT="${RECORDS%_CURV.tsv}_POINTS.tsv"
+          if [ ! -s "$OUT" ]; then
+            echo "ERROR: expected $OUT and it is missing or empty."
+            echo "Check _derive_output_path in src/build_curv_points_tsv.py."
+            exit 1
+          fi
+          echo "PTS points rows: $(( $(wc -l < "$OUT") - 1 ))"
+
       - name: Locate latest CURV points TSV
         shell: bash
         run: |
