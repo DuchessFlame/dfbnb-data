@@ -74,6 +74,7 @@ PAGE_FOLDER = {
     "underarmour":    "underarmour",
     # Pages that do not render from plan_master, listed so this map is the one
     # place the folder names live.
+    "workshop":       "workshop",
     "camera-mod":     "camera",
     "displays":       "display",
     "pennants":       "pts-pennants",
@@ -86,6 +87,91 @@ PAGE_FOLDER = {
 FOLDERS = sorted(set(PAGE_FOLDER.values()))
 
 CONFIG = os.path.join("data", "plan_images.json")
+
+_RX_IS_APPAREL = re.compile(
+    r"\b(hats?|masks?|outfits?|costumes?|uniforms?|dress|bandana|glasses|"
+    r"goggles)\b", re.I)
+# A helmet is armour, whatever its record calls itself. Matching the EDID's
+# "Headwear" instead of the name swept every Marine / Secret Service / Recon
+# helmet into apparel — they are set pieces with resistances, not hats.
+_RX_NOT_APPAREL = re.compile(r"\bhelmets?\b|power[_\s]*armou?r", re.I)
+
+
+# ── which page folder a row's art belongs in ────────────────────────────────
+# NOT the plan_master bucket. That bucket is the record type, and it lies: the
+# "recipe" bucket holds 1,446 rows of which only 170 are food — the rest are
+# CAMP furniture, wall decor, weapon mods and fishing gear that were filed there
+# because nothing else fitted. Routing art by bucket put gravestones and posters
+# in the recipes folder.
+#
+# So the row is classified by what the thing IS to a player, from the record it
+# creates and the words in its EditorID. Order matters and is load-bearing:
+#
+#   * weapons before workshop — weapon paints carry "Workshop" in their EditorID
+#     (MOON_General_Workshop_Mod_...), which would otherwise read as a CAMP item.
+#   * power armour only for a mod or an armour piece — "Plan: Power Armor
+#     Stations" is a FURN, a crafting station you build in your CAMP.
+#   * fishing needs a rod-part word, not just "fishing" — a CAMP fishing barrel
+#     is a workshop item.
+#
+# The CAMP folder is called "workshop" because that is what the EditorIDs call
+# these records (SDOW_Workshop_SlasherBalloon, *_Recipe_Workshop_WallDecor_*).
+_CAMP_SIGS = {"FURN", "ACTI", "STAT", "MSTT", "CONT", "FLOR", "LIGH", "DOOR", "TERM"}
+
+_RX_FISHING   = re.compile(r"bobber|\bfloat\b|rodbase|fishing[_\s]*mod|fishing[_\s]*rod|"
+                           r"\blure\b", re.I)
+_RX_CAMERA    = re.compile(r"\bcamera\b|photomode[_\s]*lens", re.I)
+_RX_SNOWGLOBE = re.compile(r"snow[_\s]*globe", re.I)
+_RX_POWERARM  = re.compile(r"power[_\s]*armou?r|\bPA[_\s]?(helmet|torso|arm|leg|jetpack)|"
+                           r"jetpack", re.I)
+_RX_UNDERARM  = re.compile(r"underarmou?r", re.I)
+_RX_BACKPACK  = re.compile(r"backpack", re.I)
+_RX_WEAPON    = re.compile(r"\bweapon|\bgun\b|rifle|pistol|shotgun|revolver|launcher|"
+                           r"\bbat\b|\baxe\b|sword|knife|blade|spear|sledge|bow\b|"
+                           r"grenade|mine\b|melee|shovel|tambo|gauntlet|minigun|"
+                           r"harpoon|flamer|cryolator|railway|gatling|musket", re.I)
+_RX_CAMP      = re.compile(r"workshop|walldecor|floordecor|wall[_\s]*decor|floor[_\s]*decor|"
+                           r"structure|furniture|displaycase|stashbox|collector|utility|"
+                           r"machinery|shelter|light\b|radio|statue|poster|plushie|"
+                           r"gravestone|balloon|photomode|sign\b|banner|rug\b|planter", re.I)
+_RX_FOOD      = re.compile(r"\bfood\b|drink|chem\b|brew|cook|meal|soup|stew|recipe_rsvp|"
+                           r"\bpie\b|cake|juice|tea\b|coffee", re.I)
+
+
+def page_folder(item):
+    """The server folder this row's art belongs in — by what it IS."""
+    cnam = item.get("cnam") or {}
+    sig  = (cnam.get("sig") or "").upper()
+    kind = item.get("type") or ""
+    blob = " ".join([item.get("name") or "",
+                     cnam.get("edid") or "",
+                     (item.get("plan_item") or {}).get("edid") or ""])
+
+    if _RX_UNDERARM.search(blob):
+        return "underarmour"
+    if _RX_FISHING.search(blob):
+        return "fishing-rod"
+    if _RX_CAMERA.search(blob):
+        return "camera"
+    if _RX_SNOWGLOBE.search(blob):
+        return "snowglobe"
+    # A PA paint or piece, not the CAMP station you dock in.
+    if _RX_POWERARM.search(blob) and (sig in ("OMOD", "ARMO") or kind == "armour"):
+        return "power-armour"
+    if _RX_BACKPACK.search(blob):
+        return "backpack"
+    if sig == "WEAP" or generic_kind(item) == "weapon-mod" or kind == "weapon":
+        return "weapons"
+    if _RX_IS_APPAREL.search(blob) and not _RX_NOT_APPAREL.search(blob):
+        return "apparel"
+    if kind in ("apparel", "armour") or sig == "ARMO":
+        return "body-armour" if kind == "armour" else "apparel"
+    if sig in _CAMP_SIGS or _RX_CAMP.search(blob):
+        return "workshop"
+    if sig == "ALCH" or _RX_FOOD.search(blob):
+        return "recipes"
+    return PAGE_FOLDER.get(kind, "")
+
 
 # ── which published sets to search, best first ──────────────────────────────
 # Order is the answer to "if two pages both have a picture of this, whose do we
@@ -428,7 +514,7 @@ def attach(items, idx, staged, folder_override="", stats=None):
     """
     stats = stats if stats is not None else {}
     for item in items:
-        folder = folder_override or PAGE_FOLDER.get(item.get("type") or "", "")
+        folder = folder_override or page_folder(item)
         item["image_dir"] = folder or (item.get("type") or "")
 
         url, source = idx.lookup(item)
@@ -447,7 +533,10 @@ def attach(items, idx, staged, folder_override="", stats=None):
             continue
 
         # Last resort: the one picture that stands for this whole class of plan.
-        kind = generic_kind(item)
+        # Only on the page it was drawn for — a bobber or a backpack mod is an
+        # OMOD too, and a picture of a weapon receiver on the fishing page is
+        # worse than the honest empty slot.
+        kind = generic_kind(item) if folder == "weapons" else ""
         generic = GENERIC_ART.get(kind, "")
         item["images"] = [generic] if generic else []
         item["image_source"] = kind if generic else ""
