@@ -20,8 +20,9 @@ STAR_ANY = re.compile(r'(?:RA_)?mod_Legendary_(?:Weapon|Armor)(\d)_', re.I)
 FILLER_NAME = re.compile(r'^(standard\b|no upgrade\b|no \w+$|default appearance|range offset)', re.I)
 FILLER_EDID = re.compile(r'_null\b|null_|_none\b', re.I)
 CUSTOM_EDID = re.compile(r'mod_custom|mod_description', re.I)
-# Cosmetic-only custom mods: keep them out of the headline slot.
-COSMETIC_EDID = re.compile(r'appearance|paint|modelswap|customname', re.I)
+# Purely visual custom mods. NOTE: *_CustomName is deliberately NOT here — the
+# custom-name mod is the one that makes a unique weapon unique, so it stays.
+COSMETIC_EDID = re.compile(r'appearance|paint|modelswap', re.I)
 
 
 def _norm(s):
@@ -164,7 +165,18 @@ def resolve_item_mods(item, idx):
 
     # Headline order: a unique mod that actually describes an effect first.
     custom.sort(key=lambda e: not e['desc'])
-    unique_mods = custom + fixed
+
+    # Collapse duplicates that differ only by record (a base mod and its cr*
+    # copy both resolve to the same display name). Keep the one with text.
+    unique_mods, seen = [], {}
+    for e in custom + fixed:
+        k = e['name'].strip().lower()
+        if k in seen:
+            if e['desc'] and not unique_mods[seen[k]]['desc']:
+                unique_mods[seen[k]] = e
+            continue
+        seen[k] = len(unique_mods)
+        unique_mods.append(e)
 
     star_list = None
     if stars:

@@ -76,6 +76,7 @@ import rng76
 import plan_sources          # cut detection, readable source names, unlock routes
 import plan_images           # row art: published images first, staged files second
 import add_weapon_groups    # weapon page grouping: weapon -> Mods / Skins
+import plan_fishing_rod     # rod gear -> /df/plan-checklists/fishing-rod/
 from spawns_engine import sources as ssrc
 # reuse the farming Containers resolver + rate helpers + rng76 wrapper
 import build_farming_used_for as bfu
@@ -1008,6 +1009,17 @@ def main(argv=None):
         plan_images.report(plan_images.attach(items, idx, staged))
     except Exception as exc:                      # noqa: BLE001 - never fatal
         print(f"  WARNING: image resolve skipped: {exc}", file=sys.stderr)
+
+    # Fishing rod gear. Rods and bobbers sit in the `recipe` bucket and reels and
+    # rod upgrades in `weapon`, neither of which is what they are, so they get
+    # tagged here and the renderer pulls them onto the fishing-rod page instead.
+    # Pure EditorID classification, no exports, so it cannot fail on a missing
+    # TSV - but it is wrapped anyway, like everything else in this tail.
+    try:
+        plan_fishing_rod.report(plan_fishing_rod.attach(items))
+        out["fishing_rod_schema"] = plan_fishing_rod.SCHEMA
+    except Exception as exc:                      # noqa: BLE001 - never fatal
+        print(f"  WARNING: fishing rod tagging skipped: {exc}", file=sys.stderr)
 
     # Weapon page grouping. /df/plan-checklists/weapon/ is one root expand per
     # weapon with Mods and Skins inside it, which needs each plan tied to the

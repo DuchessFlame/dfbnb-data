@@ -72,6 +72,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 TSV = os.path.join(ROOT, "tsv")
 
+import plan_fishing_rod     # the one definition of what counts as rod gear
+
 SCHEMA = 1  # bump when the emitted fields change shape
 
 
@@ -221,11 +223,10 @@ ALIASES = {
 SKIN_ATTACH = {"ap_gun_Appearance", "ap_melee_Appearance"}
 SKIN_WORDS = re.compile(r"(material|paint|skin)", re.I)
 
-# Fishing-rod equipment: reels (line upgrades) and rod upgrades (drag, handle,
-# bearing, hook, gear ratio). Removed from the weapon page by request — they
-# belong with the fishing guides, not with combat weapons.
-FISH_ATTACH = {"ap_RodUpgrade", "ap_FishingLineUpgrade"}
-FISH_WORDS = re.compile(r"fishing", re.I)
+# Fishing-rod equipment (reels, drags, handles, bearings, hooks, gear ratios)
+# leaves the weapon page for /df/plan-checklists/fishing-rod/. What counts is
+# plan_fishing_rod's call, not a second copy of the rule here — one definition,
+# so the weapon page and the fishing page can never disagree about a row.
 
 # The plan's own EditorID prefix, so "Recipe_Weapon_Ranged_LaserGun" yields the
 # family token "LaserGun".
@@ -355,9 +356,7 @@ class Resolver:
         attach = (omod or {}).get("ap", "")
         omod_edid = (omod or {}).get("edid", "")
 
-        if (attach in FISH_ATTACH
-                or FISH_WORDS.search(plan_edid or "")
-                or FISH_WORDS.search(omod_edid or "")):
+        if plan_fishing_rod.role(plan_edid):
             return "fishing", None
 
         # A plan whose recipe creates a WEAP makes the weapon itself — unless
