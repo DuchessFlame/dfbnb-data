@@ -72,7 +72,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 TSV = os.path.join(ROOT, "tsv")
 
-import plan_fishing_rod     # the one definition of what counts as rod gear
+import plan_subpages        # which rows have been carved onto a page of their own
 
 SCHEMA = 1  # bump when the emitted fields change shape
 
@@ -223,10 +223,9 @@ ALIASES = {
 SKIN_ATTACH = {"ap_gun_Appearance", "ap_melee_Appearance"}
 SKIN_WORDS = re.compile(r"(material|paint|skin)", re.I)
 
-# Fishing-rod equipment (reels, drags, handles, bearings, hooks, gear ratios)
-# leaves the weapon page for /df/plan-checklists/fishing-rod/. What counts is
-# plan_fishing_rod's call, not a second copy of the rule here — one definition,
-# so the weapon page and the fishing page can never disagree about a row.
+# Rows carved onto a page of their own (fishing rod gear today) leave the weapon
+# page. plan_subpages owns that call — one definition, so the weapon page and
+# the carve-out page can never disagree about a row.
 
 # The plan's own EditorID prefix, so "Recipe_Weapon_Ranged_LaserGun" yields the
 # family token "LaserGun".
@@ -356,8 +355,12 @@ class Resolver:
         attach = (omod or {}).get("ap", "")
         omod_edid = (omod or {}).get("edid", "")
 
-        if plan_fishing_rod.role(plan_edid):
-            return "fishing", None
+        # Fishing rod gear (and anything else plan_subpages has carved out of
+        # this bucket) leaves the weapon page for its own. plan_subpages runs
+        # first in the build, so the tag is already on the row — asking it is
+        # what keeps the two pages from ever disagreeing about a plan.
+        if item.get("plan_page"):
+            return "carved-out", None
 
         # A plan whose recipe creates a WEAP makes the weapon itself — unless
         # the builder already called it a mod/recipe, which is how the variant
@@ -416,14 +419,18 @@ def attach(items):
     # Pass 1: role + family for every row.
     for it in weapons:
         role, family = res.classify(it)
+        carved = role == "carved-out"
         # A plan with no family is a weapon that stands alone — a grenade, a
         # mine, a thrown trap. It becomes its own group, named after itself.
-        if not family:
+        # A carved-out row is not on this page at all, so it gets no group:
+        # giving it one made nine fishing reels each open a weapon expand of
+        # their own the moment the fishing tag moved to plan_subpages.
+        if not family and not carved:
             family = re.sub(r"^Plan:\s*", "", it.get("name") or it.get("id") or "").strip()
             tally["solo"] += 1
         it["weapon_role"] = role
-        it["weapon_group"] = None if role == "fishing" else family
-        it["weapon_group_key"] = None if role == "fishing" else slug(family)
+        it["weapon_group"] = None if carved else family
+        it["weapon_group_key"] = None if carved else slug(family)
         tally[role] += 1
 
     # Pass 2: a group holding exactly one plan and no mods or skins is flagged,

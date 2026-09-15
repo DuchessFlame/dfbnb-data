@@ -1,0 +1,702 @@
+{
+  "schemaVersion": 1,
+  "generated": "2026-09-15T18:06:16.357934+00:00",
+  "isPts": true,
+  "title": "Camera Mod",
+  "source_files": [
+    "OMOD_Export_PTS_2026-09-13_1143.tsv",
+    "OMOD_Export_PTS_2026-09-13_1143_Properties.tsv"
+  ],
+  "groups": [
+    {
+      "key": "mod",
+      "label": "Mods",
+      "blurb": "The lens fitted to the camera. Each one changes what you can see through the viewfinder — zoom, night vision, or the targeting HUD.",
+      "count": 5,
+      "items": [
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_003F1212",
+          "name": "Plan: ProSnap Deluxe 105mm Lens",
+          "has_image_box": false,
+          "image_dir": "camera",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Bucket List",
+              "source_type": "event-quest",
+              "rate": 1.0,
+              "rate_display": "100%"
+            },
+            {
+              "route": "Daily: Photo Opportunity",
+              "source_type": "event-quest",
+              "rate": 0.5,
+              "rate_display": "50%"
+            },
+            {
+              "route": "Daily: Photo Opportunity - Improved",
+              "source_type": "event-quest",
+              "rate": 0.125,
+              "rate_display": "12.5%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "003F1212",
+            "edid": "Recipe_Mod_Camera_SnapMatic_Lens_105mm"
+          },
+          "cobj": {
+            "formid": "003F1217",
+            "edid": "co_Weapon_mod_Camera_Snapmatic_Lens_105mm"
+          },
+          "cnam": {
+            "formid": "0046F484",
+            "edid": "mod_Camera_Snapmatic_Lens_105mm",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": {
+            "summary": "Swaps what you see through the viewfinder.",
+            "rows": [
+              {
+                "label": "View",
+                "value": "105mm — a moderate zoom"
+              },
+              {
+                "label": "Aim stability",
+                "value": "Steadier while sighted"
+              },
+              {
+                "label": "Raise time",
+                "value": "Faster to bring up"
+              }
+            ]
+          },
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Events & Activities",
+              "routes": [
+                0,
+                1,
+                2
+              ]
+            }
+          ],
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/camera/105mm.avif"
+          ],
+          "image_source": "camera",
+          "display_name": "105mm Lens"
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_003F1213",
+          "name": "Plan: ProSnap Deluxe 200mm Lens",
+          "has_image_box": false,
+          "image_dir": "camera",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Daily: Photo Opportunity",
+              "source_type": "event-quest",
+              "rate": 0.5,
+              "rate_display": "50%"
+            },
+            {
+              "route": "Daily: Photo Opportunity - Improved",
+              "source_type": "event-quest",
+              "rate": 0.125,
+              "rate_display": "12.5%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "003F1213",
+            "edid": "Recipe_Mod_Camera_SnapMatic_Lens_200mm"
+          },
+          "cobj": {
+            "formid": "003F1218",
+            "edid": "co_Weapon_mod_Camera_Snapmatic_Lens_200mm"
+          },
+          "cnam": {
+            "formid": "003F1226",
+            "edid": "mod_Camera_Snapmatic_Lens_200mm",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": {
+            "summary": "Swaps what you see through the viewfinder.",
+            "rows": [
+              {
+                "label": "View",
+                "value": "200mm — the longest zoom"
+              },
+              {
+                "label": "Aim stability",
+                "value": "Steadier while sighted"
+              },
+              {
+                "label": "Raise time",
+                "value": "Faster to bring up"
+              }
+            ]
+          },
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Events & Activities",
+              "routes": [
+                0,
+                1
+              ]
+            }
+          ],
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/camera/200mm.avif"
+          ],
+          "image_source": "camera",
+          "display_name": "200mm Lens"
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_003F1214",
+          "name": "Plan: ProSnap Deluxe Night-Vision Lens",
+          "has_image_box": false,
+          "image_dir": "camera",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "P01 Vending Machine Pioneer Scout Possum vendor",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "003F1214",
+            "edid": "P01C_Tadpole_Recipe_Mod_Camera_SnapMatic_Lens_NightVision"
+          },
+          "cobj": {
+            "formid": "003F1219",
+            "edid": "co_Weapon_mod_Camera_Snapmatic_Lens_NightVision"
+          },
+          "cnam": {
+            "formid": "0046F486",
+            "edid": "mod_Camera_Snapmatic_Lens_NightVision",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": {
+            "summary": "Swaps what you see through the viewfinder.",
+            "rows": [
+              {
+                "label": "View",
+                "value": "Night vision"
+              },
+              {
+                "label": "Aim stability",
+                "value": "Steadier while sighted"
+              },
+              {
+                "label": "Raise time",
+                "value": "Faster to bring up"
+              }
+            ]
+          },
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Caps",
+              "routes": [
+                0
+              ]
+            }
+          ],
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/camera/NightVision.avif"
+          ],
+          "image_source": "camera",
+          "display_name": "Night-Vision Lens"
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "camera-mod",
+          "id": "CAMERAMOD_0046F483",
+          "name": "ProSnap Deluxe Standard Lens",
+          "has_image_box": true,
+          "image_dir": "camera",
+          "obtain": "Fitted by default — every ProSnap Deluxe comes with it, so there is nothing to unlock.",
+          "category_label": "Camera Lens",
+          "obtain_routes": [],
+          "obtain_unlocks": [],
+          "obtain_ledger": [],
+          "plan_item": null,
+          "cobj": null,
+          "cnam": {
+            "formid": "0046F483",
+            "edid": "mod_Camera_Snapmatic_Lens_Standard",
+            "sig": "OMOD"
+          },
+          "tradeable": false,
+          "stops_dropping": null,
+          "effects": {
+            "summary": "The standard lens every camera starts with.",
+            "rows": [
+              {
+                "label": "Aim stability",
+                "value": "Steadier while sighted"
+              },
+              {
+                "label": "Raise time",
+                "value": "Faster to bring up"
+              }
+            ]
+          },
+          "cut": false,
+          "cut_reason": null,
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/camera/Standard.avif"
+          ],
+          "image_source": "camera",
+          "display_name": "Standard Lens"
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_003F1215",
+          "name": "Plan: ProSnap Deluxe Targeting Lens",
+          "has_image_box": false,
+          "image_dir": "camera",
+          "obtain": "Learned from a plan. No source was resolved from the game files — see Technical for the recipe details.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "003F1215",
+            "edid": "Recipe_Mod_Camera_SnapMatic_Lens_Targeting"
+          },
+          "cobj": {
+            "formid": "003F121A",
+            "edid": "co_Weapon_mod_Camera_Snapmatic_Lens_Targeting"
+          },
+          "cnam": {
+            "formid": "003F1227",
+            "edid": "mod_Camera_Snapmatic_Lens_Targeting",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": null,
+          "effects": {
+            "summary": "Swaps what you see through the viewfinder, and grants the camera targeting hud.",
+            "rows": [
+              {
+                "label": "View",
+                "value": "Targeting"
+              },
+              {
+                "label": "Grants",
+                "value": "Camera Targeting HUD"
+              },
+              {
+                "label": "Aim stability",
+                "value": "Steadier while sighted"
+              },
+              {
+                "label": "Raise time",
+                "value": "Faster to bring up"
+              }
+            ]
+          },
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [],
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/camera/Targeting.avif"
+          ],
+          "image_source": "camera",
+          "display_name": "Targeting Lens"
+        }
+      ]
+    },
+    {
+      "key": "skin",
+      "label": "Skins",
+      "blurb": "Paint jobs. Cosmetic only — a paint never changes what the camera does.",
+      "count": 8,
+      "items": [
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "camera-mod",
+          "id": "CAMERAMOD_006C2A74",
+          "name": "American Stripes Paint",
+          "has_image_box": true,
+          "image_dir": "camera",
+          "obtain": "Not learned from a plan — it unlocks on your account.",
+          "category_label": "Camera Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Claimed from the Fight for Freedom Scoreboard (Season 14)."
+          ],
+          "obtain_ledger": [
+            {
+              "label": "Scoreboard",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "plan_item": null,
+          "cobj": null,
+          "cnam": {
+            "formid": "006C2A74",
+            "edid": "SCORE_S14_mod_Camera_Weapon_Paint_AmericanStripes",
+            "sig": "OMOD"
+          },
+          "tradeable": false,
+          "stops_dropping": null,
+          "effects": {
+            "summary": "Changes the camera's appearance and nothing else. Paints carry no stats, and fitting one never changes what you can photograph.",
+            "rows": []
+          },
+          "cut": false,
+          "cut_reason": null,
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/camera/AmericanStripes.avif"
+          ],
+          "image_source": "camera",
+          "display_name": "American Stripes Paint"
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "camera-mod",
+          "id": "CAMERAMOD_005562B4",
+          "name": "Gardening Camera Paint",
+          "has_image_box": true,
+          "image_dir": "camera",
+          "obtain": "Not learned from a plan — it unlocks on your account.",
+          "category_label": "Camera Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Bought from the Atom Shop with Atoms, on its own or in a bundle."
+          ],
+          "obtain_ledger": [
+            {
+              "label": "Atom Shop",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "plan_item": null,
+          "cobj": null,
+          "cnam": {
+            "formid": "005562B4",
+            "edid": "ATX_mod_Camera_Gardening",
+            "sig": "OMOD"
+          },
+          "tradeable": false,
+          "stops_dropping": null,
+          "effects": {
+            "summary": "Changes the camera's appearance and nothing else. Paints carry no stats, and fitting one never changes what you can photograph.",
+            "rows": []
+          },
+          "cut": false,
+          "cut_reason": null,
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/camera/Gardening.avif"
+          ],
+          "image_source": "camera",
+          "display_name": "Gardening Camera Paint"
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "camera-mod",
+          "id": "CAMERAMOD_00536B8C",
+          "name": "Mole Miner Camera Paint",
+          "has_image_box": true,
+          "image_dir": "camera",
+          "obtain": "Not learned from a plan — it unlocks on your account.",
+          "category_label": "Camera Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Bought from the Atom Shop with Atoms, on its own or in a bundle."
+          ],
+          "obtain_ledger": [
+            {
+              "label": "Atom Shop",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "plan_item": null,
+          "cobj": null,
+          "cnam": {
+            "formid": "00536B8C",
+            "edid": "ATX_mod_Camera_MoleMiner",
+            "sig": "OMOD"
+          },
+          "tradeable": false,
+          "stops_dropping": null,
+          "effects": {
+            "summary": "Changes the camera's appearance and nothing else. Paints carry no stats, and fitting one never changes what you can photograph.",
+            "rows": []
+          },
+          "cut": false,
+          "cut_reason": null,
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/camera/MoleMiner.avif"
+          ],
+          "image_source": "camera",
+          "display_name": "Mole Miner Camera Paint"
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "camera-mod",
+          "id": "CAMERAMOD_00420FE2",
+          "name": "Mothman Camera Paint",
+          "has_image_box": true,
+          "image_dir": "camera",
+          "obtain": "Not learned from a plan — it unlocks on your account.",
+          "category_label": "Camera Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Bought from the Atom Shop with Atoms, on its own or in a bundle."
+          ],
+          "obtain_ledger": [
+            {
+              "label": "Atom Shop",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "plan_item": null,
+          "cobj": null,
+          "cnam": {
+            "formid": "00420FE2",
+            "edid": "ATX_mod_Camera_Black",
+            "sig": "OMOD"
+          },
+          "tradeable": false,
+          "stops_dropping": null,
+          "effects": {
+            "summary": "Changes the camera's appearance and nothing else. Paints carry no stats, and fitting one never changes what you can photograph.",
+            "rows": []
+          },
+          "cut": false,
+          "cut_reason": null,
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/camera/Black.avif"
+          ],
+          "image_source": "camera",
+          "display_name": "Mothman Camera Paint"
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "camera-mod",
+          "id": "CAMERAMOD_00420FEA",
+          "name": "Summersville Fancy Camera Paint",
+          "has_image_box": true,
+          "image_dir": "camera",
+          "obtain": "Not learned from a plan — it unlocks on your account.",
+          "category_label": "Camera Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Bought from the Atom Shop with Atoms, on its own or in a bundle."
+          ],
+          "obtain_ledger": [
+            {
+              "label": "Atom Shop",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "plan_item": null,
+          "cobj": null,
+          "cnam": {
+            "formid": "00420FEA",
+            "edid": "ATX_mod_Camera_Leather",
+            "sig": "OMOD"
+          },
+          "tradeable": false,
+          "stops_dropping": null,
+          "effects": {
+            "summary": "Changes the camera's appearance and nothing else. Paints carry no stats, and fitting one never changes what you can photograph.",
+            "rows": []
+          },
+          "cut": false,
+          "cut_reason": null,
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/camera/Leather.avif"
+          ],
+          "image_source": "camera",
+          "display_name": "Summersville Fancy Camera Paint"
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "camera-mod",
+          "id": "CAMERAMOD_00420FEC",
+          "name": "Wavy Willards Camera Paint",
+          "has_image_box": true,
+          "image_dir": "camera",
+          "obtain": "Not learned from a plan — it unlocks on your account.",
+          "category_label": "Camera Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Bought from the Atom Shop with Atoms, on its own or in a bundle."
+          ],
+          "obtain_ledger": [
+            {
+              "label": "Atom Shop",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "plan_item": null,
+          "cobj": null,
+          "cnam": {
+            "formid": "00420FEC",
+            "edid": "ATX_mod_Camera_Mint",
+            "sig": "OMOD"
+          },
+          "tradeable": false,
+          "stops_dropping": null,
+          "effects": {
+            "summary": "Changes the camera's appearance and nothing else. Paints carry no stats, and fitting one never changes what you can photograph.",
+            "rows": []
+          },
+          "cut": false,
+          "cut_reason": null,
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/camera/Mint.avif"
+          ],
+          "image_source": "camera",
+          "display_name": "Wavy Willards Camera Paint"
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "camera-mod",
+          "id": "CAMERAMOD_00420FE8",
+          "name": "White Crocodile Paint",
+          "has_image_box": true,
+          "image_dir": "camera",
+          "obtain": "Not learned from a plan — it unlocks on your account.",
+          "category_label": "Camera Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Bought from the Atom Shop with Atoms, on its own or in a bundle."
+          ],
+          "obtain_ledger": [
+            {
+              "label": "Atom Shop",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "plan_item": null,
+          "cobj": null,
+          "cnam": {
+            "formid": "00420FE8",
+            "edid": "ATX_mod_Camera_CrocSkin",
+            "sig": "OMOD"
+          },
+          "tradeable": false,
+          "stops_dropping": null,
+          "effects": {
+            "summary": "Changes the camera's appearance and nothing else. Paints carry no stats, and fitting one never changes what you can photograph.",
+            "rows": []
+          },
+          "cut": false,
+          "cut_reason": null,
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/camera/CrocSkin.avif"
+          ],
+          "image_source": "camera",
+          "display_name": "White Crocodile Paint"
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "camera-mod",
+          "id": "CAMERAMOD_00420FEF",
+          "name": "Wood Grain Camera Paint",
+          "has_image_box": true,
+          "image_dir": "camera",
+          "obtain": "Not learned from a plan — it unlocks on your account.",
+          "category_label": "Camera Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Bought from the Atom Shop with Atoms, on its own or in a bundle."
+          ],
+          "obtain_ledger": [
+            {
+              "label": "Atom Shop",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "plan_item": null,
+          "cobj": null,
+          "cnam": {
+            "formid": "00420FEF",
+            "edid": "ATX_mod_Camera_WoodGrain",
+            "sig": "OMOD"
+          },
+          "tradeable": false,
+          "stops_dropping": null,
+          "effects": {
+            "summary": "Changes the camera's appearance and nothing else. Paints carry no stats, and fitting one never changes what you can photograph.",
+            "rows": []
+          },
+          "cut": false,
+          "cut_reason": null,
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/camera/WoodGrain.avif"
+          ],
+          "image_source": "camera",
+          "display_name": "Wood Grain Camera Paint"
+        }
+      ]
+    }
+  ]
+}
