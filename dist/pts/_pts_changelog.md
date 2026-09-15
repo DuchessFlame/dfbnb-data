@@ -1443,7 +1443,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 - SCORE_S25_CAMPPets_SpawnFurniture_Cat_CyprusCat  `SCORE_S25_CAMPPets_SpawnFurniture_Cat_CyprusCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +69 / -0 / ~356
+## `plan_master.json`  ·  +69 / -0 / ~370
 
 **Added (69)**
 - Plan: Pint-Sized Slasher Power Armor Helmet Paint  `PLAN_008DE080`
@@ -1488,7 +1488,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Pint-Sized Slasher Ad Poster 2  `PLAN_00904CD6`
 - …and 29 more
 
-**Changed (356)**
+**Changed (370)**
 - Plan: Ski Sword Skate Blade  `PLAN_002B42A6` — fields: obtain_routes
 - Plan: Sledgehammer Heavy Spiked Rocket  `PLAN_002B42A7` — fields: obtain_routes
 - Plan: Deathclaw Gauntlet Extra Claw  `PLAN_002B42C6` — fields: obtain_routes
@@ -1529,7 +1529,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Sturdy Metal Legs  `PLAN_0043860D` — fields: obtain_routes
 - Plan: Sturdy Metal Torso  `PLAN_0043860E` — fields: obtain_routes
 - Plan: The Fixer  `PLAN_0046D299` — fields: obtain_routes
-- …and 316 more
+- …and 330 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._

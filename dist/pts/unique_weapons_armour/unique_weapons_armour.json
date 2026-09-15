@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "generated": "2026-09-15T15:29:13Z",
+  "generated": "2026-09-15T17:40:34Z",
   "channel": "live",
-  "count": 110,
+  "count": 134,
   "counts": {
-    "weapon": 102,
-    "armour": 8,
+    "weapon": 119,
+    "armour": 15,
     "powerArmour": 0
   },
   "items": [
@@ -1323,7 +1323,7 @@
           "fixed": false
         }
       ],
-      "inherentEffect": "4x ammo Capacity",
+      "inherentEffect": "",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -1570,6 +1570,43 @@
       "inCurrentExport": true,
       "isCut": false,
       "uniqueMods": []
+    },
+    {
+      "id": "dlc01lightninggun",
+      "name": "Crimson Sky",
+      "kind": "Weapon",
+      "subType": "Rifle",
+      "base": "Tesla",
+      "image": "",
+      "ddsHandle": "",
+      "stats": {
+        "damage": 0,
+        "fireRate": 1.0,
+        "range": 3966,
+        "weight": 8.0,
+        "value": 180,
+        "ammoType": "Fusion Cell",
+        "capacity": 15,
+        "apCost": 17,
+        "critMult": 2.25,
+        "minLevel": 40
+      },
+      "starEffects": [],
+      "inherentEffect": "",
+      "buffs": [],
+      "cosmeticOnly": false,
+      "cosmeticNote": "",
+      "howToObtain": "Source unconfirmed",
+      "sourceType": "Unknown",
+      "sourceRef": "",
+      "questName": "",
+      "craftable": true,
+      "planName": "Plan: Tesla Rifle",
+      "tradeable": true,
+      "formId": "0010F0EC",
+      "edid": "DLC01LightningGun",
+      "inCurrentExport": true,
+      "isCut": false
     },
     {
       "id": "combatshotgun",
@@ -2383,10 +2420,10 @@
         },
         {
           "star": 3,
-          "name": "Resilient",
-          "edid": "mod_Legendary_Weapon3_Guns_ResistReload",
-          "formId": "004F5777",
-          "fixed": true
+          "name": "Random",
+          "edid": "",
+          "formId": "",
+          "fixed": false
         }
       ],
       "inherentEffect": "+5 Max Bullet Storm Stacks While Under 25% HP",
@@ -2471,7 +2508,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Increases Damage by 10% & Explodes with fireworks",
+      "inherentEffect": "",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -2778,16 +2815,7 @@
       "formId": "001109CF",
       "edid": "DLC03_HarpoonGun",
       "inCurrentExport": true,
-      "isCut": false,
-      "uniqueMods": [
-        {
-          "name": "Ice Breaker",
-          "edid": "SCORE_S21_mod_custom_IceBreaker",
-          "formId": "007FA40F",
-          "kind": "unique",
-          "desc": ""
-        }
-      ]
+      "isCut": false
     },
     {
       "id": "dlc03-harpoongun-2",
@@ -3925,10 +3953,10 @@
       "starEffects": [
         {
           "star": 1,
-          "name": "Suppressor's",
-          "edid": "mod_Legendary_Weapon1_DebuffDamage",
-          "formId": "005281B8",
-          "fixed": true
+          "name": "Random",
+          "edid": "",
+          "formId": "",
+          "fixed": false
         },
         {
           "star": 2,
@@ -3939,10 +3967,10 @@
         },
         {
           "star": 3,
-          "name": "Defender's",
-          "edid": "mod_Legendary_Weapon3_Melee_Defenders",
-          "formId": "001A7BD3",
-          "fixed": true
+          "name": "Random",
+          "edid": "",
+          "formId": "",
+          "fixed": false
         }
       ],
       "inherentEffect": "",
@@ -4885,7 +4913,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Fires 2 Projectiles per Shot",
+      "inherentEffect": "",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -7047,6 +7075,43 @@
       ]
     },
     {
+      "id": "baton-2",
+      "name": "V63 Shock Baton Paint",
+      "kind": "Weapon",
+      "subType": "Melee",
+      "base": "Baton",
+      "image": "",
+      "ddsHandle": "",
+      "stats": {
+        "damage": 11,
+        "fireRate": 1.0,
+        "range": 10,
+        "weight": 2.0,
+        "value": 15,
+        "ammoType": null,
+        "capacity": 0,
+        "apCost": 26,
+        "critMult": 3.0,
+        "minLevel": 5
+      },
+      "starEffects": [],
+      "inherentEffect": "",
+      "buffs": [],
+      "cosmeticOnly": true,
+      "cosmeticNote": "Visual skin/paint only - no combat effect",
+      "howToObtain": "Quest: Skyline Valley",
+      "sourceType": "Quest",
+      "sourceRef": "Skyline Valley",
+      "questName": "Skyline Valley",
+      "craftable": true,
+      "planName": "Plan: Baton",
+      "tradeable": true,
+      "formId": "0008C14D",
+      "edid": "Baton",
+      "inCurrentExport": true,
+      "isCut": false
+    },
+    {
       "id": "stormcutter",
       "name": "V63 Zweihaender",
       "kind": "Weapon",
@@ -7066,29 +7131,7 @@
         "critMult": 3.0,
         "minLevel": 30
       },
-      "starEffects": [
-        {
-          "star": 1,
-          "name": "Executioner's",
-          "edid": "mod_Legendary_Weapon1_Execute",
-          "formId": "004F6AA1",
-          "fixed": true
-        },
-        {
-          "star": 2,
-          "name": "Heavy Hitter's",
-          "edid": "mod_Legendary_Weapon2_Melee_DamagePowerAttack",
-          "formId": "001A7BE2",
-          "fixed": true
-        },
-        {
-          "star": 3,
-          "name": "Defender's",
-          "edid": "mod_Legendary_Weapon3_Melee_Defenders",
-          "formId": "001A7BD3",
-          "fixed": true
-        }
-      ],
+      "starEffects": [],
       "inherentEffect": "",
       "buffs": [],
       "cosmeticOnly": false,
@@ -7520,9 +7563,9 @@
         },
         {
           "star": 2,
-          "name": "Crippling",
-          "edid": "mod_Legendary_Weapon2_DmgLimbs",
-          "formId": "004ED02C",
+          "name": "Rapid",
+          "edid": "mod_Legendary_Weapon2_Melee_SwingSpeed",
+          "formId": "001A7BDA",
           "fixed": true
         },
         {
