@@ -1,22 +1,22 @@
 {
   "version": 1,
-  "generated": "2026-09-14T19:12:32.894538+00:00",
-  "count": 58,
+  "generated": "2026-09-15T06:40:57.337868+00:00",
+  "count": 56,
   "slots": [
     "ap_armor_Lining",
     "ap_underarmor_style"
   ],
   "new_pill": {
-    "mode": "vs-live",
+    "mode": "vs-previous",
     "newest": "BOOK_Export_PTS_2026-08-22_0946.tsv",
-    "baseline": "BOOK_Export_July_2026.tsv",
+    "baseline": "BOOK_Export_PTS_2026-07-18_0730.tsv",
     "count": 0
   },
   "groups": [
     {
       "key": "skin",
       "label": "Skins",
-      "count": 22,
+      "count": 20,
       "items": [
         {
           "kind": "plan",
@@ -29,6 +29,12 @@
           "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
           "category_label": "Apparel (physical plan)",
           "obtain_routes": [
+            {
+              "route": "Armor Regions GRP",
+              "source_type": "fixed",
+              "rate": 0.086676,
+              "rate_display": "8.67%"
+            },
             {
               "route": "Industrial Trunk",
               "source_type": "container",
@@ -54,13 +60,37 @@
               "rate_display": "1.73%"
             },
             {
-              "route": "Atlantic City Expedition Side Quests",
+              "route": "A Grand Reopening",
               "source_type": "event-quest",
               "rate": 0.013158,
               "rate_display": "1.32%"
             },
             {
-              "route": "Atlantic City Side Quests",
+              "route": "Atlantic City - Side Quests",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Atlantic City Expedition - Rare Plans Side Quests",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Custodial Compulsions",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Hells Eagles",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Regent of the Dead",
               "source_type": "event-quest",
               "rate": 0.013158,
               "rate_display": "1.32%"
@@ -70,38 +100,9 @@
               "source_type": "event-quest",
               "rate": 0.012821,
               "rate_display": "1.28%"
-            },
-            {
-              "route": "Mutated Public Events - Rare Plans",
-              "source_type": "event-quest",
-              "rate": 0.012821,
-              "rate_display": "1.28%"
-            },
-            {
-              "route": "Mutated Public Events - Double Mutation Fallout1st",
-              "source_type": "event-quest",
-              "rate": 0.009615,
-              "rate_display": "0.96%"
-            },
-            {
-              "route": "Flip Card Counts Items",
-              "source_type": "container",
-              "rate": 0.008668,
-              "rate_display": "0.87%"
-            },
-            {
-              "route": "Steamer Trunk",
-              "source_type": "container",
-              "rate": 0.008668,
-              "rate_display": "0.87%"
-            },
-            {
-              "route": "Trunk",
-              "source_type": "container",
-              "rate": 0.008668,
-              "rate_display": "0.87%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "00313517",
             "edid": "recipe_Armor_BoS_Knight_Underarmor"
@@ -447,6 +448,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "skin",
           "set": "Brotherhood of Steel",
           "tier": null,
@@ -501,16 +503,6 @@
                   "route": "Government Aid Drop",
                   "rate_display": "1.73%",
                   "rate": 0.017335
-                },
-                {
-                  "route": "Flip Card Counts Items",
-                  "rate_display": "0.87%",
-                  "rate": 0.008668
-                },
-                {
-                  "route": "Steamer Trunk",
-                  "rate_display": "0.87%",
-                  "rate": 0.008668
                 }
               ]
             },
@@ -520,29 +512,34 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "Atlantic City Expedition Side Quests",
+                  "route": "Armor Regions GRP",
+                  "rate_display": "8.67%",
+                  "rate": 0.086676
+                },
+                {
+                  "route": "A Grand Reopening",
                   "rate_display": "1.32%",
                   "rate": 0.013158
                 },
                 {
-                  "route": "Atlantic City Side Quests",
+                  "route": "Atlantic City - Side Quests",
                   "rate_display": "1.32%",
                   "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Chase Items",
-                  "rate_display": "1.28%",
-                  "rate": 0.012821
+                  "route": "Atlantic City Expedition - Rare Plans Side Quests",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Rare Plans",
-                  "rate_display": "1.28%",
-                  "rate": 0.012821
+                  "route": "Custodial Compulsions",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Double Mutation Fallout1st",
-                  "rate_display": "0.96%",
-                  "rate": 0.009615
+                  "route": "Hells Eagles",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 }
               ]
             },
@@ -574,6 +571,12 @@
           "category_label": "Apparel (physical plan)",
           "obtain_routes": [
             {
+              "route": "Armor Regions GRP",
+              "source_type": "fixed",
+              "rate": 0.086676,
+              "rate_display": "8.67%"
+            },
+            {
               "route": "Industrial Trunk",
               "source_type": "container",
               "rate": 0.085339,
@@ -598,13 +601,37 @@
               "rate_display": "1.73%"
             },
             {
-              "route": "Atlantic City Expedition Side Quests",
+              "route": "A Grand Reopening",
               "source_type": "event-quest",
               "rate": 0.013158,
               "rate_display": "1.32%"
             },
             {
-              "route": "Atlantic City Side Quests",
+              "route": "Atlantic City - Side Quests",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Atlantic City Expedition - Rare Plans Side Quests",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Custodial Compulsions",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Hells Eagles",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Regent of the Dead",
               "source_type": "event-quest",
               "rate": 0.013158,
               "rate_display": "1.32%"
@@ -614,38 +641,9 @@
               "source_type": "event-quest",
               "rate": 0.012821,
               "rate_display": "1.28%"
-            },
-            {
-              "route": "Mutated Public Events - Rare Plans",
-              "source_type": "event-quest",
-              "rate": 0.012821,
-              "rate_display": "1.28%"
-            },
-            {
-              "route": "Mutated Public Events - Double Mutation Fallout1st",
-              "source_type": "event-quest",
-              "rate": 0.009615,
-              "rate_display": "0.96%"
-            },
-            {
-              "route": "Flip Card Counts Items",
-              "source_type": "container",
-              "rate": 0.008668,
-              "rate_display": "0.87%"
-            },
-            {
-              "route": "Steamer Trunk",
-              "source_type": "container",
-              "rate": 0.008668,
-              "rate_display": "0.87%"
-            },
-            {
-              "route": "Trunk",
-              "source_type": "container",
-              "rate": 0.008668,
-              "rate_display": "0.87%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "00313516",
             "edid": "recipe_Armor_BoS_Officer_Underarmor"
@@ -991,6 +989,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "skin",
           "set": "Brotherhood of Steel",
           "tier": null,
@@ -1045,16 +1044,6 @@
                   "route": "Government Aid Drop",
                   "rate_display": "1.73%",
                   "rate": 0.017335
-                },
-                {
-                  "route": "Flip Card Counts Items",
-                  "rate_display": "0.87%",
-                  "rate": 0.008668
-                },
-                {
-                  "route": "Steamer Trunk",
-                  "rate_display": "0.87%",
-                  "rate": 0.008668
                 }
               ]
             },
@@ -1064,29 +1053,34 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "Atlantic City Expedition Side Quests",
+                  "route": "Armor Regions GRP",
+                  "rate_display": "8.67%",
+                  "rate": 0.086676
+                },
+                {
+                  "route": "A Grand Reopening",
                   "rate_display": "1.32%",
                   "rate": 0.013158
                 },
                 {
-                  "route": "Atlantic City Side Quests",
+                  "route": "Atlantic City - Side Quests",
                   "rate_display": "1.32%",
                   "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Chase Items",
-                  "rate_display": "1.28%",
-                  "rate": 0.012821
+                  "route": "Atlantic City Expedition - Rare Plans Side Quests",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Rare Plans",
-                  "rate_display": "1.28%",
-                  "rate": 0.012821
+                  "route": "Custodial Compulsions",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Double Mutation Fallout1st",
-                  "rate_display": "0.96%",
-                  "rate": 0.009615
+                  "route": "Hells Eagles",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 }
               ]
             },
@@ -1118,6 +1112,12 @@
           "category_label": "Apparel (physical plan)",
           "obtain_routes": [
             {
+              "route": "Armor Regions GRP",
+              "source_type": "fixed",
+              "rate": 0.086676,
+              "rate_display": "8.67%"
+            },
+            {
               "route": "Industrial Trunk",
               "source_type": "container",
               "rate": 0.085339,
@@ -1142,13 +1142,37 @@
               "rate_display": "1.73%"
             },
             {
-              "route": "Atlantic City Expedition Side Quests",
+              "route": "A Grand Reopening",
               "source_type": "event-quest",
               "rate": 0.013158,
               "rate_display": "1.32%"
             },
             {
-              "route": "Atlantic City Side Quests",
+              "route": "Atlantic City - Side Quests",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Atlantic City Expedition - Rare Plans Side Quests",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Custodial Compulsions",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Hells Eagles",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Regent of the Dead",
               "source_type": "event-quest",
               "rate": 0.013158,
               "rate_display": "1.32%"
@@ -1158,38 +1182,9 @@
               "source_type": "event-quest",
               "rate": 0.012821,
               "rate_display": "1.28%"
-            },
-            {
-              "route": "Mutated Public Events - Rare Plans",
-              "source_type": "event-quest",
-              "rate": 0.012821,
-              "rate_display": "1.28%"
-            },
-            {
-              "route": "Mutated Public Events - Double Mutation Fallout1st",
-              "source_type": "event-quest",
-              "rate": 0.009615,
-              "rate_display": "0.96%"
-            },
-            {
-              "route": "Flip Card Counts Items",
-              "source_type": "container",
-              "rate": 0.008668,
-              "rate_display": "0.87%"
-            },
-            {
-              "route": "Steamer Trunk",
-              "source_type": "container",
-              "rate": 0.008668,
-              "rate_display": "0.87%"
-            },
-            {
-              "route": "Trunk",
-              "source_type": "container",
-              "rate": 0.008668,
-              "rate_display": "0.87%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003132F8",
             "edid": "recipe_Armor_BoS_Soldier_Underarmor"
@@ -1535,6 +1530,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "skin",
           "set": "Brotherhood of Steel",
           "tier": null,
@@ -1589,16 +1585,6 @@
                   "route": "Government Aid Drop",
                   "rate_display": "1.73%",
                   "rate": 0.017335
-                },
-                {
-                  "route": "Flip Card Counts Items",
-                  "rate_display": "0.87%",
-                  "rate": 0.008668
-                },
-                {
-                  "route": "Steamer Trunk",
-                  "rate_display": "0.87%",
-                  "rate": 0.008668
                 }
               ]
             },
@@ -1608,29 +1594,34 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "Atlantic City Expedition Side Quests",
+                  "route": "Armor Regions GRP",
+                  "rate_display": "8.67%",
+                  "rate": 0.086676
+                },
+                {
+                  "route": "A Grand Reopening",
                   "rate_display": "1.32%",
                   "rate": 0.013158
                 },
                 {
-                  "route": "Atlantic City Side Quests",
+                  "route": "Atlantic City - Side Quests",
                   "rate_display": "1.32%",
                   "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Chase Items",
-                  "rate_display": "1.28%",
-                  "rate": 0.012821
+                  "route": "Atlantic City Expedition - Rare Plans Side Quests",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Rare Plans",
-                  "rate_display": "1.28%",
-                  "rate": 0.012821
+                  "route": "Custodial Compulsions",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Double Mutation Fallout1st",
-                  "rate_display": "0.96%",
-                  "rate": 0.009615
+                  "route": "Hells Eagles",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 }
               ]
             },
@@ -1662,19 +1653,25 @@
           "category_label": "Apparel (physical plan)",
           "obtain_routes": [
             {
-              "route": "XPD Expedition Vendor Chest Giuseppe",
+              "route": "Expeditions - Giuseppe vendor",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "Atlantic City Expedition - Mission Mission",
+              "route": "Atlantic City Expedition - Mission",
               "source_type": "event-quest",
               "rate": 0.076923,
               "rate_display": "7.69%"
             },
             {
-              "route": "Infestations - cr XPDAtlantic City",
+              "route": "Blood Eagle Destroyer",
+              "source_type": "creature",
+              "rate": 0.020833,
+              "rate_display": "2.08%"
+            },
+            {
+              "route": "Infestations - Expeditions Atlantic City",
               "source_type": "event-quest",
               "rate": 0.020833,
               "rate_display": "2.08%"
@@ -1684,8 +1681,15 @@
               "source_type": "event-quest",
               "rate": 0.020833,
               "rate_display": "2.08%"
+            },
+            {
+              "route": "The Drifter - XX",
+              "source_type": "event-quest",
+              "rate": 0.020833,
+              "rate_display": "2.08%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "006E7356",
             "edid": "Recipe_XPD_AC_Armor_Muni_Underarmor"
@@ -2031,6 +2035,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "skin",
           "set": "Civil Engineer",
           "tier": null,
@@ -2043,7 +2048,7 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "XPD Expedition Vendor Chest Giuseppe",
+                  "route": "Expeditions - Giuseppe vendor",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -2079,17 +2084,27 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "Atlantic City Expedition - Mission Mission",
+                  "route": "Atlantic City Expedition - Mission",
                   "rate_display": "7.69%",
                   "rate": 0.076923
                 },
                 {
-                  "route": "Infestations - cr XPDAtlantic City",
+                  "route": "Blood Eagle Destroyer",
+                  "rate_display": "2.08%",
+                  "rate": 0.020833
+                },
+                {
+                  "route": "Infestations - Expeditions Atlantic City",
                   "rate_display": "2.08%",
                   "rate": 0.020833
                 },
                 {
                   "route": "The Drifter",
+                  "rate_display": "2.08%",
+                  "rate": 0.020833
+                },
+                {
+                  "route": "The Drifter - XX",
                   "rate_display": "2.08%",
                   "rate": 0.020833
                 }
@@ -2119,9 +2134,10 @@
           "name": "Plan: Enclave Secret Operative Underarmor",
           "has_image_box": true,
           "image_dir": "apparel",
-          "obtain": "Learned from a plan. No random-loot drop routes were resolved — see Technical for the recipe details.",
+          "obtain": "Learned from a plan. No source was resolved from the game files — see Technical for the recipe details.",
           "category_label": "Apparel (physical plan)",
           "obtain_routes": [],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "00793A6F",
             "edid": "RD01_Recipe_Armor_EnclaveUnderArmorUniform_SecretOperative"
@@ -2467,6 +2483,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "skin",
           "set": "Operative",
           "tier": null,
@@ -2533,6 +2550,12 @@
           "category_label": "Apparel (physical plan)",
           "obtain_routes": [
             {
+              "route": "Armor Regions GRP",
+              "source_type": "fixed",
+              "rate": 0.073103,
+              "rate_display": "7.31%"
+            },
+            {
               "route": "Industrial Trunk",
               "source_type": "container",
               "rate": 0.07198,
@@ -2557,13 +2580,37 @@
               "rate_display": "1.46%"
             },
             {
-              "route": "Atlantic City Expedition Side Quests",
+              "route": "A Grand Reopening",
               "source_type": "event-quest",
               "rate": 0.013158,
               "rate_display": "1.32%"
             },
             {
-              "route": "Atlantic City Side Quests",
+              "route": "Atlantic City - Side Quests",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Atlantic City Expedition - Rare Plans Side Quests",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Custodial Compulsions",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Hells Eagles",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Regent of the Dead",
               "source_type": "event-quest",
               "rate": 0.013158,
               "rate_display": "1.32%"
@@ -2573,38 +2620,9 @@
               "source_type": "event-quest",
               "rate": 0.012821,
               "rate_display": "1.28%"
-            },
-            {
-              "route": "Mutated Public Events - Rare Plans",
-              "source_type": "event-quest",
-              "rate": 0.012821,
-              "rate_display": "1.28%"
-            },
-            {
-              "route": "Mutated Public Events - Double Mutation Fallout1st",
-              "source_type": "event-quest",
-              "rate": 0.009615,
-              "rate_display": "0.96%"
-            },
-            {
-              "route": "Flip Card Counts Items",
-              "source_type": "container",
-              "rate": 0.00731,
-              "rate_display": "0.73%"
-            },
-            {
-              "route": "Steamer Trunk",
-              "source_type": "container",
-              "rate": 0.00731,
-              "rate_display": "0.73%"
-            },
-            {
-              "route": "Trunk",
-              "source_type": "container",
-              "rate": 0.00731,
-              "rate_display": "0.73%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003132CB",
             "edid": "recipe_Armor_Casual_Underarmor_FlannelJeans"
@@ -2950,6 +2968,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "skin",
           "set": "Casual",
           "tier": null,
@@ -3004,16 +3023,6 @@
                   "route": "Government Aid Drop",
                   "rate_display": "1.46%",
                   "rate": 0.014621
-                },
-                {
-                  "route": "Flip Card Counts Items",
-                  "rate_display": "0.73%",
-                  "rate": 0.00731
-                },
-                {
-                  "route": "Steamer Trunk",
-                  "rate_display": "0.73%",
-                  "rate": 0.00731
                 }
               ]
             },
@@ -3023,29 +3032,34 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "Atlantic City Expedition Side Quests",
+                  "route": "Armor Regions GRP",
+                  "rate_display": "7.31%",
+                  "rate": 0.073103
+                },
+                {
+                  "route": "A Grand Reopening",
                   "rate_display": "1.32%",
                   "rate": 0.013158
                 },
                 {
-                  "route": "Atlantic City Side Quests",
+                  "route": "Atlantic City - Side Quests",
                   "rate_display": "1.32%",
                   "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Chase Items",
-                  "rate_display": "1.28%",
-                  "rate": 0.012821
+                  "route": "Atlantic City Expedition - Rare Plans Side Quests",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Rare Plans",
-                  "rate_display": "1.28%",
-                  "rate": 0.012821
+                  "route": "Custodial Compulsions",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Double Mutation Fallout1st",
-                  "rate_display": "0.96%",
-                  "rate": 0.009615
+                  "route": "Hells Eagles",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 }
               ]
             },
@@ -3077,64 +3091,52 @@
           "category_label": "Apparel (physical plan)",
           "obtain_routes": [
             {
-              "route": "Faction Raiders",
+              "route": "Plesant Valley Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "LC060 Whitespring Vendor Chest Raiders",
+              "route": "Raiders vendor",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "LC150 Top Of The World Vendor Chest Raiders",
+              "route": "Rand Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "POI088 Sutton Station Vendor Chest Raiders",
+              "route": "Sunnytop Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "POI093 Sunnytop Station Vendor Chest Raiders",
+              "route": "Sutton Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "POI094 Plesant Valley Station Vendor Chest Raiders",
+              "route": "Top Of The World (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "POI096 Rand GStation Vendor Chest Raiders",
+              "route": "Whitespring (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "Vendor LC060 Whitespring Raiders",
-              "source_type": "vendor",
-              "rate": 0.25,
-              "rate_display": "25%"
-            },
-            {
-              "route": "Vendor POI088 Sutton Station Raiders",
-              "source_type": "vendor",
-              "rate": 0.25,
-              "rate_display": "25%"
-            },
-            {
-              "route": "Vendor Recipes Faction Raiders",
-              "source_type": "vendor",
-              "rate": 0.25,
-              "rate_display": "25%"
+              "route": "Armor Regions GRP",
+              "source_type": "fixed",
+              "rate": 0.05625,
+              "rate_display": "5.62%"
             },
             {
               "route": "Industrial Trunk",
@@ -3147,8 +3149,21 @@
               "source_type": "container",
               "rate": 0.029775,
               "rate_display": "2.98%"
+            },
+            {
+              "route": "U.S.S.A. Supply Crate",
+              "source_type": "container",
+              "rate": 0.029775,
+              "rate_display": "2.98%"
+            },
+            {
+              "route": "A Grand Reopening",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "00437016",
             "edid": "recipe_Armor_Raider_Underarmor_Harness"
@@ -3494,6 +3509,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "skin",
           "set": "Raider",
           "tier": null,
@@ -3506,32 +3522,32 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "LC060 Whitespring Vendor Chest Raiders",
+                  "route": "Plesant Valley Station (Raiders vendor)",
                   "rate_display": "25%",
                   "rate": 0.25
                 },
                 {
-                  "route": "LC150 Top Of The World Vendor Chest Raiders",
+                  "route": "Raiders vendor",
                   "rate_display": "25%",
                   "rate": 0.25
                 },
                 {
-                  "route": "POI088 Sutton Station Vendor Chest Raiders",
+                  "route": "Rand Station (Raiders vendor)",
                   "rate_display": "25%",
                   "rate": 0.25
                 },
                 {
-                  "route": "POI093 Sunnytop Station Vendor Chest Raiders",
+                  "route": "Sunnytop Station (Raiders vendor)",
                   "rate_display": "25%",
                   "rate": 0.25
                 },
                 {
-                  "route": "POI094 Plesant Valley Station Vendor Chest Raiders",
+                  "route": "Sutton Station (Raiders vendor)",
                   "rate_display": "25%",
                   "rate": 0.25
                 },
                 {
-                  "route": "POI096 Rand GStation Vendor Chest Raiders",
+                  "route": "Top Of The World (Raiders vendor)",
                   "rate_display": "25%",
                   "rate": 0.25
                 }
@@ -3573,15 +3589,28 @@
                   "rate": 0.029775
                 },
                 {
-                  "route": "Faction Raiders",
-                  "rate_display": "25%",
-                  "rate": 0.25
+                  "route": "U.S.S.A. Supply Crate",
+                  "rate_display": "2.98%",
+                  "rate": 0.029775
                 }
               ]
             },
             {
               "label": "Events & Activities",
-              "applies": false
+              "applies": true,
+              "kind": "rates",
+              "rows": [
+                {
+                  "route": "Armor Regions GRP",
+                  "rate_display": "5.62%",
+                  "rate": 0.05625
+                },
+                {
+                  "route": "A Grand Reopening",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
+                }
+              ]
             },
             {
               "label": "Quests",
@@ -3611,64 +3640,52 @@
           "category_label": "Apparel (physical plan)",
           "obtain_routes": [
             {
-              "route": "Faction Raiders",
+              "route": "Plesant Valley Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "LC060 Whitespring Vendor Chest Raiders",
+              "route": "Raiders vendor",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "LC150 Top Of The World Vendor Chest Raiders",
+              "route": "Rand Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "POI088 Sutton Station Vendor Chest Raiders",
+              "route": "Sunnytop Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "POI093 Sunnytop Station Vendor Chest Raiders",
+              "route": "Sutton Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "POI094 Plesant Valley Station Vendor Chest Raiders",
+              "route": "Top Of The World (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "POI096 Rand GStation Vendor Chest Raiders",
+              "route": "Whitespring (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "Vendor LC060 Whitespring Raiders",
-              "source_type": "vendor",
-              "rate": 0.25,
-              "rate_display": "25%"
-            },
-            {
-              "route": "Vendor POI088 Sutton Station Raiders",
-              "source_type": "vendor",
-              "rate": 0.25,
-              "rate_display": "25%"
-            },
-            {
-              "route": "Vendor Recipes Faction Raiders",
-              "source_type": "vendor",
-              "rate": 0.25,
-              "rate_display": "25%"
+              "route": "Armor Regions GRP",
+              "source_type": "fixed",
+              "rate": 0.05625,
+              "rate_display": "5.62%"
             },
             {
               "route": "Industrial Trunk",
@@ -3681,8 +3698,21 @@
               "source_type": "container",
               "rate": 0.029775,
               "rate_display": "2.98%"
+            },
+            {
+              "route": "U.S.S.A. Supply Crate",
+              "source_type": "container",
+              "rate": 0.029775,
+              "rate_display": "2.98%"
+            },
+            {
+              "route": "A Grand Reopening",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "00437017",
             "edid": "recipe_Armor_Raider_Underarmor_LongJohns"
@@ -4028,6 +4058,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "skin",
           "set": "Raider",
           "tier": null,
@@ -4040,32 +4071,32 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "LC060 Whitespring Vendor Chest Raiders",
+                  "route": "Plesant Valley Station (Raiders vendor)",
                   "rate_display": "25%",
                   "rate": 0.25
                 },
                 {
-                  "route": "LC150 Top Of The World Vendor Chest Raiders",
+                  "route": "Raiders vendor",
                   "rate_display": "25%",
                   "rate": 0.25
                 },
                 {
-                  "route": "POI088 Sutton Station Vendor Chest Raiders",
+                  "route": "Rand Station (Raiders vendor)",
                   "rate_display": "25%",
                   "rate": 0.25
                 },
                 {
-                  "route": "POI093 Sunnytop Station Vendor Chest Raiders",
+                  "route": "Sunnytop Station (Raiders vendor)",
                   "rate_display": "25%",
                   "rate": 0.25
                 },
                 {
-                  "route": "POI094 Plesant Valley Station Vendor Chest Raiders",
+                  "route": "Sutton Station (Raiders vendor)",
                   "rate_display": "25%",
                   "rate": 0.25
                 },
                 {
-                  "route": "POI096 Rand GStation Vendor Chest Raiders",
+                  "route": "Top Of The World (Raiders vendor)",
                   "rate_display": "25%",
                   "rate": 0.25
                 }
@@ -4107,15 +4138,28 @@
                   "rate": 0.029775
                 },
                 {
-                  "route": "Faction Raiders",
-                  "rate_display": "25%",
-                  "rate": 0.25
+                  "route": "U.S.S.A. Supply Crate",
+                  "rate_display": "2.98%",
+                  "rate": 0.029775
                 }
               ]
             },
             {
               "label": "Events & Activities",
-              "applies": false
+              "applies": true,
+              "kind": "rates",
+              "rows": [
+                {
+                  "route": "Armor Regions GRP",
+                  "rate_display": "5.62%",
+                  "rate": 0.05625
+                },
+                {
+                  "route": "A Grand Reopening",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
+                }
+              ]
             },
             {
               "label": "Quests",
@@ -4145,6 +4189,12 @@
           "category_label": "Apparel (physical plan)",
           "obtain_routes": [
             {
+              "route": "Armor Regions GRP",
+              "source_type": "fixed",
+              "rate": 0.102347,
+              "rate_display": "10.23%"
+            },
+            {
               "route": "Industrial Trunk",
               "source_type": "container",
               "rate": 0.10076,
@@ -4169,13 +4219,37 @@
               "rate_display": "2.05%"
             },
             {
-              "route": "Atlantic City Expedition Side Quests",
+              "route": "A Grand Reopening",
               "source_type": "event-quest",
               "rate": 0.013158,
               "rate_display": "1.32%"
             },
             {
-              "route": "Atlantic City Side Quests",
+              "route": "Atlantic City - Side Quests",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Atlantic City Expedition - Rare Plans Side Quests",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Custodial Compulsions",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Hells Eagles",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Regent of the Dead",
               "source_type": "event-quest",
               "rate": 0.013158,
               "rate_display": "1.32%"
@@ -4185,38 +4259,9 @@
               "source_type": "event-quest",
               "rate": 0.012821,
               "rate_display": "1.28%"
-            },
-            {
-              "route": "Mutated Public Events - Rare Plans",
-              "source_type": "event-quest",
-              "rate": 0.012821,
-              "rate_display": "1.28%"
-            },
-            {
-              "route": "Flip Card Counts Items",
-              "source_type": "container",
-              "rate": 0.010235,
-              "rate_display": "1.02%"
-            },
-            {
-              "route": "Steamer Trunk",
-              "source_type": "container",
-              "rate": 0.010235,
-              "rate_display": "1.02%"
-            },
-            {
-              "route": "Trunk",
-              "source_type": "container",
-              "rate": 0.010235,
-              "rate_display": "1.02%"
-            },
-            {
-              "route": "Mutated Public Events - Double Mutation Fallout1st",
-              "source_type": "event-quest",
-              "rate": 0.009615,
-              "rate_display": "0.96%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003132CC",
             "edid": "recipe_Armor_Marine_Underarmor_Wetsuit"
@@ -4562,6 +4607,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "skin",
           "set": "Marine",
           "tier": null,
@@ -4616,16 +4662,6 @@
                   "route": "Government Aid Drop",
                   "rate_display": "2.05%",
                   "rate": 0.020469
-                },
-                {
-                  "route": "Flip Card Counts Items",
-                  "rate_display": "1.02%",
-                  "rate": 0.010235
-                },
-                {
-                  "route": "Steamer Trunk",
-                  "rate_display": "1.02%",
-                  "rate": 0.010235
                 }
               ]
             },
@@ -4635,29 +4671,34 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "Atlantic City Expedition Side Quests",
+                  "route": "Armor Regions GRP",
+                  "rate_display": "10.23%",
+                  "rate": 0.102347
+                },
+                {
+                  "route": "A Grand Reopening",
                   "rate_display": "1.32%",
                   "rate": 0.013158
                 },
                 {
-                  "route": "Atlantic City Side Quests",
+                  "route": "Atlantic City - Side Quests",
                   "rate_display": "1.32%",
                   "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Chase Items",
-                  "rate_display": "1.28%",
-                  "rate": 0.012821
+                  "route": "Atlantic City Expedition - Rare Plans Side Quests",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Rare Plans",
-                  "rate_display": "1.28%",
-                  "rate": 0.012821
+                  "route": "Custodial Compulsions",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Double Mutation Fallout1st",
-                  "rate_display": "0.96%",
-                  "rate": 0.009615
+                  "route": "Hells Eagles",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 }
               ]
             },
@@ -4689,12 +4730,13 @@
           "category_label": "CAMP / Recipe (mod/recipe)",
           "obtain_routes": [
             {
-              "route": "Steel Reign - Special Vendor Minerva Gold Vendor",
+              "route": "Steel Reign - Minerva (Gold Bullion vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "006369B7",
             "edid": "Recipe_Armor_TrackSuitNW_Underarmor_NW"
@@ -5036,6 +5078,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "skin",
           "set": "Vault Suit",
           "tier": null,
@@ -5048,7 +5091,7 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "Steel Reign - Special Vendor Minerva Gold Vendor",
+                  "route": "Steel Reign - Minerva (Gold Bullion vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -5110,64 +5153,52 @@
           "category_label": "Apparel (physical plan)",
           "obtain_routes": [
             {
-              "route": "Faction Raiders",
+              "route": "Plesant Valley Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "LC060 Whitespring Vendor Chest Raiders",
+              "route": "Raiders vendor",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "LC150 Top Of The World Vendor Chest Raiders",
+              "route": "Rand Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "POI088 Sutton Station Vendor Chest Raiders",
+              "route": "Sunnytop Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "POI093 Sunnytop Station Vendor Chest Raiders",
+              "route": "Sutton Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "POI094 Plesant Valley Station Vendor Chest Raiders",
+              "route": "Top Of The World (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "POI096 Rand GStation Vendor Chest Raiders",
+              "route": "Whitespring (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "Vendor LC060 Whitespring Raiders",
-              "source_type": "vendor",
-              "rate": 0.25,
-              "rate_display": "25%"
-            },
-            {
-              "route": "Vendor POI088 Sutton Station Raiders",
-              "source_type": "vendor",
-              "rate": 0.25,
-              "rate_display": "25%"
-            },
-            {
-              "route": "Vendor Recipes Faction Raiders",
-              "source_type": "vendor",
-              "rate": 0.25,
-              "rate_display": "25%"
+              "route": "Armor Regions GRP",
+              "source_type": "fixed",
+              "rate": 0.05625,
+              "rate_display": "5.62%"
             },
             {
               "route": "Industrial Trunk",
@@ -5180,8 +5211,21 @@
               "source_type": "container",
               "rate": 0.029775,
               "rate_display": "2.98%"
+            },
+            {
+              "route": "U.S.S.A. Supply Crate",
+              "source_type": "container",
+              "rate": 0.029775,
+              "rate_display": "2.98%"
+            },
+            {
+              "route": "Government Aid Drop",
+              "source_type": "container",
+              "rate": 0.01125,
+              "rate_display": "1.12%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "00437018",
             "edid": "recipe_Armor_Raider_Underarmor_RaiderLeathers"
@@ -5527,6 +5571,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "skin",
           "set": "Raider",
           "tier": null,
@@ -5539,32 +5584,32 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "LC060 Whitespring Vendor Chest Raiders",
+                  "route": "Plesant Valley Station (Raiders vendor)",
                   "rate_display": "25%",
                   "rate": 0.25
                 },
                 {
-                  "route": "LC150 Top Of The World Vendor Chest Raiders",
+                  "route": "Raiders vendor",
                   "rate_display": "25%",
                   "rate": 0.25
                 },
                 {
-                  "route": "POI088 Sutton Station Vendor Chest Raiders",
+                  "route": "Rand Station (Raiders vendor)",
                   "rate_display": "25%",
                   "rate": 0.25
                 },
                 {
-                  "route": "POI093 Sunnytop Station Vendor Chest Raiders",
+                  "route": "Sunnytop Station (Raiders vendor)",
                   "rate_display": "25%",
                   "rate": 0.25
                 },
                 {
-                  "route": "POI094 Plesant Valley Station Vendor Chest Raiders",
+                  "route": "Sutton Station (Raiders vendor)",
                   "rate_display": "25%",
                   "rate": 0.25
                 },
                 {
-                  "route": "POI096 Rand GStation Vendor Chest Raiders",
+                  "route": "Top Of The World (Raiders vendor)",
                   "rate_display": "25%",
                   "rate": 0.25
                 }
@@ -5606,15 +5651,28 @@
                   "rate": 0.029775
                 },
                 {
-                  "route": "Faction Raiders",
-                  "rate_display": "25%",
-                  "rate": 0.25
+                  "route": "U.S.S.A. Supply Crate",
+                  "rate_display": "2.98%",
+                  "rate": 0.029775
+                },
+                {
+                  "route": "Government Aid Drop",
+                  "rate_display": "1.12%",
+                  "rate": 0.01125
                 }
               ]
             },
             {
               "label": "Events & Activities",
-              "applies": false
+              "applies": true,
+              "kind": "rates",
+              "rows": [
+                {
+                  "route": "Armor Regions GRP",
+                  "rate_display": "5.62%",
+                  "rate": 0.05625
+                }
+              ]
             },
             {
               "label": "Quests",
@@ -5644,78 +5702,79 @@
           "category_label": "Apparel (physical plan)",
           "obtain_routes": [
             {
-              "route": "BURN HTSettler General Vendor Chest",
+              "route": "Burning Springs - HT General (Settlers vendor)",
               "source_type": "vendor",
               "rate": 0.448632,
               "rate_display": "44.86%"
             },
             {
-              "route": "Faction Raiders",
+              "route": "Plesant Valley Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "LC060 Whitespring Vendor Chest Raiders",
+              "route": "Raiders vendor",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "LC150 Top Of The World Vendor Chest Raiders",
+              "route": "Rand Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "POI088 Sutton Station Vendor Chest Raiders",
+              "route": "Sunnytop Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "POI093 Sunnytop Station Vendor Chest Raiders",
+              "route": "Sutton Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "POI094 Plesant Valley Station Vendor Chest Raiders",
+              "route": "Top Of The World (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "POI096 Rand GStation Vendor Chest Raiders",
+              "route": "Whitespring (Raiders vendor)",
               "source_type": "vendor",
               "rate": 0.25,
               "rate_display": "25%"
             },
             {
-              "route": "Vendor LC060 Whitespring Raiders",
-              "source_type": "vendor",
-              "rate": 0.25,
-              "rate_display": "25%"
-            },
-            {
-              "route": "Vendor POI088 Sutton Station Raiders",
-              "source_type": "vendor",
-              "rate": 0.25,
-              "rate_display": "25%"
-            },
-            {
-              "route": "Vendor Recipes Faction Raiders",
-              "source_type": "vendor",
-              "rate": 0.25,
-              "rate_display": "25%"
-            },
-            {
-              "route": "BURN LLV Vendor General",
+              "route": "Burning Springs - General vendor",
               "source_type": "vendor",
               "rate": 0.2,
               "rate_display": "20%"
+            },
+            {
+              "route": "Burning Springs General Armor Mod vendor",
+              "source_type": "vendor",
+              "rate": 0.2,
+              "rate_display": "20%"
+            },
+            {
+              "route": "Armor Regions GRP",
+              "source_type": "fixed",
+              "rate": 0.05625,
+              "rate_display": "5.62%"
+            },
+            {
+              "route": "Industrial Trunk",
+              "source_type": "container",
+              "rate": 0.055391,
+              "rate_display": "5.54%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "00437019",
             "edid": "recipe_Armor_Raider_Underarmor_RoadLeathers"
@@ -6061,6 +6120,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "skin",
           "set": "Raider",
           "tier": null,
@@ -6073,32 +6133,32 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "BURN HTSettler General Vendor Chest",
+                  "route": "Burning Springs - HT General (Settlers vendor)",
                   "rate_display": "44.86%",
                   "rate": 0.448632
                 },
                 {
-                  "route": "LC060 Whitespring Vendor Chest Raiders",
+                  "route": "Plesant Valley Station (Raiders vendor)",
                   "rate_display": "25%",
                   "rate": 0.25
                 },
                 {
-                  "route": "LC150 Top Of The World Vendor Chest Raiders",
+                  "route": "Raiders vendor",
                   "rate_display": "25%",
                   "rate": 0.25
                 },
                 {
-                  "route": "POI088 Sutton Station Vendor Chest Raiders",
+                  "route": "Rand Station (Raiders vendor)",
                   "rate_display": "25%",
                   "rate": 0.25
                 },
                 {
-                  "route": "POI093 Sunnytop Station Vendor Chest Raiders",
+                  "route": "Sunnytop Station (Raiders vendor)",
                   "rate_display": "25%",
                   "rate": 0.25
                 },
                 {
-                  "route": "POI094 Plesant Valley Station Vendor Chest Raiders",
+                  "route": "Sutton Station (Raiders vendor)",
                   "rate_display": "25%",
                   "rate": 0.25
                 }
@@ -6130,15 +6190,23 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "Faction Raiders",
-                  "rate_display": "25%",
-                  "rate": 0.25
+                  "route": "Industrial Trunk",
+                  "rate_display": "5.54%",
+                  "rate": 0.055391
                 }
               ]
             },
             {
               "label": "Events & Activities",
-              "applies": false
+              "applies": true,
+              "kind": "rates",
+              "rows": [
+                {
+                  "route": "Armor Regions GRP",
+                  "rate_display": "5.62%",
+                  "rate": 0.05625
+                }
+              ]
             },
             {
               "label": "Quests",
@@ -6168,30 +6236,25 @@
           "category_label": "Apparel (physical plan)",
           "obtain_routes": [
             {
-              "route": "BS02 Special Vendor Minerva Gold Vendor Chest",
+              "route": "Steel Reign - Minerva (Gold Bullion vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "BS02 Special Vendor Minerva LLV Gold Vendor",
+              "route": "Wastelanders - Armor (Secret Service Gold Bullion vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "W05 Secret Service Gold Vendor Chest Reginald",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%"
-            },
-            {
-              "route": "Wastelanders - Gold Vendor Recipes Armor Secret Service",
+              "route": "Wastelanders - Reginald (Secret Service Gold Bullion vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "0059D542",
             "edid": "W05_Recipe_Armor_Underarmor_SecretService_Uniform_GoldVendor"
@@ -6537,6 +6600,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "skin",
           "set": "Secret Service",
           "tier": null,
@@ -6549,22 +6613,17 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "BS02 Special Vendor Minerva Gold Vendor Chest",
+                  "route": "Steel Reign - Minerva (Gold Bullion vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "BS02 Special Vendor Minerva LLV Gold Vendor",
+                  "route": "Wastelanders - Armor (Secret Service Gold Bullion vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "W05 Secret Service Gold Vendor Chest Reginald",
-                  "rate_display": "100%",
-                  "rate": 1.0
-                },
-                {
-                  "route": "Wastelanders - Gold Vendor Recipes Armor Secret Service",
+                  "route": "Wastelanders - Reginald (Secret Service Gold Bullion vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -6637,12 +6696,13 @@
           "category_label": "CAMP / Recipe (mod/recipe)",
           "obtain_routes": [
             {
-              "route": "Steel Reign - Special Vendor Minerva Gold Vendor",
+              "route": "Steel Reign - Minerva (Gold Bullion vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "006369C1",
             "edid": "Recipe_Armor_SurvivorsDenim_Underarmor_Survivors2020_NW"
@@ -6984,6 +7044,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "skin",
           "set": "Vault Suit",
           "tier": null,
@@ -6996,7 +7057,7 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "Steel Reign - Special Vendor Minerva Gold Vendor",
+                  "route": "Steel Reign - Minerva (Gold Bullion vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -7058,6 +7119,12 @@
           "category_label": "Apparel (physical plan)",
           "obtain_routes": [
             {
+              "route": "Armor Regions GRP",
+              "source_type": "fixed",
+              "rate": 0.073103,
+              "rate_display": "7.31%"
+            },
+            {
               "route": "Industrial Trunk",
               "source_type": "container",
               "rate": 0.07198,
@@ -7082,13 +7149,37 @@
               "rate_display": "1.46%"
             },
             {
-              "route": "Atlantic City Expedition Side Quests",
+              "route": "A Grand Reopening",
               "source_type": "event-quest",
               "rate": 0.013158,
               "rate_display": "1.32%"
             },
             {
-              "route": "Atlantic City Side Quests",
+              "route": "Atlantic City - Side Quests",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Atlantic City Expedition - Rare Plans Side Quests",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Custodial Compulsions",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Hells Eagles",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Regent of the Dead",
               "source_type": "event-quest",
               "rate": 0.013158,
               "rate_display": "1.32%"
@@ -7098,38 +7189,9 @@
               "source_type": "event-quest",
               "rate": 0.012821,
               "rate_display": "1.28%"
-            },
-            {
-              "route": "Mutated Public Events - Rare Plans",
-              "source_type": "event-quest",
-              "rate": 0.012821,
-              "rate_display": "1.28%"
-            },
-            {
-              "route": "Mutated Public Events - Double Mutation Fallout1st",
-              "source_type": "event-quest",
-              "rate": 0.009615,
-              "rate_display": "0.96%"
-            },
-            {
-              "route": "Flip Card Counts Items",
-              "source_type": "container",
-              "rate": 0.00731,
-              "rate_display": "0.73%"
-            },
-            {
-              "route": "Steamer Trunk",
-              "source_type": "container",
-              "rate": 0.00731,
-              "rate_display": "0.73%"
-            },
-            {
-              "route": "Trunk",
-              "source_type": "container",
-              "rate": 0.00731,
-              "rate_display": "0.73%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003132F9",
             "edid": "recipe_Armor_Casual_Underarmor_ShirtJeans"
@@ -7475,6 +7537,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "skin",
           "set": "Casual",
           "tier": null,
@@ -7529,16 +7592,6 @@
                   "route": "Government Aid Drop",
                   "rate_display": "1.46%",
                   "rate": 0.014621
-                },
-                {
-                  "route": "Flip Card Counts Items",
-                  "rate_display": "0.73%",
-                  "rate": 0.00731
-                },
-                {
-                  "route": "Steamer Trunk",
-                  "rate_display": "0.73%",
-                  "rate": 0.00731
                 }
               ]
             },
@@ -7548,29 +7601,34 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "Atlantic City Expedition Side Quests",
+                  "route": "Armor Regions GRP",
+                  "rate_display": "7.31%",
+                  "rate": 0.073103
+                },
+                {
+                  "route": "A Grand Reopening",
                   "rate_display": "1.32%",
                   "rate": 0.013158
                 },
                 {
-                  "route": "Atlantic City Side Quests",
+                  "route": "Atlantic City - Side Quests",
                   "rate_display": "1.32%",
                   "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Chase Items",
-                  "rate_display": "1.28%",
-                  "rate": 0.012821
+                  "route": "Atlantic City Expedition - Rare Plans Side Quests",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Rare Plans",
-                  "rate_display": "1.28%",
-                  "rate": 0.012821
+                  "route": "Custodial Compulsions",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Double Mutation Fallout1st",
-                  "rate_display": "0.96%",
-                  "rate": 0.009615
+                  "route": "Hells Eagles",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 }
               ]
             },
@@ -7614,6 +7672,7 @@
               "rate_display": "1.22%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "0062042A",
             "edid": "recipe_Armor_VaultSuit51_Underarmor"
@@ -7955,6 +8014,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "skin",
           "set": "Vault Suit",
           "tier": null,
@@ -8026,416 +8086,6 @@
           "kind": "plan",
           "brand": "df",
           "type": "apparel",
-          "id": "PLAN_00313390",
-          "name": "Plan: Vault 63 Jumpsuit",
-          "has_image_box": true,
-          "image_dir": "apparel",
-          "obtain": "Learned from a plan. No random-loot drop routes were resolved — see Technical for the recipe details.",
-          "category_label": "Apparel (physical plan)",
-          "obtain_routes": [],
-          "plan_item": {
-            "formid": "00313390",
-            "edid": "POST_recipe_Armor_VaultSuit63_Underarmor"
-          },
-          "cobj": {
-            "formid": "0016ED85",
-            "edid": "POST_co_Armor_VaultSuit63_Underarmor"
-          },
-          "cnam": {
-            "formid": "003BE8A6",
-            "edid": "POST_Armor_VaultSuit63_Underarmor",
-            "sig": "ARMO"
-          },
-          "tradeable": true,
-          "stops_dropping": null,
-          "effects": {
-            "summary": "These are the two mods every skin comes fitted with — Standard Lining and Standard Style. Swap either at an armour workbench and these numbers change. The garment itself has no stats of its own.",
-            "rows": [
-              {
-                "label": "Damage Resistance",
-                "value": "+12 at Lv 1 → +37 at Lv 50",
-                "points": [
-                  {
-                    "lv": 1,
-                    "v": "+12"
-                  },
-                  {
-                    "lv": 5,
-                    "v": "+14"
-                  },
-                  {
-                    "lv": 10,
-                    "v": "+15"
-                  },
-                  {
-                    "lv": 15,
-                    "v": "+17"
-                  },
-                  {
-                    "lv": 20,
-                    "v": "+19"
-                  },
-                  {
-                    "lv": 25,
-                    "v": "+22"
-                  },
-                  {
-                    "lv": 30,
-                    "v": "+24"
-                  },
-                  {
-                    "lv": 35,
-                    "v": "+27"
-                  },
-                  {
-                    "lv": 40,
-                    "v": "+30"
-                  },
-                  {
-                    "lv": 45,
-                    "v": "+34"
-                  },
-                  {
-                    "lv": 50,
-                    "v": "+37"
-                  }
-                ],
-                "curve": "CT_Player_Armor_Universal_Tier17"
-              },
-              {
-                "label": "Energy Resistance",
-                "value": "+12 at Lv 1 → +37 at Lv 50",
-                "points": [
-                  {
-                    "lv": 1,
-                    "v": "+12"
-                  },
-                  {
-                    "lv": 5,
-                    "v": "+14"
-                  },
-                  {
-                    "lv": 10,
-                    "v": "+15"
-                  },
-                  {
-                    "lv": 15,
-                    "v": "+17"
-                  },
-                  {
-                    "lv": 20,
-                    "v": "+19"
-                  },
-                  {
-                    "lv": 25,
-                    "v": "+22"
-                  },
-                  {
-                    "lv": 30,
-                    "v": "+24"
-                  },
-                  {
-                    "lv": 35,
-                    "v": "+27"
-                  },
-                  {
-                    "lv": 40,
-                    "v": "+30"
-                  },
-                  {
-                    "lv": 45,
-                    "v": "+34"
-                  },
-                  {
-                    "lv": 50,
-                    "v": "+37"
-                  }
-                ],
-                "curve": "CT_Player_Armor_Universal_Tier17"
-              },
-              {
-                "label": "Radiation Resistance",
-                "value": "+12 at Lv 1 → +37 at Lv 50",
-                "points": [
-                  {
-                    "lv": 1,
-                    "v": "+12"
-                  },
-                  {
-                    "lv": 5,
-                    "v": "+14"
-                  },
-                  {
-                    "lv": 10,
-                    "v": "+15"
-                  },
-                  {
-                    "lv": 15,
-                    "v": "+17"
-                  },
-                  {
-                    "lv": 20,
-                    "v": "+19"
-                  },
-                  {
-                    "lv": 25,
-                    "v": "+22"
-                  },
-                  {
-                    "lv": 30,
-                    "v": "+24"
-                  },
-                  {
-                    "lv": 35,
-                    "v": "+27"
-                  },
-                  {
-                    "lv": 40,
-                    "v": "+30"
-                  },
-                  {
-                    "lv": 45,
-                    "v": "+34"
-                  },
-                  {
-                    "lv": 50,
-                    "v": "+37"
-                  }
-                ],
-                "curve": "CT_Player_Armor_Universal_Tier17"
-              },
-              {
-                "label": "Fire Resistance",
-                "value": "+12 at Lv 1 → +37 at Lv 50",
-                "points": [
-                  {
-                    "lv": 1,
-                    "v": "+12"
-                  },
-                  {
-                    "lv": 5,
-                    "v": "+14"
-                  },
-                  {
-                    "lv": 10,
-                    "v": "+15"
-                  },
-                  {
-                    "lv": 15,
-                    "v": "+17"
-                  },
-                  {
-                    "lv": 20,
-                    "v": "+19"
-                  },
-                  {
-                    "lv": 25,
-                    "v": "+22"
-                  },
-                  {
-                    "lv": 30,
-                    "v": "+24"
-                  },
-                  {
-                    "lv": 35,
-                    "v": "+27"
-                  },
-                  {
-                    "lv": 40,
-                    "v": "+30"
-                  },
-                  {
-                    "lv": 45,
-                    "v": "+34"
-                  },
-                  {
-                    "lv": 50,
-                    "v": "+37"
-                  }
-                ],
-                "curve": "CT_Player_Armor_Universal_Tier17"
-              },
-              {
-                "label": "Cryo Resistance",
-                "value": "+12 at Lv 1 → +37 at Lv 50",
-                "points": [
-                  {
-                    "lv": 1,
-                    "v": "+12"
-                  },
-                  {
-                    "lv": 5,
-                    "v": "+14"
-                  },
-                  {
-                    "lv": 10,
-                    "v": "+15"
-                  },
-                  {
-                    "lv": 15,
-                    "v": "+17"
-                  },
-                  {
-                    "lv": 20,
-                    "v": "+19"
-                  },
-                  {
-                    "lv": 25,
-                    "v": "+22"
-                  },
-                  {
-                    "lv": 30,
-                    "v": "+24"
-                  },
-                  {
-                    "lv": 35,
-                    "v": "+27"
-                  },
-                  {
-                    "lv": 40,
-                    "v": "+30"
-                  },
-                  {
-                    "lv": 45,
-                    "v": "+34"
-                  },
-                  {
-                    "lv": 50,
-                    "v": "+37"
-                  }
-                ],
-                "curve": "CT_Player_Armor_Universal_Tier17"
-              },
-              {
-                "label": "Poison Resistance",
-                "value": "+12 at Lv 1 → +37 at Lv 50",
-                "points": [
-                  {
-                    "lv": 1,
-                    "v": "+12"
-                  },
-                  {
-                    "lv": 5,
-                    "v": "+14"
-                  },
-                  {
-                    "lv": 10,
-                    "v": "+15"
-                  },
-                  {
-                    "lv": 15,
-                    "v": "+17"
-                  },
-                  {
-                    "lv": 20,
-                    "v": "+19"
-                  },
-                  {
-                    "lv": 25,
-                    "v": "+22"
-                  },
-                  {
-                    "lv": 30,
-                    "v": "+24"
-                  },
-                  {
-                    "lv": 35,
-                    "v": "+27"
-                  },
-                  {
-                    "lv": 40,
-                    "v": "+30"
-                  },
-                  {
-                    "lv": 45,
-                    "v": "+34"
-                  },
-                  {
-                    "lv": 50,
-                    "v": "+37"
-                  }
-                ],
-                "curve": "CT_Player_Armor_Universal_Tier17"
-              },
-              {
-                "label": "Endurance",
-                "value": "+2",
-                "points": null,
-                "curve": null
-              },
-              {
-                "label": "Charisma",
-                "value": "+2",
-                "points": null,
-                "curve": null
-              },
-              {
-                "label": "Agility",
-                "value": "+2",
-                "points": null,
-                "curve": null
-              }
-            ]
-          },
-          "cut": false,
-          "group": "skin",
-          "set": "Vault Suit",
-          "tier": null,
-          "tier_label": null,
-          "is_new": false,
-          "obtain_ledger": [
-            {
-              "label": "Caps",
-              "applies": false
-            },
-            {
-              "label": "Stamps",
-              "applies": false
-            },
-            {
-              "label": "Scoreboard",
-              "applies": false
-            },
-            {
-              "label": "Gold Bullion",
-              "applies": false
-            },
-            {
-              "label": "Atom Shop",
-              "applies": false
-            },
-            {
-              "label": "Limited Time Bundle",
-              "applies": false
-            },
-            {
-              "label": "Containers",
-              "applies": false
-            },
-            {
-              "label": "Events & Activities",
-              "applies": false
-            },
-            {
-              "label": "Quests",
-              "applies": false
-            },
-            {
-              "label": "Challenges",
-              "applies": false
-            }
-          ],
-          "effects_source": "default mods",
-          "effects_from_defaults": true,
-          "default_mods": {
-            "lining": "Standard Lining",
-            "style": "Standard Style"
-          }
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "apparel",
           "id": "PLAN_0031352A",
           "name": "Plan: Vault 76 Jumpsuit",
           "has_image_box": true,
@@ -8444,8 +8094,14 @@
           "category_label": "Apparel (physical plan)",
           "obtain_routes": [
             {
-              "route": "Recipes Armor Region Forest",
+              "route": "Armor Region Forest",
               "source_type": "event-quest",
+              "rate": 0.2,
+              "rate_display": "20%"
+            },
+            {
+              "route": "Armor Regions GRP",
+              "source_type": "fixed",
               "rate": 0.2,
               "rate_display": "20%"
             },
@@ -8468,7 +8124,13 @@
               "rate_display": "10.38%"
             },
             {
-              "route": "Recipes Armor Region Toxic Valley",
+              "route": "Armor Region Toxic Valley",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            },
+            {
+              "route": "TWZ Event",
               "source_type": "event-quest",
               "rate": 0.05,
               "rate_display": "5%"
@@ -8476,6 +8138,12 @@
             {
               "route": "Government Aid Drop",
               "source_type": "container",
+              "rate": 0.04,
+              "rate_display": "4%"
+            },
+            {
+              "route": "FF01 Event",
+              "source_type": "event-quest",
               "rate": 0.04,
               "rate_display": "4%"
             },
@@ -8496,26 +8164,9 @@
               "source_type": "container",
               "rate": 0.02,
               "rate_display": "2%"
-            },
-            {
-              "route": "Atlantic City Expedition Side Quests",
-              "source_type": "event-quest",
-              "rate": 0.013158,
-              "rate_display": "1.32%"
-            },
-            {
-              "route": "Atlantic City Side Quests",
-              "source_type": "event-quest",
-              "rate": 0.013158,
-              "rate_display": "1.32%"
-            },
-            {
-              "route": "Mutated Public Events - Chase Items",
-              "source_type": "event-quest",
-              "rate": 0.012821,
-              "rate_display": "1.28%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "0031352A",
             "edid": "recipe_Armor_VaultSuit76_Underarmor_Clean"
@@ -8861,6 +8512,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "skin",
           "set": "Vault Suit",
           "tier": null,
@@ -8934,441 +8586,31 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "Recipes Armor Region Forest",
+                  "route": "Armor Region Forest",
                   "rate_display": "20%",
                   "rate": 0.2
                 },
                 {
-                  "route": "Recipes Armor Region Toxic Valley",
+                  "route": "Armor Regions GRP",
+                  "rate_display": "20%",
+                  "rate": 0.2
+                },
+                {
+                  "route": "Armor Region Toxic Valley",
                   "rate_display": "5%",
                   "rate": 0.05
                 },
                 {
-                  "route": "Atlantic City Expedition Side Quests",
-                  "rate_display": "1.32%",
-                  "rate": 0.013158
+                  "route": "TWZ Event",
+                  "rate_display": "5%",
+                  "rate": 0.05
                 },
                 {
-                  "route": "Atlantic City Side Quests",
-                  "rate_display": "1.32%",
-                  "rate": 0.013158
-                },
-                {
-                  "route": "Mutated Public Events - Chase Items",
-                  "rate_display": "1.28%",
-                  "rate": 0.012821
+                  "route": "FF01 Event",
+                  "rate_display": "4%",
+                  "rate": 0.04
                 }
               ]
-            },
-            {
-              "label": "Quests",
-              "applies": false
-            },
-            {
-              "label": "Challenges",
-              "applies": false
-            }
-          ],
-          "effects_source": "default mods",
-          "effects_from_defaults": true,
-          "default_mods": {
-            "lining": "Standard Lining",
-            "style": "Standard Style"
-          }
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "apparel",
-          "id": "PLAN_00313493",
-          "name": "Plan: Vault 94 Jumpsuit",
-          "has_image_box": true,
-          "image_dir": "apparel",
-          "obtain": "Learned from a plan. No random-loot drop routes were resolved — see Technical for the recipe details.",
-          "category_label": "Apparel (physical plan)",
-          "obtain_routes": [],
-          "plan_item": {
-            "formid": "00313493",
-            "edid": "POST_recipe_Armor_VaultSuit94_Underarmor_Clean"
-          },
-          "cobj": {
-            "formid": "0016ED7D",
-            "edid": "POST_co_Armor_VaultSuit94_Underarmor_Clean"
-          },
-          "cnam": {
-            "formid": "002C69B1",
-            "edid": "Armor_VaultSuit94_Underarmor_Clean",
-            "sig": "ARMO"
-          },
-          "tradeable": true,
-          "stops_dropping": null,
-          "effects": {
-            "summary": "These are the two mods every skin comes fitted with — Standard Lining and Standard Style. Swap either at an armour workbench and these numbers change. The garment itself has no stats of its own.",
-            "rows": [
-              {
-                "label": "Damage Resistance",
-                "value": "+12 at Lv 1 → +37 at Lv 50",
-                "points": [
-                  {
-                    "lv": 1,
-                    "v": "+12"
-                  },
-                  {
-                    "lv": 5,
-                    "v": "+14"
-                  },
-                  {
-                    "lv": 10,
-                    "v": "+15"
-                  },
-                  {
-                    "lv": 15,
-                    "v": "+17"
-                  },
-                  {
-                    "lv": 20,
-                    "v": "+19"
-                  },
-                  {
-                    "lv": 25,
-                    "v": "+22"
-                  },
-                  {
-                    "lv": 30,
-                    "v": "+24"
-                  },
-                  {
-                    "lv": 35,
-                    "v": "+27"
-                  },
-                  {
-                    "lv": 40,
-                    "v": "+30"
-                  },
-                  {
-                    "lv": 45,
-                    "v": "+34"
-                  },
-                  {
-                    "lv": 50,
-                    "v": "+37"
-                  }
-                ],
-                "curve": "CT_Player_Armor_Universal_Tier17"
-              },
-              {
-                "label": "Energy Resistance",
-                "value": "+12 at Lv 1 → +37 at Lv 50",
-                "points": [
-                  {
-                    "lv": 1,
-                    "v": "+12"
-                  },
-                  {
-                    "lv": 5,
-                    "v": "+14"
-                  },
-                  {
-                    "lv": 10,
-                    "v": "+15"
-                  },
-                  {
-                    "lv": 15,
-                    "v": "+17"
-                  },
-                  {
-                    "lv": 20,
-                    "v": "+19"
-                  },
-                  {
-                    "lv": 25,
-                    "v": "+22"
-                  },
-                  {
-                    "lv": 30,
-                    "v": "+24"
-                  },
-                  {
-                    "lv": 35,
-                    "v": "+27"
-                  },
-                  {
-                    "lv": 40,
-                    "v": "+30"
-                  },
-                  {
-                    "lv": 45,
-                    "v": "+34"
-                  },
-                  {
-                    "lv": 50,
-                    "v": "+37"
-                  }
-                ],
-                "curve": "CT_Player_Armor_Universal_Tier17"
-              },
-              {
-                "label": "Radiation Resistance",
-                "value": "+12 at Lv 1 → +37 at Lv 50",
-                "points": [
-                  {
-                    "lv": 1,
-                    "v": "+12"
-                  },
-                  {
-                    "lv": 5,
-                    "v": "+14"
-                  },
-                  {
-                    "lv": 10,
-                    "v": "+15"
-                  },
-                  {
-                    "lv": 15,
-                    "v": "+17"
-                  },
-                  {
-                    "lv": 20,
-                    "v": "+19"
-                  },
-                  {
-                    "lv": 25,
-                    "v": "+22"
-                  },
-                  {
-                    "lv": 30,
-                    "v": "+24"
-                  },
-                  {
-                    "lv": 35,
-                    "v": "+27"
-                  },
-                  {
-                    "lv": 40,
-                    "v": "+30"
-                  },
-                  {
-                    "lv": 45,
-                    "v": "+34"
-                  },
-                  {
-                    "lv": 50,
-                    "v": "+37"
-                  }
-                ],
-                "curve": "CT_Player_Armor_Universal_Tier17"
-              },
-              {
-                "label": "Fire Resistance",
-                "value": "+12 at Lv 1 → +37 at Lv 50",
-                "points": [
-                  {
-                    "lv": 1,
-                    "v": "+12"
-                  },
-                  {
-                    "lv": 5,
-                    "v": "+14"
-                  },
-                  {
-                    "lv": 10,
-                    "v": "+15"
-                  },
-                  {
-                    "lv": 15,
-                    "v": "+17"
-                  },
-                  {
-                    "lv": 20,
-                    "v": "+19"
-                  },
-                  {
-                    "lv": 25,
-                    "v": "+22"
-                  },
-                  {
-                    "lv": 30,
-                    "v": "+24"
-                  },
-                  {
-                    "lv": 35,
-                    "v": "+27"
-                  },
-                  {
-                    "lv": 40,
-                    "v": "+30"
-                  },
-                  {
-                    "lv": 45,
-                    "v": "+34"
-                  },
-                  {
-                    "lv": 50,
-                    "v": "+37"
-                  }
-                ],
-                "curve": "CT_Player_Armor_Universal_Tier17"
-              },
-              {
-                "label": "Cryo Resistance",
-                "value": "+12 at Lv 1 → +37 at Lv 50",
-                "points": [
-                  {
-                    "lv": 1,
-                    "v": "+12"
-                  },
-                  {
-                    "lv": 5,
-                    "v": "+14"
-                  },
-                  {
-                    "lv": 10,
-                    "v": "+15"
-                  },
-                  {
-                    "lv": 15,
-                    "v": "+17"
-                  },
-                  {
-                    "lv": 20,
-                    "v": "+19"
-                  },
-                  {
-                    "lv": 25,
-                    "v": "+22"
-                  },
-                  {
-                    "lv": 30,
-                    "v": "+24"
-                  },
-                  {
-                    "lv": 35,
-                    "v": "+27"
-                  },
-                  {
-                    "lv": 40,
-                    "v": "+30"
-                  },
-                  {
-                    "lv": 45,
-                    "v": "+34"
-                  },
-                  {
-                    "lv": 50,
-                    "v": "+37"
-                  }
-                ],
-                "curve": "CT_Player_Armor_Universal_Tier17"
-              },
-              {
-                "label": "Poison Resistance",
-                "value": "+12 at Lv 1 → +37 at Lv 50",
-                "points": [
-                  {
-                    "lv": 1,
-                    "v": "+12"
-                  },
-                  {
-                    "lv": 5,
-                    "v": "+14"
-                  },
-                  {
-                    "lv": 10,
-                    "v": "+15"
-                  },
-                  {
-                    "lv": 15,
-                    "v": "+17"
-                  },
-                  {
-                    "lv": 20,
-                    "v": "+19"
-                  },
-                  {
-                    "lv": 25,
-                    "v": "+22"
-                  },
-                  {
-                    "lv": 30,
-                    "v": "+24"
-                  },
-                  {
-                    "lv": 35,
-                    "v": "+27"
-                  },
-                  {
-                    "lv": 40,
-                    "v": "+30"
-                  },
-                  {
-                    "lv": 45,
-                    "v": "+34"
-                  },
-                  {
-                    "lv": 50,
-                    "v": "+37"
-                  }
-                ],
-                "curve": "CT_Player_Armor_Universal_Tier17"
-              },
-              {
-                "label": "Endurance",
-                "value": "+2",
-                "points": null,
-                "curve": null
-              },
-              {
-                "label": "Charisma",
-                "value": "+2",
-                "points": null,
-                "curve": null
-              },
-              {
-                "label": "Agility",
-                "value": "+2",
-                "points": null,
-                "curve": null
-              }
-            ]
-          },
-          "cut": false,
-          "group": "skin",
-          "set": "Vault Suit",
-          "tier": null,
-          "tier_label": null,
-          "is_new": false,
-          "obtain_ledger": [
-            {
-              "label": "Caps",
-              "applies": false
-            },
-            {
-              "label": "Stamps",
-              "applies": false
-            },
-            {
-              "label": "Scoreboard",
-              "applies": false
-            },
-            {
-              "label": "Gold Bullion",
-              "applies": false
-            },
-            {
-              "label": "Atom Shop",
-              "applies": false
-            },
-            {
-              "label": "Limited Time Bundle",
-              "applies": false
-            },
-            {
-              "label": "Containers",
-              "applies": false
-            },
-            {
-              "label": "Events & Activities",
-              "applies": false
             },
             {
               "label": "Quests",
@@ -9408,14 +8650,9 @@
               "source_type": "event-quest",
               "rate": 0.017241,
               "rate_display": "1.72%"
-            },
-            {
-              "route": "Daily Ops - Chase High",
-              "source_type": "event-quest",
-              "rate": 0.017241,
-              "rate_display": "1.72%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "005D0F02",
             "edid": "Recipe_Armor_VaultSuit94_Underarmor"
@@ -9761,6 +8998,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "skin",
           "set": "Vault Suit",
           "tier": null,
@@ -9809,11 +9047,6 @@
                   "route": "Daily Ops - Chase",
                   "rate_display": "1.72%",
                   "rate": 0.017241
-                },
-                {
-                  "route": "Daily Ops - Chase High",
-                  "rate_display": "1.72%",
-                  "rate": 0.017241
                 }
               ]
             },
@@ -9841,9 +9074,10 @@
           "name": "Plan: Vault 96 Jumpsuit",
           "has_image_box": true,
           "image_dir": "apparel",
-          "obtain": "Learned from a plan. No random-loot drop routes were resolved — see Technical for the recipe details.",
+          "obtain": "Learned from a plan. No source was resolved from the game files — see Technical for the recipe details.",
           "category_label": "Apparel (physical plan)",
           "obtain_routes": [],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "0031338F",
             "edid": "recipe_Armor_VaultSuit96_Underarmor"
@@ -10189,6 +9423,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "skin",
           "set": "Vault Suit",
           "tier": null,
@@ -10255,8 +9490,20 @@
           "category_label": "Apparel (physical plan)",
           "obtain_routes": [
             {
-              "route": "Recipes Armor Region Toxic Valley",
+              "route": "Armor Region Toxic Valley",
               "source_type": "event-quest",
+              "rate": 0.068182,
+              "rate_display": "6.82%"
+            },
+            {
+              "route": "TWZ Event",
+              "source_type": "event-quest",
+              "rate": 0.068182,
+              "rate_display": "6.82%"
+            },
+            {
+              "route": "Armor Regions GRP",
+              "source_type": "fixed",
               "rate": 0.068182,
               "rate_display": "6.82%"
             },
@@ -10285,48 +9532,37 @@
               "rate_display": "1.36%"
             },
             {
-              "route": "Atlantic City Expedition Side Quests",
+              "route": "A Grand Reopening",
               "source_type": "event-quest",
               "rate": 0.013158,
               "rate_display": "1.32%"
             },
             {
-              "route": "Atlantic City Side Quests",
+              "route": "Atlantic City - Side Quests",
               "source_type": "event-quest",
               "rate": 0.013158,
               "rate_display": "1.32%"
             },
             {
-              "route": "Mutated Public Events - Chase Items",
+              "route": "Atlantic City Expedition - Rare Plans Side Quests",
               "source_type": "event-quest",
-              "rate": 0.012821,
-              "rate_display": "1.28%"
+              "rate": 0.013158,
+              "rate_display": "1.32%"
             },
             {
-              "route": "Mutated Public Events - Rare Plans",
+              "route": "Custodial Compulsions",
               "source_type": "event-quest",
-              "rate": 0.012821,
-              "rate_display": "1.28%"
+              "rate": 0.013158,
+              "rate_display": "1.32%"
             },
             {
-              "route": "Mutated Public Events - Double Mutation Fallout1st",
+              "route": "Hells Eagles",
               "source_type": "event-quest",
-              "rate": 0.009615,
-              "rate_display": "0.96%"
-            },
-            {
-              "route": "Flip Card Counts Items",
-              "source_type": "container",
-              "rate": 0.006818,
-              "rate_display": "0.68%"
-            },
-            {
-              "route": "Steamer Trunk",
-              "source_type": "container",
-              "rate": 0.006818,
-              "rate_display": "0.68%"
+              "rate": 0.013158,
+              "rate_display": "1.32%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "00313494",
             "edid": "recipe_Armor_VaultSuitVT_Underarmor"
@@ -10672,6 +9908,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "skin",
           "set": "Vault Suit",
           "tier": null,
@@ -10726,16 +9963,6 @@
                   "route": "Government Aid Drop",
                   "rate_display": "1.36%",
                   "rate": 0.013636
-                },
-                {
-                  "route": "Flip Card Counts Items",
-                  "rate_display": "0.68%",
-                  "rate": 0.006818
-                },
-                {
-                  "route": "Steamer Trunk",
-                  "rate_display": "0.68%",
-                  "rate": 0.006818
                 }
               ]
             },
@@ -10745,34 +9972,34 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "Recipes Armor Region Toxic Valley",
+                  "route": "Armor Region Toxic Valley",
                   "rate_display": "6.82%",
                   "rate": 0.068182
                 },
                 {
-                  "route": "Atlantic City Expedition Side Quests",
+                  "route": "TWZ Event",
+                  "rate_display": "6.82%",
+                  "rate": 0.068182
+                },
+                {
+                  "route": "Armor Regions GRP",
+                  "rate_display": "6.82%",
+                  "rate": 0.068182
+                },
+                {
+                  "route": "A Grand Reopening",
                   "rate_display": "1.32%",
                   "rate": 0.013158
                 },
                 {
-                  "route": "Atlantic City Side Quests",
+                  "route": "Atlantic City - Side Quests",
                   "rate_display": "1.32%",
                   "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Chase Items",
-                  "rate_display": "1.28%",
-                  "rate": 0.012821
-                },
-                {
-                  "route": "Mutated Public Events - Rare Plans",
-                  "rate_display": "1.28%",
-                  "rate": 0.012821
-                },
-                {
-                  "route": "Mutated Public Events - Double Mutation Fallout1st",
-                  "rate_display": "0.96%",
-                  "rate": 0.009615
+                  "route": "Atlantic City Expedition - Rare Plans Side Quests",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 }
               ]
             },
@@ -10811,24 +10038,19 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "LC060 Whitespring Vendor Chest Bo S",
+              "route": "Location based PA System in Watago - Watoga (Brotherhood of Steel vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "LC170 Watoga Vendor Chest Bo S",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%"
-            },
-            {
-              "route": "Vendor LC060 Whitespring Bo S",
+              "route": "Whitespring (Brotherhood of Steel vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003D7F97",
             "edid": "recipe_mod_armor_UnderArmor_BOS_Mk2"
@@ -11156,6 +10378,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Brotherhood of Steel",
           "tier": "Mk2",
@@ -11168,17 +10391,12 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "LC060 Whitespring Vendor Chest Bo S",
+                  "route": "Location based PA System in Watago - Watoga (Brotherhood of Steel vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "LC170 Watoga Vendor Chest Bo S",
-                  "rate_display": "100%",
-                  "rate": 1.0
-                },
-                {
-                  "route": "Vendor LC060 Whitespring Bo S",
+                  "route": "Whitespring (Brotherhood of Steel vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -11236,25 +10454,13 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "Burn014 Hocking Hills Station Vendor Chest Neutral",
+              "route": "Harpers Ferry (Free States vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "LC060 Whitespring Vendor Chest Free States",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%"
-            },
-            {
-              "route": "LC060 Whitespring Vendor Chest Neutral",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%"
-            },
-            {
-              "route": "LC062 Harpers Ferry Vendor Chest Free States",
+              "route": "Hocking Hills Station (Neutral vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
@@ -11266,24 +10472,25 @@
               "rate_display": "100%"
             },
             {
-              "route": "POI092 Watoga Station Vendor Chest Neutral",
+              "route": "Watoga Station (Neutral vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "Vendor LC060 Whitespring Free States",
+              "route": "Whitespring (Free States vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "Vendor LC060 Whitespring Neutral",
+              "route": "Whitespring (Neutral vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003D7F99",
             "edid": "recipe_mod_armor_UnderArmor_Casual_Mk2"
@@ -11611,6 +10818,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Casual",
           "tier": "Mk2",
@@ -11623,32 +10831,27 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "Burn014 Hocking Hills Station Vendor Chest Neutral",
+                  "route": "Harpers Ferry (Free States vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "LC060 Whitespring Vendor Chest Free States",
+                  "route": "Hocking Hills Station (Neutral vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "LC060 Whitespring Vendor Chest Neutral",
+                  "route": "Watoga Station (Neutral vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "LC062 Harpers Ferry Vendor Chest Free States",
+                  "route": "Whitespring (Free States vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "POI092 Watoga Station Vendor Chest Neutral",
-                  "rate_display": "100%",
-                  "rate": 1.0
-                },
-                {
-                  "route": "Vendor LC060 Whitespring Free States",
+                  "route": "Whitespring (Neutral vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -11714,7 +10917,7 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "XPD Expedition Vendor Chest Giuseppe",
+              "route": "Expeditions - Giuseppe vendor",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
@@ -11726,7 +10929,13 @@
               "rate_display": "2.56%"
             },
             {
-              "route": "Infestations - cr XPDAtlantic City",
+              "route": "Blood Eagle Destroyer",
+              "source_type": "creature",
+              "rate": 0.020833,
+              "rate_display": "2.08%"
+            },
+            {
+              "route": "Infestations - Expeditions Atlantic City",
               "source_type": "event-quest",
               "rate": 0.020833,
               "rate_display": "2.08%"
@@ -11738,18 +10947,25 @@
               "rate_display": "2.08%"
             },
             {
-              "route": "Atlantic City Expedition - Mission Mission",
+              "route": "The Drifter - XX",
+              "source_type": "event-quest",
+              "rate": 0.020833,
+              "rate_display": "2.08%"
+            },
+            {
+              "route": "Atlantic City Expedition - Mission",
               "source_type": "event-quest",
               "rate": 0.001972,
               "rate_display": "0.2%"
             },
             {
-              "route": "Atlantic City Expedition - Mission Mission",
+              "route": "Atlantic City Expedition - Mission",
               "source_type": "event-quest",
               "rate": 0.001603,
               "rate_display": "0.16%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "006F4DAA",
             "edid": "Recipe_XPD_AC_mod_armor_UnderArmor_Muni_Mk2"
@@ -12077,6 +11293,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Civil Engineer",
           "tier": "Mk2",
@@ -12089,7 +11306,7 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "XPD Expedition Vendor Chest Giuseppe",
+                  "route": "Expeditions - Giuseppe vendor",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -12130,7 +11347,12 @@
                   "rate": 0.025641
                 },
                 {
-                  "route": "Infestations - cr XPDAtlantic City",
+                  "route": "Blood Eagle Destroyer",
+                  "rate_display": "2.08%",
+                  "rate": 0.020833
+                },
+                {
+                  "route": "Infestations - Expeditions Atlantic City",
                   "rate_display": "2.08%",
                   "rate": 0.020833
                 },
@@ -12140,14 +11362,14 @@
                   "rate": 0.020833
                 },
                 {
-                  "route": "Atlantic City Expedition - Mission Mission",
-                  "rate_display": "0.2%",
-                  "rate": 0.001972
+                  "route": "The Drifter - XX",
+                  "rate_display": "2.08%",
+                  "rate": 0.020833
                 },
                 {
-                  "route": "Atlantic City Expedition - Mission Mission",
-                  "rate_display": "0.16%",
-                  "rate": 0.001603
+                  "route": "Atlantic City Expedition - Mission",
+                  "rate_display": "0.2%",
+                  "rate": 0.001972
                 }
               ]
             },
@@ -12175,24 +11397,19 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "LC060 Whitespring Vendor Chest Bo S",
+              "route": "Location based PA System in Watago - Watoga (Brotherhood of Steel vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "LC170 Watoga Vendor Chest Bo S",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%"
-            },
-            {
-              "route": "Vendor LC060 Whitespring Bo S",
+              "route": "Whitespring (Brotherhood of Steel vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003D7FA0",
             "edid": "recipe_mod_armor_UnderArmor_Marine_Mk2"
@@ -12520,6 +11737,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Marine",
           "tier": "Mk2",
@@ -12532,17 +11750,12 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "LC060 Whitespring Vendor Chest Bo S",
+                  "route": "Location based PA System in Watago - Watoga (Brotherhood of Steel vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "LC170 Watoga Vendor Chest Bo S",
-                  "rate_display": "100%",
-                  "rate": 1.0
-                },
-                {
-                  "route": "Vendor LC060 Whitespring Bo S",
+                  "route": "Whitespring (Brotherhood of Steel vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -12600,12 +11813,13 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "ENB Vendor Chest Production Center",
+              "route": "ENB Production Center vendor",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003D7F9B",
             "edid": "recipe_mod_armor_UnderArmor_Enclave_Mk2"
@@ -12933,6 +12147,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Operative",
           "tier": "Mk2",
@@ -12945,7 +12160,7 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "ENB Vendor Chest Production Center",
+                  "route": "ENB Production Center vendor",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -13003,49 +12218,37 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "LC060 Whitespring Vendor Chest Raiders",
+              "route": "Plesant Valley Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "LC150 Top Of The World Vendor Chest Raiders",
+              "route": "Rand Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "POI088 Sutton Station Vendor Chest Raiders",
+              "route": "Sunnytop Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "POI093 Sunnytop Station Vendor Chest Raiders",
+              "route": "Sutton Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "POI094 Plesant Valley Station Vendor Chest Raiders",
+              "route": "Top Of The World (Raiders vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "POI096 Rand GStation Vendor Chest Raiders",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%"
-            },
-            {
-              "route": "Vendor LC060 Whitespring Raiders",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%"
-            },
-            {
-              "route": "Vendor POI088 Sutton Station Raiders",
+              "route": "Whitespring (Raiders vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
@@ -13073,8 +12276,21 @@
               "source_type": "event-quest",
               "rate": 0.001471,
               "rate_display": "0.15%"
+            },
+            {
+              "route": "Savage Divide Grab Bag",
+              "source_type": "event-quest",
+              "rate": 0.001471,
+              "rate_display": "0.15%"
+            },
+            {
+              "route": "All That Glitters",
+              "source_type": "event-quest",
+              "rate": 0.000184,
+              "rate_display": "0.02%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003D7FA2",
             "edid": "recipe_mod_armor_UnderArmor_Raider_Mk2"
@@ -13402,6 +12618,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Raider",
           "tier": "Mk2",
@@ -13414,32 +12631,32 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "LC060 Whitespring Vendor Chest Raiders",
+                  "route": "Plesant Valley Station (Raiders vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "LC150 Top Of The World Vendor Chest Raiders",
+                  "route": "Rand Station (Raiders vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "POI088 Sutton Station Vendor Chest Raiders",
+                  "route": "Sunnytop Station (Raiders vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "POI093 Sunnytop Station Vendor Chest Raiders",
+                  "route": "Sutton Station (Raiders vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "POI094 Plesant Valley Station Vendor Chest Raiders",
+                  "route": "Top Of The World (Raiders vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "POI096 Rand GStation Vendor Chest Raiders",
+                  "route": "Whitespring (Raiders vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -13493,6 +12710,16 @@
                   "route": "Savage Divide",
                   "rate_display": "0.15%",
                   "rate": 0.001471
+                },
+                {
+                  "route": "Savage Divide Grab Bag",
+                  "rate_display": "0.15%",
+                  "rate": 0.001471
+                },
+                {
+                  "route": "All That Glitters",
+                  "rate_display": "0.02%",
+                  "rate": 0.000184
                 }
               ]
             },
@@ -13520,24 +12747,19 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "BS02 Special Vendor Minerva Gold Vendor Chest",
+              "route": "Steel Reign - Minerva (Gold Bullion vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "BS02 Special Vendor Minerva LLV Gold Vendor",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%"
-            },
-            {
-              "route": "W05 Secret Service Gold Vendor Chest Reginald",
+              "route": "Wastelanders - Reginald (Secret Service Gold Bullion vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "005C5E21",
             "edid": "recipe_mod_armor_UnderArmor_SecretService_Mk2"
@@ -13865,6 +13087,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Secret Service",
           "tier": "Mk2",
@@ -13877,17 +13100,12 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "BS02 Special Vendor Minerva Gold Vendor Chest",
+                  "route": "Steel Reign - Minerva (Gold Bullion vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "BS02 Special Vendor Minerva LLV Gold Vendor",
-                  "rate_display": "100%",
-                  "rate": 1.0
-                },
-                {
-                  "route": "W05 Secret Service Gold Vendor Chest Reginald",
+                  "route": "Wastelanders - Reginald (Secret Service Gold Bullion vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -13945,24 +13163,19 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "LC060 Whitespring Vendor Chest Bo S",
+              "route": "Location based PA System in Watago - Watoga (Brotherhood of Steel vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "LC170 Watoga Vendor Chest Bo S",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%"
-            },
-            {
-              "route": "Vendor LC060 Whitespring Bo S",
+              "route": "Whitespring (Brotherhood of Steel vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003D7F98",
             "edid": "recipe_mod_armor_UnderArmor_BOS_Mk3"
@@ -14290,6 +13503,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Brotherhood of Steel",
           "tier": "Mk3",
@@ -14302,17 +13516,12 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "LC060 Whitespring Vendor Chest Bo S",
+                  "route": "Location based PA System in Watago - Watoga (Brotherhood of Steel vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "LC170 Watoga Vendor Chest Bo S",
-                  "rate_display": "100%",
-                  "rate": 1.0
-                },
-                {
-                  "route": "Vendor LC060 Whitespring Bo S",
+                  "route": "Whitespring (Brotherhood of Steel vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -14370,25 +13579,13 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "Burn014 Hocking Hills Station Vendor Chest Neutral",
+              "route": "Harpers Ferry (Free States vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "LC060 Whitespring Vendor Chest Free States",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%"
-            },
-            {
-              "route": "LC060 Whitespring Vendor Chest Neutral",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%"
-            },
-            {
-              "route": "LC062 Harpers Ferry Vendor Chest Free States",
+              "route": "Hocking Hills Station (Neutral vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
@@ -14400,24 +13597,25 @@
               "rate_display": "100%"
             },
             {
-              "route": "POI092 Watoga Station Vendor Chest Neutral",
+              "route": "Watoga Station (Neutral vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "Vendor LC060 Whitespring Free States",
+              "route": "Whitespring (Free States vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "Vendor LC060 Whitespring Neutral",
+              "route": "Whitespring (Neutral vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003D7F9A",
             "edid": "recipe_mod_armor_UnderArmor_Casual_Mk3"
@@ -14745,6 +13943,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Casual",
           "tier": "Mk3",
@@ -14757,32 +13956,27 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "Burn014 Hocking Hills Station Vendor Chest Neutral",
+                  "route": "Harpers Ferry (Free States vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "LC060 Whitespring Vendor Chest Free States",
+                  "route": "Hocking Hills Station (Neutral vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "LC060 Whitespring Vendor Chest Neutral",
+                  "route": "Watoga Station (Neutral vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "LC062 Harpers Ferry Vendor Chest Free States",
+                  "route": "Whitespring (Free States vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "POI092 Watoga Station Vendor Chest Neutral",
-                  "rate_display": "100%",
-                  "rate": 1.0
-                },
-                {
-                  "route": "Vendor LC060 Whitespring Free States",
+                  "route": "Whitespring (Neutral vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -14848,7 +14042,7 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "XPD Expedition Vendor Chest Giuseppe",
+              "route": "Expeditions - Giuseppe vendor",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
@@ -14860,7 +14054,13 @@
               "rate_display": "2.56%"
             },
             {
-              "route": "Infestations - cr XPDAtlantic City",
+              "route": "Blood Eagle Destroyer",
+              "source_type": "creature",
+              "rate": 0.020833,
+              "rate_display": "2.08%"
+            },
+            {
+              "route": "Infestations - Expeditions Atlantic City",
               "source_type": "event-quest",
               "rate": 0.020833,
               "rate_display": "2.08%"
@@ -14872,18 +14072,25 @@
               "rate_display": "2.08%"
             },
             {
-              "route": "Atlantic City Expedition - Mission Mission",
+              "route": "The Drifter - XX",
+              "source_type": "event-quest",
+              "rate": 0.020833,
+              "rate_display": "2.08%"
+            },
+            {
+              "route": "Atlantic City Expedition - Mission",
               "source_type": "event-quest",
               "rate": 0.001972,
               "rate_display": "0.2%"
             },
             {
-              "route": "Atlantic City Expedition - Mission Mission",
+              "route": "Atlantic City Expedition - Mission",
               "source_type": "event-quest",
               "rate": 0.001603,
               "rate_display": "0.16%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "006F4DAB",
             "edid": "Recipe_XPD_AC_mod_armor_UnderArmor_Muni_Mk3"
@@ -15211,6 +14418,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Civil Engineer",
           "tier": "Mk3",
@@ -15223,7 +14431,7 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "XPD Expedition Vendor Chest Giuseppe",
+                  "route": "Expeditions - Giuseppe vendor",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -15264,7 +14472,12 @@
                   "rate": 0.025641
                 },
                 {
-                  "route": "Infestations - cr XPDAtlantic City",
+                  "route": "Blood Eagle Destroyer",
+                  "rate_display": "2.08%",
+                  "rate": 0.020833
+                },
+                {
+                  "route": "Infestations - Expeditions Atlantic City",
                   "rate_display": "2.08%",
                   "rate": 0.020833
                 },
@@ -15274,14 +14487,14 @@
                   "rate": 0.020833
                 },
                 {
-                  "route": "Atlantic City Expedition - Mission Mission",
-                  "rate_display": "0.2%",
-                  "rate": 0.001972
+                  "route": "The Drifter - XX",
+                  "rate_display": "2.08%",
+                  "rate": 0.020833
                 },
                 {
-                  "route": "Atlantic City Expedition - Mission Mission",
-                  "rate_display": "0.16%",
-                  "rate": 0.001603
+                  "route": "Atlantic City Expedition - Mission",
+                  "rate_display": "0.2%",
+                  "rate": 0.001972
                 }
               ]
             },
@@ -15309,24 +14522,19 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "LC060 Whitespring Vendor Chest Bo S",
+              "route": "Location based PA System in Watago - Watoga (Brotherhood of Steel vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "LC170 Watoga Vendor Chest Bo S",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%"
-            },
-            {
-              "route": "Vendor LC060 Whitespring Bo S",
+              "route": "Whitespring (Brotherhood of Steel vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003D7FA1",
             "edid": "recipe_mod_armor_UnderArmor_Marine_Mk3"
@@ -15654,6 +14862,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Marine",
           "tier": "Mk3",
@@ -15666,17 +14875,12 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "LC060 Whitespring Vendor Chest Bo S",
+                  "route": "Location based PA System in Watago - Watoga (Brotherhood of Steel vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "LC170 Watoga Vendor Chest Bo S",
-                  "rate_display": "100%",
-                  "rate": 1.0
-                },
-                {
-                  "route": "Vendor LC060 Whitespring Bo S",
+                  "route": "Whitespring (Brotherhood of Steel vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -15734,12 +14938,13 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "ENB Vendor Chest Production Center",
+              "route": "ENB Production Center vendor",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003D7F9C",
             "edid": "recipe_mod_armor_UnderArmor_Enclave_Mk3"
@@ -16067,6 +15272,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Operative",
           "tier": "Mk3",
@@ -16079,7 +15285,7 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "ENB Vendor Chest Production Center",
+                  "route": "ENB Production Center vendor",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -16143,49 +15349,37 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "LC060 Whitespring Vendor Chest Raiders",
+              "route": "Plesant Valley Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "LC150 Top Of The World Vendor Chest Raiders",
+              "route": "Rand Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "POI088 Sutton Station Vendor Chest Raiders",
+              "route": "Sunnytop Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "POI093 Sunnytop Station Vendor Chest Raiders",
+              "route": "Sutton Station (Raiders vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "POI094 Plesant Valley Station Vendor Chest Raiders",
+              "route": "Top Of The World (Raiders vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "POI096 Rand GStation Vendor Chest Raiders",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%"
-            },
-            {
-              "route": "Vendor LC060 Whitespring Raiders",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%"
-            },
-            {
-              "route": "Vendor POI088 Sutton Station Raiders",
+              "route": "Whitespring (Raiders vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
@@ -16213,8 +15407,21 @@
               "source_type": "event-quest",
               "rate": 0.001471,
               "rate_display": "0.15%"
+            },
+            {
+              "route": "Savage Divide Grab Bag",
+              "source_type": "event-quest",
+              "rate": 0.001471,
+              "rate_display": "0.15%"
+            },
+            {
+              "route": "All That Glitters",
+              "source_type": "event-quest",
+              "rate": 0.000184,
+              "rate_display": "0.02%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003D7FA3",
             "edid": "recipe_mod_armor_UnderArmor_Raider_Mk3"
@@ -16542,6 +15749,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Raider",
           "tier": "Mk3",
@@ -16554,32 +15762,32 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "LC060 Whitespring Vendor Chest Raiders",
+                  "route": "Plesant Valley Station (Raiders vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "LC150 Top Of The World Vendor Chest Raiders",
+                  "route": "Rand Station (Raiders vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "POI088 Sutton Station Vendor Chest Raiders",
+                  "route": "Sunnytop Station (Raiders vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "POI093 Sunnytop Station Vendor Chest Raiders",
+                  "route": "Sutton Station (Raiders vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "POI094 Plesant Valley Station Vendor Chest Raiders",
+                  "route": "Top Of The World (Raiders vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "POI096 Rand GStation Vendor Chest Raiders",
+                  "route": "Whitespring (Raiders vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -16633,6 +15841,16 @@
                   "route": "Savage Divide",
                   "rate_display": "0.15%",
                   "rate": 0.001471
+                },
+                {
+                  "route": "Savage Divide Grab Bag",
+                  "rate_display": "0.15%",
+                  "rate": 0.001471
+                },
+                {
+                  "route": "All That Glitters",
+                  "rate_display": "0.02%",
+                  "rate": 0.000184
                 }
               ]
             },
@@ -16660,24 +15878,19 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "BS02 Special Vendor Minerva Gold Vendor Chest",
+              "route": "Steel Reign - Minerva (Gold Bullion vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "BS02 Special Vendor Minerva LLV Gold Vendor",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%"
-            },
-            {
-              "route": "W05 Secret Service Gold Vendor Chest Reginald",
+              "route": "Wastelanders - Reginald (Secret Service Gold Bullion vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "005C5E20",
             "edid": "recipe_mod_armor_UnderArmor_SecretService_Mk3"
@@ -17005,6 +16218,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Secret Service",
           "tier": "Mk3",
@@ -17017,17 +16231,12 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "BS02 Special Vendor Minerva Gold Vendor Chest",
+                  "route": "Steel Reign - Minerva (Gold Bullion vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "BS02 Special Vendor Minerva LLV Gold Vendor",
-                  "rate_display": "100%",
-                  "rate": 1.0
-                },
-                {
-                  "route": "W05 Secret Service Gold Vendor Chest Reginald",
+                  "route": "Wastelanders - Reginald (Secret Service Gold Bullion vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -17081,9 +16290,19 @@
           "name": "Plan: Protective Lining BoS Underarmor",
           "has_image_box": false,
           "image_dir": "armour",
-          "obtain": "Learned from a plan. No random-loot drop routes were resolved — see Technical for the recipe details.",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
           "category_label": "Armour Mod / Paint",
-          "obtain_routes": [],
+          "obtain_routes": [
+            {
+              "route": "Bo S01",
+              "source_type": "event-quest",
+              "rate": 1.0,
+              "rate_display": "100%"
+            }
+          ],
+          "obtain_unlocks": [
+            "Reward for completing the quest: Defiance Has Fallen"
+          ],
           "plan_item": {
             "formid": "003D6546",
             "edid": "recipe_mod_armor_UnderArmor_BOS_Mk4"
@@ -17411,6 +16630,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Brotherhood of Steel",
           "tier": "Mk4",
@@ -17447,7 +16667,15 @@
             },
             {
               "label": "Events & Activities",
-              "applies": false
+              "applies": true,
+              "kind": "rates",
+              "rows": [
+                {
+                  "route": "Bo S01",
+                  "rate_display": "100%",
+                  "rate": 1.0
+                }
+              ]
             },
             {
               "label": "Quests",
@@ -17473,31 +16701,19 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "FS01 Warn Quest Main Quests",
+              "route": "Early Warnings",
               "source_type": "event-quest",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "Burn014 Hocking Hills Station Vendor Chest Neutral",
+              "route": "Harpers Ferry (Free States vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "LC060 Whitespring Vendor Chest Free States",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%"
-            },
-            {
-              "route": "LC060 Whitespring Vendor Chest Neutral",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%"
-            },
-            {
-              "route": "LC062 Harpers Ferry Vendor Chest Free States",
+              "route": "Hocking Hills Station (Neutral vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
@@ -17509,24 +16725,25 @@
               "rate_display": "100%"
             },
             {
-              "route": "POI092 Watoga Station Vendor Chest Neutral",
+              "route": "Watoga Station (Neutral vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "Vendor LC060 Whitespring Free States",
+              "route": "Whitespring (Free States vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "Vendor LC060 Whitespring Neutral",
+              "route": "Whitespring (Neutral vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003D6548",
             "edid": "recipe_mod_armor_UnderArmor_Casual_Mk4"
@@ -17854,6 +17071,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Casual",
           "tier": "Mk4",
@@ -17866,32 +17084,27 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "Burn014 Hocking Hills Station Vendor Chest Neutral",
+                  "route": "Harpers Ferry (Free States vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "LC060 Whitespring Vendor Chest Free States",
+                  "route": "Hocking Hills Station (Neutral vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "LC060 Whitespring Vendor Chest Neutral",
+                  "route": "Watoga Station (Neutral vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "LC062 Harpers Ferry Vendor Chest Free States",
+                  "route": "Whitespring (Free States vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "POI092 Watoga Station Vendor Chest Neutral",
-                  "rate_display": "100%",
-                  "rate": 1.0
-                },
-                {
-                  "route": "Vendor LC060 Whitespring Free States",
+                  "route": "Whitespring (Neutral vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -17935,7 +17148,7 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "FS01 Warn Quest Main Quests",
+                  "route": "Early Warnings",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -17965,7 +17178,7 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "XPD Expedition Vendor Chest Giuseppe",
+              "route": "Expeditions - Giuseppe vendor",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
@@ -17977,7 +17190,13 @@
               "rate_display": "2.56%"
             },
             {
-              "route": "Infestations - cr XPDAtlantic City",
+              "route": "Blood Eagle Destroyer",
+              "source_type": "creature",
+              "rate": 0.020833,
+              "rate_display": "2.08%"
+            },
+            {
+              "route": "Infestations - Expeditions Atlantic City",
               "source_type": "event-quest",
               "rate": 0.020833,
               "rate_display": "2.08%"
@@ -17989,18 +17208,25 @@
               "rate_display": "2.08%"
             },
             {
-              "route": "Atlantic City Expedition - Mission Mission",
+              "route": "The Drifter - XX",
+              "source_type": "event-quest",
+              "rate": 0.020833,
+              "rate_display": "2.08%"
+            },
+            {
+              "route": "Atlantic City Expedition - Mission",
               "source_type": "event-quest",
               "rate": 0.001972,
               "rate_display": "0.2%"
             },
             {
-              "route": "Atlantic City Expedition - Mission Mission",
+              "route": "Atlantic City Expedition - Mission",
               "source_type": "event-quest",
               "rate": 0.001603,
               "rate_display": "0.16%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "006F4DAC",
             "edid": "Recipe_XPD_AC_mod_armor_UnderArmor_Muni_Mk4"
@@ -18328,6 +17554,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Civil Engineer",
           "tier": "Mk4",
@@ -18340,7 +17567,7 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "XPD Expedition Vendor Chest Giuseppe",
+                  "route": "Expeditions - Giuseppe vendor",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -18381,7 +17608,12 @@
                   "rate": 0.025641
                 },
                 {
-                  "route": "Infestations - cr XPDAtlantic City",
+                  "route": "Blood Eagle Destroyer",
+                  "rate_display": "2.08%",
+                  "rate": 0.020833
+                },
+                {
+                  "route": "Infestations - Expeditions Atlantic City",
                   "rate_display": "2.08%",
                   "rate": 0.020833
                 },
@@ -18391,14 +17623,14 @@
                   "rate": 0.020833
                 },
                 {
-                  "route": "Atlantic City Expedition - Mission Mission",
-                  "rate_display": "0.2%",
-                  "rate": 0.001972
+                  "route": "The Drifter - XX",
+                  "rate_display": "2.08%",
+                  "rate": 0.020833
                 },
                 {
-                  "route": "Atlantic City Expedition - Mission Mission",
-                  "rate_display": "0.16%",
-                  "rate": 0.001603
+                  "route": "Atlantic City Expedition - Mission",
+                  "rate_display": "0.2%",
+                  "rate": 0.001972
                 }
               ]
             },
@@ -18438,13 +17670,37 @@
               "rate_display": "1.47%"
             },
             {
-              "route": "Atlantic City Expedition Side Quests",
+              "route": "A Grand Reopening",
               "source_type": "event-quest",
               "rate": 0.013158,
               "rate_display": "1.32%"
             },
             {
-              "route": "Atlantic City Side Quests",
+              "route": "Atlantic City - Side Quests",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Atlantic City Expedition - Rare Plans Side Quests",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Custodial Compulsions",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Hells Eagles",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Regent of the Dead",
               "source_type": "event-quest",
               "rate": 0.013158,
               "rate_display": "1.32%"
@@ -18472,32 +17728,9 @@
               "source_type": "event-quest",
               "rate": 0.00641,
               "rate_display": "0.64%"
-            },
-            {
-              "route": "Mutated Public Events - Single Mutation Fallout1st",
-              "source_type": "event-quest",
-              "rate": 0.00641,
-              "rate_display": "0.64%"
-            },
-            {
-              "route": "Mutated Public Events - Single Mutation",
-              "source_type": "event-quest",
-              "rate": 0.003205,
-              "rate_display": "0.32%"
-            },
-            {
-              "route": "Cranberry Bog",
-              "source_type": "event-quest",
-              "rate": 0.002941,
-              "rate_display": "0.29%"
-            },
-            {
-              "route": "Cranberry Bog Grab Bag",
-              "source_type": "event-quest",
-              "rate": 0.002941,
-              "rate_display": "0.29%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003D654A",
             "edid": "recipe_mod_armor_UnderArmor_Marine_Mk4"
@@ -18825,6 +18058,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Marine",
           "tier": "Mk4",
@@ -18875,24 +18109,24 @@
                   "rate": 0.014706
                 },
                 {
-                  "route": "Atlantic City Expedition Side Quests",
+                  "route": "A Grand Reopening",
                   "rate_display": "1.32%",
                   "rate": 0.013158
                 },
                 {
-                  "route": "Atlantic City Side Quests",
+                  "route": "Atlantic City - Side Quests",
                   "rate_display": "1.32%",
                   "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Chase Items",
-                  "rate_display": "1.28%",
-                  "rate": 0.012821
+                  "route": "Atlantic City Expedition - Rare Plans Side Quests",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Rare Plans",
-                  "rate_display": "1.28%",
-                  "rate": 0.012821
+                  "route": "Custodial Compulsions",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 }
               ]
             },
@@ -18920,12 +18154,13 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "ENB Vendor Chest Production Center",
+              "route": "ENB Production Center vendor",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003D7F9D",
             "edid": "recipe_mod_armor_UnderArmor_Enclave_Mk4"
@@ -19253,6 +18488,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Operative",
           "tier": "Mk4",
@@ -19265,7 +18501,7 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "ENB Vendor Chest Production Center",
+                  "route": "ENB Production Center vendor",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -19395,12 +18631,13 @@
               "rate_display": "0.05%"
             },
             {
-              "route": "E05 Radiation Quest",
+              "route": "All That Glitters",
               "source_type": "event-quest",
               "rate": 0.000184,
               "rate_display": "0.02%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003D654C",
             "edid": "recipe_mod_armor_UnderArmor_Raider_Mk4"
@@ -19728,6 +18965,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Raider",
           "tier": "Mk4",
@@ -19823,24 +19061,19 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "BS02 Special Vendor Minerva Gold Vendor Chest",
+              "route": "Steel Reign - Minerva (Gold Bullion vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "BS02 Special Vendor Minerva LLV Gold Vendor",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%"
-            },
-            {
-              "route": "W05 Secret Service Gold Vendor Chest Reginald",
+              "route": "Wastelanders - Reginald (Secret Service Gold Bullion vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "005C5E1E",
             "edid": "recipe_mod_armor_UnderArmor_SecretService_Mk4"
@@ -20168,6 +19401,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Secret Service",
           "tier": "Mk4",
@@ -20180,17 +19414,12 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "BS02 Special Vendor Minerva Gold Vendor Chest",
+                  "route": "Steel Reign - Minerva (Gold Bullion vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "BS02 Special Vendor Minerva LLV Gold Vendor",
-                  "rate_display": "100%",
-                  "rate": 1.0
-                },
-                {
-                  "route": "W05 Secret Service Gold Vendor Chest Reginald",
+                  "route": "Wastelanders - Reginald (Secret Service Gold Bullion vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -20254,30 +19483,67 @@
               "rate_display": "100%"
             },
             {
-              "route": "Bo S Event Quest",
+              "route": "Activity: Surface to Air",
               "source_type": "event-quest",
               "rate": 0.05,
               "rate_display": "5%"
             },
             {
-              "route": "Bo S Vernon Dodge Quest",
+              "route": "Bo Sr01",
               "source_type": "event-quest",
               "rate": 0.05,
               "rate_display": "5%"
             },
             {
-              "route": "CB06 Quest",
+              "route": "Bo Sz01",
               "source_type": "event-quest",
               "rate": 0.05,
               "rate_display": "5%"
             },
             {
-              "route": "Mod Under Armor Bo S Mk5 Chance",
+              "route": "Bo Sz04",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            },
+            {
+              "route": "Brotherhood of Steel Event",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            },
+            {
+              "route": "Brotherhood of Steel Vernon Dodge",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            },
+            {
+              "route": "Free State Event",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            },
+            {
+              "route": "Mod Under Armor Brotherhood of Steel Mk5 Chance",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            },
+            {
+              "route": "Raider Event",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            },
+            {
+              "route": "Responder Event",
               "source_type": "event-quest",
               "rate": 0.05,
               "rate_display": "5%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003D6547",
             "edid": "recipe_mod_armor_UnderArmor_BOS_Mk5"
@@ -20605,6 +19871,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Brotherhood of Steel",
           "tier": "Mk5",
@@ -20653,22 +19920,32 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "Bo S Event Quest",
+                  "route": "Activity: Surface to Air",
                   "rate_display": "5%",
                   "rate": 0.05
                 },
                 {
-                  "route": "Bo S Vernon Dodge Quest",
+                  "route": "Bo Sr01",
                   "rate_display": "5%",
                   "rate": 0.05
                 },
                 {
-                  "route": "CB06 Quest",
+                  "route": "Bo Sz01",
                   "rate_display": "5%",
                   "rate": 0.05
                 },
                 {
-                  "route": "Mod Under Armor Bo S Mk5 Chance",
+                  "route": "Bo Sz04",
+                  "rate_display": "5%",
+                  "rate": 0.05
+                },
+                {
+                  "route": "Brotherhood of Steel Event",
+                  "rate_display": "5%",
+                  "rate": 0.05
+                },
+                {
+                  "route": "Brotherhood of Steel Vernon Dodge",
                   "rate_display": "5%",
                   "rate": 0.05
                 }
@@ -20704,30 +19981,31 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
+              "route": "Daily: Idle Explosives",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            },
+            {
+              "route": "Daily: Queen of the Hunt",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            },
+            {
+              "route": "Daily: Waste Not",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            },
+            {
               "route": "Mod Under Armor Casual Mk5 Chance",
-              "source_type": "event-quest",
-              "rate": 0.05,
-              "rate_display": "5%"
-            },
-            {
-              "route": "SFZ Bomb",
-              "source_type": "event-quest",
-              "rate": 0.05,
-              "rate_display": "5%"
-            },
-            {
-              "route": "SFZ Queen",
-              "source_type": "event-quest",
-              "rate": 0.05,
-              "rate_display": "5%"
-            },
-            {
-              "route": "SFZ Waste",
               "source_type": "event-quest",
               "rate": 0.05,
               "rate_display": "5%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003D6549",
             "edid": "recipe_mod_armor_UnderArmor_Casual_Mk5"
@@ -21055,6 +20333,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Casual",
           "tier": "Mk5",
@@ -21095,22 +20374,22 @@
               "kind": "rates",
               "rows": [
                 {
+                  "route": "Daily: Idle Explosives",
+                  "rate_display": "5%",
+                  "rate": 0.05
+                },
+                {
+                  "route": "Daily: Queen of the Hunt",
+                  "rate_display": "5%",
+                  "rate": 0.05
+                },
+                {
+                  "route": "Daily: Waste Not",
+                  "rate_display": "5%",
+                  "rate": 0.05
+                },
+                {
                   "route": "Mod Under Armor Casual Mk5 Chance",
-                  "rate_display": "5%",
-                  "rate": 0.05
-                },
-                {
-                  "route": "SFZ Bomb",
-                  "rate_display": "5%",
-                  "rate": 0.05
-                },
-                {
-                  "route": "SFZ Queen",
-                  "rate_display": "5%",
-                  "rate": 0.05
-                },
-                {
-                  "route": "SFZ Waste",
                   "rate_display": "5%",
                   "rate": 0.05
                 }
@@ -21140,7 +20419,7 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "XPD Expedition Vendor Chest Giuseppe",
+              "route": "Expeditions - Giuseppe vendor",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
@@ -21152,7 +20431,13 @@
               "rate_display": "2.56%"
             },
             {
-              "route": "Infestations - cr XPDAtlantic City",
+              "route": "Blood Eagle Destroyer",
+              "source_type": "creature",
+              "rate": 0.020833,
+              "rate_display": "2.08%"
+            },
+            {
+              "route": "Infestations - Expeditions Atlantic City",
               "source_type": "event-quest",
               "rate": 0.020833,
               "rate_display": "2.08%"
@@ -21164,18 +20449,25 @@
               "rate_display": "2.08%"
             },
             {
-              "route": "Atlantic City Expedition - Mission Mission",
+              "route": "The Drifter - XX",
+              "source_type": "event-quest",
+              "rate": 0.020833,
+              "rate_display": "2.08%"
+            },
+            {
+              "route": "Atlantic City Expedition - Mission",
               "source_type": "event-quest",
               "rate": 0.001972,
               "rate_display": "0.2%"
             },
             {
-              "route": "Atlantic City Expedition - Mission Mission",
+              "route": "Atlantic City Expedition - Mission",
               "source_type": "event-quest",
               "rate": 0.001603,
               "rate_display": "0.16%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "006F4DAD",
             "edid": "Recipe_XPD_AC_mod_armor_UnderArmor_Muni_Mk5"
@@ -21503,6 +20795,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Civil Engineer",
           "tier": "Mk5",
@@ -21515,7 +20808,7 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "XPD Expedition Vendor Chest Giuseppe",
+                  "route": "Expeditions - Giuseppe vendor",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -21556,7 +20849,12 @@
                   "rate": 0.025641
                 },
                 {
-                  "route": "Infestations - cr XPDAtlantic City",
+                  "route": "Blood Eagle Destroyer",
+                  "rate_display": "2.08%",
+                  "rate": 0.020833
+                },
+                {
+                  "route": "Infestations - Expeditions Atlantic City",
                   "rate_display": "2.08%",
                   "rate": 0.020833
                 },
@@ -21566,14 +20864,14 @@
                   "rate": 0.020833
                 },
                 {
-                  "route": "Atlantic City Expedition - Mission Mission",
-                  "rate_display": "0.2%",
-                  "rate": 0.001972
+                  "route": "The Drifter - XX",
+                  "rate_display": "2.08%",
+                  "rate": 0.020833
                 },
                 {
-                  "route": "Atlantic City Expedition - Mission Mission",
-                  "rate_display": "0.16%",
-                  "rate": 0.001603
+                  "route": "Atlantic City Expedition - Mission",
+                  "rate_display": "0.2%",
+                  "rate": 0.001972
                 }
               ]
             },
@@ -21601,7 +20899,13 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "CBZ Quest",
+              "route": "Activity: Census Violence",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            },
+            {
+              "route": "Daily: Cop a Squatter",
               "source_type": "event-quest",
               "rate": 0.05,
               "rate_display": "5%"
@@ -21613,13 +20917,37 @@
               "rate_display": "5%"
             },
             {
-              "route": "Atlantic City Expedition Side Quests",
+              "route": "A Grand Reopening",
               "source_type": "event-quest",
               "rate": 0.013158,
               "rate_display": "1.32%"
             },
             {
-              "route": "Atlantic City Side Quests",
+              "route": "Atlantic City - Side Quests",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Atlantic City Expedition - Rare Plans Side Quests",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Custodial Compulsions",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Hells Eagles",
+              "source_type": "event-quest",
+              "rate": 0.013158,
+              "rate_display": "1.32%"
+            },
+            {
+              "route": "Regent of the Dead",
               "source_type": "event-quest",
               "rate": 0.013158,
               "rate_display": "1.32%"
@@ -21641,26 +20969,9 @@
               "source_type": "event-quest",
               "rate": 0.009615,
               "rate_display": "0.96%"
-            },
-            {
-              "route": "Mutated Public Events - Double Mutation",
-              "source_type": "event-quest",
-              "rate": 0.00641,
-              "rate_display": "0.64%"
-            },
-            {
-              "route": "Mutated Public Events - Single Mutation Fallout1st",
-              "source_type": "event-quest",
-              "rate": 0.00641,
-              "rate_display": "0.64%"
-            },
-            {
-              "route": "Mutated Public Events - Single Mutation",
-              "source_type": "event-quest",
-              "rate": 0.003205,
-              "rate_display": "0.32%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003D654B",
             "edid": "recipe_mod_armor_UnderArmor_Marine_Mk5"
@@ -21988,6 +21299,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Marine",
           "tier": "Mk5",
@@ -22028,7 +21340,12 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "CBZ Quest",
+                  "route": "Activity: Census Violence",
+                  "rate_display": "5%",
+                  "rate": 0.05
+                },
+                {
+                  "route": "Daily: Cop a Squatter",
                   "rate_display": "5%",
                   "rate": 0.05
                 },
@@ -22038,24 +21355,19 @@
                   "rate": 0.05
                 },
                 {
-                  "route": "Atlantic City Expedition Side Quests",
+                  "route": "A Grand Reopening",
                   "rate_display": "1.32%",
                   "rate": 0.013158
                 },
                 {
-                  "route": "Atlantic City Side Quests",
+                  "route": "Atlantic City - Side Quests",
                   "rate_display": "1.32%",
                   "rate": 0.013158
                 },
                 {
-                  "route": "Mutated Public Events - Chase Items",
-                  "rate_display": "1.28%",
-                  "rate": 0.012821
-                },
-                {
-                  "route": "Mutated Public Events - Rare Plans",
-                  "rate_display": "1.28%",
-                  "rate": 0.012821
+                  "route": "Atlantic City Expedition - Rare Plans Side Quests",
+                  "rate_display": "1.32%",
+                  "rate": 0.013158
                 }
               ]
             },
@@ -22089,7 +21401,7 @@
               "rate_display": "100%"
             },
             {
-              "route": "ENB Vendor Chest Production Center",
+              "route": "ENB Production Center vendor",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
@@ -22101,18 +21413,19 @@
               "rate_display": "5%"
             },
             {
-              "route": "MTNZ Enclave Major Quest",
+              "route": "The Black Box - Enclave",
               "source_type": "event-quest",
               "rate": 0.05,
               "rate_display": "5%"
             },
             {
-              "route": "MTNZ Enclave Quest",
+              "route": "The Black Box - Enclave Major",
               "source_type": "event-quest",
               "rate": 0.05,
               "rate_display": "5%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003D7F9E",
             "edid": "recipe_mod_armor_UnderArmor_Enclave_Mk5"
@@ -22440,6 +21753,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Operative",
           "tier": "Mk5",
@@ -22452,7 +21766,7 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "ENB Vendor Chest Production Center",
+                  "route": "ENB Production Center vendor",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -22501,12 +21815,12 @@
                   "rate": 0.05
                 },
                 {
-                  "route": "MTNZ Enclave Major Quest",
+                  "route": "The Black Box - Enclave",
                   "rate_display": "5%",
                   "rate": 0.05
                 },
                 {
-                  "route": "MTNZ Enclave Quest",
+                  "route": "The Black Box - Enclave Major",
                   "rate_display": "5%",
                   "rate": 0.05
                 }
@@ -22554,6 +21868,24 @@
               "rate_display": "5%"
             },
             {
+              "route": "MTNZ Event",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            },
+            {
+              "route": "MTNZ Event Repeatable Large",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            },
+            {
+              "route": "MTNZ Event Repeatable Medium",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            },
+            {
               "route": "Schematic Armor Savage Divide",
               "source_type": "event-quest",
               "rate": 0.029412,
@@ -22594,26 +21926,9 @@
               "source_type": "event-quest",
               "rate": 0.001364,
               "rate_display": "0.14%"
-            },
-            {
-              "route": "Mutated Public Events - Double Mutation",
-              "source_type": "event-quest",
-              "rate": 0.000909,
-              "rate_display": "0.09%"
-            },
-            {
-              "route": "Mutated Public Events - Single Mutation Fallout1st",
-              "source_type": "event-quest",
-              "rate": 0.000909,
-              "rate_display": "0.09%"
-            },
-            {
-              "route": "Mutated Public Events - Single Mutation",
-              "source_type": "event-quest",
-              "rate": 0.000455,
-              "rate_display": "0.05%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "003D654D",
             "edid": "recipe_mod_armor_UnderArmor_Raider_Mk5"
@@ -22941,6 +22256,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Raider",
           "tier": "Mk5",
@@ -22991,24 +22307,24 @@
                   "rate": 0.05
                 },
                 {
+                  "route": "MTNZ Event",
+                  "rate_display": "5%",
+                  "rate": 0.05
+                },
+                {
+                  "route": "MTNZ Event Repeatable Large",
+                  "rate_display": "5%",
+                  "rate": 0.05
+                },
+                {
+                  "route": "MTNZ Event Repeatable Medium",
+                  "rate_display": "5%",
+                  "rate": 0.05
+                },
+                {
                   "route": "Schematic Armor Savage Divide",
                   "rate_display": "2.94%",
                   "rate": 0.029412
-                },
-                {
-                  "route": "Mutated Public Events - Ultra Rare Plans",
-                  "rate_display": "1.82%",
-                  "rate": 0.018182
-                },
-                {
-                  "route": "Schematic Savage Divide",
-                  "rate_display": "0.74%",
-                  "rate": 0.007353
-                },
-                {
-                  "route": "Mutated Public Events - Chase Items",
-                  "rate_display": "0.18%",
-                  "rate": 0.001818
                 }
               ]
             },
@@ -23036,24 +22352,19 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "BS02 Special Vendor Minerva Gold Vendor Chest",
+              "route": "Steel Reign - Minerva (Gold Bullion vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             },
             {
-              "route": "BS02 Special Vendor Minerva LLV Gold Vendor",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%"
-            },
-            {
-              "route": "W05 Secret Service Gold Vendor Chest Reginald",
+              "route": "Wastelanders - Reginald (Secret Service Gold Bullion vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "005C5E1F",
             "edid": "recipe_mod_armor_UnderArmor_SecretService_Mk5"
@@ -23381,6 +22692,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "lining",
           "set": "Secret Service",
           "tier": "Mk5",
@@ -23393,17 +22705,12 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "BS02 Special Vendor Minerva Gold Vendor Chest",
+                  "route": "Steel Reign - Minerva (Gold Bullion vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 },
                 {
-                  "route": "BS02 Special Vendor Minerva LLV Gold Vendor",
-                  "rate_display": "100%",
-                  "rate": 1.0
-                },
-                {
-                  "route": "W05 Secret Service Gold Vendor Chest Reginald",
+                  "route": "Wastelanders - Reginald (Secret Service Gold Bullion vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -23468,18 +22775,19 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "Bo Sr01 Quest",
+              "route": "Event: Line in the Sand",
               "source_type": "event-quest",
               "rate": 0.05,
               "rate_display": "5%"
             },
             {
-              "route": "Steel Reign - E01 Metal Event Best",
+              "route": "Event: Test Your Metal - Best",
               "source_type": "event-quest",
               "rate": 0.05,
               "rate_display": "5%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "0089D6A9",
             "edid": "recipe_mod_armor_UnderArmor_style_BOS"
@@ -23519,6 +22827,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "style",
           "set": "Brotherhood of Steel",
           "tier": null,
@@ -23559,12 +22868,12 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "Bo Sr01 Quest",
+                  "route": "Event: Line in the Sand",
                   "rate_display": "5%",
                   "rate": 0.05
                 },
                 {
-                  "route": "Steel Reign - E01 Metal Event Best",
+                  "route": "Event: Test Your Metal - Best",
                   "rate_display": "5%",
                   "rate": 0.05
                 }
@@ -23592,42 +22901,37 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "E09 A Launcher Quest",
+              "route": "Event: Neurological Warfare",
               "source_type": "event-quest",
               "rate": 0.05,
               "rate_display": "5%"
             },
             {
-              "route": "Schematic CB15 Special",
+              "route": "Event: Seismic Activity",
               "source_type": "event-quest",
               "rate": 0.05,
               "rate_display": "5%"
             },
             {
-              "route": "Skyline Valley - Region Boss Quest",
+              "route": "Schematic CB15",
               "source_type": "event-quest",
               "rate": 0.05,
               "rate_display": "5%"
             },
             {
-              "route": "E06 Colossus Quest",
+              "route": "Event: A Colossal Problem",
               "source_type": "event-quest",
               "rate": 0.025,
               "rate_display": "2.5%"
             },
             {
-              "route": "E06 Colossus Quest Rare",
-              "source_type": "event-quest",
-              "rate": 0.025,
-              "rate_display": "2.5%"
-            },
-            {
-              "route": "E06 Colossus Quest Unique",
+              "route": "Event: A Colossal Problem - Unique",
               "source_type": "event-quest",
               "rate": 0.025,
               "rate_display": "2.5%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "0089D6AA",
             "edid": "recipe_mod_armor_UnderArmor_style_Casual"
@@ -23667,6 +22971,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "style",
           "set": "Casual",
           "tier": null,
@@ -23707,32 +23012,27 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "E09 A Launcher Quest",
+                  "route": "Event: Neurological Warfare",
                   "rate_display": "5%",
                   "rate": 0.05
                 },
                 {
-                  "route": "Schematic CB15 Special",
+                  "route": "Event: Seismic Activity",
                   "rate_display": "5%",
                   "rate": 0.05
                 },
                 {
-                  "route": "Skyline Valley - Region Boss Quest",
+                  "route": "Schematic CB15",
                   "rate_display": "5%",
                   "rate": 0.05
                 },
                 {
-                  "route": "E06 Colossus Quest",
+                  "route": "Event: A Colossal Problem",
                   "rate_display": "2.5%",
                   "rate": 0.025
                 },
                 {
-                  "route": "E06 Colossus Quest Rare",
-                  "rate_display": "2.5%",
-                  "rate": 0.025
-                },
-                {
-                  "route": "E06 Colossus Quest Unique",
+                  "route": "Event: A Colossal Problem - Unique",
                   "rate_display": "2.5%",
                   "rate": 0.025
                 }
@@ -23760,12 +23060,13 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "Atlantic City Expedition - Mission Mission",
+              "route": "Atlantic City Expedition - Mission",
               "source_type": "event-quest",
               "rate": 0.076923,
               "rate_display": "7.69%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "0089D6B0",
             "edid": "Recipe_XPD_AC_mod_armor_UnderArmor_style_Muni"
@@ -23805,6 +23106,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "style",
           "set": "Civil Engineer",
           "tier": null,
@@ -23845,7 +23147,7 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "Atlantic City Expedition - Mission Mission",
+                  "route": "Atlantic City Expedition - Mission",
                   "rate_display": "7.69%",
                   "rate": 0.076923
                 }
@@ -23873,7 +23175,7 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "Atlantic City Expedition - Mission Mission",
+              "route": "Atlantic City Expedition - Mission",
               "source_type": "event-quest",
               "rate": 0.0625,
               "rate_display": "6.25%"
@@ -23915,6 +23217,7 @@
               "rate_display": "0.32%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "0089D6AC",
             "edid": "recipe_mod_armor_UnderArmor_style_Marine"
@@ -23954,6 +23257,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "style",
           "set": "Marine",
           "tier": null,
@@ -23994,7 +23298,7 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "Atlantic City Expedition - Mission Mission",
+                  "route": "Atlantic City Expedition - Mission",
                   "rate_display": "6.25%",
                   "rate": 0.0625
                 },
@@ -24047,11 +23351,14 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "ENz Above Quest",
+              "route": "Nz01 Above",
               "source_type": "event-quest",
               "rate": 0.05,
               "rate_display": "5%"
             }
+          ],
+          "obtain_unlocks": [
+            "Reward for completing the quest: Enclave Activity: Bots on Parade"
           ],
           "plan_item": {
             "formid": "0089D6AB",
@@ -24092,6 +23399,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "style",
           "set": "Operative",
           "tier": null,
@@ -24132,7 +23440,7 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "ENz Above Quest",
+                  "route": "Nz01 Above",
                   "rate_display": "5%",
                   "rate": 0.05
                 }
@@ -24160,12 +23468,13 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "E08 A Moonshine Quest Basic",
+              "route": "Event: Moonshine Jamboree - Basic",
               "source_type": "event-quest",
               "rate": 0.05,
               "rate_display": "5%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "0089D6AD",
             "edid": "recipe_mod_armor_UnderArmor_style_Raider"
@@ -24205,6 +23514,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "style",
           "set": "Raider",
           "tier": null,
@@ -24245,7 +23555,7 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "E08 A Moonshine Quest Basic",
+                  "route": "Event: Moonshine Jamboree - Basic",
                   "rate_display": "5%",
                   "rate": 0.05
                 }
@@ -24273,12 +23583,13 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "W05 Secret Service Gold Vendor Chest Reginald",
+              "route": "Wastelanders - Reginald (Secret Service Gold Bullion vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "0089D6AE",
             "edid": "recipe_mod_armor_UnderArmor_style_SecretService"
@@ -24318,6 +23629,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "style",
           "set": "Secret Service",
           "tier": null,
@@ -24330,7 +23642,7 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "W05 Secret Service Gold Vendor Chest Reginald",
+                  "route": "Wastelanders - Reginald (Secret Service Gold Bullion vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 }
@@ -24386,18 +23698,13 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "W05 LLV Gold Vendor Settler Samuel",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%"
-            },
-            {
-              "route": "W05 Settler Samuel Gold Vendor Chest",
+              "route": "Wastelanders - Samuel (Settlers Gold Bullion vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%"
             }
           ],
+          "obtain_unlocks": [],
           "plan_item": {
             "formid": "0089D6AF",
             "edid": "recipe_mod_armor_UnderArmor_style_VaultSuit"
@@ -24437,6 +23744,7 @@
             ]
           },
           "cut": false,
+          "cut_reason": null,
           "group": "style",
           "set": "Vault Suit",
           "tier": null,
@@ -24449,12 +23757,7 @@
               "kind": "rates",
               "rows": [
                 {
-                  "route": "W05 LLV Gold Vendor Settler Samuel",
-                  "rate_display": "100%",
-                  "rate": 1.0
-                },
-                {
-                  "route": "W05 Settler Samuel Gold Vendor Chest",
+                  "route": "Wastelanders - Samuel (Settlers Gold Bullion vendor)",
                   "rate_display": "100%",
                   "rate": 1.0
                 }

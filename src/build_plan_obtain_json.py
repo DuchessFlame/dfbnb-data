@@ -73,6 +73,7 @@ DIST = os.path.join(REPO, "dist")
 sys.path.insert(0, HERE)
 
 import rng76
+import plan_sources          # cut detection, readable source names, unlock routes
 from spawns_engine import sources as ssrc
 # reuse the farming Containers resolver + rate helpers + rng76 wrapper
 import build_farming_used_for as bfu
@@ -595,168 +596,100 @@ BUCKET_LABEL = {"container":"container","vendor":"vendor","creature":"creature",
                 "event-quest":"event / quest","fixed":"fixed spawn","loot-list":"loot pool"}
 
 # ── source naming ───────────────────────────────────────────────────────────
-# A leveled list's EditorID is built as  <listPrefix>_<areaCode>_<plumbing>,
-# e.g. LLS_MutatedEvents_Rewards_RarePlans or AC_SQ01_LL_Rewards.  The AREA CODE
-# is the only part a player recognises; everything after it is internal wiring.
-# The old family_name() kept the LAST one or two tokens, which threw the area
-# code away and surfaced the wiring instead ("SQ01 Rewards", "Rewards Tranche05",
-# "XX").  source_label() does the reverse: resolve the area code, drop the
-# wiring, and return None for lists that are not real world sources at all.
+# Moved to plan_sources.py, which reads the QUEST export every build instead of
+# carrying a hand-copied AREA_CODE map, and protects mixed-case acronyms through
+# the camel split so "BoS" stops rendering as "Bo S". See that module's docstring
+# for why the lookup is longest-prefix-wins and why an ambiguous prefix resolves
+# to nothing rather than to a guess.
 #
-# Every entry below was read off the game data (quest EDID -> FULL name in the
-# QUEST export), not guessed.  An unknown code is left as-is rather than
-# invented — a raw token is a smaller error than a wrong name.
-AREA_CODE = {
-    "ac":            "Atlantic City",
-    "xpd":           "Expeditions",
-    "xpd_ac":        "Atlantic City Expedition",
-    "mutatedevents": "Mutated Public Events",
-    "dailyops":      "Daily Ops",
-    "rd01":          "Raids",
-    "hto":           "Infestations",
-    "burn":          "Burning Springs",
-    "storm":         "Skyline Valley",
-    "p62":           "The Drifter",
-    "moon":          "Milepost Zero",
-    "w05":           "Wastelanders",
-    "bs01":          "Steel Dawn",
-    "bs02":          "Steel Reign",
-    "v94":           "Vault 94",
-    "v96":           "Vault 96",
-    "atx":           "Atom Shop",
-    "score":         "Season Scoreboard",
-    "fishing":       "Fishing",
-    "workshop":      "Workshop",
-    "legendary":     "Legendary",
-}
+# QUEST_NAMES is loaded once in main() and passed down; the module-level default
+# is an empty index so this file stays importable (and testable) without a TSV
+# tree, in which case naming falls back to the AREA_CODE backstop alone.
+QUEST_NAMES = plan_sources.QuestNames()
 
-# Lists that exist only inside the editor.  A route named from one of these is
-# dropped outright — it is not somewhere a player can go.
-_DEV_CODES = {"cut", "debug", "deleted", "del", "deprecated", "zzz", "zzzatx",
-              "test", "unused", "obsolete", "xx", "template", "placeholder"}
-
-# Wiring tokens: true of every list, so they carry no information for a reader.
-# NB "items" is deliberately NOT here — "Chase Items" and "Unique Items" are
-# things a player recognises, unlike "Rewards" or "Tranche", which are true of
-# every list in the file.
-_PLUMBING = {"ll", "lls", "lld", "lle", "llv", "llq", "list", "lists",
-             "reward", "rewards", "questreward", "questrewards", "loot",
-             "lootlist", "pool", "table", "tier", "tranche", "sub", "shared",
-             "generic", "misc", "all", "any", "main",
-             "stage", "stage9000", "lvl", "audio", "missing",
-             "entry", "entries", "set", "group", "co", "recipe",
-             "enc", "lpi", "star",
-             # dev markers that also turn up mid-name, not just as the lead code
-             "xx", "temp", "tmp", "todo", "wip", "backlog", "old", "new2"}
-
-# Map-cell codes like TW006 / LC129 / WL020 name an interior, not a place a
-# player would call by that name. Three or more digits distinguishes them from
-# the two-digit content codes (RD01, BS02, W05, V94), which ARE meaningful.
-_RX_CELL_CODE = re.compile(r"^[A-Za-z]{2,4}\d{3,}$")
-
-_RX_LIST_PFX = re.compile(r"^(LL[SDEVQ]?|co|Recipe|recipe|QuestRewards?)_", re.I)
-_RX_CAMEL    = re.compile(r"([a-z0-9])([A-Z])")
-_RX_TRAILNUM = re.compile(r"^([A-Za-z]{3,})(\d+)$")   # Tranche05 -> Tranche | 05
-
-
-def _tokens(edid):
-    s = _RX_LIST_PFX.sub("", edid or "")
-    s = _RX_CAMEL.sub(r"\1 \2", s).replace("_", " ")
-    out = []
-    for t in re.split(r"\s+", s):
-        if not t:
-            continue
-        # Split a word welded to a number (Tranche05, Tier01) so the word can be
-        # judged as plumbing and the number dropped as a bare index. Area codes
-        # (RD01, BS02, V94, W05) are short and stay whole — the {3,} guard.
-        m = _RX_TRAILNUM.match(t)
-        out.extend([m.group(1), m.group(2)] if m else [t])
-    return out
+AREA_CODE  = plan_sources.AREA_CODE          # re-exported: other builders read these
+_DEV_CODES = plan_sources.DEV_CODES
+_PLUMBING  = plan_sources.PLUMBING
 
 
 def source_label(edid):
-    """Readable name for a leveled list, or None if it is not a real source.
-
-    Returns e.g. 'Mutated Public Events - Rare Plans', 'Atlantic City Side
-    Quests', 'The Drifter'.  Lists whose leading code is editor-only return
-    None so the caller can drop the route entirely.
-    """
-    toks = _tokens(edid)
-    if not toks:
-        return None
-
-    low = [t.lower() for t in toks]
-    if any(t in _DEV_CODES for t in low[:2]):
-        return None
-
-    # Area code: longest match wins, so the specific name beats the general one
-    # (xpd_ac -> Atlantic City Expedition, not Expeditions). Candidates are the
-    # first n tokens both underscore-joined and run together, because the camel
-    # split has already broken "MutatedEvents" into two tokens.
-    area, rest = None, toks
-    for n in (3, 2, 1):
-        if len(low) < n:
-            continue
-        for key in ("_".join(low[:n]), "".join(low[:n])):
-            if key in AREA_CODE:
-                area, rest = AREA_CODE[key], toks[n:]
-                break
-        if area:
-            break
-
-    # SQ01 / SQ12 -> the set of side quests for that area, not one numbered list.
-    # MQ / DQ get the same treatment.  These collapse together by design: the
-    # data does not say which side quest, and pretending it does would be worse.
-    kind, keep = None, []
-    for t in rest:
-        if re.fullmatch(r"(SQ|MQ|DQ)\d*", t, re.I):
-            kind = {"sq": "Side Quests", "mq": "Main Quests",
-                    "dq": "Daily Quests"}[t[:2].lower()]
-        elif t.lower() in ("sidequest", "sidequests"):
-            kind = "Side Quests"
-        elif t.lower() in ("mainquest", "mainquests"):
-            kind = "Main Quests"
-        else:
-            keep.append(t)
-    rest = keep
-
-    # Whatever is left that is not wiring and not a bare number is the detail.
-    detail = [t for t in rest
-              if t.lower() not in _PLUMBING
-              and not re.fullmatch(r"\d+", t)
-              and not _RX_CELL_CODE.match(t)]
-    # An area code and its detail often repeat each other: P62_LL_Drifter ->
-    # "The Drifter - Drifter", and HTO_HostileTakeOver -> "Infestations -
-    # Hostile Take Over", where the detail is just the acronym spelled out.
-    # Drop detail the area name already carries, by word and by initials.
-    if area:
-        awords = set(area.lower().split())
-        ainit = "".join(w[0] for w in area.lower().split())
-        detail = [t for t in detail if t.lower() not in awords]
-        if detail and "".join(t[0].lower() for t in detail) in (ainit, area.lower()):
-            detail = []
-
-    if area and kind:
-        return f"{area} {kind}"
-    if area and detail:
-        return f"{area} - {' '.join(detail)}"
-    if area:
-        return area
-    if kind and detail:
-        return f"{' '.join(detail)} {kind}"
-    if kind:
-        return kind
-    if detail:
-        return " ".join(detail)
-    # Nothing survived the filters: the list was wiring end to end.
-    return None
+    """Readable name for a leveled list, or None if it is not a real source."""
+    return plan_sources.source_label(edid, QUEST_NAMES)
 
 
 def family_name(name):
     """Back-compat shim — source_label() reads the EditorID itself."""
     return source_label(name) or (name or "Source").strip()
 
-def resolve_routes(target_fid, tables, rates, cont_names):
+
+# Strongest evidence first. A list held by both a vendor chest and an NPC is a
+# vendor route; "loot-list" is the floor, meaning nothing said anything.
+_BUCKET_RANK = ["vendor", "creature", "event-quest", "fixed", "container", "loot-list"]
+
+
+def holder_bucket(via, holders):
+    """What KIND of source a leveled list is, judged by what holds it.
+
+    This used to be one call — plan_classify("", via + holder_edids, via) — and
+    the empty first argument was the bug. plan_classify's ONLY test for a
+    creature is `sig == "NPC_"` or the word "creature" in the blob, so throwing
+    the holders' signatures away meant an NPC-held list could never be classed
+    as a creature drop. It fell to "loot-list", which the caller drops as
+    internal plumbing, and the route vanished.
+
+    What that cost: the Pint-Sized Slasher event's rare recipes hang off
+    SDOW_LL_Slasher_RareRecipes -> SDOW_LL_BountyDrop_BIG, whose only holder is
+    the NPC SDOW_Burn_BountyTarget_BIG_Slasher — the bounty boss you kill to get
+    them. Nothing in those EditorIDs says "creature", so the whole branch was
+    silently discarded and four plans published as having no source at all.
+
+    Classifying each holder on its own, with its real signature, and taking the
+    strongest verdict fixes it without weakening anything: the old blob-only
+    answer is still computed as the floor, so a list with no holders behaves
+    exactly as before.
+    """
+    holder_blob = " ".join((redid or "") for rf, redid, rsig in holders if rsig != "CONT")
+    best = plan_classify("", (via or "") + " " + holder_blob, via)
+    for rf, redid, rsig in holders:
+        b = plan_classify(rsig, redid, via)
+        if _BUCKET_RANK.index(b) < _BUCKET_RANK.index(best):
+            best = b
+    return best
+
+
+def collapse_routes(routes):
+    """Merge rows that are the same source wearing two hats.
+
+    A vendor reaches a plan twice — once as the CONT that is their chest, once
+    as the LVLI that is their stock — so the live site renders "Minerva Gold
+    Vendor Chest" and "Minerva LLV Gold Vendor" as separate rows at an identical
+    100%. Same for Settler Samuel, Mortimer, Reginald and Giuseppe: 170 + 170,
+    99 + 99, 90, 81 + 81 duplicate rows between them.
+
+    Two rows collapse only when plan_sources.route_key() reduces them to the
+    same content words AND their rates agree to four places — different rates
+    mean genuinely different pools that happen to share a name, and those stay
+    apart.
+
+    The SHORTER label wins. Equal keys means the two labels already carry the
+    same content words, so whatever makes one longer is a word route_key threw
+    away as noise — "Spooky Scorched" over "Creature Scorched Spooky", "The
+    Slasher - Daily Ops" over "The Slasher - Daily Ops Repeat".
+    """
+    best = {}
+    order = []
+    for r in routes:
+        k = (plan_sources.route_key(r["route"]), round(r.get("rate") or 0, 4))
+        if k not in best:
+            best[k] = r
+            order.append(k)
+        elif len(r["route"]) < len(best[k]["route"]):
+            best[k] = r
+    return [best[k] for k in order]
+
+
+def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None):
+    npc_names = npc_names or {}
     target = {target_fid}
     src = ssrc.get_sources([{"formid": target_fid, "sig": "BOOK"}], tables, plan_classify)
     closure = src["lvli_closure"]
@@ -793,19 +726,37 @@ def resolve_routes(target_fid, tables, rates, cont_names):
     for L in closure:
         via = parent_edid.get(L, "")
         holders = lvli_refs.get(L) or lvli_refs.get(str(L).upper()) or ()
-        # bucket from the list's own edid + any non-CONT holder edid (CHEAP — before rng76)
-        holder_blob = " ".join((redid or "") for rf, redid, rsig in holders if rsig != "CONT")
-        bucket = plan_classify("", (via or "") + " " + holder_blob, via)
+        bucket = holder_bucket(via, holders)
         if bucket in ("container", "loot-list"):
             continue  # containers handled above; loot-list = internal plumbing, not a world source
         rate = app(L)                       # only now do the rng76 resolve
         if not rate or rate <= 0:
             continue
-        # name: a vendor keeps its CONT/holder name; others use the list family
-        vend_name = None
+        # name: a vendor keeps its CONT/holder name; a creature keeps the name of
+        # the thing that carries it; everything else uses the list family.
+        # Both halves go through source_label so the CONT (the vendor's chest)
+        # and the LVLI (their stock) produce the SAME string and collapse_routes
+        # can then merge them. humanize() is kept only as the last resort, since
+        # it is what produced "Minerva LLV Gold Vendor" next to "Minerva Gold
+        # Vendor Chest" in the first place.
+        vend_name = creature_name = None
         for rf, redid, rsig in holders:
-            if plan_classify(rsig, redid, via) == "vendor":
-                vend_name = cont_names.get((rf or "").upper()) or humanize(redid); break
+            # An editor-only holder is not a place a player can go, and must not
+            # be prettified into one. humanize() is a last-resort fallback that
+            # will name ANYTHING, so it published the cut NPC CUT_LvlSubBoss as
+            # the route "CUT Lvl Sub Boss". source_label() already returns None
+            # for these; this stops the fallback undoing that.
+            if plan_sources.is_dev_record(redid):
+                continue
+            b = plan_classify(rsig, redid, via)
+            if b == "vendor" and not vend_name:
+                vend_name = (cont_names.get((rf or "").upper())
+                             or source_label(redid) or humanize(redid))
+            elif b == "creature" and not creature_name:
+                # An NPC's FULL name beats anything derivable from its EditorID:
+                # "Pint-Sized Slasher" rather than "SDOW Burn Bounty BIG Slasher".
+                creature_name = (npc_names.get((rf or "").upper())
+                                 or source_label(redid) or humanize(redid))
         if bucket == "vendor" and vend_name:
             name = vend_name
             key = ("vendor", name, round(rate, 4))
@@ -817,7 +768,8 @@ def resolve_routes(target_fid, tables, rates, cont_names):
         # source_label reads the raw EditorID (not humanize()'d) because it needs
         # the underscore boundaries to find the area code. None = editor-only
         # list or wiring end to end, so it is not a route a player can take.
-        fam = source_label(via or str(L))
+        fam = (creature_name if bucket == "creature" and creature_name
+               else source_label(via or str(L)))
         if not fam:
             continue
         k = (bucket, fam.lower(), round(rate, 4))
@@ -825,6 +777,7 @@ def resolve_routes(target_fid, tables, rates, cont_names):
             seen_n[k] = {"route": fam, "source_type": bucket,
                          "rate": round(rate, 6), "rate_display": bfu._fmt_rate(rate)}
     routes.extend(seen_n.values())
+    routes = collapse_routes(routes)
 
     routes.sort(key=lambda r: (-(r["rate"] or 0), r["source_type"], r["route"].lower()))
     return routes[:12]   # cap: a plan's most-likely dozen sources, highest rate first
@@ -832,7 +785,7 @@ def resolve_routes(target_fid, tables, rates, cont_names):
 # ── main ─────────────────────────────────────────────────────────────────────
 SIG_INDEX = {}
 def main(argv=None):
-    global TSV, DIST, SIG_INDEX
+    global TSV, DIST, SIG_INDEX, QUEST_NAMES
     ap = argparse.ArgumentParser()
     ap.add_argument("--limit", type=int, default=0, help="cap roster (0=all) for testing")
     ap.add_argument("--offset", type=int, default=0, help="skip the first N of the roster (for chunked builds)")
@@ -864,10 +817,29 @@ def main(argv=None):
           f"{len(ench_idx)} ENCH, {len(mgef_idx)} MGEF, {len(perk_idx)} perk-desc, "
           f"{len(curve_idx)} curves")
     tables = rates = cont_names = None
+    unlock_idx = None
+    npc_names = {}
     if not args.no_routes:
         tables    = ssrc.load_tables(TSV)
         rates     = bfu.VendorRates(rng76.Rng76Data.from_tsv_root(TSV))
         cont_names = bfu._load_cont_names(TSV)
+        # Creature routes are named after whatever carries the loot, and the NPC
+        # export is the only place its in-game name exists. Without this the row
+        # reads "SDOW Burn Bounty BIG Slasher" instead of "Pint-Sized Slasher".
+        npcf = newest("NPC_Export_*.tsv")
+        if npcf:
+            for r in read_rows(npcf):
+                nfid = (r.get("FormID") or "").strip().upper()
+                full = (r.get("FULL") or "").strip()
+                if nfid and full and nfid not in npc_names:
+                    npc_names[nfid] = full
+            print(f"[plan-obtain] NPC names: {len(npc_names)}")
+        # Names first: source_label() consults QUEST_NAMES on every route, so the
+        # index has to exist before the first resolve_routes() call, not after.
+        unlock_idx = plan_sources.UnlockIndex(TSV, lambda pat, root: newest(pat, root))
+        QUEST_NAMES = unlock_idx.quest_names
+        print(f"[plan-obtain] quest names: {sum(1 for v in QUEST_NAMES.exact.values() if v)} "
+              f"unambiguous prefixes, {len(QUEST_NAMES.family)} families")
 
     bf = newest("BOOK_Export_*.tsv")
     roster = []
@@ -896,7 +868,8 @@ def main(argv=None):
 
     items = []
     unresolved = {"created_object": [], "tradeable": [], "stops_dropping": [],
-                  "no_routes": [], "backpack_cosmetic_dropped": [], "no_effects": []}
+                  "no_routes": [], "backpack_cosmetic_dropped": [], "no_effects": [],
+                  "cut": []}
     for i, row in enumerate(roster):
         fid  = (row.get("FormID") or "").strip().upper()
         edid = (row.get("EDID") or "").strip()
@@ -954,15 +927,39 @@ def main(argv=None):
         stops = resolve_stops_dropping(entries)
         if stops is None: unresolved["stops_dropping"].append(name)
 
-        routes = [] if args.no_routes else resolve_routes(fid, tables, rates, cont_names)
-        if not args.no_routes and not routes:
+        # Cut content. This field shipped as a hardcoded False for the life of
+        # this builder, so 291 dev leftovers rendered as though a player could
+        # go and get them. The EditorID decides; the reference count only
+        # corroborates. See plan_sources.cut_reason().
+        refs = [v for v in ((row.get(f"Ref{j}") or "").strip() for j in range(1, 46)) if v]
+        cut_why = plan_sources.cut_reason(edid, refs)
+        if cut_why:
+            unresolved["cut"].append(f"{name} [{edid}]")
+
+        routes = [] if args.no_routes else resolve_routes(fid, tables, rates, cont_names, npc_names)
+
+        # Non-drop routes: bought, quested, challenged, placed. Kept OUT of
+        # obtain_routes so every row in that table still carries a real rng76
+        # rate — see the UNLOCKS section of plan_sources.py. Cut plans are not
+        # worth the lookup: nothing references them, which is why they are cut.
+        unlocks = [] if (args.no_routes or cut_why or unlock_idx is None) \
+                  else unlock_idx.unlocks_for(fid, edid, refs, has_routes=bool(routes))
+
+        if not args.no_routes and not routes and not unlocks and not cut_why:
             unresolved["no_routes"].append(name)
 
         cat_label = category_label(cat, has_img, cnam_sig)
-        obtain_text = ("Learned from a plan. Drops from the sources below, each with its "
-                       "resolved chance.") if routes else \
-                      ("Learned from a plan. No random-loot drop routes were resolved — "
-                       "see Technical for the recipe details.")
+        if cut_why:
+            obtain_text = ("Cut content. This plan is still in the game files but "
+                           "nothing gives it out — it cannot be obtained in game.")
+        elif routes:
+            obtain_text = ("Learned from a plan. Drops from the sources below, each "
+                           "with its resolved chance.")
+        elif unlocks:
+            obtain_text = "Learned from a plan. It is not random loot — see below."
+        else:
+            obtain_text = ("Learned from a plan. No source was resolved from the game "
+                           "files — see Technical for the recipe details.")
 
         item = {
             "kind": "plan", "brand": "df", "type": cat,
@@ -970,12 +967,14 @@ def main(argv=None):
             "has_image_box": has_img, "image_dir": cat,
             "obtain": obtain_text, "category_label": cat_label,
             "obtain_routes": routes,
+            "obtain_unlocks": unlocks,
             "plan_item": {"formid": fid, "edid": edid},
             "cobj": ({"formid": co_fid, "edid": cobj["edid"]} if cobj else None),
             "cnam": ({"formid": cnam_fid, "edid": cnam_edid, "sig": cnam_sig} if cnam_fid else None),
             "tradeable": tradeable, "stops_dropping": stops,
             "effects": effects,
-            "cut": False,
+            "cut": bool(cut_why),
+            "cut_reason": cut_why,
         }
         if bp_class:
             item["backpack_class"] = bp_class
@@ -1004,6 +1003,13 @@ def main(argv=None):
     print("  stops_drop:", dict(Counter(it["stops_dropping"] for it in items)))
     print("  effects   :", sum(1 for it in items if it.get("effects")), "of", len(items))
     print("  backpack cosmetics dropped:", len(unresolved["backpack_cosmetic_dropped"]))
+    live = [it for it in items if not it["cut"]]
+    print("  cut content:", len(unresolved["cut"]), "of", len(items),
+          f"({len(live)} obtainable)")
+    print("  with drop routes:", sum(1 for it in live if it["obtain_routes"]),
+          "| with unlock routes:", sum(1 for it in live if it.get("obtain_unlocks")),
+          "| no source at all:", sum(1 for it in live
+                                     if not it["obtain_routes"] and not it.get("obtain_unlocks")))
     print("  UNRESOLVED created_object:", len(unresolved["created_object"]),
           "| tradeable:", len(unresolved["tradeable"]),
           "| stops_dropping:", len(unresolved["stops_dropping"]),
