@@ -76,6 +76,7 @@ PAGE_FOLDER = {
     # place the folder names live.
     "workshop":       "workshop",
     "camera-mod":     "camera",
+    "photomode":      "photomode",
     "displays":       "display",
     "pennants":       "pts-pennants",
     "fishing-rod":    "fishing-rod",
@@ -121,6 +122,10 @@ _CAMP_SIGS = {"FURN", "ACTI", "STAT", "MSTT", "CONT", "FLOR", "LIGH", "DOOR", "T
 _RX_FISHING   = re.compile(r"bobber|\bfloat\b|rodbase|fishing[_\s]*mod|fishing[_\s]*rod|"
                            r"\blure\b", re.I)
 _RX_CAMERA    = re.compile(r"\bcamera\b|photomode[_\s]*lens", re.I)
+# Photo mode has its own folder: frames AND poses. The camera rule runs first,
+# because a photomode LENS is a camera mod.
+_RX_PHOTOMODE = re.compile(r"photo[_\s]*mode|photo[_\s]*frame|photo[_\s]*poses?|"
+                           r"\bposes?\b", re.I)
 _RX_SNOWGLOBE = re.compile(r"snow[_\s]*globe", re.I)
 _RX_POWERARM  = re.compile(r"power[_\s]*armou?r|\bPA[_\s]?(helmet|torso|arm|leg|jetpack)|"
                            r"jetpack", re.I)
@@ -133,7 +138,7 @@ _RX_WEAPON    = re.compile(r"\bweapon|\bgun\b|rifle|pistol|shotgun|revolver|laun
 _RX_CAMP      = re.compile(r"workshop|walldecor|floordecor|wall[_\s]*decor|floor[_\s]*decor|"
                            r"structure|furniture|displaycase|stashbox|collector|utility|"
                            r"machinery|shelter|light\b|radio|statue|poster|plushie|"
-                           r"gravestone|balloon|photomode|sign\b|banner|rug\b|planter", re.I)
+                           r"gravestone|balloon|sign\b|banner|rug\b|planter", re.I)
 _RX_FOOD      = re.compile(r"\bfood\b|drink|chem\b|brew|cook|meal|soup|stew|recipe_rsvp|"
                            r"\bpie\b|cake|juice|tea\b|coffee", re.I)
 
@@ -143,9 +148,13 @@ def page_folder(item):
     cnam = item.get("cnam") or {}
     sig  = (cnam.get("sig") or "").upper()
     kind = item.get("type") or ""
+    # Underscores are word characters, so \bcamera\b does NOT match
+    # mod_Camera_Snapmatic_Lens_105mm — which is how four camera lenses ended up
+    # in the weapons folder. Every rule below reads this spaced-out copy.
     blob = " ".join([item.get("name") or "",
                      cnam.get("edid") or "",
                      (item.get("plan_item") or {}).get("edid") or ""])
+    blob = blob.replace("_", " ")
 
     if _RX_UNDERARM.search(blob):
         return "underarmour"
@@ -153,6 +162,8 @@ def page_folder(item):
         return "fishing-rod"
     if _RX_CAMERA.search(blob):
         return "camera"
+    if _RX_PHOTOMODE.search(blob):
+        return "photomode"
     if _RX_SNOWGLOBE.search(blob):
         return "snowglobe"
     # A PA paint or piece, not the CAMP station you dock in.
