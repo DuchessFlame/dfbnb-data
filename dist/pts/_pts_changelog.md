@@ -1443,7 +1443,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 - SCORE_S25_CAMPPets_SpawnFurniture_Cat_CyprusCat  `SCORE_S25_CAMPPets_SpawnFurniture_Cat_CyprusCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +69 / -0 / ~356
+## `plan_master.json`  ·  +69 / -0 / ~370
 
 **Added (69)**
 - Plan: Pint-Sized Slasher Power Armor Helmet Paint  `PLAN_008DE080`
@@ -1489,9 +1489,9 @@ _Couldn't key this file to records; contents differ._
 - …and 29 more
 
 **Changed (356)**
+- Plan: Bladed Commie Whacker  `PLAN_002B42A4` — fields: weapon_group_solo
 - Plan: Ski Sword Skate Blade  `PLAN_002B42A6` — fields: obtain_routes
 - Plan: Sledgehammer Heavy Spiked Rocket  `PLAN_002B42A7` — fields: obtain_routes
-- Plan: Deathclaw Gauntlet Extra Claw  `PLAN_002B42C6` — fields: obtain_routes
 - Plan: Flannel Shirt and Jeans  `PLAN_003132CB` — fields: obtain_routes
 - Plan: Marine Wetsuit  `PLAN_003132CC` — fields: obtain_routes
 - Plan: BOS Soldier Uniform  `PLAN_003132F8` — fields: obtain_routes
@@ -1507,12 +1507,14 @@ _Couldn't key this file to records; contents differ._
 - Plan: Shielded Lining Casual Underarmor  `PLAN_003D6549` — fields: obtain_routes
 - Plan: Protective Lining Marine Underarmor  `PLAN_003D654A` — fields: obtain_routes
 - Plan: Shielded Lining Marine Underarmor  `PLAN_003D654B` — fields: obtain_routes
+- Plan: Pioneer Scout Bowie Knife Paint  `PLAN_003FBB9D` — fields: image_source, images
 - Plan: Bear Arm Heavy Mod  `PLAN_003FFAE1` — fields: obtain_routes
 - Plan: Bear Arm Puncturing Mod  `PLAN_003FFAE2` — fields: obtain_routes
-- Plan: Mole Miner Gauntlet  `PLAN_00436FF9` — fields: obtain_ledger, obtain_routes
+- Plan: Baton  `PLAN_00436FEF` — fields: weapon_group_solo
 - Plan: Gamma Gun  `PLAN_00437009` — fields: obtain_routes
 - Plan: Plasma Gun  `PLAN_0043700A` — fields: obtain_routes
 - Plan: Combat Rifle  `PLAN_0043700D` — fields: obtain_routes
+- Plan: Broadsider  `PLAN_0043700F` — fields: weapon_group_solo
 - Plan: Railway Rifle  `PLAN_00437013` — fields: obtain_routes
 - Plan: Tesla Rifle  `PLAN_00437015` — fields: obtain_routes
 - Plan: Marine Tactical Helmet  `PLAN_0043701A` — fields: obtain_routes
@@ -1527,8 +1529,6 @@ _Couldn't key this file to records; contents differ._
 - Plan: Heavy Metal Torso  `PLAN_00438605` — fields: obtain_routes
 - Plan: Sturdy Metal Arms  `PLAN_0043860C` — fields: obtain_routes
 - Plan: Sturdy Metal Legs  `PLAN_0043860D` — fields: obtain_routes
-- Plan: Sturdy Metal Torso  `PLAN_0043860E` — fields: obtain_routes
-- Plan: The Fixer  `PLAN_0046D299` — fields: obtain_routes
 - …and 316 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
@@ -1695,64 +1695,66 @@ _Couldn't key this file to records; contents differ._
 ## `unique_weapons/unique_weapons.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `unique_weapons_armour/unique_weapons_armour.json`  ·  +6 / -4 / ~55
+## `unique_weapons_armour/unique_weapons_armour.json`  ·  +6 / -6 / ~71
 
 **Added (6)**
+- Splinter  `10mmsmg-4`
 - Zeta's Revenge  `alienblaster-2`
-- V63 Shock Baton  `baton-3`
-- Anchorage Ace Arctic Paint  `cr10mmsmg`
 - V63-BERTHA  `dlc01lightninggun-3`
 - Xerxos  `gammagun`
-- Slasher Shovel  `zzz-sdow-mod-custom-slashershovel-customname`
+- Valkyrie  `gatlinglaser`
+- Vault 63 Laser Rifle  `lasergun-2`
 
-**Removed (4)**
+**Removed (6)**
 - Anchorage Ace  `10mmsmg-5`
 - Splinter  `10mmsmg-6`
+- Vault 63 Gatling Laser  `gatlinglaser-3`
 - Brotherhood Recon Rifle  `huntingrifle-3`
+- Vault 63 Laser Rifle  `lasergun-3`
 - Storm Cutter  `stormcutter-2`
 
-**Changed (55)**
-- Old Guard  `10mmsmg` — fields: howToObtain, name, sourceType, starEffects
-- Perfect Storm  `10mmsmg-2` — fields: howToObtain, inCurrentExport, name, questName, sourceRef, sourceType, starEffects
-- Anchorage Ace  `10mmsmg-3` — fields: craftable, howToObtain, name, planName, questName, sourceRef, sourceType, starEffects, tradeable
-- Splinter  `10mmsmg-4` — fields: cosmeticNote, cosmeticOnly, howToObtain, inherentEffect, name, questName, sourceRef, sourceType, starEffects
-- Medical Malpractice  `44` — fields: inCurrentExport
-- The Fact Finder  `44-3` — fields: inherentEffect
-- Final Word  `50calmachinegun` — fields: inCurrentExport, inherentEffect
-- The Action Hero  `50calmachinegun-2` — fields: inCurrentExport, inherentEffect
-- The VATS Unknown  `alienblaster` — fields: inCurrentExport, inherentEffect
+**Changed (71)**
+- Circuit Breaker  `10mm-circuitbreaker` — fields: uniqueMods
+- Old Guard  `10mmsmg` — fields: howToObtain, inherentEffect, name, sourceType, starEffects, uniqueMods
+- Perfect Storm  `10mmsmg-2` — fields: howToObtain, inCurrentExport, name, questName, sourceRef, sourceType, starEffects, uniqueMods
+- Anchorage Ace  `10mmsmg-3` — fields: craftable, howToObtain, name, planName, questName, sourceRef, sourceType, starEffects, tradeable, uniqueMods
+- Medical Malpractice  `44` — fields: inCurrentExport, uniqueMods
+- Somerset Special  `44-2` — fields: uniqueMods
+- The Fact Finder  `44-3` — fields: inherentEffect, uniqueMods
+- Final Word  `50calmachinegun` — fields: inCurrentExport, inherentEffect, uniqueMods
+- The Action Hero  `50calmachinegun-2` — fields: inCurrentExport, inherentEffect, uniqueMods
+- The VATS Unknown  `alienblaster` — fields: inCurrentExport, inherentEffect, uniqueMods
 - Last Stand  `armor-bosinfantry-torso` — fields: howToObtain, sourceRef
-- Slasher Axe  `autoaxe` — fields: inCurrentExport, name, starEffects
-- Resolve Breaker  `autogrenadelauncher-2` — fields: inherentEffect, starEffects
-- Disorderly Conduct  `baton` — fields: howToObtain, inherentEffect, questName, sourceRef, sourceType
-- V63 Shock Baton Paint  `baton-2` — fields: cosmeticNote, cosmeticOnly, craftable, name, planName, starEffects, tradeable
-- Ogua Gauntlet  `beararm` — fields: inherentEffect, starEffects
-- Pirate Punch  `blackpowder-pistol-blunderbuss` — fields: inherentEffect
-- Grand Finale  `broadsider` — fields: inherentEffect
-- Meteorite Sword  `chineseofficersword` — fields: inCurrentExport
+- Slasher Axe  `autoaxe` — fields: inCurrentExport, name, starEffects, uniqueMods
+- Resolve Breaker  `autogrenadelauncher-2` — fields: inherentEffect, starEffects, uniqueMods
+- Disorderly Conduct  `baton` — fields: howToObtain, inherentEffect, questName, sourceRef, sourceType, uniqueMods
+- V63 Shock Baton  `baton-2` — fields: starEffects, uniqueMods
+- Ogua Gauntlet  `beararm` — fields: inherentEffect, starEffects, uniqueMods
+- Pirate Punch  `blackpowder-pistol-blunderbuss` — fields: inherentEffect, uniqueMods
+- Grand Finale  `broadsider` — fields: inherentEffect, uniqueMods
+- Cauterizer  `chainsaw-76` — fields: inherentEffect, uniqueMods
+- Meteorite Sword  `chineseofficersword` — fields: inCurrentExport, uniqueMods
+- The Fixer  `combatrifle-fixer` — fields: uniqueMods
+- Piercing Love  `compoundbow-2` — fields: uniqueMods
 - Minty Breather  `cryolator` — fields: craftable, howToObtain, planName, sourceType, starEffects, stats, tradeable
-- Nailer  `cultistblade` — fields: inCurrentExport
-- Unstoppable Monster  `deathclawgauntlet` — fields: inCurrentExport
-- Tone Death  `deathtambo` — fields: inherentEffect
-- Crimson Sky  `dlc01lightninggun` — fields: howToObtain, inCurrentExport, name, starEffects
-- Night Light  `dlc01lightninggun-2` — fields: craftable, howToObtain, name, planName, sourceRef, sourceType, starEffects, tradeable
-- Kingfisher  `dlc03-harpoongun-2` — fields: inCurrentExport, inherentEffect
-- Camden Whacker  `dlc04-commiewhacker` — fields: inCurrentExport, planName
-- Cold Shoulder  `doublebarrelshotgun` — fields: inherentEffect
-- Salt Of The Earth  `doublebarrelshotgun-2` — fields: inCurrentExport, inherentEffect
-- The Guarantee  `fatman-3` — fields: inCurrentExport
-- Pyrolyzer  `flamer-3` — fields: inherentEffect
-- Resolute Veteran  `gatlinggun` — fields: inCurrentExport
-- Valkyrie  `gatlinglaser-2` — fields: inherentEffect
-- Vault 63 Gatling Laser  `gatlinglaser-3` — fields: starEffects
-- Strike Breaker  `gaussrifle` — fields: inherentEffect
-- Cryptid Jawbone Knife  `knife-2` — fields: starEffects
-- Acceptable Overkill  `lasergun` — fields: inCurrentExport
-- Vault 63 Laser Rifle  `lasergun-3` — fields: starEffects
-- Crushing Blow  `m79` — fields: inCurrentExport
-- Foundations Vengeance  `minigun` — fields: inherentEffect, starEffects
-- Abraxo Gun  `plasmagun` — fields: inherentEffect, starEffects
-- …and 15 more
+- Nailer  `cultistblade` — fields: inCurrentExport, uniqueMods
+- Unstoppable Monster  `deathclawgauntlet` — fields: inCurrentExport, uniqueMods
+- Tone Death  `deathtambo` — fields: inherentEffect, uniqueMods
+- Crimson Sky  `dlc01lightninggun` — fields: howToObtain, inCurrentExport, inherentEffect, name, starEffects, uniqueMods
+- Night Light  `dlc01lightninggun-2` — fields: craftable, howToObtain, inherentEffect, name, planName, sourceRef, sourceType, starEffects, tradeable, uniqueMods
+- Kingfisher  `dlc03-harpoongun-2` — fields: inCurrentExport, inherentEffect, uniqueMods
+- Camden Whacker  `dlc04-commiewhacker` — fields: inCurrentExport, planName, uniqueMods
+- Cold Shoulder  `doublebarrelshotgun` — fields: inherentEffect, uniqueMods
+- Salt Of The Earth  `doublebarrelshotgun-2` — fields: inCurrentExport, inherentEffect, uniqueMods
+- The Guarantee  `fatman-3` — fields: inCurrentExport, uniqueMods
+- Boiling Point  `flamer` — fields: inherentEffect, uniqueMods
+- Holy Fire  `flamer-2` — fields: uniqueMods
+- Pyrolyzer  `flamer-3` — fields: inherentEffect, uniqueMods
+- Resolute Veteran  `gatlinggun` — fields: inCurrentExport, uniqueMods
+- Vault 63 Gatling Laser  `gatlinglaser-2` — fields: craftable, howToObtain, inherentEffect, name, planName, questName, sourceRef, sourceType, starEffects, tradeable, uniqueMods
+- Drill Fist  `gauntlet` — fields: inherentEffect, uniqueMods
+- Strike Breaker  `gaussrifle` — fields: inherentEffect, uniqueMods
+- …and 31 more
 
 ## `vendors.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
