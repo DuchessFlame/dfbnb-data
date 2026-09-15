@@ -1,13 +1,13 @@
 {
-  "version": 1,
-  "generated": "2026-09-15T09:03:38.216696+00:00",
+  "version": 2,
+  "generated": "2026-09-15T10:33:45.595155+00:00",
   "mode": "vs-live",
+  "season": null,
   "baseline": {
     "newest": "BOOK_Export_PTS_2026-08-22_0946.tsv",
     "previous": "BOOK_Export_July_2026.tsv",
     "newest_plan_count": 2935,
-    "previous_plan_count": 2866,
-    "skipped_duplicates": []
+    "previous_plan_count": 2866
   },
   "count": 69,
   "skipped_not_in_master": [],
@@ -15,7 +15,7 @@
     {
       "key": "apparel",
       "label": "Apparel",
-      "count": 2,
+      "count": 6,
       "items": [
         {
           "kind": "plan",
@@ -60,39 +60,6 @@
         {
           "kind": "plan",
           "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_008FF2B4",
-          "name": "Plan: Pristine Pint-Sized Phantom Outfit",
-          "has_image_box": false,
-          "image_dir": "recipe",
-          "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-          "category_label": "CAMP / Recipe (mod/recipe)",
-          "obtain_routes": [],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008FF2B4",
-            "edid": "zzz_SDOW_Recipe_Outfit_SlasherVictimClean"
-          },
-          "cobj": null,
-          "cnam": null,
-          "tradeable": true,
-          "stops_dropping": null,
-          "effects": null,
-          "cut": true,
-          "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-          "group": "apparel",
-          "is_new": true
-        }
-      ]
-    },
-    {
-      "key": "armour",
-      "label": "Armour",
-      "count": 9,
-      "items": [
-        {
-          "kind": "plan",
-          "brand": "df",
           "type": "armour",
           "id": "PLAN_008E0698",
           "name": "Plan: Pint-Sized Slasher Hat - Blue",
@@ -127,7 +94,7 @@
           "effects": null,
           "cut": false,
           "cut_reason": null,
-          "group": "armour",
+          "group": "apparel",
           "is_new": true
         },
         {
@@ -167,7 +134,7 @@
           "effects": null,
           "cut": false,
           "cut_reason": null,
-          "group": "armour",
+          "group": "apparel",
           "is_new": true
         },
         {
@@ -207,7 +174,7 @@
           "effects": null,
           "cut": false,
           "cut_reason": null,
-          "group": "armour",
+          "group": "apparel",
           "is_new": true
         },
         {
@@ -247,210 +214,33 @@
           "effects": null,
           "cut": false,
           "cut_reason": null,
-          "group": "armour",
+          "group": "apparel",
           "is_new": true
         },
         {
           "kind": "plan",
           "brand": "df",
-          "type": "armour",
-          "id": "PLAN_008DE089",
-          "name": "Plan: Pint-Sized Slasher Power Armor Arms Paint",
+          "type": "recipe",
+          "id": "PLAN_008FF2B4",
+          "name": "Plan: Pristine Pint-Sized Phantom Outfit",
           "has_image_box": false,
-          "image_dir": "armour",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Armour Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "The Reborn Pint-Sized Slasher",
-              "source_type": "creature",
-              "rate": 0.04,
-              "rate_display": "4%"
-            }
-          ],
+          "image_dir": "recipe",
+          "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
+          "category_label": "CAMP / Recipe (mod/recipe)",
+          "obtain_routes": [],
           "obtain_unlocks": [],
           "plan_item": {
-            "formid": "008DE089",
-            "edid": "SDOW_recipe_Armor_PowerArmor_Slasher_Arms"
+            "formid": "008FF2B4",
+            "edid": "zzz_SDOW_Recipe_Outfit_SlasherVictimClean"
           },
-          "cobj": {
-            "formid": "008F6AD4",
-            "edid": "SDOW_co_mod_PowerArmor_ALL_Material_Paint_SlasherPA_ArmLeft"
-          },
-          "cnam": {
-            "formid": "008F6ADA",
-            "edid": "SDOW_mod_PowerArmor_ALL_Material_Paint_SlasherPA_ArmLeft",
-            "sig": "OMOD"
-          },
+          "cobj": null,
+          "cnam": null,
           "tradeable": true,
-          "stops_dropping": false,
+          "stops_dropping": null,
           "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "armour",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "armour",
-          "id": "PLAN_008DE080",
-          "name": "Plan: Pint-Sized Slasher Power Armor Helmet Paint",
-          "has_image_box": false,
-          "image_dir": "armour",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Armour Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "The Slasher: Blood Will Have Blood",
-              "source_type": "event-quest",
-              "rate": 1.0,
-              "rate_display": "100%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008DE080",
-            "edid": "SDOW_recipe_Armor_PowerArmor_Slasher_Helmet"
-          },
-          "cobj": {
-            "formid": "008F6AD6",
-            "edid": "SDOW_co_mod_PowerArmor_ALL_Material_Paint_SlasherPA_Helmet"
-          },
-          "cnam": {
-            "formid": "008F6ADC",
-            "edid": "SDOW_mod_PowerArmor_ALL_Material_Paint_SlasherPA_Helmet",
-            "sig": "OMOD"
-          },
-          "tradeable": false,
-          "stops_dropping": false,
-          "effects": {
-            "summary": "Power Armor: Pint-Sized Slasher Voice Module",
-            "rows": []
-          },
-          "cut": false,
-          "cut_reason": null,
-          "group": "armour",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "armour",
-          "id": "PLAN_008DE088",
-          "name": "Plan: Pint-Sized Slasher Power Armor Jetpack Paint",
-          "has_image_box": false,
-          "image_dir": "armour",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Armour Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "The Reborn Pint-Sized Slasher",
-              "source_type": "creature",
-              "rate": 0.04,
-              "rate_display": "4%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008DE088",
-            "edid": "SDOW_recipe_Armor_PowerArmor_Slasher_Jetpack"
-          },
-          "cobj": {
-            "formid": "008E0731",
-            "edid": "SDOW_co_mod_PowerArmor_X01_Torso_Misc_Jetpack_SlasherPAJetpack"
-          },
-          "cnam": {
-            "formid": "008E0762",
-            "edid": "SDOW_mod_PowerArmor_X01_Torso_Misc_JetPack_SlasherPAJetpack",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "armour",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "armour",
-          "id": "PLAN_008DE087",
-          "name": "Plan: Pint-Sized Slasher Power Armor Legs Paint",
-          "has_image_box": false,
-          "image_dir": "armour",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Armour Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "The Reborn Pint-Sized Slasher",
-              "source_type": "creature",
-              "rate": 0.04,
-              "rate_display": "4%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008DE087",
-            "edid": "SDOW_recipe_Armor_PowerArmor_Slasher_Legs"
-          },
-          "cobj": {
-            "formid": "008F6AD7",
-            "edid": "SDOW_co_mod_PowerArmor_ALL_Material_Paint_SlasherPA_LegLeft"
-          },
-          "cnam": {
-            "formid": "008F6ADD",
-            "edid": "SDOW_mod_PowerArmor_ALL_Material_Paint_SlasherPA_LegLeft",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "armour",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "armour",
-          "id": "PLAN_008DE08B",
-          "name": "Plan: Pint-Sized Slasher Power Armor Torso Paint",
-          "has_image_box": false,
-          "image_dir": "armour",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Armour Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "The Reborn Pint-Sized Slasher",
-              "source_type": "creature",
-              "rate": 0.04,
-              "rate_display": "4%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008DE08B",
-            "edid": "SDOW_recipe_Armor_PowerArmor_Slasher_Torso"
-          },
-          "cobj": {
-            "formid": "008F6AD9",
-            "edid": "SDOW_co_mod_PowerArmor_ALL_Material_Paint_SlasherPA_Torso"
-          },
-          "cnam": {
-            "formid": "008F6ADF",
-            "edid": "SDOW_mod_PowerArmor_ALL_Material_Paint_SlasherPA_Torso",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "armour",
+          "cut": true,
+          "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
+          "group": "apparel",
           "is_new": true
         }
       ]
@@ -472,7 +262,7 @@
           "category_label": "CAMP / Recipe (physical plan)",
           "obtain_routes": [
             {
-              "route": "Spooky Scorched",
+              "route": "Scorched Spooky",
               "source_type": "creature",
               "rate": 0.133333,
               "rate_display": "13.33%"
@@ -508,7 +298,7 @@
           "category_label": "CAMP / Recipe (physical plan)",
           "obtain_routes": [
             {
-              "route": "Spooky Scorched",
+              "route": "Scorched Spooky",
               "source_type": "creature",
               "rate": 0.133333,
               "rate_display": "13.33%"
@@ -869,9 +659,42 @@
       ]
     },
     {
+      "key": "fishing",
+      "label": "Fishing",
+      "count": 1,
+      "items": [
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_008E068D",
+          "name": "Plan: Pint-Sized Slasher Bobber",
+          "has_image_box": false,
+          "image_dir": "recipe",
+          "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
+          "category_label": "CAMP / Recipe (mod/recipe)",
+          "obtain_routes": [],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008E068D",
+            "edid": "zzz_SDOW_Fishing_Recipe_mod_FishingRod_RodBobber_SlasherBobber"
+          },
+          "cobj": null,
+          "cnam": null,
+          "tradeable": true,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": true,
+          "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
+          "group": "fishing",
+          "is_new": true
+        }
+      ]
+    },
+    {
       "key": "recipe",
       "label": "Recipes",
-      "count": 4,
+      "count": 2,
       "items": [
         {
           "kind": "plan",
@@ -944,85 +767,13 @@
           "cut_reason": null,
           "group": "recipe",
           "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_008F2A42",
-          "name": "Plan: Molerat Bat Paint",
-          "has_image_box": false,
-          "image_dir": "recipe",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "CAMP / Recipe Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Event: Seismic Activity",
-              "source_type": "event-quest",
-              "rate": 0.1,
-              "rate_display": "10%"
-            },
-            {
-              "route": "Event: Seismic Activity",
-              "source_type": "event-quest",
-              "rate": 0.05,
-              "rate_display": "5%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008F2A42",
-            "edid": "Recipe_mod_BaseballBat_Paint_RatBat"
-          },
-          "cobj": {
-            "formid": "00685D4D",
-            "edid": "E09A_co_BaseballBat_ModelSwap_RatBat"
-          },
-          "cnam": {
-            "formid": "00685D59",
-            "edid": "E09A_mod_BaseballBat_ModelSwap_RatBat",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "recipe",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_008E068D",
-          "name": "Plan: Pint-Sized Slasher Bobber",
-          "has_image_box": false,
-          "image_dir": "recipe",
-          "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-          "category_label": "CAMP / Recipe (mod/recipe)",
-          "obtain_routes": [],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008E068D",
-            "edid": "zzz_SDOW_Fishing_Recipe_mod_FishingRod_RodBobber_SlasherBobber"
-          },
-          "cobj": null,
-          "cnam": null,
-          "tradeable": true,
-          "stops_dropping": null,
-          "effects": null,
-          "cut": true,
-          "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-          "group": "recipe",
-          "is_new": true
         }
       ]
     },
     {
-      "key": "weapon",
-      "label": "Weapons",
-      "count": 44,
+      "key": "skin",
+      "label": "Skins",
+      "count": 40,
       "items": [
         {
           "kind": "plan",
@@ -1061,7 +812,7 @@
           "effects": null,
           "cut": false,
           "cut_reason": null,
-          "group": "weapon",
+          "group": "skin",
           "is_new": true
         },
         {
@@ -1131,9 +882,1634 @@
           "effects": null,
           "cut": false,
           "cut_reason": null,
-          "group": "weapon",
+          "group": "skin",
           "is_new": true
         },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_0091C669",
+          "name": "Plan: Compound Bow Burning Love Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Event: Tunnel Of Love",
+              "source_type": "event-quest",
+              "rate": 0.2,
+              "rate_display": "20%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "0091C669",
+            "edid": "W05_Recipe_Weapon_Ranged_CompoundBow_BurningLovePaint"
+          },
+          "cobj": {
+            "formid": "00685D4C",
+            "edid": "E09C_co_CompoundBow_ModelSwap_BurningLove"
+          },
+          "cnam": {
+            "formid": "00685D58",
+            "edid": "E09C_mod_CompoundBow_ModelSwap_BurningLove",
+            "sig": "OMOD"
+          },
+          "tradeable": false,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_008F20F1",
+          "name": "Plan: Crowd Control Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Event: Eviction Notice",
+              "source_type": "event-quest",
+              "rate": 0.2,
+              "rate_display": "20%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008F20F1",
+            "edid": "Recipe_mod_CombatShotgun_Paint_CrowdControl"
+          },
+          "cobj": {
+            "formid": "0065B8F2",
+            "edid": "E08B_co_mod_CombatShotgun_Weapon_Paint_CrowdControl"
+          },
+          "cnam": {
+            "formid": "0065B8F4",
+            "edid": "E08B_CombatShotgun_Weapon_Paint_CrowdControl",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": true,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_008F520E",
+          "name": "Plan: Face Breaker Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Daily Ops - High Chase Rare",
+              "source_type": "event-quest",
+              "rate": 0.02439,
+              "rate_display": "2.44%"
+            },
+            {
+              "route": "Daily Ops - Chase",
+              "source_type": "event-quest",
+              "rate": 0.010976,
+              "rate_display": "1.1%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008F520E",
+            "edid": "Recipe_mod_PowerFist_Weapon_Paint_FaceBreaker"
+          },
+          "cobj": {
+            "formid": "008F5213",
+            "edid": "co_mod_PowerFist_Weapon_Paint_FaceBreaker"
+          },
+          "cnam": {
+            "formid": "008F1033",
+            "edid": "mod_PowerFist_Weapon_Paint_FaceBreaker",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_008F3624",
+          "name": "Plan: Fancy Pump Action Shotgun Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Daily Ops - High Chase Rare",
+              "source_type": "event-quest",
+              "rate": 0.02439,
+              "rate_display": "2.44%"
+            },
+            {
+              "route": "Daily Ops - Chase",
+              "source_type": "event-quest",
+              "rate": 0.010976,
+              "rate_display": "1.1%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008F3624",
+            "edid": "Recipe_PumpActionShotgun_Weapon_Paint_Fancy"
+          },
+          "cobj": {
+            "formid": "008F3627",
+            "edid": "co_MTNL01_mod_PumpActionShotgun_Paint_Fancy"
+          },
+          "cnam": {
+            "formid": "005A38D9",
+            "edid": "MTNL01_mod_PumpActionShotgun_Weapon_Paint_Fancy",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_008F3625",
+          "name": "Plan: Fancy Single Action Revlover Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Daily Ops - High Chase Rare",
+              "source_type": "event-quest",
+              "rate": 0.02439,
+              "rate_display": "2.44%"
+            },
+            {
+              "route": "Daily Ops - Chase",
+              "source_type": "event-quest",
+              "rate": 0.010976,
+              "rate_display": "1.1%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008F3625",
+            "edid": "Recipe_SingleActionRevlover_Weapon_Paint_Fancy"
+          },
+          "cobj": {
+            "formid": "008F3626",
+            "edid": "co_MTNL01_mod_SingleActionRevlover_Paint_Fancy"
+          },
+          "cnam": {
+            "formid": "007860C3",
+            "edid": "MTNL01_mod_SingleActionRevlover_Weapon_Paint_Fancy",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_008F20F2",
+          "name": "Plan: Foundation's Vengeance Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Event: Eviction Notice",
+              "source_type": "event-quest",
+              "rate": 0.2,
+              "rate_display": "20%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008F20F2",
+            "edid": "Recipe_mod_Minigun_Paint_FoundationsVengeance"
+          },
+          "cobj": {
+            "formid": "00662754",
+            "edid": "E08B_co_Weapon_Minigun_Paint_FoundationsVengeance"
+          },
+          "cnam": {
+            "formid": "0066275B",
+            "edid": "E08B_Minigun_Weapon_Paint_FoundationsVengeance",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": true,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_00918E2E",
+          "name": "Plan: Gatling Laser V63-HELGA Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Event: Neurological Warfare - Unique Item",
+              "source_type": "event-quest",
+              "rate": 0.037037,
+              "rate_display": "3.7%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "00918E2E",
+            "edid": "STORM_Recipe_mod_GatlingLaser_Weapon_Paint_V63-HELGA"
+          },
+          "cobj": {
+            "formid": "007CEA90",
+            "edid": "Storm_co_mod_GatlingLaser_V63-HELGA_Paint"
+          },
+          "cnam": {
+            "formid": "0072DF08",
+            "edid": "mod_custom_V63GatlingLaser",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_00919FDD",
+          "name": "Plan: Gatling Laser Valkyrie Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Raids",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            },
+            {
+              "route": "Raids - Weapons Valkyrie",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "00919FDD",
+            "edid": "RD01_Recipe_Weapon_Ranged_ValkyriePaint"
+          },
+          "cobj": {
+            "formid": "007AD48E",
+            "edid": "RD01_co_Mod_GatlingLaser_Weapon_Paint_Valkyrie"
+          },
+          "cnam": {
+            "formid": "00793500",
+            "edid": "RD01_Mod_Custom_Valkyrie_Appearance",
+            "sig": "OMOD"
+          },
+          "tradeable": false,
+          "stops_dropping": true,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_0091A082",
+          "name": "Plan: Gauss Rifle Flatliner Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Raids",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            },
+            {
+              "route": "Raids - Weapons Strike Breaker",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "0091A082",
+            "edid": "RD01_Recipe_Weapon_Ranged_StrikeBreakerPaint"
+          },
+          "cobj": {
+            "formid": "007AD494",
+            "edid": "RD01_co_Mod_GaussRifle_Weapon_Paint_StrikeBreaker"
+          },
+          "cnam": {
+            "formid": "00793511",
+            "edid": "RD01_Mod_Custom_StrikeBreaker_Appearance",
+            "sig": "OMOD"
+          },
+          "tradeable": false,
+          "stops_dropping": true,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_0090ECFD",
+          "name": "Plan: Gold Shovel Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "The Slasher - Repeatable Side Quests",
+              "source_type": "event-quest",
+              "rate": 0.02,
+              "rate_display": "2%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "0090ECFD",
+            "edid": "SDOW_Recipe_mod_Shovel_Paint_Gold"
+          },
+          "cobj": {
+            "formid": "0090ECFE",
+            "edid": "SDOW_co_mod_melee_Shovel_Paint_Gold"
+          },
+          "cnam": {
+            "formid": "009097C4",
+            "edid": "SDOW_Mod_Shovel_Weapon_Paint_Gold",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_008F2A43",
+          "name": "Plan: Grand Finale Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Event: Seismic Activity",
+              "source_type": "event-quest",
+              "rate": 0.1,
+              "rate_display": "10%"
+            },
+            {
+              "route": "Event: Seismic Activity",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008F2A43",
+            "edid": "Recipe_mod_Broadsider_Paint_GrandFinale"
+          },
+          "cobj": {
+            "formid": "00685D49",
+            "edid": "E09A_co_mod_Broadsider_Weapon_Paint_GrandFinale"
+          },
+          "cnam": {
+            "formid": "006696F9",
+            "edid": "E09A_Broadsider_Weapon_Paint_GrandFinale",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_008F2A45",
+          "name": "Plan: Gunther's Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Event: Most Wanted",
+              "source_type": "event-quest",
+              "rate": 0.055556,
+              "rate_display": "5.56%"
+            },
+            {
+              "route": "Event: Most Wanted - GWWS",
+              "source_type": "event-quest",
+              "rate": 0.027778,
+              "rate_display": "2.78%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008F2A45",
+            "edid": "Recipe_mod_SingleActionRevolver_Paint_GunthersRevolver"
+          },
+          "cobj": {
+            "formid": "00669578",
+            "edid": "co_mod_SingleActionRevolver_Paint_GunthersRevolver"
+          },
+          "cnam": {
+            "formid": "00663504",
+            "edid": "E09D_mod_SingleActionRevolver_Paint_GunthersRevolver",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_00919FCD",
+          "name": "Plan: Laser Gun V63-BERTHA",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Event: Neurological Warfare - Unique Item",
+              "source_type": "event-quest",
+              "rate": 0.037037,
+              "rate_display": "3.7%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "00919FCD",
+            "edid": "STORM_Recipe_mod_DLC1Lightninggun_Weapon_Paint_V63-BERTHA"
+          },
+          "cobj": {
+            "formid": "0078B88D",
+            "edid": "Storm_co_mod_DLC1Lightninggun_Weapon_Paint_BERTHA"
+          },
+          "cnam": {
+            "formid": "0072AEC7",
+            "edid": "mod_custom_V63-BERTHA",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_00918E2F",
+          "name": "Plan: Laser Gun V63-OLGA Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Event: Neurological Warfare - Unique Item",
+              "source_type": "event-quest",
+              "rate": 0.037037,
+              "rate_display": "3.7%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "00918E2F",
+            "edid": "STORM_Recipe_mod_LaserGun_Weapon_Paint_V63-OLGA"
+          },
+          "cobj": {
+            "formid": "007CEA91",
+            "edid": "Storm_co_mod_LaserGun_V63-OLGA_Paint"
+          },
+          "cnam": {
+            "formid": "0072DF06",
+            "edid": "mod_custom_V63LaserRifle",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_008F20F0",
+          "name": "Plan: Love Tap Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Event: Tunnel Of Love",
+              "source_type": "event-quest",
+              "rate": 0.016667,
+              "rate_display": "1.67%"
+            },
+            {
+              "route": "Event: Tunnel Of Love",
+              "source_type": "event-quest",
+              "rate": 0.008333,
+              "rate_display": "0.83%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008F20F0",
+            "edid": "Recipe_mod_SubmachineGun_Paint_LoveTap"
+          },
+          "cobj": {
+            "formid": "00685D4A",
+            "edid": "E09C_co_SubmachineGun_Paint_LoveTap"
+          },
+          "cnam": {
+            "formid": "00685D56",
+            "edid": "E09C_mod_SubmachineGun_Paint_LoveTap",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": true,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_008F520C",
+          "name": "Plan: Mechanic's Best Friend Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Daily Ops - High Chase Rare",
+              "source_type": "event-quest",
+              "rate": 0.02439,
+              "rate_display": "2.44%"
+            },
+            {
+              "route": "Daily Ops - Chase",
+              "source_type": "event-quest",
+              "rate": 0.010976,
+              "rate_display": "1.1%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008F520C",
+            "edid": "Recipe_mod_PipeWrench_Weapon_Paint_MechanicsBestFriend"
+          },
+          "cobj": {
+            "formid": "008F5211",
+            "edid": "co_mod_PipeWrench_Weapon_Paint_MechanicsBestFriend"
+          },
+          "cnam": {
+            "formid": "008F0F68",
+            "edid": "mod_PipeWrench_Weapon_Paint_MechanicsBestFriend",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_008F520A",
+          "name": "Plan: Medical Malpractice Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Daily Ops - High Chase Rare",
+              "source_type": "event-quest",
+              "rate": 0.02439,
+              "rate_display": "2.44%"
+            },
+            {
+              "route": "Daily Ops - Chase",
+              "source_type": "event-quest",
+              "rate": 0.010976,
+              "rate_display": "1.1%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008F520A",
+            "edid": "Recipe_mod_44_Weapon_Paint_MedicalMalpractice"
+          },
+          "cobj": {
+            "formid": "008F520F",
+            "edid": "co_mod_44_Weapon_Paint_MedicalMalpractice"
+          },
+          "cnam": {
+            "formid": "008DC2D8",
+            "edid": "mod_44_Weapon_Paint_MedicalMalpractice",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_0092A09C",
+          "name": "Plan: MG42 Green Terror Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Skyline Valley - Dangerous Pastimes",
+              "source_type": "event-quest",
+              "rate": 0.1,
+              "rate_display": "10%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "0092A09C",
+            "edid": "Recipe_Weapon_Ranged_MG42_Paint_RedTerror_Green"
+          },
+          "cobj": {
+            "formid": "007478CF",
+            "edid": "Storm_co_mod_MG42_Weapon_Paint_Communist_Green"
+          },
+          "cnam": {
+            "formid": "007478D2",
+            "edid": "Storm_mod_MG42_Weapon_Paint_RedTerror_Green",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_0092A09B",
+          "name": "Plan: MG42 Red Terror Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Skyline Valley - Dangerous Pastimes",
+              "source_type": "event-quest",
+              "rate": 0.1,
+              "rate_display": "10%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "0092A09B",
+            "edid": "Recipe_Weapon_Ranged_MG42_Paint_RedTerror"
+          },
+          "cobj": {
+            "formid": "007478CE",
+            "edid": "Storm_co_mod_MG42_Weapon_Paint_Communist"
+          },
+          "cnam": {
+            "formid": "0072AEC9",
+            "edid": "mod_custom_RedTerror",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_008F2A42",
+          "name": "Plan: Molerat Bat Paint",
+          "has_image_box": false,
+          "image_dir": "recipe",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Event: Seismic Activity",
+              "source_type": "event-quest",
+              "rate": 0.1,
+              "rate_display": "10%"
+            },
+            {
+              "route": "Event: Seismic Activity",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008F2A42",
+            "edid": "Recipe_mod_BaseballBat_Paint_RatBat"
+          },
+          "cobj": {
+            "formid": "00685D4D",
+            "edid": "E09A_co_BaseballBat_ModelSwap_RatBat"
+          },
+          "cnam": {
+            "formid": "00685D59",
+            "edid": "E09A_mod_BaseballBat_ModelSwap_RatBat",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_008E069A",
+          "name": "Plan: Pint-Sized Auto Axe Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "The Reborn Pint-Sized Slasher",
+              "source_type": "creature",
+              "rate": 0.04,
+              "rate_display": "4%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008E069A",
+            "edid": "SDOW_Recipe_Weapon_Melee_Paint_SlasherAxe"
+          },
+          "cobj": {
+            "formid": "008E0741",
+            "edid": "SDOW_co_Mod_AutoAxe_Weapon_Paint_SlasherAxe"
+          },
+          "cnam": {
+            "formid": "008E075F",
+            "edid": "SDOW_Mod_Custom_SlasherAxe_Appearance",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "armour",
+          "id": "PLAN_008DE089",
+          "name": "Plan: Pint-Sized Slasher Power Armor Arms Paint",
+          "has_image_box": false,
+          "image_dir": "armour",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Armour Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "The Reborn Pint-Sized Slasher",
+              "source_type": "creature",
+              "rate": 0.04,
+              "rate_display": "4%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008DE089",
+            "edid": "SDOW_recipe_Armor_PowerArmor_Slasher_Arms"
+          },
+          "cobj": {
+            "formid": "008F6AD4",
+            "edid": "SDOW_co_mod_PowerArmor_ALL_Material_Paint_SlasherPA_ArmLeft"
+          },
+          "cnam": {
+            "formid": "008F6ADA",
+            "edid": "SDOW_mod_PowerArmor_ALL_Material_Paint_SlasherPA_ArmLeft",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "armour",
+          "id": "PLAN_008DE080",
+          "name": "Plan: Pint-Sized Slasher Power Armor Helmet Paint",
+          "has_image_box": false,
+          "image_dir": "armour",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Armour Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "The Slasher: Blood Will Have Blood",
+              "source_type": "event-quest",
+              "rate": 1.0,
+              "rate_display": "100%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008DE080",
+            "edid": "SDOW_recipe_Armor_PowerArmor_Slasher_Helmet"
+          },
+          "cobj": {
+            "formid": "008F6AD6",
+            "edid": "SDOW_co_mod_PowerArmor_ALL_Material_Paint_SlasherPA_Helmet"
+          },
+          "cnam": {
+            "formid": "008F6ADC",
+            "edid": "SDOW_mod_PowerArmor_ALL_Material_Paint_SlasherPA_Helmet",
+            "sig": "OMOD"
+          },
+          "tradeable": false,
+          "stops_dropping": false,
+          "effects": {
+            "summary": "Power Armor: Pint-Sized Slasher Voice Module",
+            "rows": []
+          },
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "armour",
+          "id": "PLAN_008DE088",
+          "name": "Plan: Pint-Sized Slasher Power Armor Jetpack Paint",
+          "has_image_box": false,
+          "image_dir": "armour",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Armour Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "The Reborn Pint-Sized Slasher",
+              "source_type": "creature",
+              "rate": 0.04,
+              "rate_display": "4%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008DE088",
+            "edid": "SDOW_recipe_Armor_PowerArmor_Slasher_Jetpack"
+          },
+          "cobj": {
+            "formid": "008E0731",
+            "edid": "SDOW_co_mod_PowerArmor_X01_Torso_Misc_Jetpack_SlasherPAJetpack"
+          },
+          "cnam": {
+            "formid": "008E0762",
+            "edid": "SDOW_mod_PowerArmor_X01_Torso_Misc_JetPack_SlasherPAJetpack",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "armour",
+          "id": "PLAN_008DE087",
+          "name": "Plan: Pint-Sized Slasher Power Armor Legs Paint",
+          "has_image_box": false,
+          "image_dir": "armour",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Armour Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "The Reborn Pint-Sized Slasher",
+              "source_type": "creature",
+              "rate": 0.04,
+              "rate_display": "4%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008DE087",
+            "edid": "SDOW_recipe_Armor_PowerArmor_Slasher_Legs"
+          },
+          "cobj": {
+            "formid": "008F6AD7",
+            "edid": "SDOW_co_mod_PowerArmor_ALL_Material_Paint_SlasherPA_LegLeft"
+          },
+          "cnam": {
+            "formid": "008F6ADD",
+            "edid": "SDOW_mod_PowerArmor_ALL_Material_Paint_SlasherPA_LegLeft",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "armour",
+          "id": "PLAN_008DE08B",
+          "name": "Plan: Pint-Sized Slasher Power Armor Torso Paint",
+          "has_image_box": false,
+          "image_dir": "armour",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Armour Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "The Reborn Pint-Sized Slasher",
+              "source_type": "creature",
+              "rate": 0.04,
+              "rate_display": "4%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008DE08B",
+            "edid": "SDOW_recipe_Armor_PowerArmor_Slasher_Torso"
+          },
+          "cobj": {
+            "formid": "008F6AD9",
+            "edid": "SDOW_co_mod_PowerArmor_ALL_Material_Paint_SlasherPA_Torso"
+          },
+          "cnam": {
+            "formid": "008F6ADF",
+            "edid": "SDOW_mod_PowerArmor_ALL_Material_Paint_SlasherPA_Torso",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_0091A080",
+          "name": "Plan: Railway Rifle Lickety-Split Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Raids",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            },
+            {
+              "route": "Raids - Weapons Lickety Split",
+              "source_type": "event-quest",
+              "rate": 0.05,
+              "rate_display": "5%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "0091A080",
+            "edid": "RD01_Recipe_Weapon_Ranged_LicketySplitPaint"
+          },
+          "cobj": {
+            "formid": "007AD493",
+            "edid": "RD01_co_Mod_RailwayRifle_Weapon_Paint_LicketySplit"
+          },
+          "cnam": {
+            "formid": "00793806",
+            "edid": "RD01_Mod_Custom_LicketySplit_Appearance",
+            "sig": "OMOD"
+          },
+          "tradeable": false,
+          "stops_dropping": true,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_00921E5B",
+          "name": "Plan: Resolve Breaker Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. No source was resolved from the game files — see Technical for the recipe details.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "00921E5B",
+            "edid": "RD01_Recipe_Weapon_Ranged_ResolveBreakerPaint"
+          },
+          "cobj": {
+            "formid": "007AD490",
+            "edid": "RD01_co_Mod_AutoGrenadeLauncher_Weapon_Paint_ResolveBreaker"
+          },
+          "cnam": {
+            "formid": "007934FD",
+            "edid": "RD01_Mod_Custom_ResolveBreaker_Appearance",
+            "sig": "OMOD"
+          },
+          "tradeable": false,
+          "stops_dropping": true,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_0091C66A",
+          "name": "Plan: Shock Baton Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Event: Neurological Warfare - Unique Item",
+              "source_type": "event-quest",
+              "rate": 0.037037,
+              "rate_display": "3.7%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "0091C66A",
+            "edid": "STORM_Recipe_mod_Baton_Weapon_Paint_ShockBaton"
+          },
+          "cobj": {
+            "formid": "0079395A",
+            "edid": "Storm_co_mod_baton_Weapon_Paint_V63ShockBaton"
+          },
+          "cnam": {
+            "formid": "0072DF09",
+            "edid": "mod_custom_V63ShockBaton_Paint",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_008F520D",
+          "name": "Plan: Sole Survivor Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Daily Ops - High Chase Rare",
+              "source_type": "event-quest",
+              "rate": 0.02439,
+              "rate_display": "2.44%"
+            },
+            {
+              "route": "Daily Ops - Chase",
+              "source_type": "event-quest",
+              "rate": 0.010976,
+              "rate_display": "1.1%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008F520D",
+            "edid": "Recipe_mod_LeverGun_Weapon_Paint_SoleSurvivor"
+          },
+          "cobj": {
+            "formid": "008F5212",
+            "edid": "co_mod_LeverGun_Weapon_Paint_SoleSurvivor"
+          },
+          "cnam": {
+            "formid": "008F0FDD",
+            "edid": "mod_LeverGun_Weapon_Paint_SoleSurvivor",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_0091C667",
+          "name": "Plan: Spear Super Stimpike Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Event: Gearin' Up - Unique Items",
+              "source_type": "event-quest",
+              "rate": 0.125,
+              "rate_display": "12.5%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "0091C667",
+            "edid": "BURN_Recipe_Weapon_Melee_Paint_SuperStimpike"
+          },
+          "cobj": {
+            "formid": "0091C668",
+            "edid": "BURN_co_mod_Spear_Weapon_Paint_Stimpike"
+          },
+          "cnam": {
+            "formid": "008F20E4",
+            "edid": "mod_Melee_Spear_Paint_SuperStimpike",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_008F20F3",
+          "name": "Plan: The Debilitator Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Event: Eviction Notice",
+              "source_type": "event-quest",
+              "rate": 0.2,
+              "rate_display": "20%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008F20F3",
+            "edid": "Recipe_mod_SuperSledge_Paint_TheDebilitator"
+          },
+          "cobj": {
+            "formid": "00662755",
+            "edid": "E08B_co_Weapon_SuperSledge_Paint_TheDebilitator"
+          },
+          "cnam": {
+            "formid": "0064D008",
+            "edid": "E08B_SuperSledge_Weapon_Paint_TheDebilitator",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": true,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_0092A09D",
+          "name": "Plan: Ticket to Revenge Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Skyline Valley - Dangerous Pastimes",
+              "source_type": "event-quest",
+              "rate": 0.1,
+              "rate_display": "10%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "0092A09D",
+            "edid": "Recipe_Weapon_Ranged_RailwayRifle_Paint_TickettoRevenge"
+          },
+          "cobj": {
+            "formid": "007464E2",
+            "edid": "Storm_co_mod_RailwayRifle_Weapon_Paint_TickettoRevenge"
+          },
+          "cnam": {
+            "formid": "0072AECD",
+            "edid": "mod_custom_TickettoRevenge_Paint",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_008F20F4",
+          "name": "Plan: Tone Death Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Event: Eviction Notice",
+              "source_type": "event-quest",
+              "rate": 0.2,
+              "rate_display": "20%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008F20F4",
+            "edid": "Recipe_mod_DeathTambo_Paint_ToneDeath"
+          },
+          "cobj": {
+            "formid": "00662753",
+            "edid": "E08B_co_Weapon_DeathTambo_Paint_ToneDeath"
+          },
+          "cnam": {
+            "formid": "0066275C",
+            "edid": "E08B_DeathTambo_Weapon_Paint_ToneDeath",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": true,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_008F520B",
+          "name": "Plan: Unstoppable Monster Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Daily Ops - High Chase Rare",
+              "source_type": "event-quest",
+              "rate": 0.02439,
+              "rate_display": "2.44%"
+            },
+            {
+              "route": "Daily Ops - Chase",
+              "source_type": "event-quest",
+              "rate": 0.010976,
+              "rate_display": "1.1%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008F520B",
+            "edid": "Recipe_mod_DeathclawGauntlet_Weapon_Paint_UnstoppableMonster"
+          },
+          "cobj": {
+            "formid": "008F5210",
+            "edid": "co_mod_DeathclawGauntlet_Weapon_Paint_UnstoppableMonster"
+          },
+          "cnam": {
+            "formid": "008F0DD1",
+            "edid": "mod_DeathclawGauntlet_Weapon_Paint_UnstoppableMonster",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_008F2A44",
+          "name": "Plan: Western Spirit Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Event: Most Wanted",
+              "source_type": "event-quest",
+              "rate": 0.055556,
+              "rate_display": "5.56%"
+            },
+            {
+              "route": "Event: Most Wanted - GWWS",
+              "source_type": "event-quest",
+              "rate": 0.027778,
+              "rate_display": "2.78%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008F2A44",
+            "edid": "Recipe_mod_LeverGun_Paint_WesternSpirit"
+          },
+          "cobj": {
+            "formid": "00669577",
+            "edid": "E09D_co_mod_LeverGun_Ranged_Paint_WesternSpirit"
+          },
+          "cnam": {
+            "formid": "0066957D",
+            "edid": "E09D_mod_LeverGun_Weapon_Paint_WesternSpirit",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_008F2A46",
+          "name": "Plan: Whacker Smacker Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Event: Spin The Wheel",
+              "source_type": "event-quest",
+              "rate": 0.071429,
+              "rate_display": "7.14%"
+            },
+            {
+              "route": "Event: Spin The Wheel",
+              "source_type": "event-quest",
+              "rate": 0.035714,
+              "rate_display": "3.57%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008F2A46",
+            "edid": "Recipe_mod_SuperSledge_Paint_WhackerSmacker"
+          },
+          "cobj": {
+            "formid": "00685D4B",
+            "edid": "E09B_co_SuperSledge_Paint_WhackerSmacker"
+          },
+          "cnam": {
+            "formid": "00674C25",
+            "edid": "E09B_SuperSledge_Weapon_Paint_WhackerSmacker",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_008F5209",
+          "name": "Plan: Whistle in the Dark Paint",
+          "has_image_box": false,
+          "image_dir": "weapon",
+          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Daily Ops - High Chase Rare",
+              "source_type": "event-quest",
+              "rate": 0.02439,
+              "rate_display": "2.44%"
+            },
+            {
+              "route": "Daily Ops - Chase",
+              "source_type": "event-quest",
+              "rate": 0.010976,
+              "rate_display": "1.1%"
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008F5209",
+            "edid": "Recipe_Weapon_Ranged_AssaultRifle_WhistleInTheDark_Paint"
+          },
+          "cobj": {
+            "formid": "005DAE93",
+            "edid": "co_mod_AssaultRifle_Weapon_Paint_WhistleInTheDark"
+          },
+          "cnam": {
+            "formid": "005D2BA3",
+            "edid": "mod_AssaultRifle_Weapon_Paint_WhistleInTheDark",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "group": "skin",
+          "is_new": true
+        }
+      ]
+    },
+    {
+      "key": "weapon",
+      "label": "Weapons",
+      "count": 10,
+      "items": [
         {
           "kind": "plan",
           "brand": "df",
@@ -1189,86 +2565,6 @@
             "formid": "0011475B",
             "edid": "DLC04_CommieWhacker",
             "sig": "WEAP"
-          },
-          "tradeable": true,
-          "stops_dropping": true,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_0091C669",
-          "name": "Plan: Compound Bow Burning Love Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Event: Tunnel Of Love",
-              "source_type": "event-quest",
-              "rate": 0.2,
-              "rate_display": "20%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "0091C669",
-            "edid": "W05_Recipe_Weapon_Ranged_CompoundBow_BurningLovePaint"
-          },
-          "cobj": {
-            "formid": "00685D4C",
-            "edid": "E09C_co_CompoundBow_ModelSwap_BurningLove"
-          },
-          "cnam": {
-            "formid": "00685D58",
-            "edid": "E09C_mod_CompoundBow_ModelSwap_BurningLove",
-            "sig": "OMOD"
-          },
-          "tradeable": false,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_008F20F1",
-          "name": "Plan: Crowd Control Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Event: Eviction Notice",
-              "source_type": "event-quest",
-              "rate": 0.2,
-              "rate_display": "20%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008F20F1",
-            "edid": "Recipe_mod_CombatShotgun_Paint_CrowdControl"
-          },
-          "cobj": {
-            "formid": "0065B8F2",
-            "edid": "E08B_co_mod_CombatShotgun_Weapon_Paint_CrowdControl"
-          },
-          "cnam": {
-            "formid": "0065B8F4",
-            "edid": "E08B_CombatShotgun_Weapon_Paint_CrowdControl",
-            "sig": "OMOD"
           },
           "tradeable": true,
           "stops_dropping": true,
@@ -1405,746 +2701,6 @@
         {
           "kind": "plan",
           "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_008F520E",
-          "name": "Plan: Face Breaker Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Daily Ops - High Chase Rare",
-              "source_type": "event-quest",
-              "rate": 0.02439,
-              "rate_display": "2.44%"
-            },
-            {
-              "route": "Daily Ops - Chase",
-              "source_type": "event-quest",
-              "rate": 0.010976,
-              "rate_display": "1.1%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008F520E",
-            "edid": "Recipe_mod_PowerFist_Weapon_Paint_FaceBreaker"
-          },
-          "cobj": {
-            "formid": "008F5213",
-            "edid": "co_mod_PowerFist_Weapon_Paint_FaceBreaker"
-          },
-          "cnam": {
-            "formid": "008F1033",
-            "edid": "mod_PowerFist_Weapon_Paint_FaceBreaker",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_008F3624",
-          "name": "Plan: Fancy Pump Action Shotgun Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Daily Ops - High Chase Rare",
-              "source_type": "event-quest",
-              "rate": 0.02439,
-              "rate_display": "2.44%"
-            },
-            {
-              "route": "Daily Ops - Chase",
-              "source_type": "event-quest",
-              "rate": 0.010976,
-              "rate_display": "1.1%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008F3624",
-            "edid": "Recipe_PumpActionShotgun_Weapon_Paint_Fancy"
-          },
-          "cobj": {
-            "formid": "008F3627",
-            "edid": "co_MTNL01_mod_PumpActionShotgun_Paint_Fancy"
-          },
-          "cnam": {
-            "formid": "005A38D9",
-            "edid": "MTNL01_mod_PumpActionShotgun_Weapon_Paint_Fancy",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_008F3625",
-          "name": "Plan: Fancy Single Action Revlover Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Daily Ops - High Chase Rare",
-              "source_type": "event-quest",
-              "rate": 0.02439,
-              "rate_display": "2.44%"
-            },
-            {
-              "route": "Daily Ops - Chase",
-              "source_type": "event-quest",
-              "rate": 0.010976,
-              "rate_display": "1.1%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008F3625",
-            "edid": "Recipe_SingleActionRevlover_Weapon_Paint_Fancy"
-          },
-          "cobj": {
-            "formid": "008F3626",
-            "edid": "co_MTNL01_mod_SingleActionRevlover_Paint_Fancy"
-          },
-          "cnam": {
-            "formid": "007860C3",
-            "edid": "MTNL01_mod_SingleActionRevlover_Weapon_Paint_Fancy",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_008F20F2",
-          "name": "Plan: Foundation's Vengeance Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Event: Eviction Notice",
-              "source_type": "event-quest",
-              "rate": 0.2,
-              "rate_display": "20%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008F20F2",
-            "edid": "Recipe_mod_Minigun_Paint_FoundationsVengeance"
-          },
-          "cobj": {
-            "formid": "00662754",
-            "edid": "E08B_co_Weapon_Minigun_Paint_FoundationsVengeance"
-          },
-          "cnam": {
-            "formid": "0066275B",
-            "edid": "E08B_Minigun_Weapon_Paint_FoundationsVengeance",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": true,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_00918E2E",
-          "name": "Plan: Gatling Laser V63-HELGA Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Event: Neurological Warfare - Unique Item",
-              "source_type": "event-quest",
-              "rate": 0.037037,
-              "rate_display": "3.7%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00918E2E",
-            "edid": "STORM_Recipe_mod_GatlingLaser_Weapon_Paint_V63-HELGA"
-          },
-          "cobj": {
-            "formid": "007CEA90",
-            "edid": "Storm_co_mod_GatlingLaser_V63-HELGA_Paint"
-          },
-          "cnam": {
-            "formid": "0072DF08",
-            "edid": "mod_custom_V63GatlingLaser",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_00919FDD",
-          "name": "Plan: Gatling Laser Valkyrie Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Raids",
-              "source_type": "event-quest",
-              "rate": 0.05,
-              "rate_display": "5%"
-            },
-            {
-              "route": "Raids - Weapons Valkyrie",
-              "source_type": "event-quest",
-              "rate": 0.05,
-              "rate_display": "5%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00919FDD",
-            "edid": "RD01_Recipe_Weapon_Ranged_ValkyriePaint"
-          },
-          "cobj": {
-            "formid": "007AD48E",
-            "edid": "RD01_co_Mod_GatlingLaser_Weapon_Paint_Valkyrie"
-          },
-          "cnam": {
-            "formid": "00793500",
-            "edid": "RD01_Mod_Custom_Valkyrie_Appearance",
-            "sig": "OMOD"
-          },
-          "tradeable": false,
-          "stops_dropping": true,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_0091A082",
-          "name": "Plan: Gauss Rifle Flatliner Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Raids",
-              "source_type": "event-quest",
-              "rate": 0.05,
-              "rate_display": "5%"
-            },
-            {
-              "route": "Raids - Weapons Strike Breaker",
-              "source_type": "event-quest",
-              "rate": 0.05,
-              "rate_display": "5%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "0091A082",
-            "edid": "RD01_Recipe_Weapon_Ranged_StrikeBreakerPaint"
-          },
-          "cobj": {
-            "formid": "007AD494",
-            "edid": "RD01_co_Mod_GaussRifle_Weapon_Paint_StrikeBreaker"
-          },
-          "cnam": {
-            "formid": "00793511",
-            "edid": "RD01_Mod_Custom_StrikeBreaker_Appearance",
-            "sig": "OMOD"
-          },
-          "tradeable": false,
-          "stops_dropping": true,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_0090ECFD",
-          "name": "Plan: Gold Shovel Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "The Slasher - Repeatable Side Quests",
-              "source_type": "event-quest",
-              "rate": 0.02,
-              "rate_display": "2%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "0090ECFD",
-            "edid": "SDOW_Recipe_mod_Shovel_Paint_Gold"
-          },
-          "cobj": {
-            "formid": "0090ECFE",
-            "edid": "SDOW_co_mod_melee_Shovel_Paint_Gold"
-          },
-          "cnam": {
-            "formid": "009097C4",
-            "edid": "SDOW_Mod_Shovel_Weapon_Paint_Gold",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_008F2A43",
-          "name": "Plan: Grand Finale Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Event: Seismic Activity",
-              "source_type": "event-quest",
-              "rate": 0.1,
-              "rate_display": "10%"
-            },
-            {
-              "route": "Event: Seismic Activity",
-              "source_type": "event-quest",
-              "rate": 0.05,
-              "rate_display": "5%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008F2A43",
-            "edid": "Recipe_mod_Broadsider_Paint_GrandFinale"
-          },
-          "cobj": {
-            "formid": "00685D49",
-            "edid": "E09A_co_mod_Broadsider_Weapon_Paint_GrandFinale"
-          },
-          "cnam": {
-            "formid": "006696F9",
-            "edid": "E09A_Broadsider_Weapon_Paint_GrandFinale",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_008F2A45",
-          "name": "Plan: Gunther's Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Event: Most Wanted",
-              "source_type": "event-quest",
-              "rate": 0.055556,
-              "rate_display": "5.56%"
-            },
-            {
-              "route": "Event: Most Wanted - GWWS",
-              "source_type": "event-quest",
-              "rate": 0.027778,
-              "rate_display": "2.78%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008F2A45",
-            "edid": "Recipe_mod_SingleActionRevolver_Paint_GunthersRevolver"
-          },
-          "cobj": {
-            "formid": "00669578",
-            "edid": "co_mod_SingleActionRevolver_Paint_GunthersRevolver"
-          },
-          "cnam": {
-            "formid": "00663504",
-            "edid": "E09D_mod_SingleActionRevolver_Paint_GunthersRevolver",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_00919FCD",
-          "name": "Plan: Laser Gun V63-BERTHA",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Event: Neurological Warfare - Unique Item",
-              "source_type": "event-quest",
-              "rate": 0.037037,
-              "rate_display": "3.7%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00919FCD",
-            "edid": "STORM_Recipe_mod_DLC1Lightninggun_Weapon_Paint_V63-BERTHA"
-          },
-          "cobj": {
-            "formid": "0078B88D",
-            "edid": "Storm_co_mod_DLC1Lightninggun_Weapon_Paint_BERTHA"
-          },
-          "cnam": {
-            "formid": "0072AEC7",
-            "edid": "mod_custom_V63-BERTHA",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_00918E2F",
-          "name": "Plan: Laser Gun V63-OLGA Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Event: Neurological Warfare - Unique Item",
-              "source_type": "event-quest",
-              "rate": 0.037037,
-              "rate_display": "3.7%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00918E2F",
-            "edid": "STORM_Recipe_mod_LaserGun_Weapon_Paint_V63-OLGA"
-          },
-          "cobj": {
-            "formid": "007CEA91",
-            "edid": "Storm_co_mod_LaserGun_V63-OLGA_Paint"
-          },
-          "cnam": {
-            "formid": "0072DF06",
-            "edid": "mod_custom_V63LaserRifle",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_008F20F0",
-          "name": "Plan: Love Tap Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Event: Tunnel Of Love",
-              "source_type": "event-quest",
-              "rate": 0.016667,
-              "rate_display": "1.67%"
-            },
-            {
-              "route": "Event: Tunnel Of Love",
-              "source_type": "event-quest",
-              "rate": 0.008333,
-              "rate_display": "0.83%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008F20F0",
-            "edid": "Recipe_mod_SubmachineGun_Paint_LoveTap"
-          },
-          "cobj": {
-            "formid": "00685D4A",
-            "edid": "E09C_co_SubmachineGun_Paint_LoveTap"
-          },
-          "cnam": {
-            "formid": "00685D56",
-            "edid": "E09C_mod_SubmachineGun_Paint_LoveTap",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": true,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_008F520C",
-          "name": "Plan: Mechanic's Best Friend Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Daily Ops - High Chase Rare",
-              "source_type": "event-quest",
-              "rate": 0.02439,
-              "rate_display": "2.44%"
-            },
-            {
-              "route": "Daily Ops - Chase",
-              "source_type": "event-quest",
-              "rate": 0.010976,
-              "rate_display": "1.1%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008F520C",
-            "edid": "Recipe_mod_PipeWrench_Weapon_Paint_MechanicsBestFriend"
-          },
-          "cobj": {
-            "formid": "008F5211",
-            "edid": "co_mod_PipeWrench_Weapon_Paint_MechanicsBestFriend"
-          },
-          "cnam": {
-            "formid": "008F0F68",
-            "edid": "mod_PipeWrench_Weapon_Paint_MechanicsBestFriend",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_008F520A",
-          "name": "Plan: Medical Malpractice Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Daily Ops - High Chase Rare",
-              "source_type": "event-quest",
-              "rate": 0.02439,
-              "rate_display": "2.44%"
-            },
-            {
-              "route": "Daily Ops - Chase",
-              "source_type": "event-quest",
-              "rate": 0.010976,
-              "rate_display": "1.1%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008F520A",
-            "edid": "Recipe_mod_44_Weapon_Paint_MedicalMalpractice"
-          },
-          "cobj": {
-            "formid": "008F520F",
-            "edid": "co_mod_44_Weapon_Paint_MedicalMalpractice"
-          },
-          "cnam": {
-            "formid": "008DC2D8",
-            "edid": "mod_44_Weapon_Paint_MedicalMalpractice",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_0092A09C",
-          "name": "Plan: MG42 Green Terror Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Skyline Valley - Dangerous Pastimes",
-              "source_type": "event-quest",
-              "rate": 0.1,
-              "rate_display": "10%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "0092A09C",
-            "edid": "Recipe_Weapon_Ranged_MG42_Paint_RedTerror_Green"
-          },
-          "cobj": {
-            "formid": "007478CF",
-            "edid": "Storm_co_mod_MG42_Weapon_Paint_Communist_Green"
-          },
-          "cnam": {
-            "formid": "007478D2",
-            "edid": "Storm_mod_MG42_Weapon_Paint_RedTerror_Green",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_0092A09B",
-          "name": "Plan: MG42 Red Terror Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Skyline Valley - Dangerous Pastimes",
-              "source_type": "event-quest",
-              "rate": 0.1,
-              "rate_display": "10%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "0092A09B",
-            "edid": "Recipe_Weapon_Ranged_MG42_Paint_RedTerror"
-          },
-          "cobj": {
-            "formid": "007478CE",
-            "edid": "Storm_co_mod_MG42_Weapon_Paint_Communist"
-          },
-          "cnam": {
-            "formid": "0072AEC9",
-            "edid": "mod_custom_RedTerror",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
           "type": "recipe",
           "id": "PLAN_00930841",
           "name": "Plan: Piercing Love",
@@ -2171,46 +2727,6 @@
           },
           "cnam": null,
           "tradeable": false,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_008E069A",
-          "name": "Plan: Pint-Sized Auto Axe Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "The Reborn Pint-Sized Slasher",
-              "source_type": "creature",
-              "rate": 0.04,
-              "rate_display": "4%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008E069A",
-            "edid": "SDOW_Recipe_Weapon_Melee_Paint_SlasherAxe"
-          },
-          "cobj": {
-            "formid": "008E0741",
-            "edid": "SDOW_co_Mod_AutoAxe_Weapon_Paint_SlasherAxe"
-          },
-          "cnam": {
-            "formid": "008E075F",
-            "edid": "SDOW_Mod_Custom_SlasherAxe_Appearance",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
           "stops_dropping": false,
           "effects": null,
           "cut": false,
@@ -2522,52 +3038,6 @@
           "kind": "plan",
           "brand": "df",
           "type": "weapon",
-          "id": "PLAN_0091A080",
-          "name": "Plan: Railway Rifle Lickety-Split Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Raids",
-              "source_type": "event-quest",
-              "rate": 0.05,
-              "rate_display": "5%"
-            },
-            {
-              "route": "Raids - Weapons Lickety Split",
-              "source_type": "event-quest",
-              "rate": 0.05,
-              "rate_display": "5%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "0091A080",
-            "edid": "RD01_Recipe_Weapon_Ranged_LicketySplitPaint"
-          },
-          "cobj": {
-            "formid": "007AD493",
-            "edid": "RD01_co_Mod_RailwayRifle_Weapon_Paint_LicketySplit"
-          },
-          "cnam": {
-            "formid": "00793806",
-            "edid": "RD01_Mod_Custom_LicketySplit_Appearance",
-            "sig": "OMOD"
-          },
-          "tradeable": false,
-          "stops_dropping": true,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
           "id": "PLAN_00913B61",
           "name": "Plan: Railway Rifle Shotgun Receiver",
           "has_image_box": false,
@@ -2612,469 +3082,6 @@
           "cnam": {
             "formid": "00913B65",
             "edid": "mod_RailwayRifle_Receiver_Splitter",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_00921E5B",
-          "name": "Plan: Resolve Breaker Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. No source was resolved from the game files — see Technical for the recipe details.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00921E5B",
-            "edid": "RD01_Recipe_Weapon_Ranged_ResolveBreakerPaint"
-          },
-          "cobj": {
-            "formid": "007AD490",
-            "edid": "RD01_co_Mod_AutoGrenadeLauncher_Weapon_Paint_ResolveBreaker"
-          },
-          "cnam": {
-            "formid": "007934FD",
-            "edid": "RD01_Mod_Custom_ResolveBreaker_Appearance",
-            "sig": "OMOD"
-          },
-          "tradeable": false,
-          "stops_dropping": true,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_0091C66A",
-          "name": "Plan: Shock Baton Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Event: Neurological Warfare - Unique Item",
-              "source_type": "event-quest",
-              "rate": 0.037037,
-              "rate_display": "3.7%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "0091C66A",
-            "edid": "STORM_Recipe_mod_Baton_Weapon_Paint_ShockBaton"
-          },
-          "cobj": {
-            "formid": "0079395A",
-            "edid": "Storm_co_mod_baton_Weapon_Paint_V63ShockBaton"
-          },
-          "cnam": {
-            "formid": "0072DF09",
-            "edid": "mod_custom_V63ShockBaton_Paint",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_008F520D",
-          "name": "Plan: Sole Survivor Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Daily Ops - High Chase Rare",
-              "source_type": "event-quest",
-              "rate": 0.02439,
-              "rate_display": "2.44%"
-            },
-            {
-              "route": "Daily Ops - Chase",
-              "source_type": "event-quest",
-              "rate": 0.010976,
-              "rate_display": "1.1%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008F520D",
-            "edid": "Recipe_mod_LeverGun_Weapon_Paint_SoleSurvivor"
-          },
-          "cobj": {
-            "formid": "008F5212",
-            "edid": "co_mod_LeverGun_Weapon_Paint_SoleSurvivor"
-          },
-          "cnam": {
-            "formid": "008F0FDD",
-            "edid": "mod_LeverGun_Weapon_Paint_SoleSurvivor",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_0091C667",
-          "name": "Plan: Spear Super Stimpike Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Event: Gearin' Up - Unique Items",
-              "source_type": "event-quest",
-              "rate": 0.125,
-              "rate_display": "12.5%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "0091C667",
-            "edid": "BURN_Recipe_Weapon_Melee_Paint_SuperStimpike"
-          },
-          "cobj": {
-            "formid": "0091C668",
-            "edid": "BURN_co_mod_Spear_Weapon_Paint_Stimpike"
-          },
-          "cnam": {
-            "formid": "008F20E4",
-            "edid": "mod_Melee_Spear_Paint_SuperStimpike",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_008F20F3",
-          "name": "Plan: The Debilitator Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Event: Eviction Notice",
-              "source_type": "event-quest",
-              "rate": 0.2,
-              "rate_display": "20%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008F20F3",
-            "edid": "Recipe_mod_SuperSledge_Paint_TheDebilitator"
-          },
-          "cobj": {
-            "formid": "00662755",
-            "edid": "E08B_co_Weapon_SuperSledge_Paint_TheDebilitator"
-          },
-          "cnam": {
-            "formid": "0064D008",
-            "edid": "E08B_SuperSledge_Weapon_Paint_TheDebilitator",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": true,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_0092A09D",
-          "name": "Plan: Ticket to Revenge Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Skyline Valley - Dangerous Pastimes",
-              "source_type": "event-quest",
-              "rate": 0.1,
-              "rate_display": "10%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "0092A09D",
-            "edid": "Recipe_Weapon_Ranged_RailwayRifle_Paint_TickettoRevenge"
-          },
-          "cobj": {
-            "formid": "007464E2",
-            "edid": "Storm_co_mod_RailwayRifle_Weapon_Paint_TickettoRevenge"
-          },
-          "cnam": {
-            "formid": "0072AECD",
-            "edid": "mod_custom_TickettoRevenge_Paint",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_008F20F4",
-          "name": "Plan: Tone Death Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Event: Eviction Notice",
-              "source_type": "event-quest",
-              "rate": 0.2,
-              "rate_display": "20%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008F20F4",
-            "edid": "Recipe_mod_DeathTambo_Paint_ToneDeath"
-          },
-          "cobj": {
-            "formid": "00662753",
-            "edid": "E08B_co_Weapon_DeathTambo_Paint_ToneDeath"
-          },
-          "cnam": {
-            "formid": "0066275C",
-            "edid": "E08B_DeathTambo_Weapon_Paint_ToneDeath",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": true,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_008F520B",
-          "name": "Plan: Unstoppable Monster Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Daily Ops - High Chase Rare",
-              "source_type": "event-quest",
-              "rate": 0.02439,
-              "rate_display": "2.44%"
-            },
-            {
-              "route": "Daily Ops - Chase",
-              "source_type": "event-quest",
-              "rate": 0.010976,
-              "rate_display": "1.1%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008F520B",
-            "edid": "Recipe_mod_DeathclawGauntlet_Weapon_Paint_UnstoppableMonster"
-          },
-          "cobj": {
-            "formid": "008F5210",
-            "edid": "co_mod_DeathclawGauntlet_Weapon_Paint_UnstoppableMonster"
-          },
-          "cnam": {
-            "formid": "008F0DD1",
-            "edid": "mod_DeathclawGauntlet_Weapon_Paint_UnstoppableMonster",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_008F2A44",
-          "name": "Plan: Western Spirit Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Event: Most Wanted",
-              "source_type": "event-quest",
-              "rate": 0.055556,
-              "rate_display": "5.56%"
-            },
-            {
-              "route": "Event: Most Wanted - GWWS",
-              "source_type": "event-quest",
-              "rate": 0.027778,
-              "rate_display": "2.78%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008F2A44",
-            "edid": "Recipe_mod_LeverGun_Paint_WesternSpirit"
-          },
-          "cobj": {
-            "formid": "00669577",
-            "edid": "E09D_co_mod_LeverGun_Ranged_Paint_WesternSpirit"
-          },
-          "cnam": {
-            "formid": "0066957D",
-            "edid": "E09D_mod_LeverGun_Weapon_Paint_WesternSpirit",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_008F2A46",
-          "name": "Plan: Whacker Smacker Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Event: Spin The Wheel",
-              "source_type": "event-quest",
-              "rate": 0.071429,
-              "rate_display": "7.14%"
-            },
-            {
-              "route": "Event: Spin The Wheel",
-              "source_type": "event-quest",
-              "rate": 0.035714,
-              "rate_display": "3.57%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008F2A46",
-            "edid": "Recipe_mod_SuperSledge_Paint_WhackerSmacker"
-          },
-          "cobj": {
-            "formid": "00685D4B",
-            "edid": "E09B_co_SuperSledge_Paint_WhackerSmacker"
-          },
-          "cnam": {
-            "formid": "00674C25",
-            "edid": "E09B_SuperSledge_Weapon_Paint_WhackerSmacker",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_008F5209",
-          "name": "Plan: Whistle in the Dark Paint",
-          "has_image_box": false,
-          "image_dir": "weapon",
-          "obtain": "Learned from a plan. Drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Daily Ops - High Chase Rare",
-              "source_type": "event-quest",
-              "rate": 0.02439,
-              "rate_display": "2.44%"
-            },
-            {
-              "route": "Daily Ops - Chase",
-              "source_type": "event-quest",
-              "rate": 0.010976,
-              "rate_display": "1.1%"
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008F5209",
-            "edid": "Recipe_Weapon_Ranged_AssaultRifle_WhistleInTheDark_Paint"
-          },
-          "cobj": {
-            "formid": "005DAE93",
-            "edid": "co_mod_AssaultRifle_Weapon_Paint_WhistleInTheDark"
-          },
-          "cnam": {
-            "formid": "005D2BA3",
-            "edid": "mod_AssaultRifle_Weapon_Paint_WhistleInTheDark",
             "sig": "OMOD"
           },
           "tradeable": true,
