@@ -1489,7 +1489,6 @@ jobs:
           # Stage ONLY dist/pts. This run overwrote tsv/ and cleared dist/ in the
           # ephemeral checkout; commit dist/pts, then discard everything else so
           # the rebase/push stays clean and live tsv/ + dist/ are untouched.
-          git add dist/pts
           # dist/pts/fish_journal.json is built by the LIVE workflow, not this
           # one: dfbnb-patch-build.yml's "Build Fish Journal JSON" step writes
           # BOTH channels in one go, and its own comment says not to duplicate
@@ -1507,7 +1506,24 @@ jobs:
           # run, which is why the PTS twin 404'd on and off.
           #
           # Not building a file is not the same as deleting it.
-          git reset -q -- dist/pts/fish_journal.json 2>/dev/null || true
+          #
+          # Restore it into the WORKING TREE, before staging. Un-staging it with
+          # `git reset` (what this used to do) does NOT work: the commit below
+          # names a pathspec (`git commit -m ... -- dist/pts`), and a pathspec
+          # commit deliberately IGNORES the index and re-reads those paths from
+          # the working tree — so the deletion went straight back into the
+          # commit and the modify/delete conflict came back unchanged.
+          git checkout HEAD -- dist/pts/fish_journal.json 2>/dev/null || true
+          git add dist/pts
+
+          # Any OTHER tracked dist/pts path staged as deleted is the same class
+          # of bug: a file this workflow does not rebuild. Name it loudly rather
+          # than letting it become the next modify/delete conflict.
+          gone=$(git diff --cached --name-only --diff-filter=D -- dist/pts || true)
+          if [ -n "$gone" ]; then
+            echo "WARNING: staged as DELETED in dist/pts (not rebuilt by this workflow):"
+            echo "$gone"
+          fi
           if git diff --cached --quiet; then
             echo "No PTS changes to commit."
           else
