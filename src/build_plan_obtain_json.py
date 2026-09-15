@@ -75,6 +75,7 @@ sys.path.insert(0, HERE)
 import rng76
 import plan_sources          # cut detection, readable source names, unlock routes
 import plan_images           # row art: published images first, staged files second
+import add_weapon_groups    # weapon page grouping: weapon -> Mods / Skins
 from spawns_engine import sources as ssrc
 # reuse the farming Containers resolver + rate helpers + rng76 wrapper
 import build_farming_used_for as bfu
@@ -1007,6 +1008,22 @@ def main(argv=None):
         plan_images.report(plan_images.attach(items, idx, staged))
     except Exception as exc:                      # noqa: BLE001 - never fatal
         print(f"  WARNING: image resolve skipped: {exc}", file=sys.stderr)
+
+    # Weapon page grouping. /df/plan-checklists/weapon/ is one root expand per
+    # weapon with Mods and Skins inside it, which needs each plan tied to the
+    # weapon it belongs to. That is a join against the OMOD/WEAP/COBJ exports
+    # and takes about a second, so it runs here rather than as a workflow step
+    # that every channel would have to remember. Same contract as the image
+    # resolve above: never fatal. If it fails the rows lose their weapon_* fields
+    # and the page falls back to the flat A-Z list it had before.
+    try:
+        stats = add_weapon_groups.attach(items)
+        add_weapon_groups.report(stats)
+        if stats:
+            out["weapon_groups_schema"] = add_weapon_groups.SCHEMA
+            out["weapon_groups_sources"] = stats["sources"]
+    except Exception as exc:                      # noqa: BLE001 - never fatal
+        print(f"  WARNING: weapon grouping skipped: {exc}", file=sys.stderr)
 
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     with open(args.out, "w", encoding="utf-8") as f:

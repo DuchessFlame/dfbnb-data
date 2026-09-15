@@ -14,7 +14,8 @@ from the current exports.
     * Fresh pass over CURRENT July exports: every weapon OMOD whose _Properties
       carry a CustomItemName_/CustomItem_SpeciallyNamed keyword (~89). Each is
       resolved through its host WEAP ObjectTemplate combo -> base stats + fixed
-      star effects. ATX_* paints/skins surface as cosmetic entries.
+      star effects. ATX_* paints/skins surface as cosmetic entries and are
+      dropped unless INCLUDE_COSMETICS is on.
     * Union by custom-mod formId then normalised name. Reuse-only items kept
       with inCurrentExport=false.
 
@@ -22,8 +23,8 @@ from the current exports.
     * LVLI LL_Armor_Unique_All -> 8 unique armours; 3 weight variants collapse
       into one item; fixed stars from the ARMO ObjectTemplate combo carrying
       the mod_Custom_<name>.
-    * Cosmetic named armour: 6 Secret Settler name plates + Blue Ridge
-      Guardsmen Paint (cosmeticOnly).
+    * Cosmetic named armour (6 Secret Settler name plates + Blue Ridge
+      Guardsmen Paint) is built only when INCLUDE_COSMETICS is on.
 
   POWER ARMOUR
     * None exist in the exports (no SpeciallyNamed PA OMODs, no PA ARMO with
@@ -47,12 +48,24 @@ from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
+# Paints, skins and name plates carry no stats and no star effects, so they
+# are not "unique weapons and armour" in the sense this page lists. They are
+# excluded (Sep 2026). Flip to True to bring all 19 back.
+INCLUDE_COSMETICS = False
+
+# Cut content — items flagged isCut (zzz_ / DEL_ prefixed EDIDs) exist in the
+# files but cannot be obtained in game. Excluded (Sep 2026). NOTE: this is not
+# the same as inCurrentExport=false, which marks items that WERE obtainable
+# (legacy Survival rewards and the like) and are deliberately kept.
+INCLUDE_CUT = False
+
 SRC_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SRC_DIR.parent
 TSV_DIR = REPO_ROOT / "tsv"
 
 sys.path.insert(0, str(SRC_DIR))
 import tsv_source
+import uwa_mods
 from patchlog_utils import write_empty_patchlog_feed
 
 import build_unique_weapons_json as buw
@@ -702,7 +715,8 @@ def build_channel(channel, dist_dir):
     lvli_idx = build_lvli_index(channel)
     armo_tbl = load_armo_tables(channel)
     armour_items = build_armour(channel, lvli_idx, armo_tbl, pool_name, pool_fid, gmrw_quest)
-    armour_items += build_cosmetic_armour(channel, omod_by_fid)
+    if INCLUDE_COSMETICS:
+        armour_items += build_cosmetic_armour(channel, omod_by_fid)
 
     power_items = []
 
@@ -747,12 +761,30 @@ def build_channel(channel, dist_dir):
         _merged[key] = keep
     all_items = [_merged[k] for k in _order]
 
+    # Drop paints / skins / name plates. Done after the dedupe so a cosmetic
+    # record that merged into a real item can't take the real item with it.
+    if not INCLUDE_COSMETICS:
+        all_items = [i for i in all_items if not i.get("cosmeticOnly")]
+
+    # Drop cut content — unobtainable in game, so it has no place on a list
+    # of things to go and get.
+    if not INCLUDE_CUT:
+        all_items = [i for i in all_items if not i.get("isCut")]
+
     # Never leave a blank How-to-Obtain: fall back honestly.
     for it in all_items:
         if not str(it.get("howToObtain") or "").strip():
             it["howToObtain"] = "Source unconfirmed"
         if not str(it.get("sourceType") or "").strip():
             it["sourceType"] = "Unknown"
+
+    # Resolve each item's fixed star effects and its unique / pre-installed
+    # mods from its OWN WEAP/ARMO record where it has one. The reuse foundation
+    # stores the BASE weapon's formId (Commander's Charge -> RevolutionarySword),
+    # so without this pass the fixed stars read "Random" and the mod that makes
+    # the item unique never surfaces at all. See uwa_mods.py.
+    mod_idx = uwa_mods.build_indexes_for_channel(pick, read_tsv, channel)
+    mod_stats = uwa_mods.enrich(all_items, mod_idx)
 
     for it in all_items:
         it.pop("_cmod_fids", None)
@@ -788,6 +820,7 @@ def build_channel(channel, dist_dir):
     print(f"  Weapons: reuse={len(reuse_items)} fresh-new={len(fresh_new)} "
           f"fresh-matched-reuse={matched_ct} reuse-only(inCurrentExport=false)={reuse_only}")
     print(f"  Source unconfirmed: {len(unconfirmed)} -> {unconfirmed}")
+    print(f"  Mods: {mod_stats}")
 
     if channel == "live":
         write_empty_patchlog_feed(str(dist_dir),

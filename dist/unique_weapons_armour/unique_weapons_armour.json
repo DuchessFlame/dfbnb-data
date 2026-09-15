@@ -2,10 +2,10 @@
   "version": 1,
   "generated": "2026-09-15T13:04:25Z",
   "channel": "live",
-  "count": 132,
+  "count": 110,
   "counts": {
-    "weapon": 117,
-    "armour": 15,
+    "weapon": 102,
+    "armour": 8,
     "powerArmour": 0
   },
   "items": [
@@ -66,7 +66,23 @@
       "formId": "00100AE9",
       "edid": "PlasmaGun",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Meadow Breeze Sprayer",
+          "edid": "mod_Custom_Plasma_AbraxoGun",
+          "formId": "00839C68",
+          "kind": "unique",
+          "desc": "Sprays Meadow Breeze"
+        },
+        {
+          "name": "Meadow Breeze Sprayer Bounty",
+          "edid": "Bounty_Mod_Custom_AbraxoGun",
+          "formId": "00885C2D",
+          "kind": "unique",
+          "desc": "Sprays Meadow Breeze"
+        }
+      ]
     },
     {
       "id": "plasmagun-2",
@@ -132,7 +148,16 @@
       "formId": "00100AE9",
       "edid": "PlasmaGun",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Prototype ABX03",
+          "edid": "mod_Custom_Plasma_Abraxolator",
+          "formId": "00856AFE",
+          "kind": "unique",
+          "desc": "Sprays Meadow Breeze"
+        }
+      ]
     },
     {
       "id": "lasergun",
@@ -157,24 +182,24 @@
       "starEffects": [
         {
           "star": 1,
-          "name": "Executioner's",
-          "edid": "mod_Legendary_Weapon1_Execute",
-          "formId": "004F6AA1",
+          "name": "Hunter's",
+          "edid": "mod_Legendary_Weapon1_DmgVsAnimals",
+          "formId": "004F577A",
           "fixed": true
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Vital",
+          "edid": "mod_Legendary_Weapon2_DmgCrits",
+          "formId": "0052414B",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Perception",
+          "edid": "mod_Legendary_Weapon3_StatPerception",
+          "formId": "005299FA",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -191,7 +216,44 @@
       "formId": "0009983B",
       "edid": "LaserGun",
       "inCurrentExport": false,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Calibrated Capacitor",
+          "edid": "mod_LaserGun_Receiver_CritDMG",
+          "formId": "003129CE",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Stabilized Long Barrel",
+          "edid": "mod_LaserGun_Barrel_Long_Recoil",
+          "formId": "00312976",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Stabilized Stock",
+          "edid": "mod_LaserGun_Grip_Recoil",
+          "formId": "003129A3",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Long Night Vision Scope",
+          "edid": "mod_LaserGun_SCOPE_longscope_NV_Base",
+          "formId": "003129F7",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Beam Focuser",
+          "edid": "mod_LaserGun_muzzle_Focuser_Base",
+          "formId": "00312A3A",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "supersledge",
@@ -250,7 +312,23 @@
       "formId": "000FF964",
       "edid": "SuperSledge",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "All Rise Health",
+          "edid": "zzz_mod_Custom_AllRise_Health",
+          "formId": "00529A03",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "All Rise Custom Mod",
+          "edid": "mod_Custom_AllRise",
+          "formId": "0047187E",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "10mmsmg-5",
@@ -309,44 +387,16 @@
       "formId": "0010DB0F",
       "edid": "10mmSMG",
       "inCurrentExport": true,
-      "isCut": false
-    },
-    {
-      "id": "10mmsmg-4",
-      "name": "Anchorage Ace Arctic Paint",
-      "kind": "Weapon",
-      "subType": "Rifle",
-      "base": "10mm Submachine Gun",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {
-        "damage": 7,
-        "fireRate": 0.9,
-        "range": 2565,
-        "weight": 3.0,
-        "value": 70,
-        "ammoType": "10mm Round",
-        "capacity": 30,
-        "apCost": 14,
-        "critMult": 2.25,
-        "minLevel": 10
-      },
-      "starEffects": [],
-      "inherentEffect": "Silences weapon.",
-      "buffs": [],
-      "cosmeticOnly": true,
-      "cosmeticNote": "Visual skin/paint only - no combat effect",
-      "howToObtain": "Event: Always Vigilant",
-      "sourceType": "Public Event",
-      "sourceRef": "Always Vigilant",
-      "questName": "",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "0010DB0F",
-      "edid": "10mmSMG",
-      "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Anchorage Ace",
+          "edid": "mod_custom_Suppressed10mmSMG_AnchorageAce",
+          "formId": "00759B4A",
+          "kind": "unique",
+          "desc": "A 10mm SMG, modified with an experimental prototype integrated silencer."
+        }
+      ]
     },
     {
       "id": "skisword",
@@ -405,7 +455,16 @@
       "formId": "000360CF",
       "edid": "SkiSword",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Black Diamond Custom Mod",
+          "edid": "mod_Custom_BlackDiamond",
+          "formId": "0047187F",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "mom-bladeofbastet",
@@ -428,7 +487,7 @@
         "minLevel": 25
       },
       "starEffects": [],
-      "inherentEffect": "",
+      "inherentEffect": "Upgrades when Eye of Ra is Equipped",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -442,7 +501,16 @@
       "formId": "0039C6C8",
       "edid": "MoM_BladeOfBastet",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Unique Effect",
+          "edid": "mod_Description_MoM_BladeofBastet",
+          "formId": "00522666",
+          "kind": "unique",
+          "desc": "Upgrades when Eye of Ra is Equipped"
+        }
+      ]
     },
     {
       "id": "shishkebab",
@@ -501,33 +569,16 @@
       "formId": "000FA2FB",
       "edid": "Shishkebab",
       "inCurrentExport": true,
-      "isCut": false
-    },
-    {
-      "id": "moon-general-workshop-mod-blueridgeguardsmanarmorpaint",
-      "name": "Blue Ridge Guardsmen Paint",
-      "kind": "Armour",
-      "subType": "Armor Paint",
-      "base": "Blue Ridge Guardsmen Armor",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {},
-      "starEffects": [],
-      "inherentEffect": "",
-      "buffs": [],
-      "cosmeticOnly": true,
-      "cosmeticNote": "Cosmetic name plate / paint only - no combat effect",
-      "howToObtain": "Purchased from Blue Ridge Caravan vendors",
-      "sourceType": "Vendor",
-      "sourceRef": "Blue Ridge Caravan",
-      "questName": "",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "0069224A",
-      "edid": "MOON_General_Workshop_Mod_BlueRidgeGuardsmanArmorPaint",
-      "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Blue Ridge Branding Iron",
+          "edid": "mod_custom_BlueRidgeBrandingIron_Custom",
+          "formId": "007AA31C",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "flamer",
@@ -579,7 +630,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "",
+      "inherentEffect": "-5 Durability",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -593,7 +644,16 @@
       "formId": "000E5881",
       "edid": "Flamer",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Boiling Point Special Effect",
+          "edid": "RD01_Mod_Custom_BoilingPoint_SpecialEffect",
+          "formId": "00793009",
+          "kind": "unique",
+          "desc": "-5 Durability"
+        }
+      ]
     },
     {
       "id": "missilelauncher",
@@ -630,7 +690,16 @@
       "formId": "0003F6F8",
       "edid": "MissileLauncher",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "BoomStick",
+          "edid": "mod_Custom_BoomStick",
+          "formId": "00680832",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "huntingrifle-3",
@@ -667,7 +736,16 @@
       "formId": "0004F46A",
       "edid": "HuntingRifle",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Brotherhood Recon Rifle",
+          "edid": "mod_Custom_BoSz03_BoSReconRifle",
+          "formId": "0060E019",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "armor-secretservice-torso",
@@ -713,7 +791,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "",
+      "inherentEffect": "This armor weighs twice as much and provides 35% more protection.",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -727,7 +805,16 @@
       "formId": "00568FA9",
       "edid": "Armor_SecretService_Torso",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Bulwark",
+          "edid": "mod_Custom_Bulwark",
+          "formId": "008A418B",
+          "kind": "unique",
+          "desc": "This armor weighs twice as much and provides 35% more protection."
+        }
+      ]
     },
     {
       "id": "missilelauncher-2",
@@ -786,7 +873,23 @@
       "formId": "0003F6F8",
       "edid": "MissileLauncher",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Dangerous",
+          "edid": "zzz_mod_Custom_BunkerBuster_Damage",
+          "formId": "00529A02",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "Bunker Buster Custom Mod",
+          "edid": "mod_Custom_BunkerBuster",
+          "formId": "00471880",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "compoundbow",
@@ -818,17 +921,17 @@
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "V.A.T.S. Enhanced",
+          "edid": "mod_Legendary_Weapon2_Guns_VATSAccuracy",
+          "formId": "00524153",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Steadfast",
+          "edid": "mod_Legendary_Weapon3_Guns_ResistSights",
+          "formId": "004F5772",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -845,7 +948,16 @@
       "formId": "00013CE9",
       "edid": "CompoundBow",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Burning Love Custom Mod",
+          "edid": "E09C_mod_Custom_BurningLove",
+          "formId": "0067A475",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "dlc04-commiewhacker",
@@ -904,33 +1016,8 @@
       "formId": "0011475B",
       "edid": "DLC04_CommieWhacker",
       "inCurrentExport": false,
-      "isCut": false
-    },
-    {
-      "id": "mod-supersledge-melee-paint-cappysmasher",
-      "name": "Cappy Smasher Super Sledge",
-      "kind": "Weapon",
-      "subType": "Unknown",
-      "base": "",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {},
-      "starEffects": [],
-      "inherentEffect": "",
-      "buffs": [],
-      "cosmeticOnly": true,
-      "cosmeticNote": "Visual skin/paint only - no combat effect",
-      "howToObtain": "Atom Shop",
-      "sourceType": "Atom Shop",
-      "sourceRef": "",
-      "questName": "",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "00679A92",
-      "edid": "mod_SuperSledge_Melee_Paint_CappySmasher",
-      "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": []
     },
     {
       "id": "chainsaw-76",
@@ -982,7 +1069,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "",
+      "inherentEffect": "+25% AP Cost",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -996,7 +1083,16 @@
       "formId": "0004DF01",
       "edid": "Chainsaw_76",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Cauterizer Special Effect",
+          "edid": "RD01_Mod_Custom_Cauterizer_SpecialEffect",
+          "formId": "007874D9",
+          "kind": "unique",
+          "desc": "+25% AP Cost"
+        }
+      ]
     },
     {
       "id": "m79-2",
@@ -1048,7 +1144,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "",
+      "inherentEffect": "Projectile Applies Cryo To First Slow Targets & Then Explosive To Damage Them",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -1062,7 +1158,30 @@
       "formId": "0008F0EF",
       "edid": "M79",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Chaos Engine Special Effect",
+          "edid": "P62_Mod_Custom_crChaosEngine_SpecialEffect",
+          "formId": "00835A70",
+          "kind": "unique",
+          "desc": "Projectile Applies Cryo To First Slow Targets & Then Explosive To Damage Them"
+        },
+        {
+          "name": "Long Barrel",
+          "edid": "mod_M79_Barrel_Long",
+          "formId": "0008F173",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Full Stock",
+          "edid": "mod_M79_StockFull",
+          "formId": "0008F10A",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "10mm-circuitbreaker",
@@ -1121,7 +1240,30 @@
       "formId": "006D3C69",
       "edid": "10mm_CircuitBreaker",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Circuit Breaker",
+          "edid": "mod_Custom_CircuitBreaker",
+          "formId": "006DC8DD",
+          "kind": "unique",
+          "desc": "+15% Reload Speed"
+        },
+        {
+          "name": "Energy Muzzle",
+          "edid": "mod_CircuitBreaker_energymuzzle_Base",
+          "formId": "006DC8E5",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Anti-armor Legendary Mod",
+          "edid": "mod_Legendary_CircuitBreaker_AntiArmor",
+          "formId": "006E1315",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "pumpactionshotgun",
@@ -1180,7 +1322,23 @@
       "formId": "0012DBB3",
       "edid": "PumpActionShotgun",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "zzz Civil Unrest DO NOT USE",
+          "edid": "zzz_Civil_Unrest_DO_NOT_USE",
+          "formId": "00529A04",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "Civil Unrest Custom Mod",
+          "edid": "mod_Custom_CivilUnrest",
+          "formId": "00471881",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "doublebarrelshotgun",
@@ -1239,7 +1397,30 @@
       "formId": "00092217",
       "edid": "DoubleBarrelShotgun",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Paranormal Mod",
+          "edid": "mod_custom_Coldshoulder_DmgvsCryptid",
+          "formId": "00690C7D",
+          "kind": "unique",
+          "desc": "4x ammo Capacity"
+        },
+        {
+          "name": "Cryo Mod",
+          "edid": "mod_custom_ColdShoulder_CryoEffect",
+          "formId": "00692273",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "Stabilized Stock",
+          "edid": "mod_DoubleBarrelShotgun_grip_Recoil",
+          "formId": "0023D904",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "revolutionarysword",
@@ -1271,17 +1452,17 @@
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Rapid",
+          "edid": "mod_Legendary_Weapon2_Melee_SwingSpeed",
+          "formId": "001A7BDA",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Agility",
+          "edid": "mod_Legendary_Weapon3_StatAgility",
+          "formId": "005299FB",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -1298,7 +1479,16 @@
       "formId": "00143AB5",
       "edid": "RevolutionarySword",
       "inCurrentExport": false,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Electrified",
+          "edid": "mod_melee_RevolutionarySword_Shock",
+          "formId": "0013B01F",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "knife",
@@ -1357,7 +1547,16 @@
       "formId": "000913CA",
       "edid": "Knife",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Cosmic Knife",
+          "edid": "mod_custom_CosmicKnife",
+          "formId": "00832CB6",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "mod-custom-cosmicknife-superheated",
@@ -1383,7 +1582,16 @@
       "formId": "00837E13",
       "edid": "mod_custom_CosmicKnife_Superheated",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Cosmic Knife Super-Heated",
+          "edid": "mod_custom_CosmicKnife_Superheated",
+          "formId": "00837E13",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "combatshotgun",
@@ -1415,17 +1623,17 @@
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Explosive",
+          "edid": "mod_Legendary_Weapon2_Guns_ExplosiveBullets",
+          "formId": "004F5771",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Lightweight",
+          "edid": "mod_Legendary_Weapon3_Weight",
+          "formId": "00524152",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -1442,7 +1650,16 @@
       "formId": "0014831C",
       "edid": "CombatShotgun",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Crowd Control Custom Mod",
+          "edid": "E08B_mod_Custom_CrowdControl",
+          "formId": "0064D006",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "m79",
@@ -1467,10 +1684,10 @@
       "starEffects": [
         {
           "star": 1,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Instigating",
+          "edid": "mod_Legendary_Weapon1_DamageFirstBlood",
+          "formId": "004F6AA5",
+          "fixed": true
         },
         {
           "star": 2,
@@ -1501,7 +1718,23 @@
       "formId": "0008F0EF",
       "edid": "M79",
       "inCurrentExport": false,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Short Barrel",
+          "edid": "mod_M79_Barrel_Short",
+          "formId": "0008F5A1",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Short Stock",
+          "edid": "mod_M79_Stock_Short",
+          "formId": "0008F5A2",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "knife-2",
@@ -1560,33 +1793,16 @@
       "formId": "000913CA",
       "edid": "Knife",
       "inCurrentExport": true,
-      "isCut": false
-    },
-    {
-      "id": "zzz-mod-custom-cultistexecutioner",
-      "name": "Cultist Executioner",
-      "kind": "Weapon",
-      "subType": "Unknown",
-      "base": "",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {},
-      "starEffects": [],
-      "inherentEffect": "",
-      "buffs": [],
-      "cosmeticOnly": false,
-      "cosmeticNote": "",
-      "howToObtain": "Source unconfirmed",
-      "sourceType": "Unknown",
-      "sourceRef": "",
-      "questName": "",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "00691D56",
-      "edid": "zzz_mod_custom_CultistExecutioner",
-      "inCurrentExport": true,
-      "isCut": true
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Cryptid Jawbone Knife",
+          "edid": "mod_custom_CryptidJawboneKnife",
+          "formId": "006ABA10",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "pickaxe",
@@ -1645,7 +1861,16 @@
       "formId": "00002840",
       "edid": "pickaxe",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Cultist Piercer",
+          "edid": "mod_custom_CultistPiercer",
+          "formId": "006A009A",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "fatman",
@@ -1704,7 +1929,16 @@
       "formId": "000BD56F",
       "edid": "Fatman",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Daisycutter Custom Mod",
+          "edid": "mod_Custom_Daisycutter",
+          "formId": "00471882",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "baton",
@@ -1736,17 +1970,17 @@
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Crippling",
+          "edid": "mod_Legendary_Weapon2_DmgLimbs",
+          "formId": "004ED02C",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Endurance",
+          "edid": "mod_Legendary_Weapon3_StatEndurance",
+          "formId": "005299FD",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -1763,7 +1997,16 @@
       "formId": "0008C14D",
       "edid": "Baton",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Electrified",
+          "edid": "mod_melee_Baton_Shock",
+          "formId": "0017BBC5",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "huntingrifle",
@@ -1795,17 +2038,17 @@
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Crippling",
+          "edid": "mod_Legendary_Weapon2_DmgLimbs",
+          "formId": "004ED02C",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Ghost's",
+          "edid": "mod_Legendary_Weapon3_Guns_CloakOnHit",
+          "formId": "00609E4F",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -1822,7 +2065,37 @@
       "formId": "0004F46A",
       "edid": "HuntingRifle",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Doctor's Orders",
+          "edid": "E08B_mod_Custom_HuntingRifle_DoctorsOrders",
+          "formId": "0064D007",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "Hardened Receiver",
+          "edid": "mod_HuntingRifle_Receiver_Damage",
+          "formId": "002DEB0D",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "True Stock",
+          "edid": "mod_HuntingRifle_Grip_HipAccuracy",
+          "formId": "002446D1",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Long Night Vision Scope",
+          "edid": "mod_HuntingRifle_SCOPE_LongScope_NV_Base",
+          "formId": "002DEDC4",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "gauntlet",
@@ -1874,7 +2147,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "",
+      "inherentEffect": "Applies Fire & Bleed DoT On Contact",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -1888,7 +2161,16 @@
       "formId": "0055C156",
       "edid": "Gauntlet",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Drill Fist Special Effect",
+          "edid": "RD01_Mod_Custom_DrillFist_SpecialEffect",
+          "formId": "00793A4C",
+          "kind": "unique",
+          "desc": "Applies Fire & Bleed DoT On Contact"
+        }
+      ]
     },
     {
       "id": "submachinegun",
@@ -1947,7 +2229,16 @@
       "formId": "0015B043",
       "edid": "SubmachineGun",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Elder's Mark",
+          "edid": "mod_custom_EldersMark",
+          "formId": "00692280",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "powerfist",
@@ -1972,10 +2263,10 @@
       "starEffects": [
         {
           "star": 1,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Furious",
+          "edid": "mod_Legendary_Weapon1_DmgConsecutiveHits",
+          "formId": "004F577D",
+          "fixed": true
         },
         {
           "star": 2,
@@ -1986,10 +2277,10 @@
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Strength",
+          "edid": "mod_Legendary_Weapon3_StatStrength",
+          "formId": "005299FC",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -2006,7 +2297,8 @@
       "formId": "0011B336",
       "edid": "PowerFist",
       "inCurrentExport": false,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": []
     },
     {
       "id": "50calmachinegun",
@@ -2031,10 +2323,10 @@
       "starEffects": [
         {
           "star": 1,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Anti-armor",
+          "edid": "mod_Legendary_Weapon1_AntiArmor",
+          "formId": "005281B4",
+          "fixed": true
         },
         {
           "star": 2,
@@ -2045,10 +2337,10 @@
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Resilient",
+          "edid": "mod_Legendary_Weapon3_Guns_ResistReload",
+          "formId": "004F5777",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -2065,7 +2357,16 @@
       "formId": "0003A0D4",
       "edid": "50CalMachineGun",
       "inCurrentExport": false,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Heavy Barrel",
+          "edid": "mod_50CalMachineGun_Barrel_Heavy",
+          "formId": "0003A0BB",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "minigun",
@@ -2090,17 +2391,17 @@
       "starEffects": [
         {
           "star": 1,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Bloodied",
+          "edid": "mod_Legendary_Weapon1_DamageInverseHealth",
+          "formId": "004F6AA0",
+          "fixed": true
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Explosive",
+          "edid": "mod_Legendary_Weapon2_Guns_ExplosiveBullets",
+          "formId": "004F5771",
+          "fixed": true
         },
         {
           "star": 3,
@@ -2124,33 +2425,30 @@
       "formId": "0001F669",
       "edid": "Minigun",
       "inCurrentExport": true,
-      "isCut": false
-    },
-    {
-      "id": "sse-mod-custom-gardentrowel",
-      "name": "Garden Trowel Knife",
-      "kind": "Weapon",
-      "subType": "Unknown",
-      "base": "",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {},
-      "starEffects": [],
-      "inherentEffect": "",
-      "buffs": [],
-      "cosmeticOnly": true,
-      "cosmeticNote": "Visual skin/paint only - no combat effect",
-      "howToObtain": "Atom Shop",
-      "sourceType": "Atom Shop",
-      "sourceRef": "",
-      "questName": "",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "007D660A",
-      "edid": "SSE_mod_custom_GardenTrowel",
-      "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Foundation's Vengeance",
+          "edid": "E08B_mod_Custom_FoundationsVengeance",
+          "formId": "0064781F",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "Gunner Sight",
+          "edid": "mod_Minigun_Scope_SightReflex",
+          "formId": "00121D56",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Shredder",
+          "edid": "mod_Minigun_Muzzle_Shredder",
+          "formId": "0011B45F",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "broadsider",
@@ -2182,17 +2480,17 @@
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Hitman's",
+          "edid": "mod_Legendary_Weapon2_Guns_DmgSights",
+          "formId": "0052414E",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Resilient",
+          "edid": "mod_Legendary_Weapon3_Guns_ResistReload",
+          "formId": "004F5777",
+          "fixed": true
         }
       ],
       "inherentEffect": "Increases Damage by 10% & Explodes with fireworks",
@@ -2209,33 +2507,16 @@
       "formId": "000FD11B",
       "edid": "Broadsider",
       "inCurrentExport": true,
-      "isCut": false
-    },
-    {
-      "id": "del-mod-custom-gulpersmacker",
-      "name": "Gulper Smacker",
-      "kind": "Weapon",
-      "subType": "Unknown",
-      "base": "",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {},
-      "starEffects": [],
-      "inherentEffect": "",
-      "buffs": [],
-      "cosmeticOnly": false,
-      "cosmeticNote": "",
-      "howToObtain": "Event: Moonshine Jamboree",
-      "sourceType": "Public Event",
-      "sourceRef": "Moonshine Jamboree",
-      "questName": "",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "0064EFF9",
-      "edid": "DEL_mod_Custom_GulperSmacker",
-      "inCurrentExport": true,
-      "isCut": true
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Grand Finale",
+          "edid": "E09A_mod_Custom_GrandFinale",
+          "formId": "006696FC",
+          "kind": "unique",
+          "desc": "Increases Damage by 10% & Explodes with fireworks"
+        }
+      ]
     },
     {
       "id": "singleactionrevolver",
@@ -2294,7 +2575,37 @@
       "formId": "001C7A69",
       "edid": "SingleActionRevolver",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Gunther's Big Iron",
+          "edid": "E09D_mod_custom_GunthersRevolver",
+          "formId": "00668F1E",
+          "kind": "unique",
+          "desc": "Uses .45 ammunition. +45% reload speed."
+        },
+        {
+          "name": "zzz E09 D modcol Gunthers Revolver Legendary Weapon3",
+          "edid": "zzzE09D_modcol_GunthersRevolver_Legendary_Weapon3",
+          "formId": "0067A532",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "zzz E09 D modcol Gunthers Revolver Legendary Weapon1",
+          "edid": "zzzE09D_modcol_GunthersRevolver_Legendary_Weapon1",
+          "formId": "0067A530",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "zzz E09 D modcol Gunthers Revolver Legendary Weapon2",
+          "edid": "zzzE09D_modcol_GunthersRevolver_Legendary_Weapon2",
+          "formId": "0067A531",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "pickaxe-2",
@@ -2353,7 +2664,16 @@
       "formId": "00002840",
       "edid": "pickaxe",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Head Hunter",
+          "edid": "mod_custom_HeadHunter",
+          "formId": "0075DF6E",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "flamer-2",
@@ -2412,7 +2732,16 @@
       "formId": "000E5881",
       "edid": "Flamer",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Holy Fire",
+          "edid": "mod_custom_HolyFire",
+          "formId": "006A983C",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "dlc03-harpoongun",
@@ -2471,7 +2800,16 @@
       "formId": "001109CF",
       "edid": "DLC03_HarpoonGun",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Ice Breaker",
+          "edid": "SCORE_S21_mod_custom_IceBreaker",
+          "formId": "007FA40F",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "10mmsmg",
@@ -2494,7 +2832,7 @@
         "minLevel": 10
       },
       "starEffects": [],
-      "inherentEffect": "",
+      "inherentEffect": "Sets target on fire for 15 points of damage.",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -2508,7 +2846,37 @@
       "formId": "0010DB0F",
       "edid": "10mmSMG",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Incendiary",
+          "edid": "zzz_mod_Legendary_Weapon_IncendiaryBullets",
+          "formId": "004E89AF",
+          "kind": "unique",
+          "desc": "Sets target on fire for 15 points of damage."
+        },
+        {
+          "name": "Incendiary",
+          "edid": "zzz_mod_Legendary_Weapon_SuperDamage",
+          "formId": "004E89B0",
+          "kind": "unique",
+          "desc": "Increases weapon damage by 15%"
+        },
+        {
+          "name": "Incendiary",
+          "edid": "zzz_mod_Legendary_Armor4_OnMeleeHitBurn",
+          "formId": "00527F7F",
+          "kind": "unique",
+          "desc": "30% chance to ignite melee attackers, once every 20 seconds"
+        },
+        {
+          "name": "Incendiary",
+          "edid": "mod_Custom_PerfectStorm_Burn",
+          "formId": "004F5773",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "dlc03-harpoongun-2",
@@ -2540,17 +2908,17 @@
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Vital",
+          "edid": "mod_Legendary_Weapon2_DmgCrits",
+          "formId": "0052414B",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Lucky Hit",
+          "edid": "mod_Legendary_Weapon3_CritSpeed",
+          "formId": "0052414C",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -2567,7 +2935,23 @@
       "formId": "001109CF",
       "edid": "DLC03_HarpoonGun",
       "inCurrentExport": false,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Barbed Harpoon",
+          "edid": "DLC03_mod_HarpoonGun_Magazine_Barbed",
+          "formId": "0011106A",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Short Scope",
+          "edid": "DLC03_mod_HarpoonGun_Scope_ScopeShort",
+          "formId": "00111062",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "armor-enclavescoutuniform-torso-urban",
@@ -2627,7 +3011,16 @@
       "formId": "002E46A0",
       "edid": "Armor_EnclaveScoutUniform_Torso_Urban",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Last Bastion",
+          "edid": "mod_Custom_LastBastion",
+          "formId": "00471883",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "armor-bosinfantry-torso",
@@ -2687,7 +3080,16 @@
       "formId": "005DD339",
       "edid": "Armor_BOSInfantry_Torso",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Last Stand",
+          "edid": "mod_Custom_LastStand",
+          "formId": "008A418A",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "railwayrifle",
@@ -2739,7 +3141,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "",
+      "inherentEffect": "-20% Projectile Damage",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -2753,33 +3155,16 @@
       "formId": "000FE268",
       "edid": "RailwayRifle",
       "inCurrentExport": true,
-      "isCut": false
-    },
-    {
-      "id": "atx-tp-mod-levergun-weapon-paint-lincolnsrepeater",
-      "name": "Lincoln's Repeater Paint",
-      "kind": "Weapon",
-      "subType": "Unknown",
-      "base": "",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {},
-      "starEffects": [],
-      "inherentEffect": "",
-      "buffs": [],
-      "cosmeticOnly": true,
-      "cosmeticNote": "Visual skin/paint only - no combat effect",
-      "howToObtain": "Atom Shop",
-      "sourceType": "Atom Shop",
-      "sourceRef": "",
-      "questName": "",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "0066F22F",
-      "edid": "ATX_TP_mod_LeverGun_Weapon_Paint_LincolnsRepeater",
-      "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Lickety-Split Special Effect",
+          "edid": "RD01_Mod_Custom_LicketySplit_SpecialEffect",
+          "formId": "00793805",
+          "kind": "unique",
+          "desc": "-20% Projectile Damage"
+        }
+      ]
     },
     {
       "id": "huntingrifle-2",
@@ -2831,7 +3216,16 @@
       "formId": "0004F46A",
       "edid": "HuntingRifle",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Longshot",
+          "edid": "mod_Custom_Longshot",
+          "formId": "006828DA",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "submachinegun-2",
@@ -2856,10 +3250,10 @@
       "starEffects": [
         {
           "star": 1,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Vampire's",
+          "edid": "mod_Legendary_Weapon1_Vampire",
+          "formId": "00527F84",
+          "fixed": true
         },
         {
           "star": 2,
@@ -2870,10 +3264,10 @@
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Durability",
+          "edid": "mod_Legendary_Weapon3_Durability",
+          "formId": "0037F7D9",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -2890,7 +3284,30 @@
       "formId": "0015B043",
       "edid": "SubmachineGun",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Love Tap",
+          "edid": "E09C_mod_Custom_LoveTap",
+          "formId": "00663B0C",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "Short Stock",
+          "edid": "mod_SubmachineGun_Grip_StockShort",
+          "formId": "00188A67",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Medium Magazine",
+          "edid": "mod_SubmachineGun_Mag_Medium",
+          "formId": "0015B047",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "switchblade",
@@ -2949,7 +3366,16 @@
       "formId": "000FDC81",
       "edid": "Switchblade",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Luca's Switchblade",
+          "edid": "mod_custom_LucaSwitchblade",
+          "formId": "00691B69",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "crplasmagun",
@@ -3008,7 +3434,16 @@
       "formId": "007AC752",
       "edid": "crPlasmaGun",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Meadow Breeze Sprayer Bounty",
+          "edid": "Bounty_Mod_Custom_AbraxoGun",
+          "formId": "00885C2D",
+          "kind": "unique",
+          "desc": "Sprays Meadow Breeze"
+        }
+      ]
     },
     {
       "id": "pipewrench",
@@ -3040,17 +3475,17 @@
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Heavy Hitter's",
+          "edid": "mod_Legendary_Weapon2_Melee_DamagePowerAttack",
+          "formId": "001A7BE2",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Strength",
+          "edid": "mod_Legendary_Weapon3_StatStrength",
+          "formId": "005299FC",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -3067,7 +3502,23 @@
       "formId": "000D83BF",
       "edid": "PipeWrench",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Mechanic's Best Friend Custom Mod",
+          "edid": "mod_Custom_MechanicsBestFriend",
+          "formId": "0061384F",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "Extra Heavy",
+          "edid": "mod_melee_PipeWrench_ExtraHeavyHead",
+          "formId": "000975D3",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "44",
@@ -3099,17 +3550,17 @@
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "V.A.T.S. Enhanced",
+          "edid": "mod_Legendary_Weapon2_Guns_VATSAccuracy",
+          "formId": "00524153",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "V.A.T.S. Optimized",
+          "edid": "mod_Legendary_Weapon3_VATSCostAP",
+          "formId": "00524154",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -3126,7 +3577,37 @@
       "formId": "000CE97D",
       "edid": "44",
       "inCurrentExport": false,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Hair Trigger Receiver",
+          "edid": "mod_44_Receiver_FastTrigger",
+          "formId": "002E5B30",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "True Grip",
+          "edid": "mod_44_Grip_HipAccuracy",
+          "formId": "002E5B4A",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Reflex Sight (Circle)",
+          "edid": "mod_44_SCOPE_reflex_Base",
+          "formId": "001A05E8",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Stabilized Stub Barrel",
+          "edid": "mod_44_Barrel_VeryShort_Recoil",
+          "formId": "002E5B3E",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "chineseofficersword",
@@ -3185,7 +3666,16 @@
       "formId": "00147BE4",
       "edid": "ChineseOfficerSword",
       "inCurrentExport": false,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Unique Effect",
+          "edid": "mod_Description_MTR05_MeteoriteSword",
+          "formId": "0037F7DA",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "plasmagun-3",
@@ -3217,17 +3707,17 @@
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Hitman's",
+          "edid": "mod_Legendary_Weapon2_Guns_DmgSights",
+          "formId": "0052414E",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Steadfast",
+          "edid": "mod_Legendary_Weapon3_Guns_ResistSights",
+          "formId": "004F5772",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -3244,7 +3734,37 @@
       "formId": "00100AE9",
       "edid": "PlasmaGun",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Mind Over Matter",
+          "edid": "mod_Custom_PlasmaGun_MindOverMatter",
+          "formId": "005EC269",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "Short Barrel",
+          "edid": "mod_PlasmaGun_barrel_Short_Base",
+          "formId": "0018AC1D",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Plasma Cell",
+          "edid": "mod_PlasmaGun_Magazine_Base",
+          "formId": "0018C46A",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Short Scope",
+          "edid": "mod_PlasmaGun_SCOPE_shortscope_Base",
+          "formId": "0018C480",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "cryolator",
@@ -3303,7 +3823,23 @@
       "formId": "00171B2B",
       "edid": "Cryolator",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Minty Breather",
+          "edid": "mod_Custom_MintyBreather",
+          "formId": "00680831",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "Minty Breather",
+          "edid": "mod_Custom_Overkill_Copy01",
+          "formId": "0068552F",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "cultistblade",
@@ -3362,7 +3898,16 @@
       "formId": "0005A937",
       "edid": "CultistBlade",
       "inCurrentExport": false,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Generic Melee High Damage",
+          "edid": "mod_Generic_Melee_HighDamage",
+          "formId": "0043B76A",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "dlc01lightninggun",
@@ -3394,20 +3939,20 @@
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Rapid",
+          "edid": "mod_Legendary_Weapon2_Guns_RoF",
+          "formId": "0052414F",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Perception",
+          "edid": "mod_Legendary_Weapon3_StatPerception",
+          "formId": "005299FA",
+          "fixed": true
         }
       ],
-      "inherentEffect": "",
+      "inherentEffect": "Fires an electrical discharge that arcs between targets.",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -3421,92 +3966,30 @@
       "formId": "0010F0EC",
       "edid": "DLC01LightningGun",
       "inCurrentExport": false,
-      "isCut": false
-    },
-    {
-      "id": "zzze09a-autogrenadelauncher-nukalauncher",
-      "name": "Nuka Launcher",
-      "kind": "Weapon",
-      "subType": "Explosive",
-      "base": "Auto Grenade Launcher",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {
-        "damage": 3,
-        "fireRate": 1.5,
-        "range": 256,
-        "weight": 18.0,
-        "value": 225,
-        "ammoType": "40mm Grenade Round",
-        "capacity": 12,
-        "apCost": 30,
-        "critMult": 2.0,
-        "minLevel": 40
-      },
-      "starEffects": [
+      "isCut": false,
+      "uniqueMods": [
         {
-          "star": 1,
-          "name": "Two Shot",
-          "edid": "mod_Legendary_Weapon1_Guns_TwoShot",
-          "formId": "004F6D76",
-          "fixed": true
+          "name": "Lightning",
+          "edid": "DLC01_mod_Weapon_LightningGun",
+          "formId": "0010EAE8",
+          "kind": "preinstalled",
+          "desc": "Fires an electrical discharge that arcs between targets."
         },
         {
-          "star": 2,
-          "name": "Crippling",
-          "edid": "mod_Legendary_Weapon2_DmgLimbs",
-          "formId": "004ED02C",
-          "fixed": true
+          "name": "Automatic Barrel",
+          "edid": "DLC01_mod_LightningGun_Barrel_Automatic",
+          "formId": "0010F630",
+          "kind": "preinstalled",
+          "desc": ""
         },
         {
-          "star": 3,
-          "name": "Lightweight",
-          "edid": "mod_Legendary_Weapon3_Weight",
-          "formId": "00524152",
-          "fixed": true
+          "name": "Reflex Sight",
+          "edid": "DLC01_mod_LightningGun_Scope_SightsReflex",
+          "formId": "0010F279",
+          "kind": "preinstalled",
+          "desc": ""
         }
-      ],
-      "inherentEffect": "",
-      "buffs": [],
-      "cosmeticOnly": false,
-      "cosmeticNote": "",
-      "howToObtain": "Quest: Overseer, Overseen (Vault 79)",
-      "sourceType": "Quest",
-      "sourceRef": "Overseer, Overseen (Vault 79)",
-      "questName": "Overseer, Overseen (Vault 79)",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "00662760",
-      "edid": "zzzE09A_AutoGrenadeLauncher_NukaLauncher",
-      "inCurrentExport": true,
-      "isCut": true
-    },
-    {
-      "id": "meat-mod-custom-nukashank",
-      "name": "Nuka Shank Knife",
-      "kind": "Weapon",
-      "subType": "Unknown",
-      "base": "",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {},
-      "starEffects": [],
-      "inherentEffect": "",
-      "buffs": [],
-      "cosmeticOnly": true,
-      "cosmeticNote": "Visual skin/paint only - no combat effect",
-      "howToObtain": "Atom Shop",
-      "sourceType": "Atom Shop",
-      "sourceRef": "",
-      "questName": "",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "0075FC1B",
-      "edid": "Meat_mod_custom_NukaShank",
-      "inCurrentExport": true,
-      "isCut": false
+      ]
     },
     {
       "id": "warglaive",
@@ -3565,7 +4048,8 @@
       "formId": "005D79C7",
       "edid": "WarGlaive",
       "inCurrentExport": false,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": []
     },
     {
       "id": "beararm",
@@ -3624,7 +4108,16 @@
       "formId": "003F06E2",
       "edid": "BearArm",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Ogua Gauntlet",
+          "edid": "mod_custom_OguaGauntlet",
+          "formId": "006B3C2C",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "10mmsmg-2",
@@ -3683,7 +4176,8 @@
       "formId": "0010DB0F",
       "edid": "10mmSMG",
       "inCurrentExport": false,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": []
     },
     {
       "id": "fatman-2",
@@ -3720,7 +4214,16 @@
       "formId": "000BD56F",
       "edid": "Fatman",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Overkill",
+          "edid": "mod_Custom_Overkill",
+          "formId": "00685530",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "autogrenadelauncher",
@@ -3779,7 +4282,16 @@
       "formId": "00182634",
       "edid": "AutoGrenadeLauncher",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Peace Maker",
+          "edid": "mod_Custom_ThePeacemaker",
+          "formId": "006828DB",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "10mmsmg-3",
@@ -3838,7 +4350,23 @@
       "formId": "0010DB0F",
       "edid": "10mmSMG",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Incendiary",
+          "edid": "mod_Custom_PerfectStorm_Burn",
+          "formId": "004F5773",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "Perfect Storm Custom Mod",
+          "edid": "mod_Custom_PerfectStorm",
+          "formId": "00471884",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "compoundbow-2",
@@ -3897,7 +4425,8 @@
       "formId": "00013CE9",
       "edid": "CompoundBow",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": []
     },
     {
       "id": "blackpowder-pistol-blunderbuss",
@@ -3922,17 +4451,17 @@
       "starEffects": [
         {
           "star": 1,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Two Shot",
+          "edid": "mod_Legendary_Weapon1_Guns_TwoShot",
+          "formId": "004F6D76",
+          "fixed": true
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "V.A.T.S. Enhanced",
+          "edid": "mod_Legendary_Weapon2_Guns_VATSAccuracy",
+          "formId": "00524153",
+          "fixed": true
         },
         {
           "star": 3,
@@ -3956,7 +4485,23 @@
       "formId": "00003AAD",
       "edid": "Blackpowder_Pistol_Blunderbuss",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Pirate Punch",
+          "edid": "E08B_mod_Custom_Blackpowder_PiratePunch",
+          "formId": "0064D004",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "Black Powder Pistol Receiver",
+          "edid": "mod_BlackPowder_Pistol_Receiver",
+          "formId": "00525598",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "flamer-3",
@@ -4015,7 +4560,16 @@
       "formId": "000E5881",
       "edid": "Flamer",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Pyrolyzer Custom Mod",
+          "edid": "mod_Custom_Pyrolyzer",
+          "formId": "00471885",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "armor-raidermod-torso",
@@ -4061,7 +4615,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "",
+      "inherentEffect": "Gain Rage Stacks When Hit (Max 100). Deal and Take +1% Additional Damage Per Stack. Stacks Expire Over Time.",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -4075,7 +4629,16 @@
       "formId": "0018E415",
       "edid": "Armor_RaiderMod_Torso",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Rage",
+          "edid": "mod_Custom_Rage",
+          "formId": "008A418C",
+          "kind": "unique",
+          "desc": "Gain Rage Stacks When Hit (Max 100). Deal and Take +1% Additional Damage Per Stack. Stacks Expire Over Time."
+        }
+      ]
     },
     {
       "id": "baseballbat",
@@ -4134,44 +4697,23 @@
       "formId": "0008E736",
       "edid": "BaseballBat",
       "inCurrentExport": true,
-      "isCut": false
-    },
-    {
-      "id": "crblackpowder-rifle-dragon",
-      "name": "Red Rocket Dragon",
-      "kind": "Weapon",
-      "subType": "Rifle",
-      "base": "The Dragon",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {
-        "damage": 200,
-        "fireRate": 1.0,
-        "range": 4469,
-        "weight": 6.0,
-        "value": 200,
-        "ammoType": ".50 Caliber Ball",
-        "capacity": 1,
-        "apCost": 28,
-        "critMult": 2.0,
-        "minLevel": 35
-      },
-      "starEffects": [],
-      "inherentEffect": "Red Rocket Dragon",
-      "buffs": [],
-      "cosmeticOnly": true,
-      "cosmeticNote": "Visual skin/paint only - no combat effect",
-      "howToObtain": "Atom Shop",
-      "sourceType": "Atom Shop",
-      "sourceRef": "",
-      "questName": "",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "007CFAB1",
-      "edid": "crBlackPowder_Rifle_Dragon",
-      "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Rat Bat",
+          "edid": "DEL_E09A_mod_melee_RatBat_Default",
+          "formId": "00674C8B",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "Rat Bat",
+          "edid": "E09A_mod_Custom_RatBat",
+          "formId": "0067A476",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "mg42",
@@ -4230,33 +4772,8 @@
       "formId": "0007CAB1",
       "edid": "MG42",
       "inCurrentExport": true,
-      "isCut": false
-    },
-    {
-      "id": "atx-mod-autoaxe-weapon-paint-redd",
-      "name": "Redd-Upper",
-      "kind": "Weapon",
-      "subType": "Unknown",
-      "base": "",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {},
-      "starEffects": [],
-      "inherentEffect": "",
-      "buffs": [],
-      "cosmeticOnly": true,
-      "cosmeticNote": "Visual skin/paint only - no combat effect",
-      "howToObtain": "Quest: Shadow over Appalachia",
-      "sourceType": "Quest",
-      "sourceRef": "Shadow over Appalachia",
-      "questName": "Shadow over Appalachia",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "00668705",
-      "edid": "ATX_mod_AutoAxe_Weapon_Paint_Redd",
-      "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": []
     },
     {
       "id": "shovel",
@@ -4315,7 +4832,8 @@
       "formId": "004E2E20",
       "edid": "Shovel",
       "inCurrentExport": false,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": []
     },
     {
       "id": "gatlinggun",
@@ -4340,17 +4858,17 @@
       "starEffects": [
         {
           "star": 1,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Suppressor's",
+          "edid": "mod_Legendary_Weapon1_DebuffDamage",
+          "formId": "005281B8",
+          "fixed": true
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Hitman's",
+          "edid": "mod_Legendary_Weapon2_Guns_DmgSights",
+          "formId": "0052414E",
+          "fixed": true
         },
         {
           "star": 3,
@@ -4374,7 +4892,37 @@
       "formId": "00011BF6",
       "edid": "GatlingGun",
       "inCurrentExport": false,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Long Barrel",
+          "edid": "mod_GatlingGun_Barrel_Long",
+          "formId": "00011BFE",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Comfort Grip",
+          "edid": "mod_GatlingGun_Grip_Better1",
+          "formId": "00011F4A",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Speedy Receiver",
+          "edid": "mod_GatlingGun_Receiver_Speed",
+          "formId": "00011BF8",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Front Sight Ring",
+          "edid": "mod_GatlingGun_Scope_SightsImprovedIron",
+          "formId": "00011C0C",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "autogrenadelauncher-2",
@@ -4440,7 +4988,23 @@
       "formId": "00182634",
       "edid": "AutoGrenadeLauncher",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Resolve Breaker Special Effect",
+          "edid": "RD01_Mod_Custom_ResolveBreaker_SpecialEffect",
+          "formId": "007934FF",
+          "kind": "unique",
+          "desc": "Fires 2 Projectiles per Shot"
+        },
+        {
+          "name": "Resolve Breaker Special Effect",
+          "edid": "crRD01_Mod_Custom_ResolveBreaker_SpecialEffect",
+          "formId": "008A6B07",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "armor-dlc03-trapper-armleft",
@@ -4500,7 +5064,16 @@
       "formId": "00110895",
       "edid": "Armor_DLC03_Trapper_ArmLeft",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Road Kill",
+          "edid": "mod_Custom_Roadkill",
+          "formId": "008A418D",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "doublebarrelshotgun-2",
@@ -4525,17 +5098,17 @@
       "starEffects": [
         {
           "star": 1,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Two Shot",
+          "edid": "mod_Legendary_Weapon1_Guns_TwoShot",
+          "formId": "004F6D76",
+          "fixed": true
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Hitman's",
+          "edid": "mod_Legendary_Weapon2_Guns_DmgSights",
+          "formId": "0052414E",
+          "fixed": true
         },
         {
           "star": 3,
@@ -4559,163 +5132,30 @@
       "formId": "00092217",
       "edid": "DoubleBarrelShotgun",
       "inCurrentExport": false,
-      "isCut": false
-    },
-    {
-      "id": "p62-mod-custom-secretservicedrifter-customname-helmet",
-      "name": "Secret Settler (Helmet)",
-      "kind": "Armour",
-      "subType": "Secret Service Armor",
-      "base": "Secret Service Armor (Helmet)",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {},
-      "starEffects": [],
-      "inherentEffect": "",
-      "buffs": [],
-      "cosmeticOnly": true,
-      "cosmeticNote": "Cosmetic name plate / paint only - no combat effect",
-      "howToObtain": "Secret Service armour customisation - applied at an armour workbench (Vault 79 / Gold Bullion plans)",
-      "sourceType": "Vendor",
-      "sourceRef": "Vault 79 (Gold Bullion)",
-      "questName": "",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "007FFF1C",
-      "edid": "P62_Mod_Custom_SecretServiceDrifter_CustomName_Helmet",
-      "inCurrentExport": true,
-      "isCut": false
-    },
-    {
-      "id": "p62-mod-custom-secretservicedrifter-customname-armleft",
-      "name": "Secret Settler (Left Arm)",
-      "kind": "Armour",
-      "subType": "Secret Service Armor",
-      "base": "Secret Service Armor (Left Arm)",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {},
-      "starEffects": [],
-      "inherentEffect": "",
-      "buffs": [],
-      "cosmeticOnly": true,
-      "cosmeticNote": "Cosmetic name plate / paint only - no combat effect",
-      "howToObtain": "Secret Service armour customisation - applied at an armour workbench (Vault 79 / Gold Bullion plans)",
-      "sourceType": "Vendor",
-      "sourceRef": "Vault 79 (Gold Bullion)",
-      "questName": "",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "007FFF1E",
-      "edid": "P62_Mod_Custom_SecretServiceDrifter_CustomName_ArmLeft",
-      "inCurrentExport": true,
-      "isCut": false
-    },
-    {
-      "id": "p62-mod-custom-secretservicedrifter-customname-legleft",
-      "name": "Secret Settler (Left Leg)",
-      "kind": "Armour",
-      "subType": "Secret Service Armor",
-      "base": "Secret Service Armor (Left Leg)",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {},
-      "starEffects": [],
-      "inherentEffect": "",
-      "buffs": [],
-      "cosmeticOnly": true,
-      "cosmeticNote": "Cosmetic name plate / paint only - no combat effect",
-      "howToObtain": "Secret Service armour customisation - applied at an armour workbench (Vault 79 / Gold Bullion plans)",
-      "sourceType": "Vendor",
-      "sourceRef": "Vault 79 (Gold Bullion)",
-      "questName": "",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "007FFF1D",
-      "edid": "P62_Mod_Custom_SecretServiceDrifter_CustomName_LegLeft",
-      "inCurrentExport": true,
-      "isCut": false
-    },
-    {
-      "id": "p62-mod-custom-secretservicedrifter-customname-armright",
-      "name": "Secret Settler (Right Arm)",
-      "kind": "Armour",
-      "subType": "Secret Service Armor",
-      "base": "Secret Service Armor (Right Arm)",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {},
-      "starEffects": [],
-      "inherentEffect": "",
-      "buffs": [],
-      "cosmeticOnly": true,
-      "cosmeticNote": "Cosmetic name plate / paint only - no combat effect",
-      "howToObtain": "Secret Service armour customisation - applied at an armour workbench (Vault 79 / Gold Bullion plans)",
-      "sourceType": "Vendor",
-      "sourceRef": "Vault 79 (Gold Bullion)",
-      "questName": "",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "007FFF1F",
-      "edid": "P62_Mod_Custom_SecretServiceDrifter_CustomName_ArmRight",
-      "inCurrentExport": true,
-      "isCut": false
-    },
-    {
-      "id": "p62-mod-custom-secretservicedrifter-customname-legright",
-      "name": "Secret Settler (Right Leg)",
-      "kind": "Armour",
-      "subType": "Secret Service Armor",
-      "base": "Secret Service Armor (Right Leg)",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {},
-      "starEffects": [],
-      "inherentEffect": "",
-      "buffs": [],
-      "cosmeticOnly": true,
-      "cosmeticNote": "Cosmetic name plate / paint only - no combat effect",
-      "howToObtain": "Secret Service armour customisation - applied at an armour workbench (Vault 79 / Gold Bullion plans)",
-      "sourceType": "Vendor",
-      "sourceRef": "Vault 79 (Gold Bullion)",
-      "questName": "",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "007FFF19",
-      "edid": "P62_Mod_Custom_SecretServiceDrifter_CustomName_LegRight",
-      "inCurrentExport": true,
-      "isCut": false
-    },
-    {
-      "id": "p62-mod-custom-secretservicedrifter-customname-torso",
-      "name": "Secret Settler (Torso)",
-      "kind": "Armour",
-      "subType": "Secret Service Armor",
-      "base": "Secret Service Armor (Torso)",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {},
-      "starEffects": [],
-      "inherentEffect": "",
-      "buffs": [],
-      "cosmeticOnly": true,
-      "cosmeticNote": "Cosmetic name plate / paint only - no combat effect",
-      "howToObtain": "Secret Service armour customisation - applied at an armour workbench (Vault 79 / Gold Bullion plans)",
-      "sourceType": "Vendor",
-      "sourceRef": "Vault 79 (Gold Bullion)",
-      "questName": "",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "007FFF20",
-      "edid": "P62_Mod_Custom_SecretServiceDrifter_CustomName_Torso",
-      "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Steadfast Receiver",
+          "edid": "mod_DoubleBarrelShotgun_Receiver_FastTrigger-HipAccuracy",
+          "formId": "0029D4C4",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Aligned Short Barrel",
+          "edid": "mod_DoubleBarrelShotgun_Barrel_Short_Recoil-HipAccuracy",
+          "formId": "0023D8DD",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Precise Stock",
+          "edid": "mod_DoubleBarrelShotgun_grip_HipAccuracy-SecondaryDMG",
+          "formId": "0023D90E",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "dlc04-handmadegun",
@@ -4774,7 +5214,16 @@
       "formId": "00113854",
       "edid": "DLC04_HandMadeGun",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Shattered Grounds",
+          "edid": "mod_custom_ShatteredGrounds_Custom",
+          "formId": "00759B4B",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "armor-leather-torso",
@@ -4834,7 +5283,16 @@
       "formId": "0007B9C6",
       "edid": "Armor_Leather_Torso",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Silver Lining Custom Mod",
+          "edid": "mod_Custom_SilverLining",
+          "formId": "00471886",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "autoaxe",
@@ -4893,7 +5351,8 @@
       "formId": "006361A2",
       "edid": "AutoAxe",
       "inCurrentExport": false,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": []
     },
     {
       "id": "plasmagun-4",
@@ -4966,7 +5425,23 @@
       "formId": "00100AE9",
       "edid": "PlasmaGun",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Short Barrel",
+          "edid": "mod_PlasmaGun_barrel_Short_Base",
+          "formId": "0018AC1D",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Plasma Cell",
+          "edid": "mod_PlasmaGun_Magazine_Base",
+          "formId": "0018C46A",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "dlc03-levergun",
@@ -4998,20 +5473,20 @@
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Hitman's",
+          "edid": "mod_Legendary_Weapon2_Guns_DmgSights",
+          "formId": "0052414E",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Steadfast",
+          "edid": "mod_Legendary_Weapon3_Guns_ResistSights",
+          "formId": "004F5772",
+          "fixed": true
         }
       ],
-      "inherentEffect": "",
+      "inherentEffect": "Silences weapon.",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -5025,7 +5500,51 @@
       "formId": "00110E32",
       "edid": "DLC03_LeverGun",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Sole Survivor Custom Mod",
+          "edid": "mod_Custom_SoleSurvivor",
+          "formId": "00613850",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "Calibrated Receiver",
+          "edid": "DLC03_mod_LeverGun_Receiver_CritDMG",
+          "formId": "00033A3D",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Stabilized Long Barrel",
+          "edid": "DLC03_mod_LeverGun_Barrel_Long_Recoil",
+          "formId": "00024199",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Forceful Stock",
+          "edid": "DLC03_mod_LeverGun_Grip_Recoil-SecondaryDMG",
+          "formId": "0003253D",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Long Night Vision Scope",
+          "edid": "DLC03_mod_LeverGun_SCOPE_Longscope_NV_Base",
+          "formId": "0019E3DE",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Suppressor",
+          "edid": "DLC03_mod_LeverGun_Muzzle_suppressor_Base",
+          "formId": "000325EE",
+          "kind": "preinstalled",
+          "desc": "Silences weapon."
+        }
+      ]
     },
     {
       "id": "44-2",
@@ -5084,7 +5603,16 @@
       "formId": "000CE97D",
       "edid": "44",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Somerset Special Custom Mod",
+          "edid": "mod_Custom_SomersetSpecial",
+          "formId": "00471887",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "10mmsmg-6",
@@ -5136,7 +5664,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "",
+      "inherentEffect": "<+MAG>% Damage per Onslaught Stack, +10 Max Stacks",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -5150,7 +5678,51 @@
       "formId": "0010DB0F",
       "edid": "10mmSMG",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Splinter Special Effect",
+          "edid": "P62_Mod_Custom_Splinter_SpecialEffect",
+          "formId": "00802189",
+          "kind": "unique",
+          "desc": "<+MAG>% Damage per Onslaught Stack, +10 Max Stacks"
+        },
+        {
+          "name": "Vicious Receiver",
+          "edid": "mod_10mmSMG_Receiver_CritDMG-HipAccuracy",
+          "formId": "0002D344",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "True Long Barrel",
+          "edid": "mod_10mmSMG_Barrel_Long_HipAccuracy",
+          "formId": "002FD904",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "True Stock",
+          "edid": "mod_10mmSMG_Grip_HipAccuracy",
+          "formId": "0010D8B3",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Perforating Magazine",
+          "edid": "mod_10mmSMG_Magazine_ArmorPen",
+          "formId": "002FD90F",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Reflex Sight (Dot)",
+          "edid": "mod_10mmSMG_SCOPE_Reflex_Base",
+          "formId": "0072AECB",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "armor-combat-torso",
@@ -5210,7 +5782,16 @@
       "formId": "0011D3C3",
       "edid": "Armor_Combat_Torso",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Stand Fast",
+          "edid": "mod_Custom_StandFast",
+          "formId": "00471888",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "stormcutter-2",
@@ -5269,7 +5850,23 @@
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Storm Cutter",
+          "edid": "mod_melee_StormCutter",
+          "formId": "0072DF07",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "Storm Cutter",
+          "edid": "mod_melee_StormCutter",
+          "formId": "0072DF07",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "gaussrifle",
@@ -5321,7 +5918,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "",
+      "inherentEffect": "+40% Reload Speed",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -5335,33 +5932,16 @@
       "formId": "000D1EB0",
       "edid": "GaussRifle",
       "inCurrentExport": true,
-      "isCut": false
-    },
-    {
-      "id": "mod-supersledge-melee-paint-strongmanhammer",
-      "name": "Strongman's Super Sledge",
-      "kind": "Weapon",
-      "subType": "Unknown",
-      "base": "",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {},
-      "starEffects": [],
-      "inherentEffect": "",
-      "buffs": [],
-      "cosmeticOnly": true,
-      "cosmeticNote": "Visual skin/paint only - no combat effect",
-      "howToObtain": "Atom Shop",
-      "sourceType": "Atom Shop",
-      "sourceRef": "",
-      "questName": "",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "005CFDEF",
-      "edid": "mod_SuperSledge_Melee_Paint_StrongmanHammer",
-      "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Flatliner Special Effect",
+          "edid": "RD01_Mod_Custom_StrikeBreaker_SpecialEffect",
+          "formId": "00793513",
+          "kind": "unique",
+          "desc": "+40% Reload Speed"
+        }
+      ]
     },
     {
       "id": "spear",
@@ -5386,17 +5966,17 @@
       "starEffects": [
         {
           "star": 1,
-          "name": "Medic's",
-          "edid": "mod_Legendary_Weapon1_Medic",
-          "formId": "0075EAC6",
+          "name": "Anti-armor",
+          "edid": "mod_Legendary_Weapon1_AntiArmor",
+          "formId": "005281B4",
           "fixed": true
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Rapid",
+          "edid": "mod_Legendary_Weapon2_Melee_SwingSpeed",
+          "formId": "001A7BDA",
+          "fixed": true
         },
         {
           "star": 3,
@@ -5420,7 +6000,16 @@
       "formId": "002D473A",
       "edid": "Spear",
       "inCurrentExport": false,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Healing Spear",
+          "edid": "zzz_mod_Legendary_Weapon3_HealingSpear",
+          "formId": "0084D521",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "dlc01-assaultronblade-2",
@@ -5472,7 +6061,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "",
+      "inherentEffect": "Heavy Bleed DoT on Contact",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -5486,7 +6075,23 @@
       "formId": "0010F3F2",
       "edid": "DLC01_AssaultronBlade",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Tempest Special Effect",
+          "edid": "P62_Mod_Custom_crTempest_SpecialEffect",
+          "formId": "00835A71",
+          "kind": "unique",
+          "desc": "Heavy Bleed DoT on Contact"
+        },
+        {
+          "name": "Electrified",
+          "edid": "dlc01_mod_melee_assaultronblade_Shock",
+          "formId": "0010F3F3",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "50calmachinegun-2",
@@ -5518,17 +6123,17 @@
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Rapid",
+          "edid": "mod_Legendary_Weapon2_Guns_RoF",
+          "formId": "0052414F",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Swift",
+          "edid": "mod_Legendary_Weapon3_Guns_ReloadSpeed",
+          "formId": "00524150",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -5545,7 +6150,16 @@
       "formId": "0003A0D4",
       "edid": "50CalMachineGun",
       "inCurrentExport": false,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Heavy Barrel",
+          "edid": "mod_50CalMachineGun_Barrel_Heavy",
+          "formId": "0003A0BB",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "supersledge-2",
@@ -5577,17 +6191,17 @@
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Rapid",
+          "edid": "mod_Legendary_Weapon2_Melee_SwingSpeed",
+          "formId": "001A7BDA",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Strength",
+          "edid": "mod_Legendary_Weapon3_StatStrength",
+          "formId": "005299FC",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -5604,7 +6218,16 @@
       "formId": "000FF964",
       "edid": "SuperSledge",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "The Debilitator",
+          "edid": "E08B_mod_Custom_TheDebilitator",
+          "formId": "0066275A",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "44-3",
@@ -5663,7 +6286,16 @@
       "formId": "000CE97D",
       "edid": "44",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "The Fact Finder",
+          "edid": "mod_Custom_TheFactFinder",
+          "formId": "005D0347",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "supersledge-3",
@@ -5688,17 +6320,17 @@
       "starEffects": [
         {
           "star": 1,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Ghoul Slayer's",
+          "edid": "mod_Legendary_Weapon1_DmgVsGhouls",
+          "formId": "004F5779",
+          "fixed": true
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Rapid",
+          "edid": "mod_Legendary_Weapon2_Melee_SwingSpeed",
+          "formId": "001A7BDA",
+          "fixed": true
         },
         {
           "star": 3,
@@ -5722,7 +6354,16 @@
       "formId": "000FF964",
       "edid": "SuperSledge",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "The Farmhand",
+          "edid": "mod_Custom_SuperSledge_TheFarmhand",
+          "formId": "005EC26A",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "combatrifle-fixer",
@@ -5767,7 +6408,7 @@
           "fixed": false
         }
       ],
-      "inherentEffect": "",
+      "inherentEffect": "Silences weapon.",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -5781,7 +6422,58 @@
       "formId": "0046D2A1",
       "edid": "CombatRifle_Fixer",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "The Fixer",
+          "edid": "P01B_mod_Custom_Fixer",
+          "formId": "0046D29E",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "Calibrated Receiver",
+          "edid": "mod_CombatRifle_Receiver_CritDMG",
+          "formId": "00242FD2",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Aligned Stock",
+          "edid": "mod_CombatRifle_Grip_Recoil-HipAccuracy",
+          "formId": "002430BC",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Stabilized Short Barrel",
+          "edid": "mod_CombatRifle_Barrel_Short_Recoil",
+          "formId": "002430FB",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Perforating Magazine",
+          "edid": "mod_CombatRifle_Magazine_ArmorPen",
+          "formId": "00243142",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Reflex Sight (Dot)",
+          "edid": "mod_CombatRifle_SCOPE_Reflex_Base",
+          "formId": "00242F94",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Suppressor",
+          "edid": "mod_CombatRifle_muzzle_Suppressor_Base",
+          "formId": "00242FA1",
+          "kind": "preinstalled",
+          "desc": "Silences weapon."
+        }
+      ]
     },
     {
       "id": "fatman-3",
@@ -5813,17 +6505,17 @@
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Crippling",
+          "edid": "mod_Legendary_Weapon2_DmgLimbs",
+          "formId": "004ED02C",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Swift",
+          "edid": "mod_Legendary_Weapon3_Guns_ReloadSpeed",
+          "formId": "00524150",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -5840,7 +6532,16 @@
       "formId": "000BD56F",
       "edid": "Fatman",
       "inCurrentExport": false,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "MIRV Launcher",
+          "edid": "mod_Fatman_Barrel_MIRV",
+          "formId": "001AC24C",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "dlc01-assaultronblade",
@@ -5899,7 +6600,16 @@
       "formId": "0010F3F2",
       "edid": "DLC01_AssaultronBlade",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "The Gutter",
+          "edid": "mod_Custom_TheGutter",
+          "formId": "005D9D1C",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "pumpactionshotgun-2",
@@ -5958,33 +6668,16 @@
       "formId": "0012DBB3",
       "edid": "PumpActionShotgun",
       "inCurrentExport": true,
-      "isCut": false
-    },
-    {
-      "id": "atx-mod-blackpowderrifle-weapon-modelswap-flintlocknighthawk",
-      "name": "The Nighthawk",
-      "kind": "Weapon",
-      "subType": "Unknown",
-      "base": "",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {},
-      "starEffects": [],
-      "inherentEffect": "The Nighthawk",
-      "buffs": [],
-      "cosmeticOnly": true,
-      "cosmeticNote": "Visual skin/paint only - no combat effect",
-      "howToObtain": "Atom Shop",
-      "sourceType": "Atom Shop",
-      "sourceRef": "",
-      "questName": "",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "005A242D",
-      "edid": "ATX_mod_BlackPowderRifle_Weapon_ModelSwap_FlintlockNighthawk",
-      "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Tillberg's Tornado",
+          "edid": "mod_custom_TheKabloom",
+          "formId": "0069255E",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "switchblade-2",
@@ -6016,17 +6709,17 @@
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Rapid",
+          "edid": "mod_Legendary_Weapon2_Melee_SwingSpeed",
+          "formId": "001A7BDA",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Endurance",
+          "edid": "mod_Legendary_Weapon3_StatEndurance",
+          "formId": "005299FD",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -6043,33 +6736,16 @@
       "formId": "000FDC81",
       "edid": "Switchblade",
       "inCurrentExport": false,
-      "isCut": false
-    },
-    {
-      "id": "atx-mod-pumpshotgun-weapon-modelswap-redrocketshotgun",
-      "name": "The Station Pump",
-      "kind": "Weapon",
-      "subType": "Unknown",
-      "base": "",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {},
-      "starEffects": [],
-      "inherentEffect": "The Station Pump",
-      "buffs": [],
-      "cosmeticOnly": true,
-      "cosmeticNote": "Visual skin/paint only - no combat effect",
-      "howToObtain": "Atom Shop",
-      "sourceType": "Atom Shop",
-      "sourceRef": "",
-      "questName": "",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "005A64A8",
-      "edid": "ATX_mod_PumpShotgun_Weapon_ModelSwap_RedRocketShotgun",
-      "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Serrated Blade",
+          "edid": "mod_melee_Switchblade_Serrated",
+          "formId": "001796C4",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "alienblaster",
@@ -6094,24 +6770,24 @@
       "starEffects": [
         {
           "star": 1,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Medic's",
+          "edid": "mod_Legendary_Weapon1_Medic",
+          "formId": "0075EAC6",
+          "fixed": true
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Vital",
+          "edid": "mod_Legendary_Weapon2_DmgCrits",
+          "formId": "0052414B",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Lucky Hit",
+          "edid": "mod_Legendary_Weapon3_CritSpeed",
+          "formId": "0052414C",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -6128,7 +6804,23 @@
       "formId": "000FF995",
       "edid": "AlienBlaster",
       "inCurrentExport": false,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Sharpshooter's Grip",
+          "edid": "mod_AlienBlaster_Grip_Better",
+          "formId": "001C13A8",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Long Barrel",
+          "edid": "mod_AlienBlaster_Barrel_Long",
+          "formId": "00161C28",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "railwayrifle-2",
@@ -6187,7 +6879,16 @@
       "formId": "000FE268",
       "edid": "RailwayRifle",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Ticket to Revenge",
+          "edid": "mod_custom_TickettoRevenge_custom",
+          "formId": "00759B4C",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "deathtambo",
@@ -6219,17 +6920,17 @@
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Rapid",
+          "edid": "mod_Legendary_Weapon2_Melee_SwingSpeed",
+          "formId": "001A7BDA",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Strength",
+          "edid": "mod_Legendary_Weapon3_StatStrength",
+          "formId": "005299FC",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -6246,7 +6947,16 @@
       "formId": "0000DC55",
       "edid": "DeathTambo",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Tone Death",
+          "edid": "E08B_mod_Custom_ToneDeath",
+          "formId": "0064D005",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "armor-metal-torso",
@@ -6292,7 +7002,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "",
+      "inherentEffect": "+50% Throwing Weapon Damage",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -6306,7 +7016,16 @@
       "formId": "000536C4",
       "edid": "Armor_Metal_Torso",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Trail Warden",
+          "edid": "mod_Custom_TrailWarden",
+          "formId": "00471889",
+          "kind": "unique",
+          "desc": "+50% Throwing Weapon Damage"
+        }
+      ]
     },
     {
       "id": "rd01-ultraciteterrorsword",
@@ -6328,8 +7047,37 @@
         "critMult": 4.0,
         "minLevel": 50
       },
-      "starEffects": [],
-      "inherentEffect": "",
+      "starEffects": [
+        {
+          "star": 1,
+          "name": "Anti-armor",
+          "edid": "mod_Legendary_Weapon1_AntiArmor",
+          "formId": "005281B4",
+          "fixed": true
+        },
+        {
+          "star": 2,
+          "name": "Rapid",
+          "edid": "mod_Legendary_Weapon2_Melee_SwingSpeed",
+          "formId": "001A7BDA",
+          "fixed": true
+        },
+        {
+          "star": 3,
+          "name": "Defender's",
+          "edid": "mod_Legendary_Weapon3_Melee_Defenders",
+          "formId": "001A7BD3",
+          "fixed": true
+        },
+        {
+          "star": 4,
+          "name": "Viper's",
+          "edid": "mod_Legendary_Weapon4_Vipers",
+          "formId": "0079297A",
+          "fixed": true
+        }
+      ],
+      "inherentEffect": "Applies Poison DoT On Contact",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -6343,7 +7091,16 @@
       "formId": "00792EAE",
       "edid": "RD01_UltraciteTerrorSword",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Ultracite Terror Sword Special Effect",
+          "edid": "RD01_Mod_Custom_UltraciteTerrorSword_SpecialEffect",
+          "formId": "00792EAC",
+          "kind": "unique",
+          "desc": "Applies Poison DoT On Contact"
+        }
+      ]
     },
     {
       "id": "deathclawgauntlet",
@@ -6375,17 +7132,17 @@
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Heavy Hitter's",
+          "edid": "mod_Legendary_Weapon2_Melee_DamagePowerAttack",
+          "formId": "001A7BE2",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Defender's",
+          "edid": "mod_Legendary_Weapon3_Melee_Defenders",
+          "formId": "001A7BD3",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -6402,7 +7159,16 @@
       "formId": "000D8576",
       "edid": "DeathclawGauntlet",
       "inCurrentExport": false,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Extra Claw",
+          "edid": "mod_melee_DeathclawGauntlet_Hook",
+          "formId": "00179B06",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "baton-2",
@@ -6461,7 +7227,23 @@
       "formId": "0008C14D",
       "edid": "Baton",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "V63 Shock Baton",
+          "edid": "mod_custom_V63ShockBaton",
+          "formId": "0072DF09",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "V63 Shock Baton",
+          "edid": "mod_custom_V63ShockBaton_custom",
+          "formId": "0075C3B9",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "stormcutter",
@@ -6486,10 +7268,10 @@
       "starEffects": [
         {
           "star": 1,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Executioner's",
+          "edid": "mod_Legendary_Weapon1_Execute",
+          "formId": "004F6AA1",
+          "fixed": true
         },
         {
           "star": 2,
@@ -6500,10 +7282,10 @@
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Defender's",
+          "edid": "mod_Legendary_Weapon3_Melee_Defenders",
+          "formId": "001A7BD3",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -6520,7 +7302,16 @@
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Storm Cutter",
+          "edid": "mod_melee_StormCutter",
+          "formId": "0072DF07",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "dlc01lightninggun-2",
@@ -6579,81 +7370,8 @@
       "formId": "0010F0EC",
       "edid": "DLC01LightningGun",
       "inCurrentExport": true,
-      "isCut": false
-    },
-    {
-      "id": "gatlinglaser",
-      "name": "V63-HELGA Paint",
-      "kind": "Weapon",
-      "subType": "Heavy Gun",
-      "base": "Gatling Laser",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {
-        "damage": 0,
-        "fireRate": 2.0,
-        "range": 4241,
-        "weight": 18.0,
-        "value": 200,
-        "ammoType": "Fusion Core",
-        "capacity": 500,
-        "apCost": 8,
-        "critMult": 2.0,
-        "minLevel": 25
-      },
-      "starEffects": [],
-      "inherentEffect": "",
-      "buffs": [],
-      "cosmeticOnly": true,
-      "cosmeticNote": "Visual skin/paint only - no combat effect",
-      "howToObtain": "Quest: Skyline Valley",
-      "sourceType": "Quest",
-      "sourceRef": "Skyline Valley",
-      "questName": "Skyline Valley",
-      "craftable": true,
-      "planName": "Plan: Gatling Laser",
-      "tradeable": true,
-      "formId": "000E27BC",
-      "edid": "GatlingLaser",
-      "inCurrentExport": true,
-      "isCut": false
-    },
-    {
-      "id": "lasergun-2",
-      "name": "V63-OLGA Paint",
-      "kind": "Weapon",
-      "subType": "Rifle",
-      "base": "Laser Gun",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {
-        "damage": 0,
-        "fireRate": 1.0,
-        "range": 3102,
-        "weight": 3.0,
-        "value": 60,
-        "ammoType": "Fusion Cell",
-        "capacity": 20,
-        "apCost": 16,
-        "critMult": 2.5,
-        "minLevel": 5
-      },
-      "starEffects": [],
-      "inherentEffect": "",
-      "buffs": [],
-      "cosmeticOnly": true,
-      "cosmeticNote": "Visual skin/paint only - no combat effect",
-      "howToObtain": "Atom Shop",
-      "sourceType": "Atom Shop",
-      "sourceRef": "",
-      "questName": "",
-      "craftable": true,
-      "planName": "Plan: Laser Gun",
-      "tradeable": true,
-      "formId": "0009983B",
-      "edid": "LaserGun",
-      "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": []
     },
     {
       "id": "gatlinglaser-2",
@@ -6705,7 +7423,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "",
+      "inherentEffect": "Weapon Breaks 50% Slower",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -6719,7 +7437,16 @@
       "formId": "000E27BC",
       "edid": "GatlingLaser",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Valkyrie Special Effect",
+          "edid": "RD01_Mod_Custom_Valkyrie_SpecialEffect",
+          "formId": "0079342D",
+          "kind": "unique",
+          "desc": "Weapon Breaks 50% Slower"
+        }
+      ]
     },
     {
       "id": "gatlinglaser-3",
@@ -6778,7 +7505,8 @@
       "formId": "000E27BC",
       "edid": "GatlingLaser",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": []
     },
     {
       "id": "lasergun-3",
@@ -6837,7 +7565,8 @@
       "formId": "0009983B",
       "edid": "LaserGun",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": []
     },
     {
       "id": "mom-voiceofset-44",
@@ -6860,7 +7589,7 @@
         "minLevel": 25
       },
       "starEffects": [],
-      "inherentEffect": "",
+      "inherentEffect": "Additional Electric Damage vs. Robots.",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -6874,7 +7603,30 @@
       "formId": "0039C6C9",
       "edid": "MoM_VoiceOfSet_44",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Unique Effect",
+          "edid": "mod_Description_MoM_VoiceofSet",
+          "formId": "00522667",
+          "kind": "unique",
+          "desc": "Additional Electric Damage vs. Robots."
+        },
+        {
+          "name": "Reflex Sight (Circle)",
+          "edid": "mod_44_SCOPE_reflex_Base",
+          "formId": "001A05E8",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Snubnose Barrel",
+          "edid": "mod_44_barrel_veryshort_Base",
+          "formId": "00158240",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "dlc03-levergun-2",
@@ -6906,17 +7658,17 @@
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Hitman's",
+          "edid": "mod_Legendary_Weapon2_Guns_DmgSights",
+          "formId": "0052414E",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Swift",
+          "edid": "mod_Legendary_Weapon3_Guns_ReloadSpeed",
+          "formId": "00524150",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -6933,7 +7685,51 @@
       "formId": "00110E32",
       "edid": "DLC03_LeverGun",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Western Spirit",
+          "edid": "E09D_mod_custom_WesternSpirit",
+          "formId": "0066957E",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "Vicious Receiver",
+          "edid": "DLC03_mod_LeverGun_Receiver_CritDMG-HipAccuracy",
+          "formId": "00061B09",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Aligned Long Barrel",
+          "edid": "DLC03_mod_LeverGun_Barrel_Long_Recoil-HipAccuracy",
+          "formId": "00024893",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Aligned Stock",
+          "edid": "DLC03_mod_LeverGun_Grip_Recoil-HipAccuracy",
+          "formId": "0003251D",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Glow Sights",
+          "edid": "DLC03_mod_LeverGun_SCOPE_Glow_Base",
+          "formId": "00142EA5",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Compensator",
+          "edid": "DLC03_mod_LeverGun_Muzzle_compensator_Base",
+          "formId": "000325A6",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "supersledge-4",
@@ -6958,10 +7754,10 @@
       "starEffects": [
         {
           "star": 1,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Executioner's",
+          "edid": "mod_Legendary_Weapon1_Execute",
+          "formId": "004F6AA1",
+          "fixed": true
         },
         {
           "star": 2,
@@ -6972,10 +7768,10 @@
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Strength",
+          "edid": "mod_Legendary_Weapon3_StatStrength",
+          "formId": "005299FC",
+          "fixed": true
         }
       ],
       "inherentEffect": "",
@@ -6992,7 +7788,16 @@
       "formId": "000FF964",
       "edid": "SuperSledge",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "WhackerSmacker Custom Mod",
+          "edid": "E09B_mod_Custom_WhackerSmacker",
+          "formId": "0068311F",
+          "kind": "unique",
+          "desc": ""
+        }
+      ]
     },
     {
       "id": "assaultrifle",
@@ -7024,20 +7829,20 @@
         },
         {
           "star": 2,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "V.A.T.S. Enhanced",
+          "edid": "mod_Legendary_Weapon2_Guns_VATSAccuracy",
+          "formId": "00524153",
+          "fixed": true
         },
         {
           "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
+          "name": "Perception",
+          "edid": "mod_Legendary_Weapon3_StatPerception",
+          "formId": "005299FA",
+          "fixed": true
         }
       ],
-      "inherentEffect": "",
+      "inherentEffect": "Silences weapon.",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -7051,7 +7856,58 @@
       "formId": "0000463F",
       "edid": "AssaultRifle",
       "inCurrentExport": true,
-      "isCut": false
+      "isCut": false,
+      "uniqueMods": [
+        {
+          "name": "Whistle in the Dark Custom Mod",
+          "edid": "mod_Custom_WhistleInTheDark",
+          "formId": "005D8D86",
+          "kind": "unique",
+          "desc": ""
+        },
+        {
+          "name": "Steadfast Receiver",
+          "edid": "mod_AssaultRifle_Receiver_FastTrigger-HipAccuracy",
+          "formId": "0052501F",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Aligned Stock",
+          "edid": "mod_AssaultRifle_Grip_Recoil-HipAccuracy",
+          "formId": "003128C7",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Aligned Long Barrel",
+          "edid": "mod_AssaultRifle_Barrel_Long_Recoil-HipAccuracy",
+          "formId": "0030EB38",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Piercing Magazine",
+          "edid": "mod_AssaultRifle_Magazine_Reload-ArmorPen",
+          "formId": "003128D9",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Short Night Vision Scope",
+          "edid": "mod_AssaultRifle_SCOPE_shortscope_NV_Base",
+          "formId": "00312922",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Suppressor",
+          "edid": "mod_AssaultRifle_muzzle_suppressor_Base",
+          "formId": "003128EE",
+          "kind": "preinstalled",
+          "desc": "Silences weapon."
+        }
+      ]
     }
   ]
 }
