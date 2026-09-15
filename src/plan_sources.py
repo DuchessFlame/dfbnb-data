@@ -1047,3 +1047,174 @@ class UnlockIndex:
         if where:
             return [f"Named as {where} in the game files."]
         return []
+
+
+# ════════════════════════════════════════════════════════════════════════════
+# 4. THE OBTAIN LEDGER
+# ════════════════════════════════════════════════════════════════════════════
+r"""
+The fixed route table every plan page prints under "How to Obtain".
+
+It is the same ledger the CAMP item pages use (camp-item-expands skill, section
+2): a fixed list of routes in a fixed order, and EVERY row is printed, including
+the ones that do not apply. The N/A rows are the point — a reader who sees two
+lines cannot tell whether the other eight sources were checked or forgotten,
+while a reader who sees eight N/As knows the plan genuinely is not sold, not on
+a scoreboard and not in a bundle.
+
+The JSON carries only the rows that apply; the renderer holds the fixed order
+and fills the gaps with N/A. Same page, a quarter of the bytes.
+
+This owns no maths and resolves nothing new. It is a pure re-sort of what the
+builder already worked out — obtain_routes (the rng76-resolved percentages,
+which stay on the row, one line per source) and obtain_unlocks (the plain
+sentences for routes that are not random loot) — into ten labelled buckets.
+
+Plans get one row the CAMP pages do not: Containers. Most plans in this game are
+world loot out of a container, and folding that into "Events & Activities" would
+have told the reader to go and do an event for something that sits in a locker.
+"""
+
+LEDGER_ROWS = ["Caps", "Stamps", "Scoreboard", "Gold Bullion", "Atom Shop",
+               "Limited Time Bundle", "Containers", "Events & Activities",
+               "Quests", "Challenges"]
+
+# How many sources one row lists before it is cut short with "and N more".
+# Eight is where the faction vendor lists stop reading as a source list and
+# start reading as a wall — the row says WHERE, it does not enumerate the pool.
+LEDGER_MAX_ROWS = 8
+
+_RX_LED_GOLD  = re.compile(r"gold[\s-]*bullion|bullion", re.I)
+_RX_LED_STAMP = re.compile(r"\bstamps?\b|stamp[\s-]*vendor", re.I)
+_RX_LED_SHOP  = re.compile(r"vendor|trader|merchant|shop", re.I)
+
+
+def _ledger_route_bucket(route):
+    """Which ledger row one resolved drop route belongs in."""
+    label = route.get("route") or ""
+    st    = (route.get("source_type") or "").lower()
+
+    if st == "vendor":
+        # Order matters — a gold-bullion or stamp trader is a vendor too, and
+        # the currency is the thing the reader came to the row for.
+        if _RX_LED_GOLD.search(label):
+            return "Gold Bullion"
+        if _RX_LED_STAMP.search(label):
+            return "Stamps"
+        # "Atom Shop - Ally Lawson vendor" is a CAPS route: the ALLY was bought
+        # from the Atom Shop, the plan on their shelf is bought with caps. It
+        # stays out of the Atom Shop row on purpose.
+        if _RX_LED_SHOP.search(label):
+            return "Caps"
+        # Holders like "Locker" that classified as vendor plumbing are world
+        # loot, not a shop.
+        return "Containers"
+
+    if st in ("container", "fixed"):
+        return "Containers"
+
+    # event-quest, creature, and anything a later builder adds.
+    return "Events & Activities"
+
+
+def _ledger_unlock_bucket(sentence):
+    """Which ledger row one plain-English unlock sentence belongs in."""
+    s = (sentence or "").lower()
+    if "challenge" in s:
+        return "Challenges"
+    if "quest" in s:
+        return "Quests"
+    if s.startswith("found "):
+        return "Containers"
+    if s.startswith("redeemed"):
+        return "Events & Activities"
+    # The "Named in the game files as ..." hints. Where one names both a season
+    # and a shop ("a Season 26 reward, sold as stamp-vendor stock") the SHOP
+    # wins — that is where the player actually walks.
+    if _RX_LED_GOLD.search(s):
+        return "Gold Bullion"
+    if _RX_LED_STAMP.search(s):
+        return "Stamps"
+    if "atom shop" in s:
+        return "Atom Shop"
+    if "season" in s or "scoreboard" in s:
+        return "Scoreboard"
+    if "bundle" in s:
+        return "Limited Time Bundle"
+    return "Events & Activities"
+
+
+def _dedupe_route_indexes(routes, idxs):
+    """Drop repeat sources, best chance first, returning route indexes.
+
+    A vendor reaches a plan as both its CONT (the chest) and its LVLI (the
+    stock), so an undeduped row lists Minerva twice at the same rate.
+    """
+    seen, out = set(), []
+    for i in idxs:
+        r = routes[i]
+        key = ((r.get("route") or "").strip().lower(), r.get("rate_display"))
+        if key in seen:
+            continue
+        seen.add(key)
+        out.append(i)
+    out.sort(key=lambda i: (-(routes[i].get("rate") or 0.0),
+                            (routes[i].get("route") or "")))
+    return out
+
+
+def obtain_ledger(item):
+    """The fixed route table for one plan row. See the section note above.
+
+    Returns one dict per route that APPLIES, in LEDGER_ROWS order:
+
+        {"label":   "Gold Bullion",
+         "routes":  [5, 2],      # indexes into item["obtain_routes"], in
+                                 #   display order: deduped, best chance first
+         "unlocks": [0],         # indexes into item["obtain_unlocks"]
+         "drop":    "N/A"}       # drop-pill text; absent when the row has rates
+
+    Routes are referenced BY INDEX, never copied. Copying them doubled
+    plan_master.json — 2 MB of duplicated percentages on a file the browser
+    downloads — to say something the row already said.
+
+    The renderer draws the full LEDGER_ROWS list and prints N/A for every label
+    missing here, so the reader still sees that each source was checked.
+
+    The resolved percentages stay in this table: they are the whole reason a
+    reader opens How to Obtain, and moving them to Technical would bury them.
+    """
+    routes  = item.get("obtain_routes")  or []
+    unlocks = item.get("obtain_unlocks") or []
+
+    by_route  = {label: [] for label in LEDGER_ROWS}
+    by_unlock = {label: [] for label in LEDGER_ROWS}
+
+    for i, r in enumerate(routes):
+        by_route[_ledger_route_bucket(r)].append(i)
+    seen_lines = set()
+    for i, u in enumerate(unlocks):
+        key = (u or "").strip().lower()
+        if key in seen_lines:
+            continue
+        seen_lines.add(key)
+        by_unlock[_ledger_unlock_bucket(u)].append(i)
+
+    out = []
+    for label in LEDGER_ROWS:
+        ridx = _dedupe_route_indexes(routes, by_route[label])
+        uidx = by_unlock[label]
+        if not ridx and not uidx:
+            continue                      # the renderer prints this one as N/A
+        row = {"label": label}
+        if ridx:
+            row["routes"] = ridx
+        if uidx:
+            row["unlocks"] = uidx
+        if not ridx:
+            # Nothing random about this route, so there is no percentage to
+            # print. Say so in the pill rather than leaving a gap, which reads
+            # as "we could not work it out".
+            row["drop"] = "N/A"
+        out.append(row)
+    return out

@@ -976,6 +976,11 @@ def main(argv=None):
             "cut": bool(cut_why),
             "cut_reason": cut_why,
         }
+        # The fixed How to Obtain table the pages draw — every route printed,
+        # N/A included. Pure re-sort of the two lists above (plan_sources
+        # section 4), so it costs nothing and resolves nothing new.
+        item["obtain_ledger"] = plan_sources.obtain_ledger(item)
+
         if bp_class:
             item["backpack_class"] = bp_class
             item["display_name"] = backpack_display_name(name)

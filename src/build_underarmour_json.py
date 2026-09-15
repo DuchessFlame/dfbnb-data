@@ -94,6 +94,7 @@ DIST = os.path.join(REPO, "dist")
 sys.path.insert(0, HERE)
 
 import tsv_source
+import plan_sources                          # the shared How to Obtain ledger
 import build_new_plans_json as bnp            # the shared newest-vs-baseline diff
 
 # NOT importing build_plan_obtain_json. Its resolve_effects() would do this job,
@@ -149,20 +150,9 @@ RX_STYLE = re.compile(r"_style_", re.I)
 GROUPS = [("skin", "Skins"), ("lining", "Lining"), ("style", "Style")]
 
 # ── the How to Obtain ledger ────────────────────────────────────────────────
-# A fixed list of routes, every one printed even when it does not apply. The N/A
-# rows are the point: a reader who sees only two lines cannot tell whether the
-# rest were checked or forgotten. Order is the house order from the CAMP pages.
-LEDGER_ROWS = ["Caps", "Stamps", "Scoreboard", "Gold Bullion", "Atom Shop",
-               "Limited Time Bundle", "Containers", "Events & Activities",
-               "Quests", "Challenges"]
-
-# Vendor routes only fill the Caps row when the holder really is a caps vendor.
-# Anything else stays in Containers rather than being guessed into Caps.
-RX_CAPS_VENDOR = re.compile(r"vendor|trader|merchant|shop", re.I)
-RX_GOLD   = re.compile(r"goldvendor|_w05_|goldbullion", re.I)
-RX_STAMP  = re.compile(r"stampvendor|_stamps?_", re.I)
-RX_SCORE  = re.compile(r"^score_|_score_|scoreboard", re.I)
-RX_ATOM   = re.compile(r"^atx_|atomshop", re.I)
+# Lives in plan_sources.obtain_ledger() now: every plan checklist page draws
+# the same fixed route table, so one classifier serves all of them. This page
+# passes the plan_master row straight through — see plan_sources section 4.
 
 
 def read_rows(path):
@@ -364,48 +354,6 @@ def tier_of(it, blob):
     return tier, agreed, by_cnam
 
 
-def build_ledger(it, blob):
-    """The fixed route table. Returns [{label, applies, detail{}|rows[]}]."""
-    routes = it.get("obtain_routes") or []
-    conts = [r for r in routes if r.get("source_type") == "container"]
-    evq   = [r for r in routes if r.get("source_type") in ("event-quest", "creature", "fixed")]
-    vend  = [r for r in routes if r.get("source_type") == "vendor"]
-
-    caps_vendors = [r for r in vend if RX_CAPS_VENDOR.search(r.get("route") or "")]
-    # A vendor route whose holder does not read as a shop is not evidence of a
-    # caps purchase — it goes to Containers with the rest of the world loot.
-    other_vendors = [r for r in vend if r not in caps_vendors]
-
-    def rate_rows(rs):
-        return [{"route": r.get("route"), "rate_display": r.get("rate_display"),
-                 "rate": r.get("rate")} for r in rs[:6]]
-
-    filled = {}
-    if RX_GOLD.search(blob):
-        filled["Gold Bullion"] = {"kind": "kv", "kv": [
-            ["Plan", (it.get("name") or "").replace("Plan: ", "")],
-            ["Vendor", "Gold Bullion vendor"],
-        ]}
-    if RX_STAMP.search(blob):
-        filled["Stamps"] = {"kind": "kv", "kv": [["Vendor", "Stamp vendor"]]}
-    if RX_SCORE.search(blob):
-        filled["Scoreboard"] = {"kind": "kv", "kv": [["Source", "Season scoreboard reward"]]}
-    if RX_ATOM.search(blob):
-        filled["Atom Shop"] = {"kind": "kv", "kv": [["Source", "Atom Shop"]]}
-    if caps_vendors:
-        filled["Caps"] = {"kind": "rates", "rows": rate_rows(caps_vendors)}
-    if conts or other_vendors:
-        filled["Containers"] = {"kind": "rates", "rows": rate_rows(conts + other_vendors)}
-    if evq:
-        filled["Events & Activities"] = {"kind": "rates", "rows": rate_rows(evq)}
-
-    out = []
-    for label in LEDGER_ROWS:
-        hit = filled.get(label)
-        out.append({"label": label, "applies": bool(hit), **(hit or {})})
-    return out
-
-
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--data-dir", default=TSV, help="TSV export root; tsv/pts on the PTS channel")
@@ -552,7 +500,7 @@ def main(argv=None):
         row["tier"]  = tier
         row["tier_label"] = TIER_LABEL.get(tier) if tier else None
         row["is_new"] = ((it.get("plan_item") or {}).get("formid") or "").upper() in new_ids
-        row["obtain_ledger"] = build_ledger(it, blob)
+        row["obtain_ledger"] = plan_sources.obtain_ledger(it)
 
         if grp == "lining":
             # Swap in the parent's resistances. The per-set OMOD only ever holds
