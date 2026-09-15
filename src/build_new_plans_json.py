@@ -106,6 +106,7 @@ SEASONS_TSV = os.path.join(REPO, "tsv", "fallout76_seasons.tsv")
 sys.path.insert(0, HERE)
 
 import tsv_source
+import plan_images                            # row art, same resolver as the other pages
 
 # -- the BOOK export selector, shared -----------------------------------------
 BOOK_GLOB    = "BOOK_Export_*.tsv"
@@ -527,6 +528,18 @@ def main(argv=None):
         row["group"] = classify_group(it)
         row["is_new"] = True
         rows.append(row)
+
+    # Art. This page copies its rows out of plan_master, so in principle it
+    # inherits whatever pictures that build resolved — but it only inherits them
+    # if plan_master was written by a build that had them, and a CI run has
+    # already shipped this page with every row blank for exactly that reason.
+    # Resolving here as well costs nothing (no rates, no rebuild, pure lookup)
+    # and makes the page independent of what ran before it.
+    try:
+        idx, staged = plan_images.load(outdir, args.data_dir)
+        plan_images.report(plan_images.attach(rows, idx, staged))
+    except Exception as exc:                      # noqa: BLE001 - never fatal
+        print(f"[new-plans] WARNING image resolve skipped: {exc}", file=sys.stderr)
 
     groups = []
     for key, label in sorted(GROUPS.items(), key=lambda kv: kv[1].lower()):
