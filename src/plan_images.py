@@ -471,12 +471,20 @@ _RX_WEAPON_MOD_NAME = re.compile(
     r"suppressor|silencer|capacitor|core|nozzle|lobber)\b|\bmods?$", re.I)
 
 
+# A paint is not a weapon mod for this purpose. It changes nothing about how the
+# gun works, and a picture of a receiver on "Plan: Western Spirit Paint" tells
+# the reader something untrue about what they are looking at. Paints get no
+# stand-in until there is a picture worth standing in for them.
+_RX_COSMETIC = re.compile(r"\bpaints?\b|\bskins?\b|modelswap|appearance|"
+                          r"\bcamo\b|\bwrap\b", re.I)
+
+
 def generic_kind(item):
     """The class of plan this row belongs to, for GENERIC_ART, or ""."""
     cnam = item.get("cnam") or {}
     name = item.get("name") or ""
     edid = (cnam.get("edid") or "") + " " + name
-    if _RX_NOT_WEAPON_MOD.search(edid):
+    if _RX_NOT_WEAPON_MOD.search(edid) or _RX_COSMETIC.search(edid):
         return ""
     if (cnam.get("sig") or "").upper() == "OMOD":
         return "weapon-mod"
