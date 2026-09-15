@@ -519,8 +519,10 @@ def main(argv=None):
         if not it:
             skipped.append(new_ids.get(fid, fid))
             continue
-        if it.get("cut"):
-            continue
+        # Cut plans are KEPT, not dropped. The renderer marks them with the
+        # "✕ Cut" pill, greys the row, hides the checkbox and leaves them out
+        # of the progress total (item.cut / item.cut_reason). Dropping them
+        # here would silently hide content Duchess asked to have shown.
         row = dict(it)
         row["group"] = classify_group(it)
         row["is_new"] = True
