@@ -74,6 +74,7 @@ sys.path.insert(0, HERE)
 
 import rng76
 import plan_sources          # cut detection, readable source names, unlock routes
+import plan_images           # row art: published images first, staged files second
 from spawns_engine import sources as ssrc
 # reuse the farming Containers resolver + rate helpers + rng76 wrapper
 import build_farming_used_for as bfu
@@ -995,6 +996,18 @@ def main(argv=None):
         "source_files": {k: os.path.basename(newest(v) or "") for k, v in SIG_EXPORTS.items()},
         "items": items,
     }
+    # Art. Reuses the picture another page already hosts where one exists, else
+    # a stem staged under this page's own folder — plan_images.py. Resolution
+    # only, no downloads and no file checks against the server, so it cannot
+    # fail the build: on any error the rows keep their empty images list and
+    # the pages render the placeholder slot.
+    try:
+        idx, staged = plan_images.load(os.path.dirname(args.out) or DIST,
+                                       args.data_dir)
+        plan_images.report(plan_images.attach(items, idx, staged))
+    except Exception as exc:                      # noqa: BLE001 - never fatal
+        print(f"  WARNING: image resolve skipped: {exc}", file=sys.stderr)
+
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     with open(args.out, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)

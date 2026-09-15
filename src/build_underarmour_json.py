@@ -95,6 +95,7 @@ sys.path.insert(0, HERE)
 
 import tsv_source
 import plan_sources                          # the shared How to Obtain ledger
+import plan_images                           # row art, same resolver as the other pages
 import build_new_plans_json as bnp            # the shared newest-vs-baseline diff
 
 # NOT importing build_plan_obtain_json. Its resolve_effects() would do this job,
@@ -557,6 +558,18 @@ def main(argv=None):
     buckets["skin"].sort(key=lambda r: (r["name"] or "").lower())
     buckets["style"].sort(key=lambda r: (r["name"] or "").lower())
     buckets["lining"].sort(key=lambda r: (int((r["tier"] or "Mk9")[2:]), (r["set"] or "").lower()))
+
+    # Art. The rows came out of plan_master carrying the apparel/armour bucket,
+    # but this page has its own folder on the server, so the folder is forced
+    # and the staged stems are re-resolved against it. Published art (a
+    # scoreboard tile, an Atom Shop shot) still wins where it exists.
+    try:
+        idx, staged = plan_images.load(args.outdir, args.data_dir)
+        plan_images.report(plan_images.attach(
+            [r for b in buckets.values() for r in b], idx, staged,
+            folder_override="underarmour"))
+    except Exception as exc:                      # noqa: BLE001 - never fatal
+        print(f"  WARNING: image resolve skipped: {exc}", file=sys.stderr)
 
     groups = [{"key": k, "label": lbl, "count": len(buckets[k]), "items": buckets[k]}
               for k, lbl in GROUPS if buckets[k]]
