@@ -36,3 +36,19 @@ Expand All / Close All act on the root level; Tick All ticks every row and the
 group heads follow; Reset clears; a group tick-box ticks its own rows and no
 others; search narrows, opens the sub-expand holding the match, and restores
 every row when cleared.
+
+## plan-changes.test.js — change tracking
+
+    DFBNB_UP=/path/to/mnt node tests/plan-changes.test.js
+
+Asserts the render contract for `src/plan_changes.py` output: a row carrying
+`changes` gets the ↻ Changed pill (and never the ★ NEW pill as well), Technical
+carries a "Changed since the last build" block stating each change in words,
+and a newly-added source is tagged New on its own line in How to Obtain.
+
+The rows are SYNTHESISED from real `plan_master` rows rather than found in
+`dist/`. A real change is by definition absent from a freshly snapshotted
+build, so a test that waited for one would pass vacuously for three months and
+then fail in the patch where it finally mattered. The last two checks feed it a
+dataset with no `changes` key at all — a page built before this existed — and
+assert it renders unchanged.

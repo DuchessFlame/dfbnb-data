@@ -42,6 +42,46 @@ def walk_items(blob):
             yield it
 
 
+def audit_overrides(rows, idx, staged, overrides, folder_override, path):
+    """Which overrides have stopped earning their keep.
+
+    An override is a stopgap for a window where the export set cannot link a
+    plan to the record its picture is named after — typically a content drop
+    that is in BOOK but not yet in COBJ. When the missing export lands the
+    resolver finds the same file unaided and the entry becomes dead weight that
+    will quietly outlive the reason for it, so there has to be something that
+    says so. REDUNDANT is safe to delete. DEAD points at art that is no longer
+    staged and the row is showing an empty slot.
+    """
+    hits = {"REDUNDANT": [], "DEAD": [], "LIVE": []}
+    for item in rows:
+        keys = [k for k in plan_images.override_keys(item) if k in overrides]
+        if not keys:
+            continue
+        value = overrides[keys[0]]
+        folder = folder_override or plan_images.page_folder(item)
+        name = item.get("name") or item.get("id")
+        if value and not plan_images.apply_override(item, value, staged, folder):
+            hits["DEAD"].append(f"{name}  ->  {value}")
+            continue
+        # What the resolver would do if this entry were not here.
+        probe = dict(item)
+        auto, _src = idx.lookup(probe)
+        if not auto:
+            stems = plan_images.candidate_stems(probe)
+            pool = staged.get(folder) or set()
+            other = plan_images._elsewhere(staged, folder)
+            auto = next((s for s in stems if s in pool or other.get(s)), "")
+        hits["REDUNDANT" if auto else "LIVE"].append(f"{name}  ->  {value}")
+
+    print(f"[overrides] {path}")
+    for label in ("DEAD", "REDUNDANT", "LIVE"):
+        rowset = hits[label]
+        print(f"  {label:10s} {len(rowset)}")
+        for line in sorted(rowset):
+            print(f"    {line}")
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("paths", nargs="+", help="dist JSON files to patch in place")
@@ -54,12 +94,16 @@ def main(argv=None):
     ap.add_argument("--folder", default="",
                     help="force every row onto one page folder (underarmour)")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--audit-overrides", action="store_true",
+                    help="report which overrides the resolver would now find "
+                         "on its own, and which point at art that is gone")
     args = ap.parse_args(argv)
 
     if args.avif_dir:
         plan_images.scan_staging(args.avif_dir, args.config)
 
     idx, staged = plan_images.load(args.dist_dir, args.tsv_dir, args.config)
+    overrides = plan_images.read_overrides(args.config)
 
     for path in args.paths:
         if not os.path.exists(path):
@@ -73,7 +117,12 @@ def main(argv=None):
         folder = args.folder
         if not folder and os.path.basename(path).startswith("underarmour"):
             folder = "underarmour"
-        stats = plan_images.attach(rows, idx, staged, folder_override=folder)
+        if args.audit_overrides:
+            audit_overrides(rows, idx, staged, overrides, folder, path)
+            continue
+
+        stats = plan_images.attach(rows, idx, staged, folder_override=folder,
+                                   overrides=overrides)
 
         print(f"[images] {path}: {len(rows)} rows")
         plan_images.report(stats, stream=sys.stdout)

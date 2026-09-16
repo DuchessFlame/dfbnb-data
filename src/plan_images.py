@@ -401,6 +401,78 @@ def read_staged(config_path=CONFIG, verbose=True):
     return out
 
 
+_OVERRIDE_CACHE = {}
+
+
+def read_overrides(config_path=CONFIG, verbose=True):
+    """The manual escape hatch: a plan -> picture map the resolver cannot guess.
+
+    `data/plan_images.json` has carried an "overrides" key since the file was
+    created and nothing ever read it. It is read now, because the automatic
+    paths need a record link the export set does not always have: a content
+    drop lands in BOOK weeks before its COBJ is re-exported, and until then a
+    brand new plan resolves no created record at all, so there is no name to
+    match its art on. An entry here is a stopgap for that window, not a
+    permanent fixture — once the record link exists the automatic path finds
+    the same file and the entry becomes a no-op. `--audit-overrides` lists the
+    ones that have gone redundant so they can be deleted.
+
+    A key is any of: the plan's row id ("PLAN_008E0698"), its FormID, its
+    EditorID, or its full name. Matching is case-insensitive.
+
+    A value is one of:
+      "/wp-content/…/x.avif"  an absolute URL, used verbatim
+      "folder/stem"           a staged stem in a NAMED folder (use this when
+                              the art sits in a different page's folder than
+                              the row routes to)
+      "stem"                  a staged stem in the row's own folder
+      ""                      suppress art for this row entirely
+    """
+    key = os.path.abspath(config_path)
+    if key in _OVERRIDE_CACHE:
+        return _OVERRIDE_CACHE[key]
+    out = {}
+    if os.path.exists(config_path):
+        with open(config_path, encoding="utf-8") as f:
+            cfg = json.load(f)
+        for k, v in (cfg.get("overrides") or {}).items():
+            out[str(k).strip().lower()] = (v or "").strip()
+    if verbose and out:
+        print(f"  {len(out):4d} image overrides read from {config_path}",
+              file=sys.stderr)
+    _OVERRIDE_CACHE[key] = out
+    return out
+
+
+def override_keys(item):
+    """Every spelling read_overrides() will answer to for this row."""
+    plan = item.get("plan_item") or {}
+    return [str(k).strip().lower() for k in (
+        item.get("id"), plan.get("formid"), plan.get("edid"), item.get("name"),
+    ) if k]
+
+
+def apply_override(item, value, staged, folder):
+    """Turn an override value into (images, image_source), or None to skip it.
+
+    A stem is only accepted when the .avif is actually staged, exactly like the
+    automatic path — an override is allowed to be wrong about which file it
+    wants, but it is never allowed to point the front end at a 404.
+    """
+    if value.startswith("/"):
+        return [value], "override"
+    if "/" in value:
+        fld, _, stem = value.rpartition("/")
+        stem = stem.lower()
+        if stem in (staged.get(fld) or set()):
+            return [PLAN_IMG_BASE + fld + "/" + stem + ".avif"], "override"
+        return None
+    stem = value.lower()
+    if stem and stem in (staged.get(folder) or set()):
+        return [stem], "override"
+    return None
+
+
 def scan_staging(avif_root, config_path=CONFIG, verbose=True):
     """Scan the local staging root and persist the stem list into the config.
 
@@ -512,9 +584,15 @@ def candidate_stems(item):
     nobody has to remember one rule.
     """
     cnam = item.get("cnam") or {}
+    cobj = item.get("cobj") or {}
     plan = item.get("plan_item") or {}
     out = []
-    for edid in ((cnam.get("edid") or ""), (plan.get("edid") or "")):
+    # Every record this plan touches, strongest link first: the thing it makes,
+    # the recipe that makes it, then the plan book itself. A file dropped in by
+    # hand is usually named after the record it is a PICTURE of, which is the
+    # created record — so cnam has to be tried before the plan's own EditorID.
+    for edid in ((cnam.get("edid") or ""), (cobj.get("edid") or ""),
+                 (plan.get("edid") or "")):
         e = edid.strip().lower()
         if not e:
             continue
@@ -530,17 +608,70 @@ def candidate_stems(item):
     return uniq
 
 
-def attach(items, idx, staged, folder_override="", stats=None):
+def _elsewhere(staged, home):
+    """stem -> folder, for every stem staged in exactly ONE folder but home.
+
+    Cross-folder rescue exists because a row's page is decided by what the
+    thing IS to a player and the art is filed by whoever staged it, and the two
+    disagree honestly: the Slasher power armour paints are `recipe` rows (the
+    plan's record bucket) whose pictures were quite sensibly dropped in
+    power-armour/, and the gold shovel paint is a `recipes` row whose picture
+    is in weapons/.
+
+    A stem present in two folders is NOT rescued. Two pages staging the same
+    filename means the name does not identify a picture, and guessing which one
+    a row wants is how the wrong item ends up on a row — worse than the empty
+    slot this is trying to fill.
+    """
+    seen = {}
+    for folder, stems in staged.items():
+        if folder == home:
+            continue
+        for stem in stems:
+            seen[stem] = None if stem in seen else folder
+    return seen
+
+
+def attach(items, idx, staged, folder_override="", stats=None, overrides=None):
     """Set `image_dir` and `images` on every row. Returns the stats dict.
 
     `images` is what the renderer draws, in order. An entry starting with "/"
     is an absolute URL used as-is (art another page already hosts); anything
     else is a stem inside this page's own folder.
+
+    Resolution order, first hit wins:
+
+      1. an override      — the manual map, always the last word
+      2. published art    — a picture another page already serves
+      3. staged, own folder
+      4. staged, another page's folder, when the stem is unambiguous
+      5. the generic class picture (weapon mods only)
+
     """
     stats = stats if stats is not None else {}
+    overrides = read_overrides() if overrides is None else overrides
+    xfolder = {}
     for item in items:
         folder = folder_override or page_folder(item)
         item["image_dir"] = folder or (item.get("type") or "")
+
+        # 1. Override. Checked before the index because the whole point of the
+        #    map is to beat a resolver that got it wrong, not only to fill a
+        #    gap where the resolver found nothing.
+        ov = next((overrides[k] for k in override_keys(item) if k in overrides), None)
+        if ov is not None:
+            if ov == "":
+                item["images"] = []
+                item["image_source"] = ""
+                _bump(stats, folder, "suppressed")
+                continue
+            got = apply_override(item, ov, staged, folder)
+            if got:
+                item["images"], item["image_source"] = got
+                _bump(stats, folder, "override")
+                continue
+            print(f"  WARNING: override for {item.get('id') or item.get('name')}"
+                  f" -> {ov!r} is not staged; falling through", file=sys.stderr)
 
         url, source = idx.lookup(item)
         if url:
@@ -549,12 +680,28 @@ def attach(items, idx, staged, folder_override="", stats=None):
             _bump(stats, folder, source)
             continue
 
+        stems = candidate_stems(item)
         pool = staged.get(folder) or set()
-        hit = next((s for s in candidate_stems(item) if s in pool), "")
+        hit = next((s for s in stems if s in pool), "")
         if hit:
             item["images"] = [hit]
             item["image_source"] = "staged"
             _bump(stats, folder, "staged")
+            continue
+
+        # 4. The same picture, filed under another page's folder. Emitted as an
+        #    absolute URL rather than a bare stem, because a bare stem is read
+        #    by the front end against THIS row's folder and would 404 there.
+        #    dspImgURL() appends .avif to a bare stem and passes an absolute
+        #    entry through verbatim, so the extension has to be written here.
+        if folder not in xfolder:
+            xfolder[folder] = _elsewhere(staged, folder)
+        other = xfolder[folder]
+        hit = next((s for s in stems if other.get(s)), "")
+        if hit:
+            item["images"] = [PLAN_IMG_BASE + other[hit] + "/" + hit + ".avif"]
+            item["image_source"] = "staged-elsewhere"
+            _bump(stats, folder, "staged-elsewhere")
             continue
 
         # Last resort: the one picture that stands for this whole class of plan.

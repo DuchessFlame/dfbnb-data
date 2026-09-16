@@ -556,6 +556,30 @@ def main(argv=None):
         row["is_new"] = True
         rows.append(row)
 
+    # -- plans that were already here and have since CHANGED -----------------
+    # The roster diff above can only ever see a FormID that was not in the
+    # previous export. A plan that has always been here and has since become
+    # tradeable, or picked up a second source, keeps its FormID and is
+    # invisible to it — which is the whole reason src/plan_changes.py exists.
+    #
+    # They go into the SAME type groups as the new plans rather than a section
+    # of their own (Duchess's call), and carry `is_new: False` so the renderer
+    # gives them the ↻ Changed pill instead of the ★ NEW star. A plan that is
+    # both new this patch and carries change notes is only ever listed once —
+    # `added` wins, because "added" is the stronger statement.
+    changed = 0
+    for it in master.get("items", []):
+        fid = ((it.get("plan_item") or {}).get("formid") or "").upper()
+        if not fid or fid in added or not (it.get("changes") or []):
+            continue
+        row = dict(it)
+        row["group"] = classify_group(it)
+        row["is_new"] = False
+        rows.append(row)
+        changed += 1
+    if changed:
+        print(f"[new-plans] {changed} plan(s) changed since the last build")
+
     # Art. This page copies its rows out of plan_master, so in principle it
     # inherits whatever pictures that build resolved — but it only inherits them
     # if plan_master was written by a build that had them, and a CI run has
@@ -583,6 +607,8 @@ def main(argv=None):
         "season": season_block,
         "baseline": baseline_block,
         "count": len(rows),
+        "count_new": sum(1 for r in rows if r.get("is_new")),
+        "count_changed": sum(1 for r in rows if not r.get("is_new")),
         "skipped_not_in_master": sorted(skipped),
         "groups": groups,
     }

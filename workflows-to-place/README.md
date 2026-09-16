@@ -21,3 +21,22 @@ It runs all five post-passes in the one load-bearing order against all three
 copies (`src/plan-system/`, `dist/`, `dist/pts/`), picks each channel's own
 export root, and verifies at the end that the copies agree and that every live
 plan lands on exactly one page.
+
+## build-new-plans.yml (updated 16 Sept 2026)
+
+Replaces the copy in `.github/workflows/`. Two changes:
+
+- A new **Attach change notes** step runs `src/plan_changes.py` over
+  `dist/plan_master.json` before the page is built, so a plan that was already
+  here and has since become tradeable or picked up a source joins the New Plans
+  type groups with a ↻ Changed pill.
+- The commit step now also stages `dist/plan_master.json`, because that is
+  where the `changes` the other checklist pages read are written.
+
+It deliberately does NOT pass `--write`. `data/plan_snapshot.json` is the
+baseline the next diff compares against; re-taking it every CI run would walk
+it forward one build at a time until it always matched and nothing ever looked
+changed. Re-take it by hand once a patch has settled:
+
+    python3 src/reenrich_plan_master.py --channel live --snapshot
+    python3 src/reenrich_plan_master.py --channel pts  --snapshot

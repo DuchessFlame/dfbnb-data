@@ -60,6 +60,7 @@ ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 
 import plan_images
+import plan_changes
 import plan_apparel_class
 import plan_subpages
 import plan_consumables
@@ -85,6 +86,19 @@ SCHEMA_KEYS = ("apparel_class_schema",
                "armour_groups_schema", "armour_groups_sources")
 
 
+def _snapshot_for(tsv_dir):
+    """The snapshot belongs to the CHANNEL, not the machine.
+
+    A PTS build diffed against the live snapshot would report every PTS-only
+    plan as "changed", and a live build diffed against PTS would report the
+    reverse. One file per channel, picked off the export directory the build is
+    reading, so the two can never be crossed by forgetting a flag.
+    """
+    pts = "pts" in os.path.normpath(tsv_dir).replace("\\", "/").split("/")
+    return os.path.join(ROOT, "data",
+                        "plan_snapshot_pts.json" if pts else "plan_snapshot.json")
+
+
 def enrich_file(path, dist_dir, tsv_dir, report_only=False):
     with open(path, encoding="utf-8") as fh:
         doc = json.load(fh)
@@ -97,6 +111,23 @@ def enrich_file(path, dist_dir, tsv_dir, report_only=False):
     # 1. art + classification
     idx, staged = plan_images.load(dist_dir, tsv_dir, verbose=False)
     plan_images.report(plan_images.attach(items, idx, staged))
+
+    # 1b. what changed since the last build. Runs BEFORE the grouping passes so
+    #     a page builder reading these rows already sees `changes`, and is a
+    #     pure join like the rest — it reads a committed snapshot, it does not
+    #     rebuild anything. The snapshot is only re-taken by --snapshot, so a
+    #     re-enrich can be run as many times as needed without moving the
+    #     baseline out from under the next real diff.
+    snap = plan_changes.read_snapshot(_snapshot_for(tsv_dir))
+    if snap is None:
+        print("  no plan snapshot yet — no change notes on this pass")
+        for it in items:
+            it["changes"] = []
+    else:
+        plan_changes.report(plan_changes.diff(items, snap, tsv_dir),
+                            stream=sys.stdout)
+        doc["changes_since"] = snap.get("taken") or ""
+        doc["changes_exports"] = snap.get("exports") or {}
 
     # 2. armour or clothing. Corrects image_dir BEFORE anything routes on it.
     plan_apparel_class.report(plan_apparel_class.attach(items))
@@ -196,6 +227,11 @@ def main():
     ap.add_argument("--all", action="store_true")
     ap.add_argument("--report-only", action="store_true")
     ap.add_argument("--verify", action="store_true")
+    ap.add_argument("--snapshot", action="store_true",
+                    help="after enriching, re-take the change-tracking "
+                         "baseline from this run. Do it once a patch is "
+                         "settled, NOT on every re-enrich, or the next real "
+                         "diff has nothing to compare against.")
     args = ap.parse_args()
     if not args.channel and not args.all:
         ap.error("pass --channel live|pts or --all")
@@ -210,6 +246,13 @@ def main():
                 print(f"[reenrich] missing: {path}", file=sys.stderr)
                 continue
             docs[path] = enrich_file(path, dist_dir, tsv_dir, args.report_only)
+        if args.snapshot and not args.report_only:
+            first = next((docs[p] for p in paths if p in docs), None)
+            if first is not None:
+                out = _snapshot_for(tsv_dir)
+                plan_changes.write_snapshot(
+                    plan_changes.snapshot(first.get("items") or [], tsv_dir), out)
+                print(f"[reenrich] {ch}: snapshot re-taken -> {out}")
     if args.verify or args.all:
         if not verify(docs):
             raise SystemExit(1)

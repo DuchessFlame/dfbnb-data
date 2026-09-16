@@ -1,0 +1,116 @@
+name: Build New Plans JSON
+
+# Builds dist/new_plans.json for /df/plan-checklists/new-plans/, rendered by
+# df-bnb-plan-checklists.js -> renderNewPlans.
+#
+# The page holds exactly the plans the NEWEST BOOK export added over the one
+# before it — not a running history. Upload a newer export and the previous
+# batch drops off on its own at the next build. Nothing to prune by hand.
+#
+# THIS WORKFLOW IS THE MANUAL / CODE-CHANGE PATH ONLY.
+# The automated paths, which rebuild the plan roster in the same run, are:
+#   * build-plan-obtain.yml   — new TSVs land on main (live channel)
+#   * dfbnb-patch-build.yml   — full live patch build
+#   * dfbnb-pts-build.yml     — PTS channel, --data-dir tsv/pts
+# All four call the identical builder, so they cannot drift.
+#
+# It deliberately does NOT trigger on tsv/**: that would race build-plan-obtain
+# for the same commit, and this job reads the committed dist/plan_master.json
+# rather than rebuilding it (the rng76 route resolve is expensive). So on a TSV
+# push, let build-plan-obtain do both. Run this one by hand after editing the
+# builder, or to republish the page without a full rebuild.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - "src/build_new_plans_json.py"
+      - "src/plan_changes.py"
+      - "data/plan_snapshot.json"
+      - ".github/workflows/build-new-plans.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-new-plans-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      # Rows are copied verbatim out of the committed roster, so a missing one
+      # means this job ran before any plan build ever did.
+      - name: Require an existing plan_master.json
+        run: |
+          test -f dist/plan_master.json || {
+            echo "dist/plan_master.json is missing — run build-plan-obtain.yml first."
+            exit 1
+          }
+
+      # Change notes, before the page is built. build_new_plans_json.py reads
+      # `changes` off the plan_master rows to decide which already-here plans
+      # join the type groups with a Changed pill, so this has to run first.
+      #
+      # NOT --write. The snapshot is the baseline the NEXT diff compares
+      # against, and re-taking it on every CI run would move it forward one
+      # build at a time until it always matched and nothing ever looked
+      # changed. It is re-taken deliberately, once a patch has settled:
+      #     python3 src/reenrich_plan_master.py --channel live --snapshot
+      - name: Attach change notes
+        run: |
+          python src/plan_changes.py dist/plan_master.json --tsv-dir tsv
+
+      - name: Build New Plans JSON
+        run: |
+          mkdir -p dist
+          python src/build_new_plans_json.py \
+            --data-dir tsv \
+            --outdir dist
+
+      # Shape only. An empty page is a valid outcome — two consecutive exports
+      # can carry the same plan roster — so there is no minimum-count assertion.
+      - name: Sanity check output
+        run: |
+          python - <<'PY'
+          import json
+          d = json.load(open("dist/new_plans.json"))
+          groups = d.get("groups", [])
+          total = sum(len(g.get("items", [])) for g in groups)
+          assert total == d.get("count"), f"count {d.get('count')} != {total} rows in groups"
+          labels = [g["label"] for g in groups]
+          assert labels == sorted(labels, key=str.lower), f"groups not A-Z: {labels}"
+          print(f"new_plans.json: {total} new plan(s) in {len(groups)} group(s) "
+                f"[{d['baseline']['newest']} vs {d['baseline']['previous']}]")
+          for g in groups:
+              print(f"   {g['label']}: {g['count']}")
+          PY
+
+      - name: Commit dist output
+        shell: bash
+        run: |
+          if git status --porcelain | grep -q .; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add dist/new_plans.json dist/plan_master.json
+            git diff --cached --quiet && echo "No changes staged." && exit 0
+            git commit -m "Build new_plans.json"
+            git fetch origin main
+            git pull --rebase origin main
+            git push origin main
+          else
+            echo "No changes."
+          fi
