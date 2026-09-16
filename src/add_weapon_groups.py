@@ -72,6 +72,18 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 TSV = os.path.join(ROOT, "tsv")
 
+
+def set_tsv_dir(path):
+    """Point the export pickup at another root — tsv/pts for the PTS channel.
+
+    The PTS copy of plan_master is built from PTS exports and has ~70 rows the
+    live one does not, so enriching it from tsv/ would group PTS plans against
+    live records. Every enricher in this family takes the same override.
+    """
+    global TSV
+    TSV = path or os.path.join(ROOT, "tsv")
+    return TSV
+
 import plan_subpages        # which rows have been carved onto a page of their own
 
 SCHEMA = 1  # bump when the emitted fields change shape
@@ -85,14 +97,24 @@ MONTHS = {m: i for i, m in enumerate(
     ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"], 1)}
 
 _STAMP = re.compile(r"_([A-Za-z]{3,9})_(\d{4})", re.I)
+# The PTS exports are stamped with an ISO date instead of a month name
+# (ARMO_Export_PTS_2026-09-05_1211_ARMOUR.tsv). Without this every PTS file
+# parsed as month 0 of year 2026, they all tied, and the pick fell through to
+# mtime — which is the exact failure the month-in-the-filename rule exists to
+# avoid, just on the other channel.
+_ISO = re.compile(r"_(\d{4})-(\d{2})-(\d{2})")
 
 
 def _stamp(path: str):
-    """(year, month) parsed out of "..._September_2026.tsv", else (0, 0)."""
-    m = _STAMP.search(os.path.basename(path))
+    """(year, month, day) from the filename — "..._September_2026" or an ISO date."""
+    name = os.path.basename(path)
+    m = _ISO.search(name)
+    if m:
+        return (int(m.group(1)), int(m.group(2)), int(m.group(3)))
+    m = _STAMP.search(name)
     if not m:
-        return (0, 0)
-    return (int(m.group(2)), MONTHS.get(m.group(1)[:3].lower(), 0))
+        return (0, 0, 0)
+    return (int(m.group(2)), MONTHS.get(m.group(1)[:3].lower(), 0), 0)
 
 
 def newest(pattern: str, exclude: str = "") -> str:
@@ -359,7 +381,7 @@ class Resolver:
         # this bucket) leaves the weapon page for its own. plan_subpages runs
         # first in the build, so the tag is already on the row — asking it is
         # what keeps the two pages from ever disagreeing about a plan.
-        if item.get("plan_page"):
+        if item.get("plan_page") not in (None, "weapon"):
             return "carved-out", None
 
         # A plan whose recipe creates a WEAP makes the weapon itself — unless
@@ -410,7 +432,23 @@ def attach(items):
     grouped and no workflow has to learn a new step. Returns a stats dict, or an
     empty one when the list holds no weapon plans.
     """
-    weapons = [i for i in items if (i.get("type") or "").lower() == "weapon"]
+    # SELECT BY PAGE, NOT BY BUCKET. `type` is the record bucket and it lies:
+    # 115 weapon paints are filed under `recipe` because the builder had nowhere
+    # else to put them, and three sit in `armour`. Grouping only the `weapon`
+    # bucket left every one of those ungrouped, which is why they rendered as a
+    # flat tail on a page that is otherwise one expand per weapon.
+    # plan_subpages.attach() runs before this and has already written the page
+    # each row belongs to, so asking it is both correct and the thing that keeps
+    # the Weapon page and the carve-out pages from ever disagreeing about a row.
+    weapons = [i for i in items if i.get("plan_page") == "weapon"]
+    # Anything NOT on the weapon page must not keep weapon_* fields from an
+    # earlier run. These enrichers are re-run in place over a finished
+    # plan_master, so a row that has since moved pages would otherwise carry a
+    # stale group forever — data that is not pruned is data that lies.
+    for i in items:
+        if i.get("plan_page") != "weapon":
+            for f in ("weapon_role", "weapon_group", "weapon_group_key", "weapon_group_solo"):
+                i.pop(f, None)
     if not weapons:
         return {}
 
@@ -486,7 +524,7 @@ def main():
         print(f"   groups  : {stats['groups']}")
         print(f"   rows    : " + ", ".join(f"{k}={v}" for k, v in sorted(stats["tally"].items())))
         if args.report_only:
-            weapons = [i for i in doc["items"] if (i.get("type") or "").lower() == "weapon"]
+            weapons = [i for i in doc["items"] if i.get("plan_page") == "weapon"]
             by = collections.defaultdict(lambda: collections.Counter())
             for i in weapons:
                 if i["weapon_role"] == "fishing":

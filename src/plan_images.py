@@ -127,8 +127,14 @@ _RX_CAMERA    = re.compile(r"\bcamera\b|photomode[_\s]*lens", re.I)
 _RX_PHOTOMODE = re.compile(r"photo[_\s]*mode|photo[_\s]*frame|photo[_\s]*poses?|"
                            r"\bposes?\b", re.I)
 _RX_SNOWGLOBE = re.compile(r"snow[_\s]*globe", re.I)
-_RX_POWERARM  = re.compile(r"power[_\s]*armou?r|\bPA[_\s]?(helmet|torso|arm|leg|jetpack)|"
-                           r"jetpack", re.I)
+# "jetpack" used to be an alternative of its own here, which swept in three
+# BODY armour mods whose EditorID never says power armour at all — the Secret
+# Service, Brotherhood Recon and Civil Engineer jet packs
+# (mod_armor_SecretService_Torso_Jetpack). Those are torso mods for a body
+# armour set; filing them under power armour put them on the wrong page AND
+# left them with no family to group under, because no PA set owns them. A real
+# power-armour jetpack still matches: its EditorID says PowerArmor.
+_RX_POWERARM  = re.compile(r"power[_\s]*armou?r|\bPA[_\s]?(helmet|torso|arm|leg|jetpack)", re.I)
 _RX_UNDERARM  = re.compile(r"underarmou?r", re.I)
 _RX_BACKPACK  = re.compile(r"backpack", re.I)
 _RX_WEAPON    = re.compile(r"\bweapon|\bgun\b|rifle|pistol|shotgun|revolver|launcher|"

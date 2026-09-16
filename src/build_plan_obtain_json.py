@@ -76,7 +76,9 @@ import rng76
 import plan_sources          # cut detection, readable source names, unlock routes
 import plan_images           # row art: published images first, staged files second
 import add_weapon_groups    # weapon page grouping: weapon -> Mods / Skins
-import plan_subpages        # pages carved out of a bucket (fishing rod, snow globes)
+import plan_subpages        # which page every plan renders on
+import plan_consumables     # Recipe page grouping: Food / Drinks / Alcohol / ...
+import add_armour_groups    # armour page grouping: set -> Mods / Skins
 from spawns_engine import sources as ssrc
 # reuse the farming Containers resolver + rate helpers + rng76 wrapper
 import build_farming_used_for as bfu
@@ -678,6 +680,21 @@ def collapse_routes(routes):
     same content words, so whatever makes one longer is a word route_key threw
     away as noise — "Spooky Scorched" over "Creature Scorched Spooky", "The
     Slasher - Daily Ops" over "The Slasher - Daily Ops Repeat".
+
+    EQUAL LENGTH IS A TIE, AND THE TIE IS BROKEN ALPHABETICALLY. It has to be
+    broken by something, and "first one the closure happened to yield" is not
+    something: the Meat Week and Test Your Metal plans are handed out at three
+    quest outcomes (Bad / Good / Best) whose rarity word route_key strips and
+    whose rates are identical, so they collapse to one row whose label was
+    whichever tier the build reached first. `closure` comes off a set, so that
+    is not stable between runs, and two builds of the same data produced 33
+    rows that differed only in the word "Best" vs "Good" — enough to make
+    src/ and dist/ look like they had drifted when the data was the same.
+    Alphabetical is arbitrary too, but it is arbitrary the SAME way every time,
+    and a build that is not reproducible cannot be diffed.
+
+    Collapsing genuine event tiers into one row is a separate question and is
+    logged as its own job — this only stops the label flapping.
     """
     best = {}
     order = []
@@ -686,8 +703,10 @@ def collapse_routes(routes):
         if k not in best:
             best[k] = r
             order.append(k)
-        elif len(r["route"]) < len(best[k]["route"]):
-            best[k] = r
+        else:
+            cur = best[k]["route"]
+            if (len(r["route"]), r["route"]) < (len(cur), cur):
+                best[k] = r
     return [best[k] for k in order]
 
 
@@ -1030,6 +1049,27 @@ def main(argv=None):
     # that every channel would have to remember. Same contract as the image
     # resolve above: never fatal. If it fails the rows lose their weapon_* fields
     # and the page falls back to the flat A-Z list it had before.
+    # Every enricher below reads the exports for THIS channel. Without this the
+    # PTS build would group PTS plans against live records, which is the quiet
+    # kind of wrong: it produces a full-looking page made of the wrong data.
+    try:
+        add_weapon_groups.set_tsv_dir(args.data_dir)
+        plan_consumables.set_tsv_dir(args.data_dir)
+    except Exception as exc:                      # noqa: BLE001 - never fatal
+        print(f"  WARNING: export root override skipped: {exc}", file=sys.stderr)
+
+    # Recipe page grouping. The page is food, drink, alcohol, serums and chems
+    # and nothing else; the root and sub-expand come from the ALCH record's own
+    # keywords. Reads plan_page, so it MUST run after plan_subpages.
+    try:
+        cstats = plan_consumables.attach(items)
+        plan_consumables.report(cstats)
+        if cstats:
+            out["consumables_schema"] = plan_consumables.SCHEMA
+            out["consumable_groups"] = plan_consumables.config()
+    except Exception as exc:                      # noqa: BLE001 - never fatal
+        print(f"  WARNING: consumable grouping skipped: {exc}", file=sys.stderr)
+
     try:
         stats = add_weapon_groups.attach(items)
         add_weapon_groups.report(stats)
@@ -1038,6 +1078,17 @@ def main(argv=None):
             out["weapon_groups_sources"] = stats["sources"]
     except Exception as exc:                      # noqa: BLE001 - never fatal
         print(f"  WARNING: weapon grouping skipped: {exc}", file=sys.stderr)
+
+    # Body Armour and Power Armour, same shape as the weapon page: one root
+    # expand per set with Mods and Skins inside it.
+    try:
+        astats = add_armour_groups.attach(items)
+        add_armour_groups.report(astats)
+        if astats:
+            out["armour_groups_schema"] = add_armour_groups.SCHEMA
+            out["armour_groups_sources"] = astats["sources"]
+    except Exception as exc:                      # noqa: BLE001 - never fatal
+        print(f"  WARNING: armour grouping skipped: {exc}", file=sys.stderr)
 
     os.makedirs(os.path.dirname(args.out), exist_ok=True)
     with open(args.out, "w", encoding="utf-8") as f:

@@ -51,6 +51,13 @@ SCHEMA = 1
 HERE = os.path.dirname(os.path.abspath(__file__))
 TSV = os.path.join(os.path.dirname(HERE), "tsv")
 
+
+def set_tsv_dir(path):
+    """Point the ALCH pickup at another root — tsv/pts for the PTS channel."""
+    global TSV
+    TSV = path or os.path.join(os.path.dirname(HERE), "tsv")
+    return TSV
+
 # Root expands, in PAGE order. Each is (label, blurb, keyword).
 ROOTS = [
     ("Food",    "Anything you eat. Cooked meals, the raw ingredients worth a recipe, "
@@ -165,11 +172,17 @@ def attach(items):
     kw = _load_keywords(path)
     tally = collections.Counter()
     for it in items:
-        cn = it.get("cnam") or {}
-        if cn.get("sig") != "ALCH" or it.get("plan_page"):
+        # SELECT BY PAGE, NOT BY RECORD. `cnam.sig == "ALCH"` is still the whole
+        # definition of a consumable — it is what plan_subpages tests to decide
+        # the Recipe page in the first place — but asking plan_subpages rather
+        # than re-testing it here means the page and the grouping cannot come to
+        # different answers about a row. An ALCH plan that some future carve-out
+        # moves to a page of its own stops being grouped here, automatically.
+        if it.get("plan_page") != "recipe":
             it.pop("consumable_group", None)
             it.pop("consumable_type", None)
             continue
+        cn = it.get("cnam") or {}
         root, sub = classify(kw.get(cn.get("formid", ""), set()))
         it["consumable_group"] = root
         it["consumable_type"] = sub
@@ -221,7 +234,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("paths", nargs="+")
     ap.add_argument("--report-only", action="store_true")
+    ap.add_argument("--tsv-dir", default="")
     args = ap.parse_args()
+    if args.tsv_dir:
+        set_tsv_dir(args.tsv_dir)
     for path in args.paths:
         if not os.path.exists(path):
             print(f"[plan_consumables] missing: {path}", file=sys.stderr)
