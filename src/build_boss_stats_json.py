@@ -129,6 +129,30 @@ def quoted_name(ref: str) -> str:
 # Game data model
 # ─────────────────────────────────────────────────────────────────────────────
 
+
+def condense_names(names: list[str]) -> str:
+    """Name for an actor that borrows from a leveled list of named Enc records.
+
+    Two or three read fine slash-joined ("Fanatic Crusher / Fanatic Pistoleer /
+    ..."), but the Slasher mobs draw from nine. When every name opens with the
+    same two-or-more-word phrase, that phrase IS the creature and the rest is the
+    variant, so use it ("Pint-Sized Phantom Sadist", "... Freak" -> "Pint-Sized
+    Phantom"). The two-word floor leaves the existing joins alone: the Fanatics
+    share only "Fanatic".
+    """
+    if len(names) < 2:
+        return " / ".join(names)
+    words = [n.split() for n in names]
+    common = []
+    for parts in zip(*words):
+        if len(set(parts)) != 1:
+            break
+        common.append(parts[0])
+    if 2 <= len(common) < min(len(w) for w in words):
+        return " ".join(common)
+    return " / ".join(names)
+
+
 class Game:
     def __init__(self):
         print(f"[Boss Stats] channel={CHANNEL}")
@@ -233,24 +257,62 @@ class Game:
             return (round(v) if v is not None else None), curve
         return fnum(p.get("Value")), ""
 
-    def display_name(self, edid: str) -> str:
+    def display_name(self, edid: str, depth: int = 0) -> str:
         r = self.npc.get(edid) or {}
         if r.get("FULL"):
             return r["FULL"]
         # Unnamed leveled actor: borrow the name of the named Enc record(s) its
         # TPLT leveled list holds, else walk TPLT, else humanise the EDID.
-        tplt = r.get("TPLT_EDID", "")
-        if tplt and tplt not in self.npc:
-            names = sorted({(self.npc.get(m) or {}).get("FULL", "") for m in self.members_of(tplt, "LVLN")} - {""})
-            if names:
-                return " / ".join(names)
-        seen, cur = set(), tplt
-        while cur and cur in self.npc and cur not in seen:
+        # The leveled list can sit more than one TPLT hop away -- the Slasher mobs
+        # go actor -> SDOW_LvlSlasherFan -> SDOW_LCharSlasherFan -- so check at
+        # every hop where the chain leaves the NPC table, not only the first. Left
+        # unchecked these fell through to humanise(edid) and shipped as
+        # "HTO Lvl Slasher Shadow Flamer".
+        seen, cur = set(), r.get("TPLT_EDID", "")
+        while cur and cur not in seen:
             seen.add(cur)
+            if cur not in self.npc:
+                names = sorted({(self.npc.get(m) or {}).get("FULL", "")
+                                for m in self.members_of(cur, "LVLN")} - {""})
+                if names:
+                    return condense_names(names)
+                break
             if self.npc[cur].get("FULL") and "Template" not in self.npc[cur]["FULL"]:
                 return self.npc[cur]["FULL"]
             cur = self.npc[cur].get("TPLT_EDID", "")
-        return humanise(edid)
+        # Last resort before giving up and humanising the EDID: the named record
+        # can be a plain NPC_ reference rather than anything in the TPLT chain.
+        # SDOW_HTO_LvlSlasherShadow_Melee carries no FULL and its TPLT chain ends
+        # at a leveled list, but it references SDOW_EncSlasherFan06 ("Pint-Sized
+        # Phantom Vandal") directly. Only reached where the name would otherwise
+        # have shipped as "HTO Lvl Slasher Shadow Melee".
+        # Keep unnamed references in: they are the hop the recursion below needs.
+        # Only records whose FULL says "Template" are the infestation role
+        # templates, and those never name anything.
+        refs = [t for t in self.templates_of(edid)
+                if "Template" not in ((self.npc.get(t) or {}).get("FULL", ""))]
+        direct = sorted({(self.npc.get(t) or {}).get("FULL", "") for t in refs} - {""})
+        if direct:
+            return condense_names(direct)
+        # Nothing named at this hop. An unnamed intermediate can still lead to the
+        # named records through ITS leveled list -- the Rifle mob is the one
+        # Slasher variant with no Enc record of its own, and only reaches the
+        # family name via SDOW_LvlSlasherFan -> SDOW_LCharSlasherFan. Direct names
+        # are preferred above so a mob that has its own never gets averaged into
+        # the family name.
+        if depth < 3:
+            via = sorted({nm for t in refs
+                          for nm in [self.display_name(t, depth + 1)]
+                          if nm and nm != humanise(t)})
+            if via:
+                return condense_names(via)
+        # Genuinely unnamed in the game files -- SDOW_HTO_LvlSlasherShadow_Rifle
+        # is the one Slasher variant with no Enc record of its own, and its chain
+        # crosses an LVLN-to-LVLN hop the NPC reference export does not record. At
+        # least drop the plumbing so the row reads "Slasher Shadow Rifle" rather
+        # than "HTO Lvl Slasher Shadow Rifle"; the row already carries the faction
+        # and the loadout beside it.
+        return humanise(re.sub(rf"^{_HTO}Lvl", "", edid))
 
     def npc_stats(self, edid: str, extra_levels=()):
         """Profile block for one actor — every number from PRPS + CURV + GLOB."""
@@ -532,12 +594,55 @@ INTRO = {
 
 # The PRC faction template is titled "(PRC)"; the site calls that faction
 # Communists everywhere else (and the Daily Ops wave keyword agrees).
-FACTION_DISPLAY = {"PRC": "Communists"}
+FACTION_DISPLAY = {"PRC": "Communists", "Slasher": "Pint-Sized Phantoms"}
+
+# ── Content-prefix tolerance ─────────────────────────────────────────────────
+# Seasonal content ships under its own prefix, and Bethesda is not consistent
+# about where that prefix sits: Shadows of the Dead of Winter puts the actors at
+# SDOW_HTO_Lvl..., the stats template at SDOW_HTO_Template_Stats_..., but the
+# keyword template at HTO_SDOW_Template_.... Anchoring any of these patterns on a
+# literal leading "HTO_" silently drops the whole faction from the page, so every
+# HTO_ pattern below tolerates one prefix on either side of HTO_.
+#
+# The prefix is CAPTURED rather than discarded, because the rest of a faction's
+# records (tiers, variants, mobs) have to be looked up with the same spelling the
+# boss used. ZZZ_/CUT_ are Bethesda's own cut markers -- live already carries
+# ZZZ_HTO_Template_Faction_BloodEagle_Boss next to the real one -- so they are
+# excluded rather than treated as content prefixes.
+_PFX = r"(?:(?!(?i:zzz_|cut_))[A-Za-z][A-Za-z0-9]*_)?"
+_HTO = _PFX + r"HTO_" + _PFX
+
+HTO_BOSS_RE = re.compile(rf"^({_HTO})Lvl(\w+?)_Boss_T\d+$")
+HTO_FACTION_TPL_RE = re.compile(rf"^{_HTO}Template_Faction_")
+HTO_LCHAR_RE = re.compile(rf"^{_HTO}LChar_Faction_")
+# The role templates carry an optional faction token of their own:
+# HTO_Template_Keywords_Boss (live) vs HTO_SDOW_Template_Keywords_Slasher_Mob.
+HTO_ROLE_TPL_RES = (
+    re.compile(rf"^{_HTO}Template_Stats_\w+?_(Boss|Mob|Support)$"),
+    re.compile(rf"^{_HTO}Template_Keywords_(?:\w+?_)?(Boss|Mob|Support)$"),
+)
+
+
+def hto_prefix_token(edid: str):
+    """('SDOW_HTO_', 'SlasherShadow') for a boss actor EDID, or None."""
+    m = HTO_BOSS_RE.match(edid)
+    return (m.group(1), m.group(2)) if m else None
+
+
+def hto_template_token(template: str) -> str:
+    """'SDOW_HTO_Template_Faction_Slasher' -> 'Slasher'.
+
+    Weapons and leveled lists are not always named after the ACTOR token: the
+    Slasher bosses are HTO_LvlSlasherShadow_* but their guns are HTO_crSlasher_*.
+    The faction template is the tie-breaker, and on live it is either identical to
+    the actor token or unused (PRCGhoul actors, PRC template, PRCGhoul guns)."""
+    m = re.search(r"Template_Faction_(\w+?)(?:_Boss|_Mob)?$", template or "")
+    return m.group(1) if m else ""
 
 
 def hto_faction_template(game: Game, boss_edid: str) -> str:
     for t in game.templates_of(boss_edid):
-        if t.startswith("HTO_Template_Faction_"):
+        if HTO_FACTION_TPL_RE.match(t):
             return t
     return ""
 
@@ -547,33 +652,42 @@ def hto_faction_name(game: Game, template: str, token: str) -> str:
     r = game.npc.get(template) or {}
     m = re.search(r"[\(\[]([^\)\]]+)[\)\]]", r.get("FULL", ""))
     name = m.group(1).strip() if m else humanise(token)
+    # Some templates put the role in the display name too -- the Slasher faction
+    # template reads "(Slasher Boss)" -- and the faction is not called "Slasher
+    # Boss". Live's real (non-ZZZ_) templates never end in a role word, so this
+    # only ever trims the newer spelling.
+    name = re.sub(r"\s+(Boss|Mob|Support)$", "", name)
     return FACTION_DISPLAY.get(name, name)
 
 
 def hto_role(game: Game, edid: str) -> str:
     for lst in game.lists_containing(edid, "LVLN"):
-        if lst.startswith("HTO_LChar_Faction_"):
+        if HTO_LCHAR_RE.match(lst):
             if lst.endswith("_Boss"):
                 return "boss"
             if lst.endswith("_Helper"):
                 return "support"
             return "mob"
     tpls = game.templates_of(edid)
-    for pat in (r"HTO_Template_Stats_\w+?_(Boss|Mob|Support)$", r"HTO_Template_Keywords_(Boss|Mob|Support)$"):
+    for rx in HTO_ROLE_TPL_RES:
         for t in tpls:
-            m = re.match(pat, t)
+            m = rx.match(t)
             if m:
                 return m.group(1).lower()
     return ""
 
 
 def build_infestations(game: Game):
-    # Faction tokens as the boss NPCs spell them: HTO_Lvl<Token>_Boss_T1
-    tokens = sorted({m.group(1) for e in game.npc
-                     for m in [re.match(r"^HTO_Lvl(\w+?)_Boss_T\d+$", e)] if m})
+    # Faction tokens as the boss NPCs spell them: <prefix>Lvl<Token>_Boss_T1.
+    # The prefix travels with the token because seasonal factions carry their own
+    # (SDOW_HTO_LvlSlasherShadow_Boss_T1) and every other record for that faction
+    # is spelled the same way.
+    factions = sorted({pt for e in game.npc for pt in [hto_prefix_token(e)] if pt},
+                      key=lambda pt: pt[1])
     bosses, support, npcs = [], [], []
-    for tok in tokens:
-        tier_edids = sorted(e for e in game.npc if re.match(rf"^HTO_Lvl{tok}_Boss_T\d+$", e))
+    for pfx, tok in factions:
+        tier_edids = sorted(e for e in game.npc
+                            if re.match(rf"^{re.escape(pfx)}Lvl{re.escape(tok)}_Boss_T\d+$", e))
         rep = tier_edids[0]
         ftpl = hto_faction_template(game, rep)
         faction = hto_faction_name(game, ftpl, tok)
@@ -587,14 +701,20 @@ def build_infestations(game: Game):
         if notes.get("specials"):
             b["specials"] = [{"name": n, "text": t} for n, t in notes["specials"]]
         variants = sorted({game.npc[e]["FULL"] for e in game.npc
-                           if re.match(rf"^HTO_Lvl{tok}_Boss_T\d+_(?!Fallback)\w+$", e) and game.npc[e].get("FULL")})
+                           if re.match(rf"^{re.escape(pfx)}Lvl{re.escape(tok)}_Boss_T\d+_(?!Fallback)\w+$", e)
+                           and game.npc[e].get("FULL")})
         if variants:
             b["variants"] = variants
+        # Guns are not always named after the ACTOR token: HTO_LvlSlasherShadow_*
+        # bosses carry SDOW_HTO_crSlasher_Boss_* weapons. Try the actor token, then
+        # the faction template's. On live the first one always wins.
+        gun_tok = next((t for t in (tok, hto_template_token(ftpl)) if t and
+                        any(w.startswith(f"{pfx}cr{t}_Boss_") for w in game.weap)), tok)
         weps = [game.weapon(w, b["levelMin"], b["levelMax"])
-                for w in sorted(game.weap) if w.startswith(f"HTO_cr{tok}_Boss_")]
+                for w in sorted(game.weap) if w.startswith(f"{pfx}cr{gun_tok}_Boss_")]
         b["weapons"] = merge_lr([w for w in weps if w])
         gren = []
-        for ref in game.lvli.get(f"HTO_crLLI_{tok}_Boss_Grenade", []):
+        for ref in game.lvli.get(f"{pfx}crLLI_{gun_tok}_Boss_Grenade", []):
             wid = ref.split(":")[1] if ":" in ref else ""
             w = game.weap.get(wid)
             gren.append((w or {}).get("WEAP_FULL") or humanise(wid))
@@ -605,10 +725,10 @@ def build_infestations(game: Game):
         # Mobs and support creatures: every leveled actor that uses this boss's
         # faction template (catches e.g. HTO_LvlPRC_Liberator beside HTO_LvlPRCGhoul_*).
         members = sorted({x for x, sig in game.refs_to.get(ftpl, []) if sig == "NPC_"} |
-                         {e for e in game.npc if e.startswith(f"HTO_Lvl{tok}_")})
+                         {e for e in game.npc if e.startswith(f"{pfx}Lvl{tok}_")})
         seen_names = set()
         for e in members:
-            if not e.startswith("HTO_Lvl") or "_Boss" in e or e not in game.npc:
+            if not re.match(rf"^{_HTO}Lvl", e) or "_Boss" in e or e not in game.npc:
                 continue
             if re.search(r"_(Festive|Spooky)$", e):
                 continue
@@ -618,7 +738,7 @@ def build_infestations(game: Game):
             n = game.npc_stats(e)
             n["faction"] = faction
             n["role"] = role
-            n["loadout"] = humanise(re.sub(r"^HTO_Lvl[A-Za-z]+?_", "", e))
+            n["loadout"] = humanise(re.sub(rf"^{_HTO}Lvl[A-Za-z]+?_", "", e))
             key = (n["name"], role)
             if key in seen_names:
                 continue

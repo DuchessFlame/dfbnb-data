@@ -1,19 +1,19 @@
 {
- "generated": "2026-09-16T10:36:53+00:00",
- "channel": "live",
- "isPts": false,
+ "generated": "2026-09-16T10:36:55+00:00",
+ "channel": "pts",
+ "isPts": true,
  "sources": {
-  "CURV_POINTS": "tsv/CURV_Export_July_2026_POINTS.tsv",
-  "FLST_Entries": "tsv/FLST_Export_July_2026_Entries.tsv",
-  "GLOB": "tsv/GLOB_Export_July_2026.tsv",
-  "KYWD": "tsv/KYWD_Export_July_2026.tsv",
-  "LVLI_Entries": "tsv/LVLI_Export_July_2026_LVLI_Entries.tsv",
-  "NPC": "tsv/NPC_Export_September_2026.tsv",
-  "NPC_PRPS": "tsv/NPC_Export_September_2026_PRPS.tsv",
-  "NPC_Refs": "tsv/NPC_Export_September_2026_Refs.tsv",
-  "SPEL_HEADER": "tsv/SPEL_Export_September_2026_HEADER.tsv",
-  "WEAP_DNAM": "tsv/WEAP_Export_September_2026_DNAM.tsv",
-  "head_hunt_bosses": "dist/bounty-hunting/head_hunt_bosses.json"
+  "CURV_POINTS": "tsv/pts/CURV_Export_PTS_2026-09-14_2013_POINTS.tsv",
+  "FLST_Entries": "tsv/pts/FLST_Export_PTS_2026-09-05_2002_Entries.tsv",
+  "GLOB": "tsv/pts/GLOB_Export_PTS_2026-09-06_0638.tsv",
+  "KYWD": "tsv/pts/KYWD_Export_PTS_2026-09-06_0728.tsv",
+  "LVLI_Entries": "tsv/pts/LVLI_Export_PTS_2026-09-16_1737_LVLI_Entries.tsv",
+  "NPC": "tsv/pts/NPC_Export_PTS_2026-09-16_1644.tsv",
+  "NPC_PRPS": "tsv/pts/NPC_Export_PTS_2026-09-16_1644_PRPS.tsv",
+  "NPC_Refs": "tsv/pts/NPC_Export_PTS_2026-09-16_1644_Refs.tsv",
+  "SPEL_HEADER": "tsv/pts/SPEL_Export_PTS_2026-09-16_1628_HEADER.tsv",
+  "WEAP_DNAM": "tsv/pts/WEAP_Export_PTS_2026-09-16_1344_DNAM.tsv",
+  "head_hunt_bosses": "dist/pts/bounty-hunting/head_hunt_bosses.json"
  },
  "page": "infestations",
  "intro": {
@@ -195,6 +195,168 @@
    ],
    "grenades": [
     "Dynamite Bundle"
+   ]
+  },
+  {
+   "edid": "HTO_LvlFanatic_Boss_T1",
+   "formId": "0092297D",
+   "name": "Fanatic Conqueror",
+   "race": "Human",
+   "levelMin": 150,
+   "levelMax": 200,
+   "hpMin": 580456,
+   "hpMax": 950607,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier54",
+   "statsFrom": "HTO_Template_Stats_Fanatic_Boss",
+   "resist": {
+    "DR": 585,
+    "ER": 585,
+    "Fire": 585,
+    "Cryo": 585,
+    "Poison": 686,
+    "Rad": 960
+   },
+   "speedMult": 100.0,
+   "epicRank": 4.0,
+   "faction": "Fanatics",
+   "factionKey": "Fanatic",
+   "tierRecords": 5,
+   "weapons": [
+    {
+     "edid": "HTO_crFanatic_Boss_50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": 51,
+     "damageMax": 97,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier16"
+    },
+    {
+     "edid": "HTO_crFanatic_Boss_AutoGrenadeLauncher",
+     "name": "Auto Grenade Launcher",
+     "ammo": "40mm Grenade Round",
+     "range": 4675,
+     "type": "Gun",
+     "damageMin": 12,
+     "damageMax": 24,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier01"
+    },
+    {
+     "edid": "HTO_crFanatic_Boss_MG42",
+     "name": "Light Machine Gun",
+     "ammo": "5.56 Round",
+     "range": 4779,
+     "type": "Gun",
+     "damageMin": 35,
+     "damageMax": 68,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier12"
+    },
+    {
+     "edid": "HTO_crFanatic_Boss_MiniGun",
+     "name": "Mini-Gun",
+     "ammo": "5mm Round",
+     "range": 5147,
+     "type": "Gun",
+     "damageMin": 35,
+     "damageMax": 68,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier12"
+    },
+    {
+     "edid": "HTO_crFanatic_Boss_RailwayRifle",
+     "name": "Railway Rifle",
+     "ammo": "Railway Spike",
+     "range": 3406,
+     "type": "Gun",
+     "damageMin": 35,
+     "damageMax": 68,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier12"
+    }
+   ],
+   "grenades": [
+    "Molotov Cocktail",
+    "Fragmentation Grenade"
+   ]
+  },
+  {
+   "edid": "HTO_LvlLost_Boss_T1",
+   "formId": "00922941",
+   "name": "Lost Champion",
+   "race": "Lost",
+   "levelMin": 150,
+   "levelMax": 200,
+   "hpMin": 580456,
+   "hpMax": 950607,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier54",
+   "statsFrom": "HTO_Template_Stats_Lost_Boss",
+   "resist": {
+    "DR": 585,
+    "ER": 585,
+    "Fire": 585,
+    "Cryo": 585,
+    "Poison": 686,
+    "Rad": 960
+   },
+   "speedMult": 100.0,
+   "epicRank": 4.0,
+   "faction": "Lost",
+   "factionKey": "Lost",
+   "tierRecords": 5,
+   "weapons": [
+    {
+     "edid": "HTO_crLost_Boss_GammaGun",
+     "name": "Gamma Gun",
+     "ammo": "Gamma Round",
+     "range": 2933,
+     "type": "Gun",
+     "damageMin": 74,
+     "damageMax": 139,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier20"
+    },
+    {
+     "edid": "HTO_crLost_Boss_GatlingLaser",
+     "name": "Gatling Laser",
+     "ammo": "Fusion Core",
+     "range": 4241,
+     "type": "Gun",
+     "damageMin": 20,
+     "damageMax": 38,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier06"
+    },
+    {
+     "edid": "HTO_crLost_Boss_LightningGun",
+     "name": "Tesla Rifle",
+     "ammo": "Fusion Cell",
+     "range": 3966,
+     "type": "Gun",
+     "damageMin": 62,
+     "damageMax": 116,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier18"
+    },
+    {
+     "edid": "HTO_crLost_Boss_Meltdown",
+     "name": "V63 Laser Carbine",
+     "ammo": "Fusion Cell",
+     "range": 4189,
+     "type": "Gun",
+     "damageMin": 29,
+     "damageMax": 56,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier10"
+    },
+    {
+     "edid": "HTO_crLost_Boss_TeslaCannon",
+     "name": "Tesla Cannon",
+     "ammo": "Fusion Cell",
+     "range": 5376,
+     "type": "Gun",
+     "damageMin": 62,
+     "damageMax": 116,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier18"
+    }
+   ],
+   "grenades": [
+    "Plasma Grenade",
+    "Fragmentation Grenade"
    ]
   },
   {
@@ -468,6 +630,87 @@
    ]
   },
   {
+   "edid": "HTO_LvlRustRaider_Boss_T1",
+   "formId": "0092290C",
+   "name": "Rust Raider Champion",
+   "race": "Human",
+   "levelMin": 150,
+   "levelMax": 200,
+   "hpMin": 580456,
+   "hpMax": 950607,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier54",
+   "statsFrom": "HTO_Template_Stats_RustRaider_Boss",
+   "resist": {
+    "DR": 585,
+    "ER": 585,
+    "Fire": 585,
+    "Cryo": 585,
+    "Poison": 686,
+    "Rad": 960
+   },
+   "speedMult": 100.0,
+   "epicRank": 4.0,
+   "faction": "Rust Raiders",
+   "factionKey": "RustRaider",
+   "tierRecords": 5,
+   "weapons": [
+    {
+     "edid": "HTO_crRustRaider_Boss_Cryolator",
+     "name": "Cryolator",
+     "ammo": "Cryo Cell",
+     "range": 1319,
+     "type": "Gun",
+     "damageMin": 24,
+     "damageMax": 47,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier08"
+    },
+    {
+     "edid": "HTO_crRustRaider_Boss_GatlingLaser",
+     "name": "Gatling Laser",
+     "ammo": "Fusion Core",
+     "range": 4241,
+     "type": "Gun",
+     "damageMin": 20,
+     "damageMax": 38,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier06"
+    },
+    {
+     "edid": "HTO_crRustRaider_Boss_GatlingPlasma",
+     "name": "Gatling Plasma",
+     "ammo": "Plasma Core",
+     "range": 3619,
+     "type": "Gun",
+     "damageMin": 24,
+     "damageMax": 47,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier08"
+    },
+    {
+     "edid": "HTO_crRustRaider_Boss_GaussMiniGun",
+     "name": "Gauss Minigun",
+     "ammo": "2mm Electromagnetic Cartridge",
+     "range": 5383,
+     "type": "Gun",
+     "damageMin": 51,
+     "damageMax": 97,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier16"
+    },
+    {
+     "edid": "HTO_crRustRaider_Boss_GaussRifle",
+     "name": "Gauss Rifle",
+     "ammo": "2mm Electromagnetic Cartridge",
+     "range": 5500,
+     "type": "Gun",
+     "damageMin": 89,
+     "damageMax": 164,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier22"
+    }
+   ],
+   "grenades": [
+    "Molotov Cocktail",
+    "Fragmentation Grenade"
+   ]
+  },
+  {
    "edid": "HTO_LvlScorched_Boss_T1",
    "formId": "00863240",
    "name": "Scorched Exterminator",
@@ -637,6 +880,9 @@
      "damageMax": 116,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier18"
     }
+   ],
+   "grenades": [
+    "Dynamite Bundle"
    ]
   },
   {
@@ -812,11 +1058,11 @@
    ],
    [
     "Mob level range",
-    "75 – 125"
+    "0 – 0 / 75 – 125"
    ],
    [
     "Support level range",
-    "1 – 50 / 50 – 75"
+    "1 – 50 / 50 – 75 / 75 – 125"
    ],
    [
     "Scripted health",
@@ -838,6 +1084,24 @@
     "DR": 585,
     "ER": 585,
     "Fire": 686,
+    "Cryo": 585,
+    "Poison": 686,
+    "Rad": 960
+   },
+   {
+    "name": "Fanatic Conqueror",
+    "DR": 585,
+    "ER": 585,
+    "Fire": 585,
+    "Cryo": 585,
+    "Poison": 686,
+    "Rad": 960
+   },
+   {
+    "name": "Lost Champion",
+    "DR": 585,
+    "ER": 585,
+    "Fire": 585,
     "Cryo": 585,
     "Poison": 686,
     "Rad": 960
@@ -868,6 +1132,15 @@
     "Cryo": 585,
     "Poison": 1370,
     "Rad": 1370
+   },
+   {
+    "name": "Rust Raider Champion",
+    "DR": 585,
+    "ER": 585,
+    "Fire": 585,
+    "Cryo": 585,
+    "Poison": 686,
+    "Rad": 960
    },
    {
     "name": "Scorched Exterminator",
@@ -907,7 +1180,7 @@
   ],
   "rows": [
    {
-    "label": "All 8 bosses",
+    "label": "Blood Eagle Destroyer, Cultist Prophet, Mole Miner Juggernaut, Communist Commissar, Assaultron Intimidator, Scorched Exterminator, Pint-Sized Phantom Trespasser, Super Mutant Primus",
     "bosses": [
      "Blood Eagle Destroyer",
      "Cultist Prophet",
@@ -923,6 +1196,20 @@
      416644,
      534899,
      690995
+    ]
+   },
+   {
+    "label": "Fanatic Conqueror, Lost Champion, Rust Raider Champion",
+    "bosses": [
+     "Fanatic Conqueror",
+     "Lost Champion",
+     "Rust Raider Champion"
+    ],
+    "curve": "CT_Creatures_Health_Universal_Tier54",
+    "values": [
+     580456,
+     741063,
+     950607
     ]
    }
   ]
@@ -947,7 +1234,23 @@
     "damageMax": 164
    },
    {
+    "boss": "Rust Raider Champion",
+    "weapon": "Gauss Rifle",
+    "levelMin": 150,
+    "levelMax": 200,
+    "damageMin": 89,
+    "damageMax": 164
+   },
+   {
     "boss": "Cultist Prophet",
+    "weapon": "Gamma Gun",
+    "levelMin": 150,
+    "levelMax": 200,
+    "damageMin": 74,
+    "damageMax": 139
+   },
+   {
+    "boss": "Lost Champion",
     "weapon": "Gamma Gun",
     "levelMin": 150,
     "levelMax": 200,
@@ -980,6 +1283,14 @@
    },
    {
     "boss": "Blood Eagle Destroyer",
+    "weapon": ".50 Cal Machine Gun",
+    "levelMin": 150,
+    "levelMax": 200,
+    "damageMin": 51,
+    "damageMax": 97
+   },
+   {
+    "boss": "Fanatic Conqueror",
     "weapon": ".50 Cal Machine Gun",
     "levelMin": 150,
     "levelMax": 200,
@@ -1046,6 +1357,102 @@
     "faction": "Cultists",
     "role": "support",
     "loadout": "Mothman Hatchling"
+   },
+   {
+    "edid": "HTO_LvlFanatic_Protectron",
+    "formId": "00922972",
+    "name": "Fanatic Protectron",
+    "race": "ProtectronFast",
+    "levelMin": 50,
+    "levelMax": 75,
+    "hpMin": 1962,
+    "hpMax": 3034,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier28",
+    "statsFrom": "HTO_Template_Stats_Fanatic_Support",
+    "resist": {
+     "DR": 63,
+     "ER": 76,
+     "Fire": 83,
+     "Cryo": 58,
+     "Poison": 76,
+     "Rad": 83
+    },
+    "speedMult": 100.0,
+    "faction": "Fanatics",
+    "role": "support",
+    "loadout": "Protectron"
+   },
+   {
+    "edid": "HTO_LvlFanatic_ProtectronSuicider",
+    "formId": "0092296C",
+    "name": "Fanatic Protectron Suicider",
+    "race": "ProtectronFast",
+    "levelMin": 50,
+    "levelMax": 75,
+    "hpMin": 1962,
+    "hpMax": 3034,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier28",
+    "statsFrom": "HTO_Template_Stats_Fanatic_Support",
+    "resist": {
+     "DR": 63,
+     "ER": 76,
+     "Fire": 83,
+     "Cryo": 58,
+     "Poison": 76,
+     "Rad": 83
+    },
+    "speedMult": 100.0,
+    "faction": "Fanatics",
+    "role": "support",
+    "loadout": "Protectron Suicider"
+   },
+   {
+    "edid": "HTO_LvlLost_Suicider",
+    "formId": "0092294D",
+    "name": "Feral Lost Suicider",
+    "race": "LostFeralSuicider",
+    "levelMin": 50,
+    "levelMax": 75,
+    "hpMin": 1962,
+    "hpMax": 3034,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier28",
+    "statsFrom": "HTO_Template_Stats_Lost_Support",
+    "resist": {
+     "DR": 63,
+     "ER": 76,
+     "Fire": 83,
+     "Cryo": 58,
+     "Poison": 76,
+     "Rad": 83
+    },
+    "speedMult": 100.0,
+    "faction": "Lost",
+    "role": "support",
+    "loadout": "Suicider"
+   },
+   {
+    "edid": "HTO_LvlLost_Unarmed",
+    "formId": "0092294E",
+    "name": "Feral Lost Scrapper",
+    "race": "LostFeralSuicider",
+    "levelMin": 50,
+    "levelMax": 75,
+    "hpMin": 1962,
+    "hpMax": 3034,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier28",
+    "statsFrom": "HTO_Template_Stats_Lost_Support",
+    "resist": {
+     "DR": 63,
+     "ER": 76,
+     "Fire": 83,
+     "Cryo": 58,
+     "Poison": 76,
+     "Rad": 83
+    },
+    "speedMult": 100.0,
+    "faction": "Lost",
+    "role": "support",
+    "loadout": "Unarmed"
    },
    {
     "edid": "HTO_LvlMoleMiner_Molerat",
@@ -1150,6 +1557,54 @@
     "faction": "Robots",
     "role": "support",
     "loadout": "Eye Bot Suicider"
+   },
+   {
+    "edid": "HTO_LvlRustRaider_Suicider",
+    "formId": "009228F8",
+    "name": "Rust Raider Suicider",
+    "race": "Human",
+    "levelMin": 50,
+    "levelMax": 75,
+    "hpMin": 1962,
+    "hpMax": 3034,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier28",
+    "statsFrom": "HTO_Template_Stats_RustRaider_Support",
+    "resist": {
+     "DR": 63,
+     "ER": 76,
+     "Fire": 83,
+     "Cryo": 58,
+     "Poison": 76,
+     "Rad": 83
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders",
+    "role": "support",
+    "loadout": "Suicider"
+   },
+   {
+    "edid": "HTO_LvlRustRaider_Unarmed",
+    "formId": "009228F9",
+    "name": "Rust Raider Dreg",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_RustRaider_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders",
+    "role": "support",
+    "loadout": "Unarmed"
    },
    {
     "edid": "HTO_LvlScorched_ViciousDog",
@@ -1723,6 +2178,366 @@
     "faction": "Cultists",
     "role": "mob",
     "loadout": "Unarmed"
+   },
+   {
+    "edid": "HTO_LvlFanatic_Flamer",
+    "formId": "00922981",
+    "name": "Fanatic Pyromaniac",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_Fanatic_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Fanatics",
+    "role": "mob",
+    "loadout": "Flamer"
+   },
+   {
+    "edid": "HTO_LvlFanatic_Melee",
+    "formId": "00922976",
+    "name": "Fanatic Troublemaker",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_Fanatic_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Fanatics",
+    "role": "mob",
+    "loadout": "Melee"
+   },
+   {
+    "edid": "HTO_LvlFanatic_Missile",
+    "formId": "0092297B",
+    "name": "Fanatic Bombardier",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_Fanatic_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Fanatics",
+    "role": "mob",
+    "loadout": "Missile"
+   },
+   {
+    "edid": "HTO_LvlFanatic_Pistol",
+    "formId": "00922977",
+    "name": "Fanatic Pistoleer",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_Fanatic_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Fanatics",
+    "role": "mob",
+    "loadout": "Pistol"
+   },
+   {
+    "edid": "HTO_LvlFanatic_Rifle",
+    "formId": "0092297E",
+    "name": "Fanatic Renegade",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_Fanatic_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Fanatics",
+    "role": "mob",
+    "loadout": "Rifle"
+   },
+   {
+    "edid": "HTO_LvlFanatic_Shotgun",
+    "formId": "0092296A",
+    "name": "Fanatic Crusher",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_Fanatic_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Fanatics",
+    "role": "mob",
+    "loadout": "Shotgun"
+   },
+   {
+    "edid": "HTO_LvlFanatic_Sniper",
+    "formId": "0092296E",
+    "name": "Fanatic Sharpshooter",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_Fanatic_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Fanatics",
+    "role": "mob",
+    "loadout": "Sniper"
+   },
+   {
+    "edid": "HTO_LvlFanatic_Unarmed",
+    "formId": "00922978",
+    "name": "Fanatic Scrapper",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_Fanatic_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Fanatics",
+    "role": "mob",
+    "loadout": "Unarmed"
+   },
+   {
+    "edid": "HTO_LvlLost_Flamer",
+    "formId": "00922946",
+    "name": "Lost Welder",
+    "race": "Lost",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_Lost_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Lost",
+    "role": "mob",
+    "loadout": "Flamer"
+   },
+   {
+    "edid": "HTO_LvlLost_Melee",
+    "formId": "00922947",
+    "name": "Lost Builder",
+    "race": "Lost",
+    "levelMin": 0,
+    "levelMax": 0,
+    "hpMin": 52,
+    "hpMax": 52,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier20",
+    "statsFrom": "Storm_LvlLost_Dweller_Builder",
+    "resist": {
+     "DR": 5,
+     "ER": 13,
+     "Fire": 6,
+     "Cryo": 3,
+     "Poison": 4,
+     "Rad": 348
+    },
+    "speedMult": 100.0,
+    "faction": "Lost",
+    "role": "mob",
+    "loadout": "Melee"
+   },
+   {
+    "edid": "HTO_LvlLost_Missile",
+    "formId": "00922948",
+    "name": "Lost Robot Master",
+    "race": "Lost",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_Lost_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Lost",
+    "role": "mob",
+    "loadout": "Missile"
+   },
+   {
+    "edid": "HTO_LvlLost_Pistol",
+    "formId": "00922949",
+    "name": "Lost Dweller",
+    "race": "Lost",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_Lost_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Lost",
+    "role": "mob",
+    "loadout": "Pistol"
+   },
+   {
+    "edid": "HTO_LvlLost_Rifle",
+    "formId": "0092294A",
+    "name": "Lost Engineer",
+    "race": "Lost",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_Lost_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Lost",
+    "role": "mob",
+    "loadout": "Rifle"
+   },
+   {
+    "edid": "HTO_LvlLost_Shotgun",
+    "formId": "0092294B",
+    "name": "Lost Heavy Engineer",
+    "race": "Lost",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_Lost_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Lost",
+    "role": "mob",
+    "loadout": "Shotgun"
+   },
+   {
+    "edid": "HTO_LvlLost_Sniper",
+    "formId": "0092294C",
+    "name": "Lost Sharpshooter",
+    "race": "Lost",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_Lost_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Lost",
+    "role": "mob",
+    "loadout": "Sniper"
    },
    {
     "edid": "HTO_LvlMoleMiner_Flamer",
@@ -2331,6 +3146,174 @@
     "faction": "Robots",
     "role": "mob",
     "loadout": "Robobrain Melee"
+   },
+   {
+    "edid": "HTO_LvlRustRaider_Flamer",
+    "formId": "009228F2",
+    "name": "Rust Raider Pyromaniac",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_RustRaider_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders",
+    "role": "mob",
+    "loadout": "Flamer"
+   },
+   {
+    "edid": "HTO_LvlRustRaider_Melee",
+    "formId": "00922907",
+    "name": "Rust Raider Brawler",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_RustRaider_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders",
+    "role": "mob",
+    "loadout": "Melee"
+   },
+   {
+    "edid": "HTO_LvlRustRaider_Missile",
+    "formId": "009228F3",
+    "name": "Rust Raider Grenadier",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_RustRaider_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders",
+    "role": "mob",
+    "loadout": "Missile"
+   },
+   {
+    "edid": "HTO_LvlRustRaider_Pistol",
+    "formId": "009228F4",
+    "name": "Rust Raider Pistoleer",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_RustRaider_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders",
+    "role": "mob",
+    "loadout": "Pistol"
+   },
+   {
+    "edid": "HTO_LvlRustRaider_Rifle",
+    "formId": "009228F5",
+    "name": "Rust Raider Gunner",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_RustRaider_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders",
+    "role": "mob",
+    "loadout": "Rifle"
+   },
+   {
+    "edid": "HTO_LvlRustRaider_Shotgun",
+    "formId": "009228F6",
+    "name": "Rust Raider Shotgunner",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_RustRaider_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders",
+    "role": "mob",
+    "loadout": "Shotgun"
+   },
+   {
+    "edid": "HTO_LvlRustRaider_Sniper",
+    "formId": "009228F7",
+    "name": "Rust Raider Marksman",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 125,
+    "hpMin": 5958,
+    "hpMax": 11609,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier32",
+    "statsFrom": "HTO_Template_Stats_RustRaider_Mob",
+    "resist": {
+     "DR": 149,
+     "ER": 174,
+     "Fire": 187,
+     "Cryo": 138,
+     "Poison": 174,
+     "Rad": 238
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders",
+    "role": "mob",
+    "loadout": "Sniper"
    },
    {
     "edid": "HTO_LvlScorched_Flamer",

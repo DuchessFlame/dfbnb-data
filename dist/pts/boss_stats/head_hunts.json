@@ -1,19 +1,19 @@
 {
- "generated": "2026-09-16T10:36:54+00:00",
- "channel": "live",
- "isPts": false,
+ "generated": "2026-09-16T10:36:55+00:00",
+ "channel": "pts",
+ "isPts": true,
  "sources": {
-  "CURV_POINTS": "tsv/CURV_Export_July_2026_POINTS.tsv",
-  "FLST_Entries": "tsv/FLST_Export_July_2026_Entries.tsv",
-  "GLOB": "tsv/GLOB_Export_July_2026.tsv",
-  "KYWD": "tsv/KYWD_Export_July_2026.tsv",
-  "LVLI_Entries": "tsv/LVLI_Export_July_2026_LVLI_Entries.tsv",
-  "NPC": "tsv/NPC_Export_September_2026.tsv",
-  "NPC_PRPS": "tsv/NPC_Export_September_2026_PRPS.tsv",
-  "NPC_Refs": "tsv/NPC_Export_September_2026_Refs.tsv",
-  "SPEL_HEADER": "tsv/SPEL_Export_September_2026_HEADER.tsv",
-  "WEAP_DNAM": "tsv/WEAP_Export_September_2026_DNAM.tsv",
-  "head_hunt_bosses": "dist/bounty-hunting/head_hunt_bosses.json"
+  "CURV_POINTS": "tsv/pts/CURV_Export_PTS_2026-09-14_2013_POINTS.tsv",
+  "FLST_Entries": "tsv/pts/FLST_Export_PTS_2026-09-05_2002_Entries.tsv",
+  "GLOB": "tsv/pts/GLOB_Export_PTS_2026-09-06_0638.tsv",
+  "KYWD": "tsv/pts/KYWD_Export_PTS_2026-09-06_0728.tsv",
+  "LVLI_Entries": "tsv/pts/LVLI_Export_PTS_2026-09-16_1737_LVLI_Entries.tsv",
+  "NPC": "tsv/pts/NPC_Export_PTS_2026-09-16_1644.tsv",
+  "NPC_PRPS": "tsv/pts/NPC_Export_PTS_2026-09-16_1644_PRPS.tsv",
+  "NPC_Refs": "tsv/pts/NPC_Export_PTS_2026-09-16_1644_Refs.tsv",
+  "SPEL_HEADER": "tsv/pts/SPEL_Export_PTS_2026-09-16_1628_HEADER.tsv",
+  "WEAP_DNAM": "tsv/pts/WEAP_Export_PTS_2026-09-16_1344_DNAM.tsv",
+  "head_hunt_bosses": "dist/pts/bounty-hunting/head_hunt_bosses.json"
  },
  "page": "head_hunts",
  "intro": {
@@ -254,7 +254,7 @@
        "edid": "crPlasmaCaster",
        "name": "Plasma Caster",
        "ammo": "Plasma Cartridge",
-       "range": 4410,
+       "range": 256,
        "type": "Gun",
        "damageMin": 24,
        "damageMax": 144,
@@ -636,18 +636,18 @@
      "name": "Ragtime Randy",
      "race": "Human",
      "levelMin": 25,
-     "levelMax": 150,
+     "levelMax": 175,
      "hpMin": 3405,
-     "hpMax": 25742,
+     "hpMax": 35139,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
-      "DR": 532,
-      "ER": 532,
-      "Fire": 353,
-      "Cryo": 353,
-      "Poison": 302,
-      "Rad": 302
+      "DR": 719,
+      "ER": 660,
+      "Fire": 440,
+      "Cryo": 440,
+      "Poison": 301,
+      "Rad": 301
      },
      "speedMult": 120.0,
      "gang": "Jazz",
@@ -691,7 +691,7 @@
        "range": 10,
        "type": "OneHandSword",
        "damageMin": 19,
-       "damageMax": 89,
+       "damageMax": 121,
        "damageCurve": "CT_Creatures_Damage_Universal_Tier22",
        "slot": "Secondary",
        "legendary": [
@@ -748,7 +748,7 @@
        "edid": "crMobsterAutoGrenadeLauncher",
        "name": "Auto Grenade Launcher",
        "ammo": "40mm Grenade Round",
-       "range": 256,
+       "range": 5225,
        "type": "Gun",
        "damageMin": 1,
        "damageMax": 1,
@@ -804,7 +804,7 @@
        "edid": "crMeltdown",
        "name": "V63 Laser Carbine",
        "ammo": "Fusion Cell",
-       "range": 4189,
+       "range": 256,
        "type": "Gun",
        "damageMin": null,
        "damageMax": null,
@@ -834,18 +834,18 @@
      "name": "The Proletariat Punisher",
      "race": "Human",
      "levelMin": 25,
-     "levelMax": 150,
+     "levelMax": 175,
      "hpMin": 3405,
-     "hpMax": 25742,
+     "hpMax": 35139,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
-      "DR": 532,
-      "ER": 532,
-      "Fire": 353,
-      "Cryo": 353,
-      "Poison": 302,
-      "Rad": 302
+      "DR": 719,
+      "ER": 660,
+      "Fire": 440,
+      "Cryo": 440,
+      "Poison": 301,
+      "Rad": 301
      },
      "speedMult": 120.0,
      "gang": "Commie",
@@ -862,9 +862,9 @@
        "ammo": "5.56 Round",
        "range": 3173,
        "type": "Gun",
-       "damageMin": 12,
-       "damageMax": 62,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier18",
+       "damageMin": 15,
+       "damageMax": 101,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier20",
        "slot": "Main",
        "legendary": [
         "1★ Junkie's",
@@ -1111,13 +1111,13 @@
      "race": "Human",
      "levelMin": 25,
      "levelMax": 175,
-     "hpMin": 2868,
-     "hpMax": 30035,
-     "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+     "hpMin": 3405,
+     "hpMax": 35139,
+     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
-      "DR": 783,
-      "ER": 559,
+      "DR": 1117,
+      "ER": 854,
       "Fire": 660,
       "Cryo": 660,
       "Poison": 301,
@@ -1248,18 +1248,18 @@
      "name": "Becca The Heavyweight",
      "race": "Human",
      "levelMin": 25,
-     "levelMax": 150,
+     "levelMax": 175,
      "hpMin": 3405,
-     "hpMax": 25742,
+     "hpMax": 35139,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
-      "DR": 532,
-      "ER": 532,
-      "Fire": 353,
-      "Cryo": 353,
-      "Poison": 302,
-      "Rad": 302
+      "DR": 719,
+      "ER": 660,
+      "Fire": 440,
+      "Cryo": 440,
+      "Poison": 301,
+      "Rad": 301
      },
      "speedMult": 120.0,
      "gang": "Boxer",
@@ -1277,7 +1277,7 @@
        "range": 0,
        "type": "HandToHandMelee",
        "damageMin": 14,
-       "damageMax": 68,
+       "damageMax": 93,
        "damageCurve": "CT_Creatures_Damage_Universal_Tier19",
        "slot": "Main",
        "legendary": [
@@ -1292,7 +1292,7 @@
        "range": 2115,
        "type": "Grenade",
        "damageMin": 24,
-       "damageMax": 107,
+       "damageMax": 144,
        "damageCurve": "CT_Creatures_Damage_Universal_Tier24",
        "slot": "Thrown"
       }
@@ -1308,18 +1308,18 @@
      "name": "Charlie Half-Cocked",
      "race": "Human",
      "levelMin": 25,
-     "levelMax": 150,
+     "levelMax": 175,
      "hpMin": 3405,
-     "hpMax": 25742,
+     "hpMax": 35139,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
-      "DR": 532,
-      "ER": 532,
-      "Fire": 353,
-      "Cryo": 353,
-      "Poison": 302,
-      "Rad": 302
+      "DR": 719,
+      "ER": 660,
+      "Fire": 440,
+      "Cryo": 440,
+      "Poison": 301,
+      "Rad": 301
      },
      "speedMult": 120.0,
      "gang": "Sniper",
@@ -1337,7 +1337,7 @@
        "range": 5225,
        "type": "Gun",
        "damageMin": 36,
-       "damageMax": 153,
+       "damageMax": 205,
        "damageCurve": "CT_Creatures_Damage_Universal_Tier28",
        "slot": "Main",
        "legendary": [
@@ -1374,18 +1374,18 @@
      "name": "Cowgirl Janine",
      "race": "Human",
      "levelMin": 25,
-     "levelMax": 150,
+     "levelMax": 175,
      "hpMin": 3405,
-     "hpMax": 25742,
+     "hpMax": 35139,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
-      "DR": 532,
-      "ER": 532,
-      "Fire": 353,
-      "Cryo": 353,
-      "Poison": 302,
-      "Rad": 302
+      "DR": 719,
+      "ER": 660,
+      "Fire": 440,
+      "Cryo": 440,
+      "Poison": 301,
+      "Rad": 301
      },
      "speedMult": 120.0,
      "gang": "Gunslinger",
@@ -1402,9 +1402,9 @@
        "ammo": ".44 Round",
        "range": 3216,
        "type": "Gun",
-       "damageMin": 24,
-       "damageMax": 107,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier24",
+       "damageMin": 39,
+       "damageMax": 224,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier29",
        "slot": "Main"
       },
       {
@@ -1414,7 +1414,7 @@
        "range": 2115,
        "type": "Grenade",
        "damageMin": 24,
-       "damageMax": 107,
+       "damageMax": 144,
        "damageCurve": "CT_Creatures_Damage_Universal_Tier24",
        "slot": "Thrown"
       }
@@ -1458,9 +1458,9 @@
        "ammo": "5mm Round",
        "range": 5147,
        "type": "Gun",
-       "damageMin": 6,
-       "damageMax": 49,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier12",
+       "damageMin": 7,
+       "damageMax": 54,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier13",
        "slot": "Main"
       },
       {
@@ -1673,9 +1673,9 @@
        "ammo": "Shotgun Shell",
        "range": 1439,
        "type": "Gun",
-       "damageMin": 39,
-       "damageMax": 224,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier29",
+       "damageMin": 60,
+       "damageMax": 318,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier33",
        "slot": "Main",
        "legendary": [
         "1★ Executioner's",
@@ -1716,18 +1716,18 @@
      "name": "Vito \"The Vic\" Bronco",
      "race": "Human",
      "levelMin": 25,
-     "levelMax": 150,
+     "levelMax": 175,
      "hpMin": 3405,
-     "hpMax": 25742,
+     "hpMax": 35139,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
-      "DR": 532,
-      "ER": 532,
-      "Fire": 353,
-      "Cryo": 353,
-      "Poison": 302,
-      "Rad": 302
+      "DR": 719,
+      "ER": 660,
+      "Fire": 440,
+      "Cryo": 440,
+      "Poison": 301,
+      "Rad": 301
      },
      "speedMult": 120.0,
      "gang": "Gambler",
@@ -1745,7 +1745,7 @@
        "range": 2792,
        "type": "Gun",
        "damageMin": 21,
-       "damageMax": 98,
+       "damageMax": 132,
        "damageCurve": "CT_Creatures_Damage_Universal_Tier23",
        "slot": "Main"
       },
@@ -1867,18 +1867,18 @@
      "name": "Gentle Gary",
      "race": "Human",
      "levelMin": 25,
-     "levelMax": 150,
+     "levelMax": 175,
      "hpMin": 3405,
-     "hpMax": 25742,
+     "hpMax": 35139,
      "healthCurve": "CT_Creatures_Health_Universal_Tier35",
      "statsFrom": "",
      "resist": {
-      "DR": 532,
-      "ER": 532,
-      "Fire": 353,
-      "Cryo": 353,
-      "Poison": 302,
-      "Rad": 302
+      "DR": 719,
+      "ER": 660,
+      "Fire": 440,
+      "Cryo": 440,
+      "Poison": 301,
+      "Rad": 301
      },
      "speedMult": 120.0,
      "gang": "Crusher",
@@ -1896,7 +1896,7 @@
        "range": 5500,
        "type": "Gun",
        "damageMin": 124,
-       "damageMax": 458,
+       "damageMax": 595,
        "damageCurve": "CT_Creatures_Damage_Universal_Tier40",
        "slot": "Main"
       },
@@ -1906,9 +1906,9 @@
        "ammo": "",
        "range": 10,
        "type": "TwoHandSword",
-       "damageMin": 44,
-       "damageMax": 184,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier30",
+       "damageMin": 60,
+       "damageMax": 318,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier33",
        "slot": "Secondary"
       },
       {
@@ -1978,9 +1978,9 @@
        "ammo": "",
        "range": 2115,
        "type": "Grenade",
-       "damageMin": 32,
-       "damageMax": 188,
-       "damageCurve": "CT_Creatures_Damage_Universal_Tier27",
+       "damageMin": 44,
+       "damageMax": 244,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier30",
        "slot": "Secondary"
       }
      ],
@@ -2044,9 +2044,7 @@
        "damageCurve": "CT_Creatures_Damage_Universal_Tier26",
        "slot": "Secondary",
        "legendary": [
-        "1★ Assassin's",
-        "2★ Rapid",
-        "3★ Lightweight"
+        "2★ Rapid"
        ]
       },
       {
@@ -2063,7 +2061,7 @@
      ],
      "specials": [],
      "gangMembers": [
-      "Disgruntled Miner"
+      "Tunneller"
      ]
     }
    ],
@@ -2072,6 +2070,37 @@
     "formId": "0084311F",
     "name": "Kill Bounties from Group 7"
    }
+  },
+  {
+   "groupNumber": 8,
+   "label": "Slasher Party Crasher",
+   "seasonal": true,
+   "bosses": [
+    {
+     "name": "The Reborn Pint-Sized Slasher",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "Pint-Sized Phantoms",
+     "imageSlug": "the-reborn-pint-sized-slasher",
+     "weapons": [
+      {
+       "name": "Bowie Knife",
+       "slot": "Main",
+       "type": "1H Melee",
+       "ammo": "",
+       "range": 0
+      }
+     ],
+     "specials": [
+      {
+       "name": "Note",
+       "text": "3-star BIG bounty target that can crash an active Head Hunt."
+      }
+     ],
+     "gangMembers": []
+    }
+   ],
+   "blurb": "Seasonal Shadows of the Dead of Winter (SDOW) party crasher. Appears on the live site automatically once the Head Hunt toggle goes live."
   }
  ],
  "bosses": [
@@ -2290,7 +2319,7 @@
      "edid": "crPlasmaCaster",
      "name": "Plasma Caster",
      "ammo": "Plasma Cartridge",
-     "range": 4410,
+     "range": 256,
      "type": "Gun",
      "damageMin": 24,
      "damageMax": 144,
@@ -2648,18 +2677,18 @@
    "name": "Ragtime Randy",
    "race": "Human",
    "levelMin": 25,
-   "levelMax": 150,
+   "levelMax": 175,
    "hpMin": 3405,
-   "hpMax": 25742,
+   "hpMax": 35139,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
-    "DR": 532,
-    "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
-    "Poison": 302,
-    "Rad": 302
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
    },
    "speedMult": 120.0,
    "gang": "Jazz",
@@ -2703,7 +2732,7 @@
      "range": 10,
      "type": "OneHandSword",
      "damageMin": 19,
-     "damageMax": 89,
+     "damageMax": 121,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier22",
      "slot": "Secondary",
      "legendary": [
@@ -2760,7 +2789,7 @@
      "edid": "crMobsterAutoGrenadeLauncher",
      "name": "Auto Grenade Launcher",
      "ammo": "40mm Grenade Round",
-     "range": 256,
+     "range": 5225,
      "type": "Gun",
      "damageMin": 1,
      "damageMax": 1,
@@ -2816,7 +2845,7 @@
      "edid": "crMeltdown",
      "name": "V63 Laser Carbine",
      "ammo": "Fusion Cell",
-     "range": 4189,
+     "range": 256,
      "type": "Gun",
      "damageMin": null,
      "damageMax": null,
@@ -2846,18 +2875,18 @@
    "name": "The Proletariat Punisher",
    "race": "Human",
    "levelMin": 25,
-   "levelMax": 150,
+   "levelMax": 175,
    "hpMin": 3405,
-   "hpMax": 25742,
+   "hpMax": 35139,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
-    "DR": 532,
-    "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
-    "Poison": 302,
-    "Rad": 302
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
    },
    "speedMult": 120.0,
    "gang": "Commie",
@@ -2874,9 +2903,9 @@
      "ammo": "5.56 Round",
      "range": 3173,
      "type": "Gun",
-     "damageMin": 12,
-     "damageMax": 62,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier18",
+     "damageMin": 15,
+     "damageMax": 101,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier20",
      "slot": "Main",
      "legendary": [
       "1★ Junkie's",
@@ -3111,13 +3140,13 @@
    "race": "Human",
    "levelMin": 25,
    "levelMax": 175,
-   "hpMin": 2868,
-   "hpMax": 30035,
-   "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+   "hpMin": 3405,
+   "hpMax": 35139,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
-    "DR": 783,
-    "ER": 559,
+    "DR": 1117,
+    "ER": 854,
     "Fire": 660,
     "Cryo": 660,
     "Poison": 301,
@@ -3236,18 +3265,18 @@
    "name": "Becca The Heavyweight",
    "race": "Human",
    "levelMin": 25,
-   "levelMax": 150,
+   "levelMax": 175,
    "hpMin": 3405,
-   "hpMax": 25742,
+   "hpMax": 35139,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
-    "DR": 532,
-    "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
-    "Poison": 302,
-    "Rad": 302
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
    },
    "speedMult": 120.0,
    "gang": "Boxer",
@@ -3265,7 +3294,7 @@
      "range": 0,
      "type": "HandToHandMelee",
      "damageMin": 14,
-     "damageMax": 68,
+     "damageMax": 93,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier19",
      "slot": "Main",
      "legendary": [
@@ -3280,7 +3309,7 @@
      "range": 2115,
      "type": "Grenade",
      "damageMin": 24,
-     "damageMax": 107,
+     "damageMax": 144,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier24",
      "slot": "Thrown"
     }
@@ -3296,18 +3325,18 @@
    "name": "Charlie Half-Cocked",
    "race": "Human",
    "levelMin": 25,
-   "levelMax": 150,
+   "levelMax": 175,
    "hpMin": 3405,
-   "hpMax": 25742,
+   "hpMax": 35139,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
-    "DR": 532,
-    "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
-    "Poison": 302,
-    "Rad": 302
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
    },
    "speedMult": 120.0,
    "gang": "Sniper",
@@ -3325,7 +3354,7 @@
      "range": 5225,
      "type": "Gun",
      "damageMin": 36,
-     "damageMax": 153,
+     "damageMax": 205,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier28",
      "slot": "Main",
      "legendary": [
@@ -3362,18 +3391,18 @@
    "name": "Cowgirl Janine",
    "race": "Human",
    "levelMin": 25,
-   "levelMax": 150,
+   "levelMax": 175,
    "hpMin": 3405,
-   "hpMax": 25742,
+   "hpMax": 35139,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
-    "DR": 532,
-    "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
-    "Poison": 302,
-    "Rad": 302
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
    },
    "speedMult": 120.0,
    "gang": "Gunslinger",
@@ -3390,9 +3419,9 @@
      "ammo": ".44 Round",
      "range": 3216,
      "type": "Gun",
-     "damageMin": 24,
-     "damageMax": 107,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier24",
+     "damageMin": 39,
+     "damageMax": 224,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier29",
      "slot": "Main"
     },
     {
@@ -3402,7 +3431,7 @@
      "range": 2115,
      "type": "Grenade",
      "damageMin": 24,
-     "damageMax": 107,
+     "damageMax": 144,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier24",
      "slot": "Thrown"
     }
@@ -3446,9 +3475,9 @@
      "ammo": "5mm Round",
      "range": 5147,
      "type": "Gun",
-     "damageMin": 6,
-     "damageMax": 49,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier12",
+     "damageMin": 7,
+     "damageMax": 54,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier13",
      "slot": "Main"
     },
     {
@@ -3649,9 +3678,9 @@
      "ammo": "Shotgun Shell",
      "range": 1439,
      "type": "Gun",
-     "damageMin": 39,
-     "damageMax": 224,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier29",
+     "damageMin": 60,
+     "damageMax": 318,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier33",
      "slot": "Main",
      "legendary": [
       "1★ Executioner's",
@@ -3692,18 +3721,18 @@
    "name": "Vito \"The Vic\" Bronco",
    "race": "Human",
    "levelMin": 25,
-   "levelMax": 150,
+   "levelMax": 175,
    "hpMin": 3405,
-   "hpMax": 25742,
+   "hpMax": 35139,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
-    "DR": 532,
-    "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
-    "Poison": 302,
-    "Rad": 302
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
    },
    "speedMult": 120.0,
    "gang": "Gambler",
@@ -3721,7 +3750,7 @@
      "range": 2792,
      "type": "Gun",
      "damageMin": 21,
-     "damageMax": 98,
+     "damageMax": 132,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier23",
      "slot": "Main"
     },
@@ -3831,18 +3860,18 @@
    "name": "Gentle Gary",
    "race": "Human",
    "levelMin": 25,
-   "levelMax": 150,
+   "levelMax": 175,
    "hpMin": 3405,
-   "hpMax": 25742,
+   "hpMax": 35139,
    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
    "statsFrom": "",
    "resist": {
-    "DR": 532,
-    "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
-    "Poison": 302,
-    "Rad": 302
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
    },
    "speedMult": 120.0,
    "gang": "Crusher",
@@ -3860,7 +3889,7 @@
      "range": 5500,
      "type": "Gun",
      "damageMin": 124,
-     "damageMax": 458,
+     "damageMax": 595,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier40",
      "slot": "Main"
     },
@@ -3870,9 +3899,9 @@
      "ammo": "",
      "range": 10,
      "type": "TwoHandSword",
-     "damageMin": 44,
-     "damageMax": 184,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier30",
+     "damageMin": 60,
+     "damageMax": 318,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier33",
      "slot": "Secondary"
     },
     {
@@ -3942,9 +3971,9 @@
      "ammo": "",
      "range": 2115,
      "type": "Grenade",
-     "damageMin": 32,
-     "damageMax": 188,
-     "damageCurve": "CT_Creatures_Damage_Universal_Tier27",
+     "damageMin": 44,
+     "damageMax": 244,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier30",
      "slot": "Secondary"
     }
    ],
@@ -4008,9 +4037,7 @@
      "damageCurve": "CT_Creatures_Damage_Universal_Tier26",
      "slot": "Secondary",
      "legendary": [
-      "1★ Assassin's",
-      "2★ Rapid",
-      "3★ Lightweight"
+      "2★ Rapid"
      ]
     },
     {
@@ -4027,8 +4054,31 @@
    ],
    "specials": [],
    "gangMembers": [
-    "Disgruntled Miner"
+    "Tunneller"
    ]
+  },
+  {
+   "name": "The Reborn Pint-Sized Slasher",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "Pint-Sized Phantoms",
+   "imageSlug": "the-reborn-pint-sized-slasher",
+   "weapons": [
+    {
+     "name": "Bowie Knife",
+     "slot": "Main",
+     "type": "1H Melee",
+     "ammo": "",
+     "range": 0
+    }
+   ],
+   "specials": [
+    {
+     "name": "Note",
+     "text": "3-star BIG bounty target that can crash an active Head Hunt."
+    }
+   ],
+   "gangMembers": []
   }
  ],
  "mutations": {
@@ -4185,12 +4235,12 @@
    },
    {
     "name": "Ragtime Randy",
-    "DR": 532,
-    "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
-    "Poison": 302,
-    "Rad": 302
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
    },
    {
     "name": "The Ace",
@@ -4212,12 +4262,12 @@
    },
    {
     "name": "The Proletariat Punisher",
-    "DR": 532,
-    "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
-    "Poison": 302,
-    "Rad": 302
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
    },
    {
     "name": "The Space Ranger",
@@ -4248,8 +4298,8 @@
    },
    {
     "name": "Corporal Jane",
-    "DR": 783,
-    "ER": 559,
+    "DR": 1117,
+    "ER": 854,
     "Fire": 660,
     "Cryo": 660,
     "Poison": 301,
@@ -4266,30 +4316,30 @@
    },
    {
     "name": "Becca The Heavyweight",
-    "DR": 532,
-    "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
-    "Poison": 302,
-    "Rad": 302
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
    },
    {
     "name": "Charlie Half-Cocked",
-    "DR": 532,
-    "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
-    "Poison": 302,
-    "Rad": 302
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
    },
    {
     "name": "Cowgirl Janine",
-    "DR": 532,
-    "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
-    "Poison": 302,
-    "Rad": 302
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
    },
    {
     "name": "Richie Finesse",
@@ -4329,12 +4379,12 @@
    },
    {
     "name": "Vito \"The Vic\" Bronco",
-    "DR": 532,
-    "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
-    "Poison": 302,
-    "Rad": 302
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
    },
    {
     "name": "Amadi the Piranha",
@@ -4347,12 +4397,12 @@
    },
    {
     "name": "Gentle Gary",
-    "DR": 532,
-    "ER": 532,
-    "Fire": 353,
-    "Cryo": 353,
-    "Poison": 302,
-    "Rad": 302
+    "DR": 719,
+    "ER": 660,
+    "Fire": 440,
+    "Cryo": 440,
+    "Poison": 301,
+    "Rad": 301
    },
    {
     "name": "Scout Leader Karen",
@@ -4387,7 +4437,7 @@
   ],
   "rows": [
    {
-    "label": "The Black Horseman, The Pale Horseman, The Red Rider, The White Horseman, Baron Boris Wazie, Chief Engineer Lewis, Corporal Jane, The Foreman",
+    "label": "The Black Horseman, The Pale Horseman, The Red Rider, The White Horseman, Baron Boris Wazie, Chief Engineer Lewis, The Foreman",
     "bosses": [
      "The Black Horseman",
      "The Pale Horseman",
@@ -4395,7 +4445,6 @@
      "The White Horseman",
      "Baron Boris Wazie",
      "Chief Engineer Lewis",
-     "Corporal Jane",
      "The Foreman"
     ],
     "curve": "CT_Creatures_Health_Universal_Tier34",
@@ -4410,7 +4459,7 @@
     ]
    },
    {
-    "label": "Anna The Nuka-Queen, Cletus Brimstone, Irene The Irradiated, The Cleaner, The Malpractitioner, Ragtime Randy, The Chief Researcher, The Proletariat Punisher, The Space Ranger, Tincan Toni, Becca The Heavyweight, Charlie Half-Cocked, Cowgirl Janine, Richie Finesse, Colt the Bolt, Granny Dolores, The Devil of Defiance, Vito \"The Vic\" Bronco, Amadi the Piranha, Gentle Gary, Scout Leader Karen",
+    "label": "Anna The Nuka-Queen, Cletus Brimstone, Irene The Irradiated, The Cleaner, The Malpractitioner, Ragtime Randy, The Chief Researcher, The Proletariat Punisher, The Space Ranger, Corporal Jane, Tincan Toni, Becca The Heavyweight, Charlie Half-Cocked, Cowgirl Janine, Richie Finesse, Colt the Bolt, Granny Dolores, The Devil of Defiance, Vito \"The Vic\" Bronco, Amadi the Piranha, Gentle Gary, Scout Leader Karen",
     "bosses": [
      "Anna The Nuka-Queen",
      "Cletus Brimstone",
@@ -4421,6 +4470,7 @@
      "The Chief Researcher",
      "The Proletariat Punisher",
      "The Space Ranger",
+     "Corporal Jane",
      "Tincan Toni",
      "Becca The Heavyweight",
      "Charlie Half-Cocked",
@@ -4475,6 +4525,14 @@
     "damageMax": 1240
    },
    {
+    "boss": "Gentle Gary",
+    "weapon": "Flatliner",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 124,
+    "damageMax": 595
+   },
+   {
     "boss": "The Malpractitioner",
     "weapon": "Medical Malpractice",
     "levelMin": 25,
@@ -4483,16 +4541,16 @@
     "damageMax": 497
    },
    {
-    "boss": "Gentle Gary",
-    "weapon": "Flatliner",
-    "levelMin": 25,
-    "levelMax": 150,
-    "damageMin": 124,
-    "damageMax": 458
-   },
-   {
     "boss": "The Devil of Defiance",
     "weapon": "Double-Barrel Shotgun",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 60,
+    "damageMax": 318
+   },
+   {
+    "boss": "Cowgirl Janine",
+    "weapon": "Western Revolver",
     "levelMin": 25,
     "levelMax": 175,
     "damageMin": 39,
@@ -4501,6 +4559,14 @@
    {
     "boss": "Anna The Nuka-Queen",
     "weapon": "Nuka Hunting Rifle",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 36,
+    "damageMax": 205
+   },
+   {
+    "boss": "Charlie Half-Cocked",
+    "weapon": "Sniper Hunting Rifle",
     "levelMin": 25,
     "levelMax": 175,
     "damageMin": 36,
@@ -4523,14 +4589,6 @@
     "damageMax": 172
    },
    {
-    "boss": "Charlie Half-Cocked",
-    "weapon": "Sniper Hunting Rifle",
-    "levelMin": 25,
-    "levelMax": 150,
-    "damageMin": 36,
-    "damageMax": 153
-   },
-   {
     "boss": "The White Horseman",
     "weapon": "Plasma Caster",
     "levelMin": 25,
@@ -4547,28 +4605,36 @@
     "damageMax": 132
    },
    {
-    "boss": "Cowgirl Janine",
-    "weapon": "Western Revolver",
-    "levelMin": 25,
-    "levelMax": 150,
-    "damageMin": 24,
-    "damageMax": 107
-   },
-   {
     "boss": "Vito \"The Vic\" Bronco",
     "weapon": "Pipe Revolver",
     "levelMin": 25,
-    "levelMax": 150,
+    "levelMax": 175,
     "damageMin": 21,
-    "damageMax": 98
+    "damageMax": 132
    },
    {
     "boss": "Ragtime Randy",
     "weapon": "Guitar Sword",
     "levelMin": 25,
-    "levelMax": 150,
+    "levelMax": 175,
     "damageMin": 19,
-    "damageMax": 89
+    "damageMax": 121
+   },
+   {
+    "boss": "The Proletariat Punisher",
+    "weapon": "Communist Handmade",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 15,
+    "damageMax": 101
+   },
+   {
+    "boss": "Becca The Heavyweight",
+    "weapon": "Knuckles",
+    "levelMin": 25,
+    "levelMax": 175,
+    "damageMin": 14,
+    "damageMax": 93
    },
    {
     "boss": "Granny Dolores",
@@ -4595,22 +4661,6 @@
     "damageMax": 71
    },
    {
-    "boss": "Becca The Heavyweight",
-    "weapon": "Knuckles",
-    "levelMin": 25,
-    "levelMax": 150,
-    "damageMin": 14,
-    "damageMax": 68
-   },
-   {
-    "boss": "The Proletariat Punisher",
-    "weapon": "Communist Handmade",
-    "levelMin": 25,
-    "levelMax": 150,
-    "damageMin": 12,
-    "damageMax": 62
-   },
-   {
     "boss": "The Black Horseman",
     "weapon": "Gatling Plasma",
     "levelMin": 25,
@@ -4623,8 +4673,8 @@
     "weapon": "Minigun",
     "levelMin": 25,
     "levelMax": 175,
-    "damageMin": 6,
-    "damageMax": 49
+    "damageMin": 7,
+    "damageMax": 54
    },
    {
     "boss": "Chief Engineer Lewis",
@@ -5012,17 +5062,17 @@
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
-    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
     "statsFrom": "",
     "resist": {
-     "DR": 516,
-     "ER": 516,
-     "Fire": 407,
-     "Cryo": 407,
-     "Poison": 476,
-     "Rad": 476
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
     },
     "speedMult": 100.0,
     "boss": "The Proletariat Punisher",
@@ -5125,19 +5175,19 @@
     "formId": "00825CC5",
     "name": "Raging Robot",
     "race": "ProtectronFast",
-    "levelMin": 25,
-    "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
+    "levelMin": 20,
+    "levelMax": 100,
+    "hpMin": 2827,
+    "hpMax": 13958,
     "healthCurve": "CT_Creatures_Health_Universal_Tier35",
     "statsFrom": "",
     "resist": {
-     "DR": 516,
-     "ER": 516,
-     "Fire": 407,
-     "Cryo": 407,
-     "Poison": 476,
-     "Rad": 476
+     "DR": 327,
+     "ER": 327,
+     "Fire": 254,
+     "Cryo": 254,
+     "Poison": 300,
+     "Rad": 300
     },
     "speedMult": 100.0,
     "boss": "Tincan Toni",
@@ -5288,17 +5338,17 @@
     "race": "MutatedWolf",
     "levelMin": 25,
     "levelMax": 175,
-    "hpMin": 3405,
-    "hpMax": 35139,
-    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "hpMin": 2416,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
     "statsFrom": "",
     "resist": {
-     "DR": 516,
-     "ER": 516,
-     "Fire": 407,
-     "Cryo": 407,
-     "Poison": 476,
-     "Rad": 476
+     "DR": 440,
+     "ER": 440,
+     "Fire": 377,
+     "Cryo": 377,
+     "Poison": 377,
+     "Rad": 377
     },
     "speedMult": 100.0,
     "boss": "The Devil of Defiance",
@@ -5399,7 +5449,7 @@
    {
     "edid": "Burn_BountyTarget_REG_Miner",
     "formId": "007D1145",
-    "name": "Disgruntled Miner",
+    "name": "Tunneller",
     "race": "Ghoul",
     "levelMin": 25,
     "levelMax": 175,
