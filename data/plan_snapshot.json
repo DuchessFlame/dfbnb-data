@@ -4,11 +4,11 @@
   "ALCH": false,
   "ARMO": false,
   "BOOK": true,
-  "COBJ": false,
+  "COBJ": true,
   "CONT": false,
   "FURN": false,
-  "LVLI": false,
-  "MISC": false,
+  "LVLI": true,
+  "MISC": true,
   "NPC": true,
   "OMOD": true,
   "QUEST": true,
@@ -19,11 +19,11 @@
   "ALCH": "ALCH_Export_August_2026.tsv",
   "ARMO": "ARMO_Export_July_2026_ARMOUR.tsv",
   "BOOK": "BOOK_Export_September_2026.tsv",
-  "COBJ": "COBJ_Export_July_2026.tsv",
+  "COBJ": "COBJ_Export_September_2026.tsv",
   "CONT": "CONT_Export_July_2026.tsv",
   "FURN": "FURN_Export_July_2026_FURN.tsv",
-  "LVLI": "LVLI_Export_July_2026_LVLI_Entries.tsv",
-  "MISC": "MISC_Export_July_2026.tsv",
+  "LVLI": "LVLI_Export_September_2026_LVLI_Entries.tsv",
+  "MISC": "MISC_Export_September_2026.tsv",
   "NPC": "NPC_Export_September_2026.tsv",
   "OMOD": "OMOD_Export_September_2026.tsv",
   "QUEST": "QUEST_Export_September_2026.tsv",
@@ -5022,8 +5022,8 @@
    "routes": {
     "Daily: Idle Explosives|event-quest": "Events & Activities",
     "Daily: Queen of the Hunt|event-quest": "Events & Activities",
-    "Mod Under Armor Casual Mk5 Chance|event-quest": "Events & Activities",
-    "SFZ Waste|event-quest": "Events & Activities"
+    "Daily: Waste Not|event-quest": "Events & Activities",
+    "Mod Under Armor Casual Mk5 Chance|event-quest": "Events & Activities"
    },
    "stops_dropping": false,
    "tradeable": true
@@ -6587,6 +6587,7 @@
     "Missing Persons|event-quest": "Events & Activities",
     "Mole Miner Melee|creature": "Events & Activities",
     "Mole Miner|creature": "Events & Activities",
+    "Mole Miner|vendor": "Containers",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
     "Systemic Armor Weapons Plans|event-quest": "Events & Activities",
     "Systemic Weapons Plans|event-quest": "Events & Activities",
@@ -16432,8 +16433,10 @@
   "PLAN_00510B79": {
    "cut": false,
    "name": "Plan: Long Recon Scope",
-   "routes": {},
-   "stops_dropping": false,
+   "routes": {
+    "Activity: Distant Thunder|event-quest": "Events & Activities"
+   },
+   "stops_dropping": true,
    "tradeable": true
   },
   "PLAN_005187CC": {
@@ -24052,7 +24055,8 @@
    "cut": false,
    "name": "Plan: Medium Supply Crate",
    "routes": {
-    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
+    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion",
+    "The Slasher - Daily Ops|event-quest": "Events & Activities"
    },
    "stops_dropping": false,
    "tradeable": true
@@ -24751,6 +24755,7 @@
    "cut": false,
    "name": "Plan: Ghillie Suit Hood",
    "routes": {
+    "Scorched Spooky|creature": "Events & Activities",
     "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
    },
    "stops_dropping": false,
@@ -24778,6 +24783,7 @@
    "cut": false,
    "name": "Plan: Nuclear Winter Letterman Jacket",
    "routes": {
+    "Scorched Spooky|creature": "Events & Activities",
     "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
    },
    "stops_dropping": false,
@@ -24832,7 +24838,8 @@
    "cut": false,
    "name": "Plan: Ring of Fire Pit",
    "routes": {
-    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
+    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion",
+    "The Slasher - Daily Ops|event-quest": "Events & Activities"
    },
    "stops_dropping": false,
    "tradeable": true
@@ -24841,6 +24848,7 @@
    "cut": false,
    "name": "Plan: Ghillie Suit",
    "routes": {
+    "Scorched Spooky|creature": "Events & Activities",
     "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
    },
    "stops_dropping": false,
@@ -24895,7 +24903,8 @@
    "cut": false,
    "name": "Plan: Wasteland Loveseat",
    "routes": {
-    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
+    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion",
+    "The Slasher - Daily Ops|event-quest": "Events & Activities"
    },
    "stops_dropping": false,
    "tradeable": true
@@ -24904,7 +24913,8 @@
    "cut": false,
    "name": "Plan: Antler Chandelier",
    "routes": {
-    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
+    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion",
+    "The Slasher - Daily Ops|event-quest": "Events & Activities"
    },
    "stops_dropping": false,
    "tradeable": true
@@ -26095,8 +26105,10 @@
   "PLAN_00682041": {
    "cut": false,
    "name": "Plan: Nuka-Launcher",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
+   },
+   "stops_dropping": false,
    "tradeable": false
   },
   "PLAN_0068210B": {
@@ -27786,8 +27798,9 @@
    "name": "Plan: .44 Roulette Paint",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -27808,8 +27821,9 @@
    "name": "Plan: Showstopper Shotgun Paint",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -27897,8 +27911,9 @@
    "name": "Plan: Civil Engineer Underarmor",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -27994,8 +28009,9 @@
    "name": "Plan: Overgrown Missile Launcher Paint",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28006,8 +28022,9 @@
    "name": "Plan: Overgrown Assault Rifle Paint",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28018,8 +28035,9 @@
    "name": "Plan: Overgrown Deathclaw Gauntlet Paint",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28030,8 +28048,9 @@
    "name": "Plan: Civil Engineer Welded Armor Arms",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28042,8 +28061,9 @@
    "name": "Plan: Civil Engineer Tempered Armor Arms",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28054,8 +28074,9 @@
    "name": "Plan: Civil Engineer Hardened Armor Arms",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28066,8 +28087,9 @@
    "name": "Plan: Civil Engineer Buttressed Armor Arms",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28105,8 +28127,9 @@
    "name": "Plan: Civil Engineer Welded Armor Legs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28117,8 +28140,9 @@
    "name": "Plan: Civil Engineer Tempered Armor Legs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28129,8 +28153,9 @@
    "name": "Plan: Civil Engineer Hardened Armor Legs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28141,8 +28166,9 @@
    "name": "Plan: Civil Engineer Buttressed Armor Legs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28180,8 +28206,9 @@
    "name": "Plan: Civil Engineer Welded Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28192,8 +28219,9 @@
    "name": "Plan: Civil Engineer Tempered Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28204,8 +28232,9 @@
    "name": "Plan: Civil Engineer Hardened Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28216,8 +28245,9 @@
    "name": "Plan: Civil Engineer Buttressed Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28228,8 +28258,9 @@
    "name": "Plan: Civil Engineer Pocketed Armor Limbs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28240,8 +28271,9 @@
    "name": "Plan: Civil Engineer Deep Pocketed Armor Limbs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28251,8 +28283,9 @@
    "cut": false,
    "name": "Plan: Civil Engineer Lighter Build Armor Limbs",
    "routes": {
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Hells Eagles|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28263,8 +28296,9 @@
    "name": "Plan: Civil Engineer Ultra-Light Build Armor Limbs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28275,8 +28309,9 @@
    "name": "Plan: Civil Engineer Strengthened Armor Limbs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28287,9 +28322,10 @@
    "name": "Plan: Civil Engineer Lead Lined Armor Limbs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28300,8 +28336,9 @@
    "name": "Plan: Civil Engineer Braced Armor Arms",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28312,9 +28349,10 @@
    "name": "Plan: Civil Engineer Brawling Armor Arms",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28325,8 +28363,9 @@
    "name": "Plan: Civil Engineer Weighted Armor Arms",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28337,8 +28376,9 @@
    "name": "Plan: Civil Engineer Aerodynamic Armor Arms",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28349,9 +28389,10 @@
    "name": "Plan: Civil Engineer Stabilized Armor Arms",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28362,9 +28403,10 @@
    "name": "Plan: Civil Engineer Cushioned Armor Legs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28375,9 +28417,10 @@
    "name": "Plan: Civil Engineer Custom Fitted Armor Legs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28388,8 +28431,9 @@
    "name": "Plan: Civil Engineer Sleek Armor Legs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28401,8 +28445,9 @@
    "routes": {
     "A Grand Reopening|event-quest": "Events & Activities",
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28413,8 +28458,9 @@
    "name": "Plan: Civil Engineer Dense Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28424,8 +28470,9 @@
    "cut": false,
    "name": "Plan: Civil Engineer Asbestos Lined Armor Torso",
    "routes": {
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Hells Eagles|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28436,8 +28483,9 @@
    "name": "Plan: Civil Engineer Pocketed Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28448,8 +28496,9 @@
    "name": "Plan: Civil Engineer Deep Pocketed Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28459,8 +28508,9 @@
    "cut": false,
    "name": "Plan: Civil Engineer Pneumatic Armor Torso",
    "routes": {
+    "Blood Eagle Destroyer|creature": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28471,8 +28521,9 @@
    "name": "Plan: Civil Engineer Lighter Build Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28483,8 +28534,9 @@
    "name": "Plan: Civil Engineer Ultra-Light Build Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28495,8 +28547,9 @@
    "name": "Plan: Civil Engineer BioCommMesh Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28507,9 +28560,10 @@
    "name": "Plan: Civil Engineer Lead Lined Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28520,8 +28574,9 @@
    "name": "Plan: Civil Engineer Jet Pack Armor",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28532,8 +28587,9 @@
    "name": "Plan: Treated Lining Civil Engineer Underarmor",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28544,8 +28600,9 @@
    "name": "Plan: Resistant Lining Civil Engineer Underarmor",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28556,8 +28613,9 @@
    "name": "Plan: Protective Lining Civil Engineer Underarmor",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28568,8 +28626,9 @@
    "name": "Plan: Shielded Lining Civil Engineer Underarmor",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28581,8 +28640,9 @@
    "routes": {
     "A Grand Reopening|event-quest": "Events & Activities",
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -34587,8 +34647,10 @@
   "PLAN_008B3DBB": {
    "cut": false,
    "name": "Plan: Mr. Farmhand Collectron",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Wastelanders - Samuel (Settlers Gold Bullion vendor)|vendor": "Gold Bullion"
+   },
+   "stops_dropping": false,
    "tradeable": false
   },
   "PLAN_008B4C2F": {
@@ -34770,36 +34832,46 @@
   "PLAN_008DE080": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Power Armor Helmet Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher: Blood Will Have Blood|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": false
   },
   "PLAN_008DE087": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Power Armor Legs Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Reborn Pint-Sized Slasher|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008DE088": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Power Armor Jetpack Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Reborn Pint-Sized Slasher|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008DE089": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Power Armor Arms Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Reborn Pint-Sized Slasher|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008DE08B": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Power Armor Torso Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Reborn Pint-Sized Slasher|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008E068D": {
@@ -34819,78 +34891,107 @@
   "PLAN_008E068F": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Hat - Red",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher - Daily Ops|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008E0690": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Balloon",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Blood Eagle Destroyer|creature": "Events & Activities",
+    "Infestations - Events The Slasher|event-quest": "Events & Activities",
+    "Infestations - Events|event-quest": "Events & Activities",
+    "The Slasher - Infestations Rare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008E0691": {
    "cut": false,
    "name": "Plan: Pint-Sized Phantom Outfit",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher: Masked Truth|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": false
   },
   "PLAN_008E0692": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Hat - Green",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher - Daily Ops|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008E0694": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Plushie",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Blood Eagle Destroyer|creature": "Events & Activities",
+    "Infestations - Events The Slasher|event-quest": "Events & Activities",
+    "Infestations - Events|event-quest": "Events & Activities",
+    "The Slasher - Infestations Rare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008E0696": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Ad Poster 1",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Scorched Spooky|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008E0697": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Gravestone",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher: Secrets to the Grave|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": false
   },
   "PLAN_008E0698": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Hat - Blue",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher - Daily Ops|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008E0699": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Wanted Poster 1",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher - Fan Party Crasher|creature": "Events & Activities",
+    "Uninvited Pint-Sized Phantom|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008E069A": {
    "cut": false,
    "name": "Plan: Pint-Sized Auto Axe Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Reborn Pint-Sized Slasher|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008E069B": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Hat - Orange",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher - Daily Ops|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008EE1AF": {
@@ -34914,134 +35015,182 @@
   "PLAN_008F20F0": {
    "cut": false,
    "name": "Plan: Love Tap Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Tunnel Of Love|event-quest": "Events & Activities"
+   },
+   "stops_dropping": true,
    "tradeable": true
   },
   "PLAN_008F20F1": {
    "cut": false,
    "name": "Plan: Crowd Control Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Eviction Notice|event-quest": "Events & Activities"
+   },
+   "stops_dropping": true,
    "tradeable": true
   },
   "PLAN_008F20F2": {
    "cut": false,
    "name": "Plan: Foundation's Vengeance Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Eviction Notice|event-quest": "Events & Activities"
+   },
+   "stops_dropping": true,
    "tradeable": true
   },
   "PLAN_008F20F3": {
    "cut": false,
    "name": "Plan: The Debilitator Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Eviction Notice|event-quest": "Events & Activities"
+   },
+   "stops_dropping": true,
    "tradeable": true
   },
   "PLAN_008F20F4": {
    "cut": false,
    "name": "Plan: Tone Death Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Eviction Notice|event-quest": "Events & Activities"
+   },
+   "stops_dropping": true,
    "tradeable": true
   },
   "PLAN_008F2A42": {
    "cut": false,
    "name": "Plan: Molerat Bat Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Seismic Activity|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F2A43": {
    "cut": false,
    "name": "Plan: Grand Finale Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Seismic Activity|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F2A44": {
    "cut": false,
    "name": "Plan: Western Spirit Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Most Wanted - GWWS|event-quest": "Events & Activities",
+    "Event: Most Wanted|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F2A45": {
    "cut": false,
    "name": "Plan: Gunther's Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Most Wanted - GWWS|event-quest": "Events & Activities",
+    "Event: Most Wanted|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F2A46": {
    "cut": false,
    "name": "Plan: Whacker Smacker Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Spin The Wheel|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F3624": {
    "cut": false,
    "name": "Plan: Fancy Pump Action Shotgun Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - High Chase Rare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F3625": {
    "cut": false,
    "name": "Plan: Fancy Single Action Revlover Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - High Chase Rare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F5209": {
    "cut": false,
    "name": "Plan: Whistle in the Dark Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - High Chase Rare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F520A": {
    "cut": false,
    "name": "Plan: Medical Malpractice Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - High Chase Rare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F520B": {
    "cut": false,
    "name": "Plan: Unstoppable Monster Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - High Chase Rare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F520C": {
    "cut": false,
    "name": "Plan: Mechanic's Best Friend Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - High Chase Rare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F520D": {
    "cut": false,
    "name": "Plan: Sole Survivor Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - High Chase Rare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F520E": {
    "cut": false,
    "name": "Plan: Face Breaker Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - High Chase Rare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F5215": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Photo Frame",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher: Out of the Shadows|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": false
   },
   "PLAN_008FF2B4": {
@@ -35054,57 +35203,86 @@
   "PLAN_00904CD5": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Wanted Poster 2",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher - Fan Party Crasher|creature": "Events & Activities",
+    "Uninvited Pint-Sized Phantom|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00904CD6": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Ad Poster 2",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Scorched Spooky|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00904CD7": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Ad Poster 3",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Scorched Spooky|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_0090ECFD": {
    "cut": false,
    "name": "Plan: Gold Shovel Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher - Repeatable Side Quests|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00913B60": {
    "cut": false,
    "name": "Plan: Prime Railway Rifle Automatic Receiver",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Good|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
+    "Scorchbeast Queen|creature": "Events & Activities",
+    "Scorchbeast|creature": "Events & Activities",
+    "Supplying Demands - Valuables|event-quest": "Events & Activities",
+    "Systemic Armor Weapons Plans|event-quest": "Events & Activities",
+    "Systemic Weapons Prime Mods|event-quest": "Events & Activities",
+    "Systemic Weapons|event-quest": "Events & Activities",
+    "Uninvited Scorchbeast|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00913B61": {
    "cut": false,
    "name": "Plan: Railway Rifle Shotgun Receiver",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - Low Chase Rare|event-quest": "Events & Activities",
+    "Daily Ops - Rare|event-quest": "Events & Activities",
+    "Weapons Common|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00915481": {
    "cut": false,
    "name": "Plan: Cannery Recipe Bundle #1",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Wastelanders - Samuel (Settlers Gold Bullion vendor)|vendor": "Gold Bullion"
+   },
+   "stops_dropping": false,
    "tradeable": false
   },
   "PLAN_00915482": {
    "cut": false,
    "name": "Plan: Cannery Recipe Bundle #2",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Wastelanders - Samuel (Settlers Gold Bullion vendor)|vendor": "Gold Bullion"
+   },
+   "stops_dropping": false,
    "tradeable": false
   },
   "PLAN_00918211": {
@@ -35138,137 +35316,202 @@
   "PLAN_00918E2E": {
    "cut": false,
    "name": "Plan: Gatling Laser V63-HELGA Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Neurological Warfare - Unique Item|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00918E2F": {
    "cut": false,
    "name": "Plan: Laser Gun V63-OLGA Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Neurological Warfare - Unique Item|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00919FCD": {
    "cut": false,
    "name": "Plan: Laser Gun V63-BERTHA",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Neurological Warfare - Unique Item|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00919FDA": {
    "cut": false,
    "name": "Plan: Prime Railway Shotgun Receiver",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Good|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
+    "Scorchbeast Queen|creature": "Events & Activities",
+    "Scorchbeast|creature": "Events & Activities",
+    "Supplying Demands - Valuables|event-quest": "Events & Activities",
+    "Systemic Armor Weapons Plans|event-quest": "Events & Activities",
+    "Systemic Weapons Prime Mods|event-quest": "Events & Activities",
+    "Systemic Weapons|event-quest": "Events & Activities",
+    "Uninvited Scorchbeast|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00919FDD": {
    "cut": false,
    "name": "Plan: Gatling Laser Valkyrie Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Raids - Weapons Valkyrie|event-quest": "Events & Activities",
+    "Raids|event-quest": "Events & Activities"
+   },
+   "stops_dropping": true,
    "tradeable": false
   },
   "PLAN_0091A080": {
    "cut": false,
    "name": "Plan: Railway Rifle Lickety-Split Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Raids - Weapons Lickety Split|event-quest": "Events & Activities",
+    "Raids|event-quest": "Events & Activities"
+   },
+   "stops_dropping": true,
    "tradeable": false
   },
   "PLAN_0091A082": {
    "cut": false,
    "name": "Plan: Gauss Rifle Flatliner Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Raids - Weapons Strike Breaker|event-quest": "Events & Activities",
+    "Raids|event-quest": "Events & Activities"
+   },
+   "stops_dropping": true,
    "tradeable": false
   },
   "PLAN_0091A1ED": {
    "cut": false,
    "name": "Plan: Prime Combat Shotgun Automatic Receiver",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Good|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
+    "Scorchbeast Queen|creature": "Events & Activities",
+    "Scorchbeast|creature": "Events & Activities",
+    "Supplying Demands - Valuables|event-quest": "Events & Activities",
+    "Systemic Armor Weapons Plans|event-quest": "Events & Activities",
+    "Systemic Weapons Prime Mods|event-quest": "Events & Activities",
+    "Systemic Weapons|event-quest": "Events & Activities",
+    "Uninvited Scorchbeast|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_0091B687": {
    "cut": false,
    "name": "Plan: Combat Rifle The Fixer Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Mutated Public Events - Chase Items|event-quest": "Events & Activities",
+    "Mutated Public Events - Double Mutation Fallout1st|event-quest": "Events & Activities",
+    "Mutated Public Events - Double Mutation|event-quest": "Events & Activities",
+    "Mutated Public Events - Rare Plans|event-quest": "Events & Activities",
+    "Mutated Public Events - Single Mutation Fallout1st|event-quest": "Events & Activities",
+    "Mutated Public Events - Single Mutation|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_0091C631": {
    "cut": false,
    "name": "Plan: Commie Whacker",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - High Chase Rare|event-quest": "Events & Activities",
+    "Liberator|creature": "Events & Activities",
+    "Robot Liberator|creature": "Events & Activities"
+   },
+   "stops_dropping": true,
    "tradeable": true
   },
   "PLAN_0091C667": {
    "cut": false,
    "name": "Plan: Spear Super Stimpike Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Gearin' Up - Unique Items|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_0091C669": {
    "cut": false,
    "name": "Plan: Compound Bow Burning Love Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Tunnel Of Love|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": false
   },
   "PLAN_0091C66A": {
    "cut": false,
    "name": "Plan: Shock Baton Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Neurological Warfare - Unique Item|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00921E5B": {
    "cut": false,
    "name": "Plan: Resolve Breaker Paint",
    "routes": {},
-   "stops_dropping": null,
+   "stops_dropping": true,
    "tradeable": false
   },
   "PLAN_0092A09B": {
    "cut": false,
    "name": "Plan: MG42 Red Terror Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Skyline Valley - Dangerous Pastimes|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_0092A09C": {
    "cut": false,
    "name": "Plan: MG42 Green Terror Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Skyline Valley - Dangerous Pastimes|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_0092A09D": {
    "cut": false,
    "name": "Plan: Ticket to Revenge Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Skyline Valley - Dangerous Pastimes|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_0092A09E": {
    "cut": false,
    "name": "Plan: 10mm SMG Arctic Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Neurological Warfare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00930841": {
    "cut": false,
    "name": "Plan: Piercing Love",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Wastelanders - Mortimer (Raiders Gold Bullion vendor)|vendor": "Gold Bullion"
+   },
+   "stops_dropping": false,
    "tradeable": false
   }
  },
- "taken": "2026-09-16T10:56:14+00:00",
+ "taken": "2026-09-16T14:42:07+00:00",
  "version": 1
 }

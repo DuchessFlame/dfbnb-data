@@ -1,10 +1,10 @@
 {
  "coherent": {
   "ACTI": true,
-  "ALCH": false,
+  "ALCH": true,
   "ARMO": true,
   "BOOK": true,
-  "COBJ": false,
+  "COBJ": true,
   "CONT": false,
   "FURN": false,
   "LVLI": true,
@@ -16,10 +16,10 @@
  },
  "exports": {
   "ACTI": "ACTI_Export_PTS_2026-09-16_1857_Refs.tsv",
-  "ALCH": "ALCH_Export_PTS_2026-09-06_0650.tsv",
-  "ARMO": "ARMO_Export_PTS_2026-09-16_1338_ObjectTemplate.tsv",
+  "ALCH": "ALCH_Export_PTS_2026-09-16_2000_Effects.tsv",
+  "ARMO": "ARMO_Export_PTS_2026-09-16_2001_ObjectTemplate.tsv",
   "BOOK": "BOOK_Export_PTS_2026-09-16_1847.tsv",
-  "COBJ": "COBJ_Export_PTS_2026-08-22_0953.tsv",
+  "COBJ": "COBJ_Export_PTS_2026-09-16_2039.tsv",
   "CONT": "CONT_Export_PTS_2026-08-22_0954.tsv",
   "FURN": "FURN_Export_PTS_2026-09-06_0635_FURN.tsv",
   "LVLI": "LVLI_Export_PTS_2026-09-16_1737_LVLI_Math.tsv",
@@ -2121,9 +2121,9 @@
    "name": "Plan: Deathclaw Gauntlet Extra Claw",
    "routes": {
     "Deathclaw|creature": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Missing Persons|event-quest": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
     "Systemic Armor Weapons Plans|event-quest": "Events & Activities",
@@ -4524,6 +4524,7 @@
    "name": "Plan: Vault Locker",
    "routes": {
     "Atom Shop - Ally Lawson vendor|vendor": "Caps",
+    "Atom Shop - Ally Mr Moore vendor|vendor": "Caps",
     "Brotherhood of Steel vendor|vendor": "Caps",
     "GQ10 Travelling Workshops vendor|vendor": "Caps",
     "Location based PA System in Watago - Watoga (Brotherhood of Steel vendor)|vendor": "Caps",
@@ -4538,6 +4539,7 @@
    "name": "Plan: Vault Dresser",
    "routes": {
     "Atom Shop - Ally Lawson vendor|vendor": "Caps",
+    "Atom Shop - Ally Mr Moore vendor|vendor": "Caps",
     "Brotherhood of Steel vendor|vendor": "Caps",
     "GQ10 Travelling Workshops vendor|vendor": "Caps",
     "Location based PA System in Watago - Watoga (Brotherhood of Steel vendor)|vendor": "Caps",
@@ -4552,6 +4554,7 @@
    "name": "Plan: Vault Desk",
    "routes": {
     "Atom Shop - Ally Lawson vendor|vendor": "Caps",
+    "Atom Shop - Ally Mr Moore vendor|vendor": "Caps",
     "Brotherhood of Steel vendor|vendor": "Caps",
     "GQ10 Travelling Workshops vendor|vendor": "Caps",
     "Location based PA System in Watago - Watoga (Brotherhood of Steel vendor)|vendor": "Caps",
@@ -6501,7 +6504,6 @@
    "cut": false,
    "name": "Plan: Golf Club",
    "routes": {
-    "CB04|event-quest": "Events & Activities",
     "Cooler|container": "Containers",
     "Daniel's Safe|container": "Containers",
     "Mayor's Safe|container": "Containers",
@@ -6511,6 +6513,7 @@
     "Security Office Safe|container": "Containers",
     "Super Duper Mart Safe|container": "Containers",
     "Underdweller Dropbox|container": "Containers",
+    "Vault Trunk|container": "Containers",
     "Weapons Common|event-quest": "Events & Activities",
     "Whitespring Armor Hunting Supplies vendor|vendor": "Caps"
    },
@@ -6581,13 +6584,12 @@
    "name": "Plan: Mole Miner Gauntlet",
    "routes": {
     "Event: Seismic Activity - Mole Miner Ranged|creature": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Missing Persons|event-quest": "Events & Activities",
     "Mole Miner Melee|creature": "Events & Activities",
     "Mole Miner|creature": "Events & Activities",
-    "Mole Miner|vendor": "Containers",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
     "Systemic Armor Weapons Plans|event-quest": "Events & Activities",
     "Systemic Weapons Plans|event-quest": "Events & Activities",
@@ -6720,7 +6722,6 @@
    "cut": false,
    "name": "Plan: Super Sledge",
    "routes": {
-    "CB04|event-quest": "Events & Activities",
     "Cooler|container": "Containers",
     "Daniel's Safe|container": "Containers",
     "GQ10 Travelling Workshops vendor|vendor": "Caps",
@@ -6731,7 +6732,8 @@
     "Safe|container": "Containers",
     "Security Office Safe|container": "Containers",
     "Super Duper Mart Safe|container": "Containers",
-    "Underdweller Dropbox|container": "Containers"
+    "Underdweller Dropbox|container": "Containers",
+    "Vault Trunk|container": "Containers"
    },
    "stops_dropping": false,
    "tradeable": true
@@ -6780,7 +6782,6 @@
    "cut": false,
    "name": "Plan: War Drum",
    "routes": {
-    "CB04|event-quest": "Events & Activities",
     "Cooler|container": "Containers",
     "Daniel's Safe|container": "Containers",
     "GQ10 Travelling Workshops vendor|vendor": "Caps",
@@ -6791,7 +6792,8 @@
     "Safe|container": "Containers",
     "Security Office Safe|container": "Containers",
     "Super Duper Mart Safe|container": "Containers",
-    "Underdweller Dropbox|container": "Containers"
+    "Underdweller Dropbox|container": "Containers",
+    "Vault Trunk|container": "Containers"
    },
    "stops_dropping": false,
    "tradeable": true
@@ -7112,13 +7114,13 @@
     "Daniel's Safe|container": "Containers",
     "Mayor's Safe|container": "Containers",
     "Pre-War Safe|container": "Containers",
-    "Priority Raider Safe Trap|creature": "Events & Activities",
-    "Priority Safe Prewar|event-quest": "Events & Activities",
+    "Priority Raider Safe|event-quest": "Events & Activities",
     "Safe Prewar Advanced|creature": "Events & Activities",
     "Safe|container": "Containers",
     "Security Office Safe|container": "Containers",
     "Super Duper Mart Safe|container": "Containers",
-    "Underdweller Dropbox|container": "Containers"
+    "Underdweller Dropbox|container": "Containers",
+    "Vault Trunk|container": "Containers"
    },
    "stops_dropping": false,
    "tradeable": true
@@ -8472,9 +8474,9 @@
    "cut": false,
    "name": "Plan: Prime Automatic 10mm Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8490,9 +8492,9 @@
    "cut": false,
    "name": "Plan: Prime 10mm Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8508,9 +8510,9 @@
    "cut": false,
    "name": "Plan: Prime 10mm Submachine Gun Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8526,9 +8528,9 @@
    "cut": false,
    "name": "Plan: Prime .44 Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8544,9 +8546,9 @@
    "cut": false,
    "name": "Plan: Prime 50 Cal Machine Gun Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8562,9 +8564,9 @@
    "cut": false,
    "name": "Plan: Prime Automatic Assault Rifle Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8580,9 +8582,9 @@
    "cut": false,
    "name": "Plan: Prime Assault Rifle Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8598,9 +8600,9 @@
    "cut": false,
    "name": "Plan: Prime Automatic Combat  Rifle Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8616,9 +8618,9 @@
    "cut": false,
    "name": "Plan: Prime Combat  Rifle Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8634,9 +8636,9 @@
    "cut": false,
    "name": "Plan: Prime Combat Shotgun Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8652,9 +8654,9 @@
    "cut": false,
    "name": "Plan: Prime Crossbow Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8670,9 +8672,9 @@
    "cut": false,
    "name": "Plan: Prime Western Revolver Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8688,9 +8690,9 @@
    "cut": false,
    "name": "Plan: Prime Double-Barrel Shotgun Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8706,9 +8708,9 @@
    "cut": false,
    "name": "Plan: Prime Enclave Plasma Gun Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8724,9 +8726,9 @@
    "cut": false,
    "name": "Plan: Prime Gatling Gun Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8742,9 +8744,9 @@
    "cut": false,
    "name": "Plan: Prime Gatling Laser Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8760,9 +8762,9 @@
    "cut": false,
    "name": "Plan: Prime Gatling Plasma Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8778,9 +8780,9 @@
    "cut": false,
    "name": "Plan: Prime Gauss Rifle Capacitors",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8796,9 +8798,9 @@
    "cut": false,
    "name": "Plan: Prime Handmade Rifle Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8814,9 +8816,9 @@
    "cut": false,
    "name": "Plan: Prime Automatic Handmade Rifle Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8832,9 +8834,9 @@
    "cut": false,
    "name": "Plan: Prime Hunting Rifle Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8850,9 +8852,9 @@
    "cut": false,
    "name": "Plan: Prime Laser Gun Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8868,9 +8870,9 @@
    "cut": false,
    "name": "Plan: Prime Lever Gun Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8886,9 +8888,9 @@
    "cut": false,
    "name": "Plan: Prime Light Machine Gun .308 Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "PTS Item Box|container": "Containers",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
@@ -8905,9 +8907,9 @@
    "cut": false,
    "name": "Plan: Prime Minigun Barrel",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8923,9 +8925,9 @@
    "cut": false,
    "name": "Plan: Prime Pipe Bolt-Action Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8941,9 +8943,9 @@
    "cut": false,
    "name": "Plan: Prime Pipe Gun Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8959,9 +8961,9 @@
    "cut": false,
    "name": "Plan: Prime Automatic Pipe Gun Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8977,9 +8979,9 @@
    "cut": false,
    "name": "Plan: Prime Pipe Revolver Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -8995,9 +8997,9 @@
    "cut": false,
    "name": "Plan: Prime Plasma Gun Capacitor",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -9013,9 +9015,9 @@
    "cut": false,
    "name": "Plan: Prime Pump Action Shotgun Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -9031,9 +9033,9 @@
    "cut": false,
    "name": "Plan: Prime Radium Rifle Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -9049,9 +9051,9 @@
    "cut": false,
    "name": "Plan: Prime Automatic Radium Rifle Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -9067,9 +9069,9 @@
    "cut": false,
    "name": "Plan: Prime Railway Rifle Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -9085,9 +9087,9 @@
    "cut": false,
    "name": "Plan: Prime Single Action Revolver Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -9103,9 +9105,9 @@
    "cut": false,
    "name": "Plan: Prime Submachine Gun Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -9121,9 +9123,9 @@
    "cut": false,
    "name": "Plan: Prime Ultracite Gatling Laser Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -9139,9 +9141,9 @@
    "cut": false,
    "name": "Plan: Prime Ultracite Laser Gun Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -9369,6 +9371,7 @@
    "cut": false,
    "name": "Plan: Simple Bed",
    "routes": {
+    "Atom Shop - Ally Mr Moore vendor|vendor": "Caps",
     "GQ10 Travelling Workshops vendor|vendor": "Caps",
     "Locker|vendor": "Containers",
     "Whitespring Art Gallery vendor|vendor": "Caps"
@@ -9380,6 +9383,7 @@
    "cut": false,
    "name": "Plan: Simple Made Bed",
    "routes": {
+    "Atom Shop - Ally Mr Moore vendor|vendor": "Caps",
     "GQ10 Travelling Workshops vendor|vendor": "Caps",
     "Locker|vendor": "Containers",
     "Whitespring Art Gallery vendor|vendor": "Caps"
@@ -10000,7 +10004,7 @@
    "cut": false,
    "name": "Plan: Plasma Grenade",
    "routes": {
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Missing Persons|event-quest": "Events & Activities",
     "Mutated Public Events - Chase Items|event-quest": "Events & Activities",
     "Mutated Public Events - Ultra Rare Plans|event-quest": "Events & Activities",
@@ -11528,9 +11532,9 @@
    "cut": false,
    "name": "Plan: Replica Grognak's Axe",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Missing Persons|event-quest": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
     "Systemic Armor Weapons Plans|event-quest": "Events & Activities",
@@ -11703,18 +11707,18 @@
    "cut": false,
    "name": "Plan: Laser Gun Medium Scope",
    "routes": {
-    "Event: Test Your Metal - Good|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Missing Persons|event-quest": "Events & Activities",
+    "Mutated Public Events - Chase Items|event-quest": "Events & Activities",
+    "Mutated Public Events - Double Mutation Fallout1st|event-quest": "Events & Activities",
+    "Mutated Public Events - Ultra Rare Plans|event-quest": "Events & Activities",
     "Schematic Toxic Valley|event-quest": "Events & Activities",
     "Schematic Weapon Toxic Valley Ranged|event-quest": "Events & Activities",
     "Schematic Weapon Toxic Valley|event-quest": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
     "Systemic Armor Weapons Plans|event-quest": "Events & Activities",
     "Systemic Weapons Plans|event-quest": "Events & Activities",
-    "Systemic Weapons|event-quest": "Events & Activities",
-    "Toxic Valley Grab Bag|event-quest": "Events & Activities",
-    "Toxic Valley|event-quest": "Events & Activities"
+    "Systemic Weapons|event-quest": "Events & Activities"
    },
    "stops_dropping": false,
    "tradeable": true
@@ -12141,8 +12145,8 @@
    "routes": {
     "Cranberry Bog Grab Bag|event-quest": "Events & Activities",
     "Cranberry Bog|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Missing Persons|event-quest": "Events & Activities",
     "Schematic Cranberry Bog|event-quest": "Events & Activities",
     "Schematic Weapon Cranberry Bog Ranged|event-quest": "Events & Activities",
@@ -12496,7 +12500,7 @@
     "Daily Ops - Chase|event-quest": "Events & Activities",
     "Daily Ops - Low Chase Rare|event-quest": "Events & Activities",
     "Daily Ops - Rare|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Power Armor Common|event-quest": "Events & Activities",
     "Power Armor|event-quest": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -12516,7 +12520,7 @@
     "Daily Ops - Chase|event-quest": "Events & Activities",
     "Daily Ops - Low Chase Rare|event-quest": "Events & Activities",
     "Daily Ops - Rare|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Power Armor Common|event-quest": "Events & Activities",
     "Power Armor|event-quest": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -12536,7 +12540,7 @@
     "Daily Ops - Chase|event-quest": "Events & Activities",
     "Daily Ops - Low Chase Rare|event-quest": "Events & Activities",
     "Daily Ops - Rare|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Power Armor Common|event-quest": "Events & Activities",
     "Power Armor|event-quest": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -12556,7 +12560,7 @@
     "Daily Ops - Chase|event-quest": "Events & Activities",
     "Daily Ops - Low Chase Rare|event-quest": "Events & Activities",
     "Daily Ops - Rare|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Power Armor Common|event-quest": "Events & Activities",
     "Power Armor|event-quest": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -12576,7 +12580,7 @@
     "Daily Ops - Chase|event-quest": "Events & Activities",
     "Daily Ops - Low Chase Rare|event-quest": "Events & Activities",
     "Daily Ops - Rare|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Power Armor Common|event-quest": "Events & Activities",
     "Power Armor|event-quest": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -12596,7 +12600,7 @@
     "Daily Ops - Chase|event-quest": "Events & Activities",
     "Daily Ops - Low Chase Rare|event-quest": "Events & Activities",
     "Daily Ops - Rare|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Power Armor Common|event-quest": "Events & Activities",
     "Power Armor|event-quest": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -12616,8 +12620,8 @@
     "Daily Ops - Chase|event-quest": "Events & Activities",
     "Daily Ops - Low Chase Rare|event-quest": "Events & Activities",
     "Daily Ops - Rare|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Power Armor Common|event-quest": "Events & Activities",
     "Power Armor|event-quest": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -12635,8 +12639,8 @@
     "Daily Ops - Chase|event-quest": "Events & Activities",
     "Daily Ops - Low Chase Rare|event-quest": "Events & Activities",
     "Daily Ops - Rare|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Power Armor Common|event-quest": "Events & Activities",
     "Power Armor Excavator by|event-quest": "Events & Activities",
     "Power Armor|event-quest": "Events & Activities",
@@ -12656,8 +12660,8 @@
     "Daily Ops - Chase|event-quest": "Events & Activities",
     "Daily Ops - Low Chase Rare|event-quest": "Events & Activities",
     "Daily Ops - Rare|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Power Armor Common|event-quest": "Events & Activities",
     "Power Armor|event-quest": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -12676,8 +12680,8 @@
     "Daily Ops - Chase|event-quest": "Events & Activities",
     "Daily Ops - Low Chase Rare|event-quest": "Events & Activities",
     "Daily Ops - Rare|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Power Armor Common|event-quest": "Events & Activities",
     "Power Armor|event-quest": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -12696,8 +12700,8 @@
     "Daily Ops - Chase|event-quest": "Events & Activities",
     "Daily Ops - Low Chase Rare|event-quest": "Events & Activities",
     "Daily Ops - Rare|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Power Armor Common|event-quest": "Events & Activities",
     "Power Armor|event-quest": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -12716,8 +12720,8 @@
     "Daily Ops - Chase|event-quest": "Events & Activities",
     "Daily Ops - Low Chase Rare|event-quest": "Events & Activities",
     "Daily Ops - Rare|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Power Armor Common|event-quest": "Events & Activities",
     "Power Armor|event-quest": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -12736,8 +12740,8 @@
     "Daily Ops - Chase|event-quest": "Events & Activities",
     "Daily Ops - Low Chase Rare|event-quest": "Events & Activities",
     "Daily Ops - Rare|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Power Armor Common|event-quest": "Events & Activities",
     "Power Armor|event-quest": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -12756,8 +12760,8 @@
     "Daily Ops - Chase|event-quest": "Events & Activities",
     "Daily Ops - Low Chase Rare|event-quest": "Events & Activities",
     "Daily Ops - Rare|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Power Armor Common|event-quest": "Events & Activities",
     "Power Armor|event-quest": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -12776,8 +12780,8 @@
     "Daily Ops - Chase|event-quest": "Events & Activities",
     "Daily Ops - Low Chase Rare|event-quest": "Events & Activities",
     "Daily Ops - Rare|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Power Armor Common|event-quest": "Events & Activities",
     "Power Armor|event-quest": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -12796,8 +12800,8 @@
     "Daily Ops - Chase|event-quest": "Events & Activities",
     "Daily Ops - Low Chase Rare|event-quest": "Events & Activities",
     "Daily Ops - Rare|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Power Armor Common|event-quest": "Events & Activities",
     "Power Armor|event-quest": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -12816,8 +12820,8 @@
     "Daily Ops - Chase|event-quest": "Events & Activities",
     "Daily Ops - Low Chase Rare|event-quest": "Events & Activities",
     "Daily Ops - Rare|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Power Armor Common|event-quest": "Events & Activities",
     "Power Armor|event-quest": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -12836,8 +12840,8 @@
     "Daily Ops - Chase|event-quest": "Events & Activities",
     "Daily Ops - Low Chase Rare|event-quest": "Events & Activities",
     "Daily Ops - Rare|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Power Armor Common|event-quest": "Events & Activities",
     "Power Armor|event-quest": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -16633,7 +16637,7 @@
   },
   "PLAN_0052A699": {
    "cut": false,
-   "name": "Plan: Single-Action Revolver Ivory Grip",
+   "name": "Plan: Single-Action Revolver Forceful Grip",
    "routes": {
     "Atom Shop - Ally Lawson vendor|vendor": "Caps",
     "Brotherhood of Steel vendor|vendor": "Caps",
@@ -20160,10 +20164,10 @@
    "cut": false,
    "name": "Plan: Auto Axe Burning Mod",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -20172,10 +20176,10 @@
    "cut": false,
    "name": "Plan: Auto Axe Electrified Mod",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -20184,10 +20188,10 @@
    "cut": false,
    "name": "Plan: Auto Axe Poisoned Mod",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -20196,10 +20200,10 @@
    "cut": false,
    "name": "Plan: Auto Axe Turbo Mod",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -20249,7 +20253,7 @@
   },
   "PLAN_0059560D": {
    "cut": false,
-   "name": "Plan: Gauss Shotgun Extended Barrel",
+   "name": "Plan: Gauss Shotgun Long Barrel",
    "routes": {
     "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion",
     "Wastelanders - Samuel (Settlers Gold Bullion vendor)|vendor": "Gold Bullion",
@@ -22633,7 +22637,7 @@
   },
   "PLAN_005E65FA": {
    "cut": false,
-   "name": "Plan: Crusader Pistol Fusion Receiver",
+   "name": "Plan: Crusader Pistol Fusion Chamber",
    "routes": {
     "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion",
     "Wastelanders - Reginald (Secret Service Gold Bullion vendor)|vendor": "Gold Bullion"
@@ -22643,7 +22647,7 @@
   },
   "PLAN_005E65FB": {
    "cut": false,
-   "name": "Plan: Crusader Pistol Pyro Receiver",
+   "name": "Plan: Crusader Pistol Pyro Chamber",
    "routes": {
     "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion",
     "Wastelanders - Reginald (Secret Service Gold Bullion vendor)|vendor": "Gold Bullion"
@@ -22653,7 +22657,7 @@
   },
   "PLAN_005E65FC": {
    "cut": false,
-   "name": "Plan: Crusader Pistol Cryo Receiver",
+   "name": "Plan: Crusader Pistol Cryo Chamber",
    "routes": {
     "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion",
     "Wastelanders - Reginald (Secret Service Gold Bullion vendor)|vendor": "Gold Bullion"
@@ -22663,7 +22667,7 @@
   },
   "PLAN_005E65FD": {
    "cut": false,
-   "name": "Plan: Crusader Pistol 5.56 Receiver",
+   "name": "Plan: Crusader Pistol 5.56 Chamber",
    "routes": {
     "Wastelanders - Reginald (Secret Service Gold Bullion vendor)|vendor": "Gold Bullion"
    },
@@ -24615,7 +24619,7 @@
    "cut": false,
    "name": "Plan: Vault-Tec University Diploma",
    "routes": {
-    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
+    "Atom Shop - Ally Mr Moore vendor|vendor": "Caps"
    },
    "stops_dropping": false,
    "tradeable": false
@@ -24688,7 +24692,7 @@
    "cut": false,
    "name": "Plan: Vault-Tec University Pennant",
    "routes": {
-    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
+    "Atom Shop - Ally Mr Moore vendor|vendor": "Caps"
    },
    "stops_dropping": false,
    "tradeable": false
@@ -24746,7 +24750,7 @@
    "cut": false,
    "name": "Plan: Vault-Tec University Poster",
    "routes": {
-    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
+    "Atom Shop - Ally Mr Moore vendor|vendor": "Caps"
    },
    "stops_dropping": false,
    "tradeable": false
@@ -24755,7 +24759,7 @@
    "cut": false,
    "name": "Plan: Ghillie Suit Hood",
    "routes": {
-    "Spooky Scorched|creature": "Events & Activities",
+    "Scorched Spooky|creature": "Events & Activities",
     "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
    },
    "stops_dropping": false,
@@ -24783,7 +24787,7 @@
    "cut": false,
    "name": "Plan: Nuclear Winter Letterman Jacket",
    "routes": {
-    "Spooky Scorched|creature": "Events & Activities",
+    "Scorched Spooky|creature": "Events & Activities",
     "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
    },
    "stops_dropping": false,
@@ -24848,7 +24852,7 @@
    "cut": false,
    "name": "Plan: Ghillie Suit",
    "routes": {
-    "Spooky Scorched|creature": "Events & Activities",
+    "Scorched Spooky|creature": "Events & Activities",
     "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
    },
    "stops_dropping": false,
@@ -25030,10 +25034,10 @@
    "cut": false,
    "name": "Plan: Hunting Rifle Skin - Union",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25111,10 +25115,10 @@
    "cut": false,
    "name": "Plan: Fanatics Pump-Action Shotgun Paint",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25153,10 +25157,10 @@
    "cut": false,
    "name": "Plan: Union Rusty Knuckles",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25165,10 +25169,10 @@
    "cut": false,
    "name": "Plan: Union Emergency Protocols",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25177,10 +25181,10 @@
    "cut": false,
    "name": "Plan: Union Kinetic Servos",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25189,10 +25193,10 @@
    "cut": false,
    "name": "Plan: Union Internal Database",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25201,10 +25205,10 @@
    "cut": false,
    "name": "Plan: Union Hydraulic Bracers",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25213,10 +25217,10 @@
    "cut": false,
    "name": "Plan: Union Tesla Coils",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25234,10 +25238,10 @@
    "cut": false,
    "name": "Plan: Union Optimized Bracers",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25255,10 +25259,10 @@
    "cut": false,
    "name": "Plan: Union Recon Sensors",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25276,10 +25280,10 @@
    "cut": false,
    "name": "Plan: Union Calibrated Shocks",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25297,10 +25301,10 @@
    "cut": false,
    "name": "Plan: Union Optimized Servos",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25309,10 +25313,10 @@
    "cut": false,
    "name": "Plan: Union VATS Matrix Overlay",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25321,10 +25325,10 @@
    "cut": false,
    "name": "Plan: Union Core Assembly",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25333,10 +25337,10 @@
    "cut": false,
    "name": "Plan: Union Medic Pump",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25345,10 +25349,10 @@
    "cut": false,
    "name": "Plan: Union Tesla Bracers",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25357,10 +25361,10 @@
    "cut": false,
    "name": "Plan: Union Overdrive Servos",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25378,10 +25382,10 @@
    "cut": false,
    "name": "Plan: Union Kinetic Dynamo",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25399,10 +25403,10 @@
    "cut": false,
    "name": "Plan: Union Reactive Plates",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25411,10 +25415,10 @@
    "cut": false,
    "name": "Plan: Union Motion-Assist Servos",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25423,10 +25427,10 @@
    "cut": false,
    "name": "Plan: Union Sensor Array",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25435,10 +25439,10 @@
    "cut": false,
    "name": "Plan: Union Stealth Boy",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25447,10 +25451,10 @@
    "cut": false,
    "name": "Plan: Union Cooling Vent",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25459,10 +25463,10 @@
    "cut": false,
    "name": "Plan: Union Targeting HUD",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -25471,10 +25475,10 @@
    "cut": false,
    "name": "Plan: Union Blood Cleanser",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -27226,10 +27230,10 @@
    "cut": false,
    "name": "Plan: Union Headlamp Blue",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -27238,10 +27242,10 @@
    "cut": false,
    "name": "Plan: Union Headlamp Bright",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -27250,10 +27254,10 @@
    "cut": false,
    "name": "Plan: Union Headlamp Purple",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -27262,10 +27266,10 @@
    "cut": false,
    "name": "Plan: Union Headlamp Red Tactical",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -27274,10 +27278,10 @@
    "cut": false,
    "name": "Plan: Union Headlamp Vault Boy",
    "routes": {
+    "CreatureDialogueTheDrifter - Expeditions Pitt|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Expeditions - Pitt Mission|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Pitt|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Expeditions - Pitt Mission|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -27799,9 +27803,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -27822,9 +27826,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -27912,9 +27916,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -27992,6 +27996,7 @@
    "cut": false,
    "name": "Plan: Vault-Tec Weapon Loadout Paints",
    "routes": {
+    "Atom Shop - Ally Mr Moore vendor|vendor": "Caps",
     "Daily: A Better Tomorrow - Lumbermill General vendor|vendor": "Caps"
    },
    "stops_dropping": false,
@@ -28010,9 +28015,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28023,9 +28028,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28036,9 +28041,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28049,9 +28054,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28062,9 +28067,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28075,9 +28080,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28088,9 +28093,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28128,9 +28133,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28141,9 +28146,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28154,9 +28159,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28167,9 +28172,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28207,9 +28212,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28220,9 +28225,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28233,9 +28238,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28246,9 +28251,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28259,9 +28264,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28272,9 +28277,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28284,9 +28289,9 @@
    "name": "Plan: Civil Engineer Lighter Build Armor Limbs",
    "routes": {
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Hells Eagles|event-quest": "Events & Activities",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28297,9 +28302,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28310,9 +28315,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28323,10 +28328,10 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
     "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Regent of the Dead|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28337,9 +28342,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28350,10 +28355,10 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
     "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Regent of the Dead|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28364,9 +28369,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28377,9 +28382,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28390,10 +28395,10 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
     "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Regent of the Dead|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28404,10 +28409,10 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
     "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Regent of the Dead|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28418,10 +28423,10 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
     "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Regent of the Dead|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28432,9 +28437,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28446,9 +28451,9 @@
     "A Grand Reopening|event-quest": "Events & Activities",
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28459,9 +28464,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28471,9 +28476,9 @@
    "name": "Plan: Civil Engineer Asbestos Lined Armor Torso",
    "routes": {
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Hells Eagles|event-quest": "Events & Activities",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28484,9 +28489,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28497,9 +28502,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28509,9 +28514,9 @@
    "name": "Plan: Civil Engineer Pneumatic Armor Torso",
    "routes": {
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Regent of the Dead|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28522,9 +28527,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28535,9 +28540,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28548,9 +28553,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28561,10 +28566,10 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
     "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Regent of the Dead|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28575,9 +28580,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28588,9 +28593,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28601,9 +28606,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28614,9 +28619,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28627,9 +28632,9 @@
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -28641,9 +28646,9 @@
     "A Grand Reopening|event-quest": "Events & Activities",
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
     "Blood Eagle Destroyer|creature": "Events & Activities",
+    "CreatureDialogueTheDrifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -33853,9 +33858,9 @@
    "cut": false,
    "name": "Plan: Secret Settler Left Leg",
    "routes": {
-    "The Drifter - Armor Secret Service Leg Left|event-quest": "Events & Activities",
-    "The Drifter - Armor|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "CreatureDialogueTheDrifter - Armor Secret Service Leg Left|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter - Unique Named Armor|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -33864,9 +33869,9 @@
    "cut": false,
    "name": "Plan: Secret Settler Helmet",
    "routes": {
-    "The Drifter - Armor Secret Service Helmet|event-quest": "Events & Activities",
-    "The Drifter - Armor|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "CreatureDialogueTheDrifter - Armor Secret Service Helmet|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter - Unique Named Armor|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -33875,9 +33880,9 @@
    "cut": false,
    "name": "Plan: Secret Settler Right Leg",
    "routes": {
-    "The Drifter - Armor Secret Service Leg Right|event-quest": "Events & Activities",
-    "The Drifter - Armor|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "CreatureDialogueTheDrifter - Armor Secret Service Leg Right|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter - Unique Named Armor|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -33886,9 +33891,9 @@
    "cut": false,
    "name": "Plan: Secret Settler Left Arm",
    "routes": {
-    "The Drifter - Armor Secret Service Arm Left|event-quest": "Events & Activities",
-    "The Drifter - Armor|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "CreatureDialogueTheDrifter - Armor Secret Service Arm Left|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter - Unique Named Armor|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -33897,9 +33902,9 @@
    "cut": false,
    "name": "Plan: Secret Settler Right Arm",
    "routes": {
-    "The Drifter - Armor Secret Service Arm Right|event-quest": "Events & Activities",
-    "The Drifter - Armor|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "CreatureDialogueTheDrifter - Armor Secret Service Arm Right|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter - Unique Named Armor|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -33908,9 +33913,9 @@
    "cut": false,
    "name": "Plan: Secret Settler Chest Piece",
    "routes": {
-    "The Drifter - Armor Secret Service Torso|event-quest": "Events & Activities",
-    "The Drifter - Armor|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "CreatureDialogueTheDrifter - Armor Secret Service Torso|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter - Unique Named Armor|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -33919,9 +33924,9 @@
    "cut": false,
    "name": "Plan: Crackler Grenade",
    "routes": {
-    "The Drifter - Weapons Grenade Crackler|event-quest": "Events & Activities",
-    "The Drifter - Weapons|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "CreatureDialogueTheDrifter - Unique Named Weapons|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter - Weapons Grenade Crackler|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -33930,9 +33935,9 @@
    "cut": false,
    "name": "Plan: Tempest",
    "routes": {
-    "The Drifter - Weapons Tempest|event-quest": "Events & Activities",
-    "The Drifter - Weapons|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "CreatureDialogueTheDrifter - Unique Named Weapons|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter - Weapons Tempest|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -33941,9 +33946,9 @@
    "cut": false,
    "name": "Plan: Chaos Engine",
    "routes": {
-    "The Drifter - Weapons Chaos Engine|event-quest": "Events & Activities",
-    "The Drifter - Weapons|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "CreatureDialogueTheDrifter - Unique Named Weapons|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter - Weapons Chaos Engine|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -33952,9 +33957,9 @@
    "cut": false,
    "name": "Plan: Splinter",
    "routes": {
-    "The Drifter - Weapons Splinter|event-quest": "Events & Activities",
-    "The Drifter - Weapons|event-quest": "Events & Activities",
-    "The Drifter|event-quest": "Events & Activities"
+    "CreatureDialogueTheDrifter - Unique Named Weapons|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter - Weapons Splinter|event-quest": "Events & Activities",
+    "CreatureDialogueTheDrifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
    "tradeable": false
@@ -34224,9 +34229,9 @@
    "cut": false,
    "name": "Plan: Prime Light Machine Gun .45 Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "PTS Item Box|container": "Containers",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
@@ -34243,9 +34248,9 @@
    "cut": false,
    "name": "Plan: Prime Light Machine Gun 5.56 Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "PTS Item Box|container": "Containers",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
@@ -34584,6 +34589,13 @@
    "stops_dropping": null,
    "tradeable": false
   },
+  "PLAN_008AC859": {
+   "cut": true,
+   "name": "Plan: Brain In a Jar",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
   "PLAN_008B3A10": {
    "cut": false,
    "name": "Plan: Hog Splitter",
@@ -34773,18 +34785,32 @@
    "stops_dropping": false,
    "tradeable": false
   },
-  "PLAN_008D5AA7": {
+  "PLAN_008D2AB9": {
    "cut": true,
-   "name": "Plan: Light Machine Gun Critical .308 Receiver",
+   "name": "Plan:  Lightning Hit Outfit",
    "routes": {},
    "stops_dropping": null,
    "tradeable": true
   },
-  "PLAN_008D5AA8": {
+  "PLAN_008D2ABA": {
    "cut": true,
-   "name": "Plan: Light Machine Gun Critical .45 Receiver",
+   "name": "Plan: Lightning Hit Helmet",
    "routes": {},
    "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_008D5AA7": {
+   "cut": false,
+   "name": "Plan: LMG Calibrated .308 Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_008D5AA8": {
+   "cut": false,
+   "name": "Plan: LMG Calibrated .45 Receiver",
+   "routes": {},
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008D5AA9": {
@@ -34823,10 +34849,10 @@
    "tradeable": true
   },
   "PLAN_008D5AAE": {
-   "cut": true,
-   "name": "Plan: Light Machine Gun Compensator",
+   "cut": false,
+   "name": "Plan: LMG Compensator",
    "routes": {},
-   "stops_dropping": null,
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008DE080": {
@@ -34943,7 +34969,7 @@
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Ad Poster 1",
    "routes": {
-    "Spooky Scorched|creature": "Events & Activities"
+    "Scorched Spooky|creature": "Events & Activities"
    },
    "stops_dropping": false,
    "tradeable": true
@@ -35214,7 +35240,7 @@
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Ad Poster 2",
    "routes": {
-    "Spooky Scorched|creature": "Events & Activities"
+    "Scorched Spooky|creature": "Events & Activities"
    },
    "stops_dropping": false,
    "tradeable": true
@@ -35223,7 +35249,7 @@
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Ad Poster 3",
    "routes": {
-    "Spooky Scorched|creature": "Events & Activities"
+    "Scorched Spooky|creature": "Events & Activities"
    },
    "stops_dropping": false,
    "tradeable": true
@@ -35237,13 +35263,20 @@
    "stops_dropping": false,
    "tradeable": true
   },
+  "PLAN_0090FBD2": {
+   "cut": true,
+   "name": "Recipe: Thrasher Dinner",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
   "PLAN_00913B60": {
    "cut": false,
    "name": "Plan: Prime Railway Rifle Automatic Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -35283,6 +35316,84 @@
     "Wastelanders - Samuel (Settlers Gold Bullion vendor)|vendor": "Gold Bullion"
    },
    "stops_dropping": false,
+   "tradeable": false
+  },
+  "PLAN_0091665F": {
+   "cut": false,
+   "name": "Plan: Secret Service Spring Assisted Armor Limb",
+   "routes": {
+    "Wastelanders - Reginald (Secret Service Gold Bullion vendor)|vendor": "Gold Bullion"
+   },
+   "stops_dropping": false,
+   "tradeable": false
+  },
+  "PLAN_00916660": {
+   "cut": false,
+   "name": "Plan: Secret Service Tattered Armor Torso",
+   "routes": {
+    "Wastelanders - Reginald (Secret Service Gold Bullion vendor)|vendor": "Gold Bullion"
+   },
+   "stops_dropping": false,
+   "tradeable": false
+  },
+  "PLAN_00916661": {
+   "cut": false,
+   "name": "Plan: Brotherhood Recon Tattered Armor Torso",
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - High Chase Rare Untradable|event-quest": "Events & Activities",
+    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
+   },
+   "stops_dropping": true,
+   "tradeable": false
+  },
+  "PLAN_00916662": {
+   "cut": false,
+   "name": "Plan: Brotherhood Recon Spring Assisted Armor Limb",
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - High Chase Rare Untradable|event-quest": "Events & Activities",
+    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
+   },
+   "stops_dropping": true,
+   "tradeable": false
+  },
+  "PLAN_00916663": {
+   "cut": false,
+   "name": "Plan: Covert Scout Tattered Armor Torso",
+   "routes": {
+    "Nz01 Above|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
+   "tradeable": false
+  },
+  "PLAN_00916664": {
+   "cut": false,
+   "name": "Plan: Covert Scout Spring Assisted Armor Limb",
+   "routes": {
+    "Nz01 Above|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
+   "tradeable": false
+  },
+  "PLAN_00916665": {
+   "cut": false,
+   "name": "Plan: Civil Engineer Tattered Armor Torso",
+   "routes": {
+    "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Expeditions - Giuseppe vendor|vendor": "Stamps"
+   },
+   "stops_dropping": true,
+   "tradeable": false
+  },
+  "PLAN_00916666": {
+   "cut": false,
+   "name": "Plan: Civil Engineer Spring Assisted Armor Limb",
+   "routes": {
+    "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Expeditions - Giuseppe vendor|vendor": "Stamps"
+   },
+   "stops_dropping": true,
    "tradeable": false
   },
   "PLAN_00918211": {
@@ -35344,9 +35455,9 @@
    "cut": false,
    "name": "Plan: Prime Railway Shotgun Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -35392,9 +35503,9 @@
    "cut": false,
    "name": "Plan: Prime Combat Shotgun Automatic Receiver",
    "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
     "Event: Test Your Metal - Good|event-quest": "Events & Activities",
     "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
-    "Event: Test Your Metal - Rare|event-quest": "Events & Activities",
     "Scorchbeast Queen|creature": "Events & Activities",
     "Scorchbeast|creature": "Events & Activities",
     "Supplying Demands - Valuables|event-quest": "Events & Activities",
@@ -35466,6 +35577,48 @@
    "stops_dropping": true,
    "tradeable": false
   },
+  "PLAN_0092748C": {
+   "cut": true,
+   "name": "Plan: Vault-Tec Vulcan Left Arm",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "PLAN_0092748D": {
+   "cut": true,
+   "name": "Plan: Vault-Tec Vulcan Right Arm",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "PLAN_0092748E": {
+   "cut": true,
+   "name": "Plan: Vault-Tec Vulcan Helmet",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "PLAN_0092748F": {
+   "cut": true,
+   "name": "Plan: Vault-Tec Vulcan Left Leg",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "PLAN_00927490": {
+   "cut": true,
+   "name": "Plan: Vault-Tec Vulcan Right Leg",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "PLAN_00927491": {
+   "cut": true,
+   "name": "Plan: Vault-Tec Vulcan Torso",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
   "PLAN_0092A09B": {
    "cut": false,
    "name": "Plan: MG42 Red Terror Paint",
@@ -35510,8 +35663,925 @@
    },
    "stops_dropping": false,
    "tradeable": false
+  },
+  "PLAN_00934704": {
+   "cut": false,
+   "name": "Plan: Mr. Moore",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "PLAN_0094673A": {
+   "cut": false,
+   "name": "Plan: Single Action Revolver Vicious Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_0094673B": {
+   "cut": false,
+   "name": "Plan: Single Action Revolver Severe Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_0094673C": {
+   "cut": false,
+   "name": "Plan: Single Action Revolver Refined Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_0094673D": {
+   "cut": false,
+   "name": "Plan: Single Action Revolver Fierce Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_0094673E": {
+   "cut": false,
+   "name": "Plan: Single Action Revolver Vigorous Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_0094673F": {
+   "cut": false,
+   "name": "Plan: Single Action Revolver Steadfast Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00946740": {
+   "cut": false,
+   "name": "Plan: Single-Action Revolver Precise Grip",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00946741": {
+   "cut": false,
+   "name": "Plan: Single-Action Revolver Aligned Grip",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00946742": {
+   "cut": false,
+   "name": "Plan: Single-Action Revolver Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F29": {
+   "cut": false,
+   "name": "Plan: LMG Vicious Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F2A": {
+   "cut": false,
+   "name": "Plan: LMG Vicious .45 Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F2B": {
+   "cut": false,
+   "name": "Plan: LMG Vicious .308 Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F2C": {
+   "cut": false,
+   "name": "Plan: LMG Hardened .45 Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F2D": {
+   "cut": false,
+   "name": "Plan: LMG Hardened .308 Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F2E": {
+   "cut": false,
+   "name": "Plan: LMG Severe Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F2F": {
+   "cut": false,
+   "name": "Plan: LMG Severe .308 Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F30": {
+   "cut": false,
+   "name": "Plan: LMG Severe .45 Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F31": {
+   "cut": false,
+   "name": "Plan: LMG Refined Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F32": {
+   "cut": false,
+   "name": "Plan: LMG Refined .308 Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F33": {
+   "cut": false,
+   "name": "Plan: LMG Refined .45 Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F34": {
+   "cut": false,
+   "name": "Plan: LMG True .45 Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F35": {
+   "cut": false,
+   "name": "Plan: LMG True .308 Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F36": {
+   "cut": false,
+   "name": "Plan: LMG Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F37": {
+   "cut": false,
+   "name": "Plan: LMG Aligned Standard Barrel",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F38": {
+   "cut": false,
+   "name": "Plan: LMG Aligned Stub Barrel",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F39": {
+   "cut": false,
+   "name": "Plan: LMG Precise Stock",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F3A": {
+   "cut": false,
+   "name": "Plan: LMG Aligned Stock",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F3B": {
+   "cut": false,
+   "name": "Plan: LMG Forceful Stock",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F3C": {
+   "cut": false,
+   "name": "Plan: LMG Stinging Magazine",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F3D": {
+   "cut": false,
+   "name": "Plan: LMG Swift Magazine",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00947F3E": {
+   "cut": false,
+   "name": "Plan: LMG Piercing Magazine",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00948262": {
+   "cut": false,
+   "name": "Plan: 50 Cal Machine Gun Precise Grip",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00948263": {
+   "cut": false,
+   "name": "Plan: 50 Cal Machine Gun Aligned Grip",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00948264": {
+   "cut": false,
+   "name": "Plan: 50 Cal Machine Gun Forceful Grip",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00948265": {
+   "cut": false,
+   "name": "Plan: 50 Cal Machine Gun Vicious Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00948266": {
+   "cut": false,
+   "name": "Plan: 50 Cal Machine Gun Severe Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00948267": {
+   "cut": false,
+   "name": "Plan: 50 Cal Machine Gun Refined Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00948268": {
+   "cut": false,
+   "name": "Plan: 50 Cal Machine Gun Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00948269": {
+   "cut": false,
+   "name": "Plan: 50 Cal Machine Gun Aligned Short Barrel",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_0094826A": {
+   "cut": false,
+   "name": "Plan: 50 Cal Machine Gun Stinging Magazine",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_0094826B": {
+   "cut": false,
+   "name": "Plan: 50 Cal Machine Gun Swift Magazine",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_0094826C": {
+   "cut": false,
+   "name": "Plan: 50 Cal Machine Gun Piercing Magazine",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00948FF2": {
+   "cut": false,
+   "name": "Plan: Gauss Shotgun Stinging Magazine",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00948FF3": {
+   "cut": false,
+   "name": "Plan: Gauss Shotgun Swift Magazine",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00948FF4": {
+   "cut": false,
+   "name": "Plan: Gauss Shotgun Piercing Magazine",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00948FF5": {
+   "cut": false,
+   "name": "Plan: Gauss Shotgun Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00948FF6": {
+   "cut": false,
+   "name": "Plan: Gauss Shotgun Aligned Short Barrel",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00948FF7": {
+   "cut": false,
+   "name": "Plan: Gauss Shotgun Aligned Shielded Barrel",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00948FF8": {
+   "cut": false,
+   "name": "Plan: Gauss Shotgun Severe Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00948FF9": {
+   "cut": false,
+   "name": "Plan: Gauss Shotgun Fierce Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00948FFA": {
+   "cut": false,
+   "name": "Plan: Gauss Shotgun Vigorous Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00948FFB": {
+   "cut": false,
+   "name": "Plan: Gauss Shotgun Steadfast Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_00948FFC": {
+   "cut": false,
+   "name": "Plan: Gauss Shotgun Scorched Killer's Receiver",
+   "routes": {},
+   "stops_dropping": false,
+   "tradeable": true
+  },
+  "PLAN_0094A782": {
+   "cut": false,
+   "name": "Plan: Assaultron Blade Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094A783": {
+   "cut": false,
+   "name": "Plan: Assaultron Blade Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094A784": {
+   "cut": false,
+   "name": "Plan: Assaultron Blade Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094A785": {
+   "cut": false,
+   "name": "Plan: Mr. Handy Buzz Blade Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094A786": {
+   "cut": false,
+   "name": "Plan: Mr. Handy Buzz Blade Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094A787": {
+   "cut": false,
+   "name": "Plan: Mr. Handy Buzz Blade Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094A788": {
+   "cut": false,
+   "name": "Plan: Ripper Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094A789": {
+   "cut": false,
+   "name": "Plan: Ripper Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094A78A": {
+   "cut": false,
+   "name": "Plan: Ripper Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094A78B": {
+   "cut": false,
+   "name": "Plan: Ultracite Terror Sword Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094A78C": {
+   "cut": false,
+   "name": "Plan: Ultracite Terror Sword Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094A78D": {
+   "cut": false,
+   "name": "Plan: Ultracite Terror Sword Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CE36": {
+   "cut": false,
+   "name": "Plan: Crusader Pistol Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CE37": {
+   "cut": false,
+   "name": "Plan: Crusader Pistol Forceful Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CE38": {
+   "cut": false,
+   "name": "Plan: Crusader Pistol Comfort Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CE39": {
+   "cut": false,
+   "name": "Plan: Crusader Pistol Vicious Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CE3A": {
+   "cut": false,
+   "name": "Plan: Crusader Pistol Swift Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CE3B": {
+   "cut": false,
+   "name": "Plan: Crusader Pistol Vicious Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CE3C": {
+   "cut": false,
+   "name": "Plan: Crusader Pistol Aligned Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CE3D": {
+   "cut": false,
+   "name": "Plan: Crusader Pistol Piercing Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CE3E": {
+   "cut": false,
+   "name": "Plan: Crusader Pistol Forceful Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CE3F": {
+   "cut": false,
+   "name": "Plan: Crusader Pistol Stinging Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CE40": {
+   "cut": false,
+   "name": "Plan: Crusader Pistol Vicious Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF2A": {
+   "cut": false,
+   "name": "Plan: Pipe Wrench Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF2B": {
+   "cut": false,
+   "name": "Plan: Cultist Blade Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF2C": {
+   "cut": false,
+   "name": "Plan: Pickaxe Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF2D": {
+   "cut": false,
+   "name": "Plan: Machete Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF2E": {
+   "cut": false,
+   "name": "Plan: War Glaive Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF2F": {
+   "cut": false,
+   "name": "Plan: Sledgehammer Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF30": {
+   "cut": false,
+   "name": "Plan: Plasma Cutter Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF31": {
+   "cut": false,
+   "name": "Plan: Super Sledge Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF32": {
+   "cut": false,
+   "name": "Plan: Spear Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF33": {
+   "cut": false,
+   "name": "Plan: Plasma Cutter Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF34": {
+   "cut": false,
+   "name": "Plan: Plasma Cutter Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF35": {
+   "cut": false,
+   "name": "Plan: Shishkebab Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF36": {
+   "cut": false,
+   "name": "Plan: Combat Knife Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF37": {
+   "cut": false,
+   "name": "Plan: Chinese Officer Sword Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF38": {
+   "cut": false,
+   "name": "Plan: Pipe Wrench Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF39": {
+   "cut": false,
+   "name": "Plan: Sledgehammer Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF3A": {
+   "cut": false,
+   "name": "Plan: Revolutionary Sword Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF3B": {
+   "cut": false,
+   "name": "Plan: Cultist Dagger Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF3C": {
+   "cut": false,
+   "name": "Plan: Hog Splitter Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF3D": {
+   "cut": false,
+   "name": "Plan: War Glaive Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF3E": {
+   "cut": false,
+   "name": "Plan: Combat Knife Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF3F": {
+   "cut": false,
+   "name": "Plan: Super Sledge Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF40": {
+   "cut": false,
+   "name": "Plan: Chinese Officer Sword Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF41": {
+   "cut": false,
+   "name": "Plan: Sledgehammer Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF42": {
+   "cut": false,
+   "name": "Plan: Machete Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF43": {
+   "cut": false,
+   "name": "Plan: Combat Knife Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF44": {
+   "cut": false,
+   "name": "Plan: Shishkebab Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF45": {
+   "cut": false,
+   "name": "Plan: Spear Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF46": {
+   "cut": false,
+   "name": "Plan: Shovel Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF47": {
+   "cut": false,
+   "name": "Plan: Ski Sword Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF48": {
+   "cut": false,
+   "name": "Plan: Chinese Officer Sword Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF49": {
+   "cut": false,
+   "name": "Plan: War Glaive Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF4A": {
+   "cut": false,
+   "name": "Plan: Pickaxe Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF4B": {
+   "cut": false,
+   "name": "Plan: Death Tambo Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF4C": {
+   "cut": false,
+   "name": "Plan: Cultist Blade Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF4D": {
+   "cut": false,
+   "name": "Plan: Revolutionary Sword Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF4E": {
+   "cut": false,
+   "name": "Plan: Spear Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF4F": {
+   "cut": false,
+   "name": "Plan: Hog Splitter Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF50": {
+   "cut": false,
+   "name": "Plan: Pipe Wrench Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF51": {
+   "cut": false,
+   "name": "Plan: Ski Sword Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF52": {
+   "cut": false,
+   "name": "Plan: Death Tambo Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF53": {
+   "cut": false,
+   "name": "Plan: Revolutionary Sword Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF54": {
+   "cut": false,
+   "name": "Plan: Death Tambo Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF55": {
+   "cut": false,
+   "name": "Plan: Shovel Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF56": {
+   "cut": false,
+   "name": "Plan: Cultist Dagger Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF57": {
+   "cut": false,
+   "name": "Plan: Ski Sword Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF58": {
+   "cut": false,
+   "name": "Plan: Pickaxe Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF59": {
+   "cut": false,
+   "name": "Plan: Cultist Dagger Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF5A": {
+   "cut": false,
+   "name": "Plan: Machete Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF5B": {
+   "cut": false,
+   "name": "Plan: Super Sledge Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF5C": {
+   "cut": false,
+   "name": "Plan: Cultist Blade Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF5D": {
+   "cut": false,
+   "name": "Plan: Hog Splitter Stablized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF5E": {
+   "cut": false,
+   "name": "Plan: Shovel Firm Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
+  },
+  "PLAN_0094CF5F": {
+   "cut": false,
+   "name": "Plan: Shishkebab Agile Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": true
   }
  },
- "taken": "2026-09-16T11:08:17+00:00",
+ "taken": "2026-09-16T14:42:08+00:00",
  "version": 1
 }

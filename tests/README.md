@@ -52,3 +52,19 @@ build, so a test that waited for one would pass vacuously for three months and
 then fail in the patch where it finally mattered. The last two checks feed it a
 dataset with no `changes` key at all — a page built before this existed — and
 assert it renders unchanged.
+
+## plan_changes_test.py — the coherence rule
+
+    python3 tests/plan_changes_test.py
+
+Unit tests for `_publishable()`, which decides whether a change is honest to
+publish. Getting it wrong is not a crash — it is the page confidently telling a
+reader something false, or silently telling them nothing forever. Neither shows
+up in the JS harness, which only checks that a change renders once the builder
+has already decided to publish it.
+
+A dependency clears when its export **did not move** between the snapshot and
+this build (identical file, so no difference can have come from it) or when it
+was **coherent on both sides** (at least as new as the BOOK export that defined
+the roster). The first clause is what stops a permanently-lagging export — CONT
+and FURN sit months behind — silencing route reporting for good.
