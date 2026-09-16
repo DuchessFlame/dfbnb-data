@@ -101,7 +101,12 @@ def _pretty(edid):
 # "Piercing Love Custom Mod" is a record name, not something to print on the
 # page. The bookkeeping tail comes off the display name only — never off the
 # keys, which still have to match what the exports say.
-DISPLAY_SUFFIX = re.compile(r'\s*(Custom Mod|Custom Name|Custom Paint)\s*$', re.I)
+DISPLAY_SUFFIX = re.compile(
+    r'\s*(Custom Mod|Custom Name|Custom Paint|Special Effect)\s*$', re.I)
+
+# The naming half of a two-record pair: *_CustomName sets the display name and
+# *_SpecialEffect carries the effect text. Only the second is worth a row.
+NAME_ONLY_EDID = re.compile(r'customname$', re.I)
 
 
 def _entry(edid, name, fid, omod_by_fid, kind):
@@ -217,6 +222,14 @@ def resolve_item_mods(item, idx):
             e = _entry(ed, full, fid, omod_by_fid, 'unique')
             if e['formId'] not in {y['formId'] for y in custom}:
                 custom.append(e)
+
+    # Drop the pure naming record when its effect-bearing twin is here too —
+    # otherwise the item lists its own name twice, once with the text and once
+    # without.
+    if len(custom) > 1:
+        kept = [e for e in custom if not NAME_ONLY_EDID.search(e['edid'])]
+        if kept:
+            custom = kept
 
     # Headline order: a unique mod that actually describes an effect first.
     custom.sort(key=lambda e: not e['desc'])

@@ -47,6 +47,8 @@ USAGE
 """
 
 import csv
+import json
+import os
 import re
 import sys
 from collections import defaultdict
@@ -60,6 +62,17 @@ csv.field_size_limit(min(sys.maxsize, 2 ** 31 - 1))
 ROUTES = ["Caps", "Stamps", "Scoreboard", "Gold Bullion", "Atom Shop",
           "Limited Time Bundle", "Events & Activities", "Quests", "Challenges"]
 
+# Where the existing free-text summary lands when the exports yield no route of
+# their own. That line is hand-won knowledge (the SUPP_OBTAIN table, the
+# match_obtain_fallback table) and is worth more than a row of N/A — but it is
+# only ever a fallback, never allowed to overwrite a generated route.
+SOURCE_TYPE_ROUTE = {
+    "quest": "Quests", "event": "Events & Activities",
+    "public event": "Events & Activities", "expedition": "Events & Activities",
+    "daily ops": "Events & Activities", "world drop": "Events & Activities",
+    "score": "Scoreboard", "vendor": "Caps", "purveyor": "Events & Activities",
+}
+
 # A recipe pointing here is repair-only: the item has no plan and cannot be
 # crafted from scratch, whatever the base weapon's own recipe says.
 NOCRAFT = "recipe_Dummy_Uncraftable_Item_NOCRAFT"
@@ -71,6 +84,10 @@ OFFICIAL_LIST = "WeaponsUniqueNamedList"
 
 # Noise that wraps a source EDID: list-type prefixes and reward suffixes.
 _SRC_PREFIX = re.compile(r"^(cr|zzz_?|LLI?_|LLS_|LLV_|LL_|crLLI_)+", re.I)
+# The same list-type tokens turn up mid-EDID (MTNS04_LL_RareRewards_QuestReward,
+# E09C_LL_LoveTunnel_...), where they both read as noise and stop the EDID
+# matching its quest.
+_SRC_NOISE = {"ll", "lli", "lls", "llv", "lvli", "cr", "lld"}
 _SRC_SUFFIX = re.compile(
     r"(_?(LL|LLI|LVLI|GMRW|NPC_|WEAP)|_Quest_?Rewards?|_QuestReward(s)?"
     r"|_Rewards?|_Weapons?|_Stage\d+(_\d+)?)+$", re.I)
@@ -226,11 +243,21 @@ class ObtainIndex:
         # Quest display names, so a route says "Penance" and not
         # BS02_MQ01_Penance_LL_Quest_Rewards. Indexed by EDID; the lookup walks
         # the source EDID's leading tokens from longest to shortest.
+        # QUEST first, then QUST2 on top: the QUEST export carries every quest
+        # but almost no display names, while the QUST2 walkthrough export
+        # carries the names for the ones that have them ("Event: Eviction
+        # Notice"). Neither alone is enough.
         self.quest_name = {}
-        for r in _rows(self._pick("QUEST_Export_*.tsv")):
-            ed, full = _q(r.get("EDID")), _q(r.get("FULL - Name"))
-            if ed and full and full.lower() != "none":
-                self.quest_name[ed] = full
+        for pattern, col in (("QUEST_Export_*.tsv", "FULL - Name"),
+                             ("QUST2_Export_*_Quests.tsv", "FULL")):
+            for r in _rows(self._pick(pattern)):
+                ed, full = _q(r.get("EDID")), _q(r.get(col))
+                # "[Not Playable]", "[Dialogue quest for …]" — bracketed names
+                # are the writers' notes to each other, not a quest a reader
+                # can go and do.
+                if ed and full and full.lower() != "none" \
+                        and not full.startswith("["):
+                    self.quest_name[ed] = full
 
         # Bethesda's own roster: FLST WeaponsUniqueNamedList, "Unique Named
         # Weapons for Data Validation". Each entry is either the unique's WEAP
@@ -251,15 +278,50 @@ class ObtainIndex:
             if key:
                 self.official.setdefault(key, set()).add((sig, efid, eedid))
 
+        # Hand-maintained table, same pattern as data/camp/<page>.json: the
+        # handful of facts the exports cannot join up on their own.
+        self.aliases, self.excluded = {}, {}
+        table = os.path.join(os.path.dirname(os.path.dirname(
+            os.path.abspath(__file__))), "data", "unique_weapons_armour.json")
+        if os.path.exists(table):
+            with open(table, encoding="utf-8") as fh:
+                cfg = json.load(fh)
+            self.aliases = cfg.get("source_aliases") or {}
+            self.excluded = cfg.get("excluded") or {}
+
         self.gv = gold_vendor.index(channel=self.channel)
 
     def _quest_name(self, edid):
-        """Longest leading-token match against the QUEST export."""
-        parts = [p for p in re.split(r"[_:]", _q(edid)) if p]
+        """Longest leading-token match against the quest names.
+
+        Exact first, then a prefix match — the list EDID is usually the quest's
+        with an extra word on it (E08B_Eviction_LL_QuestReward vs the quest
+        E08B_EvictionNotice). A prefix of one token is not enough to identify a
+        quest: "E09A" alone would match half a content drop.
+        """
+        parts = [p for p in re.split(r"[_:]", _q(edid)) if p
+                 and p.lower() not in _SRC_NOISE]
+        clean = "_".join(parts)
+        # Hand-written alias first — it exists precisely because nothing in the
+        # exports joins these two records up.
+        for key in sorted(self.aliases, key=len, reverse=True):
+            if key.replace("_", "").lower() in clean.replace("_", "").lower():
+                return self.aliases[key]
+        # Any contiguous run of tokens, longest first: the quest code often
+        # sits in the middle (QuestReward_MoM02B_Stage100_01 -> MoM02B), so a
+        # leading-prefix search alone never finds it.
         for n in range(len(parts), 0, -1):
-            hit = self.quest_name.get("_".join(parts[:n]))
-            if hit:
-                return hit
+            for i in range(0, len(parts) - n + 1):
+                hit = self.quest_name.get("_".join(parts[i:i + n]))
+                if hit:
+                    return hit
+        # Only a LEADING run may match loosely, and only two tokens or more:
+        # the list EDID is usually the quest's with a word added on the end.
+        for n in range(len(parts), 1, -1):
+            stem = "_".join(parts[:n])
+            for ed, full in self.quest_name.items():
+                if ed.startswith(stem):
+                    return full
         return ""
 
     # -- classification --------------------------------------------------
@@ -285,7 +347,8 @@ class ObtainIndex:
         # Drop a leading content code (E09C_, BS02_, MTNS04_) — it means
         # nothing to a reader and the words after it are the actual name.
         tail = re.sub(r"^[A-Z]{1,4}\d{2,3}[A-Z]?_", "", tail)
-        tail = tail.replace("_", " ").strip()
+        tail = " ".join(p for p in tail.split("_")
+                        if p and p.lower() not in _SRC_NOISE).strip()
         tail = re.sub(r"(?<=[a-z0-9])(?=[A-Z])", " ", tail)
         return re.sub(r"\s+", " ", tail).strip() or _q(edid)
 
@@ -365,7 +428,7 @@ class ObtainIndex:
             g["what"].add(what)
 
         for route, g in grouped.items():
-            lines = [_drops_line(g["what"], plan)]
+            lines = [_drops_line(g["what"], item.get("kind"))]
             for src in g["sources"]:
                 lines.append(f"Source: {src}")
             if plan and "plan" in g["what"]:
@@ -381,8 +444,12 @@ class ObtainIndex:
                      tradeable=item.get("tradeable"), drop="N/A")
 
         if not any(r["populated"] for r in routes):
+            # A cut reward record proves it; the old summary saying "legacy"
+            # is the other half — Nuclear Winter left no reward record behind
+            # at all, so Old Guard had neither a route nor an explanation.
             meta["legacyOnly"] = bool(
-                any(f in self.dead_rewards for f in recs))
+                any(f in self.dead_rewards for f in recs)
+                or "legacy" in _q(item.get("howToObtain")).lower())
         return routes, meta
 
     def apply(self, items, verbose=True):
@@ -402,15 +469,18 @@ class ObtainIndex:
                 it["planFormId"] = ""
                 it["craftable"] = False
                 it["repairOnly"] = True
+            if not any(r["populated"] for r in routes):
+                self._fallback(it, routes)
             if any(r["populated"] for r in routes):
                 filled += 1
             elif meta["legacyOnly"]:
                 legacy += 1
+                was = _q(it.get("howToObtain")).replace(" (legacy)", "")
                 _put(routes, "Events & Activities",
                      ["Drops: No longer obtainable",
-                      "Note: Survival mode / Nuclear Winter reward — the "
-                      "challenge that granted it is cut from the game files. "
-                      "Player trading only."],
+                      f"Source: {was} — retired" if was else "Source: retired",
+                      "Note: The challenge or mode that granted it is cut from "
+                      "the game files. Player trading only."],
                      tradeable=it.get("tradeable"), drop="N/A")
         if verbose:
             print(f"  obtain routes: {filled} item(s) with a live route, "
@@ -418,12 +488,39 @@ class ObtainIndex:
         return filled
 
 
-def _drops_line(what, plan):
+    @staticmethod
+    def _fallback(item, routes):
+        """Put the old one-line summary in its route rather than nine N/As."""
+        how = _q(item.get("howToObtain"))
+        if not how or "unconfirmed" in how.lower() or "legacy" in how.lower():
+            return False
+        route = SOURCE_TYPE_ROUTE.get(_q(item.get("sourceType")).lower())
+        if not route:
+            return False
+        # "Quest: Skyline Valley (Vault 63)" -> "Skyline Valley (Vault 63)";
+        # the route label already says it is a quest.
+        detail = how.split(":", 1)[1].strip() if ":" in how else how
+        lines = [_drops_line({"weapon"}, item.get("kind")),
+                 f"Source: {detail}"]
+        if _q(item.get("planName")):
+            lines.append("Plan: " + _q(item.get("planName")))
+        return _put(routes, route, lines,
+                    tradeable=item.get("tradeable"), drop="N/A")
+
+
+def _drops_line(what, kind):
+    """What this route actually hands you.
+
+    The whole reason the page moved to routes: some of these drop ready-made,
+    some only ever drop as a plan you then craft, and a few do both. Saying
+    which is the first line of every populated route.
+    """
+    made = "armour" if str(kind or "").lower().startswith("armour") else "weapon"
     if what == {"weapon", "plan"}:
-        return "Drops: Ready-made weapon and its plan"
+        return f"Drops: Ready-made {made} and its plan"
     if what == {"plan"}:
         return "Drops: Plan only"
-    return "Drops: Ready-made weapon" if plan else "Drops: Ready-made item"
+    return f"Drops: Ready-made {made}"
 
 
 def index(channel="live"):
