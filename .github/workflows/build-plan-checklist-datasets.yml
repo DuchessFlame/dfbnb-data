@@ -1,0 +1,105 @@
+name: Build Plan Checklist Datasets (camera mods, scoreboard art)
+
+# Two plan-checklist pages do NOT render from plan_master and so are not built
+# by build-plan-obtain.yml:
+#
+#   /df/plan-checklists/camera-mod/     dist/camera_mods.json
+#       Only four of the thirteen camera mods are learned from a plan. The
+#       Standard lens is fitted by default and every paint is an Atom Shop or
+#       Season 14 unlock, so selecting on plan_master would ship four lenses
+#       and an empty Skins section.
+#
+#   /df/plan-checklists/scoreboard-art/ dist/scoreboard_art.json
+#       Scoreboard art is claimed from a season board, not learned from a plan,
+#       so it has NO rows in plan_master at all — the page rendered empty for
+#       the life of the category.
+#
+# Both builders support --pts and write dist/pts/, which df-bnb-pts.js reads.
+# Neither touches rng76 or the drop-rate pipeline, and both run in seconds.
+#
+# PLACE THIS AT .github/workflows/build-plan-checklist-datasets.yml
+# (the remote file tools cannot write into .github/workflows/, which is why it
+# is sitting in workflows-to-place/ instead.)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - "tsv/season_rewards.tsv"
+      - "tsv/OMOD_Export_*.tsv"
+      - "tsv/pts/OMOD_Export_*.tsv"
+      - "src/build_camera_mods_json.py"
+      - "src/build_scoreboard_art_json.py"
+      - ".github/workflows/build-plan-checklist-datasets.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-plan-checklist-datasets-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Build camera mods (live + PTS)
+        run: |
+          mkdir -p dist dist/pts
+          python src/build_camera_mods_json.py
+          python src/build_camera_mods_json.py --pts
+
+      - name: Build scoreboard art (live + PTS)
+        run: |
+          python src/build_scoreboard_art_json.py
+          python src/build_scoreboard_art_json.py --pts
+
+      # A page that ships an empty dataset renders an empty page with no error,
+      # which is the failure this whole category has hit repeatedly. Assert
+      # shape AND a non-zero roster.
+      - name: Sanity check
+        run: |
+          python - <<'PY'
+          import json, sys
+          bad = []
+          for path in ("dist/camera_mods.json", "dist/pts/camera_mods.json",
+                       "dist/scoreboard_art.json", "dist/pts/scoreboard_art.json"):
+              d = json.load(open(path))
+              rows = sum(len(g.get("items", []))
+                         + sum(len(sg.get("items", [])) for sg in g.get("groups", []))
+                         for g in d.get("groups", []))
+              print(f"{path}: {len(d.get('groups', []))} groups, {rows} rows")
+              if not rows:
+                  bad.append(path)
+          if bad:
+              sys.exit("EMPTY DATASET: " + ", ".join(bad))
+          PY
+
+      - name: Commit dist output
+        shell: bash
+        run: |
+          if git status --porcelain | grep -q .; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add dist/camera_mods.json dist/pts/camera_mods.json \
+                    dist/scoreboard_art.json dist/pts/scoreboard_art.json
+            git diff --cached --quiet && echo "No changes staged." && exit 0
+            git commit -m "Build plan checklist datasets (camera mods, scoreboard art)"
+            git fetch origin main
+            git pull --rebase origin main
+            git push origin main
+          else
+            echo "No changes."
+          fi
