@@ -76,6 +76,7 @@ import rng76
 import plan_sources          # cut detection, readable source names, unlock routes
 import plan_images           # row art: published images first, staged files second
 import add_weapon_groups    # weapon page grouping: weapon -> Mods / Skins
+import plan_apparel_class   # armour or clothing, off the ARMO record
 import plan_subpages        # which page every plan renders on
 import plan_consumables     # Recipe page grouping: Food / Drinks / Alcohol / ...
 import add_armour_groups    # armour page grouping: set -> Mods / Skins
@@ -1035,6 +1036,17 @@ def main(argv=None):
     # Reads image_dir, so it MUST run after the image resolve above. No exports
     # of its own, so it cannot fail on a missing TSV, but it is wrapped anyway
     # like everything else in this tail.
+    # Armour or clothing. plan_images sends the whole `armour` bucket to the Body
+    # Armour page; this corrects the rows whose record carries no resistance
+    # ladder and no durability — they are outfits, and they belong on Apparel.
+    # MUST run before plan_subpages, which routes on image_dir.
+    try:
+        add_weapon_groups.set_tsv_dir(args.data_dir)
+        plan_apparel_class.report(plan_apparel_class.attach(items))
+        out["apparel_class_schema"] = plan_apparel_class.SCHEMA
+    except Exception as exc:                      # noqa: BLE001 - never fatal
+        print(f"  WARNING: apparel reclassify skipped: {exc}", file=sys.stderr)
+
     try:
         plan_subpages.report(plan_subpages.attach(items))
         out["plan_subpages_schema"] = plan_subpages.SCHEMA

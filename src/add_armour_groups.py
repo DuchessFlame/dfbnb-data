@@ -136,6 +136,11 @@ def _norm(token: str) -> str:
     return "".join(awg.segs(token))
 
 
+def _seed_token_any(text):
+    """Module-level alias — see ArmourResolver._seed_token_any."""
+    return ArmourResolver._seed_token_any(text)
+
+
 def humanise(token: str) -> str:
     return " ".join(w.capitalize() if w.islower() else w
                     for w in awg.segs(token)).strip()
@@ -246,6 +251,18 @@ class ArmourResolver:
             if key and key not in BLOCK and not key.isdigit() and not _DLC.match(part):
                 return part
         return None
+
+    @staticmethod
+    def _seed_token_any(text):
+        """The set token in this EditorID, by either anchor, or None.
+
+        Module-level helper as well as a method because plan_apparel_class asks
+        the same question BEFORE this resolver exists — it has to decide whether
+        a statless piece belongs to a set, and "what set does this EditorID
+        name" must have exactly one answer in this repo.
+        """
+        return (ArmourResolver._seed_token(text, _PA_ANCHOR)
+                or ArmourResolver._seed_token(text, _ANCHOR))
 
     def _seed(self, items):
         # 1. The plans that make a physical piece. These are the sets a player

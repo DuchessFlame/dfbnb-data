@@ -22,11 +22,12 @@ the failure mode this script exists to make impossible.
 
 ORDER IS LOAD-BEARING
 ---------------------
-    1. plan_images       writes `image_dir`   — the classification everything routes on
-    2. plan_subpages     writes `plan_page`   — reads image_dir
-    3. plan_consumables  writes `consumable_*`— reads plan_page ("recipe")
-    4. add_weapon_groups writes `weapon_*`    — reads plan_page ("weapon")
-    5. add_armour_groups writes `armour_*`    — reads plan_page (both armour pages)
+    1. plan_images        writes `image_dir`   — the classification everything routes on
+    2. plan_apparel_class CORRECTS `image_dir`  — armour or clothing, off the ARMO record
+    3. plan_subpages      writes `plan_page`    — reads image_dir
+    4. plan_consumables   writes `consumable_*` — reads plan_page ("recipe")
+    5. add_weapon_groups  writes `weapon_*`     — reads plan_page ("weapon")
+    6. add_armour_groups  writes `armour_*`     — reads plan_page (both armour pages)
 
 Run out of order and a page silently empties. Each step is also written to
 PRUNE: a row that has moved pages loses the fields of the page it left, so
@@ -49,6 +50,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import collections
 import json
 import os
 import sys
@@ -58,6 +60,7 @@ ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 
 import plan_images
+import plan_apparel_class
 import plan_subpages
 import plan_consumables
 import add_weapon_groups
@@ -75,7 +78,8 @@ CHANNELS = {
 # they are also the keys normalizeMasterJSON() in the renderer has to name —
 # that function strips every top-level key it does not, which is how
 # `plan_subpages` was silently dropped once already.
-SCHEMA_KEYS = ("plan_subpages_schema", "plan_subpages",
+SCHEMA_KEYS = ("apparel_class_schema",
+               "plan_subpages_schema", "plan_subpages",
                "consumables_schema", "consumable_groups",
                "weapon_groups_schema", "weapon_groups_sources",
                "armour_groups_schema", "armour_groups_sources")
@@ -94,7 +98,11 @@ def enrich_file(path, dist_dir, tsv_dir, report_only=False):
     idx, staged = plan_images.load(dist_dir, tsv_dir, verbose=False)
     plan_images.report(plan_images.attach(items, idx, staged))
 
-    # 2. which page each plan renders on
+    # 2. armour or clothing. Corrects image_dir BEFORE anything routes on it.
+    plan_apparel_class.report(plan_apparel_class.attach(items))
+    doc["apparel_class_schema"] = plan_apparel_class.SCHEMA
+
+    # 3. which page each plan renders on
     plan_subpages.report(plan_subpages.attach(items))
     doc["plan_subpages_schema"] = plan_subpages.SCHEMA
     doc["plan_subpages"] = plan_subpages.config()
@@ -154,6 +162,23 @@ def verify(docs):
         if missing:
             ok = False
             print(f"    *** MISSING SCHEMA KEYS: {', '.join(missing)}")
+        # Every id appears once. A plan_master that carries the same plan twice
+        # renders it twice on its page and inflates every count on it, and
+        # nothing else in the pipeline would notice: the rows are identical, so
+        # they route identically and no page ever shows a plan in two places.
+        # Caught the morning a live rebuild shipped 73 exact duplicate rows.
+        seen = collections.Counter(i["id"] for i in doc["items"])
+        dupes = {k: v for k, v in seen.items() if v > 1}
+        if dupes:
+            ok = False
+            print(f"    *** {len(dupes)} DUPLICATE IDS — {sum(dupes.values()) - len(dupes)} "
+                  f"extra rows. The builder emitted these plans more than once:")
+            for k, v in list(dupes.items())[:10]:
+                name = next(i["name"] for i in doc["items"] if i["id"] == k)
+                print(f"        {k} x{v}  {name}")
+            if len(dupes) > 10:
+                print(f"        ... and {len(dupes) - 10} more")
+
         # A plan can carry one page and one only — plan_page is a single value,
         # so the real risk is a row with none. Say so loudly.
         if lost:
