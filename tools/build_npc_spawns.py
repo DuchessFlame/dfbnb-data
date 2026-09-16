@@ -66,10 +66,34 @@ def _pick_latest_export(prefix, suffix=".tsv", fallback=None):
     pass
   return best[1] if best else fallback
 
+def _pick_latest_pts_export(prefix, suffix=".tsv"):
+  """Newest tsv/pts/<prefix>PTS_<YYYY-MM-DD>_<HHMM><suffix>.
+
+  Seasonal content lands on PTS weeks before it reaches live, so a page about an
+  upcoming event has to be able to read the PTS export. Live always wins wherever
+  it carries the record (see lctn_sources); this is only the fallback."""
+  pts_dir = os.path.join(REPO, "tsv", "pts")
+  pat = re.compile(r"^" + re.escape(prefix) + r"PTS_(\d{4})-(\d{2})-(\d{2})_(\d{4})" + re.escape(suffix) + r"$")
+  best = None
+  try:
+    for fn in os.listdir(pts_dir):
+      m = pat.match(fn)
+      if not m:
+        continue
+      key = tuple(int(g) for g in m.groups())
+      if best is None or key > best[0]:
+        best = (key, os.path.join(pts_dir, fn))
+  except FileNotFoundError:
+    pass
+  return best[1] if best else None
+
+
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db")
 CHAL_TSV       = os.environ.get("CHAL_TSV",       _pick_latest_export("CHAL_Export_", ".tsv",      os.path.join(REPO, "tsv", "CHAL_Export_June_2026.tsv")))
 NPC_TSV        = os.environ.get("NPC_TSV",        _pick_latest_export("NPC_Export_",  ".tsv",      os.path.join(REPO, "tsv", "NPC_Export_June_2026.tsv")))
 LCSR_TSV       = os.environ.get("LCSR_TSV",       _pick_latest_export("LCTN_Export_", "_LCSR.tsv", os.path.join(REPO, "tsv", "LCTN_Export_June_2026_LCSR.tsv")))
+LCTN_TSV       = os.environ.get("LCTN_TSV",       _pick_latest_export("LCTN_Export_", "_LCTN.tsv", None))
+GUIDE_INDEX    = os.environ.get("GUIDE_INDEX",    os.path.join(REPO, "tsv", "guide_index.tsv"))
 DIG_DIR        = os.environ.get("DIG_DIR",        os.path.join(REPO, "data", "npc_spawns", "digs"))
 OUT_JSON       = os.environ.get("OUT_JSON",       os.path.join(REPO, "dist", "npc_spawns.json"))
 # DB-derived per-location geo (region + companions) is cached here so the patch
@@ -124,20 +148,29 @@ NPCS = [
     ],
   },
   {
-    # PRE-STAGED: no Mappalachia dig exists yet. The build loop skips any entry
-    # whose dig_file is absent, so this emits NO page until
-    # data/npc_spawns/digs/PintSizedPhantom_spawns.txt is added. The instant that
-    # dig exists (with a "# PINT-SIZED PHANTOM" section header) this page builds.
+    # Pint-Sized Phantoms are NOT placed actors, so no Mappalachia dig will ever
+    # exist for them: they arrive through the Encounter Spawn System, which swaps
+    # a location's normal main faction for them. So this page is built from the
+    # LCTN export instead — every Location carrying SDOW_LocEncMainSlashers, with
+    # the spawn CHANCE in place of a spawn COUNT.
     "slug": "pint-sized-phantom-spawn-locations",
     "name": "Pint-Sized Phantom",
     "page_title": "Pint-Sized Phantom Spawn Locations",
-    "dig_file": "PintSizedPhantom_spawns.txt",
-    "dig_header": "# PINT-SIZED PHANTOM",
-    "blurb": "Every location where Pint-Sized Phantoms spawn, ordered from most to fewest.",
+    "spawn_model": "chance",
+    # Locations come from this keyword on the LCTN record. Live wins; if live has
+    # not shipped the record yet the newest PTS export is used (and flagged).
+    "lctn_keyword": "SDOW_LocEncMainSlashers",
+    # The per-location chance is a Location PROPERTY (an AVIF + value on the LCTN
+    # record), exactly like the ESSChanceMain* values every other faction carries.
+    # As of the 2026-09-06 PTS export the keyword is present but this property is
+    # not, so `chance` comes out null and the page says so rather than guessing.
+    # The moment a re-exported LCTN carries it, the number flows through untouched.
+    "lctn_chance_av": "SDOW_ESSChanceMainSlashers",
+    "blurb": "Pint-Sized Phantoms do not have fixed spawn points. During Shadows of the Dead of Winter they take over the locations below, replacing the enemies that normally hold them.",
     "category": "Score Challenges",
     # Race + Faction are derived generatively from the NPC export. The family's
     # internal identity is "Slasher" (SDOW_EncSlasherFan* / SDOW_LvlSlasherFan*).
-    "npc_name_match": ["slasher"],
+    "npc_name_match": ["pint-sized phantom"],
     # Pint-Sized Phantoms have no tracked companion creatures; sentinel matches
     # nothing so companion_counts() returns empty (never pass [] here — that
     # matches every entity).
@@ -149,8 +182,20 @@ NPCS = [
     "interior_region_overrides": {},
     "notes": [
       "Pint-Sized Phantoms are the \"Slasher\" enemy family (NPC records SDOW_EncSlasherFan* / SDOW_LvlSlasherFan*).",
+      "These are not fixed spawns. Each location below is tagged so the Encounter Spawn System can roll Pint-Sized Phantoms in place of the faction that normally holds it, so the enemies you find there change between visits.",
+      "Every location on this list is tagged for the takeover, so none of them is guaranteed to have Phantoms on any given visit.",
     ],
-  },
+    # Rendered as "Other ways they spawn" -- ids resolved against tsv/guide_index.tsv
+    # so the URLs stay correct if a page ever moves.
+    "link_ids": [
+      ("df-random-limited-slasher",       "Random encounters roll Slasher content at a 20% chance (SDOW_REChance_Slasher_Content) across the Assault, Object, Travel, Scene and Camp encounter nodes."),
+      ("df-infestations-boss-stats",      "Infestations can be held by the Slasher faction, led by the Pint-Sized Phantom Trespasser."),
+      ("df-daily-ops-guide",              "Daily Ops runs a Slasher-only enemy family across eighteen dungeons."),
+      ("df-bounty-head-hunts",            "The Reborn Pint-Sized Slasher is a Head Hunt bounty target."),
+      ("df-tm-pint-sized-phantoms-grave-sites", "Grave sites can spawn a Pint-Sized Phantom party crasher while you dig."),
+      ("df-slasher-guide",                "The Slasher seasonal event and everything else in Shadows of the Dead of Winter."),
+    ],
+  }
 ]
 
 # ---- Mappalachia: regions + markers + companion tally -------------------------
@@ -331,6 +376,144 @@ def parse_dig(path, header):
       out[section].append((mm.group(2).strip(), int(mm.group(1))))
   return out
 
+# ---- keyword-driven locations (Encounter Spawn System takeovers) -------------
+# Some enemy families have no placed actors at all -- they arrive through the
+# Encounter Spawn System, which swaps a location's normal main faction for them.
+# Those pages are built from the LCTN export: every Location carrying the family's
+# keyword, with a spawn CHANCE (a Location property) in place of a spawn COUNT.
+
+# PNAM_ParentLocation spells regions slightly differently to Mappalachia's region
+# tiling. Normalise so a chance-built page reads the same as a dig-built one.
+_REGION_ALIASES = {
+  "The Forest": "Forest", "The Ash Heap": "Ash Heap", "Mire": "The Mire",
+  "The Mire": "The Mire", "Cranberry Bog": "Cranberry Bog",
+}
+
+def lctn_sources(keyword):
+  """Every LCTN export worth reading for `keyword`, newest-relevant first.
+
+  Live is always preferred. PTS is only consulted when live has not shipped the
+  keyword yet, and the caller is told which one answered so the page can say so.
+  """
+  out = []
+  for path, channel in ((LCTN_TSV, "live"), (_pick_latest_pts_export("LCTN_Export_", "_LCTN.tsv"), "pts")):
+    if path and os.path.isfile(path):
+      out.append((path, channel))
+  return out
+
+def _lctn_rows(path):
+  import csv
+  csv.field_size_limit(10 ** 9)
+  f = open(path, encoding="utf-8", errors="replace", newline="")
+  rd = csv.reader(f, delimiter="\t")
+  head = next(rd, None) or []
+  for row in rd:
+    yield dict(zip(head, row))
+
+def _lcsr_exterior(path, form_ids):
+  """{LCTN_FormID: True if its placed refs sit in the Appalachia worldspace}.
+
+  The LCTN export says nothing about indoors/outdoors, but its LCSR twin names the
+  cell each location reference lives in, so the Interior/Open World pill stays
+  derived from the data rather than hardcoded per location."""
+  lcsr = re.sub(r"_LCTN\.tsv$", "_LCSR.tsv", path)
+  if not os.path.isfile(lcsr):
+    return {}
+  tally = defaultdict(lambda: [0, 0])
+  for d in _lctn_rows(lcsr):
+    fid = d.get("LCTN_FormID")
+    if fid not in form_ids:
+      continue
+    ext = (d.get("WorldCell") or "").startswith("Appalachia")
+    tally[fid][0 if ext else 1] += 1
+  return {fid: (e >= i) for fid, (e, i) in tally.items()}
+
+def locations_from_keyword(cfg):
+  """Locations for a chance-model page. Returns (locations, channel, chance_found)."""
+  keyword, chance_av = cfg["lctn_keyword"], cfg.get("lctn_chance_av") or ""
+  for path, channel in lctn_sources(keyword):
+    hits = {}
+    for d in _lctn_rows(path):
+      kws = [(d.get("KW_%d" % i) or "") for i in range(1, 40)]
+      if not any(keyword in k for k in kws):
+        continue
+      props = {}
+      for i in range(1, 40):
+        av = d.get("Prop_%d_AV" % i)
+        if av:
+          props[av] = d.get("Prop_%d_Val" % i)
+      hits[d["LCTN_FormID"]] = (d, props)
+    if not hits:
+      continue
+
+    ext_map = _lcsr_exterior(path, set(hits))
+    locs, chance_found = [], False
+    for fid, (d, props) in hits.items():
+      raw = props.get(chance_av) if chance_av else None
+      chance = None
+      if raw not in (None, ""):
+        try:
+          chance = round(float(raw), 2)
+          chance_found = True
+        except ValueError:
+          chance = None
+      # Who normally holds this location, and at what rate -- the whole point of a
+      # takeover is what it displaces, so the page says it outright.
+      replaces, replaces_chance = [], None
+      for av, val in props.items():
+        m = re.match(r"^ESSChanceMain([A-Za-z]+)$", av or "")
+        if not m:
+          continue
+        replaces.append(humanize(m.group(1)))
+        try:
+          replaces_chance = round(float(val), 2)
+        except (TypeError, ValueError):
+          pass
+      region = (d.get("PNAM_ParentLocation") or "").split(":")[-1].strip()
+      region = _REGION_ALIASES.get(region, region)
+      locs.append({
+        "name": d.get("LCTN_FULL") or d.get("LCTN_EDID") or "",
+        "type": "Interior" if ext_map.get(fid) is False else "Open World",
+        "region": cfg.get("interior_region_overrides", {}).get(d.get("LCTN_FULL"), region),
+        "count": 0, "companions": 0, "image": "",
+        "spawn_type": "Chance to spawn", "spawn_note": "",
+        "chance": chance,
+        "replaces": sorted(set(replaces)),
+        "replaces_chance": replaces_chance,
+      })
+    locs.sort(key=lambda x: (x["region"] or "zzz", x["name"]))
+    return locs, channel, chance_found
+  return [], "", False
+
+# ---- guide index (cross-links) -----------------------------------------------
+def load_guide_index():
+  """{id: {"title":.., "url":..}} from tsv/guide_index.tsv.
+
+  Cross-links are stored as guide ids, not URLs, so a page that moves takes its
+  links with it instead of leaving dead ones behind."""
+  import csv
+  try:
+    rd = csv.DictReader(open(GUIDE_INDEX, encoding="utf-8", errors="replace"), delimiter="\t")
+  except Exception as e:
+    print(f"[npc_spawns] WARN: no guide index ({GUIDE_INDEX}): {e}")
+    return {}
+  out = {}
+  for d in rd:
+    gid, url = (d.get("id") or "").strip(), (d.get("url") or "").strip()
+    if gid and url:
+      out[gid] = {"title": (d.get("title") or "").strip() or gid, "url": url}
+  return out
+
+def build_links(link_ids, index):
+  links = []
+  for gid, note in (link_ids or []):
+    g = index.get(gid)
+    if not g:
+      print(f"[npc_spawns] WARN: guide id not in index, link dropped: {gid}")
+      continue
+    links.append({"title": g["title"], "url": g["url"], "note": note})
+  return links
+
 # ---- CHAL "Used For" ---------------------------------------------------------
 def load_chal():
   import csv
@@ -355,13 +538,31 @@ def season_from_edid(ed):
   return humanize(m.group(1)) if m else ""
 
 # ---- generative keywords (Race + Faction) from the NPC export -----------------
-def load_npc_tsv():
+def _read_npc_tsv(path):
   import csv
   try:
-    return list(csv.DictReader(open(NPC_TSV, encoding="utf-8", errors="replace"), delimiter="\t"))
+    return list(csv.DictReader(open(path, encoding="utf-8", errors="replace"), delimiter="\t"))
   except Exception as e:
-    print(f"[npc_spawns] WARN: could not read NPC_TSV ({NPC_TSV}): {e}")
+    print(f"[npc_spawns] WARN: could not read NPC export ({path}): {e}")
     return []
+
+def load_npc_tsv():
+  return _read_npc_tsv(NPC_TSV)
+
+def load_npc_tsv_pts():
+  """Newest PTS NPC export, or []. Upcoming-content pages need it: the live export
+  will not carry the family's records until the patch ships, and deriving Race and
+  Faction from a stale live export silently matches the wrong creature."""
+  path = _pick_latest_pts_export("NPC_Export_", ".tsv")
+  return _read_npc_tsv(path) if path else []
+
+def derive_keywords_first(rowsets, name, name_match=None):
+  """First non-empty derive_keywords across rowsets, live first."""
+  for rows in rowsets:
+    kw = derive_keywords(rows, name, name_match) if rows else []
+    if kw:
+      return kw
+  return []
 
 # variants/companions/corpses we don't want skewing the creature's own Race
 _KW_EXCLUDE = ("corpse", "attack dog", "deathclaw", " dog")
@@ -471,11 +672,47 @@ def main():
   cache = load_geo_cache()
   chal = load_chal()
   npc_rows = load_npc_tsv()
+  guide_index = load_guide_index()
   out = {"_meta": {"generated": datetime.date.today().isoformat(),
-                   "source": "Mappalachia dig (counts) + Mappalachia DB (regions, companions) + CHAL export (Used For) + LCSR export (quest gating)"},
+                   "source": "Mappalachia dig (counts) + Mappalachia DB (regions, companions) + "
+                             "CHAL export (Used For) + LCSR export (quest gating) + "
+                             "LCTN export (Encounter Spawn System takeover locations)"},
          "npcs": {}}
   for cfg in NPCS:
     slug = cfg["slug"]
+
+    # Chance-model pages (Encounter Spawn System takeovers) never have a dig --
+    # the enemies are not placed anywhere -- so they take the LCTN path instead.
+    if cfg.get("spawn_model") == "chance":
+      locs, channel, chance_found = locations_from_keyword(cfg)
+      if not locs:
+        print(f"[npc_spawns] SKIP {slug}: no location carries {cfg['lctn_keyword']} "
+              f"in any LCTN export. Re-export LCTN to build this page.")
+        continue
+      notes = list(cfg["notes"])
+      if not chance_found:
+        notes.append(
+          "The exact spawn chance is not in the game data yet: these locations carry the "
+          "takeover keyword, but the matching chance property has not been exported. "
+          "The rates below will fill in as soon as it is.")
+      if channel == "pts":
+        notes.append(
+          "Read from the PTS game files — this content has not reached the live game yet, "
+          "so it can still change before release.")
+      out["npcs"][slug] = {
+        "name": cfg["name"], "page_title": cfg["page_title"], "blurb": cfg["blurb"],
+        "category": cfg.get("category", "Score Challenges"),
+        "keywords": cfg.get("keywords") or derive_keywords_first(
+          [npc_rows, load_npc_tsv_pts()], cfg["name"], cfg.get("npc_name_match")),
+        "credit": CREDIT, "companion_label": cfg["companion_label"],
+        "spawn_model": "chance", "channel": channel, "total": 0,
+        "notes": notes,
+        "links": build_links(cfg.get("link_ids"), guide_index),
+        "used_for": used_for(chal, cfg["usedfor_keywords"], cfg["usedfor_name_match"]),
+        "locations": locs,
+      }
+      continue
+
     dig_path = os.path.join(DIG_DIR, cfg["dig_file"])
     if not os.path.isfile(dig_path):
       print(f"[npc_spawns] SKIP {slug}: dig file not found ({dig_path}). "
@@ -519,6 +756,13 @@ def main():
   json.dump(out, open(OUT_JSON, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
   for slug, d in out["npcs"].items():
     miss = [l["name"] for l in d["locations"] if not l["region"]]
+    if d.get("spawn_model") == "chance":
+      rated = sum(1 for l in d["locations"] if l.get("chance") is not None)
+      print(f"{slug}: {len(d['locations'])} takeover locations ({d.get('channel')} files), "
+            f"{rated} with a spawn chance, {len(d.get('links') or [])} cross-links, "
+            f"used-for groups {[(g, len(v)) for g, v in d['used_for'].items()]}"
+            + (f"  MISSING REGION: {miss}" if miss else ""))
+      continue
     print(f"{slug}: {len(d['locations'])} locations, total {d['total']}, "
           f"{sum(1 for l in d['locations'] if l['companions'])} with {d['companion_label'].lower()}, "
           f"used-for groups {[(g, len(v)) for g, v in d['used_for'].items()]}"

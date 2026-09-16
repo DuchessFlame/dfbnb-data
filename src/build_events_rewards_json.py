@@ -3066,6 +3066,34 @@ def _load_region_location_tsv(path="tsv/events_region_location.tsv"):
 
 ACTIVITY_REGION_LOCATIONS = _load_region_location_tsv()
 
+
+def region_locations_for_key(key):
+    """
+    Region/Location rows for a guide page key, falling back through
+    EVENT_KEY_ALIASES.
+
+    The TSV is keyed on the GAME name; the page key comes from the guide title,
+    and the two disagree whenever Bethesda uses a contraction - norm_name()
+    strips the apostrophe from "Event: Gearin' Up" to give "gearinup", while the
+    Gearing Up guide page keys on "gearingup". A plain dict lookup silently
+    returned nothing and the page rendered with no Region / Location lines.
+    The aliases already existed for quest matching; this reuses them.
+    """
+    rows = ACTIVITY_REGION_LOCATIONS.get(key)
+    if rows:
+        return rows
+    for alias in EVENT_KEY_ALIASES.get(key, []):
+        rows = ACTIVITY_REGION_LOCATIONS.get(alias)
+        if rows:
+            return rows
+    # Reverse direction: the page key may itself be listed as another key's alias.
+    for canonical, aliases in EVENT_KEY_ALIASES.items():
+        if key in aliases:
+            rows = ACTIVITY_REGION_LOCATIONS.get(canonical)
+            if rows:
+                return rows
+    return []
+
 # Maps known regional sub-LVLI EDID substrings to region display names.
 # Used to tag items in regional schematic pools with their region.
 REGION_BY_SUBLVLI_EDID = {
@@ -3153,7 +3181,7 @@ for key, pages in sorted(reward_pages_by_key.items()):
         event = {
             "questFormID": "", "name": pages[0]["eventTitle"] or "Event",
             "gameName": "", "freeRewards": [], "conditionalRewards": [],
-            "baseRewards": {"tiers": []}, "regionLocations": ACTIVITY_REGION_LOCATIONS.get(key, []),
+            "baseRewards": {"tiers": []}, "regionLocations": region_locations_for_key(key),
             "pools": [], "banners": [], "scenarios": [],
             "warnings": [{"title": "Missing QUEST match",
                           "message": f"No QUEST row matched guide title '{pages[0]['eventTitle']}'."}]
@@ -3171,7 +3199,7 @@ for key, pages in sorted(reward_pages_by_key.items()):
             "questFormID": qid, "name": pages[0]["eventTitle"] or game_name,
             "gameName": game_name, "isPublicEvent": is_public,
             "description": pick(q, "DESC - Description", "DESC", default=""),
-            "regionLocations": ACTIVITY_REGION_LOCATIONS.get(key, []),
+            "regionLocations": region_locations_for_key(key),
             "freeRewards": [], "conditionalRewards": [], "baseRewards": {"tiers": []},
             "pools": [], "banners": [], "scenarios": [],
         }
