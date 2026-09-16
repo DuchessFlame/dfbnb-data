@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "generated": "2026-09-16T07:21:28.931796+00:00",
+  "generated": "2026-09-16T11:30:08.573146+00:00",
   "count": 2901,
   "source_files": {
-    "WEAP": "WEAP_Export_July_2026_Base.tsv",
-    "ARMO": "ARMO_Export_September_2026_ARMOUR.tsv",
+    "WEAP": "WEAP_Export_September_2026_Base.tsv",
+    "ARMO": "ARMO_Export_July_2026_ARMOUR.tsv",
     "OMOD": "OMOD_Export_July_2026.tsv",
     "FURN": "FURN_Export_July_2026_FURN.tsv",
     "CONT": "CONT_Export_July_2026.tsv",
@@ -105184,7 +105184,7 @@
         },
         {
           "route": "Mole Miner",
-          "source_type": "creature",
+          "source_type": "vendor",
           "rate": 0.314286,
           "rate_display": "31.43%"
         },
@@ -105264,11 +105264,16 @@
       "cut_reason": null,
       "obtain_ledger": [
         {
+          "label": "Containers",
+          "routes": [
+            2
+          ]
+        },
+        {
           "label": "Events & Activities",
           "routes": [
             0,
             1,
-            2,
             3,
             4,
             5,
