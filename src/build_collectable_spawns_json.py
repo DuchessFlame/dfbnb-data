@@ -28,6 +28,7 @@ import os, re, csv, json, datetime
 from collections import defaultdict
 
 import crossref_mappalachia_markers as xref
+import collectable_challenges as cchal   # CHAL export -> the page's challenge block
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
@@ -254,7 +255,7 @@ def load_existing_top(path):
         data = json.load(open(path, encoding="utf-8"))
     except Exception:
         return {}
-    return {k: data[k] for k in ("blurb_quote", "full_map") if data.get(k)}
+    return {k: data[k] for k in ("blurb_quote", "full_map", "challenges") if data.get(k)}
 
 
 def build_set(slug, rows):
@@ -266,6 +267,12 @@ def build_set(slug, rows):
     # SET_META is canonical; fall back to any hand-added value already in dist.
     full_map = meta.get("full_map") or existing_top.get("full_map", "")
     blurb_quote = meta.get("blurb_quote") or existing_top.get("blurb_quote", "")
+    # In-game challenges that count this set's items, joined from the CHAL export
+    # (see collectable_challenges). Falls back to whatever the committed dist already
+    # carries so a channel without the export never blanks a populated block.
+    challenges = cchal.challenges_for_set(slug) or existing_top.get("challenges")
+    if challenges:
+        print(f"[collectable_spawns] {slug}: {cchal.build_report(challenges)}")
 
     # region -> marker -> aggregate
     by_region = defaultdict(lambda: defaultdict(lambda: {"count": 0, "refs": [], "coord": None}))
@@ -316,6 +323,7 @@ def build_set(slug, rows):
         "blurb": meta["blurb"],
         "blurb_quote": blurb_quote,
         "full_map": full_map,
+        "challenges": challenges or {"heading": "", "items": []},
         "total": total,
         "regions": regions_out,
         "unplaced": [{"marker": m, "count": by_region[""][m]["count"]} for m in orphan_markers],
@@ -454,6 +462,7 @@ def build_grave_set():
         "blurb": meta["blurb"],
         "blurb_quote": blurb_quote,
         "full_map": full_map,
+        "challenges": challenges or {"heading": "", "items": []},
         "total": total,
         "regions": regions_out,
         "unplaced": [],

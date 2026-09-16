@@ -117,6 +117,11 @@ _WEAP_SKIP_EDID = [
     # EDID -- anchoring to ^ missed DLC04_TurretMountedLaserGunSpaceBlue, which
     # leaked "Turret Laser Gun" into the wheel.
     re.compile(r"Turret", re.I), re.compile(r"^WorkshopTurret", re.I),
+    # Creature_* are weapons held by NPCs/creatures, never player-obtainable.
+    # "Slay Bells" (Creature_Holiday_Weapon_SlayBells) and the candy-cane
+    # variant of the Walking Cane were both leaking through as real weapons --
+    # ^cr[A-Z] doesn't match the spelled-out prefix.
+    re.compile(r"^Creature_", re.I),
     re.compile(r"^HTO_cr", re.I), re.compile(r"^DailyOps_cr", re.I),
     re.compile(r"^SDOW_cr", re.I), re.compile(r"^RD\d+_cr", re.I),
     re.compile(r"^Burn_cr", re.I), re.compile(r"_TESTDMG_", re.I),
