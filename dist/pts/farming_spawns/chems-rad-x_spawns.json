@@ -4,7 +4,7 @@
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
   "lists_in_closure": 435,
   "source_totals": {
-   "direct": 104,
+   "direct": 102,
    "static": 6,
    "vendor": 30
   },
@@ -90,6 +90,11 @@
      "rate_display": "22.23%"
     },
     {
+     "name": "Vault Trunk",
+     "rate": 0.2222895264229996,
+     "rate_display": "22.23%"
+    },
+    {
      "name": "Large Toolbox",
      "rate": 0.21972222222222226,
      "rate_display": "21.97%"
@@ -113,16 +118,6 @@
      "name": "Toolbox",
      "rate": 0.21972222222222226,
      "rate_display": "21.97%"
-    },
-    {
-     "name": "Safe",
-     "rate": 0.19475421197243015,
-     "rate_display": "19.48%"
-    },
-    {
-     "name": "Vault Trunk",
-     "rate": 0.19475421197243015,
-     "rate_display": "19.48%"
     },
     {
      "name": "Margie's Backpack",
@@ -1047,6 +1042,18 @@
    "count": 1
   },
   {
+   "name": "Vera Thornberg",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "70.37%"
+   ],
+   "rate_display": "70.37%",
+   "rate_value": 0.703704,
+   "count": 1
+  },
+  {
    "name": "Xerxo",
    "marker": "",
    "region": "",
@@ -1349,66 +1356,6 @@
  "random_encounters_intro": null,
  "events_activities": [
   {
-   "list_id": "00802158",
-   "edid": "P62_LL_Drifter_Rewards_TrancheXX",
-   "name": "Defeat The Drifter",
-   "type": "Primary",
-   "note": "Chance the item is in the Defeat The Drifter reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0080CFAF",
-   "edid": "P62_LL_Drifter_Rewards_Tranche02",
-   "name": "Defeat The Drifter",
-   "type": "Primary",
-   "note": "Chance the item is in the Defeat The Drifter reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0080CFB0",
-   "edid": "P62_LL_Drifter_Rewards_Tranche03",
-   "name": "Defeat The Drifter",
-   "type": "Primary",
-   "note": "Chance the item is in the Defeat The Drifter reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0080CFB1",
-   "edid": "P62_LL_Drifter_Rewards_Tranche04",
-   "name": "Defeat The Drifter",
-   "type": "Primary",
-   "note": "Chance the item is in the Defeat The Drifter reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
-   "list_id": "0080CFB2",
-   "edid": "P62_LL_Drifter_Rewards_Tranche05",
-   "name": "Defeat The Drifter",
-   "type": "Primary",
-   "note": "Chance the item is in the Defeat The Drifter reward pool per event/activity payout.",
-   "rate_value": 1.0,
-   "rate_display": "100%",
-   "rate_lines": [
-    "100%"
-   ]
-  },
-  {
    "list_id": "007965E2",
    "edid": "RD01_LL_Raids_Rewards_Enc02",
    "name": "Drill Complex Module",
@@ -1478,6 +1425,18 @@
    "rate_display": "100%",
    "rate_lines": [
     "100%"
+   ]
+  },
+  {
+   "list_id": "00802158",
+   "edid": "HIDE_crLLD_Drifter_Rewards",
+   "name": "HIDE cr LLD Drifter Rewards",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the HIDE cr LLD Drifter Rewards reward pool per event/activity payout.",
+   "rate_value": 0.5,
+   "rate_display": "50%",
+   "rate_lines": [
+    "50%"
    ]
   },
   {
@@ -6153,9 +6112,9 @@
    "locations": [
     {
      "marker": "Rapidan Camp",
-     "count": 3,
+     "count": 1,
      "sources": {
-      "direct": 3
+      "direct": 1
      },
      "image_top": "",
      "directions": "",
@@ -6185,12 +6144,10 @@
       "759B7E",
       "761E87",
       "761E89",
-      "761EB2",
       "761EB8",
       "761ECC",
       "761ECE",
       "768F94",
-      "768F95",
       "76906F",
       "769070",
       "769071",
@@ -6203,31 +6160,7 @@
      "spawns": [
       {
        "label": "",
-       "ref": "761EB2",
-       "source_type": "direct",
-       "coords": [
-        2751.4,
-        -232459.2
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
        "ref": "768F94",
-       "source_type": "direct",
-       "coords": [
-        2751.4,
-        -232459.2
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "768F95",
        "source_type": "direct",
        "coords": [
         2751.4,
@@ -11783,5 +11716,5 @@
    }
   ]
  },
- "total": 140
+ "total": 138
 }
