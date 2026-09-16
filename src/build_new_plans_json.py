@@ -623,6 +623,20 @@ def main(argv=None):
     if skipped:
         print(f"[new-plans] {len(skipped)} added plan(s) had no plan_master row: "
               f"{', '.join(skipped[:8])}" + (" ..." if len(skipped) > 8 else ""))
+        # An empty page is a valid outcome — two exports can carry the same
+        # roster. An empty page while the roster diff found plans is NOT: it
+        # means plan_master was built from an older export than the BOOK export
+        # this page just read, so every new plan was dropped for having no row.
+        # The two look identical on the page and in the JSON, hence this line.
+        # Seen 16 Sept 2026: the PTS BOOK gained 149 plans and the PTS
+        # plan_master was still the 22 August build, so the page published a
+        # confident "nothing new" over a patch that added 149 plans.
+        if not rows:
+            print(f"[new-plans] *** THE PAGE IS EMPTY BUT THE ROSTER DIFF FOUND "
+                  f"{len(skipped)} PLAN(S). plan_master is older than "
+                  f"{os.path.basename(newest_f)} — rebuild it, or this page "
+                  f"says 'nothing new' about a patch that added "
+                  f"{len(skipped)}. ***")
     return out
 
 

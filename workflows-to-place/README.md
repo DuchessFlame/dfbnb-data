@@ -40,3 +40,14 @@ changed. Re-take it by hand once a patch has settled:
 
     python3 src/reenrich_plan_master.py --channel live --snapshot
     python3 src/reenrich_plan_master.py --channel pts  --snapshot
+
+## Also new, no workflow change needed
+
+`src/add_cobj_link.py` re-resolves `cobj` / `cnam` from the newest COBJ export
+as a pure join, and `reenrich_plan_master.py` runs it as **pass 0** — before the
+art pass, which names its candidate files after those records. Any workflow that
+already calls `reenrich` picks it up with no edit.
+
+Before it existed, a newer COBJ export could only reach `plan_master` through
+the ~80 minute rebuild, which is why 69 plans sat for weeks with no recipe, no
+created record and no art.

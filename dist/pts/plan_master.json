@@ -23939,7 +23939,7 @@
       "plan_page": "recipe",
       "plan_page_group": null,
       "consumable_group": "Food",
-      "consumable_type": "Cooked Meals",
+      "consumable_type": "Cakes & Pies",
       "changes": []
     },
     {
@@ -123999,7 +123999,7 @@
       "plan_page": "recipe",
       "plan_page_group": null,
       "consumable_group": "Food",
-      "consumable_type": "Cooked Meals",
+      "consumable_type": "Cakes & Pies",
       "changes": []
     },
     {
@@ -221176,15 +221176,22 @@
       "has_image_box": false,
       "image_dir": "weapons",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe Mod / Paint",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "008D5AA8",
         "edid": "zzzrecipe_mod_MG42_Receiver_CritDMG-AmmoConv45"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "008D5AB0",
+        "edid": "co_mod_MG42_Receiver_CritDMG-AmmoConv45"
+      },
+      "cnam": {
+        "formid": "008D5AC7",
+        "edid": "mod_MG42_Receiver_CritDMG-AmmoConv45",
+        "sig": "OMOD"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -221282,28 +221289,41 @@
       "id": "PLAN_008D5AAE",
       "name": "Plan: Light Machine Gun Compensator",
       "has_image_box": false,
-      "image_dir": "workshop",
+      "image_dir": "weapons",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe Mod / Paint",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "008D5AAE",
         "edid": "zzzrecipe_mod_MG42_Muzzle_Compensator"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "008D5ABB",
+        "edid": "co_mod_MG42_Muzzle_Compensator"
+      },
+      "cnam": {
+        "formid": "008D5AD2",
+        "edid": "mod_MG42_Muzzle_Compensator",
+        "sig": "OMOD"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
       "cut": true,
       "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
       "obtain_ledger": [],
-      "images": [],
-      "image_source": "",
-      "plan_page": "camp",
-      "plan_page_group": "C.A.M.P. Plans",
-      "changes": []
+      "images": [
+        "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+      ],
+      "image_source": "weapon-mod",
+      "plan_page": "weapon",
+      "plan_page_group": null,
+      "changes": [],
+      "weapon_role": "mod",
+      "weapon_group": "MG42 Light Machine Gun",
+      "weapon_group_key": "mg42-light-machine-gun",
+      "weapon_group_solo": false
     },
     {
       "kind": "plan",
@@ -221348,15 +221368,22 @@
       "has_image_box": false,
       "image_dir": "weapons",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe Mod / Paint",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "008D5AA7",
         "edid": "zzzrecipe_mod_MG42_Receiver_CritDMG-AmmoConv308"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "008D5AAF",
+        "edid": "co_mod_MG42_Receiver_CritDMG-AmmoConv308"
+      },
+      "cnam": {
+        "formid": "008D5AC6",
+        "edid": "mod_MG42_Receiver_CritDMG-AmmoConv308",
+        "sig": "OMOD"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -221457,9 +221484,9 @@
         }
       ],
       "images": [
-        "/wp-content/uploads/guide-images/plan-checklist/power-armour/sdow_mod_powerarmor_all_material_paint_slasherpa_torso.avif"
+        "sdow_mod_powerarmor_all_material_paint_slasherpa_torso"
       ],
-      "image_source": "override",
+      "image_source": "staged",
       "plan_page": "power-armour",
       "plan_page_group": null,
       "armour_role": "skin",
@@ -221514,9 +221541,9 @@
         }
       ],
       "images": [
-        "/wp-content/uploads/guide-images/plan-checklist/power-armour/sdow_mod_powerarmor_all_material_paint_slasherpa_armleft.avif"
+        "sdow_mod_powerarmor_all_material_paint_slasherpa_armleft"
       ],
-      "image_source": "override",
+      "image_source": "staged",
       "plan_page": "power-armour",
       "plan_page_group": null,
       "armour_role": "skin",
@@ -221571,9 +221598,9 @@
         }
       ],
       "images": [
-        "/wp-content/uploads/guide-images/plan-checklist/power-armour/sdow_mod_powerarmor_x01_torso_misc_jetpack_slasherpajetpack.avif"
+        "sdow_mod_powerarmor_x01_torso_misc_jetpack_slasherpajetpack"
       ],
-      "image_source": "override",
+      "image_source": "staged",
       "plan_page": "power-armour",
       "plan_page_group": null,
       "armour_role": "mod",
@@ -221631,9 +221658,9 @@
         }
       ],
       "images": [
-        "/wp-content/uploads/guide-images/plan-checklist/power-armour/sdow_mod_powerarmor_all_material_paint_slasherpa_helmet.avif"
+        "sdow_mod_powerarmor_all_material_paint_slasherpa_helmet"
       ],
-      "image_source": "override",
+      "image_source": "staged",
       "plan_page": "power-armour",
       "plan_page_group": null,
       "armour_role": "skin",
@@ -221688,9 +221715,9 @@
         }
       ],
       "images": [
-        "/wp-content/uploads/guide-images/plan-checklist/power-armour/sdow_mod_powerarmor_all_material_paint_slasherpa_legleft.avif"
+        "sdow_mod_powerarmor_all_material_paint_slasherpa_legleft"
       ],
-      "image_source": "override",
+      "image_source": "staged",
       "plan_page": "power-armour",
       "plan_page_group": null,
       "armour_role": "skin",
@@ -221747,7 +221774,7 @@
       "images": [
         "sdow_armo_headwear_slasherhat01"
       ],
-      "image_source": "override",
+      "image_source": "staged",
       "plan_page": "apparel",
       "plan_page_group": null,
       "changes": []
@@ -221856,7 +221883,7 @@
       "images": [
         "sdow_mod_custom_slasheraxe_appearance"
       ],
-      "image_source": "override",
+      "image_source": "staged",
       "weapon_role": "skin",
       "weapon_group": "Auto Axe",
       "weapon_group_key": "auto-axe",
@@ -221913,7 +221940,7 @@
       "images": [
         "sdow_armo_headwear_slasherhat03"
       ],
-      "image_source": "override",
+      "image_source": "staged",
       "plan_page": "apparel",
       "plan_page_group": null,
       "changes": []
@@ -221966,7 +221993,7 @@
       "images": [
         "sdow_armo_headwear_slasherhat02"
       ],
-      "image_source": "override",
+      "image_source": "staged",
       "plan_page": "apparel",
       "plan_page_group": null,
       "changes": []
@@ -222068,7 +222095,7 @@
       "images": [
         "sdow_floordecor_slashergrave"
       ],
-      "image_source": "override",
+      "image_source": "staged",
       "plan_page": "camp",
       "plan_page_group": "C.A.M.P. Plans",
       "changes": []
@@ -222121,7 +222148,7 @@
       "images": [
         "sdow_clothes_slashervictim"
       ],
-      "image_source": "override",
+      "image_source": "staged",
       "plan_page": "apparel",
       "plan_page_group": null,
       "changes": []
@@ -222195,7 +222222,7 @@
       "images": [
         "sdow_workshop_slasherballoon"
       ],
-      "image_source": "override",
+      "image_source": "staged",
       "plan_page": "camp",
       "plan_page_group": "C.A.M.P. Plans",
       "changes": []
@@ -222248,7 +222275,7 @@
       "images": [
         "sdow_armo_headwear_slasherhat04"
       ],
-      "image_source": "override",
+      "image_source": "staged",
       "plan_page": "apparel",
       "plan_page_group": null,
       "changes": []
@@ -223848,9 +223875,9 @@
         }
       ],
       "images": [
-        "/wp-content/uploads/guide-images/plan-checklist/weapons/sdow_mod_shovel_weapon_paint_gold.avif"
+        "sdow_mod_shovel_weapon_paint_gold"
       ],
-      "image_source": "override",
+      "image_source": "staged",
       "weapon_role": "skin",
       "weapon_group": "Shovel",
       "weapon_group_key": "shovel",
@@ -225786,9 +225813,25 @@
   ],
   "armour_groups_schema": 1,
   "armour_groups_sources": [
-    "ARMO_Export_PTS_2026-09-16_1338_ARMOUR.tsv",
+    "ARMO_Export_PTS_2026-09-16_2001_ARMOUR.tsv",
     "OMOD_Export_PTS_2026-09-16_1854.tsv",
     "COBJ_Export_PTS_2026-08-22_0953.tsv"
   ],
-  "apparel_class_schema": 1
+  "apparel_class_schema": 1,
+  "changes_since": "2026-09-16T11:08:17+00:00",
+  "changes_exports": {
+    "ACTI": "ACTI_Export_PTS_2026-09-16_1857_Refs.tsv",
+    "ALCH": "ALCH_Export_PTS_2026-09-06_0650.tsv",
+    "ARMO": "ARMO_Export_PTS_2026-09-16_1338_ObjectTemplate.tsv",
+    "BOOK": "BOOK_Export_PTS_2026-09-16_1847.tsv",
+    "COBJ": "COBJ_Export_PTS_2026-08-22_0953.tsv",
+    "CONT": "CONT_Export_PTS_2026-08-22_0954.tsv",
+    "FURN": "FURN_Export_PTS_2026-09-06_0635_FURN.tsv",
+    "LVLI": "LVLI_Export_PTS_2026-09-16_1737_LVLI_Math.tsv",
+    "MISC": "MISC_Export_PTS_2026-09-16_1707.tsv",
+    "NPC": "NPC_Export_PTS_2026-09-16_1644_Refs.tsv",
+    "OMOD": "OMOD_Export_PTS_2026-09-16_1854_Properties.tsv",
+    "QUEST": "QUEST_Export_PTS_2026-09-16_1630.tsv",
+    "WEAP": "WEAP_Export_PTS_2026-09-16_1344_DNAM.tsv"
+  }
 }
