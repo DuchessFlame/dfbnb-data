@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 r"""
-spawns_configs.chainsaws — the CHAINSAW family driver (BNB brand, /bnb/weapons/chainsaws/).
+spawns_configs.chainsaws — the CHAINSAW family driver (BNB brand, /bnb/weapons-mods/chainsaws/).
 
 The first WEAPON family on the shared spawns engine. Everything structural is the
 existing pipeline (spawn-guide skill §9k): one LVLI up-closure per item, placements
@@ -17,8 +17,8 @@ weapon-specific work lives in this file:
   * Farming Tips is NOT emitted (a chainsaw is not a consumable) — the renderer skips it.
 
 PAGES
-    /bnb/weapons/chainsaws/                              <- HUB  (dist/chainsaws.json)
-    /bnb/weapons/chainsaws/chainsaw-location-guide/      <- PAGE (dist/chainsaws/chainsaw.json)
+    /bnb/weapons-mods/chainsaws/                              <- HUB  (dist/chainsaws.json)
+    /bnb/weapons-mods/chainsaws/chainsaw-location-guide/      <- PAGE (dist/chainsaws/chainsaw.json)
 
 SEEDS — the ONE curated value is the weapon's WEAP FormID in `CHAINSAWS` below.
 Mods, plans, unique variants, stats, spawn points, container types, event pools and
@@ -60,7 +60,7 @@ import tsv_source
 
 # ── family constants ─────────────────────────────────────────────────────────
 FAMILY = "chainsaws"
-URL_BASE = "/bnb/weapons/chainsaws/"
+URL_BASE = "/bnb/weapons-mods/chainsaws/"
 URL_OF = lambda slug: f"{URL_BASE}{slug}-location-guide/"
 SOURCE_TAG = ("Game-file exports (WEAP/OMOD/COBJ/BOOK/CURV/LVLI/CONT) + Mappalachia "
               "Position (cached for CI)")
