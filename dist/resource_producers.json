@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-16T05:24:22+00:00",
+  "generatedAt": "2026-09-16T08:35:23+00:00",
   "type": "resource_producers",
-  "count": 108,
+  "count": 110,
   "items": [
     {
       "formId": "008F84F5",
@@ -6089,10 +6089,10 @@
       "howToObtain": {
         "method": "scoreboard",
         "seasonNumber": 23,
-        "goldBullionPrice": null,
+        "goldBullionPrice": 4000,
         "vendor": null,
-        "tradeable": null,
-        "planName": null,
+        "tradeable": false,
+        "planName": "Plan: Crashed Cargo Bot",
         "display": "Purchase with tickets from the Blood x Rust Scoreboard (Season 23)",
         "badge": "scoreboard"
       },
@@ -6117,7 +6117,7 @@
           "lines": [
             "Purchase with tickets from the Blood x Rust Scoreboard (Season 23)"
           ],
-          "tradeable": null,
+          "tradeable": false,
           "dropRate": "N/A"
         },
         {
@@ -15220,14 +15220,14 @@
         }
       ],
       "howToObtain": {
-        "method": "scoreboard",
+        "method": "gold",
         "seasonNumber": 17,
-        "goldBullionPrice": null,
-        "vendor": null,
-        "tradeable": null,
-        "planName": null,
-        "display": "Purchase with tickets from the Pioneer Scouts: Skyline Valley Scoreboard (Season 17)",
-        "badge": "scoreboard"
+        "goldBullionPrice": 1250,
+        "vendor": "a Gold Bullion Vendor",
+        "tradeable": false,
+        "planName": "Plan: Pemmican Collector",
+        "display": "Purchase from a Gold Bullion Vendor for 1250 Gold Bullion. Requires unlocking the Pioneer Scouts: Skyline Valley Scoreboard (Season 17).",
+        "badge": "gold"
       },
       "obtainRoutes": [
         {
@@ -15246,12 +15246,10 @@
         },
         {
           "route": "Scoreboard",
-          "populated": true,
-          "lines": [
-            "Purchase with tickets from the Pioneer Scouts: Skyline Valley Scoreboard (Season 17)"
-          ],
+          "populated": false,
+          "lines": [],
           "tradeable": null,
-          "dropRate": "N/A"
+          "dropRate": null
         },
         {
           "route": "Gold Bullion",
@@ -15906,8 +15904,8 @@
         "seasonNumber": null,
         "goldBullionPrice": null,
         "vendor": null,
-        "tradeable": null,
-        "planName": null,
+        "tradeable": false,
+        "planName": "Recipe: Pumpkin Pie",
         "display": "Purchase from the Atom Shop.",
         "badge": "atom"
       },
@@ -15946,7 +15944,7 @@
           "lines": [
             "Purchase from the Atom Shop."
           ],
-          "tradeable": null,
+          "tradeable": false,
           "dropRate": "N/A"
         },
         {
@@ -16445,8 +16443,8 @@
         "seasonNumber": null,
         "goldBullionPrice": null,
         "vendor": null,
-        "tradeable": null,
-        "planName": null,
+        "tradeable": false,
+        "planName": "Plan: Flower Crown - Carnal Weeper",
         "display": "Available in the base game.",
         "badge": "default"
       },
@@ -16524,6 +16522,130 @@
       "bucket": "Misc Junk"
     },
     {
+      "formId": "009229BC",
+      "edid": "SCORE_S27_Resource_Collector_RollerDogs_Food",
+      "resoFormId": "009229BC",
+      "contFormId": "",
+      "entmFormId": "",
+      "displayName": "Resource Collector Roller Dogs Food",
+      "description": "",
+      "imageUrl": null,
+      "imageCarousel": [],
+      "imageDds": "",
+      "imageFolder": "",
+      "isCollectron": false,
+      "production": {
+        "intervalHours": null,
+        "intervalDisplay": null,
+        "resourceName": "",
+        "resourceEdid": "SCORE_S27_ResourceAV_Collector_RollerDogs_Food",
+        "drops": [],
+        "modes": [
+          {
+            "name": "Default",
+            "resoFormId": "009229BC",
+            "lvliFormId": "009229BA",
+            "resourceName": "",
+            "drops": []
+          }
+        ]
+      },
+      "station": {
+        "capacity": null,
+        "powerRequired": false,
+        "flamingoUnits": null,
+        "lockable": null
+      },
+      "crafting": {
+        "components": []
+      },
+      "craftingRequirements": [],
+      "howToObtain": {
+        "method": "scoreboard",
+        "seasonNumber": 27,
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Purchase with tickets from the Season 27 Scoreboard",
+        "badge": "scoreboard"
+      },
+      "obtainRoutes": [
+        {
+          "route": "Caps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Stamps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Scoreboard",
+          "populated": true,
+          "lines": [
+            "Purchase with tickets from the Season 27 Scoreboard"
+          ],
+          "tradeable": null,
+          "dropRate": "N/A"
+        },
+        {
+          "route": "Gold Bullion",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Atom Shop",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Limited Time Bundle",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Events & Activities",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Quests",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Challenges",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        }
+      ],
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: —",
+      "seasonNumber": 27,
+      "releaseDate": "2026-09-16",
+      "cutContent": false,
+      "status": "live",
+      "subcategory": "food",
+      "bucket": "Raw Ingredients"
+    },
+    {
       "formId": "007AE278",
       "edid": "SSE_Resource_CrystalCup",
       "resoFormId": "007AE278",
@@ -16581,8 +16703,8 @@
         "seasonNumber": null,
         "goldBullionPrice": null,
         "vendor": null,
-        "tradeable": null,
-        "planName": null,
+        "tradeable": false,
+        "planName": "Plan: Flower Crown - Crystalcup",
         "display": "Available in the base game.",
         "badge": "default"
       },
@@ -16717,8 +16839,8 @@
         "seasonNumber": null,
         "goldBullionPrice": null,
         "vendor": null,
-        "tradeable": null,
-        "planName": null,
+        "tradeable": false,
+        "planName": "Plan: Flower Crown - Radlily",
         "display": "Available in the base game.",
         "badge": "default"
       },
@@ -16790,6 +16912,130 @@
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: —",
       "seasonNumber": null,
       "releaseDate": "2026-09-03",
+      "cutContent": false,
+      "status": "live",
+      "subcategory": "other",
+      "bucket": "Misc Junk"
+    },
+    {
+      "formId": "0090B5D9",
+      "edid": "ATX_Resource_TreeOfSpoils_resource",
+      "resoFormId": "0090B5D9",
+      "contFormId": "",
+      "entmFormId": "",
+      "displayName": "Resource Tree Of Spoils",
+      "description": "",
+      "imageUrl": null,
+      "imageCarousel": [],
+      "imageDds": "",
+      "imageFolder": "",
+      "isCollectron": false,
+      "production": {
+        "intervalHours": null,
+        "intervalDisplay": null,
+        "resourceName": "",
+        "resourceEdid": "ATX_ResourceAV_TreeOfSpoils_resource",
+        "drops": [],
+        "modes": [
+          {
+            "name": "Default",
+            "resoFormId": "0090B5D9",
+            "lvliFormId": "0090B5D8",
+            "resourceName": "",
+            "drops": []
+          }
+        ]
+      },
+      "station": {
+        "capacity": null,
+        "powerRequired": false,
+        "flamingoUnits": null,
+        "lockable": null
+      },
+      "crafting": {
+        "components": []
+      },
+      "craftingRequirements": [],
+      "howToObtain": {
+        "method": "atom",
+        "seasonNumber": null,
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Purchase from the Atom Shop.",
+        "badge": "atom"
+      },
+      "obtainRoutes": [
+        {
+          "route": "Caps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Stamps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Scoreboard",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Gold Bullion",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Atom Shop",
+          "populated": true,
+          "lines": [
+            "Purchase from the Atom Shop."
+          ],
+          "tradeable": null,
+          "dropRate": "N/A"
+        },
+        {
+          "route": "Limited Time Bundle",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Events & Activities",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Quests",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Challenges",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        }
+      ],
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: —",
+      "seasonNumber": null,
+      "releaseDate": "2026-09-16",
       "cutContent": false,
       "status": "live",
       "subcategory": "other",
@@ -16976,10 +17222,10 @@
       "howToObtain": {
         "method": "scoreboard",
         "seasonNumber": 24,
-        "goldBullionPrice": null,
+        "goldBullionPrice": 4000,
         "vendor": null,
-        "tradeable": null,
-        "planName": null,
+        "tradeable": false,
+        "planName": "Plan: Rip Daring's Survival Cache",
         "display": "Purchase with tickets from the RIP Darling & The Cryptids from Beyond the Cosmos Scoreboard (Season 24)",
         "badge": "scoreboard"
       },
@@ -17004,7 +17250,7 @@
           "lines": [
             "Purchase with tickets from the RIP Darling & The Cryptids from Beyond the Cosmos Scoreboard (Season 24)"
           ],
-          "tradeable": null,
+          "tradeable": false,
           "dropRate": "N/A"
         },
         {
