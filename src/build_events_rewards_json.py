@@ -104,25 +104,30 @@ def newest(pattern, exclude_substrings=None):
 _RE_BACKREF_COL = re.compile(r"^Ref\d+$")
 
 
-def _rows_without_backrefs(handle):
+def _rows_without_backrefs(handle, keep_backrefs=False):
     reader = csv.reader(handle, delimiter="\t")
     try:
         header = next(reader)
     except StopIteration:
         return []
     idx = [(i, name) for i, name in enumerate(header)
-           if not _RE_BACKREF_COL.match(name)]
+           if keep_backrefs or not _RE_BACKREF_COL.match(name)]
     return [{name: (row[i] if i < len(row) else "") for i, name in idx}
             for row in reader]
 
 
-def read_tsv(path):
+def read_tsv(path, keep_backrefs=False):
+    # keep_backrefs=True is ONLY for the small GMRW export, whose Ref1..RefN
+    # back-references are the authoritative quest linkage (ParentQuestLink is
+    # wrong on some records and empty on others). NEVER set it for the LVLI
+    # exports - their RefN columns are the ~1.6 GB that gets the build
+    # OOM-killed, which is the whole reason they are dropped on the way in.
     try:
         with open(path, encoding="utf-8-sig", newline="") as f:
-            return _rows_without_backrefs(f)
+            return _rows_without_backrefs(f, keep_backrefs)
     except UnicodeDecodeError:
         with open(path, encoding="cp1252", errors="replace", newline="") as f:
-            return _rows_without_backrefs(f)
+            return _rows_without_backrefs(f, keep_backrefs)
 
 def pick(row, *keys, default=""):
     for k in keys:
@@ -458,7 +463,7 @@ def simplify_conditions(conditions):
 # --------------------------------------------------
 
 QUEST        = read_tsv(newest("tsv/QUEST_Export_*.tsv"))
-GMRW         = read_tsv(newest("tsv/GMRW_Export_*.tsv"))
+GMRW         = read_tsv(newest("tsv/GMRW_Export_*.tsv"), keep_backrefs=True)
 LVLI_LIST    = read_tsv(newest("tsv/LVLI_Export_*_LVLI_List.tsv"))
 LVLI_ENTRIES = read_tsv(newest("tsv/LVLI_Export_*_LVLI_Entries.tsv"))
 LVLI_MATH    = read_tsv(newest("tsv/LVLI_Export_*_LVLI_Math.tsv"))
@@ -2518,6 +2523,16 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         activity_data["baseRewards"]["xp"] = succ["xpValue"]
         activity_data["baseRewards"]["xpFormID"] = succ["xpCurve"]
 
+    elif len(success_entries) == 1 and activity_data["baseRewards"]["xp"] is None:
+        # Single reward record, no failure pair. The backward-compat assignment
+        # further up only fires for XPCT (curve) XP, and the two branches above
+        # need either multiple stages or a success/failure pair - so an event
+        # whose XP is a flat NAM7 GLOB fell through all of them and reported no
+        # XP at all (Burn_E02_QuestReward_Sinkhole awards a flat 1000).
+        only = success_entries[0]
+        activity_data["baseRewards"]["xp"] = only["xpValue"]
+        activity_data["baseRewards"]["xpFormID"] = only["xpCurve"]
+
     return activity_data
 
 # --------------------------------------------------
@@ -2704,6 +2719,21 @@ def classify_pool(lvli_fid):
 # Index: GMRW
 # --------------------------------------------------
 
+def _gmrw_quest_backrefs(r):
+    """QUEST FormIDs listed in this GMRW row's Ref1..RefN back-reference columns."""
+    out = []
+    for i in range(1, 21):
+        ref = (r.get(f"Ref{i}") or "").strip()
+        if not ref:
+            continue
+        if ":QUST" not in ref.upper():
+            continue
+        fid = ref.split(":")[0].strip()
+        if fid and fid not in out:
+            out.append(fid)
+    return out
+
+
 gmrw_rows_by_id     = defaultdict(list)
 gmrw_rows_by_parent = defaultdict(list)
 
@@ -2711,8 +2741,28 @@ for r in GMRW:
     gmrw_fid   = pick(r, "FormID", "GMRW_FormID")
     parent_ref = (r.get("ParentQuestLink") or "").strip()
     parent_fid = parent_ref.split(":")[0] if ":" in parent_ref else parent_ref
+    # A GMRW's Ref1..RefN back-references are written by the QUEST records that
+    # actually award it, so they are authoritative. ParentQuestLink is wrong on
+    # a handful of records (Burn_E01_QuestReward_GearinUp points at
+    # Storm_RegionBoss / Neurological Warfare; QuestReward_E09D_MostWanted_Stage230
+    # points at Test Your Metal) and empty on others (Burn_E02_QuestReward_Sinkhole).
+    # When back-refs exist and disagree, drop the bogus parent so the reward does
+    # not leak onto the wrong event page.
+    _brefs = _gmrw_quest_backrefs(r)
+    if _brefs and parent_fid and parent_fid not in _brefs:
+        parent_fid = ""
     if gmrw_fid: gmrw_rows_by_id[gmrw_fid].append(r)
     if parent_fid: gmrw_rows_by_parent[parent_fid].append(r)
+
+# Index every GMRW under the quests that actually reference it. This is what
+# makes orphaned records (no ParentQuestLink) and mis-parented ones reachable
+# from the correct event, and it is why CROSS_QUEST_GMRW is now belt-and-braces
+# rather than the only route.
+gmrw_rows_by_backref = defaultdict(list)
+for _r in GMRW:
+    for _qfid in _gmrw_quest_backrefs(_r):
+        gmrw_rows_by_backref[_qfid].append(_r)
+
 
 def get_gmrw_rows_for_quest(q):
     qid  = pick(q, "QUEST_FormID", "FormID")
@@ -2737,18 +2787,17 @@ def get_gmrw_rows_for_quest(q):
         if gmrw_fid in seen_fids: continue
         seen_fids.add(gmrw_fid)
         all_rows.extend(gmrw_rows_by_id.get(gmrw_fid, []))
-    # 4) Ref1 fallback: some GMRW rows have no ParentQuestLink but Ref1 points to the quest
-    if not all_rows:
-        for gmrw_fid, gmrw_list in gmrw_rows_by_id.items():
-            for r in gmrw_list:
-                for ri in range(1, 6):
-                    ref_col = r.get(f"Ref{ri}", "")
-                    if ref_col and qid in ref_col:
-                        if gmrw_fid not in seen_fids:
-                            seen_fids.add(gmrw_fid)
-                            all_rows.extend(gmrw_rows_by_id.get(gmrw_fid, []))
-                if all_rows: break
-            if all_rows: break
+    # 4) Back-reference pass: GMRW rows whose own Ref1..RefN name this quest.
+    #    This used to be gated behind `if not all_rows`, which made it dead for
+    #    any quest that already had one unrelated GMRW (e.g. Gearing Up's emote
+    #    reward masked its real reward lists). It also read Ref columns that
+    #    read_tsv had already stripped, so it never matched anything at all.
+    for r in gmrw_rows_by_backref.get(qid, []):
+        fid = (r.get("FormID") or "").strip()
+        if fid in seen_fids:
+            continue
+        seen_fids.add(fid)
+        all_rows.extend(gmrw_rows_by_id.get(fid, []))
     return all_rows
 
 # --------------------------------------------------
@@ -3176,10 +3225,17 @@ for key, pages in sorted(reward_pages_by_key.items()):
             if "rewards_activities" in rewarded.lower() or "ra_ll_rewards" in rewarded.lower():
                 is_activity = True
                 break
-        # Also check URL slug pattern
+        # Also check URL slug pattern. Public Events render through the same
+        # activity reward tree, so they qualify on the path alone. Without this
+        # the only thing flipping the flag for a public event is the shared
+        # RA_LL_Rewards_PublicEvents pool matching the "ra_ll_rewards" substring
+        # above - which silently excluded the two Burning Springs events
+        # (Gearing Up, Sinkhole Solutions) that award from bespoke Burn_E0x
+        # lists and never touch the shared pool.
         if not is_activity:
             for p in pages:
-                if "/activit" in (p.get("url") or "").lower():
+                _u = (p.get("url") or "").lower()
+                if "/activit" in _u or "/public-events/" in _u:
                     is_activity = True
                     break
 

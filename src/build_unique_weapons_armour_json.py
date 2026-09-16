@@ -66,6 +66,7 @@ TSV_DIR = REPO_ROOT / "tsv"
 sys.path.insert(0, str(SRC_DIR))
 import tsv_source
 import uwa_mods
+import uwa_obtain
 from patchlog_utils import write_empty_patchlog_feed
 
 import build_unique_weapons_json as buw
@@ -785,6 +786,25 @@ def build_channel(channel, dist_dir):
     # the item unique never surfaces at all. See uwa_mods.py.
     mod_idx = uwa_mods.build_indexes_for_channel(pick, read_tsv, channel)
     mod_stats = uwa_mods.enrich(all_items, mod_idx)
+
+    # The nine How to Obtain routes. One free-text howToObtain line could not
+    # say the thing a reader needs — whether a source hands over the made
+    # weapon, its plan, or both — and the plan it named was inherited from the
+    # BASE weapon, so every repair-only legacy item claimed to be craftable.
+    # See uwa_obtain.py. howToObtain is kept as the one-line summary.
+    obtain_idx = uwa_obtain.index(channel)
+    obtain_idx.apply(all_items)
+
+    # Items Bethesda's own WeaponsUniqueNamedList has never heard of AND that
+    # the override table names as mod records rather than weapons. Dropping
+    # them here rather than in the discovery pass keeps the reasoning in one
+    # place, in data/, where the next one can be added without a code change.
+    dropped = [i["name"] for i in all_items if i["name"] in obtain_idx.excluded]
+    if dropped:
+        all_items[:] = [i for i in all_items
+                        if i["name"] not in obtain_idx.excluded]
+        print(f"  excluded {len(dropped)} non-item record(s): "
+              f"{', '.join(sorted(dropped))}")
 
     for it in all_items:
         it.pop("_cmod_fids", None)
