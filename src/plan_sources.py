@@ -1085,7 +1085,18 @@ LEDGER_ROWS = ["Caps", "Stamps", "Scoreboard", "Gold Bullion", "Atom Shop",
 LEDGER_MAX_ROWS = 8
 
 _RX_LED_GOLD  = re.compile(r"gold[\s-]*bullion|bullion", re.I)
-_RX_LED_STAMP = re.compile(r"\bstamps?\b|stamp[\s-]*vendor", re.I)
+# The currency is read off the ROUTE'S LABEL, and a named trader's label does
+# not carry one: the Expeditions vendor resolves as "Expeditions - Giuseppe
+# vendor", which says "vendor" and never says "stamp", so all 133 plans on his
+# shelf were filed under Caps. Giuseppe Delcavo trades stamps — this file
+# already says so, in the _edid_hints sentence for _StampVendor plans — so the
+# name is named here too, where the ledger can see it.
+#
+# This is the RESOLVED route being read correctly, not the EditorID convention
+# being trusted: a plan whose EditorID says _StampVendor but that resolves to
+# Settler Samuel's gold-bullion stock still lands in Gold Bullion, because the
+# label is what is tested and his label says bullion.
+_RX_LED_STAMP = re.compile(r"\bstamps?\b|stamp[\s-]*vendor|\bgiuseppe\b", re.I)
 _RX_LED_SHOP  = re.compile(r"vendor|trader|merchant|shop", re.I)
 
 
