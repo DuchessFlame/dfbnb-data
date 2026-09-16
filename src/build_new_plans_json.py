@@ -188,6 +188,26 @@ _RX_CONSUM = re.compile(
     r"(^|_)(food|chem|drink|cook|meal|nuka|brew|stew|burger|whiskey|gin|wine|"
     r"tea|coffee|soup|pie|cake|roast|meat|jerky|bake)", re.I)
 
+# Weapon mod recognised from the EDID when the crafted object never resolved to
+# a co_Weapon_ record. Some stamp/gold-vendor weapon mods (e.g. the Cryolator
+# Cold Surge / Hypothermic Muzzle, Magazine and Polar Lobber mods) come through
+# with an empty cobj/cnam, so the earlier _mod_ / _weapon_ tests can't see them
+# and they fall to Recipes. These fire LATE (only after every resolved bucket --
+# weapon, apparel, armour, CAMP -- has had its say), and _RX_NOT_WEAPON blocks
+# power-armour / underarmour mods from being dragged in. WEAPMOD_SLOT catches
+# a weapon mod-slot term (muzzle / magazine / capacitor / ...); WEAPON_NAME
+# catches a named weapon whose mod carries no slot word (Cryolator Polar Lobber).
+_RX_NOT_WEAPON   = re.compile(r"armor|armour|underarmor|power_armor", re.I)
+_RX_WEAPMOD_SLOT = re.compile(
+    r"muzzle|receiver|bayonet|silencer|suppressor|magazine|capacitor|nozzle|"
+    r"lobber|sniperbarrel|(^|_)barrel(_|$)", re.I)
+_RX_WEAPON_NAME  = re.compile(
+    r"cryolator|railway|(^|_)gauss|gatling|minigun|(^|_)flamer|harpoon|crossbow|"
+    r"compoundbow|alienblaster|missilelauncher|fatman|handmade|combatrifle|"
+    r"combatshotgun|assaultrifle|huntingrifle|leveraction|pumpaction|doublebarrel|"
+    r"blackpowder|(^|_)revolver|submachinegun|autoaxe|shishkebab|powerfist|"
+    r"plasmacutter|(^|_)ripper(_|$)|chainsaw", re.I)
+
 
 def classify_group(item):
     """Category key for one plan_master item. See CATEGORY CLASSIFICATION."""
@@ -252,11 +272,18 @@ def classify_group(item):
     if _RX_CAMP.search(blob) or cnam_sig in ("ACTI", "FURN"):
         return "camp"
 
-    # 10. Consumable recipes.
+    # 10. Weapon mod whose crafted object never resolved (cobj/cnam empty), seen
+    #     only in the EDID. LATE so the resolved buckets above win; guarded so
+    #     power-armour / underarmour mods can't be dragged in.
+    if not _RX_NOT_WEAPON.search(blob) and (
+            _RX_WEAPMOD_SLOT.search(blob) or _RX_WEAPON_NAME.search(blob)):
+        return "weapon"
+
+    # 11. Consumable recipes.
     if cnam_sig == "ALCH" or _RX_CONSUM.search(blob):
         return "recipe"
 
-    # 11. Fallback: a placeable (has an image box) is CAMP, else a recipe.
+    # 12. Fallback: a placeable (has an image box) is CAMP, else a recipe.
     return "camp" if has_box else "recipe"
 
 

@@ -136,11 +136,14 @@ def _thousands(value):
 class GoldVendorIndex:
     """ENTM FormID -> the Gold Bullion route for that item."""
 
-    def __init__(self, by_entm, plans, unstocked, by_name=None):
+    def __init__(self, by_entm, plans, unstocked, by_name=None, ctx=None):
         self._by_entm = by_entm      # ENTM fid -> plan fid
         self._plans = plans          # plan fid -> resolved plan dict
         self.unstocked = unstocked   # plan fid -> EDID, authored but unsold
         self._by_name = by_name or {}  # normalised ENTM name -> plan fid
+        # Everything _resolve_plan needs to work out a plan that wasn't reached
+        # through the CAMP CondProxy chain — see route_for_plan.
+        self._ctx = ctx or {}
 
     # -- queries ---------------------------------------------------------
     def plan_for_entm(self, entm_form_id):
@@ -187,6 +190,32 @@ class GoldVendorIndex:
         ``entmFormId`` — see ``plan_for_name``.
         """
         return self._route_for_plan(self.plan_for_name(name))
+
+    def details_for_plan(self, plan_form_id):
+        """The resolved plan dict for a plan BOOK FormID, or None.
+
+        The CAMP chain (ENTM -> CondProxy -> BOOK) is one way to reach a plan;
+        a crafted item reaches its plan directly through its COBJ's GNAM, with
+        no ENTM anywhere in sight. Unique weapons take that second path, so the
+        vendor / rank / price resolution is shared here rather than copied into
+        the weapon builder — the wording on a Gold Bullion route has to be
+        identical whichever page it is printed on.
+        """
+        fid = _fid(plan_form_id)
+        if not fid:
+            return None
+        if fid not in self._plans and fid not in self.unstocked and self._ctx:
+            plan, unsold = _resolve_plan(fid, **self._ctx)
+            if plan:
+                self._plans[fid] = plan
+            elif unsold:
+                self.unstocked[fid] = unsold
+        return self._plans.get(fid)
+
+    def route_for_plan(self, plan_form_id):
+        """The Gold Bullion route lines for a plan BOOK FormID, or []."""
+        self.details_for_plan(plan_form_id)
+        return self._route_for_plan(_fid(plan_form_id))
 
     def _route_for_plan(self, plan_fid):
         d = self._plans.get(plan_fid)
@@ -393,16 +422,35 @@ def index(channel="live"):
     book_by_id = {_fid(b["FormID"]): b for b in book_rows}
     plans, unstocked = {}, {}
 
+    ctx = {"stocked": stocked, "book_by_id": book_by_id,
+           "glob_val": glob_val, "glob_edid": glob_edid}
+
     for plan_fid in set(by_entm.values()):
+        plan, unsold = _resolve_plan(plan_fid, **ctx)
+        if plan:
+            plans[plan_fid] = plan
+        elif unsold:
+            unstocked[plan_fid] = unsold
+
+    by_entm = {e: p for e, p in by_entm.items()
+               if p in plans or p in unstocked}
+    return _index_name_fallback(by_entm, plans, unstocked, channel, ctx)
+
+def _resolve_plan(plan_fid, stocked, book_by_id, glob_val, glob_edid):
+        """Resolve one plan BOOK to its vendor, reputation rank and price.
+
+        Returns ``(plan_dict, "")`` when a leveled list stocks it, ``(None,
+        edid)`` when the plan is authored but unsold, and ``(None, "")`` when
+        there is nothing usable there at all.
+        """
         b = book_by_id.get(plan_fid)
         if not b:
-            continue
+            return None, ""
         edid = b.get("EDID") or ""
         if _DEAD_RE.match(edid):
-            continue
+            return None, ""
         if plan_fid not in stocked:
-            unstocked[plan_fid] = edid
-            continue
+            return None, edid
 
         # Prefer the ranked list with the LOWEST order number — that is the
         # reputation the player actually needs, not the highest that also
@@ -442,7 +490,7 @@ def index(channel="live"):
             except (ValueError, TypeError):
                 cost = raw
 
-        plans[plan_fid] = {
+        return {
             "plan_fid":   plan_fid,
             "plan_edid":  edid,
             "plan_name":  re.sub(r"^\s*plan\s*:\s*", "",
@@ -455,11 +503,11 @@ def index(channel="live"):
             "list_edid":  list_edid,
             "price_fid":  price_fid,
             "price_edid": price_edid,
-        }
+        }, ""
 
-    by_entm = {e: p for e, p in by_entm.items()
-               if p in plans or p in unstocked}
 
+def _index_name_fallback(by_entm, plans, unstocked, channel, ctx):
+    """Step 5 of index(): the ENTM display-name fallback, then the index."""
     # ---- 5. name fallback for records that carry no ENTM ---------------
     # Names of the ENTMs already resolved above — nothing wider. A collision
     # would make a name ambiguous, so both sides are dropped rather than
@@ -483,7 +531,7 @@ def index(channel="live"):
         print(f"  [INFO] gold_vendor: {len(clashes)} ENTM name(s) map to more "
               f"than one plan and are excluded from the name fallback")
 
-    return GoldVendorIndex(by_entm, plans, unstocked, by_name)
+    return GoldVendorIndex(by_entm, plans, unstocked, by_name, ctx=ctx)
 
 
 if __name__ == "__main__":

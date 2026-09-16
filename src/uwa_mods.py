@@ -22,7 +22,11 @@ FILLER_EDID = re.compile(r'_null\b|null_|_none\b', re.I)
 CUSTOM_EDID = re.compile(r'mod_custom|mod_description', re.I)
 # Purely visual custom mods. NOTE: *_CustomName is deliberately NOT here — the
 # custom-name mod is the one that makes a unique weapon unique, so it stays.
-COSMETIC_EDID = re.compile(r'appearance|paint|modelswap', re.I)
+COSMETIC_EDID = re.compile(r'appearance|paint|modelswap|skin', re.I)
+# The custom mod's FULL is usually the item name plus a bookkeeping suffix
+# ("Piercing Love Custom Mod"), so the raw name never matched it.
+ZZZ_EDID = re.compile(r'(^|_)zzz', re.I)
+NAME_SUFFIX = re.compile(r'\s*(Custom Mod|Custom Name|Custom Paint|Custom|Bounty)\s*$', re.I)
 
 
 def _norm(s):
@@ -46,6 +50,9 @@ def build_mod_indexes(omod_rows, weap_ot_rows, armo_ot_rows):
         full = _clean(r.get('FULL'))
         if full:
             omod_by_full[_norm(full)].append(r)
+            stem = _norm(NAME_SUFFIX.sub('', full))
+            if stem and stem != _norm(full):
+                omod_by_full[stem].append(r)
 
     def load(rows, fidcol, fullcol):
         combos = defaultdict(lambda: defaultdict(lambda: {'mods': [], 'default': ''}))
@@ -91,9 +98,16 @@ def _pretty(edid):
     return re.sub(r'(?<=[a-z0-9])(?=[A-Z])', ' ', tail).strip()
 
 
+# "Piercing Love Custom Mod" is a record name, not something to print on the
+# page. The bookkeeping tail comes off the display name only — never off the
+# keys, which still have to match what the exports say.
+DISPLAY_SUFFIX = re.compile(r'\s*(Custom Mod|Custom Name|Custom Paint)\s*$', re.I)
+
+
 def _entry(edid, name, fid, omod_by_fid, kind):
     row = omod_by_fid.get(fid, {})
     nm = _clean(name) or _clean(row.get('FULL'))
+    nm = DISPLAY_SUFFIX.sub('', nm).strip() or nm
     if not nm:
         # A mod_Description_* record is pure effect text with no display name;
         # a made-up label from its EDID reads worse than an honest generic one.
@@ -119,9 +133,16 @@ def _walk_combo(combo, omod_by_fid):
             continue
         if FILLER_NAME.match(_clean(name)) or FILLER_EDID.search(edid):
             continue
-        if COSMETIC_EDID.search(edid):
+        # ap_customName is the game's own marker for "this is the mod that makes
+        # the item that item". Going by the EDID alone missed every unique mod
+        # Bethesda named after the weapon instead of mod_Custom_* — the V63
+        # Zweihaender's Storm Cutter was filed as an ordinary fitted part.
+        # A paint hung on ap_customName is still a paint, and a zzz_ record is a
+        # cut placeholder — neither is what the item does.
+        if COSMETIC_EDID.search(edid) or ZZZ_EDID.search(edid):
             continue
-        if CUSTOM_EDID.search(edid):
+        ap = _clean(omod_by_fid.get(fid, {}).get('AttachPoint_EDID')).lower()
+        if ap == 'ap_customname' or CUSTOM_EDID.search(edid):
             custom.append(_entry(edid, name, fid, omod_by_fid, 'unique'))
         else:
             fixed.append(_entry(edid, name, fid, omod_by_fid, 'preinstalled'))
@@ -152,14 +173,48 @@ def resolve_item_mods(item, idx):
     # 2./3. the custom OMOD that carries the item's name
     if not custom:
         rows = list(idx['omod_by_full'].get(key, []))
-        if not rows:
-            rows = [r for ed, r in idx['omod_by_edid'].items() if key and key in _norm(ed)]
+        # A by-name hit that turns out to be a paint or a model swap is not a
+        # reason to stop looking: the real custom mod is usually the EDID match
+        # sitting behind it. Piercing Love ships both, and the model swap won.
+        seen_fids = {_clean(r.get('OMOD_FormID')).upper() for r in rows}
+        for ed, r in idx['omod_by_edid'].items():
+            # A whole segment of the EDID has to BE the name. Plain substring
+            # matching let "Rage" claim Vengeful Rage's mutation name mod.
+            if key and any(_norm(seg) == key for seg in str(ed).split('_')):
+                f = _clean(r.get('OMOD_FormID')).upper()
+                if f not in seen_fids:
+                    seen_fids.add(f)
+                    rows.append(r)
         for r in rows:
             fid = _clean(r.get('OMOD_FormID')).upper()
             ed = _clean(r.get('OMOD_EDID'))
-            if FILLER_EDID.search(ed) or COSMETIC_EDID.search(ed):
+            full = _clean(r.get('FULL'))
+            if FILLER_EDID.search(ed) or ZZZ_EDID.search(ed):
                 continue
-            e = _entry(ed, r.get('FULL'), fid, omod_by_fid, 'unique')
+            # Cosmetics name themselves in the EDID sometimes and only in the
+            # FULL other times ("Red Terror Paint" on a clean EDID), so both get
+            # tested here.
+            if COSMETIC_EDID.search(ed) or COSMETIC_EDID.search(full):
+                continue
+            # This is a name match, not a structural one, so it has to look like
+            # a custom mod before it is believed: anything else sharing the
+            # item's name is a different record that happens to be named after
+            # it (the Cosmic Knife Super-Heated variant, a spare name mod).
+            ap = _clean(r.get('AttachPoint_EDID')).lower()
+            if (ap != 'ap_customname'
+                    and not CUSTOM_EDID.search(ed)
+                    and not _clean(r.get('DESC'))):
+                continue
+            # The name in the EDID is not enough on its own: a sibling item
+            # built on the same base carries it too (mod_custom_CosmicKnife_
+            # Superheated belongs to Cosmic Knife Super-Heated, its own row on
+            # the page). Believe it only when the mod is named after this item,
+            # carries effect text, or the EDID ends on the name.
+            if not (_norm(NAME_SUFFIX.sub('', full)) == key
+                    or _clean(r.get('DESC'))
+                    or _norm(str(ed).split('_')[-1]) == key):
+                continue
+            e = _entry(ed, full, fid, omod_by_fid, 'unique')
             if e['formId'] not in {y['formId'] for y in custom}:
                 custom.append(e)
 
