@@ -211,11 +211,8 @@ DEATHCLAW_EGG = {
     # Appalachia random-encounter spot. They render in their own "Random
     # Encounters" root expand (slotted alphabetically). Rate is the same nest
     # loot as a fixed nest — the encounter just decides WHERE the nest appears.
-    "random_encounters_intro": (
-        "Object random encounters place a <b>static Deathclaw nest</b> at a fixed "
-        "Appalachia random-encounter spot. Each nest rolls the same loot as any "
-        "other Deathclaw nest — the encounter just decides where the nest appears."
-    ),
+    # The table shows Encounter + Type only: no lead paragraph, no Editor ID /
+    # Form ID columns. `edid`/`formid` below stay for data work, not for display.
     "random_encounters": [
         {
             "name": "Deathclaw Nest vs Super Mutants",
@@ -424,6 +421,11 @@ FROG_EGG = {
     "name": "Frog Egg",
     "page_title": "Frog Egg Spawn Locations",
     "blurb": "Every known world spawn for Frog Eggs, grouped by region. Directions and photos are added by hand.",
+    # No Deathclaw-style Object random encounters place this egg, but the
+    # Random Encounters expand still renders (empty-state note) so every egg
+    # page carries the same set of expands. [] is the opt-in: a page whose
+    # JSON has random_encounters: null gets no section at all.
+    "random_encounters": [],
     "place_item_bases": True,   # pull-by-base (like Mappalachia); needs a local DB reseed
     "items": [
         {
@@ -503,6 +505,11 @@ MIRELURK_EGG = {
     "name": "Mirelurk Egg",
     "page_title": "Mirelurk Egg Spawn Locations",
     "blurb": "Every harvestable world spawn for Mirelurk Eggs, grouped by region. Hatching egg clutches are not mapped — they cannot be picked up. Directions and photos are added by hand.",
+    # No Deathclaw-style Object random encounters place this egg, but the
+    # Random Encounters expand still renders (empty-state note) so every egg
+    # page carries the same set of expands. [] is the opt-in: a page whose
+    # JSON has random_encounters: null gets no section at all.
+    "random_encounters": [],
     "place_item_bases": True,   # pull-by-base (like Mappalachia); needs a local DB reseed
     "items": [
         {
@@ -623,6 +630,11 @@ MOTHMAN_EGG = {
     "name": "Mothman Egg",
     "page_title": "Mothman Egg Spawn Locations",
     "blurb": "Every known world spawn for Mothman Eggs (regular and enlightened flora), grouped by region. Directions and photos are added by hand.",
+    # No Deathclaw-style Object random encounters place this egg, but the
+    # Random Encounters expand still renders (empty-state note) so every egg
+    # page carries the same set of expands. [] is the opt-in: a page whose
+    # JSON has random_encounters: null gets no section at all.
+    "random_encounters": [],
     "place_item_bases": True,   # pull-by-base (like Mappalachia); needs a local DB reseed
     "items": [
         {
@@ -801,6 +813,11 @@ RADSCORPION_EGG = {
     "name": "Radscorpion Egg",
     "page_title": "Radscorpion Egg Spawn Locations",
     "blurb": "Every known world spawn for Radscorpion Eggs, grouped by region. Directions and photos are added by hand.",
+    # No Deathclaw-style Object random encounters place this egg, but the
+    # Random Encounters expand still renders (empty-state note) so every egg
+    # page carries the same set of expands. [] is the opt-in: a page whose
+    # JSON has random_encounters: null gets no section at all.
+    "random_encounters": [],
     "place_item_bases": True,   # pull-by-base (like Mappalachia); needs a local DB reseed
     "items": [
         {
@@ -901,6 +918,11 @@ RADTOAD_EGG = {
     "name": "Radtoad Egg",
     "page_title": "Radtoad Egg Spawn Locations",
     "blurb": "Every known world spawn for Radtoad Eggs, grouped by region. Directions and photos are added by hand.",
+    # No Deathclaw-style Object random encounters place this egg, but the
+    # Random Encounters expand still renders (empty-state note) so every egg
+    # page carries the same set of expands. [] is the opt-in: a page whose
+    # JSON has random_encounters: null gets no section at all.
+    "random_encounters": [],
     "place_item_bases": True,   # pull-by-base (like Mappalachia); needs a local DB reseed
     "items": [
         {

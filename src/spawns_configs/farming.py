@@ -295,7 +295,6 @@ def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir, channel="l
         "additional_expands": cfg.get("additional_expands"),
         "info_notes": cfg.get("info_notes"),
         "random_encounters": cfg.get("random_encounters"),
-        "random_encounters_intro": cfg.get("random_encounters_intro"),
         "events_activities": events_activities,
         "regions": regions_out,
         "chance_spawns": chance_spawns,
