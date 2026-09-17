@@ -1,16 +1,18 @@
 {
   "version": 2,
-  "generated": "2026-09-16T14:36:21.105184+00:00",
+  "generated": "2026-09-17T01:39:42.385570+00:00",
   "mode": "vs-live",
   "season": null,
   "baseline": {
     "newest": "BOOK_Export_PTS_2026-09-16_1847.tsv",
     "previous": "BOOK_Export_September_2026.tsv",
     "newest_plan_count": 3084,
-    "previous_plan_count": 2935
+    "previous_plan_count": 2935,
+    "recipes_newest": "COBJ_Export_PTS_2026-09-16_2039.tsv",
+    "recipes_previous": "COBJ_Export_September_2026.tsv"
   },
-  "count": 158,
-  "count_new": 149,
+  "count": 168,
+  "count_new": 159,
   "count_changed": 9,
   "skipped_not_in_master": [],
   "groups": [
@@ -25,24 +27,41 @@
           "type": "recipe",
           "id": "PLAN_008D2AB9",
           "name": "Plan:  Lightning Hit Outfit",
-          "has_image_box": false,
+          "has_image_box": true,
           "image_dir": "apparel",
-          "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-          "category_label": "CAMP / Recipe (mod/recipe)",
+          "obtain": "Learned from a plan. It is not random loot — see below.",
+          "category_label": "CAMP / Recipe (physical plan)",
           "obtain_routes": [],
-          "obtain_unlocks": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Complete Bounty Hunts at these Locations."
+          ],
           "plan_item": {
             "formid": "008D2AB9",
             "edid": "zzzRTSV_Recipe_LightningHitOutfit"
           },
-          "cobj": null,
-          "cnam": null,
+          "cobj": {
+            "formid": "008D2ABB",
+            "edid": "RTSV_co_LightningHitOutfit"
+          },
+          "cnam": {
+            "formid": "008D2731",
+            "edid": "RTSV_LightningHitOutfit",
+            "sig": "ARMO"
+          },
           "tradeable": true,
           "stops_dropping": null,
           "effects": null,
-          "cut": true,
-          "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-          "obtain_ledger": [],
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
           "images": [],
           "image_source": "",
           "plan_page": "apparel",
@@ -170,7 +189,7 @@
     {
       "key": "armour",
       "label": "Armour",
-      "count": 12,
+      "count": 14,
       "items": [
         {
           "kind": "plan",
@@ -653,18 +672,25 @@
           "type": "recipe",
           "id": "PLAN_0092748C",
           "name": "Plan: Vault-Tec Vulcan Left Arm",
-          "has_image_box": false,
-          "image_dir": "recipes",
+          "has_image_box": true,
+          "image_dir": "power-armour",
           "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-          "category_label": "CAMP / Recipe (mod/recipe)",
+          "category_label": "CAMP / Recipe (physical plan)",
           "obtain_routes": [],
           "obtain_unlocks": [],
           "plan_item": {
             "formid": "0092748C",
             "edid": "zzzSCORE_S27_Recipe_Armor_PowerArmor_EnclaveVulcan_VaultTec_ArmLeft"
           },
-          "cobj": null,
-          "cnam": null,
+          "cobj": {
+            "formid": "00927492",
+            "edid": "zzzSCORE_S27_co_PowerArmor_EnclaveVulcan_VaultTec_ArmLeft"
+          },
+          "cnam": {
+            "formid": "00927486",
+            "edid": "zzzSCORE_S27_Armor_PowerArmor_EnclaveVulcan_VaultTec_ArmLeft",
+            "sig": "ARMO"
+          },
           "tradeable": false,
           "stops_dropping": null,
           "effects": null,
@@ -850,13 +876,107 @@
           "changes": [],
           "group": "armour",
           "is_new": true
+        },
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "brand": "df",
+          "type": "armour",
+          "id": "RECIPE_0090F5E5",
+          "name": "Spring Assisted",
+          "has_image_box": false,
+          "image_dir": "body-armour",
+          "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+          "category_label": "Armour Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Complete Head Hunts — 3 Quests Completed."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "0090F5E5",
+            "edid": "co_mod_armor_Leather_Lining_Limb_ThrownDamage"
+          },
+          "cnam": {
+            "formid": "0090F5F2",
+            "edid": "mod_armor_Leather_Lining_Limb_ThrownDamage",
+            "sig": "OMOD"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "plan_page": "body-armour",
+          "plan_page_group": null,
+          "group": "armour",
+          "is_new": true,
+          "images": [],
+          "image_source": ""
+        },
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "brand": "df",
+          "type": "armour",
+          "id": "RECIPE_0090E770",
+          "name": "Tattered Lining",
+          "has_image_box": false,
+          "image_dir": "body-armour",
+          "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+          "category_label": "Armour Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Start Head Hunts."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "0090E770",
+            "edid": "co_mod_armor_Robot_Lining_Torso_RadResistanceReduce"
+          },
+          "cnam": {
+            "formid": "0090E77D",
+            "edid": "mod_armor_Robot_Lining_Torso_RadResistanceReduce",
+            "sig": "OMOD"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "plan_page": "body-armour",
+          "plan_page_group": null,
+          "group": "armour",
+          "is_new": true,
+          "images": [],
+          "image_source": ""
         }
       ]
     },
     {
       "key": "camp",
       "label": "CAMP",
-      "count": 2,
+      "count": 3,
       "items": [
         {
           "kind": "plan",
@@ -864,28 +984,94 @@
           "type": "recipe",
           "id": "PLAN_008AC859",
           "name": "Plan: Brain In a Jar",
-          "has_image_box": false,
+          "has_image_box": true,
           "image_dir": "workshop",
-          "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-          "category_label": "CAMP / Recipe (mod/recipe)",
+          "obtain": "Learned from a plan. It is not random loot — see below.",
+          "category_label": "CAMP / Recipe (physical plan)",
           "obtain_routes": [],
-          "obtain_unlocks": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Find your first Brain in a Jar."
+          ],
           "plan_item": {
             "formid": "008AC859",
             "edid": "zzzRTSV_Workshop_Recipe_BrainInJar"
           },
-          "cobj": null,
-          "cnam": null,
+          "cobj": {
+            "formid": "008AC85A",
+            "edid": "RTSV_Workshop_CO_BrainInJar"
+          },
+          "cnam": {
+            "formid": "008AC85B",
+            "edid": "RTSV_Workshop_BrainInJar",
+            "sig": "FURN"
+          },
           "tradeable": true,
           "stops_dropping": null,
           "effects": null,
-          "cut": true,
-          "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-          "obtain_ledger": [],
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
           "images": [],
           "image_source": "",
           "plan_page": "camp",
           "plan_page_group": "C.A.M.P. Plans",
+          "changes": [],
+          "group": "camp",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_008D2ABA",
+          "name": "Plan: Lightning Hit Helmet",
+          "has_image_box": true,
+          "image_dir": "apparel",
+          "obtain": "Learned from a plan. It is not random loot — see below.",
+          "category_label": "CAMP / Recipe (physical plan)",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Complete Bounty Hunts at these Locations."
+          ],
+          "plan_item": {
+            "formid": "008D2ABA",
+            "edid": "zzzRTSV_Recipe_LightningHitHelmet"
+          },
+          "cobj": {
+            "formid": "008D2ABC",
+            "edid": "RTSV_co_LightningHitHelmet"
+          },
+          "cnam": {
+            "formid": "008D2732",
+            "edid": "RTSV_LightningHitHelmet",
+            "sig": "ARMO"
+          },
+          "tradeable": true,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "images": [],
+          "image_source": "",
+          "plan_page": "camp",
+          "plan_page_group": "Needs Sorting",
           "changes": [],
           "group": "camp",
           "is_new": true
@@ -940,39 +1126,299 @@
     {
       "key": "recipe",
       "label": "Recipes",
-      "count": 2,
+      "count": 8,
       "items": [
         {
           "kind": "plan",
+          "recipe_only": true,
           "brand": "df",
           "type": "recipe",
-          "id": "PLAN_008D2ABA",
-          "name": "Plan: Lightning Hit Helmet",
+          "id": "RECIPE_008B08BD",
+          "name": "Amplifying",
           "has_image_box": false,
-          "image_dir": "recipes",
-          "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-          "category_label": "CAMP / Recipe (mod/recipe)",
+          "image_dir": "weapons",
+          "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+          "category_label": "CAMP / Recipe Mod / Paint",
           "obtain_routes": [],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008D2ABA",
-            "edid": "zzzRTSV_Recipe_LightningHitHelmet"
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Find more Brains in Jars — 25 Dispensers Used."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "008B08BD",
+            "edid": "RTSV_CO_Mod_Stormslasher_Channeler01"
           },
-          "cobj": null,
-          "cnam": null,
-          "tradeable": true,
+          "cnam": {
+            "formid": "008B0907",
+            "edid": "mod_custom_StormSlasher_Channeler01",
+            "sig": "OMOD"
+          },
+          "tradeable": null,
           "stops_dropping": null,
           "effects": null,
-          "cut": true,
-          "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-          "obtain_ledger": [],
-          "images": [],
-          "image_source": "",
-          "plan_page": "camp",
-          "plan_page_group": "Needs Sorting",
+          "cut": false,
+          "cut_reason": null,
           "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "plan_page": "weapon",
+          "plan_page_group": null,
           "group": "recipe",
-          "is_new": true
+          "is_new": true,
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+          ],
+          "image_source": "weapon-mod"
+        },
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "brand": "df",
+          "type": "recipe",
+          "id": "RECIPE_008B2730",
+          "name": "Concussing",
+          "has_image_box": false,
+          "image_dir": "weapons",
+          "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+          "category_label": "CAMP / Recipe Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Find more Brains in Jars — 50 Dispensers Used."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "008B2730",
+            "edid": "RTSV_CO_Mod_Stormslasher_OneShot01"
+          },
+          "cnam": {
+            "formid": "008B2735",
+            "edid": "mod_custom_StormSlasher_OneShot01",
+            "sig": "OMOD"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "group": "recipe",
+          "is_new": true,
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+          ],
+          "image_source": "weapon-mod"
+        },
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "brand": "df",
+          "type": "recipe",
+          "id": "RECIPE_008B08C5",
+          "name": "Devastating",
+          "has_image_box": false,
+          "image_dir": "weapons",
+          "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+          "category_label": "CAMP / Recipe Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Find more Brains in Jars — 125 Dispensers Used."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "008B08C5",
+            "edid": "RTSV_CO_Mod_Stormslasher_Crusher01"
+          },
+          "cnam": {
+            "formid": "008B090B",
+            "edid": "mod_custom_StormSlasher_Crusher01",
+            "sig": "OMOD"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "group": "recipe",
+          "is_new": true,
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+          ],
+          "image_source": "weapon-mod"
+        },
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "brand": "df",
+          "type": "recipe",
+          "id": "RECIPE_00943AA3",
+          "name": "Fish Sauce",
+          "has_image_box": false,
+          "image_dir": "recipes",
+          "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+          "category_label": "Consumable Recipe",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Catch Winter Seasonal Local Legend: \"Fastenfisch\"."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "00943AA3",
+            "edid": "co_meal_Fishing_WinterFishSauce"
+          },
+          "cnam": {
+            "formid": "00943AA2",
+            "edid": "SeasonalFish_Meal_WinterFishSauce",
+            "sig": "ALCH"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "plan_page": "recipe",
+          "plan_page_group": null,
+          "group": "recipe",
+          "is_new": true,
+          "images": [],
+          "image_source": ""
+        },
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "brand": "df",
+          "type": "recipe",
+          "id": "RECIPE_008B08C7",
+          "name": "Focusing",
+          "has_image_box": false,
+          "image_dir": "weapons",
+          "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+          "category_label": "CAMP / Recipe Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Find more Brains in Jars — 100 Dispensers Used."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "008B08C7",
+            "edid": "RTSV_CO_Mod_Stormslasher_Stormwalker01"
+          },
+          "cnam": {
+            "formid": "008B090D",
+            "edid": "mod_custom_StormSlasher_Stormwalker01",
+            "sig": "OMOD"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "group": "recipe",
+          "is_new": true,
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+          ],
+          "image_source": "weapon-mod"
+        },
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "brand": "df",
+          "type": "recipe",
+          "id": "RECIPE_008B08BB",
+          "name": "Overheating",
+          "has_image_box": false,
+          "image_dir": "weapons",
+          "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+          "category_label": "CAMP / Recipe Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Find more Brains in Jars — 76 Dispensers Used."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "008B08BB",
+            "edid": "RTSV_CO_Mod_Stormslasher_Burning01"
+          },
+          "cnam": {
+            "formid": "008B0901",
+            "edid": "mod_custom_StormSlasher_Burning01",
+            "sig": "OMOD"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "group": "recipe",
+          "is_new": true,
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+          ],
+          "image_source": "weapon-mod"
         },
         {
           "kind": "plan",
@@ -1005,13 +1451,62 @@
           "changes": [],
           "group": "recipe",
           "is_new": true
+        },
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "brand": "df",
+          "type": "recipe",
+          "id": "RECIPE_008B08C3",
+          "name": "Sparking",
+          "has_image_box": false,
+          "image_dir": "weapons",
+          "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+          "category_label": "CAMP / Recipe Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Find more Brains in Jars — 5 Dispensers Used."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "008B08C3",
+            "edid": "RTSV_CO_Mod_Stormslasher_Static01"
+          },
+          "cnam": {
+            "formid": "008B0903",
+            "edid": "mod_custom_StormSlasher_Static01",
+            "sig": "OMOD"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "group": "recipe",
+          "is_new": true,
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+          ],
+          "image_source": "weapon-mod"
         }
       ]
     },
     {
       "key": "weapon",
       "label": "Weapons",
-      "count": 139,
+      "count": 140,
       "items": [
         {
           "kind": "plan",
@@ -1390,8 +1885,8 @@
             "edid": "recipe_mod_50CalMachineGun_Magazine_Ammo-ArmorPen"
           },
           "cobj": {
-            "formid": "",
-            "edid": ""
+            "formid": "00948282",
+            "edid": "co_mod_50CalMachineGun_Magazine_Ammo-ArmorPen"
           },
           "cnam": {
             "formid": "009482B3",
@@ -2569,7 +3064,7 @@
           "kind": "plan",
           "brand": "df",
           "type": "weapon",
-          "id": "PLAN_0094CE40",
+          "id": "PLAN_0094CE39",
           "name": "Plan: Crusader Pistol Vicious Receiver",
           "has_image_box": false,
           "image_dir": "weapons",
@@ -2578,16 +3073,16 @@
           "obtain_routes": [],
           "obtain_unlocks": [],
           "plan_item": {
-            "formid": "0094CE40",
-            "edid": "recipe_mod_BoSPistol_Receiver_CritDMG-HipAccuracy"
+            "formid": "0094CE39",
+            "edid": "recipe_mod_BoSPistol_Receiver_Damage-CritDMG"
           },
           "cobj": {
-            "formid": "0094CE44",
-            "edid": "co_mod_BoSPistol_Receiver_CritDMG-HipAccuracy"
+            "formid": "0094CE55",
+            "edid": "co_mod_BoSPistol_Receiver_Damage-CritDMG"
           },
           "cnam": {
-            "formid": "0094CE82",
-            "edid": "mod_BoSPistol_Receiver_CritDMG-HipAccuracy",
+            "formid": "0094CE80",
+            "edid": "mod_BoSPistol_Receiver_Damage-CritDMG",
             "sig": "OMOD"
           },
           "tradeable": true,
@@ -2614,7 +3109,7 @@
           "kind": "plan",
           "brand": "df",
           "type": "weapon",
-          "id": "PLAN_0094CE39",
+          "id": "PLAN_0094CE40",
           "name": "Plan: Crusader Pistol Vicious Receiver",
           "has_image_box": false,
           "image_dir": "weapons",
@@ -2623,16 +3118,16 @@
           "obtain_routes": [],
           "obtain_unlocks": [],
           "plan_item": {
-            "formid": "0094CE39",
-            "edid": "recipe_mod_BoSPistol_Receiver_Damage-CritDMG"
+            "formid": "0094CE40",
+            "edid": "recipe_mod_BoSPistol_Receiver_CritDMG-HipAccuracy"
           },
           "cobj": {
-            "formid": "0094CE55",
-            "edid": "co_mod_BoSPistol_Receiver_Damage-CritDMG"
+            "formid": "0094CE44",
+            "edid": "co_mod_BoSPistol_Receiver_CritDMG-HipAccuracy"
           },
           "cnam": {
-            "formid": "0094CE80",
-            "edid": "mod_BoSPistol_Receiver_Damage-CritDMG",
+            "formid": "0094CE82",
+            "edid": "mod_BoSPistol_Receiver_CritDMG-HipAccuracy",
             "sig": "OMOD"
           },
           "tradeable": true,
@@ -3167,8 +3662,8 @@
             "edid": "recipe_mod_GaussShotgun_Barrel_Shielded_Recoil-HipAccuracy"
           },
           "cobj": {
-            "formid": "",
-            "edid": ""
+            "formid": "00949009",
+            "edid": "co_mod_GaussShotgun_Barrel_Shielded_Recoil-HipAccuracy"
           },
           "cnam": {
             "formid": "0094902F",
@@ -3518,8 +4013,8 @@
             "edid": "recipe_mod_GaussShotgun_Receiver_FastTrigger-HipAccuracy"
           },
           "cobj": {
-            "formid": "",
-            "edid": ""
+            "formid": "0057375A",
+            "edid": "co_mod_GaussShotgun_Receiver_FastTrigger-HipAccuracy"
           },
           "cnam": {
             "formid": "00573744",
@@ -7559,6 +8054,55 @@
           "changes": [],
           "group": "weapon",
           "is_new": true
+        },
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "brand": "df",
+          "type": "weapon",
+          "id": "RECIPE_008EC313",
+          "name": "Retaliator's",
+          "has_image_box": false,
+          "image_dir": "weapons",
+          "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Find more Brains in Jars — 150 Dispensers Used."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "008EC313",
+            "edid": "co_mod_Legendary_Weapon4_Melee_Retaliators"
+          },
+          "cnam": {
+            "formid": "008DB74A",
+            "edid": "mod_Legendary_Weapon4_Melee_Retaliators",
+            "sig": "OMOD"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "group": "weapon",
+          "is_new": true,
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+          ],
+          "image_source": "weapon-mod"
         }
       ]
     }

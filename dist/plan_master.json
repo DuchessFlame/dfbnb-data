@@ -1,7 +1,7 @@
 {
   "version": 1,
   "generated": "2026-09-16T14:15:28.550381+00:00",
-  "count": 2901,
+  "count": 2938,
   "source_files": {
     "WEAP": "WEAP_Export_September_2026_Base.tsv",
     "ARMO": "ARMO_Export_July_2026_ARMOUR.tsv",
@@ -43,13 +43,18 @@
           "key": "upgrade",
           "label": "Rod Upgrades",
           "blurb": "The one-off rod mods — drag, handle, bearing, hook and gear ratio."
+        },
+        {
+          "key": "display",
+          "label": "Display Replicas",
+          "blurb": "Souvenir copies for the CAMP — they go on a shelf, not on a rod."
         }
       ],
       "grouping": null,
       "dataset": false,
       "note": [
-        "Plans only.",
-        "Most rod skins and bobbers are Atom Shop or scoreboard unlocks rather than plans you learn, so they are not tracked here. The full set of rods, bobbers and floats is on the Fishing Rod Skins, Bobbers & Floats guide."
+        "Plans and recipes.",
+        "Rod gear you learn is all here, however you learn it — from a plan, or handed over for finishing a fishing challenge. The handful still missing are Atom Shop or scoreboard unlocks with no recipe to learn at all; the complete set of rods, bobbers and floats is on the Fishing Rod Skins, Bobbers & Floats guide."
       ]
     },
     "camera-mod": {
@@ -2414,7 +2419,10 @@
         "formid": "004E484D",
         "edid": "zzz_Recipe_Workshop_Bed_BedMattress"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "005059E4",
+        "edid": "workshop_co_CondProxy_Bed_BedMattress"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -2568,7 +2576,10 @@
         "formid": "004E4852",
         "edid": "zzz_Recipe_Workshop_Bed_BedMetal"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "005059E5",
+        "edid": "workshop_co_CondProxy_Bed_BedMetal"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -19097,7 +19108,10 @@
         "formid": "004F478B",
         "edid": "CUT_Recipe_Weapon_Ranged_LaserMusket"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "0000417A",
+        "edid": "CUT_co_Weapon_Ranged_LaserMusket"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -47244,8 +47258,8 @@
         "edid": "CUT_recipe_mod_LaserMusket_Scope_ScopeMedium_NV"
       },
       "cobj": {
-        "formid": "",
-        "edid": ""
+        "formid": "001AE331",
+        "edid": "CUT_co_mod_LaserMusket_Scope_ScopeMedium_NV"
       },
       "cnam": {
         "formid": "001AE329",
@@ -48493,8 +48507,8 @@
         "edid": "CUT_recipe_mod_LaserMusket_Scope_ScopeLong_NV"
       },
       "cobj": {
-        "formid": "",
-        "edid": ""
+        "formid": "001AE32F",
+        "edid": "CUT_co_mod_LaserMusket_Scope_ScopeLong_NV"
       },
       "cnam": {
         "formid": "001AE327",
@@ -53587,8 +53601,8 @@
         "edid": "CUT_recipe_mod_LaserMusket_Scope_ScopeShort_NV"
       },
       "cobj": {
-        "formid": "",
-        "edid": ""
+        "formid": "001AE333",
+        "edid": "CUT_co_mod_LaserMusket_Scope_ScopeShort_NV"
       },
       "cnam": {
         "formid": "001AE32B",
@@ -64559,7 +64573,10 @@
         "formid": "003D64FF",
         "edid": "zzz_Recipe_Workshop_Shelves_MagazineRackContainer01"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "001D4CB0",
+        "edid": "zzz_workshop_co_Shelves_MagazineRackContainer01"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -92265,12 +92282,12 @@
         "edid": "recipe_mod_PowerArmor_X01_Helmet_Headlamp"
       },
       "cobj": {
-        "formid": "",
-        "edid": ""
+        "formid": "0019D97F",
+        "edid": "co_mod_PowerArmor_X01_Helmet_Headlamp"
       },
       "cnam": {
-        "formid": "0042A5EC",
-        "edid": "mod_PowerArmor_X01_Helmet_Headlamp",
+        "formid": "0016B6E5",
+        "edid": "mod_PowerArmor_X01_Helmet_Headlamp_Selector",
         "sig": "OMOD"
       },
       "tradeable": true,
@@ -103168,8 +103185,8 @@
         "edid": "recipe_mod_SubmachineGun_Receiver_ScorchedKiller"
       },
       "cobj": {
-        "formid": "",
-        "edid": ""
+        "formid": "003C3443",
+        "edid": "co_mod_SubmachineGun_Receiver_ScorchedKiller"
       },
       "cnam": {
         "formid": "003C3460",
@@ -103489,15 +103506,22 @@
       "has_image_box": false,
       "image_dir": "recipes",
       "obtain": "Learned from a plan. No source was resolved from the game files — see Technical for the recipe details.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "Consumable Recipe",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "004304E0",
         "edid": "Recipe_RSVP00_Cramburger"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "003E9FAC",
+        "edid": "co_meal_Cramburger_RSVP02"
+      },
+      "cnam": {
+        "formid": "003E9FA6",
+        "edid": "Cramburger_RSVP02",
+        "sig": "ALCH"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -103506,8 +103530,8 @@
       "obtain_ledger": [],
       "images": [],
       "image_source": "",
-      "plan_page": "camp",
-      "plan_page_group": "Needs Sorting",
+      "plan_page": "recipe",
+      "plan_page_group": null,
       "changes": []
     },
     {
@@ -122862,18 +122886,25 @@
       "type": "recipe",
       "id": "PLAN_0046A36C",
       "name": "Plan: Standard Backpack",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "backpack",
       "obtain": "Learned from a plan. No source was resolved from the game files — see Technical for the recipe details.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "0046A36C",
         "edid": "Recipe_Armor_Backpack_Standard"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "004275E8",
+        "edid": "co_Armor_Backpack_Standard"
+      },
+      "cnam": {
+        "formid": "004275E9",
+        "edid": "Armor_Backpack_Standard",
+        "sig": "ARMO"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -122990,7 +123021,10 @@
         "formid": "0046A3AD",
         "edid": "zzz_Recipe_Backpack_Material_Red"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "00478796",
+        "edid": "zzz_co_mod_BackPack_Material_Red"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -123020,7 +123054,10 @@
         "formid": "0046A3B0",
         "edid": "zzz_Recipe_Backpack_Material_Yellow"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "00478799",
+        "edid": "zzz_co_mod_BackPack_Material_Yellow"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -123189,7 +123226,10 @@
         "formid": "0046A3AA",
         "edid": "zzz_Recipe_Backpack_Material_Blue"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "00478792",
+        "edid": "zzz_co_mod_BackPack_Material_Blue"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -123249,7 +123289,10 @@
         "formid": "0046A3AE",
         "edid": "zzz_Recipe_Backpack_Material_VaultTec"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "00478797",
+        "edid": "zzz_co_mod_BackPack_Material_VaultTec"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -123279,7 +123322,10 @@
         "formid": "0046A3AC",
         "edid": "zzz_Recipe_Backpack_Material_Pink"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "00478795",
+        "edid": "zzz_co_mod_BackPack_Material_Pink"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -123547,7 +123593,10 @@
         "formid": "0046A3AF",
         "edid": "zzz_Recipe_Backpack_Material_White"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "00478798",
+        "edid": "zzz_co_mod_BackPack_Material_White"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -123696,7 +123745,10 @@
         "formid": "0046A3AB",
         "edid": "zzz_Recipe_Backpack_Material_Green"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "00478794",
+        "edid": "zzz_co_mod_BackPack_Material_Green"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -125146,7 +125198,10 @@
         "formid": "003F446B",
         "edid": "Recipe_Brewing_FirecrackerWhiskey_Manhattan"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "003EC2C2",
+        "edid": "co_Brewing_FirecrackerWhiskey_Manhattan"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -125176,7 +125231,10 @@
         "formid": "003F446C",
         "edid": "Recipe_Brewing_FirecrackerWhiskey_OldFashioned"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "003EC2C3",
+        "edid": "co_Brewing_FirecrackerWhiskey_OldFashioned"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -125500,7 +125558,7 @@
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Reward for completing a challenge."
+        "Reward for completing the challenge: Craft different types of alcohol"
       ],
       "plan_item": {
         "formid": "003F4749",
@@ -125829,7 +125887,10 @@
         "formid": "003F4B2C",
         "edid": "zzzRecipe_Headwear_Fasnacht_Beret"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "003F5C4A",
+        "edid": "zzz_co_Headwear_Fasnacht_Beret"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -130603,7 +130664,10 @@
         "formid": "00556F1D",
         "edid": "Recipe_Workshop_Appliances_Grill_SuperMutant"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "00556F1E",
+        "edid": "workshop_co_CondProxy_Appliances_Grill_SuperMutant"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -133041,7 +133105,10 @@
         "formid": "00589620",
         "edid": "zzz_Recipe_Tinkers_SoundmakerGrenade"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "00589617",
+        "edid": "zzz_co_Tinkers_SoundmakerGrenade"
+      },
       "cnam": null,
       "tradeable": false,
       "stops_dropping": null,
@@ -133239,7 +133306,10 @@
         "formid": "0058961F",
         "edid": "zzz_Recipe_Tinkers_GrenadeFlashbang"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "0058961A",
+        "edid": "zzz_co_Tinkers_GrenadeFlashbang"
+      },
       "cnam": null,
       "tradeable": false,
       "stops_dropping": null,
@@ -135738,8 +135808,8 @@
         "edid": "POST_recipe_mod_GaussMiniGun_Barrel_Hex"
       },
       "cobj": {
-        "formid": "",
-        "edid": ""
+        "formid": "00575E7A",
+        "edid": "POST_co_mod_GaussMinigun_Barrel_Hex"
       },
       "cnam": {
         "formid": "005754BD",
@@ -136202,8 +136272,8 @@
         "edid": "POST_recipe_mod_Crossbow_receiver_Firework"
       },
       "cobj": {
-        "formid": "",
-        "edid": ""
+        "formid": "0059045F",
+        "edid": "POST_co_mod_Crossbow_Receiver_Firework"
       },
       "cnam": {
         "formid": "00590458",
@@ -143449,8 +143519,15 @@
         "formid": "005B2AED",
         "edid": "zzz_BS00_Recipe_Workshop_FloorDecor_BoS_StandingBanner"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "005B2AEE",
+        "edid": "BS00_workshop_co_StandingBanner"
+      },
+      "cnam": {
+        "formid": "005CBE7F",
+        "edid": "BS00_BoS_StandingBanner_Reward",
+        "sig": "FURN"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -153235,8 +153312,8 @@
         "edid": "recipe_mod_PowerArmor_Hellcat_Leg_Misc_ExplVent"
       },
       "cobj": {
-        "formid": "",
-        "edid": ""
+        "formid": "0060DB07",
+        "edid": "co_mod_PowerArmor_Hellcat_Leg_Misc_ExplVent"
       },
       "cnam": {
         "formid": "0060DB37",
@@ -154339,8 +154416,8 @@
         "edid": "recipe_mod_PowerArmor_Hellcat_Torso_Misc_Str"
       },
       "cobj": {
-        "formid": "",
-        "edid": ""
+        "formid": "0060DB12",
+        "edid": "co_mod_PowerArmor_Hellcat_Torso_Misc_Str"
       },
       "cnam": {
         "formid": "0060DB2E",
@@ -166236,7 +166313,10 @@
         "formid": "0064015B",
         "edid": "zzzE08A_Recipe_Workshop_WallDecor_Posters_Moonshine"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "0064015F",
+        "edid": "zzz_E08A_workshop_co_WallDecor_Posters_Moonshine"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -168663,17 +168743,20 @@
       "type": "recipe",
       "id": "PLAN_0067A92A",
       "name": "Plan:  Nuka-Bin",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "0067A92A",
         "edid": "zzzE09B_Workshop_Recipe_Bin"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "0067A912",
+        "edid": "zzz_E09B_Workshop_CO_Bin"
+      },
       "cnam": null,
       "tradeable": false,
       "stops_dropping": null,
@@ -169791,18 +169874,25 @@
       "type": "recipe",
       "id": "PLAN_0067F171",
       "name": "Plan: Nuka-World Cowboy Chaps",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "recipes",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "0067F171",
         "edid": "zzzE09D_Recipe_NukaCowboyChaps"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "0067FA48",
+        "edid": "SCORE_S11_co_Clothes_Outfit_NukaCowboyChaps"
+      },
+      "cnam": {
+        "formid": "0067FA46",
+        "edid": "SCORE_S11_Clothes_ARMO_Outfit_NukaCowboyChaps",
+        "sig": "ARMO"
+      },
       "tradeable": false,
       "stops_dropping": null,
       "effects": null,
@@ -170672,8 +170762,15 @@
         "formid": "0068211B",
         "edid": "NWOT_Recipe_Workshop_FloorDecor_LargeUltraciteShard"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "00682121",
+        "edid": "E09A_workshop_co_FloorDecor_UltraciteShard"
+      },
+      "cnam": {
+        "formid": "0068312A",
+        "edid": "E09A_Workshop_Ultracite_Shard_Large",
+        "sig": "FURN"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -172802,8 +172899,15 @@
         "formid": "00696249",
         "edid": "zzz_Recipe_Workshop_FloaterGnasher"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "00592EB3",
+        "edid": "co_Tinkers_FloaterGnasherGrenade"
+      },
+      "cnam": {
+        "formid": "00592EA9",
+        "edid": "FloaterGnasherGrenade",
+        "sig": "WEAP"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -173002,8 +173106,15 @@
         "formid": "00696248",
         "edid": "zzz_Recipe_Workshop_FloaterFreezer"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "00592EB2",
+        "edid": "co_Tinkers_FloaterFreezerGrenade"
+      },
+      "cnam": {
+        "formid": "00592EAB",
+        "edid": "FloaterFreezerGrenade",
+        "sig": "WEAP"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -174161,17 +174272,20 @@
       "type": "recipe",
       "id": "PLAN_00691D04",
       "name": "Plan: Blue Ridge Shipping Container",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "00691D04",
         "edid": "zzz_MOON_Ambush_Workshop_Recipe_ShippingContainer"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "00691D18",
+        "edid": "zzz_MOON_Ambush_Workshop_CO_ShippingContainer"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -174424,17 +174538,20 @@
       "type": "recipe",
       "id": "PLAN_00691D0F",
       "name": "Plan: Blue Corvega Trailer with Junk",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "00691D0F",
         "edid": "zzz_MOON_Herd_Workshop_Recipe_TrailerCar"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "00691D17",
+        "edid": "zzz_MOON_Herd_Workshop_CO_TrailerCar"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -174744,18 +174861,25 @@
       "type": "recipe",
       "id": "PLAN_00691D5B",
       "name": "Plan: Blue Ridge Trucker Cap",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "00691D5B",
         "edid": "zzz_MOON_Ambush_Workshop_Recipe_TruckerHat"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "00691D5D",
+        "edid": "ATX_co_Clothes_Headwear_TruckerHat_BlueRidge"
+      },
+      "cnam": {
+        "formid": "00691D58",
+        "edid": "ATX_Headwear_BlueRidgeTruckerHat",
+        "sig": "ARMO"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -174774,17 +174898,20 @@
       "type": "recipe",
       "id": "PLAN_00691D5A",
       "name": "Plan: Blue Devil Claws",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "00691D5A",
         "edid": "zzz_MOON_Herd_Workshop_Recipe_BlueDevilClaws"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "00691D5E",
+        "edid": "zzz_MOON_Herd_Workshop_CO_BlueDevilClaws"
+      },
       "cnam": null,
       "tradeable": false,
       "stops_dropping": null,
@@ -174804,17 +174931,20 @@
       "type": "recipe",
       "id": "PLAN_00691D59",
       "name": "Plan: Ogua Eggs",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "00691D59",
         "edid": "zzz_MOON_Ambush_Workshop_Recipe_OguaEggs"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "00691D5C",
+        "edid": "zzz_Moon_Ambush_Workshop_CO_OguaEggs"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -179453,18 +179583,25 @@
       "type": "recipe",
       "id": "PLAN_00728187",
       "name": "Plan: Flaming Skull Rider Helmet",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "recipes",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "00728187",
         "edid": "zzzRecipe_Headwear_SkullRider_Flaming"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "006EF77D",
+        "edid": "ATX_co_Clothes_Headwear_SkullRider_Flaming"
+      },
+      "cnam": {
+        "formid": "006EF77A",
+        "edid": "ATX_ARMO_Headwear_SkullRider_Flaming",
+        "sig": "ARMO"
+      },
       "tradeable": false,
       "stops_dropping": null,
       "effects": null,
@@ -179687,18 +179824,25 @@
       "type": "recipe",
       "id": "PLAN_0072818A",
       "name": "Plan: Skull Rider Helmet",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "recipes",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "0072818A",
         "edid": "zzzRecipe_Headwear_SkullRider"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "006EF77B",
+        "edid": "ATX_co_Clothes_Headwear_SkullRider"
+      },
+      "cnam": {
+        "formid": "006EF778",
+        "edid": "ATX_ARMO_Headwear_SkullRider",
+        "sig": "ARMO"
+      },
       "tradeable": false,
       "stops_dropping": null,
       "effects": null,
@@ -181663,7 +181807,10 @@
         "formid": "006E735C",
         "edid": "zzz_Recipe_XPD_AC_Plan_Headwear_MuniOutfit"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "006E736A",
+        "edid": "zzz_XPD_AC_co_Headwear_MuniOutfit"
+      },
       "cnam": null,
       "tradeable": false,
       "stops_dropping": null,
@@ -187528,7 +187675,10 @@
         "formid": "0072E371",
         "edid": "zzz_Recipe_Workshop_FloorDecor_StrawGoat_OLD"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "0072E37B",
+        "edid": "zzz_workshop_co_FloorDecor_StrawGoat_OLD"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -188714,7 +188864,10 @@
         "formid": "0072DB2E",
         "edid": "DEL_Recipe_Workshop_FloorDecor_PlastiformSantaSleigh"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "0072DB31",
+        "edid": "DEL_workshop_co_CondProxy_FloorDecor_PlastiformSantaSleigh"
+      },
       "cnam": null,
       "tradeable": false,
       "stops_dropping": null,
@@ -188744,8 +188897,15 @@
         "formid": "0072DB2F",
         "edid": "zzz_Recipe_Workshop_Lights_StarLight"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "0072DB37",
+        "edid": "workshop_co_LL_Lights_StarLight"
+      },
+      "cnam": {
+        "formid": "0072DB4F",
+        "edid": "workshop_LL_Lights_StarLight",
+        "sig": "FURN"
+      },
       "tradeable": false,
       "stops_dropping": null,
       "effects": null,
@@ -188804,7 +188964,10 @@
         "formid": "0072DB29",
         "edid": "DEL_Recipe_Workshop_FloorDecor_PlastiformNutcracker"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "0072DB30",
+        "edid": "DEL_workshop_co_CondProxy_FloorDecor_PlastiformNutcracker"
+      },
       "cnam": null,
       "tradeable": false,
       "stops_dropping": null,
@@ -188834,7 +188997,10 @@
         "formid": "0072DB2A",
         "edid": "DEL_Recipe_Workshop_FloorDecor_PlastiformGingerBread"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "0072DB34",
+        "edid": "DEL_workshop_co_CondProxy_FloorDecor_PlastiformGingerBread"
+      },
       "cnam": null,
       "tradeable": false,
       "stops_dropping": null,
@@ -188864,7 +189030,10 @@
         "formid": "0072DB2B",
         "edid": "DEL_Recipe_Workshop_Lights_PlastiformCandle"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "0072DB32",
+        "edid": "DEL_workshop_co_CondProxy_Lights_PlastiformCandle"
+      },
       "cnam": null,
       "tradeable": false,
       "stops_dropping": null,
@@ -188894,7 +189063,10 @@
         "formid": "0072DB2C",
         "edid": "DEL_Recipe_Workshop_FloorDecor_PlastiformSanta"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "0072DB38",
+        "edid": "DEL_workshop_co_CondProxy_FloorDecor_PlastiformSanta"
+      },
       "cnam": null,
       "tradeable": false,
       "stops_dropping": null,
@@ -188924,8 +189096,15 @@
         "formid": "0072DB2D",
         "edid": "zzz_Recipe_Workshop_FloorDecor_StrawGoat"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "0086826D",
+        "edid": "workshop_co_FloorDecor_StrawGoat_Default"
+      },
+      "cnam": {
+        "formid": "0072E390",
+        "edid": "StrawGoat01",
+        "sig": "FURN"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -192777,8 +192956,8 @@
         "edid": "zzz_recipe_mod_Cremator_Receiver_TankNapalm"
       },
       "cobj": {
-        "formid": "",
-        "edid": ""
+        "formid": "00729BB1",
+        "edid": "co_mod_Cremator_Receiver_TankNapalm"
       },
       "cnam": {
         "formid": "00729BF5",
@@ -193002,17 +193181,20 @@
       "type": "recipe",
       "id": "PLAN_0072EA9F",
       "name": "Plan: Rad Pheasant Mount",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "0072EA9F",
         "edid": "zzzMILE_Workshop_Recipe_RadPheasantTaxidermy"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "0072EAA1",
+        "edid": "zzzMILE_Workshop_CO_RadPheasantTaxidermy"
+      },
       "cnam": null,
       "tradeable": false,
       "stops_dropping": null,
@@ -194187,8 +194369,15 @@
         "formid": "00749CD2",
         "edid": "Storm_Recipe_Workshop_FloorDecor_Vault63Door"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "00749CD4",
+        "edid": "ATX_workshop_co_Decorations_Vault63DoorDisplay"
+      },
+      "cnam": {
+        "formid": "00768740",
+        "edid": "ATX_Storm_Vault63Door_ACTI",
+        "sig": "ACTI"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -194371,8 +194560,15 @@
         "formid": "007539F6",
         "edid": "zzz_ATX_Recipe_Workshop_FloorDecor_Radpheasant_Plushie"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "0079019B",
+        "edid": "ATX_workshop_co_Tinkers_PheasantPlushie"
+      },
+      "cnam": {
+        "formid": "0079019D",
+        "edid": "ATX_PheasantPlushie_Misc",
+        "sig": "MISC"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -195038,18 +195234,25 @@
       "type": "recipe",
       "id": "PLAN_00759C57",
       "name": "Plan: Thrasher Mask",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "apparel",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "00759C57",
         "edid": "ZZZStorm_Headwear_Recipe_RadTurkey_Mask"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "00759C59",
+        "edid": "SCORE_S17_co_Headwear_RadTurkey_Mask"
+      },
+      "cnam": {
+        "formid": "00759C55",
+        "edid": "SCORE_S17_ARMO_Headwear_RadTurkey_Mask",
+        "sig": "ARMO"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -196153,7 +196356,10 @@
         "formid": "0076E835",
         "edid": "zzzStorm_Recipe_Workshop_FloorDecor_SpecimenJar"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "0076E839",
+        "edid": "zzzStorm_workshop_co_FloorDecor_SpecimenJar"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -198562,15 +198768,22 @@
       "has_image_box": false,
       "image_dir": "backpack",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe Mod / Paint",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "0077299B",
         "edid": "ZZZ_Storm_Recipe_PipeQuiver_Backpack"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "0072AEB2",
+        "edid": "SCORE_S17_co_Armor_Backpack_PipeQuiver"
+      },
+      "cnam": {
+        "formid": "006F8ABC",
+        "edid": "SCORE_S17_mod_BackPack_PipeQuiver_Material_Default",
+        "sig": "OMOD"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -198652,8 +198865,15 @@
         "formid": "00772998",
         "edid": "zzzStorm_Recipe_Workshop_FloorDecor_TurkeyEgg"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "0077299F",
+        "edid": "SCORE_S17_workshop_co_FloorDecor_ThrasherEgg"
+      },
+      "cnam": {
+        "formid": "007729A4",
+        "edid": "SCORE_S17_FloorDecor_ThrasherEgg",
+        "sig": "FURN"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -199157,17 +199377,20 @@
       "type": "recipe",
       "id": "PLAN_0078211E",
       "name": "Plan: Thrasher Outfit",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "apparel",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "0078211E",
         "edid": "ZZZ_Storm_Clothes_Workshop_Recipe_RadTurkey"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "0078211F",
+        "edid": "ZZZ_Storm_Clothes_Workshop_CO_RadTurkey"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -200124,17 +200347,20 @@
       "type": "recipe",
       "id": "PLAN_00782CF6",
       "name": "Plan: Jack o' Lantern Backpack",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "backpack",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "00782CF6",
         "edid": "zzzMN2_Workshop_Recipe_Jack-o-LanternBackpack"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "00782CF7",
+        "edid": "zzzMN2_Workshop_CO_Jack-o-LanternBackpack"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -206451,8 +206677,8 @@
         "edid": "DEL_RD01_Recipe_Mod_PowerArmor_EnclaveVulcan_Helmet_Headlamp_Laser"
       },
       "cobj": {
-        "formid": "",
-        "edid": ""
+        "formid": "00793E4A",
+        "edid": "DEL_RD01_co_Mod_PowerArmor_EnclaveVulcan_Helmet_Headlamp_Laser"
       },
       "cnam": {
         "formid": "00793E56",
@@ -208393,17 +208619,20 @@
       "type": "recipe",
       "id": "PLAN_007A7419",
       "name": "Plan: Enclave Epsilon Squad Tank",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "007A7419",
         "edid": "DEL_RD01_Workshop_Recipe_FloorDecor_EnclaveEpsilonSquadTank"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "007A7418",
+        "edid": "DEL_RD01_co_Workshop_FloorDecor_EnclaveEpsilonSquadTank"
+      },
       "cnam": null,
       "tradeable": false,
       "stops_dropping": null,
@@ -210456,7 +210685,10 @@
         "formid": "007AC031",
         "edid": "CUT_Recipe_Workshop_FloorDecor_FasnachtCommemorativeStein"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "007AC032",
+        "edid": "CUT_Workshop_co_Condproxy_FloorDecor_FasnachtCommemorativeStein"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -211470,7 +211702,10 @@
         "formid": "007B3F41",
         "edid": "zzz_SCORE_S19_Recipe_Teslacannon_DirectCurrentMuzzle_StampVendor"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "007B3F18",
+        "edid": "SCORE_S19_co_Weapon_TeslaCannon_DirectCurrentMuzzle_StampVendor"
+      },
       "cnam": null,
       "tradeable": false,
       "stops_dropping": null,
@@ -211532,18 +211767,25 @@
       "type": "recipe",
       "id": "PLAN_007B3F45",
       "name": "Plan: Tesla Cannon",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "recipes",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "007B3F45",
         "edid": "zzz_SCORE_S19_Recipe_Teslacannon_StampVendor_Copy01"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007999EE",
+        "edid": "SCORE_S19_co_Weapon_Ranged_TeslaCannon"
+      },
+      "cnam": {
+        "formid": "0079AC42",
+        "edid": "TeslaCannon",
+        "sig": "WEAP"
+      },
       "tradeable": false,
       "stops_dropping": null,
       "effects": null,
@@ -212740,24 +212982,41 @@
       "type": "recipe",
       "id": "PLAN_007A8349",
       "name": "Plan: Mirelurk Plushie",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Complete Daily Fishing Quests — 7 Quests Completed."
+      ],
       "plan_item": {
         "formid": "007A8349",
         "edid": "zzz_Fishing_Workshop_Recipe_MirelurkPlushie"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007A834B",
+        "edid": "Fishing_workshop_co_CondProxy_FloorDecor_MirelurkPlushie"
+      },
+      "cnam": {
+        "formid": "007A834D",
+        "edid": "Fishing_Workshop_Item_MirelurkPlushie",
+        "sig": "FURN"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -212770,24 +213029,41 @@
       "type": "recipe",
       "id": "PLAN_007A8350",
       "name": "Plan: Crab Boat Plushie",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Complete Daily Fishing Quests — 28 Quests Completed."
+      ],
       "plan_item": {
         "formid": "007A8350",
         "edid": "zzz_Fishing_Workshop_Recipe_CrabBoatPlushie"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007A8352",
+        "edid": "Fishing_workshop_co_CondProxy_FloorDecor_CrabBoatPlushie"
+      },
+      "cnam": {
+        "formid": "007A8354",
+        "edid": "Fishing_Workshop_Item_CrabBoatPlushie",
+        "sig": "FURN"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -212800,24 +213076,41 @@
       "type": "recipe",
       "id": "PLAN_007A8357",
       "name": "Plan: Angler Plushie",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Complete Daily Fishing Quests — 14 Quests Completed."
+      ],
       "plan_item": {
         "formid": "007A8357",
         "edid": "zzz_Fishing_Workshop_Recipe_AnglerPlushie"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007A8359",
+        "edid": "Fishing_workshop_co_CondProxy_FloorDecor_AnglerPlushie"
+      },
+      "cnam": {
+        "formid": "007A835B",
+        "edid": "Fishing_Workshop_Item_AnglerPlushie",
+        "sig": "FURN"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -213208,24 +213501,41 @@
       "type": "recipe",
       "id": "PLAN_007B6D88",
       "name": "Plan: Reclaimed Ship Chandelier",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Catch Any Glowing Fish."
+      ],
       "plan_item": {
         "formid": "007B6D88",
         "edid": "zzz_Fishing_Workshop_Recipe_ReclaimedShipChandelier"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007B6D89",
+        "edid": "Fishing_Workshop_co_CondProxy_ReclaimedShipChandelier"
+      },
+      "cnam": {
+        "formid": "007B6D8A",
+        "edid": "Fishing_Workshop_Item_ReclaimedShipChandelier",
+        "sig": "FURN"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -213571,24 +213881,41 @@
       "type": "recipe",
       "id": "PLAN_007B9578",
       "name": "Plan: Kelp Curtain",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Catch Any Fish — 15 Fish Caught."
+      ],
       "plan_item": {
         "formid": "007B9578",
         "edid": "zzz_Fishing_Workshop_Recipe_WallDecor_KelpCurtain"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007B9579",
+        "edid": "Fishing_Workshop_co_CondProxy_WallDecor_KelpCurtain"
+      },
+      "cnam": {
+        "formid": "007B957A",
+        "edid": "Fishing_Workshop_Item_WallDecor_KelpCurtain_Static",
+        "sig": "FURN"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -213822,22 +214149,39 @@
       "name": "Plan: Rocket Bobber",
       "has_image_box": false,
       "image_dir": "fishing-rod",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe Mod / Paint",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Catch All Common Fish."
+      ],
       "plan_item": {
         "formid": "007F5563",
         "edid": "zzz_Fishing_Recipe_mod_FishingRod_RodBobber_Rocket"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007F556E",
+        "edid": "co_CondProxy_Fishing_mod_FishingRod_Weapon_RodBobber_Rocket"
+      },
+      "cnam": {
+        "formid": "007F5579",
+        "edid": "Fishing_mod_FishingRod_Weapon_RodBobber_Rocket",
+        "sig": "OMOD"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "fishing-rod",
@@ -213852,22 +214196,39 @@
       "name": "Plan: Scuba Tank Backpack",
       "has_image_box": false,
       "image_dir": "backpack",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe Mod / Paint",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Catch Any Fish — 250 Fish Caught."
+      ],
       "plan_item": {
         "formid": "007F556B",
         "edid": "zzz_Fishing_Recipe_Backpack_ScubaTank"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007AED24",
+        "edid": "Fishing_co_CondProxy_Armor_BackPack_ScubaTank"
+      },
+      "cnam": {
+        "formid": "007AED26",
+        "edid": "Fishing_Backpack_mod_BackPack_ScubaTank",
+        "sig": "OMOD"
+      },
       "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "backpack-mod",
@@ -213912,22 +214273,39 @@
       "name": "Plan: Twin Timber Float",
       "has_image_box": false,
       "image_dir": "fishing-rod",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe Mod / Paint",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Catch All Regional Fish - Cranberry Bog."
+      ],
       "plan_item": {
         "formid": "007F5566",
         "edid": "zzz_Fishing_Recipe_mod_FishingRod_RodBobber_TwinTimberFloat"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007A95AC",
+        "edid": "co_CondProxy_Fishing_mod_FishingRod_Weapon_RodBobber_TwinTimberFloat"
+      },
+      "cnam": {
+        "formid": "007A95B9",
+        "edid": "Fishing_mod_FishingRod_Weapon_RodBobber_TwinTimberFloat",
+        "sig": "OMOD"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "fishing-rod",
@@ -213943,15 +214321,22 @@
       "has_image_box": false,
       "image_dir": "fishing-rod",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe Mod / Paint",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "007F556C",
         "edid": "ZZZ_Fishing_Recipe_mod_FishingRod_RodBase01_RubyReel"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007AE5DA",
+        "edid": "SCORE_S21_co_Fishing_mod_FishingRod_Weapon_RodBase_Medium_RubyReelRod"
+      },
+      "cnam": {
+        "formid": "007AE10B",
+        "edid": "SCORE_S21_Fishing_mod_FishingRod_Weapon_RodBase01_RubyReelRod",
+        "sig": "OMOD"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -213972,22 +214357,39 @@
       "name": "Plan: Quantum Bobber",
       "has_image_box": false,
       "image_dir": "fishing-rod",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe Mod / Paint",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Catch Any Glowing Fish — 15 Fish Caught."
+      ],
       "plan_item": {
         "formid": "007F5567",
         "edid": "zzz_Fishing_Recipe_mod_FishingRod_RodBobber_NukaColaQuantum"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007F556F",
+        "edid": "co_CondProxy_Fishing_mod_FishingRod_Weapon_RodBobber_NukaColaQuantum"
+      },
+      "cnam": {
+        "formid": "007F5578",
+        "edid": "Fishing_mod_FishingRod_Weapon_RodBobber_NukaColaQuantum",
+        "sig": "OMOD"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "fishing-rod",
@@ -214062,22 +214464,39 @@
       "name": "Plan: Red Tide Float",
       "has_image_box": false,
       "image_dir": "fishing-rod",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe Mod / Paint",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Catch All Regional Fish - Forest."
+      ],
       "plan_item": {
         "formid": "007F555E",
         "edid": "zzz_Fishing_Recipe_mod_FishingRod_RodBobber_RedTideFloat"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007A95AF",
+        "edid": "co_CondProxy_Fishing_mod_FishingRod_Weapon_RodBobber_RedTideFloat"
+      },
+      "cnam": {
+        "formid": "007A95BB",
+        "edid": "Fishing_mod_FishingRod_Weapon_RodBobber_RedTideFloat",
+        "sig": "OMOD"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "fishing-rod",
@@ -214122,22 +214541,39 @@
       "name": "Plan: Festive Float",
       "has_image_box": false,
       "image_dir": "fishing-rod",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe Mod / Paint",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Catch All Regional Fish - Mire."
+      ],
       "plan_item": {
         "formid": "007F5565",
         "edid": "zzz_Fishing_Recipe_mod_FishingRod_RodBobber_FestiveFloat"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007A95A6",
+        "edid": "co_CondProxy_Fishing_mod_FishingRod_Weapon_RodBobber_FestiveFloat"
+      },
+      "cnam": {
+        "formid": "007A95B8",
+        "edid": "Fishing_mod_FishingRod_Weapon_RodBobber_FestiveFloat",
+        "sig": "OMOD"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "fishing-rod",
@@ -214152,22 +214588,39 @@
       "name": "Plan: Crimson Stripe Float",
       "has_image_box": false,
       "image_dir": "fishing-rod",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe Mod / Paint",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Catch All Regional Fish - Savage Divide."
+      ],
       "plan_item": {
         "formid": "007F5562",
         "edid": "zzz_Fishing_Recipe_mod_FishingRod_RodBobber_CrimsonStripeFloat"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007A95AB",
+        "edid": "co_CondProxy_Fishing_mod_FishingRod_Weapon_RodBobber_CrimsonStripeFloat"
+      },
+      "cnam": {
+        "formid": "007A95B7",
+        "edid": "Fishing_mod_FishingRod_Weapon_RodBobber_CrimsonStripeFloat",
+        "sig": "OMOD"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "fishing-rod",
@@ -214182,22 +214635,39 @@
       "name": "Plan: Makeshift Rod",
       "has_image_box": false,
       "image_dir": "fishing-rod",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe Mod / Paint",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Catch Any Glowing Fish — 76 Fish Caught."
+      ],
       "plan_item": {
         "formid": "007F5568",
         "edid": "zzz_Fishing_Recipe_mod_FishingRod_RodBase01_Bicycle"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007A95AE",
+        "edid": "co_CondProxy_Fishing_mod_FishingRod_Weapon_RodBase_Medium_Bicycle"
+      },
+      "cnam": {
+        "formid": "007995AC",
+        "edid": "Fishing_mod_FishingRod_Weapon_RodBase01_Bicycle",
+        "sig": "OMOD"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "fishing-rod",
@@ -214212,22 +214682,39 @@
       "name": "Plan: Pin Bobber",
       "has_image_box": false,
       "image_dir": "fishing-rod",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe Mod / Paint",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Catch All Regional Fish - Toxic Valley."
+      ],
       "plan_item": {
         "formid": "007F5569",
         "edid": "zzz_Fishing_Recipe_mod_FishingRod_RodBobber_PinBobber"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007A95A9",
+        "edid": "co_CondProxy_Fishing_mod_FishingRod_Weapon_RodBobber_PinBobber"
+      },
+      "cnam": {
+        "formid": "007A95B5",
+        "edid": "Fishing_mod_FishingRod_Weapon_RodBobber_PinBobber",
+        "sig": "OMOD"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "fishing-rod",
@@ -214242,22 +214729,39 @@
       "name": "Plan: Flamewood Float",
       "has_image_box": false,
       "image_dir": "fishing-rod",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe Mod / Paint",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Catch All Regional Fish - Ash Heap."
+      ],
       "plan_item": {
         "formid": "007F555D",
         "edid": "zzz_Fishing_Recipe_mod_FishingRod_RodBobber_FlamewoodFloat"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007A95A8",
+        "edid": "co_CondProxy_Fishing_mod_FishingRod_Weapon_RodBobber_FlamewoodFloat"
+      },
+      "cnam": {
+        "formid": "007A95BD",
+        "edid": "Fishing_mod_FishingRod_Weapon_RodBobber_FlamewoodFloat",
+        "sig": "OMOD"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "fishing-rod",
@@ -214272,22 +214776,39 @@
       "name": "Plan: Skyfire Float",
       "has_image_box": false,
       "image_dir": "fishing-rod",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe Mod / Paint",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Catch All Regional Fish - Skyline Valley."
+      ],
       "plan_item": {
         "formid": "007F5564",
         "edid": "zzz_Fishing_Recipe_mod_FishingRod_RodBobber_SkyfireFloat"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007A95AA",
+        "edid": "co_CondProxy_Fishing_mod_FishingRod_Weapon_RodBobber_SkyfireFloat"
+      },
+      "cnam": {
+        "formid": "007A95B6",
+        "edid": "Fishing_mod_FishingRod_Weapon_RodBobber_SkyfireFloat",
+        "sig": "OMOD"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "fishing-rod",
@@ -215112,15 +215633,22 @@
       "has_image_box": false,
       "image_dir": "fishing-rod",
       "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe Mod / Paint",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "00809317",
         "edid": "zzzFishing_Recipe_mod_FishingRod_RodBase01_Charmcaster"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "00808281",
+        "edid": "ATX_co_Fishing_mod_FishingRod_Weapon_RodBase_Charmcaster"
+      },
+      "cnam": {
+        "formid": "00808285",
+        "edid": "ATX_mod_FishingRod_Weapon_RodBase01_Charmcaster",
+        "sig": "OMOD"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -215152,7 +215680,7 @@
         }
       ],
       "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Fishing Progress"
+        "Reward for completing the challenge: Fish Quest IV - \"An upgraded rod catches lunkers\""
       ],
       "plan_item": {
         "formid": "00811385",
@@ -215212,7 +215740,7 @@
         }
       ],
       "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Fishing Progress"
+        "Reward for completing the challenge: Fish Quest II - \"Rare fish are more common in the rain\""
       ],
       "plan_item": {
         "formid": "00811383",
@@ -215272,7 +215800,7 @@
         }
       ],
       "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Fishing Progress"
+        "Reward for completing the challenge: Fish Quest III - \"Improved bait reels in rarer fish\""
       ],
       "plan_item": {
         "formid": "00811384",
@@ -215332,7 +215860,7 @@
         }
       ],
       "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Fishing Progress"
+        "Reward for completing the challenge: Fish Quest I - \"Common bait for common fish\""
       ],
       "plan_item": {
         "formid": "00811382",
@@ -215382,15 +215910,22 @@
       "has_image_box": false,
       "image_dir": "fishing-rod",
       "obtain": "Learned from a plan. No source was resolved from the game files — see Technical for the recipe details.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe Mod / Paint",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "0082BB81",
         "edid": "Fishing_Recipe_mod_FishingRod_RodBase01_MarshalMallowRod"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "0082BB86",
+        "edid": "SCORE_MiniSeason_2025_MMMFE_co_Fishing_mod_FishingRod_Weapon_RodBase_MarshalMallowRod"
+      },
+      "cnam": {
+        "formid": "0082BB92",
+        "edid": "SCORE_MiniSeason_2025_MMMFE_mod_FishingRod_Weapon_RodBase01_MarshalMallowRod",
+        "sig": "OMOD"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -215641,8 +216176,15 @@
         "formid": "0084813C",
         "edid": "ZZZ_SCORE_S22_Recipe_workshop_CAMP_Collector_SpiceRack_GoldVendor"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "0084813F",
+        "edid": "SCORE_S22_workshop_co_Utility_SpiceRack"
+      },
+      "cnam": {
+        "formid": "00848140",
+        "edid": "SCORE_S22_CAMP_Collector_SpiceRack",
+        "sig": "CONT"
+      },
       "tradeable": false,
       "stops_dropping": null,
       "effects": null,
@@ -216088,18 +216630,25 @@
       "type": "recipe",
       "id": "PLAN_007D3AF3",
       "name": "Plan: War Shrike",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "recipes",
       "obtain": "Learned from a plan. No source was resolved from the game files — see Technical for the recipe details.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "007D3AF3",
         "edid": "Recipe_Weapon_Ranged_WarShrike"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007D3AE6",
+        "edid": "co_Weapon_Ranged_WarShrike"
+      },
+      "cnam": {
+        "formid": "007D3AF4",
+        "edid": "WarShrike",
+        "sig": "WEAP"
+      },
       "tradeable": false,
       "stops_dropping": null,
       "effects": null,
@@ -216250,24 +216799,37 @@
       "type": "recipe",
       "id": "PLAN_007F2716",
       "name": "Plan: Red Car Couch",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Complete Head Hunts — 10 Quests Completed."
+      ],
       "plan_item": {
         "formid": "007F2716",
         "edid": "zzzBurn_Workshop_Recipe_CarSofa02"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "007F2719",
+        "edid": "Burn_Workshop_ConditionProxy_CarSofa02"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -216280,24 +216842,37 @@
       "type": "recipe",
       "id": "PLAN_007F2715",
       "name": "Plan: Blue Car Couch",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Kill Bounties from Group 7."
+      ],
       "plan_item": {
         "formid": "007F2715",
         "edid": "zzzBurn_Workshop_Recipe_CarSofa01"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "007F2718",
+        "edid": "Burn_Workshop_ConditionProxy_CarSofa01"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -216310,19 +216885,23 @@
       "type": "recipe",
       "id": "PLAN_007F276A",
       "name": "Plan: Green Wall Mounted Headlamp",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Learned from a plan. It is not random loot — see below.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Burning Springs Bounty Start Head Hunts"
+        "Reward for completing the challenge: Start Head Hunts.",
+        "Reward for completing a challenge."
       ],
       "plan_item": {
         "formid": "007F276A",
         "edid": "Burn_Workshop_Recipe_WallCarLamp01"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "007F2773",
+        "edid": "Burn_Workshop_ConditionProxy_WallCarLamp01"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -216333,7 +216912,8 @@
         {
           "label": "Challenges",
           "unlocks": [
-            0
+            0,
+            1
           ],
           "drop": "N/A"
         }
@@ -216350,19 +216930,23 @@
       "type": "recipe",
       "id": "PLAN_007F2768",
       "name": "Plan: Red Car Stash Box",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Learned from a plan. It is not random loot — see below.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Burning Springs Bounty Complete Head Hunts"
+        "Reward for completing the challenge: Complete Head Hunts — 250 Quests Completed.",
+        "Reward for completing a challenge."
       ],
       "plan_item": {
         "formid": "007F2768",
         "edid": "zzzBurn_Workshop_Recipe_CarStashBox02"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "007F2770",
+        "edid": "Burn_Workshop_ConditionProxy_CarStashBox02"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -216373,7 +216957,8 @@
         {
           "label": "Challenges",
           "unlocks": [
-            0
+            0,
+            1
           ],
           "drop": "N/A"
         }
@@ -216390,19 +216975,23 @@
       "type": "recipe",
       "id": "PLAN_007F276B",
       "name": "Plan: Green Wall Mounted Headlamp",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Learned from a plan. It is not random loot — see below.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Burning Springs Bounty Complete Head Hunts"
+        "Reward for completing the challenge: Complete Head Hunts — 50 Quests Completed.",
+        "Reward for completing a challenge."
       ],
       "plan_item": {
         "formid": "007F276B",
         "edid": "Burn_Workshop_Recipe_WallCarLamp02"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "007F2774",
+        "edid": "Burn_Workshop_ConditionProxy_WallCarLamp02"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -216413,7 +217002,8 @@
         {
           "label": "Challenges",
           "unlocks": [
-            0
+            0,
+            1
           ],
           "drop": "N/A"
         }
@@ -216436,7 +217026,7 @@
       "category_label": "CAMP / Recipe (mod/recipe)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Burning Springs Bounty Complete Head Hunt"
+        "Reward for completing a challenge."
       ],
       "plan_item": {
         "formid": "007F276C",
@@ -216470,19 +217060,23 @@
       "type": "recipe",
       "id": "PLAN_007F2769",
       "name": "Plan: Green Car Stash Box",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Learned from a plan. It is not random loot — see below.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Burning Springs Bounty Start Head Hunts"
+        "Reward for completing the challenge: Start Head Hunts.",
+        "Reward for completing a challenge."
       ],
       "plan_item": {
         "formid": "007F2769",
         "edid": "zzzBurn_Workshop_Recipe_CarStashBox03"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "007F2771",
+        "edid": "Burn_Workshop_ConditionProxy_CarStashBox03"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -216493,7 +217087,8 @@
         {
           "label": "Challenges",
           "unlocks": [
-            0
+            0,
+            1
           ],
           "drop": "N/A"
         }
@@ -216516,7 +217111,7 @@
       "category_label": "CAMP / Recipe (mod/recipe)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Burning Springs Bounty Complete Head Hunt"
+        "Reward for completing a challenge."
       ],
       "plan_item": {
         "formid": "007F2766",
@@ -216550,19 +217145,23 @@
       "type": "recipe",
       "id": "PLAN_007F2767",
       "name": "Plan: Blue Car Stash Box",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Learned from a plan. It is not random loot — see below.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Burning Springs Bounty Complete Grunt Hunts Car Stash Box"
+        "Reward for completing the challenge: Complete Grunt Hunts — 100 Quests Completed.",
+        "Reward for completing a challenge."
       ],
       "plan_item": {
         "formid": "007F2767",
         "edid": "zzzBurn_Workshop_Recipe_CarStashBox01"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "007F276F",
+        "edid": "Burn_Workshop_ConditionProxy_CarStashBox01"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -216573,7 +217172,8 @@
         {
           "label": "Challenges",
           "unlocks": [
-            0
+            0,
+            1
           ],
           "drop": "N/A"
         }
@@ -216620,49 +217220,22 @@
       "type": "recipe",
       "id": "PLAN_007F4A19",
       "name": "Plan: Fridge With Shelves",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Find more Abraxodyne Intel."
+      ],
       "plan_item": {
         "formid": "007F4A19",
         "edid": "zzzBurn_Workshop_Recipe_RetailFridge02"
       },
-      "cobj": null,
-      "cnam": null,
-      "tradeable": true,
-      "stops_dropping": null,
-      "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
-      "images": [],
-      "image_source": "",
-      "plan_page": "camp",
-      "plan_page_group": "C.A.M.P. Plans",
-      "changes": []
-    },
-    {
-      "kind": "plan",
-      "brand": "df",
-      "type": "recipe",
-      "id": "PLAN_007F4A10",
-      "name": "Plan: Saloon Car Doors",
-      "has_image_box": false,
-      "image_dir": "workshop",
-      "obtain": "Learned from a plan. It is not random loot — see below.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
-      "obtain_routes": [],
-      "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Burning Springs Bounty Start Head Hunts"
-      ],
-      "plan_item": {
-        "formid": "007F4A10",
-        "edid": "Burn_Workshop_Recipe_CarDoors"
+      "cobj": {
+        "formid": "007F4A26",
+        "edid": "Burn_Workshop_ConditionProxy_RetailFridge02"
       },
-      "cobj": null,
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -216688,26 +217261,88 @@
       "kind": "plan",
       "brand": "df",
       "type": "recipe",
+      "id": "PLAN_007F4A10",
+      "name": "Plan: Saloon Car Doors",
+      "has_image_box": true,
+      "image_dir": "workshop",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Start Head Hunts.",
+        "Reward for completing a challenge."
+      ],
+      "plan_item": {
+        "formid": "007F4A10",
+        "edid": "Burn_Workshop_Recipe_CarDoors"
+      },
+      "cobj": {
+        "formid": "007F4A1B",
+        "edid": "Burn_Workshop_CO_CarDoors"
+      },
+      "cnam": {
+        "formid": "007F4A28",
+        "edid": "Burn_Workshop_CarSaloonDoors",
+        "sig": "FURN"
+      },
+      "tradeable": true,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0,
+            1
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "images": [],
+      "image_source": "",
+      "plan_page": "camp",
+      "plan_page_group": "C.A.M.P. Plans",
+      "changes": []
+    },
+    {
+      "kind": "plan",
+      "brand": "df",
+      "type": "recipe",
       "id": "PLAN_007F4A11",
       "name": "Plan: Fridge With Doors",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Find more Abraxodyne Intel."
+      ],
       "plan_item": {
         "formid": "007F4A11",
         "edid": "zzzBurn_Workshop_Recipe_RetailFridge01"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "007F4A25",
+        "edid": "Burn_Workshop_ConditionProxy_RetailFridge01"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -216720,19 +217355,23 @@
       "type": "recipe",
       "id": "PLAN_007F4A12",
       "name": "Plan: Red Tailgate Bed",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Learned from a plan. It is not random loot — see below.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Burning Springs Bounty Complete Head Hunt"
+        "Reward for completing the challenge: Kill Bounties from Group 5.",
+        "Reward for completing a challenge."
       ],
       "plan_item": {
         "formid": "007F4A12",
         "edid": "Burn_Workshop_Recipe_TailgateBed02"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "007F4A1F",
+        "edid": "Burn_Workshop_ConditionProxy_TailgateBed02"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -216743,7 +217382,8 @@
         {
           "label": "Challenges",
           "unlocks": [
-            0
+            0,
+            1
           ],
           "drop": "N/A"
         }
@@ -216811,19 +217451,23 @@
       "type": "recipe",
       "id": "PLAN_007F4A14",
       "name": "Plan: Blue Tailgate Bed",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Learned from a plan. It is not random loot — see below.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Burning Springs Bounty Complete Head Hunts"
+        "Reward for completing the challenge: Complete Head Hunts — 76 Quests Completed.",
+        "Reward for completing a challenge."
       ],
       "plan_item": {
         "formid": "007F4A14",
         "edid": "Burn_Workshop_Recipe_TailgateBed01"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "007F4A1E",
+        "edid": "Burn_Workshop_ConditionProxy_TailgateBed01"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -216834,7 +217478,8 @@
         {
           "label": "Challenges",
           "unlocks": [
-            0
+            0,
+            1
           ],
           "drop": "N/A"
         }
@@ -216851,21 +217496,28 @@
       "type": "recipe",
       "id": "PLAN_007F4A15",
       "name": "Plan: Stop Sign Stool",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Learned from a plan. It is not random loot — see below.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Burning Springs Bounty Complete Grunt Hunts Bar Stool",
-        "Reward for completing the challenge: Challenge Lifetime Burning Springs Bounty Complete Head Hunts"
+        "Reward for completing the challenge: Complete Head Hunts — 100 Quests Completed.",
+        "Reward for completing a challenge."
       ],
       "plan_item": {
         "formid": "007F4A15",
         "edid": "Burn_Workshop_Recipe_BarStool02"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007F4A22",
+        "edid": "Burn_Workshop_ConditionProxy_BarStool02"
+      },
+      "cnam": {
+        "formid": "007F4A2B",
+        "edid": "Burn_Workshop_BarStool02",
+        "sig": "FURN"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -216893,19 +217545,23 @@
       "type": "recipe",
       "id": "PLAN_007F4A16",
       "name": "Plan: Tire Bar Stool",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Learned from a plan. It is not random loot — see below.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Burning Springs Bounty Complete Head Hunt"
+        "Reward for completing the challenge: Kill Bounties from Group 4.",
+        "Reward for completing a challenge."
       ],
       "plan_item": {
         "formid": "007F4A16",
         "edid": "Burn_Workshop_Recipe_BarStool01"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "007F4A21",
+        "edid": "Burn_Workshop_ConditionProxy_BarStool01"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -216916,7 +217572,8 @@
         {
           "label": "Challenges",
           "unlocks": [
-            0
+            0,
+            1
           ],
           "drop": "N/A"
         }
@@ -216933,20 +217590,28 @@
       "type": "recipe",
       "id": "PLAN_007F4A17",
       "name": "Plan: Car Seat Stool",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Learned from a plan. It is not random loot — see below.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Burning Springs Bounty Start Head Hunt"
+        "Reward for completing the challenge: Start Head Hunts.",
+        "Reward for completing a challenge."
       ],
       "plan_item": {
         "formid": "007F4A17",
         "edid": "Burn_Workshop_Recipe_BarStool03"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007F4A23",
+        "edid": "Burn_Workshop_ConditionProxy_BarStool03"
+      },
+      "cnam": {
+        "formid": "007F4A2C",
+        "edid": "Burn_Workshop_BarStool03",
+        "sig": "FURN"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -216956,7 +217621,8 @@
         {
           "label": "Challenges",
           "unlocks": [
-            0
+            0,
+            1
           ],
           "drop": "N/A"
         }
@@ -216973,20 +217639,28 @@
       "type": "recipe",
       "id": "PLAN_007F4A1A",
       "name": "Plan: Jeep Table",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Learned from a plan. It is not random loot — see below.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Burning Springs Bounty Complete Grunt Hunts Jeep"
+        "Reward for completing the challenge: Complete Grunt Hunts — 76 Quests Completed.",
+        "Reward for completing a challenge."
       ],
       "plan_item": {
         "formid": "007F4A1A",
         "edid": "Burn_Workshop_Recipe_JeepTable"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007F4A27",
+        "edid": "Burn_Workshop_CO_JeepTable"
+      },
+      "cnam": {
+        "formid": "007F4A33",
+        "edid": "Burn_Workshop_JeepTable",
+        "sig": "FURN"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -216996,7 +217670,8 @@
         {
           "label": "Challenges",
           "unlocks": [
-            0
+            0,
+            1
           ],
           "drop": "N/A"
         }
@@ -217189,18 +217864,25 @@
       "type": "recipe",
       "id": "PLAN_007F5AF2",
       "name": "Plan: Dino Golf Info Board",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Learned from a plan. No source was resolved from the game files — see Technical for the recipe details.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "007F5AF2",
         "edid": "Burn_Workshop_Recipe_DinoInfoBoard"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007F5AF9",
+        "edid": "SCORE_S23_Workshop_CO_DinoInfoBoard"
+      },
+      "cnam": {
+        "formid": "007F5B04",
+        "edid": "SCORE_S23_Workshop_DinoInfoBoard",
+        "sig": "FURN"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -217258,18 +217940,25 @@
       "type": "recipe",
       "id": "PLAN_007F5AF4",
       "name": "Plan: Dino Peaks Entrance Sign",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Learned from a plan. No source was resolved from the game files — see Technical for the recipe details.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [],
       "plan_item": {
         "formid": "007F5AF4",
         "edid": "Burn_Workshop_Recipe_DinoEntranceSign"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "007F5AFC",
+        "edid": "SCORE_S23_Workshop_CO_DinoEntranceSign"
+      },
+      "cnam": {
+        "formid": "007F5B02",
+        "edid": "SCORE_S23_Workshop_DinoEntranceSign",
+        "sig": "FURN"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -217592,24 +218281,37 @@
       "type": "recipe",
       "id": "PLAN_007FDCE0",
       "name": "Plan: Abraxodyne Sign",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Learned from a plan. No source was resolved from the game files — see Technical for the recipe details.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Find more Abraxodyne Intel."
+      ],
       "plan_item": {
         "formid": "007FDCE0",
         "edid": "zzzBurn_Workshop_Recipe_AbraxodyneSign"
       },
-      "cobj": null,
+      "cobj": {
+        "formid": "007FDCE1",
+        "edid": "Burn_Workshop_CO_AbraxodyneSign"
+      },
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
       "cut": false,
       "cut_reason": null,
-      "obtain_ledger": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -217628,7 +218330,7 @@
       "category_label": "CAMP / Recipe (mod/recipe)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Burning Springs Bounty Complete Grunt Hunts Generator"
+        "Reward for completing a challenge."
       ],
       "plan_item": {
         "formid": "00825AA7",
@@ -217692,20 +218394,28 @@
       "type": "recipe",
       "id": "PLAN_00833B44",
       "name": "Plan: Starlight Drive-in Movie Poster",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Learned from a plan. It is not random loot — see below.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
+        "Reward for completing the challenge: Claim the Starlight Drive-In Workshop.",
         "Reward for completing the quest: Neurological Warfare"
       ],
       "plan_item": {
         "formid": "00833B44",
         "edid": "Burn_Workshop_Recipe_MoviePoster"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "00833B45",
+        "edid": "Burn_Workshop_CO_MoviePoster"
+      },
+      "cnam": {
+        "formid": "00833B46",
+        "edid": "Burn_Workshop_MoviePoster01",
+        "sig": "FURN"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -217714,6 +218424,13 @@
       "obtain_ledger": [
         {
           "label": "Quests",
+          "unlocks": [
+            1
+          ],
+          "drop": "N/A"
+        },
+        {
+          "label": "Challenges",
           "unlocks": [
             0
           ],
@@ -217890,49 +218607,22 @@
       "type": "recipe",
       "id": "PLAN_0083F2AD",
       "name": "Plan: Rusted Abraxodyne Sign",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Learned from a plan. No source was resolved from the game files — see Technical for the recipe details.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Find more Abraxodyne Intel."
+      ],
       "plan_item": {
         "formid": "0083F2AD",
         "edid": "Burn_Workshop_Recipe_AbraxodyneSignDamaged"
       },
-      "cobj": null,
-      "cnam": null,
-      "tradeable": true,
-      "stops_dropping": null,
-      "effects": null,
-      "cut": false,
-      "cut_reason": null,
-      "obtain_ledger": [],
-      "images": [],
-      "image_source": "",
-      "plan_page": "camp",
-      "plan_page_group": "C.A.M.P. Plans",
-      "changes": []
-    },
-    {
-      "kind": "plan",
-      "brand": "df",
-      "type": "recipe",
-      "id": "PLAN_00840357",
-      "name": "Plan: Lone Mechanic Statue",
-      "has_image_box": false,
-      "image_dir": "workshop",
-      "obtain": "Learned from a plan. It is not random loot — see below.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
-      "obtain_routes": [],
-      "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Burning Springs Bounty Complete Bounty Locations"
-      ],
-      "plan_item": {
-        "formid": "00840357",
-        "edid": "zzzBurn_Workshop_Recipe_HighwayTownStatue"
+      "cobj": {
+        "formid": "0083F2AE",
+        "edid": "Burn_Workshop_CO_AbraxodyneSignDamaged"
       },
-      "cobj": null,
       "cnam": null,
       "tradeable": true,
       "stops_dropping": null,
@@ -217958,26 +218648,92 @@
       "kind": "plan",
       "brand": "df",
       "type": "recipe",
+      "id": "PLAN_00840357",
+      "name": "Plan: Lone Mechanic Statue",
+      "has_image_box": true,
+      "image_dir": "workshop",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Complete Bounty Hunts at these Locations.",
+        "Reward for completing a challenge."
+      ],
+      "plan_item": {
+        "formid": "00840357",
+        "edid": "zzzBurn_Workshop_Recipe_HighwayTownStatue"
+      },
+      "cobj": {
+        "formid": "00840358",
+        "edid": "Burn_Workshop_CO_HighwayTownStatue"
+      },
+      "cnam": {
+        "formid": "00840359",
+        "edid": "Burn_Workshop_HighwayTownStatue",
+        "sig": "FURN"
+      },
+      "tradeable": true,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0,
+            1
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "images": [],
+      "image_source": "",
+      "plan_page": "camp",
+      "plan_page_group": "C.A.M.P. Plans",
+      "changes": []
+    },
+    {
+      "kind": "plan",
+      "brand": "df",
+      "type": "recipe",
       "id": "PLAN_008409F7",
       "name": "Plan: Abraxodyne Stash Box",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Find more Abraxodyne Intel."
+      ],
       "plan_item": {
         "formid": "008409F7",
         "edid": "zzzBurn_Workshop_Recipe_AbraxoCache"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "008409F9",
+        "edid": "Burn_Workshop_CO_AbraxoCache"
+      },
+      "cnam": {
+        "formid": "008409FB",
+        "edid": "Burn_Workshop_Container_AbraxoCache",
+        "sig": "CONT"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -218092,24 +218848,41 @@
       "type": "recipe",
       "id": "PLAN_00844586",
       "name": "Plan: Head Hunter Outfit",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "apparel",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Complete All Head Hunt Groups — 7 Challenges Completed."
+      ],
       "plan_item": {
         "formid": "00844586",
         "edid": "zzzBurn_Outfit_Recipe_BountyHunter"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "00844588",
+        "edid": "Burn_CO_Clothes_Outfit_BountyHunter"
+      },
+      "cnam": {
+        "formid": "00844584",
+        "edid": "Burn_Clothes_Outfit_BountyHunter",
+        "sig": "ARMO"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "apparel",
@@ -218242,26 +219015,43 @@
       "name": "Recipe: Radhog Burnt Ends",
       "has_image_box": false,
       "image_dir": "recipes",
-      "obtain": "Learned from a plan. No source was resolved from the game files — see Technical for the recipe details.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "Consumable Recipe",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Cook a Meal that uses Radhog Meat — 30 Item Crafted."
+      ],
       "plan_item": {
         "formid": "0084B86D",
         "edid": "BURN_Recipe_Cooking_RadhogBurntEnds"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "0084B86F",
+        "edid": "BURN_co_meal_RadhogBurntEnds"
+      },
+      "cnam": {
+        "formid": "0084B86C",
+        "edid": "BURN_RadhogBurntEndsCooked",
+        "sig": "ALCH"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
       "cut": false,
       "cut_reason": null,
-      "obtain_ledger": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
-      "plan_page": "camp",
-      "plan_page_group": "Needs Sorting",
+      "plan_page": "recipe",
+      "plan_page_group": null,
       "changes": []
     },
     {
@@ -218272,22 +219062,39 @@
       "name": "Plan: Babydoll Head Bobber",
       "has_image_box": false,
       "image_dir": "fishing-rod",
-      "obtain": "Learned from a plan. No source was resolved from the game files — see Technical for the recipe details.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe Mod / Paint",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Catch All Regional Fish - Burning Springs."
+      ],
       "plan_item": {
         "formid": "0084FF1A",
         "edid": "zzzBurn_Recipe_mod_FishingRod_RodBobber_DollHead"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "0084FF1B",
+        "edid": "co_Burn_mod_FishingRod_Weapon_RodBobber_DollHead"
+      },
+      "cnam": {
+        "formid": "0084FF1D",
+        "edid": "Burn_mod_FishingRod_Weapon_RodBobber_DollHead",
+        "sig": "OMOD"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
       "cut": false,
       "cut_reason": null,
-      "obtain_ledger": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "fishing-rod",
@@ -218696,24 +219503,41 @@
       "type": "recipe",
       "id": "PLAN_0085556A",
       "name": "Plan: Abraxodyne Briefcase",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Find your first piece of Abraxodyne Intel."
+      ],
       "plan_item": {
         "formid": "0085556A",
         "edid": "zzzBURN_Workshop_Recipe_AbraxoIntel"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "0085556B",
+        "edid": "Burn_workshop_CO_AbraxodyneIntelBriefcase"
+      },
+      "cnam": {
+        "formid": "0085556C",
+        "edid": "Burn_Workshop_AbraxoBriefcase",
+        "sig": "FURN"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [],
       "image_source": "",
       "plan_page": "camp",
@@ -218858,20 +219682,28 @@
       "type": "recipe",
       "id": "PLAN_00857C6B",
       "name": "Plan: Bounty Board",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Learned from a plan. It is not random loot — see below.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Burning Springs Bounty Complete Head Hunt"
+        "Reward for completing the challenge: Kill Bounties from Group 1.",
+        "Reward for completing a challenge."
       ],
       "plan_item": {
         "formid": "00857C6B",
         "edid": "zzzBurn_Workshop_Recipe_BountyBoard"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "00857C6E",
+        "edid": "Burn_Workshop_CO_BountyBoard"
+      },
+      "cnam": {
+        "formid": "00857C71",
+        "edid": "Burn_Workshop_BountyBoard",
+        "sig": "FURN"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -218881,7 +219713,8 @@
         {
           "label": "Challenges",
           "unlocks": [
-            0
+            0,
+            1
           ],
           "drop": "N/A"
         }
@@ -218898,20 +219731,28 @@
       "type": "recipe",
       "id": "PLAN_00857C6A",
       "name": "Plan: Wanted Poster",
-      "has_image_box": false,
+      "has_image_box": true,
       "image_dir": "workshop",
       "obtain": "Learned from a plan. It is not random loot — see below.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Reward for completing the challenge: Challenge Lifetime Burning Springs Bounty Complete Head Hunt"
+        "Reward for completing the challenge: Kill Bounties from Group 3.",
+        "Reward for completing a challenge."
       ],
       "plan_item": {
         "formid": "00857C6A",
         "edid": "zzzBurn_Workshop_Recipe_WantedPoster"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "00857C6D",
+        "edid": "Burn_Workshop_CO_WantedPoster"
+      },
+      "cnam": {
+        "formid": "00857C70",
+        "edid": "Burn_Workshop_WantedPoster",
+        "sig": "FURN"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
@@ -218921,7 +219762,8 @@
         {
           "label": "Challenges",
           "unlocks": [
-            0
+            0,
+            1
           ],
           "drop": "N/A"
         }
@@ -220092,8 +220934,15 @@
         "formid": "008A706B",
         "edid": "SCORE_S24_Recipe_workshop_CAMP_Collector_SurvivalCache_GoldVendor"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "008A706D",
+        "edid": "SCORE_S24_workshop_co_Utility_SurvivalCache"
+      },
+      "cnam": {
+        "formid": "008A706F",
+        "edid": "SCORE_S24_CAMP_Collector_SurvivalCache",
+        "sig": "CONT"
+      },
       "tradeable": false,
       "stops_dropping": null,
       "effects": null,
@@ -222437,22 +223286,39 @@
       "name": "Plan: Pint-Sized Slasher Bobber",
       "has_image_box": false,
       "image_dir": "fishing-rod",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
-      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
+      "category_label": "CAMP / Recipe Mod / Paint",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Collect Even More Pint-Sized Slasher Masks — 30 Items Acquired."
+      ],
       "plan_item": {
         "formid": "008E068D",
         "edid": "zzz_SDOW_Fishing_Recipe_mod_FishingRod_RodBobber_SlasherBobber"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "008E0746",
+        "edid": "SDOW_co_Fishing_mod_FishingRod_Weapon_RodBobber_SlasherBobber"
+      },
+      "cnam": {
+        "formid": "008E0768",
+        "edid": "SDOW_Fishing_mod_FishingRod_Weapon_RodBobber_SlasherBobber",
+        "sig": "OMOD"
+      },
       "tradeable": true,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [
         "zzz_sdow_fishing_recipe_mod_fishingrod_rodbobber_slasherbobber"
       ],
@@ -222469,22 +223335,39 @@
       "name": "Plan: Pint-Sized Slasher Radio",
       "has_image_box": true,
       "image_dir": "workshop",
-      "obtain": "Cut content. This plan is still in the game files but nothing gives it out — it cannot be obtained in game.",
+      "obtain": "Learned from a plan. It is not random loot — see below.",
       "category_label": "CAMP / Recipe (physical plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Collect The Remaining Pint-Sized Slasher Masks — 50 Items Acquired."
+      ],
       "plan_item": {
         "formid": "008E068E",
         "edid": "zzz_SDOW_Recipe_Workshop_Radio_SlasherRadio"
       },
-      "cobj": null,
-      "cnam": null,
+      "cobj": {
+        "formid": "008E0739",
+        "edid": "SDOW_workshop_co_SlasherRadio"
+      },
+      "cnam": {
+        "formid": "008E0685",
+        "edid": "SDOW_WorkshopRadio_SlasherRadio",
+        "sig": "ACTI"
+      },
       "tradeable": false,
       "stops_dropping": null,
       "effects": null,
-      "cut": true,
-      "cut_reason": "its EditorID starts ZZZ_ and nothing in the game files gives it out",
-      "obtain_ledger": [],
+      "cut": false,
+      "cut_reason": null,
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "images": [
         "zzz_sdow_recipe_workshop_radio_slasherradio"
       ],
@@ -225786,6 +226669,1597 @@
       "plan_page": "camp",
       "plan_page_group": "Needs Sorting",
       "changes": []
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_0005A0D5",
+      "name": "Guard Post",
+      "has_image_box": true,
+      "image_dir": "workshop",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Learned by claiming a workshop."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "0005A0D5",
+        "edid": "workshop_co_GuardPost01"
+      },
+      "cnam": {
+        "formid": "00329F51",
+        "edid": "WorkshopGuardPost01",
+        "sig": "FURN"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Events & Activities",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "camp",
+      "plan_page_group": "C.A.M.P. Plans"
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_002C8BAD",
+      "name": "Perimeter Wall Frame - Stairs",
+      "has_image_box": true,
+      "image_dir": "workshop",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Learned by claiming a workshop."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "002C8BAD",
+        "edid": "workshop_co_DefensiveStructure_PerimeterWall02_Stairs"
+      },
+      "cnam": {
+        "formid": "003C9460",
+        "edid": "WorkshopPerimeterWall02Stairs",
+        "sig": "FURN"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Events & Activities",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "camp",
+      "plan_page_group": "C.A.M.P. Plans"
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_002E411B",
+      "name": "Defensive Wall",
+      "has_image_box": true,
+      "image_dir": "workshop",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Learned by claiming a workshop."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "002E411B",
+        "edid": "workshop_co_DefensiveStructure_PerimeterWall01"
+      },
+      "cnam": {
+        "formid": "002E4112",
+        "edid": "workshop_PACK_PerimeterWall01",
+        "sig": "FURN"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Events & Activities",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "camp",
+      "plan_page_group": "C.A.M.P. Plans"
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_00799F8E",
+      "name": "My Stash Box",
+      "has_image_box": true,
+      "image_dir": "workshop",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Find more Abraxodyne Intel."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "00799F8E",
+        "edid": "ATX_workshop_co_Utility_TipJar"
+      },
+      "cnam": {
+        "formid": "00799F94",
+        "edid": "ATX_Stashbox_TipJar",
+        "sig": "CONT"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "camp",
+      "plan_page_group": "C.A.M.P. Plans"
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_007F276D",
+      "name": "Beer Pump",
+      "has_image_box": true,
+      "image_dir": "workshop",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Kill Bounties from Group 2."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "007F276D",
+        "edid": "Burn_Workshop_CO_GasPumpBeerKeg"
+      },
+      "cnam": {
+        "formid": "007F277B",
+        "edid": "Burn_Workshop_GasPumpBeerKeg",
+        "sig": "FURN"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "camp",
+      "plan_page_group": "C.A.M.P. Plans"
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_007F2775",
+      "name": "Car Grill Lights",
+      "has_image_box": true,
+      "image_dir": "workshop",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Kill Bounties from Group 6."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "007F2775",
+        "edid": "Burn_Workshop_CO_CeilingCarLight"
+      },
+      "cnam": {
+        "formid": "007F2765",
+        "edid": "Burn_Workshop_CarLighting03",
+        "sig": "ACTI"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "camp",
+      "plan_page_group": "C.A.M.P. Plans"
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_00803E34",
+      "name": "Makeshift Rod Replica",
+      "has_image_box": true,
+      "image_dir": "fishing-rod",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Catch Any Glowing Fish — 76 Fish Caught."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "00803E34",
+        "edid": "Fishing_co_CondProxy_Tinkers_Fishing_BicycleRod"
+      },
+      "cnam": {
+        "formid": "00803E3B",
+        "edid": "Fishing_RodDisplay_BicycleRod",
+        "sig": "MISC"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "fishing-rod",
+      "plan_page_group": "Display Replicas"
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_00825AA9",
+      "name": "Aerial Turbine",
+      "has_image_box": true,
+      "image_dir": "workshop",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Complete Grunt Hunts — 250 Quests Completed."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "00825AA9",
+        "edid": "BURN_Workshop_HWT_Generator_01"
+      },
+      "cnam": {
+        "formid": "00825AAB",
+        "edid": "BURN_HWT_WorkshopGenerator_Turbine_01",
+        "sig": "ACTI"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "camp",
+      "plan_page_group": "C.A.M.P. Plans"
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_008468CB",
+      "name": "Pickled Prickeye",
+      "has_image_box": false,
+      "image_dir": "recipes",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "Consumable Recipe",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Cook a Meal that uses Prickeye — 3 Item Crafted."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "008468CB",
+        "edid": "Burn_CO_Food_SlipperCactusVeg_1"
+      },
+      "cnam": {
+        "formid": "008468C5",
+        "edid": "Burn_Food_SlipperCactusVeg_1",
+        "sig": "ALCH"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "recipe",
+      "plan_page_group": null
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_00857C6C",
+      "name": "Head Hunt Flare",
+      "has_image_box": true,
+      "image_dir": "workshop",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Start Head Hunts."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "00857C6C",
+        "edid": "Burn_Workshop_CO_BountyHuntingFlareMortar"
+      },
+      "cnam": {
+        "formid": "00857C6F",
+        "edid": "Burn_Workshop_FlareMortar",
+        "sig": "FURN"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "camp",
+      "plan_page_group": "C.A.M.P. Plans"
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "apparel",
+      "id": "RECIPE_0085A4BF",
+      "name": "Abraxodyne Coveralls Outfit",
+      "has_image_box": true,
+      "image_dir": "apparel",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "Apparel (physical plan)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Find more Abraxodyne Intel."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "0085A4BF",
+        "edid": "Burn_CO_Clothes_Outfit_AbraxodyneOveralls"
+      },
+      "cnam": {
+        "formid": "00856AE9",
+        "edid": "Burn_Clothes_Coveralls_Abraxodyne",
+        "sig": "ARMO"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "apparel",
+      "plan_page_group": null
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_008B33D7",
+      "name": "Jellied Fish",
+      "has_image_box": false,
+      "image_dir": "recipes",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "Consumable Recipe",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Catch Summer Seasonal Local Legend: \"Glass Ghost\"."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "008B33D7",
+        "edid": "co_meal_Fishing_SummerJelliedFish"
+      },
+      "cnam": {
+        "formid": "008B33D4",
+        "edid": "SeasonalFish_Meal_SummerJelliedFish",
+        "sig": "ALCH"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "recipe",
+      "plan_page_group": null
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_008B507F",
+      "name": "Deathclaw Leveling Backpack Flair",
+      "has_image_box": false,
+      "image_dir": "backpack",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe Mod / Paint",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Deathclaw - Reach Level 65 — 10 World Pet Levelled Up."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "008B507F",
+        "edid": "BoS_co_SteelReignFlair_DCFlair1"
+      },
+      "cnam": {
+        "formid": "008B509E",
+        "edid": "BoS_mod_SteelReignFlair_DCFlair1",
+        "sig": "OMOD"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "backpack-mod",
+      "plan_page_group": null
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_008B5081",
+      "name": "Cat Leveling Backpack Flair",
+      "has_image_box": false,
+      "image_dir": "backpack",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe Mod / Paint",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Cat - Reach Level 65."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "008B5081",
+        "edid": "BoS_co_SteelReignFlair_CatFlair2"
+      },
+      "cnam": {
+        "formid": "008B5098",
+        "edid": "BoS_mod_SteelReignFlair_CatFlair2",
+        "sig": "OMOD"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "backpack-mod",
+      "plan_page_group": null
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_008B5082",
+      "name": "Dog Leveling Backpack Flair",
+      "has_image_box": false,
+      "image_dir": "backpack",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe Mod / Paint",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Dog - Reach Level 65 — 10 World Pet Levelled Up."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "008B5082",
+        "edid": "BoS_co_SteelReignFlair_DogFlair2"
+      },
+      "cnam": {
+        "formid": "008B509A",
+        "edid": "BoS_mod_SteelReignFlair_DogFlair2",
+        "sig": "OMOD"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "backpack-mod",
+      "plan_page_group": null
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_008B5084",
+      "name": "Radhog Leveling Backpack Flair",
+      "has_image_box": false,
+      "image_dir": "backpack",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe Mod / Paint",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Radhog - Reach Level 65 — 10 World Pet Levelled Up."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "008B5084",
+        "edid": "BoS_co_SteelReignFlair_RadhogFlair2"
+      },
+      "cnam": {
+        "formid": "008B5097",
+        "edid": "BoS_mod_SteelReignFlair_RadhogFlair2",
+        "sig": "OMOD"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "backpack-mod",
+      "plan_page_group": null
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "backpack-mod",
+      "id": "RECIPE_008B6A26",
+      "name": "Dog Leveling Backpack",
+      "has_image_box": false,
+      "image_dir": "backpack",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "Backpack Mod Mod / Paint",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Dog - Reach Level 160 — 40 World Pet Levelled Up."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "008B6A26",
+        "edid": "WorldPets_co_Armor_DogBackpack"
+      },
+      "cnam": {
+        "formid": "008B6A2F",
+        "edid": "WorldPets_mod_DogBackPack_Material",
+        "sig": "OMOD"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "backpack-mod",
+      "plan_page_group": null
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "backpack-mod",
+      "id": "RECIPE_008B6A27",
+      "name": "Cat Leveling Backpack",
+      "has_image_box": false,
+      "image_dir": "backpack",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "Backpack Mod Mod / Paint",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Cat - Reach Level 160."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "008B6A27",
+        "edid": "WorldPets_co_Armor_CatBackpack"
+      },
+      "cnam": {
+        "formid": "008B6A2E",
+        "edid": "WorldPets_mod_CatBackPack_Material",
+        "sig": "OMOD"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "backpack-mod",
+      "plan_page_group": null
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "backpack-mod",
+      "id": "RECIPE_008B6A28",
+      "name": "Radhog Leveling Backpack",
+      "has_image_box": false,
+      "image_dir": "backpack",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "Backpack Mod Mod / Paint",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Radhog - Reach Level 160 — 40 World Pet Levelled Up."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "008B6A28",
+        "edid": "WorldPets_co_Armor_RadhogBackpack"
+      },
+      "cnam": {
+        "formid": "008B6A30",
+        "edid": "WorldPets_mod_RadhogBackPack_Material",
+        "sig": "OMOD"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "backpack-mod",
+      "plan_page_group": null
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "backpack-mod",
+      "id": "RECIPE_008B6A29",
+      "name": "Deathclaw Leveling Backpack",
+      "has_image_box": false,
+      "image_dir": "backpack",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "Backpack Mod Mod / Paint",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Deathclaw - Reach Level 160 — 40 World Pet Levelled Up."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "008B6A29",
+        "edid": "WorldPets_co_Armor_DCBackpack"
+      },
+      "cnam": {
+        "formid": "008B6A31",
+        "edid": "WorldPets_mod_DCBackPack_Material",
+        "sig": "OMOD"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "backpack-mod",
+      "plan_page_group": null
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_008C910D",
+      "name": "Atomic Cats Plating (Deathclaw)",
+      "has_image_box": false,
+      "image_dir": "apparel",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Deathclaw - Reach Level 45."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "008C910D",
+        "edid": "ATX_co_Clothes_CAMPPets_Deathclaw_Outfit_DCPlating3"
+      },
+      "cnam": {
+        "formid": "008C910C",
+        "edid": "ATX_Clothes_CAMPPets_Deathclaw_Outfit_DCPlating3",
+        "sig": ""
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "apparel",
+      "plan_page_group": null
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_008CCFA4",
+      "name": "Metallic Plating (Deathclaw)",
+      "has_image_box": false,
+      "image_dir": "apparel",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Deathclaw - Reach Level 95."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "008CCFA4",
+        "edid": "ATX_co_Clothes_CAMPPets_Deathclaw_Outfit_DCPlating4"
+      },
+      "cnam": {
+        "formid": "008CCFA5",
+        "edid": "ATX_Clothes_CAMPPets_Deathclaw_Outfit_DCPlating4",
+        "sig": ""
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "apparel",
+      "plan_page_group": null
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_008D4739",
+      "name": "Ruby Leather Collar (Cat)",
+      "has_image_box": false,
+      "image_dir": "recipes",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Cat - Reach Level 95."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "008D4739",
+        "edid": "WorldPets_co_Clothes_Cat_Neckwear_LeatherRed"
+      },
+      "cnam": {
+        "formid": "008D4738",
+        "edid": "WorldPets_Clothes_Cat_Neckwear_LeatherRed",
+        "sig": ""
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "camp",
+      "plan_page_group": "Needs Sorting"
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_008D473A",
+      "name": "Tan Leather Collar (Cat)",
+      "has_image_box": false,
+      "image_dir": "recipes",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Cat - Reach Level 45."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "008D473A",
+        "edid": "WorldPets_co_Clothes_Cat_Neckwear_LeatherTan"
+      },
+      "cnam": {
+        "formid": "008D4737",
+        "edid": "WorldPets_Clothes_Cat_Neckwear_LeatherTan",
+        "sig": ""
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "camp",
+      "plan_page_group": "Needs Sorting"
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_008D4C4F",
+      "name": "Bandana Plaid",
+      "has_image_box": false,
+      "image_dir": "apparel",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Dog - Reach Level 45 — 20 World Pet Levelled Up."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "008D4C4F",
+        "edid": "WorldPets_co_Clothes_Dog_Neckwear_BandanaPlaid"
+      },
+      "cnam": {
+        "formid": "008D4C4D",
+        "edid": "WorldPets_Clothes_Dog_Neckwear_BandanaPlaid",
+        "sig": ""
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "apparel",
+      "plan_page_group": null
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_008D4C50",
+      "name": "Badge Bandana",
+      "has_image_box": false,
+      "image_dir": "apparel",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Dog - Reach Level 95 — 15 World Pet Levelled Up."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "008D4C50",
+        "edid": "WorldPets_co_Clothes_Dog_Neckwear_BandanaVT"
+      },
+      "cnam": {
+        "formid": "008D4C4E",
+        "edid": "WorldPets_Clothes_Dog_Neckwear_BandanaVT",
+        "sig": ""
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "apparel",
+      "plan_page_group": null
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_008D667D",
+      "name": "Patina Nose Ring (Radhog)",
+      "has_image_box": false,
+      "image_dir": "recipes",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Radhog - Reach Level 45 — 20 World Pet Levelled Up."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "008D667D",
+        "edid": "CAMPPets_co_Clothes_RadHog_Headwear_NoseRing_Patina"
+      },
+      "cnam": {
+        "formid": "008D667C",
+        "edid": "CAMPPets_Clothes_RadHog_Headwear_NoseRing_Patina",
+        "sig": ""
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "camp",
+      "plan_page_group": "Needs Sorting"
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_008D667E",
+      "name": "Gold Nose Ring (Radhog)",
+      "has_image_box": false,
+      "image_dir": "recipes",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Radhog - Reach Level 95 — 15 World Pet Levelled Up."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "008D667E",
+        "edid": "CAMPPets_co_Clothes_RadHog_Headwear_NoseRing_Gold"
+      },
+      "cnam": {
+        "formid": "008D667B",
+        "edid": "CAMPPets_Clothes_RadHog_Headwear_NoseRing_Gold",
+        "sig": ""
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "camp",
+      "plan_page_group": "Needs Sorting"
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_008EFCB2",
+      "name": "Spicy Eelgrass Soup",
+      "has_image_box": false,
+      "image_dir": "recipes",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Catch Fall Seasonal Local Legend: \"Sludge Eye\"."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "008EFCB2",
+        "edid": "co_meal_Fishing_FallSoup"
+      },
+      "cnam": {
+        "formid": "008EFCA8",
+        "edid": "SeasonalFish_Meal_FallSoup",
+        "sig": ""
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "camp",
+      "plan_page_group": "Needs Sorting"
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_008F4DF2",
+      "name": "Pint-Sized Slasher Fishing Bobber",
+      "has_image_box": true,
+      "image_dir": "fishing-rod",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (physical plan)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Collect Even More Pint-Sized Slasher Masks — 30 Items Acquired."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "008F4DF2",
+        "edid": "SDOW_co_Fishing_RodBobber_Display_SlasherBobber"
+      },
+      "cnam": {
+        "formid": "008F4DF3",
+        "edid": "SDOW_Fishing_RodBobber_Display_SlasherBobber_Misc",
+        "sig": "MISC"
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "fishing-rod",
+      "plan_page_group": "Display Replicas"
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_00900A8C",
+      "name": "Dog Tamer Helmet",
+      "has_image_box": false,
+      "image_dir": "recipes",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Dog - Reach Level 190."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "00900A8C",
+        "edid": "WorldPets_co_Clothes_Headwear_DogTamer"
+      },
+      "cnam": {
+        "formid": "00900A84",
+        "edid": "WorldPets_ARMO_Headwear_DogTamer",
+        "sig": ""
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "camp",
+      "plan_page_group": "Needs Sorting"
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_00900A8D",
+      "name": "Dog Tamer Outfit",
+      "has_image_box": false,
+      "image_dir": "apparel",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Dog - Reach Level 190."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "00900A8D",
+        "edid": "WorldPets_co_Clothes_Outfit_DogTamer"
+      },
+      "cnam": {
+        "formid": "00900A85",
+        "edid": "WorldPets_Clothes_ARMO_Outfit_DogTamer",
+        "sig": ""
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "apparel",
+      "plan_page_group": null
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_00900A8E",
+      "name": "Deathclaw Tamer Helmet",
+      "has_image_box": false,
+      "image_dir": "recipes",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Deathclaw - Reach Level 190."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "00900A8E",
+        "edid": "WorldPets_co_Clothes_Headwear_DCTamer"
+      },
+      "cnam": {
+        "formid": "00900A86",
+        "edid": "WorldPets_ARMO_Headwear_DCTamer",
+        "sig": ""
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "camp",
+      "plan_page_group": "Needs Sorting"
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_00900A90",
+      "name": "Radhog Tamer Helmet",
+      "has_image_box": false,
+      "image_dir": "recipes",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Radhog - Reach Level 190."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "00900A90",
+        "edid": "WorldPets_co_Clothes_Headwear_RadhogTamer"
+      },
+      "cnam": {
+        "formid": "00900A88",
+        "edid": "WorldPets_ARMO_Headwear_RadhogTamer",
+        "sig": ""
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "camp",
+      "plan_page_group": "Needs Sorting"
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_00900A91",
+      "name": "Radhog Tamer Outfit",
+      "has_image_box": false,
+      "image_dir": "apparel",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Radhog - Reach Level 190."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "00900A91",
+        "edid": "WorldPets_co_Clothes_Outfit_RadhogTamer"
+      },
+      "cnam": {
+        "formid": "00900A89",
+        "edid": "WorldPets_Clothes_ARMO_Outfit_RadhogTamer",
+        "sig": ""
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "apparel",
+      "plan_page_group": null
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_00900A92",
+      "name": "Cat Tamer Helmet",
+      "has_image_box": false,
+      "image_dir": "recipes",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Cat - Reach Level 190."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "00900A92",
+        "edid": "WorldPets_co_Clothes_Headwear_CatTamer"
+      },
+      "cnam": {
+        "formid": "00900A8A",
+        "edid": "WorldPets_ARMO_Headwear_CatTamer",
+        "sig": ""
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "camp",
+      "plan_page_group": "Needs Sorting"
+    },
+    {
+      "kind": "plan",
+      "recipe_only": true,
+      "brand": "df",
+      "type": "recipe",
+      "id": "RECIPE_00900A93",
+      "name": "Cat Tamer Outfit",
+      "has_image_box": false,
+      "image_dir": "apparel",
+      "obtain": "Learned directly — there is no plan for this one. It is not random loot; see below.",
+      "category_label": "CAMP / Recipe (mod/recipe)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Reward for completing the challenge: Cat - Reach Level 190."
+      ],
+      "plan_item": null,
+      "cobj": {
+        "formid": "00900A93",
+        "edid": "WorldPets_co_Clothes_Outfit_CatTamer"
+      },
+      "cnam": {
+        "formid": "00900A8B",
+        "edid": "WorldPets_Clothes_ARMO_Outfit_CatTamer",
+        "sig": ""
+      },
+      "tradeable": null,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "obtain_ledger": [
+        {
+          "label": "Challenges",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "plan_page": "apparel",
+      "plan_page_group": null
     }
   ],
   "changes_since": "2026-09-16T10:56:14+00:00",
