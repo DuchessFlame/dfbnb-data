@@ -1,11 +1,11 @@
 {
-  "generated": "2026-09-17T02:00:24.294025+00:00",
-  "isPts": false,
+  "generated": "2026-09-17T02:00:24.488144+00:00",
+  "isPts": true,
   "source": {
-    "fishTsv": "FISH_Export_July_2026.tsv",
-    "alchTsv": "ALCH_Export_August_2026.tsv",
-    "chalTsv": "CHAL_Export_September_2026.tsv",
-    "lvliTsv": "LVLI_Export_September_2026_LVLI_Entries.tsv"
+    "fishTsv": "FISH_Export_PTS_2026-09-05_2001.tsv",
+    "alchTsv": "ALCH_Export_PTS_2026-09-16_2000.tsv",
+    "chalTsv": "CHAL_Export_PTS_2026-09-16_2051.tsv",
+    "lvliTsv": "LVLI_Export_PTS_2026-09-16_1737_LVLI_Entries.tsv"
   },
   "timezone": "America/New_York",
   "rotationRule": {
@@ -20,7 +20,7 @@
   "challenges": [
     {
       "edid": "Challenge_Lifetime_Fishing_Axolotls_META",
-      "name": "Catch All Axolotls",
+      "name": "Catch All Monthly Axolotls",
       "tracker": "",
       "count": 12,
       "reward": "Atoms"
@@ -196,9 +196,113 @@
       "rawValue": 5
     }
   ],
-  "ptsPreview": {
-    "available": true,
-    "dataFile": "axolotl_guide_pts.json",
-    "note": "A PTS preview (Golden Axolotl) is available via the PTS Preview toggle."
+  "golden": {
+    "available": false,
+    "name": "Gold Axolotl",
+    "formId": "",
+    "edid": "",
+    "size": "Small",
+    "rawValue": 0,
+    "specialSplash": false,
+    "legendarySound": false,
+    "rotation": [
+      {
+        "monthIndex": 1,
+        "monthName": "January",
+        "regions": [
+          "Burning Springs",
+          "Savage Divide"
+        ]
+      },
+      {
+        "monthIndex": 2,
+        "monthName": "February",
+        "regions": [
+          "Cranberry Bog",
+          "Forest"
+        ]
+      },
+      {
+        "monthIndex": 3,
+        "monthName": "March",
+        "regions": [
+          "Skyline Valley",
+          "Toxic Valley"
+        ]
+      },
+      {
+        "monthIndex": 4,
+        "monthName": "April",
+        "regions": [
+          "Mire",
+          "Burning Springs"
+        ]
+      },
+      {
+        "monthIndex": 5,
+        "monthName": "May",
+        "regions": [
+          "Skyline Valley",
+          "Cranberry Bog"
+        ]
+      },
+      {
+        "monthIndex": 6,
+        "monthName": "June",
+        "regions": [
+          "Mire",
+          "Toxic Valley"
+        ]
+      },
+      {
+        "monthIndex": 7,
+        "monthName": "July",
+        "regions": [
+          "Ash Heap",
+          "Forest"
+        ]
+      },
+      {
+        "monthIndex": 8,
+        "monthName": "August",
+        "regions": [
+          "Mire",
+          "Skyline Valley"
+        ]
+      },
+      {
+        "monthIndex": 9,
+        "monthName": "September",
+        "regions": [
+          "Ash Heap",
+          "Toxic Valley"
+        ]
+      },
+      {
+        "monthIndex": 10,
+        "monthName": "October",
+        "regions": [
+          "Toxic Valley",
+          "Savage Divide"
+        ]
+      },
+      {
+        "monthIndex": 11,
+        "monthName": "November",
+        "regions": [
+          "Forest",
+          "Cranberry Bog"
+        ]
+      },
+      {
+        "monthIndex": 12,
+        "monthName": "December",
+        "regions": [
+          "Ash Heap",
+          "Toxic Valley"
+        ]
+      }
+    ],
+    "note": "PTS PREVIEW -- the Golden Axolotl is a rare, legendary catch (special splash + fanfare) being tested on the Public Test Server. It follows the same monthly region rotation as the standard colours. Not yet on live."
   }
 }
