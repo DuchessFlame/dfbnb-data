@@ -214,7 +214,24 @@ def resolve_tradeable(kw_blob):
 
 _CAT_NOUN = {"apparel":"Apparel","armour":"Armour","backpack-mod":"Backpack Mod",
              "recipe":"CAMP / Recipe","weapon":"Weapon"}
-def category_label(cat, has_img, cnam_sig):
+# The first thing a reader wants from How to Obtain is whether there is a plan
+# item to go looking for at all. Both sentences say which of the two this row is
+# before they say anything else, and every builder that writes `obtain` uses
+# these so the two halves of the roster cannot drift apart.
+PHYSICAL_PLAN = ("This is a physical plan — there is a plan item to find "
+                 "and learn.")
+LEARNT_DIRECT = ("This plan is learnt directly — there is no physical plan "
+                 "item to find.")
+
+
+def category_label(cat, has_img, cnam_sig, physical=True):
+    """Human label for the Technical box.
+
+    `physical` is False for a recipe-only row — a craftable a challenge or a
+    workshop claim teaches, with no plan BOOK anywhere. Saying "(physical plan)"
+    there sends a reader hunting an item that does not exist, which is the whole
+    distinction this label is meant to carry.
+    """
     noun = _CAT_NOUN.get(cat, cat.title())
     if not has_img:
         if cnam_sig == "OMOD" or cat == "backpack-mod":
@@ -222,7 +239,7 @@ def category_label(cat, has_img, cnam_sig):
         if cnam_sig == "ALCH":
             return "Consumable Recipe"
         return f"{noun} (mod/recipe)"
-    return f"{noun} (physical plan)"
+    return f"{noun} (physical plan)" if physical else f"{noun} (learnt directly)"
 
 def resolve_stops_dropping(entries):
     if not entries:
@@ -1002,12 +1019,12 @@ def main(argv=None):
             obtain_text = ("Cut content. This plan is still in the game files but "
                            "nothing gives it out — it cannot be obtained in game.")
         elif routes:
-            obtain_text = ("Learned from a plan. Drops from the sources below, each "
+            obtain_text = (PHYSICAL_PLAN + " It drops from the sources below, each "
                            "with its resolved chance.")
         elif unlocks:
-            obtain_text = "Learned from a plan. It is not random loot — see below."
+            obtain_text = PHYSICAL_PLAN + " It is not random loot — see below."
         else:
-            obtain_text = ("Learned from a plan. No source was resolved from the game "
+            obtain_text = (PHYSICAL_PLAN + " No source was resolved from the game "
                            "files — see Technical for the recipe details.")
 
         item = {

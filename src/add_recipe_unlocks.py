@@ -123,12 +123,12 @@ def attach(items, tsv_dir="tsv", stats=None):
             obtain = ("Cut content. This plan is still in the game files but "
                       "nothing gives it out — it cannot be obtained in game.")
         elif routes:
-            obtain = ("Learned from a plan. Drops from the sources below, each "
+            obtain = (bpo.PHYSICAL_PLAN + " It drops from the sources below, each "
                       "with its resolved chance.")
         elif new_unlocks:
-            obtain = "Learned from a plan. It is not random loot — see below."
+            obtain = bpo.PHYSICAL_PLAN + " It is not random loot — see below."
         else:
-            obtain = ("Learned from a plan. No source was resolved from the game "
+            obtain = (bpo.PHYSICAL_PLAN + " No source was resolved from the game "
                       "files — see Technical for the recipe details.")
         if obtain != item.get("obtain"):
             bump("obtain_changed")

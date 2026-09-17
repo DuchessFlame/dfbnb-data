@@ -129,6 +129,7 @@ GROUPS = {
     "backpack-mod": "Backpack Mods",
     "camp":         "CAMP",
     "fishing":      "Fishing",
+    "misc-display": "MISC Display",
     "recipe":       "Recipes",
     "skin":         "Skins",
     "weapon":       "Weapons",
@@ -152,6 +153,27 @@ GROUP_OVERRIDES = {
 # "Fishing_Workshop_*" (stays CAMP), fishing FOOD is ALCH (stays Recipes), and
 # the scuba backpack is a backpack -- none of those match _mod_FishingRod_.
 _RX_FISHING = re.compile(r"_mod_fishingrod", re.I)
+
+# Display replicas -- a MISC souvenir copy of an item that also exists in usable
+# form, built at a tinker's bench and put on a shelf. They read as duplicates
+# otherwise: the game teaches the Pint-Sized Slasher rod bobber and its display
+# copy from the same challenge, and Bethesda named the copy "Pint-Sized Slasher
+# Fishing Bobber" -- so the page showed what looked like the same bobber twice,
+# once under Fishing and once under CAMP. Their own group answers it in the
+# heading. Deliberately narrow: only a MISC row that says Display or Replica, or
+# one plan_subpages already filed under "Display Replicas". Souvenir MISC items
+# that copy nothing -- beer steins, fossils, taxidermy moths -- are ordinary
+# CAMP decor and stay in CAMP.
+_RX_REPLICA = re.compile(r"(^|_)(display|replica)(_|\b)", re.I)
+
+
+def _is_display_replica(item, cnam_sig, blob):
+    if cnam_sig != "MISC":
+        return False
+    if (item.get("plan_page_group") or "") == "Display Replicas":
+        return True
+    name = str(item.get("name") or "")
+    return bool(_RX_REPLICA.search(blob) or _RX_REPLICA.search(name))
 
 # Skins / paints. Tested against the EDID blob AND the display name, because a
 # few paints (e.g. a jetpack paint) carry no "paint" token in the EDID.
@@ -233,6 +255,13 @@ def classify_group(item):
     blob      = f"{cobj_edid} {cnam_edid} {plan_edid}"
     name      = re.sub(r"^(plan|recipe):\s*", "", str(item.get("name") or ""), flags=re.I)
     has_box   = bool(item.get("has_image_box"))
+
+    # 0. MISC DISPLAY -- souvenir copies. First, because a replica carries the
+    #    real item's own words (a rod bobber replica matches the fishing rule,
+    #    a weapon replica would match the weapon rules) and would be filed as
+    #    the thing it copies.
+    if _is_display_replica(item, cnam_sig, blob):
+        return "misc-display"
 
     # 1. FISHING tackle -- the rod and its mods (_mod_FishingRod_*). Before the
     #    weapon rules, because the rod/its mods carry _Weapon_ in the COBJ.

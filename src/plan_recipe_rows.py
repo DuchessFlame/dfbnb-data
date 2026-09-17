@@ -121,9 +121,9 @@ def build(items, tsv_dir="tsv", stats=None):
             "kind": "plan", "recipe_only": True, "brand": "df", "type": cat,
             "id": f"RECIPE_{co_fid}", "name": name,
             "has_image_box": has_img, "image_dir": "",
-            "obtain": ("Learned directly — there is no plan for this one. "
-                       "It is not random loot; see below."),
-            "category_label": bpo.category_label(cat, has_img, cnam_sig),
+            "obtain": (bpo.LEARNT_DIRECT + " It is not random loot; see below."),
+            "category_label": bpo.category_label(cat, has_img, cnam_sig,
+                                                 physical=False),
             "obtain_routes": [],
             "obtain_unlocks": [sentence] if sentence else [],
             # No BOOK exists. Every consumer tests this for None already, because

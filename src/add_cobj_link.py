@@ -185,7 +185,8 @@ def attach(items, tsv_dir="tsv", effects=True, stats=None):
         if item.get("has_image_box") != has_img:
             item["has_image_box"] = has_img
             bump("image_box_changed")
-        label = bpo.category_label(item.get("type"), has_img, cnam_sig)
+        label = bpo.category_label(item.get("type"), has_img, cnam_sig,
+                                   physical=bool(item.get("plan_item")))
         if label and label != item.get("category_label"):
             item["category_label"] = label
             bump("category_label_changed")
