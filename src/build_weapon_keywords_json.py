@@ -124,12 +124,8 @@ KEYWORD_GROUPS = [
 # 32 weapons and says nothing about any of them; DOT/Piercing/NonBullet are
 # damage-system internals. Kept out of discovery so the list stays readable.
 # Delete a line here and that keyword starts appearing -- nothing else to change.
-# NOTE: WeaponTypeWeird is NOT here. It looks like plumbing -- 32 weapons, no
-# obvious meaning -- but it is half of what the game calls "Improvised": the
-# challenge condition is WeaponTypeImprovised OR WeaponTypeWeird, and only Pool
-# Cue and War Drum carry Improvised itself. See collect_or_sets().
 _KEYWORD_SKIP = {
-    "WeaponTypeDOT", "WeaponTypePiercing", "WeaponTypeGun",
+    "WeaponTypeWeird", "WeaponTypeDOT", "WeaponTypePiercing", "WeaponTypeGun",
     "WeaponTypeNonBullet", "WeaponTypeCult", "WeaponTypeNitro",
     "WeaponTypeUltracite", "WeaponTypeV63",
 }
@@ -261,7 +257,7 @@ def collect_challenges():
         "CHAL_Export_*.tsv", channel="pts" if PTS else "live", required=False)
     if not tsv_path:
         print("  [WARN] No CHAL_Export_*.tsv found -- challenges omitted", file=sys.stderr)
-        return {}, [], None
+        return {}, None
     print(f"  Reading challenges from: {os.path.basename(tsv_path)}")
     rows = spin.read_tsv(tsv_path)
     print(f"  Total CHAL rows: {len(rows)}")
@@ -295,91 +291,9 @@ def collect_challenges():
             seen.add(sig)
             by_keyword.setdefault(kw, []).append({"type": ctype, "text": text})
 
-    condkeys = [c for c in (rows[0] if rows else {})
-                if c and c.startswith("Cond") and c != "CondCount"]
-    or_sets = collect_or_sets(rows, condkeys)
-
     total = sum(len(v) for v in by_keyword.values())
     print(f"  Challenge/keyword pairs: {total} across {len(by_keyword)} keywords")
-    print(f"  Challenges accepting several keywords at once: {len(or_sets)}")
-    return by_keyword, or_sets, os.path.basename(tsv_path)
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-#  Keywords a challenge accepts together (OR-linked conditions)
-# ─────────────────────────────────────────────────────────────────────────────
-# A challenge can accept several keywords at once. The OR is carried in the
-# condition's flag byte -- bit 0x01 on a condition means "OR with the next one":
-#
-#   Cond1 : 10010000|...|WeaponTypeImprovised "Improvised" [KYWD:0033AB25]|...
-#   Cond2 : 10000000|...|WeaponTypeWeird [KYWD:0033AB1A]|...
-#
-# so "an Improvised Weapon" really means Improvised OR Weird -- and only Pool Cue
-# and War Drum carry Improvised, which is why that expand showed two weapons for
-# a challenge with thirty-odd valid answers.
-#
-# 18 live challenges do this across 8 keyword sets. Merging every set into every
-# member is NOT safe: "Kill Scorched with a Ranged Weapon" is Pipe OR Ranged, and
-# folding that both ways turns the 6-weapon Pipe group into 148. So the merge is
-# DIRECTIONAL -- the set folds into whichever keyword the challenge actually
-# names, and the others keep their own list. "Improvised" is named, "Weird" is
-# not, so Improvised absorbs Weird; "Ranged" is named, "Pipe" is not, so Ranged
-# absorbs Pipe and Pipe is left alone.
-
-_COND_OR_FLAG = 3  # index into the flag byte string; '1' here means OR-with-next
-
-
-def collect_or_sets(rows, condkeys):
-    """[(frozenset(keywords), challenge display text), ...] for live challenges."""
-    out = []
-    for row in rows:
-        if spin.is_cut((row.get("EDID") or "").strip()):
-            continue
-        text = (row.get("FULL") or "").strip()
-        if not text or text.upper() == "NONE":
-            continue
-
-        run = []
-        for col in condkeys:
-            val = row.get(col) or ""
-            m = _CHAL_KEYWORD_IN_COND.search(val)
-            if not m:
-                continue
-            flags = val.split("|")[0]
-            is_or = len(flags) > _COND_OR_FLAG and flags[_COND_OR_FLAG] == "1"
-            run.append((m.group(1), is_or))
-
-        current = []
-        for kw, is_or in run:
-            current.append(kw)
-            if not is_or:
-                if len(current) > 1:
-                    out.append((frozenset(current), text))
-                current = []
-    return out
-
-
-def merge_map(or_sets, label_of):
-    """keyword -> extra keywords it absorbs, for the keyword the challenge names.
-
-    `label_of(kw)` gives a keyword's heading. A set folds into every member whose
-    heading appears in the challenge text ("Craft a Grenade, Mine, or Thrown
-    Weapon" names Grenade and Mine, so both absorb the set). If the text names
-    none of them -- a wording nobody predicted -- the member with the most
-    weapons takes it, so the set is never silently dropped.
-    """
-    merges = {}
-    for kws, text in or_sets:
-        low = text.lower()
-        named = [k for k in kws if label_of(k).lower() in low]
-        if not named:
-            named = [max(kws, key=lambda k: _WEAPON_COUNT.get(k, 0))]
-        for k in named:
-            merges.setdefault(k, set()).update(kws - {k})
-    return merges
-
-
-_WEAPON_COUNT = {}   # filled by build_groups; only used to break a no-match tie
+    return by_keyword, os.path.basename(tsv_path)
 
 
 def challenges_for(keywords, by_keyword):
@@ -394,138 +308,6 @@ def challenges_for(keywords, by_keyword):
             out.append(c)
     order = {t: i for i, t in enumerate(_CHAL_TYPE_ORDER)}
     out.sort(key=lambda c: (order.get(c["type"], len(order)), _chal_sort_key(c["text"])))
-    return out
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-#  Mods that grant a keyword
-# ─────────────────────────────────────────────────────────────────────────────
-# A weapon's keywords are not fixed. An OMOD can ADD one:
-#
-#   mod_CombatRifle_Receiver_Automatic  ADD Keywords  WeaponTypeAutomatic
-#
-# so a Combat Rifle is not an Automatic weapon until you fit an automatic
-# receiver. 268 mods do this; 106 weapons gain a keyword they don't have stock.
-# Listing them matters -- "Automatic" showing 20 weapons is only true of weapons
-# that ship that way.
-#
-# What this deliberately does NOT catch: a mod that grants the EFFECT without the
-# keyword. The Mole Miner Gauntlet's "Extra Blade" adds an ENCHANTMENT called
-# Bleed, not WeaponTypeBleedDamage, so the gauntlet really does bleed and really
-# would not satisfy a challenge testing for the Bleed keyword. Only the keyword
-# decides, so only the keyword is read here.
-#
-# Weapon <- mod wiring comes from the WEAP ObjectTemplate export (its
-# Include_Mod column), which is the game's own list of what attaches to what.
-
-_OMOD_KEYWORD_ADD = re.compile(r"^(WeaponType[A-Za-z0-9_]+)")
-
-
-def _lead_token(cell):
-    """'mod_Foo "Bar" [OMOD:0001]' -> 'mod_Foo'."""
-    return (cell or "").strip().split(" ")[0].split("[")[0].strip()
-
-
-def collect_mods(live_names):
-    """keyword -> sorted [(mod display name, weapon name)] that GRANT it.
-
-    Only mods on weapons that made the live list, only mods that aren't cut, and
-    only where the weapon lacks the keyword stock -- a mod that re-grants what a
-    weapon already has is noise.
-    """
-    chan = "pts" if PTS else "live"
-    prop_path = tsv_source.newest("OMOD_Export_*_Properties.tsv", channel=chan, required=False)
-    base_path = tsv_source.newest("OMOD_Export_*.tsv", channel=chan,
-                                  exclude="Properties", required=False)
-    ot_path = tsv_source.newest("WEAP_Export_*_ObjectTemplate.tsv", channel=chan, required=False)
-    if not (prop_path and ot_path):
-        print("  [WARN] OMOD/ObjectTemplate export missing -- mods omitted", file=sys.stderr)
-        return {}, {}, None
-
-    print(f"  Reading mods from: {os.path.basename(prop_path)}")
-    grants = {}
-    for row in spin.read_tsv(prop_path):
-        if (row.get("PropertyName") or "").strip() != "Keywords":
-            continue
-        if (row.get("FunctionType") or "").strip().upper() != "ADD":
-            continue
-        m = _OMOD_KEYWORD_ADD.match((row.get("Value1") or "").strip())
-        if not m:
-            continue
-        edid = (row.get("OMOD_EDID") or "").strip()
-        if not edid or spin.is_cut(edid):
-            continue
-        grants.setdefault(edid, set()).add(m.group(1))
-
-    mod_name = {}
-    if base_path:
-        for row in spin.read_tsv(base_path):
-            edid = (row.get("OMOD_EDID") or "").strip()
-            full = (row.get("FULL") or "").strip()
-            if edid and full:
-                mod_name[edid] = full
-
-    print(f"  Mods granting a weapon keyword: {len(grants)}")
-
-    # OBTS_Default marks the combination a weapon SPAWNS with. A Submachine Gun
-    # gets WeaponTypeAutomatic from "Standard Receiver" on its default
-    # combination -- it is automatic as it comes, and belongs in Weapons, not
-    # under "fit this mod". The Combat Rifle's Automatic Receiver is never
-    # default, so that one is a real instruction.
-    fitted = {}      # keyword -> {weapon}  (granted by a default mod)
-    optional = {}    # keyword -> [(mod name, weapon)]
-    seen = set()
-    for row in spin.read_tsv(ot_path):
-        weapon = (row.get("WEAP_FULL") or "").strip()
-        if weapon not in live_names:
-            continue
-        mod = _lead_token(row.get("Include_Mod"))
-        kws = grants.get(mod)
-        if not kws:
-            continue
-        is_default = (row.get("OBTS_Default") or "").strip().lower() == "true"
-        for kw in kws:
-            if kw in live_names[weapon]:
-                continue          # already on the base record -- nothing to say
-            if is_default:
-                fitted.setdefault(kw, set()).add(weapon)
-                continue
-            sig = (kw, mod, weapon)
-            if sig in seen:
-                continue
-            seen.add(sig)
-            optional.setdefault(kw, []).append(
-                (mod_name.get(mod) or decamel_mod(mod), weapon))
-
-    # A weapon that gets the keyword by default is not also "a mod away" from it.
-    for kw, names in fitted.items():
-        if kw in optional:
-            optional[kw] = [t for t in optional[kw] if t[1] not in names]
-    for kw in optional:
-        optional[kw].sort(key=lambda t: (t[0].lower(), t[1].lower()))
-
-    print(f"  Weapons carrying a keyword via a default mod: "
-          f"{len({w for v in fitted.values() for w in v})}")
-    print(f"  Weapons one optional mod away from a keyword: "
-          f"{len({w for v in optional.values() for _, w in v})}")
-    return optional, fitted, os.path.basename(prop_path)
-
-
-def decamel_mod(edid):
-    """Last-resort label for a mod with no FULL: mod_Foo_BarBaz -> 'Bar Baz'."""
-    tail = edid.split("_")[-1] if "_" in edid else edid
-    return decamel("WeaponType" + tail) or edid
-
-
-def mods_for(keywords, by_mod):
-    out, seen = [], set()
-    for kw in keywords:
-        for name, weapon in by_mod.get(kw, ()):
-            if (name, weapon) in seen:
-                continue
-            seen.add((name, weapon))
-            out.append({"name": name, "weapon": weapon})
-    out.sort(key=lambda m: (m["name"].lower(), m["weapon"].lower()))
     return out
 
 
@@ -554,63 +336,32 @@ def discover_groups(weapons, by_keyword, display):
     return out
 
 
-def build_groups(weapons, by_keyword, or_sets, by_mod, fitted, display):
+def build_groups(weapons, by_keyword, display):
     discovered = discover_groups(weapons, by_keyword, display)
     print(f"  Curated groups: {len(KEYWORD_GROUPS)}, discovered: {len(discovered)}")
 
-    all_specs = list(KEYWORD_GROUPS) + discovered
-
-    # Heading per keyword, so merge_map can tell which one a challenge names.
-    label_of = {}
-    for label, keywords, _ in all_specs:
-        for kw in keywords:
-            label_of.setdefault(kw, label)
-
-    _WEAPON_COUNT.clear()
-    for _, kws in weapons:
-        for kw in kws:
-            _WEAPON_COUNT[kw] = _WEAPON_COUNT.get(kw, 0) + 1
-
-    merges = merge_map(or_sets, lambda kw: label_of.get(kw, decamel(kw)))
-    if merges:
-        print("  Keyword sets folded into the keyword their challenge names:")
-        for kw in sorted(merges, key=lambda k: label_of.get(k, k).lower()):
-            extra = sorted(label_of.get(x, decamel(x)) for x in merges[kw])
-            print(f"    {label_of.get(kw, decamel(kw)):<22} also accepts {', '.join(extra)}")
-
     groups = []
-    for label, keywords, named in all_specs:
+    for label, keywords, named in list(KEYWORD_GROUPS) + discovered:
         wanted = set(keywords)
-        for kw in keywords:
-            wanted |= merges.get(kw, set())
-        members = {name for name, kws in weapons if kws & wanted}
-        for kw in wanted:
-            members |= fitted.get(kw, set())     # keyword arrives with the default mod
-        members = sorted(members, key=str.lower)
+        members = [name for name, kws in weapons if kws & wanted]
         if not members:
             # No live weapon carries it. For a curated keyword that means it was
             # probably renamed in the export and wants looking at; for a
             # discovered one it is routine -- WeaponTypeLaserMusket exists only
             # on zzz_LaserMusket, which the cut filter drops. Either way an
             # expand that answers "no weapons" is not worth rendering.
-            where = "group" if (label, keywords, named) in KEYWORD_GROUPS else "discovered keyword"  # noqa: E501
+            where = "group" if (label, keywords, named) in KEYWORD_GROUPS else "discovered keyword"
             print(f"  [WARN] {where} '{label}' ({'/'.join(keywords)}) matched no live weapon"
                   f" -- skipped", file=sys.stderr)
             continue
         chals = challenges_for(keywords, by_keyword)
-        mods = mods_for(wanted, by_mod)
         groups.append({
             "key": slugify(label),
             "label": label,
-            # Every keyword the group answers for -- its own first, then any the
-            # OR-merge folded in. The page searches this, so "WeaponTypeWeird"
-            # still finds Improvised.
-            "keyword": " / ".join(list(keywords) + sorted(wanted - set(keywords))),
+            "keyword": " / ".join(keywords),
             "named": named,
             "count": len(members),
             "weapons": members,
-            "modCount": len(mods),
-            "mods": mods,
             "challengeCount": len(chals),
             "challenges": chals,
         })
@@ -625,10 +376,8 @@ def main():
     print("=" * 60)
 
     weapons, display, source = collect_weapons()
-    by_keyword, or_sets, chal_source = collect_challenges()
-    live_names = {name: kws for name, kws in weapons}
-    by_mod, fitted, mod_source = collect_mods(live_names)
-    groups = build_groups(weapons, by_keyword, or_sets, by_mod, fitted, display)
+    by_keyword, chal_source = collect_challenges()
+    groups = build_groups(weapons, by_keyword, display)
 
     output = {
         "groups": groups,
@@ -636,11 +385,9 @@ def main():
             "built": date.today().isoformat(),
             "source": source,
             "challengeSource": chal_source,
-            "modSource": mod_source,
             "groupCount": len(groups),
             "weaponCount": len(weapons),
             "challengeCount": sum(g["challengeCount"] for g in groups),
-            "modCount": sum(g["modCount"] for g in groups),
         },
     }
 
@@ -653,9 +400,7 @@ def main():
     print(f"  Groups: {len(groups)}, Weapons: {len(weapons)}")
     for g in groups:
         w, c = g["count"], g["challengeCount"]
-        m = g["modCount"]
         print(f"    {g['label']:<22} {w:>4} weapon{'' if w == 1 else 's':<2}"
-              f"  {m:>3} mod{'' if m == 1 else 's':<2}"
               f"  {c:>3} challenge{'' if c == 1 else 's'}")
     print("  Done!")
     return 0

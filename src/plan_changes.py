@@ -196,40 +196,16 @@ def write_snapshot(snap, path=SNAPSHOT):
 
 # ── the diff ────────────────────────────────────────────────────────────────
 
-def _publishable(field, was_coherent, now_coherent,
-                 was_exports=None, now_exports=None):
+def _publishable(field, was_coherent, now_coherent):
     """Can a change in this field be claimed, given both export sets?
 
-    A dependency clears in either of two ways.
-
-    1. IT DID NOT MOVE. If the snapshot and this build read the byte-identical
-       export file, both saw exactly the same data from it, so no difference
-       between them can have come from it and it has nothing to hide. This case
-       matters more than it sounds: CONT and FURN lag for months at a time, and
-       without it a permanently-stale export silences route reporting forever —
-       the rule would protect against a false positive that cannot happen while
-       suppressing every true one. Duchess, on being shown that: "stale is bad.
-       make it generative."
-
-    2. BOTH SIDES ARE COHERENT. The export is at least as new as the BOOK export
-       that defined the roster, on both builds, so neither was answering about an
-       older build of the game.
-
-    Anything else is held: the dependency moved AND at least one side was reading
-    data older than its own roster, which is exactly the case where a source
-    "appearing" means the data caught up rather than the game changing.
-
-    Returns the blocking dependency's name, or "" when the field can be claimed.
+    Both sides have to be trustworthy. If the OLD build could not see a source
+    because its COBJ was stale, the source appearing now is not news about the
+    game. If the NEW build cannot see one, its disappearance is not either.
     """
-    was_exports = was_exports or {}
-    now_exports = now_exports or {}
     for dep in FIELD_DEPENDS.get(field, ()):
-        before, after = was_exports.get(dep), now_exports.get(dep)
-        if before and after and before == after:
-            continue                       # 1. it did not move
-        if was_coherent.get(dep) and now_coherent.get(dep):
-            continue                       # 2. both sides coherent
-        return dep
+        if not (was_coherent.get(dep) and now_coherent.get(dep)):
+            return dep
     return ""
 
 
@@ -280,7 +256,6 @@ def diff(rows, snap, tsv_dir="tsv", stats=None):
     now_exports = export_fingerprint(tsv_dir)
     now_coherent = coherence(now_exports)
     was_coherent = (snap or {}).get("coherent") or {}
-    was_exports = (snap or {}).get("exports") or {}
     prev = (snap or {}).get("plans") or {}
     since = (snap or {}).get("taken") or ""
 
@@ -299,8 +274,7 @@ def diff(rows, snap, tsv_dir="tsv", stats=None):
         for field in ("tradeable", "stops_dropping", "cut", "name"):
             if before.get(field) == after.get(field):
                 continue
-            held = _publishable(field, was_coherent, now_coherent,
-                                was_exports, now_exports)
+            held = _publishable(field, was_coherent, now_coherent)
             if held:
                 bump(f"held:{field}:{held}")
                 continue
@@ -314,8 +288,7 @@ def diff(rows, snap, tsv_dir="tsv", stats=None):
         old_routes = before.get("routes") or {}
         new_routes = after.get("routes") or {}
         if old_routes != new_routes:
-            held = _publishable("routes", was_coherent, now_coherent,
-                                was_exports, now_exports)
+            held = _publishable("routes", was_coherent, now_coherent)
             if held:
                 bump(f"held:routes:{held}")
             else:
