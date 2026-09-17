@@ -219,7 +219,28 @@ _YES_NO = {
 
 # Functions that are never printed. GetRandomPercent is the dice roll that is
 # already inside the rate; the rest are plumbing a player cannot act on.
-_IGNORED = {"GetRandomPercent", "IsTrueForConditionForm", "GetRandomPercentGlobal"}
+_IGNORED = {"GetRandomPercent", "IsTrueForConditionForm", "GetRandomPercentGlobal",
+            # Interior-vs-exterior and raw actor values: engine plumbing with
+            # nothing for a player to act on.
+            "GetWorldType", "GetValue", "GetActorValueForCurrentLocation"}
+
+
+def is_wiring(cond):
+    """A condition whose silence is expected, so it must not be counted as
+    "unreadable" and must not make a route claim that something was missed.
+
+    Nearly all of these are GLOBs: 1,054 of them reach the plan routes and they
+    are switches with editor names ("BS02 Special Vendor Inventory Index"), most
+    permanently on. Only the seasonal Update01_Quest_<Event> flags say anything
+    a player can act on, and those DO get a sentence.
+    """
+    fn = cond.get("fn")
+    if fn in _IGNORED:
+        return True
+    if fn == "GetGlobalValue":
+        edid = ((cond.get("refs") or [{}])[0].get("edid") or "")
+        return not re.match(r"^Update01_Quest_\w+$", edid, re.I)
+    return False
 
 
 def _is_own(ref_fid, name, own):
@@ -276,6 +297,25 @@ def sentence(cond, names=None, own=None):
             return None
         return (f"Only while you are carrying {name}" if yes
                 else f"Only while you do not have {name}")
+
+    if fn in ("GetQuestCompleted", "IsActiveQuest", "HasCompletedChallenge"):
+        name = _first_ref_name(cond, names)
+        yes = _truthy(cond)
+        if not name or yes is None:
+            return None
+        if fn == "IsActiveQuest":
+            return (f"Only while {name} is active" if yes
+                    else f"Only while {name} is not active")
+        word = "the challenge " if fn == "HasCompletedChallenge" else ""
+        return (f"Only after completing {word}{name}" if yes
+                else f"Only before completing {word}{name}")
+
+    if fn == "GetLockLevel":
+        name = _first_ref_name(cond, names) or ""
+        lock = re.sub(r"^LockLevel[_ ]?", "", (cond.get("value_ref") or {}).get("edid") or "", flags=re.I)
+        lock = _humanize(lock) if lock else ""
+        return (f"Only from a {lock}-locked container" if lock
+                else "Only from a locked container")
 
     if fn == "GetNumTimesCompletedQuest":
         name = _first_ref_name(cond, names)
@@ -339,7 +379,7 @@ def _merge_or(parsed, names, own):
             s = sentence(c, names, own)
             if s:
                 lines.append(s)
-            elif c["fn"] not in _IGNORED:
+            elif not is_wiring(c):
                 skipped += 1
         if not lines:
             continue
@@ -365,9 +405,17 @@ class ConditionIndex:
 
     def __init__(self, tsv_dir="tsv", newest=None):
         self.entries = {}       # LVLI FormID -> [entry dicts]
+        self.lists = {}         # LVLI FormID -> {"flags", "conds"}
         self.names = {}         # FormID -> display name (COBJ -> what it makes)
         self.export = ""
         self._load_entries(tsv_dir, newest)
+        self._load_lists(tsv_dir, newest)
+        self.parents = {}       # LVLI FormID -> [(parent FormID, entry)]
+        for lid, es in self.entries.items():
+            for e in es:
+                if e["sig"] == "LVLI" and e["ref"]:
+                    self.parents.setdefault(e["ref"], []).append((lid, e))
+        self._anc_cache = {}
         self._load_cobj_names(tsv_dir, newest)
 
     # -- loading ------------------------------------------------------------
@@ -405,8 +453,44 @@ class ConditionIndex:
                     lvl = float(lvl) if lvl else 0.0
                 except ValueError:
                     lvl = 0.0
-                self.entries.setdefault(lid, []).append(
-                    {"ref": rfid, "sig": rsig, "conds": conds, "minlvl": lvl})
+                bucket = self.entries.setdefault(lid, [])
+                bucket.append({"ref": rfid, "sig": rsig, "conds": conds,
+                               "minlvl": lvl, "idx": len(bucket)})
+
+    def _load_lists(self, tsv_dir, newest):
+        """Per-LIST flags and conditions.
+
+        Two things live here that the entry rows do not have:
+
+        * `LVLF_Flags` -- bit 6 is First Match, which is what makes the level
+          complement below sound (see `_below_from_siblings`).
+        * `ListCond1..N` -- a condition on the WHOLE list. 168 of them exist and
+          they carry real rules: the Mk5 underarmour mod list only pays out once
+          you have learned Mk2, several regional loot lists only apply in their
+          own region.
+        """
+        path = self._pick("LVLI_Export_*_LVLI_List.tsv", tsv_dir, newest)
+        if not path:
+            return
+        with open(path, encoding="utf-8", errors="replace", newline="") as f:
+            for row in csv.DictReader(f, delimiter="\t"):
+                lid = (row.get("LVLI_FormID") or "").strip().upper()
+                if not lid:
+                    continue
+                conds = []
+                for i in range(1, 11):
+                    c = (row.get(f"ListCond{i}") or "").strip()
+                    if not c:
+                        continue
+                    pc = parse_condition(c)
+                    if pc:
+                        conds.append(pc)
+                self.lists[lid] = {"flags": (row.get("LVLF_Flags") or "").strip(),
+                                   "conds": conds}
+
+    def _is_first_match(self, lid):
+        flags = (self.lists.get((lid or "").upper()) or {}).get("flags") or ""
+        return len(flags) > 6 and flags[6] == "1"
 
     def _load_cobj_names(self, tsv_dir, newest):
         """COBJ FormID -> the name of the thing it crafts.
@@ -433,10 +517,89 @@ class ConditionIndex:
         seen = seen | {lid}
         for e in self.entries[lid]:
             if e["ref"] == target_fid:
-                yield [e]
+                yield [(lid, e)]
             elif e["sig"] == "LVLI" and e["ref"]:
                 for tail in self._paths(e["ref"], target_fid, depth + 1, seen):
-                    yield [e] + tail
+                    yield [(lid, e)] + tail
+
+    def _below_from_siblings(self, lid, entry):
+        """"Level N and below", inferred from a First Match list.
+
+        Daily Ops is the case that needs it, and it is written like this:
+
+            LL_DailyOps_Rewards_Chase_Tier01   (First Match)
+              entry 0 -> ...Chase_HighLVL   [GetLevel >= 50]
+              entry 1 -> ...Chase_LowLVL    (no condition at all)
+
+        A First Match list rolls once and takes the FIRST entry whose condition
+        matches, so entry 1 is only ever reached by a player the level gate
+        above it did not catch. The low-level pool therefore is "level 49 and
+        below" even though nothing in it says so, and printing "None" there
+        would tell a max-level reader to go and farm something they can never
+        get.
+
+        Deliberately narrow: First Match only, GetLevel only, and only when the
+        entry we took carries no level condition of its own. Where several gates
+        sit above us the SMALLEST one binds -- that is the first branch that
+        catches a player on the way down.
+        """
+        if not self._is_first_match(lid):
+            return None
+        if any(c["fn"] == "GetLevel" for c in entry["conds"]):
+            return None
+        floor = None
+        for sib in self.entries.get((lid or "").upper(), ()):
+            if sib["idx"] >= entry["idx"]:
+                break
+            for c in sib["conds"]:
+                if c["fn"] != "GetLevel" or c.get("number") is None:
+                    continue
+                if c["op"] in (OP_GE, OP_GT):
+                    n = int(c["number"]) + (1 if c["op"] == OP_GT else 0)
+                    floor = n if floor is None else min(floor, n)
+        return f"Level {floor - 1} and below" if floor and floor > 1 else None
+
+    def _entry_lines(self, holder, entry, own):
+        """Every sentence one entry contributes: the holding list's own
+        conditions, the entry's, and the First Match level complement."""
+        conds = list((self.lists.get(holder) or {}).get("conds") or [])
+        conds += entry["conds"]
+        lines, skipped = _merge_or(conds, self.names, own)
+        below = self._below_from_siblings(holder, entry)
+        if below:
+            lines.append(below)
+        return lines, skipped
+
+    def _ancestor_lines(self, lid, own, depth=3, seen=frozenset()):
+        """Conditions that EVERY way into this list agrees on.
+
+        A route is named after one list, and the walk down from it cannot see a
+        gate that sits above it. Daily Ops is exactly that shape: the route
+        "Daily Ops - Low Chase Uncommon" is a list whose only way in is the
+        low-level branch of a First Match tier list, so every plan in it is
+        level 49 and below -- and nothing inside the list says so.
+
+        Only UNANIMOUS conditions are taken. A list reachable two ways, one of
+        them ungated, is not gated, and claiming otherwise would be worse than
+        saying nothing.
+        """
+        lid = (lid or "").upper()
+        key = (lid, (own or {}).get("book"), depth)
+        if key in self._anc_cache:
+            return self._anc_cache[key]
+        out = []
+        if depth > 0 and lid not in seen:
+            parents = self.parents.get(lid) or ()
+            per_parent = []
+            for plid, e in parents:
+                lines, _ = self._entry_lines(plid, e, own)
+                lines += self._ancestor_lines(plid, own, depth - 1, seen | {lid})
+                per_parent.append(set(lines))
+            if per_parent:
+                common = set.intersection(*per_parent)
+                out = sorted(common)
+        self._anc_cache[key] = out
+        return out
 
     def for_lists(self, list_fids, target_fid, own=None):
         """(sentences, unreadable_count) for every path from these lists.
@@ -448,10 +611,14 @@ class ConditionIndex:
         target = (target_fid or "").upper()
         out, skipped, seen_txt = [], 0, set()
         for lid in list_fids or ():
+            # What gates the way INTO this source, before anything inside it.
+            above = self._ancestor_lines(lid, own)
             for path in self._paths(lid, target, 0, frozenset()):
-                for e in path:
-                    lines, miss = _merge_or(e["conds"], self.names, own)
+                for holder, e in path:
+                    lines, miss = self._entry_lines(holder, e, own)
                     skipped += miss
+                    lines = above + lines
+                    above = []
                     # LVLV_MinimumLevel is NOT a player-level gate. On a
                     # creature list it is the level of the thing carrying the
                     # loot -- the Deathclaw entry reads 91 -- and publishing it
