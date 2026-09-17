@@ -75,6 +75,7 @@ sys.path.insert(0, HERE)
 import rng76
 import plan_sources         # cut detection, readable source names, unlock routes
 import plan_unlocks         # COBJ.GNAM — what the game says unlocks each recipe
+import plan_display_names   # row titles: model-first weapon paint names
 import plan_recipe_rows     # rows for recipes that have no plan book at all
 import plan_images           # row art: published images first, staged files second
 import add_weapon_groups    # weapon page grouping: weapon -> Mods / Skins
@@ -1060,6 +1061,13 @@ def main(argv=None):
     if not args.offset and not args.limit and not args.only:
         print("[plan-obtain] recipes with no plan book:")
         plan_recipe_rows.report(plan_recipe_rows.attach(items, TSV))
+
+    # Row titles: model-first for weapon paints (plan_display_names). Pure string
+    # work over the finished roster, so it runs last and costs nothing. The game's
+    # own name stays in `name`; this only writes `display_name`.
+    if not args.offset and not args.limit and not args.only:
+        print("[plan-obtain] row titles:")
+        plan_display_names.report(plan_display_names.attach(items, TSV, newest))
 
     out = {
         "version": 1,
