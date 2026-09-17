@@ -101,13 +101,30 @@ SUBPAGES = {
             ["upgrade", "Rod Upgrades",
              "The one-off rod mods — drag, handle, bearing, hook and gear ratio.",
              r"Recipe_mod_FishingRod_Upgrade_"],
+            # The souvenir versions: a display copy of a bobber or a rod, built
+            # at a tinker's bench, not fitted to anything. They reach this page
+            # because they are fishing gear by name and by folder, and before
+            # this group existed they fell into Rod Upgrades — the last group
+            # takes whatever the rules miss, so a misfile here looks identical
+            # to a match.
+            ["display", "Display Replicas",
+             "Souvenir copies for the CAMP — they go on a shelf, not on a rod.",
+             r"RodBobber_Display|Tinkers_Souvenir|Rod_?Display"],
         ],
         "skip": [[r"Workshop_Recipe_RodDisplay",
                   "a CAMP display stand, not rod gear — it is on the Displays page"]],
-        "note": ["Plans only.",
-                 "Most rod skins and bobbers are Atom Shop or scoreboard unlocks rather than "
-                 "plans you learn, so they are not tracked here. The full set of rods, bobbers "
-                 "and floats is on the Fishing Rod Skins, Bobbers & Floats guide."],
+        # Rewritten 17 Sep 2026. The old wording said most rod skins and bobbers
+        # were "Atom Shop or scoreboard unlocks rather than plans you learn",
+        # which is what the pipeline believed when it could only read BOOK
+        # records: their plans are zzz_-prefixed and unreferenced, so they read
+        # as cut. COBJ.GNAM says otherwise — thirteen of them are rewards for
+        # the "Catch All Regional Fish" challenges, and they are on this page.
+        "note": ["Plans and recipes.",
+                 "Rod gear you learn is all here, however you learn it — from a plan, or "
+                 "handed over for finishing a fishing challenge. The handful still missing "
+                 "are Atom Shop or scoreboard unlocks with no recipe to learn at all; "
+                 "the complete set of rods, bobbers and floats is on the Fishing Rod Skins, "
+                 "Bobbers & Floats guide."],
     },
 
     "camera-mod": {
@@ -266,6 +283,23 @@ def _matches(rule, folder, edid):
     return (folder in val) if kind == "folder" else bool(val.search(edid))
 
 
+def _rule_edid(item):
+    """The EditorID the group rules match against.
+
+    Normally the plan item's. A row for a recipe with no plan book (see
+    plan_recipe_rows.py) has none, so the recipe's own EditorID stands in —
+    it carries the same vocabulary the rules are written against
+    (`..._Fishing_...`, `..._Workshop_...`, `..._Clothes_...`). Without this
+    every such row falls into whatever a page's last group is, which is a
+    silent misfile rather than a visible one.
+    """
+    plan = (item.get("plan_item") or {}).get("edid") or ""
+    if plan:
+        return plan
+    return ((item.get("cobj") or {}).get("edid")
+            or (item.get("cnam") or {}).get("edid") or "")
+
+
 def page_of(item):
     """(slug, group_label) for a row, or (None, None).
 
@@ -275,7 +309,7 @@ def page_of(item):
     still a row.
     """
     folder = (item.get("image_dir") or "").strip().lower()
-    edid = (item.get("plan_item") or {}).get("edid", "") or ""
+    edid = _rule_edid(item)
     for slug, page in SUBPAGES.items():
         _compile(page)
         if folder not in page["_folders"]:
@@ -297,7 +331,7 @@ def page_of(item):
 def skipped(item):
     """(slug, reason) when a row's folder claims it but the page skips it."""
     folder = (item.get("image_dir") or "").strip().lower()
-    edid = (item.get("plan_item") or {}).get("edid", "") or ""
+    edid = _rule_edid(item)
     for slug, page in SUBPAGES.items():
         _compile(page)
         if folder not in page["_folders"]:

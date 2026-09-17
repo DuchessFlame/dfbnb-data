@@ -44,6 +44,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import build_plan_obtain_json as bpo
+import plan_unlocks
 
 
 def _roster_co_refs(tsv_dir):
@@ -84,6 +85,13 @@ def attach(items, tsv_dir="tsv", effects=True, stats=None):
     book_ent = bpo.build_book_entry_index()
     omod_by_edid = bpo.build_omod_edid_index()
     co_refs = _roster_co_refs(tsv_dir)
+    # Third fallback, for a plan neither of the two above can reach: a plan whose
+    # BOOK nothing references and which never drops, so there is no
+    # HasLearnedRecipe entry and no :COBJ in ReferencedBy. 221 live plans were in
+    # that state and published `cobj: null`, the Pint-Sized Slasher pair among
+    # them. plan_unlocks matches on GNAM, then EditorID stem, then created-record
+    # name, and refuses any key with more than one candidate.
+    unlocks = plan_unlocks.RecipeUnlocks(tsv_dir, bpo.newest)
 
     fx_tables = None
     if effects:
@@ -117,6 +125,10 @@ def attach(items, tsv_dir="tsv", effects=True, stats=None):
                 break
         if not co_fid:
             co_fid = co_refs.get(fid, "")
+        if not co_fid:
+            co_fid, how = unlocks.link(fid, edid, item.get("name") or "")
+            if co_fid:
+                bump("linked_%s" % how)
         cobj = cobj_idx.get(co_fid) if co_fid else None
 
         if cobj and not cobj.get("cnam_fid") and \

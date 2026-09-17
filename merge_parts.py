@@ -19,6 +19,8 @@ def main(argv=None):
     ap.add_argument("out")
     ap.add_argument("--expect", type=int, default=0,
                     help="roster size; the merge fails if the item count differs")
+    ap.add_argument("--tsv-dir", default="tsv",
+                    help="export root the recipe-row step reads (tsv/pts on PTS)")
     args = ap.parse_args(argv)
 
     files = sorted(glob.glob(os.path.join(args.parts_dir, "part_*.json")))
@@ -38,6 +40,19 @@ def main(argv=None):
             seen.add(i)
             items.append(it)
         print(f"[merge] {os.path.basename(f):24} +{len(d.get('items', [])):5}  total {len(items)}")
+
+    # Recipes with no plan book (plan_recipe_rows.py). The builder appends them
+    # only on a whole-roster run, because a batch does not know whether another
+    # batch already covered a given recipe — the dedupe reads every row. A
+    # chunked build is exactly that whole-roster run, reassembled here, so this
+    # is where they belong.
+    try:
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "src"))
+        import plan_recipe_rows
+        print("[merge] recipes with no plan book:")
+        plan_recipe_rows.report(plan_recipe_rows.attach(items, args.tsv_dir))
+    except Exception as exc:                      # noqa: BLE001 — never fatal
+        print(f"[merge] WARNING recipe rows skipped: {exc}")
 
     envelope["count"] = len(items)
     envelope["items"] = items

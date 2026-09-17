@@ -135,6 +135,54 @@ def main(argv=None):
                     leaks[f"(quest title) {name}"] += 1
     print(f"[labels] {titles} quest titles reach the unlock sentences")
 
+    # Challenge names are the THIRD way text reaches a page, and they were the
+    # next leak: every ChallengeReward GMRW whose challenge could not be named
+    # from CHAL was humanised into its own record path — "Challenge Lifetime
+    # Burning Springs Bounty Complete Grunt Hunts" shipped on 18 live plans
+    # while the route-label sweep passed clean, because a sentence is not a
+    # label. Both halves are checked here: the titles CHAL publishes, and every
+    # reward record's fallback.
+    chal_titles = chal_rejected = 0
+    chal_path = tsv_source.newest(
+        os.path.join(args.data_dir, "CHAL_Export_*.tsv"), required=False)
+    if chal_path:
+        with open(chal_path, encoding="utf-8", errors="replace") as f:
+            for row in csv.DictReader(f, delimiter="\t"):
+                name = plan_sources.usable_challenge_name(
+                    plan_sources.usable_quest_name((row.get("FULL") or "").strip()))
+                if not name:
+                    continue
+                chal_titles += 1
+                if TITLE_LEAK.search(name):
+                    leaks[f"(challenge title) {name}"] += 1
+
+    gmrw_path = tsv_source.newest(
+        os.path.join(args.data_dir, "GMRW_Export_*.tsv"), required=False)
+    if gmrw_path:
+        idx = plan_sources.UnlockIndex(
+            args.data_dir, lambda pat, root: tsv_source.newest(
+                os.path.join(root, pat), required=False))
+        with open(gmrw_path, encoding="utf-8", errors="replace") as f:
+            for row in csv.DictReader(f, delimiter="\t"):
+                edid = (row.get("EDID") or "").strip()
+                if not plan_sources._RX_CHAL_REWARD.search(edid):
+                    continue
+                stem = plan_sources._RX_CHAL_REWARD.sub("", edid)
+                title = idx._chal_title(stem)
+                if title:
+                    if TITLE_LEAK.search(title):
+                        leaks[f"(challenge reward) {title}"] += 1
+                    continue
+                raw = plan_sources.source_label(stem, idx.quest_names) or ""
+                if plan_sources.usable_challenge_name(raw):
+                    # It will be printed, so it has to survive the same test.
+                    if LEAK.search(raw):
+                        leaks[f"(challenge reward) {raw}"] += 1
+                else:
+                    chal_rejected += 1
+    print(f"[labels] {chal_titles} challenge titles reach the unlock sentences "
+          f"({chal_rejected} reward record(s) fall back to the generic sentence)")
+
     if leaks:
         print(f"[labels] FAIL — {sum(leaks.values())} leaked name(s):")
         for l, n in leaks.most_common():

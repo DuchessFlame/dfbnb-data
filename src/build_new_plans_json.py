@@ -112,6 +112,15 @@ import plan_images                            # row art, same resolver as the ot
 BOOK_GLOB    = "BOOK_Export_*.tsv"
 BOOK_EXCLUDE = "Locations"
 
+# -- the RECIPE side ----------------------------------------------------------
+# A BOOK roster diff can only ever see a new PLAN ITEM. It cannot see a patch
+# that adds a recipe taught some other way — by a challenge, by claiming a
+# workshop — because no BOOK is involved, and it cannot see one whose plan book
+# Bethesda shipped disabled months earlier. That is exactly how the Pint-Sized
+# Slasher radio and fishing bobber reached the live game without this page ever
+# mentioning them. Diffing the COBJ roster as well is what closes it.
+COBJ_GLOB = "COBJ_Export_*.tsv"
+
 # -- group definitions --------------------------------------------------------
 # key -> label. Rendered A-Z by label, so the dict order here is cosmetic.
 GROUPS = {
@@ -308,6 +317,49 @@ def book_plan_ids(path):
             if fid:
                 out[fid] = full
     return out
+
+
+def recipe_ids(path):
+    """{COBJ FormID: created record name} for every recipe that makes something.
+
+    A CNAM-less COBJ is a condition proxy or a dead stub — nothing a row could
+    be named after, and nothing a reader could tick.
+    """
+    out = {}
+    with open(path, encoding="utf-8", errors="replace") as f:
+        for row in csv.DictReader(f, delimiter="\t"):
+            fid = (row.get("COBJ_FormID") or "").strip().upper()
+            name = (row.get("CNAM_FULL") or "").strip()
+            if fid and name:
+                out[fid] = name
+    return out
+
+
+def resolve_recipe_baseline(data_dir, baseline_dir, book_baseline_f):
+    """The COBJ export that pairs with the BOOK baseline this page already chose.
+
+    Pinned to the BOOK baseline's own date rather than resolved independently,
+    so both halves of the diff describe the SAME patch. Resolving them apart
+    would let a COBJ export from a different month decide what counts as new,
+    and the page would report recipes against a boundary its own heading does
+    not describe.
+
+    The two record types are exported separately and do not always arrive
+    together — through most of September 2026 the live BOOK export was current
+    while COBJ was three months stale — so the newest COBJ at or before that
+    date is used, and a channel with no COBJ export simply contributes nothing.
+    """
+    root = baseline_dir or data_dir
+    hits = tsv_source.all_matching(os.path.join(root, COBJ_GLOB))
+    if not hits:
+        return None
+    if baseline_dir:
+        return hits[-1]                       # vs-live: the newest LIVE recipes
+    if not book_baseline_f:
+        return None
+    cutoff = tsv_source.export_date(book_baseline_f)
+    older = [h for h in hits if tsv_source.export_date(h) <= cutoff]
+    return older[-1] if older else None
 
 
 # ---------------------------------------------------------------------------
@@ -532,21 +584,50 @@ def main(argv=None):
             for s in skipped_dupes:
                 print(f"[new-plans] skipped (console only): {s} -- identical roster")
 
+    # -- the recipe half of the diff -----------------------------------------
+    # Same baseline, different record type. Kept separate from `added` so the
+    # console says which half found what, and so a channel missing a COBJ export
+    # degrades to the old BOOK-only behaviour instead of failing.
+    prev_book_f = baseline_block.get("previous")
+    prev_book_path = (os.path.join(args.baseline_dir or args.data_dir, prev_book_f)
+                      if prev_book_f else None)
+    added_recipes = set()
+    new_recipe_f = tsv_source.newest(os.path.join(args.data_dir, COBJ_GLOB),
+                                     required=False)
+    base_recipe_f = resolve_recipe_baseline(
+        args.data_dir, args.baseline_dir, prev_book_path)
+    if new_recipe_f and base_recipe_f and \
+            os.path.abspath(new_recipe_f) != os.path.abspath(base_recipe_f):
+        new_recipes = recipe_ids(new_recipe_f)
+        old_recipes = recipe_ids(base_recipe_f)
+        added_recipes = set(new_recipes) - set(old_recipes)
+        print(f"[new-plans] recipes : {os.path.basename(new_recipe_f)} "
+              f"({len(new_recipes)}) vs {os.path.basename(base_recipe_f)} "
+              f"({len(old_recipes)}) -> {len(added_recipes)} added")
+        baseline_block["recipes_newest"] = os.path.basename(new_recipe_f)
+        baseline_block["recipes_previous"] = os.path.basename(base_recipe_f)
+    else:
+        print("[new-plans] recipes : no usable COBJ baseline — plan items only")
+
     # -- pull the finished rows out of plan_master ---------------------------
     with open(master_path, encoding="utf-8") as f:
         master = json.load(f)
-    by_fid = {}
+    by_fid, by_cobj = {}, {}
     for it in master.get("items", []):
         fid = ((it.get("plan_item") or {}).get("formid") or "").upper()
         if fid:
             by_fid[fid] = it
+        co = ((it.get("cobj") or {}).get("formid") or "").upper()
+        if co:
+            by_cobj.setdefault(co, it)
 
-    rows, skipped = [], []
+    rows, skipped, taken = [], [], set()
     for fid in added:
         it = by_fid.get(fid)
         if not it:
             skipped.append(new_ids.get(fid, fid))
             continue
+        taken.add(it.get("id"))
         # Cut plans are KEPT, not dropped. The renderer marks them with the
         # "✕ Cut" pill, greys the row, hides the checkbox and leaves them out
         # of the progress total (item.cut / item.cut_reason). Dropping them
@@ -555,6 +636,24 @@ def main(argv=None):
         row["group"] = classify_group(it)
         row["is_new"] = True
         rows.append(row)
+
+    # -- recipes the patch added that no plan row covered --------------------
+    # A recipe whose plan book is older than the patch (or was never enabled)
+    # reaches the page here and nowhere else. `taken` keeps a row that arrived
+    # through its plan item from being listed twice.
+    from_recipes = 0
+    for co_fid in added_recipes:
+        it = by_cobj.get(co_fid)
+        if not it or it.get("id") in taken:
+            continue
+        taken.add(it.get("id"))
+        row = dict(it)
+        row["group"] = classify_group(it)
+        row["is_new"] = True
+        rows.append(row)
+        from_recipes += 1
+    if from_recipes:
+        print(f"[new-plans] {from_recipes} row(s) found by the recipe diff alone")
 
     # -- plans that were already here and have since CHANGED -----------------
     # The roster diff above can only ever see a FormID that was not in the
@@ -570,7 +669,9 @@ def main(argv=None):
     changed = 0
     for it in master.get("items", []):
         fid = ((it.get("plan_item") or {}).get("formid") or "").upper()
-        if not fid or fid in added or not (it.get("changes") or []):
+        if it.get("id") in taken or not (it.get("changes") or []):
+            continue
+        if fid and fid in added:
             continue
         row = dict(it)
         row["group"] = classify_group(it)
