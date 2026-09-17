@@ -18,7 +18,7 @@ northAngle is deliberately NOT applied - it only orients the compass rose.
 Outputs, per item, mirroring the existing Cream layout:
   01 Full Maps (4096)/<slug>.jpg
   02 Numbered Maps (4096)/<slug>_numbered.jpg
-  03 Region Tiles/<RegionSlug>_<slug>.jpg  +  <RegionSlug>_coords.csv
+  03 Region Tiles/<region-slug>-spawn-map.jpg  +  <RegionSlug>_coords.csv
   04 Interior Maps/<spaceEditorID>_<slug>.jpg  +  interior_cells.csv
   05 Chance Maps/<slug>_chance.jpg, <slug>_chance_numbered.jpg,
                  <region-slug>-chance-map.jpg  +  <RegionSlug>_coords.csv
@@ -30,10 +30,12 @@ so they get their own maps and never contaminate the fixed-spawn tiles. Those ti
 are named exactly as the site expects, so uploading is a straight drag into
 /wp-content/uploads/guide-images/<category>/<item>/ (converted to .avif).
 
-The 03 Region Tiles folder holds each tile TWICE: `<Region>_<slug>.jpg` for the
-archive, and `<region-slug>-spawn-map.jpg` under the name the website expects, so the
+The 03 Region Tiles folder holds ONE tile per region, named
+`<region-slug>-spawn-map.jpg` — the name the website expects — so the
 "View {Region} spawn map →" link in Fixed Spawn Locations resolves once the file is
-converted to .avif and dropped into guide-images/<category>/<item>/.
+converted to .avif and dropped into guide-images/<category>/<item>/. It used to write a
+second `<Region>_<slug>.jpg` archive copy of every tile; that was a byte-identical
+duplicate of the file beside it and was dropped Sept 2026.
 
 Sources (--source): the family whose doc + geo cache to read.
   farming   dist/farming_spawns/<slug>_spawns.json    regions[]
@@ -526,14 +528,14 @@ def render_exterior(bg_path, rows, title, out_plain, out_numbered):
 
 
 def render_region_tiles(numbered_img, rows, boxes, to_px, out_dir, slug,
-                        name_fn=None, also_name_fn=None):
-    """Crop one tile per region out of the numbered map.
+                        name_fn=None):
+    """Crop one tile per region out of the numbered map — ONE file per region.
 
-    `name_fn` names the tile; `also_name_fn` saves a SECOND copy under the name the
-    website expects, so uploading is a straight drag into the item's guide-images
-    folder. The fixed-spawn tiles keep their working `<Region>_<slug>.jpg` name for
-    the archive AND get `<region-slug>-spawn-map.jpg` for the site — the sibling of
-    the chance tiles' `<region-slug>-chance-map.jpg`."""
+    `name_fn` names the tile, and both callers pass the name the site expects:
+    `<region-slug>-spawn-map.jpg` for the fixed-spawn tiles, `<region-slug>-chance-map.jpg`
+    for the chance tiles, so uploading is a straight drag into the item's guide-images
+    folder. An earlier version also wrote a `<Region>_<slug>.jpg` archive copy of every
+    tile, which was byte-identical to the file beside it — don't bring it back."""
     os.makedirs(out_dir, exist_ok=True)
     made = []
     by_region = defaultdict(list)
@@ -564,9 +566,6 @@ def render_region_tiles(numbered_img, rows, boxes, to_px, out_dir, slug,
         # A region tile is a crop of the full map, so it carries the mark too.
         crop = map_watermark.apply(crop, corner="bottom-right")
         crop.save(path, "JPEG", quality=88, optimize=True)
-        if also_name_fn:
-            crop.save(os.path.join(out_dir, also_name_fn(region)),
-                      "JPEG", quality=88, optimize=True)
 
         with open(os.path.join(out_dir, f"{rslug}_coords.csv"), "w",
                   newline="", encoding="utf-8") as fh:
@@ -724,7 +723,7 @@ def render_set(slug, source, out_root, conn, spaces, boxes, verbose=True):
 
     tiles = render_region_tiles(numbered, rows, boxes, to_px,
                                 os.path.join(out_root, "03 Region Tiles"), slug,
-                                also_name_fn=lambda r: f"{_region_slug(r)}-spawn-map.jpg")
+                                name_fn=lambda r: f"{_region_slug(r)}-spawn-map.jpg")
     ints = render_interiors(pts, spaces, os.path.join(out_root, "04 Interior Maps"), slug, name)
     # Chance to Spawn maps — their own files, never mixed into the fixed-spawn tiles.
     chance = render_chance(slug, source, out_root, spaces, boxes)

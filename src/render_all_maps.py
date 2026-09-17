@@ -14,8 +14,7 @@ Per item you get the layout the Cream and Deathclaw Egg folders already use:
     .Farming - <Category>/<Item>/
         01 Full Maps (4096)/<slug>.jpg
         02 Numbered Maps (4096)/<slug>_numbered.jpg
-        03 Region Tiles/<Region>_<slug>.jpg          <- archive copy
-                        <region-slug>-spawn-map.jpg  <- UPLOAD THIS ONE
+        03 Region Tiles/<region-slug>-spawn-map.jpg  <- UPLOAD THIS ONE
                         <Region>_coords.csv
         04 Interior Maps/<cell>_<slug>.jpg + interior_cells.csv
         05 Chance Maps/...                           <- only where the doc has

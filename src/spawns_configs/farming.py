@@ -19,6 +19,7 @@ if SRC not in sys.path:
     sys.path.insert(0, SRC)
 
 from farming_spawns_config import ALL_SETS, SETS_BY_SLUG, ALL_REGIONS
+from spawns_engine import route_order
 from spawns_engine.geo import Geo
 from spawns_engine import sources as esources
 from spawns_engine import build as ebuild
@@ -251,8 +252,12 @@ def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir, channel="l
                                place_item_bases=cfg.get("place_item_bases", False))
     seen, lists_n = ebuild.resolve_placements(src, geo, cur, cache, db_ok)
     _drop_excluded(cfg, tbls, seen)
+    # Marker + per-spawn order follow the written guide's walking route where
+    # data/spawn_route_order.tsv declares one; everything else keeps the mechanical
+    # A-Z / ref order and falls in behind it.
+    route = route_order.load(cfg["slug"])
     regions_out, src_totals, unresolved, total, placements = ebuild.group_regions(
-        seen, ALL_REGIONS, keep)
+        seen, ALL_REGIONS, keep, route=route)
     # Shared-loot-pool points held back by group_regions — names only (see group_chance).
     chance_spawns = ebuild.group_chance(seen, ALL_REGIONS)
     _attach_breakdowns(cfg, tbls, seen, regions_out)

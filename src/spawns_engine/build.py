@@ -221,13 +221,28 @@ def compact_spawns(regions_out):
     return dropped
 
 
-def group_regions(seen, all_regions, keep, exclude_types=CHANCE_TYPES):
+def _route_rank(name, order_list):
+    """Position of `name` in a route list, case-insensitively. Anything the route
+    does not mention ranks last, so a partial route is safe and a newly discovered
+    placement falls in behind the walked ones instead of vanishing."""
+    if not order_list:
+        return 0
+    low = [str(s).lower() for s in order_list]
+    n = str(name).lower()
+    return low.index(n) if n in low else len(low)
+
+
+def group_regions(seen, all_regions, keep, exclude_types=CHANCE_TYPES, route=None):
     """Group resolved placements into the per-region location lists. Returns
         (regions_out, src_totals, unresolved, total, placements)
     with the exact shapes the pre-refactor builds emitted.
 
     `exclude_types` are held back for group_chance() — a point whose list is a shared
-    loot pool is not a fixed spawn and must never be counted here."""
+    loot pool is not a fixed spawn and must never be counted here.
+
+    `route` (spawns_engine.route_order.load) puts the marker and per-spawn order on
+    the WALKING ROUTE from the written guide instead of the mechanical
+    alphabetical/ref order. None -> unchanged behaviour."""
     exclude = set(exclude_types or ())
     grouped = defaultdict(lambda: {"count": 0, "refs": [], "coords": None,
                                    "sources": defaultdict(int), "places": []})
@@ -258,7 +273,14 @@ def group_regions(seen, all_regions, keep, exclude_types=CHANCE_TYPES):
         # in-place photo. `label` is left blank here — a family driver may set a
         # nicer one (e.g. "Deathclaw Nest #2"); the renderer falls back to
         # "Spawn N". Slots are preserved across rebuilds by ref.
-        places = sorted(g["places"], key=lambda p: (p["source_type"], p["ref"]))
+        ref_route = (route or {}).get("spawns", {}).get((region, marker))
+        if ref_route:
+            rank = {r.upper(): i for i, r in enumerate(ref_route)}
+            places = sorted(g["places"],
+                            key=lambda p: (rank.get(p["ref"].upper(), len(rank)),
+                                           p["source_type"], p["ref"]))
+        else:
+            places = sorted(g["places"], key=lambda p: (p["source_type"], p["ref"]))
         spawns = []
         for p in places:
             hf = prev_spawns.get(p["ref"], {})
@@ -285,7 +307,10 @@ def group_regions(seen, all_regions, keep, exclude_types=CHANCE_TYPES):
 
     regions_out = []
     for region in all_regions:
-        locs = sorted(by_region.get(region, []), key=lambda l: l["marker"].lower())
+        mk_route = (route or {}).get("markers", {}).get(region)
+        locs = sorted(by_region.get(region, []),
+                      key=lambda l: (_route_rank(l["marker"], mk_route),
+                                     l["marker"].lower()))
         regions_out.append({"region": region, "locations": locs})
 
     total = sum(len(r["locations"]) for r in regions_out)
@@ -326,7 +351,10 @@ def group_chance(seen, all_regions, chance_types=CHANCE_TYPES):
         total += 1
 
     regions_out = []
-    for region in all_regions:
+    # A-Z, NOT the ALL_REGIONS order: this expand is a lookup list, so it is
+    # alphabetical throughout (spawn-guide 9k). Sorting here rather than leaning on
+    # ALL_REGIONS keeps that true now that ALL_REGIONS follows the guide's route.
+    for region in sorted(all_regions, key=lambda r: str(r).lower()):
         markers = by_region.get(region)
         if not markers:
             continue

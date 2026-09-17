@@ -1962,7 +1962,14 @@ ALL_SETS = ALL_SETS + list(CHEM_SETS)
 SETS_BY_SLUG = {s["slug"]: s for s in ALL_SETS}
 
 # The ten regions every page renders, in A-Z order (empty ones get a "no spawns" note).
+# Region order for the Fixed Spawn Locations expand. This is the order the WRITTEN
+# guides walk Appalachia, not the alphabet — a reader following the page top to bottom
+# should never be sent back across the map. Atlantic City and The Pitt are instanced
+# expedition worldspaces rather than Appalachia regions, so they sit at the end.
+# The Chance to Spawn expand does NOT use this order; it sorts itself A-Z
+# (spawns_engine.build.group_chance), because it is a lookup list.
 ALL_REGIONS = [
-    "Ash Heap", "Atlantic City", "Burning Springs", "Cranberry Bog", "Forest",
-    "Savage Divide", "Skyline Valley", "The Mire", "The Pitt", "Toxic Valley",
+    "Ash Heap", "Forest", "Toxic Valley", "Savage Divide", "Skyline Valley",
+    "Cranberry Bog", "The Mire", "Burning Springs",
+    "Atlantic City", "The Pitt",
 ]
