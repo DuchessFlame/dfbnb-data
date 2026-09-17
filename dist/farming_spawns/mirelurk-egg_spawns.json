@@ -87,7 +87,7 @@
   "spoil_duration_hours": null,
   "base_weight": 1.0,
   "object_type": "Food",
-  "yield_perk": "butchers_bounty",
+  "yield_perk": null,
   "weight_perk": "thru_hiker",
   "weight_perk_ranks": [
    {
@@ -133,7 +133,45 @@
    }
   ],
   "magazines_affect_yield": false,
-  "good_with_salt": true
+  "good_with_salt": true,
+  "perk_cards": {
+   "good_with_salt": {
+    "name": "Good With Salt",
+    "special": "Intelligence",
+    "min_level": 9,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "reduction": "45%",
+      "desc": "Food in your inventory will spoil 45% slower.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "reduction": "90%"
+     }
+    ]
+   },
+   "thru_hiker": {
+    "name": "Thru-Hiker",
+    "special": "Endurance",
+    "min_level": 7,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "Food and drink weights are reduced by 45%.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "desc": "Food and drink weights are reduced by 90%.",
+      "percent": "90%"
+     }
+    ]
+   }
+  }
  },
  "used_for": {
   "consumption": {

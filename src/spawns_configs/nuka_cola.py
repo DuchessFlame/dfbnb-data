@@ -26,6 +26,7 @@ from spawns_engine import sources as esources
 from spawns_engine import build as ebuild
 from spawns_engine import events as eevents
 from spawns_engine.classify import nuka_classify
+import perk_ranks
 try:
     from build_farming_used_for import build_consumption
 except Exception:
@@ -117,6 +118,12 @@ def compute_farming_tips(cons):
         ],
         "magazines_affect_yield": False,
         "good_with_salt": False,
+        # Card facts (SPECIAL, level, rank count) resolved from PCRD/SPEL at
+        # build time — see perk_ranks.py. The renderer must not name a SPECIAL
+        # of its own: Bethesda moves cards between SPECIALs and the pages said
+        # "Thru-Hiker (Agility)" long after it became an Endurance card.
+        "perk_cards": perk_ranks.cards(
+            ["traveling_pharmacy" if obj == "Chem" else "thru_hiker"]),
     }
 
 

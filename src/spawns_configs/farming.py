@@ -25,6 +25,7 @@ from spawns_engine import build as ebuild
 from spawns_engine import events as eevents
 from spawns_engine.classify import make_farming_classify
 from prune_outputs import prune_outputs
+import perk_ranks
 
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db")
 
@@ -190,7 +191,38 @@ def _attach_breakdowns(cfg, tbls, seen, regions_out):
                     sp["note"] = nest_note
 
 
-def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir):
+def _farming_tips(cfg, channel):
+    """cfg["farming_tips"] with a `perk_cards` block resolved from game data.
+
+    The config says WHICH perks apply to this item (a food/chem/spoilage call,
+    which is ours to make). Everything ABOUT each card — its SPECIAL, min level,
+    rank count and per-rank magnitude — belongs to Bethesda and is read from
+    PCRD/SPEL at build time; see perk_ranks.py, including why the challenge
+    formlists are NOT a second opinion on SPECIAL. The renderer prints what
+    arrives here and must not carry a SPECIAL name or a percentage of its own.
+    """
+    ft = cfg.get("farming_tips")
+    if not ft:
+        return ft
+
+    slugs = []
+    if ft.get("good_with_salt"):
+        slugs.append("good_with_salt")
+    for key in ("yield_perk", "weight_perk"):
+        slug = ft.get(key)
+        if slug:
+            slugs.append(slug)
+
+    resolved = perk_ranks.cards(slugs, channel) if slugs else {}
+    if not resolved:
+        return ft
+
+    out = dict(ft)
+    out["perk_cards"] = resolved
+    return out
+
+
+def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir, channel="live"):
     slug = cfg["slug"]
     path = os.path.join(dist_dir, f"{slug}_spawns.json")
     keep = ebuild.load_existing(path)
@@ -258,7 +290,7 @@ def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir):
         "page_title": cfg["page_title"],
         "blurb": cfg["blurb"],
         "drop_rates": cfg.get("drop_rates"),
-        "farming_tips": cfg.get("farming_tips"),
+        "farming_tips": _farming_tips(cfg, channel),
         "used_for": cfg.get("used_for"),
         "additional_expands": cfg.get("additional_expands"),
         "info_notes": cfg.get("info_notes"),
@@ -304,7 +336,8 @@ def run_item(cfg, pts=False):
         return
 
     generated = datetime.date.today().isoformat()
-    build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir)
+    build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir,
+              channel="pts" if pts else "live")
 
     if db_ok:
         ebuild.save_cache(cache, cache_path)

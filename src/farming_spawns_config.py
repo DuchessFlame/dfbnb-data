@@ -386,13 +386,17 @@ DEATHCLAW_EGG = {
     # ALCH 00046939: Weight 0.25, ObjectTypeFood, IngredientTypeMeat,
     # IngredientTypeEgg, ObjectTypeCanSpoil → spoils to Spoiled Meat.
     # No ObjectTypeNonPerishable → perishable.
-    # IngredientTypeMeat → Butcher's Bounty yield perk applies.
+    # IngredientTypeMeat is a COOKING/recipe tag, not a yield tag. Butcher's
+    # Bounty (ButchersBounty01-03, "40/60/80% chance to find extra meat from
+    # animal corpses") only fires when harvesting a creature corpse — an egg
+    # pickup and a Deathclaw/Mirelurk nest container are neither, so NO yield
+    # perk applies to eggs. Do not re-add it off the keyword.
     "farming_tips": {
         "spoils": True,
         "spoil_duration_hours": None,
         "base_weight": 0.25,
         "object_type": "Food",
-        "yield_perk": "butchers_bounty",
+        "yield_perk": None,
         "weight_perk": "thru_hiker",
         "weight_perk_ranks": [
             {"rank": 1, "reduction": "45%", "weight": 0.14},
@@ -461,13 +465,17 @@ FROG_EGG = {
     # ── Farming Tips (TSV-derived, Aug 2026) ───────────────────────────
     # ALCH 004FE51C: Weight 0.25, ObjectTypeFood, IngredientTypeMeat,
     # IngredientTypeEgg, ObjectTypeCanSpoil → spoils to Spoiled Meat.
-    # IngredientTypeMeat → Butcher's Bounty yield perk applies.
+    # IngredientTypeMeat is a COOKING/recipe tag, not a yield tag. Butcher's
+    # Bounty (ButchersBounty01-03, "40/60/80% chance to find extra meat from
+    # animal corpses") only fires when harvesting a creature corpse — an egg
+    # pickup and a Deathclaw/Mirelurk nest container are neither, so NO yield
+    # perk applies to eggs. Do not re-add it off the keyword.
     "farming_tips": {
         "spoils": True,
         "spoil_duration_hours": None,
         "base_weight": 0.25,
         "object_type": "Food",
-        "yield_perk": "butchers_bounty",
+        "yield_perk": None,
         "weight_perk": "thru_hiker",
         "weight_perk_ranks": [
             {"rank": 1, "reduction": "45%", "weight": 0.14},
@@ -577,13 +585,17 @@ MIRELURK_EGG = {
     # ── Farming Tips (TSV-derived, Aug 2026) ───────────────────────────
     # ALCH 0023E9D4: Weight 1.00, ObjectTypeFood, IngredientTypeMeat,
     # IngredientTypeEgg, ObjectTypeCanSpoil → spoils to Spoiled Meat.
-    # IngredientTypeMeat → Butcher's Bounty yield perk applies.
+    # IngredientTypeMeat is a COOKING/recipe tag, not a yield tag. Butcher's
+    # Bounty (ButchersBounty01-03, "40/60/80% chance to find extra meat from
+    # animal corpses") only fires when harvesting a creature corpse — an egg
+    # pickup and a Deathclaw/Mirelurk nest container are neither, so NO yield
+    # perk applies to eggs. Do not re-add it off the keyword.
     "farming_tips": {
         "spoils": True,
         "spoil_duration_hours": None,
         "base_weight": 1.00,
         "object_type": "Food",
-        "yield_perk": "butchers_bounty",
+        "yield_perk": None,
         "weight_perk": "thru_hiker",
         "weight_perk_ranks": [
             {"rank": 1, "reduction": "45%", "weight": 0.55},
@@ -751,13 +763,17 @@ MOTHMAN_EGG = {
     # ALCH 0008E922: Weight 0.25, ObjectTypeFood, IngredientTypeMeat,
     # IngredientTypeEgg, FoodTypeMothmanEgg, PlantTypeMothmanEggs,
     # ObjectTypeCanSpoil → spoils to Spoiled Meat.
-    # IngredientTypeMeat → Butcher's Bounty yield perk applies.
+    # IngredientTypeMeat is a COOKING/recipe tag, not a yield tag. Butcher's
+    # Bounty (ButchersBounty01-03, "40/60/80% chance to find extra meat from
+    # animal corpses") only fires when harvesting a creature corpse — an egg
+    # pickup and a Deathclaw/Mirelurk nest container are neither, so NO yield
+    # perk applies to eggs. Do not re-add it off the keyword.
     "farming_tips": {
         "spoils": True,
         "spoil_duration_hours": None,
         "base_weight": 0.25,
         "object_type": "Food",
-        "yield_perk": "butchers_bounty",
+        "yield_perk": None,
         "weight_perk": "thru_hiker",
         "weight_perk_ranks": [
             {"rank": 1, "reduction": "45%", "weight": 0.14},
@@ -847,13 +863,17 @@ RADSCORPION_EGG = {
     # ── Farming Tips (TSV-derived, Aug 2026) ───────────────────────────
     # ALCH 0004693B: Weight 0.25, ObjectTypeFood, IngredientTypeMeat,
     # IngredientTypeEgg, ObjectTypeCanSpoil → spoils to Spoiled Meat.
-    # IngredientTypeMeat → Butcher's Bounty yield perk applies.
+    # IngredientTypeMeat is a COOKING/recipe tag, not a yield tag. Butcher's
+    # Bounty (ButchersBounty01-03, "40/60/80% chance to find extra meat from
+    # animal corpses") only fires when harvesting a creature corpse — an egg
+    # pickup and a Deathclaw/Mirelurk nest container are neither, so NO yield
+    # perk applies to eggs. Do not re-add it off the keyword.
     "farming_tips": {
         "spoils": True,
         "spoil_duration_hours": None,
         "base_weight": 0.25,
         "object_type": "Food",
-        "yield_perk": "butchers_bounty",
+        "yield_perk": None,
         "weight_perk": "thru_hiker",
         "weight_perk_ranks": [
             {"rank": 1, "reduction": "45%", "weight": 0.14},
@@ -934,13 +954,17 @@ RADTOAD_EGG = {
     # ── Farming Tips (TSV-derived, Aug 2026) ───────────────────────────
     # ALCH 00295BE5: Weight 0.25, ObjectTypeFood, IngredientTypeMeat,
     # IngredientTypeEgg, ObjectTypeCanSpoil → spoils to Spoiled Meat.
-    # IngredientTypeMeat → Butcher's Bounty yield perk applies.
+    # IngredientTypeMeat is a COOKING/recipe tag, not a yield tag. Butcher's
+    # Bounty (ButchersBounty01-03, "40/60/80% chance to find extra meat from
+    # animal corpses") only fires when harvesting a creature corpse — an egg
+    # pickup and a Deathclaw/Mirelurk nest container are neither, so NO yield
+    # perk applies to eggs. Do not re-add it off the keyword.
     "farming_tips": {
         "spoils": True,
         "spoil_duration_hours": None,
         "base_weight": 0.25,
         "object_type": "Food",
-        "yield_perk": "butchers_bounty",
+        "yield_perk": None,
         "weight_perk": "thru_hiker",
         "weight_perk_ranks": [
             {"rank": 1, "reduction": "45%", "weight": 0.14},
