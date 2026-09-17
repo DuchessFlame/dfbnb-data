@@ -1,6 +1,6 @@
 {
   "meta": {
-    "export": "July 2026",
+    "export": "September 2026",
     "featureAdded": "Jun 2026",
     "channel": "live",
     "hasWorldPetsData": false
@@ -233,9 +233,9 @@
       "fortifyCarryWeight": {
         "name": "Pet Carrier",
         "ranks": [
-          null,
-          null,
-          null
+          5,
+          10,
+          15
         ],
         "levels": [
           null,
@@ -251,10 +251,10 @@
           null
         ],
         "damage": [
-          null,
-          null,
-          null,
-          null
+          200,
+          350,
+          550,
+          800
         ],
         "damageMult": [
           2,
@@ -585,8 +585,8 @@
     ]
   },
   "playerGift": {
-    "interval": null,
-    "intervalMin": null,
+    "interval": 7000,
+    "intervalMin": 117,
     "note": "The finder buff delivers its item on this timer while the pet is active."
   },
   "species": [
@@ -618,7 +618,7 @@
           "name": "Bait Finder",
           "spell": "WorldPets_CatBuff_Buff01",
           "descs": [],
-          "intervalMin": null,
+          "intervalMin": 117,
           "ranks": []
         },
         "sig2": {
@@ -938,7 +938,7 @@
           "seasonNumber": 24
         },
         {
-          "name": "Grey Tabby",
+          "name": "Grey Tabby Cat",
           "formId": "0077D821",
           "edid": "CAMPPets_Actor_Cat_Tabby",
           "obtainSource": "Base",
@@ -1464,7 +1464,20 @@
           ]
         }
       ],
-      "combat": {}
+      "combat": {
+        "weapFormId": "008E529C",
+        "weapEdid": "crUnarmedWorldPet_Cat",
+        "attackType": "Scratch",
+        "speed": 1,
+        "reach": 0.5,
+        "minRange": 100,
+        "maxRange": 2000,
+        "attackDelay": 0.2,
+        "animAttackSec": 2,
+        "critDmgMult": 2,
+        "outOfRangeMult": 1,
+        "npcBaseHealth": 15
+      }
     },
     {
       "key": "deathclaw",
@@ -1479,9 +1492,9 @@
         null
       ],
       "sig2Mag": [
-        null,
-        null,
-        null
+        1,
+        2,
+        3
       ],
       "activity": "Kill Infestation enemies with an active Pet Deathclaw",
       "treasure": {
@@ -1494,7 +1507,7 @@
           "name": "Dark Titan",
           "spell": "WorldPets_DeathclawBuff_Buff01",
           "descs": [],
-          "intervalMin": null,
+          "intervalMin": 117,
           "ranks": []
         },
         "sig2": {
@@ -1503,7 +1516,35 @@
           "descs": [],
           "trigger": "infestation",
           "intervalMin": null,
-          "ranks": []
+          "ranks": [
+            {
+              "rank": 1,
+              "item": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
+              "itemEdid": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
+              "qty": 1,
+              "qtyStatic": 1,
+              "entitlement": "",
+              "entitlementMissing": false
+            },
+            {
+              "rank": 2,
+              "item": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
+              "itemEdid": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
+              "qty": 2,
+              "qtyStatic": 1,
+              "entitlement": "",
+              "entitlementMissing": false
+            },
+            {
+              "rank": 3,
+              "item": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
+              "itemEdid": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
+              "qty": 3,
+              "qtyStatic": 1,
+              "entitlement": "",
+              "entitlementMissing": false
+            }
+          ]
         }
       },
       "foodTypes": [
@@ -1660,7 +1701,20 @@
           ]
         }
       ],
-      "combat": {}
+      "combat": {
+        "weapFormId": "008E529A",
+        "weapEdid": "crUnarmedWorldPet_Deathclaw",
+        "attackType": "Scratch",
+        "speed": 1,
+        "reach": 1,
+        "minRange": 50,
+        "maxRange": 2000,
+        "attackDelay": 0,
+        "animAttackSec": 1.988889,
+        "critDmgMult": 2,
+        "outOfRangeMult": 1,
+        "npcBaseHealth": 450
+      }
     },
     {
       "key": "dog",
@@ -1690,7 +1744,7 @@
           "name": "Stimpak Fetcher",
           "spell": "WorldPets_DogBuff_Buff01",
           "descs": [],
-          "intervalMin": null,
+          "intervalMin": 117,
           "ranks": []
         },
         "sig2": {
@@ -1707,6 +1761,156 @@
         "Plant"
       ],
       "skins": [
+        {
+          "name": "Black Shepherd",
+          "formId": "008B1212",
+          "edid": "ATX_CAMPPets_Actor_Dog_BlackGermanShepherd",
+          "obtainSource": "Atom Shop",
+          "tradeable": false,
+          "description": "",
+          "obtainRoutes": [
+            {
+              "route": "Caps",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Stamps",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Scoreboard",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Gold Bullion",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Atom Shop",
+              "populated": true,
+              "lines": [
+                "Purchased from the Atomic Shop — sold individually or as part of a bundle."
+              ],
+              "tradeable": false,
+              "dropRate": "N/A"
+            },
+            {
+              "route": "Limited Time Bundle",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Events & Activities",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Quests",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Challenges",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            }
+          ]
+        },
+        {
+          "name": "Cyberdog",
+          "formId": "008D2750",
+          "edid": "ATX_CAMPPets_Actor_Dog_Cyber",
+          "obtainSource": "Atom Shop",
+          "tradeable": false,
+          "description": "",
+          "obtainRoutes": [
+            {
+              "route": "Caps",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Stamps",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Scoreboard",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Gold Bullion",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Atom Shop",
+              "populated": true,
+              "lines": [
+                "Purchased from the Atomic Shop — sold individually or as part of a bundle."
+              ],
+              "tradeable": false,
+              "dropRate": "N/A"
+            },
+            {
+              "route": "Limited Time Bundle",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Events & Activities",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Quests",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Challenges",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            }
+          ]
+        },
         {
           "name": "German Shepherd",
           "formId": "0077D822",
@@ -2385,7 +2589,20 @@
           "seasonNumber": 19
         }
       ],
-      "combat": {}
+      "combat": {
+        "weapFormId": "008E529B",
+        "weapEdid": "crUnarmedWorldPet_Dog",
+        "attackType": "Bite",
+        "speed": 1,
+        "reach": 1,
+        "minRange": 50,
+        "maxRange": 2000,
+        "attackDelay": 0,
+        "animAttackSec": 2,
+        "critDmgMult": 2,
+        "outOfRangeMult": 1,
+        "npcBaseHealth": 190
+      }
     },
     {
       "key": "radhog",
@@ -2415,7 +2632,7 @@
           "name": "Goo-Getter",
           "spell": "WorldPets_RadhogBuff_Buff01",
           "descs": [],
-          "intervalMin": null,
+          "intervalMin": 117,
           "ranks": []
         },
         "sig2": {
@@ -2509,7 +2726,7 @@
           "seasonNumber": 25
         },
         {
-          "name": "Gruyere",
+          "name": "Gruyere Radhog",
           "formId": "008B1552",
           "edid": "ATX_CAMPPets_Actor_Radhog_Gruyere",
           "obtainSource": "Atom Shop",
@@ -2734,7 +2951,20 @@
           ]
         }
       ],
-      "combat": {}
+      "combat": {
+        "weapFormId": "008E5299",
+        "weapEdid": "crUnarmedWorldPet_Radhog",
+        "attackType": "Ram",
+        "speed": 1,
+        "reach": 1,
+        "minRange": 50,
+        "maxRange": 2000,
+        "attackDelay": 0,
+        "animAttackSec": 2,
+        "critDmgMult": 2,
+        "outOfRangeMult": 1,
+        "npcBaseHealth": 450
+      }
     }
   ]
 }

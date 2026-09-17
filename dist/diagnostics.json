@@ -1,8 +1,8 @@
 {
-  "generated": "2026-09-15T13:26:12+00:00",
+  "generated": "2026-09-17T08:40:00+00:00",
   "sections": {
     "bnb_item_categories": {
-      "generated": "2026-09-15T13:26:11+00:00",
+      "generated": "2026-09-17T08:39:59+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -17,15 +17,15 @@
             "total_items": 262,
             "alch_records": 983,
             "source_alch": "ALCH_Export_August_2026.tsv",
-            "source_kywd": "KYWD_Export_July_2026_Refs.tsv",
+            "source_kywd": "KYWD_Export_September_2026_Refs.tsv",
             "stats": {
               "food": {
-                "candidates": 598,
+                "candidates": 604,
                 "excluded_cut": 42,
                 "excluded_no_name": 6,
                 "excluded_by_kywd": 81,
                 "excluded_raw": 403,
-                "excluded_missing_alch": 0,
+                "excluded_missing_alch": 6,
                 "excluded_by_edid_substring": 0,
                 "included": 66,
                 "post_included_via_suffix": 0
@@ -53,12 +53,12 @@
                 "post_included_via_suffix": 0
               },
               "chems": {
-                "candidates": 81,
+                "candidates": 82,
                 "excluded_cut": 32,
                 "excluded_no_name": 0,
                 "excluded_by_kywd": 0,
                 "excluded_raw": 0,
-                "excluded_missing_alch": 0,
+                "excluded_missing_alch": 1,
                 "excluded_by_edid_substring": 0,
                 "included": 49,
                 "post_included_via_suffix": 0
@@ -102,7 +102,7 @@
       ]
     },
     "cobj_recipes": {
-      "generated": "2026-09-15T13:26:10+00:00",
+      "generated": "2026-09-17T08:39:58+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -112,20 +112,20 @@
         {
           "severity": "info",
           "code": "cobj.build.summary",
-          "message": "Extracted 5735 unique recipes from 84979 COBJ rows.",
+          "message": "Extracted 5850 unique recipes from 99744 COBJ rows.",
           "context": {
-            "unique_recipes": 5735,
+            "unique_recipes": 5850,
             "region_variant_items": 2,
             "ingredient_alternates": 12,
-            "total_rows": 84979,
-            "skipped_cut": 12537,
-            "no_fvpa": 2070
+            "total_rows": 99744,
+            "skipped_cut": 14792,
+            "no_fvpa": 2392
           }
         }
       ]
     },
     "menu_items": {
-      "generated": "2026-09-15T13:26:10+00:00",
+      "generated": "2026-09-17T08:39:58+00:00",
       "counts": {
         "error": 27,
         "warning": 69,
@@ -1566,15 +1566,15 @@
               "Soda & Drinks": 17
             },
             "source": {
-              "no_cobj": 446,
-              "cobj": 302
+              "no_cobj": 444,
+              "cobj": 304
             }
           }
         }
       ]
     },
     "bnb_menu_sync": {
-      "generated": "2026-09-15T13:26:10+00:00",
+      "generated": "2026-09-17T08:39:58+00:00",
       "counts": {
         "error": 33,
         "warning": 0,
@@ -1926,7 +1926,7 @@
       ]
     },
     "bnb_menu": {
-      "generated": "2026-09-15T13:26:10+00:00",
+      "generated": "2026-09-17T08:39:59+00:00",
       "counts": {
         "error": 27,
         "warning": 0,
@@ -2405,7 +2405,7 @@
       ]
     },
     "recipe_guide": {
-      "generated": "2026-09-15T13:26:12+00:00",
+      "generated": "2026-09-17T08:40:00+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -2415,17 +2415,17 @@
         {
           "severity": "info",
           "code": "recipe_guide.build.summary",
-          "message": "Built recipe guide with 317 consumable recipes across 5 categories.",
+          "message": "Built recipe guide with 320 consumable recipes across 5 categories.",
           "context": {
-            "total": 317,
+            "total": 320,
             "by_category": {
-              "food": 220,
+              "food": 223,
               "chems": 45,
               "alcohol": 30,
               "serums": 19,
               "nuka_cola": 3
             },
-            "skipped_other": 5418,
+            "skipped_other": 5530,
             "skipped_cut": 0
           }
         }
