@@ -59,7 +59,9 @@ EXTRA_WEAPONS = [
     "MG42",            # WEAP: "MG42 Light Machine Gun"
 ]
 
-_TAIL_RE = re.compile(r"^(?P<body>.*\S)\s+(?P<tail>Paint|Skin)$")
+# The word the game ends the title with is kept as it wrote it -- a couple of
+# power armour paints are "Coating", not "Paint".
+_TAIL_RE = re.compile(r"^(?P<body>.*\S)\s+(?P<tail>Paint|Skin|Coating)$")
 
 # The weapon slot in a plan EditorID. The trailing underscore is required: it is
 # what separates `..._Weapon_Ranged_CompoundBow_BurningLovePaint` (slot present,
@@ -67,7 +69,37 @@ _TAIL_RE = re.compile(r"^(?P<body>.*\S)\s+(?P<tail>Paint|Skin)$")
 # is the paint's name).
 # "<Weapon> Skin - <Name>" -- the one title in the roster written this way.
 _DASH_RE = re.compile(
-    r"^(?P<weapon>.+?)\s+(?P<tail>Paint|Skin)\s+-\s+(?P<model>\S.*)$")
+    r"^(?P<weapon>.+?)\s+(?P<tail>Paint|Skin|Coating)\s+-\s+(?P<model>\S.*)$")
+
+# ARMOUR. Power armour and armour sets are named the same way round as weapons
+# -- "T-60 BOS Elder Paint" is the BOS Elder paint for a T-60, "X-01 Military
+# Paint" the Military paint for an X-01 -- so the same flip applies.
+#
+# The model is read from the EditorID slot, exactly as for weapons:
+#   recipe_mod_PowerArmor_T60_Material_Paint_BOSElder   -> T60
+#   RD01_Recipe_Mod_Armor_Scout_Material_Paint_...      -> Scout
+# The slot word is only trusted when it is a real model: these fillers sit in
+# the same position on paints that apply to every frame
+# (`..._PowerArmor_Material_Paint_HotRod03_Flames`, `..._PowerArmor_ALL_...`).
+_ARMOUR_SLOT_RE = re.compile(r"(?:PowerArmor|Armor|Armour)_([A-Za-z0-9\-]+)_", re.I)
+_ARMOUR_SLOT_SKIP = {"material", "paint", "skin", "mod", "all", "misc", "recipe",
+                     "weapon", "torso", "helmet", "arms", "legs", "jetpack"}
+
+# Armour SETS, whose EditorIDs do not always carry the set in the slot
+# ("Recipe_mod_MetalArmor_Paint_Snowflakes..."). Short, closed list: these are
+# the game's armour sets, and a set only flips when the title STARTS with it, so
+# "Atom Cats Leather Armor Paint" -- already model-first -- is untouched.
+ARMOUR_SETS = [
+    "Combat Armor", "Metal Armor", "Leather Armor", "Scout Armor",
+    "Marine Armor", "Robot Armor", "Wood Armor", "Trapper Armor",
+    "Raider Armor", "Forest Armor", "Urban Scout Armor",
+]
+
+# Words that belong to the make when they trail the model ("T-51" + "Power
+# Armor"), so the flip keeps them together instead of stranding them in front of
+# the paint name.
+_MAKE_TAILS = ("Power Armor", "Power Armour", "Armor", "Armour")
+
 
 # An EditorID that states outright that the row is a paint or skin.
 _EDID_PAINT_RE = re.compile(r"_(?:Paint|Skin)_", re.I)
@@ -151,8 +183,46 @@ class WeaponNames:
         return self._by_key.get(key)
 
 
-def prettify(name, plan_edid="", weapons=None):
-    """Model-first title for a weapon paint, or None to leave the name alone."""
+def _armour_make(core, edids):
+    """(make, model) when `core` starts with the armour this row paints."""
+    for set_name in ARMOUR_SETS:
+        if core.lower().startswith(set_name.lower() + " "):
+            model = core[len(set_name):].strip()
+            return (set_name, model) if model else None
+
+    token = None
+    for edid in edids:
+        for m in _ARMOUR_SLOT_RE.finditer(str(edid or "")):
+            word = m.group(1)
+            if _norm(word) and _norm(word) not in _ARMOUR_SLOT_SKIP:
+                token = _norm(word)
+                break
+        if token:
+            break
+    if not token:
+        return None
+
+    words = core.split()
+    for k in (1, 2, 3):
+        if k > len(words):
+            break
+        cand = " ".join(words[:k])
+        key = _norm(cand)
+        # "T-51b" against a T51 slot: the game writes the b in the name only.
+        if key != token and not (key.startswith(token) and len(key) - len(token) <= 1):
+            continue
+        rest = " ".join(words[k:])
+        for tail in _MAKE_TAILS:
+            if rest.lower().startswith(tail.lower() + " "):
+                cand = f"{cand} {rest[:len(tail)]}"
+                rest = rest[len(tail):].strip()
+                break
+        return (cand, rest) if rest else None
+    return None
+
+
+def prettify(name, plan_edid="", weapons=None, cnam_edid=""):
+    """Model-first title for a weapon or armour paint, or None to leave it alone."""
     if not name or weapons is None:
         return None
     prefix = _PLAN_RE.match(name)
@@ -175,17 +245,20 @@ def prettify(name, plan_edid="", weapons=None):
         return None
 
     weapon = weapons.leading_weapon(core)
-    if not weapon:
-        return None
-    model = core[len(weapon):].strip()
-    if not model:
-        # The whole title is the weapon ("Shock Baton Paint") -- nothing to move.
-        return None
-
-    # The veto: the EditorID gets the last word on which weapon this is.
-    named = weapons.weapon_in_edid(plan_edid)
-    if named and _norm(named) != _norm(weapon):
-        return None
+    if weapon:
+        model = core[len(weapon):].strip()
+        if not model:
+            # The whole title is the weapon ("Shock Baton Paint") -- nothing to move.
+            return None
+        # The veto: the EditorID gets the last word on which weapon this is.
+        named = weapons.weapon_in_edid(plan_edid)
+        if named and _norm(named) != _norm(weapon):
+            return None
+    else:
+        armour = _armour_make(core, (plan_edid, cnam_edid))
+        if not armour:
+            return None
+        weapon, model = armour
 
     out = f"{lead}{model} {weapon} {tail}"
     return out if out != name else None
@@ -202,7 +275,8 @@ def attach(items, tsv_dir="tsv", newest=None, stats=None):
     for it in items:
         name = it.get("name") or ""
         edid = (it.get("plan_item") or {}).get("edid") or ""
-        pretty = prettify(name, edid, weapons)
+        cnam = (it.get("cnam") or {}).get("edid") or ""
+        pretty = prettify(name, edid, weapons, cnam)
         if pretty:
             if it.get("display_name") != pretty:
                 stats["changed"].append(f"{name}  ->  {pretty}")
