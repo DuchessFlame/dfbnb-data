@@ -187,11 +187,27 @@ def meaningful_refs(refs):
     return out
 
 
-def cut_reason(edid, refs=None):
+def cut_reason(edid, refs=None, recipe_unlock=None):
     """Why this plan is cut content, or None if it is not.
 
     BOTH tests have to agree: the EditorID carries a dev prefix AND nothing in
-    the game files gives the plan out. The prefix alone is not enough, and that
+    the game files gives the plan out.
+
+    "Gives it out" has TWO halves, and for a long time this function only knew
+    the first. A reference to the BOOK is one way. The other is the recipe the
+    plan teaches being unlocked by something that is not a plan at all —
+    `recipe_unlock`, from plan_unlocks.RecipeUnlocks.proof_of_life(). Kevin put
+    the case plainly on 17 Sep 2026, about the Pint-Sized Slasher radio and
+    bobber shipping here as cut content:
+
+        "those were the book forms. I disabled them because the cobj is taught
+         directly by completing the respective challenge."
+
+    A disabled BOOK with no references is exactly what that looks like from the
+    BOOK side, and it is indistinguishable from a genuine leftover until you
+    read COBJ.GNAM. It rescues 22 live plans, among them every fishing bobber
+    and float this repo previously wrote off as an Atom Shop leftover — they are
+    rewards for the "Catch All Regional Fish" challenges. The prefix alone is not enough, and that
     is not caution for its own sake — on the live roster it is wrong ten times:
 
         zzzBurn_Workshop_Recipe_BountyBoard
@@ -228,6 +244,11 @@ def cut_reason(edid, refs=None):
     else:
         why = f"its EditorID starts {hit}_"
 
+    # The recipe being unlocked by a challenge or a workshop claim is the game
+    # stating the route in its own data, which outranks the naming convention
+    # exactly as a resolved reference does.
+    if recipe_unlock:
+        return None
     if refs is None:
         return why
     if meaningful_refs(refs):
@@ -837,6 +858,30 @@ def route_key(label):
 # 3. UNLOCKS
 # ─────────────────────────────────────────────────────────────────────────────
 _RX_CHAL_REWARD = re.compile(r"^ChallengeReward[_-]", re.I)
+
+# A humanised EditorID that still opens with the scaffolding word is editor
+# wiring in prose, not a name. 18 live plans published "Reward for completing
+# the challenge: Challenge Lifetime Burning Springs Bounty Complete Grunt
+# Hunts", which is the record's path with the underscores taken out.
+#
+# There is nothing better to say from the EditorID alone: the reward records are
+# named `..._CompleteGruntHunts_CarStashBox01` while the challenges they belong
+# to are `..._CompletedGrunt_03`, so no prefix of one names the other. The
+# honest answer is the generic sentence — and 15 of the 18 also carry a real
+# COBJ.GNAM sentence ("Reward for completing the challenge: Complete Grunt
+# Hunts"), so suppressing this one loses nothing and removes a contradiction.
+_RX_CHAL_SCAFFOLD = re.compile(
+    r"^\s*challenge(?:s)?\b|\bchallenge\s+(?:lifetime|daily|weekly|event|seasonal)\b",
+    re.I)
+
+
+def usable_challenge_name(name):
+    """A challenge name fit to print, or "" — the CHAL analogue of
+    usable_quest_name()."""
+    n = (name or "").strip()
+    if not n or "<" in n or "[" in n:
+        return ""
+    return "" if _RX_CHAL_SCAFFOLD.search(n) else n
 _RX_QUEST_REWARD = re.compile(r"QuestReward", re.I)
 
 
@@ -853,7 +898,24 @@ class UnlockIndex:
         self._gmrw_rewards = collections.defaultdict(list)
         self._names = {}          # FormID -> FULL/EDID for CONT, TERM, NPC_
         self._locations = {}
+        self._chal_names = {}     # CHAL EditorID (lowered) -> its display title
         self.quest_names = QuestNames()
+
+        # The challenge's own title. A ChallengeReward GMRW is named after the
+        # CHAL record it belongs to, so stripping the prefix leaves an EditorID
+        # that matches one exactly — and until this index existed, humanize()
+        # turned it into prose: the four fishing reels published "Reward for
+        # completing the challenge: Challenge Lifetime Fishing Progress", when
+        # the game calls it Fish Quest I-IV. An EditorID reaching a published
+        # sentence is the leak check_source_labels.py exists to catch.
+        cf = newest("CHAL_Export_*.tsv", tsv_root)
+        if cf:
+            with open(cf, encoding="utf-8", errors="replace") as f:
+                for r in csv.DictReader(f, delimiter="\t"):
+                    ce = (r.get("EDID") or "").strip().lower()
+                    title = (r.get("FULL") or "").strip()
+                    if ce and title and usable_quest_name(title):
+                        self._chal_names[ce] = _clean_name(title)
 
         qf = newest("QUEST_Export_*.tsv", tsv_root)
         if qf:
@@ -933,7 +995,12 @@ class UnlockIndex:
         if any(edid.upper().startswith(p) for p in CUT_PREFIXES):
             return None
         if _RX_CHAL_REWARD.search(edid):
-            what = source_label(_RX_CHAL_REWARD.sub("", edid), self.quest_names)
+            stem = _RX_CHAL_REWARD.sub("", edid)
+            # The challenge's own title first — the reward record is named after
+            # it, so this is a lookup, not a guess. source_label() is the
+            # fallback for a reward whose challenge the export does not carry.
+            title = self._chal_title(stem)
+            what = title or usable_challenge_name(source_label(stem, self.quest_names))
             return f"Reward for completing the challenge: {what}" if what else \
                    "Reward for completing a challenge."
         if quest:
@@ -942,6 +1009,26 @@ class UnlockIndex:
             what = source_label(edid, self.quest_names)
             return f"Quest reward: {what}" if what else "Awarded as a quest reward."
         return None
+
+    def _chal_title(self, stem):
+        """The challenge title behind a ChallengeReward EditorID stem.
+
+        The reward and the challenge do not always spell the name identically:
+        `ChallengeReward_Challenge_Lifetime_Fishing_Progress_01` belongs to
+        `Challenge_Lifetime_Fishing_Progress_01_META`, the game's Fish Quest I.
+        So: exact, then the `_META` form, then a prefix that names exactly one
+        challenge. An ambiguous prefix resolves to nothing and falls through to
+        source_label() — the same rule QuestNames already follows, and for the
+        same reason.
+        """
+        key = (stem or "").strip().lower()
+        if not key:
+            return ""
+        hit = self._chal_names.get(key) or self._chal_names.get(key + "_meta")
+        if hit:
+            return hit
+        matches = {v for k, v in self._chal_names.items() if k.startswith(key)}
+        return matches.pop() if len(matches) == 1 else ""
 
     # ── the query ───────────────────────────────────────────────────────────
     def unlocks_for(self, book_fid, book_edid, refs, has_routes=False):

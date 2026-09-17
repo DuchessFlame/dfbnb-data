@@ -73,7 +73,9 @@ DIST = os.path.join(REPO, "dist")
 sys.path.insert(0, HERE)
 
 import rng76
-import plan_sources          # cut detection, readable source names, unlock routes
+import plan_sources         # cut detection, readable source names, unlock routes
+import plan_unlocks         # COBJ.GNAM — what the game says unlocks each recipe
+import plan_recipe_rows     # rows for recipes that have no plan book at all
 import plan_images           # row art: published images first, staged files second
 import add_weapon_groups    # weapon page grouping: weapon -> Mods / Skins
 import plan_apparel_class   # armour or clothing, off the ARMO record
@@ -864,6 +866,12 @@ def main(argv=None):
         print(f"[plan-obtain] quest names: {sum(1 for v in QUEST_NAMES.exact.values() if v)} "
               f"unambiguous prefixes, {len(QUEST_NAMES.family)} families")
 
+    # COBJ.GNAM — what unlocks each recipe, straight from the game files. Needed
+    # whether or not routes are being resolved, because cut detection consults
+    # it and --no-routes still publishes the cut flag.
+    recipe_unlocks = plan_unlocks.RecipeUnlocks(TSV, lambda pat, root: newest(pat, root))
+    print(recipe_unlocks.report())
+
     bf = newest("BOOK_Export_*.tsv")
     roster = []
     for row in read_rows(bf):
@@ -918,6 +926,17 @@ def main(argv=None):
                     ce = c.get("edid","").lower()
                     if c.get("cnam_fid") and stem in ce and "condproxy" not in ce:
                         co_fid, cobj = cfid, c; break
+        # Neither link resolved: ask plan_unlocks, which matches on the COBJ's
+        # own GNAM, then on the EditorID stem, then on the created record's
+        # name — refusing any key that returns more than one candidate. That is
+        # the only way an orphaned plan like the Slasher bobber (ReferencedBy 0,
+        # no drop entry) ever reaches its recipe.
+        if not co_fid:
+            linked, how = recipe_unlocks.link(fid, edid, name)
+            if linked:
+                co_fid, cobj = linked, cobj_idx.get(linked) or cobj
+                unresolved.setdefault("cobj_linked", []).append(f"{name} [{how}]")
+
         # Still no created object? Recover it from the BOOK's own EDID.
         if not (cobj or {}).get("cnam_fid"):
             om = omod_from_book_edid(edid, omod_by_edid)
@@ -955,7 +974,8 @@ def main(argv=None):
         # go and get them. The EditorID decides; the reference count only
         # corroborates. See plan_sources.cut_reason().
         refs = [v for v in ((row.get(f"Ref{j}") or "").strip() for j in range(1, 46)) if v]
-        cut_why = plan_sources.cut_reason(edid, refs)
+        recipe_unlock = recipe_unlocks.proof_of_life(co_fid)
+        cut_why = plan_sources.cut_reason(edid, refs, recipe_unlock=recipe_unlock)
         if cut_why:
             unresolved["cut"].append(f"{name} [{edid}]")
 
@@ -967,6 +987,12 @@ def main(argv=None):
         # worth the lookup: nothing references them, which is why they are cut.
         unlocks = [] if (args.no_routes or cut_why or unlock_idx is None) \
                   else unlock_idx.unlocks_for(fid, edid, refs, has_routes=bool(routes))
+        # The GNAM sentence is a resolved route, not an EditorID inference, so it
+        # leads. It is also the only source for a plan whose BOOK nothing
+        # references, which is every plan the cut rescue above just saved.
+        gnam_sentence = recipe_unlocks.sentence(recipe_unlock)
+        if gnam_sentence and gnam_sentence not in unlocks:
+            unlocks.insert(0, gnam_sentence)
 
         if not args.no_routes and not routes and not unlocks and not cut_why:
             unresolved["no_routes"].append(name)
@@ -1010,6 +1036,13 @@ def main(argv=None):
         items.append(item)
         if (i+1) % 250 == 0:
             print(f"   ... {i+1}/{len(roster)}")
+
+    # Recipes with no plan book. Appended after the roster walk because they are
+    # not in it: the roster is BOOK rows, and these craftables have none. Costs
+    # no rates — they are unlock routes by definition.
+    if not args.offset and not args.limit and not args.only:
+        print("[plan-obtain] recipes with no plan book:")
+        plan_recipe_rows.report(plan_recipe_rows.attach(items, TSV))
 
     out = {
         "version": 1,
