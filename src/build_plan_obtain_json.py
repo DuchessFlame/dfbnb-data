@@ -75,6 +75,7 @@ sys.path.insert(0, HERE)
 import rng76
 import plan_sources         # cut detection, readable source names, unlock routes
 import plan_unlocks         # COBJ.GNAM — what the game says unlocks each recipe
+import plan_conditions      # drop conditions per source (LVLI entry CTDAs)
 import plan_display_names   # row titles: model-first weapon paint names
 import plan_recipe_rows     # rows for recipes that have no plan book at all
 import plan_images           # row art: published images first, staged files second
@@ -731,7 +732,16 @@ def collapse_routes(routes):
     return [best[k] for k in order]
 
 
-def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None):
+def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
+                   names_only=False):
+    """Routes for one plan, highest rate first.
+
+    `names_only` returns {route name -> [LVLI FormIDs]} instead, with no rng76
+    call at all. That is what lets `add_drop_conditions.py` attach conditions to
+    an already-built document in minutes instead of re-running the 80-minute
+    build: the names come from THIS function, so the two can never disagree
+    about which list is called what.
+    """
     npc_names = npc_names or {}
     target = {target_fid}
     src = ssrc.get_sources([{"formid": target_fid, "sig": "BOOK"}], tables, plan_classify)
@@ -747,13 +757,17 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None):
         return _memo[k]
 
     routes = []
+    by_name = {}    # route label -> the leveled lists that produced it
     # 1) Container types (reuse the farming resolver verbatim, memoised)
-    try:
-        conts = bfu.container_types(closure, target,
-                                    lambda L, t: app(L[0] if isinstance(L,(list,tuple)) and L else L),
-                                    cont_names, lvli_refs, parent_edid)
-    except Exception:
-        conts = []
+    conts = []
+    if not names_only:
+        try:
+            conts = bfu.container_types(
+                closure, target,
+                lambda L, t: app(L[0] if isinstance(L, (list, tuple)) and L else L),
+                cont_names, lvli_refs, parent_edid)
+        except Exception:
+            conts = []
     for c in conts:
         routes.append({"route": c["name"], "source_type": "container",
                        "rate": round(c["rate"], 6), "rate_display": c["rate_display"]})
@@ -772,8 +786,8 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None):
         bucket = holder_bucket(via, holders)
         if bucket in ("container", "loot-list"):
             continue  # containers handled above; loot-list = internal plumbing, not a world source
-        rate = app(L)                       # only now do the rng76 resolve
-        if not rate or rate <= 0:
+        rate = 0.0 if names_only else app(L)   # only now do the rng76 resolve
+        if not names_only and (not rate or rate <= 0):
             continue
         # name: a vendor keeps its CONT/holder name; a creature keeps the name of
         # the thing that carries it; everything else uses the list family.
@@ -802,6 +816,7 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None):
                                  or source_label(redid) or humanize(redid))
         if bucket == "vendor" and vend_name:
             name = vend_name
+            by_name.setdefault(name, []).append(L)
             key = ("vendor", name, round(rate, 4))
             if key not in seen_c:
                 seen_c.add(key)
@@ -815,15 +830,21 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None):
                else source_label(via or str(L)))
         if not fam:
             continue
+        by_name.setdefault(fam, []).append(L)
         k = (bucket, fam.lower(), round(rate, 4))
         if k not in seen_n:
             seen_n[k] = {"route": fam, "source_type": bucket,
                          "rate": round(rate, 6), "rate_display": bfu._fmt_rate(rate)}
     routes.extend(seen_n.values())
+    if names_only:
+        return by_name
     routes = collapse_routes(routes)
 
     routes.sort(key=lambda r: (-(r["rate"] or 0), r["source_type"], r["route"].lower()))
-    return routes[:12]   # cap: a plan's most-likely dozen sources, highest rate first
+    routes = routes[:12]
+    for r in routes:
+        r["lvli"] = sorted(set(by_name.get(r["route"], ())))
+    return routes   # cap: a plan's most-likely dozen sources, highest rate first
 
 # ── main ─────────────────────────────────────────────────────────────────────
 SIG_INDEX = {}
@@ -1061,6 +1082,13 @@ def main(argv=None):
     if not args.offset and not args.limit and not args.only:
         print("[plan-obtain] recipes with no plan book:")
         plan_recipe_rows.report(plan_recipe_rows.attach(items, TSV))
+
+    # Drop Conditions: when each source gives the plan at all, off the leveled
+    # list entry conditions. Pure joins over the LVLI entries export -- no rate
+    # is touched -- so it runs after the roster walk, on the finished routes.
+    if not args.no_routes and not args.offset and not args.limit and not args.only:
+        print("[plan-obtain] drop conditions:")
+        plan_conditions.report(plan_conditions.attach(items, TSV, newest))
 
     # Row titles: model-first for weapon paints (plan_display_names). Pure string
     # work over the finished roster, so it runs last and costs nothing. The game's
