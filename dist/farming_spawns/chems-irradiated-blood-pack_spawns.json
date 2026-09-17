@@ -168,7 +168,15 @@
     }
    ]
   },
-  "challenges": [],
+  "challenges": [
+   {
+    "name": "Collect a Blood pack",
+    "edid": "SCORE_Challenge_Daily_Collect_Bloodpacks",
+    "page": "daily",
+    "type": "Daily",
+    "required": 3
+   }
+  ],
   "recipes": [],
   "obtain": {
    "recipes": [],
@@ -179,7 +187,20 @@
  "additional_expands": null,
  "info_notes": null,
  "random_encounters": null,
- "events_activities": [],
+ "events_activities": [
+  {
+   "list_id": "0090312D",
+   "edid": "SDOW_LL_SQ01_RepeatableRewards",
+   "name": "Repeatable: Disturbed Grave",
+   "type": "Secondary",
+   "note": "Chance the item is in the Repeatable: Disturbed Grave reward pool per event/activity payout.",
+   "rate_value": 0.07,
+   "rate_display": "7%",
+   "rate_lines": [
+    "7%"
+   ]
+  }
+ ],
  "regions": [
   {
    "region": "Ash Heap",
@@ -223,7 +244,25 @@
   }
  ],
  "treasure_maps": {
-  "maps": []
+  "maps": [
+   {
+    "group": "Pint-Sized Phantoms",
+    "name": "Pint-Sized Phantoms' Map",
+    "region": "",
+    "form_id": "008F15E4",
+    "edid": "SDOW_MQ02_SlasherMap",
+    "rate": 0.07,
+    "rate_display": "7%",
+    "sources": [
+     {
+      "form_id": "0090312D",
+      "edid": "SDOW_LL_SQ01_RepeatableRewards",
+      "rate": 0.07,
+      "rate_display": "7%"
+     }
+    ]
+   }
+  ]
  },
  "map_base": "/wp-content/uploads/guide-images/farming-chems/irradiated-blood-pack/"
 }

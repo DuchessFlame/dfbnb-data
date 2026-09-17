@@ -1,12 +1,12 @@
 {
   "version": 1,
-  "generated": "2026-09-15",
+  "generated": "2026-09-17",
   "source_files": [
     "OMOD_Export_September_2026.tsv",
     "legendary_mod_drop_chances.json",
     "unique_weapons/unique_weapons.json"
   ],
-  "count": 183,
+  "count": 186,
   "groups": [
     {
       "id": "star1",
@@ -1199,6 +1199,26 @@
           ]
         },
         {
+          "id": "star2-cryologist-s",
+          "name": "Cryologist's",
+          "star": 2,
+          "types": [
+            "Weapon",
+            "Armour",
+            "Power Armour"
+          ],
+          "effect": "",
+          "edid": "POST_mod_Legendary_Weapon2_Cryo",
+          "formid": "00606B6F",
+          "weaponCompat": null,
+          "obtainRoutes": [
+            {
+              "route": "In-Game Legendary Drops",
+              "note": "Learned by scrapping legendary items that drop from enemies, events and daily activities, then crafting the mod with Legendary Modules and a Legendary Core."
+            }
+          ]
+        },
+        {
           "id": "star2-elementalist",
           "name": "Elementalist",
           "star": 2,
@@ -1293,7 +1313,7 @@
             "Power Armour"
           ],
           "effect": "+25 Fire Resistance",
-          "edid": "mod_Legendary_PowerArmor2_Fireproof",
+          "edid": "",
           "formid": "00606B39",
           "weaponCompat": null,
           "obtainRoutes": [
@@ -1603,11 +1623,12 @@
           "name": "Poisoner's",
           "star": 2,
           "types": [
+            "Weapon",
             "Armour",
             "Power Armour"
           ],
           "effect": "+25 Poison Resistance",
-          "edid": "mod_Legendary_Armor2_PoisonResistance",
+          "edid": "POST_mod_Legendary_Weapon2_Poison",
           "formid": "00527F6E",
           "weaponCompat": null,
           "obtainRoutes": [
@@ -1649,6 +1670,25 @@
             {
               "route": "Head Hunt Bosses",
               "note": "Earn bounty (3-star) legendary items from Head Hunt public events, then scrap them to learn the mod."
+            }
+          ]
+        },
+        {
+          "id": "star2-pyro-technician-s",
+          "name": "Pyro-Technician's",
+          "star": 2,
+          "types": [
+            "Armour",
+            "Power Armour"
+          ],
+          "effect": "",
+          "edid": "mod_Legendary_PowerArmor2_Fireproof",
+          "formid": "00606B3A",
+          "weaponCompat": null,
+          "obtainRoutes": [
+            {
+              "route": "In-Game Legendary Drops",
+              "note": "Learned by scrapping legendary items that drop from enemies, events and daily activities, then crafting the mod with Legendary Modules and a Legendary Core."
             }
           ]
         },
@@ -1817,7 +1857,7 @@
             "Power Armour"
           ],
           "effect": "+25 Cryo Resistance",
-          "edid": "mod_Legendary_Armor2_CryoResistance",
+          "edid": "",
           "formid": "00606B6F",
           "weaponCompat": null,
           "obtainRoutes": [
@@ -3127,7 +3167,7 @@
             "Weapon"
           ],
           "effect": "Adds cryo damage to melee attacks",
-          "edid": "mod_Legendary_Weapon4_Melee_Icemens",
+          "edid": "mod_Legendary_Weapon4_Icemens",
           "formid": "00792985",
           "weaponCompat": "melee",
           "obtainRoutes": [
@@ -3346,7 +3386,7 @@
             "Armour",
             "Power Armour"
           ],
-          "effect": "Upon being hit, deal +3% Damage for 10 seconds.",
+          "effect": "Gain 5% Damage for 10 Seconds When Hit (Up to +25% on Full Stack)",
           "edid": "HTO_mod_Legendary_Armor4_Raging",
           "formid": "0085B997",
           "weaponCompat": null,
@@ -3523,6 +3563,24 @@
           ]
         },
         {
+          "id": "star4-severing",
+          "name": "Severing",
+          "star": 4,
+          "types": [
+            "Weapon"
+          ],
+          "effect": "",
+          "edid": "SDOW_mod_Legendary_Weapon4_Severing",
+          "formid": "008E076E",
+          "weaponCompat": null,
+          "obtainRoutes": [
+            {
+              "route": "Infestations",
+              "note": "4-star legendary mods are exclusive to Infestation events."
+            }
+          ]
+        },
+        {
           "id": "star4-sightseer-s",
           "name": "Sightseer's",
           "star": 4,
@@ -3638,7 +3696,7 @@
           "types": [
             "Weapon"
           ],
-          "effect": "Reload Speed & Melee Attack Speed increases based on Killstreak Count",
+          "effect": "+3% Reload Speed & Melee Attack Speed Per Kill While on Kill Streak",
           "edid": "RA_mod_Legendary_Weapon4_ThrillSeeker",
           "formid": "00863AA2",
           "weaponCompat": null,
@@ -3657,7 +3715,7 @@
             "Armour",
             "Power Armour"
           ],
-          "effect": "Gain 10% Bonus VATS Accuracy Against Distant Targets",
+          "effect": "Gain 10% Bonus V.A.T.S. Accuracy Against Distant Targets",
           "edid": "HTO_mod_Legendary_PowerArmor4_Vector",
           "formid": "0085B99D",
           "weaponCompat": null,

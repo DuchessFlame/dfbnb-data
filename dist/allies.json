@@ -1587,6 +1587,11 @@
                     "condition": "IsCurrentFurnitureObj: Furniture_CampObject_Beckett_Bar \"Beckett's Bar\""
                   },
                   {
+                    "text": "Bar's open ladies and gents! Got the good stuff right here.",
+                    "condition": "IsCurrentFurnitureObj: Furniture_CampObject_Beckett_Bar \"Beckett's Bar\"",
+                    "note": "literally tending bar"
+                  },
+                  {
                     "text": "I'm out of the gangs, got a bar of my own, and the drinks are cold. Life doesn't get any better than this.",
                     "condition": "GetValue: PlayerQuestCount_Beckett",
                     "note": "Quietly, happily. His woes are over"
@@ -1708,11 +1713,6 @@
                     "text": "Don't we have enough problems without people dropping nukes everywhere?",
                     "condition": "IsInWeather: NewWeatherRadstorm, GetIsInRegion: NukeRegionA, GetIsInRegion: NukeRegionB, GetIsInRegion: NukeRegionC",
                     "note": "to self - you're in a nuked zone"
-                  },
-                  {
-                    "text": "Bar's open ladies and gents! Got the good stuff right here.",
-                    "condition": "IsCurrentFurnitureObj: Furniture_CampObject_Beckett_Bar \"Beckett's Bar\"",
-                    "note": "literally tending bar"
                   }
                 ]
               },
@@ -2579,10 +2579,25 @@
                     "text": "I gave Ronny the key and told her the news about Bronx. She's thrilled, by the way. So hopefully we'll hear some news... soon."
                   },
                   {
+                    "text": "I'm going to dig a hole somewhere, deep. Then bury it. Hopefully it will sink into the soil and that's it. It's a temporary measure, but... necessary."
+                  },
+                  {
+                    "text": "Don't worry, don't worry, I'm not going to use it if that's what you're thinking. No no no, I've worked way too hard to escape that crap. Never again."
+                  },
+                  {
                     "text": "Normally, yes. But you took their chems, and I'm destroying them. So best case scenario, they have to waste time finding more."
                   },
                   {
                     "text": "They won't be worried about filling the gap in the leadership. Not now."
+                  },
+                  {
+                    "text": "Not at all. They were just... raiders who were destroyed by heavy chem addiction."
+                  },
+                  {
+                    "text": "But... then it wasn't just that. Some of them became incredibly violent. Thoroughly enraged."
+                  },
+                  {
+                    "text": "Before they were just a band of maniacs, and... it was bad, yeah. But this, this is... this is new. This is... This is terrible."
                   },
                   {
                     "text": "Yeah, The Blood normally travels around Appalachia looking for \"recruits\" to kidnap, but I have an idea where you can look."
@@ -2904,21 +2919,6 @@
                   },
                   {
                     "text": "Care to do a good deed today? A trader mentioned that she was looking for a missing person. I've got some info, but not a ton."
-                  },
-                  {
-                    "text": "I'm going to dig a hole somewhere, deep. Then bury it. Hopefully it will sink into the soil and that's it. It's a temporary measure, but... necessary."
-                  },
-                  {
-                    "text": "Don't worry, don't worry, I'm not going to use it if that's what you're thinking. No no no, I've worked way too hard to escape that crap. Never again."
-                  },
-                  {
-                    "text": "Not at all. They were just... raiders who were destroyed by heavy chem addiction."
-                  },
-                  {
-                    "text": "But... then it wasn't just that. Some of them became incredibly violent. Thoroughly enraged."
-                  },
-                  {
-                    "text": "Before they were just a band of maniacs, and... it was bad, yeah. But this, this is... this is new. This is... This is terrible."
                   }
                 ]
               },
@@ -8810,12 +8810,12 @@
                 "note": "Francis forgets to mute while moving stuff on his desk. His voice can sound off-mic, like he's facing away"
               },
               {
-                "text": "Cambot Nine, live on the scene! Hmm. Live at the scene! On? At?",
-                "note": "Practicing to himself, trying to decide how to say it."
-              },
-              {
                 "text": "*Sneeze* Uh... I-i-i-interference detected!",
                 "condition": "GetValue: Cambot_PlayerKnowsTheTruth"
+              },
+              {
+                "text": "Cambot Nine, live on the scene! Hmm. Live at the scene! On? At?",
+                "note": "Practicing to himself, trying to decide how to say it."
               },
               {
                 "text": "Too bad I reverse so slowly. So much good footage is lost when fleeing."
@@ -8892,6 +8892,26 @@
                 "condition": "GetValue: Cambot_CompletedIntroduction"
               },
               {
+                "text": "How's my favorite photographer? Ready for your next job?"
+              },
+              {
+                "text": "Got your camera? We've got work to do."
+              },
+              {
+                "text": "Is my color balance off or are you looking a bit green?",
+                "condition": "HasKeyword: SURV_EffectTypeDisease",
+                "note": "Greeting for when player is diseased"
+              },
+              {
+                "text": "Thanks again for that last photo. The audience is going to love it."
+              },
+              {
+                "text": "You're doing fine work out there."
+              },
+              {
+                "text": "Ready to help spread facts and truth?"
+              },
+              {
                 "text": "Welcome back to GNN!"
               },
               {
@@ -8961,26 +8981,6 @@
               {
                 "text": "If anything newsworthy happens out there, let me know.",
                 "condition": "GetValue: Cambot_CompletedIntroduction"
-              },
-              {
-                "text": "How's my favorite photographer? Ready for your next job?"
-              },
-              {
-                "text": "Got your camera? We've got work to do."
-              },
-              {
-                "text": "Thanks again for that last photo. The audience is going to love it."
-              },
-              {
-                "text": "You're doing fine work out there."
-              },
-              {
-                "text": "Ready to help spread facts and truth?"
-              },
-              {
-                "text": "Is my color balance off or are you looking a bit green?",
-                "condition": "HasKeyword: SURV_EffectTypeDisease",
-                "note": "Greeting for when player is diseased"
               }
             ]
           },
@@ -20150,6 +20150,36 @@
                 "text": "I'm part magician, part detective, and all hero! Make way for the Inspector!"
               },
               {
+                "text": "What happens when an Unstoppable force meets an immovable tummy ache? Well, right now the tummy ache would win."
+              },
+              {
+                "text": "I try to sleep most of the day. Leaves more time for crime fighting at night. Not that I would know, of course. I'm just a regular old girl."
+              },
+              {
+                "text": "The Inspector is unlike any other superhero. She fights crime with her brain, not her biceps."
+              },
+              {
+                "text": "If there's a crime afoot, my detective skills will find it!"
+              },
+              {
+                "text": "My name? The Inspector! My mission? To uncover my past!"
+              },
+              {
+                "text": "You've given away your last bottlecap, Commie-Kazi! The Inspector is here to restore the free market!",
+                "condition": "GetRandomPercent",
+                "note": "Cutting this line, it's way too similar to Maul's"
+              },
+              {
+                "text": "The Inspector tried to cast a spell once to make my imaginary friend real. But I guess there's some things that even superheroes can't do."
+              },
+              {
+                "text": "Mornings give me the eye crispies.",
+                "condition": "GetGlobalValue: GameHour"
+              },
+              {
+                "text": "I brushed and flossed today. It's important to build good habits, even when you aren't feeling super."
+              },
+              {
                 "text": "I should go back to the Ux-Ron galaxy someday, visit some old friends."
               },
               {
@@ -20175,15 +20205,6 @@
               },
               {
                 "text": "Inspection complete! Everything is in working order!"
-              },
-              {
-                "text": "What happens when an Unstoppable force meets an immovable tummy ache? Well, right now the tummy ache would win."
-              },
-              {
-                "text": "I try to sleep most of the day. Leaves more time for crime fighting at night. Not that I would know, of course. I'm just a regular old girl."
-              },
-              {
-                "text": "The Inspector is unlike any other superhero. She fights crime with her brain, not her biceps."
               },
               {
                 "text": "Just you wait, the Inspector is coming to save the day, and the night. Me? I'm just here."
@@ -20222,27 +20243,6 @@
                 "text": "I like all types of books, not just comic ones. School books, joke books, books on holotape. They're all pretty great."
               },
               {
-                "text": "If there's a crime afoot, my detective skills will find it!"
-              },
-              {
-                "text": "My name? The Inspector! My mission? To uncover my past!"
-              },
-              {
-                "text": "You've given away your last bottlecap, Commie-Kazi! The Inspector is here to restore the free market!",
-                "condition": "GetRandomPercent",
-                "note": "Cutting this line, it's way too similar to Maul's"
-              },
-              {
-                "text": "The Inspector tried to cast a spell once to make my imaginary friend real. But I guess there's some things that even superheroes can't do."
-              },
-              {
-                "text": "Mornings give me the eye crispies.",
-                "condition": "GetGlobalValue: GameHour"
-              },
-              {
-                "text": "I brushed and flossed today. It's important to build good habits, even when you aren't feeling super."
-              },
-              {
                 "text": "Rain, rain, go away, come again another day.",
                 "condition": "GetCurrentWeatherHasKeyword: s_wt_StormMistyRainy, GetCurrentWeatherHasKeyword: s_wt_StormRain, GetCurrentWeatherHasKeyword: MTR_Weather_MistyRainy, GetCurrentWeatherHasKeyword: MTR_Weather_Rain"
               }
@@ -20266,6 +20266,10 @@
               },
               {
                 "text": "Wanna play the Unstoppables Board Game? It'd be good to brush up on our crime fighting techniques."
+              },
+              {
+                "text": "I go by many names. The Enchantress of Appalachia! The Wizard of the Wasteland! The Inspector of the Uninspected! And sometimes Daphne.",
+                "note": "Inspector until the end, then Daphne"
               },
               {
                 "text": "We should have the other Unstoppables over for the holidays. That and making Christmas albums is just what superheroes do."
@@ -20309,10 +20313,6 @@
               {
                 "text": "Hi there! My name's Daphne. Would it be okay if we set up shop here?",
                 "condition": "GetValue: Inspector_CompletedIntroduction"
-              },
-              {
-                "text": "I go by many names. The Enchantress of Appalachia! The Wizard of the Wasteland! The Inspector of the Uninspected! And sometimes Daphne.",
-                "note": "Inspector until the end, then Daphne"
               }
             ]
           }
@@ -22090,7 +22090,7 @@
         ]
       },
       "inventory": {
-        "totalItems": 1498,
+        "totalItems": 1500,
         "groups": [
           {
             "label": "Weapons",
@@ -24208,36 +24208,16 @@
               {
                 "name": "Baseball Bat Heated Rocket Mod",
                 "formId": "00113F49",
-                "chance": 0.182
-              },
-              {
-                "name": "Baseball Bat Sharp Mod",
-                "formId": "00184A2B",
-                "chance": 0.182
-              },
-              {
-                "name": "Baseball Bat Spiked Rocket Mod",
-                "formId": "00113F4A",
-                "chance": 0.182
-              },
-              {
-                "name": "Puncturing Knuckles Mod",
-                "formId": "00150747",
-                "chance": 0.182
-              },
-              {
-                "name": "Sharp Knuckles Mod",
-                "formId": "00150748",
-                "chance": 0.182
-              },
-              {
-                "name": "Stealth Blade Knife Mod",
-                "formId": "00187A0D",
-                "chance": 0.182
+                "chance": 0.177
               },
               {
                 "name": "Baseball Bat Puncturing Rocket Mod",
                 "formId": "00113F4B",
+                "chance": 0.177
+              },
+              {
+                "name": "Sharp Knuckles Mod",
+                "formId": "00150748",
                 "chance": 0.177
               },
               {
@@ -24314,6 +24294,36 @@
                 "name": "Harpoon Gun Flechettes Mod",
                 "formId": "00111588",
                 "chance": 0.158
+              },
+              {
+                "name": "Baseball Bat Sharp Mod",
+                "formId": "00184A2B",
+                "chance": 0.151
+              },
+              {
+                "name": "Baseball Bat Spiked Rocket Mod",
+                "formId": "00113F4A",
+                "chance": 0.151
+              },
+              {
+                "name": "Death Tambo Barbed Mod",
+                "formId": "009136B2",
+                "chance": 0.151
+              },
+              {
+                "name": "Death Tambo Sharp Mod",
+                "formId": "009136B3",
+                "chance": 0.151
+              },
+              {
+                "name": "Puncturing Knuckles Mod",
+                "formId": "00150747",
+                "chance": 0.151
+              },
+              {
+                "name": "Stealth Blade Knife Mod",
+                "formId": "00187A0D",
+                "chance": 0.151
               },
               {
                 "name": "Combat Cushioned Limb Mod",
@@ -24658,62 +24668,62 @@
               {
                 "name": "Baseball Bat Chain-Wrapped Mod",
                 "formId": "00184A29",
-                "chance": 0.051
+                "chance": 0.048
               },
               {
                 "name": "Baseball Bat Sharp Mod",
                 "formId": "00184A2C",
-                "chance": 0.051
+                "chance": 0.048
               },
               {
                 "name": "Baseball Bat Spiked Mod",
                 "formId": "00184A2A",
-                "chance": 0.051
+                "chance": 0.048
               },
               {
                 "name": "Board Sharp Mod",
                 "formId": "00027F9B",
-                "chance": 0.051
+                "chance": 0.048
               },
               {
                 "name": "Boxing Glove Puncturing Mod",
                 "formId": "00187A22",
-                "chance": 0.051
+                "chance": 0.048
               },
               {
                 "name": "Extra Heavy Pipe Wrench Mod",
                 "formId": "000C73F9",
-                "chance": 0.051
+                "chance": 0.048
               },
               {
                 "name": "Heavy Sledgehammer Mod",
                 "formId": "000483E4",
-                "chance": 0.051
+                "chance": 0.048
               },
               {
                 "name": "Puncturing Pipe Wrench Mod",
                 "formId": "00187824",
-                "chance": 0.051
+                "chance": 0.048
               },
               {
                 "name": "Puncturing Sledgehammer Mod",
                 "formId": "000483EA",
-                "chance": 0.051
+                "chance": 0.048
               },
               {
                 "name": "Sharp Knuckles Mod",
                 "formId": "00150746",
-                "chance": 0.051
+                "chance": 0.048
               },
               {
                 "name": "Sharp Pool Cue Mod",
                 "formId": "00187829",
-                "chance": 0.051
+                "chance": 0.048
               },
               {
                 "name": "Spiked Rolling Pin Mod",
                 "formId": "00185D10",
-                "chance": 0.051
+                "chance": 0.048
               },
               {
                 "name": "zzzmiscmod DLC04 mod Revolver Scope Short Scope Base",
@@ -25043,17 +25053,7 @@
               {
                 "name": "Barbed Flaming Pitchfork",
                 "formId": "000546DA",
-                "chance": 0.182
-              },
-              {
-                "name": "Chainsaw Dual Bar",
-                "formId": "003986EA",
-                "chance": 0.182
-              },
-              {
-                "name": "Golf Club Saw",
-                "formId": "00342553",
-                "chance": 0.182
+                "chance": 0.177
               },
               {
                 "name": "Golf Club Mace",
@@ -25196,6 +25196,11 @@
                 "chance": 0.151
               },
               {
+                "name": "Chainsaw Dual Bar",
+                "formId": "003986EA",
+                "chance": 0.151
+              },
+              {
                 "name": "Flamer Compression Nozzle",
                 "formId": "001889D2",
                 "chance": 0.151
@@ -25208,6 +25213,11 @@
               {
                 "name": "Flamer Long Barrel",
                 "formId": "001889CD",
+                "chance": 0.151
+              },
+              {
+                "name": "Golf Club Saw",
+                "formId": "00342553",
                 "chance": 0.151
               },
               {
@@ -27088,22 +27098,22 @@
               {
                 "name": "Barbed Pitchfork",
                 "formId": "000546DB",
-                "chance": 0.051
+                "chance": 0.048
               },
               {
                 "name": "Boxing Glove Lead Lining Mod",
                 "formId": "00187A23",
-                "chance": 0.051
+                "chance": 0.048
               },
               {
                 "name": "Fire Axe Spikes",
                 "formId": "00342556",
-                "chance": 0.051
+                "chance": 0.048
               },
               {
                 "name": "Heavy Lead Pipe Mod",
                 "formId": "00186BCD",
-                "chance": 0.051
+                "chance": 0.048
               },
               {
                 "name": "Gatling Plasma Accelerated Nozzle",
@@ -32625,6 +32635,9 @@
             "prompt": "",
             "lines": [
               {
+                "text": "(Sigh) Mondays. Is it Monday? Feels like a Monday."
+              },
+              {
                 "text": "What I wouldn't give for a tato pie."
               },
               {
@@ -32648,18 +32661,15 @@
                 "note": "Trying out a new joke he's read but doesn't know what a kangaroo is so doesn't get the joke"
               },
               {
+                "text": "Damn, I could really use another hit from that pipe. If I could just remember where it was..."
+              },
+              {
                 "text": "There once was a man from Nantucket, he... no wait how'd it go again? Nah, fuck it.",
                 "note": "Trying to remember the limerick. Coincidentally ends up rhyming."
               },
               {
                 "text": "Go to Appalachia they said. \"You'll have a blast\" they said. Didn't realize they were literally still dropping nukes on themselves.",
                 "note": "To self."
-              },
-              {
-                "text": "Damn, I could really use another hit from that pipe. If I could just remember where it was..."
-              },
-              {
-                "text": "(Sigh) Mondays. Is it Monday? Feels like a Monday."
               }
             ]
           },
@@ -33071,9 +33081,6 @@
                 "text": "Ah, looking for a little a \"pick-me-up\"?"
               },
               {
-                "text": "First one's free! Wait, nope. Forget it, you didn't hear that."
-              },
-              {
                 "text": "See anything you like?"
               },
               {
@@ -33087,6 +33094,9 @@
               },
               {
                 "text": "Well allow me to assist you with some uh...assistance."
+              },
+              {
+                "text": "First one's free! Wait, nope. Forget it, you didn't hear that."
               }
             ]
           },
@@ -33246,7 +33256,7 @@
             "prompt": "",
             "lines": [
               {
-                "text": "You're so ugly you make me wanna quit drinking just in case I ever start seeing two of youse!"
+                "text": "Your family tree must have been a cactus 'cause you're a real prick."
               },
               {
                 "text": "You're so dumb when you were a baby your dad gave you an \"I'm S.P.E.C.A.L.\" book. That's \"special\" without the I for intelligence, dummy.",
@@ -33254,28 +33264,17 @@
                 "note": "SPECAL pronounced \"speckle"
               },
               {
-                "text": "I heard you was strong but I guess they were talking about your stench! Pee-yoo. Your breath would make onions cry!",
-                "condition": "GetValue: Strength \"Strength\""
+                "text": "You're so uncivilized the only culture you've got is mold."
               },
               {
-                "text": "You're so stupid when you heard it was chilly outside you grabbed a bowl and spoon.",
-                "condition": "GetValue: Intelligence \"Intelligence\""
+                "text": "I never forget a face, but in your case I wish I could make an exception. Yours looks like it caught fire and someone put it out with a tire iron."
               },
               {
-                "text": "Your family tree must have been a cactus 'cause you're a real prick."
+                "text": "You're so ugly you make me wanna quit drinking just in case I ever start seeing two of youse!"
               },
               {
                 "text": "You're so fat when they need a new nuke code they just get you to hop on a scale. Ha-hoh! Boom!",
                 "condition": "GetValue: Strength \"Strength\""
-              },
-              {
-                "text": "You're so uncivilized the only culture you've got is mold."
-              },
-              {
-                "text": "Your stench is so bad you make me wish I was a ghoul just so I didn't have a nose."
-              },
-              {
-                "text": "If being ugly was a crime you'd be on the most wanted list. And given your looks it'd probably be the first time anybody's ever wanted you."
               },
               {
                 "text": "You must have a real open mind, 'cause I can hear the wind whistling through your ears.",
@@ -33306,15 +33305,26 @@
                 "condition": "GetValue: Perception \"Perception\""
               },
               {
-                "text": "You're so fat when you try to haul ass it takes you two trips!",
-                "condition": "GetValue: Strength \"Strength\""
-              },
-              {
-                "text": "I never forget a face, but in your case I wish I could make an exception. Yours looks like it caught fire and someone put it out with a tire iron."
+                "text": "Your stench is so bad you make me wish I was a ghoul just so I didn't have a nose."
               },
               {
                 "text": "You're so stupid it takes you an entire hour to make Instamash.",
                 "condition": "GetValue: Intelligence \"Intelligence\""
+              },
+              {
+                "text": "I heard you was strong but I guess they were talking about your stench! Pee-yoo. Your breath would make onions cry!",
+                "condition": "GetValue: Strength \"Strength\""
+              },
+              {
+                "text": "You're so stupid when you heard it was chilly outside you grabbed a bowl and spoon.",
+                "condition": "GetValue: Intelligence \"Intelligence\""
+              },
+              {
+                "text": "You're so fat when you try to haul ass it takes you two trips!",
+                "condition": "GetValue: Strength \"Strength\""
+              },
+              {
+                "text": "If being ugly was a crime you'd be on the most wanted list. And given your looks it'd probably be the first time anybody's ever wanted you."
               }
             ]
           },
@@ -34766,6 +34776,14 @@
             "prompt": "",
             "lines": [
               {
+                "text": "Hello there traveler, my name is Kat. I'm an astronomer.",
+                "condition": "GetValue: Astronomer_CompletedIntroduction",
+                "note": "Pronounced \"Cat\"."
+              },
+              {
+                "text": "The earliest recorded abduction was in Salem, in 1697. There's a tape of a man who claims to have been swept up into a great spaceship in the sky."
+              },
+              {
                 "text": "You're not so bad, you know. You might even be swell."
               },
               {
@@ -34807,14 +34825,6 @@
               },
               {
                 "text": "It has three inches of aperture and a forty-six inch focal length, just like the one Maria Mitchell used to discover her comet."
-              },
-              {
-                "text": "Hello there traveler, my name is Kat. I'm an astronomer.",
-                "condition": "GetValue: Astronomer_CompletedIntroduction",
-                "note": "Pronounced \"Cat\"."
-              },
-              {
-                "text": "The earliest recorded abduction was in Salem, in 1697. There's a tape of a man who claims to have been swept up into a great spaceship in the sky."
               }
             ]
           },
@@ -34900,11 +34910,11 @@
             "prompt": "Any thoughts on the Brotherhood of Steel taking it over?",
             "lines": [
               {
-                "text": "They are an interesting lot, no doubt, but their motives leave me suspicious."
-              },
-              {
                 "text": "I realize you're a member, so I'll tread carefully, but the point still stands.",
                 "note": "She knows player is a member of the Brotherhood of Steel, so she comes down softer."
+              },
+              {
+                "text": "They are an interesting lot, no doubt, but their motives leave me suspicious."
               }
             ]
           },
@@ -44845,6 +44855,12 @@
             "prompt": "",
             "lines": [
               {
+                "text": "There's a use for just about any kind of junk. Gotta pick it all up, even if it doesn't seem obvious what it's good for."
+              },
+              {
+                "text": "I need to write more happy songs. Not every tune needs to be about broken things, or how to fix them."
+              },
+              {
                 "text": "Guitar sword, or guitar gun? Really can't go wrong with either."
               },
               {
@@ -44926,12 +44942,6 @@
               {
                 "text": "(humming)",
                 "note": "Song 4"
-              },
-              {
-                "text": "There's a use for just about any kind of junk. Gotta pick it all up, even if it doesn't seem obvious what it's good for."
-              },
-              {
-                "text": "I need to write more happy songs. Not every tune needs to be about broken things, or how to fix them."
               },
               {
                 "text": "(humming)",
@@ -49387,6 +49397,11 @@
                 "prompt": "",
                 "lines": [
                   {
+                    "text": "Good luck out there. I'll keep the kettle on. Hey, you know, I actually could do that.",
+                    "condition": "GetValue: RQ_FlavorVariable_AcceptQuest",
+                    "note": "pleased the player is doing your favor/quest"
+                  },
+                  {
                     "text": "I knew it. I knew you'd be interested. Best of luck.",
                     "condition": "GetValue: RQ_FlavorVariable_AcceptQuest",
                     "note": "pleased the player is doing your favor/quest"
@@ -49432,11 +49447,6 @@
                   {
                     "text": "Have fun out there. And I will absolutely not be hosting a big party when you're gone. At all.",
                     "condition": "GetValue: RQ_FlavorVariable_AcceptQuest"
-                  },
-                  {
-                    "text": "Good luck out there. I'll keep the kettle on. Hey, you know, I actually could do that.",
-                    "condition": "GetValue: RQ_FlavorVariable_AcceptQuest",
-                    "note": "pleased the player is doing your favor/quest"
                   }
                 ]
               },
@@ -51873,6 +51883,11 @@
                 "note": "Thinking to himself, mumbling"
               },
               {
+                "text": "Ad Victoriam this... The Codex that... Ya' know, Shin, sometimes people just want to chat.",
+                "condition": "GetGlobalValue: TrueGlobal",
+                "note": "Thinking to himself, grumbling"
+              },
+              {
                 "text": "(whistle)",
                 "condition": "GetGlobalValue: TrueGlobal",
                 "note": "Just a tune that makes him happy"
@@ -51884,11 +51899,6 @@
               {
                 "text": "That's not a thermometer, it's my finger! (chuckle) Ah... Valdez... cracks me up every time.",
                 "note": "Thinking to himself, lost in a memory"
-              },
-              {
-                "text": "Ad Victoriam this... The Codex that... Ya' know, Shin, sometimes people just want to chat.",
-                "condition": "GetGlobalValue: TrueGlobal",
-                "note": "Thinking to himself, grumbling"
               }
             ]
           },
@@ -52019,6 +52029,10 @@
                 "note": "Joking around"
               },
               {
+                "text": "The Brotherhood can be a little intense to be around all day. Enjoying the solitude out here keeps me balanced.",
+                "note": "Genuine appreciation"
+              },
+              {
                 "text": "Ad Victoriam. How can I be of assistance?",
                 "condition": "GetValue: BS01_AV_IsInitiate",
                 "note": "The player is also a member, so this is professional"
@@ -52079,10 +52093,6 @@
               {
                 "text": "Would you mind if I tried out a few experimental Stimpak mixes on you, I... eh, never mind. So, did you need something?",
                 "note": "Initially kind of lost in thought, then getting back to friendly"
-              },
-              {
-                "text": "The Brotherhood can be a little intense to be around all day. Enjoying the solitude out here keeps me balanced.",
-                "note": "Genuine appreciation"
               },
               {
                 "text": "Hey there. You have a second? I was hoping to talk to you about something.",
@@ -54664,25 +54674,7 @@
                 "text": "There are 10,000 starships in the Zebulonian fleet, each one equipped with the latest in interstellar missile technology and a dozen private chefs."
               },
               {
-                "text": "Every doctor in the Zebulon Empire learns to probe their first species by the age of ten. It's part of their rite of passage."
-              },
-              {
-                "text": "As a starship captain, I've seen my share of abductions. Super Mutants, Sheepsquatches... we've studied them all."
-              },
-              {
-                "text": "Our studies show the most intelligent being on this planet is actually a Mole Miner. Yet they want me to bargain with humans instead."
-              },
-              {
-                "text": "We Zebulonians have long since evolved past the need for skin. Our insides aren't so weak that they need to be covered."
-              },
-              {
                 "text": "I'll have you know the moonshine on this planet is its only redeeming quality."
-              },
-              {
-                "text": "My superiors are mostly hands off, but tentacles on. Tentacles tend to stick better, and keep you working."
-              },
-              {
-                "text": "Twenty days until retirement and I get tasked with flipping this shitshow of a planet. Can you believe my luck?"
               },
               {
                 "text": "There's eighty other planets I'd rather be on than this one. However, it still has its perks."
@@ -54714,6 +54706,24 @@
               },
               {
                 "text": "Sometimes I look at your sunsets and think to myself, oh, this planet is going to look fabulous when it's furnished. I really should remember to factor that into the price."
+              },
+              {
+                "text": "Every doctor in the Zebulon Empire learns to probe their first species by the age of ten. It's part of their rite of passage."
+              },
+              {
+                "text": "As a starship captain, I've seen my share of abductions. Super Mutants, Sheepsquatches... we've studied them all."
+              },
+              {
+                "text": "Our studies show the most intelligent being on this planet is actually a Mole Miner. Yet they want me to bargain with humans instead."
+              },
+              {
+                "text": "We Zebulonians have long since evolved past the need for skin. Our insides aren't so weak that they need to be covered."
+              },
+              {
+                "text": "My superiors are mostly hands off, but tentacles on. Tentacles tend to stick better, and keep you working."
+              },
+              {
+                "text": "Twenty days until retirement and I get tasked with flipping this shitshow of a planet. Can you believe my luck?"
               }
             ]
           },
@@ -54725,12 +54735,6 @@
               },
               {
                 "text": "When you have 47 stomachs, it's hard to tell which one has indigestion."
-              },
-              {
-                "text": "The air here is toxic to three of my lungs. Good thing I can shed them easily."
-              },
-              {
-                "text": "Vaya con Dios, Earthling."
               },
               {
                 "text": "Until our next encounter."
@@ -54753,6 +54757,12 @@
               },
               {
                 "text": "What remains to be discussed?"
+              },
+              {
+                "text": "The air here is toxic to three of my lungs. Good thing I can shed them easily."
+              },
+              {
+                "text": "Vaya con Dios, Earthling."
               },
               {
                 "text": "If we must."
@@ -56833,11 +56843,6 @@
                 "note": "Amused and conspiratorial"
               },
               {
-                "text": "Pleased to meet you. My name's Yasmin, and I'm a traveling chef making my way through Appalachia.",
-                "condition": "GetValue: Chef_CompletedIntroduction",
-                "note": "Warm and friendly, has a proposal she thinks will benefit her and the player."
-              },
-              {
                 "text": "I always have something cooking.",
                 "note": "Friendly and in her element"
               },
@@ -56883,6 +56888,11 @@
               {
                 "text": "I would've liked to visit Big Fred's BBQ Shack before the war. Sorry, what's on your mind?",
                 "note": "Thoughtful, comes back to the current moment at the end."
+              },
+              {
+                "text": "Pleased to meet you. My name's Yasmin, and I'm a traveling chef making my way through Appalachia.",
+                "condition": "GetValue: Chef_CompletedIntroduction",
+                "note": "Warm and friendly, has a proposal she thinks will benefit her and the player."
               }
             ]
           },
