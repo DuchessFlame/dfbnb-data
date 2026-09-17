@@ -169,6 +169,18 @@ def _db():
     return sqlite3.connect(f"file:{MAPPALACHIA_DB}?mode=ro&immutable=1", uri=True)
 
 
+# Cells whose Mappalachia display name is not the name the guides use. Keyed by
+# spaceEditorID so it survives a DB rebuild. This titles the legend box on the
+# interior map and the display_name column of interior_cells.csv, so it must stay in
+# step with `marker_renames` in farming_spawns_config.py, which renames the marker on
+# the page. Change one, change the other.
+CELL_DISPLAY_OVERRIDES = {
+    # The cavern under the Abandoned Waste Dump in The Mire, reached from the dump
+    # itself. Mappalachia calls it "Cavern".
+    "SamBlackwellsDeathclawCave": "Abandoned Waste Dump (Cavern)",
+}
+
+
 def load_spaces(conn):
     """spaceFormID -> dict(edid, name, centerX, centerY, maxRange, isWorldspace)"""
     out = {}
@@ -177,7 +189,9 @@ def load_spaces(conn):
         "centerX, centerY, maxRange FROM Space"
     ):
         out[int(fid)] = {
-            "edid": edid, "name": name or edid, "is_world": bool(isw),
+            "edid": edid,
+            "name": CELL_DISPLAY_OVERRIDES.get(edid) or name or edid,
+            "is_world": bool(isw),
             "cx": cx, "cy": cy, "range": rng,
         }
     return out

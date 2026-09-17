@@ -278,6 +278,12 @@ DEATHCLAW_EGG = {
     # keyed by ref, and the preservation lookup is aliased to the old name).
     "marker_renames": {
         "Excelsior Model Home": "Ella Ames' Bunker",
+        # Mappalachia's display name for SamBlackwellsDeathclawCave is just "Cavern",
+        # which reads as a place of its own. It is the interior half of the Abandoned
+        # Waste Dump — the DF guide writes both halves under that one heading (one
+        # External, one Internal), so the page says so too. Keep this in step with
+        # CELL_DISPLAY_OVERRIDES in src/render_spawn_maps.py, which titles the map.
+        "Cavern": "Abandoned Waste Dump (Cavern)",
     },
     # ── Drop rates (resolved from LVLI TSVs, July 2026) ─────────────────
     # Traced via the drop-rate-engine skill rules.
