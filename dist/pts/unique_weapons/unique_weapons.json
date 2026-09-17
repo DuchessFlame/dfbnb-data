@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated": "2026-09-16T00:54:21Z",
+  "generated": "2026-09-16T17:41:48Z",
   "channel": "live",
   "count": 96,
   "weapons": [
@@ -457,7 +457,7 @@
             {
               "property": "Keywords",
               "value": "dn_UniqueEffectCryoDamage \"\"Cryo Damage\"\" [KYWD:00900A6A]",
-              "value2": "2",
+              "value2": "3",
               "function": "ADD"
             }
           ]
@@ -6313,6 +6313,148 @@
       "isCut": false
     },
     {
+      "name": "Stormcleaver",
+      "formId": "0072DF0B",
+      "edid": "Stormcutter",
+      "weaponType": "Melee",
+      "baseWeapon": "V63 Zweihaender",
+      "stats": {
+        "damage": 40,
+        "fireRate": 1.0,
+        "range": 10,
+        "accuracy": 0,
+        "weight": 15.0,
+        "value": 100,
+        "ammoType": null,
+        "capacity": 0,
+        "apCost": 47,
+        "stagger": null,
+        "critMult": 3.0,
+        "damageCurve": "CT_Player_Damage_Universal_Tier37 [CURV:0080F215]",
+        "minLevel": 30
+      },
+      "legendaryEffects": [
+        {
+          "star": 1,
+          "name": "Juggernaut's",
+          "edid": "mod_Legendary_Weapon1_DamageViaHealth",
+          "formId": "00606B73",
+          "fixed": true
+        },
+        {
+          "star": 2,
+          "name": "Vital",
+          "edid": "mod_Legendary_Weapon2_DmgCrits",
+          "formId": "0052414B",
+          "fixed": true
+        },
+        {
+          "star": 3,
+          "name": "Random",
+          "edid": null,
+          "formId": null,
+          "fixed": false
+        }
+      ],
+      "customMods": [
+        {
+          "name": "Stormcleaver",
+          "edid": "mod_custom_StormSlasher",
+          "formId": "008B0902",
+          "description": null,
+          "effects": [
+            {
+              "property": "Keywords",
+              "value": "CustomItem_SpeciallyNamed \"\"\"\" [KYWD:00471871]",
+              "value2": "2",
+              "function": "ADD"
+            },
+            {
+              "property": "Keywords",
+              "value": "CustomItemName_StormSlasher \"\"\"\" [KYWD:008B08DA]",
+              "value2": "2",
+              "function": "ADD"
+            },
+            {
+              "property": "Keywords",
+              "value": "ma_StormSlasher \"\"\"\" [KYWD:008B08D7]",
+              "value2": "2",
+              "function": "ADD"
+            },
+            {
+              "property": "Keywords",
+              "value": "RTSV_Stormslasher_NotBurningMod \"\"\"\" [KYWD:008C0D71]",
+              "value2": "2",
+              "function": "ADD"
+            },
+            {
+              "property": "Keywords",
+              "value": "RTSV_Stormslasher_NotChannelingMod \"\"\"\" [KYWD:008C0D72]",
+              "value2": "2",
+              "function": "ADD"
+            },
+            {
+              "property": "Keywords",
+              "value": "RTSV_Stormslasher_NotCrushingMod \"\"\"\" [KYWD:008C0D73]",
+              "value2": "2",
+              "function": "ADD"
+            },
+            {
+              "property": "Keywords",
+              "value": "RTSV_Stormslasher_NotOneShottingMod \"\"\"\" [KYWD:008C0D74]",
+              "value2": "2",
+              "function": "ADD"
+            },
+            {
+              "property": "Keywords",
+              "value": "RTSV_Stormslasher_NotStaticMod \"\"\"\" [KYWD:008C0D76]",
+              "value2": "2",
+              "function": "ADD"
+            },
+            {
+              "property": "Keywords",
+              "value": "RTSV_Stormslasher_NotStormwalkingMod \"\"\"\" [KYWD:008C0D77]",
+              "value2": "2",
+              "function": "ADD"
+            },
+            {
+              "property": "Keywords",
+              "value": "FeaturedItem \"\"\"\" [KYWD:001B3FAC]",
+              "value2": "2",
+              "function": "ADD"
+            },
+            {
+              "property": "116",
+              "value": "RTSV_Stormslasher_UniqueDescription \"\"\"\" [PERK:00916669]",
+              "value2": "1",
+              "function": "ADD"
+            }
+          ]
+        },
+        {
+          "name": "No Mod",
+          "edid": "mod_custom_StormSlasher_Empty01",
+          "formId": "008C0D79",
+          "description": null,
+          "effects": []
+        },
+        {
+          "name": "No Mod",
+          "edid": "mod_custom_StormSlasher_Empty02",
+          "formId": "008C0D78",
+          "description": null,
+          "effects": []
+        }
+      ],
+      "enchantments": [],
+      "craftable": true,
+      "planName": null,
+      "howToObtain": "Quest: Skyline Valley",
+      "questName": "Skyline Valley",
+      "tradeable": true,
+      "isCut": false
+    },
+    {
       "name": "Strike Breaker",
       "formId": "000D1EB0",
       "edid": "GaussRifle",
@@ -7764,37 +7906,6 @@
       "enchantments": [],
       "craftable": true,
       "planName": "Plan: Baton",
-      "howToObtain": "Quest: Skyline Valley",
-      "questName": "Skyline Valley",
-      "tradeable": true,
-      "isCut": false
-    },
-    {
-      "name": "V63 Zweihaender",
-      "formId": "0072DF0B",
-      "edid": "Stormcutter",
-      "weaponType": "Melee",
-      "baseWeapon": "V63 Zweihaender",
-      "stats": {
-        "damage": 40,
-        "fireRate": 1.0,
-        "range": 10,
-        "accuracy": 0,
-        "weight": 15.0,
-        "value": 100,
-        "ammoType": null,
-        "capacity": 0,
-        "apCost": 47,
-        "stagger": null,
-        "critMult": 3.0,
-        "damageCurve": "CT_Player_Damage_Universal_Tier37 [CURV:0080F215]",
-        "minLevel": 30
-      },
-      "legendaryEffects": [],
-      "customMods": [],
-      "enchantments": [],
-      "craftable": true,
-      "planName": null,
       "howToObtain": "Quest: Skyline Valley",
       "questName": "Skyline Valley",
       "tradeable": true,

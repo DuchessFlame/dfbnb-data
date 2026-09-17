@@ -1,7 +1,7 @@
 {
   "_meta": {
     "generated": "2026-09-16",
-    "source": "Mappalachia dig (counts) + Mappalachia DB (regions, companions) + CHAL export (Used For) + LCSR export (quest gating)"
+    "source": "Mappalachia dig (counts) + Mappalachia DB (regions, companions) + CHAL export (Used For) + LCSR export (quest gating) + LCTN export (Encounter Spawn System takeover locations)"
   },
   "npcs": {
     "blood-eagle-spawn-locations": {
@@ -1024,6 +1024,465 @@
           "image": "",
           "spawn_type": "Always available",
           "spawn_note": ""
+        }
+      ]
+    },
+    "pint-sized-phantom-spawn-locations": {
+      "name": "Pint-Sized Phantom",
+      "page_title": "Pint-Sized Phantom Spawn Locations",
+      "blurb": "Pint-Sized Phantoms do not have fixed spawn points. During Shadows of the Dead of Winter they take over the locations below, replacing the enemies that normally hold them.",
+      "category": "Score Challenges",
+      "keywords": [
+        "Human",
+        "Pint Sized Slasher"
+      ],
+      "credit": "With thanks to Nerditbabe and Mappalachia.",
+      "companion_label": "Companions",
+      "spawn_model": "chance",
+      "channel": "live",
+      "total": 0,
+      "notes": [
+        "Pint-Sized Phantoms are the \"Slasher\" enemy family (NPC records SDOW_EncSlasherFan* / SDOW_LvlSlasherFan*).",
+        "These are not fixed spawns. Each location below is tagged so the Encounter Spawn System can roll Pint-Sized Phantoms in place of the faction that normally holds it, so the enemies you find there change between visits.",
+        "Every location on this list is tagged for the takeover, so none of them is guaranteed to have Phantoms on any given visit.",
+        "The exact spawn chance is not in the game data yet: these locations carry the takeover keyword, but the matching chance property has not been exported. The rates below will fill in as soon as it is."
+      ],
+      "links": [
+        {
+          "title": "Shadows of the Dead of Winter",
+          "url": "/df/random-encounters/limited-time-random-encounters/shadows-of-the-dead-of-winter/",
+          "note": "Random encounters roll Slasher content at a 20% chance (SDOW_REChance_Slasher_Content) across the Assault, Object, Travel, Scene and Camp encounter nodes."
+        },
+        {
+          "title": "Infestation Boss Stats",
+          "url": "/df/infestations/infestation-boss-stats/",
+          "note": "Infestations can be held by the Slasher faction, led by the Pint-Sized Phantom Trespasser."
+        },
+        {
+          "title": "Daily Ops Guide",
+          "url": "/df/daily-ops/daily-ops-guide/",
+          "note": "Daily Ops runs a Slasher-only enemy family across eighteen dungeons."
+        },
+        {
+          "title": "Head Hunt Guide",
+          "url": "/df/bounty-hunting/head-hunts/head-hunts-guide/",
+          "note": "The Reborn Pint-Sized Slasher is a Head Hunt bounty target."
+        },
+        {
+          "title": "Pint-Sized Phantoms' Grave Site Locations",
+          "url": "/df/treasure-maps/pint-sized-phantoms/grave-sites/",
+          "note": "Grave sites can spawn a Pint-Sized Phantom party crasher while you dig."
+        },
+        {
+          "title": "The Slasher Guide",
+          "url": "/df/seasonal-events/the-slasher/the-slasher-guide/",
+          "note": "The Slasher seasonal event and everything else in Shadows of the Dead of Winter."
+        }
+      ],
+      "used_for": {
+        "Score Challenge — Daily": [
+          {
+            "name": "Cripple a Human's Head",
+            "epic": false,
+            "count": 2,
+            "season": ""
+          },
+          {
+            "name": "Kill a Human Enemy",
+            "epic": false,
+            "count": 10,
+            "season": ""
+          },
+          {
+            "name": "Kill a Human with Radiation Damage",
+            "epic": true,
+            "count": 3,
+            "season": ""
+          },
+          {
+            "name": "Kill a Human while Wearing a Costume",
+            "epic": false,
+            "count": 10,
+            "season": ""
+          },
+          {
+            "name": "Kill a Human Enemy with a Sharp or Piercing Weapon",
+            "epic": false,
+            "count": 6,
+            "season": ""
+          },
+          {
+            "name": "Kill a Human Enemy with a Power Tool Weapon",
+            "epic": false,
+            "count": 6,
+            "season": ""
+          },
+          {
+            "name": "Kill a Human while under the effects of Psycho",
+            "epic": false,
+            "count": 6,
+            "season": ""
+          },
+          {
+            "name": "Kill a Pint-Sized Phantom during a Daily Operation while on a Team!",
+            "epic": false,
+            "count": 10,
+            "season": ""
+          },
+          {
+            "name": "Kill a Pint-Sized Phantom during a Daily Operation!",
+            "epic": false,
+            "count": 10,
+            "season": ""
+          },
+          {
+            "name": "Kill a Pint-Sized Phantom during an Infestation",
+            "epic": false,
+            "count": 6,
+            "season": ""
+          },
+          {
+            "name": "Kill a Pint-Sized Phantom while in a Team",
+            "epic": false,
+            "count": 10,
+            "season": ""
+          },
+          {
+            "name": "Kill a Pint-Sized Phantom while wearing a Costume",
+            "epic": false,
+            "count": 5,
+            "season": ""
+          },
+          {
+            "name": "Kill a Pint-Sized Phantom during an Infestation while on a Team",
+            "epic": false,
+            "count": 6,
+            "season": ""
+          },
+          {
+            "name": "Kill a Pint-Sized Phantom",
+            "epic": false,
+            "count": 10,
+            "season": ""
+          },
+          {
+            "name": "Kill a Pint-Sized Phantom while on a Team and wearing a Costume",
+            "epic": false,
+            "count": 5,
+            "season": ""
+          }
+        ],
+        "Score Challenge — Weekly": [
+          {
+            "name": "Cripple a Human's Head",
+            "epic": false,
+            "count": 15,
+            "season": ""
+          },
+          {
+            "name": "Kill a Human Enemy",
+            "epic": false,
+            "count": 30,
+            "season": ""
+          },
+          {
+            "name": "Kill a Human with Radiation Damage",
+            "epic": true,
+            "count": 12,
+            "season": ""
+          },
+          {
+            "name": "Kill a Pint-Sized Phantom during a Daily Operation while on a Team!",
+            "epic": false,
+            "count": 30,
+            "season": ""
+          },
+          {
+            "name": "Kill a Pint-Sized Phantom while in a Team",
+            "epic": false,
+            "count": 30,
+            "season": ""
+          },
+          {
+            "name": "Kill a Pint-Sized Phantom while on a Team and wearing a Costume",
+            "epic": false,
+            "count": 16,
+            "season": ""
+          },
+          {
+            "name": "Kill a Pint-Sized Phantom",
+            "epic": false,
+            "count": 30,
+            "season": ""
+          },
+          {
+            "name": "Kill a Pint-Sized Phantom during an Infestation",
+            "epic": false,
+            "count": 20,
+            "season": ""
+          },
+          {
+            "name": "Kill a Pint-Sized Phantom during a Daily Operation!",
+            "epic": false,
+            "count": 30,
+            "season": ""
+          },
+          {
+            "name": "Kill a Pint-Sized Phantom while wearing a Costume",
+            "epic": false,
+            "count": 16,
+            "season": ""
+          }
+        ],
+        "Lifetime Challenge": [
+          {
+            "name": "Take a Camera Picture of a Human",
+            "epic": false,
+            "count": 0,
+            "season": ""
+          }
+        ],
+        "Challenge Events": [
+          {
+            "name": "Kill a Human",
+            "epic": false,
+            "count": 5,
+            "season": "Anniversary"
+          },
+          {
+            "name": "Burning Love: Kill a Human while on a Team using the Hot Rod Pink Flamer",
+            "epic": false,
+            "count": 30,
+            "season": "Valentines"
+          },
+          {
+            "name": "Kill a Human with the Money Bag Backpack equipped",
+            "epic": false,
+            "count": 76,
+            "season": "Appalachian Outlaws"
+          },
+          {
+            "name": "Kill a Human while wearing a Costume",
+            "epic": false,
+            "count": 30,
+            "season": "Halloween"
+          },
+          {
+            "name": "Cripple a Human Limb while wearing a Costume",
+            "epic": false,
+            "count": 30,
+            "season": "Halloween"
+          },
+          {
+            "name": "Kill Humans in the Burning Springs region with the Sunset Sarsaparilla Deputy Hat Equipped",
+            "epic": false,
+            "count": 30,
+            "season": "Sunset Stranger"
+          },
+          {
+            "name": "Cripple a Human Head with a Pistol and the Sunset Sarsaparilla Deputy Hat Equipped",
+            "epic": false,
+            "count": 15,
+            "season": "Sunset Stranger"
+          }
+        ]
+      },
+      "locations": [
+        {
+          "name": "Camden Park",
+          "type": "Open World",
+          "region": "Ash Heap",
+          "count": 0,
+          "companions": 0,
+          "image": "",
+          "spawn_type": "Chance to spawn",
+          "spawn_note": "",
+          "chance": null,
+          "replaces": [
+            "Scorched"
+          ],
+          "replaces_chance": 5.0
+        },
+        {
+          "name": "Alpine River Cabins",
+          "type": "Open World",
+          "region": "Forest",
+          "count": 0,
+          "companions": 0,
+          "image": "",
+          "spawn_type": "Chance to spawn",
+          "spawn_note": "",
+          "chance": null,
+          "replaces": [
+            "Ghouls"
+          ],
+          "replaces_chance": 5.0
+        },
+        {
+          "name": "Tyler County Dirt Track",
+          "type": "Open World",
+          "region": "Forest",
+          "count": 0,
+          "companions": 0,
+          "image": "",
+          "spawn_type": "Chance to spawn",
+          "spawn_note": "",
+          "chance": null,
+          "replaces": [
+            "Ghouls"
+          ],
+          "replaces_chance": 5.0
+        },
+        {
+          "name": "Tyler County Fairgrounds",
+          "type": "Open World",
+          "region": "Forest",
+          "count": 0,
+          "companions": 0,
+          "image": "",
+          "spawn_type": "Chance to spawn",
+          "spawn_note": "",
+          "chance": null,
+          "replaces": [
+            "Scorched"
+          ],
+          "replaces_chance": 5.0
+        },
+        {
+          "name": "Bailey Family Cabin",
+          "type": "Open World",
+          "region": "Savage Divide",
+          "count": 0,
+          "companions": 0,
+          "image": "",
+          "spawn_type": "Chance to spawn",
+          "spawn_note": "",
+          "chance": null,
+          "replaces": [
+            "Scorched"
+          ],
+          "replaces_chance": 5.0
+        },
+        {
+          "name": "Pleasant Valley Cabins",
+          "type": "Open World",
+          "region": "Savage Divide",
+          "count": 0,
+          "companions": 0,
+          "image": "",
+          "spawn_type": "Chance to spawn",
+          "spawn_note": "",
+          "chance": null,
+          "replaces": [
+            "Scorched"
+          ],
+          "replaces_chance": 5.0
+        },
+        {
+          "name": "Pleasant Valley Ski Resort",
+          "type": "Open World",
+          "region": "Savage Divide",
+          "count": 0,
+          "companions": 0,
+          "image": "",
+          "spawn_type": "Chance to spawn",
+          "spawn_note": "",
+          "chance": null,
+          "replaces": [
+            "Scorched"
+          ],
+          "replaces_chance": 5.0
+        },
+        {
+          "name": "Sunnytop Ski Lanes",
+          "type": "Open World",
+          "region": "Savage Divide",
+          "count": 0,
+          "companions": 0,
+          "image": "",
+          "spawn_type": "Chance to spawn",
+          "spawn_note": "",
+          "chance": null,
+          "replaces": [
+            "Super Mutants"
+          ],
+          "replaces_chance": 5.0
+        },
+        {
+          "name": "Sunnytop Ski Lanes Base Lodge",
+          "type": "Open World",
+          "region": "Savage Divide",
+          "count": 0,
+          "companions": 0,
+          "image": "",
+          "spawn_type": "Chance to spawn",
+          "spawn_note": "",
+          "chance": null,
+          "replaces": [
+            "Super Mutants"
+          ],
+          "replaces_chance": 5.0
+        },
+        {
+          "name": "Makeout Point",
+          "type": "Open World",
+          "region": "Skyline Valley",
+          "count": 0,
+          "companions": 0,
+          "image": "",
+          "spawn_type": "Chance to spawn",
+          "spawn_note": "",
+          "chance": null,
+          "replaces": [
+            "Insects",
+            "Wolf"
+          ],
+          "replaces_chance": 5.0
+        },
+        {
+          "name": "Freddy Fear's House of Scares",
+          "type": "Open World",
+          "region": "The Mire",
+          "count": 0,
+          "companions": 0,
+          "image": "",
+          "spawn_type": "Chance to spawn",
+          "spawn_note": "",
+          "chance": null,
+          "replaces": [
+            "Ghouls"
+          ],
+          "replaces_chance": 5.0
+        },
+        {
+          "name": "Pioneer Scout Camp",
+          "type": "Open World",
+          "region": "Toxic Valley",
+          "count": 0,
+          "companions": 0,
+          "image": "",
+          "spawn_type": "Chance to spawn",
+          "spawn_note": "",
+          "chance": null,
+          "replaces": [
+            "Ghouls"
+          ],
+          "replaces_chance": 5.0
+        },
+        {
+          "name": "Wavy Willard's Water Park",
+          "type": "Open World",
+          "region": "Toxic Valley",
+          "count": 0,
+          "companions": 0,
+          "image": "",
+          "spawn_type": "Chance to spawn",
+          "spawn_note": "",
+          "chance": null,
+          "replaces": [
+            "Scorched"
+          ],
+          "replaces_chance": 5.0
         }
       ]
     }
