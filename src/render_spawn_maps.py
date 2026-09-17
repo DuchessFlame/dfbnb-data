@@ -58,6 +58,9 @@ from collections import defaultdict, OrderedDict
 
 from PIL import Image, ImageDraw, ImageFont
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import map_watermark          # standing rule: every map we save is watermarked
+
 Image.MAX_IMAGE_PIXELS = None
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -494,7 +497,9 @@ def render_exterior(bg_path, rows, title, out_plain, out_numbered):
         draw_dot(d, r["px"], r["py"], fill=type_colour(r.get("source_type", "")))
     draw_legend(plain, title, legend_rows(rows))
     os.makedirs(os.path.dirname(out_plain), exist_ok=True)
-    plain.save(out_plain, "JPEG", quality=88, optimize=True)
+    # Watermarked on the way out — see src/map_watermark.py. Maps of ours were
+    # being reposted uncredited, so nothing leaves this script unmarked.
+    map_watermark.apply(plain).save(out_plain, "JPEG", quality=88, optimize=True)
 
     numbered = plain.copy()
     dn = ImageDraw.Draw(numbered)
@@ -502,7 +507,7 @@ def render_exterior(bg_path, rows, title, out_plain, out_numbered):
     for r in rows:
         draw_outlined_text(dn, (r["px"] + DOT_D, r["py"] - 34), str(r["n"]), f, w=3)
     os.makedirs(os.path.dirname(out_numbered), exist_ok=True)
-    numbered.save(out_numbered, "JPEG", quality=88, optimize=True)
+    map_watermark.apply(numbered).save(out_numbered, "JPEG", quality=88, optimize=True)
     return plain, numbered
 
 
@@ -542,6 +547,8 @@ def render_region_tiles(numbered_img, rows, boxes, to_px, out_dir, slug,
         crop = crop.resize((TILE_WIDTH, max(1, int(h * TILE_WIDTH / w))), Image.LANCZOS)
         rslug = region.replace(" ", "")
         path = os.path.join(out_dir, name_fn(region) if name_fn else f"{rslug}_{slug}.jpg")
+        # A region tile is a crop of the full map, so it carries the mark too.
+        crop = map_watermark.apply(crop, corner="bottom-right")
         crop.save(path, "JPEG", quality=88, optimize=True)
         if also_name_fn:
             crop.save(os.path.join(out_dir, also_name_fn(region)),
@@ -667,7 +674,10 @@ def render_interiors(pts, spaces, out_dir, slug, item_name):
         path = os.path.join(out_dir, f"{sp['edid']}_{slug}.jpg")
         if INTERIOR_SIZE != S:
             img = img.resize((INTERIOR_SIZE, INTERIOR_SIZE), Image.LANCZOS)
-        img.save(path, "JPEG", quality=INTERIOR_QUALITY, optimize=True)
+        # Interior-cell images are small, so the badge would swamp them — the
+        # repeating tile alone carries the credit here.
+        map_watermark.apply(img, badge=False).save(
+            path, "JPEG", quality=INTERIOR_QUALITY, optimize=True)
         made.append((sp["edid"], path))
         csv_rows.append([sp["edid"], sp["name"], ipts[0]["region"], len(ipts), drawn,
                          "" if drawn == len(ipts) else "some coords fell outside the cell image"])

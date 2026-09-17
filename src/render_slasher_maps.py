@@ -36,6 +36,7 @@ REPO = os.path.dirname(HERE)
 if HERE not in sys.path:
     sys.path.insert(0, HERE)
 import tsv_source          # one resolver for every export selection
+import map_watermark          # standing rule: every map we save is watermarked
 
 MAPPALACHIA = os.environ.get("MAPPALACHIA_DIR", r"D:\Mappalachia")
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB",
@@ -68,6 +69,18 @@ TILE_WIDTH = 2600
 # Region tile filenames from the original July 2026 set (kept so a re-render
 # overwrites the existing tiles instead of leaving both spellings behind).
 TILE_SLUGS = {"Forest": "TheForest"}
+
+# Which collectable-spawns set each map key feeds. Used to publish the map's own
+# numbering back into the repo (see write_map_numbers) so the printable checklist
+# on the page can say "mask #7" and mean the #7 the reader sees on the map.
+SET_SLUG_FOR_KEY = {
+    "masks":  "pint-sized-slasher-masks",
+    "graves": "pint-sized-phantom-graves",
+}
+
+# Committed so CI can read it — the page build has no Mappalachia DB and cannot
+# recompute this ordering.
+MAP_NUMBERS_TSV = os.path.join(REPO, "tsv", "collectable_map_numbers.tsv")
 
 FONT_PATH = os.path.join(MAPPALACHIA, "font", "futura_condensed_bold.otf")
 FONT_FALLBACK = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
@@ -304,7 +317,9 @@ def render_set(key, layer_pts, out_root, to_px, boxes):
 
     p_plain = os.path.join(out_root, "01 Full Maps (4096)", f"slasher_{key}.jpg")
     os.makedirs(os.path.dirname(p_plain), exist_ok=True)
-    plain.save(p_plain, "JPEG", quality=88, optimize=True)
+    # Watermarked on the way out — see src/map_watermark.py. The July 2026 set
+    # shipped unmarked and got reposted without credit; no map leaves unmarked.
+    map_watermark.apply(plain).save(p_plain, "JPEG", quality=88, optimize=True)
 
     numbered = plain.copy()
     dn = ImageDraw.Draw(numbered)
@@ -316,7 +331,7 @@ def render_set(key, layer_pts, out_root, to_px, boxes):
         draw_outlined_text(dn, (r["px"] + DOT_D, r["py"] - 34), str(r["n"]), f, w=3)
     p_num = os.path.join(out_root, "02 Numbered Maps (4096)", f"slasher_{key}_numbered.jpg")
     os.makedirs(os.path.dirname(p_num), exist_ok=True)
-    numbered.save(p_num, "JPEG", quality=88, optimize=True)
+    map_watermark.apply(numbered).save(p_num, "JPEG", quality=88, optimize=True)
 
     # region tiles
     tiles_dir = os.path.join(out_root, "03 Region Tiles")
@@ -344,6 +359,9 @@ def render_set(key, layer_pts, out_root, to_px, boxes):
         w, h = crop.size
         crop = crop.resize((TILE_WIDTH, max(1, int(h * TILE_WIDTH / w))), Image.LANCZOS)
         rslug = TILE_SLUGS.get(region, region.replace(" ", ""))
+        # A region tile is a crop, so it needs the mark too — badge in the corner
+        # that is least likely to sit over markers, plus the repeating tile.
+        crop = map_watermark.apply(crop, corner="bottom-right")
         crop.save(os.path.join(tiles_dir, f"{rslug}_{key}.jpg"), "JPEG",
                   quality=88, optimize=True)
         tiles.append(region)
@@ -357,8 +375,51 @@ def render_set(key, layer_pts, out_root, to_px, boxes):
             w_.writerow([r["n"], r["region"], r["marker"], r["ref"], r.get("label", ""),
                          round(r["x"], 1), round(r["y"], 1)])
 
+    write_map_numbers(key, numbered_rows)
+
     print(f"  slasher_{key:9} points={len(numbered_rows):4} tiles={len(tiles)}")
     return numbered_rows
+
+
+def write_map_numbers(key, numbered_rows):
+    """Publish this map's numbering to tsv/collectable_map_numbers.tsv.
+
+    The numbers drawn on the numbered map are decided HERE, by this script's own
+    ordering. The page build orders placements differently (region A-Z, then marker,
+    then placement), so it cannot reproduce them — and a printable checklist whose
+    numbers disagree with the map the reader is holding is worse than no checklist.
+    So the map exports its numbering and the page build reads it, keyed on REFR.
+
+    Rewrites only this set's rows; other sets in the file are preserved, so
+    rendering just the masks never drops the graves numbering.
+    """
+    slug = SET_SLUG_FOR_KEY.get(key)
+    if not slug:
+        return                      # combined map has no single set — nothing to publish
+
+    header = ["set", "ref_formid", "map_number", "map_region", "map_marker"]
+    keep = []
+    if os.path.exists(MAP_NUMBERS_TSV):
+        with open(MAP_NUMBERS_TSV, encoding="utf-8") as fh:
+            fh.readline()
+            for line in fh:
+                if line.strip() and line.split("\t", 1)[0] != slug:
+                    keep.append(line.rstrip("\n"))
+
+    rows = []
+    for r in numbered_rows:
+        n = r.get("n")
+        if not r.get("ref") or n in (None, "", "?"):
+            continue
+        rows.append("\t".join([slug, str(r["ref"]).upper(), str(n),
+                               r.get("region", ""), r.get("marker", "")]))
+
+    os.makedirs(os.path.dirname(MAP_NUMBERS_TSV), exist_ok=True)
+    with open(MAP_NUMBERS_TSV, "w", newline="", encoding="utf-8") as fh:
+        fh.write("\t".join(header) + "\n")
+        for line in sorted(keep) + rows:
+            fh.write(line + "\n")
+    print(f"  map numbering published: {len(rows)} row(s) for {slug}")
 
 
 def main():
