@@ -1,10 +1,11 @@
 {
  "_meta": {
-  "generated": "2026-09-16",
+  "generated": "2026-09-18",
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
   "lists_in_closure": 232,
   "source_totals": {
    "direct": 17,
+   "quest-reward": 35,
    "vendor": 5
   },
   "unresolved": {}
@@ -92,6 +93,21 @@
      "rate_display": "10.25%"
     },
     {
+     "name": "Container",
+     "rate": 0.0615234375,
+     "rate_display": "6.15%"
+    },
+    {
+     "name": "Container",
+     "rate": 0.04530815972222224,
+     "rate_display": "4.53%"
+    },
+    {
+     "name": "Container",
+     "rate": 0.02895399305555546,
+     "rate_display": "2.9%"
+    },
+    {
      "name": "Large Toolbox",
      "rate": 0.024843749999999942,
      "rate_display": "2.48%"
@@ -145,6 +161,11 @@
      "name": "Vault Trunk",
      "rate": 0.020798384589511998,
      "rate_display": "2.08%"
+    },
+    {
+     "name": "Container",
+     "rate": 0.02072482638888884,
+     "rate_display": "2.07%"
     },
     {
      "name": "Duchess's Stash",
@@ -568,18 +589,6 @@
    ]
   },
   {
-   "list_id": "00802158",
-   "edid": "HIDE_crLLD_Drifter_Rewards",
-   "name": "HIDE cr LLD Drifter Rewards",
-   "type": "Event / Activity",
-   "note": "Chance the item is in the HIDE cr LLD Drifter Rewards reward pool per event/activity payout.",
-   "rate_value": 0.083333,
-   "rate_display": "8.33%",
-   "rate_lines": [
-    "8.33%"
-   ]
-  },
-  {
    "list_id": "0092B344",
    "edid": "SDOW_SlasherFanReward_Loot",
    "name": "SDOW Slasher Fan Reward Loot",
@@ -589,6 +598,18 @@
    "rate_display": "5.83%",
    "rate_lines": [
     "5.83%"
+   ]
+  },
+  {
+   "list_id": "00802158",
+   "edid": "HIDE_crLLD_Drifter_Rewards",
+   "name": "HIDE cr LLD Drifter Rewards",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the HIDE cr LLD Drifter Rewards reward pool per event/activity payout.",
+   "rate_value": 0.020833,
+   "rate_display": "2.08%",
+   "rate_lines": [
+    "2.08%"
    ]
   },
   {
@@ -1135,13 +1156,895 @@
  "regions": [
   {
    "region": "Ash Heap",
-   "locations": []
-  },
-  {
-   "region": "Atlantic City",
    "locations": [
     {
-     "marker": "The Neapolitan Casino",
+     "marker": "AMS Testing Site",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "0008C2",
+      "0008C3",
+      "0008D2",
+      "38B1F2"
+     ],
+     "coords": [
+      -122535.4,
+      -146595.5
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B1F2",
+       "source_type": "quest-reward",
+       "coords": [
+        -126027.7,
+        -143726.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Hornwright Air Purifier Site #01",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "311E29",
+      "38B1D7",
+      "39CFB2"
+     ],
+     "coords": [
+      -102639.8,
+      -80424.6
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B1D7",
+       "source_type": "quest-reward",
+       "coords": [
+        -101486.9,
+        -81484.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Widow's Perch",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "311AC5",
+      "38B176",
+      "3A9526"
+     ],
+     "coords": [
+      -79462.4,
+      -83779.5
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B176",
+       "source_type": "quest-reward",
+       "coords": [
+        -78384.2,
+        -84171.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Forest",
+   "locations": [
+    {
+     "marker": "Anchor Farm",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "04A5DF",
+      "322842",
+      "322849",
+      "32284C",
+      "38B1DA",
+      "390ECD",
+      "390EFE"
+     ],
+     "coords": [
+      -120705.3,
+      120568.3
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B1DA",
+       "source_type": "quest-reward",
+       "coords": [
+        -119683.6,
+        119820.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Camp Adams Lookout",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "356F29",
+      "38B252",
+      "4F8E17"
+     ],
+     "coords": [
+      -152684.1,
+      -33781.6
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B252",
+       "source_type": "quest-reward",
+       "coords": [
+        -158059.8,
+        -40684.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Charleston Trainyard",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "323875",
+      "32387A",
+      "38B1F0",
+      "4FBD48",
+      "4FBD4A",
+      "5B702C"
+     ],
+     "coords": [
+      -117698.2,
+      -48521.3
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B1F0",
+       "source_type": "quest-reward",
+       "coords": [
+        -122167.5,
+        -49725.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Gauley Mine Exit",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "15E25C",
+      "38B156",
+      "43931B"
+     ],
+     "coords": [
+      -40658.3,
+      79217.9
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B156",
+       "source_type": "quest-reward",
+       "coords": [
+        -41079.3,
+        72407.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Greg's Mine Supply",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "093C0C",
+      "32AD33",
+      "38B109",
+      "3B06FB"
+     ],
+     "coords": [
+      -9131.1,
+      50367.6
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B109",
+       "source_type": "quest-reward",
+       "coords": [
+        -25714.6,
+        43075.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Point Pleasant",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "1676EF",
+      "187D5F",
+      "191922",
+      "29D1A8",
+      "29D1AA",
+      "29D1B4",
+      "29D1D0",
+      "29D1E5",
+      "29D1E8",
+      "29D1ED",
+      "38B328",
+      "4EC1D0",
+      "4ED994",
+      "4ED99A",
+      "4F574B",
+      "522D06",
+      "8251A7",
+      "825B5C"
+     ],
+     "coords": [
+      -178788.2,
+      77374.6
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B328",
+       "source_type": "quest-reward",
+       "coords": [
+        -177856.2,
+        66008.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Relay Tower HG-B7-09",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "27881B",
+      "2EEBE3",
+      "38B220"
+     ],
+     "coords": [
+      -145668.3,
+      -61587.6
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B220",
+       "source_type": "quest-reward",
+       "coords": [
+        -135648.6,
+        -65181.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Summersville",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2B6E24",
+      "2D5C8E",
+      "311A0C",
+      "311A0D",
+      "311A1B",
+      "311A1C",
+      "31D1E5",
+      "38B14D",
+      "3A8705",
+      "3A90B0",
+      "3ABFA8",
+      "404AB7",
+      "417D13",
+      "424A65",
+      "534C14",
+      "58F996",
+      "6D8A71",
+      "6D8A75",
+      "6D8A85",
+      "6D8A87",
+      "6D8A88"
+     ],
+     "coords": [
+      -50724.7,
+      -20272.9
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B14D",
+       "source_type": "quest-reward",
+       "coords": [
+        -41273.7,
+        -24995.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Wayward",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "38B198"
+     ],
+     "coords": [
+      -81548.5,
+      48992.0
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B198",
+       "source_type": "quest-reward",
+       "coords": [
+        -81548.5,
+        48992.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Vault 76",
+     "count": 1,
+     "sources": {
+      "vendor": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "131822",
+      "13186D",
+      "1A622D",
+      "2FD8BE",
+      "3AEDF2",
+      "3B5235",
+      "3E32A7",
+      "3E32A8",
+      "81ACE7"
+     ],
+     "coords": [
+      -112615.9,
+      95853.3
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "81ACE7",
+       "source_type": "vendor",
+       "coords": [
+        -97939.5,
+        97047.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": [
+    {
+     "marker": "Becker Farm",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2A01C0",
+      "2A01C7",
+      "38B159",
+      "3EADEE",
+      "3EAE08",
+      "3EAE09"
+     ],
+     "coords": [
+      -67649.9,
+      149912.9
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B159",
+       "source_type": "quest-reward",
+       "coords": [
+        -77637.7,
+        150060.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Clarksburg",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "19FAEF",
+      "346B25",
+      "346B26",
+      "346BA0",
+      "346BBC",
+      "38B147",
+      "3BCB98",
+      "3BCBA2",
+      "3BCBE9",
+      "3BF53F",
+      "3BF541",
+      "437318"
+     ],
+     "coords": [
+      -25675.3,
+      168021.2
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B147",
+       "source_type": "quest-reward",
+       "coords": [
+        -31294.2,
+        163443.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Pioneer Scout Camp",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "000E1E",
+      "278B42",
+      "278B9F",
+      "278BF5",
+      "298731",
+      "2B57AA",
+      "2B57CF",
+      "38B0DA",
+      "38DA2E",
+      "38E375",
+      "527ADF"
+     ],
+     "coords": [
+      -1148.3,
+      134814.0
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B0DA",
+       "source_type": "quest-reward",
+       "coords": [
+        5849.5,
+        134711.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Crater",
+     "count": 2,
+     "sources": {
+      "quest-reward": 1,
+      "vendor": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "389B6A",
+      "389B78",
+      "38AF9D",
+      "4270EA",
+      "601DAB",
+      "601DB5"
+     ],
+     "coords": [
+      31073.6,
+      190639.0
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AF9D",
+       "source_type": "quest-reward",
+       "coords": [
+        26592.5,
+        192093.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "4270EA",
+       "source_type": "vendor",
+       "coords": [
+        29787.1,
+        201918.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Savage Divide",
+   "locations": [
+    {
+     "marker": "Autumn Acre Cabin",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "05EFAC",
+      "05EFB2",
+      "0615EA",
+      "18AB35",
+      "2FE79F",
+      "38ADD7",
+      "3A8CD7"
+     ],
+     "coords": [
+      112302.5,
+      51489.8
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38ADD7",
+       "source_type": "quest-reward",
+       "coords": [
+        98820.3,
+        42795.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Bastion Park",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "46D2D7",
+      "46D2D8",
+      "4FB25A"
+     ],
+     "coords": [
+      -22790.6,
+      -120760.8
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "46D2D7",
+       "source_type": "direct",
+       "coords": [
+        -22998.4,
+        -108912.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "46D2D8",
+       "source_type": "direct",
+       "coords": [
+        -22998.9,
+        -108906.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Blackwater Mine",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "145780",
+      "17835E",
+      "2DBBFF",
+      "2DBC23",
+      "2FC898",
+      "38AF64",
+      "3C1F82",
+      "4ED90A",
+      "4ED912",
+      "4ED913",
+      "4ED915",
+      "4ED919",
+      "529ABA"
+     ],
+     "coords": [
+      30131.5,
+      -39414.4
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AF64",
+       "source_type": "quest-reward",
+       "coords": [
+        33260.1,
+        -47051.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Federal Disposal Field HZ-21",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2E2AF5",
+      "38B0DD",
+      "50D664"
+     ],
+     "coords": [
+      288.5,
+      -152814.5
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B0DD",
+       "source_type": "quest-reward",
+       "coords": [
+        -8329.7,
+        -157138.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Fissure Site",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2716E8",
+      "385D39",
+      "38AD61",
+      "3BFF80",
+      "3BFF81",
+      "3D1E58",
+      "50DC4A"
+     ],
+     "coords": [
+      117062.3,
+      77683.8
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AD61",
+       "source_type": "quest-reward",
+       "coords": [
+        150924.8,
+        180168.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Gulper Lagoon",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "38ADA2",
+      "3B382B",
+      "51B899"
+     ],
+     "coords": [
+      139490.5,
+      111846.8
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38ADA2",
+       "source_type": "quest-reward",
+       "coords": [
+        140590.7,
+        111465.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Hopewell Cave",
      "count": 1,
      "sources": {
       "direct": 1
@@ -1150,46 +2053,819 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
-      "6A4CD7",
-      "6A4CD8",
-      "6A4CD9",
-      "6B570F",
-      "6B5A1B",
-      "6B5B3C",
-      "6E36E9",
-      "6E37F7",
-      "6E6E94",
-      "6E7293",
-      "6E7487",
-      "6E85BC",
-      "6E85BF",
-      "6E85D0",
-      "6E8B04",
-      "6E8BA9",
-      "6EA833",
-      "6EA834",
-      "6EAA2E",
-      "6EAA39",
-      "6EAA46",
-      "6EAB76",
-      "6EAB86",
-      "6EAB90",
-      "6EABA0",
-      "6EAEEB",
-      "6EDD59"
+      "238B05",
+      "36C3F1",
+      "3BF64A",
+      "594747"
      ],
      "coords": [
-      -1665.7,
-      -1287.6
+      115630.2,
+      113717.2
      ],
      "spawns": [
       {
        "label": "",
-       "ref": "6EDD59",
+       "ref": "594747",
        "source_type": "direct",
        "coords": [
-        -1188.1,
-        -3670.0
+        107353.4,
+        107713.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Metal Dome",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3A7648",
+      "606371"
+     ],
+     "coords": [
+      68999.7,
+      101922.5
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "606371",
+       "source_type": "direct",
+       "coords": [
+        72958.8,
+        100313.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "New Appalachian Central Trainyard",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "1F7A08",
+      "28BD20",
+      "28E758",
+      "28E86E",
+      "305D6E",
+      "305DB4",
+      "30A78C",
+      "336B2D",
+      "38B06A",
+      "3C3665",
+      "3C368F",
+      "3C36A5"
+     ],
+     "coords": [
+      11875.4,
+      -23190.1
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38B06A",
+       "source_type": "quest-reward",
+       "coords": [
+        16156.7,
+        -16360.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "North Cutthroat Camp",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "044E42",
+      "241FA4",
+      "241FA5",
+      "2FD610",
+      "303A96",
+      "304EF2",
+      "38ADDC",
+      "50CD0D"
+     ],
+     "coords": [
+      66283.3,
+      30582.4
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38ADDC",
+       "source_type": "quest-reward",
+       "coords": [
+        66572.6,
+        30560.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Palace of the Winding Path",
+     "count": 2,
+     "sources": {
+      "direct": 1,
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2F032C",
+      "2F0330",
+      "35142A",
+      "3516B2",
+      "3516B9",
+      "36B888",
+      "36B88F",
+      "36B8A7",
+      "36B8DA",
+      "36B8EB",
+      "38AF4C",
+      "3D4ED1"
+     ],
+     "coords": [
+      58708.6,
+      171030.6
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "2F0330",
+       "source_type": "direct",
+       "coords": [
+        58706.5,
+        171003.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "",
+       "ref": "38AF4C",
+       "source_type": "quest-reward",
+       "coords": [
+        56127.0,
+        176659.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Skullbone Vantage",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "30B607",
+      "30B609",
+      "38AF8C"
+     ],
+     "coords": [
+      40145.8,
+      35865.1
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AF8C",
+       "source_type": "quest-reward",
+       "coords": [
+        32254.2,
+        27944.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Solomon's Pond",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "31A1CF",
+      "31A1FB",
+      "34E895",
+      "34E897",
+      "38AF66",
+      "55A99A",
+      "5A1683"
+     ],
+     "coords": [
+      40728.8,
+      -64362.4
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AF66",
+       "source_type": "quest-reward",
+       "coords": [
+        36779.8,
+        -62224.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "South Mountain Lookout",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "389BEA",
+      "38AE4D",
+      "38E419",
+      "528019"
+     ],
+     "coords": [
+      44272.2,
+      -131752.5
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AE4D",
+       "source_type": "quest-reward",
+       "coords": [
+        61745.3,
+        -124896.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Vault 79",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "539D3C",
+      "539D70",
+      "539D8E",
+      "53BD17",
+      "53BD18",
+      "53BD2E",
+      "53BD2F",
+      "540476",
+      "540481",
+      "5404B3",
+      "5404B5",
+      "55836C",
+      "55836D",
+      "55836E",
+      "55836F",
+      "558370",
+      "558371",
+      "566771",
+      "5667A4",
+      "5667C0",
+      "592271",
+      "5929B5",
+      "5929C2",
+      "593139",
+      "59651A",
+      "5A2956"
+     ],
+     "coords": [
+      -10189.5,
+      -6106.6
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "5A2956",
+       "source_type": "direct",
+       "coords": [
+        -11752.9,
+        -1610.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Whitespring Bunker",
+     "count": 1,
+     "sources": {
+      "vendor": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "16339D",
+      "2A257A",
+      "2A4161",
+      "2A4C83",
+      "2A4CC7",
+      "2B8021",
+      "4FCE88"
+     ],
+     "coords": [
+      -14899.4,
+      -10231.7
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "2B8021",
+       "source_type": "vendor",
+       "coords": [
+        -22622.8,
+        -6972.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Whitespring Mall",
+     "count": 1,
+     "sources": {
+      "vendor": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "628670",
+      "628671",
+      "628E10",
+      "629249",
+      "629353",
+      "629428",
+      "629429",
+      "62942A",
+      "629E0E"
+     ],
+     "coords": [
+      -8593.8,
+      7438.7
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "629E0E",
+       "source_type": "vendor",
+       "coords": [
+        -8648.0,
+        7418.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": [
+    {
+     "marker": "South River Bridge",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "6DCA69",
+      "6F5504",
+      "746DB6",
+      "75853D",
+      "758D18",
+      "758D2D",
+      "77D873"
+     ],
+     "coords": [
+      40899.6,
+      -261041.2
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "746DB6",
+       "source_type": "direct",
+       "coords": [
+        34915.3,
+        -240073.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": [
+    {
+     "marker": "Appalachian Antiques",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "033A22",
+      "38ADAB",
+      "3B95EB",
+      "450CAD"
+     ],
+     "coords": [
+      119101.8,
+      -129375.7
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38ADAB",
+       "source_type": "quest-reward",
+       "coords": [
+        130433.7,
+        -129577.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Overgrown Sundew Grove",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "36C31B",
+      "379FEC",
+      "38AD47"
+     ],
+     "coords": [
+      185441.9,
+      -172789.4
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AD47",
+       "source_type": "quest-reward",
+       "coords": [
+        175651.8,
+        -176662.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Pylon V-13",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "38ACBD",
+      "3A3D0D",
+      "3A3D15"
+     ],
+     "coords": [
+      190853.7,
+      -92817.5
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38ACBD",
+       "source_type": "quest-reward",
+       "coords": [
+        192578.8,
+        -89122.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Ranger Lookout",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "38AD50",
+      "4F8E1A"
+     ],
+     "coords": [
+      152589.3,
+      -87863.0
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AD50",
+       "source_type": "quest-reward",
+       "coords": [
+        157542.4,
+        -88259.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Sunrise Field",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "313FB5",
+      "360F72",
+      "3AC712",
+      "59AE66"
+     ],
+     "coords": [
+      151699.6,
+      -160806.6
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "59AE66",
+       "source_type": "direct",
+       "coords": [
+        157003.6,
+        -163065.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Mire",
+   "locations": [
+    {
+     "marker": "Berkeley Springs",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "138198",
+      "299628",
+      "299719",
+      "29971D",
+      "2998E0",
+      "2998E1",
+      "2E61AF",
+      "4396E5",
+      "4396E7",
+      "4396EE"
+     ],
+     "coords": [
+      131775.5,
+      24515.5
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "138198",
+       "source_type": "direct",
+       "coords": [
+        125929.4,
+        25088.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Crevasse Dam",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "353D49",
+      "38AD4A",
+      "3D167B",
+      "52C906"
+     ],
+     "coords": [
+      182147.3,
+      83194.3
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AD4A",
+       "source_type": "quest-reward",
+       "coords": [
+        175781.5,
+        78368.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Excelsior Model Home",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "38A838",
+      "38AD1A"
+     ],
+     "coords": [
+      172777.6,
+      106825.4
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AD1A",
+       "source_type": "quest-reward",
+       "coords": [
+        181776.0,
+        104687.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Moth-Home",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "369BD6",
+      "37A77D",
+      "38AD9E",
+      "52C572",
+      "52D1BE",
+      "55C70C"
+     ],
+     "coords": [
+      144345.2,
+      -27367.4
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AD9E",
+       "source_type": "quest-reward",
+       "coords": [
+        142882.9,
+        -26589.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Southern Belle Motel",
+     "count": 1,
+     "sources": {
+      "quest-reward": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "38A87F",
+      "38AD4D",
+      "51017C"
+     ],
+     "coords": [
+      172293.0,
+      26029.3
+     ],
+     "spawns": [
+      {
+       "label": "",
+       "ref": "38AD4D",
+       "source_type": "quest-reward",
+       "coords": [
+        160578.3,
+        18416.2
        ],
        "image_top": "",
        "directions": "",
@@ -1421,10 +3097,10 @@
    ]
   },
   {
-   "region": "Cranberry Bog",
+   "region": "Atlantic City",
    "locations": [
     {
-     "marker": "Sunrise Field",
+     "marker": "The Neapolitan Casino",
      "count": 1,
      "sources": {
       "direct": 1
@@ -1433,444 +3109,46 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
-      "313FB5",
-      "360F72",
-      "3AC712",
-      "59AE66"
+      "6A4CD7",
+      "6A4CD8",
+      "6A4CD9",
+      "6B570F",
+      "6B5A1B",
+      "6B5B3C",
+      "6E36E9",
+      "6E37F7",
+      "6E6E94",
+      "6E7293",
+      "6E7487",
+      "6E85BC",
+      "6E85BF",
+      "6E85D0",
+      "6E8B04",
+      "6E8BA9",
+      "6EA833",
+      "6EA834",
+      "6EAA2E",
+      "6EAA39",
+      "6EAA46",
+      "6EAB76",
+      "6EAB86",
+      "6EAB90",
+      "6EABA0",
+      "6EAEEB",
+      "6EDD59"
      ],
      "coords": [
-      151699.6,
-      -160806.6
+      -1665.7,
+      -1287.6
      ],
      "spawns": [
       {
        "label": "",
-       "ref": "59AE66",
+       "ref": "6EDD59",
        "source_type": "direct",
        "coords": [
-        157003.6,
-        -163065.8
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "region": "Forest",
-   "locations": [
-    {
-     "marker": "Vault 76",
-     "count": 1,
-     "sources": {
-      "vendor": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "131822",
-      "13186D",
-      "1A622D",
-      "2FD8BE",
-      "3AEDF2",
-      "3B5235",
-      "3E32A7",
-      "3E32A8",
-      "81ACE7"
-     ],
-     "coords": [
-      -112615.9,
-      95853.3
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "81ACE7",
-       "source_type": "vendor",
-       "coords": [
-        -97939.5,
-        97047.4
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "region": "Savage Divide",
-   "locations": [
-    {
-     "marker": "Bastion Park",
-     "count": 2,
-     "sources": {
-      "direct": 2
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "46D2D7",
-      "46D2D8",
-      "4FB25A"
-     ],
-     "coords": [
-      -22790.6,
-      -120760.8
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "46D2D7",
-       "source_type": "direct",
-       "coords": [
-        -22998.4,
-        -108912.7
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      },
-      {
-       "label": "",
-       "ref": "46D2D8",
-       "source_type": "direct",
-       "coords": [
-        -22998.9,
-        -108906.1
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Hopewell Cave",
-     "count": 1,
-     "sources": {
-      "direct": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "238B05",
-      "36C3F1",
-      "3BF64A",
-      "594747"
-     ],
-     "coords": [
-      115630.2,
-      113717.2
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "594747",
-       "source_type": "direct",
-       "coords": [
-        107353.4,
-        107713.3
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Metal Dome",
-     "count": 1,
-     "sources": {
-      "direct": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "3A7648",
-      "606371"
-     ],
-     "coords": [
-      68999.7,
-      101922.5
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "606371",
-       "source_type": "direct",
-       "coords": [
-        72958.8,
-        100313.7
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Palace of the Winding Path",
-     "count": 1,
-     "sources": {
-      "direct": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "2F032C",
-      "2F0330",
-      "35142A",
-      "3516B2",
-      "3516B9",
-      "36B888",
-      "36B88F",
-      "36B8A7",
-      "36B8DA",
-      "36B8EB",
-      "38AF4C",
-      "3D4ED1"
-     ],
-     "coords": [
-      58708.6,
-      171030.6
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "2F0330",
-       "source_type": "direct",
-       "coords": [
-        58706.5,
-        171003.9
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Vault 79",
-     "count": 1,
-     "sources": {
-      "direct": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "539D3C",
-      "539D70",
-      "539D8E",
-      "53BD17",
-      "53BD18",
-      "53BD2E",
-      "53BD2F",
-      "540476",
-      "540481",
-      "5404B3",
-      "5404B5",
-      "55836C",
-      "55836D",
-      "55836E",
-      "55836F",
-      "558370",
-      "558371",
-      "566771",
-      "5667A4",
-      "5667C0",
-      "592271",
-      "5929B5",
-      "5929C2",
-      "593139",
-      "59651A",
-      "5A2956"
-     ],
-     "coords": [
-      -10189.5,
-      -6106.6
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "5A2956",
-       "source_type": "direct",
-       "coords": [
-        -11752.9,
-        -1610.3
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Whitespring Bunker",
-     "count": 1,
-     "sources": {
-      "vendor": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "16339D",
-      "2A257A",
-      "2A4161",
-      "2A4C83",
-      "2A4CC7",
-      "2B8021",
-      "4FCE88"
-     ],
-     "coords": [
-      -14899.4,
-      -10231.7
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "2B8021",
-       "source_type": "vendor",
-       "coords": [
-        -22622.8,
-        -6972.2
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    },
-    {
-     "marker": "Whitespring Mall",
-     "count": 1,
-     "sources": {
-      "vendor": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "628670",
-      "628671",
-      "628E10",
-      "629249",
-      "629353",
-      "629428",
-      "629429",
-      "62942A",
-      "629E0E"
-     ],
-     "coords": [
-      -8593.8,
-      7438.7
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "629E0E",
-       "source_type": "vendor",
-       "coords": [
-        -8648.0,
-        7418.3
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "region": "Skyline Valley",
-   "locations": [
-    {
-     "marker": "South River Bridge",
-     "count": 1,
-     "sources": {
-      "direct": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "6DCA69",
-      "6F5504",
-      "746DB6",
-      "75853D",
-      "758D18",
-      "758D2D",
-      "77D873"
-     ],
-     "coords": [
-      40899.6,
-      -261041.2
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "746DB6",
-       "source_type": "direct",
-       "coords": [
-        34915.3,
-        -240073.3
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "region": "The Mire",
-   "locations": [
-    {
-     "marker": "Berkeley Springs",
-     "count": 1,
-     "sources": {
-      "direct": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "138198",
-      "299628",
-      "299719",
-      "29971D",
-      "2998E0",
-      "2998E1",
-      "2E61AF",
-      "4396E5",
-      "4396E7",
-      "4396EE"
-     ],
-     "coords": [
-      131775.5,
-      24515.5
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "138198",
-       "source_type": "direct",
-       "coords": [
-        125929.4,
-        25088.9
+        -1188.1,
+        -3670.0
        ],
        "image_top": "",
        "directions": "",
@@ -1952,47 +3230,6 @@
        "coords": [
         2624.1,
         9814.9
-       ],
-       "image_top": "",
-       "directions": "",
-       "image_bottom": ""
-      }
-     ]
-    }
-   ]
-  },
-  {
-   "region": "Toxic Valley",
-   "locations": [
-    {
-     "marker": "The Crater",
-     "count": 1,
-     "sources": {
-      "vendor": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "389B6A",
-      "389B78",
-      "38AF9D",
-      "4270EA",
-      "601DAB",
-      "601DB5"
-     ],
-     "coords": [
-      31073.6,
-      190639.0
-     ],
-     "spawns": [
-      {
-       "label": "",
-       "ref": "4270EA",
-       "source_type": "vendor",
-       "coords": [
-        29787.1,
-        201918.4
        ],
        "image_top": "",
        "directions": "",
@@ -2275,500 +3512,6 @@
      }
     ],
     "placements": 85
-   },
-   {
-    "region": "Atlantic City",
-    "markers": [
-     {
-      "name": "Aquarium of the Atlantic",
-      "placements": 8,
-      "refs": [
-       "6EC669",
-       "6EC66A",
-       "6EC66B",
-       "6EC66F",
-       "741A77",
-       "741A7B",
-       "741A7C",
-       "741A7D"
-      ]
-     },
-     {
-      "name": "The Boardwalk",
-      "placements": 7,
-      "refs": [
-       "6E29E3",
-       "6E29E4",
-       "6E29E5",
-       "6E29E6",
-       "6E3526",
-       "6E3527",
-       "6E3528"
-      ]
-     }
-    ],
-    "placements": 15
-   },
-   {
-    "region": "Burning Springs",
-    "markers": [
-     {
-      "name": "Albany",
-      "placements": 1,
-      "refs": [
-       "83B0EB"
-      ]
-     },
-     {
-      "name": "Ash Cave",
-      "placements": 4,
-      "refs": [
-       "80DFE8",
-       "80E01B",
-       "8430FF",
-       "847E6D"
-      ]
-     },
-     {
-      "name": "Athens",
-      "placements": 24,
-      "refs": [
-       "839A74",
-       "839FAD",
-       "83A032",
-       "83A035",
-       "83FEC9",
-       "83FECA",
-       "8405AC",
-       "8405AD",
-       "8405AE",
-       "8405AF",
-       "8405B0",
-       "8405B1",
-       "8405B2",
-       "8405B3",
-       "8405BA",
-       "8405BB",
-       "8405BC",
-       "8405BD",
-       "8405C4",
-       "8405D0",
-       "8405D1",
-       "8405D2",
-       "84075B",
-       "840775"
-      ]
-     },
-     {
-      "name": "Checkpoint Canyon",
-      "placements": 5,
-      "refs": [
-       "833FA1",
-       "833FA4",
-       "833FA6",
-       "83CD41",
-       "86997A"
-      ]
-     },
-     {
-      "name": "Checkpoint Tower",
-      "placements": 1,
-      "refs": [
-       "8342AA"
-      ]
-     },
-     {
-      "name": "Dino Peaks Mini Golf",
-      "placements": 4,
-      "refs": [
-       "824F91",
-       "836C42",
-       "836C43",
-       "836C44"
-      ]
-     },
-     {
-      "name": "Fort Steuben",
-      "placements": 4,
-      "refs": [
-       "827E09",
-       "8285E3",
-       "8285E4",
-       "8285FD"
-      ]
-     },
-     {
-      "name": "Hamley Run Camp",
-      "placements": 2,
-      "refs": [
-       "82ED77",
-       "82ED78"
-      ]
-     },
-     {
-      "name": "Highway Town",
-      "placements": 5,
-      "refs": [
-       "832D58",
-       "83FB88",
-       "8489B4",
-       "84C3A9",
-       "867224"
-      ]
-     },
-     {
-      "name": "Highway Town Interior",
-      "placements": 3,
-      "refs": [
-       "83112D",
-       "8545C6",
-       "858968"
-      ]
-     },
-     {
-      "name": "Railroad Service Yard",
-      "placements": 1,
-      "refs": [
-       "85147A"
-      ]
-     },
-     {
-      "name": "Super Duper Mart",
-      "placements": 3,
-      "refs": [
-       "82DF2D",
-       "82DF2E",
-       "867EFC"
-      ]
-     },
-     {
-      "name": "The Rust Kingdom",
-      "placements": 10,
-      "refs": [
-       "84E38F",
-       "84E397",
-       "84E3B4",
-       "85256F",
-       "852E5A",
-       "854548",
-       "85455C",
-       "856974",
-       "85DB57",
-       "868F99"
-      ]
-     },
-     {
-      "name": "Tycoon Lake",
-      "placements": 1,
-      "refs": [
-       "83E0C2"
-      ]
-     },
-     {
-      "name": "World of Corn",
-      "placements": 2,
-      "refs": [
-       "8319F1",
-       "833602"
-      ]
-     }
-    ],
-    "placements": 70
-   },
-   {
-    "region": "Cranberry Bog",
-    "markers": [
-     {
-      "name": "Abandoned Bog Town",
-      "placements": 39,
-      "refs": [
-       "31A5BB",
-       "31A5BC",
-       "31A5BD",
-       "31A5BE",
-       "31A5BF",
-       "31A5C0",
-       "31A5C2",
-       "31A5C3",
-       "31A5C5",
-       "31A5C6",
-       "31A5C7",
-       "31A5C8",
-       "31A5C9",
-       "31A5CA",
-       "31A5CB",
-       "31A5CC",
-       "31A5CD",
-       "31A5CE",
-       "31A5CF",
-       "31A5D0",
-       "31A5D2",
-       "31A5D4",
-       "31A5D5",
-       "31A5D6",
-       "31A5D7",
-       "31A5D8",
-       "31A5D9",
-       "31A5DA",
-       "31A5DB",
-       "31A5DC",
-       "31A5DD",
-       "31A5DE",
-       "31A5DF",
-       "31A5E0",
-       "31BA48",
-       "31BA58",
-       "31BAB5",
-       "31BAEF",
-       "3DB1CD"
-      ]
-     },
-     {
-      "name": "AMS Headquarters",
-      "placements": 1,
-      "refs": [
-       "528469"
-      ]
-     },
-     {
-      "name": "Appalachian Antiques",
-      "placements": 3,
-      "refs": [
-       "36A0A4",
-       "3BB27F",
-       "4FD18D"
-      ]
-     },
-     {
-      "name": "Big Bend Tunnel East",
-      "placements": 2,
-      "refs": [
-       "4F8E27",
-       "6B2F83"
-      ]
-     },
-     {
-      "name": "Big Bend Tunnels",
-      "placements": 4,
-      "refs": [
-       "3432F8",
-       "3432F9",
-       "8A44B9",
-       "8A44BA"
-      ]
-     },
-     {
-      "name": "Bootlegger's Shack",
-      "placements": 7,
-      "refs": [
-       "36B464",
-       "36B465",
-       "36B48C",
-       "36B48D",
-       "36B48E",
-       "3BB286",
-       "3BB287"
-      ]
-     },
-     {
-      "name": "Creekside Sundew Grove",
-      "placements": 1,
-      "refs": [
-       "43568C"
-      ]
-     },
-     {
-      "name": "Drop Site V9",
-      "placements": 2,
-      "refs": [
-       "5ECBF0",
-       "5ECBF1"
-      ]
-     },
-     {
-      "name": "Flooded Trainyard",
-      "placements": 11,
-      "refs": [
-       "315B58",
-       "315B5A",
-       "315B5C",
-       "315B5E",
-       "315B6E",
-       "315B8D",
-       "315BC7",
-       "315BC9",
-       "4DDB27",
-       "4DDB4F",
-       "4DDBCE"
-      ]
-     },
-     {
-      "name": "Fort Defiance",
-      "placements": 5,
-      "refs": [
-       "343227",
-       "343228",
-       "343229",
-       "4FCC16",
-       "4FCC17"
-      ]
-     },
-     {
-      "name": "Kerwood Mine",
-      "placements": 5,
-      "refs": [
-       "32F832",
-       "32F835",
-       "32F83B",
-       "38F224",
-       "4EA8DE"
-      ]
-     },
-     {
-      "name": "Lost Home",
-      "placements": 1,
-      "refs": [
-       "377AED"
-      ]
-     },
-     {
-      "name": "Missile Silo Charlie",
-      "placements": 5,
-      "refs": [
-       "443EA8",
-       "44429C",
-       "4446A4",
-       "445C9D",
-       "445C9E"
-      ]
-     },
-     {
-      "name": "Quarry X3",
-      "placements": 1,
-      "refs": [
-       "380C17"
-      ]
-     },
-     {
-      "name": "RobCo Research Center",
-      "placements": 3,
-      "refs": [
-       "34733F",
-       "3DE0F2",
-       "3DE12B"
-      ]
-     },
-     {
-      "name": "Sparse Sundew Grove",
-      "placements": 1,
-      "refs": [
-       "437303"
-      ]
-     },
-     {
-      "name": "Sunrise Field",
-      "placements": 2,
-      "refs": [
-       "35EBD8",
-       "59B284"
-      ]
-     },
-     {
-      "name": "The General's Steakhouse",
-      "placements": 2,
-      "refs": [
-       "341A64",
-       "341A65"
-      ]
-     },
-     {
-      "name": "Valley Galleria",
-      "placements": 2,
-      "refs": [
-       "31BD02",
-       "31BD03"
-      ]
-     },
-     {
-      "name": "Watoga Civic Center",
-      "placements": 4,
-      "refs": [
-       "342C78",
-       "342C79",
-       "55DF4E",
-       "55DF4F"
-      ]
-     },
-     {
-      "name": "Watoga Emergency Services",
-      "placements": 7,
-      "refs": [
-       "35A91C",
-       "35A969",
-       "35A96A",
-       "35A997",
-       "35A99A",
-       "35A99F",
-       "3B8194"
-      ]
-     },
-     {
-      "name": "Watoga High School",
-      "placements": 6,
-      "refs": [
-       "3652BE",
-       "3665A4",
-       "3665AC",
-       "610F3F",
-       "610F62",
-       "610F66"
-      ]
-     },
-     {
-      "name": "Watoga Municipal Center",
-      "placements": 2,
-      "refs": [
-       "04A157",
-       "3E8D4A"
-      ]
-     },
-     {
-      "name": "Watoga Raider Arena",
-      "placements": 2,
-      "refs": [
-       "5CE560",
-       "5CE561"
-      ]
-     },
-     {
-      "name": "Watoga Shopping Plaza",
-      "placements": 2,
-      "refs": [
-       "3459BE",
-       "51DB27"
-      ]
-     },
-     {
-      "name": "Watoga Transit Hub",
-      "placements": 3,
-      "refs": [
-       "35A93D",
-       "35A952",
-       "35A95B"
-      ]
-     },
-     {
-      "name": "Watoga Underground",
-      "placements": 4,
-      "refs": [
-       "53BFD9",
-       "53BFDA",
-       "55818B",
-       "55818C"
-      ]
-     }
-    ],
-    "placements": 127
    },
    {
     "region": "Forest",
@@ -3353,6 +4096,116 @@
      }
     ],
     "placements": 182
+   },
+   {
+    "region": "Toxic Valley",
+    "markers": [
+     {
+      "name": "Black Bear Lodge",
+      "placements": 2,
+      "refs": [
+       "342C33",
+       "342C34"
+      ]
+     },
+     {
+      "name": "Clarksburg",
+      "placements": 4,
+      "refs": [
+       "3BCBDF",
+       "43731A",
+       "4F87B9",
+       "4F87BA"
+      ]
+     },
+     {
+      "name": "Clarksburg Shooting Club",
+      "placements": 1,
+      "refs": [
+       "34197C"
+      ]
+     },
+     {
+      "name": "Eastern Regional Penitentiary",
+      "placements": 1,
+      "refs": [
+       "36FFEB"
+      ]
+     },
+     {
+      "name": "Grafton",
+      "placements": 3,
+      "refs": [
+       "31953A",
+       "31953B",
+       "31953C"
+      ]
+     },
+     {
+      "name": "Graninger Farm",
+      "placements": 4,
+      "refs": [
+       "33E011",
+       "3EABE0",
+       "4FB112",
+       "4FB113"
+      ]
+     },
+     {
+      "name": "Pioneer Scout Camp",
+      "placements": 2,
+      "refs": [
+       "2B95EE",
+       "3133B8"
+      ]
+     },
+     {
+      "name": "Pioneer Scout Lookout",
+      "placements": 1,
+      "refs": [
+       "390F29"
+      ]
+     },
+     {
+      "name": "Smith Farm",
+      "placements": 1,
+      "refs": [
+       "3EAC72"
+      ]
+     },
+     {
+      "name": "Toxic Dried Lakebed",
+      "placements": 3,
+      "refs": [
+       "33E00B",
+       "33E00D",
+       "33E00E"
+      ]
+     },
+     {
+      "name": "Wavy Willard's Water Park",
+      "placements": 2,
+      "refs": [
+       "34F5A4",
+       "352FAE"
+      ]
+     },
+     {
+      "name": "Willard Corporate Housing",
+      "placements": 8,
+      "refs": [
+       "1FCA26",
+       "33DF13",
+       "3AB264",
+       "3AB2A6",
+       "3AB345",
+       "3AB37E",
+       "3AB38F",
+       "3AB3CD"
+      ]
+     }
+    ],
+    "placements": 32
    },
    {
     "region": "Savage Divide",
@@ -3946,6 +4799,301 @@
     "placements": 12
    },
    {
+    "region": "Cranberry Bog",
+    "markers": [
+     {
+      "name": "Abandoned Bog Town",
+      "placements": 39,
+      "refs": [
+       "31A5BB",
+       "31A5BC",
+       "31A5BD",
+       "31A5BE",
+       "31A5BF",
+       "31A5C0",
+       "31A5C2",
+       "31A5C3",
+       "31A5C5",
+       "31A5C6",
+       "31A5C7",
+       "31A5C8",
+       "31A5C9",
+       "31A5CA",
+       "31A5CB",
+       "31A5CC",
+       "31A5CD",
+       "31A5CE",
+       "31A5CF",
+       "31A5D0",
+       "31A5D2",
+       "31A5D4",
+       "31A5D5",
+       "31A5D6",
+       "31A5D7",
+       "31A5D8",
+       "31A5D9",
+       "31A5DA",
+       "31A5DB",
+       "31A5DC",
+       "31A5DD",
+       "31A5DE",
+       "31A5DF",
+       "31A5E0",
+       "31BA48",
+       "31BA58",
+       "31BAB5",
+       "31BAEF",
+       "3DB1CD"
+      ]
+     },
+     {
+      "name": "AMS Headquarters",
+      "placements": 1,
+      "refs": [
+       "528469"
+      ]
+     },
+     {
+      "name": "Appalachian Antiques",
+      "placements": 3,
+      "refs": [
+       "36A0A4",
+       "3BB27F",
+       "4FD18D"
+      ]
+     },
+     {
+      "name": "Big Bend Tunnel East",
+      "placements": 2,
+      "refs": [
+       "4F8E27",
+       "6B2F83"
+      ]
+     },
+     {
+      "name": "Big Bend Tunnels",
+      "placements": 4,
+      "refs": [
+       "3432F8",
+       "3432F9",
+       "8A44B9",
+       "8A44BA"
+      ]
+     },
+     {
+      "name": "Bootlegger's Shack",
+      "placements": 7,
+      "refs": [
+       "36B464",
+       "36B465",
+       "36B48C",
+       "36B48D",
+       "36B48E",
+       "3BB286",
+       "3BB287"
+      ]
+     },
+     {
+      "name": "Creekside Sundew Grove",
+      "placements": 1,
+      "refs": [
+       "43568C"
+      ]
+     },
+     {
+      "name": "Drop Site V9",
+      "placements": 2,
+      "refs": [
+       "5ECBF0",
+       "5ECBF1"
+      ]
+     },
+     {
+      "name": "Flooded Trainyard",
+      "placements": 11,
+      "refs": [
+       "315B58",
+       "315B5A",
+       "315B5C",
+       "315B5E",
+       "315B6E",
+       "315B8D",
+       "315BC7",
+       "315BC9",
+       "4DDB27",
+       "4DDB4F",
+       "4DDBCE"
+      ]
+     },
+     {
+      "name": "Fort Defiance",
+      "placements": 5,
+      "refs": [
+       "343227",
+       "343228",
+       "343229",
+       "4FCC16",
+       "4FCC17"
+      ]
+     },
+     {
+      "name": "Kerwood Mine",
+      "placements": 5,
+      "refs": [
+       "32F832",
+       "32F835",
+       "32F83B",
+       "38F224",
+       "4EA8DE"
+      ]
+     },
+     {
+      "name": "Lost Home",
+      "placements": 1,
+      "refs": [
+       "377AED"
+      ]
+     },
+     {
+      "name": "Missile Silo Charlie",
+      "placements": 5,
+      "refs": [
+       "443EA8",
+       "44429C",
+       "4446A4",
+       "445C9D",
+       "445C9E"
+      ]
+     },
+     {
+      "name": "Quarry X3",
+      "placements": 1,
+      "refs": [
+       "380C17"
+      ]
+     },
+     {
+      "name": "RobCo Research Center",
+      "placements": 3,
+      "refs": [
+       "34733F",
+       "3DE0F2",
+       "3DE12B"
+      ]
+     },
+     {
+      "name": "Sparse Sundew Grove",
+      "placements": 1,
+      "refs": [
+       "437303"
+      ]
+     },
+     {
+      "name": "Sunrise Field",
+      "placements": 2,
+      "refs": [
+       "35EBD8",
+       "59B284"
+      ]
+     },
+     {
+      "name": "The General's Steakhouse",
+      "placements": 2,
+      "refs": [
+       "341A64",
+       "341A65"
+      ]
+     },
+     {
+      "name": "Valley Galleria",
+      "placements": 2,
+      "refs": [
+       "31BD02",
+       "31BD03"
+      ]
+     },
+     {
+      "name": "Watoga Civic Center",
+      "placements": 4,
+      "refs": [
+       "342C78",
+       "342C79",
+       "55DF4E",
+       "55DF4F"
+      ]
+     },
+     {
+      "name": "Watoga Emergency Services",
+      "placements": 7,
+      "refs": [
+       "35A91C",
+       "35A969",
+       "35A96A",
+       "35A997",
+       "35A99A",
+       "35A99F",
+       "3B8194"
+      ]
+     },
+     {
+      "name": "Watoga High School",
+      "placements": 6,
+      "refs": [
+       "3652BE",
+       "3665A4",
+       "3665AC",
+       "610F3F",
+       "610F62",
+       "610F66"
+      ]
+     },
+     {
+      "name": "Watoga Municipal Center",
+      "placements": 2,
+      "refs": [
+       "04A157",
+       "3E8D4A"
+      ]
+     },
+     {
+      "name": "Watoga Raider Arena",
+      "placements": 2,
+      "refs": [
+       "5CE560",
+       "5CE561"
+      ]
+     },
+     {
+      "name": "Watoga Shopping Plaza",
+      "placements": 2,
+      "refs": [
+       "3459BE",
+       "51DB27"
+      ]
+     },
+     {
+      "name": "Watoga Transit Hub",
+      "placements": 3,
+      "refs": [
+       "35A93D",
+       "35A952",
+       "35A95B"
+      ]
+     },
+     {
+      "name": "Watoga Underground",
+      "placements": 4,
+      "refs": [
+       "53BFD9",
+       "53BFDA",
+       "55818B",
+       "55818C"
+      ]
+     }
+    ],
+    "placements": 127
+   },
+   {
     "region": "The Mire",
     "markers": [
      {
@@ -4188,6 +5336,205 @@
     "placements": 80
    },
    {
+    "region": "Burning Springs",
+    "markers": [
+     {
+      "name": "Albany",
+      "placements": 1,
+      "refs": [
+       "83B0EB"
+      ]
+     },
+     {
+      "name": "Ash Cave",
+      "placements": 4,
+      "refs": [
+       "80DFE8",
+       "80E01B",
+       "8430FF",
+       "847E6D"
+      ]
+     },
+     {
+      "name": "Athens",
+      "placements": 24,
+      "refs": [
+       "839A74",
+       "839FAD",
+       "83A032",
+       "83A035",
+       "83FEC9",
+       "83FECA",
+       "8405AC",
+       "8405AD",
+       "8405AE",
+       "8405AF",
+       "8405B0",
+       "8405B1",
+       "8405B2",
+       "8405B3",
+       "8405BA",
+       "8405BB",
+       "8405BC",
+       "8405BD",
+       "8405C4",
+       "8405D0",
+       "8405D1",
+       "8405D2",
+       "84075B",
+       "840775"
+      ]
+     },
+     {
+      "name": "Checkpoint Canyon",
+      "placements": 5,
+      "refs": [
+       "833FA1",
+       "833FA4",
+       "833FA6",
+       "83CD41",
+       "86997A"
+      ]
+     },
+     {
+      "name": "Checkpoint Tower",
+      "placements": 1,
+      "refs": [
+       "8342AA"
+      ]
+     },
+     {
+      "name": "Dino Peaks Mini Golf",
+      "placements": 4,
+      "refs": [
+       "824F91",
+       "836C42",
+       "836C43",
+       "836C44"
+      ]
+     },
+     {
+      "name": "Fort Steuben",
+      "placements": 4,
+      "refs": [
+       "827E09",
+       "8285E3",
+       "8285E4",
+       "8285FD"
+      ]
+     },
+     {
+      "name": "Hamley Run Camp",
+      "placements": 2,
+      "refs": [
+       "82ED77",
+       "82ED78"
+      ]
+     },
+     {
+      "name": "Highway Town",
+      "placements": 5,
+      "refs": [
+       "832D58",
+       "83FB88",
+       "8489B4",
+       "84C3A9",
+       "867224"
+      ]
+     },
+     {
+      "name": "Highway Town Interior",
+      "placements": 3,
+      "refs": [
+       "83112D",
+       "8545C6",
+       "858968"
+      ]
+     },
+     {
+      "name": "Railroad Service Yard",
+      "placements": 1,
+      "refs": [
+       "85147A"
+      ]
+     },
+     {
+      "name": "Super Duper Mart",
+      "placements": 3,
+      "refs": [
+       "82DF2D",
+       "82DF2E",
+       "867EFC"
+      ]
+     },
+     {
+      "name": "The Rust Kingdom",
+      "placements": 10,
+      "refs": [
+       "84E38F",
+       "84E397",
+       "84E3B4",
+       "85256F",
+       "852E5A",
+       "854548",
+       "85455C",
+       "856974",
+       "85DB57",
+       "868F99"
+      ]
+     },
+     {
+      "name": "Tycoon Lake",
+      "placements": 1,
+      "refs": [
+       "83E0C2"
+      ]
+     },
+     {
+      "name": "World of Corn",
+      "placements": 2,
+      "refs": [
+       "8319F1",
+       "833602"
+      ]
+     }
+    ],
+    "placements": 70
+   },
+   {
+    "region": "Atlantic City",
+    "markers": [
+     {
+      "name": "Aquarium of the Atlantic",
+      "placements": 8,
+      "refs": [
+       "6EC669",
+       "6EC66A",
+       "6EC66B",
+       "6EC66F",
+       "741A77",
+       "741A7B",
+       "741A7C",
+       "741A7D"
+      ]
+     },
+     {
+      "name": "The Boardwalk",
+      "placements": 7,
+      "refs": [
+       "6E29E3",
+       "6E29E4",
+       "6E29E5",
+       "6E29E6",
+       "6E3526",
+       "6E3527",
+       "6E3528"
+      ]
+     }
+    ],
+    "placements": 15
+   },
+   {
     "region": "The Pitt",
     "markers": [
      {
@@ -4251,116 +5598,6 @@
      }
     ],
     "placements": 35
-   },
-   {
-    "region": "Toxic Valley",
-    "markers": [
-     {
-      "name": "Black Bear Lodge",
-      "placements": 2,
-      "refs": [
-       "342C33",
-       "342C34"
-      ]
-     },
-     {
-      "name": "Clarksburg",
-      "placements": 4,
-      "refs": [
-       "3BCBDF",
-       "43731A",
-       "4F87B9",
-       "4F87BA"
-      ]
-     },
-     {
-      "name": "Clarksburg Shooting Club",
-      "placements": 1,
-      "refs": [
-       "34197C"
-      ]
-     },
-     {
-      "name": "Eastern Regional Penitentiary",
-      "placements": 1,
-      "refs": [
-       "36FFEB"
-      ]
-     },
-     {
-      "name": "Grafton",
-      "placements": 3,
-      "refs": [
-       "31953A",
-       "31953B",
-       "31953C"
-      ]
-     },
-     {
-      "name": "Graninger Farm",
-      "placements": 4,
-      "refs": [
-       "33E011",
-       "3EABE0",
-       "4FB112",
-       "4FB113"
-      ]
-     },
-     {
-      "name": "Pioneer Scout Camp",
-      "placements": 2,
-      "refs": [
-       "2B95EE",
-       "3133B8"
-      ]
-     },
-     {
-      "name": "Pioneer Scout Lookout",
-      "placements": 1,
-      "refs": [
-       "390F29"
-      ]
-     },
-     {
-      "name": "Smith Farm",
-      "placements": 1,
-      "refs": [
-       "3EAC72"
-      ]
-     },
-     {
-      "name": "Toxic Dried Lakebed",
-      "placements": 3,
-      "refs": [
-       "33E00B",
-       "33E00D",
-       "33E00E"
-      ]
-     },
-     {
-      "name": "Wavy Willard's Water Park",
-      "placements": 2,
-      "refs": [
-       "34F5A4",
-       "352FAE"
-      ]
-     },
-     {
-      "name": "Willard Corporate Housing",
-      "placements": 8,
-      "refs": [
-       "1FCA26",
-       "33DF13",
-       "3AB264",
-       "3AB2A6",
-       "3AB345",
-       "3AB37E",
-       "3AB38F",
-       "3AB3CD"
-      ]
-     }
-    ],
-    "placements": 32
    }
   ],
   "total_markers": 248,
@@ -5170,5 +6407,5 @@
    }
   ]
  },
- "total": 22
+ "total": 57
 }

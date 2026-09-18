@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-16T16:48:10.954151+00:00",
+  "generated": "2026-09-18T02:55:26.613637+00:00",
   "byPage": {
     "grunt-hunt-rewards": {
       "name": "Grunt Hunt Challenges",
@@ -181,8 +181,8 @@
               "reward": null,
               "conditions": [
                 "10000000|0.000000|GetGlobalValue|00 00 00|00 00|TrueGlobal [GLOB:00036E00]|00 00 00 00|0|-1|Subject|",
-                "10000000|1.000000|GetValue|00 00 00|00 00|Burn_BountyHunt_GruntStarLevelChosen [AVIF:0081F17C]|00 00 00 00|0|-1|Subject|",
-                "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedGruntHunt \"Burn Bounty Completed Grunt Hunts\" [FLST:0084315F]|00 00 00 00|0|-1|Target|"
+                "10000000|1.000000|GetValue|00 00 00|00 00|BountyHunt_GruntStarLevel_BurningSprings [AVIF:0081F17C]|00 00 00 00|0|-1|Subject|",
+                "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_AllBounty_CompletedGruntHunt \"Completed Grunt Hunts\" [FLST:0084315F]|00 00 00 00|0|-1|Target|"
               ]
             },
             {
@@ -197,8 +197,8 @@
               "reward": null,
               "conditions": [
                 "10000000|0.000000|GetGlobalValue|00 00 00|00 00|TrueGlobal [GLOB:00036E00]|00 00 00 00|0|-1|Subject|",
-                "10000000|2.000000|GetValue|00 00 00|00 00|Burn_BountyHunt_GruntStarLevelChosen [AVIF:0081F17C]|00 00 00 00|0|-1|Subject|",
-                "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedGruntHunt \"Burn Bounty Completed Grunt Hunts\" [FLST:0084315F]|00 00 00 00|0|-1|Target|"
+                "10000000|2.000000|GetValue|00 00 00|00 00|BountyHunt_GruntStarLevel_BurningSprings [AVIF:0081F17C]|00 00 00 00|0|-1|Subject|",
+                "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_AllBounty_CompletedGruntHunt \"Completed Grunt Hunts\" [FLST:0084315F]|00 00 00 00|0|-1|Target|"
               ]
             }
           ]
@@ -412,7 +412,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|0.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|0.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -427,7 +427,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|6.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|6.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -442,7 +442,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|10.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|10.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -457,7 +457,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|12.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|12.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     }
@@ -488,7 +488,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|26.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|26.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -503,7 +503,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|9.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|9.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -518,7 +518,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|4.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|4.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -533,7 +533,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|1.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|1.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -548,7 +548,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|3.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|3.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     }
@@ -579,7 +579,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|2.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|2.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -594,7 +594,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|28.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|28.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -609,7 +609,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|15.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|15.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -624,7 +624,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|11.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|11.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -639,7 +639,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|19.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|19.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     }
@@ -670,7 +670,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|8.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|8.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -685,7 +685,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|13.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|13.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -700,7 +700,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|20.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|20.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -715,7 +715,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|16.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|16.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     }
@@ -746,7 +746,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|25.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|25.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -761,7 +761,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|23.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|23.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -776,7 +776,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|22.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|22.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -791,7 +791,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|24.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|24.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     }
@@ -822,7 +822,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|5.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|5.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -837,7 +837,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|17.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|17.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -852,7 +852,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|7.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|7.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -867,7 +867,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|29.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|29.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     }
@@ -898,7 +898,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|27.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|27.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -913,7 +913,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|21.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|21.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -928,7 +928,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|18.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|18.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     },
@@ -943,7 +943,7 @@
                       "cutContent": false,
                       "reward": null,
                       "conditions": [
-                        "10000000|14.000000|GetGlobalValue|00 00 00|00 00|Burn_BountyHunt_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
+                        "10000000|14.000000|GetGlobalValue|00 00 00|00 00|BountyHunt_Burn_RecentHeadhuntGang_01 [GLOB:00833A0C]|00 00 00 00|0|-1|Subject|",
                         "10000000|1.000000|IsInList|00 00 00|00 00|Challenge_BurnBounty_CompletedHeadHunt \"Burn Bounty Completed Head Hunts\" [FLST:00843165]|00 00 00 00|0|-1|Target|"
                       ]
                     }
