@@ -1054,15 +1054,21 @@ def _patch_drop_rates(doc: Dict[str, Any], rates: Optional["VendorRates"], targe
 
     cn = dr.get("containers")
     if isinstance(cn, dict):
-        # Container "chance per container" = (1 - ItemTwo ChanceNone GLOB) x the
-        # item's appearance inside the nest/loot sub-list. Reads the GLOB value from
-        # data, so it tracks any Bethesda change to that GLOB.
-        gv = rates.glob_value(cn.get("chance_none_glob", ""))
-        nest = cn.get("nest_list_id") or cn.get("container_id")
-        if gv is not None and nest:
-            _set(cn, (1.0 - gv / 100.0) * rates.appearance(nest, targets))
-        elif cn.get("list_id") or cn.get("container_id"):
-            _set(cn, rates.appearance(cn.get("list_id") or cn.get("container_id"), targets))
+        # Container "chance per container" = the item's rng76 appearance probability
+        # in the CONTAINER'S OWN loot list. rng76 resolves the entry ChanceNone for
+        # us, including the tier-index-into-CURV case, so this must NEVER be
+        # hand-rolled from a GLOB FLTV (drop-rate-engine §5, priority 1).
+        #
+        # The old line was `(1 - chance_none_glob_FLTV / 100) x appearance(nest_list)`.
+        # For the deathclaw nest that GLOB is ItemTwo_High_ChanceNone_Tier, FLTV 10 —
+        # but 10 is an INDEX into the list's curve (CURV 00018445, X=10 -> Y=90), not
+        # a 10% ChanceNone. Reading it directly gave 90% where the real rate is 10%,
+        # exactly inverted. Let rng76 walk it instead.
+        src_list = cn.get("list_id") or cn.get("container_id")
+        if src_list:
+            _set(cn, rates.appearance(src_list, targets))
+        elif cn.get("nest_list_id"):
+            _set(cn, rates.appearance(cn["nest_list_id"], targets))
 
 
 # ── CAMP producers: Collectrons + Resource Generators ───────────────────────
@@ -1406,7 +1412,17 @@ def _patch_containers(doc: Dict[str, Any], closure, targets: set,
     if not isinstance(dr, dict):
         dr = {}
         doc["drop_rates"] = dr
-    dr["containers"] = {"types": types}
+    existing = dr.get("containers")
+    if isinstance(existing, dict) and existing.get("as_fixed_spawn"):
+        # as_fixed_spawn blocks (deathclaw nests) render their rate UNDER Fixed Spawn
+        # Locations, not in the Containers expand: farming_classify returns "nest" for
+        # those bases, so container_types() correctly yields []. Overwriting the whole
+        # dict with {"types": []} stripped as_fixed_spawn, marker_label and the
+        # computed rate, and the renderer then had nothing to show. Merge instead.
+        existing["types"] = types
+        dr["containers"] = existing
+    else:
+        dr["containers"] = {"types": types}
 
 
 def inject(slug: str, used_for: Dict[str, Any], cfg: Dict[str, Any], dist_dir: str,

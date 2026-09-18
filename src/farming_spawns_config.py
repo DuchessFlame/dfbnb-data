@@ -306,7 +306,10 @@ DEATHCLAW_EGG = {
     #
     # Deathclaw nests: Container_Loot_DeathclawNest01 (003099CD, UseAll max_count=2)
     # → LL_Deathclaw_Nest (001B0084, UseAll) → 1x raw egg + 1x cracked egg.
-    # Nest entry ChanceNone = 10 (GLOB ItemTwo_High_ChanceNone_Tier) → 90%.
+    # Nest entry ChanceNone resolves to 90 → 10%. The GLOB
+    # ItemTwo_High_ChanceNone_Tier has FLTV 10, but that is a TIER INDEX into the
+    # list's curve (CURV 00018445, X=10 → Y=90), not a 10% ChanceNone. Verified by
+    # hand + rng76 appearance_prob(003099CD) = 0.10, 19 Sep 2026.
     # 19 nest container REFRs (12 DeathclawNest01_Container + 7 SFM04).
     #
     # Collectrons: Electronics/Junkyard super-rare pool (CN 95, 1/11 = 0.45%),
@@ -321,6 +324,10 @@ DEATHCLAW_EGG = {
             # marker_label = the loose item these LPI points place (raw egg). Used
             # by the per-marker breakdown (rate_key "world_spawns" -> its %).
             "marker_label": "Deathclaw Egg",
+            # banner_label = the wording on the Fixed Spawn Locations rate banner.
+            # Optional; the renderer falls back to marker_label then the doc name.
+            # Set here because the banner reads better in the plural.
+            "banner_label": "Deathclaw Eggs",
             "note": (
                 "Raw Deathclaw Eggs spawn loose at 36 LPI points, each rolling a "
                 "per-server-hop chance (computed). Deathclaw nests are listed "
@@ -338,16 +345,19 @@ DEATHCLAW_EGG = {
             # POI you can come back to), so the nest rate renders inside the Fixed
             # Spawn Locations expand (as a second "per nest" row under the world-
             # spawn banner) and the Containers expand shows its empty state. The
-            # 90% rate is still COMPUTED from the GLOB by build_farming_used_for.py;
-            # this flag only controls WHERE the block is displayed.
+            # 10% rate is still COMPUTED — build_farming_used_for.py asks rng76 for
+            # appearance_prob(container_id), which walks the ChanceNone curve. This
+            # flag only controls WHERE the block is displayed.
             "as_fixed_spawn": True,
-            # Per-marker breakdown label + yield note (rate_key "containers" -> 90%).
+            # Per-marker breakdown label + yield note (rate_key "containers" -> 10%).
             "marker_label": "Deathclaw Nest",
             "marker_yield": "each gives 1 Raw + 1 Cracked Egg",
             "note": (
-                "19 deathclaw nest containers (12 DeathclawNest01 + 7 SFM04). "
+                "19 deathclaw nest containers (12 DeathclawNest01 + 7 SFM04), both "
+                "bases sharing the one loot list, so all 19 carry the same rate. "
                 "Each nest's chance to contain 1 raw egg + 1 cracked egg is "
-                "computed from the ItemTwo_High_ChanceNone_Tier GLOB."
+                "computed by rng76 from Container_Loot_DeathclawNest01. It is the "
+                "same roll — a nest holds both eggs or neither."
             ),
         },
         # NO VENDOR SELLS DEATHCLAW EGGS — verified Aug 2026 against
