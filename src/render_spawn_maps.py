@@ -180,6 +180,9 @@ CELL_DISPLAY_OVERRIDES = {
     # The cavern under the Abandoned Waste Dump in The Mire, reached from the dump
     # itself. Mappalachia calls it "Cavern".
     "SamBlackwellsDeathclawCave": "Abandoned Waste Dump (Cavern)",
+    # Reached from Transmission Station 1AT-U03 in the Forest. Mappalachia calls
+    # it "Enclave Research Facility".
+    "EnclaveResearchFacility01": "Transmission Station 1AT-U03 (Enclave Research Facility)",
 }
 
 

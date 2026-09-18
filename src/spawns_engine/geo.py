@@ -46,7 +46,13 @@ INTERIOR_REGION_OVERRIDES = {
     "The Burrows": "The Mire",
     # --- Added Aug 2026 from the Nuka Cola build's unresolved list ---
     # High confidence:
-    "Enclave Research Facility": "Savage Divide",   # Whitespring Enclave bunker
+    # Entered from Transmission Station 1AT-U03, which the game data puts in the
+    # Forest: LCTN LocForestTransmissionStation1ATU03Location (0037FA8A) carries
+    # LocRegionForestFloodlands. NOT the Whitespring bunker, which an earlier
+    # guess had it as. Keep in step with "marker_renames" in
+    # src/farming_spawns_config.py and CELL_DISPLAY_OVERRIDES in
+    # src/render_spawn_maps.py, which both rename this to the station.
+    "Enclave Research Facility": "Forest",
     "Black Bear Lodge": "Toxic Valley",
     "Hornwright Industrial HQ": "Forest",            # Charleston
     "Valley Galleria": "Cranberry Bog",              # Watoga shopping plaza

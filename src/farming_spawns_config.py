@@ -284,6 +284,14 @@ DEATHCLAW_EGG = {
         # External, one Internal), so the page says so too. Keep this in step with
         # CELL_DISPLAY_OVERRIDES in src/render_spawn_maps.py, which titles the map.
         "Cavern": "Abandoned Waste Dump (Cavern)",
+        # Mappalachia names the interior cell EnclaveResearchFacility01 only
+        # "Enclave Research Facility", which reads as a place of its own. It is
+        # entered from Transmission Station 1AT-U03 in the Forest (LCTN
+        # LocForestTransmissionStation1ATU03Location, LocRegionForestFloodlands),
+        # so the page names the station the player actually travels to. Keep in
+        # step with INTERIOR_REGION_OVERRIDES in src/spawns_engine/geo.py and
+        # CELL_DISPLAY_OVERRIDES in src/render_spawn_maps.py.
+        "Enclave Research Facility": "Transmission Station 1AT-U03 (Enclave Research Facility)",
     },
     # ── Drop rates (resolved from LVLI TSVs, July 2026) ─────────────────
     # Traced via the drop-rate-engine skill rules.
