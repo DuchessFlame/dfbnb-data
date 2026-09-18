@@ -533,10 +533,16 @@ def format_duration(seconds: Optional[float]) -> Optional[str]:
 
 
 def format_magnitude(v: Optional[float]) -> Optional[str]:
-    """1.8 → "1.8"; 45.0 → "45"; None → None."""
+    """1.8 → "1.8"; 45.0 → "45"; 0.125 → "0.125"; None → None.
+
+    Three decimals, not two: the small per-second magnitudes round away at two.
+    Health Regen is stored as 0.125 (SURV_Food_Effect_HealthRegen_Mag_2_Medium),
+    and `round(0.125, 2)` is 0.12 — the page then understates the buff. Values
+    with two decimals or fewer are unaffected, so nothing else moves.
+    """
     if v is None:
         return None
-    return f"{round(float(v), 2):g}"
+    return f"{round(float(v), 3):g}"
 
 
 _MAG_TOKEN = re.compile(r"<\s*([+-]?)\s*(mag|nag|magnitude|dur|duration)\s*>", re.I)

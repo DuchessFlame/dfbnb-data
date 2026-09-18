@@ -191,17 +191,48 @@ DEATHCLAW_EGG = {
             "exclude_from_fixed_spawns": True,
         },
     ],
-    # ── Info notes (rendered as their own expand, no spawn data) ────────
-    "info_notes": [
+    # ── Info notes (rendered as their own root expand, no spawn data) ──
+    # None on this page: the Healthy Deathclaw Egg note moved into
+    # "events_notes" below, so it sits with the events answer rather than
+    # floating as a root expand of its own.
+    "info_notes": [],
+    # ── Notes that hang off the Events & Activities expand ──────────────
+    # Rendered as a sub-expand inside that expand by
+    # df-bnb-farming-non-perishable-guide.js.
+    #
+    # The Healthy Deathclaw Egg (ALCH 0080A085, Burn_E01_HealthyDeathclawEgg)
+    # is CUT. Verified Sep 2026 against the September exports: the record has
+    # keywords and effects (value 15, DamageRadiationEating +
+    # SURV_DiseaseVector_Food_Effect) but NOTHING references it — no LVLI
+    # parent, no world REFR, no CONT, no COBJ recipe, no vendor, no quest or
+    # GMRW reward. An orphan item record.
+    #
+    # The old note here claimed it was tied to a Rust Kingdom "Don't Feed the
+    # Deathclaws" EVENT. That was wrong twice over:
+    #   - "Don't Feed the Deathclaws!" is a BOOK (00862207,
+    #     Burn_RK_DontFeedDeathclaws_Note), a readable note lying in
+    #     BurnRustKingdomExt06. Flavour text from Beastmaster Lina, not an event.
+    #   - The Burn_E01 prefix belongs to QUST 007F1E8A Burn_E01_Gear — the
+    #     "Gearin' Up" event, which is very much live (it is in Bethesda's own
+    #     Challenge_Quests_AnyEvents and Challenge_Quests_PublicEvents FLSTs).
+    # So the egg was most likely built for that event and dropped before ship.
+    "events_notes": [
         {
-            "title": "Healthy Deathclaw Egg",
+            "title": "Healthy Deathclaw Egg (cut content)",
             "body": (
-                "The <b>Healthy Deathclaw Egg</b> is a separate item "
-                "(<code>Burn_E01_HealthyDeathclawEgg</code>) tied to the "
-                "Burning Springs <b>Rust Kingdom</b> “Don’t Feed the "
-                "Deathclaws” event. It is a scripted event item, not a "
-                "farmable world spawn — it has no map locations, leveled-list "
-                "roll, or vendor source, so it does not appear on the map above."
+                "There is a second deathclaw egg sitting in the game files — the "
+                "<b>Healthy Deathclaw Egg</b>. You cannot get it, and you never "
+                "could. It was built for the Burning Springs update and then "
+                "dropped before release: the item still has its stats, but nothing "
+                "in the game ever hands it out. No spawn point, no nest, no loot "
+                "pool, no vendor, no event reward. So if you have seen it mentioned "
+                "somewhere and gone looking, that is why you came up empty — it "
+                "is cut content, not something you have missed, and there is "
+                "nothing to farm.<br><br>"
+                "Worth saying too: the “Don’t Feed the Deathclaws!” note "
+                "you can read over at the <b>Rust Kingdom</b> is just a bit of "
+                "scenery from Beastmaster Lina. It is a nice read, but it has "
+                "nothing to do with this egg."
             ),
         },
     ],

@@ -68,6 +68,10 @@ from spawns_engine import events as _events_engine  # noqa: E402  (Events & Acti
 import treasure_map_sources as _treasure_maps  # noqa: E402  (Treasure Maps expand — map -> dig rate)
 import farming_spawns_sources as sources  # noqa: E402  (item LVLI closure for vendor join)
 import rng76  # noqa: E402  (shared LVLI engine — computes vendor appearance rates, never hardcoded)
+# Shared effect-text helpers — the DNAM template filler and the magnitude
+# formatter the buffs pipeline uses. Imported, never re-implemented, so the
+# recipe pills and the buffs pages word an effect the same way.
+from buffs_effects import substitute_mag, _MAG_TOKEN  # noqa: E402
 # Reuse the exact effect-name / duration formatting used by the guide pages.
 from build_farming_guides_json import (  # noqa: E402
     _clean_effect_name,
@@ -146,6 +150,44 @@ def _safe_num(s: Any) -> Optional[float]:
 _GLOB_CACHE: Dict[str, Dict[str, float]] = {}
 
 
+_MGEF_DNAM_CACHE: Dict[str, Dict[str, str]] = {}
+
+
+def _load_mgef_dnam(data_dir: str) -> Dict[str, str]:
+    """MGEF EDID -> DNAM_MagicItemDescription, the game's OWN wording for the
+    effect ("Restore <MAG> HP / second", "<+MAG> Health Regen"). Filled in with
+    the resolved magnitude it is the most accurate label available, and it costs
+    nothing to keep current — a new effect ships with its own string."""
+    if data_dir in _MGEF_DNAM_CACHE:
+        return _MGEF_DNAM_CACHE[data_dir]
+    out: Dict[str, str] = {}
+    path = _newest_export(data_dir, "MGEF_Export_*.tsv")
+    if not path:
+        path = tsv_source.newest(os.path.join(data_dir, "MGEF_Export_*.tsv"),
+                                 required=False)
+    if path:
+        with open(path, encoding="utf-8", errors="replace", newline="") as f:
+            rdr = csv.reader(f, delimiter="\t")
+            try:
+                hdr = next(rdr)
+            except StopIteration:
+                hdr = []
+            try:
+                i_e = hdr.index("EDID")
+                i_d = hdr.index("DNAM_MagicItemDescription")
+            except ValueError:
+                i_e = i_d = -1
+            if i_e >= 0 and i_d >= 0:
+                for row in rdr:
+                    if len(row) > max(i_e, i_d):
+                        edid = (row[i_e] or "").strip()
+                        dnam = (row[i_d] or "").strip()
+                        if edid and dnam:
+                            out[edid] = dnam
+    _MGEF_DNAM_CACHE[data_dir] = out
+    return out
+
+
 def _load_globs(data_dir: str) -> Dict[str, float]:
     """EDID -> float for every GLOB in the newest GLOB export."""
     if data_dir in _GLOB_CACHE:
@@ -204,30 +246,55 @@ def _fmt_amount(v: Optional[float]) -> Optional[str]:
 
 
 # ── Effect display ───────────────────────────────────────────────────────────
+def _resolve_mag(magnitude: Optional[float], mag_glob: Optional[str],
+                 globs: Optional[Dict[str, float]]) -> Optional[float]:
+    """The effect's real magnitude: the MAGG GLOB when it has one, else
+    EFIT_Magnitude.
+
+    GLOB FIRST, deliberately — same order as build_farming_guides_json.py, which
+    is where the recipe effects are resolved. When the two disagree the GLOB is
+    the live value and EFIT is a leftover: Deathclaw Wellington stores EFIT 2.0 /
+    7200 while its GLOBs say 3.6 heal and 1800 hunger, and the game uses the
+    GLOBs. Reading EFIT first quietly rewrote that page's numbers."""
+    if mag_glob and globs and mag_glob in globs:
+        return globs[mag_glob]
+    return float(magnitude) if magnitude is not None else None
+
+
 def _surv_seconds(magnitude: Optional[float], mag_glob: Optional[str],
                   globs: Optional[Dict[str, float]]) -> Optional[float]:
-    """Resolve a hunger/thirst magnitude (seconds of meter restored)."""
-    if magnitude:
-        return float(magnitude)
-    if mag_glob and globs:
-        return globs.get(mag_glob)
-    return None
+    """Resolve a hunger/thirst magnitude (seconds of meter restored).
+
+    Delegates to _resolve_mag so it cannot drift from the GLOB-first rule the
+    rest of the effect pipeline follows — it used to read EFIT first, which put
+    Deathclaw Wellington's stale 7200 on the page instead of its GLOB's 1800."""
+    return _resolve_mag(magnitude, mag_glob, globs)
 
 
 def _effect_display(name: str, magnitude: Optional[float],
                     mag_glob: Optional[str],
                     duration: Optional[float] = None,
-                    globs: Optional[Dict[str, float]] = None) -> str:
+                    globs: Optional[Dict[str, float]] = None,
+                    dnam: Optional[str] = None) -> str:
     """Player-friendly one-line label for an effect (the buff duration is
     rendered separately by the front-end, so it is NOT included here — but a
     hunger/thirst "how much meter this fills" value IS, because that is the
-    effect's magnitude, not its duration)."""
+    effect's magnitude, not its duration).
+
+    Magnitude is resolved for EVERY effect, not just the hunger/health ones:
+    most food effects carry EFIT_Magnitude 0 and keep the real number in the
+    MAGG GLOB, so anything reading EFIT alone renders a bare name. Fortify Heal
+    Rate was doing exactly that — 0.125 lives in
+    SURV_Food_Effect_HealthRegen_Mag_2_Medium and the pill said just "Fortify
+    Heal Rate". Never hard-code a magnitude here; if a new effect shows up
+    without one, the GLOB or the DNAM is missing, not the number."""
     n = (name or "").strip()
     low = n.lower()
+    mag = _resolve_mag(magnitude, mag_glob, globs)
     mi = None
-    if magnitude is not None:
+    if mag is not None:
         try:
-            mi = int(round(float(magnitude)))
+            mi = int(round(float(mag)))
         except (TypeError, ValueError):
             mi = None
 
@@ -247,13 +314,25 @@ def _effect_display(name: str, magnitude: Optional[float],
         return f"-{mi}% hunger rate" if mi else "Reduced hunger rate"
     if "restore health" in low or low == "restore health":
         # Food heals per SECOND over its duration — show the TOTAL restored.
-        mag = magnitude if magnitude else (globs or {}).get(mag_glob or "")
         total = _fmt_amount((mag or 0) * duration) if (mag and duration) else _fmt_amount(mag)
         return f"Restores {total} Health" if total else "Restores Health"
     if "ap regen" in low or "action point regen" in low:
         return f"+{mi} Action Point regen" if mi else "+AP Regen"
     if "action point" in low or low.startswith("fortify action"):
         return f"+{mi} Action Points" if mi else n
+    # No bespoke phrasing above matched. Before falling back to the bare name,
+    # use the game's own description template with the magnitude filled in —
+    # "<+MAG> Health Regen" + 0.125 -> "+0.125 Health Regen". This is the same
+    # DNAM path build_buffs_json.py takes, and it is what keeps a newly added
+    # effect from rendering as a label with no number.
+    if dnam and _MAG_TOKEN.search(dnam):
+        filled = substitute_mag(dnam, mag, duration)
+        if filled and "<" not in filled:
+            return filled
+    # A token-free DNAM that already states its own number or reads as a whole
+    # sentence beats "+4 Water Breathing".
+    if dnam and "<" not in dnam and (dnam.rstrip().endswith(".") or re.search(r"\d", dnam)):
+        return dnam.strip()
     if mi:
         return f"+{mi} {n}"
     return n
@@ -304,6 +383,7 @@ def build_consumption(formid: str, data_dir: str, item_name: str = "This item") 
             break
 
     globs = _load_globs(data_dir)
+    mgef_dnam = _load_mgef_dnam(data_dir)
     effects: List[Dict[str, Any]] = []
     for r in _read_tsv(eff_path):
         if (r.get("ALCH_FormID") or "").strip().upper() != formid:
@@ -315,13 +395,18 @@ def build_consumption(formid: str, data_dir: str, item_name: str = "This item") 
         # Drop a disease-chance effect that rounds to 0% (safe to consume).
         if "disease chance" in name.lower() and (mag is None or round(mag) == 0):
             continue
-        raw_dur = _safe_num(r.get("EFIT_Duration"))
+        # Duration follows the same GLOB-first rule as the magnitude.
+        dur_glob = (r.get("DURG_GLOB_EDID") or "").strip()
+        raw_dur = globs.get(dur_glob) if dur_glob and dur_glob in globs \
+            else _safe_num(r.get("EFIT_Duration"))
         dur = _format_effect_duration(raw_dur)
         mag_glob = (r.get("MAGG_GLOB_EDID") or "").strip()
         effects.append({
             "name": name,
             "display": _effect_display(name, mag, mag_glob,
-                                       duration=raw_dur, globs=globs),
+                                       duration=raw_dur, globs=globs,
+                                       dnam=mgef_dnam.get(
+                                           (r.get("MGEF_EDID") or "").strip())),
             "duration": dur,
         })
 
@@ -455,6 +540,7 @@ def build_recipes(item_name: str, recipe_guide: Dict[str, Any],
     want = item_name.strip().lower()
     plans = _load_recipe_plans(data_dir) if data_dir else {}
     globs = _load_globs(data_dir) if data_dir else {}
+    mgef_dnam = _load_mgef_dnam(data_dir) if data_dir else {}
     seen = set()
     recipes: List[Dict[str, Any]] = []
     for rec in _iter_recipe_entries(recipe_guide):
@@ -479,7 +565,9 @@ def build_recipes(item_name: str, recipe_guide: Dict[str, Any],
                 "name": e.get("name"),
                 "display": _effect_display(e.get("name"), e.get("magnitude"),
                                            e.get("mag_glob"),
-                                           duration=e.get("duration"), globs=globs),
+                                           duration=e.get("duration"), globs=globs,
+                                           dnam=mgef_dnam.get(
+                                               (e.get("edid") or "").strip())),
                 "duration": e.get("dur_display"),
             })
         effects = _sort_effects(effects)
@@ -629,6 +717,7 @@ def build_obtain(item_name: str, formid: str, is_quest: bool, item_edid: str,
     want_fid = (formid or "").strip().upper()
     plans = _load_recipe_plans(data_dir) if data_dir else {}
     globs = _load_globs(data_dir) if data_dir else {}
+    mgef_dnam = _load_mgef_dnam(data_dir) if data_dir else {}
     seen = set()
     recipes: List[Dict[str, Any]] = []
     for rec in _iter_recipe_entries(recipe_guide):
@@ -648,7 +737,9 @@ def build_obtain(item_name: str, formid: str, is_quest: bool, item_edid: str,
                 "name": e.get("name"),
                 "display": _effect_display(e.get("name"), e.get("magnitude"),
                                            e.get("mag_glob"),
-                                           duration=e.get("duration"), globs=globs),
+                                           duration=e.get("duration"), globs=globs,
+                                           dnam=mgef_dnam.get(
+                                               (e.get("edid") or "").strip())),
                 "duration": e.get("dur_display"),
             })
         effects = _sort_effects(effects)

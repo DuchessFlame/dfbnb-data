@@ -73,6 +73,37 @@ SET_META = {
         # coming from tsv/collectable_map_numbers.tsv. Dated for the same cache
         # reason as full_map above.
         "numbered_map": "/wp-content/uploads/guide-images/collectables/Slasher-Mask-Locations/slasher_masks_numbered-2026-09.jpg",
+        # ── Editorial intro-card blocks ─────────────────────────────────
+        # The quest the masks belong to. Datamined: SDOW_MQ01_Bodies, FULL
+        # "The Slasher: Masked Truth" (QUST), DESC as written in game.
+        "quest": {
+            "name": "The Slasher: Masked Truth",
+            "desc": "Investigate the masked corpses left in the wake of a mysterious "
+                    "group's arrival.",
+        },
+        # What a mask itself pays on pickup, separate from the challenge tiers
+        # below it. GLOB SDOW_SlasherClue_XP_Reward = 400. There is no caps
+        # global on the MISC and no caps field on any of the four tiers, so XP
+        # is the whole reward — say so rather than leaving readers to assume.
+        "rewards": {
+            "heading": "Rewards",
+            "items": ["400 XP (base) per mask collected"],
+        },
+        # The last tier is named "Collect The Remaining Pint-Sized Slasher
+        # Masks" and fires at 50 of 108, which reads like a completion tier and
+        # is not one. Nothing in CHAL, GMRW or COBJ pays out past 50.
+        "challenges_note": "There is no reward for collecting all 108 masks",
+        "tips": {
+            "heading": "Tips",
+            "items": [
+                "When you get close to a mask, you will hear a laughing sound.",
+                "You can turn up the volume of the laugh by going to "
+                "Settings > Audio > Effects",
+                "You can track the challenges in game by going to "
+                "Menu > Challenges > Appalachia > (Seasonal) Collect Pint-Sized "
+                "Slasher Masks",
+            ],
+        },
     },
     "coloured-baseball-bats": {
         "name": "Coloured Baseball Bats",
@@ -341,7 +372,8 @@ def load_existing_top(path):
         data = json.load(open(path, encoding="utf-8"))
     except Exception:
         return {}
-    return {k: data[k] for k in ("blurb_quote", "full_map", "numbered_map", "challenges")
+    return {k: data[k] for k in ("blurb_quote", "full_map", "numbered_map", "challenges",
+                                "quest", "rewards", "challenges_note", "tips")
             if data.get(k)}
 
 
@@ -425,6 +457,23 @@ def load_map_numbers(slug, channel="live"):
     return out
 
 
+# Optional editorial blocks rendered in the intro card above the search field.
+# SET_META is canonical; anything hand-added to dist survives a rebuild the same
+# way blurb_quote and full_map do, so a set that gained a block by hand does not
+# lose it on the next run.
+EDITORIAL_KEYS = ("quest", "rewards", "challenges_note", "tips")
+
+
+def _editorial(meta, existing_top):
+    """{key: value} for the editorial blocks this set actually has."""
+    out = {}
+    for k in EDITORIAL_KEYS:
+        v = meta.get(k) or existing_top.get(k)
+        if v:
+            out[k] = v
+    return out
+
+
 def _prune_optional(doc):
     """Drop optional top-level keys that resolved to nothing.
 
@@ -432,7 +481,7 @@ def _prune_optional(doc):
     field reads like a missing file rather than a set that never had one, and it puts
     a meaningless line in every unrelated diff. Absent means "not applicable".
     """
-    for k in ("numbered_map",):
+    for k in ("numbered_map",) + EDITORIAL_KEYS:
         if not doc.get(k):
             doc.pop(k, None)
     return doc
@@ -451,6 +500,7 @@ def build_set(slug, rows):
     full_map = meta.get("full_map") or existing_top.get("full_map", "")
     numbered_map = meta.get("numbered_map") or existing_top.get("numbered_map", "")
     blurb_quote = meta.get("blurb_quote") or existing_top.get("blurb_quote", "")
+    editorial = _editorial(meta, existing_top)
     # In-game challenges that count this set's items, joined from the CHAL export
     # (see collectable_challenges). Falls back to whatever the committed dist already
     # carries so a channel without the export never blanks a populated block.
@@ -545,6 +595,7 @@ def build_set(slug, rows):
         "blurb_quote": blurb_quote,
         "full_map": full_map,
         "numbered_map": numbered_map,
+        **editorial,
         "challenges": challenges or {"heading": "", "items": []},
         "total": total,
         "regions": regions_out,
@@ -622,6 +673,7 @@ def build_grave_set():
     full_map = meta.get("full_map") or existing_top.get("full_map", "")
     numbered_map = meta.get("numbered_map") or existing_top.get("numbered_map", "")
     blurb_quote = meta.get("blurb_quote") or existing_top.get("blurb_quote", "")
+    editorial = _editorial(meta, existing_top)
     # In-game challenges that count this set's items, same join build_set does —
     # the output dict below has always referenced `challenges`, but the lookup was
     # only ever added to build_set, so every full run died here with a NameError
@@ -697,6 +749,7 @@ def build_grave_set():
         "blurb_quote": blurb_quote,
         "full_map": full_map,
         "numbered_map": numbered_map,
+        **editorial,
         "challenges": challenges or {"heading": "", "items": []},
         "total": total,
         "regions": regions_out,
@@ -750,6 +803,7 @@ def build_dig_set(slug):
     full_map = meta.get("full_map") or existing_top.get("full_map", "")
     numbered_map = meta.get("numbered_map") or existing_top.get("numbered_map", "")
     blurb_quote = meta.get("blurb_quote") or existing_top.get("blurb_quote", "")
+    editorial = _editorial(meta, existing_top)
     challenges = (cchal.challenges_for_set(slug, channel=RUN_CHANNEL)
                   or existing_top.get("challenges"))
 
@@ -787,6 +841,7 @@ def build_dig_set(slug):
         "set": slug, "name": meta["name"], "page_title": meta["page_title"],
         "blurb": meta["blurb"], "blurb_quote": blurb_quote, "full_map": full_map,
         "numbered_map": numbered_map,
+        **editorial,
         # Same block every other set carries. It was missing here, so once the
         # graves NameError stopped killing the job before these two sets were
         # written, a rebuild would have dropped the key off both dig pages.
