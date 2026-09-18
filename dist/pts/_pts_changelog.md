@@ -1685,7 +1685,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 - SCORE_S25_CAMPPets_SpawnFurniture_Cat_CyprusCat  `SCORE_S25_CAMPPets_SpawnFurniture_Cat_CyprusCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +159 / -23 / ~2660
+## `plan_master.json`  ·  +159 / -23 / ~2467
 
 **Added (159)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1755,48 +1755,48 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (2660)**
-- Plan: Assault Rifle Fierce Receiver  `PLAN_00000871` — fields: obtain
-- Plan: Assault Rifle Vigorous Receiver  `PLAN_00000872` — fields: obtain
-- Plan: Assault Rifle Steadfast Receiver  `PLAN_00000873` — fields: obtain
-- Plan: Alien Blaster Short NV Scope  `PLAN_00000D8D` — fields: obtain
-- Plan: Alien Blaster Fusion Mag  `PLAN_00000D8E` — fields: obtain
-- Plan: Ultra-Light Build Robot Armor Chest  `PLAN_0001BF30` — fields: obtain
-- Plan: BioCommMesh Robot Armor Lining  `PLAN_0001BF31` — fields: obtain
-- Plan: Shadowed Robot Armor Chest  `PLAN_0001BF32` — fields: obtain
-- Plan: Strengthened Robot Armor Limbs  `PLAN_0001BF34` — fields: obtain
-- Plan: Cushioned Robot Armor Legs  `PLAN_0001BF35` — fields: obtain
-- Plan: Deep Pocketed Robot Armor Chest  `PLAN_0001BF36` — fields: obtain
-- Plan: Shadowed Robot Armor Legs  `PLAN_0001BF48` — fields: obtain
-- Plan: Deep Pocketed Robot Armor Limbs  `PLAN_0001BF49` — fields: obtain
-- Plan: Ultra-Light Build Robot Armor Limbs  `PLAN_0001BF4A` — fields: obtain
-- Plan: Ultra-Light Build Marine Armor Chest  `PLAN_000218B3` — fields: obtain
-- Plan: Lead Lined Marine Armor Chest  `PLAN_000218B4` — fields: obtain
-- Plan: Shadowed Robot Armor Arms  `PLAN_000218B5` — fields: obtain
-- Plan: Strengthened Marine Armor Limbs  `PLAN_000218C4` — fields: obtain
-- Plan: Cushioned Marine Armor Legs  `PLAN_000218C5` — fields: obtain
-- Plan: Deep Pocketed Marine Armor Chest  `PLAN_000218C6` — fields: obtain
-- Plan: Shadowed Combat Armor Chest  `PLAN_0002190F` — fields: obtain
-- Plan: Deep Pocketed Marine Armor Limbs  `PLAN_00021910` — fields: obtain
-- Plan: Ultra-Light Build Marine Armor Limbs  `PLAN_00021911` — fields: obtain
-- Plan: BioCommMesh Combat Armor Lining  `PLAN_000224FB` — fields: obtain
-- Plan: Lead Lined Combat Armor Chest  `PLAN_000224FC` — fields: obtain
-- Plan: BoS Combat Armor Chest Piece  `PLAN_000224FD` — fields: obtain
-- Plan: Cushioned Combat Armor Legs  `PLAN_00022E98` — fields: obtain
-- Plan: Pocketed Combat Armor Chest  `PLAN_00022E99` — fields: obtain
-- Plan: Deep Pocketed Combat Armor Chest  `PLAN_00022E9A` — fields: obtain
-- Plan: Deep Pocketed Combat Armor Limbs  `PLAN_0002321D` — fields: obtain
-- Plan: Ultra-Light Build Combat Armor Limbs  `PLAN_0002321E` — fields: obtain
-- Plan: Strengthened Combat Armor Limbs  `PLAN_0002321F` — fields: obtain
-- Plan: BoS Combat Armor Legs  `PLAN_00026887` — fields: obtain
-- Plan: Shadowed Combat Armor Legs  `PLAN_00026888` — fields: obtain
-- Plan: Pocketed Combat Armor Limbs  `PLAN_00026889` — fields: obtain
-- Plan: Lead Lined Trapper Armor Chest  `PLAN_000268A2` — fields: obtain
-- Plan: BoS Combat Armor Arms  `PLAN_000268A3` — fields: obtain
-- Plan: Shadowed Combat Armor Arms  `PLAN_000268A4` — fields: obtain
-- Plan: Deep Pocketed Trapper Armor Chest  `PLAN_000268B9` — fields: obtain
-- Plan: Ultra-Light Build Trapper Armor Chest  `PLAN_000268BA` — fields: obtain
-- …and 2620 more
+**Changed (2467)**
+- Plan: Assault Rifle Fierce Receiver  `PLAN_00000871` — fields: obtain_routes
+- Plan: Assault Rifle Vigorous Receiver  `PLAN_00000872` — fields: obtain_routes
+- Plan: Assault Rifle Steadfast Receiver  `PLAN_00000873` — fields: obtain_routes
+- Plan: Alien Blaster Fusion Mag  `PLAN_00000D8E` — fields: obtain_routes
+- Plan: Ultra-Light Build Robot Armor Chest  `PLAN_0001BF30` — fields: obtain_routes
+- Plan: BioCommMesh Robot Armor Lining  `PLAN_0001BF31` — fields: obtain_routes
+- Plan: Shadowed Robot Armor Chest  `PLAN_0001BF32` — fields: obtain_routes
+- Plan: Strengthened Robot Armor Limbs  `PLAN_0001BF34` — fields: obtain_routes
+- Plan: Cushioned Robot Armor Legs  `PLAN_0001BF35` — fields: obtain_routes
+- Plan: Deep Pocketed Robot Armor Chest  `PLAN_0001BF36` — fields: obtain_routes
+- Plan: Shadowed Robot Armor Legs  `PLAN_0001BF48` — fields: obtain_routes
+- Plan: Deep Pocketed Robot Armor Limbs  `PLAN_0001BF49` — fields: obtain_routes
+- Plan: Ultra-Light Build Robot Armor Limbs  `PLAN_0001BF4A` — fields: obtain_routes
+- Plan: Ultra-Light Build Marine Armor Chest  `PLAN_000218B3` — fields: obtain_routes
+- Plan: Lead Lined Marine Armor Chest  `PLAN_000218B4` — fields: obtain_routes
+- Plan: Shadowed Robot Armor Arms  `PLAN_000218B5` — fields: obtain_routes
+- Plan: Strengthened Marine Armor Limbs  `PLAN_000218C4` — fields: obtain_routes
+- Plan: Cushioned Marine Armor Legs  `PLAN_000218C5` — fields: obtain_routes
+- Plan: Deep Pocketed Marine Armor Chest  `PLAN_000218C6` — fields: obtain_routes
+- Plan: Shadowed Combat Armor Chest  `PLAN_0002190F` — fields: obtain_routes
+- Plan: Deep Pocketed Marine Armor Limbs  `PLAN_00021910` — fields: obtain_routes
+- Plan: Ultra-Light Build Marine Armor Limbs  `PLAN_00021911` — fields: obtain_routes
+- Plan: BioCommMesh Combat Armor Lining  `PLAN_000224FB` — fields: obtain_routes
+- Plan: Lead Lined Combat Armor Chest  `PLAN_000224FC` — fields: obtain_routes
+- Plan: BoS Combat Armor Chest Piece  `PLAN_000224FD` — fields: obtain_routes
+- Plan: Cushioned Combat Armor Legs  `PLAN_00022E98` — fields: obtain_routes
+- Plan: Pocketed Combat Armor Chest  `PLAN_00022E99` — fields: obtain_routes
+- Plan: Deep Pocketed Combat Armor Chest  `PLAN_00022E9A` — fields: obtain_routes
+- Plan: Deep Pocketed Combat Armor Limbs  `PLAN_0002321D` — fields: obtain_routes
+- Plan: Ultra-Light Build Combat Armor Limbs  `PLAN_0002321E` — fields: obtain_routes
+- Plan: Strengthened Combat Armor Limbs  `PLAN_0002321F` — fields: obtain_routes
+- Plan: BoS Combat Armor Legs  `PLAN_00026887` — fields: obtain_routes
+- Plan: Shadowed Combat Armor Legs  `PLAN_00026888` — fields: obtain_routes
+- Plan: Pocketed Combat Armor Limbs  `PLAN_00026889` — fields: obtain_routes
+- Plan: Lead Lined Trapper Armor Chest  `PLAN_000268A2` — fields: obtain_routes
+- Plan: BoS Combat Armor Arms  `PLAN_000268A3` — fields: obtain_routes
+- Plan: Shadowed Combat Armor Arms  `PLAN_000268A4` — fields: obtain_routes
+- Plan: Deep Pocketed Trapper Armor Chest  `PLAN_000268B9` — fields: obtain_routes
+- Plan: Ultra-Light Build Trapper Armor Chest  `PLAN_000268BA` — fields: obtain_routes
+- Plan: BioCommMesh Trapper Armor Lining  `PLAN_000268BB` — fields: obtain_routes
+- …and 2427 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
