@@ -1,6 +1,6 @@
 {
-  "version": "2026-09-16",
-  "generated": "2026-09-16T17:41:12+00:00",
+  "version": "2026-09-18",
+  "generated": "2026-09-18T04:11:23+00:00",
   "sources": {
     "alch": "ALCH_Export_September_2026.tsv",
     "cobj": "COBJ_Export_September_2026.tsv",
@@ -8,7 +8,7 @@
   },
   "pages": {
     "ingredient-search": {
-      "count_ingredients": 221,
+      "count_ingredients": 223,
       "ingredients": [
         {
           "edid": "E08A_GulperVenom",
@@ -9629,8 +9629,8 @@
           "used_in": [
             {
               "recipe_edid": "SeasonalFish_CO_Meal_WinterFilletFromBogsucker",
-              "recipe_name": "Winter Filet",
-              "region": null,
+              "recipe_name": "Winter Fish Steak - Bogsucker",
+              "region": "Bogsucker",
               "workbench": "Cooking Station",
               "category": "cooking",
               "output": {
@@ -18942,6 +18942,193 @@
                 {
                   "edid": "Fish_Fishbits",
                   "name": "Fish Bits",
+                  "qty": 5
+                }
+              ],
+              "qty": 1
+            },
+            {
+              "recipe_edid": "co_meal_Fishing_WinterFishSauce",
+              "recipe_name": "Fish Sauce",
+              "region": null,
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "SeasonalFish_Meal_WinterFishSauce",
+                "formId": "00943AA2",
+                "name": "Fish Sauce",
+                "type": "Cooked",
+                "weight": 1.0,
+                "value": 40,
+                "spoils_to": "Spoiled Meat",
+                "spoil_time": {
+                  "base_minutes": 240,
+                  "curve_type": "Cooked Meat",
+                  "curve_edid": "CT_FoodHealth_CookedMeat",
+                  "curve_formId": "0052B5BB",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 436.36,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 2400.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": null,
+                "effects": [
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Quench Thirst",
+                    "edid": "SURV_Drink_Effect",
+                    "magnitude": 540.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "AP On Kill perk",
+                    "edid": "APReplenishOnKillFood_Addperk",
+                    "magnitude": 0.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": "SURV_Food_Effect_Any_Dur_2_Medium"
+                  },
+                  {
+                    "name": "AP On Kill description",
+                    "edid": "APReplenishOnKillFood_Description",
+                    "magnitude": 5.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": "SURV_Food_Effect_Any_Dur_2_Medium"
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Meat",
+                  "formId": "0037E133",
+                  "name": "Spoiled Meat",
+                  "type": "Raw",
+                  "weight": 0.25,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 15.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 9.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryVeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "WaterBoiled",
+                  "name": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "edid": "CookingFlavor_Salt",
+                  "name": "Salt",
+                  "qty": 1
+                },
+                {
+                  "edid": "CookingFlavor_Pepper",
+                  "name": "Pepper",
+                  "qty": 1
+                },
+                {
+                  "edid": "CookingFlavor_Spices",
+                  "name": "Spices",
+                  "qty": 1
+                },
+                {
+                  "edid": "SeasonalFish_Meal_WinterFillet",
+                  "name": "Winter Fish Steak",
                   "qty": 5
                 }
               ],
@@ -31250,7 +31437,7 @@
               "qty": 2
             }
           ],
-          "used_in_count": 121
+          "used_in_count": 122
         },
         {
           "edid": "Brew_Bourbon",
@@ -49643,6 +49830,214 @@
           "used_in_count": 1
         },
         {
+          "edid": "SeasonalFish_Meal_LocalLegend_Raw_Fastenfisch",
+          "formId": "00921E4B",
+          "name": "Fastenfisch",
+          "type": "Raw",
+          "weight": 1.0,
+          "value": 50,
+          "spoils_to": null,
+          "spoil_time": null,
+          "is_canned": false,
+          "canned_base": null,
+          "mutation": "Carnivore",
+          "effects": [
+            {
+              "name": "Satisfy Hunger",
+              "edid": "SURV_Food_Effect",
+              "magnitude": 1080.0,
+              "duration": 0.0,
+              "dur_display": null,
+              "mag_glob": "SURV_Food_RestoreHunger_Mag_4_Large",
+              "dur_glob": null
+            },
+            {
+              "name": "Disease Chance",
+              "edid": "SURV_DiseaseVector_Food_Effect",
+              "magnitude": 1.0,
+              "duration": 0.0,
+              "dur_display": null,
+              "mag_glob": "SURV_Food_DiseaseChance_Mag_1_Low",
+              "dur_glob": null
+            },
+            {
+              "name": "Restore Health",
+              "edid": "RestoreHealthFood",
+              "magnitude": 0.8,
+              "duration": 25.0,
+              "dur_display": "25s",
+              "mag_glob": "SURV_Food_Heal_Mag_3_Medium",
+              "dur_glob": "SURV_Food_Heal_Dur_Standard"
+            }
+          ],
+          "addiction_name": null,
+          "addiction_chance": 0.0,
+          "is_alcohol": false,
+          "is_nuka_cola": false,
+          "is_chem": false,
+          "used_in": [
+            {
+              "recipe_edid": "SeasonalFish_CO_Meal_WinterFilletFromFastenfisch",
+              "recipe_name": "Winter Fish Steak - Fastenfisch",
+              "region": "Fastenfisch",
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "SeasonalFish_Meal_WinterFillet",
+                "formId": "008B76CE",
+                "name": "Winter Fish Steak",
+                "type": "Raw",
+                "weight": 0.1,
+                "value": 8,
+                "spoils_to": "Spoiled Meat",
+                "spoil_time": {
+                  "base_minutes": 75,
+                  "curve_type": "Raw Meat",
+                  "curve_edid": "CT_FoodHealth_RawMeat",
+                  "curve_formId": "0052B5BD",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 150.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 136.36,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 750.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 150.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": "Carnivore",
+                "effects": [
+                  {
+                    "name": "Satisfy Hunger",
+                    "edid": "SURV_Food_Effect",
+                    "magnitude": 240.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RestoreHunger_Mag_1_Tiny",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Restore Health",
+                    "edid": "RestoreHealthFood",
+                    "magnitude": 0.16,
+                    "duration": 0.16,
+                    "dur_display": "0s",
+                    "mag_glob": "SURV_Food_Heal_Mag_1_Tiny",
+                    "dur_glob": "SURV_Food_Heal_Mag_1_Tiny"
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Meat",
+                  "formId": "0037E133",
+                  "name": "Spoiled Meat",
+                  "type": "Raw",
+                  "weight": 0.25,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 15.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 9.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryVeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "SeasonalFish_Meal_LocalLegend_Raw_Fastenfisch",
+                  "name": "Fastenfisch",
+                  "qty": 1
+                }
+              ],
+              "qty": 1
+            }
+          ],
+          "used_in_count": 1
+        },
+        {
           "edid": "SeasonalFish_Meal_Small_Raw_Fernskipper",
           "formId": "008A581E",
           "name": "Fernskipper",
@@ -55082,6 +55477,188 @@
               "qty": 1
             },
             {
+              "recipe_edid": "co_meal_Fishing_WinterFishKabomb",
+              "recipe_name": "Fish Kabomb",
+              "region": null,
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "SeasonalFish_Meal_WinterFishKabomb",
+                "formId": "00943A9A",
+                "name": "Fish Kabomb",
+                "type": "Cooked",
+                "weight": 1.0,
+                "value": 40,
+                "spoils_to": "Spoiled Meat",
+                "spoil_time": {
+                  "base_minutes": 240,
+                  "curve_type": "Cooked Meat",
+                  "curve_edid": "CT_FoodHealth_CookedMeat",
+                  "curve_formId": "0052B5BB",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 436.36,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 2400.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": null,
+                "effects": [
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Satisfy Hunger",
+                    "edid": "SURV_Food_Effect",
+                    "magnitude": 720.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Restore Health",
+                    "edid": "RestoreHealthFood",
+                    "magnitude": 0.8,
+                    "duration": 25.0,
+                    "dur_display": "25s",
+                    "mag_glob": "SURV_Food_Heal_Mag_3_Medium",
+                    "dur_glob": "SURV_Food_Heal_Dur_Standard"
+                  },
+                  {
+                    "name": "Radiation Damage",
+                    "edid": "FortifyRadiationDamageRegenFood",
+                    "magnitude": 2.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": "SURV_Food_Effect_Any_Dur_2_Medium"
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Meat",
+                  "formId": "0037E133",
+                  "name": "Spoiled Meat",
+                  "type": "Raw",
+                  "weight": 0.25,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 15.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 9.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryVeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "c_NuclearMaterial_scrap",
+                  "name": "Nuclear Waste",
+                  "qty": 1
+                },
+                {
+                  "edid": "c_Wood_scrap",
+                  "name": "Wood Scraps",
+                  "qty": 2
+                },
+                {
+                  "edid": "GlowingFungusVegetable",
+                  "name": "Glowing Fungus",
+                  "qty": 2
+                },
+                {
+                  "edid": "SeasonalFish_Meal_WinterFillet",
+                  "name": "Winter Fish Steak",
+                  "qty": 1
+                }
+              ],
+              "qty": 2
+            },
+            {
               "recipe_edid": "co_meal_GlowingFungusVegetableTastySoup",
               "recipe_name": "Glowing Fungus Puree",
               "region": null,
@@ -55613,7 +56190,7 @@
               "qty": 3
             }
           ],
-          "used_in_count": 8
+          "used_in_count": 9
         },
         {
           "edid": "GlowingFungusVegetableTastySoup",
@@ -80642,6 +81219,193 @@
               "qty": 1
             },
             {
+              "recipe_edid": "co_meal_Fishing_WinterFishSauce",
+              "recipe_name": "Fish Sauce",
+              "region": null,
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "SeasonalFish_Meal_WinterFishSauce",
+                "formId": "00943AA2",
+                "name": "Fish Sauce",
+                "type": "Cooked",
+                "weight": 1.0,
+                "value": 40,
+                "spoils_to": "Spoiled Meat",
+                "spoil_time": {
+                  "base_minutes": 240,
+                  "curve_type": "Cooked Meat",
+                  "curve_edid": "CT_FoodHealth_CookedMeat",
+                  "curve_formId": "0052B5BB",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 436.36,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 2400.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": null,
+                "effects": [
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Quench Thirst",
+                    "edid": "SURV_Drink_Effect",
+                    "magnitude": 540.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "AP On Kill perk",
+                    "edid": "APReplenishOnKillFood_Addperk",
+                    "magnitude": 0.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": "SURV_Food_Effect_Any_Dur_2_Medium"
+                  },
+                  {
+                    "name": "AP On Kill description",
+                    "edid": "APReplenishOnKillFood_Description",
+                    "magnitude": 5.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": "SURV_Food_Effect_Any_Dur_2_Medium"
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Meat",
+                  "formId": "0037E133",
+                  "name": "Spoiled Meat",
+                  "type": "Raw",
+                  "weight": 0.25,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 15.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 9.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryVeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "WaterBoiled",
+                  "name": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "edid": "CookingFlavor_Salt",
+                  "name": "Salt",
+                  "qty": 1
+                },
+                {
+                  "edid": "CookingFlavor_Pepper",
+                  "name": "Pepper",
+                  "qty": 1
+                },
+                {
+                  "edid": "CookingFlavor_Spices",
+                  "name": "Spices",
+                  "qty": 1
+                },
+                {
+                  "edid": "SeasonalFish_Meal_WinterFillet",
+                  "name": "Winter Fish Steak",
+                  "qty": 5
+                }
+              ],
+              "qty": 1
+            },
+            {
               "recipe_edid": "co_meal_RadToadLegTasty",
               "recipe_name": "Fried Radtoad Legs",
               "region": null,
@@ -83319,7 +84083,7 @@
               "qty": 4
             }
           ],
-          "used_in_count": 18
+          "used_in_count": 19
         },
         {
           "edid": "Fishing_Fish_Meal_Small_Raw_Axolotl02_PinkAxolotl",
@@ -104130,6 +104894,193 @@
               "qty": 1
             },
             {
+              "recipe_edid": "co_meal_Fishing_WinterFishSauce",
+              "recipe_name": "Fish Sauce",
+              "region": null,
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "SeasonalFish_Meal_WinterFishSauce",
+                "formId": "00943AA2",
+                "name": "Fish Sauce",
+                "type": "Cooked",
+                "weight": 1.0,
+                "value": 40,
+                "spoils_to": "Spoiled Meat",
+                "spoil_time": {
+                  "base_minutes": 240,
+                  "curve_type": "Cooked Meat",
+                  "curve_edid": "CT_FoodHealth_CookedMeat",
+                  "curve_formId": "0052B5BB",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 436.36,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 2400.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": null,
+                "effects": [
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Quench Thirst",
+                    "edid": "SURV_Drink_Effect",
+                    "magnitude": 540.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "AP On Kill perk",
+                    "edid": "APReplenishOnKillFood_Addperk",
+                    "magnitude": 0.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": "SURV_Food_Effect_Any_Dur_2_Medium"
+                  },
+                  {
+                    "name": "AP On Kill description",
+                    "edid": "APReplenishOnKillFood_Description",
+                    "magnitude": 5.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": "SURV_Food_Effect_Any_Dur_2_Medium"
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Meat",
+                  "formId": "0037E133",
+                  "name": "Spoiled Meat",
+                  "type": "Raw",
+                  "weight": 0.25,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 15.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 9.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryVeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "WaterBoiled",
+                  "name": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "edid": "CookingFlavor_Salt",
+                  "name": "Salt",
+                  "qty": 1
+                },
+                {
+                  "edid": "CookingFlavor_Pepper",
+                  "name": "Pepper",
+                  "qty": 1
+                },
+                {
+                  "edid": "CookingFlavor_Spices",
+                  "name": "Spices",
+                  "qty": 1
+                },
+                {
+                  "edid": "SeasonalFish_Meal_WinterFillet",
+                  "name": "Winter Fish Steak",
+                  "qty": 5
+                }
+              ],
+              "qty": 1
+            },
+            {
               "recipe_edid": "co_meal_NWOT_RadroachSkewer2",
               "recipe_name": "Fried Radroach On A Stick",
               "region": null,
@@ -106832,7 +107783,7 @@
               "qty": 1
             }
           ],
-          "used_in_count": 22
+          "used_in_count": 23
         },
         {
           "edid": "Fishing_Fish_Meal_Small_Raw_Axolotl07_ScaledAxolotl",
@@ -117430,6 +118381,193 @@
               "qty": 1
             },
             {
+              "recipe_edid": "co_meal_Fishing_WinterFishSauce",
+              "recipe_name": "Fish Sauce",
+              "region": null,
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "SeasonalFish_Meal_WinterFishSauce",
+                "formId": "00943AA2",
+                "name": "Fish Sauce",
+                "type": "Cooked",
+                "weight": 1.0,
+                "value": 40,
+                "spoils_to": "Spoiled Meat",
+                "spoil_time": {
+                  "base_minutes": 240,
+                  "curve_type": "Cooked Meat",
+                  "curve_edid": "CT_FoodHealth_CookedMeat",
+                  "curve_formId": "0052B5BB",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 436.36,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 2400.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": null,
+                "effects": [
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Quench Thirst",
+                    "edid": "SURV_Drink_Effect",
+                    "magnitude": 540.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "AP On Kill perk",
+                    "edid": "APReplenishOnKillFood_Addperk",
+                    "magnitude": 0.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": "SURV_Food_Effect_Any_Dur_2_Medium"
+                  },
+                  {
+                    "name": "AP On Kill description",
+                    "edid": "APReplenishOnKillFood_Description",
+                    "magnitude": 5.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": "SURV_Food_Effect_Any_Dur_2_Medium"
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Meat",
+                  "formId": "0037E133",
+                  "name": "Spoiled Meat",
+                  "type": "Raw",
+                  "weight": 0.25,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 15.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 9.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryVeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "WaterBoiled",
+                  "name": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "edid": "CookingFlavor_Salt",
+                  "name": "Salt",
+                  "qty": 1
+                },
+                {
+                  "edid": "CookingFlavor_Pepper",
+                  "name": "Pepper",
+                  "qty": 1
+                },
+                {
+                  "edid": "CookingFlavor_Spices",
+                  "name": "Spices",
+                  "qty": 1
+                },
+                {
+                  "edid": "SeasonalFish_Meal_WinterFillet",
+                  "name": "Winter Fish Steak",
+                  "qty": 5
+                }
+              ],
+              "qty": 1
+            },
+            {
               "recipe_edid": "BURN_co_meal_RadhogMeatCooked",
               "recipe_name": "Grilled Radhog Chops",
               "region": null,
@@ -120488,7 +121626,7 @@
               "qty": 2
             }
           ],
-          "used_in_count": 19
+          "used_in_count": 20
         },
         {
           "edid": "Fishing_Fish_Meal_Small_Raw_Mire_Spikesnapper",
@@ -145060,6 +146198,521 @@
             }
           ],
           "used_in_count": 5
+        },
+        {
+          "edid": "SeasonalFish_Meal_WinterFillet",
+          "formId": "008B76CE",
+          "name": "Winter Fish Steak",
+          "type": "Raw",
+          "weight": 0.1,
+          "value": 8,
+          "spoils_to": "Spoiled Meat",
+          "spoil_time": {
+            "base_minutes": 75,
+            "curve_type": "Raw Meat",
+            "curve_edid": "CT_FoodHealth_RawMeat",
+            "curve_formId": "0052B5BD",
+            "source": "curv_points",
+            "scope": "food",
+            "tiers": [
+              {
+                "kind": "storage",
+                "label": "Fridge",
+                "rate_mult": 0.5,
+                "reduction_pct": 50,
+                "minutes": 150.0,
+                "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+              },
+              {
+                "kind": "storage",
+                "label": "Freezer",
+                "rate_mult": 0.0,
+                "reduction_pct": 100,
+                "minutes": null,
+                "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+              },
+              {
+                "kind": "perk",
+                "label": "Good with Salt Rank 1",
+                "magnitude": 0.45,
+                "reduction_pct": 45,
+                "minutes": 136.36,
+                "source": "SPEL:AbPerkGoodWithSalt[0]"
+              },
+              {
+                "kind": "perk",
+                "label": "Good with Salt Rank 2",
+                "magnitude": 0.9,
+                "reduction_pct": 90,
+                "minutes": 750.0,
+                "source": "SPEL:AbPerkGoodWithSalt[1]"
+              },
+              {
+                "kind": "mod",
+                "label": "Refrigerated Backpack mod",
+                "magnitude": 0.5,
+                "reduction_pct": 50,
+                "minutes": 150.0,
+                "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+              }
+            ]
+          },
+          "is_canned": false,
+          "canned_base": null,
+          "mutation": "Carnivore",
+          "effects": [
+            {
+              "name": "Satisfy Hunger",
+              "edid": "SURV_Food_Effect",
+              "magnitude": 240.0,
+              "duration": 0.0,
+              "dur_display": null,
+              "mag_glob": "SURV_Food_RestoreHunger_Mag_1_Tiny",
+              "dur_glob": null
+            },
+            {
+              "name": "Rads",
+              "edid": "DamageRadiationEating",
+              "magnitude": 2.0,
+              "duration": 0.0,
+              "dur_display": null,
+              "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+              "dur_glob": null
+            },
+            {
+              "name": "Restore Health",
+              "edid": "RestoreHealthFood",
+              "magnitude": 0.16,
+              "duration": 0.16,
+              "dur_display": "0s",
+              "mag_glob": "SURV_Food_Heal_Mag_1_Tiny",
+              "dur_glob": "SURV_Food_Heal_Mag_1_Tiny"
+            }
+          ],
+          "addiction_name": null,
+          "addiction_chance": 0.0,
+          "is_alcohol": false,
+          "is_nuka_cola": false,
+          "is_chem": false,
+          "spoiled_to_output": {
+            "edid": "SpoiledFood_Meat",
+            "formId": "0037E133",
+            "name": "Spoiled Meat",
+            "type": "Raw",
+            "weight": 0.25,
+            "value": 0,
+            "spoils_to": null,
+            "spoil_time": null,
+            "is_canned": false,
+            "canned_base": null,
+            "mutation": null,
+            "effects": [
+              {
+                "name": "Rads",
+                "edid": "DamageRadiationEating",
+                "magnitude": 15.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Food_RadiationDamage_Mag_4_VeryHigh",
+                "dur_glob": null
+              },
+              {
+                "name": "Disease Chance",
+                "edid": "SURV_DiseaseVector_Food_Effect",
+                "magnitude": 9.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryVeryHigh",
+                "dur_glob": null
+              },
+              {
+                "name": "Satisfy Hunger",
+                "edid": "SURV_Food_Effect",
+                "magnitude": 720.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                "dur_glob": null
+              }
+            ],
+            "addiction_name": null,
+            "addiction_chance": 0.0,
+            "is_alcohol": false,
+            "is_nuka_cola": false,
+            "is_chem": false
+          },
+          "used_in": [
+            {
+              "recipe_edid": "co_meal_Fishing_WinterFishKabomb",
+              "recipe_name": "Fish Kabomb",
+              "region": null,
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "SeasonalFish_Meal_WinterFishKabomb",
+                "formId": "00943A9A",
+                "name": "Fish Kabomb",
+                "type": "Cooked",
+                "weight": 1.0,
+                "value": 40,
+                "spoils_to": "Spoiled Meat",
+                "spoil_time": {
+                  "base_minutes": 240,
+                  "curve_type": "Cooked Meat",
+                  "curve_edid": "CT_FoodHealth_CookedMeat",
+                  "curve_formId": "0052B5BB",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 436.36,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 2400.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": null,
+                "effects": [
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Satisfy Hunger",
+                    "edid": "SURV_Food_Effect",
+                    "magnitude": 720.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Restore Health",
+                    "edid": "RestoreHealthFood",
+                    "magnitude": 0.8,
+                    "duration": 25.0,
+                    "dur_display": "25s",
+                    "mag_glob": "SURV_Food_Heal_Mag_3_Medium",
+                    "dur_glob": "SURV_Food_Heal_Dur_Standard"
+                  },
+                  {
+                    "name": "Radiation Damage",
+                    "edid": "FortifyRadiationDamageRegenFood",
+                    "magnitude": 2.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": "SURV_Food_Effect_Any_Dur_2_Medium"
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Meat",
+                  "formId": "0037E133",
+                  "name": "Spoiled Meat",
+                  "type": "Raw",
+                  "weight": 0.25,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 15.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 9.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryVeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "c_NuclearMaterial_scrap",
+                  "name": "Nuclear Waste",
+                  "qty": 1
+                },
+                {
+                  "edid": "c_Wood_scrap",
+                  "name": "Wood Scraps",
+                  "qty": 2
+                },
+                {
+                  "edid": "GlowingFungusVegetable",
+                  "name": "Glowing Fungus",
+                  "qty": 2
+                },
+                {
+                  "edid": "SeasonalFish_Meal_WinterFillet",
+                  "name": "Winter Fish Steak",
+                  "qty": 1
+                }
+              ],
+              "qty": 1
+            },
+            {
+              "recipe_edid": "co_meal_Fishing_WinterFishSauce",
+              "recipe_name": "Fish Sauce",
+              "region": null,
+              "workbench": "Cooking Station",
+              "category": "cooking",
+              "output": {
+                "edid": "SeasonalFish_Meal_WinterFishSauce",
+                "formId": "00943AA2",
+                "name": "Fish Sauce",
+                "type": "Cooked",
+                "weight": 1.0,
+                "value": 40,
+                "spoils_to": "Spoiled Meat",
+                "spoil_time": {
+                  "base_minutes": 240,
+                  "curve_type": "Cooked Meat",
+                  "curve_edid": "CT_FoodHealth_CookedMeat",
+                  "curve_formId": "0052B5BB",
+                  "source": "curv_points",
+                  "scope": "food",
+                  "tiers": [
+                    {
+                      "kind": "storage",
+                      "label": "Fridge",
+                      "rate_mult": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                    },
+                    {
+                      "kind": "storage",
+                      "label": "Freezer",
+                      "rate_mult": 0.0,
+                      "reduction_pct": 100,
+                      "minutes": null,
+                      "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 1",
+                      "magnitude": 0.45,
+                      "reduction_pct": 45,
+                      "minutes": 436.36,
+                      "source": "SPEL:AbPerkGoodWithSalt[0]"
+                    },
+                    {
+                      "kind": "perk",
+                      "label": "Good with Salt Rank 2",
+                      "magnitude": 0.9,
+                      "reduction_pct": 90,
+                      "minutes": 2400.0,
+                      "source": "SPEL:AbPerkGoodWithSalt[1]"
+                    },
+                    {
+                      "kind": "mod",
+                      "label": "Refrigerated Backpack mod",
+                      "magnitude": 0.5,
+                      "reduction_pct": 50,
+                      "minutes": 480.0,
+                      "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                    }
+                  ]
+                },
+                "is_canned": false,
+                "canned_base": null,
+                "mutation": null,
+                "effects": [
+                  {
+                    "name": "Rads",
+                    "edid": "DamageRadiationEating",
+                    "magnitude": 2.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "Quench Thirst",
+                    "edid": "SURV_Drink_Effect",
+                    "magnitude": 540.0,
+                    "duration": 0.0,
+                    "dur_display": null,
+                    "mag_glob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+                    "dur_glob": null
+                  },
+                  {
+                    "name": "AP On Kill perk",
+                    "edid": "APReplenishOnKillFood_Addperk",
+                    "magnitude": 0.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": "SURV_Food_Effect_Any_Dur_2_Medium"
+                  },
+                  {
+                    "name": "AP On Kill description",
+                    "edid": "APReplenishOnKillFood_Description",
+                    "magnitude": 5.0,
+                    "duration": 3600.0,
+                    "dur_display": "1 hour",
+                    "mag_glob": null,
+                    "dur_glob": "SURV_Food_Effect_Any_Dur_2_Medium"
+                  }
+                ],
+                "addiction_name": null,
+                "addiction_chance": 0.0,
+                "is_alcohol": false,
+                "is_nuka_cola": false,
+                "is_chem": false,
+                "spoiled_to_output": {
+                  "edid": "SpoiledFood_Meat",
+                  "formId": "0037E133",
+                  "name": "Spoiled Meat",
+                  "type": "Raw",
+                  "weight": 0.25,
+                  "value": 0,
+                  "spoils_to": null,
+                  "spoil_time": null,
+                  "is_canned": false,
+                  "canned_base": null,
+                  "mutation": null,
+                  "effects": [
+                    {
+                      "name": "Rads",
+                      "edid": "DamageRadiationEating",
+                      "magnitude": 15.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RadiationDamage_Mag_4_VeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Disease Chance",
+                      "edid": "SURV_DiseaseVector_Food_Effect",
+                      "magnitude": 9.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_DiseaseChance_Mag_4_VeryVeryHigh",
+                      "dur_glob": null
+                    },
+                    {
+                      "name": "Satisfy Hunger",
+                      "edid": "SURV_Food_Effect",
+                      "magnitude": 720.0,
+                      "duration": 0.0,
+                      "dur_display": null,
+                      "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                      "dur_glob": null
+                    }
+                  ],
+                  "addiction_name": null,
+                  "addiction_chance": 0.0,
+                  "is_alcohol": false,
+                  "is_nuka_cola": false,
+                  "is_chem": false
+                }
+              },
+              "all_ingredients": [
+                {
+                  "edid": "WaterBoiled",
+                  "name": "Boiled Water",
+                  "qty": 1
+                },
+                {
+                  "edid": "CookingFlavor_Salt",
+                  "name": "Salt",
+                  "qty": 1
+                },
+                {
+                  "edid": "CookingFlavor_Pepper",
+                  "name": "Pepper",
+                  "qty": 1
+                },
+                {
+                  "edid": "CookingFlavor_Spices",
+                  "name": "Spices",
+                  "qty": 1
+                },
+                {
+                  "edid": "SeasonalFish_Meal_WinterFillet",
+                  "name": "Winter Fish Steak",
+                  "qty": 5
+                }
+              ],
+              "qty": 5
+            }
+          ],
+          "used_in_count": 2
         },
         {
           "edid": "Burn_Fish_Meal_Medium_Raw_BurningSprings_Walleye",

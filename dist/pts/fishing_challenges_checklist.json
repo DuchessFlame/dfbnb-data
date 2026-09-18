@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generated": "2026-09-17T13:05:57.058809+00:00",
-  "isPts": true,
+  "generated": "2026-09-18T04:40:16.218211+00:00",
+  "isPts": false,
   "source": {
     "base": "dist/challenges/challenges.json",
     "gmrwTsv": "GMRW_Export_September_2026.tsv",
@@ -847,7 +847,7 @@
       "label": "Lifetime",
       "blurb": "",
       "trackable": true,
-      "count": 45,
+      "count": 48,
       "track_ids": [
         "Challenge_Lifetime_Fishing_Progress_01_META",
         "Challenge_Lifetime_Fishing_Progress_02_META",
@@ -878,6 +878,9 @@
         "Challenge_Lifetime_Fishing_SeasonalFish_Fall_Any",
         "Challenge_Lifetime_Fishing_SeasonalFish_Fall_LocalLegend",
         "Challenge_Lifetime_Fishing_SeasonalFish_Fall_Any_02",
+        "Challenge_Lifetime_Fishing_SeasonalFish_Winter_Any",
+        "Challenge_Lifetime_Fishing_SeasonalFish_Winter_LocalLegend",
+        "Challenge_Lifetime_Fishing_SeasonalFish_Winter_Any_02",
         "Challenge_Lifetime_Fishing_SeasonalFish_AllSeasons_META",
         "Challenge_Lifetime_Fishing_Any_LocalLegend",
         "Challenge_Lifetime_Fishing_LocalLegend_01",
@@ -1501,7 +1504,7 @@
         {
           "form_id": "008006DD",
           "edid": "Challenge_Lifetime_Fishing_Axolotls_META",
-          "name": "Catch All Axolotls",
+          "name": "Catch All Monthly Axolotls",
           "required": 12,
           "counter": "",
           "type_label": "META",
@@ -1617,7 +1620,7 @@
           "reward_desc": "",
           "image_url": "",
           "conditions_display": [
-            "Target List.IsTrueForConditionForm(Challenge_Fishing_SeasonalFish_Fall_Any_Condition [CNDF:008EFCAE]) = 1"
+            "Target.HasKeyword(Fishing_FishType_Seasonal_Fall [KYWD:008B3D60]) = 1"
           ],
           "is_meta": false,
           "is_sub": false,
@@ -1643,7 +1646,7 @@
           "reward_desc": "",
           "image_url": "",
           "conditions_display": [
-            "Target List.IsTrueForConditionForm(Challenge_Fishing_SeasonalFish_Fall_LocalLegend_Condition [CNDF:008EFCAD]) = 1"
+            "Target.GetIsID(Sludge Eye [ALCH:008EFCA6]) = 1"
           ],
           "is_meta": false,
           "is_sub": false,
@@ -1673,7 +1676,89 @@
           "reward_desc": "",
           "image_url": "",
           "conditions_display": [
-            "Target List.IsTrueForConditionForm(Challenge_Fishing_SeasonalFish_Fall_Any_02_Condition [CNDF:008EFCAF]) = 1"
+            "Target.HasKeyword(Fishing_FishType_Seasonal_Fall [KYWD:008B3D60]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Seasonal Fish Guide",
+              "url": "/df/fishing/seasonal-fish-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "0094305B",
+          "edid": "Challenge_Lifetime_Fishing_SeasonalFish_Winter_Any",
+          "name": "Catch A Winter Seasonal Fish",
+          "required": 1,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "Title: Fireside",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.HasKeyword(Fishing_FishType_Seasonal_Winter [KYWD:008B3D61]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Seasonal Fish Guide",
+              "url": "/df/fishing/seasonal-fish-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "0094305D",
+          "edid": "Challenge_Lifetime_Fishing_SeasonalFish_Winter_LocalLegend",
+          "name": "Catch Winter Seasonal Local Legend: \"Fastenfisch\"",
+          "required": 1,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "Plan: Fish Sauce",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.GetIsID(Fastenfisch [ALCH:00921E4B]) = 1"
+          ],
+          "is_meta": false,
+          "is_sub": false,
+          "children": [],
+          "guides": [
+            {
+              "title": "Seasonal Fish Guide",
+              "url": "/df/fishing/seasonal-fish-guide/"
+            },
+            {
+              "title": "Local Legends Guide",
+              "url": "/df/fishing/local-legends-guide/"
+            }
+          ],
+          "trackable": true
+        },
+        {
+          "form_id": "0094305C",
+          "edid": "Challenge_Lifetime_Fishing_SeasonalFish_Winter_Any_02",
+          "name": "Catch Winter Seasonal Fish",
+          "required": 15,
+          "counter": "Fish Caught",
+          "type_label": "Lifetime",
+          "group_key": "lifetime",
+          "reward": "Title: Icy",
+          "reward_source": "cobj",
+          "reward_desc": "",
+          "image_url": "",
+          "conditions_display": [
+            "Target.HasKeyword(Fishing_FishType_Seasonal_Winter [KYWD:008B3D61]) = 1"
           ],
           "is_meta": false,
           "is_sub": false,
