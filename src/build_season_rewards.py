@@ -384,7 +384,10 @@ def build_season_json(season_num: int, items: list[dict], meta: dict) -> dict:
         # rendered in their own section rather than mixed into the rank order.
         unplaced = 0
         for it in output["items"]:
-            if "rank" in it or it.get("addedInRerun"):
+            # A row with a `page` is the season's legacy RE-RUN board (see
+            # apply_legacy_rerun_board.py): a second, ticket-priced board that
+            # sits above Original Run. It is placed - just not on the ranks.
+            if "rank" in it or it.get("addedInRerun") or it.get("page"):
                 continue
             it["unplaced"] = True
             unplaced += 1
