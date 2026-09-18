@@ -1,8 +1,8 @@
 {
-  "generated": "2026-09-18T06:49:59+00:00",
+  "generated": "2026-09-18T08:59:36+00:00",
   "sections": {
     "cobj_recipes": {
-      "generated": "2026-09-18T06:49:57+00:00",
+      "generated": "2026-09-18T08:59:34+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -12,20 +12,20 @@
         {
           "severity": "info",
           "code": "cobj.build.summary",
-          "message": "Extracted 5955 unique recipes from 114982 COBJ rows.",
+          "message": "Extracted 5850 unique recipes from 114509 COBJ rows.",
           "context": {
-            "unique_recipes": 5955,
+            "unique_recipes": 5850,
             "region_variant_items": 2,
             "ingredient_alternates": 12,
-            "total_rows": 114982,
-            "skipped_cut": 17136,
-            "no_fvpa": 2725
+            "total_rows": 114509,
+            "skipped_cut": 17047,
+            "no_fvpa": 2714
           }
         }
       ]
     },
     "menu_items": {
-      "generated": "2026-09-18T06:49:57+00:00",
+      "generated": "2026-09-18T08:59:34+00:00",
       "counts": {
         "error": 27,
         "warning": 69,
@@ -1474,49 +1474,13 @@
       ]
     },
     "bnb_menu_sync": {
-      "generated": "2026-09-18T06:49:57+00:00",
+      "generated": "2026-09-18T08:59:34+00:00",
       "counts": {
-        "error": 41,
-        "warning": 10,
+        "error": 34,
+        "warning": 1,
         "info": 1
       },
       "entries": [
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Gold Axolotl' -> Fish. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=Fishing_Fish_Meal_Small_Raw_Axolotl_Gold, form_id=00913919",
-          "context": {
-            "name": "Gold Axolotl",
-            "category": "Fish",
-            "edid": "Fishing_Fish_Meal_Small_Raw_Axolotl_Gold",
-            "form_id": "00913919"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Fastenfisch' -> Fish. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=SeasonalFish_Meal_LocalLegend_Raw_Fastenfisch, form_id=00921E4B",
-          "context": {
-            "name": "Fastenfisch",
-            "category": "Fish",
-            "edid": "SeasonalFish_Meal_LocalLegend_Raw_Fastenfisch",
-            "form_id": "00921E4B"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Unstable Present' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=ATX_MallSanta_UnstableGift_Loot, form_id=0092C795",
-          "context": {
-            "name": "Unstable Present",
-            "category": "Other",
-            "edid": "ATX_MallSanta_UnstableGift_Loot",
-            "form_id": "0092C795"
-          }
-        },
         {
           "severity": "warning",
           "code": "bnb_menu_sync.new_item.needs_price_and_limits",
@@ -1527,86 +1491,6 @@
             "category": "Other",
             "edid": "SDOW_SlasherFanReward",
             "form_id": "0092B343"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fish Kabomb' -> Fish. Auto-priced from 4-ingredient COBJ recipe: XBOX=20, PS/PC=30. Order limits (new/existing) still need to be set.",
-          "detail": "edid=SeasonalFish_Meal_WinterFishKabomb, form_id=00943A9A",
-          "context": {
-            "name": "Fish Kabomb",
-            "category": "Fish",
-            "edid": "SeasonalFish_Meal_WinterFishKabomb",
-            "form_id": "00943A9A",
-            "ingredient_count": 4,
-            "price_xbox": "20",
-            "price_ps": "30",
-            "price_pc": "30"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_limits",
-          "message": "New item 'Fish Sauce' -> Fish. Auto-priced from 5-ingredient COBJ recipe: XBOX=25, PS/PC=35. Order limits (new/existing) still need to be set.",
-          "detail": "edid=SeasonalFish_Meal_WinterFishSauce, form_id=00943AA2",
-          "context": {
-            "name": "Fish Sauce",
-            "category": "Fish",
-            "edid": "SeasonalFish_Meal_WinterFishSauce",
-            "form_id": "00943AA2",
-            "ingredient_count": 5,
-            "price_xbox": "25",
-            "price_ps": "35",
-            "price_pc": "35"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'World Pet Levelling Potion +5' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=WorldPetLevellingPotion_5, form_id=0094A64F",
-          "context": {
-            "name": "World Pet Levelling Potion +5",
-            "category": "Other",
-            "edid": "WorldPetLevellingPotion_5",
-            "form_id": "0094A64F"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'World Pet Levelling Potion Reset' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=WorldPetLevellingPotion_reset, form_id=0094A650",
-          "context": {
-            "name": "World Pet Levelling Potion Reset",
-            "category": "Other",
-            "edid": "WorldPetLevellingPotion_reset",
-            "form_id": "0094A650"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'World Pet Levelling Potion +1' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=WorldPetLevellingPotion_1, form_id=0094A64D",
-          "context": {
-            "name": "World Pet Levelling Potion +1",
-            "category": "Other",
-            "edid": "WorldPetLevellingPotion_1",
-            "form_id": "0094A64D"
-          }
-        },
-        {
-          "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'World Pet Levelling Potion +25' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
-          "detail": "edid=WorldPetLevellingPotion_25, form_id=0094A64E",
-          "context": {
-            "name": "World Pet Levelling Potion +25",
-            "category": "Other",
-            "edid": "WorldPetLevellingPotion_25",
-            "form_id": "0094A64E"
           }
         },
         {
@@ -1637,26 +1521,6 @@
           "context": {
             "name": "Slice of Vault-Tec Gelatin Cake",
             "category": "Dishes & Teas"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fastenfisch' (Fish)",
-          "detail": "Fastenfisch",
-          "context": {
-            "name": "Fastenfisch",
-            "category": "Fish"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Gold Axolotl' (Fish)",
-          "detail": "Gold Axolotl",
-          "context": {
-            "name": "Gold Axolotl",
-            "category": "Fish"
           }
         },
         {
@@ -1942,56 +1806,6 @@
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Unstable Present' (Other)",
-          "detail": "Unstable Present",
-          "context": {
-            "name": "Unstable Present",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'World Pet Levelling Potion +1' (Other)",
-          "detail": "World Pet Levelling Potion +1",
-          "context": {
-            "name": "World Pet Levelling Potion +1",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'World Pet Levelling Potion +25' (Other)",
-          "detail": "World Pet Levelling Potion +25",
-          "context": {
-            "name": "World Pet Levelling Potion +25",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'World Pet Levelling Potion +5' (Other)",
-          "detail": "World Pet Levelling Potion +5",
-          "context": {
-            "name": "World Pet Levelling Potion +5",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'World Pet Levelling Potion Reset' (Other)",
-          "detail": "World Pet Levelling Potion Reset",
-          "context": {
-            "name": "World Pet Levelling Potion Reset",
-            "category": "Other"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
           "message": "No price set: 'Cotton Candy Bites' (Pre War Food)",
           "detail": "Cotton Candy Bites",
           "context": {
@@ -2022,21 +1836,21 @@
         {
           "severity": "info",
           "code": "bnb_menu_sync.summary",
-          "message": "Sync: 765 total, 10 new, 2 updated, 41 unpriced.",
+          "message": "Sync: 756 total, 1 new, 2 updated, 34 unpriced.",
           "context": {
-            "total": 765,
-            "new": 10,
+            "total": 756,
+            "new": 1,
             "updated": 2,
-            "unpriced": 41,
-            "skipped": 227
+            "unpriced": 34,
+            "skipped": 224
           }
         }
       ]
     },
     "bnb_menu": {
-      "generated": "2026-09-18T06:49:57+00:00",
+      "generated": "2026-09-18T08:59:34+00:00",
       "counts": {
-        "error": 35,
+        "error": 28,
         "warning": 0,
         "info": 8
       },
@@ -2095,36 +1909,6 @@
         {
           "severity": "error",
           "code": "bnb_menu.row.missing_price",
-          "message": "'Fastenfisch' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Fastenfisch",
-          "context": {
-            "name": "Fastenfisch",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Gold Axolotl' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Gold Axolotl",
-          "context": {
-            "name": "Gold Axolotl",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
           "message": "'Sludge Eye' (Fish) is missing price for: xbox, ps, pc",
           "detail": "Sludge Eye",
           "context": {
@@ -2140,7 +1924,7 @@
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 439: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
+          "message": "Row 435: duplicate 'Chicken Thigh' in 'Ingredients' — keeping first.",
           "detail": "Chicken Thigh"
         },
         {
@@ -2446,19 +2230,19 @@
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 622: duplicate 'Mystery Bobblehead Box' in 'Magazines & Bobbleheads' — keeping first.",
+          "message": "Row 618: duplicate 'Mystery Bobblehead Box' in 'Magazines & Bobbleheads' — keeping first.",
           "detail": "Mystery Bobblehead Box"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 624: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
+          "message": "Row 620: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
           "detail": "Mystery Magazine Package"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 625: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
+          "message": "Row 621: duplicate 'Mystery Magazine Package' in 'Magazines & Bobbleheads' — keeping first.",
           "detail": "Mystery Magazine Package"
         },
         {
@@ -2507,90 +2291,15 @@
           }
         },
         {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Unstable Present' (Other) is missing price for: xbox, ps, pc",
-          "detail": "Unstable Present",
-          "context": {
-            "name": "Unstable Present",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'World Pet Levelling Potion +1' (Other) is missing price for: xbox, ps, pc",
-          "detail": "World Pet Levelling Potion +1",
-          "context": {
-            "name": "World Pet Levelling Potion +1",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'World Pet Levelling Potion +25' (Other) is missing price for: xbox, ps, pc",
-          "detail": "World Pet Levelling Potion +25",
-          "context": {
-            "name": "World Pet Levelling Potion +25",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'World Pet Levelling Potion +5' (Other) is missing price for: xbox, ps, pc",
-          "detail": "World Pet Levelling Potion +5",
-          "context": {
-            "name": "World Pet Levelling Potion +5",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'World Pet Levelling Potion Reset' (Other) is missing price for: xbox, ps, pc",
-          "detail": "World Pet Levelling Potion Reset",
-          "context": {
-            "name": "World Pet Levelling Potion Reset",
-            "category": "Other",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 698: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
+          "message": "Row 689: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
           "detail": "Cotton Candy Bites"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 706: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
+          "message": "Row 697: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
           "detail": "Gum Drops"
         },
         {
@@ -2611,9 +2320,9 @@
         {
           "severity": "info",
           "code": "bnb_menu.build.summary",
-          "message": "Wrote 758 menu items across 12 categories.",
+          "message": "Wrote 749 menu items across 12 categories.",
           "context": {
-            "total": 758,
+            "total": 749,
             "categories": [
               "Alcohol",
               "Canned",
@@ -2633,7 +2342,7 @@
       ]
     },
     "bnb_item_categories": {
-      "generated": "2026-09-18T06:49:58+00:00",
+      "generated": "2026-09-18T08:59:35+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -2643,22 +2352,22 @@
         {
           "severity": "info",
           "code": "bnb_categories.build.summary",
-          "message": "Built 266 items across 7 categories",
+          "message": "Built 264 items across 7 categories",
           "context": {
-            "total_items": 266,
-            "alch_records": 1003,
+            "total_items": 264,
+            "alch_records": 991,
             "source_alch": "ALCH_Export_September_2026.tsv",
             "source_kywd": "KYWD_Export_September_2026_Refs.tsv",
             "stats": {
               "food": {
-                "candidates": 611,
-                "excluded_cut": 47,
+                "candidates": 604,
+                "excluded_cut": 44,
                 "excluded_no_name": 6,
                 "excluded_by_kywd": 81,
-                "excluded_raw": 408,
+                "excluded_raw": 406,
                 "excluded_missing_alch": 0,
                 "excluded_by_edid_substring": 0,
-                "included": 69,
+                "included": 67,
                 "post_included_via_suffix": 0
               },
               "canned": {
@@ -2673,13 +2382,13 @@
                 "post_included_via_suffix": 0
               },
               "nuka_cola": {
-                "candidates": 161,
+                "candidates": 160,
                 "excluded_cut": 25,
                 "excluded_no_name": 6,
                 "excluded_by_kywd": 0,
                 "excluded_raw": 42,
                 "excluded_missing_alch": 0,
-                "excluded_by_edid_substring": 70,
+                "excluded_by_edid_substring": 69,
                 "included": 18,
                 "post_included_via_suffix": 0
               },
@@ -2733,7 +2442,7 @@
       ]
     },
     "recipe_guide": {
-      "generated": "2026-09-18T06:49:59+00:00",
+      "generated": "2026-09-18T08:59:36+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -2743,17 +2452,17 @@
         {
           "severity": "info",
           "code": "recipe_guide.build.summary",
-          "message": "Built recipe guide with 323 consumable recipes across 5 categories.",
+          "message": "Built recipe guide with 320 consumable recipes across 5 categories.",
           "context": {
-            "total": 323,
+            "total": 320,
             "by_category": {
-              "food": 226,
+              "food": 223,
               "chems": 45,
               "alcohol": 30,
               "serums": 19,
               "nuka_cola": 3
             },
-            "skipped_other": 5632,
+            "skipped_other": 5530,
             "skipped_cut": 0
           }
         }

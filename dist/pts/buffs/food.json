@@ -1,6 +1,6 @@
 {
  "version": "2026-09-18",
- "generated": "2026-09-18T06:25:30+00:00",
+ "generated": "2026-09-18T08:35:50+00:00",
  "page": "food",
  "title": "Food Buffs",
  "url": "/bnb/buffs/food/food-buffs/",
@@ -49,11 +49,6 @@
    "key": "action-points",
    "label": "Action Points",
    "count": 33
-  },
-  {
-   "key": "ap-on-kill-description",
-   "label": "AP on Kill Description",
-   "count": 1
   },
   {
    "key": "bottlecap-collector",
@@ -108,7 +103,7 @@
   {
    "key": "health",
    "label": "Health",
-   "count": 76
+   "count": 75
   },
   {
    "key": "mystery-treat",
@@ -123,16 +118,6 @@
   {
    "key": "nuka-cola-candy",
    "label": "Nuka-Cola Candy",
-   "count": 1
-  },
-  {
-   "key": "on-hit-effects",
-   "label": "On-Hit Effects",
-   "count": 1
-  },
-  {
-   "key": "radiation-damage",
-   "label": "Radiation Damage",
    "count": 1
   },
   {
@@ -453,7 +438,7 @@
      "MGEF 0000397E: RestoreHealthFood",
      "MGEF 00134836: SURV_Drink_Effect",
      "MGEF 00024056: DamageRadiationEating",
-     "Keywords: AnimFurnWater, DrinkIconGeneric, DrinkTypeWater, DrinkTypeWaterBoiled, NoScrapReturn, ObjectTypeDrink, UnsellableObject"
+     "Keywords: AnimFurnWater, DrinkIconGeneric, DrinkTypeWater, DrinkTypeWaterBoiled, ObjectTypeDrink, UnsellableObject"
     ]
    },
    "status": "live"
@@ -5408,248 +5393,6 @@
      "MGEF 00026874: SURV_Food_Effect",
      "MGEF 00024056: DamageRadiationEating",
      "Keywords: IngredientTypePastry, MealTypeCooked, MealTypePackaged, ObjectTypeCakesPies, ObjectTypeFood"
-    ]
-   },
-   "status": "live"
-  },
-  {
-   "formId": "00943A9A",
-   "edid": "SeasonalFish_Meal_WinterFishKabomb",
-   "name": "Fish Kabomb",
-   "gameName": "Fish Kabomb",
-   "description": "Effects can be dispelled with Rad-X",
-   "imageUrl": "/wp-content/uploads/guide-images/buffs/food/fish-kabomb.avif",
-   "objectType": "Food",
-   "diet": "None",
-   "weight": 1.0,
-   "value": 40,
-   "effects": [
-    {
-     "formId": "0000397E",
-     "edid": "RestoreHealthFood",
-     "full": "Restore Health",
-     "dnam": "Restore <MAG> HP / second",
-     "magnitude": 0.8,
-     "duration": 25.0,
-     "magGlob": "SURV_Food_Heal_Mag_3_Medium",
-     "durGlob": "SURV_Food_Heal_Dur_Standard",
-     "name": "Restore Health",
-     "polarity": "buff",
-     "durationDisplay": "25s",
-     "display": "Restores 20 Health",
-     "groupKey": "health",
-     "groupLabel": "Health"
-    },
-    {
-     "formId": "00026874",
-     "edid": "SURV_Food_Effect",
-     "full": "SURV_Food_Effect",
-     "dnam": "",
-     "magnitude": 720.0,
-     "duration": 0.0,
-     "magGlob": "SURV_Food_RestoreHunger_Mag_3_Medium",
-     "durGlob": null,
-     "name": "Satisfy Hunger",
-     "polarity": "buff",
-     "durationDisplay": null,
-     "display": "Satisfies hunger (720/12 min)",
-     "groupKey": null,
-     "groupLabel": null
-    },
-    {
-     "formId": "00943A9E",
-     "edid": "FortifyRadiationDamageRegenFood",
-     "full": "Radiation Damage Food",
-     "dnam": "<+MAG> RADS per second",
-     "magnitude": 2.0,
-     "duration": 3600.0,
-     "magGlob": null,
-     "durGlob": "SURV_Food_Effect_Any_Dur_2_Medium",
-     "name": "Radiation Damage",
-     "polarity": "debuff",
-     "durationDisplay": "1 hour",
-     "display": "+2 RADS per second",
-     "groupKey": "radiation-damage",
-     "groupLabel": "Radiation Damage"
-    },
-    {
-     "formId": "00024056",
-     "edid": "DamageRadiationEating",
-     "full": "Eating: Radiation Damage",
-     "dnam": "",
-     "magnitude": 2.0,
-     "duration": 0.0,
-     "magGlob": "SURV_Food_RadiationDamage_Mag_1_Low",
-     "durGlob": null,
-     "name": "Rads",
-     "polarity": "debuff",
-     "durationDisplay": null,
-     "display": "+2 Rads",
-     "groupKey": null,
-     "groupLabel": null
-    }
-   ],
-   "effectGroups": [
-    "health",
-    "radiation-damage"
-   ],
-   "obtainRoutes": [
-    {
-     "route": "Recipe / Plan",
-     "populated": false,
-     "lines": [
-      "Recipe: Not in Game"
-     ],
-     "tradeable": null,
-     "dropRate": null
-    },
-    {
-     "route": "Fresh / Raw",
-     "populated": true,
-     "lines": [
-      "Spoils into: Spoiled Meat",
-      "Fresh: Cooked item with no player recipe — found as loot or handed out by an event or quest."
-     ],
-     "tradeable": null,
-     "dropRate": null
-    }
-   ],
-   "technical": {
-    "build": [
-     "Type: Food",
-     "Weight: 1",
-     "Value: 40 caps",
-     "Spoils: Yes"
-    ],
-    "ids": [
-     "EDID: SeasonalFish_Meal_WinterFishKabomb",
-     "FormID: 00943A9A",
-     "MGEF 0000397E: RestoreHealthFood",
-     "MGEF 00026874: SURV_Food_Effect",
-     "MGEF 00943A9E: FortifyRadiationDamageRegenFood",
-     "MGEF 00024056: DamageRadiationEating",
-     "Keywords: MealTypeCooked, ObjectTypeCanSpoilDUPLICATE000, ObjectTypeFood, SeasonalFish_Meal_Winter"
-    ]
-   },
-   "status": "live"
-  },
-  {
-   "formId": "00943AA2",
-   "edid": "SeasonalFish_Meal_WinterFishSauce",
-   "name": "Fish Sauce",
-   "gameName": "Fish Sauce",
-   "description": "",
-   "imageUrl": "/wp-content/uploads/guide-images/buffs/food/fish-sauce.avif",
-   "objectType": "Drink",
-   "diet": "None",
-   "weight": 1.0,
-   "value": 40,
-   "effects": [
-    {
-     "formId": "00943D4F",
-     "edid": "APReplenishOnKillFood_Description",
-     "full": "AP On Kill description",
-     "dnam": "+5 AP on Kill",
-     "magnitude": 5.0,
-     "duration": 3600.0,
-     "magGlob": null,
-     "durGlob": "SURV_Food_Effect_Any_Dur_2_Medium",
-     "name": "AP On Kill description",
-     "polarity": "buff",
-     "durationDisplay": "1 hour",
-     "display": "+5 AP on Kill",
-     "groupKey": "ap-on-kill-description",
-     "groupLabel": "AP on Kill Description"
-    },
-    {
-     "formId": "00943D4E",
-     "edid": "APReplenishOnKillFood_Addperk",
-     "full": "AP On Kill perk",
-     "dnam": "",
-     "magnitude": 0.0,
-     "duration": 3600.0,
-     "magGlob": null,
-     "durGlob": "SURV_Food_Effect_Any_Dur_2_Medium",
-     "name": "AP On Kill perk",
-     "polarity": "buff",
-     "durationDisplay": "1 hour",
-     "display": "AP On Kill perk",
-     "groupKey": "on-hit-effects",
-     "groupLabel": "On-Hit Effects"
-    },
-    {
-     "formId": "00134836",
-     "edid": "SURV_Drink_Effect",
-     "full": "SURV_Drink_Effect",
-     "dnam": "",
-     "magnitude": 900.0,
-     "duration": 0.0,
-     "magGlob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
-     "durGlob": null,
-     "name": "Quench Thirst",
-     "polarity": "buff",
-     "durationDisplay": null,
-     "display": "Quenches thirst (900/15 min)",
-     "groupKey": null,
-     "groupLabel": null
-    },
-    {
-     "formId": "00024056",
-     "edid": "DamageRadiationEating",
-     "full": "Eating: Radiation Damage",
-     "dnam": "",
-     "magnitude": 2.0,
-     "duration": 0.0,
-     "magGlob": "SURV_Food_RadiationDamage_Mag_1_Low",
-     "durGlob": null,
-     "name": "Rads",
-     "polarity": "debuff",
-     "durationDisplay": null,
-     "display": "+2 Rads",
-     "groupKey": null,
-     "groupLabel": null
-    }
-   ],
-   "effectGroups": [
-    "ap-on-kill-description",
-    "on-hit-effects"
-   ],
-   "obtainRoutes": [
-    {
-     "route": "Recipe / Plan",
-     "populated": false,
-     "lines": [
-      "Recipe: Not in Game"
-     ],
-     "tradeable": null,
-     "dropRate": null
-    },
-    {
-     "route": "Fresh / Raw",
-     "populated": true,
-     "lines": [
-      "Spoils into: Spoiled Meat",
-      "Fresh: Cooked item with no player recipe — found as loot or handed out by an event or quest."
-     ],
-     "tradeable": null,
-     "dropRate": null
-    }
-   ],
-   "technical": {
-    "build": [
-     "Type: Drink",
-     "Weight: 1",
-     "Value: 40 caps",
-     "Spoils: Yes"
-    ],
-    "ids": [
-     "EDID: SeasonalFish_Meal_WinterFishSauce",
-     "FormID: 00943AA2",
-     "MGEF 00943D4F: APReplenishOnKillFood_Description",
-     "MGEF 00943D4E: APReplenishOnKillFood_Addperk",
-     "MGEF 00134836: SURV_Drink_Effect",
-     "MGEF 00024056: DamageRadiationEating",
-     "Keywords: DrinkTypeTeaIcon, MealTypeCooked, ObjectTypeCanSpoilDUPLICATE000, ObjectTypeDrink, SeasonalFish_Meal_Winter"
     ]
    },
    "status": "live"

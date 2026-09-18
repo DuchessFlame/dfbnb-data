@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-09-18T05:10:04+00:00",
+  "generatedAt": "2026-09-18T07:22:32+00:00",
   "type": "resource_producers",
-  "count": 110,
+  "count": 108,
   "items": [
     {
       "formId": "008F84F5",
       "edid": "ATX_ENTM_CAMP_Collector_AbandonedNest",
       "resoFormId": "008F84FB",
-      "contFormId": "008F84F4",
+      "contFormId": "",
       "entmFormId": "008F84F5",
       "displayName": "Abandoned Nest",
       "description": "Even an abandoned nest can still serve a purpose. Generates various scraps with chance at a Deathclaw Egg.",
@@ -22,7 +22,7 @@
       "production": {
         "intervalHours": 0.17,
         "intervalDisplay": "10 min 12 sec",
-        "resourceName": "Scraps & Eggs",
+        "resourceName": "",
         "resourceEdid": "ATX_ResourceAV_AbandonedNest_resource",
         "drops": [
           {
@@ -61,7 +61,7 @@
             "name": "Default",
             "resoFormId": "008F84FB",
             "lvliFormId": "008F84FA",
-            "resourceName": "Scraps & Eggs",
+            "resourceName": "",
             "drops": [
               {
                 "item": "DeathclawEgg",
@@ -98,25 +98,15 @@
         ]
       },
       "station": {
-        "capacity": 1,
+        "capacity": null,
         "powerRequired": false,
-        "flamingoUnits": 1,
-        "lockable": true
+        "flamingoUnits": null,
+        "lockable": null
       },
       "crafting": {
-        "components": [
-          {
-            "item": "Wood",
-            "count": 5
-          }
-        ]
+        "components": []
       },
-      "craftingRequirements": [
-        {
-          "name": "Wood",
-          "qty": 5
-        }
-      ],
+      "craftingRequirements": [],
       "howToObtain": {
         "method": "atom",
         "seasonNumber": null,
@@ -194,7 +184,7 @@
           "dropRate": null
         }
       ],
-      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 1",
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: —",
       "seasonNumber": null,
       "releaseDate": "2026-09-18",
       "cutContent": false,
@@ -8675,10 +8665,10 @@
       "formId": "008FAE0F",
       "edid": "ATX_ENTM_CAMP_Collector_FeastSideTable",
       "resoFormId": "008FAE16",
-      "contFormId": "008FAE0B",
+      "contFormId": "",
       "entmFormId": "008FAE0F",
       "displayName": "Feast Side Table",
-      "description": "Spare the Brahmin and grab a plate! Visit the Feast Side Table for a bountiful, guilt-free bite. The Feast Side Table will collect vegetarian food over time.",
+      "description": "",
       "imageUrl": "/wp-content/uploads/guide-images/camp-items/resource-producers/atx_camp_collector_feastsidetable_l.avif",
       "imageCarousel": [
         "/wp-content/uploads/guide-images/camp-items/resource-producers/atx_camp_collector_feastsidetable_c1.avif",
@@ -8690,545 +8680,29 @@
       "production": {
         "intervalHours": 0.17,
         "intervalDisplay": "10 min 12 sec",
-        "resourceName": "Vegetarian Food",
+        "resourceName": "",
         "resourceEdid": "ATX_ResourceAV_FeastSideTable_resource",
-        "drops": [
-          {
-            "item": "AnglerLureWeedVegetable",
-            "name": "Lure Weed",
-            "formId": "00111346",
-            "chance": 2.08333
-          },
-          {
-            "item": "AnglerLureWeedVegetableCooked",
-            "name": "Chew Stick",
-            "formId": "002944CA",
-            "chance": 2.08333
-          },
-          {
-            "item": "BlightVegetableCookedSoup",
-            "name": "Blight Soup",
-            "formId": "002944EB",
-            "chance": 2.08333
-          },
-          {
-            "item": "BrainFungusVegetable",
-            "name": "Brain Fungus",
-            "formId": "001C0FC2",
-            "chance": 2.08333
-          },
-          {
-            "item": "BrainFungusVegetableCookedSoup",
-            "name": "Brain Fungus Soup",
-            "formId": "002944F1",
-            "chance": 2.08333
-          },
-          {
-            "item": "CarrotVegetable",
-            "name": "Carrot",
-            "formId": "000F742E",
-            "chance": 2.08333
-          },
-          {
-            "item": "CarrotVegetableCookedSoup",
-            "name": "Carrot Soup",
-            "formId": "002944FD",
-            "chance": 2.08333
-          },
-          {
-            "item": "CaveFungusVegetable",
-            "name": "Cave Fungus",
-            "formId": "000330F7",
-            "chance": 2.08333
-          },
-          {
-            "item": "CaveFungusVegetableCookedSoup",
-            "name": "Cave Fungus Soup",
-            "formId": "0029450E",
-            "chance": 2.08333
-          },
-          {
-            "item": "Cooking_Razorgrain_Flour",
-            "name": "Razorgrain Flour",
-            "formId": "00478DEC",
-            "chance": 2.08333
-          },
-          {
-            "item": "CornVegetable",
-            "name": "Corn",
-            "formId": "000330F8",
-            "chance": 2.08333
-          },
-          {
-            "item": "CornVegetableCookedSoup",
-            "name": "Corn Soup",
-            "formId": "00294510",
-            "chance": 2.08333
-          },
-          {
-            "item": "FirecapVegetable",
-            "name": "Firecap",
-            "formId": "00064AF0",
-            "chance": 2.08333
-          },
-          {
-            "item": "FirecapVegetableTastySouffle",
-            "name": "Firecap Tasty Souffle",
-            "formId": "003787C7",
-            "chance": 2.08333
-          },
-          {
-            "item": "GlowingFungusVegetable",
-            "name": "Glowing Fungus",
-            "formId": "001C0FC3",
-            "chance": 2.08333
-          },
-          {
-            "item": "GlowingFungusVegetableCookedSoup",
-            "name": "Glowing Fungus Soup",
-            "formId": "00294517",
-            "chance": 2.08333
-          },
-          {
-            "item": "GlowingFungusVegetableTastySoup",
-            "name": "Glowing Fungus Puree",
-            "formId": "003C60E6",
-            "chance": 2.08333
-          },
-          {
-            "item": "GourdVegetable",
-            "name": "Gourd",
-            "formId": "000EF24D",
-            "chance": 2.08333
-          },
-          {
-            "item": "GourdVegetableCookedSoup",
-            "name": "Gourd Soup",
-            "formId": "00294518",
-            "chance": 2.08333
-          },
-          {
-            "item": "GutShroomVegetable",
-            "name": "Gut Shroom",
-            "formId": "00412186",
-            "chance": 2.08333
-          },
-          {
-            "item": "GutShroomVegetableCookedSoup",
-            "name": "Gut Shroom Soup",
-            "formId": "00424B70",
-            "chance": 2.08333
-          },
-          {
-            "item": "GutShroomVegetableCookedTea",
-            "name": "Simple Gut Shroom Tea",
-            "formId": "00424B6E",
-            "chance": 2.08333
-          },
-          {
-            "item": "MegaSlothMushroomVegetable",
-            "name": "Megasloth Mushroom",
-            "formId": "00142950",
-            "chance": 2.08333
-          },
-          {
-            "item": "MegaSlothMushroomVegetableCookedSoup",
-            "name": "Megasloth Mushroom Soup",
-            "formId": "00294519",
-            "chance": 2.08333
-          },
-          {
-            "item": "MutfruitFruit",
-            "name": "Mutfruit",
-            "formId": "00033102",
-            "chance": 2.08333
-          },
-          {
-            "item": "MutfruitFruitCookedJuice",
-            "name": "Mutfruit Juice",
-            "formId": "00294526",
-            "chance": 2.08333
-          },
-          {
-            "item": "PumpkinVegetable",
-            "name": "Pumpkin",
-            "formId": "00088C3C",
-            "chance": 2.08333
-          },
-          {
-            "item": "PumpkinVegetableCookedSoup",
-            "name": "Pumpkin Soup",
-            "formId": "001C71AA",
-            "chance": 2.08333
-          },
-          {
-            "item": "RazorgrainVegetable",
-            "name": "Razorgrain",
-            "formId": "000E0043",
-            "chance": 2.08333
-          },
-          {
-            "item": "RazorgrainVegetableCookedSoup",
-            "name": "Razorgrain Soup",
-            "formId": "0029451B",
-            "chance": 2.08333
-          },
-          {
-            "item": "SapVegetable",
-            "name": "Glowing Resin",
-            "formId": "000933EA",
-            "chance": 2.08333
-          },
-          {
-            "item": "SapVegetableCooked",
-            "name": "Syrup",
-            "formId": "0029451E",
-            "chance": 2.08333
-          },
-          {
-            "item": "SiltBeanVegetable",
-            "name": "Silt Bean",
-            "formId": "001BE2AB",
-            "chance": 2.08333
-          },
-          {
-            "item": "SiltBeanVegetableCookedSoup",
-            "name": "Silt Bean Soup",
-            "formId": "0029451F",
-            "chance": 2.08333
-          },
-          {
-            "item": "SiltBeanVegetableTastySoup",
-            "name": "Silt Bean Puree",
-            "formId": "003C60E9",
-            "chance": 2.08333
-          },
-          {
-            "item": "SnaptailReedVegetable",
-            "name": "Snaptail Reed",
-            "formId": "003C51DF",
-            "chance": 2.08333
-          },
-          {
-            "item": "SpoiledFood_Vegetable",
-            "name": "Spoiled Vegetables",
-            "formId": "0037E134",
-            "chance": 2.08333
-          },
-          {
-            "item": "SwampPlantVegetable",
-            "name": "Swamp Plant",
-            "formId": "003D7496",
-            "chance": 2.08333
-          },
-          {
-            "item": "TatoVegetableCookedSoup",
-            "name": "Tato Soup",
-            "formId": "00294520",
-            "chance": 2.08333
-          },
-          {
-            "item": "TatoVegetableFruit",
-            "name": "Tato",
-            "formId": "0009DCC4",
-            "chance": 2.08333
-          },
-          {
-            "item": "TatoVegetableTastyStew",
-            "name": "Sweet Tato Stew",
-            "formId": "003C60E3",
-            "chance": 2.08333
-          },
-          {
-            "item": "VegetableTastySoup",
-            "name": "Vegetable Medley Soup",
-            "formId": "0004A3B9",
-            "chance": 2.08333
-          }
-        ],
+        "drops": [],
         "modes": [
           {
             "name": "Default",
             "resoFormId": "008FAE16",
             "lvliFormId": "008FAE14",
-            "resourceName": "Vegetarian Food",
-            "drops": [
-              {
-                "item": "AnglerLureWeedVegetable",
-                "name": "Lure Weed",
-                "formId": "00111346",
-                "chance": 2.08333
-              },
-              {
-                "item": "AnglerLureWeedVegetableCooked",
-                "name": "Chew Stick",
-                "formId": "002944CA",
-                "chance": 2.08333
-              },
-              {
-                "item": "BlightVegetableCookedSoup",
-                "name": "Blight Soup",
-                "formId": "002944EB",
-                "chance": 2.08333
-              },
-              {
-                "item": "BrainFungusVegetable",
-                "name": "Brain Fungus",
-                "formId": "001C0FC2",
-                "chance": 2.08333
-              },
-              {
-                "item": "BrainFungusVegetableCookedSoup",
-                "name": "Brain Fungus Soup",
-                "formId": "002944F1",
-                "chance": 2.08333
-              },
-              {
-                "item": "CarrotVegetable",
-                "name": "Carrot",
-                "formId": "000F742E",
-                "chance": 2.08333
-              },
-              {
-                "item": "CarrotVegetableCookedSoup",
-                "name": "Carrot Soup",
-                "formId": "002944FD",
-                "chance": 2.08333
-              },
-              {
-                "item": "CaveFungusVegetable",
-                "name": "Cave Fungus",
-                "formId": "000330F7",
-                "chance": 2.08333
-              },
-              {
-                "item": "CaveFungusVegetableCookedSoup",
-                "name": "Cave Fungus Soup",
-                "formId": "0029450E",
-                "chance": 2.08333
-              },
-              {
-                "item": "Cooking_Razorgrain_Flour",
-                "name": "Razorgrain Flour",
-                "formId": "00478DEC",
-                "chance": 2.08333
-              },
-              {
-                "item": "CornVegetable",
-                "name": "Corn",
-                "formId": "000330F8",
-                "chance": 2.08333
-              },
-              {
-                "item": "CornVegetableCookedSoup",
-                "name": "Corn Soup",
-                "formId": "00294510",
-                "chance": 2.08333
-              },
-              {
-                "item": "FirecapVegetable",
-                "name": "Firecap",
-                "formId": "00064AF0",
-                "chance": 2.08333
-              },
-              {
-                "item": "FirecapVegetableTastySouffle",
-                "name": "Firecap Tasty Souffle",
-                "formId": "003787C7",
-                "chance": 2.08333
-              },
-              {
-                "item": "GlowingFungusVegetable",
-                "name": "Glowing Fungus",
-                "formId": "001C0FC3",
-                "chance": 2.08333
-              },
-              {
-                "item": "GlowingFungusVegetableCookedSoup",
-                "name": "Glowing Fungus Soup",
-                "formId": "00294517",
-                "chance": 2.08333
-              },
-              {
-                "item": "GlowingFungusVegetableTastySoup",
-                "name": "Glowing Fungus Puree",
-                "formId": "003C60E6",
-                "chance": 2.08333
-              },
-              {
-                "item": "GourdVegetable",
-                "name": "Gourd",
-                "formId": "000EF24D",
-                "chance": 2.08333
-              },
-              {
-                "item": "GourdVegetableCookedSoup",
-                "name": "Gourd Soup",
-                "formId": "00294518",
-                "chance": 2.08333
-              },
-              {
-                "item": "GutShroomVegetable",
-                "name": "Gut Shroom",
-                "formId": "00412186",
-                "chance": 2.08333
-              },
-              {
-                "item": "GutShroomVegetableCookedSoup",
-                "name": "Gut Shroom Soup",
-                "formId": "00424B70",
-                "chance": 2.08333
-              },
-              {
-                "item": "GutShroomVegetableCookedTea",
-                "name": "Simple Gut Shroom Tea",
-                "formId": "00424B6E",
-                "chance": 2.08333
-              },
-              {
-                "item": "MegaSlothMushroomVegetable",
-                "name": "Megasloth Mushroom",
-                "formId": "00142950",
-                "chance": 2.08333
-              },
-              {
-                "item": "MegaSlothMushroomVegetableCookedSoup",
-                "name": "Megasloth Mushroom Soup",
-                "formId": "00294519",
-                "chance": 2.08333
-              },
-              {
-                "item": "MutfruitFruit",
-                "name": "Mutfruit",
-                "formId": "00033102",
-                "chance": 2.08333
-              },
-              {
-                "item": "MutfruitFruitCookedJuice",
-                "name": "Mutfruit Juice",
-                "formId": "00294526",
-                "chance": 2.08333
-              },
-              {
-                "item": "PumpkinVegetable",
-                "name": "Pumpkin",
-                "formId": "00088C3C",
-                "chance": 2.08333
-              },
-              {
-                "item": "PumpkinVegetableCookedSoup",
-                "name": "Pumpkin Soup",
-                "formId": "001C71AA",
-                "chance": 2.08333
-              },
-              {
-                "item": "RazorgrainVegetable",
-                "name": "Razorgrain",
-                "formId": "000E0043",
-                "chance": 2.08333
-              },
-              {
-                "item": "RazorgrainVegetableCookedSoup",
-                "name": "Razorgrain Soup",
-                "formId": "0029451B",
-                "chance": 2.08333
-              },
-              {
-                "item": "SapVegetable",
-                "name": "Glowing Resin",
-                "formId": "000933EA",
-                "chance": 2.08333
-              },
-              {
-                "item": "SapVegetableCooked",
-                "name": "Syrup",
-                "formId": "0029451E",
-                "chance": 2.08333
-              },
-              {
-                "item": "SiltBeanVegetable",
-                "name": "Silt Bean",
-                "formId": "001BE2AB",
-                "chance": 2.08333
-              },
-              {
-                "item": "SiltBeanVegetableCookedSoup",
-                "name": "Silt Bean Soup",
-                "formId": "0029451F",
-                "chance": 2.08333
-              },
-              {
-                "item": "SiltBeanVegetableTastySoup",
-                "name": "Silt Bean Puree",
-                "formId": "003C60E9",
-                "chance": 2.08333
-              },
-              {
-                "item": "SnaptailReedVegetable",
-                "name": "Snaptail Reed",
-                "formId": "003C51DF",
-                "chance": 2.08333
-              },
-              {
-                "item": "SpoiledFood_Vegetable",
-                "name": "Spoiled Vegetables",
-                "formId": "0037E134",
-                "chance": 2.08333
-              },
-              {
-                "item": "SwampPlantVegetable",
-                "name": "Swamp Plant",
-                "formId": "003D7496",
-                "chance": 2.08333
-              },
-              {
-                "item": "TatoVegetableCookedSoup",
-                "name": "Tato Soup",
-                "formId": "00294520",
-                "chance": 2.08333
-              },
-              {
-                "item": "TatoVegetableFruit",
-                "name": "Tato",
-                "formId": "0009DCC4",
-                "chance": 2.08333
-              },
-              {
-                "item": "TatoVegetableTastyStew",
-                "name": "Sweet Tato Stew",
-                "formId": "003C60E3",
-                "chance": 2.08333
-              },
-              {
-                "item": "VegetableTastySoup",
-                "name": "Vegetable Medley Soup",
-                "formId": "0004A3B9",
-                "chance": 2.08333
-              }
-            ]
+            "resourceName": "",
+            "drops": []
           }
         ]
       },
       "station": {
-        "capacity": 2,
+        "capacity": null,
         "powerRequired": false,
-        "flamingoUnits": 1,
-        "lockable": true
+        "flamingoUnits": null,
+        "lockable": null
       },
       "crafting": {
-        "components": [
-          {
-            "item": "Wood",
-            "count": 5
-          }
-        ]
+        "components": []
       },
-      "craftingRequirements": [
-        {
-          "name": "Wood",
-          "qty": 5
-        }
-      ],
+      "craftingRequirements": [],
       "howToObtain": {
         "method": "atom",
         "seasonNumber": null,
@@ -9306,13 +8780,13 @@
           "dropRate": null
         }
       ],
-      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 1",
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: —",
       "seasonNumber": null,
       "releaseDate": "2026-09-18",
       "cutContent": false,
       "status": "live",
-      "subcategory": "food",
-      "bucket": "Cooked Dishes"
+      "subcategory": "other",
+      "bucket": "Misc Junk"
     },
     {
       "formId": "003C4E10",
@@ -18008,7 +17482,7 @@
       "production": {
         "intervalHours": 0.17,
         "intervalDisplay": "10 min 12 sec",
-        "resourceName": "Suspicious Items",
+        "resourceName": "Suspicous Items",
         "resourceEdid": "ATX_ResourceAV_Shredder_resource",
         "drops": [
           {
@@ -18209,7 +17683,7 @@
             "name": "Default",
             "resoFormId": "0085B25F",
             "lvliFormId": "0085B25E",
-            "resourceName": "Suspicious Items",
+            "resourceName": "Suspicous Items",
             "drops": [
               {
                 "item": "Ammo_Casing_10mm",
@@ -20540,143 +20014,6 @@
       "bucket": "Toxic Goo"
     },
     {
-      "formId": "0090B5D4",
-      "edid": "ATX_ENTM_CAMP_Collector_TreeOfSpoils",
-      "resoFormId": "0090B5D9",
-      "contFormId": "0090B5D3",
-      "entmFormId": "0090B5D4",
-      "displayName": "Tree of Spoils",
-      "description": "Even Raiders want to give gifts for the holidays, even if the gifts were pillaged from someone else.",
-      "imageUrl": "/wp-content/uploads/guide-images/camp-items/resource-producers/atx_camp_collector_treeofspoils_l.avif",
-      "imageCarousel": [
-        "/wp-content/uploads/guide-images/camp-items/resource-producers/atx_camp_collector_treeofspoils_c1.avif",
-        "/wp-content/uploads/guide-images/camp-items/resource-producers/atx_camp_collector_treeofspoils_c2.avif"
-      ],
-      "imageDds": "ATX_CAMP_Collector_TreeOfSpoils.dds",
-      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
-      "isCollectron": false,
-      "production": {
-        "intervalHours": 0.17,
-        "intervalDisplay": "10 min 12 sec",
-        "resourceName": "Tree of Spoils",
-        "resourceEdid": "ATX_ResourceAV_TreeOfSpoils_resource",
-        "drops": [],
-        "modes": [
-          {
-            "name": "Default",
-            "resoFormId": "0090B5D9",
-            "lvliFormId": "0090B5D8",
-            "resourceName": "Tree of Spoils",
-            "drops": []
-          }
-        ]
-      },
-      "station": {
-        "capacity": 1,
-        "powerRequired": false,
-        "flamingoUnits": 1,
-        "lockable": true
-      },
-      "crafting": {
-        "components": [
-          {
-            "item": "Wood",
-            "count": 5
-          }
-        ]
-      },
-      "craftingRequirements": [
-        {
-          "name": "Wood",
-          "qty": 5
-        }
-      ],
-      "howToObtain": {
-        "method": "atom",
-        "seasonNumber": null,
-        "goldBullionPrice": null,
-        "vendor": null,
-        "tradeable": null,
-        "planName": null,
-        "display": "Purchase from the Atom Shop.",
-        "badge": "atom"
-      },
-      "obtainRoutes": [
-        {
-          "route": "Caps",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Stamps",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Scoreboard",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Gold Bullion",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Atom Shop",
-          "populated": true,
-          "lines": [
-            "Purchase from the Atom Shop."
-          ],
-          "tradeable": null,
-          "dropRate": "N/A"
-        },
-        {
-          "route": "Limited Time Bundle",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Events & Activities",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Quests",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Challenges",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        }
-      ],
-      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 1",
-      "seasonNumber": null,
-      "releaseDate": "2026-09-18",
-      "cutContent": false,
-      "status": "live",
-      "subcategory": "other",
-      "bucket": "Misc Junk"
-    },
-    {
       "formId": "0067F3B2",
       "edid": "ATX_Resource_Collectron_TreeSapBucket",
       "resoFormId": "0067F3B2",
@@ -21330,157 +20667,6 @@
       ],
       "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 2",
       "seasonNumber": null,
-      "releaseDate": "2026-09-18",
-      "cutContent": false,
-      "status": "live",
-      "subcategory": "food",
-      "bucket": "Cooked Dishes"
-    },
-    {
-      "formId": "009229B6",
-      "edid": "SCORE_S27_ENTM_CAMP_Collector_VTRollerDogs",
-      "resoFormId": "009229BC",
-      "contFormId": "009229B5",
-      "entmFormId": "009229B6",
-      "displayName": "Vault-Tec Roller Dog Machine",
-      "description": "How long have these been out? Generates Hot Dogs.",
-      "imageUrl": "/wp-content/uploads/guide-images/camp-items/resource-producers/score_s27_camp_collector_vtrollerdogs_l.avif",
-      "imageCarousel": [
-        "/wp-content/uploads/guide-images/camp-items/resource-producers/score_s27_camp_collector_vtrollerdogs_c1.avif",
-        "/wp-content/uploads/guide-images/camp-items/resource-producers/score_s27_camp_collector_vtrollerdogs_c2.avif"
-      ],
-      "imageDds": "SCORE_S27_CAMP_Collector_VTRollerDogs.dds",
-      "imageFolder": "Textures/ATX/Storefront/Camp/Utility/",
-      "isCollectron": false,
-      "production": {
-        "intervalHours": 0.17,
-        "intervalDisplay": "10 min 12 sec",
-        "resourceName": "HotDog",
-        "resourceEdid": "SCORE_S27_ResourceAV_Collector_RollerDogs_Food",
-        "drops": [
-          {
-            "item": "Hotdog",
-            "name": "Hotdog",
-            "formId": "00042828",
-            "chance": 100.0
-          }
-        ],
-        "modes": [
-          {
-            "name": "Default",
-            "resoFormId": "009229BC",
-            "lvliFormId": "009229BA",
-            "resourceName": "HotDog",
-            "drops": [
-              {
-                "item": "Hotdog",
-                "name": "Hotdog",
-                "formId": "00042828",
-                "chance": 100.0
-              }
-            ]
-          }
-        ]
-      },
-      "station": {
-        "capacity": 2,
-        "powerRequired": false,
-        "flamingoUnits": 2,
-        "lockable": true
-      },
-      "crafting": {
-        "components": [
-          {
-            "item": "Steel",
-            "count": 4
-          }
-        ]
-      },
-      "craftingRequirements": [
-        {
-          "name": "Steel",
-          "qty": 4
-        }
-      ],
-      "howToObtain": {
-        "method": "scoreboard",
-        "seasonNumber": 27,
-        "goldBullionPrice": null,
-        "vendor": null,
-        "tradeable": null,
-        "planName": null,
-        "display": "Purchase with tickets from the Season 27 Scoreboard",
-        "badge": "scoreboard"
-      },
-      "obtainRoutes": [
-        {
-          "route": "Caps",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Stamps",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Scoreboard",
-          "populated": true,
-          "lines": [
-            "Purchase with tickets from the Season 27 Scoreboard"
-          ],
-          "tradeable": null,
-          "dropRate": "N/A"
-        },
-        {
-          "route": "Gold Bullion",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Atom Shop",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Limited Time Bundle",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Events & Activities",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Quests",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Challenges",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        }
-      ],
-      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 2",
-      "seasonNumber": 27,
       "releaseDate": "2026-09-18",
       "cutContent": false,
       "status": "live",
