@@ -1803,9 +1803,8 @@ for _c in cobj_rows:
             and not is_cut(_ce)):
         _cid = _c.get("COBJ_FormID", "")
         if _cid and _cid not in _known_ally_cobjs and _cid not in _ALLY_DRIFT_EXCLUDE:
-            print(f"  [INFO] new ally auto-built from data: {_cid} {_ce} "
-                  f"— add an override in data/camp/allies.json ONLY if a derived "
-                  f"field (furn/name/obtain/buff/ally) comes out wrong")
+            print(f"  [WARN] NEW ally camp object not in ALLY_COBJ_FURN: {_cid} {_ce} "
+                  f"— add the COBJ→FURN mapping")
 
 # ENTM → COBJ link: scan ENTM ECIL cols for our COBJ FormIDs
 _ally_entm_cache = {}

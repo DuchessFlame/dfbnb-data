@@ -1486,32 +1486,48 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions@users.noreply.github.com"
 
-          # Stage ONLY the files THIS build produced. This run wiped dist/ and
-          # rebuilt just the PTS channel, then relocated dist/ -> dist/pts/, so any
-          # dist/pts file owned by ANOTHER workflow and not rebuilt here
-          # (dist/pts/fish_journal.json from the live build, dist/pts/axolotl_guide.json,
-          # the plan-checklist datasets, ...) is simply ABSENT from the working tree.
-          # A plain `git add dist/pts` reads each absent tracked file as a DELETION;
-          # the owning workflow keeps modifying it on main, so the replayed commit hits
-          #   CONFLICT (modify/delete): <file> deleted in HEAD and modified in ...
-          # which `-X theirs` cannot resolve — every retry failed identically.
+          # Stage ONLY dist/pts. This run overwrote tsv/ and cleared dist/ in the
+          # ephemeral checkout; commit dist/pts, then discard everything else so
+          # the rebase/push stays clean and live tsv/ + dist/ are untouched.
+          # dist/pts/fish_journal.json is built by the LIVE workflow, not this
+          # one: dfbnb-patch-build.yml's "Build Fish Journal JSON" step writes
+          # BOTH channels in one go, and its own comment says not to duplicate
+          # the step here. This run wipes dist/ before rebuilding, so that file
+          # is simply absent from the working tree — and `git add dist/pts`
+          # reads an absent tracked file as a DELETION and commits it away.
           #
-          # --ignore-removal stages present (own) outputs and NEVER stages a removal,
-          # so the other-owned files are left exactly as main has them instead of being
-          # committed away. No file list to maintain; new PTS outputs are picked up
-          # automatically. The commit below is then INDEX-ONLY: a pathspec commit
-          # (`git commit -- dist/pts`) re-reads the working tree and would re-introduce
-          # the deletions, so the pathspec is dropped. Only dist/pts is staged here, so
-          # the index commit is still dist/pts-only.
+          # That is what breaks the live build. The patch run has the same file
+          # staged as MODIFIED, so whichever of the two pushes second gets:
+          #   CONFLICT (modify/delete): dist/pts/fish_journal.json
+          #     deleted in HEAD and modified in <the replayed commit>
+          # `-X theirs` cannot resolve modify/delete — it only settles content
+          # conflicts — so every retry hit the identical conflict and the job
+          # failed. The two workflows were also flip-flopping the file on every
+          # run, which is why the PTS twin 404'd on and off.
           #
-          # Trade-off: a PTS page legitimately removed at source is not auto-pruned (it
-          # lingers in dist/pts); remove it by hand with `git rm dist/pts/<file>` (rare).
-          git add --ignore-removal dist/pts
+          # Not building a file is not the same as deleting it.
+          #
+          # Restore it into the WORKING TREE, before staging. Un-staging it with
+          # `git reset` (what this used to do) does NOT work: the commit below
+          # names a pathspec (`git commit -m ... -- dist/pts`), and a pathspec
+          # commit deliberately IGNORES the index and re-reads those paths from
+          # the working tree — so the deletion went straight back into the
+          # commit and the modify/delete conflict came back unchanged.
+          git checkout HEAD -- dist/pts/fish_journal.json 2>/dev/null || true
+          git add dist/pts
 
+          # Any OTHER tracked dist/pts path staged as deleted is the same class
+          # of bug: a file this workflow does not rebuild. Name it loudly rather
+          # than letting it become the next modify/delete conflict.
+          gone=$(git diff --cached --name-only --diff-filter=D -- dist/pts || true)
+          if [ -n "$gone" ]; then
+            echo "WARNING: staged as DELETED in dist/pts (not rebuilt by this workflow):"
+            echo "$gone"
+          fi
           if git diff --cached --quiet; then
             echo "No PTS changes to commit."
           else
-            git commit -m "DFBNB PTS Build update"
+            git commit -m "DFBNB PTS Build update" -- dist/pts
             git checkout -- . 2>/dev/null || true
             git clean -fd tsv dist 2>/dev/null || true
             # Land on top of a moving main. Regenerated-JSON conflicts resolve in

@@ -191,25 +191,18 @@ def resolve_entm(tsv_dir: Path):
     return hits[-1] if hits else None
 
 
-def check_ally_roster(tsv_dir: Path, dist: Path) -> list[str]:
-    """Every storefront ally in the TSVs must be EMITTED by the generative
-    allies builder — checked against the built dist/allies.json, not a
-    hand-maintained list.
+def check_ally_roster(tsv_dir: Path) -> list[str]:
+    """Every storefront ally in the TSVs must appear in data/camp/allies.json.
 
-    The roster is DISCOVERED in build_allies_pets_weather_json.py
-    (discover_allies): any COBJ matching COMP_Constructible_CampObject / LiteAlly,
-    minus drift_exclude, is built automatically, with furn/name/obtain/buff/ally
-    all derived. So a new seasonal ally (Mr. Moore, Cambot Nine, ...) needs NO
-    entry in data/camp/allies.json — that file is now an overrides/exceptions
-    table, not a roster. This check therefore confirms the builder actually
-    produced every ENTM ally: it still catches a genuinely-dropped ally, but no
-    longer fails on one that simply has no override row (which is what broke the
-    build when Mr. Moore shipped).
+    ally_cobj_furn is hand-maintained, so a new ally is invisible until someone
+    remembers to add a row — Cambot Nine shipped and simply never appeared on
+    the page, with nothing failing to say so. The ENTM EDID marker
+    "ENTM_CAMP_Ally" is an exact key for the storefront allies; the store
+    CATEGORY keyword is NOT, because CAMP Pets carries the same one.
 
-    The ENTM EDID marker "ENTM_CAMP_Ally" is an exact key for storefront allies;
-    the store CATEGORY keyword is NOT (CAMP Pets share it). Quest allies (Beckett,
-    Daguerre, Raider Punk, the two Settlers) have no ENTM, so this only checks one
-    direction: every ENTM ally is present in the built output.
+    Quest allies (Beckett, Daguerre, Raider Punk, the two Settlers) have no
+    ENTM at all, so this only ever checks one direction: every ENTM ally is in
+    the table. Extra hand-added rows are fine and are not flagged.
     """
     import csv
 
@@ -218,40 +211,29 @@ def check_ally_roster(tsv_dir: Path, dist: Path) -> list[str]:
         return []  # no TSVs in this checkout — not an error
     print(f"  ..   roster source: {os.path.basename(str(entm))}")
 
-    # drift_exclude (cut allies that never shipped) still lives in the overrides
-    # file — ONE list, shared with the builder's own skip. Keyed by COBJ FormID,
-    # so each ENTM is resolved to its COBJ through ReferencedBy before testing.
     table_path = tsv_dir.parent / "data" / "camp" / "allies.json"
     try:
         with open(table_path, encoding="utf-8") as fh:
             doc = json.load(fh)
+        table = doc["ally_cobj_furn"]
     except Exception:
-        doc = {}
+        return []
+    known = {(v.get("ally") or "").strip().lower() for v in table.values()}
+    # ONE exclusion list, shared with the builder's own drift warning. It is
+    # keyed by COBJ FormID, so each ENTM is resolved to its COBJ through
+    # ReferencedBy ("<fid>:<edid>:COBJ") before being tested.
     drift_exclude = {k for k in (doc.get("drift_exclude") or {}) if not k.startswith("_")}
-
-    # KNOWN = what the generative builder actually emitted this run. Match an ENTM
-    # ally by its FormID first (exact), then by display name.
-    allies_path = dist / "allies.json"
-    try:
-        with open(allies_path, encoding="utf-8") as fh:
-            built = json.load(fh)
-    except Exception:
-        return []  # allies.json not built here (e.g. --allow-missing) — nothing to check
-    items = built.get("items", []) if isinstance(built, dict) else (built or [])
-    known_entm = {(it.get("entmFormId") or "").strip().upper()
-                  for it in items if it.get("entmFormId")}
-    known_names = {(it.get("displayName") or "").strip().lower()
-                   for it in items if it.get("displayName")}
 
     missing = []
     with open(entm, encoding="utf-8", errors="replace") as fh:
         reader = csv.DictReader(fh, delimiter="\t")
 
         # ReferencedBy is the ONLY column that maps an ENTM to its COBJ, and
-        # drift_exclude is keyed by COBJ FormID. Without the column every exclusion
-        # silently misses and the cut allies get reported as missing — so name the
-        # real problem instead of an innocent ally. Old exports (Dec 2025 - May
-        # 2026) have no such column; only the current one does.
+        # drift_exclude is keyed by COBJ FormID. Without the column every
+        # exclusion silently misses and the cut allies get reported as missing
+        # rows — so name the real problem instead of an innocent ally. The old
+        # exports (Dec 2025 - May 2026) have no such column; only the current
+        # one does.
         if "ReferencedBy" not in (reader.fieldnames or []):
             return [
                 f"allies.json roster: {os.path.basename(str(entm))} has no "
@@ -271,19 +253,14 @@ def check_ally_roster(tsv_dir: Path, dist: Path) -> list[str]:
                      re.finditer(r"([0-9A-Fa-f]{8}):[^:|]*:COBJ", refs)}
             if cobjs & drift_exclude:
                 continue
-            fid = (row.get("FormID") or "").strip().upper()
             name = (row.get("FULL") or "").replace("Lite Ally: ", "").strip()
-            if fid and fid in known_entm:
-                continue
-            if name and name.lower() in known_names:
-                continue
-            missing.append(
-                f"allies.json: {edid} ({name}) is a CAMP ally in the TSVs but is "
-                f"not in the built dist/allies.json — the generative builder did not "
-                f"emit it. Check discover_allies (COBJ EDID match), or add its COBJ "
-                f"to drift_exclude in data/camp/allies.json if it is cut content."
-            )
+            if name and name.lower() not in known:
+                missing.append(
+                    f"allies.json: {edid} ({name}) is a CAMP ally in the TSVs but has no "
+                    f"ally_cobj_furn row — it will not render on the page at all"
+                )
     return missing
+
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
@@ -313,11 +290,11 @@ def main() -> int:
 
     # Roster check: the dist JSON can be perfectly well-formed and still be
     # missing a whole ally, because membership comes from a hand-kept table.
-    roster = check_ally_roster(Path(args.tsv), dist)
+    roster = check_ally_roster(Path(args.tsv))
     if roster:
         all_problems.extend(roster)
     else:
-        print("  OK   allies.json roster (every TSV ally is in the built dist/allies.json)")
+        print("  OK   allies.json roster (every TSV ally has a row)")
 
     if all_problems:
         print(f"\nCamp-items JSON contract FAILED ({len(all_problems)} problem(s)):",
