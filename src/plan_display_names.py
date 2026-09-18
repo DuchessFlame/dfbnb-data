@@ -49,9 +49,25 @@ the name, and the flip goes ahead.
 """
 
 import csv
-import glob
 import os
 import re
+import sys
+
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import tsv_source          # one resolver for every export selection
+
+
+def _newest(pattern, tsv_dir="tsv"):
+    """Fallback export resolver for runs that inject no `newest`.
+
+    build_plan_obtain_json passes its own resolver in; the standalone
+    apply_* entry points do not. Without one this used to fall back to
+    sorted(glob(...)), which is "August" before "July" — the exact bug
+    tsv_source exists to stop. Chronological, never lexical.
+    """
+    return tsv_source.newest(os.path.join(tsv_dir or "tsv", pattern),
+                             required=False)
 
 # Spellings the plan names use that no WEAP FULL carries.
 EXTRA_WEAPONS = [
@@ -119,12 +135,7 @@ class WeaponNames:
 
     def __init__(self, tsv_dir="tsv", newest=None):
         self.names = []
-        path = None
-        if newest:
-            path = newest("WEAP_Export_*_Base.tsv", tsv_dir)
-        if not path:
-            found = sorted(glob.glob(os.path.join(tsv_dir, "WEAP_Export_*_Base.tsv")))
-            path = found[-1] if found else None
+        path = (newest or _newest)("WEAP_Export_*_Base.tsv", tsv_dir)
         self.export = os.path.basename(path) if path else ""
         seen = set()
         if path:

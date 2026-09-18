@@ -48,9 +48,25 @@ and it is already inside the rate the row prints next to the source.
 """
 
 import csv
-import glob
 import os
 import re
+import sys
+
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import tsv_source          # one resolver for every export selection
+
+
+def _newest(pattern, tsv_dir="tsv"):
+    """Fallback export resolver for runs that inject no `newest`.
+
+    build_plan_obtain_json passes its own resolver in; the standalone
+    apply_* entry points do not. Without one this used to fall back to
+    sorted(glob(...)), which is "August" before "July" — the exact bug
+    tsv_source exists to stop. Chronological, never lexical.
+    """
+    return tsv_source.newest(os.path.join(tsv_dir or "tsv", pattern),
+                             required=False)
 
 MAX_DEPTH = 6          # entry-graph walk from a source list down to the plan
 MAX_SENTENCES = 6      # per route, before "and other conditions"
@@ -420,12 +436,7 @@ class ConditionIndex:
 
     # -- loading ------------------------------------------------------------
     def _pick(self, pattern, tsv_dir, newest):
-        if newest:
-            p = newest(pattern, tsv_dir)
-            if p:
-                return p
-        found = sorted(glob.glob(os.path.join(tsv_dir, pattern)))
-        return found[-1] if found else None
+        return (newest or _newest)(pattern, tsv_dir)
 
     def _load_entries(self, tsv_dir, newest):
         path = self._pick("LVLI_Export_*_LVLI_Entries.tsv", tsv_dir, newest)
