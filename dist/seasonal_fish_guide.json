@@ -1,8 +1,8 @@
 {
-  "generated": "2026-09-18T05:36:43.635618+00:00",
+  "generated": "2026-09-18T06:39:31.467963+00:00",
   "source": {
     "fishTsv": "FISH_Export_July_2026.tsv",
-    "alchTsv": "ALCH_Export_August_2026.tsv",
+    "alchTsv": "ALCH_Export_September_2026.tsv",
     "cobjTsv": "COBJ_Export_September_2026.tsv",
     "chalTsv": "CHAL_Export_August_2026.tsv"
   },
@@ -377,7 +377,71 @@
           "catchType": "Joins the Uncommon Region pool in-season"
         }
       ],
-      "recipes": [],
+      "recipes": [
+        {
+          "name": "River Salad",
+          "subtitle": "",
+          "value": 40,
+          "ingredients": [
+            {
+              "item": "Tato",
+              "edid": "TatoVegetableFruit",
+              "qty": 1
+            },
+            {
+              "item": "Carrot",
+              "edid": "CarrotVegetable",
+              "qty": 2
+            },
+            {
+              "item": "Pepper",
+              "edid": "CookingFlavor_Pepper",
+              "qty": 1
+            },
+            {
+              "item": "Fall Sour Eelgrass",
+              "edid": "SeasonalFish_Meal_FallEelgrass",
+              "qty": 1
+            }
+          ],
+          "station": "Cooking Station",
+          "unlock": "Fall Sour Eelgrass"
+        },
+        {
+          "name": "Spicy Eelgrass Soup",
+          "subtitle": "",
+          "value": 40,
+          "ingredients": [
+            {
+              "item": "Boiled Water",
+              "edid": "WaterBoiled",
+              "qty": 1
+            },
+            {
+              "item": "Spices",
+              "edid": "CookingFlavor_Spices",
+              "qty": 1
+            },
+            {
+              "item": "Cooked Tofu",
+              "edid": "SwampPlantCookedTofu",
+              "qty": 1
+            },
+            {
+              "item": "Slipper Cactus",
+              "edid": "VegetableSlipperCactus",
+              "qty": 1
+            },
+            {
+              "item": "Fall Sour Eelgrass",
+              "edid": "SeasonalFish_Meal_FallEelgrass",
+              "qty": 5
+            }
+          ],
+          "station": "Cooking Station",
+          "unlock": "Catch Fall Seasonal Local Legend: \"Sludge Eye\""
+        }
+      ],
       "challenges": [],
       "comingSoon": [
         "Fall Local Legend -- not yet released"
