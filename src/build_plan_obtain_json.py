@@ -75,6 +75,7 @@ sys.path.insert(0, HERE)
 import rng76
 import plan_sources         # cut detection, readable source names, unlock routes
 import plan_unlocks         # COBJ.GNAM — what the game says unlocks each recipe
+import plan_source_pill     # the one-word source tag on each row
 import plan_conditions      # drop conditions per source (LVLI entry CTDAs)
 import plan_display_names   # row titles: model-first weapon paint names
 import plan_recipe_rows     # rows for recipes that have no plan book at all
@@ -1089,6 +1090,13 @@ def main(argv=None):
     if not args.no_routes and not args.offset and not args.limit and not args.only:
         print("[plan-obtain] drop conditions:")
         plan_conditions.report(plan_conditions.attach(items, TSV, newest))
+
+    # The one-word "where does this come from" tag on each row and in the
+    # export poster's SOURCE column. Pure string work over the routes that were
+    # just resolved.
+    if not args.offset and not args.limit and not args.only:
+        print("[plan-obtain] source tags:")
+        plan_source_pill.report(plan_source_pill.attach(items))
 
     # Row titles: model-first for weapon paints (plan_display_names). Pure string
     # work over the finished roster, so it runs last and costs nothing. The game's

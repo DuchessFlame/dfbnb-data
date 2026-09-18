@@ -168,12 +168,29 @@ _RX_REPLICA = re.compile(r"(^|_)(display|replica)(_|\b)", re.I)
 
 
 def _is_display_replica(item, cnam_sig, blob):
-    if cnam_sig != "MISC":
-        return False
+    """A souvenir copy of something that also exists in usable form.
+
+    NOT keyed on cnam_sig any more. The CI build resolves these rows with an
+    empty signature (only 31 rows carry ""; "MISC" appears nowhere), so the
+    sig test silently stopped matching and the Pint-Sized Slasher display
+    bobber fell back into Recipes. What it keys on instead:
+
+      * `plan_page_group` -- plan_subpages already files these under "Display
+        Replicas", and that decision is made from the same game data.
+      * a created record that is BOTH a display and a MISC item
+        (`..._Display_..._Misc`), or a name that says Replica outright.
+
+    The `_Misc` tail is what keeps the CAMP display furniture out: a glazed pot
+    is `SSE_Recipe_Workshop_Display_MediumGlazedPot` with no created record at
+    all, so it stays CAMP where it belongs.
+    """
     if (item.get("plan_page_group") or "") == "Display Replicas":
         return True
+    cnam_edid = ((item.get("cnam") or {}).get("edid") or "")
+    if re.search(r"_Display_.*_Misc$", cnam_edid, re.I):
+        return True
     name = str(item.get("name") or "")
-    return bool(_RX_REPLICA.search(blob) or _RX_REPLICA.search(name))
+    return bool(_RX_REPLICA.search(name) and re.search(r"replica", name, re.I))
 
 # Skins / paints. Tested against the EDID blob AND the display name, because a
 # few paints (e.g. a jetpack paint) carry no "paint" token in the EDID.
