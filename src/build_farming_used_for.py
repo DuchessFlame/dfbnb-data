@@ -1604,6 +1604,95 @@ def build_vendor_list(regions: List[Dict[str, Any]], cfg: Dict[str, Any],
     return rows
 
 
+_RE_TYPE_URL_CACHE: Optional[Dict[str, str]] = None
+
+
+def _load_re_type_urls() -> Dict[str, str]:
+    """lower(encounter type) -> the URL of that type's Random Encounter guide.
+
+    The guide index already carries one page per encounter type under the
+    "Random Encounter Guides" subCategory -- Assault, CAMP, Object, Scene,
+    Travel, Whitespring and the limited-time ones. Their titles are all
+    "<Type> Random Encounters", so the type word IS the key; nothing needs a
+    hand-written slug map, and a new encounter type wires itself up the moment
+    its guide is added to the index.
+
+    Deliberately NOT the "Random Encounter Locations" pages -- those answer
+    "where", and a reader clicking an encounter's TYPE wants "what is an Object
+    encounter", which is the guide.
+    """
+    global _RE_TYPE_URL_CACHE
+    if _RE_TYPE_URL_CACHE is not None:
+        return _RE_TYPE_URL_CACHE
+    out: Dict[str, str] = {}
+    path = os.path.join(REPO, "tsv", "guide_index.tsv")
+    try:
+        with open(path, newline="", encoding="utf-8") as f:
+            for row in csv.DictReader(f, delimiter="\t"):
+                if (row.get("subCategory") or "").strip() != "Random Encounter Guides":
+                    continue
+                if (row.get("status") or "").strip() not in ("", "published"):
+                    continue
+                url = (row.get("url") or "").strip()
+                title = (row.get("title") or "").strip()
+                if not url or not title.endswith("Random Encounters"):
+                    continue
+                key = title[: -len("Random Encounters")].strip().lower()
+                if key:
+                    out.setdefault(key, url)
+    except OSError:
+        pass
+    _RE_TYPE_URL_CACHE = out
+    return out
+
+
+def _patch_farming_tips(doc: Dict[str, Any]) -> None:
+    """Top up `farming_tips.refrigerated` on a perishable item's doc.
+
+    `farming_tips` is assembled by the SPAWN build (spawns_configs/farming.py),
+    which needs the Mappalachia DB and so only runs on the author's machine.
+    Bolting this on here — the pass that runs over every doc in every family —
+    means the Refrigerated numbers land on drinks, meat and plants too without
+    a full spawn rebuild, the same way containers and treasure maps are bolted
+    on cross-family.
+
+    Idempotent, and it never overwrites what the spawn build already wrote."""
+    ft = doc.get("farming_tips")
+    if not isinstance(ft, dict) or not ft.get("spoils") or ft.get("refrigerated"):
+        return
+    try:
+        import perk_ranks
+    except Exception:
+        return
+    try:
+        fr = perk_ranks.refrigerated_mod()
+    except Exception:
+        fr = None
+    if fr:
+        ft["refrigerated"] = fr
+
+
+def _patch_random_encounters(doc: Dict[str, Any]) -> None:
+    """Hyperlink each random encounter's TYPE to that type's guide.
+
+    The encounters themselves are hand-authored in the spawn config (they are an
+    editorial call about which encounters are worth naming), but the LINK is not
+    typed -- it is resolved from the guide index so a moved or renamed guide
+    can't leave a dead link behind on thirty item pages."""
+    rows = doc.get("random_encounters")
+    if not isinstance(rows, list) or not rows:
+        return
+    urls = _load_re_type_urls()
+    if not urls:
+        return
+    for r in rows:
+        if not isinstance(r, dict):
+            continue
+        url = urls.get((r.get("type") or "").strip().lower())
+        if url:
+            r["type_url"] = url
+
+
 # ── Assemble + inject ────────────────────────────────────────────────────────
 def build_used_for(cfg: Dict[str, Any], dist_dir: str, data_dir: str,
                    recipe_guide: Dict[str, Any], bench_cat: Dict[str, str]) -> Dict[str, Any]:
@@ -1747,6 +1836,9 @@ def inject(slug: str, used_for: Dict[str, Any], cfg: Dict[str, Any], dist_dir: s
     # so the type list is the final word on doc['drop_rates']['containers']).
     _patch_containers(doc, closure_lists, _target_fids(cfg), rates,
                       cont_names or {}, tables)
+    # Random-encounter TYPE -> that type's guide page (guide-index driven).
+    _patch_random_encounters(doc)
+    _patch_farming_tips(doc)
     vendor_list = build_vendor_list(doc.get("regions", []), cfg,
                                     item_closure=item_closure, vendor_master=vendor_master,
                                     rates=rates)

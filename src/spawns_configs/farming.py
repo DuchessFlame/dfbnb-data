@@ -215,11 +215,20 @@ def _farming_tips(cfg, channel):
             slugs.append(slug)
 
     resolved = perk_ranks.cards(slugs, channel) if slugs else {}
-    if not resolved:
+
+    # The Refrigerated backpack mod is not a perk card, but it is the same rule:
+    # the page used to say "slows food spoilage while equipped" with no number
+    # while the number sat in the ENCH record. Only perishables care.
+    refrigerated = perk_ranks.refrigerated_mod(channel) if ft.get("spoils") else None
+
+    if not resolved and not refrigerated:
         return ft
 
     out = dict(ft)
-    out["perk_cards"] = resolved
+    if resolved:
+        out["perk_cards"] = resolved
+    if refrigerated:
+        out["refrigerated"] = refrigerated
     return out
 
 

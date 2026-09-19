@@ -104,6 +104,76 @@ def _rows(pattern, channel):
     return _ROWS[key]
 
 
+# The Refrigerated backpack mod is not a perk card, but it is the same problem
+# this module exists for: the farming pages said "slows food spoilage while
+# equipped" with no number, while the number sat in the exports the whole time.
+REFRIGERATED_ENCH = "EnchBackpack_Effect_Refrigerated"
+
+
+def _ench_effect_1_magnitude(row):
+    """Effect 1's magnitude out of an ENCH row, tolerating a SHIFTED export.
+
+    ``!!!Wordpress - ExportENCHToTSV.pas`` writes the first effect's form ID and
+    editor ID JOINED into one cell (``0042E51B:Backpack_ReduceFoodSpoilage...``)
+    while the header still declares them as two columns. Every data row is
+    therefore one column SHORT of its header, and a straight
+    ``row["Effect_1_Magnitude"]`` silently reads Effect_1_Area instead -- which
+    is 0, so the value looks absent rather than wrong. That is how the
+    Refrigerated mod's 50% went missing.
+
+    So: if the FID cell carries the joined ``FID:EID`` form, the magnitude is in
+    the cell the header calls ``Effect_1_MGEF_EID``. Otherwise read the declared
+    column. Both shapes work, so this keeps reading correctly after the .pas is
+    fixed and the export is re-run.
+    """
+    fid = (row.get("Effect_1_MGEF_FID") or "").strip()
+    cell = row.get("Effect_1_MGEF_EID") if ":" in fid else row.get("Effect_1_Magnitude")
+    try:
+        return float((cell or "").strip())
+    except (TypeError, ValueError):
+        return None
+
+
+def refrigerated_mod(channel="live"):
+    """The Refrigerated backpack mod's spoilage reduction, read from its ENCH.
+
+    Chain: OMOD ``mod_BackPack_Effect_Refrigerated`` (0042E519) adds the
+    enchantment ``EnchBackpack_Effect_Refrigerated`` (ENCH 004787A8), whose one
+    effect is ``Backpack_ReduceFoodSpoilageEffect`` at magnitude 0.500000.
+    Same fraction convention as the perk magnitudes above, so that is 50%.
+
+    That MGEF's own description reads
+    ``-<mag>% Food Spoilage Rate. Does not stack with Good with Salt Perk`` --
+    the no-stacking rule is Bethesda's line, not ours, so the page states it
+    rather than letting a reader assume the mod and the perk add up.
+
+    Ignore the ``DEPRECATED_mod_BackPack_Effect_Refrigerated`` OMOD (004787A9);
+    it is a weight mod with no spoilage effect and matching on the name alone
+    picks it up.
+
+    Returns None when the export isn't there, so the renderer can fall back to
+    its old no-number sentence rather than printing a blank.
+    """
+    key = ("refrigerated", channel)
+    if key in _CACHE:
+        return _CACHE[key]
+    out = None
+    for row in _rows("ENCH_Export_*.tsv", channel):
+        if (row.get("ENCH_EDID") or "").strip() != REFRIGERATED_ENCH:
+            continue
+        mag = _ench_effect_1_magnitude(row)
+        if not mag:
+            break
+        out = {
+            "name": (row.get("ENCH_FULL") or "Refrigerated Backpack").strip(),
+            "reduction": _pct(mag),
+            "stacks_with_good_with_salt": False,
+        }
+        break
+    _CACHE[key] = out
+    return out
+
+
 def _pct(magnitude):
     """0.45 -> '45%'. Magnitudes are stored as a fraction of the base rate."""
     return f"{round(float(magnitude) * 100):g}%"
