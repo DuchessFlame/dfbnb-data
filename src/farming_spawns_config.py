@@ -156,6 +156,8 @@ CREAM = {
 }
 
 # ── DEATHCLAW EGGS ───────────────────────────────────────────────────────────────
+IMG_DEATHCLAW_EGG = "/wp-content/uploads/guide-images/farming-eggs/deathclaw-eggs/"
+
 DEATHCLAW_EGG = {
     "slug": "deathclaw-egg",
     "name": "Deathclaw Egg",
@@ -196,6 +198,24 @@ DEATHCLAW_EGG = {
     # "events_notes" below, so it sits with the events answer rather than
     # floating as a root expand of its own.
     "info_notes": [],
+    # ── Gallery (bottom-of-page thumbnail strip) ──────────────────────
+    # The rendered interior cell maps from src/render_spawn_maps.py. A
+    # single-spawn marker has only two photo slots ("Map location" and
+    # "Item in place"), so a cell map cannot hang off the marker without
+    # hiding the in-world photo — the gallery is where they live instead.
+    # Order follows the page's region order, not the filenames.
+    "gallery": [
+        {"url": IMG_DEATHCLAW_EGG + "ash-heap-tunnel-of-love-cell-map.avif",
+         "caption": "Tunnel of Love"},
+        {"url": IMG_DEATHCLAW_EGG + "forest-enclave-research-facility-cell-map.avif",
+         "caption": "Transmission Station 1AT-U03 (Enclave Research Facility)"},
+        {"url": IMG_DEATHCLAW_EGG + "skyline-valley-atrium-upper-level-cell-map.avif",
+         "caption": "Dark Hollow Manor (Vault 63 > Atrium Upper Level)"},
+        {"url": IMG_DEATHCLAW_EGG + "the-mire-abandoned-waste-dump-cavern-cell-map.avif",
+         "caption": "Abandoned Waste Dump (Cavern)"},
+        {"url": IMG_DEATHCLAW_EGG + "burning-springs-highway-town-interior-cell-map.avif",
+         "caption": "Highway Town Interior"},
+    ],
     # ── Notes that hang off the Events & Activities expand ──────────────
     # Rendered as a sub-expand inside that expand by
     # df-bnb-farming-non-perishable-guide.js.

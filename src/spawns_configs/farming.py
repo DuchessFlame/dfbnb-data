@@ -308,6 +308,7 @@ def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir, channel="l
         "used_for": cfg.get("used_for"),
         "additional_expands": cfg.get("additional_expands"),
         "info_notes": cfg.get("info_notes"),
+        "gallery": cfg.get("gallery"),
         "random_encounters": cfg.get("random_encounters"),
         "events_activities": events_activities,
         "regions": regions_out,
