@@ -1,12 +1,12 @@
 {
- "version": "2026-09-17",
- "generated": "2026-09-17T13:05:15+00:00",
+ "version": "2026-09-19",
+ "generated": "2026-09-19T11:29:36+00:00",
  "page": "food",
  "title": "Food Buffs",
  "url": "/bnb/buffs/food/food-buffs/",
  "blurb": "Every food, canned meal, tea, juice and sweet that grants a buff, grouped by the effect it gives. SPECIAL first, then everything else A-Z. A dish with more than one effect appears under each of them.",
  "countNoun": "food and drink items",
- "sourceAlch": "ALCH_Export_August_2026.tsv",
+ "sourceAlch": "ALCH_Export_September_2026.tsv",
  "sourceMgef": "MGEF_Export_September_2026.tsv",
  "mode": "effect-groups",
  "groups": [
@@ -28,7 +28,7 @@
   {
    "key": "charisma",
    "label": "Charisma",
-   "count": 6
+   "count": 7
   },
   {
    "key": "intelligence",
@@ -48,7 +48,7 @@
   {
    "key": "action-points",
    "label": "Action Points",
-   "count": 32
+   "count": 33
   },
   {
    "key": "bottlecap-collector",
@@ -83,7 +83,12 @@
   {
    "key": "energy-resistance",
    "label": "Energy Resistance",
-   "count": 2
+   "count": 1
+  },
+  {
+   "key": "fire-resistance",
+   "label": "Fire Resistance",
+   "count": 1
   },
   {
    "key": "fishing",
@@ -98,7 +103,7 @@
   {
    "key": "health",
    "label": "Health",
-   "count": 74
+   "count": 75
   },
   {
    "key": "mystery-treat",
@@ -1693,7 +1698,7 @@
      "name": "Restore Health",
      "polarity": "buff",
      "durationDisplay": "25s",
-     "display": "Restores 15 Health",
+     "display": "Restores 15.002 Health",
      "groupKey": "health",
      "groupLabel": "Health"
     },
@@ -3092,20 +3097,20 @@
    "value": 19,
    "effects": [
     {
-     "formId": "0022699F",
-     "edid": "FortifyResistEnergyFood",
-     "full": "Fortify Energy Resist Food",
+     "formId": "00150736",
+     "edid": "FortifyResistFireFood",
+     "full": "Fortify Fire Resist Food",
      "dnam": "",
-     "magnitude": 25.0,
+     "magnitude": 75.0,
      "duration": 1800.0,
-     "magGlob": "SURV_Food_Effect_FortifyResistEnergy_Mag_2_Medium",
+     "magGlob": null,
      "durGlob": "SURV_Food_Effect_Any_Dur_1_Short",
-     "name": "Fortify Energy Resist",
+     "name": "Fortify Fire Resist",
      "polarity": "buff",
      "durationDisplay": "30 min",
-     "display": "+25 Energy Resist",
-     "groupKey": "energy-resistance",
-     "groupLabel": "Energy Resistance"
+     "display": "+75 Fire Resist",
+     "groupKey": "fire-resistance",
+     "groupLabel": "Fire Resistance"
     },
     {
      "formId": "0000397E",
@@ -3157,7 +3162,7 @@
     }
    ],
    "effectGroups": [
-    "energy-resistance",
+    "fire-resistance",
     "health"
    ],
    "obtainRoutes": [
@@ -3192,11 +3197,11 @@
     "ids": [
      "EDID: RadscorpionMeatCooked_Cannery",
      "FormID: 007FDA62",
-     "MGEF 0022699F: FortifyResistEnergyFood",
+     "MGEF 00150736: FortifyResistFireFood",
      "MGEF 0000397E: RestoreHealthFood",
      "MGEF 00026874: SURV_Food_Effect",
      "MGEF 00024056: DamageRadiationEating",
-     "Keywords: BlockSuperDuperPerk, IngredientTypeIrradiated_New, IngredientTypeMeat, MealTypeCanned_Cannery, MealTypeCooked, MealTypeSteak, ObjectTypeCanSpoilDUPLICATE000, ObjectTypeFood"
+     "Keywords: BlockSuperDuperPerk, IngredientTypeIrradiated_New, IngredientTypeMeat, MealTypeCooked, MealTypeSteak, ObjectTypeCanSpoilDUPLICATE000, ObjectTypeFood"
     ]
    },
    "status": "live"
@@ -9980,6 +9985,162 @@
      "MGEF 00026874: SURV_Food_Effect",
      "MGEF 00024056: DamageRadiationEating",
      "Keywords: FoodTypeBread, IngredientTypePastry, MealTypeBirthdayCake, MealTypeCooked, MealTypeGourmet, ObjectTypeCakesPies, ObjectTypeCanSpoilDUPLICATE000, ObjectTypeFood, UnsellableObject"
+    ]
+   },
+   "status": "live"
+  },
+  {
+   "formId": "008D2AF6",
+   "edid": "ATX_VaultTecGelatinCake_CakeSlice",
+   "name": "Slice of Vault-Tec Gelatin Cake",
+   "gameName": "Slice of Vault-Tec Gelatin Cake",
+   "description": "",
+   "imageUrl": "/wp-content/uploads/guide-images/buffs/food/slice-of-vault-tec-gelatin-cake.avif",
+   "objectType": "Food",
+   "diet": "None",
+   "weight": 0.25,
+   "value": 23,
+   "effects": [
+    {
+     "formId": "002DBFC3",
+     "edid": "FortifyCharismaFood",
+     "full": "Fortify Charisma Food",
+     "dnam": "",
+     "magnitude": 2.0,
+     "duration": 5400.0,
+     "magGlob": "SURV_Food_Effect_SPECIAL_Mag_2_Medium",
+     "durGlob": "SURV_Food_Effect_Any_Dur_3_Long",
+     "name": "Fortify Charisma",
+     "polarity": "buff",
+     "durationDisplay": "1 hour 30 min",
+     "display": "+2 Charisma",
+     "groupKey": "charisma",
+     "groupLabel": "Charisma"
+    },
+    {
+     "formId": "002DBFC4",
+     "edid": "RestoreActionPointsFood",
+     "full": "Restore Action Points Food",
+     "dnam": "",
+     "magnitude": 8.0,
+     "duration": 25.0,
+     "magGlob": "SURV_Food_Effect_APRestore_Mag_2_Medium",
+     "durGlob": "SURV_Food_Effect_APRestore_Dur_3_Long",
+     "name": "Restore Action Points",
+     "polarity": "buff",
+     "durationDisplay": "25s",
+     "display": "+8 Action Points",
+     "groupKey": "action-points",
+     "groupLabel": "Action Points"
+    },
+    {
+     "formId": "0000397E",
+     "edid": "RestoreHealthFood",
+     "full": "Restore Health",
+     "dnam": "Restore <MAG> HP / second",
+     "magnitude": 4.8,
+     "duration": 25.0,
+     "magGlob": "SURV_Food_Heal_Mag_5_VeryLarge_Improved_Plus",
+     "durGlob": "SURV_Food_Heal_Dur_Standard",
+     "name": "Restore Health",
+     "polarity": "buff",
+     "durationDisplay": "25s",
+     "display": "Restores 120 Health",
+     "groupKey": "health",
+     "groupLabel": "Health"
+    },
+    {
+     "formId": "0091C194",
+     "edid": "ATX_FortifyCharisma_VaultTecGelatinCake_CakeSlice_AddPerk",
+     "full": "Slice of Vault-Tec Gelatin Cake - Add Perk",
+     "dnam": "+1 Charisma per teammate",
+     "magnitude": 1.0,
+     "duration": 5400.0,
+     "magGlob": null,
+     "durGlob": "SURV_Food_Effect_Any_Dur_3_Long",
+     "name": "Slice of Vault-Tec Gelatin Cake - Add Perk",
+     "polarity": "buff",
+     "durationDisplay": "1 hour 30 min",
+     "display": "+1 Charisma per teammate",
+     "groupKey": "charisma",
+     "groupLabel": "Charisma"
+    },
+    {
+     "formId": "00026874",
+     "edid": "SURV_Food_Effect",
+     "full": "SURV_Food_Effect",
+     "dnam": "",
+     "magnitude": 1440.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Food_RestoreHunger_Mag_5_VeryLarge",
+     "durGlob": null,
+     "name": "Satisfy Hunger",
+     "polarity": "buff",
+     "durationDisplay": null,
+     "display": "Satisfies hunger (1440/24 min)",
+     "groupKey": null,
+     "groupLabel": null
+    },
+    {
+     "formId": "00024056",
+     "edid": "DamageRadiationEating",
+     "full": "Eating: Radiation Damage",
+     "dnam": "",
+     "magnitude": 2.0,
+     "duration": 0.0,
+     "magGlob": "SURV_Food_RadiationDamage_Mag_1_Low",
+     "durGlob": null,
+     "name": "Rads",
+     "polarity": "debuff",
+     "durationDisplay": null,
+     "display": "+2 Rads",
+     "groupKey": null,
+     "groupLabel": null
+    }
+   ],
+   "effectGroups": [
+    "charisma",
+    "action-points",
+    "health"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": false,
+     "lines": [
+      "Recipe: Not in Game"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "Spoils into: Spoiled Fruit",
+      "Fresh: Cooked item with no player recipe — found as loot or handed out by an event or quest."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Type: Food",
+     "Weight: 0.25",
+     "Value: 23 caps",
+     "Spoils: Yes"
+    ],
+    "ids": [
+     "EDID: ATX_VaultTecGelatinCake_CakeSlice",
+     "FormID: 008D2AF6",
+     "MGEF 002DBFC3: FortifyCharismaFood",
+     "MGEF 002DBFC4: RestoreActionPointsFood",
+     "MGEF 0000397E: RestoreHealthFood",
+     "MGEF 0091C194: ATX_FortifyCharisma_VaultTecGelatinCake_CakeSlice_AddPerk",
+     "MGEF 00026874: SURV_Food_Effect",
+     "MGEF 00024056: DamageRadiationEating",
+     "Keywords: FoodTypeBread, IngredientTypePastry, MealTypeCooked, MealTypeGourmet, MealTypeVaultTecGelatinCake, ObjectTypeCakesPies, ObjectTypeCanSpoilDUPLICATE000, ObjectTypeFood, UnsellableObject"
     ]
    },
    "status": "live"

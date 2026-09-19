@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-09-17",
+  "generated": "2026-09-19",
   "source": "Game-file exports (LVLI/ALCH/MISC) + Mappalachia Position (cached for CI)",
   "lists_in_closure": 17,
   "source_totals": {
@@ -20,11 +20,11 @@
    "list_id": "002118C0",
    "chance_none_glob": "LPI_Chance_Food_FruitVegetables",
    "marker_label": "Deathclaw Egg",
+   "banner_label": "Deathclaw Eggs",
    "note": "Raw Deathclaw Eggs spawn loose at 36 LPI points, each rolling a per-server-hop chance (computed). Deathclaw nests are listed below with their own rate.",
    "rate": 0.5,
    "rate_display": "50%",
-   "rate_source": "computed",
-   "banner_label": "Deathclaw Eggs"
+   "rate_source": "computed"
   },
   "containers": {
    "container_edid": "Container_Loot_DeathclawNest01",
@@ -437,7 +437,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Deathclaw Wellington"
+    "how_to_obtain": "Known by default."
    },
    {
     "name": "Jellied Fish",
@@ -551,12 +551,6 @@
   {
    "url": "/wp-content/uploads/guide-images/farming-eggs/deathclaw-eggs/burning-springs-highway-town-interior-cell-map.avif",
    "caption": "Highway Town Interior"
-  }
- ],
- "events_notes": [
-  {
-   "title": "Healthy Deathclaw Egg (cut content)",
-   "body": "There is a second deathclaw egg sitting in the game files — the <b>Healthy Deathclaw Egg</b>. You cannot get it, and you never could. It was built for the Burning Springs update and then dropped before release: the item still has its stats, but nothing in the game ever hands it out. No spawn point, no nest, no loot pool, no vendor, no event reward. So if you have seen it mentioned somewhere and gone looking, that is why you came up empty — it is cut content, not something you have missed, and there is nothing to farm.<br><br>Worth saying too: the “Don’t Feed the Deathclaws!” note you can read over at the <b>Rust Kingdom</b> is just a bit of scenery from Beastmaster Lina. It is a nice read, but it has nothing to do with this egg."
   }
  ],
  "random_encounters": [
@@ -1104,20 +1098,19 @@
      ],
      "spawns": [
       {
-       "label": "Deathclaw Nest #1",
-       "ref": "1A6460",
-       "source_type": "nest",
+       "label": "Deathclaw Egg",
+       "ref": "022E32",
+       "source_type": "direct",
        "coords": [
-        -2488.4,
-        2359.1
+        3353.8,
+        2321.1
        ],
        "image_top": "",
-       "directions": "It will lead you to the three Deathclaw nests in turn.",
-       "image_bottom": "/wp-content/uploads/guide-images/farming-eggs/deathclaw-eggs/the-mire-abandoned-waste-dump-cavern-deathclaw-nest-1-item.avif",
-       "note": "each gives 1 Raw + 1 Cracked Egg"
+       "directions": "The last Deathclaw nest has a fixed spawn Deathclaw egg next to it.",
+       "image_bottom": "/wp-content/uploads/guide-images/farming-eggs/deathclaw-eggs/the-mire-abandoned-waste-dump-cavern-deathclaw-nest-3-item.avif"
       },
       {
-       "label": "Deathclaw Nest #2",
+       "label": "Deathclaw Nest #1",
        "ref": "1837FD",
        "source_type": "nest",
        "coords": [
@@ -1130,7 +1123,7 @@
        "note": "each gives 1 Raw + 1 Cracked Egg"
       },
       {
-       "label": "Deathclaw Nest #3",
+       "label": "Deathclaw Nest #2",
        "ref": "1A6435",
        "source_type": "nest",
        "coords": [
@@ -1143,16 +1136,17 @@
        "note": "each gives 1 Raw + 1 Cracked Egg"
       },
       {
-       "label": "Deathclaw Egg",
-       "ref": "022E32",
-       "source_type": "direct",
+       "label": "Deathclaw Nest #3",
+       "ref": "1A6460",
+       "source_type": "nest",
        "coords": [
-        3353.8,
-        2321.1
+        -2488.4,
+        2359.1
        ],
        "image_top": "",
-       "directions": "The last Deathclaw nest has a fixed spawn Deathclaw egg next to it.",
-       "image_bottom": "/wp-content/uploads/guide-images/farming-eggs/deathclaw-eggs/the-mire-abandoned-waste-dump-cavern-deathclaw-nest-3-item.avif"
+       "directions": "It will lead you to the three Deathclaw nests in turn.",
+       "image_bottom": "/wp-content/uploads/guide-images/farming-eggs/deathclaw-eggs/the-mire-abandoned-waste-dump-cavern-deathclaw-nest-1-item.avif",
+       "note": "each gives 1 Raw + 1 Cracked Egg"
       }
      ],
      "breakdown": [

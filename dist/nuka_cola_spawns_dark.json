@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-09-17",
+  "generated": "2026-09-19",
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
   "source_formids": [
    2163089
@@ -13617,54 +13617,149 @@
     {
      "name": "Happy-Go-Lucky02 - Fortify Luck",
      "display": "+3 Happy-Go-Lucky02 - Fortify Luck",
-     "duration": "3 min"
+     "duration": "3 min",
+     "label": "Happy-Go-Lucky02 - Fortify Luck",
+     "value": 3.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Fortify Strength",
      "display": "+1 Fortify Strength",
-     "duration": "3 min"
+     "duration": "3 min",
+     "label": "Strength",
+     "value": 1.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Fortify Endurance",
      "display": "+1 Fortify Endurance",
-     "duration": "3 min"
+     "duration": "3 min",
+     "label": "Endurance",
+     "value": 1.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Reduce Perception",
      "display": "+1 Reduce Perception",
-     "duration": "3 min"
+     "duration": "3 min",
+     "label": "Reduce Perception",
+     "value": 1.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Happy-Go-Lucky - Fortify Luck",
      "display": "+2 Happy-Go-Lucky - Fortify Luck",
-     "duration": "3 min"
+     "duration": "3 min",
+     "label": "Happy-Go-Lucky - Fortify Luck",
+     "value": 2.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Duration",
      "display": "Duration",
-     "duration": "3 min"
+     "duration": "3 min",
+     "label": "Duration",
+     "value": 0.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Quench Thirst",
-     "display": "Quenches thirst (900/15 min)",
-     "duration": null
+     "display": "Quenches thirst (540/9 min)",
+     "duration": null,
+     "label": "Quenches Thirst",
+     "value": 540.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Bottlecap Collector",
      "display": "Bottlecap Collector",
-     "duration": null
+     "duration": null,
+     "label": "Bottlecap Collector",
+     "value": 0.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Chance Addiction Alcohol",
      "display": "15% chance to catch a disease",
-     "duration": null
+     "duration": null,
+     "label": "Disease Chance",
+     "value": 15.0,
+     "unit": "percent",
+     "scales": false,
+     "zeroed": true,
+     "sign": false
     },
     {
      "name": "Live & Love - Fortify Luck",
      "display": "+1 Live & Love - Fortify Luck",
-     "duration": null
+     "duration": null,
+     "label": "Live & Love - Fortify Luck",
+     "value": 1.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   }
  },
  "farming_tips": {
