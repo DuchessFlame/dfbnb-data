@@ -164,7 +164,7 @@ def main() -> None:
         ("/bnb/perk-cards/",               "patchlog_latest_bnb_perk_cards.json",             "bnb-perk-cards"),
         ("/bnb/plan-checklists/",          "patchlog_latest_bnb_plan_checklists.json",        "bnb-plan-checklists"),
         ("/bnb/specials-stats/",           "patchlog_latest_bnb_specials_stats.json",         "bnb-specials-stats"),
-        ("/bnb/weapons-mods/",             "patchlog_latest_bnb_weapons.json",                "bnb-weapons"),
+        ("/bnb/weapons/",                  "patchlog_latest_bnb_weapons.json",                "bnb-weapons"),
 
         # --- Staff/internal ---
         ("/bnb/staff/",                    "patchlog_latest_bnb_staff.json",                  "bnb-staff"),

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated": "2026-09-19T03:20:34.178965+00:00",
+  "generated": "2026-09-19T08:06:55.318141+00:00",
   "mode": "vs-season",
   "season": {
     "key": "SCORE_S26",
@@ -19,11 +19,1231 @@
     "recipes_newest": "COBJ_Export_September_2026.tsv",
     "recipes_previous": "COBJ_Export_July_2026.tsv"
   },
-  "count": 94,
-  "count_new": 94,
+  "count": 97,
+  "count_new": 97,
   "count_changed": 0,
   "skipped_not_in_master": [],
   "groups": [
+    {
+      "key": "weapon",
+      "label": "Weapons",
+      "count": 2,
+      "items": [
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_0091C631",
+          "name": "Plan: Commie Whacker",
+          "has_image_box": true,
+          "image_dir": "weapons",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon (physical plan)",
+          "obtain_routes": [
+            {
+              "route": "Liberator",
+              "source_type": "creature",
+              "rate": 0.03,
+              "rate_display": "3%",
+              "lvli": [
+                "00109F98",
+                "00377D06"
+              ],
+              "conditions": [
+                "Stops dropping once you learn it"
+              ]
+            },
+            {
+              "route": "Daily Ops - High Chase Rare",
+              "source_type": "event-quest",
+              "rate": 0.02439,
+              "rate_display": "2.44%",
+              "lvli": [
+                "005D080E"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            },
+            {
+              "route": "Daily Ops - Chase",
+              "source_type": "event-quest",
+              "rate": 0.010976,
+              "rate_display": "1.1%",
+              "lvli": [
+                "005CB9FF",
+                "005DBD0D",
+                "005DBD0F"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            },
+            {
+              "route": "Liberator",
+              "source_type": "creature",
+              "rate": 0.006,
+              "rate_display": "0.6%",
+              "lvli": [
+                "00109F98",
+                "00377D06"
+              ],
+              "conditions": [
+                "Stops dropping once you learn it"
+              ]
+            },
+            {
+              "route": "Robot Liberator",
+              "source_type": "creature",
+              "rate": 0.006,
+              "rate_display": "0.6%",
+              "lvli": [
+                "0038232C"
+              ],
+              "conditions": [
+                "Stops dropping once you learn it"
+              ]
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "0091C631",
+            "edid": "recipe_DLC04_Weapon_melee_DLC04_CommieWhacker"
+          },
+          "cobj": {
+            "formid": "0015FAFC",
+            "edid": "co_Weapon_Melee_DLC04_CommieWhacker"
+          },
+          "cnam": {
+            "formid": "0011475B",
+            "edid": "DLC04_CommieWhacker",
+            "sig": "WEAP"
+          },
+          "tradeable": true,
+          "stops_dropping": true,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Events & Activities",
+              "routes": [
+                0,
+                1,
+                2,
+                3,
+                4
+              ]
+            }
+          ],
+          "source_tag": "Enemy",
+          "images": [],
+          "image_source": "",
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "weapon_role": "base",
+          "weapon_group": "Commie Whacker",
+          "weapon_group_key": "commie-whacker",
+          "weapon_group_solo": false,
+          "group": "weapon",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_00930841",
+          "name": "Plan: Piercing Love",
+          "has_image_box": false,
+          "image_dir": "recipes",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (mod/recipe)",
+          "obtain_routes": [
+            {
+              "route": "Wastelanders - Mortimer (Raiders Gold Bullion vendor)",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "00596E98",
+                "005A0EEB"
+              ],
+              "conditions": []
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "00930841",
+            "edid": "SCORE_MiniSeason_LoveHurts_Recipe_Weapon_CompoundBow_PiercingLove_GoldVendor"
+          },
+          "cobj": {
+            "formid": "00930843",
+            "edid": "SCORE_MiniSeason_LoveHurts_co_Weapon_CompoundBow_PiercingLove_GoldVendor"
+          },
+          "cnam": null,
+          "tradeable": false,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Gold Bullion",
+              "routes": [
+                0
+              ]
+            }
+          ],
+          "source_tag": "Gold",
+          "images": [],
+          "image_source": "",
+          "plan_page": "camp",
+          "plan_page_group": "Needs Sorting",
+          "group": "weapon",
+          "is_new": true
+        }
+      ]
+    },
+    {
+      "key": "weapon-mod",
+      "label": "Weapon Mod",
+      "count": 11,
+      "items": [
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "scrap_learn": true,
+          "brand": "df",
+          "type": "weapon",
+          "id": "RECIPE_009136AF",
+          "name": "Barbed",
+          "has_image_box": false,
+          "image_dir": "weapons",
+          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is learned by scrapping the base item — see below.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Scrap a Death Tambo for up to 100% chance to learn this plan — the actual chance goes up or down depending on how many of that item's mods you have already learned."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "009136AF",
+            "edid": "co_mod_melee_DeathTambo_SpikesSmall"
+          },
+          "cnam": {
+            "formid": "009136B4",
+            "edid": "mod_melee_DeathTambo_SpikesSmall",
+            "sig": "OMOD"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Scrap to Learn",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+          ],
+          "image_source": "weapon-mod",
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "weapon_role": "mod",
+          "weapon_group": "Death Tambo",
+          "weapon_group_key": "death-tambo",
+          "weapon_group_solo": false,
+          "group": "weapon-mod",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_00918214",
+          "name": "Plan: Cryolator Cold Surge Muzzle",
+          "has_image_box": false,
+          "image_dir": "weapons",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It is not random loot — see below.",
+          "category_label": "CAMP / Recipe (mod/recipe)",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Named in the game files as a Season 26 reward, sold as stamp-vendor stock (Giuseppe Delcavo, Whitespring Refuge)."
+          ],
+          "plan_item": {
+            "formid": "00918214",
+            "edid": "SCORE_S26_Recipe_Cryolator_ColdSurgeMuzzle_StampVendor"
+          },
+          "cobj": {
+            "formid": "0091820E",
+            "edid": "SCORE_S26_co_Weapon_Cryolator_ColdSurgeMuzzle_StampVendor"
+          },
+          "cnam": null,
+          "tradeable": false,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Stamps",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+          ],
+          "image_source": "weapon-mod",
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "weapon_role": "mod",
+          "weapon_group": "Cryolator",
+          "weapon_group_key": "cryolator",
+          "weapon_group_solo": false,
+          "group": "weapon-mod",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_00918213",
+          "name": "Plan: Cryolator Hypothermic Muzzle Mod",
+          "has_image_box": false,
+          "image_dir": "weapons",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It is not random loot — see below.",
+          "category_label": "CAMP / Recipe (mod/recipe)",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Named in the game files as a Season 26 reward, sold as stamp-vendor stock (Giuseppe Delcavo, Whitespring Refuge)."
+          ],
+          "plan_item": {
+            "formid": "00918213",
+            "edid": "SCORE_S26_Recipe_Cryolator_HypothermicMuzzle_StampVendor"
+          },
+          "cobj": {
+            "formid": "0091820F",
+            "edid": "SCORE_S26_co_Weapon_Cryolator_HypothermicMuzzle_StampVendor"
+          },
+          "cnam": null,
+          "tradeable": false,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Stamps",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+          ],
+          "image_source": "weapon-mod",
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "weapon_role": "mod",
+          "weapon_group": "Cryolator",
+          "weapon_group_key": "cryolator",
+          "weapon_group_solo": false,
+          "group": "weapon-mod",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_00918215",
+          "name": "Plan: Cryolator Magazine Mods",
+          "has_image_box": false,
+          "image_dir": "weapons",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It is not random loot — see below.",
+          "category_label": "CAMP / Recipe (mod/recipe)",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Named in the game files as a Season 26 reward, sold as stamp-vendor stock (Giuseppe Delcavo, Whitespring Refuge)."
+          ],
+          "plan_item": {
+            "formid": "00918215",
+            "edid": "SCORE_S26_Recipe_Cryolator_Magazine_StampVendor"
+          },
+          "cobj": {
+            "formid": "0091820C",
+            "edid": "SCORE_S26_co_Weapon_Cryolator_Magazine_StampVendor"
+          },
+          "cnam": null,
+          "tradeable": false,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Stamps",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "images": [
+            "/wp-content/uploads/season_images/season-26/score_s26_weapons_cryolator_mods.avif"
+          ],
+          "image_source": "season",
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "weapon_role": "mod",
+          "weapon_group": "Cryolator",
+          "weapon_group_key": "cryolator",
+          "weapon_group_solo": false,
+          "group": "weapon-mod",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_00918211",
+          "name": "Plan: Cryolator Polar Lobber Mod",
+          "has_image_box": false,
+          "image_dir": "weapons",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It is not random loot — see below.",
+          "category_label": "CAMP / Recipe (mod/recipe)",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Named in the game files as a Season 26 reward, sold as stamp-vendor stock (Giuseppe Delcavo, Whitespring Refuge)."
+          ],
+          "plan_item": {
+            "formid": "00918211",
+            "edid": "SCORE_S26_Recipe_Cryolator_PolarLobber_StampVendor"
+          },
+          "cobj": {
+            "formid": "0091820D",
+            "edid": "SCORE_S26_co_Weapon_Cryolator_PolarLobber_StampVendor"
+          },
+          "cnam": null,
+          "tradeable": false,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Stamps",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+          ],
+          "image_source": "weapon-mod",
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "weapon_role": "mod",
+          "weapon_group": "Cryolator",
+          "weapon_group_key": "cryolator",
+          "weapon_group_solo": false,
+          "group": "weapon-mod",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_0091A1ED",
+          "name": "Plan: Prime Combat Shotgun Automatic Receiver",
+          "has_image_box": false,
+          "image_dir": "weapons",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Scorchbeast",
+              "source_type": "creature",
+              "rate": 0.023256,
+              "rate_display": "2.33%",
+              "lvli": [
+                "0036BA96",
+                "00470A06"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "Scorchbeast Queen",
+              "source_type": "creature",
+              "rate": 0.023256,
+              "rate_display": "2.33%",
+              "lvli": [
+                "0050D7FE"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "Systemic Weapons Prime Mods",
+              "source_type": "event-quest",
+              "rate": 0.023256,
+              "rate_display": "2.33%",
+              "lvli": [
+                "0059CAF3"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            },
+            {
+              "route": "Scorchbeast",
+              "source_type": "creature",
+              "rate": 0.022591,
+              "rate_display": "2.26%",
+              "lvli": [
+                "0036BA96",
+                "00470A06"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "Uninvited Scorchbeast",
+              "source_type": "creature",
+              "rate": 0.022591,
+              "rate_display": "2.26%",
+              "lvli": [
+                "0089740A"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "Supplying Demands - Valuables",
+              "source_type": "event-quest",
+              "rate": 0.011628,
+              "rate_display": "1.16%",
+              "lvli": [
+                "005E8040"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            },
+            {
+              "route": "Systemic Weapons",
+              "source_type": "event-quest",
+              "rate": 0.011628,
+              "rate_display": "1.16%",
+              "lvli": [
+                "0059CAD0"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            },
+            {
+              "route": "Systemic Armor Weapons Plans",
+              "source_type": "event-quest",
+              "rate": 0.005814,
+              "rate_display": "0.58%",
+              "lvli": [
+                "005C4354"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            },
+            {
+              "route": "Event: Test Your Metal - Best",
+              "source_type": "event-quest",
+              "rate": 0.000894,
+              "rate_display": "0.09%",
+              "lvli": [
+                "00606BF3"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            },
+            {
+              "route": "Event: Test Your Metal - Good",
+              "source_type": "event-quest",
+              "rate": 0.000447,
+              "rate_display": "0.04%",
+              "lvli": [
+                "00606BF4"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            },
+            {
+              "route": "Event: Test Your Metal - Poor",
+              "source_type": "event-quest",
+              "rate": 8.9e-05,
+              "rate_display": "0.01%",
+              "lvli": [
+                "00606BF2"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "0091A1ED",
+            "edid": "recipe_mod_CombatShotgun_Receiver_Automatic_AntiScorchBeast"
+          },
+          "cobj": {
+            "formid": "0091A1EE",
+            "edid": "co_mod_CombatShotgun_Receiver_Automatic_AntiScorchBeast"
+          },
+          "cnam": {
+            "formid": "0091A1EF",
+            "edid": "mod_CombatShotgun_Receiver_Automatic_AntiScorchBeast",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Events & Activities",
+              "routes": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ]
+            }
+          ],
+          "source_tag": "Activities",
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+          ],
+          "image_source": "weapon-mod",
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "weapon_role": "mod",
+          "weapon_group": "Combat Shotgun",
+          "weapon_group_key": "combat-shotgun",
+          "weapon_group_solo": false,
+          "group": "weapon-mod",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_00913B60",
+          "name": "Plan: Prime Railway Rifle Automatic Receiver",
+          "has_image_box": false,
+          "image_dir": "weapons",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Scorchbeast",
+              "source_type": "creature",
+              "rate": 0.023256,
+              "rate_display": "2.33%",
+              "lvli": [
+                "0036BA96",
+                "00470A06"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "Scorchbeast Queen",
+              "source_type": "creature",
+              "rate": 0.023256,
+              "rate_display": "2.33%",
+              "lvli": [
+                "0050D7FE"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "Systemic Weapons Prime Mods",
+              "source_type": "event-quest",
+              "rate": 0.023256,
+              "rate_display": "2.33%",
+              "lvli": [
+                "0059CAF3"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            },
+            {
+              "route": "Scorchbeast",
+              "source_type": "creature",
+              "rate": 0.022591,
+              "rate_display": "2.26%",
+              "lvli": [
+                "0036BA96",
+                "00470A06"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "Uninvited Scorchbeast",
+              "source_type": "creature",
+              "rate": 0.022591,
+              "rate_display": "2.26%",
+              "lvli": [
+                "0089740A"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "Supplying Demands - Valuables",
+              "source_type": "event-quest",
+              "rate": 0.011628,
+              "rate_display": "1.16%",
+              "lvli": [
+                "005E8040"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            },
+            {
+              "route": "Systemic Weapons",
+              "source_type": "event-quest",
+              "rate": 0.011628,
+              "rate_display": "1.16%",
+              "lvli": [
+                "0059CAD0"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            },
+            {
+              "route": "Systemic Armor Weapons Plans",
+              "source_type": "event-quest",
+              "rate": 0.005814,
+              "rate_display": "0.58%",
+              "lvli": [
+                "005C4354"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            },
+            {
+              "route": "Event: Test Your Metal - Best",
+              "source_type": "event-quest",
+              "rate": 0.000894,
+              "rate_display": "0.09%",
+              "lvli": [
+                "00606BF3"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            },
+            {
+              "route": "Event: Test Your Metal - Good",
+              "source_type": "event-quest",
+              "rate": 0.000447,
+              "rate_display": "0.04%",
+              "lvli": [
+                "00606BF4"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            },
+            {
+              "route": "Event: Test Your Metal - Poor",
+              "source_type": "event-quest",
+              "rate": 8.9e-05,
+              "rate_display": "0.01%",
+              "lvli": [
+                "00606BF2"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "00913B60",
+            "edid": "recipe_mod_RailwayRifle_Receiver_Automatic_AntiScorchBeast"
+          },
+          "cobj": {
+            "formid": "00913B62",
+            "edid": "co_mod_RailwayRifle_Receiver_Automatic_AntiScorchBeast"
+          },
+          "cnam": {
+            "formid": "00913B64",
+            "edid": "mod_RailwayRifle_Receiver_Automatic_AntiScorchBeast",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Events & Activities",
+              "routes": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ]
+            }
+          ],
+          "source_tag": "Activities",
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+          ],
+          "image_source": "weapon-mod",
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "weapon_role": "mod",
+          "weapon_group": "Railway Rifle",
+          "weapon_group_key": "railway-rifle",
+          "weapon_group_solo": false,
+          "group": "weapon-mod",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_00919FDA",
+          "name": "Plan: Prime Railway Shotgun Receiver",
+          "has_image_box": false,
+          "image_dir": "weapons",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Scorchbeast",
+              "source_type": "creature",
+              "rate": 0.023256,
+              "rate_display": "2.33%",
+              "lvli": [
+                "0036BA96",
+                "00470A06"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "Scorchbeast Queen",
+              "source_type": "creature",
+              "rate": 0.023256,
+              "rate_display": "2.33%",
+              "lvli": [
+                "0050D7FE"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "Systemic Weapons Prime Mods",
+              "source_type": "event-quest",
+              "rate": 0.023256,
+              "rate_display": "2.33%",
+              "lvli": [
+                "0059CAF3"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            },
+            {
+              "route": "Scorchbeast",
+              "source_type": "creature",
+              "rate": 0.022591,
+              "rate_display": "2.26%",
+              "lvli": [
+                "0036BA96",
+                "00470A06"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "Uninvited Scorchbeast",
+              "source_type": "creature",
+              "rate": 0.022591,
+              "rate_display": "2.26%",
+              "lvli": [
+                "0089740A"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "Supplying Demands - Valuables",
+              "source_type": "event-quest",
+              "rate": 0.011628,
+              "rate_display": "1.16%",
+              "lvli": [
+                "005E8040"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            },
+            {
+              "route": "Systemic Weapons",
+              "source_type": "event-quest",
+              "rate": 0.011628,
+              "rate_display": "1.16%",
+              "lvli": [
+                "0059CAD0"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            },
+            {
+              "route": "Systemic Armor Weapons Plans",
+              "source_type": "event-quest",
+              "rate": 0.005814,
+              "rate_display": "0.58%",
+              "lvli": [
+                "005C4354"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            },
+            {
+              "route": "Event: Test Your Metal - Best",
+              "source_type": "event-quest",
+              "rate": 0.000894,
+              "rate_display": "0.09%",
+              "lvli": [
+                "00606BF3"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            },
+            {
+              "route": "Event: Test Your Metal - Good",
+              "source_type": "event-quest",
+              "rate": 0.000447,
+              "rate_display": "0.04%",
+              "lvli": [
+                "00606BF4"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            },
+            {
+              "route": "Event: Test Your Metal - Poor",
+              "source_type": "event-quest",
+              "rate": 8.9e-05,
+              "rate_display": "0.01%",
+              "lvli": [
+                "00606BF2"
+              ],
+              "conditions": [
+                "Level 50 and above"
+              ]
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "00919FDA",
+            "edid": "recipe_mod_RailwayRifle_receiver_Splitter_AntiScorchBeast"
+          },
+          "cobj": {
+            "formid": "00919FDB",
+            "edid": "co_mod_RailwayRifle_Receiver_Splitter_AntiScorchBeast"
+          },
+          "cnam": {
+            "formid": "00919FDC",
+            "edid": "mod_RailwayRifle_Receiver_Splitter_AntiScorchBeast",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Events & Activities",
+              "routes": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ]
+            }
+          ],
+          "source_tag": "Activities",
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+          ],
+          "image_source": "weapon-mod",
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "weapon_role": "mod",
+          "weapon_group": "Railway Rifle",
+          "weapon_group_key": "railway-rifle",
+          "weapon_group_solo": false,
+          "group": "weapon-mod",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_00913B61",
+          "name": "Plan: Railway Rifle Shotgun Receiver",
+          "has_image_box": false,
+          "image_dir": "weapons",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Weapons Common",
+              "source_type": "event-quest",
+              "rate": 0.017241,
+              "rate_display": "1.72%",
+              "lvli": [
+                "005D9CC2"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "Daily Ops - Low Chase Rare",
+              "source_type": "event-quest",
+              "rate": 0.008621,
+              "rate_display": "0.86%",
+              "lvli": [
+                "005D9CBC"
+              ],
+              "conditions": [
+                "Level 49 and below"
+              ]
+            },
+            {
+              "route": "Daily Ops - Rare",
+              "source_type": "event-quest",
+              "rate": 0.008621,
+              "rate_display": "0.86%",
+              "lvli": [
+                "005D9CBF"
+              ],
+              "conditions": [
+                "Level 49 and below"
+              ]
+            },
+            {
+              "route": "Daily Ops - Chase",
+              "source_type": "event-quest",
+              "rate": 0.00431,
+              "rate_display": "0.43%",
+              "lvli": [
+                "005CB9FF",
+                "005DBD0D",
+                "005DBD0F"
+              ],
+              "conditions": [
+                "Level 49 and below"
+              ]
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "00913B61",
+            "edid": "recipe_mod_RailwayRifle_Receiver_Splitter"
+          },
+          "cobj": {
+            "formid": "00913B63",
+            "edid": "co_mod_RailwayRifle_Receiver_Splitter"
+          },
+          "cnam": {
+            "formid": "00913B65",
+            "edid": "mod_RailwayRifle_Receiver_Splitter",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Events & Activities",
+              "routes": [
+                0,
+                1,
+                2,
+                3
+              ]
+            }
+          ],
+          "source_tag": "Activities",
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+          ],
+          "image_source": "weapon-mod",
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "weapon_role": "mod",
+          "weapon_group": "Railway Rifle",
+          "weapon_group_key": "railway-rifle",
+          "weapon_group_solo": false,
+          "group": "weapon-mod",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "scrap_learn": true,
+          "brand": "df",
+          "type": "weapon",
+          "id": "RECIPE_0091ECCD",
+          "name": "Reflex Sight (Dot)",
+          "has_image_box": false,
+          "image_dir": "weapons",
+          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is learned by scrapping the base item — see below.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Scrap a 10mm Submachine Gun for up to 100% chance to learn this plan — the actual chance goes up or down depending on how many of that item's mods you have already learned."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "0091ECCD",
+            "edid": "co_mod_10mmsmg_SCOPE_Reflex_Base"
+          },
+          "cnam": {
+            "formid": "0072AECB",
+            "edid": "mod_10mmSMG_SCOPE_Reflex_Base",
+            "sig": "OMOD"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Scrap to Learn",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+          ],
+          "image_source": "weapon-mod",
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "weapon_role": "mod",
+          "weapon_group": "10mm Submachine Gun",
+          "weapon_group_key": "10mm-submachine-gun",
+          "weapon_group_solo": false,
+          "group": "weapon-mod",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "scrap_learn": true,
+          "brand": "df",
+          "type": "weapon",
+          "id": "RECIPE_009136B0",
+          "name": "Sharp",
+          "has_image_box": false,
+          "image_dir": "weapons",
+          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is learned by scrapping the base item — see below.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Scrap a Death Tambo for up to 100% chance to learn this plan — the actual chance goes up or down depending on how many of that item's mods you have already learned."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "009136B0",
+            "edid": "co_mod_melee_DeathTambo_Blades"
+          },
+          "cnam": {
+            "formid": "009136B5",
+            "edid": "mod_melee_DeathTambo_Blades",
+            "sig": "OMOD"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Scrap to Learn",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+          ],
+          "image_source": "weapon-mod",
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "weapon_role": "mod",
+          "weapon_group": "Death Tambo",
+          "weapon_group_key": "death-tambo",
+          "weapon_group_solo": false,
+          "group": "weapon-mod",
+          "is_new": true
+        }
+      ]
+    },
     {
       "key": "apparel",
       "label": "Apparel",
@@ -1081,1362 +2301,6 @@
           "plan_page": "apparel",
           "plan_page_group": null,
           "group": "apparel",
-          "is_new": true
-        }
-      ]
-    },
-    {
-      "key": "backpack-mod",
-      "label": "Backpack Mods",
-      "count": 4,
-      "items": [
-        {
-          "kind": "plan",
-          "recipe_only": true,
-          "brand": "df",
-          "type": "backpack-mod",
-          "id": "RECIPE_008B6A27",
-          "name": "Cat Leveling Backpack",
-          "has_image_box": false,
-          "image_dir": "backpack",
-          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is not random loot; see below.",
-          "category_label": "Backpack Mod Mod / Paint",
-          "obtain_routes": [],
-          "obtain_unlocks": [
-            "Reward for completing the challenge: Cat - Reach Level 160."
-          ],
-          "plan_item": null,
-          "cobj": {
-            "formid": "008B6A27",
-            "edid": "WorldPets_co_Armor_CatBackpack"
-          },
-          "cnam": {
-            "formid": "008B6A2E",
-            "edid": "WorldPets_mod_CatBackPack_Material",
-            "sig": "OMOD"
-          },
-          "tradeable": null,
-          "stops_dropping": null,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "changes": [],
-          "obtain_ledger": [
-            {
-              "label": "Challenges",
-              "unlocks": [
-                0
-              ],
-              "drop": "N/A"
-            }
-          ],
-          "source_tag": "CHAL",
-          "images": [],
-          "image_source": "",
-          "plan_page": "backpack-mod",
-          "plan_page_group": null,
-          "group": "backpack-mod",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "recipe_only": true,
-          "brand": "df",
-          "type": "backpack-mod",
-          "id": "RECIPE_008B6A29",
-          "name": "Deathclaw Leveling Backpack",
-          "has_image_box": false,
-          "image_dir": "backpack",
-          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is not random loot; see below.",
-          "category_label": "Backpack Mod Mod / Paint",
-          "obtain_routes": [],
-          "obtain_unlocks": [
-            "Reward for completing the challenge: Deathclaw - Reach Level 160 — 40 World Pet Levelled Up."
-          ],
-          "plan_item": null,
-          "cobj": {
-            "formid": "008B6A29",
-            "edid": "WorldPets_co_Armor_DCBackpack"
-          },
-          "cnam": {
-            "formid": "008B6A31",
-            "edid": "WorldPets_mod_DCBackPack_Material",
-            "sig": "OMOD"
-          },
-          "tradeable": null,
-          "stops_dropping": null,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "changes": [],
-          "obtain_ledger": [
-            {
-              "label": "Challenges",
-              "unlocks": [
-                0
-              ],
-              "drop": "N/A"
-            }
-          ],
-          "source_tag": "CHAL",
-          "images": [],
-          "image_source": "",
-          "plan_page": "backpack-mod",
-          "plan_page_group": null,
-          "group": "backpack-mod",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "recipe_only": true,
-          "brand": "df",
-          "type": "backpack-mod",
-          "id": "RECIPE_008B6A26",
-          "name": "Dog Leveling Backpack",
-          "has_image_box": false,
-          "image_dir": "backpack",
-          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is not random loot; see below.",
-          "category_label": "Backpack Mod Mod / Paint",
-          "obtain_routes": [],
-          "obtain_unlocks": [
-            "Reward for completing the challenge: Dog - Reach Level 160 — 40 World Pet Levelled Up."
-          ],
-          "plan_item": null,
-          "cobj": {
-            "formid": "008B6A26",
-            "edid": "WorldPets_co_Armor_DogBackpack"
-          },
-          "cnam": {
-            "formid": "008B6A2F",
-            "edid": "WorldPets_mod_DogBackPack_Material",
-            "sig": "OMOD"
-          },
-          "tradeable": null,
-          "stops_dropping": null,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "changes": [],
-          "obtain_ledger": [
-            {
-              "label": "Challenges",
-              "unlocks": [
-                0
-              ],
-              "drop": "N/A"
-            }
-          ],
-          "source_tag": "CHAL",
-          "images": [],
-          "image_source": "",
-          "plan_page": "backpack-mod",
-          "plan_page_group": null,
-          "group": "backpack-mod",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "recipe_only": true,
-          "brand": "df",
-          "type": "backpack-mod",
-          "id": "RECIPE_008B6A28",
-          "name": "Radhog Leveling Backpack",
-          "has_image_box": false,
-          "image_dir": "backpack",
-          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is not random loot; see below.",
-          "category_label": "Backpack Mod Mod / Paint",
-          "obtain_routes": [],
-          "obtain_unlocks": [
-            "Reward for completing the challenge: Radhog - Reach Level 160 — 40 World Pet Levelled Up."
-          ],
-          "plan_item": null,
-          "cobj": {
-            "formid": "008B6A28",
-            "edid": "WorldPets_co_Armor_RadhogBackpack"
-          },
-          "cnam": {
-            "formid": "008B6A30",
-            "edid": "WorldPets_mod_RadhogBackPack_Material",
-            "sig": "OMOD"
-          },
-          "tradeable": null,
-          "stops_dropping": null,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "changes": [],
-          "obtain_ledger": [
-            {
-              "label": "Challenges",
-              "unlocks": [
-                0
-              ],
-              "drop": "N/A"
-            }
-          ],
-          "source_tag": "CHAL",
-          "images": [],
-          "image_source": "",
-          "plan_page": "backpack-mod",
-          "plan_page_group": null,
-          "group": "backpack-mod",
-          "is_new": true
-        }
-      ]
-    },
-    {
-      "key": "camp",
-      "label": "CAMP",
-      "count": 10,
-      "items": [
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_008E0696",
-          "name": "Plan: Pint-Sized Slasher Ad Poster 1",
-          "has_image_box": true,
-          "image_dir": "workshop",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-          "category_label": "CAMP / Recipe (physical plan)",
-          "obtain_routes": [
-            {
-              "route": "Scorched Spooky",
-              "source_type": "creature",
-              "rate": 0.133333,
-              "rate_display": "13.33%",
-              "lvli": [
-                "008F6AC2"
-              ],
-              "conditions": [
-                "Only while wearing SDOW Clothing Type Slasher Head"
-              ]
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008E0696",
-            "edid": "SDOW_Recipe_Workshop_WallDecor_SlasherAdPoster01"
-          },
-          "cobj": {
-            "formid": "008E0754",
-            "edid": "SDOW_workshop_co_CondProxy_WallDecor_Posters_SlasherAdPoster01"
-          },
-          "cnam": null,
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Events & Activities",
-              "routes": [
-                0
-              ]
-            }
-          ],
-          "source_tag": "Enemy",
-          "images": [
-            "sdow_recipe_workshop_walldecor_slasheradposter01"
-          ],
-          "image_source": "staged",
-          "plan_page": "camp",
-          "plan_page_group": "C.A.M.P. Plans",
-          "group": "camp",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_00904CD6",
-          "name": "Plan: Pint-Sized Slasher Ad Poster 2",
-          "has_image_box": true,
-          "image_dir": "workshop",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-          "category_label": "CAMP / Recipe (physical plan)",
-          "obtain_routes": [
-            {
-              "route": "Scorched Spooky",
-              "source_type": "creature",
-              "rate": 0.133333,
-              "rate_display": "13.33%",
-              "lvli": [
-                "008F6AC2"
-              ],
-              "conditions": [
-                "Only while wearing SDOW Clothing Type Slasher Head"
-              ]
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00904CD6",
-            "edid": "SDOW_Recipe_Workshop_WallDecor_SlasherAdPoster02"
-          },
-          "cobj": {
-            "formid": "00904CD9",
-            "edid": "SDOW_workshop_co_CondProxy_WallDecor_Posters_SlasherAdPoster02"
-          },
-          "cnam": null,
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Events & Activities",
-              "routes": [
-                0
-              ]
-            }
-          ],
-          "source_tag": "Enemy",
-          "images": [
-            "sdow_recipe_workshop_walldecor_slasheradposter02"
-          ],
-          "image_source": "staged",
-          "plan_page": "camp",
-          "plan_page_group": "C.A.M.P. Plans",
-          "group": "camp",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_00904CD7",
-          "name": "Plan: Pint-Sized Slasher Ad Poster 3",
-          "has_image_box": true,
-          "image_dir": "workshop",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-          "category_label": "CAMP / Recipe (physical plan)",
-          "obtain_routes": [
-            {
-              "route": "Scorched Spooky",
-              "source_type": "creature",
-              "rate": 0.133333,
-              "rate_display": "13.33%",
-              "lvli": [
-                "008F6AC2"
-              ],
-              "conditions": [
-                "Only while wearing SDOW Clothing Type Slasher Head"
-              ]
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00904CD7",
-            "edid": "SDOW_Recipe_Workshop_WallDecor_SlasherAdPoster03"
-          },
-          "cobj": {
-            "formid": "00904CDA",
-            "edid": "SDOW_workshop_co_CondProxy_WallDecor_Posters_SlasherAdPoster03"
-          },
-          "cnam": null,
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Events & Activities",
-              "routes": [
-                0
-              ]
-            }
-          ],
-          "source_tag": "Enemy",
-          "images": [
-            "sdow_recipe_workshop_walldecor_slasheradposter03"
-          ],
-          "image_source": "staged",
-          "plan_page": "camp",
-          "plan_page_group": "C.A.M.P. Plans",
-          "group": "camp",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_008E0690",
-          "name": "Plan: Pint-Sized Slasher Balloon",
-          "has_image_box": true,
-          "image_dir": "workshop",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-          "category_label": "CAMP / Recipe (physical plan)",
-          "obtain_routes": [
-            {
-              "route": "The Slasher - Infestations Rare",
-              "source_type": "event-quest",
-              "rate": 0.333333,
-              "rate_display": "33.33%",
-              "lvli": [
-                "008FCEA6"
-              ],
-              "conditions": [
-                "Only from HTO Encounter Boss Keyword",
-                "Only from SDOW Actor Type Slasher Fan"
-              ]
-            },
-            {
-              "route": "Blood Eagle Destroyer",
-              "source_type": "creature",
-              "rate": 0.083333,
-              "rate_display": "8.33%",
-              "lvli": [
-                "00863220"
-              ],
-              "conditions": [
-                "Only from SDOW Actor Type Slasher Fan",
-                "Only from HTO Encounter Boss Keyword"
-              ]
-            },
-            {
-              "route": "Infestations - Events",
-              "source_type": "event-quest",
-              "rate": 0.083333,
-              "rate_display": "8.33%",
-              "lvli": [
-                "008F2B69"
-              ],
-              "conditions": [
-                "Only from SDOW Actor Type Slasher Fan",
-                "Only from HTO Encounter Boss Keyword"
-              ]
-            },
-            {
-              "route": "Infestations - Events The Slasher",
-              "source_type": "event-quest",
-              "rate": 0.083333,
-              "rate_display": "8.33%",
-              "lvli": [
-                "008F2B67"
-              ],
-              "conditions": [
-                "Only from HTO Encounter Boss Keyword",
-                "Only from SDOW Actor Type Slasher Fan"
-              ]
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008E0690",
-            "edid": "SDOW_Recipe_Workshop_FloorDecor_SlasherBalloons"
-          },
-          "cobj": {
-            "formid": "008F513B",
-            "edid": "SDOW_workshop_co_FloorDecor_SlasherBalloons"
-          },
-          "cnam": {
-            "formid": "0091C66C",
-            "edid": "SDOW_Workshop_SlasherBalloon",
-            "sig": "ACTI"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Events & Activities",
-              "routes": [
-                0,
-                1,
-                2,
-                3
-              ]
-            }
-          ],
-          "source_tag": "Activities",
-          "images": [
-            "sdow_workshop_slasherballoon"
-          ],
-          "image_source": "staged",
-          "plan_page": "camp",
-          "plan_page_group": "C.A.M.P. Plans",
-          "group": "camp",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_008E0697",
-          "name": "Plan: Pint-Sized Slasher Gravestone",
-          "has_image_box": true,
-          "image_dir": "workshop",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-          "category_label": "CAMP / Recipe (physical plan)",
-          "obtain_routes": [
-            {
-              "route": "The Slasher: Secrets to the Grave",
-              "source_type": "event-quest",
-              "rate": 1.0,
-              "rate_display": "100%",
-              "lvli": [
-                "00900A70"
-              ],
-              "conditions": []
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008E0697",
-            "edid": "SDOW_Recipe_Workshop_FloorDecor_SlasherGrave"
-          },
-          "cobj": {
-            "formid": "008E073B",
-            "edid": "SDOW_workshop_co_FloorDecor_SlasherGrave"
-          },
-          "cnam": {
-            "formid": "008E0684",
-            "edid": "SDOW_FloorDecor_SlasherGrave",
-            "sig": "ACTI"
-          },
-          "tradeable": false,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Events & Activities",
-              "routes": [
-                0
-              ]
-            }
-          ],
-          "source_tag": "Activities",
-          "images": [
-            "sdow_floordecor_slashergrave"
-          ],
-          "image_source": "staged",
-          "plan_page": "camp",
-          "plan_page_group": "C.A.M.P. Plans",
-          "group": "camp",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_008F5215",
-          "name": "Plan: Pint-Sized Slasher Photo Frame",
-          "has_image_box": false,
-          "image_dir": "photomode",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-          "category_label": "CAMP / Recipe (mod/recipe)",
-          "obtain_routes": [
-            {
-              "route": "The Slasher: Out of the Shadows",
-              "source_type": "event-quest",
-              "rate": 1.0,
-              "rate_display": "100%",
-              "lvli": [
-                "00900A71"
-              ],
-              "conditions": []
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008F5215",
-            "edid": "SDOW_Recipe_PhotoMode_Frame_SlasherFrame"
-          },
-          "cobj": {
-            "formid": "008F5216",
-            "edid": "SDOW_co_Photomode_Frame_SlasherFrame"
-          },
-          "cnam": null,
-          "tradeable": false,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Events & Activities",
-              "routes": [
-                0
-              ]
-            }
-          ],
-          "source_tag": "Activities",
-          "images": [
-            "sdow_recipe_photomode_frame_slasherframe"
-          ],
-          "image_source": "staged",
-          "plan_page": "camp",
-          "plan_page_group": "Needs Sorting",
-          "group": "camp",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_008E0694",
-          "name": "Plan: Pint-Sized Slasher Plushie",
-          "has_image_box": true,
-          "image_dir": "workshop",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-          "category_label": "CAMP / Recipe (physical plan)",
-          "obtain_routes": [
-            {
-              "route": "The Slasher - Infestations Rare",
-              "source_type": "event-quest",
-              "rate": 0.333333,
-              "rate_display": "33.33%",
-              "lvli": [
-                "008FCEA6"
-              ],
-              "conditions": [
-                "Only from HTO Encounter Boss Keyword",
-                "Only from SDOW Actor Type Slasher Fan"
-              ]
-            },
-            {
-              "route": "Blood Eagle Destroyer",
-              "source_type": "creature",
-              "rate": 0.083333,
-              "rate_display": "8.33%",
-              "lvli": [
-                "00863220"
-              ],
-              "conditions": [
-                "Only from SDOW Actor Type Slasher Fan",
-                "Only from HTO Encounter Boss Keyword"
-              ]
-            },
-            {
-              "route": "Infestations - Events",
-              "source_type": "event-quest",
-              "rate": 0.083333,
-              "rate_display": "8.33%",
-              "lvli": [
-                "008F2B69"
-              ],
-              "conditions": [
-                "Only from SDOW Actor Type Slasher Fan",
-                "Only from HTO Encounter Boss Keyword"
-              ]
-            },
-            {
-              "route": "Infestations - Events The Slasher",
-              "source_type": "event-quest",
-              "rate": 0.083333,
-              "rate_display": "8.33%",
-              "lvli": [
-                "008F2B67"
-              ],
-              "conditions": [
-                "Only from HTO Encounter Boss Keyword",
-                "Only from SDOW Actor Type Slasher Fan"
-              ]
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008E0694",
-            "edid": "SDOW_Recipe_Workshop_FloorDecor_SlasherDoll"
-          },
-          "cobj": {
-            "formid": "008E0735",
-            "edid": "SDOW_workshop_co_CondProxy_FloorDecor_Plushie_SlasherDoll"
-          },
-          "cnam": null,
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Events & Activities",
-              "routes": [
-                0,
-                1,
-                2,
-                3
-              ]
-            }
-          ],
-          "source_tag": "Activities",
-          "images": [
-            "sdow_recipe_workshop_floordecor_slasherdoll"
-          ],
-          "image_source": "staged",
-          "plan_page": "camp",
-          "plan_page_group": "C.A.M.P. Plans",
-          "group": "camp",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_008E068E",
-          "name": "Plan: Pint-Sized Slasher Radio",
-          "has_image_box": true,
-          "image_dir": "workshop",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It is not random loot — see below.",
-          "category_label": "CAMP / Recipe (physical plan)",
-          "obtain_routes": [],
-          "obtain_unlocks": [
-            "Reward for completing the challenge: Collect The Remaining Pint-Sized Slasher Masks — 50 Items Acquired."
-          ],
-          "plan_item": {
-            "formid": "008E068E",
-            "edid": "zzz_SDOW_Recipe_Workshop_Radio_SlasherRadio"
-          },
-          "cobj": {
-            "formid": "008E0739",
-            "edid": "SDOW_workshop_co_SlasherRadio"
-          },
-          "cnam": {
-            "formid": "008E0685",
-            "edid": "SDOW_WorkshopRadio_SlasherRadio",
-            "sig": "ACTI"
-          },
-          "tradeable": false,
-          "stops_dropping": null,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Challenges",
-              "unlocks": [
-                0
-              ],
-              "drop": "N/A"
-            }
-          ],
-          "source_tag": "CHAL",
-          "images": [
-            "zzz_sdow_recipe_workshop_radio_slasherradio"
-          ],
-          "image_source": "staged",
-          "plan_page": "camp",
-          "plan_page_group": "C.A.M.P. Plans",
-          "group": "camp",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_008E0699",
-          "name": "Plan: Pint-Sized Slasher Wanted Poster 1",
-          "has_image_box": true,
-          "image_dir": "workshop",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-          "category_label": "CAMP / Recipe (physical plan)",
-          "obtain_routes": [
-            {
-              "route": "The Slasher - Fan Party Crasher",
-              "source_type": "creature",
-              "rate": 0.333333,
-              "rate_display": "33.33%",
-              "lvli": [
-                "00904CDC"
-              ],
-              "conditions": []
-            },
-            {
-              "route": "Uninvited Pint-Sized Phantom",
-              "source_type": "creature",
-              "rate": 0.083333,
-              "rate_display": "8.33%",
-              "lvli": [
-                "008E06FB"
-              ],
-              "conditions": []
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008E0699",
-            "edid": "SDOW_Recipe_Workshop_WallDecor_SlasherScaryPoster01"
-          },
-          "cobj": {
-            "formid": "008E0753",
-            "edid": "SDOW_workshop_co_CondProxy_WallDecor_Posters_SlasherScaryPoster01"
-          },
-          "cnam": null,
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Events & Activities",
-              "routes": [
-                0,
-                1
-              ]
-            }
-          ],
-          "source_tag": "Enemy",
-          "images": [
-            "sdow_recipe_workshop_walldecor_slasherscaryposter01"
-          ],
-          "image_source": "staged",
-          "plan_page": "camp",
-          "plan_page_group": "C.A.M.P. Plans",
-          "group": "camp",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_00904CD5",
-          "name": "Plan: Pint-Sized Slasher Wanted Poster 2",
-          "has_image_box": true,
-          "image_dir": "workshop",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-          "category_label": "CAMP / Recipe (physical plan)",
-          "obtain_routes": [
-            {
-              "route": "The Slasher - Fan Party Crasher",
-              "source_type": "creature",
-              "rate": 0.333333,
-              "rate_display": "33.33%",
-              "lvli": [
-                "00904CDC"
-              ],
-              "conditions": []
-            },
-            {
-              "route": "Uninvited Pint-Sized Phantom",
-              "source_type": "creature",
-              "rate": 0.083333,
-              "rate_display": "8.33%",
-              "lvli": [
-                "008E06FB"
-              ],
-              "conditions": []
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00904CD5",
-            "edid": "SDOW_Recipe_Workshop_WallDecor_SlasherScaryPoster02"
-          },
-          "cobj": {
-            "formid": "00904CD8",
-            "edid": "SDOW_workshop_co_CondProxy_WallDecor_Posters_SlasherScaryPoster02"
-          },
-          "cnam": null,
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Events & Activities",
-              "routes": [
-                0,
-                1
-              ]
-            }
-          ],
-          "source_tag": "Enemy",
-          "images": [
-            "sdow_recipe_workshop_walldecor_slasherscaryposter02"
-          ],
-          "image_source": "staged",
-          "plan_page": "camp",
-          "plan_page_group": "C.A.M.P. Plans",
-          "group": "camp",
-          "is_new": true
-        }
-      ]
-    },
-    {
-      "key": "fishing",
-      "label": "Fishing",
-      "count": 1,
-      "items": [
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_008E068D",
-          "name": "Plan: Pint-Sized Slasher Bobber",
-          "has_image_box": false,
-          "image_dir": "fishing-rod",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It is not random loot — see below.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [],
-          "obtain_unlocks": [
-            "Reward for completing the challenge: Collect Even More Pint-Sized Slasher Masks — 30 Items Acquired."
-          ],
-          "plan_item": {
-            "formid": "008E068D",
-            "edid": "zzz_SDOW_Fishing_Recipe_mod_FishingRod_RodBobber_SlasherBobber"
-          },
-          "cobj": {
-            "formid": "008E0746",
-            "edid": "SDOW_co_Fishing_mod_FishingRod_Weapon_RodBobber_SlasherBobber"
-          },
-          "cnam": {
-            "formid": "008E0768",
-            "edid": "SDOW_Fishing_mod_FishingRod_Weapon_RodBobber_SlasherBobber",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": null,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Challenges",
-              "unlocks": [
-                0
-              ],
-              "drop": "N/A"
-            }
-          ],
-          "source_tag": "CHAL",
-          "images": [
-            "zzz_sdow_fishing_recipe_mod_fishingrod_rodbobber_slasherbobber"
-          ],
-          "image_source": "staged",
-          "plan_page": "fishing-rod",
-          "plan_page_group": "Bobbers & Floats",
-          "group": "fishing",
-          "is_new": true
-        }
-      ]
-    },
-    {
-      "key": "misc-display",
-      "label": "MISC Display",
-      "count": 1,
-      "items": [
-        {
-          "kind": "plan",
-          "recipe_only": true,
-          "brand": "df",
-          "type": "recipe",
-          "id": "RECIPE_008F4DF2",
-          "name": "Pint-Sized Slasher Fishing Bobber",
-          "has_image_box": true,
-          "image_dir": "fishing-rod",
-          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is not random loot; see below.",
-          "category_label": "CAMP / Recipe (learnt directly)",
-          "obtain_routes": [],
-          "obtain_unlocks": [
-            "Reward for completing the challenge: Collect Even More Pint-Sized Slasher Masks — 30 Items Acquired."
-          ],
-          "plan_item": null,
-          "cobj": {
-            "formid": "008F4DF2",
-            "edid": "SDOW_co_Fishing_RodBobber_Display_SlasherBobber"
-          },
-          "cnam": {
-            "formid": "008F4DF3",
-            "edid": "SDOW_Fishing_RodBobber_Display_SlasherBobber_Misc",
-            "sig": "MISC"
-          },
-          "tradeable": null,
-          "stops_dropping": null,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "changes": [],
-          "obtain_ledger": [
-            {
-              "label": "Challenges",
-              "unlocks": [
-                0
-              ],
-              "drop": "N/A"
-            }
-          ],
-          "source_tag": "CHAL",
-          "images": [],
-          "image_source": "",
-          "plan_page": "fishing-rod",
-          "plan_page_group": "Display Replicas",
-          "group": "misc-display",
-          "is_new": true
-        }
-      ]
-    },
-    {
-      "key": "recipe",
-      "label": "Recipes",
-      "count": 7,
-      "items": [
-        {
-          "kind": "plan",
-          "recipe_only": true,
-          "brand": "df",
-          "type": "recipe",
-          "id": "RECIPE_008B5081",
-          "name": "Cat Leveling Backpack Flair",
-          "has_image_box": false,
-          "image_dir": "backpack",
-          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is not random loot; see below.",
-          "category_label": "CAMP / Recipe Mod / Paint",
-          "obtain_routes": [],
-          "obtain_unlocks": [
-            "Reward for completing the challenge: Cat - Reach Level 65."
-          ],
-          "plan_item": null,
-          "cobj": {
-            "formid": "008B5081",
-            "edid": "BoS_co_SteelReignFlair_CatFlair2"
-          },
-          "cnam": {
-            "formid": "008B5098",
-            "edid": "BoS_mod_SteelReignFlair_CatFlair2",
-            "sig": "OMOD"
-          },
-          "tradeable": null,
-          "stops_dropping": null,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "changes": [],
-          "obtain_ledger": [
-            {
-              "label": "Challenges",
-              "unlocks": [
-                0
-              ],
-              "drop": "N/A"
-            }
-          ],
-          "source_tag": "CHAL",
-          "images": [],
-          "image_source": "",
-          "plan_page": "backpack-mod",
-          "plan_page_group": null,
-          "group": "recipe",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "recipe_only": true,
-          "brand": "df",
-          "type": "recipe",
-          "id": "RECIPE_008B507F",
-          "name": "Deathclaw Leveling Backpack Flair",
-          "has_image_box": false,
-          "image_dir": "backpack",
-          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is not random loot; see below.",
-          "category_label": "CAMP / Recipe Mod / Paint",
-          "obtain_routes": [],
-          "obtain_unlocks": [
-            "Reward for completing the challenge: Deathclaw - Reach Level 65 — 10 World Pet Levelled Up."
-          ],
-          "plan_item": null,
-          "cobj": {
-            "formid": "008B507F",
-            "edid": "BoS_co_SteelReignFlair_DCFlair1"
-          },
-          "cnam": {
-            "formid": "008B509E",
-            "edid": "BoS_mod_SteelReignFlair_DCFlair1",
-            "sig": "OMOD"
-          },
-          "tradeable": null,
-          "stops_dropping": null,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "changes": [],
-          "obtain_ledger": [
-            {
-              "label": "Challenges",
-              "unlocks": [
-                0
-              ],
-              "drop": "N/A"
-            }
-          ],
-          "source_tag": "CHAL",
-          "images": [],
-          "image_source": "",
-          "plan_page": "backpack-mod",
-          "plan_page_group": null,
-          "group": "recipe",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "recipe_only": true,
-          "brand": "df",
-          "type": "recipe",
-          "id": "RECIPE_008B5082",
-          "name": "Dog Leveling Backpack Flair",
-          "has_image_box": false,
-          "image_dir": "backpack",
-          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is not random loot; see below.",
-          "category_label": "CAMP / Recipe Mod / Paint",
-          "obtain_routes": [],
-          "obtain_unlocks": [
-            "Reward for completing the challenge: Dog - Reach Level 65 — 10 World Pet Levelled Up."
-          ],
-          "plan_item": null,
-          "cobj": {
-            "formid": "008B5082",
-            "edid": "BoS_co_SteelReignFlair_DogFlair2"
-          },
-          "cnam": {
-            "formid": "008B509A",
-            "edid": "BoS_mod_SteelReignFlair_DogFlair2",
-            "sig": "OMOD"
-          },
-          "tradeable": null,
-          "stops_dropping": null,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "changes": [],
-          "obtain_ledger": [
-            {
-              "label": "Challenges",
-              "unlocks": [
-                0
-              ],
-              "drop": "N/A"
-            }
-          ],
-          "source_tag": "CHAL",
-          "images": [],
-          "image_source": "",
-          "plan_page": "backpack-mod",
-          "plan_page_group": null,
-          "group": "recipe",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_00915481",
-          "name": "Plan: Cannery Recipe Bundle #1",
-          "has_image_box": false,
-          "image_dir": "recipes",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-          "category_label": "CAMP / Recipe (mod/recipe)",
-          "obtain_routes": [
-            {
-              "route": "Wastelanders - Samuel (Settlers Gold Bullion vendor)",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%",
-              "lvli": [
-                "0059672D",
-                "005A0AC3"
-              ],
-              "conditions": [
-                "Only while you do not own Cannery Recipe Bundle #1"
-              ]
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00915481",
-            "edid": "SCORE_S25_Recipe_CanneryG1_StampVendor"
-          },
-          "cobj": {
-            "formid": "0091547F",
-            "edid": "SCORE_S25_co_CanneryG1_StampVendor"
-          },
-          "cnam": null,
-          "tradeable": false,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Gold Bullion",
-              "routes": [
-                0
-              ]
-            }
-          ],
-          "source_tag": "Gold",
-          "images": [
-            "/wp-content/uploads/season_images/season-25/score_s25_utility_canneryrecipebundle1.avif"
-          ],
-          "image_source": "season",
-          "plan_page": "camp",
-          "plan_page_group": "Needs Sorting",
-          "group": "recipe",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_00915482",
-          "name": "Plan: Cannery Recipe Bundle #2",
-          "has_image_box": false,
-          "image_dir": "recipes",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-          "category_label": "CAMP / Recipe (mod/recipe)",
-          "obtain_routes": [
-            {
-              "route": "Wastelanders - Samuel (Settlers Gold Bullion vendor)",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%",
-              "lvli": [
-                "0059672D",
-                "005A0AC3"
-              ],
-              "conditions": [
-                "Only while you do not own Cannery Recipe Bundle #2"
-              ]
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00915482",
-            "edid": "SCORE_S25_Recipe_CanneryG2_StampVendor"
-          },
-          "cobj": {
-            "formid": "00915480",
-            "edid": "SCORE_S25_co_CanneryG2_StampVendor"
-          },
-          "cnam": null,
-          "tradeable": false,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Gold Bullion",
-              "routes": [
-                0
-              ]
-            }
-          ],
-          "source_tag": "Gold",
-          "images": [
-            "/wp-content/uploads/season_images/season-25/score_s25_utility_canneryrecipebundle2.avif"
-          ],
-          "image_source": "season",
-          "plan_page": "camp",
-          "plan_page_group": "Needs Sorting",
-          "group": "recipe",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "recipe_only": true,
-          "brand": "df",
-          "type": "recipe",
-          "id": "RECIPE_008B5084",
-          "name": "Radhog Leveling Backpack Flair",
-          "has_image_box": false,
-          "image_dir": "backpack",
-          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is not random loot; see below.",
-          "category_label": "CAMP / Recipe Mod / Paint",
-          "obtain_routes": [],
-          "obtain_unlocks": [
-            "Reward for completing the challenge: Radhog - Reach Level 65 — 10 World Pet Levelled Up."
-          ],
-          "plan_item": null,
-          "cobj": {
-            "formid": "008B5084",
-            "edid": "BoS_co_SteelReignFlair_RadhogFlair2"
-          },
-          "cnam": {
-            "formid": "008B5097",
-            "edid": "BoS_mod_SteelReignFlair_RadhogFlair2",
-            "sig": "OMOD"
-          },
-          "tradeable": null,
-          "stops_dropping": null,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "changes": [],
-          "obtain_ledger": [
-            {
-              "label": "Challenges",
-              "unlocks": [
-                0
-              ],
-              "drop": "N/A"
-            }
-          ],
-          "source_tag": "CHAL",
-          "images": [],
-          "image_source": "",
-          "plan_page": "backpack-mod",
-          "plan_page_group": null,
-          "group": "recipe",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "recipe_only": true,
-          "brand": "df",
-          "type": "recipe",
-          "id": "RECIPE_008EFCB2",
-          "name": "Spicy Eelgrass Soup",
-          "has_image_box": false,
-          "image_dir": "recipes",
-          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is not random loot; see below.",
-          "category_label": "Consumable Recipe",
-          "obtain_routes": [],
-          "obtain_unlocks": [
-            "Reward for completing the challenge: Catch Fall Seasonal Local Legend: \"Sludge Eye\"."
-          ],
-          "plan_item": null,
-          "cobj": {
-            "formid": "008EFCB2",
-            "edid": "co_meal_Fishing_FallSoup"
-          },
-          "cnam": {
-            "formid": "008EFCA8",
-            "edid": "SeasonalFish_Meal_FallSoup",
-            "sig": "ALCH"
-          },
-          "tradeable": null,
-          "stops_dropping": null,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "changes": [],
-          "obtain_ledger": [
-            {
-              "label": "Challenges",
-              "unlocks": [
-                0
-              ],
-              "drop": "N/A"
-            }
-          ],
-          "source_tag": "CHAL",
-          "images": [],
-          "image_source": "",
-          "plan_page": "recipe",
-          "plan_page_group": null,
-          "consumable_group": "Food",
-          "consumable_type": "Cooked Meals",
-          "group": "recipe",
           "is_new": true
         }
       ]
@@ -5227,102 +5091,245 @@
       ]
     },
     {
-      "key": "weapon",
-      "label": "Weapons",
+      "key": "backpack-mod",
+      "label": "Backpack Mods",
+      "count": 4,
+      "items": [
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "brand": "df",
+          "type": "backpack-mod",
+          "id": "RECIPE_008B6A27",
+          "name": "Cat Leveling Backpack",
+          "has_image_box": false,
+          "image_dir": "backpack",
+          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is not random loot; see below.",
+          "category_label": "Backpack Mod Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Cat - Reach Level 160."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "008B6A27",
+            "edid": "WorldPets_co_Armor_CatBackpack"
+          },
+          "cnam": {
+            "formid": "008B6A2E",
+            "edid": "WorldPets_mod_CatBackPack_Material",
+            "sig": "OMOD"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "source_tag": "CHAL",
+          "images": [],
+          "image_source": "",
+          "plan_page": "backpack-mod",
+          "plan_page_group": null,
+          "group": "backpack-mod",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "brand": "df",
+          "type": "backpack-mod",
+          "id": "RECIPE_008B6A29",
+          "name": "Deathclaw Leveling Backpack",
+          "has_image_box": false,
+          "image_dir": "backpack",
+          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is not random loot; see below.",
+          "category_label": "Backpack Mod Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Deathclaw - Reach Level 160 — 40 World Pet Levelled Up."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "008B6A29",
+            "edid": "WorldPets_co_Armor_DCBackpack"
+          },
+          "cnam": {
+            "formid": "008B6A31",
+            "edid": "WorldPets_mod_DCBackPack_Material",
+            "sig": "OMOD"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "source_tag": "CHAL",
+          "images": [],
+          "image_source": "",
+          "plan_page": "backpack-mod",
+          "plan_page_group": null,
+          "group": "backpack-mod",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "brand": "df",
+          "type": "backpack-mod",
+          "id": "RECIPE_008B6A26",
+          "name": "Dog Leveling Backpack",
+          "has_image_box": false,
+          "image_dir": "backpack",
+          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is not random loot; see below.",
+          "category_label": "Backpack Mod Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Dog - Reach Level 160 — 40 World Pet Levelled Up."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "008B6A26",
+            "edid": "WorldPets_co_Armor_DogBackpack"
+          },
+          "cnam": {
+            "formid": "008B6A2F",
+            "edid": "WorldPets_mod_DogBackPack_Material",
+            "sig": "OMOD"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "source_tag": "CHAL",
+          "images": [],
+          "image_source": "",
+          "plan_page": "backpack-mod",
+          "plan_page_group": null,
+          "group": "backpack-mod",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "brand": "df",
+          "type": "backpack-mod",
+          "id": "RECIPE_008B6A28",
+          "name": "Radhog Leveling Backpack",
+          "has_image_box": false,
+          "image_dir": "backpack",
+          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is not random loot; see below.",
+          "category_label": "Backpack Mod Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Radhog - Reach Level 160 — 40 World Pet Levelled Up."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "008B6A28",
+            "edid": "WorldPets_co_Armor_RadhogBackpack"
+          },
+          "cnam": {
+            "formid": "008B6A30",
+            "edid": "WorldPets_mod_RadhogBackPack_Material",
+            "sig": "OMOD"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "source_tag": "CHAL",
+          "images": [],
+          "image_source": "",
+          "plan_page": "backpack-mod",
+          "plan_page_group": null,
+          "group": "backpack-mod",
+          "is_new": true
+        }
+      ]
+    },
+    {
+      "key": "camp",
+      "label": "CAMP",
       "count": 10,
       "items": [
         {
           "kind": "plan",
           "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_0091C631",
-          "name": "Plan: Commie Whacker",
+          "type": "recipe",
+          "id": "PLAN_008E0696",
+          "name": "Plan: Pint-Sized Slasher Ad Poster 1",
           "has_image_box": true,
-          "image_dir": "weapons",
+          "image_dir": "workshop",
           "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon (physical plan)",
+          "category_label": "CAMP / Recipe (physical plan)",
           "obtain_routes": [
             {
-              "route": "Liberator",
+              "route": "Scorched Spooky",
               "source_type": "creature",
-              "rate": 0.03,
-              "rate_display": "3%",
+              "rate": 0.133333,
+              "rate_display": "13.33%",
               "lvli": [
-                "00109F98",
-                "00377D06"
+                "008F6AC2"
               ],
               "conditions": [
-                "Stops dropping once you learn it"
-              ]
-            },
-            {
-              "route": "Daily Ops - High Chase Rare",
-              "source_type": "event-quest",
-              "rate": 0.02439,
-              "rate_display": "2.44%",
-              "lvli": [
-                "005D080E"
-              ],
-              "conditions": [
-                "Level 50 and above"
-              ]
-            },
-            {
-              "route": "Daily Ops - Chase",
-              "source_type": "event-quest",
-              "rate": 0.010976,
-              "rate_display": "1.1%",
-              "lvli": [
-                "005CB9FF",
-                "005DBD0D",
-                "005DBD0F"
-              ],
-              "conditions": [
-                "Level 50 and above"
-              ]
-            },
-            {
-              "route": "Liberator",
-              "source_type": "creature",
-              "rate": 0.006,
-              "rate_display": "0.6%",
-              "lvli": [
-                "00109F98",
-                "00377D06"
-              ],
-              "conditions": [
-                "Stops dropping once you learn it"
-              ]
-            },
-            {
-              "route": "Robot Liberator",
-              "source_type": "creature",
-              "rate": 0.006,
-              "rate_display": "0.6%",
-              "lvli": [
-                "0038232C"
-              ],
-              "conditions": [
-                "Stops dropping once you learn it"
+                "Only while wearing SDOW Clothing Type Slasher Head"
               ]
             }
           ],
           "obtain_unlocks": [],
           "plan_item": {
-            "formid": "0091C631",
-            "edid": "recipe_DLC04_Weapon_melee_DLC04_CommieWhacker"
+            "formid": "008E0696",
+            "edid": "SDOW_Recipe_Workshop_WallDecor_SlasherAdPoster01"
           },
           "cobj": {
-            "formid": "0015FAFC",
-            "edid": "co_Weapon_Melee_DLC04_CommieWhacker"
+            "formid": "008E0754",
+            "edid": "SDOW_workshop_co_CondProxy_WallDecor_Posters_SlasherAdPoster01"
           },
-          "cnam": {
-            "formid": "0011475B",
-            "edid": "DLC04_CommieWhacker",
-            "sig": "WEAP"
-          },
+          "cnam": null,
           "tradeable": true,
-          "stops_dropping": true,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -5330,432 +5337,54 @@
             {
               "label": "Events & Activities",
               "routes": [
-                0,
-                1,
-                2,
-                3,
-                4
+                0
               ]
             }
           ],
           "source_tag": "Enemy",
-          "images": [],
-          "image_source": "",
-          "plan_page": "weapon",
-          "plan_page_group": null,
-          "weapon_role": "base",
-          "weapon_group": "Commie Whacker",
-          "weapon_group_key": "commie-whacker",
-          "weapon_group_solo": false,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_00918214",
-          "name": "Plan: Cryolator Cold Surge Muzzle",
-          "has_image_box": false,
-          "image_dir": "weapons",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It is not random loot — see below.",
-          "category_label": "CAMP / Recipe (mod/recipe)",
-          "obtain_routes": [],
-          "obtain_unlocks": [
-            "Named in the game files as a Season 26 reward, sold as stamp-vendor stock (Giuseppe Delcavo, Whitespring Refuge)."
-          ],
-          "plan_item": {
-            "formid": "00918214",
-            "edid": "SCORE_S26_Recipe_Cryolator_ColdSurgeMuzzle_StampVendor"
-          },
-          "cobj": {
-            "formid": "0091820E",
-            "edid": "SCORE_S26_co_Weapon_Cryolator_ColdSurgeMuzzle_StampVendor"
-          },
-          "cnam": null,
-          "tradeable": false,
-          "stops_dropping": null,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Stamps",
-              "unlocks": [
-                0
-              ],
-              "drop": "N/A"
-            }
-          ],
           "images": [
-            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+            "sdow_recipe_workshop_walldecor_slasheradposter01"
           ],
-          "image_source": "weapon-mod",
-          "plan_page": "weapon",
-          "plan_page_group": null,
-          "weapon_role": "mod",
-          "weapon_group": "Cryolator",
-          "weapon_group_key": "cryolator",
-          "weapon_group_solo": false,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_00918213",
-          "name": "Plan: Cryolator Hypothermic Muzzle Mod",
-          "has_image_box": false,
-          "image_dir": "weapons",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It is not random loot — see below.",
-          "category_label": "CAMP / Recipe (mod/recipe)",
-          "obtain_routes": [],
-          "obtain_unlocks": [
-            "Named in the game files as a Season 26 reward, sold as stamp-vendor stock (Giuseppe Delcavo, Whitespring Refuge)."
-          ],
-          "plan_item": {
-            "formid": "00918213",
-            "edid": "SCORE_S26_Recipe_Cryolator_HypothermicMuzzle_StampVendor"
-          },
-          "cobj": {
-            "formid": "0091820F",
-            "edid": "SCORE_S26_co_Weapon_Cryolator_HypothermicMuzzle_StampVendor"
-          },
-          "cnam": null,
-          "tradeable": false,
-          "stops_dropping": null,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Stamps",
-              "unlocks": [
-                0
-              ],
-              "drop": "N/A"
-            }
-          ],
-          "images": [
-            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
-          ],
-          "image_source": "weapon-mod",
-          "plan_page": "weapon",
-          "plan_page_group": null,
-          "weapon_role": "mod",
-          "weapon_group": "Cryolator",
-          "weapon_group_key": "cryolator",
-          "weapon_group_solo": false,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_00918215",
-          "name": "Plan: Cryolator Magazine Mods",
-          "has_image_box": false,
-          "image_dir": "weapons",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It is not random loot — see below.",
-          "category_label": "CAMP / Recipe (mod/recipe)",
-          "obtain_routes": [],
-          "obtain_unlocks": [
-            "Named in the game files as a Season 26 reward, sold as stamp-vendor stock (Giuseppe Delcavo, Whitespring Refuge)."
-          ],
-          "plan_item": {
-            "formid": "00918215",
-            "edid": "SCORE_S26_Recipe_Cryolator_Magazine_StampVendor"
-          },
-          "cobj": {
-            "formid": "0091820C",
-            "edid": "SCORE_S26_co_Weapon_Cryolator_Magazine_StampVendor"
-          },
-          "cnam": null,
-          "tradeable": false,
-          "stops_dropping": null,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Stamps",
-              "unlocks": [
-                0
-              ],
-              "drop": "N/A"
-            }
-          ],
-          "images": [
-            "/wp-content/uploads/season_images/season-26/score_s26_weapons_cryolator_mods.avif"
-          ],
-          "image_source": "season",
-          "plan_page": "weapon",
-          "plan_page_group": null,
-          "weapon_role": "mod",
-          "weapon_group": "Cryolator",
-          "weapon_group_key": "cryolator",
-          "weapon_group_solo": false,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_00918211",
-          "name": "Plan: Cryolator Polar Lobber Mod",
-          "has_image_box": false,
-          "image_dir": "weapons",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It is not random loot — see below.",
-          "category_label": "CAMP / Recipe (mod/recipe)",
-          "obtain_routes": [],
-          "obtain_unlocks": [
-            "Named in the game files as a Season 26 reward, sold as stamp-vendor stock (Giuseppe Delcavo, Whitespring Refuge)."
-          ],
-          "plan_item": {
-            "formid": "00918211",
-            "edid": "SCORE_S26_Recipe_Cryolator_PolarLobber_StampVendor"
-          },
-          "cobj": {
-            "formid": "0091820D",
-            "edid": "SCORE_S26_co_Weapon_Cryolator_PolarLobber_StampVendor"
-          },
-          "cnam": null,
-          "tradeable": false,
-          "stops_dropping": null,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Stamps",
-              "unlocks": [
-                0
-              ],
-              "drop": "N/A"
-            }
-          ],
-          "images": [
-            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
-          ],
-          "image_source": "weapon-mod",
-          "plan_page": "weapon",
-          "plan_page_group": null,
-          "weapon_role": "mod",
-          "weapon_group": "Cryolator",
-          "weapon_group_key": "cryolator",
-          "weapon_group_solo": false,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_00930841",
-          "name": "Plan: Piercing Love",
-          "has_image_box": false,
-          "image_dir": "recipes",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-          "category_label": "CAMP / Recipe (mod/recipe)",
-          "obtain_routes": [
-            {
-              "route": "Wastelanders - Mortimer (Raiders Gold Bullion vendor)",
-              "source_type": "vendor",
-              "rate": 1.0,
-              "rate_display": "100%",
-              "lvli": [
-                "00596E98",
-                "005A0EEB"
-              ],
-              "conditions": []
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00930841",
-            "edid": "SCORE_MiniSeason_LoveHurts_Recipe_Weapon_CompoundBow_PiercingLove_GoldVendor"
-          },
-          "cobj": {
-            "formid": "00930843",
-            "edid": "SCORE_MiniSeason_LoveHurts_co_Weapon_CompoundBow_PiercingLove_GoldVendor"
-          },
-          "cnam": null,
-          "tradeable": false,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Gold Bullion",
-              "routes": [
-                0
-              ]
-            }
-          ],
-          "source_tag": "Gold",
-          "images": [],
-          "image_source": "",
+          "image_source": "staged",
           "plan_page": "camp",
-          "plan_page_group": "Needs Sorting",
-          "group": "weapon",
+          "plan_page_group": "C.A.M.P. Plans",
+          "group": "camp",
           "is_new": true
         },
         {
           "kind": "plan",
           "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_0091A1ED",
-          "name": "Plan: Prime Combat Shotgun Automatic Receiver",
-          "has_image_box": false,
-          "image_dir": "weapons",
+          "type": "recipe",
+          "id": "PLAN_00904CD6",
+          "name": "Plan: Pint-Sized Slasher Ad Poster 2",
+          "has_image_box": true,
+          "image_dir": "workshop",
           "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
+          "category_label": "CAMP / Recipe (physical plan)",
           "obtain_routes": [
             {
-              "route": "Scorchbeast",
+              "route": "Scorched Spooky",
               "source_type": "creature",
-              "rate": 0.023256,
-              "rate_display": "2.33%",
+              "rate": 0.133333,
+              "rate_display": "13.33%",
               "lvli": [
-                "0036BA96",
-                "00470A06"
-              ],
-              "conditions": []
-            },
-            {
-              "route": "Scorchbeast Queen",
-              "source_type": "creature",
-              "rate": 0.023256,
-              "rate_display": "2.33%",
-              "lvli": [
-                "0050D7FE"
-              ],
-              "conditions": []
-            },
-            {
-              "route": "Systemic Weapons Prime Mods",
-              "source_type": "event-quest",
-              "rate": 0.023256,
-              "rate_display": "2.33%",
-              "lvli": [
-                "0059CAF3"
+                "008F6AC2"
               ],
               "conditions": [
-                "Level 50 and above"
-              ]
-            },
-            {
-              "route": "Scorchbeast",
-              "source_type": "creature",
-              "rate": 0.022591,
-              "rate_display": "2.26%",
-              "lvli": [
-                "0036BA96",
-                "00470A06"
-              ],
-              "conditions": []
-            },
-            {
-              "route": "Uninvited Scorchbeast",
-              "source_type": "creature",
-              "rate": 0.022591,
-              "rate_display": "2.26%",
-              "lvli": [
-                "0089740A"
-              ],
-              "conditions": []
-            },
-            {
-              "route": "Supplying Demands - Valuables",
-              "source_type": "event-quest",
-              "rate": 0.011628,
-              "rate_display": "1.16%",
-              "lvli": [
-                "005E8040"
-              ],
-              "conditions": [
-                "Level 50 and above"
-              ]
-            },
-            {
-              "route": "Systemic Weapons",
-              "source_type": "event-quest",
-              "rate": 0.011628,
-              "rate_display": "1.16%",
-              "lvli": [
-                "0059CAD0"
-              ],
-              "conditions": [
-                "Level 50 and above"
-              ]
-            },
-            {
-              "route": "Systemic Armor Weapons Plans",
-              "source_type": "event-quest",
-              "rate": 0.005814,
-              "rate_display": "0.58%",
-              "lvli": [
-                "005C4354"
-              ],
-              "conditions": [
-                "Level 50 and above"
-              ]
-            },
-            {
-              "route": "Event: Test Your Metal - Best",
-              "source_type": "event-quest",
-              "rate": 0.000894,
-              "rate_display": "0.09%",
-              "lvli": [
-                "00606BF3"
-              ],
-              "conditions": [
-                "Level 50 and above"
-              ]
-            },
-            {
-              "route": "Event: Test Your Metal - Good",
-              "source_type": "event-quest",
-              "rate": 0.000447,
-              "rate_display": "0.04%",
-              "lvli": [
-                "00606BF4"
-              ],
-              "conditions": [
-                "Level 50 and above"
-              ]
-            },
-            {
-              "route": "Event: Test Your Metal - Poor",
-              "source_type": "event-quest",
-              "rate": 8.9e-05,
-              "rate_display": "0.01%",
-              "lvli": [
-                "00606BF2"
-              ],
-              "conditions": [
-                "Level 50 and above"
+                "Only while wearing SDOW Clothing Type Slasher Head"
               ]
             }
           ],
           "obtain_unlocks": [],
           "plan_item": {
-            "formid": "0091A1ED",
-            "edid": "recipe_mod_CombatShotgun_Receiver_Automatic_AntiScorchBeast"
+            "formid": "00904CD6",
+            "edid": "SDOW_Recipe_Workshop_WallDecor_SlasherAdPoster02"
           },
           "cobj": {
-            "formid": "0091A1EE",
-            "edid": "co_mod_CombatShotgun_Receiver_Automatic_AntiScorchBeast"
+            "formid": "00904CD9",
+            "edid": "SDOW_workshop_co_CondProxy_WallDecor_Posters_SlasherAdPoster02"
           },
-          "cnam": {
-            "formid": "0091A1EF",
-            "edid": "mod_CombatShotgun_Receiver_Automatic_AntiScorchBeast",
-            "sig": "OMOD"
-          },
+          "cnam": null,
           "tradeable": true,
           "stops_dropping": false,
           "effects": null,
@@ -5765,186 +5394,54 @@
             {
               "label": "Events & Activities",
               "routes": [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10
+                0
               ]
             }
           ],
-          "source_tag": "Activities",
+          "source_tag": "Enemy",
           "images": [
-            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+            "sdow_recipe_workshop_walldecor_slasheradposter02"
           ],
-          "image_source": "weapon-mod",
-          "plan_page": "weapon",
-          "plan_page_group": null,
-          "weapon_role": "mod",
-          "weapon_group": "Combat Shotgun",
-          "weapon_group_key": "combat-shotgun",
-          "weapon_group_solo": false,
-          "group": "weapon",
+          "image_source": "staged",
+          "plan_page": "camp",
+          "plan_page_group": "C.A.M.P. Plans",
+          "group": "camp",
           "is_new": true
         },
         {
           "kind": "plan",
           "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_00913B60",
-          "name": "Plan: Prime Railway Rifle Automatic Receiver",
-          "has_image_box": false,
-          "image_dir": "weapons",
+          "type": "recipe",
+          "id": "PLAN_00904CD7",
+          "name": "Plan: Pint-Sized Slasher Ad Poster 3",
+          "has_image_box": true,
+          "image_dir": "workshop",
           "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
+          "category_label": "CAMP / Recipe (physical plan)",
           "obtain_routes": [
             {
-              "route": "Scorchbeast",
+              "route": "Scorched Spooky",
               "source_type": "creature",
-              "rate": 0.023256,
-              "rate_display": "2.33%",
+              "rate": 0.133333,
+              "rate_display": "13.33%",
               "lvli": [
-                "0036BA96",
-                "00470A06"
-              ],
-              "conditions": []
-            },
-            {
-              "route": "Scorchbeast Queen",
-              "source_type": "creature",
-              "rate": 0.023256,
-              "rate_display": "2.33%",
-              "lvli": [
-                "0050D7FE"
-              ],
-              "conditions": []
-            },
-            {
-              "route": "Systemic Weapons Prime Mods",
-              "source_type": "event-quest",
-              "rate": 0.023256,
-              "rate_display": "2.33%",
-              "lvli": [
-                "0059CAF3"
+                "008F6AC2"
               ],
               "conditions": [
-                "Level 50 and above"
-              ]
-            },
-            {
-              "route": "Scorchbeast",
-              "source_type": "creature",
-              "rate": 0.022591,
-              "rate_display": "2.26%",
-              "lvli": [
-                "0036BA96",
-                "00470A06"
-              ],
-              "conditions": []
-            },
-            {
-              "route": "Uninvited Scorchbeast",
-              "source_type": "creature",
-              "rate": 0.022591,
-              "rate_display": "2.26%",
-              "lvli": [
-                "0089740A"
-              ],
-              "conditions": []
-            },
-            {
-              "route": "Supplying Demands - Valuables",
-              "source_type": "event-quest",
-              "rate": 0.011628,
-              "rate_display": "1.16%",
-              "lvli": [
-                "005E8040"
-              ],
-              "conditions": [
-                "Level 50 and above"
-              ]
-            },
-            {
-              "route": "Systemic Weapons",
-              "source_type": "event-quest",
-              "rate": 0.011628,
-              "rate_display": "1.16%",
-              "lvli": [
-                "0059CAD0"
-              ],
-              "conditions": [
-                "Level 50 and above"
-              ]
-            },
-            {
-              "route": "Systemic Armor Weapons Plans",
-              "source_type": "event-quest",
-              "rate": 0.005814,
-              "rate_display": "0.58%",
-              "lvli": [
-                "005C4354"
-              ],
-              "conditions": [
-                "Level 50 and above"
-              ]
-            },
-            {
-              "route": "Event: Test Your Metal - Best",
-              "source_type": "event-quest",
-              "rate": 0.000894,
-              "rate_display": "0.09%",
-              "lvli": [
-                "00606BF3"
-              ],
-              "conditions": [
-                "Level 50 and above"
-              ]
-            },
-            {
-              "route": "Event: Test Your Metal - Good",
-              "source_type": "event-quest",
-              "rate": 0.000447,
-              "rate_display": "0.04%",
-              "lvli": [
-                "00606BF4"
-              ],
-              "conditions": [
-                "Level 50 and above"
-              ]
-            },
-            {
-              "route": "Event: Test Your Metal - Poor",
-              "source_type": "event-quest",
-              "rate": 8.9e-05,
-              "rate_display": "0.01%",
-              "lvli": [
-                "00606BF2"
-              ],
-              "conditions": [
-                "Level 50 and above"
+                "Only while wearing SDOW Clothing Type Slasher Head"
               ]
             }
           ],
           "obtain_unlocks": [],
           "plan_item": {
-            "formid": "00913B60",
-            "edid": "recipe_mod_RailwayRifle_Receiver_Automatic_AntiScorchBeast"
+            "formid": "00904CD7",
+            "edid": "SDOW_Recipe_Workshop_WallDecor_SlasherAdPoster03"
           },
           "cobj": {
-            "formid": "00913B62",
-            "edid": "co_mod_RailwayRifle_Receiver_Automatic_AntiScorchBeast"
+            "formid": "00904CDA",
+            "edid": "SDOW_workshop_co_CondProxy_WallDecor_Posters_SlasherAdPoster03"
           },
-          "cnam": {
-            "formid": "00913B64",
-            "edid": "mod_RailwayRifle_Receiver_Automatic_AntiScorchBeast",
-            "sig": "OMOD"
-          },
+          "cnam": null,
           "tradeable": true,
           "stops_dropping": false,
           "effects": null,
@@ -5954,296 +5451,97 @@
             {
               "label": "Events & Activities",
               "routes": [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10
+                0
               ]
             }
           ],
-          "source_tag": "Activities",
+          "source_tag": "Enemy",
           "images": [
-            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+            "sdow_recipe_workshop_walldecor_slasheradposter03"
           ],
-          "image_source": "weapon-mod",
-          "plan_page": "weapon",
-          "plan_page_group": null,
-          "weapon_role": "mod",
-          "weapon_group": "Railway Rifle",
-          "weapon_group_key": "railway-rifle",
-          "weapon_group_solo": false,
-          "group": "weapon",
+          "image_source": "staged",
+          "plan_page": "camp",
+          "plan_page_group": "C.A.M.P. Plans",
+          "group": "camp",
           "is_new": true
         },
         {
           "kind": "plan",
           "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_00919FDA",
-          "name": "Plan: Prime Railway Shotgun Receiver",
-          "has_image_box": false,
-          "image_dir": "weapons",
+          "type": "recipe",
+          "id": "PLAN_008E0690",
+          "name": "Plan: Pint-Sized Slasher Balloon",
+          "has_image_box": true,
+          "image_dir": "workshop",
           "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
+          "category_label": "CAMP / Recipe (physical plan)",
           "obtain_routes": [
             {
-              "route": "Scorchbeast",
+              "route": "The Slasher - Infestations Rare",
+              "source_type": "event-quest",
+              "rate": 0.333333,
+              "rate_display": "33.33%",
+              "lvli": [
+                "008FCEA6"
+              ],
+              "conditions": [
+                "Only from HTO Encounter Boss Keyword",
+                "Only from SDOW Actor Type Slasher Fan"
+              ]
+            },
+            {
+              "route": "Blood Eagle Destroyer",
               "source_type": "creature",
-              "rate": 0.023256,
-              "rate_display": "2.33%",
+              "rate": 0.083333,
+              "rate_display": "8.33%",
               "lvli": [
-                "0036BA96",
-                "00470A06"
-              ],
-              "conditions": []
-            },
-            {
-              "route": "Scorchbeast Queen",
-              "source_type": "creature",
-              "rate": 0.023256,
-              "rate_display": "2.33%",
-              "lvli": [
-                "0050D7FE"
-              ],
-              "conditions": []
-            },
-            {
-              "route": "Systemic Weapons Prime Mods",
-              "source_type": "event-quest",
-              "rate": 0.023256,
-              "rate_display": "2.33%",
-              "lvli": [
-                "0059CAF3"
+                "00863220"
               ],
               "conditions": [
-                "Level 50 and above"
+                "Only from SDOW Actor Type Slasher Fan",
+                "Only from HTO Encounter Boss Keyword"
               ]
             },
             {
-              "route": "Scorchbeast",
-              "source_type": "creature",
-              "rate": 0.022591,
-              "rate_display": "2.26%",
-              "lvli": [
-                "0036BA96",
-                "00470A06"
-              ],
-              "conditions": []
-            },
-            {
-              "route": "Uninvited Scorchbeast",
-              "source_type": "creature",
-              "rate": 0.022591,
-              "rate_display": "2.26%",
-              "lvli": [
-                "0089740A"
-              ],
-              "conditions": []
-            },
-            {
-              "route": "Supplying Demands - Valuables",
+              "route": "Infestations - Events",
               "source_type": "event-quest",
-              "rate": 0.011628,
-              "rate_display": "1.16%",
+              "rate": 0.083333,
+              "rate_display": "8.33%",
               "lvli": [
-                "005E8040"
+                "008F2B69"
               ],
               "conditions": [
-                "Level 50 and above"
+                "Only from SDOW Actor Type Slasher Fan",
+                "Only from HTO Encounter Boss Keyword"
               ]
             },
             {
-              "route": "Systemic Weapons",
+              "route": "Infestations - Events The Slasher",
               "source_type": "event-quest",
-              "rate": 0.011628,
-              "rate_display": "1.16%",
+              "rate": 0.083333,
+              "rate_display": "8.33%",
               "lvli": [
-                "0059CAD0"
+                "008F2B67"
               ],
               "conditions": [
-                "Level 50 and above"
-              ]
-            },
-            {
-              "route": "Systemic Armor Weapons Plans",
-              "source_type": "event-quest",
-              "rate": 0.005814,
-              "rate_display": "0.58%",
-              "lvli": [
-                "005C4354"
-              ],
-              "conditions": [
-                "Level 50 and above"
-              ]
-            },
-            {
-              "route": "Event: Test Your Metal - Best",
-              "source_type": "event-quest",
-              "rate": 0.000894,
-              "rate_display": "0.09%",
-              "lvli": [
-                "00606BF3"
-              ],
-              "conditions": [
-                "Level 50 and above"
-              ]
-            },
-            {
-              "route": "Event: Test Your Metal - Good",
-              "source_type": "event-quest",
-              "rate": 0.000447,
-              "rate_display": "0.04%",
-              "lvli": [
-                "00606BF4"
-              ],
-              "conditions": [
-                "Level 50 and above"
-              ]
-            },
-            {
-              "route": "Event: Test Your Metal - Poor",
-              "source_type": "event-quest",
-              "rate": 8.9e-05,
-              "rate_display": "0.01%",
-              "lvli": [
-                "00606BF2"
-              ],
-              "conditions": [
-                "Level 50 and above"
+                "Only from HTO Encounter Boss Keyword",
+                "Only from SDOW Actor Type Slasher Fan"
               ]
             }
           ],
           "obtain_unlocks": [],
           "plan_item": {
-            "formid": "00919FDA",
-            "edid": "recipe_mod_RailwayRifle_receiver_Splitter_AntiScorchBeast"
+            "formid": "008E0690",
+            "edid": "SDOW_Recipe_Workshop_FloorDecor_SlasherBalloons"
           },
           "cobj": {
-            "formid": "00919FDB",
-            "edid": "co_mod_RailwayRifle_Receiver_Splitter_AntiScorchBeast"
+            "formid": "008F513B",
+            "edid": "SDOW_workshop_co_FloorDecor_SlasherBalloons"
           },
           "cnam": {
-            "formid": "00919FDC",
-            "edid": "mod_RailwayRifle_Receiver_Splitter_AntiScorchBeast",
-            "sig": "OMOD"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Events & Activities",
-              "routes": [
-                0,
-                1,
-                2,
-                3,
-                4,
-                5,
-                6,
-                7,
-                8,
-                9,
-                10
-              ]
-            }
-          ],
-          "source_tag": "Activities",
-          "images": [
-            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
-          ],
-          "image_source": "weapon-mod",
-          "plan_page": "weapon",
-          "plan_page_group": null,
-          "weapon_role": "mod",
-          "weapon_group": "Railway Rifle",
-          "weapon_group_key": "railway-rifle",
-          "weapon_group_solo": false,
-          "group": "weapon",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "weapon",
-          "id": "PLAN_00913B61",
-          "name": "Plan: Railway Rifle Shotgun Receiver",
-          "has_image_box": false,
-          "image_dir": "weapons",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-          "category_label": "Weapon Mod / Paint",
-          "obtain_routes": [
-            {
-              "route": "Weapons Common",
-              "source_type": "event-quest",
-              "rate": 0.017241,
-              "rate_display": "1.72%",
-              "lvli": [
-                "005D9CC2"
-              ],
-              "conditions": []
-            },
-            {
-              "route": "Daily Ops - Low Chase Rare",
-              "source_type": "event-quest",
-              "rate": 0.008621,
-              "rate_display": "0.86%",
-              "lvli": [
-                "005D9CBC"
-              ],
-              "conditions": [
-                "Level 49 and below"
-              ]
-            },
-            {
-              "route": "Daily Ops - Rare",
-              "source_type": "event-quest",
-              "rate": 0.008621,
-              "rate_display": "0.86%",
-              "lvli": [
-                "005D9CBF"
-              ],
-              "conditions": [
-                "Level 49 and below"
-              ]
-            },
-            {
-              "route": "Daily Ops - Chase",
-              "source_type": "event-quest",
-              "rate": 0.00431,
-              "rate_display": "0.43%",
-              "lvli": [
-                "005CB9FF",
-                "005DBD0D",
-                "005DBD0F"
-              ],
-              "conditions": [
-                "Level 49 and below"
-              ]
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "00913B61",
-            "edid": "recipe_mod_RailwayRifle_Receiver_Splitter"
-          },
-          "cobj": {
-            "formid": "00913B63",
-            "edid": "co_mod_RailwayRifle_Receiver_Splitter"
-          },
-          "cnam": {
-            "formid": "00913B65",
-            "edid": "mod_RailwayRifle_Receiver_Splitter",
-            "sig": "OMOD"
+            "formid": "0091C66C",
+            "edid": "SDOW_Workshop_SlasherBalloon",
+            "sig": "ACTI"
           },
           "tradeable": true,
           "stops_dropping": false,
@@ -6263,16 +5561,887 @@
           ],
           "source_tag": "Activities",
           "images": [
-            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+            "sdow_workshop_slasherballoon"
           ],
-          "image_source": "weapon-mod",
-          "plan_page": "weapon",
+          "image_source": "staged",
+          "plan_page": "camp",
+          "plan_page_group": "C.A.M.P. Plans",
+          "group": "camp",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_008E0697",
+          "name": "Plan: Pint-Sized Slasher Gravestone",
+          "has_image_box": true,
+          "image_dir": "workshop",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (physical plan)",
+          "obtain_routes": [
+            {
+              "route": "The Slasher: Secrets to the Grave",
+              "source_type": "event-quest",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "00900A70"
+              ],
+              "conditions": []
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008E0697",
+            "edid": "SDOW_Recipe_Workshop_FloorDecor_SlasherGrave"
+          },
+          "cobj": {
+            "formid": "008E073B",
+            "edid": "SDOW_workshop_co_FloorDecor_SlasherGrave"
+          },
+          "cnam": {
+            "formid": "008E0684",
+            "edid": "SDOW_FloorDecor_SlasherGrave",
+            "sig": "ACTI"
+          },
+          "tradeable": false,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Events & Activities",
+              "routes": [
+                0
+              ]
+            }
+          ],
+          "source_tag": "Activities",
+          "images": [
+            "sdow_floordecor_slashergrave"
+          ],
+          "image_source": "staged",
+          "plan_page": "camp",
+          "plan_page_group": "C.A.M.P. Plans",
+          "group": "camp",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_008F5215",
+          "name": "Plan: Pint-Sized Slasher Photo Frame",
+          "has_image_box": false,
+          "image_dir": "photomode",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (mod/recipe)",
+          "obtain_routes": [
+            {
+              "route": "The Slasher: Out of the Shadows",
+              "source_type": "event-quest",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "00900A71"
+              ],
+              "conditions": []
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008F5215",
+            "edid": "SDOW_Recipe_PhotoMode_Frame_SlasherFrame"
+          },
+          "cobj": {
+            "formid": "008F5216",
+            "edid": "SDOW_co_Photomode_Frame_SlasherFrame"
+          },
+          "cnam": null,
+          "tradeable": false,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Events & Activities",
+              "routes": [
+                0
+              ]
+            }
+          ],
+          "source_tag": "Activities",
+          "images": [
+            "sdow_recipe_photomode_frame_slasherframe"
+          ],
+          "image_source": "staged",
+          "plan_page": "camp",
+          "plan_page_group": "Needs Sorting",
+          "group": "camp",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_008E0694",
+          "name": "Plan: Pint-Sized Slasher Plushie",
+          "has_image_box": true,
+          "image_dir": "workshop",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (physical plan)",
+          "obtain_routes": [
+            {
+              "route": "The Slasher - Infestations Rare",
+              "source_type": "event-quest",
+              "rate": 0.333333,
+              "rate_display": "33.33%",
+              "lvli": [
+                "008FCEA6"
+              ],
+              "conditions": [
+                "Only from HTO Encounter Boss Keyword",
+                "Only from SDOW Actor Type Slasher Fan"
+              ]
+            },
+            {
+              "route": "Blood Eagle Destroyer",
+              "source_type": "creature",
+              "rate": 0.083333,
+              "rate_display": "8.33%",
+              "lvli": [
+                "00863220"
+              ],
+              "conditions": [
+                "Only from SDOW Actor Type Slasher Fan",
+                "Only from HTO Encounter Boss Keyword"
+              ]
+            },
+            {
+              "route": "Infestations - Events",
+              "source_type": "event-quest",
+              "rate": 0.083333,
+              "rate_display": "8.33%",
+              "lvli": [
+                "008F2B69"
+              ],
+              "conditions": [
+                "Only from SDOW Actor Type Slasher Fan",
+                "Only from HTO Encounter Boss Keyword"
+              ]
+            },
+            {
+              "route": "Infestations - Events The Slasher",
+              "source_type": "event-quest",
+              "rate": 0.083333,
+              "rate_display": "8.33%",
+              "lvli": [
+                "008F2B67"
+              ],
+              "conditions": [
+                "Only from HTO Encounter Boss Keyword",
+                "Only from SDOW Actor Type Slasher Fan"
+              ]
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008E0694",
+            "edid": "SDOW_Recipe_Workshop_FloorDecor_SlasherDoll"
+          },
+          "cobj": {
+            "formid": "008E0735",
+            "edid": "SDOW_workshop_co_CondProxy_FloorDecor_Plushie_SlasherDoll"
+          },
+          "cnam": null,
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Events & Activities",
+              "routes": [
+                0,
+                1,
+                2,
+                3
+              ]
+            }
+          ],
+          "source_tag": "Activities",
+          "images": [
+            "sdow_recipe_workshop_floordecor_slasherdoll"
+          ],
+          "image_source": "staged",
+          "plan_page": "camp",
+          "plan_page_group": "C.A.M.P. Plans",
+          "group": "camp",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_008E068E",
+          "name": "Plan: Pint-Sized Slasher Radio",
+          "has_image_box": true,
+          "image_dir": "workshop",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It is not random loot — see below.",
+          "category_label": "CAMP / Recipe (physical plan)",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Collect The Remaining Pint-Sized Slasher Masks — 50 Items Acquired."
+          ],
+          "plan_item": {
+            "formid": "008E068E",
+            "edid": "zzz_SDOW_Recipe_Workshop_Radio_SlasherRadio"
+          },
+          "cobj": {
+            "formid": "008E0739",
+            "edid": "SDOW_workshop_co_SlasherRadio"
+          },
+          "cnam": {
+            "formid": "008E0685",
+            "edid": "SDOW_WorkshopRadio_SlasherRadio",
+            "sig": "ACTI"
+          },
+          "tradeable": false,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "source_tag": "CHAL",
+          "images": [
+            "zzz_sdow_recipe_workshop_radio_slasherradio"
+          ],
+          "image_source": "staged",
+          "plan_page": "camp",
+          "plan_page_group": "C.A.M.P. Plans",
+          "group": "camp",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_008E0699",
+          "name": "Plan: Pint-Sized Slasher Wanted Poster 1",
+          "has_image_box": true,
+          "image_dir": "workshop",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (physical plan)",
+          "obtain_routes": [
+            {
+              "route": "The Slasher - Fan Party Crasher",
+              "source_type": "creature",
+              "rate": 0.333333,
+              "rate_display": "33.33%",
+              "lvli": [
+                "00904CDC"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "Uninvited Pint-Sized Phantom",
+              "source_type": "creature",
+              "rate": 0.083333,
+              "rate_display": "8.33%",
+              "lvli": [
+                "008E06FB"
+              ],
+              "conditions": []
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008E0699",
+            "edid": "SDOW_Recipe_Workshop_WallDecor_SlasherScaryPoster01"
+          },
+          "cobj": {
+            "formid": "008E0753",
+            "edid": "SDOW_workshop_co_CondProxy_WallDecor_Posters_SlasherScaryPoster01"
+          },
+          "cnam": null,
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Events & Activities",
+              "routes": [
+                0,
+                1
+              ]
+            }
+          ],
+          "source_tag": "Enemy",
+          "images": [
+            "sdow_recipe_workshop_walldecor_slasherscaryposter01"
+          ],
+          "image_source": "staged",
+          "plan_page": "camp",
+          "plan_page_group": "C.A.M.P. Plans",
+          "group": "camp",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_00904CD5",
+          "name": "Plan: Pint-Sized Slasher Wanted Poster 2",
+          "has_image_box": true,
+          "image_dir": "workshop",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (physical plan)",
+          "obtain_routes": [
+            {
+              "route": "The Slasher - Fan Party Crasher",
+              "source_type": "creature",
+              "rate": 0.333333,
+              "rate_display": "33.33%",
+              "lvli": [
+                "00904CDC"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "Uninvited Pint-Sized Phantom",
+              "source_type": "creature",
+              "rate": 0.083333,
+              "rate_display": "8.33%",
+              "lvli": [
+                "008E06FB"
+              ],
+              "conditions": []
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "00904CD5",
+            "edid": "SDOW_Recipe_Workshop_WallDecor_SlasherScaryPoster02"
+          },
+          "cobj": {
+            "formid": "00904CD8",
+            "edid": "SDOW_workshop_co_CondProxy_WallDecor_Posters_SlasherScaryPoster02"
+          },
+          "cnam": null,
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Events & Activities",
+              "routes": [
+                0,
+                1
+              ]
+            }
+          ],
+          "source_tag": "Enemy",
+          "images": [
+            "sdow_recipe_workshop_walldecor_slasherscaryposter02"
+          ],
+          "image_source": "staged",
+          "plan_page": "camp",
+          "plan_page_group": "C.A.M.P. Plans",
+          "group": "camp",
+          "is_new": true
+        }
+      ]
+    },
+    {
+      "key": "fishing",
+      "label": "Fishing",
+      "count": 1,
+      "items": [
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "weapon",
+          "id": "PLAN_008E068D",
+          "name": "Plan: Pint-Sized Slasher Bobber",
+          "has_image_box": false,
+          "image_dir": "fishing-rod",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It is not random loot — see below.",
+          "category_label": "Weapon Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Collect Even More Pint-Sized Slasher Masks — 30 Items Acquired."
+          ],
+          "plan_item": {
+            "formid": "008E068D",
+            "edid": "zzz_SDOW_Fishing_Recipe_mod_FishingRod_RodBobber_SlasherBobber"
+          },
+          "cobj": {
+            "formid": "008E0746",
+            "edid": "SDOW_co_Fishing_mod_FishingRod_Weapon_RodBobber_SlasherBobber"
+          },
+          "cnam": {
+            "formid": "008E0768",
+            "edid": "SDOW_Fishing_mod_FishingRod_Weapon_RodBobber_SlasherBobber",
+            "sig": "OMOD"
+          },
+          "tradeable": true,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "source_tag": "CHAL",
+          "images": [
+            "zzz_sdow_fishing_recipe_mod_fishingrod_rodbobber_slasherbobber"
+          ],
+          "image_source": "staged",
+          "plan_page": "fishing-rod",
+          "plan_page_group": "Bobbers & Floats",
+          "group": "fishing",
+          "is_new": true
+        }
+      ]
+    },
+    {
+      "key": "misc-display",
+      "label": "MISC Display",
+      "count": 1,
+      "items": [
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "brand": "df",
+          "type": "recipe",
+          "id": "RECIPE_008F4DF2",
+          "name": "Pint-Sized Slasher Fishing Bobber",
+          "has_image_box": true,
+          "image_dir": "fishing-rod",
+          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is not random loot; see below.",
+          "category_label": "CAMP / Recipe (learnt directly)",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Collect Even More Pint-Sized Slasher Masks — 30 Items Acquired."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "008F4DF2",
+            "edid": "SDOW_co_Fishing_RodBobber_Display_SlasherBobber"
+          },
+          "cnam": {
+            "formid": "008F4DF3",
+            "edid": "SDOW_Fishing_RodBobber_Display_SlasherBobber_Misc",
+            "sig": "MISC"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "source_tag": "CHAL",
+          "images": [],
+          "image_source": "",
+          "plan_page": "fishing-rod",
+          "plan_page_group": "Display Replicas",
+          "group": "misc-display",
+          "is_new": true
+        }
+      ]
+    },
+    {
+      "key": "recipe",
+      "label": "Recipes",
+      "count": 7,
+      "items": [
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "brand": "df",
+          "type": "recipe",
+          "id": "RECIPE_008B5081",
+          "name": "Cat Leveling Backpack Flair",
+          "has_image_box": false,
+          "image_dir": "backpack",
+          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is not random loot; see below.",
+          "category_label": "CAMP / Recipe Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Cat - Reach Level 65."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "008B5081",
+            "edid": "BoS_co_SteelReignFlair_CatFlair2"
+          },
+          "cnam": {
+            "formid": "008B5098",
+            "edid": "BoS_mod_SteelReignFlair_CatFlair2",
+            "sig": "OMOD"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "source_tag": "CHAL",
+          "images": [],
+          "image_source": "",
+          "plan_page": "backpack-mod",
           "plan_page_group": null,
-          "weapon_role": "mod",
-          "weapon_group": "Railway Rifle",
-          "weapon_group_key": "railway-rifle",
-          "weapon_group_solo": false,
-          "group": "weapon",
+          "group": "recipe",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "brand": "df",
+          "type": "recipe",
+          "id": "RECIPE_008B507F",
+          "name": "Deathclaw Leveling Backpack Flair",
+          "has_image_box": false,
+          "image_dir": "backpack",
+          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is not random loot; see below.",
+          "category_label": "CAMP / Recipe Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Deathclaw - Reach Level 65 — 10 World Pet Levelled Up."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "008B507F",
+            "edid": "BoS_co_SteelReignFlair_DCFlair1"
+          },
+          "cnam": {
+            "formid": "008B509E",
+            "edid": "BoS_mod_SteelReignFlair_DCFlair1",
+            "sig": "OMOD"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "source_tag": "CHAL",
+          "images": [],
+          "image_source": "",
+          "plan_page": "backpack-mod",
+          "plan_page_group": null,
+          "group": "recipe",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "brand": "df",
+          "type": "recipe",
+          "id": "RECIPE_008B5082",
+          "name": "Dog Leveling Backpack Flair",
+          "has_image_box": false,
+          "image_dir": "backpack",
+          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is not random loot; see below.",
+          "category_label": "CAMP / Recipe Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Dog - Reach Level 65 — 10 World Pet Levelled Up."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "008B5082",
+            "edid": "BoS_co_SteelReignFlair_DogFlair2"
+          },
+          "cnam": {
+            "formid": "008B509A",
+            "edid": "BoS_mod_SteelReignFlair_DogFlair2",
+            "sig": "OMOD"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "source_tag": "CHAL",
+          "images": [],
+          "image_source": "",
+          "plan_page": "backpack-mod",
+          "plan_page_group": null,
+          "group": "recipe",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_00915481",
+          "name": "Plan: Cannery Recipe Bundle #1",
+          "has_image_box": false,
+          "image_dir": "recipes",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (mod/recipe)",
+          "obtain_routes": [
+            {
+              "route": "Wastelanders - Samuel (Settlers Gold Bullion vendor)",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "0059672D",
+                "005A0AC3"
+              ],
+              "conditions": [
+                "Only while you do not own Cannery Recipe Bundle #1"
+              ]
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "00915481",
+            "edid": "SCORE_S25_Recipe_CanneryG1_StampVendor"
+          },
+          "cobj": {
+            "formid": "0091547F",
+            "edid": "SCORE_S25_co_CanneryG1_StampVendor"
+          },
+          "cnam": null,
+          "tradeable": false,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Gold Bullion",
+              "routes": [
+                0
+              ]
+            }
+          ],
+          "source_tag": "Gold",
+          "images": [
+            "/wp-content/uploads/season_images/season-25/score_s25_utility_canneryrecipebundle1.avif"
+          ],
+          "image_source": "season",
+          "plan_page": "camp",
+          "plan_page_group": "Needs Sorting",
+          "group": "recipe",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_00915482",
+          "name": "Plan: Cannery Recipe Bundle #2",
+          "has_image_box": false,
+          "image_dir": "recipes",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (mod/recipe)",
+          "obtain_routes": [
+            {
+              "route": "Wastelanders - Samuel (Settlers Gold Bullion vendor)",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "0059672D",
+                "005A0AC3"
+              ],
+              "conditions": [
+                "Only while you do not own Cannery Recipe Bundle #2"
+              ]
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "00915482",
+            "edid": "SCORE_S25_Recipe_CanneryG2_StampVendor"
+          },
+          "cobj": {
+            "formid": "00915480",
+            "edid": "SCORE_S25_co_CanneryG2_StampVendor"
+          },
+          "cnam": null,
+          "tradeable": false,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Gold Bullion",
+              "routes": [
+                0
+              ]
+            }
+          ],
+          "source_tag": "Gold",
+          "images": [
+            "/wp-content/uploads/season_images/season-25/score_s25_utility_canneryrecipebundle2.avif"
+          ],
+          "image_source": "season",
+          "plan_page": "camp",
+          "plan_page_group": "Needs Sorting",
+          "group": "recipe",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "brand": "df",
+          "type": "recipe",
+          "id": "RECIPE_008B5084",
+          "name": "Radhog Leveling Backpack Flair",
+          "has_image_box": false,
+          "image_dir": "backpack",
+          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is not random loot; see below.",
+          "category_label": "CAMP / Recipe Mod / Paint",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Radhog - Reach Level 65 — 10 World Pet Levelled Up."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "008B5084",
+            "edid": "BoS_co_SteelReignFlair_RadhogFlair2"
+          },
+          "cnam": {
+            "formid": "008B5097",
+            "edid": "BoS_mod_SteelReignFlair_RadhogFlair2",
+            "sig": "OMOD"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "source_tag": "CHAL",
+          "images": [],
+          "image_source": "",
+          "plan_page": "backpack-mod",
+          "plan_page_group": null,
+          "group": "recipe",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "brand": "df",
+          "type": "recipe",
+          "id": "RECIPE_008EFCB2",
+          "name": "Spicy Eelgrass Soup",
+          "has_image_box": false,
+          "image_dir": "recipes",
+          "obtain": "This plan is learnt directly — there is no physical plan item to find. It is not random loot; see below.",
+          "category_label": "Consumable Recipe",
+          "obtain_routes": [],
+          "obtain_unlocks": [
+            "Reward for completing the challenge: Catch Fall Seasonal Local Legend: \"Sludge Eye\"."
+          ],
+          "plan_item": null,
+          "cobj": {
+            "formid": "008EFCB2",
+            "edid": "co_meal_Fishing_FallSoup"
+          },
+          "cnam": {
+            "formid": "008EFCA8",
+            "edid": "SeasonalFish_Meal_FallSoup",
+            "sig": "ALCH"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "obtain_ledger": [
+            {
+              "label": "Challenges",
+              "unlocks": [
+                0
+              ],
+              "drop": "N/A"
+            }
+          ],
+          "source_tag": "CHAL",
+          "images": [],
+          "image_source": "",
+          "plan_page": "recipe",
+          "plan_page_group": null,
+          "consumable_group": "Food",
+          "consumable_type": "Cooked Meals",
+          "group": "recipe",
           "is_new": true
         }
       ]

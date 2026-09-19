@@ -126,7 +126,6 @@ COBJ_GLOB = "COBJ_Export_*.tsv"
 GROUPS = {
     "apparel":      "Apparel",
     "armour":       "Armour",
-    "armour-mod":   "Armour Mod",
     "backpack-mod": "Backpack Mods",
     "camp":         "CAMP",
     "fishing":      "Fishing",
@@ -134,18 +133,7 @@ GROUPS = {
     "recipe":       "Recipes",
     "skin":         "Skins",
     "weapon":       "Weapons",
-    "weapon-mod":   "Weapon Mod",
 }
-
-# Display order on the page. Base and its mods sit together (Weapons then Weapon
-# Mod, Armour then Armour Mod) rather than A-Z, which would split "Weapon Mod"
-# from "Weapons" and read as two unrelated sections. The renderer follows this
-# order from the JSON — it holds no category list of its own — so this list is
-# the single source of truth for what shows and in what order. Any group not
-# named here falls to the end, so a future category still appears.
-GROUP_ORDER = ["weapon", "weapon-mod", "armour", "armour-mod", "apparel",
-               "skin", "backpack-mod", "camp", "fishing", "misc-display",
-               "recipe"]
 
 # Manual last word, by the plan's BOOK FormID. Runs FIRST and wins. Each is a
 # CAMP placeable whose COBJ never resolved to a placeable upstream.
@@ -261,12 +249,6 @@ _RX_NOT_WEAPON   = re.compile(r"armor|armour|underarmor|power_armor", re.I)
 _RX_WEAPMOD_SLOT = re.compile(
     r"muzzle|receiver|bayonet|silencer|suppressor|magazine|capacitor|nozzle|"
     r"lobber|sniperbarrel|(^|_)barrel(_|$)", re.I)
-# An explicit "mod" marker in a weapon row's name/EDID: the "_mod_" path
-# segment, or the standalone word "Mod"/"Mods" the game appends to a mod plan's
-# FULL name ("Cryolator Polar Lobber Mod", "Cryolator Magazine Mods"). Used with
-# _RX_WEAPMOD_SLOT to tell a vendor/stamp weapon MOD (empty cnam, type "weapon")
-# apart from a base weapon at the type bucket.
-_RX_WEAP_MODWORD = re.compile(r"_mod_|\bmods?\b", re.I)
 _RX_WEAPON_NAME  = re.compile(
     r"cryolator|railway|(^|_)gauss|gatling|minigun|(^|_)flamer|harpoon|crossbow|"
     r"compoundbow|alienblaster|missilelauncher|fatman|handmade|combatrifle|"
@@ -307,60 +289,19 @@ def classify_group(item):
     if _RX_SKIN_BLOB.search(blob) or _RX_SKIN_NAME.search(name):
         return "skin"
 
-    # 3. APPAREL words -- override armour-typed hats / masks / headwear. Before
-    #    the mod block: a cosmetic mask/outfit is its own category, not a mod.
+    # 3. Weapon MODS (slot names, then looser compound-name pass).
+    if _RX_WEAP_SLOT.search(blob) or _RX_WEAP_MOD2.search(blob):
+        return "weapon"
+
+    # 4. APPAREL words -- override armour-typed hats / masks / headwear.
     if _RX_APPAREL.search(blob):
         return "apparel"
 
-    # 4. Backpack mods -- their own category, though they are OMOD-created too,
-    #    so they must be claimed before the general mod block below.
+    # 5. Backpack mods.
     if _RX_BACKPACK.search(blob):
         return "backpack-mod"
 
-    # 5. MODS -> Weapon Mod / Armour Mod. Every OMOD-creating recipe is a mod,
-    #    and mods now live in their OWN categories rather than under Weapons /
-    #    Armour (Duchess's call: base items and mods separate). cnam_sig ==
-    #    "OMOD" is the data-driven signal; the _RX_WEAP_* EDID passes catch
-    #    weapon mods whose created object never resolved (empty cobj/cnam). This
-    #    is where the scrap-to-learn mods (weapon-typed recipe rows, cnam OMOD)
-    #    land, alongside every book/vendor weapon mod that used to read "Weapons".
-    #    Skins/paints already returned "skin" above, so they are not pulled in.
-    # MODS -> Weapon Mod / Armour Mod. Every OMOD-creating recipe is a mod, but
-    # backpack flairs, camp/fishing gizmos and cosmetic apparel are OMOD-created
-    # too and have homes of their own. image_dir is the folder the pipeline
-    # already resolved this row into (page_folder in plan_images), so it is the
-    # authoritative "what is this" — a "Backpack Flair" whose EDID never says
-    # "backpack" still lands in image_dir "backpack". Rows bound for a non-mod
-    # folder fall through to the buckets below; the rest split weapon vs armour.
-    folder = (item.get("image_dir") or "").strip().lower()
-    _ARMOUR_FOLDERS = {"body-armour", "power-armour", "underarmour"}
-    _NON_MOD_FOLDERS = {"backpack", "apparel", "workshop", "recipes",
-                        "fishing-rod", "snowglobe", "photomode", "misc-display"}
-    is_mod = (cnam_sig == "OMOD"
-              or _RX_WEAP_SLOT.search(blob) or _RX_WEAP_MOD2.search(blob)
-              # A mod-slot word (Muzzle, Magazine, Lobber, Receiver, ...) or an
-              # explicit "Mod"/"_mod_" catches the vendor/stamp weapon mods whose
-              # created object never resolved and whose EDID says "_co_Weapon_"
-              # rather than "_mod_" (e.g. SCORE_S26_co_Weapon_Cryolator_
-              # ColdSurgeMuzzle_StampVendor) — without this they read as base
-              # weapons because "_weapon_" matches _RX_WEAPON below.
-              or _RX_WEAPMOD_SLOT.search(blob) or _RX_WEAPMOD_SLOT.search(name)
-              or _RX_WEAP_MODWORD.search(blob) or _RX_WEAP_MODWORD.search(name))
-    if is_mod and typ not in ("backpack-mod", "apparel") \
-            and folder not in _NON_MOD_FOLDERS:
-        # The resolved folder decides weapon vs armour first; then the row's own
-        # type; then the EDID as a last resort. type is trusted over an EDID
-        # keyword because an "Armor Piercing" RECEIVER is a weapon mod whose EDID
-        # contains "armor", which a blind _RX_ARMOUR test would misfile.
-        if folder in _ARMOUR_FOLDERS or typ == "armour":
-            return "armour-mod"
-        if folder == "weapons" or typ == "weapon":
-            return "weapon-mod"
-        if _RX_ARMOUR.search(blob) or _RX_NOT_WEAPON.search(blob):
-            return "armour-mod"
-        return "weapon-mod"
-
-    # 6. Actual base weapons (creates a WEAP, or a thrown / named weapon).
+    # 6. Actual weapons.
     if cnam_sig == "WEAP":
         return "weapon"
     if _RX_THROWN.search(blob) or _RX_THROWN.search(name):
@@ -369,17 +310,7 @@ def classify_group(item):
         return "weapon"
 
     # 7. Resolved TYPE buckets (the upstream builder matched a real record).
-    #    A weapon-TYPED row is ambiguous: `weapon` covers both base weapons and
-    #    the vendor/stamp weapon mods whose created object never resolved (empty
-    #    cnam), so step 5's OMOD test could not see them. A mod-slot word in the
-    #    name/EDID (Muzzle, Magazine, Receiver, Lobber, ... or an explicit
-    #    "Mod"/"_mod_") is what tells the two apart — a base weapon carries none.
-    #    This is what routes "Cryolator Cold Surge Muzzle" to Weapon Mod while
-    #    "Cryolator" itself stays in Weapons.
     if typ == "weapon":
-        if _RX_WEAPMOD_SLOT.search(blob) or _RX_WEAPMOD_SLOT.search(name) \
-                or _RX_WEAP_MODWORD.search(blob) or _RX_WEAP_MODWORD.search(name):
-            return "weapon-mod"
         return "weapon"
     if typ == "apparel":
         return "apparel"
@@ -388,7 +319,7 @@ def classify_group(item):
     if typ == "armour":
         return "armour"
 
-    # 8. Armour words (base armour piece).
+    # 8. Armour words.
     if _RX_ARMOUR.search(blob):
         return "armour"
 
@@ -401,7 +332,7 @@ def classify_group(item):
     #     power-armour / underarmour mods can't be dragged in.
     if not _RX_NOT_WEAPON.search(blob) and (
             _RX_WEAPMOD_SLOT.search(blob) or _RX_WEAPON_NAME.search(blob)):
-        return "weapon-mod"
+        return "weapon"
 
     # 11. Consumable recipes.
     if cnam_sig == "ALCH" or _RX_CONSUM.search(blob):
@@ -809,9 +740,7 @@ def main(argv=None):
         print(f"[new-plans] WARNING image resolve skipped: {exc}", file=sys.stderr)
 
     groups = []
-    ordered_keys = GROUP_ORDER + [k for k in GROUPS if k not in GROUP_ORDER]
-    for key in ordered_keys:
-        label = GROUPS.get(key, key)
+    for key, label in sorted(GROUPS.items(), key=lambda kv: kv[1].lower()):
         members = sorted((r for r in rows if r["group"] == key),
                          key=lambda r: plan_title(r).lower())
         if members:

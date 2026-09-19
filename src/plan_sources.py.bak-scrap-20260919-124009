@@ -1163,8 +1163,8 @@ have told the reader to go and do an event for something that sits in a locker.
 """
 
 LEDGER_ROWS = ["Caps", "Stamps", "Scoreboard", "Gold Bullion", "Atom Shop",
-               "Limited Time Bundle", "Containers", "Scrap to Learn",
-               "Events & Activities", "Quests", "Challenges"]
+               "Limited Time Bundle", "Containers", "Events & Activities",
+               "Quests", "Challenges"]
 
 # How many sources one row lists before it is cut short with "and N more".
 # Eight is where the faction vendor lists stop reading as a source list and
@@ -1218,10 +1218,6 @@ def _ledger_route_bucket(route):
 def _ledger_unlock_bucket(sentence):
     """Which ledger row one plain-English unlock sentence belongs in."""
     s = (sentence or "").lower()
-    # "Scrap a <item> to learn this plan." — a route of its own, tested first so
-    # the word "plan" in the sentence cannot pull it into Quests.
-    if s.startswith("scrap ") or "to learn this plan" in s:
-        return "Scrap to Learn"
     if "challenge" in s:
         return "Challenges"
     if "quest" in s:

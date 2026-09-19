@@ -61,28 +61,6 @@ The others deliberately do NOT rescue a plan:
     `meaningful_refs()` makes about a REFR with no EditorID.
   * `uncraftable`, `item`, none — say nothing about obtaining a plan.
 
-SCRAP-TO-LEARN (the `item` case, made specific)
------------------------------------------------
-The 1,429 "an item you own teaches it" GNAMs are not one thing. When the recipe
-CREATES a mod (CNAM is an OMOD) and the GNAM it is unlocked by is a WEAP or
-ARMO, that is the game's scrap-to-learn route: you learn the mod plan by
-SCRAPPING the weapon or armour the GNAM names. On the September 2026 live export
-that is 863 recipes (862 weapon mods, 1 armour mod) — none of which has a plan
-BOOK, which is why they never reached the checklist. `_classify()` returns a
-`scrap` unlock for these (carrying the GNAM's FULL as the item to scrap), and
-plan_recipe_rows emits one recipe-only row per mod so it nests under its weapon
-on the checklist page.
-
-There is no per-mod learn PERCENTAGE in the data. The Learn_Scrap_Chance_*_ECON
-globals (5/25/50/75/100) exist but appear only in the GLOB export — no COBJ,
-OMOD, WEAP or keyword links a specific mod to a tier — so the chance stays a
-runtime value that scales with how many of that item's mods you already know.
-The sentence therefore shows the CEILING (the top _ECON tier, read from the GLOB
-data via `_load_scrap_ceiling`, not hardcoded) as an "up to X%" best case, plus a
-caveat that the real chance rises or falls with mods already learned. The
-remaining `item` GNAMs (CNAM not an OMOD: crop seeds you plant, consumables) are
-left as plain `item` and say nothing, as before.
-
 ONE CRAFTABLE, SEVERAL RECIPES
 ------------------------------
 A single thing a player builds is often several COBJ rows — one per workbench,
@@ -149,15 +127,8 @@ WORKSHOP_CLAIM = "workshop-claim"
 SCRIPT = "script"
 UNCRAFTABLE = "uncraftable"
 ITEM = "item"
-SCRAP = "scrap"
 
 #: Kinds that settle cut_reason() on their own — see the module docstring.
-#: SCRAP is deliberately NOT here: a scrap-learned mod has no plan book to be
-#: called cut in the first place (that is precisely why it becomes a recipe-only
-#: row), and letting it rescue a genuinely-cut *booked* mod plan whose GNAM
-#: happens to point at a weapon would change cut detection for a case this
-#: change was never asked to touch. It generates a sentence and a checklist row,
-#: nothing more.
 PROOF_OF_LIFE = frozenset({CHALLENGE, WORKSHOP_CLAIM})
 
 _DUMMY = {
@@ -251,30 +222,6 @@ class RecipeUnlocks:
             "COBJ": os.path.basename(cobj_f or ""),
         }
 
-        # The signature of a GNAM target and of a CNAM created record is what
-        # tells a scrap-learned mod apart from the other "item you own" unlocks
-        # (crop seeds, consumables): a scrap-to-learn recipe CREATES an OMOD and
-        # is unlocked by owning the WEAP/ARMO you scrap it off. Read the three
-        # record lists into a single FormID->sig map so _classify() can ask.
-        # WEAP/ARMO give the "what do I scrap" side, OMOD the "is this a mod"
-        # side — nothing else is needed, so nothing else is loaded.
-        self._sig = {}
-        for pat, sig in (("WEAP_Export_*_Base.tsv", "WEAP"),
-                         ("ARMO_Export_*ARMOUR.tsv", "ARMO"),
-                         ("OMOD_Export_*.tsv", "OMOD")):
-            self._load_sig(newest(pat, tsv_root), sig)
-
-        # The scrap-to-learn CEILING — the best-case per-scrap chance to learn a
-        # mod. The game defines it as a set of GLOB tiers
-        # (Learn_Scrap_Chance_VeryLow/Low/Medium/High/Guaranteed_ECON =
-        # 5/25/50/75/100); the top tier is the ceiling. The actual per-scrap
-        # chance is a runtime value that scales with how many of that item's mods
-        # you already know and is NOT tied to an individual mod anywhere in the
-        # exports, so the ceiling is the honest figure to show, with a caveat.
-        # Read from the data (max of the _ECON tiers), never hardcoded, so a
-        # retune ships on the next export with no code change.
-        self.scrap_ceiling = self._load_scrap_ceiling(newest("GLOB_Export_*.tsv", tsv_root))
-
         for row in _rows(chal_f):
             fid = (row.get("FormID") or "").strip().upper()
             if fid:
@@ -303,8 +250,7 @@ class RecipeUnlocks:
                 continue
             self._by_gnam[gid].append(fid)
             unlock = self._classify(gid, (row.get("GNAM_EDID") or "").strip(),
-                                    (row.get("GNAM_FULL") or "").strip(),
-                                    self.cobj_rows[fid]["cnam_fid"])
+                                    (row.get("GNAM_FULL") or "").strip())
             if unlock:
                 self.by_cobj[fid] = unlock
 
@@ -339,86 +285,11 @@ class RecipeUnlocks:
                                            via_sibling=self.cobj_rows[donor]["edid"])
                     self.link_stats["shared_by_" + tag] += 1
 
-    def _load_sig(self, path, sig):
-        """Add every FormID in one record export to the FormID->sig map.
-
-        The FormID column is named per record type (WEAP_FormID, ARMO_FormID,
-        OMOD_FormID) or plain FormID, so it is found by shape rather than by a
-        hardcoded name — the same rule build_sig_index() uses. A missing export
-        simply contributes nothing, which downgrades scrap detection to "off"
-        rather than raising: the mods still publish, just without the route.
-        """
-        if not path:
-            return
-        with open(path, encoding="utf-8-sig", errors="replace", newline="") as fh:
-            reader = csv.reader(fh, delimiter="\t")
-            hdr = next(reader, None)
-            if not hdr:
-                return
-            col = 0
-            for i, h in enumerate(hdr):
-                h = (h or "").strip()
-                if h == "FormID" or h.endswith("_FormID"):
-                    col = i
-                    break
-            for row in reader:
-                if len(row) > col and row[col].strip():
-                    self._sig.setdefault(row[col].strip().upper(), sig)
-
-    _RX_SCRAP_TIER = re.compile(r"^Learn_Scrap_Chance_.*_ECON$", re.I)
-
-    def _load_scrap_ceiling(self, path):
-        """Max value of the Learn_Scrap_Chance_*_ECON GLOB tiers, or None.
-
-        The GLOB export's header carries thousands of Ref columns, so the file
-        is read line by line and only the first three fields (FormID, EDID,
-        FLTV) are split off — parsing every row into ~5,700 cells would be
-        needlessly slow. Only the `_ECON` tiers count: the LegendaryShard
-        Learn_Scrap_Chance globals are a different system (value 1) and must not
-        drag the ceiling down.
-        """
-        if not path:
-            return None
-        best = None
-        try:
-            with open(path, encoding="utf-8-sig", errors="replace", newline="") as fh:
-                next(fh, None)                     # header
-                for line in fh:
-                    parts = line.split("\t", 3)
-                    if len(parts) < 3:
-                        continue
-                    edid, fltv = parts[1].strip(), parts[2].strip()
-                    if not self._RX_SCRAP_TIER.match(edid):
-                        continue
-                    try:
-                        v = float(fltv)
-                    except ValueError:
-                        continue
-                    if best is None or v > best:
-                        best = v
-        except FileNotFoundError:
-            return None
-        if best is None:
-            return None
-        # Whole-number tiers print as ints (100, not 100.0).
-        return int(best) if float(best).is_integer() else best
-
     # ── classification ──────────────────────────────────────────────────────
-    def _classify(self, gid, gedid, gfull, cnam_fid=""):
+    def _classify(self, gid, gedid, gfull):
         dummy = _DUMMY.get(gedid.lower())
         if dummy:
             return {"kind": dummy, "form_id": gid, "edid": gedid, "full": gfull}
-
-        # Scrap-to-learn: the recipe CREATES a mod (OMOD) and is unlocked by
-        # owning a weapon or armour (GNAM) — i.e. you learn the plan by scrapping
-        # that item. Tested before the CHAL/BOOK paths cannot reach it (a GNAM
-        # weapon is neither), and before the bare ITEM fallback, which is where
-        # these 863 recipes silently landed with nothing to say. The item to
-        # scrap is the GNAM's own FULL name.
-        gsig = self._sig.get(gid)
-        if gsig in ("WEAP", "ARMO") and self._sig.get((cnam_fid or "").upper()) == "OMOD":
-            return {"kind": SCRAP, "form_id": gid, "edid": gedid, "full": gfull,
-                    "item": gfull, "item_sig": gsig}
 
         if gid in self._chal:
             ch = self._chal[gid]
@@ -520,21 +391,6 @@ class RecipeUnlocks:
         kind = unlock["kind"]
         if kind == WORKSHOP_CLAIM:
             return "Learned by claiming a workshop."
-        if kind == SCRAP:
-            # The item to scrap is the GNAM's own FULL name. The percentage is
-            # the CEILING (best case) from the Learn_Scrap_Chance_*_ECON GLOB
-            # tiers — the per-scrap chance is a runtime value that scales with
-            # how many of that item's mods you already know and is not tied to an
-            # individual mod anywhere in the exports, so the ceiling + a caveat
-            # is the honest figure rather than a made-up per-mod number.
-            item = (unlock.get("item") or unlock.get("full") or "").strip()
-            head = f"Scrap a {item}" if item else "Scrap the base item"
-            pct = self.scrap_ceiling
-            if pct is not None:
-                return (f"{head} for up to {pct}% chance to learn this plan — the "
-                        f"actual chance goes up or down depending on how many of "
-                        f"that item's mods you have already learned.")
-            return f"{head} to learn this plan."
         if kind != CHALLENGE:
             return None
         name = unlock.get("name") or unlock.get("full")

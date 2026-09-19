@@ -23,6 +23,15 @@ on:
       - "src/rng76.py"
       - "src/spawns_engine/**"
       - "src/build_farming_used_for.py"
+      # Enrichers that shape the published rows (recipe/scrap rows, unlock
+      # sentences, obtain ledger, New Plans categories). Without these a push
+      # that changes only an enricher would not rebuild dist, and the pages
+      # would silently serve the old roster — the stale-data footgun the repo's
+      # HANDOFF notes already warn about.
+      - "src/plan_recipe_rows.py"
+      - "src/plan_unlocks.py"
+      - "src/plan_sources.py"
+      - "src/build_new_plans_json.py"
       - ".github/workflows/build-plan-obtain.yml"
 
 permissions:

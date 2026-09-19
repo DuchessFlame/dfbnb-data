@@ -183,31 +183,6 @@ def main(argv=None):
     print(f"[labels] {chal_titles} challenge titles reach the unlock sentences "
           f"({chal_rejected} reward record(s) fall back to the generic sentence)")
 
-    # Scrap-to-learn sentences are the FOURTH way text reaches a page: the item
-    # you scrap is a WEAP/ARMO FULL name, and it is printed verbatim in "Scrap a
-    # <item> to learn this plan." Those are human game names, so they get the
-    # human TITLE_LEAK test, and the sentence is checked too in case the item
-    # name ever comes through empty or wired.
-    import plan_unlocks
-    scrap_sentences = 0
-    try:
-        ru = plan_unlocks.RecipeUnlocks(
-            args.data_dir, lambda pat, root: tsv_source.newest(
-                os.path.join(root, pat), required=False))
-        for u in ru.by_cobj.values():
-            if u.get("kind") != plan_unlocks.SCRAP:
-                continue
-            sent = ru.sentence(u)
-            if not sent:
-                continue
-            scrap_sentences += 1
-            item = (u.get("item") or "").strip()
-            if not item or TITLE_LEAK.search(item) or LEAK.search(sent):
-                leaks[f"(scrap to learn) {sent}"] += 1
-    except Exception as exc:                       # noqa: BLE001 — never fatal
-        print(f"[labels] WARNING scrap sentence check skipped: {exc}")
-    print(f"[labels] {scrap_sentences} scrap-to-learn sentence(s) checked")
-
     if leaks:
         print(f"[labels] FAIL — {sum(leaks.values())} leaked name(s):")
         for l, n in leaks.most_common():
