@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-09-17",
+  "generated": "2026-09-19",
   "source": "Game-file exports (LVLI/ALCH) + Mappalachia Position (cached for CI)",
   "source_formids": [
    5875111
@@ -811,29 +811,94 @@
     {
      "name": "Restore Health",
      "display": "Restores 40 Health",
-     "duration": "10s"
+     "duration": "10s",
+     "label": "Restores Health",
+     "value": 40.0,
+     "unit": "health",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Fortify XP Bonus",
-     "display": "Fortify XP Bonus",
-     "duration": "30 min"
+     "display": "+2 Fortify XP Bonus",
+     "duration": "30 min",
+     "label": "XP Bonus",
+     "value": 2.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Quench Thirst",
      "display": "Quenches thirst (540/9 min)",
-     "duration": null
+     "duration": null,
+     "label": "Quenches Thirst",
+     "value": 540.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Bottlecap Collector",
      "display": "Bottlecap Collector",
-     "duration": null
+     "duration": null,
+     "label": "Bottlecap Collector",
+     "value": 0.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Rads",
-     "display": "Rads",
-     "duration": null
+     "display": "+5 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 5.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   }
  },
  "farming_tips": {

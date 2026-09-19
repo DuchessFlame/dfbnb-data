@@ -1348,10 +1348,12 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 - SCORE_S25_CAMPPets_SpawnFurniture_Cat_CyprusCat  `SCORE_S25_CAMPPets_SpawnFurniture_Cat_CyprusCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +0 / -0 / ~33
+## `plan_master.json`  ·  +0 / -0 / ~35
 
-**Changed (33)**
-- Plan: Mole Miner Gauntlet  `PLAN_00436FF9` — fields: obtain_ledger, obtain_routes
+**Changed (35)**
+- Plan: Ultracite Optimized Servos  `PLAN_0050194F` — fields: obtain_routes
+- Plan: Ultracite Overdrive Servos  `PLAN_00501950` — fields: obtain_routes
+- Plan: Ultracite Emergency Protocols  `PLAN_00501954` — fields: obtain_routes
 - Plan: Evil Jack O'Lantern  `PLAN_005772C7` — fields: image_source, images
 - Plan: Holiday Tree  `PLAN_006366FD` — fields: image_source, images
 - Plan: Cupid Cappy Sign  `PLAN_0065DD0A` — fields: obtain_routes
@@ -1465,19 +1467,20 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +3 / -0 / ~21
+## `titles_player.json`  ·  +3 / -0 / ~22
 
 **Added (3)**
 - ATX_PlayerTitles_Prefix_Apex  `ATX_PlayerTitles_Prefix_Apex`
 - ATX_PlayerTitles_Prefix_Favorite  `ATX_PlayerTitles_Prefix_Favorite`
 - ATX_PlayerTitles_Prefix_Rugged  `ATX_PlayerTitles_Prefix_Rugged`
 
-**Changed (21)**
+**Changed (22)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel
 - ATX_PlayerTitles_Prefix_Tribune  `ATX_PlayerTitles_Prefix_Tribune` — fields: releaseDate, releaseLabel, releaseYear
 - ATX_PlayerTitles_Suffix_Buoy  `ATX_PlayerTitles_Suffix_Buoy` — fields: releaseDate, releaseLabel
 - ATX_PlayerTitles_Suffix_Sprinkles  `ATX_PlayerTitles_Suffix_Sprinkles` — fields: title, titleFemale, titleMale
+- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 - WorldPets_PlayerTitles_Prefix_Cat01  `WorldPets_PlayerTitles_Prefix_Cat01` — fields: conditions, debug, unlockType
 - WorldPets_PlayerTitles_Prefix_Cat02  `WorldPets_PlayerTitles_Prefix_Cat02` — fields: conditions, debug, unlockType
 - WorldPets_PlayerTitles_Prefix_Deathclaw01  `WorldPets_PlayerTitles_Prefix_Deathclaw01` — fields: conditions, debug, unlockType

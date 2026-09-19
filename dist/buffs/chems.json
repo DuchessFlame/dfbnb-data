@@ -1,12 +1,12 @@
 {
- "version": "2026-09-17",
- "generated": "2026-09-17T13:05:15+00:00",
+ "version": "2026-09-19",
+ "generated": "2026-09-19T11:29:36+00:00",
  "page": "chems",
  "title": "Chem Buffs",
  "url": "/bnb/buffs/chems/chem-buffs/",
  "blurb": "Every chem and serum that grants a buff, grouped by the effect it gives. SPECIAL first, then everything else A-Z. A chem with more than one effect appears under each of them.",
  "countNoun": "chems",
- "sourceAlch": "ALCH_Export_August_2026.tsv",
+ "sourceAlch": "ALCH_Export_September_2026.tsv",
  "sourceMgef": "MGEF_Export_September_2026.tsv",
  "mode": "effect-groups",
  "groups": [
@@ -86,6 +86,11 @@
    "count": 1
   },
   {
+   "key": "ghost-boy-transition",
+   "label": "Ghost Boy Transition",
+   "count": 1
+  },
+  {
    "key": "health",
    "label": "Health",
    "count": 20
@@ -99,6 +104,11 @@
    "key": "melee-damage",
    "label": "Melee Damage",
    "count": 5
+  },
+  {
+   "key": "phantom-cloak",
+   "label": "Phantom Cloak",
+   "count": 1
   },
   {
    "key": "phantom-gas",
@@ -123,7 +133,7 @@
   {
    "key": "stealth",
    "label": "Stealth",
-   "count": 3
+   "count": 4
   },
   {
    "key": "no-buff-effects",
@@ -2547,6 +2557,108 @@
    "status": "live"
   },
   {
+   "formId": "008E06F0",
+   "edid": "SDOW_SlasherGhostBoy",
+   "name": "Ghost Boy",
+   "gameName": "Ghost Boy",
+   "description": "Become Invisible and Highlight Living Targets for 200 seconds.",
+   "imageUrl": "/wp-content/uploads/guide-images/buffs/chems/ghost-boy.avif",
+   "objectType": null,
+   "diet": "None",
+   "weight": 1.0,
+   "value": 60,
+   "effects": [
+    {
+     "formId": "0091C66B",
+     "edid": "SDOW_InvisibilityEffectGhostBoyTransition",
+     "full": "Ghost Boy Transition",
+     "dnam": "",
+     "magnitude": 0.0,
+     "duration": 30.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Ghost Boy Transition",
+     "polarity": "buff",
+     "durationDisplay": "30s",
+     "display": "Ghost Boy Transition",
+     "groupKey": "ghost-boy-transition",
+     "groupLabel": "Ghost Boy Transition"
+    },
+    {
+     "formId": "0092A0EA",
+     "edid": "SDOW_GhostBoyVisual_Player_Effect",
+     "full": "Phantom Cloak",
+     "dnam": "",
+     "magnitude": 1.0,
+     "duration": 200.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Phantom Cloak",
+     "polarity": "buff",
+     "durationDisplay": "3 min",
+     "display": "+1 Phantom Cloak",
+     "groupKey": "phantom-cloak",
+     "groupLabel": "Phantom Cloak"
+    },
+    {
+     "formId": "00102B70",
+     "edid": "ChameleonEffectStealthBoy",
+     "full": "Stealth Field",
+     "dnam": "",
+     "magnitude": 99.0,
+     "duration": 200.0,
+     "magGlob": null,
+     "durGlob": null,
+     "name": "Stealth Field",
+     "polarity": "buff",
+     "durationDisplay": "3 min",
+     "display": "+99 Stealth Field",
+     "groupKey": "stealth",
+     "groupLabel": "Stealth"
+    }
+   ],
+   "effectGroups": [
+    "ghost-boy-transition",
+    "phantom-cloak",
+    "stealth"
+   ],
+   "obtainRoutes": [
+    {
+     "route": "Recipe / Plan",
+     "populated": false,
+     "lines": [
+      "Recipe: Not in Game"
+     ],
+     "tradeable": null,
+     "dropRate": null
+    },
+    {
+     "route": "Fresh / Raw",
+     "populated": true,
+     "lines": [
+      "No separate fresh or raw variant — the crafted item is the only form."
+     ],
+     "tradeable": null,
+     "dropRate": null
+    }
+   ],
+   "technical": {
+    "build": [
+     "Weight: 1",
+     "Value: 60 caps"
+    ],
+    "ids": [
+     "EDID: SDOW_SlasherGhostBoy",
+     "FormID: 008E06F0",
+     "MGEF 0091C66B: SDOW_InvisibilityEffectGhostBoyTransition",
+     "MGEF 0092A0EA: SDOW_GhostBoyVisual_Player_Effect",
+     "MGEF 00102B70: ChameleonEffectStealthBoy",
+     "Keywords: ChemTypeStealthBoy, LimitedTypeChems_Aidbox, PlayAnimOnItemUse, SURV_Icon_StealthBoy, StealthBoyKeyword"
+    ]
+   },
+   "status": "live"
+  },
+  {
    "formId": "000E2F68",
    "edid": "GlowingOneBlood",
    "name": "Glowing Blood",
@@ -4466,7 +4578,7 @@
      "MGEF 00102B70: ChameleonEffectStealthBoy",
      "MGEF 00522670: MoM_PhantomDevice_HalluciGenEffect_15",
      "MGEF 00521936: MoM_PhantomDevice_HalluciGenEffect",
-     "Keywords: ChemTypeStealthBoy, PlayAnimOnItemUse, StealthBoyKeyword"
+     "Keywords: ChemTypeStealthBoy, LimitedTypeChems_Aidbox, PlayAnimOnItemUse, StealthBoyKeyword"
     ]
    },
    "status": "live"

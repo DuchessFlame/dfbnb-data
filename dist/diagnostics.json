@@ -1,8 +1,8 @@
 {
-  "generated": "2026-09-18T20:31:41+00:00",
+  "generated": "2026-09-19T11:26:31+00:00",
   "sections": {
     "bnb_item_categories": {
-      "generated": "2026-09-18T20:31:41+00:00",
+      "generated": "2026-09-19T11:26:31+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -102,7 +102,7 @@
       ]
     },
     "cobj_recipes": {
-      "generated": "2026-09-17T13:01:02+00:00",
+      "generated": "2026-09-19T11:26:30+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -125,7 +125,7 @@
       ]
     },
     "menu_items": {
-      "generated": "2026-09-17T13:01:03+00:00",
+      "generated": "2026-09-19T11:26:30+00:00",
       "counts": {
         "error": 27,
         "warning": 69,
@@ -1574,13 +1574,25 @@
       ]
     },
     "bnb_menu_sync": {
-      "generated": "2026-09-17T13:01:03+00:00",
+      "generated": "2026-09-19T11:26:30+00:00",
       "counts": {
-        "error": 33,
-        "warning": 0,
+        "error": 34,
+        "warning": 1,
         "info": 1
       },
       "entries": [
+        {
+          "severity": "warning",
+          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
+          "message": "New item 'Pint-Sized Phantom Pack' -> Other. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
+          "detail": "edid=SDOW_SlasherFanReward, form_id=0092B343",
+          "context": {
+            "name": "Pint-Sized Phantom Pack",
+            "category": "Other",
+            "edid": "SDOW_SlasherFanReward",
+            "form_id": "0092B343"
+          }
+        },
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
@@ -1884,6 +1896,16 @@
         {
           "severity": "error",
           "code": "bnb_menu_sync.unpriced",
+          "message": "No price set: 'Pint-Sized Phantom Pack' (Other)",
+          "detail": "Pint-Sized Phantom Pack",
+          "context": {
+            "name": "Pint-Sized Phantom Pack",
+            "category": "Other"
+          }
+        },
+        {
+          "severity": "error",
+          "code": "bnb_menu_sync.unpriced",
           "message": "No price set: 'Cotton Candy Bites' (Pre War Food)",
           "detail": "Cotton Candy Bites",
           "context": {
@@ -1914,21 +1936,21 @@
         {
           "severity": "info",
           "code": "bnb_menu_sync.summary",
-          "message": "Sync: 755 total, 0 new, 0 updated, 33 unpriced.",
+          "message": "Sync: 756 total, 1 new, 2 updated, 34 unpriced.",
           "context": {
-            "total": 755,
-            "new": 0,
-            "updated": 0,
-            "unpriced": 33,
-            "skipped": 222
+            "total": 756,
+            "new": 1,
+            "updated": 2,
+            "unpriced": 34,
+            "skipped": 224
           }
         }
       ]
     },
     "bnb_menu": {
-      "generated": "2026-09-17T13:01:03+00:00",
+      "generated": "2026-09-19T11:26:30+00:00",
       "counts": {
-        "error": 27,
+        "error": 28,
         "warning": 0,
         "info": 8
       },
@@ -2354,15 +2376,30 @@
           }
         },
         {
+          "severity": "error",
+          "code": "bnb_menu.row.missing_price",
+          "message": "'Pint-Sized Phantom Pack' (Other) is missing price for: xbox, ps, pc",
+          "detail": "Pint-Sized Phantom Pack",
+          "context": {
+            "name": "Pint-Sized Phantom Pack",
+            "category": "Other",
+            "missing_fields": [
+              "price_xbox",
+              "price_ps",
+              "price_pc"
+            ]
+          }
+        },
+        {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 688: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
+          "message": "Row 689: duplicate 'Cotton Candy Bites' in 'Pre War Food' — keeping first.",
           "detail": "Cotton Candy Bites"
         },
         {
           "severity": "info",
           "code": "bnb_menu.row.duplicate",
-          "message": "Row 696: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
+          "message": "Row 697: duplicate 'Gum Drops' in 'Pre War Food' — keeping first.",
           "detail": "Gum Drops"
         },
         {
@@ -2383,9 +2420,9 @@
         {
           "severity": "info",
           "code": "bnb_menu.build.summary",
-          "message": "Wrote 748 menu items across 12 categories.",
+          "message": "Wrote 749 menu items across 12 categories.",
           "context": {
-            "total": 748,
+            "total": 749,
             "categories": [
               "Alcohol",
               "Canned",
@@ -2405,7 +2442,7 @@
       ]
     },
     "recipe_guide": {
-      "generated": "2026-09-17T13:01:04+00:00",
+      "generated": "2026-09-19T11:26:31+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
