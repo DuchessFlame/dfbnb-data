@@ -349,6 +349,205 @@ def _sort_effects(effects: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
 
 
 # ── Consumption (item's own ALCH effects) ────────────────────────────────────
+# -- Mutation + ghoul modifiers (read from the game files, never hardcoded) ---
+_MUT_CACHE: Dict[str, Dict[str, Any]] = {}
+_GG_CACHE: Dict[str, List[Dict[str, Any]]] = {}
+
+_MUT_SPELLS = {"Mutation_Carnivore": "carnivore",
+               "Mutation_Herbivore": "herbivore"}
+_SAFE_EFFECTS = ("Mutation_EatSafeMeat", "Mutation_EatSafeVeggies")
+
+
+def _float_tail(cell: Optional[str]) -> Optional[float]:
+    """EPFD_Float arrives as 'Float=2.000000' - pull the number off the end."""
+    m = re.search(r"(-?\d+(?:\.\d+)?)\s*$", (cell or "").strip())
+    return float(m.group(1)) if m else None
+
+
+def _load_mutation_modifiers(data_dir: str) -> Dict[str, Any]:
+    """Carnivore / Herbivore food multipliers, straight out of the mutation SPEL.
+
+    Mutation_Carnivore carries TWO Mutation_Carnivore_UIDummy effects, whose
+    DNAM is "<mag>x the benefits from Meat" - the plain multiplier and the
+    Strange-in-Numbers one. Read BOTH EFIT_Magnitude values and sort: the lower
+    is the mutation alone, the higher is the mutation with SIN. As of the
+    September 2026 export that is 2.0 and 2.5, and Herbivore matches.
+
+    NEVER hardcode those numbers. A balance pass moves them and every effects
+    table on the site would silently keep the old ones.
+
+    The same SPEL lists Mutation_EatSafeMeat / Mutation_EatSafeVeggies
+    ("Immune to Disease and Rads from Meat/Veggies") - that is what zeroes the
+    Rads and Disease rows for the matching diet, and it is why a Carnivore
+    ghoul gets nothing out of Glowing Gut on a meat dish."""
+    if data_dir in _MUT_CACHE:
+        return _MUT_CACHE[data_dir]
+    out: Dict[str, Any] = {
+        "carnivore": {"name": "Carnivore", "x": None, "sin": None, "safe": False},
+        "herbivore": {"name": "Herbivore", "x": None, "sin": None, "safe": False},
+    }
+    path = tsv_source.newest(os.path.join(data_dir, "SPEL_Export_*_EFFECTS.tsv"),
+                             required=False) if data_dir else None
+    if path:
+        mags: Dict[str, set] = {"carnivore": set(), "herbivore": set()}
+        with open(path, encoding="utf-8", errors="replace", newline="") as f:
+            for r in csv.DictReader(f, delimiter="\t"):
+                key = _MUT_SPELLS.get((r.get("SPEL_EDID") or "").strip())
+                if not key:
+                    continue
+                eff = (r.get("EFID_MGEF_EDID") or "").strip()
+                if eff in _SAFE_EFFECTS:
+                    out[key]["safe"] = True
+                # _UIDummy is the player-facing multiplier; the WithSerum twin
+                # is the same number for the serum-suppressed variant.
+                if eff.endswith("_UIDummy"):
+                    v = _safe_num(r.get("EFIT_Magnitude"))
+                    if v:
+                        mags[key].add(round(float(v), 4))
+        for key, vals in mags.items():
+            ordered = sorted(vals)
+            if ordered:
+                out[key]["x"] = ordered[0]
+                out[key]["sin"] = ordered[-1]
+    _MUT_CACHE[data_dir] = out
+    return out
+
+
+def _load_glowing_gut(data_dir: str) -> List[Dict[str, Any]]:
+    """Glowing Gut ranks - the ghoul-only Endurance card (Ghoul Within update)
+    that multiplies the Rads granted by irradiated food and drink.
+
+    PERK_Export rows GHL_GlowingGut01/02/03 carry EP_EntryPoint
+    "Mod Spell Magnitude" and the real multiplier in EPFD_Float (2.0 / 3.0 /
+    4.0). Read the FLOAT. The percentages in DESC ("grant 100% more rads") are
+    prose written by a designer, not the value the game applies.
+
+    PERK_Export is ~2,600 columns wide (2,577 Ref_ columns), so this reads by
+    header INDEX with csv.reader and filters on the EDID column before touching
+    the rest of the row - a DictReader over it builds a 2,600-key dict per row
+    and OOMs the build (project_wide_tsv_exports)."""
+    if data_dir in _GG_CACHE:
+        return _GG_CACHE[data_dir]
+    out: List[Dict[str, Any]] = []
+    path = tsv_source.newest(os.path.join(data_dir, "PERK_Export_*.tsv"),
+                             required=False) if data_dir else None
+    if path:
+        with open(path, encoding="utf-8", errors="replace", newline="") as f:
+            rdr = csv.reader(f, delimiter="\t")
+            try:
+                hdr = next(rdr)
+            except StopIteration:
+                hdr = []
+
+            def col(n: str) -> int:
+                try:
+                    return hdr.index(n)
+                except ValueError:
+                    return -1
+
+            i_edid, i_full = col("PERK_EDID"), col("FULL")
+            i_ep, i_flt = col("EP_EntryPoint"), col("EPFD_Float")
+            seen_rank = set()
+            if i_edid >= 0 and i_flt >= 0:
+                for row in rdr:
+                    if len(row) <= i_edid:
+                        continue
+                    edid = row[i_edid]
+                    if not edid.startswith("GHL_GlowingGut"):
+                        continue
+                    if i_ep >= 0 and len(row) > i_ep \
+                            and "Mod Spell Magnitude" not in row[i_ep]:
+                        continue
+                    x = _float_tail(row[i_flt]) if len(row) > i_flt else None
+                    if not x:
+                        continue
+                    m = re.search(r"(\d+)$", edid)
+                    rank = f"R{int(m.group(1))}" if m else edid
+                    if rank in seen_rank:
+                        continue
+                    seen_rank.add(rank)
+                    full = row[i_full] if i_full >= 0 and len(row) > i_full else ""
+                    out.append({"rank": rank,
+                                "name": full or "Glowing Gut",
+                                "x": x})
+    out.sort(key=lambda d: d["x"])
+    _GG_CACHE[data_dir] = out
+    return out
+
+
+def build_modifiers(data_dir: str) -> Dict[str, Any]:
+    """The multipliers the effects TABLE applies (spawn-guide section 9h).
+
+    The build emits each effect's BASE magnitude plus these multipliers; the
+    RENDERER does the arithmetic. That split is deliberate - a balance pass to
+    Carnivore, Herbivore or Glowing Gut moves every guide page on the next
+    build with no code change and no per-page override."""
+    return {
+        "mutation": _load_mutation_modifiers(data_dir) if data_dir else {},
+        "glowing_gut": _load_glowing_gut(data_dir) if data_dir else [],
+        "sin_label": "Strange in Numbers",
+        "sin_abbr": "SIN",
+    }
+
+
+def _effect_fields(name: str, magnitude: Optional[float],
+                   mag_glob: Optional[str],
+                   duration: Optional[float] = None,
+                   globs: Optional[Dict[str, float]] = None) -> Dict[str, Any]:
+    """Structured magnitude for the effects TABLE - the number on its own, plus
+    what the renderer needs in order to scale it.
+
+    `display` (the old pill string) is still emitted for back-compat, but the
+    table reads THESE fields and multiplies `value` by the modifiers above.
+
+      label   player-facing effect name with a leading "Fortify " stripped -
+              players do not know what Fortify means, so "Fortify Strength"
+              renders as "Strength". The raw `name` is untouched; that is what
+              the build matches on.
+      value   the base number: seconds of meter for hunger/thirst, the TOTAL
+              health for Restore Health (magnitude x duration, because food
+              heals per second), else the resolved magnitude
+      unit    seconds | health | rads | percent | flat
+      scales  the mutation multiplier applies. Carnivore/Herbivore double
+              BENEFITS, so Rads and Disease are False here - they are zeroed by
+              the diet-safe effect instead, not doubled.
+      zeroed  the diet-safe mutation effect (EatSafeMeat / EatSafeVeggies)
+              zeroes this row for the matching diet
+      sign    render with a leading +
+
+    Branch order mirrors _effect_display deliberately - if you add a phrasing
+    there, add the matching row shape here or the pill and the table disagree."""
+    n = (name or "").strip()
+    low = n.lower()
+    mag = _resolve_mag(magnitude, mag_glob, globs)
+    label = re.sub(r"^fortify\s+", "", n, flags=re.I)
+
+    if low in ("rads", "rad") or low.startswith("rad "):
+        return {"label": "Rads", "value": mag, "unit": "rads",
+                "scales": False, "zeroed": True, "sign": True}
+    if "disease chance" in low or low.startswith("chance"):
+        return {"label": "Disease Chance", "value": mag, "unit": "percent",
+                "scales": False, "zeroed": True, "sign": False}
+    if "disease resist" in low or "disease resistance" in low:
+        return {"label": "Disease Resistance", "value": mag, "unit": "flat",
+                "scales": True, "zeroed": False, "sign": True}
+    if low.startswith("quench") or ("thirst" in low and "increase" not in low):
+        return {"label": "Quenches Thirst",
+                "value": _surv_seconds(magnitude, mag_glob, globs),
+                "unit": "seconds", "scales": True, "zeroed": False, "sign": False}
+    if "satisfy hunger" in low or (("hunger" in low) and "reduc" not in low
+                                   and "increase" not in low):
+        return {"label": "Satisfies Hunger",
+                "value": _surv_seconds(magnitude, mag_glob, globs),
+                "unit": "seconds", "scales": True, "zeroed": False, "sign": False}
+    if "restore health" in low or low == "restore health":
+        total = (mag or 0) * duration if (mag and duration) else mag
+        return {"label": "Restores Health", "value": total, "unit": "health",
+                "scales": True, "zeroed": False, "sign": False}
+    return {"label": label, "value": mag, "unit": "flat",
+            "scales": True, "zeroed": False, "sign": True}
+
+
 def build_consumption(formid: str, data_dir: str, item_name: str = "This item") -> Optional[Dict[str, Any]]:
     formid = (formid or "").upper()
     main_path = _resolve_alch(data_dir, effects=False)
@@ -408,6 +607,7 @@ def build_consumption(formid: str, data_dir: str, item_name: str = "This item") 
                                        dnam=mgef_dnam.get(
                                            (r.get("MGEF_EDID") or "").strip())),
             "duration": dur,
+            **_effect_fields(name, mag, mag_glob, duration=raw_dur, globs=globs),
         })
 
     if obj_type is None and not effects:
@@ -569,6 +769,9 @@ def build_recipes(item_name: str, recipe_guide: Dict[str, Any],
                                            dnam=mgef_dnam.get(
                                                (e.get("edid") or "").strip())),
                 "duration": e.get("dur_display"),
+                **_effect_fields(e.get("name"), e.get("magnitude"),
+                                 e.get("mag_glob"),
+                                 duration=e.get("duration"), globs=globs),
             })
         effects = _sort_effects(effects)
 
@@ -741,6 +944,9 @@ def build_obtain(item_name: str, formid: str, is_quest: bool, item_edid: str,
                                            dnam=mgef_dnam.get(
                                                (e.get("edid") or "").strip())),
                 "duration": e.get("dur_display"),
+                **_effect_fields(e.get("name"), e.get("magnitude"),
+                                 e.get("mag_glob"),
+                                 duration=e.get("duration"), globs=globs),
             })
         effects = _sort_effects(effects)
         recipes.append({
@@ -1408,6 +1614,7 @@ def build_used_for(cfg: Dict[str, Any], dist_dir: str, data_dir: str,
     guide_urls = _load_guide_urls()
     return {
         "consumption": build_consumption(formid, data_dir, name),
+        "modifiers": build_modifiers(data_dir),
         "challenges": build_challenges(formid, dist_dir),
         "recipes": build_recipes(name, recipe_guide, bench_cat, data_dir, guide_urls),
         # How to Obtain: the crafting recipe(s) that PRODUCE this item + quest note.

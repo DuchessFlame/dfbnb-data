@@ -28,9 +28,10 @@ from spawns_engine import events as eevents
 from spawns_engine.classify import nuka_classify
 import perk_ranks
 try:
-    from build_farming_used_for import build_consumption
+    from build_farming_used_for import build_consumption, build_modifiers
 except Exception:
     build_consumption = None
+    build_modifiers = None
 
 # Base drink ALCH FormIDs (8-hex, load order) — seeds for the up-walk, alongside
 # each flavour's source_formids in nuka_cola_spawns_config.
@@ -140,7 +141,13 @@ def build_used_for(slug, name):
             break
     if not cons:
         return {}, {}
-    return {"consumption": cons}, compute_farming_tips(cons)
+    # modifiers = the Carnivore/Herbivore + Glowing Gut multipliers the effects
+    # table applies (spawn-guide 9h). Without it the renderer silently drops the
+    # mutation columns and shows a bare Base table.
+    uf = {"consumption": cons}
+    if build_modifiers is not None:
+        uf["modifiers"] = build_modifiers(TSV)
+    return uf, compute_farming_tips(cons)
 
 
 def build_variant(v, tbls, geo, cur, cache, db_ok, generated, appearance_fn=None):

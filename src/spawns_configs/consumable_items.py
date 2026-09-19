@@ -37,9 +37,10 @@ from spawns_engine import events as eevents
 from spawns_engine.classify import nuka_classify
 
 try:
-    from build_farming_used_for import build_consumption
+    from build_farming_used_for import build_consumption, build_modifiers
 except Exception:
     build_consumption = None
+    build_modifiers = None
 
 TSV = esources.TSV
 DIST = os.path.join(REPO, "dist")
@@ -109,6 +110,8 @@ def build_one(slug, cfg, appearance_fn, tbls):
             consumption = None
     used_for = {
         "consumption": consumption,
+        # The effects-table multipliers (spawn-guide 9h) — see nuka_cola.py.
+        "modifiers": build_modifiers(TSV) if build_modifiers is not None else {},
         "challenges": (consumption or {}).get("challenges", []) if consumption else [],
         "recipes": [],
         "obtain": {"recipes": [], "note": cfg["obtain_note"]},
