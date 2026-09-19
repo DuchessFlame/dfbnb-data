@@ -1246,6 +1246,62 @@ def _ledger_unlock_bucket(sentence):
     return "Events & Activities"
 
 
+# ── tradeable, decided by the ROUTE ─────────────────────────────────────────
+# Two routes settle tradeability on their own, whatever the BOOK keywords say.
+# The keyword test in build_plan_obtain_json (NonPlayerTradable / NonDroppable
+# -> False, else True) can only describe an ITEM, so it answers True by default
+# for a plan that is not an item you can hold:
+#
+#   Scrap to Learn  — there is no plan book at all. Nothing exists to trade,
+#                     sell or drop, so "Unknown" sends a reader hunting a vendor
+#                     for a plan that cannot be listed.
+#   Challenges      — the reward is bound to the character that earned it. 47
+#                     challenge plans carried neither keyword and so published
+#                     as "Tradeable", which is the wrong way round to be wrong:
+#                     it tells someone to go buy one.
+#
+# Both are decided from the same bucketer the ledger uses, so a route that
+# reclassifies moves this with it and there is no second list to keep in step.
+# A row the game has ALREADY marked untradeable is untouched — this only ever
+# moves a value to False, never back.
+UNTRADEABLE_ROUTES = ("Scrap to Learn", "Challenges")
+
+
+def unlock_buckets(item):
+    """The ledger labels this row's non-loot unlock sentences fall into."""
+    return {_ledger_unlock_bucket(u) for u in (item.get("obtain_unlocks") or [])}
+
+
+def apply_tradeable_rules(items, stats=None):
+    """Force `tradeable: False` on rows whose route can't be traded.
+
+    Runs over EVERY row (book-backed and recipe-only) rather than at row
+    construction, so it cannot be skipped by whichever builder made the row.
+    """
+    counts = {}
+    for it in items:
+        if it.get("tradeable") is False:
+            continue
+        hit = ""
+        if it.get("scrap_learn"):
+            hit = "Scrap to Learn"
+        else:
+            buckets = unlock_buckets(it)
+            for label in UNTRADEABLE_ROUTES:
+                if label in buckets:
+                    hit = label
+                    break
+        if not hit:
+            continue
+        it["tradeable"] = False
+        key = "untradeable_by_route:" + hit.lower().replace(" ", "_")
+        counts[key] = counts.get(key, 0) + 1
+    if stats is not None:
+        for k, v in counts.items():
+            stats[k] = stats.get(k, 0) + v
+    return counts
+
+
 def _dedupe_route_indexes(routes, idxs):
     """Drop repeat sources, best chance first, returning route indexes.
 

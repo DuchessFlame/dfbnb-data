@@ -53,9 +53,18 @@ lands on the page its craftable belongs to and nowhere else. The id is stable
 across builds because a FormID is, which matters: it is the progress-store key,
 and a reader's ticks follow it.
 
-`tradeable` is **null**, not False. A recipe with no plan item is not a thing
-that can change hands at all, so both answers would be wrong; null is what the
-renderer already draws as "no pill".
+`tradeable` is **null** for challenge/workshop recipes, not False. A recipe with
+no plan item is not a thing that can change hands at all, so both answers would
+be wrong; null is what the renderer already draws as "Unknown".
+
+SCRAP-TO-LEARN IS THE EXCEPTION: **always `tradeable: False`.**
+(So is a challenge reward — see `plan_sources.apply_tradeable_rules`.)
+A scrap-learned mod is not "we don't know" — the game states the route, and that
+route is the only one: there is no plan book for it, so there is nothing to find,
+trade, sell or drop. Printing "Unknown" there invites a reader to go looking for a
+plan in someone's vendor that cannot exist. The rule is the route, not a per-mod
+lookup, so it is enforced centrally in `enforce_scrap_untradeable()` and holds for
+any row flagged `scrap_learn` whatever built it.
 """
 
 import collections
@@ -231,7 +240,8 @@ def _build_scrap(items, cobj_idx, unlocks, covered_fids, stats):
             # their "this is a mod, find its weapon" path on it.
             "cnam": ({"formid": cnam_fid, "edid": cnam_edid, "sig": "OMOD"}
                      if cnam_fid else None),
-            "tradeable": None, "stops_dropping": None, "effects": None,
+            # Scrap-to-learn is never tradeable — see ROW SHAPE above.
+            "tradeable": False, "stops_dropping": None, "effects": None,
             "cut": False, "cut_reason": None,
             "changes": [],
         }
@@ -251,6 +261,10 @@ def attach(items, tsv_dir="tsv", stats=None):
     stats["replaced"] = before - len(items)
     rows, stats = build(items, tsv_dir, stats)
     items.extend(rows)
+    # Route-decided tradeability (scrap-to-learn, challenge rewards), applied to
+    # every row here because attach() is the one place all three builders
+    # (build_plan_obtain_json, merge_parts, add_recipe_unlocks) pass through.
+    plan_sources.apply_tradeable_rules(items, stats)
     return stats
 
 

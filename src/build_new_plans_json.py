@@ -122,12 +122,17 @@ BOOK_EXCLUDE = "Locations"
 COBJ_GLOB = "COBJ_Export_*.tsv"
 
 # -- group definitions --------------------------------------------------------
-# key -> label. Rendered A-Z by label, so the dict order here is cosmetic.
+# key -> label.
+#
+# "backpack" is the WHOLE backpack: the pack itself, its mods, its flairs and
+# its skins. They were split across "Backpack Mods", Skins and Recipes, which
+# put "Cat Leveling Backpack" and "Cat Leveling Backpack Flair" in two different
+# parts of the page. A reader looking for backpack things looks once.
 GROUPS = {
     "apparel":      "Apparel",
     "armour":       "Armour",
     "armour-mod":   "Armour Mod",
-    "backpack-mod": "Backpack Mods",
+    "backpack":     "Backpack",
     "camp":         "CAMP",
     "fishing":      "Fishing",
     "misc-display": "MISC Display",
@@ -137,15 +142,17 @@ GROUPS = {
     "weapon-mod":   "Weapon Mod",
 }
 
-# Display order on the page. Base and its mods sit together (Weapons then Weapon
-# Mod, Armour then Armour Mod) rather than A-Z, which would split "Weapon Mod"
-# from "Weapons" and read as two unrelated sections. The renderer follows this
-# order from the JSON — it holds no category list of its own — so this list is
-# the single source of truth for what shows and in what order. Any group not
-# named here falls to the end, so a future category still appears.
-GROUP_ORDER = ["weapon", "weapon-mod", "armour", "armour-mod", "apparel",
-               "skin", "backpack-mod", "camp", "fishing", "misc-display",
-               "recipe"]
+# Display order on the page: A-Z by LABEL, derived from GROUPS rather than
+# hand-listed, so a new category sorts itself and cannot be forgotten here.
+# (It used to pair each base with its mods — Weapons, Weapon Mod, Armour,
+# Armour Mod — which Duchess replaced with plain A-Z.) Sorted case-insensitively
+# so "CAMP" files under C rather than ahead of every lowercase-second-letter
+# label. The renderer follows this order from the JSON and holds no category
+# list of its own, so this is the single source of truth.
+#
+# A group with no plans in it is NOT emitted at all (see the build below) —
+# every heading on the page has rows under it.
+GROUP_ORDER = sorted(GROUPS, key=lambda k: GROUPS[k].lower())
 
 # Manual last word, by the plan's BOOK FormID. Runs FIRST and wins. Each is a
 # CAMP placeable whose COBJ never resolved to a placeable upstream.
@@ -226,7 +233,10 @@ _RX_APPAREL = re.compile(
     r"headwear|(^|_)clothes|outfit|costume|uniform|mask|bandana|_hood|dress|"
     r"(^|_)hat(_|\d)", re.I)
 
-_RX_BACKPACK = re.compile(r"backpack", re.I)
+# Backpack: the pack, its mods, its flairs, its skins. Tested against the EDID
+# blob AND the display name — "Cat Leveling Backpack Flair" says backpack only in
+# its FULL name, which is why the flairs were landing in Recipes.
+_RX_BACKPACK = re.compile(r"backpack|back_pack", re.I)
 
 # Thrown / gadget weapons whose EDID has no _weapon_ or slot. "floater" is here
 # (not in Fishing): every "Floater ..." plan is a Floater-creature grenade/tube,
@@ -303,19 +313,25 @@ def classify_group(item):
     if _RX_FISHING.search(blob):
         return "fishing"
 
-    # 2. SKINS -- paints/skins leak into weapon/armour otherwise.
+    # 2. BACKPACK -- the pack, its mods, its flairs and its skins, one group.
+    #    BEFORE skins and before the mod block: a backpack paint matches the
+    #    skin rule and a backpack mod is OMOD-created, so either would claim it
+    #    first and split the group in two. image_dir is included because the
+    #    pipeline already resolves a "Backpack Flair" into the backpack folder
+    #    even when its EDID never says backpack.
+    if (_RX_BACKPACK.search(blob) or _RX_BACKPACK.search(name)
+            or (item.get("image_dir") or "").strip().lower() == "backpack"
+            or str(item.get("type") or "").lower() == "backpack-mod"):
+        return "backpack"
+
+    # 3. SKINS -- paints/skins leak into weapon/armour otherwise.
     if _RX_SKIN_BLOB.search(blob) or _RX_SKIN_NAME.search(name):
         return "skin"
 
-    # 3. APPAREL words -- override armour-typed hats / masks / headwear. Before
+    # 4. APPAREL words -- override armour-typed hats / masks / headwear. Before
     #    the mod block: a cosmetic mask/outfit is its own category, not a mod.
     if _RX_APPAREL.search(blob):
         return "apparel"
-
-    # 4. Backpack mods -- their own category, though they are OMOD-created too,
-    #    so they must be claimed before the general mod block below.
-    if _RX_BACKPACK.search(blob):
-        return "backpack-mod"
 
     # 5. MODS -> Weapon Mod / Armour Mod. Every OMOD-creating recipe is a mod,
     #    and mods now live in their OWN categories rather than under Weapons /
@@ -384,7 +400,7 @@ def classify_group(item):
     if typ == "apparel":
         return "apparel"
     if typ == "backpack-mod":
-        return "backpack-mod"
+        return "backpack"
     if typ == "armour":
         return "armour"
 

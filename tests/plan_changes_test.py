@@ -94,6 +94,41 @@ check("quest prefix is QUEST, not QUST",
       "QUEST" if "QUEST" in pc.RECORD_TYPES and "QUST" not in pc.RECORD_TYPES else "wrong",
       "QUEST")
 
+print("\nrule-version hold")
+# A field whose MEANING the pipeline changed cannot be diffed against a snapshot
+# taken under the old meaning. Sept 2026: scrap-to-learn and challenge plans were
+# forced untradeable, which would otherwise have published "No longer tradeable"
+# on 47 plans that never changed in the game.
+_rules_now = dict(pc.RULE_VERSION)
+_rules_old = {k: v - 1 for k, v in pc.RULE_VERSION.items()}
+check("tradeable held when the rule moved",
+      pc._publishable("tradeable", {}, {}, {}, {}, _rules_old), "rule")
+check("tradeable publishes on the same rule",
+      pc._publishable("tradeable", {}, {}, {}, {}, _rules_now), "PUBLISHABLE")
+# A snapshot written before RULE_VERSION existed has no "rules" key at all.
+check("pre-RULE_VERSION snapshot counts as older",
+      pc._publishable("tradeable", {}, {}, {}, {}, {}), "rule")
+# routes is not rule-versioned, so an empty rules dict must not gate it.
+check("routes is not rule-gated",
+      pc._publishable("routes", {d: True for d in pc.FIELD_DEPENDS["routes"]},
+                      {d: True for d in pc.FIELD_DEPENDS["routes"]},
+                      {}, {}, {}), "PUBLISHABLE")
+check("snapshot carries the rule versions",
+      "yes" if pc.snapshot([], "tsv").get("rules") == pc.RULE_VERSION else "no", "yes")
+
+print("\ntradeable wording")
+# Both sides must be KNOWN. None -> False is "we had no answer last build", not
+# "the game took it away", and saying "it could be traded before" is a claim the
+# snapshot cannot support.
+check("True -> False says it was taken away",
+      "said" if pc._phrase("tradeable", True, False) else "silent", "said")
+check("False -> True says it is tradeable now",
+      "said" if pc._phrase("tradeable", False, True) else "silent", "said")
+check("None -> False stays silent",
+      "said" if pc._phrase("tradeable", None, False) else "silent", "silent")
+check("None -> True stays silent",
+      "said" if pc._phrase("tradeable", None, True) else "silent", "silent")
+
 print()
 if FAILS:
     print(f"{len(FAILS)} FAILED")

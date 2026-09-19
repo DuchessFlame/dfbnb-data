@@ -53,6 +53,18 @@ import sys
 SNAPSHOT = os.path.join("data", "plan_snapshot.json")
 VERSION = 1
 
+# field -> the version of the RULE that decides it. Bump one when the PIPELINE
+# changes what a field means, as opposed to the game changing. The first build
+# after a bump holds that field's changes instead of publishing them, the same
+# way a stale export holds a route change: a plan did not stop being tradeable
+# because we started reading its route, and 47 plans announcing "No longer
+# tradeable" on the day a rule shipped is a page full of news that never
+# happened. Everything else in the same build still diffs normally.
+#
+#   tradeable v2 — Sept 2026: scrap-to-learn and challenge-reward plans are
+#                  forced untradeable (plan_sources.apply_tradeable_rules).
+RULE_VERSION = {"tradeable": 2}
+
 # The record exports a plan's fields are resolved from. Only the types that
 # actually gate a watched field are listed — this is the dependency map the
 # coherence rule reads, not an inventory of the tsv folder.
@@ -174,6 +186,7 @@ def snapshot(rows, tsv_dir="tsv", taken=""):
                                   .isoformat(timespec="seconds"),
         "exports": exports,
         "coherent": coherence(exports),
+        "rules": dict(RULE_VERSION),
         "plans": {r["id"]: plan_state(r) for r in rows if r.get("id")},
     }
 
@@ -196,16 +209,50 @@ def write_snapshot(snap, path=SNAPSHOT):
 
 # ── the diff ────────────────────────────────────────────────────────────────
 
-def _publishable(field, was_coherent, now_coherent):
+def _publishable(field, was_coherent, now_coherent,
+                 was_exports=None, now_exports=None, was_rules=None):
     """Can a change in this field be claimed, given both export sets?
+
+    Returns "" to publish, or the name of whatever holds it back.
 
     Both sides have to be trustworthy. If the OLD build could not see a source
     because its COBJ was stale, the source appearing now is not news about the
     game. If the NEW build cannot see one, its disappearance is not either.
+
+    BUT staleness alone is not the test — what matters is whether the stale
+    export MOVED between the two builds. A false "now comes from X" needs the
+    export to have caught up and revealed sources the snapshot could not see. If
+    both builds read the very same file, there is nothing it could have revealed,
+    so the difference has to have come from somewhere trustworthy and is safe to
+    publish. Blocking on staleness alone is what turned this into a permanent
+    gag: CONT has been stale since July and lags for months at a time, so every
+    route change on the site was being held indefinitely to guard against a false
+    positive that could not occur. (This is the rule
+    `tests/plan_changes_test.py` has always described; the shipped function had
+    only the blunt version.)
+
+    A MISSING export ("" on both sides) is not an unchanged one — nothing was
+    read either time, so "identical" proves nothing and it holds.
+
+    A rule change holds for the same reason from the other direction: the
+    snapshot was taken under the old rule, so the two sides are not comparable
+    and the difference is ours, not the game's.
     """
+    was_exports = was_exports or {}
+    now_exports = now_exports or {}
     for dep in FIELD_DEPENDS.get(field, ()):
-        if not (was_coherent.get(dep) and now_coherent.get(dep)):
-            return dep
+        if was_coherent.get(dep) and now_coherent.get(dep):
+            continue                      # both builds were reading current data
+        was_file = (was_exports.get(dep) or "").strip()
+        now_file = (now_exports.get(dep) or "").strip()
+        if was_file and now_file and was_file == now_file:
+            continue                      # stale, but it cannot have moved
+        return dep
+    if field in RULE_VERSION:
+        # A snapshot from before this key existed counts as an older rule.
+        was = (was_rules or {}).get(field, 0)
+        if was != RULE_VERSION[field]:
+            return "rule"
     return ""
 
 
@@ -214,9 +261,15 @@ _SINCE = "the previous build"
 
 def _phrase(field, old, new, bucket=""):
     if field == "tradeable":
-        if new is True and old is not True:
+        # BOTH sides must be known. "old is not True" also fires on old=None,
+        # which is "we had no answer last build", not "the game changed" — and
+        # an unknown->known flip is a fact about our data. Saying "it could be
+        # traded before" when we never knew that is a claim the snapshot cannot
+        # support, and one pipeline change (the 863 scrap-to-learn rows moving
+        # from null to False) would have published it on every one of them.
+        if new is True and old is False:
             return "Now tradeable — it could not be traded or dropped before."
-        if new is False and old is not False:
+        if new is False and old is True:
             return "No longer tradeable — it could be traded or dropped before."
     if field == "stops_dropping":
         if new is True:
@@ -256,6 +309,8 @@ def diff(rows, snap, tsv_dir="tsv", stats=None):
     now_exports = export_fingerprint(tsv_dir)
     now_coherent = coherence(now_exports)
     was_coherent = (snap or {}).get("coherent") or {}
+    was_exports = (snap or {}).get("exports") or {}
+    was_rules = (snap or {}).get("rules") or {}
     prev = (snap or {}).get("plans") or {}
     since = (snap or {}).get("taken") or ""
 
@@ -274,7 +329,8 @@ def diff(rows, snap, tsv_dir="tsv", stats=None):
         for field in ("tradeable", "stops_dropping", "cut", "name"):
             if before.get(field) == after.get(field):
                 continue
-            held = _publishable(field, was_coherent, now_coherent)
+            held = _publishable(field, was_coherent, now_coherent,
+                                was_exports, now_exports, was_rules)
             if held:
                 bump(f"held:{field}:{held}")
                 continue
@@ -288,7 +344,8 @@ def diff(rows, snap, tsv_dir="tsv", stats=None):
         old_routes = before.get("routes") or {}
         new_routes = after.get("routes") or {}
         if old_routes != new_routes:
-            held = _publishable("routes", was_coherent, now_coherent)
+            held = _publishable("routes", was_coherent, now_coherent,
+                                was_exports, now_exports)
             if held:
                 bump(f"held:routes:{held}")
             else:
@@ -328,12 +385,18 @@ def report(stats, stream=sys.stderr):
                       and k not in ("changed", "unseen")):
         print(f"    {key:16s} {stats[key]}", file=stream)
     if held:
-        print("  held back — the export set was not coherent, so the change "
+        print("  held back — the two builds are not comparable, so the change "
               "cannot be claimed:", file=stream)
         for key in sorted(held):
             _, field, dep = key.split(":", 2)
-            print(f"    {field:16s} {held[key]:5d}  ({dep} export is older "
-                  f"than BOOK)", file=stream)
+            # "rule" is not an export: the PIPELINE changed what this field
+            # means, so the snapshot answers a different question. Printing it
+            # as "the rule export is older than BOOK" reads as a data problem
+            # and sends someone hunting for an export that does not exist.
+            why = ("this build changed the rule that decides it"
+                   if dep == "rule" else f"{dep} export moved, and one side "
+                   f"of the comparison was older than BOOK")
+            print(f"    {field:16s} {held[key]:5d}  ({why})", file=stream)
 
 
 def main(argv=None):

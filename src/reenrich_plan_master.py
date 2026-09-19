@@ -22,6 +22,9 @@ the failure mode this script exists to make impossible.
 
 ORDER IS LOAD-BEARING
 ---------------------
+    0b. apply_tradeable_rules FORCES `tradeable: False` on scrap-to-learn and
+                              challenge routes — before the change diff, so the
+                              notes match what the page shows
     1. plan_images        writes `image_dir`   — the classification everything routes on
     2. plan_apparel_class CORRECTS `image_dir`  — armour or clothing, off the ARMO record
     3. plan_subpages      writes `plan_page`    — reads image_dir
@@ -61,6 +64,7 @@ sys.path.insert(0, HERE)
 
 import add_cobj_link
 import plan_images
+import plan_sources
 import plan_changes
 import plan_apparel_class
 import plan_subpages
@@ -115,6 +119,17 @@ def enrich_file(path, dist_dir, tsv_dir, report_only=False):
     #    armour classifiers all ask what the plan creates. Running it after the
     #    art pass resolves this build's art against last build's records.
     add_cobj_link.report(add_cobj_link.attach(items, tsv_dir), stream=sys.stdout)
+
+    # 0b. tradeability that the ROUTE decides, not the BOOK keywords: a
+    #     scrap-to-learn mod has no plan book to trade, and a challenge reward
+    #     binds to the character that earned it. BEFORE the diff below, so the
+    #     change notes are written against the values the pages will show, and
+    #     here as well as in plan_recipe_rows.attach() so a copy re-enriched
+    #     without a recipe-row pass still converges on the same answer.
+    trade = plan_sources.apply_tradeable_rules(items)
+    if trade:
+        for key in sorted(trade):
+            print(f"    {key:32s} {trade[key]}")
 
     # 1. art + classification
     idx, staged = plan_images.load(dist_dir, tsv_dir, verbose=False)
