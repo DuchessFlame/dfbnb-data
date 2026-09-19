@@ -323,6 +323,12 @@ DEATHCLAW_EGG = {
         # step with INTERIOR_REGION_OVERRIDES in src/spawns_engine/geo.py and
         # CELL_DISPLAY_OVERRIDES in src/render_spawn_maps.py.
         "Enclave Research Facility": "Transmission Station 1AT-U03 (Enclave Research Facility)",
+        # Mappalachia names the Vault 63 interior cell StormVault63AtriumUpper
+        # only "Atrium Upper Level", which reads as a place of its own. It is
+        # inside Vault 63, entered from Dark Hollow Manor in Skyline Valley, so
+        # the page names the manor the player actually travels to. Keep in step
+        # with CELL_DISPLAY_OVERRIDES in src/render_spawn_maps.py.
+        "Atrium Upper Level": "Dark Hollow Manor (Vault 63 > Atrium Upper Level)",
     },
     # ── Drop rates (resolved from LVLI TSVs, July 2026) ─────────────────
     # Traced via the drop-rate-engine skill rules.

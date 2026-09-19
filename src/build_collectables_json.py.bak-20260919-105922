@@ -32,10 +32,8 @@ from patchlog_utils import write_patchlog_feed, _git_show_json, diff_item_lists,
 
 # -----------------------------------------------------------------------
 # First-seen persistence — tracks when each collectable FormID was first
-# observed by the build pipeline.  Used to compute `isNew`: an item is NEW if
-# it was first seen during the CURRENT SEASON (season start -> now), the window
-# derived from tsv/fallout76_seasons.tsv at build time (see compute_new_cutoff).
-# Falls back to a 30-day rolling window if the season TSV is unavailable.
+# observed by the build pipeline.  Used to compute `isNew` (30-day
+# rolling flag) without requiring manual release dates.
 #
 # Schema for tsv/collectables_first_seen.json:
 #   {
@@ -95,61 +93,8 @@ def save_first_seen(tsv_root, first_seen):
     print(f"  Saved {_FIRST_SEEN_FILENAME} ({len(first_seen)} entries)")
 
 
-def _parse_dmy(s):
-    """'15/09/2026' (D/M/YYYY, no zero-pad) -> datetime.date, or None.
-
-    Matches build_new_plans_json.py so the season maths reads the same TSV the
-    same way.
-    """
-    s = (s or "").strip().strip('"')
-    m = re.match(r"^(\d{1,2})/(\d{1,2})/(\d{4})$", s)
-    if not m:
-        return None
-    d, mo, y = int(m.group(1)), int(m.group(2)), int(m.group(3))
-    try:
-        return datetime(y, mo, d, tzinfo=timezone.utc).date()
-    except ValueError:
-        return None
-
-
-def current_season_start(seasons_path):
-    """Return the current season's StartDate as a YYYY-MM-DD string, or None.
-
-    Current season = the LATEST season in fallout76_seasons.tsv whose StartDate
-    is on or before today (UTC). Reading the same TSV New Plans uses means the
-    window rolls forward on its own the day a new season begins — no code change
-    per season.
-    """
-    if not seasons_path or not os.path.exists(seasons_path):
-        return None
-    today = datetime.now(timezone.utc).date()
-    best = None  # (start_date)
-    try:
-        with open(seasons_path, encoding="utf-8", errors="replace") as f:
-            for r in csv.DictReader(f, delimiter="\t"):
-                start = _parse_dmy(r.get("StartDate"))
-                if not start or start > today:
-                    continue
-                if best is None or start > best:
-                    best = start
-    except Exception as e:
-        print(f"  WARNING: Could not read seasons for isNew window: {e}", file=sys.stderr)
-        return None
-    return best.strftime("%Y-%m-%d") if best else None
-
-
-def compute_new_cutoff(seasons_path=None):
-    """Return the YYYY-MM-DD cutoff string for the isNew flag.
-
-    An item is NEW if it was first seen on or after this cutoff. The cutoff is
-    the current season's start date (season start -> now), so the ★ NEW pill
-    reflects "added this season" and clears when the season rolls over. If the
-    season TSV is missing or unparseable, fall back to the legacy 30-day rolling
-    window so a build never breaks.
-    """
-    season_start = current_season_start(seasons_path)
-    if season_start:
-        return season_start
+def compute_new_cutoff():
+    """Return the YYYY-MM-DD cutoff string for the isNew flag."""
     cutoff = datetime.now(timezone.utc) - timedelta(days=_NEW_CUTOFF_DAYS)
     return cutoff.strftime("%Y-%m-%d")
 
@@ -2132,9 +2077,8 @@ def main():
     update_first_seen(first_seen, all_live_formids, bootstrap=is_bootstrap)
     save_first_seen(str(tsv_root), first_seen)
 
-    new_cutoff = compute_new_cutoff(args.seasons)
-    _season_note = "current-season window" if current_season_start(args.seasons) else f"{_NEW_CUTOFF_DAYS}-day fallback"
-    print(f"  isNew cutoff: {new_cutoff} ({_season_note}; items first seen on or after this date)")
+    new_cutoff = compute_new_cutoff()
+    print(f"  isNew cutoff: {new_cutoff} (items first seen on or after this date)")
 
     # Apply isNew to all live item lists
     for g in bobblehead_groups:

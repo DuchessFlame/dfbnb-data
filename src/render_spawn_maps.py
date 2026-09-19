@@ -183,6 +183,9 @@ CELL_DISPLAY_OVERRIDES = {
     # Reached from Transmission Station 1AT-U03 in the Forest. Mappalachia calls
     # it "Enclave Research Facility".
     "EnclaveResearchFacility01": "Transmission Station 1AT-U03 (Enclave Research Facility)",
+    # Inside Vault 63, reached from Dark Hollow Manor in Skyline Valley.
+    # Mappalachia calls it "Atrium Upper Level".
+    "StormVault63AtriumUpper": "Dark Hollow Manor (Vault 63 > Atrium Upper Level)",
 }
 
 
