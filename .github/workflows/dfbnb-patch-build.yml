@@ -261,6 +261,12 @@ jobs:
       - name: Build Daily Ops JSON
         run: python src/build_daily_ops_json.py
 
+      # Activities-shaped Daily Ops rewards page. Imports
+      # build_events_rewards_json for the shared LVLI tree walker, so it MUST
+      # run after "Build Events Rewards JSON" above.
+      - name: Build Daily Ops All Rewards JSON
+        run: python src/build_daily_ops_rewards_json.py
+
       # --- BOUNTY HUNTING CHALLENGES (reads CHAL TSV directly) ---
       - name: Build Bounty Hunting Challenges JSON
         run: python src/build_bounty_hunting_json.py
@@ -1266,6 +1272,7 @@ jobs:
           test -f dist/raids/raids_rewards.json && echo "OK raids/raids_rewards.json" || (echo "MISSING raids/raids_rewards.json" && exit 1)
           test -f dist/expos/expos_rewards.json && echo "OK expos/expos_rewards.json" || (echo "MISSING expos/expos_rewards.json" && exit 1)
           test -f dist/daily_ops/daily_ops_rewards.json && echo "OK daily_ops/daily_ops_rewards.json" || (echo "MISSING daily_ops/daily_ops_rewards.json" && exit 1)
+          test -f dist/daily_ops/daily_ops_all_rewards.json && echo "OK daily_ops/daily_ops_all_rewards.json" || (echo "MISSING daily_ops/daily_ops_all_rewards.json" && exit 1)
           test -f dist/minerva/minerva_plans.json      && echo "OK minerva/minerva_plans.json"       || (echo "MISSING minerva/minerva_plans.json" && exit 1)
           test -f dist/mule-defaults.json            && echo "OK mule-defaults.json (static seed)" || echo "WARN missing mule-defaults.json (static seed, not built by patch)"
           test -f dist/pennants.json                 && echo "OK pennants.json"                 || (echo "MISSING pennants.json" && exit 1)
