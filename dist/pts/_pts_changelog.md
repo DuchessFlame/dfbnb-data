@@ -924,9 +924,6 @@ _Couldn't key this file to records; contents differ._
 ## `farming_spawns/chems-fury_spawns.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `farming_spawns/chems-ghost-boy_spawns.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
 ## `farming_spawns/chems-glowing-blood-pack_spawns.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
@@ -1414,9 +1411,9 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 - SCORE_S25_CAMPPets_SpawnFurniture_Cat_CyprusCat  `SCORE_S25_CAMPPets_SpawnFurniture_Cat_CyprusCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +0 / -0 / ~364
+## `plan_master.json`  ·  +0 / -0 / ~367
 
-**Changed (364)**
+**Changed (367)**
 - Plan: Ski Sword Skate Blade  `PLAN_002B42A6` — fields: obtain_routes
 - Plan: Sledgehammer Heavy Spiked Rocket  `PLAN_002B42A7` — fields: obtain_routes
 - Plan: Flannel Shirt and Jeans  `PLAN_003132CB` — fields: obtain_routes
@@ -1457,7 +1454,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Sturdy Metal Torso  `PLAN_0043860E` — fields: obtain_routes
 - Plan: The Fixer  `PLAN_0046D299` — fields: obtain_routes
 - Plan: Prime Automatic 10mm Receiver  `PLAN_00470A2B` — fields: obtain_routes
-- …and 324 more
+- …and 327 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
