@@ -49,10 +49,29 @@ LCTN table covers ~33% (509/1553); the rest need coordinates.
 - Channel prompt writes `BOOK2_Export_<mmmm_yyyy>.tsv` into `tsv\` (LIVE) or
   `tsv\pts\` (PTS) — 14-column contract `resolve_dataset()` already reads.
 
-Once the TSV is in, the remaining work is: wire `build_notes()` to call
-`xref.resolve_dataset(input_glob="tsv/BOOK2_Export_*.tsv")`, emit a `region`
-field per note (canonical 10 regions; quest-only notes -> "Other/Unknown"), and
-group the renderer by region. Not started — waiting on the export.
+### DONE (2026-09-19) — region grouping built
+
+The BOOK2 export landed (`tsv/BOOK2_Export_September_2026.tsv`, 1,991 placement
+rows / 1,289 notes) and the region grouping is built:
+
+- `build_collectables_json.py` now has `resolve_note_regions()` (called after
+  `build_notes`). It point-in-polygons each placement via
+  `crossref_mappalachia_markers` (Mappalachia DB locally, else the committed
+  `data/mappalachia_geo.json` snapshot — so CI resolves too), with an LCTN
+  location-name fallback + manual AC/The Pitt map for interiors, then
+  "Other/Unknown". Emits a `region` field per note.
+- Coverage: **1,003 / 1,553 notes (65%)** resolved to a region (coords 843,
+  LCTN-name 146, manual 14). **550 -> Other/Unknown**, of which **201 are
+  quest-given** (no placement). The rest are interior placements with cell-local
+  coords the map can't point-in-polygon and whose location name didn't match
+  LCTN — this is the practical ceiling from current data (the note's `location`
+  string already equals the cell name, so a richer export wouldn't add much;
+  only per-interior exterior-door coords would, a much deeper job).
+- Renderer `df-bnb-collectables.js`: the Notes page groups by region (canonical
+  A-Z root expands), env-spawn notes folded into their region (keep the 📌
+  badge), "Other/Unknown" then "Cut Content" trailing. Holotapes/magazines/keys
+  are untouched. Per-note checkbox + Location/Contents/Technical sub-expands
+  kept; progress excludes env-spawns (0 of 1,416). jsdom-verified.
 
 Note: the earlier draft `tools/ExportNoteLocationsToTSV.pas` was superseded and
 neutered to a placeholder (delete it when convenient — auto-delete was blocked).

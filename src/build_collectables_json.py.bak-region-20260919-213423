@@ -165,113 +165,6 @@ def apply_is_new(items, first_seen, cutoff_str):
         item["isNew"] = (seen_date >= cutoff_str)
 
 
-# --------------------------------------------------------------------------
-# Region resolution for the Notes checklist (grouped by FO76 map region).
-#
-# A note's region is resolved the SAME way the spawn pages resolve theirs:
-# point-in-polygon on the placement coordinates from the BOOK2 export
-# (tsv/BOOK2_Export_*.tsv, produced by "!!!Wordpress - ExportBOOK2ToCSV.pas"),
-# via crossref_mappalachia_markers — using the Mappalachia DB when present, else
-# the committed data/mappalachia_geo.json snapshot. Interior placements have
-# cell-local coords that can't be point-in-polygon'd, so they fall back to the
-# LCTN location-name map (the same coordinate-free table the engine already
-# uses) applied to the note's resolved `location`, then the manual AC/The Pitt
-# map. Notes with no placement at all (quest-given) -> "Other/Unknown".
-# --------------------------------------------------------------------------
-
-# Canonical map regions, plus the trailing bucket. Order mirrors the spawn
-# pages' REGIONS_AZ (A-Z); "Other/Unknown" is rendered last (before Cut).
-NOTE_REGIONS_AZ = [
-    "Ash Heap", "Atlantic City", "Burning Springs", "Cranberry Bog", "Forest",
-    "Savage Divide", "Skyline Valley", "The Mire", "The Pitt", "Toxic Valley",
-]
-NOTE_REGION_OTHER = "Other/Unknown"
-
-
-def resolve_note_regions(notes, tsv_root):
-    """Tag every note in `notes` with a `region` field (in place).
-
-    Layered, most-authoritative first:
-      1. Point-in-polygon on the BOOK2 placement coords (crossref engine).
-      2. LCTN location-name map applied to the note's `location` string.
-      3. Manual AC / The Pitt display-name map (interiors the DB has no
-         markers for).
-      4. "Other/Unknown" (quest-given / placement-less / unresolved interiors).
-
-    Never fatal: any failure leaves the notes tagged "Other/Unknown" and warns,
-    so a missing snapshot/export can't take the whole collectables build down.
-    """
-    for n in notes:
-        n["region"] = NOTE_REGION_OTHER
-    try:
-        import crossref_mappalachia_markers as xref
-    except Exception as e:
-        print(f"  WARNING: region resolver unavailable ({e}); all notes -> {NOTE_REGION_OTHER}",
-              file=sys.stderr)
-        return
-
-    # 1) coords per note FormID from the newest BOOK2 export.
-    coord_region = {}
-    try:
-        book2 = tsv_source.newest(str(Path(tsv_root) / "BOOK2_Export_*.tsv"), required=False)
-    except Exception:
-        book2 = None
-    if book2:
-        try:
-            rings, markers = xref.load_mappalachia()   # DB if present, else geo snapshot
-        except SystemExit:
-            rings = markers = None                     # no DB and no snapshot
-        except Exception as e:
-            print(f"  WARNING: could not load Mappalachia geometry ({e})", file=sys.stderr)
-            rings = markers = None
-        manual = xref.load_manual_regions()
-        cache = xref.load_geo_cache()
-        try:
-            with open(book2, encoding="utf-8", errors="replace") as f:
-                for row in csv.DictReader(f, delimiter="\t"):
-                    reg, _marker, _how = xref.resolve(row, rings, markers, manual, cache)
-                    fid = (row.get("item_formid") or "").strip().upper()
-                    if reg and fid and fid not in coord_region:
-                        coord_region[fid] = reg
-            print(f"  Region coords: {os.path.basename(book2)} -> {len(coord_region)} notes placed by coordinate")
-        except Exception as e:
-            print(f"  WARNING: could not read {book2} ({e})", file=sys.stderr)
-    else:
-        print("  NOTE: no BOOK2_Export_*.tsv found — regions fall back to location-name only "
-              "(run !!!Wordpress - ExportBOOK2ToCSV.pas for coordinate resolution).",
-              file=sys.stderr)
-
-    # 2/3) name fallbacks.
-    try:
-        by_name, by_core = xref.load_lctn_regions(str(tsv_root))
-    except Exception:
-        by_name, by_core = {}, {}
-    manual = xref.load_manual_regions()
-    disp2reg = {}
-    for v in manual.values():
-        for key in ("display", "marker"):
-            if v.get(key):
-                disp2reg[v[key].lower()] = v["region"]
-
-    counts = {}
-    for n in notes:
-        fid = (n.get("formId") or "").strip().upper()
-        loc = n.get("location") or ""
-        reg = coord_region.get(fid)
-        if not reg:
-            reg = xref.lctn_region_for(by_name, by_core, display_name=loc)
-        if not reg and loc.lower() in disp2reg:
-            reg = disp2reg[loc.lower()]
-        if reg not in NOTE_REGIONS_AZ:
-            reg = NOTE_REGION_OTHER
-        n["region"] = reg
-        counts[reg] = counts.get(reg, 0) + 1
-
-    resolved = sum(v for k, v in counts.items() if k != NOTE_REGION_OTHER)
-    print(f"  Regions resolved: {resolved}/{len(notes)} "
-          f"({NOTE_REGION_OTHER}: {counts.get(NOTE_REGION_OTHER, 0)})")
-
-
 class HTMLStripper(HTMLParser):
     """Strip HTML tags and preserve text content."""
     def __init__(self):
@@ -2188,10 +2081,6 @@ def main():
     disambiguate_duplicate_names(notes)
     # Re-sort after overrides + disambiguation
     notes.sort(key=lambda x: (0 if x.get('canCollect', True) else 1, x['name']))
-
-    # Resolve each note's FO76 map region for the region-grouped Notes checklist.
-    print("Resolving note regions...")
-    resolve_note_regions(notes, tsv_root)
 
     # Build holotape games (from BOOK)
     print("Building holotape games...")

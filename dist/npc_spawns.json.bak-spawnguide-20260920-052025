@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "generated": "2026-09-20",
+    "generated": "2026-09-19",
     "source": "Mappalachia dig (counts) + Mappalachia DB (regions, companions) + CHAL export (Used For) + LCSR export (quest gating) + LCTN export (Encounter Spawn System takeover locations)"
   },
   "npcs": {
@@ -1044,7 +1044,8 @@
       "notes": [
         "Pint-Sized Phantoms are the \"Slasher\" enemy family (NPC records SDOW_EncSlasherFan* / SDOW_LvlSlasherFan*).",
         "These are not fixed spawns. Each location below is tagged so the Encounter Spawn System can roll Pint-Sized Phantoms in place of the faction that normally holds it, so the enemies you find there change between visits.",
-        "Every location on this list is tagged for the takeover, so none of them is guaranteed to have Phantoms on any given visit."
+        "Every location on this list is tagged for the takeover, so none of them is guaranteed to have Phantoms on any given visit.",
+        "The exact spawn chance is not in the game data yet: these locations carry the takeover keyword, but the matching chance property has not been exported. The rates below will fill in as soon as it is."
       ],
       "links": [
         {
@@ -1296,10 +1297,11 @@
           "image": "",
           "spawn_type": "Chance to spawn",
           "spawn_note": "",
-          "chance": 5.0,
+          "chance": null,
           "replaces": [
             "Scorched"
-          ]
+          ],
+          "replaces_chance": 5.0
         },
         {
           "name": "Alpine River Cabins",
@@ -1310,10 +1312,11 @@
           "image": "",
           "spawn_type": "Chance to spawn",
           "spawn_note": "",
-          "chance": 5.0,
+          "chance": null,
           "replaces": [
             "Ghouls"
-          ]
+          ],
+          "replaces_chance": 5.0
         },
         {
           "name": "Tyler County Dirt Track",
@@ -1324,10 +1327,11 @@
           "image": "",
           "spawn_type": "Chance to spawn",
           "spawn_note": "",
-          "chance": 5.0,
+          "chance": null,
           "replaces": [
             "Ghouls"
-          ]
+          ],
+          "replaces_chance": 5.0
         },
         {
           "name": "Tyler County Fairgrounds",
@@ -1338,10 +1342,11 @@
           "image": "",
           "spawn_type": "Chance to spawn",
           "spawn_note": "",
-          "chance": 5.0,
+          "chance": null,
           "replaces": [
             "Scorched"
-          ]
+          ],
+          "replaces_chance": 5.0
         },
         {
           "name": "Bailey Family Cabin",
@@ -1352,10 +1357,11 @@
           "image": "",
           "spawn_type": "Chance to spawn",
           "spawn_note": "",
-          "chance": 5.0,
+          "chance": null,
           "replaces": [
             "Scorched"
-          ]
+          ],
+          "replaces_chance": 5.0
         },
         {
           "name": "Pleasant Valley Cabins",
@@ -1366,10 +1372,11 @@
           "image": "",
           "spawn_type": "Chance to spawn",
           "spawn_note": "",
-          "chance": 5.0,
+          "chance": null,
           "replaces": [
             "Scorched"
-          ]
+          ],
+          "replaces_chance": 5.0
         },
         {
           "name": "Pleasant Valley Ski Resort",
@@ -1380,10 +1387,11 @@
           "image": "",
           "spawn_type": "Chance to spawn",
           "spawn_note": "",
-          "chance": 5.0,
+          "chance": null,
           "replaces": [
             "Scorched"
-          ]
+          ],
+          "replaces_chance": 5.0
         },
         {
           "name": "Sunnytop Ski Lanes",
@@ -1394,10 +1402,11 @@
           "image": "",
           "spawn_type": "Chance to spawn",
           "spawn_note": "",
-          "chance": 5.0,
+          "chance": null,
           "replaces": [
             "Super Mutants"
-          ]
+          ],
+          "replaces_chance": 5.0
         },
         {
           "name": "Sunnytop Ski Lanes Base Lodge",
@@ -1408,10 +1417,11 @@
           "image": "",
           "spawn_type": "Chance to spawn",
           "spawn_note": "",
-          "chance": 5.0,
+          "chance": null,
           "replaces": [
             "Super Mutants"
-          ]
+          ],
+          "replaces_chance": 5.0
         },
         {
           "name": "Makeout Point",
@@ -1422,11 +1432,12 @@
           "image": "",
           "spawn_type": "Chance to spawn",
           "spawn_note": "",
-          "chance": 5.0,
+          "chance": null,
           "replaces": [
             "Insects",
             "Wolf"
-          ]
+          ],
+          "replaces_chance": 5.0
         },
         {
           "name": "Freddy Fear's House of Scares",
@@ -1437,10 +1448,11 @@
           "image": "",
           "spawn_type": "Chance to spawn",
           "spawn_note": "",
-          "chance": 5.0,
+          "chance": null,
           "replaces": [
             "Ghouls"
-          ]
+          ],
+          "replaces_chance": 5.0
         },
         {
           "name": "Pioneer Scout Camp",
@@ -1451,10 +1463,11 @@
           "image": "",
           "spawn_type": "Chance to spawn",
           "spawn_note": "",
-          "chance": 5.0,
+          "chance": null,
           "replaces": [
             "Ghouls"
-          ]
+          ],
+          "replaces_chance": 5.0
         },
         {
           "name": "Wavy Willard's Water Park",
@@ -1465,10 +1478,11 @@
           "image": "",
           "spawn_type": "Chance to spawn",
           "spawn_note": "",
-          "chance": 5.0,
+          "chance": null,
           "replaces": [
             "Scorched"
-          ]
+          ],
+          "replaces_chance": 5.0
         }
       ]
     }

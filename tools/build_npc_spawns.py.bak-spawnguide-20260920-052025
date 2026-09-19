@@ -449,38 +449,26 @@ def locations_from_keyword(cfg):
     ext_map = _lcsr_exterior(path, set(hits))
     locs, chance_found = [], False
     for fid, (d, props) in hits.items():
-      # The takeover CHANCE is the location's Main-encounter chance. Each location
-      # carries an ESSChanceMain<Faction> property (e.g. ESSChanceMainScorched =
-      # 5.0) — the rate at which the Encounter Spawn System populates the Main slot,
-      # and the faction it would normally use. The family keyword on this record
-      # (SDOW_LocEncMainSlashers) REDIRECTS that Main slot to this NPC family, so
-      # the same value is now this creature's takeover chance and the named faction
-      # is what it displaces. That is the "= N" value in the LCTN export; read it
-      # generatively rather than hunting for a family-specific AV that Bethesda
-      # never added.
-      replaces, main_vals = [], []
+      raw = props.get(chance_av) if chance_av else None
+      chance = None
+      if raw not in (None, ""):
+        try:
+          chance = round(float(raw), 2)
+          chance_found = True
+        except ValueError:
+          chance = None
+      # Who normally holds this location, and at what rate -- the whole point of a
+      # takeover is what it displaces, so the page says it outright.
+      replaces, replaces_chance = [], None
       for av, val in props.items():
         m = re.match(r"^ESSChanceMain([A-Za-z]+)$", av or "")
         if not m:
           continue
         replaces.append(humanize(m.group(1)))
         try:
-          main_vals.append(round(float(val), 2))
+          replaces_chance = round(float(val), 2)
         except (TypeError, ValueError):
           pass
-      chance = None
-      if main_vals:
-        chance = max(main_vals)   # equal per location in practice; max is safe
-        chance_found = True
-      elif chance_av:
-        # Fallback: an explicit family AV, if a future export ever adds one.
-        raw = props.get(chance_av)
-        if raw not in (None, ""):
-          try:
-            chance = round(float(raw), 2)
-            chance_found = True
-          except ValueError:
-            chance = None
       region = (d.get("PNAM_ParentLocation") or "").split(":")[-1].strip()
       region = _REGION_ALIASES.get(region, region)
       locs.append({
@@ -491,6 +479,7 @@ def locations_from_keyword(cfg):
         "spawn_type": "Chance to spawn", "spawn_note": "",
         "chance": chance,
         "replaces": sorted(set(replaces)),
+        "replaces_chance": replaces_chance,
       })
     locs.sort(key=lambda x: (x["region"] or "zzz", x["name"]))
     return locs, channel, chance_found
