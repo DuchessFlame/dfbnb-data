@@ -111,14 +111,61 @@
     {
      "name": "Satisfy Hunger",
      "display": "Satisfies hunger (90/1.5 min)",
-     "duration": null
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 90.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Rads",
      "display": "+5 Rads",
-     "duration": null
+     "duration": null,
+     "label": "Rads",
+     "value": 5.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [],
   "recipes": [],
@@ -10055,8 +10102,8 @@
       "3D3828"
      ],
      "coords": [
-      74024.7,
-      -180843.8
+      74897.7,
+      -179792.8
      ],
      "spawns": [
       {
@@ -20829,12 +20876,24 @@
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (90/1.5 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 90.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+5 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ]
    }
@@ -20854,12 +20913,24 @@
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (90/1.5 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 90.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+5 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ]
    }
@@ -20878,18 +20949,36 @@
     "effects": [
      {
       "name": "Restore Action Points",
-      "display": "Restore Action Points",
-      "duration": "15s"
+      "display": "+4 Action Points",
+      "duration": "15s",
+      "label": "Restore Action Points",
+      "value": 4.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (90/1.5 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 90.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+5 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ]
    }
@@ -20909,12 +20998,24 @@
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (90/1.5 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 90.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+5 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ]
    }

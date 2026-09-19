@@ -136,19 +136,72 @@
     {
      "name": "Restore Health",
      "display": "Restores 20 Health",
-     "duration": "10s"
+     "duration": "10s",
+     "label": "Restores Health",
+     "value": 20.0,
+     "unit": "health",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Quench Thirst",
      "display": "Quenches thirst (540/9 min)",
-     "duration": null
+     "duration": null,
+     "label": "Quenches Thirst",
+     "value": 540.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Rads",
      "display": "+15 Rads",
-     "duration": null
+     "duration": null,
+     "label": "Rads",
+     "value": 15.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [],
   "recipes": [
@@ -178,22 +231,46 @@
      {
       "name": "Restore Health",
       "display": "Restores 50 Health",
-      "duration": "10s"
+      "duration": "10s",
+      "label": "Restores Health",
+      "value": 50.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Quench Thirst",
       "display": "Quenches thirst (540/9 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 540.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "GHL_SURV_Chem_Effect",
       "display": "+90 GHL_SURV_Chem_Effect",
-      "duration": null
+      "duration": null,
+      "label": "GHL_SURV_Chem_Effect",
+      "value": 90.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Rads",
       "display": "+10 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 10.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Known by default."
@@ -240,22 +317,46 @@
      {
       "name": "Restore Health",
       "display": "Restores 30 Health",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 30.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Fortify Health",
       "display": "+40 Fortify Health",
-      "duration": "30 min"
+      "duration": "30 min",
+      "label": "Health",
+      "value": 40.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (1440/24 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1440.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+2 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Known by default."
@@ -299,7 +400,13 @@
      {
       "name": "Disease Chance",
       "display": "9% chance to catch a disease",
-      "duration": null
+      "duration": null,
+      "label": "Disease Chance",
+      "value": 9.0,
+      "unit": "percent",
+      "scales": false,
+      "zeroed": true,
+      "sign": false
      }
     ],
     "how_to_obtain": "Quest: D01A_Brewing_MasterQuest"

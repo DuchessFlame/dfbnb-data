@@ -609,34 +609,105 @@
     {
      "name": "Extra Damage",
      "display": "+15 Extra Damage",
-     "duration": "3 min"
+     "duration": "3 min",
+     "label": "Extra Damage",
+     "value": 15.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Fortify Damage Resistance",
      "display": "+100 Fortify Damage Resistance",
-     "duration": "3 min"
+     "duration": "3 min",
+     "label": "Damage Resistance",
+     "value": 100.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Chems: Thirst",
      "display": "Quenches thirst (108/1.8 min)",
-     "duration": null
+     "duration": null,
+     "label": "Quenches Thirst",
+     "value": 108.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Increase Hunger",
-     "display": "Increase Hunger",
-     "duration": null
+     "display": "+108 Increase Hunger",
+     "duration": null,
+     "label": "Increase Hunger",
+     "value": 108.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Chance Addiction Psycho",
      "display": "25% chance to catch a disease",
-     "duration": null
+     "duration": null,
+     "label": "Disease Chance",
+     "value": 25.0,
+     "unit": "percent",
+     "scales": false,
+     "zeroed": true,
+     "sign": false
     },
     {
      "name": "GHL_SURV_Chem_Effect",
-     "display": "GHL_SURV_Chem_Effect",
-     "duration": null
+     "display": "+1080 GHL_SURV_Chem_Effect",
+     "duration": null,
+     "label": "GHL_SURV_Chem_Effect",
+     "value": 1080.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [
    {
@@ -736,32 +807,68 @@
      {
       "name": "Fortify Crit Dmg",
       "display": "+30 Fortify Crit Dmg",
-      "duration": "3 min"
+      "duration": "3 min",
+      "label": "Crit Dmg",
+      "value": 30.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Overdrive: Extra Damage",
       "display": "+15 Overdrive: Extra Damage",
-      "duration": "3 min"
+      "duration": "3 min",
+      "label": "Overdrive: Extra Damage",
+      "value": 15.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Increase Hunger",
       "display": "+240 Increase Hunger",
-      "duration": null
+      "duration": null,
+      "label": "Increase Hunger",
+      "value": 240.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Chems: Thirst",
       "display": "Quenches thirst (108/1.8 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 108.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Chance Addiction Overdrive",
       "display": "35% chance to catch a disease",
-      "duration": null
+      "duration": null,
+      "label": "Disease Chance",
+      "value": 35.0,
+      "unit": "percent",
+      "scales": false,
+      "zeroed": true,
+      "sign": false
      },
      {
       "name": "GHL_SURV_Chem_Effect",
       "display": "+1080 GHL_SURV_Chem_Effect",
-      "duration": null
+      "duration": null,
+      "label": "GHL_SURV_Chem_Effect",
+      "value": 1080.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      }
     ],
     "how_to_obtain": "Known by default."
@@ -821,32 +928,68 @@
       {
        "name": "Extra Damage",
        "display": "+15 Extra Damage",
-       "duration": "3 min"
+       "duration": "3 min",
+       "label": "Extra Damage",
+       "value": 15.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       },
       {
        "name": "Fortify Damage Resistance",
        "display": "+100 Fortify Damage Resistance",
-       "duration": "3 min"
+       "duration": "3 min",
+       "label": "Damage Resistance",
+       "value": 100.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       },
       {
        "name": "Chems: Thirst",
        "display": "Quenches thirst (108/1.8 min)",
-       "duration": null
+       "duration": null,
+       "label": "Quenches Thirst",
+       "value": 108.0,
+       "unit": "seconds",
+       "scales": true,
+       "zeroed": false,
+       "sign": false
       },
       {
        "name": "Increase Hunger",
        "display": "+108 Increase Hunger",
-       "duration": null
+       "duration": null,
+       "label": "Increase Hunger",
+       "value": 108.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       },
       {
        "name": "Chance Addiction Psycho",
        "display": "25% chance to catch a disease",
-       "duration": null
+       "duration": null,
+       "label": "Disease Chance",
+       "value": 25.0,
+       "unit": "percent",
+       "scales": false,
+       "zeroed": true,
+       "sign": false
       },
       {
        "name": "GHL_SURV_Chem_Effect",
        "display": "+1080 GHL_SURV_Chem_Effect",
-       "duration": null
+       "duration": null,
+       "label": "GHL_SURV_Chem_Effect",
+       "value": 1080.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       }
      ],
      "how_to_obtain": "Known by default."

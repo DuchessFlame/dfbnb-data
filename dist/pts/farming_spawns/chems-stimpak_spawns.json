@@ -737,14 +737,61 @@
     {
      "name": "Restore Health",
      "display": "Restores 40 Health",
-     "duration": "20s"
+     "duration": "20s",
+     "label": "Restores Health",
+     "value": 40.0,
+     "unit": "health",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Restore Health",
      "display": "Restores 20 Health",
-     "duration": "2s"
+     "duration": "2s",
+     "label": "Restores Health",
+     "value": 20.0,
+     "unit": "health",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [
    {
@@ -797,27 +844,57 @@
      {
       "name": "Disease Resist",
       "display": "+50 Disease Resistance",
-      "duration": "1 hour 30 min"
+      "duration": "1 hour 30 min",
+      "label": "Disease Resistance",
+      "value": 50.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Cure Disease",
       "display": "+100 Cure Disease",
-      "duration": null
+      "duration": null,
+      "label": "Cure Disease",
+      "value": 100.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Chems: Thirst",
       "display": "Quenches thirst (180/3 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 180.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Increase Hunger",
       "display": "+240 Increase Hunger",
-      "duration": null
+      "duration": null,
+      "label": "Increase Hunger",
+      "value": 240.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "GHL_SURV_Chem_Effect",
       "display": "+360 GHL_SURV_Chem_Effect",
-      "duration": null
+      "duration": null,
+      "label": "GHL_SURV_Chem_Effect",
+      "value": 360.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      }
     ],
     "how_to_obtain": "Known by default."
@@ -848,7 +925,13 @@
      {
       "name": "Restore Health",
       "display": "Restores 20 Health",
-      "duration": "20s"
+      "duration": "20s",
+      "label": "Restores Health",
+      "value": 20.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      }
     ],
     "how_to_obtain": "Known by default."

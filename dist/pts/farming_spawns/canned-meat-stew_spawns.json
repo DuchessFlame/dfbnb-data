@@ -113,29 +113,94 @@
     {
      "name": "Restore Health",
      "display": "Restores 60 Health",
-     "duration": "25s"
+     "duration": "25s",
+     "label": "Restores Health",
+     "value": 60.0,
+     "unit": "health",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Fortify XP Bonus",
-     "display": "Fortify XP Bonus",
-     "duration": "1 hour"
+     "display": "+5 Fortify XP Bonus",
+     "duration": "1 hour",
+     "label": "XP Bonus",
+     "value": 5.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Satisfy Hunger",
      "display": "Satisfies hunger (1440/24 min)",
-     "duration": null
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 1440.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Quench Thirst",
      "display": "Quenches thirst (540/9 min)",
-     "duration": null
+     "duration": null,
+     "label": "Quenches Thirst",
+     "value": 540.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Rads",
      "display": "+2 Rads",
-     "duration": null
+     "duration": null,
+     "label": "Rads",
+     "value": 2.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [],
   "recipes": [],

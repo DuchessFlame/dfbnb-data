@@ -594,29 +594,94 @@
     {
      "name": "Detect Life: Apply Client Effect",
      "display": "+1 Detect Life: Apply Client Effect",
-     "duration": "5 min"
+     "duration": "5 min",
+     "label": "Detect Life: Apply Client Effect",
+     "value": 1.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Fortify Intelligence",
      "display": "+5 Fortify Intelligence",
-     "duration": "5 min"
+     "duration": "5 min",
+     "label": "Intelligence",
+     "value": 5.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Chems: Thirst",
      "display": "Quenches thirst (108/1.8 min)",
-     "duration": null
+     "duration": null,
+     "label": "Quenches Thirst",
+     "value": 108.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Chance Addiction Mentats",
      "display": "25% chance to catch a disease",
-     "duration": null
+     "duration": null,
+     "label": "Disease Chance",
+     "value": 25.0,
+     "unit": "percent",
+     "scales": false,
+     "zeroed": true,
+     "sign": false
     },
     {
      "name": "GHL_SURV_Chem_Effect",
-     "display": "GHL_SURV_Chem_Effect",
-     "duration": null
+     "display": "+240 GHL_SURV_Chem_Effect",
+     "duration": null,
+     "label": "GHL_SURV_Chem_Effect",
+     "value": 240.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [],
   "recipes": [],
@@ -654,27 +719,57 @@
       {
        "name": "Detect Life: Apply Client Effect",
        "display": "+1 Detect Life: Apply Client Effect",
-       "duration": "5 min"
+       "duration": "5 min",
+       "label": "Detect Life: Apply Client Effect",
+       "value": 1.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       },
       {
        "name": "Fortify Intelligence",
        "display": "+5 Fortify Intelligence",
-       "duration": "5 min"
+       "duration": "5 min",
+       "label": "Intelligence",
+       "value": 5.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       },
       {
        "name": "Chems: Thirst",
        "display": "Quenches thirst (108/1.8 min)",
-       "duration": null
+       "duration": null,
+       "label": "Quenches Thirst",
+       "value": 108.0,
+       "unit": "seconds",
+       "scales": true,
+       "zeroed": false,
+       "sign": false
       },
       {
        "name": "Chance Addiction Mentats",
        "display": "25% chance to catch a disease",
-       "duration": null
+       "duration": null,
+       "label": "Disease Chance",
+       "value": 25.0,
+       "unit": "percent",
+       "scales": false,
+       "zeroed": true,
+       "sign": false
       },
       {
        "name": "GHL_SURV_Chem_Effect",
        "display": "+240 GHL_SURV_Chem_Effect",
-       "duration": null
+       "duration": null,
+       "label": "GHL_SURV_Chem_Effect",
+       "value": 240.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       }
      ],
      "how_to_obtain": "Known by default."

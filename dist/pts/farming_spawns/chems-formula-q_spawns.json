@@ -101,19 +101,72 @@
     {
      "name": "Gun Accuracy",
      "display": "+33 Gun Accuracy",
-     "duration": "5 min"
+     "duration": "5 min",
+     "label": "Gun Accuracy",
+     "value": 33.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Fortify Luck",
      "display": "+3 Fortify Luck",
-     "duration": "5 min"
+     "duration": "5 min",
+     "label": "Luck",
+     "value": 3.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Fortify Charisma",
      "display": "+5 Fortify Charisma",
-     "duration": "5 min"
+     "duration": "5 min",
+     "label": "Charisma",
+     "value": 5.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [],
   "recipes": [],

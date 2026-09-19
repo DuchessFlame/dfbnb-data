@@ -101,39 +101,116 @@
     {
      "name": "Fortify Luck",
      "display": "+3 Fortify Luck",
-     "duration": "5 min"
+     "duration": "5 min",
+     "label": "Luck",
+     "value": 3.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Fortify Perception",
      "display": "+3 Fortify Perception",
-     "duration": "5 min"
+     "duration": "5 min",
+     "label": "Perception",
+     "value": 3.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Fortify Agility",
      "display": "+3 Fortify Agility",
-     "duration": "5 min"
+     "duration": "5 min",
+     "label": "Agility",
+     "value": 3.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Fortify Sneak Attack Multiplier",
      "display": "+15 Fortify Sneak Attack Multiplier",
-     "duration": "5 min"
+     "duration": "5 min",
+     "label": "Sneak Attack Multiplier",
+     "value": 15.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Chems: Thirst",
      "display": "Quenches thirst (108/1.8 min)",
-     "duration": null
+     "duration": null,
+     "label": "Quenches Thirst",
+     "value": 108.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Chance Addiction Calmex",
      "display": "35% chance to catch a disease",
-     "duration": null
+     "duration": null,
+     "label": "Disease Chance",
+     "value": 35.0,
+     "unit": "percent",
+     "scales": false,
+     "zeroed": true,
+     "sign": false
     },
     {
      "name": "GHL_SURV_Chem_Effect",
-     "display": "GHL_SURV_Chem_Effect",
-     "duration": null
+     "display": "+720 GHL_SURV_Chem_Effect",
+     "duration": null,
+     "label": "GHL_SURV_Chem_Effect",
+     "value": 720.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [],
   "recipes": [],

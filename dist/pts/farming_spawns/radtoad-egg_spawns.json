@@ -146,20 +146,73 @@
    "effects": [
     {
      "name": "Disease Chance",
-     "display": "15% chance to catch a disease",
-     "duration": null
+     "display": "3% chance to catch a disease",
+     "duration": null,
+     "label": "Disease Chance",
+     "value": 3.0,
+     "unit": "percent",
+     "scales": false,
+     "zeroed": true,
+     "sign": false
     },
     {
      "name": "Satisfy Hunger",
      "display": "Satisfies hunger (360/6 min)",
-     "duration": null
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 360.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Rads",
      "display": "+15 Rads",
-     "duration": null
+     "duration": null,
+     "label": "Rads",
+     "value": 15.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [],
   "recipes": [
@@ -189,22 +242,46 @@
      {
       "name": "Restore Health",
       "display": "Restores 25 Health",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 25.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Fortify Endurance",
       "display": "+1 Fortify Endurance",
-      "duration": "30 min"
+      "duration": "30 min",
+      "label": "Endurance",
+      "value": 1.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (720/12 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 720.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+5 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Known by default."
