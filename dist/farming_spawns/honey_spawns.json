@@ -23,6 +23,44 @@
      "rate_display": "100%"
     }
    ]
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Fasnacht Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Fasnacht",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "7 min 12 sec",
+     "items": [
+      {
+       "name": "Honey",
+       "form_id": "004E7229",
+       "rate": 0.03125,
+       "rate_display": "3.12%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Beehive",
+     "edid": "SCORE_S4_ENTM_CAMP_Collector_Beehive",
+     "obtain": "Claim from the Armor Ace and the Power Patrol in Cold Steel Scoreboard (Season 4)",
+     "interval": "7 min 12 sec",
+     "items": [
+      {
+       "name": "Honey",
+       "form_id": "004E7229",
+       "rate": 1.0,
+       "rate_display": "100%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
   }
  },
  "farming_tips": {
@@ -110,20 +148,73 @@
    "effects": [
     {
      "name": "Restore Action Points",
-     "display": "Restore Action Points",
-     "duration": "15s"
+     "display": "+4 Action Points",
+     "duration": "15s",
+     "label": "Restore Action Points",
+     "value": 4.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Satisfy Hunger",
      "display": "Satisfies hunger (240/4 min)",
-     "duration": null
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 240.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Rads",
-     "display": "Rads",
-     "duration": null
+     "display": "+5 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 5.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [],
   "recipes": [
@@ -162,7 +253,13 @@
      {
       "name": "Disease Chance",
       "display": "9% chance to catch a disease",
-      "duration": null
+      "duration": null,
+      "label": "Disease Chance",
+      "value": 9.0,
+      "unit": "percent",
+      "scales": false,
+      "zeroed": true,
+      "sign": false
      }
     ],
     "how_to_obtain": "Recipe: Mountain Honey Moonshine"
@@ -205,22 +302,46 @@
      {
       "name": "Restore Health",
       "display": "Restores 25 Health",
-      "duration": "10s"
+      "duration": "10s",
+      "label": "Restores Health",
+      "value": 25.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Fortify Perception",
       "display": "+2 Fortify Perception",
-      "duration": "1 hour"
+      "duration": "1 hour",
+      "label": "Perception",
+      "value": 2.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Quench Thirst",
       "display": "Quenches thirst (900/15 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 900.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+1 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 1.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Steeped Carrot Flower Tea"
@@ -264,22 +385,46 @@
      {
       "name": "Restore Health",
       "display": "Restores 25 Health",
-      "duration": "10s"
+      "duration": "10s",
+      "label": "Restores Health",
+      "value": 25.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Fortify Strength",
       "display": "+2 Fortify Strength",
-      "duration": "1 hour"
+      "duration": "1 hour",
+      "label": "Strength",
+      "value": 2.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Quench Thirst",
       "display": "Quenches thirst (900/15 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 900.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+1 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 1.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Steeped Fern Flower Tea"
@@ -324,22 +469,46 @@
      {
       "name": "Restore Health",
       "display": "Restores 25 Health",
-      "duration": "10s"
+      "duration": "10s",
+      "label": "Restores Health",
+      "value": 25.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "+AP Regen",
       "display": "+5 Action Point regen",
-      "duration": "1 hour"
+      "duration": "1 hour",
+      "label": "+AP Regen",
+      "value": 5.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Quench Thirst",
       "display": "Quenches thirst (900/15 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 900.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+1 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 1.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Steeped Fever Blossom Tea"
@@ -384,22 +553,46 @@
      {
       "name": "Restore Health",
       "display": "Restores 25 Health",
-      "duration": "10s"
+      "duration": "10s",
+      "label": "Restores Health",
+      "value": 25.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Quench Thirst",
       "display": "Quenches thirst (900/15 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 900.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+5 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      },
      {
       "name": "Radiation Resistance",
       "display": "+25 Radiation Resistance",
-      "duration": "1 hour"
+      "duration": "1 hour",
+      "label": "Radiation Resistance",
+      "value": 25.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Steeped Strangler Bloom Tea"
@@ -443,22 +636,46 @@
      {
       "name": "Fortify Perception",
       "display": "+2 Fortify Perception",
-      "duration": "1 hour"
+      "duration": "1 hour",
+      "label": "Perception",
+      "value": 2.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Quench Thirst",
       "display": "Quenches thirst (900/15 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 900.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Chance Addiction Alcohol",
       "display": "5% chance to catch a disease",
-      "duration": null
+      "duration": null,
+      "label": "Disease Chance",
+      "value": 5.0,
+      "unit": "percent",
+      "scales": false,
+      "zeroed": true,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+1 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 1.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Quest: FFZ13_StrangeBrew"

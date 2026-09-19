@@ -441,6 +441,59 @@
   },
   "creatures": {
    "note": "Around 1,843 creatures can drop Blood Pack as generic loot; they are not listed individually. See the Containers expand for the per-container drop rates and How to Obtain for the crafting recipe."
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Communist Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Communist",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "4 min 48 sec",
+     "items": [
+      {
+       "name": "Blood Pack",
+       "form_id": "00052409",
+       "rate": 0.011,
+       "rate_display": "1.1%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Morbid Well Collector",
+     "edid": "ATX_MorbidWell",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "7 min 12 sec",
+     "items": [
+      {
+       "name": "Blood Pack",
+       "form_id": "00052409",
+       "rate": 0.142857,
+       "rate_display": "14.29%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Shredder",
+     "edid": "ATX_ENTM_CAMP_Collector_Shredder",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Blood Pack",
+       "form_id": "00052409",
+       "rate": 0.03125,
+       "rate_display": "3.12%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
   }
  },
  "farming_tips": {
@@ -529,24 +582,83 @@
     {
      "name": "Restore Health",
      "display": "Restores 50 Health",
-     "duration": "10s"
+     "duration": "10s",
+     "label": "Restores Health",
+     "value": 50.0,
+     "unit": "health",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Quench Thirst",
      "display": "Quenches thirst (540/9 min)",
-     "duration": null
+     "duration": null,
+     "label": "Quenches Thirst",
+     "value": 540.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "GHL_SURV_Chem_Effect",
-     "display": "GHL_SURV_Chem_Effect",
-     "duration": null
+     "display": "+90 GHL_SURV_Chem_Effect",
+     "duration": null,
+     "label": "GHL_SURV_Chem_Effect",
+     "value": 90.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Rads",
-     "display": "Rads",
-     "duration": null
+     "display": "+10 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 10.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [
    {
@@ -599,27 +711,57 @@
      {
       "name": "Disease Resist",
       "display": "+50 Disease Resistance",
-      "duration": "1 hour 30 min"
+      "duration": "1 hour 30 min",
+      "label": "Disease Resistance",
+      "value": 50.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Cure Disease",
       "display": "+100 Cure Disease",
-      "duration": null
+      "duration": null,
+      "label": "Cure Disease",
+      "value": 100.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Chems: Thirst",
       "display": "Quenches thirst (180/3 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 180.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Increase Hunger",
       "display": "+240 Increase Hunger",
-      "duration": null
+      "duration": null,
+      "label": "Increase Hunger",
+      "value": 240.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "GHL_SURV_Chem_Effect",
       "display": "+360 GHL_SURV_Chem_Effect",
-      "duration": null
+      "duration": null,
+      "label": "GHL_SURV_Chem_Effect",
+      "value": 360.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Antibiotics"
@@ -665,12 +807,24 @@
      {
       "name": "Restore Health",
       "display": "Restores 40 Health",
-      "duration": "2s"
+      "duration": "2s",
+      "label": "Restores Health",
+      "value": 40.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Scorched Repellent",
-      "display": "+1 Scorched Repellent",
-      "duration": "10 min"
+      "display": "15% Reduced damage from Scorched",
+      "duration": "10 min",
+      "label": "Scorched Repellent",
+      "value": 1.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      }
     ],
     "how_to_obtain": "Quest: W05_MQ_101P"
@@ -716,12 +870,24 @@
      {
       "name": "Restore Health",
       "display": "Restores 40 Health",
-      "duration": "2s"
+      "duration": "2s",
+      "label": "Restores Health",
+      "value": 40.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Scorched Repellent",
-      "display": "+1 Scorched Repellent",
-      "duration": "10 min"
+      "display": "15% Reduced damage from Scorched",
+      "duration": "10 min",
+      "label": "Scorched Repellent",
+      "value": 1.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      }
     ],
     "how_to_obtain": "Quest: W05_MQ_101P"
@@ -767,12 +933,24 @@
      {
       "name": "Restore Health",
       "display": "Restores 40 Health",
-      "duration": "20s"
+      "duration": "20s",
+      "label": "Restores Health",
+      "value": 40.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Scorched Repellent",
-      "display": "+1 Scorched Repellent",
-      "duration": "10 min"
+      "display": "15% Reduced damage from Scorched",
+      "duration": "10 min",
+      "label": "Scorched Repellent",
+      "value": 1.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      }
     ],
     "how_to_obtain": "Quest: W05_MQ_101P"
@@ -822,7 +1000,13 @@
      {
       "name": "Restore Health",
       "display": "Restores 80 Health",
-      "duration": "20s"
+      "duration": "20s",
+      "label": "Restores Health",
+      "value": 80.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      }
     ],
     "how_to_obtain": "Recipe: Super Stimpak"
@@ -853,22 +1037,46 @@
       {
        "name": "Restore Health",
        "display": "Restores 50 Health",
-       "duration": "10s"
+       "duration": "10s",
+       "label": "Restores Health",
+       "value": 50.0,
+       "unit": "health",
+       "scales": true,
+       "zeroed": false,
+       "sign": false
       },
       {
        "name": "Quench Thirst",
        "display": "Quenches thirst (540/9 min)",
-       "duration": null
+       "duration": null,
+       "label": "Quenches Thirst",
+       "value": 540.0,
+       "unit": "seconds",
+       "scales": true,
+       "zeroed": false,
+       "sign": false
       },
       {
        "name": "GHL_SURV_Chem_Effect",
        "display": "+90 GHL_SURV_Chem_Effect",
-       "duration": null
+       "duration": null,
+       "label": "GHL_SURV_Chem_Effect",
+       "value": 90.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       },
       {
        "name": "Rads",
        "display": "+10 Rads",
-       "duration": null
+       "duration": null,
+       "label": "Rads",
+       "value": 10.0,
+       "unit": "rads",
+       "scales": false,
+       "zeroed": true,
+       "sign": true
       }
      ],
      "how_to_obtain": "Known by default."

@@ -102,10 +102,51 @@
    "effects": [
     {
      "name": "Insect Repellent",
-     "display": "+1 Insect Repellent",
-     "duration": "30 min"
+     "display": "15% Reduced damage from insects",
+     "duration": "30 min",
+     "label": "Insect Repellent",
+     "value": 1.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [],
   "recipes": [],
@@ -148,8 +189,14 @@
      "effects": [
       {
        "name": "Insect Repellent",
-       "display": "+1 Insect Repellent",
-       "duration": "30 min"
+       "display": "15% Reduced damage from insects",
+       "duration": "30 min",
+       "label": "Insect Repellent",
+       "value": 1.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       }
      ],
      "how_to_obtain": "Recipe: Insect Repellent"

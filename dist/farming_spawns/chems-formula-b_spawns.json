@@ -101,29 +101,94 @@
     {
      "name": "Fortify Strength",
      "display": "+3 Fortify Strength",
-     "duration": "10 min"
+     "duration": "10 min",
+     "label": "Strength",
+     "value": 3.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Fortify Perception",
      "display": "+3 Fortify Perception",
-     "duration": "10 min"
+     "duration": "10 min",
+     "label": "Perception",
+     "value": 3.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Fortify Endurance",
      "display": "+3 Fortify Endurance",
-     "duration": "10 min"
+     "duration": "10 min",
+     "label": "Endurance",
+     "value": 3.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Fortify Agility",
      "display": "+3 Fortify Agility",
-     "duration": "10 min"
+     "duration": "10 min",
+     "label": "Agility",
+     "value": 3.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Fortify Health",
      "display": "+65 Fortify Health",
-     "duration": "10 min"
+     "duration": "10 min",
+     "label": "Health",
+     "value": 65.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [],
   "recipes": [],

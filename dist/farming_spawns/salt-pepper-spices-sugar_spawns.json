@@ -23,6 +23,80 @@
      "rate_display": "3%"
     }
    ]
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Mr. Farmhand Collectron Station",
+     "edid": "SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand",
+     "obtain": "Purchase with tickets from the Appalachia Under Siege Scoreboard (Season 25)",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Sugar",
+       "form_id": "00118614",
+       "rate": 0.05,
+       "rate_display": "5%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Biv Bev Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_BivBev",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Sugar",
+       "form_id": "00118614",
+       "rate": 0.0,
+       "rate_display": "0%",
+       "rate_source": "computed_zero"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Spice Rack",
+     "edid": "SCORE_S22_ENTM_CAMP_Collector_SpiceRack",
+     "obtain": "Purchase with tickets from the Appalachian Modern Living Scoreboard (Season 22)",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Salt",
+       "form_id": "00118613",
+       "rate": 0.5,
+       "rate_display": "50%",
+       "rate_source": "computed"
+      },
+      {
+       "name": "Sugar",
+       "form_id": "00118614",
+       "rate": 0.25,
+       "rate_display": "25%",
+       "rate_source": "computed"
+      },
+      {
+       "name": "Spices",
+       "form_id": "0011863E",
+       "rate": 0.15,
+       "rate_display": "15%",
+       "rate_source": "computed"
+      },
+      {
+       "name": "Pepper",
+       "form_id": "00118617",
+       "rate": 0.1,
+       "rate_display": "10%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
   }
  },
  "farming_tips": {
@@ -111,14 +185,61 @@
     {
      "name": "Satisfy Hunger",
      "display": "Satisfies hunger (90/1.5 min)",
-     "duration": null
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 90.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Rads",
      "display": "+5 Rads",
-     "duration": null
+     "duration": null,
+     "label": "Rads",
+     "value": 5.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [],
   "recipes": [],
@@ -20829,12 +20950,24 @@
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (90/1.5 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 90.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+5 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ]
    }
@@ -20854,12 +20987,24 @@
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (90/1.5 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 90.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+5 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ]
    }
@@ -20878,18 +21023,36 @@
     "effects": [
      {
       "name": "Restore Action Points",
-      "display": "Restore Action Points",
-      "duration": "15s"
+      "display": "+4 Action Points",
+      "duration": "15s",
+      "label": "Restore Action Points",
+      "value": 4.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (90/1.5 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 90.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+5 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ]
    }
@@ -20909,12 +21072,24 @@
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (90/1.5 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 90.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+5 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ]
    }
@@ -20940,7 +21115,7 @@
    },
    {
     "region": "Savage Divide",
-    "count": 73,
+    "count": 72,
     "url": "/bnb/farming/non-perishable/salt-pepper-spices-sugar/location-guide/savage-divide/"
    },
    {

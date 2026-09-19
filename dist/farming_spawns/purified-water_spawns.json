@@ -33,6 +33,11 @@
      "rate_display": "100%"
     },
     {
+     "name": "Safe",
+     "rate": 0.3860867464592409,
+     "rate_display": "38.61%"
+    },
+    {
      "name": "Cooler",
      "rate": 0.3860867464592408,
      "rate_display": "38.61%"
@@ -49,11 +54,6 @@
     },
     {
      "name": "Pre-War Safe",
-     "rate": 0.3860867464592408,
-     "rate_display": "38.61%"
-    },
-    {
-     "name": "Safe",
      "rate": 0.3860867464592408,
      "rate_display": "38.61%"
     },
@@ -243,6 +243,74 @@
      "rate_display": "2.04%"
     }
    ]
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Communist Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Communist",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "4 min 48 sec",
+     "items": [
+      {
+       "name": "Purified Water",
+       "form_id": "000366C0",
+       "rate": 0.0075,
+       "rate_display": "0.75%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "BoS Collectron Station",
+     "edid": "ATX_Community2020_ATLAS_ENTM_CAMP_Utility_Collectron_BoS",
+     "obtain": "Awarded through a Bethesda community event or promotion.",
+     "interval": "7 min 12 sec",
+     "items": [
+      {
+       "name": "Purified Water",
+       "form_id": "000366C0",
+       "rate": 0.0,
+       "rate_display": "0%",
+       "rate_source": "computed_zero"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Enclave Water Collector",
+     "edid": "ATX_Resource_Cooler_PurifiedWater",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Purified Water",
+       "form_id": "000366C0",
+       "rate": 1.0,
+       "rate_display": "100%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Water",
+     "edid": "WaterResource",
+     "obtain": "Available in the base game.",
+     "interval": "5 min 1 sec",
+     "items": [
+      {
+       "name": "Purified Water",
+       "form_id": "000366C0",
+       "rate": 1.0,
+       "rate_display": "100%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
   }
  },
  "farming_tips": {
@@ -331,14 +399,61 @@
     {
      "name": "Restore Health",
      "display": "Restores 25 Health",
-     "duration": "10s"
+     "duration": "10s",
+     "label": "Restores Health",
+     "value": 25.0,
+     "unit": "health",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Quench Thirst",
-     "display": "Quenches thirst (1800/30 min)",
-     "duration": null
+     "display": "Quenches thirst (900/15 min)",
+     "duration": null,
+     "label": "Quenches Thirst",
+     "value": 900.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [
    {
@@ -391,27 +506,57 @@
      {
       "name": "Disease Resist",
       "display": "+50 Disease Resistance",
-      "duration": "1 hour 30 min"
+      "duration": "1 hour 30 min",
+      "label": "Disease Resistance",
+      "value": 50.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Cure Disease",
       "display": "+100 Cure Disease",
-      "duration": null
+      "duration": null,
+      "label": "Cure Disease",
+      "value": 100.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Chems: Thirst",
       "display": "Quenches thirst (180/3 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 180.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Increase Hunger",
       "display": "+240 Increase Hunger",
-      "duration": null
+      "duration": null,
+      "label": "Increase Hunger",
+      "value": 240.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "GHL_SURV_Chem_Effect",
       "display": "+360 GHL_SURV_Chem_Effect",
-      "duration": null
+      "duration": null,
+      "label": "GHL_SURV_Chem_Effect",
+      "value": 360.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Antibiotics"
@@ -456,27 +601,57 @@
      {
       "name": "Restore Health",
       "display": "Restores 90 Health",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 90.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Restore Action Points",
       "display": "+12 Action Points",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restore Action Points",
+      "value": 12.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "+AP Regen",
       "display": "+5 Action Point regen",
-      "duration": "1 hour 30 min"
+      "duration": "1 hour 30 min",
+      "label": "+AP Regen",
+      "value": 5.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (1440/24 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1440.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+2 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Blackberry Honey Crisp"
@@ -522,27 +697,57 @@
      {
       "name": "Restore Health",
       "display": "Restores 90 Health",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 90.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Restore Action Points",
       "display": "+12 Action Points",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restore Action Points",
+      "value": 12.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Fortify Intelligence",
       "display": "+3 Fortify Intelligence",
-      "duration": "1 hour 30 min"
+      "duration": "1 hour 30 min",
+      "label": "Intelligence",
+      "value": 3.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (1800/30 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1800.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+5 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Brain Bombs"
@@ -586,22 +791,46 @@
      {
       "name": "Restore Health",
       "display": "Restores 45 Health",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 45.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Fortify Damage Resist",
       "display": "+10 Fortify Damage Resist",
-      "duration": "1 hour"
+      "duration": "1 hour",
+      "label": "Damage Resist",
+      "value": 10.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (1080/18 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1080.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+1 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 1.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Cranberry Jam"
@@ -645,22 +874,46 @@
      {
       "name": "Restore Health",
       "display": "Restores 250 Health",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 250.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Fortify Health",
       "display": "+40 Fortify Health",
-      "duration": "1 hour 30 min"
+      "duration": "1 hour 30 min",
+      "label": "Health",
+      "value": 40.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (1800/30 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1800.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+2 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Cranberry Meatball Grinder"
@@ -704,27 +957,57 @@
      {
       "name": "Restore Health",
       "display": "Restores 250 Health",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 250.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Water Breathing",
-      "display": "+4 Water Breathing",
-      "duration": "1 hour 30 min"
+      "display": "Breathe Underwater.",
+      "duration": "1 hour 30 min",
+      "label": "Water Breathing",
+      "value": 4.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (1800/30 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1800.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+2 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      },
      {
       "name": "Radiation Resistance",
       "display": "+50 Radiation Resistance",
-      "duration": "1 hour 30 min"
+      "duration": "1 hour 30 min",
+      "label": "Radiation Resistance",
+      "value": 50.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Mirelurk Cake With Bloodleaf Aioli"
@@ -770,12 +1053,24 @@
      {
       "name": "Restore Health",
       "display": "Restores 40 Health",
-      "duration": "2s"
+      "duration": "2s",
+      "label": "Restores Health",
+      "value": 40.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Scorched Repellent",
-      "display": "+1 Scorched Repellent",
-      "duration": "10 min"
+      "display": "15% Reduced damage from Scorched",
+      "duration": "10 min",
+      "label": "Scorched Repellent",
+      "value": 1.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      }
     ],
     "how_to_obtain": "Quest: W05_MQ_101P"
@@ -821,12 +1116,24 @@
      {
       "name": "Restore Health",
       "display": "Restores 40 Health",
-      "duration": "2s"
+      "duration": "2s",
+      "label": "Restores Health",
+      "value": 40.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Scorched Repellent",
-      "display": "+1 Scorched Repellent",
-      "duration": "10 min"
+      "display": "15% Reduced damage from Scorched",
+      "duration": "10 min",
+      "label": "Scorched Repellent",
+      "value": 1.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      }
     ],
     "how_to_obtain": "Quest: W05_MQ_101P"
@@ -872,12 +1179,24 @@
      {
       "name": "Restore Health",
       "display": "Restores 40 Health",
-      "duration": "20s"
+      "duration": "20s",
+      "label": "Restores Health",
+      "value": 40.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Scorched Repellent",
-      "display": "+1 Scorched Repellent",
-      "duration": "10 min"
+      "display": "15% Reduced damage from Scorched",
+      "duration": "10 min",
+      "label": "Scorched Repellent",
+      "value": 1.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      }
     ],
     "how_to_obtain": "Quest: W05_MQ_101P"
@@ -921,27 +1240,57 @@
      {
       "name": "Restore Health",
       "display": "Restores 20 Health",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 20.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Fortify Health",
       "display": "+25 Fortify Health",
-      "duration": "30 min"
+      "duration": "30 min",
+      "label": "Health",
+      "value": 25.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Fortify Carry Weight",
       "display": "+10 Fortify Carry Weight",
-      "duration": "30 min"
+      "duration": "30 min",
+      "label": "Carry Weight",
+      "value": 10.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (720/12 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 720.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+15 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 15.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Pickled Pumpkin"
@@ -972,22 +1321,46 @@
      {
       "name": "Chems: Thirst",
       "display": "Quenches thirst (108/1.8 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 108.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "GHL_SURV_Chem_Effect",
       "display": "+360 GHL_SURV_Chem_Effect",
-      "duration": null
+      "duration": null,
+      "label": "GHL_SURV_Chem_Effect",
+      "value": 360.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Resist Radiation Exposure",
-      "display": "+125 Resist Radiation Exposure",
-      "duration": "10 min"
+      "display": "+125 Rad Resist.",
+      "duration": "10 min",
+      "label": "Resist Radiation Exposure",
+      "value": 125.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Resist Radiation Ingestion",
       "display": "+38 Resist Radiation Ingestion",
-      "duration": "10 min"
+      "duration": "10 min",
+      "label": "Resist Radiation Ingestion",
+      "value": 37.5,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Diluted Rad-X"
@@ -1028,27 +1401,57 @@
      {
       "name": "Reduce Disease Resist",
       "display": "+50 Disease Resistance",
-      "duration": "15 min"
+      "duration": "15 min",
+      "label": "Disease Resistance",
+      "value": 50.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Chems: Thirst",
       "display": "Quenches thirst (108/1.8 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 108.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Increase Hunger",
       "display": "+108 Increase Hunger",
-      "duration": null
+      "duration": null,
+      "label": "Increase Hunger",
+      "value": 108.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "GHL_SURV_Chem_Effect",
       "display": "+240 GHL_SURV_Chem_Effect",
-      "duration": null
+      "duration": null,
+      "label": "GHL_SURV_Chem_Effect",
+      "value": 240.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Remove Radiation",
-      "display": "+60 Remove Radiation",
-      "duration": "5s"
+      "display": "Remove 60 points of Radiation.",
+      "duration": "5s",
+      "label": "Remove Radiation",
+      "value": 60.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: RadAway"
@@ -1079,27 +1482,57 @@
      {
       "name": "Reduce Disease Resist",
       "display": "+50 Disease Resistance",
-      "duration": "7 min"
+      "duration": "7 min",
+      "label": "Disease Resistance",
+      "value": 50.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Chems: Thirst",
       "display": "Quenches thirst (108/1.8 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 108.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Increase Hunger",
       "display": "+108 Increase Hunger",
-      "duration": null
+      "duration": null,
+      "label": "Increase Hunger",
+      "value": 108.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "GHL_SURV_Chem_Effect",
       "display": "+90 GHL_SURV_Chem_Effect",
-      "duration": null
+      "duration": null,
+      "label": "GHL_SURV_Chem_Effect",
+      "value": 90.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Remove Radiation",
-      "display": "+30 Remove Radiation",
-      "duration": "5s"
+      "display": "Remove 30 points of Radiation.",
+      "duration": "5s",
+      "label": "Remove Radiation",
+      "value": 30.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Diluted RadAway"
@@ -1140,22 +1573,46 @@
      {
       "name": "Chems: Thirst",
       "display": "Quenches thirst (108/1.8 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 108.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "GHL_SURV_Chem_Effect",
       "display": "+720 GHL_SURV_Chem_Effect",
-      "duration": null
+      "duration": null,
+      "label": "GHL_SURV_Chem_Effect",
+      "value": 720.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Resist Radiation Exposure",
-      "display": "+600 Resist Radiation Exposure",
-      "duration": "15 min"
+      "display": "+600 Rad Resist.",
+      "duration": "15 min",
+      "label": "Resist Radiation Exposure",
+      "value": 600.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Resist Radiation Ingestion",
       "display": "+600 Resist Radiation Ingestion",
-      "duration": "15 min"
+      "duration": "15 min",
+      "label": "Resist Radiation Ingestion",
+      "value": 600.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      }
     ],
     "how_to_obtain": "Quest: SFM04_Organic"
@@ -1199,22 +1656,46 @@
      {
       "name": "Restore Health",
       "display": "Restores 250 Health",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 250.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Fortify Luck",
       "display": "+3 Fortify Luck",
-      "duration": "1 hour 30 min"
+      "duration": "1 hour 30 min",
+      "label": "Luck",
+      "value": 3.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (1800/30 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1800.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+2 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Seared Venison With Berries"
@@ -1258,27 +1739,57 @@
      {
       "name": "Restore Health",
       "display": "Restores 250 Health",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 250.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Water Breathing",
-      "display": "+4 Water Breathing",
-      "duration": "1 hour 30 min"
+      "display": "Breathe Underwater.",
+      "duration": "1 hour 30 min",
+      "label": "Water Breathing",
+      "value": 4.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Fortify Carry Weight",
       "display": "+30 Fortify Carry Weight",
-      "duration": "1 hour 30 min"
+      "duration": "1 hour 30 min",
+      "label": "Carry Weight",
+      "value": 30.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (1800/30 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1800.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+2 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Smoked Mirelurk Fillets"
@@ -1309,7 +1820,13 @@
      {
       "name": "Restore Health",
       "display": "Restores 20 Health",
-      "duration": "20s"
+      "duration": "20s",
+      "label": "Restores Health",
+      "value": 20.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      }
     ],
     "how_to_obtain": "Known by default."
@@ -1354,22 +1871,46 @@
      {
       "name": "Restore Health",
       "display": "Restores 25 Health",
-      "duration": "10s"
+      "duration": "10s",
+      "label": "Restores Health",
+      "value": 25.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Fortify Crit Dmg",
       "display": "+50 Fortify Crit Dmg",
-      "duration": "1 hour"
+      "duration": "1 hour",
+      "label": "Crit Dmg",
+      "value": 50.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Quench Thirst",
       "display": "Quenches thirst (900/15 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 900.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+1 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 1.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Sweet Mutfruit Tea"
@@ -1413,27 +1954,57 @@
      {
       "name": "Restore Health",
       "display": "Restores 90 Health",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 90.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Restore Action Points",
       "display": "+12 Action Points",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restore Action Points",
+      "value": 12.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Fortify Charisma",
       "display": "+3 Fortify Charisma",
-      "duration": "1 hour 30 min"
+      "duration": "1 hour 30 min",
+      "label": "Charisma",
+      "value": 3.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (1440/24 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1440.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+2 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Sweet Roll"

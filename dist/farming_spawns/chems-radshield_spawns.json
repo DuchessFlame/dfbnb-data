@@ -101,24 +101,83 @@
     {
      "name": "Chems: Thirst",
      "display": "Quenches thirst (108/1.8 min)",
-     "duration": null
+     "duration": null,
+     "label": "Quenches Thirst",
+     "value": 108.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "GHL_SURV_Chem_Effect",
-     "display": "GHL_SURV_Chem_Effect",
-     "duration": null
+     "display": "+720 GHL_SURV_Chem_Effect",
+     "duration": null,
+     "label": "GHL_SURV_Chem_Effect",
+     "value": 720.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Resist Radiation Exposure",
-     "display": "+600 Resist Radiation Exposure",
-     "duration": "15 min"
+     "display": "+600 Rad Resist.",
+     "duration": "15 min",
+     "label": "Resist Radiation Exposure",
+     "value": 600.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Resist Radiation Ingestion",
      "display": "+600 Resist Radiation Ingestion",
-     "duration": "15 min"
+     "duration": "15 min",
+     "label": "Resist Radiation Ingestion",
+     "value": 600.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [],
   "recipes": [],
@@ -157,22 +216,46 @@
       {
        "name": "Chems: Thirst",
        "display": "Quenches thirst (108/1.8 min)",
-       "duration": null
+       "duration": null,
+       "label": "Quenches Thirst",
+       "value": 108.0,
+       "unit": "seconds",
+       "scales": true,
+       "zeroed": false,
+       "sign": false
       },
       {
        "name": "GHL_SURV_Chem_Effect",
        "display": "+720 GHL_SURV_Chem_Effect",
-       "duration": null
+       "duration": null,
+       "label": "GHL_SURV_Chem_Effect",
+       "value": 720.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       },
       {
        "name": "Resist Radiation Exposure",
-       "display": "+600 Resist Radiation Exposure",
-       "duration": "15 min"
+       "display": "+600 Rad Resist.",
+       "duration": "15 min",
+       "label": "Resist Radiation Exposure",
+       "value": 600.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       },
       {
        "name": "Resist Radiation Ingestion",
        "display": "+600 Resist Radiation Ingestion",
-       "duration": "15 min"
+       "duration": "15 min",
+       "label": "Resist Radiation Ingestion",
+       "value": 600.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       }
      ],
      "how_to_obtain": "Quest: SFM04_Organic"

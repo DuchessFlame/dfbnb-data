@@ -153,19 +153,72 @@
     {
      "name": "Restore Health",
      "display": "Restores 20 Health",
-     "duration": "10s"
+     "duration": "10s",
+     "label": "Restores Health",
+     "value": 20.0,
+     "unit": "health",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Quench Thirst",
-     "display": "Quenches thirst (900/15 min)",
-     "duration": null
+     "display": "Quenches thirst (540/9 min)",
+     "duration": null,
+     "label": "Quenches Thirst",
+     "value": 540.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Disease Chance",
      "display": "5% chance to catch a disease",
-     "duration": null
+     "duration": null,
+     "label": "Disease Chance",
+     "value": 5.0,
+     "unit": "percent",
+     "scales": false,
+     "zeroed": true,
+     "sign": false
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [],
   "recipes": [
@@ -202,22 +255,46 @@
      {
       "name": "+AP Regen",
       "display": "+10 Action Point regen",
-      "duration": "1 hour"
+      "duration": "1 hour",
+      "label": "+AP Regen",
+      "value": 10.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Disease Resistance",
       "display": "+20 Disease Resistance",
-      "duration": "1 hour"
+      "duration": "1 hour",
+      "label": "Disease Resistance",
+      "value": 20.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Quench Thirst",
       "display": "Quenches thirst (1500/25 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 1500.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+2 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Delbert's Company Tea"
@@ -264,22 +341,46 @@
      {
       "name": "Restore Health",
       "display": "Restores 20 Health",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 20.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Reduced Hunger",
       "display": "-25% hunger rate",
-      "duration": "30 min"
+      "duration": "30 min",
+      "label": "Reduced Hunger",
+      "value": 25.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (5400/90 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 5400.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+2 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Fish Chowder"
@@ -314,27 +415,57 @@
      {
       "name": "Restore Health",
       "display": "Restores 25 Health",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 25.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Fortify Action Points",
       "display": "+10 Action Points",
-      "duration": "30 min"
+      "duration": "30 min",
+      "label": "Action Points",
+      "value": 10.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Quench Thirst",
       "display": "Quenches thirst (240/4 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 240.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (720/12 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 720.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+5 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Moo-Moo Curd"

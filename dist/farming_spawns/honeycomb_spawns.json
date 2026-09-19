@@ -103,20 +103,73 @@
    "effects": [
     {
      "name": "Restore Action Points",
-     "display": "Restore Action Points",
-     "duration": "15s"
+     "display": "+4 Action Points",
+     "duration": "15s",
+     "label": "Restore Action Points",
+     "value": 4.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Satisfy Hunger",
      "display": "Satisfies hunger (720/12 min)",
-     "duration": null
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 720.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Rads",
-     "display": "Rads",
-     "duration": null
+     "display": "+5 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 5.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [],
   "recipes": [
@@ -159,22 +212,46 @@
      {
       "name": "+AP Regen",
       "display": "+5 Action Point regen",
-      "duration": "1 hour"
+      "duration": "1 hour",
+      "label": "+AP Regen",
+      "value": 5.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Restore Health",
       "display": "Restores 40 Health",
-      "duration": "10s"
+      "duration": "10s",
+      "label": "Restores Health",
+      "value": 40.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Quench Thirst",
       "display": "Quenches thirst (900/15 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 900.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+2 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Delbert's Sweet Labrador Tea"
@@ -1053,8 +1130,8 @@
         "6E0594"
        ],
        "coords": [
-        47663.4,
-        -39558.6
+        47663.375,
+        -39558.5859375
        ],
        "spawns": [
         {
@@ -1062,8 +1139,8 @@
          "ref": "6906B8",
          "source_type": "ambush",
          "coords": [
-          47663.4,
-          -39558.6
+          47663.375,
+          -39558.5859375
          ],
          "image_top": "",
          "directions": "",
@@ -1074,8 +1151,8 @@
          "ref": "6E0594",
          "source_type": "ambush",
          "coords": [
-          42577.6,
-          -45715.4
+          42577.60546875,
+          -45715.4140625
          ],
          "image_top": "",
          "directions": "",
@@ -1103,8 +1180,8 @@
         "3D02C7"
        ],
        "coords": [
-        84448.5,
-        -102757.9
+        84448.5390625,
+        -102757.875
        ],
        "spawns": [
         {
@@ -1112,8 +1189,8 @@
          "ref": "3D02C7",
          "source_type": "ambush",
          "coords": [
-          84448.5,
-          -102757.9
+          84448.5390625,
+          -102757.875
          ],
          "image_top": "",
          "directions": "",

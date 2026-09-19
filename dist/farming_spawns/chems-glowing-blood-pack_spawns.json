@@ -18,6 +18,40 @@
   },
   "creatures": {
    "note": "Around 19 creatures can drop Glowing Blood Pack as generic loot; they are not listed individually. See the Containers expand for the per-container drop rates and How to Obtain for the crafting recipe."
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Toxic Bob",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_ToxicBob",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Glowing Blood Pack",
+       "form_id": "00058AB4",
+       "rate": 1.0,
+       "rate_display": "100%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Communist Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Communist",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "4 min 48 sec",
+     "items": [
+      {
+       "name": "Glowing Blood Pack",
+       "form_id": "00058AB4",
+       "rate": 0.013,
+       "rate_display": "1.3%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
   }
  },
  "farming_tips": {
@@ -106,34 +140,105 @@
     {
      "name": "Restore Health",
      "display": "Restores 40 Health",
-     "duration": "5s"
+     "duration": "5s",
+     "label": "Restores Health",
+     "value": 40.0,
+     "unit": "health",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "GHL_SURV_Chem_Effect",
-     "display": "GHL_SURV_Chem_Effect",
-     "duration": null
+     "display": "+90 GHL_SURV_Chem_Effect",
+     "duration": null,
+     "label": "GHL_SURV_Chem_Effect",
+     "value": 90.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Quench Thirst",
      "display": "Quenches thirst (540/9 min)",
-     "duration": null
+     "duration": null,
+     "label": "Quenches Thirst",
+     "value": 540.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Rads",
      "display": "+10 Rads",
-     "duration": null
+     "duration": null,
+     "label": "Rads",
+     "value": 10.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
     },
     {
      "name": "Resist Radiation Exposure",
-     "display": "+75 Resist Radiation Exposure",
-     "duration": "10 min"
+     "display": "+75 Rad Resist.",
+     "duration": "10 min",
+     "label": "Resist Radiation Exposure",
+     "value": 75.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Resist Radiation Ingestion",
      "display": "+75 Resist Radiation Ingestion",
-     "duration": "10 min"
+     "duration": "10 min",
+     "label": "Resist Radiation Ingestion",
+     "value": 75.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [
    {

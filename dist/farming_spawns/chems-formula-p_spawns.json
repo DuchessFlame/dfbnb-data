@@ -101,34 +101,105 @@
     {
      "name": "Gun Accuracy",
      "display": "+33 Gun Accuracy",
-     "duration": "5 min"
+     "duration": "5 min",
+     "label": "Gun Accuracy",
+     "value": 33.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Fortify Charisma",
      "display": "+5 Fortify Charisma",
-     "duration": "5 min"
+     "duration": "5 min",
+     "label": "Charisma",
+     "value": 5.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Fortify Luck",
      "display": "+3 Fortify Luck",
-     "duration": "5 min"
+     "duration": "5 min",
+     "label": "Luck",
+     "value": 3.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Chems: Thirst",
      "display": "Quenches thirst (180/3 min)",
-     "duration": null
+     "duration": null,
+     "label": "Quenches Thirst",
+     "value": 180.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Chance Addiction Calmex",
      "display": "35% chance to catch a disease",
-     "duration": null
+     "duration": null,
+     "label": "Disease Chance",
+     "value": 35.0,
+     "unit": "percent",
+     "scales": false,
+     "zeroed": true,
+     "sign": false
     },
     {
      "name": "GHL_SURV_Chem_Effect",
-     "display": "GHL_SURV_Chem_Effect",
-     "duration": null
+     "display": "+720 GHL_SURV_Chem_Effect",
+     "duration": null,
+     "label": "GHL_SURV_Chem_Effect",
+     "value": 720.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [],
   "recipes": [],
@@ -166,32 +237,68 @@
       {
        "name": "Gun Accuracy",
        "display": "+33 Gun Accuracy",
-       "duration": "5 min"
+       "duration": "5 min",
+       "label": "Gun Accuracy",
+       "value": 33.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       },
       {
        "name": "Fortify Charisma",
        "display": "+5 Fortify Charisma",
-       "duration": "5 min"
+       "duration": "5 min",
+       "label": "Charisma",
+       "value": 5.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       },
       {
        "name": "Fortify Luck",
        "display": "+3 Fortify Luck",
-       "duration": "5 min"
+       "duration": "5 min",
+       "label": "Luck",
+       "value": 3.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       },
       {
        "name": "Chems: Thirst",
        "display": "Quenches thirst (180/3 min)",
-       "duration": null
+       "duration": null,
+       "label": "Quenches Thirst",
+       "value": 180.0,
+       "unit": "seconds",
+       "scales": true,
+       "zeroed": false,
+       "sign": false
       },
       {
        "name": "Chance Addiction Calmex",
        "display": "35% chance to catch a disease",
-       "duration": null
+       "duration": null,
+       "label": "Disease Chance",
+       "value": 35.0,
+       "unit": "percent",
+       "scales": false,
+       "zeroed": true,
+       "sign": false
       },
       {
        "name": "GHL_SURV_Chem_Effect",
        "display": "+720 GHL_SURV_Chem_Effect",
-       "duration": null
+       "duration": null,
+       "label": "GHL_SURV_Chem_Effect",
+       "value": 720.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       }
      ],
      "how_to_obtain": "Recipe: Formula P"

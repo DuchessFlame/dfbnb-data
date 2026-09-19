@@ -43,11 +43,6 @@
      "rate_display": "38.75%"
     },
     {
-     "name": "Safe",
-     "rate": 0.3875371231874023,
-     "rate_display": "38.75%"
-    },
-    {
      "name": "Security Office Safe",
      "rate": 0.3875371231874023,
      "rate_display": "38.75%"
@@ -60,6 +55,11 @@
     {
      "name": "Underdweller Dropbox",
      "rate": 0.3875371231874023,
+     "rate_display": "38.75%"
+    },
+    {
+     "name": "Safe",
+     "rate": 0.3875371231874022,
      "rate_display": "38.75%"
     },
     {
@@ -463,6 +463,70 @@
      "rate_display": "0.08%"
     }
    ]
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Scoutmaster Collectron Station",
+     "edid": "SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster",
+     "obtain": "Purchase with tickets from the Pioneer Scouts: Skyline Valley Scoreboard (Season 17)",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Sugar Bombs",
+       "form_id": "000330F2",
+       "rate": 0.025,
+       "rate_display": "2.5%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "BoS Collectron Station",
+     "edid": "ATX_Community2020_ATLAS_ENTM_CAMP_Utility_Collectron_BoS",
+     "obtain": "Awarded through a Bethesda community event or promotion.",
+     "interval": "7 min 12 sec",
+     "items": [
+      {
+       "name": "Sugar Bombs",
+       "form_id": "000330F2",
+       "rate": 0.0,
+       "rate_display": "0%",
+       "rate_source": "computed_zero"
+      }
+     ]
+    },
+    {
+     "name": "Fasnacht Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Fasnacht",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "7 min 12 sec",
+     "items": [
+      {
+       "name": "Sugar Bombs",
+       "form_id": "000330F2",
+       "rate": 0.0,
+       "rate_display": "0%",
+       "rate_source": "computed_zero"
+      }
+     ]
+    },
+    {
+     "name": "Santatron Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Santa",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "7 min 12 sec",
+     "items": [
+      {
+       "name": "Sugar Bombs",
+       "form_id": "000330F2",
+       "rate": 0.0,
+       "rate_display": "0%",
+       "rate_source": "computed_zero"
+      }
+     ]
+    }
+   ]
   }
  },
  "farming_tips": {
@@ -551,24 +615,83 @@
     {
      "name": "Restore Health",
      "display": "Restores 10 Health",
-     "duration": "25s"
+     "duration": "25s",
+     "label": "Restores Health",
+     "value": 10.0,
+     "unit": "health",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Restore Action Points",
-     "display": "Restore Action Points",
-     "duration": "15s"
+     "display": "+4 Action Points",
+     "duration": "15s",
+     "label": "Restore Action Points",
+     "value": 4.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Satisfy Hunger",
      "display": "Satisfies hunger (480/8 min)",
-     "duration": null
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 480.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Rads",
      "display": "+1 Rads",
-     "duration": null
+     "duration": null,
+     "label": "Rads",
+     "value": 1.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [
    {
@@ -628,27 +751,57 @@
      {
       "name": "Restore Health",
       "display": "Restores 90 Health",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 90.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Restore Action Points",
       "display": "+12 Action Points",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restore Action Points",
+      "value": 12.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Fortify Intelligence",
       "display": "+3 Fortify Intelligence",
-      "duration": "1 hour 30 min"
+      "duration": "1 hour 30 min",
+      "label": "Intelligence",
+      "value": 3.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (1800/30 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1800.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+5 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Brain Bombs"
@@ -693,22 +846,46 @@
      {
       "name": "Restore Health",
       "display": "Restores 40 Health",
-      "duration": "10s"
+      "duration": "10s",
+      "label": "Restores Health",
+      "value": 40.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Fortify Heal Rate",
-      "display": "Fortify Heal Rate",
-      "duration": "1 hour"
+      "display": "+0.125 Health Regen",
+      "duration": "1 hour",
+      "label": "Heal Rate",
+      "value": 0.125,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Quench Thirst",
       "display": "Quenches thirst (900/15 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 900.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+2 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Delbert's Granny's Sweet Tea"
@@ -749,17 +926,35 @@
      {
       "name": "Restore Action Points",
       "display": "+16 Action Points",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restore Action Points",
+      "value": 16.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Fortify Damage Resist",
       "display": "+15 Fortify Damage Resist",
-      "duration": "5 min"
+      "duration": "5 min",
+      "label": "Damage Resist",
+      "value": 15.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Rads",
       "display": "+5 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Delbert's Sunshine Oil"
@@ -803,27 +998,57 @@
      {
       "name": "Restore Health",
       "display": "Restores 90 Health",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 90.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Restore Action Points",
       "display": "+12 Action Points",
-      "duration": "25s"
+      "duration": "25s",
+      "label": "Restore Action Points",
+      "value": 12.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Fortify Charisma",
       "display": "+3 Fortify Charisma",
-      "duration": "1 hour 30 min"
+      "duration": "1 hour 30 min",
+      "label": "Charisma",
+      "value": 3.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Satisfy Hunger",
       "display": "Satisfies hunger (1440/24 min)",
-      "duration": null
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1440.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Rads",
       "display": "+2 Rads",
-      "duration": null
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Sweet Roll"

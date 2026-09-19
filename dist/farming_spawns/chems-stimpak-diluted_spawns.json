@@ -581,6 +581,44 @@
   },
   "creatures": {
    "note": "Around 9,633 creatures can drop Stimpak: Diluted as generic loot; they are not listed individually. See the Containers expand for the per-container drop rates and How to Obtain for the crafting recipe."
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Communist Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Communist",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "4 min 48 sec",
+     "items": [
+      {
+       "name": "Stimpak: Diluted",
+       "form_id": "003078C2",
+       "rate": 0.033333,
+       "rate_display": "3.33%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Ashforge",
+     "edid": "AshResource",
+     "obtain": "Available in the base game.",
+     "interval": "3 min",
+     "items": [
+      {
+       "name": "Stimpak: Diluted",
+       "form_id": "003078C2",
+       "rate": 0.003261,
+       "rate_display": "0.33%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
   }
  },
  "farming_tips": {
@@ -669,14 +707,61 @@
     {
      "name": "Restore Health",
      "display": "Restores 20 Health",
-     "duration": "20s"
+     "duration": "20s",
+     "label": "Restores Health",
+     "value": 20.0,
+     "unit": "health",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Restore Health",
      "display": "Restores 10 Health",
-     "duration": "2s"
+     "duration": "2s",
+     "label": "Restores Health",
+     "value": 10.0,
+     "unit": "health",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [
    {
@@ -713,7 +798,13 @@
       {
        "name": "Restore Health",
        "display": "Restores 20 Health",
-       "duration": "20s"
+       "duration": "20s",
+       "label": "Restores Health",
+       "value": 20.0,
+       "unit": "health",
+       "scales": true,
+       "zeroed": false,
+       "sign": false
       }
      ],
      "how_to_obtain": "Known by default."

@@ -102,25 +102,84 @@
    "effects": [
     {
      "name": "Perfect Bubblegum",
-     "display": "+100 Perfect Bubblegum",
-     "duration": "1 hour"
+     "display": "Hunger & thirst do not increase.",
+     "duration": "1 hour",
+     "label": "Perfect Bubblegum",
+     "value": 100.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Quench Thirst",
      "display": "Quenches thirst (3600/60 min)",
-     "duration": null
+     "duration": null,
+     "label": "Quenches Thirst",
+     "value": 3600.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Satisfy Hunger",
      "display": "Satisfies hunger (7200/120 min)",
-     "duration": null
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 7200.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Rads",
      "display": "+1 Rads",
-     "duration": null
+     "duration": null,
+     "label": "Rads",
+     "value": 1.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [],
   "recipes": [],

@@ -270,6 +270,40 @@
   },
   "creatures": {
    "note": "Around 75 creatures can drop X-Cell as generic loot; they are not listed individually. See the Containers expand for the per-container drop rates and How to Obtain for the crafting recipe."
+  },
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Doctor's Orders Cigarette Machine",
+     "edid": "ATX_ENTM_CAMP_Collector_DoctorsOrdersCigaretteMachine",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "X-Cell",
+       "form_id": "001506F4",
+       "rate": 0.006944,
+       "rate_display": "0.69%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Ashforge",
+     "edid": "AshResource",
+     "obtain": "Available in the base game.",
+     "interval": "3 min",
+     "items": [
+      {
+       "name": "X-Cell",
+       "form_id": "001506F4",
+       "rate": 0.001042,
+       "rate_display": "0.1%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
   }
  },
  "farming_tips": {
@@ -358,64 +392,171 @@
     {
      "name": "XCell: Fortify Strength",
      "display": "+2 XCell: Fortify Strength",
-     "duration": "2 min"
+     "duration": "2 min",
+     "label": "XCell: Fortify Strength",
+     "value": 2.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "XCell: Fortify Perception",
      "display": "+2 XCell: Fortify Perception",
-     "duration": "2 min"
+     "duration": "2 min",
+     "label": "XCell: Fortify Perception",
+     "value": 2.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "XCell: Fortify Endurance",
      "display": "+2 XCell: Fortify Endurance",
-     "duration": "2 min"
+     "duration": "2 min",
+     "label": "XCell: Fortify Endurance",
+     "value": 2.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "XCell: Fortify Charisma",
      "display": "+2 XCell: Fortify Charisma",
-     "duration": "2 min"
+     "duration": "2 min",
+     "label": "XCell: Fortify Charisma",
+     "value": 2.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "XCell: Fortify Intelligence",
      "display": "+2 XCell: Fortify Intelligence",
-     "duration": "2 min"
+     "duration": "2 min",
+     "label": "XCell: Fortify Intelligence",
+     "value": 2.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "XCell: Fortify Agility",
      "display": "+2 XCell: Fortify Agility",
-     "duration": "2 min"
+     "duration": "2 min",
+     "label": "XCell: Fortify Agility",
+     "value": 2.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "XCell: Fortify Luck",
      "display": "+2 XCell: Fortify Luck",
-     "duration": "2 min"
+     "duration": "2 min",
+     "label": "XCell: Fortify Luck",
+     "value": 2.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "UI Text Dummy",
-     "display": "+2 UI Text Dummy",
-     "duration": "2 min"
+     "display": "+2 S.P.E.C.I.A.L.",
+     "duration": "2 min",
+     "label": "UI Text Dummy",
+     "value": 2.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Increase Hunger",
-     "display": "Increase Hunger",
-     "duration": null
+     "display": "+108 Increase Hunger",
+     "duration": null,
+     "label": "Increase Hunger",
+     "value": 108.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Chems: Thirst",
      "display": "Quenches thirst (108/1.8 min)",
-     "duration": null
+     "duration": null,
+     "label": "Quenches Thirst",
+     "value": 108.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Chance Addiction X-Cell",
      "display": "50% chance to catch a disease",
-     "duration": null
+     "duration": null,
+     "label": "Disease Chance",
+     "value": 50.0,
+     "unit": "percent",
+     "scales": false,
+     "zeroed": true,
+     "sign": false
     },
     {
      "name": "GHL_SURV_Chem_Effect",
-     "display": "GHL_SURV_Chem_Effect",
-     "duration": null
+     "display": "+1080 GHL_SURV_Chem_Effect",
+     "duration": null,
+     "label": "GHL_SURV_Chem_Effect",
+     "value": 1080.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [],
   "recipes": [],

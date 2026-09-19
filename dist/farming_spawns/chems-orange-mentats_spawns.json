@@ -506,6 +506,74 @@
   },
   "creatures": {
    "note": "Around 1,629 creatures can drop Orange Mentats as generic loot; they are not listed individually. See the Containers expand for the per-container drop rates and How to Obtain for the crafting recipe."
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Raider Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Raider",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "6 min",
+     "items": [
+      {
+       "name": "Orange Mentats",
+       "form_id": "000518C5",
+       "rate": 0.0125,
+       "rate_display": "1.25%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Free States Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_FreeStates",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "9 min",
+     "items": [
+      {
+       "name": "Orange Mentats",
+       "form_id": "000518C5",
+       "rate": 0.0,
+       "rate_display": "0%",
+       "rate_source": "computed_zero"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Doctor's Orders Cigarette Machine",
+     "edid": "ATX_ENTM_CAMP_Collector_DoctorsOrdersCigaretteMachine",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Orange Mentats",
+       "form_id": "000518C5",
+       "rate": 0.006944,
+       "rate_display": "0.69%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Ashforge",
+     "edid": "AshResource",
+     "obtain": "Available in the base game.",
+     "interval": "3 min",
+     "items": [
+      {
+       "name": "Orange Mentats",
+       "form_id": "000518C5",
+       "rate": 0.001563,
+       "rate_display": "0.16%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
   }
  },
  "farming_tips": {
@@ -594,29 +662,94 @@
     {
      "name": "Fortify Perception",
      "display": "+5 Fortify Perception",
-     "duration": "5 min"
+     "duration": "5 min",
+     "label": "Perception",
+     "value": 5.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "+10% VATS Accuracy",
      "display": "+10 +10% VATS Accuracy",
-     "duration": "5 min"
+     "duration": "5 min",
+     "label": "+10% VATS Accuracy",
+     "value": 10.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Chems: Thirst",
      "display": "Quenches thirst (108/1.8 min)",
-     "duration": null
+     "duration": null,
+     "label": "Quenches Thirst",
+     "value": 108.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Chance Addiction Mentats",
      "display": "25% chance to catch a disease",
-     "duration": null
+     "duration": null,
+     "label": "Disease Chance",
+     "value": 25.0,
+     "unit": "percent",
+     "scales": false,
+     "zeroed": true,
+     "sign": false
     },
     {
      "name": "GHL_SURV_Chem_Effect",
-     "display": "GHL_SURV_Chem_Effect",
-     "duration": null
+     "display": "+240 GHL_SURV_Chem_Effect",
+     "duration": null,
+     "label": "GHL_SURV_Chem_Effect",
+     "value": 240.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [],
   "recipes": [],
@@ -650,27 +783,57 @@
       {
        "name": "Fortify Perception",
        "display": "+5 Fortify Perception",
-       "duration": "5 min"
+       "duration": "5 min",
+       "label": "Perception",
+       "value": 5.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       },
       {
        "name": "+10% VATS Accuracy",
        "display": "+10 +10% VATS Accuracy",
-       "duration": "5 min"
+       "duration": "5 min",
+       "label": "+10% VATS Accuracy",
+       "value": 10.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       },
       {
        "name": "Chems: Thirst",
        "display": "Quenches thirst (108/1.8 min)",
-       "duration": null
+       "duration": null,
+       "label": "Quenches Thirst",
+       "value": 108.0,
+       "unit": "seconds",
+       "scales": true,
+       "zeroed": false,
+       "sign": false
       },
       {
        "name": "Chance Addiction Mentats",
        "display": "25% chance to catch a disease",
-       "duration": null
+       "duration": null,
+       "label": "Disease Chance",
+       "value": 25.0,
+       "unit": "percent",
+       "scales": false,
+       "zeroed": true,
+       "sign": false
       },
       {
        "name": "GHL_SURV_Chem_Effect",
        "display": "+240 GHL_SURV_Chem_Effect",
-       "duration": null
+       "duration": null,
+       "label": "GHL_SURV_Chem_Effect",
+       "value": 240.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       }
      ],
      "how_to_obtain": "Recipe: Orange Mentats"

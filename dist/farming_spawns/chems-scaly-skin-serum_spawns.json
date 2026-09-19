@@ -102,15 +102,62 @@
    "effects": [
     {
      "name": "Suppress negative effects",
-     "display": "+1 Suppress negative effects",
-     "duration": "1 hour"
+     "display": "Suppresses negative mutation effects.",
+     "duration": "1 hour",
+     "label": "Suppress negative effects",
+     "value": 1.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Apply effect script",
-     "display": "+1 Apply effect script",
-     "duration": null
+     "display": "Grants the Scaly Skin mutation.",
+     "duration": null,
+     "label": "Apply effect script",
+     "value": 1.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [],
   "recipes": [],

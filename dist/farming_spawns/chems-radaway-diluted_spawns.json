@@ -426,6 +426,25 @@
   },
   "creatures": {
    "note": "Around 1,958 creatures can drop RadAway: Diluted as generic loot; they are not listed individually. See the Containers expand for the per-container drop rates and How to Obtain for the crafting recipe."
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Communist Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Communist",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "4 min 48 sec",
+     "items": [
+      {
+       "name": "RadAway: Diluted",
+       "form_id": "0012D3EF",
+       "rate": 0.033333,
+       "rate_display": "3.33%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
   }
  },
  "farming_tips": {
@@ -514,29 +533,94 @@
     {
      "name": "Reduce Disease Resist",
      "display": "+50 Disease Resistance",
-     "duration": "7 min"
+     "duration": "7 min",
+     "label": "Disease Resistance",
+     "value": 50.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Chems: Thirst",
      "display": "Quenches thirst (108/1.8 min)",
-     "duration": null
+     "duration": null,
+     "label": "Quenches Thirst",
+     "value": 108.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Increase Hunger",
-     "display": "Increase Hunger",
-     "duration": null
+     "display": "+108 Increase Hunger",
+     "duration": null,
+     "label": "Increase Hunger",
+     "value": 108.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "GHL_SURV_Chem_Effect",
-     "display": "GHL_SURV_Chem_Effect",
-     "duration": null
+     "display": "+90 GHL_SURV_Chem_Effect",
+     "duration": null,
+     "label": "GHL_SURV_Chem_Effect",
+     "value": 90.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Remove Radiation",
-     "display": "+30 Remove Radiation",
-     "duration": "5s"
+     "display": "Remove 30 points of Radiation.",
+     "duration": "5s",
+     "label": "Remove Radiation",
+     "value": 30.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [],
   "recipes": [],
@@ -565,27 +649,57 @@
       {
        "name": "Reduce Disease Resist",
        "display": "+50 Disease Resistance",
-       "duration": "7 min"
+       "duration": "7 min",
+       "label": "Disease Resistance",
+       "value": 50.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       },
       {
        "name": "Chems: Thirst",
        "display": "Quenches thirst (108/1.8 min)",
-       "duration": null
+       "duration": null,
+       "label": "Quenches Thirst",
+       "value": 108.0,
+       "unit": "seconds",
+       "scales": true,
+       "zeroed": false,
+       "sign": false
       },
       {
        "name": "Increase Hunger",
        "display": "+108 Increase Hunger",
-       "duration": null
+       "duration": null,
+       "label": "Increase Hunger",
+       "value": 108.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       },
       {
        "name": "GHL_SURV_Chem_Effect",
        "display": "+90 GHL_SURV_Chem_Effect",
-       "duration": null
+       "duration": null,
+       "label": "GHL_SURV_Chem_Effect",
+       "value": 90.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       },
       {
        "name": "Remove Radiation",
-       "display": "+30 Remove Radiation",
-       "duration": "5s"
+       "display": "Remove 30 points of Radiation.",
+       "duration": "5s",
+       "label": "Remove Radiation",
+       "value": 30.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       }
      ],
      "how_to_obtain": "Recipe: Diluted RadAway"

@@ -72,6 +72,16 @@
      "rate_display": "0.04%"
     },
     {
+     "name": "Dresser",
+     "rate": 0.0004421768707483231,
+     "rate_display": "0.04%"
+    },
+    {
+     "name": "Locker",
+     "rate": 0.0004421768707483231,
+     "rate_display": "0.04%"
+    },
+    {
      "name": "Vanity",
      "rate": 0.0004421768707483231,
      "rate_display": "0.04%"
@@ -102,17 +112,7 @@
      "rate_display": "0.04%"
     },
     {
-     "name": "Dresser",
-     "rate": 0.0004333333333332856,
-     "rate_display": "0.04%"
-    },
-    {
      "name": "File Cabinet",
-     "rate": 0.0004333333333332856,
-     "rate_display": "0.04%"
-    },
-    {
-     "name": "Locker",
      "rate": 0.0004333333333332856,
      "rate_display": "0.04%"
     },
@@ -239,6 +239,41 @@
  },
  "used_for": {
   "consumption": null,
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
+  },
   "challenges": [],
   "recipes": [
    {
@@ -277,17 +312,35 @@
      {
       "name": "Fortify Health",
       "display": "+25 Fortify Health",
-      "duration": "10 min"
+      "duration": "10 min",
+      "label": "Health",
+      "value": 25.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Chems: Thirst",
       "display": "Quenches thirst (108/1.8 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 108.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "GHL_SURV_Chem_Effect",
       "display": "+480 GHL_SURV_Chem_Effect",
-      "duration": null
+      "duration": null,
+      "label": "GHL_SURV_Chem_Effect",
+      "value": 480.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Skeeto Spit"

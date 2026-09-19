@@ -521,6 +521,89 @@
   },
   "creatures": {
    "note": "Around 1,905 creatures can drop Psycho as generic loot; they are not listed individually. See the Containers expand for the per-container drop rates and How to Obtain for the crafting recipe."
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Raider Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Raider",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "6 min",
+     "items": [
+      {
+       "name": "Psycho",
+       "form_id": "0003377D",
+       "rate": 0.033333,
+       "rate_display": "3.33%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Free States Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_FreeStates",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "9 min",
+     "items": [
+      {
+       "name": "Psycho",
+       "form_id": "0003377D",
+       "rate": 0.0,
+       "rate_display": "0%",
+       "rate_source": "computed_zero"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Shredder",
+     "edid": "ATX_ENTM_CAMP_Collector_Shredder",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Psycho",
+       "form_id": "0003377D",
+       "rate": 0.03125,
+       "rate_display": "3.12%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Doctor's Orders Cigarette Machine",
+     "edid": "ATX_ENTM_CAMP_Collector_DoctorsOrdersCigaretteMachine",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Psycho",
+       "form_id": "0003377D",
+       "rate": 0.020833,
+       "rate_display": "2.08%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Ashforge",
+     "edid": "AshResource",
+     "obtain": "Available in the base game.",
+     "interval": "3 min",
+     "items": [
+      {
+       "name": "Psycho",
+       "form_id": "0003377D",
+       "rate": 0.009722,
+       "rate_display": "0.97%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
   }
  },
  "farming_tips": {
@@ -609,34 +692,105 @@
     {
      "name": "Extra Damage",
      "display": "+15 Extra Damage",
-     "duration": "3 min"
+     "duration": "3 min",
+     "label": "Extra Damage",
+     "value": 15.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Fortify Damage Resistance",
      "display": "+100 Fortify Damage Resistance",
-     "duration": "3 min"
+     "duration": "3 min",
+     "label": "Damage Resistance",
+     "value": 100.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Chems: Thirst",
      "display": "Quenches thirst (108/1.8 min)",
-     "duration": null
+     "duration": null,
+     "label": "Quenches Thirst",
+     "value": 108.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Increase Hunger",
-     "display": "Increase Hunger",
-     "duration": null
+     "display": "+108 Increase Hunger",
+     "duration": null,
+     "label": "Increase Hunger",
+     "value": 108.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Chance Addiction Psycho",
      "display": "25% chance to catch a disease",
-     "duration": null
+     "duration": null,
+     "label": "Disease Chance",
+     "value": 25.0,
+     "unit": "percent",
+     "scales": false,
+     "zeroed": true,
+     "sign": false
     },
     {
      "name": "GHL_SURV_Chem_Effect",
-     "display": "GHL_SURV_Chem_Effect",
-     "duration": null
+     "display": "+1080 GHL_SURV_Chem_Effect",
+     "duration": null,
+     "label": "GHL_SURV_Chem_Effect",
+     "value": 1080.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [
    {
@@ -736,32 +890,68 @@
      {
       "name": "Fortify Crit Dmg",
       "display": "+30 Fortify Crit Dmg",
-      "duration": "3 min"
+      "duration": "3 min",
+      "label": "Crit Dmg",
+      "value": 30.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Overdrive: Extra Damage",
       "display": "+15 Overdrive: Extra Damage",
-      "duration": "3 min"
+      "duration": "3 min",
+      "label": "Overdrive: Extra Damage",
+      "value": 15.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Increase Hunger",
       "display": "+240 Increase Hunger",
-      "duration": null
+      "duration": null,
+      "label": "Increase Hunger",
+      "value": 240.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      },
      {
       "name": "Chems: Thirst",
       "display": "Quenches thirst (108/1.8 min)",
-      "duration": null
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 108.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
      },
      {
       "name": "Chance Addiction Overdrive",
       "display": "35% chance to catch a disease",
-      "duration": null
+      "duration": null,
+      "label": "Disease Chance",
+      "value": 35.0,
+      "unit": "percent",
+      "scales": false,
+      "zeroed": true,
+      "sign": false
      },
      {
       "name": "GHL_SURV_Chem_Effect",
       "display": "+1080 GHL_SURV_Chem_Effect",
-      "duration": null
+      "duration": null,
+      "label": "GHL_SURV_Chem_Effect",
+      "value": 1080.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
      }
     ],
     "how_to_obtain": "Recipe: Overdrive"
@@ -821,32 +1011,68 @@
       {
        "name": "Extra Damage",
        "display": "+15 Extra Damage",
-       "duration": "3 min"
+       "duration": "3 min",
+       "label": "Extra Damage",
+       "value": 15.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       },
       {
        "name": "Fortify Damage Resistance",
        "display": "+100 Fortify Damage Resistance",
-       "duration": "3 min"
+       "duration": "3 min",
+       "label": "Damage Resistance",
+       "value": 100.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       },
       {
        "name": "Chems: Thirst",
        "display": "Quenches thirst (108/1.8 min)",
-       "duration": null
+       "duration": null,
+       "label": "Quenches Thirst",
+       "value": 108.0,
+       "unit": "seconds",
+       "scales": true,
+       "zeroed": false,
+       "sign": false
       },
       {
        "name": "Increase Hunger",
        "display": "+108 Increase Hunger",
-       "duration": null
+       "duration": null,
+       "label": "Increase Hunger",
+       "value": 108.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       },
       {
        "name": "Chance Addiction Psycho",
        "display": "25% chance to catch a disease",
-       "duration": null
+       "duration": null,
+       "label": "Disease Chance",
+       "value": 25.0,
+       "unit": "percent",
+       "scales": false,
+       "zeroed": true,
+       "sign": false
       },
       {
        "name": "GHL_SURV_Chem_Effect",
        "display": "+1080 GHL_SURV_Chem_Effect",
-       "duration": null
+       "duration": null,
+       "label": "GHL_SURV_Chem_Effect",
+       "value": 1080.0,
+       "unit": "flat",
+       "scales": true,
+       "zeroed": false,
+       "sign": true
       }
      ],
      "how_to_obtain": "Recipe: Psycho"

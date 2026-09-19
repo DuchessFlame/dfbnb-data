@@ -127,6 +127,11 @@
      }
     ]
    }
+  },
+  "refrigerated": {
+   "name": "Refrigerated Backpack",
+   "reduction": "50%",
+   "stacks_with_good_with_salt": false
   }
  },
  "used_for": {
@@ -141,25 +146,84 @@
    "effects": [
     {
      "name": "Restore Health",
-     "display": "Restores 15 Health",
-     "duration": "25s"
+     "display": "Restores 30 Health",
+     "duration": "25s",
+     "label": "Restores Health",
+     "value": 30.0,
+     "unit": "health",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Fortify Health",
      "display": "+30 Fortify Health",
-     "duration": "30 min"
+     "duration": "30 min",
+     "label": "Health",
+     "value": 30.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
     },
     {
      "name": "Satisfy Hunger",
-     "display": "Satisfies hunger (3600/60 min)",
-     "duration": null
+     "display": "Satisfies hunger (1080/18 min)",
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 1080.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
     },
     {
      "name": "Rads",
      "display": "+5 Rads",
-     "duration": null
+     "duration": null,
+     "label": "Rads",
+     "value": 5.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
     }
    ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
   },
   "challenges": [
    {
