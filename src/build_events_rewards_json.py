@@ -3160,427 +3160,439 @@ def find_quest_candidates_for_key(event_key):
 # Event builder
 # --------------------------------------------------
 
-events  = []
-by_page = {}
 
-for key, pages in sorted(reward_pages_by_key.items()):
-    candidates = find_quest_candidates_for_key(key)
+# ---------------------------------------------------------------------------
+# Script entry point.
+#
+# Everything above is import-safe: TSV loading, helpers and the LVLI tree
+# walker (build_lvli_tree_node / resolve_lvli_items_deep) run on import so
+# other builders can reuse them instead of keeping a third hand-rolled copy.
+# build_daily_ops_json.py imports this module for exactly that reason.
+# The event build loop and the dist writes below only run when this file is
+# executed directly -- importing it must never write to dist/.
+# ---------------------------------------------------------------------------
+if __name__ == "__main__":
+    events  = []
+    by_page = {}
 
-    # Skip cut/removed events entirely
-    if key in CUT_EVENTS:
-        event = {
-            "questFormID": "", "name": pages[0]["eventTitle"] or "Event",
-            "gameName": "", "freeRewards": [], "conditionalRewards": [],
-            "baseRewards": {"tiers": []}, "regionLocations": [],
-            "pools": [], "banners": [], "scenarios": [],
-            "isCutContent": True,
-            "warnings": [{"title": "Cut Content",
-                          "message": f"'{pages[0]['eventTitle']}' was cut from the game and has no reward data."}]
-        }
-    elif not candidates:
-        event = {
-            "questFormID": "", "name": pages[0]["eventTitle"] or "Event",
-            "gameName": "", "freeRewards": [], "conditionalRewards": [],
-            "baseRewards": {"tiers": []}, "regionLocations": region_locations_for_key(key),
-            "pools": [], "banners": [], "scenarios": [],
-            "warnings": [{"title": "Missing QUEST match",
-                          "message": f"No QUEST row matched guide title '{pages[0]['eventTitle']}'."}]
-        }
-    else:
-        candidates.sort(key=_quest_sort_key)
-        q         = candidates[0]
-        qid       = pick(q, "QUEST_FormID", "FormID")
-        game_name = pick(q, "FULL - Name", "QUEST_FULL - Name", "QUEST_FULL_Name",
-                         "FULL", "QUEST_FULL", "EDID", "QUEST_EDID", default=qid)
+    for key, pages in sorted(reward_pages_by_key.items()):
+        candidates = find_quest_candidates_for_key(key)
 
-        is_public = str(q.get("IsPublicEvent") or q.get("PublicEvent") or "0").strip() == "1"
+        # Skip cut/removed events entirely
+        if key in CUT_EVENTS:
+            event = {
+                "questFormID": "", "name": pages[0]["eventTitle"] or "Event",
+                "gameName": "", "freeRewards": [], "conditionalRewards": [],
+                "baseRewards": {"tiers": []}, "regionLocations": [],
+                "pools": [], "banners": [], "scenarios": [],
+                "isCutContent": True,
+                "warnings": [{"title": "Cut Content",
+                              "message": f"'{pages[0]['eventTitle']}' was cut from the game and has no reward data."}]
+            }
+        elif not candidates:
+            event = {
+                "questFormID": "", "name": pages[0]["eventTitle"] or "Event",
+                "gameName": "", "freeRewards": [], "conditionalRewards": [],
+                "baseRewards": {"tiers": []}, "regionLocations": region_locations_for_key(key),
+                "pools": [], "banners": [], "scenarios": [],
+                "warnings": [{"title": "Missing QUEST match",
+                              "message": f"No QUEST row matched guide title '{pages[0]['eventTitle']}'."}]
+            }
+        else:
+            candidates.sort(key=_quest_sort_key)
+            q         = candidates[0]
+            qid       = pick(q, "QUEST_FormID", "FormID")
+            game_name = pick(q, "FULL - Name", "QUEST_FULL - Name", "QUEST_FULL_Name",
+                             "FULL", "QUEST_FULL", "EDID", "QUEST_EDID", default=qid)
 
-        event = {
-            "questFormID": qid, "name": pages[0]["eventTitle"] or game_name,
-            "gameName": game_name, "isPublicEvent": is_public,
-            "description": pick(q, "DESC - Description", "DESC", default=""),
-            "regionLocations": region_locations_for_key(key),
-            "freeRewards": [], "conditionalRewards": [], "baseRewards": {"tiers": []},
-            "pools": [], "banners": [], "scenarios": [],
-        }
+            is_public = str(q.get("IsPublicEvent") or q.get("PublicEvent") or "0").strip() == "1"
 
-        # Invaders flag
-        if str(q.get("InvadersTakeOver") or "0").strip() == "1":
-            event["banners"].append({
-                "type": "notice", "style": "invaders",
-                "lines": ["Invaders Event Take Over",
-                          "This event can be taken over by Invaders from Beyond."]
-            })
+            event = {
+                "questFormID": qid, "name": pages[0]["eventTitle"] or game_name,
+                "gameName": game_name, "isPublicEvent": is_public,
+                "description": pick(q, "DESC - Description", "DESC", default=""),
+                "regionLocations": region_locations_for_key(key),
+                "freeRewards": [], "conditionalRewards": [], "baseRewards": {"tiers": []},
+                "pools": [], "banners": [], "scenarios": [],
+            }
 
-        # Party Crashers
-        pc_count = int(q.get("PartyCrasherCount") or 0)
-        for i in range(pc_count):
-            npc_raw  = q.get(f"PartyCrasher_NPC_{i}")
-            glob_raw = q.get(f"PartyCrasher_GLOB_{i}")
-            if not npc_raw or not glob_raw: continue
-            glob_fid = glob_raw.split(":")[0] if ":" in str(glob_raw) else str(glob_raw)
-            if glob_fid not in glob_vals: continue
-            event["banners"].append({
-                "type": "notice", "style": "party-crasher",
-                "lines": [f"Party Crasher: {humanize_party_crasher_name(npc_raw)}",
-                          f"{pct(glob_vals[glob_fid])}% chance to spawn at the end of the event."]
-            })
+            # Invaders flag
+            if str(q.get("InvadersTakeOver") or "0").strip() == "1":
+                event["banners"].append({
+                    "type": "notice", "style": "invaders",
+                    "lines": ["Invaders Event Take Over",
+                              "This event can be taken over by Invaders from Beyond."]
+                })
 
-        # Flag enclave activities based on quest key aliases
-        is_enclave_activity = any(
-            key in norm_name(game_name or "")
-            for key in ["enclaveactivity", "enclave_activity"]
-        ) or any(
-            "enclave" in alias
-            for aliases in EVENT_KEY_ALIASES.values()
-            for alias in aliases
-            if norm_name(game_name or "") in alias or alias in norm_name(game_name or "")
-        )
-        if is_enclave_activity:
-            event["isEnclaveActivity"] = True
+            # Party Crashers
+            pc_count = int(q.get("PartyCrasherCount") or 0)
+            for i in range(pc_count):
+                npc_raw  = q.get(f"PartyCrasher_NPC_{i}")
+                glob_raw = q.get(f"PartyCrasher_GLOB_{i}")
+                if not npc_raw or not glob_raw: continue
+                glob_fid = glob_raw.split(":")[0] if ":" in str(glob_raw) else str(glob_raw)
+                if glob_fid not in glob_vals: continue
+                event["banners"].append({
+                    "type": "notice", "style": "party-crasher",
+                    "lines": [f"Party Crasher: {humanize_party_crasher_name(npc_raw)}",
+                              f"{pct(glob_vals[glob_fid])}% chance to spawn at the end of the event."]
+                })
 
-        # GMRW
-        gmrw_rows = get_gmrw_rows_for_quest(q)
-        if gmrw_rows:
-            event["baseRewards"] = build_base_rewards(gmrw_rows)
+            # Flag enclave activities based on quest key aliases
+            is_enclave_activity = any(
+                key in norm_name(game_name or "")
+                for key in ["enclaveactivity", "enclave_activity"]
+            ) or any(
+                "enclave" in alias
+                for aliases in EVENT_KEY_ALIASES.values()
+                for alias in aliases
+                if norm_name(game_name or "") in alias or alias in norm_name(game_name or "")
+            )
+            if is_enclave_activity:
+                event["isEnclaveActivity"] = True
 
-        # Detect if this is an activity event
-        is_activity = False
-        quest_edid = pick(q, "QUEST_EDID", "EDID", default="").lower()
-        # Activities use RA_LL_Rewards_Activities or similar patterns
-        for rr in gmrw_rows:
-            rewarded = (rr.get("RewardedItem") or "").strip()
-            if "rewards_activities" in rewarded.lower() or "ra_ll_rewards" in rewarded.lower():
-                is_activity = True
-                break
-        # Also check URL slug pattern. Public Events render through the same
-        # activity reward tree, so they qualify on the path alone. Without this
-        # the only thing flipping the flag for a public event is the shared
-        # RA_LL_Rewards_PublicEvents pool matching the "ra_ll_rewards" substring
-        # above - which silently excluded the two Burning Springs events
-        # (Gearing Up, Sinkhole Solutions) that award from bespoke Burn_E0x
-        # lists and never touch the shared pool.
-        if not is_activity:
-            for p in pages:
-                _u = (p.get("url") or "").lower()
-                if "/activit" in _u or "/public-events/" in _u:
+            # GMRW
+            gmrw_rows = get_gmrw_rows_for_quest(q)
+            if gmrw_rows:
+                event["baseRewards"] = build_base_rewards(gmrw_rows)
+
+            # Detect if this is an activity event
+            is_activity = False
+            quest_edid = pick(q, "QUEST_EDID", "EDID", default="").lower()
+            # Activities use RA_LL_Rewards_Activities or similar patterns
+            for rr in gmrw_rows:
+                rewarded = (rr.get("RewardedItem") or "").strip()
+                if "rewards_activities" in rewarded.lower() or "ra_ll_rewards" in rewarded.lower():
                     is_activity = True
                     break
+            # Also check URL slug pattern. Public Events render through the same
+            # activity reward tree, so they qualify on the path alone. Without this
+            # the only thing flipping the flag for a public event is the shared
+            # RA_LL_Rewards_PublicEvents pool matching the "ra_ll_rewards" substring
+            # above - which silently excluded the two Burning Springs events
+            # (Gearing Up, Sinkhole Solutions) that award from bespoke Burn_E0x
+            # lists and never touch the shared pool.
+            if not is_activity:
+                for p in pages:
+                    _u = (p.get("url") or "").lower()
+                    if "/activit" in _u or "/public-events/" in _u:
+                        is_activity = True
+                        break
 
-        if is_activity:
-            event["type"] = "activity"
-            event["activityData"] = build_activity_data(gmrw_rows, key, event.get("regionLocations", []))
+            if is_activity:
+                event["type"] = "activity"
+                event["activityData"] = build_activity_data(gmrw_rows, key, event.get("regionLocations", []))
 
-        # freeRewards (legacy / base tier only, for backward compat)
-        pool_seen = set()
-        free_seen = set()   # dedup: track (label, value) pairs already added
-        for rr in gmrw_rows:
-            tier_label = (rr.get("TierLabel") or "").strip()
+            # freeRewards (legacy / base tier only, for backward compat)
+            pool_seen = set()
+            free_seen = set()   # dedup: track (label, value) pairs already added
+            for rr in gmrw_rows:
+                tier_label = (rr.get("TierLabel") or "").strip()
 
-            if tier_label == "":
-                xpct = (rr.get("XPCT_XPCurveTable") or "").strip()
-                if xpct:
-                    xpv = xp_at_level(xpct.split(":")[0])
-                    if xpv is not None and ("XP", xpv) not in free_seen:
-                        free_seen.add(("XP", xpv))
-                        add_free(event["freeRewards"], "XP", xpv,
-                                 meta={"source": "GMRW", "curveFormID": xpct.split(":")[0]})
-                caps_ref = (rr.get("NAM8_CapsGlobal") or "").strip()
-                if caps_ref:
-                    fid = caps_ref.split(":")[0]
-                    if fid in glob_vals:
-                        cv = int(glob_vals[fid])
-                        if ("Caps", cv) not in free_seen:
-                            free_seen.add(("Caps", cv))
-                            add_free(event["freeRewards"], "Caps", cv,
-                                     meta={"source": "GMRW", "globFormID": fid})
-                qrlr = (rr.get("QRLR_LegendaryItemRewardRank") or "").strip()
-                if qrlr and qrlr not in ("0", ""):
-                    if ("Legendary Reward Rank", qrlr) not in free_seen:
-                        free_seen.add(("Legendary Reward Rank", qrlr))
-                        add_free(event["freeRewards"], "Legendary Reward Rank", qrlr,
-                                 meta={"source": "GMRW"})
+                if tier_label == "":
+                    xpct = (rr.get("XPCT_XPCurveTable") or "").strip()
+                    if xpct:
+                        xpv = xp_at_level(xpct.split(":")[0])
+                        if xpv is not None and ("XP", xpv) not in free_seen:
+                            free_seen.add(("XP", xpv))
+                            add_free(event["freeRewards"], "XP", xpv,
+                                     meta={"source": "GMRW", "curveFormID": xpct.split(":")[0]})
+                    caps_ref = (rr.get("NAM8_CapsGlobal") or "").strip()
+                    if caps_ref:
+                        fid = caps_ref.split(":")[0]
+                        if fid in glob_vals:
+                            cv = int(glob_vals[fid])
+                            if ("Caps", cv) not in free_seen:
+                                free_seen.add(("Caps", cv))
+                                add_free(event["freeRewards"], "Caps", cv,
+                                         meta={"source": "GMRW", "globFormID": fid})
+                    qrlr = (rr.get("QRLR_LegendaryItemRewardRank") or "").strip()
+                    if qrlr and qrlr not in ("0", ""):
+                        if ("Legendary Reward Rank", qrlr) not in free_seen:
+                            free_seen.add(("Legendary Reward Rank", qrlr))
+                            add_free(event["freeRewards"], "Legendary Reward Rank", qrlr,
+                                     meta={"source": "GMRW"})
 
-            # Pools (all tiers)
-            rewarded = (rr.get("RewardedItem") or "").strip()
-            if not rewarded: continue
-            formid, kind = parse_ref(rewarded)
-            count = (rr.get("RewardedItemCount") or "").strip() or "1"
-            conds = merge_conditions(
-                rr.get("Conditions"),
-                rr.get("TierConditionFunc"),
-                rr.get("ConditionGlobs"),
-            )
-            tier_func  = (rr.get("TierConditionFunc")  or "").strip()
-            tier_val   = (rr.get("TierConditionValue")  or "").strip()
-
-            # Compute cond_mult BEFORE synthesis to avoid double-counting.
-            # When TierConditionFunc/Value exist, use them directly.
-            # The raw Conditions column (e.g. "GetRandomPercent 10100000 5.0") and the
-            # synthesised canonical form both match the regex — running both through
-            # parse_randompercent_multiplier multiplies the penalty twice.
-            if tier_func.lower() == "getrandompercent" and tier_val:
-                try:
-                    _cond_mult_canon = max(0.0, min(1.0, float(tier_val) / 100.0))
-                except (ValueError, TypeError):
-                    _cond_mult_canon = 1.0
-            else:
-                _raw_for_mult = " | ".join(
-                    c for c in [rr.get("Conditions"), rr.get("ConditionGlobs")]
-                    if (c or "").strip()
+                # Pools (all tiers)
+                rewarded = (rr.get("RewardedItem") or "").strip()
+                if not rewarded: continue
+                formid, kind = parse_ref(rewarded)
+                count = (rr.get("RewardedItemCount") or "").strip() or "1"
+                conds = merge_conditions(
+                    rr.get("Conditions"),
+                    rr.get("TierConditionFunc"),
+                    rr.get("ConditionGlobs"),
                 )
-                _cond_mult_canon = parse_randompercent_multiplier(_raw_for_mult)
+                tier_func  = (rr.get("TierConditionFunc")  or "").strip()
+                tier_val   = (rr.get("TierConditionValue")  or "").strip()
 
-            # Synthesise canonical "GetRandomPercent <= N" into conds for display only
-            # (does NOT feed back into cond_mult — that's already computed above).
-            if tier_func.lower() == "getrandompercent" and tier_val:
-                try:
-                    synth = f"GetRandomPercent <= {float(tier_val):.6f}"
-                    if synth not in conds:
-                        conds = list(conds) + [synth]
-                except (ValueError, TypeError):
-                    pass
-
-            if kind.upper() == "LVLI":
-                pool_key = (formid, rr.get("RewardIndex") or "")
-                if pool_key in pool_seen: continue
-                pool_seen.add(pool_key)
-                lvli_edid = lvli_edid_by_formid.get(formid, "")
-                label     = prettify_lvli_label(lvli_edid) or prettify_lvli_label(rewarded.replace(":", "_"))
-                cond_mult = _cond_mult_canon  # pre-computed above, avoids double-counting
-                lvli_edid_lower = lvli_edid.lower()
-
-                # Detect special pool types for JS routing
-                is_regional_schematics = (
-                    "rewards_activities_regionalschematics" in lvli_edid_lower
-                    or "regional_schematics" in lvli_edid_lower
-                    or "regionalschematics" in lvli_edid_lower
-                )
-                is_progression_items = (
-                    "rewards_activities_progressionitems" in lvli_edid_lower
-                    or "progression_items" in lvli_edid_lower
-                    or "progressionitems" in lvli_edid_lower
-                )
-                # Enclave routing flags — stamp the MAIN enclave pools so JS can
-                # route them to their dedicated expands without EDID string matching.
-                # Conditional pools sharing the same EDID keywords (Last Bastion chest,
-                # Gatling Plasma plans) are distinguished by cond_mult < 1.0 and must
-                # NOT get these flags — they route to Unique Event Rewards instead.
-                is_enclave_armour = (
-                    cond_mult >= 1.0 and (
-                        "scoutuniform" in lvli_edid_lower
-                        or "scout_uniform" in lvli_edid_lower
-                        or "scoutarmor" in lvli_edid_lower
-                    )
-                )
-                is_enclave_plasma = (
-                    "enclave_plasmagun" in lvli_edid_lower
-                    or "enclaveplasmagun" in lvli_edid_lower
-                    or "plasmagun_all" in lvli_edid_lower
-                )
-
-                if is_regional_schematics:
-                    # Use region-aware walk so each item gets a region tag
-                    region_items_raw = compute_lvli_with_region(formid)
-                    seen_fids = {}
-                    for ri in region_items_raw:
-                        fid2 = ri["formid"]
-                        rgn2 = ri["region"] or ""
-                        ch2  = ri["chance"] * cond_mult
-                        dedup_key = (fid2, rgn2)
-                        if dedup_key not in seen_fids or ch2 > seen_fids[dedup_key]["dropRate"] / 100:
-                            nm2 = resolve_name_for_formid(fid2)
-                            seen_fids[dedup_key] = {
-                                "formid":   fid2,
-                                "name":     nm2,
-                                "dropRate": pct(ch2),
-                                "qty":      1,
-                                "isPlan":   any(n.startswith(("Plan:", "Recipe:")) for n in [nm2] if n),
-                                "region":   rgn2,
-                                "lctn":     ri["lctn"] or "",
-                            }
-                    items = sorted(seen_fids.values(),
-                                   key=lambda x: (x["name"] or "", x["formid"] or ""))
+                # Compute cond_mult BEFORE synthesis to avoid double-counting.
+                # When TierConditionFunc/Value exist, use them directly.
+                # The raw Conditions column (e.g. "GetRandomPercent 10100000 5.0") and the
+                # synthesised canonical form both match the regex — running both through
+                # parse_randompercent_multiplier multiplies the penalty twice.
+                if tier_func.lower() == "getrandompercent" and tier_val:
+                    try:
+                        _cond_mult_canon = max(0.0, min(1.0, float(tier_val) / 100.0))
+                    except (ValueError, TypeError):
+                        _cond_mult_canon = 1.0
                 else:
-                    probs = compute_lvli(formid)
-                    # Normalise: pick-one lists must sum to 1.0 (100%).
-                    # xEdit exports often give apriori=1.0 for every entry, so
-                    # we normalise whenever the total deviates from 1.0.
-                    _total = sum(probs.values())
-                    if _total > 0 and abs(_total - 1.0) > 0.0001:
-                        probs = {k: v / _total for k, v in probs.items()}
-                    items = sorted([
+                    _raw_for_mult = " | ".join(
+                        c for c in [rr.get("Conditions"), rr.get("ConditionGlobs")]
+                        if (c or "").strip()
+                    )
+                    _cond_mult_canon = parse_randompercent_multiplier(_raw_for_mult)
+
+                # Synthesise canonical "GetRandomPercent <= N" into conds for display only
+                # (does NOT feed back into cond_mult — that's already computed above).
+                if tier_func.lower() == "getrandompercent" and tier_val:
+                    try:
+                        synth = f"GetRandomPercent <= {float(tier_val):.6f}"
+                        if synth not in conds:
+                            conds = list(conds) + [synth]
+                    except (ValueError, TypeError):
+                        pass
+
+                if kind.upper() == "LVLI":
+                    pool_key = (formid, rr.get("RewardIndex") or "")
+                    if pool_key in pool_seen: continue
+                    pool_seen.add(pool_key)
+                    lvli_edid = lvli_edid_by_formid.get(formid, "")
+                    label     = prettify_lvli_label(lvli_edid) or prettify_lvli_label(rewarded.replace(":", "_"))
+                    cond_mult = _cond_mult_canon  # pre-computed above, avoids double-counting
+                    lvli_edid_lower = lvli_edid.lower()
+
+                    # Detect special pool types for JS routing
+                    is_regional_schematics = (
+                        "rewards_activities_regionalschematics" in lvli_edid_lower
+                        or "regional_schematics" in lvli_edid_lower
+                        or "regionalschematics" in lvli_edid_lower
+                    )
+                    is_progression_items = (
+                        "rewards_activities_progressionitems" in lvli_edid_lower
+                        or "progression_items" in lvli_edid_lower
+                        or "progressionitems" in lvli_edid_lower
+                    )
+                    # Enclave routing flags — stamp the MAIN enclave pools so JS can
+                    # route them to their dedicated expands without EDID string matching.
+                    # Conditional pools sharing the same EDID keywords (Last Bastion chest,
+                    # Gatling Plasma plans) are distinguished by cond_mult < 1.0 and must
+                    # NOT get these flags — they route to Unique Event Rewards instead.
+                    is_enclave_armour = (
+                        cond_mult >= 1.0 and (
+                            "scoutuniform" in lvli_edid_lower
+                            or "scout_uniform" in lvli_edid_lower
+                            or "scoutarmor" in lvli_edid_lower
+                        )
+                    )
+                    is_enclave_plasma = (
+                        "enclave_plasmagun" in lvli_edid_lower
+                        or "enclaveplasmagun" in lvli_edid_lower
+                        or "plasmagun_all" in lvli_edid_lower
+                    )
+
+                    if is_regional_schematics:
+                        # Use region-aware walk so each item gets a region tag
+                        region_items_raw = compute_lvli_with_region(formid)
+                        seen_fids = {}
+                        for ri in region_items_raw:
+                            fid2 = ri["formid"]
+                            rgn2 = ri["region"] or ""
+                            ch2  = ri["chance"] * cond_mult
+                            dedup_key = (fid2, rgn2)
+                            if dedup_key not in seen_fids or ch2 > seen_fids[dedup_key]["dropRate"] / 100:
+                                nm2 = resolve_name_for_formid(fid2)
+                                seen_fids[dedup_key] = {
+                                    "formid":   fid2,
+                                    "name":     nm2,
+                                    "dropRate": pct(ch2),
+                                    "qty":      1,
+                                    "isPlan":   any(n.startswith(("Plan:", "Recipe:")) for n in [nm2] if n),
+                                    "region":   rgn2,
+                                    "lctn":     ri["lctn"] or "",
+                                }
+                        items = sorted(seen_fids.values(),
+                                       key=lambda x: (x["name"] or "", x["formid"] or ""))
+                    else:
+                        probs = compute_lvli(formid)
+                        # Normalise: pick-one lists must sum to 1.0 (100%).
+                        # xEdit exports often give apriori=1.0 for every entry, so
+                        # we normalise whenever the total deviates from 1.0.
+                        _total = sum(probs.values())
+                        if _total > 0 and abs(_total - 1.0) > 0.0001:
+                            probs = {k: v / _total for k, v in probs.items()}
+                        items = sorted([
+                            {
+                                "formid": fid,
+                                "name": resolve_name_for_formid(fid),
+                                "dropRate": pct(ch * cond_mult),
+                                "qty": 1,
+                                "isPlan": any(
+                                    n.startswith(("Plan:", "Recipe:"))
+                                    for n in [resolve_name_for_formid(fid)]
+                                    if n
+                                ),
+                            }
+                            for fid, ch in probs.items()
+                        ], key=lambda x: (x["name"] or "", x["formid"] or ""))
+
+                    pt, ttl = classify_pool(formid)
+                    pool_entry = {
+                        "title": label or "Reward Pool", "lvliFormID": formid, "lvliEdid": lvli_edid,
+                        "tier": tier_label, "count": count, "conditions": conds,
+                        "poolChance": pct(cond_mult), "poolTypes": pt, "items": items,
+                        "itemCount": len(items),
+                    }
+                    if is_regional_schematics: pool_entry["isRegionalSchematics"] = True
+                    if is_progression_items:   pool_entry["isProgressionItems"]   = True
+                    if is_enclave_armour:      pool_entry["isEnclaveArmour"]      = True
+                    if is_enclave_plasma:      pool_entry["isEnclavePlasmaGun"]   = True
+                    event["pools"].append(pool_entry)
+                else:
+                    nm = resolve_name_for_formid(formid) if formid else rewarded
+                    is_plan = nm.startswith(("Plan:", "Recipe:")) if nm else False
+                    cond_mult_item = _cond_mult_canon  # pre-computed above, avoids double-counting
+                    if cond_mult_item < 1.0:
+                        # Conditional drop (e.g. GetRandomPercent) — goes to conditionalRewards
+                        cond_entry = {
+                            "formid":     formid,
+                            "name":       nm,
+                            "qty":        count,
+                            "poolChance": round(cond_mult_item * 100, 6),
+                            "isPlan":     is_plan,
+                            "conditions": conds,
+                            "source":     "GMRW",
+                        }
+                        # Detect player/camp title and add kind + affix fields
+                        edid_parts = rewarded.split(":") if ":" in rewarded else []
+                        item_edid  = edid_parts[1] if len(edid_parts) > 1 else ""
+                        title_result = book_edid_to_title(item_edid) if item_edid else None
+                        if title_result:
+                            kind_str, td = title_result
+                            cond_entry["kind"] = "player_title" if kind_str == "player" else "camp_title"
+                            if td.get("isPrefix"): cond_entry["affix"] = "Prefix"
+                            elif td.get("isSuffix"): cond_entry["affix"] = "Suffix"
+                        # Mark non-tradeable for BOOKs (plans/titles are never tradeable)
+                        item_sig = edid_parts[-1].upper() if edid_parts else ""
+                        if item_sig == "BOOK" or is_plan or title_result:
+                            cond_entry["tradeable"] = False
+                        event["conditionalRewards"].append(cond_entry)
+                    else:
+                        add_free(event["freeRewards"], "Guaranteed Reward", f"{nm} x{count}",
+                                 meta={"source": "GMRW", "rewardedItem": rewarded, "conditions": conds,
+                                       "name": nm, "qty": count, "isPlan": is_plan, "isUnique": not is_plan})
+
+            event["pools"].sort(key=lambda p: (p.get("title") or "", p.get("lvliFormID") or ""))
+
+            # For enclave activities: ensure the shared activities LVLI 008A9106 is present
+            if event.get("isEnclaveActivity"):
+                # If 008A9106 was already added by the GMRW loop (without the flag), stamp it now.
+                for _p in event["pools"]:
+                    if _p["lvliFormID"] == ENCLAVE_ACTIVITIES_LVLI:
+                        _p["isEnclaveActivities"] = True
+                has_act = any(p["lvliFormID"] == ENCLAVE_ACTIVITIES_LVLI for p in event["pools"])
+                if not has_act:
+                    act_edid  = lvli_edid_by_formid.get(ENCLAVE_ACTIVITIES_LVLI, "")
+                    act_probs = compute_lvli(ENCLAVE_ACTIVITIES_LVLI)
+                    act_items = sorted([
                         {
                             "formid": fid,
                             "name": resolve_name_for_formid(fid),
-                            "dropRate": pct(ch * cond_mult),
+                            "dropRate": pct(ch),
                             "qty": 1,
-                            "isPlan": any(
-                                n.startswith(("Plan:", "Recipe:"))
-                                for n in [resolve_name_for_formid(fid)]
-                                if n
-                            ),
+                            "isPlan": resolve_name_for_formid(fid).startswith(("Plan:", "Recipe:")),
                         }
-                        for fid, ch in probs.items()
+                        for fid, ch in act_probs.items()
                     ], key=lambda x: (x["name"] or "", x["formid"] or ""))
+                    pt, ttl = classify_pool(ENCLAVE_ACTIVITIES_LVLI)
+                    event["pools"].append({
+                        "title": "Enclave Activity Rewards",
+                        "lvliFormID": ENCLAVE_ACTIVITIES_LVLI,
+                        "lvliEdid": act_edid,
+                        "tier": "", "count": "1", "conditions": [],
+                        "poolChance": 100.0, "poolTypes": pt, "items": act_items,
+                        "itemCount": len(act_items),
+                        "isEnclaveActivities": True,
+                    })
 
-                pt, ttl = classify_pool(formid)
-                pool_entry = {
-                    "title": label or "Reward Pool", "lvliFormID": formid, "lvliEdid": lvli_edid,
-                    "tier": tier_label, "count": count, "conditions": conds,
-                    "poolChance": pct(cond_mult), "poolTypes": pt, "items": items,
-                    "itemCount": len(items),
-                }
-                if is_regional_schematics: pool_entry["isRegionalSchematics"] = True
-                if is_progression_items:   pool_entry["isProgressionItems"]   = True
-                if is_enclave_armour:      pool_entry["isEnclaveArmour"]      = True
-                if is_enclave_plasma:      pool_entry["isEnclavePlasmaGun"]   = True
-                event["pools"].append(pool_entry)
-            else:
-                nm = resolve_name_for_formid(formid) if formid else rewarded
-                is_plan = nm.startswith(("Plan:", "Recipe:")) if nm else False
-                cond_mult_item = _cond_mult_canon  # pre-computed above, avoids double-counting
-                if cond_mult_item < 1.0:
-                    # Conditional drop (e.g. GetRandomPercent) — goes to conditionalRewards
-                    cond_entry = {
-                        "formid":     formid,
-                        "name":       nm,
-                        "qty":        count,
-                        "poolChance": round(cond_mult_item * 100, 6),
-                        "isPlan":     is_plan,
-                        "conditions": conds,
-                        "source":     "GMRW",
-                    }
-                    # Detect player/camp title and add kind + affix fields
-                    edid_parts = rewarded.split(":") if ":" in rewarded else []
-                    item_edid  = edid_parts[1] if len(edid_parts) > 1 else ""
-                    title_result = book_edid_to_title(item_edid) if item_edid else None
-                    if title_result:
-                        kind_str, td = title_result
-                        cond_entry["kind"] = "player_title" if kind_str == "player" else "camp_title"
-                        if td.get("isPrefix"): cond_entry["affix"] = "Prefix"
-                        elif td.get("isSuffix"): cond_entry["affix"] = "Suffix"
-                    # Mark non-tradeable for BOOKs (plans/titles are never tradeable)
-                    item_sig = edid_parts[-1].upper() if edid_parts else ""
-                    if item_sig == "BOOK" or is_plan or title_result:
-                        cond_entry["tradeable"] = False
-                    event["conditionalRewards"].append(cond_entry)
-                else:
-                    add_free(event["freeRewards"], "Guaranteed Reward", f"{nm} x{count}",
-                             meta={"source": "GMRW", "rewardedItem": rewarded, "conditions": conds,
-                                   "name": nm, "qty": count, "isPlan": is_plan, "isUnique": not is_plan})
-
-        event["pools"].sort(key=lambda p: (p.get("title") or "", p.get("lvliFormID") or ""))
-
-        # For enclave activities: ensure the shared activities LVLI 008A9106 is present
-        if event.get("isEnclaveActivity"):
-            # If 008A9106 was already added by the GMRW loop (without the flag), stamp it now.
-            for _p in event["pools"]:
-                if _p["lvliFormID"] == ENCLAVE_ACTIVITIES_LVLI:
-                    _p["isEnclaveActivities"] = True
-            has_act = any(p["lvliFormID"] == ENCLAVE_ACTIVITIES_LVLI for p in event["pools"])
-            if not has_act:
-                act_edid  = lvli_edid_by_formid.get(ENCLAVE_ACTIVITIES_LVLI, "")
-                act_probs = compute_lvli(ENCLAVE_ACTIVITIES_LVLI)
-                act_items = sorted([
+        # Container-based seasonal events: inject LVLI pools when GMRW yields none
+        if key in CONTAINER_LOOT_EVENTS and not event.get("pools"):
+            cle = CONTAINER_LOOT_EVENTS[key]
+            if cle.get("description"):
+                event["containerLootDescription"] = cle["description"]
+            event["isContainerLoot"] = True
+            for pool_def in cle.get("pools", []):
+                formid = pool_def["lvliFormID"]
+                lvli_edid = lvli_edid_by_formid.get(formid, "")
+                probs = compute_lvli(formid)
+                _total = sum(probs.values())
+                if _total > 0 and abs(_total - 1.0) > 0.0001:
+                    probs = {k: v / _total for k, v in probs.items()}
+                items = sorted([
                     {
                         "formid": fid,
                         "name": resolve_name_for_formid(fid),
                         "dropRate": pct(ch),
                         "qty": 1,
-                        "isPlan": resolve_name_for_formid(fid).startswith(("Plan:", "Recipe:")),
+                        "isPlan": any(
+                            n.startswith(("Plan:", "Recipe:"))
+                            for n in [resolve_name_for_formid(fid)]
+                            if n
+                        ),
                     }
-                    for fid, ch in act_probs.items()
+                    for fid, ch in probs.items()
                 ], key=lambda x: (x["name"] or "", x["formid"] or ""))
-                pt, ttl = classify_pool(ENCLAVE_ACTIVITIES_LVLI)
+                pt, ttl = classify_pool(formid)
                 event["pools"].append({
-                    "title": "Enclave Activity Rewards",
-                    "lvliFormID": ENCLAVE_ACTIVITIES_LVLI,
-                    "lvliEdid": act_edid,
-                    "tier": "", "count": "1", "conditions": [],
-                    "poolChance": 100.0, "poolTypes": pt, "items": act_items,
-                    "itemCount": len(act_items),
-                    "isEnclaveActivities": True,
+                    "title": pool_def["title"],
+                    "lvliFormID": formid,
+                    "lvliEdid": lvli_edid,
+                    "tier": pool_def.get("tier", ""),
+                    "count": "1",
+                    "conditions": [],
+                    "poolChance": 100.0,
+                    "poolTypes": pt,
+                    "items": items,
+                    "itemCount": len(items),
+                    "isContainerLoot": True,
                 })
+            # Remove the "Missing QUEST match" warning since we now have data
+            event["warnings"] = [w for w in event.get("warnings", [])
+                                 if w.get("title") != "Missing QUEST match"]
 
-    # Container-based seasonal events: inject LVLI pools when GMRW yields none
-    if key in CONTAINER_LOOT_EVENTS and not event.get("pools"):
-        cle = CONTAINER_LOOT_EVENTS[key]
-        if cle.get("description"):
-            event["containerLootDescription"] = cle["description"]
-        event["isContainerLoot"] = True
-        for pool_def in cle.get("pools", []):
-            formid = pool_def["lvliFormID"]
-            lvli_edid = lvli_edid_by_formid.get(formid, "")
-            probs = compute_lvli(formid)
-            _total = sum(probs.values())
-            if _total > 0 and abs(_total - 1.0) > 0.0001:
-                probs = {k: v / _total for k, v in probs.items()}
-            items = sorted([
-                {
-                    "formid": fid,
-                    "name": resolve_name_for_formid(fid),
-                    "dropRate": pct(ch),
-                    "qty": 1,
-                    "isPlan": any(
-                        n.startswith(("Plan:", "Recipe:"))
-                        for n in [resolve_name_for_formid(fid)]
-                        if n
-                    ),
-                }
-                for fid, ch in probs.items()
-            ], key=lambda x: (x["name"] or "", x["formid"] or ""))
-            pt, ttl = classify_pool(formid)
-            event["pools"].append({
-                "title": pool_def["title"],
-                "lvliFormID": formid,
-                "lvliEdid": lvli_edid,
-                "tier": pool_def.get("tier", ""),
-                "count": "1",
-                "conditions": [],
-                "poolChance": 100.0,
-                "poolTypes": pt,
-                "items": items,
-                "itemCount": len(items),
-                "isContainerLoot": True,
-            })
-        # Remove the "Missing QUEST match" warning since we now have data
-        event["warnings"] = [w for w in event.get("warnings", [])
-                             if w.get("title") != "Missing QUEST match"]
+        for p in pages:
+            if p["slug"]: by_page[p["slug"]] = event
+            if p["url"]:
+                by_page[p["url"]] = event
+                by_page[strip_trailing_slash(p["url"])] = event
+        events.append(event)
 
-    for p in pages:
-        if p["slug"]: by_page[p["slug"]] = event
-        if p["url"]:
-            by_page[p["url"]] = event
-            by_page[strip_trailing_slash(p["url"])] = event
-    events.append(event)
+    # --------------------------------------------------
+    # Write output
+    # --------------------------------------------------
 
-# --------------------------------------------------
-# Write output
-# --------------------------------------------------
+    DIST_DIR.mkdir(parents=True, exist_ok=True)
+    PATCHLOG_DIR.mkdir(parents=True, exist_ok=True)
 
-DIST_DIR.mkdir(parents=True, exist_ok=True)
-PATCHLOG_DIR.mkdir(parents=True, exist_ok=True)
+    with open(DIST_DIR / "events_rewards.json", "w", encoding="utf-8") as f:
+        json.dump({"events": events}, f, separators=(",", ":"))
+    with open(DIST_DIR / "events_rewards_by_page.json", "w", encoding="utf-8") as f:
+        json.dump({"byPage": by_page}, f, separators=(",", ":"))
 
-with open(DIST_DIR / "events_rewards.json", "w", encoding="utf-8") as f:
-    json.dump({"events": events}, f, separators=(",", ":"))
-with open(DIST_DIR / "events_rewards_by_page.json", "w", encoding="utf-8") as f:
-    json.dump({"byPage": by_page}, f, separators=(",", ":"))
+    # Per-page slices — see the note in build_activities_rewards_json.py. 60 MB
+    # fetched per pageview becomes an index plus one ~80 KB file. Both shapes are
+    # written while the old renderer is still in circulation.
+    write_by_page_slices(DIST_DIR, by_page, name="events")
 
-# Per-page slices — see the note in build_activities_rewards_json.py. 60 MB
-# fetched per pageview becomes an index plus one ~80 KB file. Both shapes are
-# written while the old renderer is still in circulation.
-write_by_page_slices(DIST_DIR, by_page, name="events")
+    write_patchlog_feed(
+        dist_dir=str(_REPO_ROOT / "dist"),
+        feed_name="patchlog_latest_df_events.json",
+        current_items=events,
+        key_field="questFormID",
+        name_field="name,gameName",
+        compare_fields=["name", "gameName", "rewards", "pools"],
+        prev_json_path="dist/events/events_rewards.json",
+        items_extractor=lambda d: d.get("events", []),
+    )
 
-write_patchlog_feed(
-    dist_dir=str(_REPO_ROOT / "dist"),
-    feed_name="patchlog_latest_df_events.json",
-    current_items=events,
-    key_field="questFormID",
-    name_field="name,gameName",
-    compare_fields=["name", "gameName", "rewards", "pools"],
-    prev_json_path="dist/events/events_rewards.json",
-    items_extractor=lambda d: d.get("events", []),
-)
-
-print(f"Events Rewards build complete. events={len(events)} byPage={len(by_page)}")
+    print(f"Events Rewards build complete. events={len(events)} byPage={len(by_page)}")
