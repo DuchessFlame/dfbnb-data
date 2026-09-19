@@ -39,8 +39,8 @@ Fields written onto each row:
                       enricher (weapon / armour / consumable)
 
 Usage:
-    python3 src/plan_subpages.py --report-only src/plan-system/plan_master.json
-    python3 src/plan_subpages.py src/plan-system/plan_master.json dist/plan_master.json
+    python3 src/plan_subpages.py --report-only dist/plan_master.json
+    python3 src/plan_subpages.py dist/plan_master.json dist/pts/plan_master.json
 """
 
 from __future__ import annotations

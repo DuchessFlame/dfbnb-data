@@ -1201,6 +1201,24 @@ def main(argv=None):
         json.dump(out, f, ensure_ascii=False, indent=2)
     print(f"[plan-obtain] wrote {args.out}  ({len(items)} plans)")
 
+    # /df/plan-checklists/make-your-own/ reads its own compact feed, every value
+    # in it copied verbatim out of the plan_master just written. Nothing else
+    # rebuilds it, so left to itself it serves the PREVIOUS roster's answers --
+    # which is exactly what happened: on 20 Sept 2026 the page was still showing
+    # 901 plans as "Unknown" tradeable after the roster had resolved them. It is
+    # a dict copy over rows already in memory, so it costs nothing to run here,
+    # and it is never fatal like the rest of this tail.
+    #
+    # Skipped on a partial build (--offset/--limit/--only) and on a custom --out:
+    # the feed must be built from a COMPLETE roster, and a chunk is not one.
+    if (not args.offset and not args.limit and not args.only
+            and os.path.basename(args.out) == "plan_master.json"):
+        try:
+            import build_make_plan_checklist_json
+            build_make_plan_checklist_json.build(os.path.dirname(args.out) or DIST)
+        except Exception as exc:                  # noqa: BLE001 - never fatal
+            print(f"  WARNING: make-your-own feed skipped: {exc}", file=sys.stderr)
+
     # category + flag summary
     from collections import Counter
     print("  categories:", dict(Counter(it["type"] for it in items)))

@@ -125,8 +125,22 @@ def compact(item):
     }
 
 
-def build():
-    with open(PLAN_MASTER, encoding="utf-8") as fh:
+def build(dist_dir=None):
+    """Write <dist_dir>/make_plan_checklist.json from that dir's plan_master.
+
+    `dist_dir` exists so reenrich_plan_master.py can run this per channel right
+    after it finishes a plan_master, which is the only way this file cannot go
+    stale: every value in it is copied verbatim out of plan_master, so the page
+    is wrong the moment plan_master moves and nothing reruns this. It did go
+    stale — on 20 Sept 2026 the page was still serving 901 "Unknown" tradeable
+    plans that the roster had already resolved. Defaults to the module-level
+    DIST_DIR so `python3 src/build_make_plan_checklist_json.py [--pts]` is
+    unchanged.
+    """
+    dist_dir = dist_dir or DIST_DIR
+    plan_master = os.path.join(dist_dir, "plan_master.json")
+    out = os.path.join(dist_dir, "make_plan_checklist.json")
+    with open(plan_master, encoding="utf-8") as fh:
         master = json.load(fh)
     src_items = master.get("items") or []
 
@@ -163,11 +177,11 @@ def build():
         "items": items,
     }
 
-    os.makedirs(DIST_DIR, exist_ok=True)
-    with open(OUT, "w", encoding="utf-8") as fh:
+    os.makedirs(dist_dir, exist_ok=True)
+    with open(out, "w", encoding="utf-8") as fh:
         json.dump(doc, fh, ensure_ascii=False, indent=2)
 
-    print(f"[make-plan-checklist] wrote {OUT} — {doc['count']} plans "
+    print(f"[make-plan-checklist] wrote {out} — {doc['count']} plans "
           f"({doc['cut_count']} cut, {doc['atx_count']} ATX-tagged); "
           f"routes={filters['routes']}")
 

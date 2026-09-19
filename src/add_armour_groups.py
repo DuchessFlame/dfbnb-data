@@ -46,8 +46,8 @@ lists, no rng76 and no drop-rate work, so it is a post-pass that can be re-run
 whenever a new export lands without touching the 80-minute build.
 
 Usage:
-    python3 src/add_armour_groups.py src/plan-system/plan_master.json
-    python3 src/add_armour_groups.py --report-only src/plan-system/plan_master.json
+    python3 src/add_armour_groups.py dist/plan_master.json
+    python3 src/add_armour_groups.py --report-only dist/plan_master.json
 """
 
 from __future__ import annotations

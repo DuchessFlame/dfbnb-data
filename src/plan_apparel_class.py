@@ -51,7 +51,7 @@ Runs after plan_images (it rewrites `image_dir`) and before plan_subpages
 (which routes on it).
 
 Usage:
-    python3 src/plan_apparel_class.py --report-only src/plan-system/plan_master.json
+    python3 src/plan_apparel_class.py --report-only dist/plan_master.json
 """
 
 from __future__ import annotations

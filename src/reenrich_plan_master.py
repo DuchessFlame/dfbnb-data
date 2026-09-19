@@ -5,20 +5,34 @@ finished file. One command per channel, so the three copies cannot drift.
 
 WHY THIS EXISTS
 ---------------
-There are THREE copies of plan_master and they had drifted:
+There are TWO copies of plan_master, one per published channel:
 
-    src/plan-system/plan_master.json   the source of truth
     dist/plan_master.json              what the live pages fetch
     dist/pts/plan_master.json          what the PTS pages fetch
 
-Every enricher has to run against all of them, and none of them needs the
-80-minute rebuild to get there: the enrichers are pure joins against exports
-plan_master already lists. Before this script existed they were run by hand,
-one file at a time, and the PTS copy ended up with NO `plan_subpages` block and
-zero `plan_page` rows — so on PTS the Snow Globes, Fishing Rod and Camera Mod
-pages rendered empty and the rows they should have carved out were still
-double-rendering on the PTS Recipe and Weapon pages. Nothing errored. That is
-the failure mode this script exists to make impossible.
+Every enricher has to run against both, and neither needs the 80-minute rebuild
+to get there: the enrichers are pure joins against exports plan_master already
+lists. Before this script existed they were run by hand, one file at a time, and
+the PTS copy ended up with NO `plan_subpages` block and zero `plan_page` rows —
+so on PTS the Snow Globes, Fishing Rod and Camera Mod pages rendered empty and
+the rows they should have carved out were still double-rendering on the PTS
+Recipe and Weapon pages. Nothing errored. That is the failure mode this script
+exists to make impossible.
+
+THE THIRD COPY (removed 20 Sept 2026)
+-------------------------------------
+There was a third, `src/plan-system/plan_master.json`, which existed so that
+`src/plan-system/build-plan-master.mjs` — 24 lines of node — could copy it over
+`dist/plan_master.json` at the top of the patch and PTS builds, "guaranteeing"
+the file existed before the Python builder ran. dist/ is committed and the site
+fetches it from main, so the checkout already guaranteed that, and
+build_plan_obtain_json.py only ever WRITES plan_master, never reads one.
+
+What the copy actually did was give the roster a second home that could win by
+running last, which is why every Python build ended with a `cp` back over the
+staging file, and why the PTS channel once published the LIVE roster to
+dist/pts/ for weeks. The staging copy, the .mjs and the two workflows that
+existed only to run it are all gone.
 
 ORDER IS LOAD-BEARING
 ---------------------
@@ -63,6 +77,9 @@ ROOT = os.path.dirname(HERE)
 sys.path.insert(0, HERE)
 
 import add_cobj_link
+import add_recipe_unlocks
+import plan_recipe_rows
+import build_make_plan_checklist_json
 import plan_images
 import plan_sources
 import plan_changes
@@ -73,8 +90,15 @@ import add_weapon_groups
 import add_armour_groups
 
 # channel -> (plan_master paths, dist dir for published-art lookup, tsv root)
+#
+# ONE published copy per channel, and nothing else. There used to be a third,
+# src/plan-system/plan_master.json, staged for a 24-line node script to copy
+# into dist/ — see the header for why it is gone. Each list stays a list because
+# enrich_file() takes a path: if a channel ever genuinely needs two outputs, add
+# it here rather than running the enrichers by hand, which is how the copies
+# drifted the first time.
 CHANNELS = {
-    "live": (["src/plan-system/plan_master.json", "dist/plan_master.json"],
+    "live": (["dist/plan_master.json"],
              "dist", "tsv"),
     "pts":  (["dist/pts/plan_master.json"],
              "dist/pts", "tsv/pts"),
@@ -119,6 +143,18 @@ def enrich_file(path, dist_dir, tsv_dir, report_only=False):
     #    armour classifiers all ask what the plan creates. Running it after the
     #    art pass resolves this build's art against last build's records.
     add_cobj_link.report(add_cobj_link.attach(items, tsv_dir), stream=sys.stdout)
+
+    # 0a. cut / unlock re-decide, then the recipe-only rows (challenge- and
+    #     workshop-taught recipes, and the scrap-to-learn mods, none of which
+    #     have a plan book). These were the one family of post-passes this
+    #     script did NOT run, so "re-run every post-pass" was not true and a
+    #     reenrich had to be chased by hand with add_recipe_unlocks.py or the
+    #     roster came back short several hundred rows. Both are pure joins on
+    #     the COBJ/CHAL exports and both replace their own previous output, so
+    #     running them here is idempotent.
+    add_recipe_unlocks.report(add_recipe_unlocks.attach(items, tsv_dir),
+                              stream=sys.stdout)
+    plan_recipe_rows.report(plan_recipe_rows.attach(items, tsv_dir))
 
     # 0b. tradeability that the ROUTE decides, not the BOOK keywords: a
     #     scrap-to-learn mod has no plan book to trade, and a challenge reward
@@ -191,6 +227,13 @@ def enrich_file(path, dist_dir, tsv_dir, report_only=False):
         with open(path, "w", encoding="utf-8") as fh:
             json.dump(doc, fh, ensure_ascii=False, indent=2)
         print(f"  wrote {path}")
+
+        # 7. Downstream feeds copied verbatim OUT of the plan_master just
+        #    written. They carry no logic of their own, which is exactly why
+        #    they have to be rebuilt here: nothing else reruns them, so they
+        #    silently serve the previous roster's answers. /df/plan-checklists/
+        #    make-your-own/ was doing that with the tradeable flag.
+        build_make_plan_checklist_json.build(os.path.join(ROOT, dist_dir))
     return doc
 
 

@@ -52,9 +52,9 @@ spell a weapon differently from its in-game name (HandMadeGun -> Handmade
 Rifle, Meltdown -> V63 Laser Carbine, LightningGun -> Tesla Rifle).
 
 Usage:
-    python3 src/add_weapon_groups.py src/plan-system/plan_master.json
-    python3 src/add_weapon_groups.py src/plan-system/plan_master.json dist/plan_master.json
-    python3 src/add_weapon_groups.py --report-only src/plan-system/plan_master.json
+    python3 src/add_weapon_groups.py dist/plan_master.json
+    python3 src/add_weapon_groups.py dist/plan_master.json dist/pts/plan_master.json
+    python3 src/add_weapon_groups.py --report-only dist/plan_master.json
 """
 
 from __future__ import annotations

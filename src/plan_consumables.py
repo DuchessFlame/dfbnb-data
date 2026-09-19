@@ -32,8 +32,8 @@ Everything in the bucket that gets neither is, by definition, not a consumable,
 and plan_subpages sends it to the CAMP page.
 
 Usage:
-    python3 src/plan_consumables.py --report-only src/plan-system/plan_master.json
-    python3 src/plan_consumables.py src/plan-system/plan_master.json dist/plan_master.json
+    python3 src/plan_consumables.py --report-only dist/plan_master.json
+    python3 src/plan_consumables.py dist/plan_master.json dist/pts/plan_master.json
 """
 
 from __future__ import annotations
