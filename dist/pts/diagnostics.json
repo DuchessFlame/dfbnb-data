@@ -1,8 +1,8 @@
 {
-  "generated": "2026-09-20T11:20:21+00:00",
+  "generated": "2026-09-20T16:54:50+00:00",
   "sections": {
     "cobj_recipes": {
-      "generated": "2026-09-20T11:20:19+00:00",
+      "generated": "2026-09-20T16:54:48+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -12,20 +12,20 @@
         {
           "severity": "info",
           "code": "cobj.build.summary",
-          "message": "Extracted 5850 unique recipes from 114509 COBJ rows.",
+          "message": "Extracted 5958 unique recipes from 100260 COBJ rows.",
           "context": {
-            "unique_recipes": 5850,
+            "unique_recipes": 5958,
             "region_variant_items": 2,
             "ingredient_alternates": 12,
-            "total_rows": 114509,
-            "skipped_cut": 17047,
-            "no_fvpa": 2714
+            "total_rows": 100260,
+            "skipped_cut": 14881,
+            "no_fvpa": 2404
           }
         }
       ]
     },
     "menu_items": {
-      "generated": "2026-09-20T11:20:19+00:00",
+      "generated": "2026-09-20T16:54:49+00:00",
       "counts": {
         "error": 28,
         "warning": 70,
@@ -1503,9 +1503,9 @@
       ]
     },
     "bnb_menu_sync": {
-      "generated": "2026-09-20T11:20:20+00:00",
+      "generated": "2026-09-20T16:54:49+00:00",
       "counts": {
-        "error": 47,
+        "error": 45,
         "warning": 13,
         "info": 1
       },
@@ -1548,26 +1548,34 @@
         },
         {
           "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Fish Kabomb' -> Fish. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
+          "code": "bnb_menu_sync.new_item.needs_limits",
+          "message": "New item 'Fish Kabomb' -> Fish. Auto-priced from 4-ingredient COBJ recipe: XBOX=20, PS/PC=30. Order limits (new/existing) still need to be set.",
           "detail": "edid=SeasonalFish_Meal_WinterFishKabomb, form_id=00943A9A",
           "context": {
             "name": "Fish Kabomb",
             "category": "Fish",
             "edid": "SeasonalFish_Meal_WinterFishKabomb",
-            "form_id": "00943A9A"
+            "form_id": "00943A9A",
+            "ingredient_count": 4,
+            "price_xbox": "20",
+            "price_ps": "30",
+            "price_pc": "30"
           }
         },
         {
           "severity": "warning",
-          "code": "bnb_menu_sync.new_item.needs_price_and_limits",
-          "message": "New item 'Fish Sauce' -> Fish. No COBJ recipe found, so no auto-price could be calculated. Prices and order limits both need to be set manually.",
+          "code": "bnb_menu_sync.new_item.needs_limits",
+          "message": "New item 'Fish Sauce' -> Fish. Auto-priced from 5-ingredient COBJ recipe: XBOX=25, PS/PC=35. Order limits (new/existing) still need to be set.",
           "detail": "edid=SeasonalFish_Meal_WinterFishSauce, form_id=00943AA2",
           "context": {
             "name": "Fish Sauce",
             "category": "Fish",
             "edid": "SeasonalFish_Meal_WinterFishSauce",
-            "form_id": "00943AA2"
+            "form_id": "00943AA2",
+            "ingredient_count": 5,
+            "price_xbox": "25",
+            "price_ps": "35",
+            "price_pc": "35"
           }
         },
         {
@@ -1703,26 +1711,6 @@
           "detail": "Fastenfisch",
           "context": {
             "name": "Fastenfisch",
-            "category": "Fish"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fish Kabomb' (Fish)",
-          "detail": "Fish Kabomb",
-          "context": {
-            "name": "Fish Kabomb",
-            "category": "Fish"
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu_sync.unpriced",
-          "message": "No price set: 'Fish Sauce' (Fish)",
-          "detail": "Fish Sauce",
-          "context": {
-            "name": "Fish Sauce",
             "category": "Fish"
           }
         },
@@ -2139,21 +2127,21 @@
         {
           "severity": "info",
           "code": "bnb_menu_sync.summary",
-          "message": "Sync: 769 total, 13 new, 0 updated, 47 unpriced.",
+          "message": "Sync: 769 total, 13 new, 0 updated, 45 unpriced.",
           "context": {
             "total": 769,
             "new": 13,
             "updated": 0,
-            "unpriced": 47,
+            "unpriced": 45,
             "skipped": 227
           }
         }
       ]
     },
     "bnb_menu": {
-      "generated": "2026-09-20T11:20:20+00:00",
+      "generated": "2026-09-20T16:54:49+00:00",
       "counts": {
-        "error": 41,
+        "error": 39,
         "warning": 0,
         "info": 8
       },
@@ -2216,36 +2204,6 @@
           "detail": "Fastenfisch",
           "context": {
             "name": "Fastenfisch",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fish Kabomb' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Fish Kabomb",
-          "context": {
-            "name": "Fish Kabomb",
-            "category": "Fish",
-            "missing_fields": [
-              "price_xbox",
-              "price_ps",
-              "price_pc"
-            ]
-          }
-        },
-        {
-          "severity": "error",
-          "code": "bnb_menu.row.missing_price",
-          "message": "'Fish Sauce' (Fish) is missing price for: xbox, ps, pc",
-          "detail": "Fish Sauce",
-          "context": {
-            "name": "Fish Sauce",
             "category": "Fish",
             "missing_fields": [
               "price_xbox",
@@ -2840,7 +2798,7 @@
       ]
     },
     "bnb_item_categories": {
-      "generated": "2026-09-20T11:20:21+00:00",
+      "generated": "2026-09-20T16:54:49+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -2940,7 +2898,7 @@
       ]
     },
     "recipe_guide": {
-      "generated": "2026-09-20T11:20:21+00:00",
+      "generated": "2026-09-20T16:54:50+00:00",
       "counts": {
         "error": 0,
         "warning": 0,
@@ -2950,17 +2908,17 @@
         {
           "severity": "info",
           "code": "recipe_guide.build.summary",
-          "message": "Built recipe guide with 320 consumable recipes across 5 categories.",
+          "message": "Built recipe guide with 323 consumable recipes across 5 categories.",
           "context": {
-            "total": 320,
+            "total": 323,
             "by_category": {
-              "food": 223,
+              "food": 226,
               "chems": 45,
               "alcohol": 30,
               "serums": 19,
               "nuka_cola": 3
             },
-            "skipped_other": 5530,
+            "skipped_other": 5635,
             "skipped_cut": 0
           }
         }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-20T09:42:41+00:00",
+  "generatedAt": "2026-09-20T15:58:21+00:00",
   "type": "resource_producers",
   "count": 108,
   "items": [
@@ -7,7 +7,7 @@
       "formId": "008F84F5",
       "edid": "ATX_ENTM_CAMP_Collector_AbandonedNest",
       "resoFormId": "008F84FB",
-      "contFormId": "",
+      "contFormId": "008F84F4",
       "entmFormId": "008F84F5",
       "displayName": "Abandoned Nest",
       "description": "Even an abandoned nest can still serve a purpose. Generates various scraps with chance at a Deathclaw Egg.",
@@ -22,7 +22,7 @@
       "production": {
         "intervalHours": 0.17,
         "intervalDisplay": "10 min 12 sec",
-        "resourceName": "",
+        "resourceName": "Scraps & Eggs",
         "resourceEdid": "ATX_ResourceAV_AbandonedNest_resource",
         "drops": [
           {
@@ -61,7 +61,7 @@
             "name": "Default",
             "resoFormId": "008F84FB",
             "lvliFormId": "008F84FA",
-            "resourceName": "",
+            "resourceName": "Scraps & Eggs",
             "drops": [
               {
                 "item": "DeathclawEgg",
@@ -98,15 +98,25 @@
         ]
       },
       "station": {
-        "capacity": null,
+        "capacity": 1,
         "powerRequired": false,
-        "flamingoUnits": null,
-        "lockable": null
+        "flamingoUnits": 1,
+        "lockable": true
       },
       "crafting": {
-        "components": []
+        "components": [
+          {
+            "item": "Wood",
+            "count": 5
+          }
+        ]
       },
-      "craftingRequirements": [],
+      "craftingRequirements": [
+        {
+          "name": "Wood",
+          "qty": 5
+        }
+      ],
       "howToObtain": {
         "method": "atom",
         "seasonNumber": null,
@@ -184,7 +194,7 @@
           "dropRate": null
         }
       ],
-      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: —",
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 1",
       "seasonNumber": null,
       "releaseDate": "2026-09-20",
       "cutContent": false,
@@ -8665,7 +8675,7 @@
       "formId": "008FAE0F",
       "edid": "ATX_ENTM_CAMP_Collector_FeastSideTable",
       "resoFormId": "008FAE16",
-      "contFormId": "",
+      "contFormId": "008FAE0B",
       "entmFormId": "008FAE0F",
       "displayName": "Feast Side Table",
       "description": "",
@@ -8680,7 +8690,7 @@
       "production": {
         "intervalHours": 0.17,
         "intervalDisplay": "10 min 12 sec",
-        "resourceName": "",
+        "resourceName": "Vegetarian Food",
         "resourceEdid": "ATX_ResourceAV_FeastSideTable_resource",
         "drops": [
           {
@@ -8941,7 +8951,7 @@
             "name": "Default",
             "resoFormId": "008FAE16",
             "lvliFormId": "008FAE14",
-            "resourceName": "",
+            "resourceName": "Vegetarian Food",
             "drops": [
               {
                 "item": "AnglerLureWeedVegetable",
@@ -9200,15 +9210,25 @@
         ]
       },
       "station": {
-        "capacity": null,
+        "capacity": 2,
         "powerRequired": false,
-        "flamingoUnits": null,
-        "lockable": null
+        "flamingoUnits": 1,
+        "lockable": true
       },
       "crafting": {
-        "components": []
+        "components": [
+          {
+            "item": "Wood",
+            "count": 5
+          }
+        ]
       },
-      "craftingRequirements": [],
+      "craftingRequirements": [
+        {
+          "name": "Wood",
+          "qty": 5
+        }
+      ],
       "howToObtain": {
         "method": "atom",
         "seasonNumber": null,
@@ -9286,7 +9306,7 @@
           "dropRate": null
         }
       ],
-      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: —",
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0\nPower Required: No\nFlamingo Units: 1",
       "seasonNumber": null,
       "releaseDate": "2026-09-20",
       "cutContent": false,
@@ -17990,7 +18010,7 @@
       "production": {
         "intervalHours": 0.17,
         "intervalDisplay": "10 min 12 sec",
-        "resourceName": "Suspicous Items",
+        "resourceName": "Suspicious Items",
         "resourceEdid": "ATX_ResourceAV_Shredder_resource",
         "drops": [
           {
@@ -18191,7 +18211,7 @@
             "name": "Default",
             "resoFormId": "0085B25F",
             "lvliFormId": "0085B25E",
-            "resourceName": "Suspicous Items",
+            "resourceName": "Suspicious Items",
             "drops": [
               {
                 "item": "Ammo_Casing_10mm",
