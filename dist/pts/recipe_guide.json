@@ -1,7 +1,7 @@
 {
   "version": "2026-09-20",
-  "generated": "2026-09-20T13:31:57+00:00",
-  "count": 320,
+  "generated": "2026-09-20T16:54:50+00:00",
+  "count": 323,
   "category_labels": {
     "food": "Food",
     "chems": "Chems",
@@ -19,7 +19,7 @@
   "categories": {
     "food": {
       "label": "Food",
-      "count": 223,
+      "count": 226,
       "items": [
         {
           "name": "Aged Mirelurk Queen Steak",
@@ -9411,6 +9411,289 @@
             "bench_keywords": [
               "Meal_Recipe_Meat",
               "Meal_Recipe_Food",
+              "Meal_Recipe_Prepared"
+            ]
+          }
+        },
+        {
+          "name": "Fish Kabomb",
+          "recipe_edid": "co_meal_Fishing_WinterFishKabomb",
+          "category": "food",
+          "workbench": "Cooking Station",
+          "ingredients": [
+            {
+              "edid": "c_NuclearMaterial_scrap",
+              "name": "Nuclear Waste",
+              "qty": 1
+            },
+            {
+              "edid": "c_Wood_scrap",
+              "name": "Wood Scraps",
+              "qty": 2
+            },
+            {
+              "edid": "GlowingFungusVegetable",
+              "name": "Glowing Fungus",
+              "qty": 2
+            },
+            {
+              "edid": "SeasonalFish_Meal_WinterFillet",
+              "name": "Winter Fish Steak",
+              "qty": 1
+            }
+          ],
+          "howToObtain": [],
+          "output": {
+            "name": "Fish Kabomb",
+            "edid": "SeasonalFish_Meal_WinterFishKabomb",
+            "formId": "00943A9A",
+            "weight": 1.0,
+            "value": 40,
+            "mutation": null,
+            "effects": [
+              {
+                "name": "Rads",
+                "edid": "DamageRadiationEating",
+                "magnitude": 2.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                "dur_glob": null
+              },
+              {
+                "name": "Satisfy Hunger",
+                "edid": "SURV_Food_Effect",
+                "magnitude": 720.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Food_RestoreHunger_Mag_3_Medium",
+                "dur_glob": null
+              },
+              {
+                "name": "Restore Health",
+                "edid": "RestoreHealthFood",
+                "magnitude": 0.8,
+                "duration": 25.0,
+                "dur_display": "25s",
+                "mag_glob": "SURV_Food_Heal_Mag_3_Medium",
+                "dur_glob": "SURV_Food_Heal_Dur_Standard"
+              },
+              {
+                "name": "Radiation Damage",
+                "edid": "FortifyRadiationDamageRegenFood",
+                "magnitude": 2.0,
+                "duration": 3600.0,
+                "dur_display": "1 hour",
+                "mag_glob": null,
+                "dur_glob": "SURV_Food_Effect_Any_Dur_2_Medium"
+              }
+            ],
+            "spoils_to": "Spoiled Meat",
+            "spoil_time": {
+              "base_minutes": 240,
+              "curve_type": "Cooked Meat",
+              "curve_edid": "CT_FoodHealth_CookedMeat",
+              "curve_formId": "0052B5BB",
+              "source": "curv_points",
+              "scope": "food",
+              "tiers": [
+                {
+                  "kind": "storage",
+                  "label": "Fridge",
+                  "rate_mult": 0.5,
+                  "reduction_pct": 50,
+                  "minutes": 480.0,
+                  "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                },
+                {
+                  "kind": "storage",
+                  "label": "Freezer",
+                  "rate_mult": 0.0,
+                  "reduction_pct": 100,
+                  "minutes": null,
+                  "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                },
+                {
+                  "kind": "perk",
+                  "label": "Good with Salt Rank 1",
+                  "magnitude": 0.45,
+                  "reduction_pct": 45,
+                  "minutes": 436.36,
+                  "source": "SPEL:AbPerkGoodWithSalt[0]"
+                },
+                {
+                  "kind": "perk",
+                  "label": "Good with Salt Rank 2",
+                  "magnitude": 0.9,
+                  "reduction_pct": 90,
+                  "minutes": 2400.0,
+                  "source": "SPEL:AbPerkGoodWithSalt[1]"
+                },
+                {
+                  "kind": "mod",
+                  "label": "Refrigerated Backpack mod",
+                  "magnitude": 0.5,
+                  "reduction_pct": 50,
+                  "minutes": 480.0,
+                  "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                }
+              ]
+            },
+            "addiction_name": null,
+            "addiction_chance": 0.0
+          },
+          "technical": {
+            "recipe_edid": "co_meal_Fishing_WinterFishKabomb",
+            "output_edid": "SeasonalFish_Meal_WinterFishKabomb",
+            "output_formId": "00943A9A",
+            "bnam_edid": "Workbench_Crafting_Cooking",
+            "cnam_edid": "SeasonalFish_Meal_WinterFishKabomb",
+            "bench_keywords": [
+              "Meal_Recipe_Food",
+              "Meal_Recipe_Prepared"
+            ]
+          }
+        },
+        {
+          "name": "Fish Sauce",
+          "recipe_edid": "co_meal_Fishing_WinterFishSauce",
+          "category": "food",
+          "workbench": "Cooking Station",
+          "ingredients": [
+            {
+              "edid": "WaterBoiled",
+              "name": "Boiled Water",
+              "qty": 1
+            },
+            {
+              "edid": "CookingFlavor_Salt",
+              "name": "Salt",
+              "qty": 1
+            },
+            {
+              "edid": "CookingFlavor_Pepper",
+              "name": "Pepper",
+              "qty": 1
+            },
+            {
+              "edid": "CookingFlavor_Spices",
+              "name": "Spices",
+              "qty": 1
+            },
+            {
+              "edid": "SeasonalFish_Meal_WinterFillet",
+              "name": "Winter Fish Steak",
+              "qty": 5
+            }
+          ],
+          "howToObtain": [],
+          "output": {
+            "name": "Fish Sauce",
+            "edid": "SeasonalFish_Meal_WinterFishSauce",
+            "formId": "00943AA2",
+            "weight": 1.0,
+            "value": 40,
+            "mutation": null,
+            "effects": [
+              {
+                "name": "Rads",
+                "edid": "DamageRadiationEating",
+                "magnitude": 2.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                "dur_glob": null
+              },
+              {
+                "name": "Quench Thirst",
+                "edid": "SURV_Drink_Effect",
+                "magnitude": 540.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Drink_RestoreThirst_Mag_1_Normal",
+                "dur_glob": null
+              },
+              {
+                "name": "AP On Kill perk",
+                "edid": "APReplenishOnKillFood_Addperk",
+                "magnitude": 0.0,
+                "duration": 3600.0,
+                "dur_display": "1 hour",
+                "mag_glob": null,
+                "dur_glob": "SURV_Food_Effect_Any_Dur_2_Medium"
+              },
+              {
+                "name": "AP On Kill description",
+                "edid": "APReplenishOnKillFood_Description",
+                "magnitude": 5.0,
+                "duration": 3600.0,
+                "dur_display": "1 hour",
+                "mag_glob": null,
+                "dur_glob": "SURV_Food_Effect_Any_Dur_2_Medium"
+              }
+            ],
+            "spoils_to": "Spoiled Meat",
+            "spoil_time": {
+              "base_minutes": 240,
+              "curve_type": "Cooked Meat",
+              "curve_edid": "CT_FoodHealth_CookedMeat",
+              "curve_formId": "0052B5BB",
+              "source": "curv_points",
+              "scope": "food",
+              "tiers": [
+                {
+                  "kind": "storage",
+                  "label": "Fridge",
+                  "rate_mult": 0.5,
+                  "reduction_pct": 50,
+                  "minutes": 480.0,
+                  "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                },
+                {
+                  "kind": "storage",
+                  "label": "Freezer",
+                  "rate_mult": 0.0,
+                  "reduction_pct": 100,
+                  "minutes": null,
+                  "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                },
+                {
+                  "kind": "perk",
+                  "label": "Good with Salt Rank 1",
+                  "magnitude": 0.45,
+                  "reduction_pct": 45,
+                  "minutes": 436.36,
+                  "source": "SPEL:AbPerkGoodWithSalt[0]"
+                },
+                {
+                  "kind": "perk",
+                  "label": "Good with Salt Rank 2",
+                  "magnitude": 0.9,
+                  "reduction_pct": 90,
+                  "minutes": 2400.0,
+                  "source": "SPEL:AbPerkGoodWithSalt[1]"
+                },
+                {
+                  "kind": "mod",
+                  "label": "Refrigerated Backpack mod",
+                  "magnitude": 0.5,
+                  "reduction_pct": 50,
+                  "minutes": 480.0,
+                  "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                }
+              ]
+            },
+            "addiction_name": null,
+            "addiction_chance": 0.0
+          },
+          "technical": {
+            "recipe_edid": "co_meal_Fishing_WinterFishSauce",
+            "output_edid": "SeasonalFish_Meal_WinterFishSauce",
+            "output_formId": "00943AA2",
+            "bnam_edid": "Workbench_Crafting_Cooking",
+            "cnam_edid": "SeasonalFish_Meal_WinterFishSauce",
+            "bench_keywords": [
+              "Meal_Recipe_Drink",
               "Meal_Recipe_Prepared"
             ]
           }
@@ -28444,6 +28727,121 @@
         },
         {
           "name": "Winter Filet",
+          "recipe_edid": "SeasonalFish_CO_Meal_WinterFilletFromBogsucker",
+          "category": "food",
+          "workbench": "Cooking Station",
+          "ingredients": [
+            {
+              "edid": "SeasonalFish_Meal_Medium_Raw_Bogsucker",
+              "name": "Bog Sucker",
+              "qty": 1
+            }
+          ],
+          "howToObtain": [],
+          "output": {
+            "name": "Winter Fish Steak",
+            "edid": "SeasonalFish_Meal_WinterFillet",
+            "formId": "008B76CE",
+            "weight": 0.1,
+            "value": 8,
+            "mutation": "Carnivore",
+            "effects": [
+              {
+                "name": "Satisfy Hunger",
+                "edid": "SURV_Food_Effect",
+                "magnitude": 240.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Food_RestoreHunger_Mag_1_Tiny",
+                "dur_glob": null
+              },
+              {
+                "name": "Rads",
+                "edid": "DamageRadiationEating",
+                "magnitude": 2.0,
+                "duration": 0.0,
+                "dur_display": null,
+                "mag_glob": "SURV_Food_RadiationDamage_Mag_1_Low",
+                "dur_glob": null
+              },
+              {
+                "name": "Restore Health",
+                "edid": "RestoreHealthFood",
+                "magnitude": 0.16,
+                "duration": 0.16,
+                "dur_display": "0s",
+                "mag_glob": "SURV_Food_Heal_Mag_1_Tiny",
+                "dur_glob": "SURV_Food_Heal_Mag_1_Tiny"
+              }
+            ],
+            "spoils_to": "Spoiled Meat",
+            "spoil_time": {
+              "base_minutes": 75,
+              "curve_type": "Raw Meat",
+              "curve_edid": "CT_FoodHealth_RawMeat",
+              "curve_formId": "0052B5BD",
+              "source": "curv_points",
+              "scope": "food",
+              "tiers": [
+                {
+                  "kind": "storage",
+                  "label": "Fridge",
+                  "rate_mult": 0.5,
+                  "reduction_pct": 50,
+                  "minutes": 150.0,
+                  "source": "GLOB:WorkshopStashActivatorGroup_Refrigerator_SpoilRate"
+                },
+                {
+                  "kind": "storage",
+                  "label": "Freezer",
+                  "rate_mult": 0.0,
+                  "reduction_pct": 100,
+                  "minutes": null,
+                  "source": "GLOB:WorkshopStashActivatorGroup_Freezer_SpoilRate"
+                },
+                {
+                  "kind": "perk",
+                  "label": "Good with Salt Rank 1",
+                  "magnitude": 0.45,
+                  "reduction_pct": 45,
+                  "minutes": 136.36,
+                  "source": "SPEL:AbPerkGoodWithSalt[0]"
+                },
+                {
+                  "kind": "perk",
+                  "label": "Good with Salt Rank 2",
+                  "magnitude": 0.9,
+                  "reduction_pct": 90,
+                  "minutes": 750.0,
+                  "source": "SPEL:AbPerkGoodWithSalt[1]"
+                },
+                {
+                  "kind": "mod",
+                  "label": "Refrigerated Backpack mod",
+                  "magnitude": 0.5,
+                  "reduction_pct": 50,
+                  "minutes": 150.0,
+                  "source": "ENCH:EnchBackpack_Effect_Refrigerated"
+                }
+              ]
+            },
+            "addiction_name": null,
+            "addiction_chance": 0.0
+          },
+          "technical": {
+            "recipe_edid": "SeasonalFish_CO_Meal_WinterFilletFromBogsucker",
+            "output_edid": "SeasonalFish_Meal_WinterFillet",
+            "output_formId": "008B76CE",
+            "bnam_edid": "Workbench_Crafting_Cooking",
+            "cnam_edid": "SeasonalFish_Meal_WinterFillet",
+            "bench_keywords": [
+              "Meal_Recipe_Food",
+              "Meal_Recipe_FishBits"
+            ]
+          }
+        },
+        {
+          "name": "Winter Fish Steak",
           "recipe_edid": "SeasonalFish_CO_Meal_WinterFilletFromBogsucker",
           "category": "food",
           "workbench": "Cooking Station",
