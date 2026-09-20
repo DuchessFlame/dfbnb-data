@@ -208,6 +208,40 @@ def main(argv=None):
         print(f"[labels] WARNING scrap sentence check skipped: {exc}")
     print(f"[labels] {scrap_sentences} scrap-to-learn sentence(s) checked")
 
+    # Content-type parentheticals ("... Out of the Shadows (Infestations)") are a
+    # FIFTH way text reaches a page. The type is derived generatively from the
+    # quest EDID (plan_sources.QUEST_EDID_TYPE), so a typo there would silently
+    # stop annotating with no other symptom. Two checks: every type the
+    # derivation produces over the whole QUEST export must be one of the declared
+    # plan_sources.CONTENT_TYPES (a wired or misspelt token cannot ride in inside
+    # the brackets), and the SDOW/Slasher phases the feature was written for must
+    # still resolve to their expected type.
+    REQUIRED_CT = {
+        "The Slasher: Out of the Shadows":    "Infestations",
+        "The Slasher: Blood Will Have Blood": "Head Hunts",
+        "The Slasher: Secrets to the Grave":  "Grave Digging",
+        "The Slasher: Masked Truth":          "Quest",
+    }
+    ct_emitted = 0
+    if qf:
+        with open(qf, encoding="utf-8", errors="replace") as f:
+            for row in csv.DictReader(f, delimiter="\t"):
+                edid = (row.get("EDID") or "").strip()
+                full = (row.get("FULL - Name") or row.get("FULL") or "").strip()
+                if not edid or not full:
+                    continue
+                ct = plan_sources._derive_content_type(edid, full)
+                if not ct:
+                    continue
+                ct_emitted += 1
+                if ct not in plan_sources.CONTENT_TYPES:
+                    leaks[f"(content type) {full} -> {ct!r} not in CONTENT_TYPES"] += 1
+    for name, want in REQUIRED_CT.items():
+        got = quests.content_type_for(name)
+        if got != want:
+            leaks[f"(content type) {name} resolved {got!r}, expected {want!r}"] += 1
+    print(f"[labels] {ct_emitted} quest(s) carry a content-type parenthetical")
+
     if leaks:
         print(f"[labels] FAIL — {sum(leaks.values())} leaked name(s):")
         for l, n in leaks.most_common():

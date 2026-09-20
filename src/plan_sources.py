@@ -309,6 +309,111 @@ AREA_CODE = {
     "nw":            "Nuclear Winter",
 }
 
+# ─────────────────────────────────────────────────────────────────────────────
+# 2a. CONTENT-TYPE PARENTHETICAL
+# ─────────────────────────────────────────────────────────────────────────────
+# Some sources render as a bare quest/phase NAME that tells a reader nothing
+# about what to actually DO — "The Slasher: Out of the Shadows" is an Infestation
+# hunt, "Blood Will Have Blood" is Head Hunts. annotate_content_type() appends a
+# " (Type)" so the label says the activity, e.g. "The Slasher: Out of the
+# Shadows (Infestations)".
+#
+# The type is resolved GENERATIVELY, keyed on the source's quest EDID or name —
+# NOT a per-plan list. The SDOW/Slasher event phases name their own type in the
+# quest EDID (SDOW_MQ04_Infestations, SDOW_MQ05_Headhunt, SDOW_MQ02_Graves), so
+# any content that follows Bethesda's convention self-annotates. QUEST_EDID_TYPE
+# maps those EDID activity tokens to the words the site already uses ("hto" is
+# "Infestations" and "dailyops" is "Daily Ops" in AREA_CODE above), matched as a
+# whole underscore-delimited token, case-insensitively.
+QUEST_EDID_TYPE = {
+    "headhunt":      "Head Hunts",
+    "headhunts":     "Head Hunts",
+    "infestation":   "Infestations",
+    "infestations":  "Infestations",
+    "grave":         "Grave Digging",
+    "graves":        "Grave Digging",
+    "partycrasher":  "Party Crashers",
+    "partycrashers": "Party Crashers",
+    # NB: "dailyops" is deliberately NOT here. It is the leading token of
+    # unrelated misc quests (DailyOps_VernonDodge_MiscQuest -> "Breaking Radio
+    # Silence", the DailyOps_Mode0N ops instances), and typing those "(Daily
+    # Ops)" would be wrong — the same trap source_label()'s tiebreak guards
+    # against. The one quest that legitimately needs it, "The Way of the
+    # Wicked", is handled by the curated CONTENT_TYPE_BY_NAME map below.
+}
+
+# The handful of named sources whose type the EDID does NOT carry, keyed on the
+# display name (lowercased). Small and explicit so a wrong entry is obvious. This
+# is the ONE place a judgement call lives — SDOW_MQ01_Bodies ("Masked Truth") is
+# a one-time investigation main quest, not a repeatable activity like its three
+# siblings, so it reads "(Quest)". Change the value here to "Slasher Masks" if
+# the mask-hunt framing is preferred; nothing else needs touching.
+CONTENT_TYPE_BY_NAME = {
+    "the slasher: masked truth":         "Quest",
+    "masked truth":                      "Quest",
+    "mask of truth":                     "Quest",
+    # Cut as a standalone quest (zzz_CUT_SDOW_MQ03_DailyOps) so it should never
+    # reach a route, but its EDID already carries "dailyops"; named here too in
+    # case it ever surfaces from another record.
+    "the slasher: the way of the wicked": "Daily Ops",
+    "the way of the wicked":              "Daily Ops",
+}
+
+# Every value the two maps above can produce. The linter checks that a published
+# parenthetical is one of these, so a typo or a wired token cannot ride in inside
+# the brackets. Extend this set in the same commit as the maps.
+CONTENT_TYPES = set(QUEST_EDID_TYPE.values()) | set(CONTENT_TYPE_BY_NAME.values())
+
+
+def _derive_content_type(edid, full):
+    """Content type for one quest, from its EDID token then its name. "" if none.
+
+    Generative: the EDID activity token is tried first (so new SDOW-style content
+    self-annotates), then the curated name map for the cases the token can't
+    answer. Never guesses from the quest TYPE column — a "Primary" quest is not a
+    content type a player would recognise.
+    """
+    for tok in re.split(r"[_\-]", edid or ""):
+        t = QUEST_EDID_TYPE.get(tok.lower())
+        if t:
+            return t
+    for key in (usable_quest_name(full).lower(), _clean_name(full).lower()):
+        if key in CONTENT_TYPE_BY_NAME:
+            return CONTENT_TYPE_BY_NAME[key]
+    return ""
+
+
+def annotate_content_type(label, quests, name=None):
+    """Append " (Type)" to a source label whose name has a known content type.
+
+    `name` is the specific name to resolve the type from (the resolved quest
+    head, or the bare quest title in an unlock sentence); it defaults to the
+    whole label. Returns the label unchanged when no type resolves, when the
+    type is already present, or when the label already carries a parenthetical
+    for it — so it is safe to call more than once on the same string.
+    """
+    if not label or quests is None:
+        return label
+    ct = quests.content_type_for(name if name is not None else label)
+    if not ct:
+        return label
+    low = label.lower()
+    if f"({ct.lower()})" in low:
+        return label                       # already annotated
+    # Redundant when the label already spells the activity out — "The Slasher -
+    # Daily Ops" must not become "... Daily Ops (Daily Ops)", and "Bounty
+    # Hunting: Head Hunt" already says head hunt. Compared on singular/plural-
+    # folded word sets so "Head Hunt" suppresses "Head Hunts" and "Party
+    # Crasher" suppresses "Party Crashers"; needs ALL of the type's words, so
+    # "Secrets to the Grave" (has "grave", not "digging") still gains "(Grave
+    # Digging)".
+    def _stem(s):
+        return {re.sub(r"s$", "", w) for w in re.split(r"\W+", s.lower()) if w}
+    if _stem(ct) <= _stem(label):
+        return label
+    return f"{label} ({ct})"
+
+
 # Lists that exist only inside the editor. A route named from one of these is
 # dropped outright — it is not somewhere a player can go.
 DEV_CODES = {"cut", "debug", "deleted", "del", "deprecated", "zzz", "zzzatx",
@@ -493,8 +598,24 @@ class QuestNames:
     def __init__(self, path=None):
         self.exact = {}     # prefix -> name, or None when ambiguous
         self.family = {}    # leading code -> family stem
+        self.content_type = {}   # quest-name (lower) -> content-type word
         if path:
             self.load(path)
+
+    def content_type_for(self, name):
+        """The content-type word for a resolved source name, or "".
+
+        Keyed on the display name (raw FULL or its cleaned form) so it hits
+        whether the caller passes the route head ("The Slasher: Out of the
+        Shadows") or the cleaned unlock-sentence title. Falls back to the curated
+        CONTENT_TYPE_BY_NAME so a name absent from the QUEST export still resolves.
+        """
+        n = (name or "").strip().lower()
+        if not n:
+            return ""
+        return (self.content_type.get(n)
+                or CONTENT_TYPE_BY_NAME.get(n)
+                or CONTENT_TYPE_BY_NAME.get(_clean_name(name).lower(), ""))
 
     def load(self, path):
         by_prefix = collections.defaultdict(set)
@@ -511,6 +632,15 @@ class QuestNames:
                         continue                       # a placeholder, not a name
                     if not usable_quest_name(full):
                         continue
+                    # Content type is derived here so it is available under both
+                    # the raw and cleaned name (source_label passes the raw head,
+                    # unlock sentences pass the cleaned title). Done before the
+                    # CUT skip because the derivation reads the EDID, which the
+                    # naming index deliberately ignores for cut quests.
+                    ct = _derive_content_type(edid, full)
+                    if ct:
+                        self.content_type[full.lower()] = ct
+                        self.content_type[_clean_name(full).lower()] = ct
                     if any(edid.upper().startswith(p) for p in CUT_PREFIXES):
                         continue
                     parts = [p for p in edid.split("_") if p]
@@ -820,8 +950,13 @@ def source_label(edid, quests=None):
         tail = f"{tail} {kind}".strip() if tail else kind
 
     if head and tail:
-        return f"{head} - {tail}"
-    return head or tail or None
+        label = f"{head} - {tail}"
+    else:
+        label = head or tail or None
+    # Append the activity type for a bare quest/phase name ("... Out of the
+    # Shadows" -> "... (Infestations)"). Keyed on the resolved head so the type
+    # is looked up from the quest, not the whole assembled label.
+    return annotate_content_type(label, quests, name=head or label)
 
 
 # Words that name how RARE a pool is, not where it is. Two rows differing only
@@ -1004,7 +1139,8 @@ class UnlockIndex:
             return f"Reward for completing the challenge: {what}" if what else \
                    "Reward for completing a challenge."
         if quest:
-            return f"Reward for completing the quest: {quest}"
+            return ("Reward for completing the quest: "
+                    f"{annotate_content_type(quest, self.quest_names)}")
         if _RX_QUEST_REWARD.search(edid):
             what = source_label(edid, self.quest_names)
             return f"Quest reward: {what}" if what else "Awarded as a quest reward."
@@ -1072,7 +1208,8 @@ class UnlockIndex:
                 q = self._quests_by_fid.get(rfid) or _clean_name(
                     source_label(redid, self.quest_names) or "")
                 if q:
-                    add(f"Reward for completing the quest: {_clean_name(q)}")
+                    add("Reward for completing the quest: "
+                        + annotate_content_type(_clean_name(q), self.quest_names))
             elif rsig == "TERM":
                 nm = source_label(redid, self.quest_names)
                 if nm and not is_test_cell_name(nm):
@@ -1089,7 +1226,8 @@ class UnlockIndex:
 
         for loc_name, loc_src, quest in self._locations.get(fid, []):
             if quest:
-                add(f"Reward for completing the quest: {_clean_name(quest)}")
+                add("Reward for completing the quest: "
+                    + annotate_content_type(_clean_name(quest), self.quest_names))
             if not loc_name or is_test_cell_name(loc_name):
                 continue
             place = parse_ext_cell_location(loc_name) if loc_src == "ExtCell" else loc_name
