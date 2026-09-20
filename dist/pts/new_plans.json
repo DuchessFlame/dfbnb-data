@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated": "2026-09-20T07:12:42.594829+00:00",
+  "generated": "2026-09-20T10:56:14.298594+00:00",
   "mode": "vs-live",
   "season": null,
   "baseline": {
@@ -58,9 +58,20 @@
           "name": "Plan: Covert Scout Spring Assisted Armor Limb",
           "has_image_box": false,
           "image_dir": "body-armour",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
           "category_label": "Armour (mod/recipe)",
-          "obtain_routes": [],
+          "obtain_routes": [
+            {
+              "route": "Nz01 Above",
+              "source_type": "event-quest",
+              "rate": 0.1,
+              "rate_display": "10%",
+              "lvli": [
+                "00438F22"
+              ],
+              "conditions": []
+            }
+          ],
           "obtain_unlocks": [],
           "plan_item": {
             "formid": "00916664",
@@ -69,11 +80,19 @@
           "cobj": null,
           "cnam": null,
           "tradeable": false,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
-          "obtain_ledger": [],
+          "obtain_ledger": [
+            {
+              "label": "Events & Activities",
+              "routes": [
+                0
+              ]
+            }
+          ],
+          "source_tag": "Activities",
           "images": [],
           "image_source": "",
           "plan_page": "body-armour",
@@ -93,9 +112,20 @@
           "name": "Plan: Covert Scout Tattered Armor Torso",
           "has_image_box": false,
           "image_dir": "body-armour",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
           "category_label": "Armour (mod/recipe)",
-          "obtain_routes": [],
+          "obtain_routes": [
+            {
+              "route": "Nz01 Above",
+              "source_type": "event-quest",
+              "rate": 0.1,
+              "rate_display": "10%",
+              "lvli": [
+                "00438F22"
+              ],
+              "conditions": []
+            }
+          ],
           "obtain_unlocks": [],
           "plan_item": {
             "formid": "00916663",
@@ -104,11 +134,19 @@
           "cobj": null,
           "cnam": null,
           "tradeable": false,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
-          "obtain_ledger": [],
+          "obtain_ledger": [
+            {
+              "label": "Events & Activities",
+              "routes": [
+                0
+              ]
+            }
+          ],
+          "source_tag": "Activities",
           "images": [],
           "image_source": "",
           "plan_page": "body-armour",
@@ -135,9 +173,67 @@
           "name": "Plan: Civil Engineer Spring Assisted Armor Limb",
           "has_image_box": false,
           "image_dir": "recipes",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
           "category_label": "CAMP / Recipe (mod/recipe)",
-          "obtain_routes": [],
+          "obtain_routes": [
+            {
+              "route": "Expeditions - Giuseppe vendor",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "0063966F"
+              ],
+              "conditions": [
+                "Only until you learn co mod armor XPD AC Muni Lining Limb Thrown Damage"
+              ]
+            },
+            {
+              "route": "Atlantic City Expedition - Mission",
+              "source_type": "event-quest",
+              "rate": 0.02439,
+              "rate_display": "2.44%",
+              "lvli": [
+                "006D3A67",
+                "006D3A68",
+                "006E5FFF",
+                "006F4DB9"
+              ],
+              "conditions": [
+                "Only until you learn co mod armor XPD AC Muni Lining Limb Thrown Damage"
+              ]
+            },
+            {
+              "route": "Atlantic City Expedition - Mission",
+              "source_type": "event-quest",
+              "rate": 0.001876,
+              "rate_display": "0.19%",
+              "lvli": [
+                "006D3A67",
+                "006D3A68",
+                "006E5FFF",
+                "006F4DB9"
+              ],
+              "conditions": [
+                "Only until you learn co mod armor XPD AC Muni Lining Limb Thrown Damage"
+              ]
+            },
+            {
+              "route": "Atlantic City Expedition - Mission",
+              "source_type": "event-quest",
+              "rate": 0.001524,
+              "rate_display": "0.15%",
+              "lvli": [
+                "006D3A67",
+                "006D3A68",
+                "006E5FFF",
+                "006F4DB9"
+              ],
+              "conditions": [
+                "Only until you learn co mod armor XPD AC Muni Lining Limb Thrown Damage"
+              ]
+            }
+          ],
           "obtain_unlocks": [],
           "plan_item": {
             "formid": "00916666",
@@ -146,11 +242,27 @@
           "cobj": null,
           "cnam": null,
           "tradeable": false,
-          "stops_dropping": null,
+          "stops_dropping": true,
           "effects": null,
           "cut": false,
           "cut_reason": null,
-          "obtain_ledger": [],
+          "obtain_ledger": [
+            {
+              "label": "Stamps",
+              "routes": [
+                0
+              ]
+            },
+            {
+              "label": "Events & Activities",
+              "routes": [
+                1,
+                2,
+                3
+              ]
+            }
+          ],
+          "source_tag": "Expos",
           "images": [],
           "image_source": "",
           "plan_page": "camp",
@@ -166,9 +278,67 @@
           "name": "Plan: Civil Engineer Tattered Armor Torso",
           "has_image_box": false,
           "image_dir": "recipes",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
           "category_label": "CAMP / Recipe (mod/recipe)",
-          "obtain_routes": [],
+          "obtain_routes": [
+            {
+              "route": "Expeditions - Giuseppe vendor",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "0063966F"
+              ],
+              "conditions": [
+                "Only until you learn co mod armor XPD AC Muni Lining Torso Rad Resistance Reduce"
+              ]
+            },
+            {
+              "route": "Atlantic City Expedition - Mission",
+              "source_type": "event-quest",
+              "rate": 0.02439,
+              "rate_display": "2.44%",
+              "lvli": [
+                "006D3A67",
+                "006D3A68",
+                "006E5FFF",
+                "006F4DB9"
+              ],
+              "conditions": [
+                "Only until you learn co mod armor XPD AC Muni Lining Torso Rad Resistance Reduce"
+              ]
+            },
+            {
+              "route": "Atlantic City Expedition - Mission",
+              "source_type": "event-quest",
+              "rate": 0.001876,
+              "rate_display": "0.19%",
+              "lvli": [
+                "006D3A67",
+                "006D3A68",
+                "006E5FFF",
+                "006F4DB9"
+              ],
+              "conditions": [
+                "Only until you learn co mod armor XPD AC Muni Lining Torso Rad Resistance Reduce"
+              ]
+            },
+            {
+              "route": "Atlantic City Expedition - Mission",
+              "source_type": "event-quest",
+              "rate": 0.001524,
+              "rate_display": "0.15%",
+              "lvli": [
+                "006D3A67",
+                "006D3A68",
+                "006E5FFF",
+                "006F4DB9"
+              ],
+              "conditions": [
+                "Only until you learn co mod armor XPD AC Muni Lining Torso Rad Resistance Reduce"
+              ]
+            }
+          ],
           "obtain_unlocks": [],
           "plan_item": {
             "formid": "00916665",
@@ -177,11 +347,27 @@
           "cobj": null,
           "cnam": null,
           "tradeable": false,
-          "stops_dropping": null,
+          "stops_dropping": true,
           "effects": null,
           "cut": false,
           "cut_reason": null,
-          "obtain_ledger": [],
+          "obtain_ledger": [
+            {
+              "label": "Stamps",
+              "routes": [
+                0
+              ]
+            },
+            {
+              "label": "Events & Activities",
+              "routes": [
+                1,
+                2,
+                3
+              ]
+            }
+          ],
+          "source_tag": "Expos",
           "images": [],
           "image_source": "",
           "plan_page": "camp",
@@ -401,7 +587,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -436,7 +622,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -460,9 +646,50 @@
           "name": "Plan: Brotherhood Recon Spring Assisted Armor Limb",
           "has_image_box": false,
           "image_dir": "body-armour",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
           "category_label": "Armour (mod/recipe)",
-          "obtain_routes": [],
+          "obtain_routes": [
+            {
+              "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "005FFDEB",
+                "00602241",
+                "00602243"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "Daily Ops - High Chase Rare Untradable",
+              "source_type": "event-quest",
+              "rate": 0.028571,
+              "rate_display": "2.86%",
+              "lvli": [
+                "0073DAB4"
+              ],
+              "conditions": [
+                "Level 50 and above",
+                "Only until you learn co mod armor BOSInfantry Lining Limb Thrown Damage"
+              ]
+            },
+            {
+              "route": "Daily Ops - Chase",
+              "source_type": "event-quest",
+              "rate": 0.001429,
+              "rate_display": "0.14%",
+              "lvli": [
+                "005CB9FF",
+                "005DBD0D",
+                "005DBD0F"
+              ],
+              "conditions": [
+                "Level 50 and above",
+                "Only until you learn co mod armor BOSInfantry Lining Limb Thrown Damage"
+              ]
+            }
+          ],
           "obtain_unlocks": [],
           "plan_item": {
             "formid": "00916662",
@@ -471,11 +698,26 @@
           "cobj": null,
           "cnam": null,
           "tradeable": false,
-          "stops_dropping": null,
+          "stops_dropping": true,
           "effects": null,
           "cut": false,
           "cut_reason": null,
-          "obtain_ledger": [],
+          "obtain_ledger": [
+            {
+              "label": "Gold Bullion",
+              "routes": [
+                0
+              ]
+            },
+            {
+              "label": "Events & Activities",
+              "routes": [
+                1,
+                2
+              ]
+            }
+          ],
+          "source_tag": "Gold",
           "images": [],
           "image_source": "",
           "plan_page": "body-armour",
@@ -495,9 +737,50 @@
           "name": "Plan: Brotherhood Recon Tattered Armor Torso",
           "has_image_box": false,
           "image_dir": "body-armour",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
           "category_label": "Armour (mod/recipe)",
-          "obtain_routes": [],
+          "obtain_routes": [
+            {
+              "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "005FFDEB",
+                "00602241",
+                "00602243"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "Daily Ops - High Chase Rare Untradable",
+              "source_type": "event-quest",
+              "rate": 0.028571,
+              "rate_display": "2.86%",
+              "lvli": [
+                "0073DAB4"
+              ],
+              "conditions": [
+                "Level 50 and above",
+                "Only until you learn co mod armor BOSInfantry Lining Torso Rad Resistance Reduce"
+              ]
+            },
+            {
+              "route": "Daily Ops - Chase",
+              "source_type": "event-quest",
+              "rate": 0.001429,
+              "rate_display": "0.14%",
+              "lvli": [
+                "005CB9FF",
+                "005DBD0D",
+                "005DBD0F"
+              ],
+              "conditions": [
+                "Level 50 and above",
+                "Only until you learn co mod armor BOSInfantry Lining Torso Rad Resistance Reduce"
+              ]
+            }
+          ],
           "obtain_unlocks": [],
           "plan_item": {
             "formid": "00916661",
@@ -506,11 +789,26 @@
           "cobj": null,
           "cnam": null,
           "tradeable": false,
-          "stops_dropping": null,
+          "stops_dropping": true,
           "effects": null,
           "cut": false,
           "cut_reason": null,
-          "obtain_ledger": [],
+          "obtain_ledger": [
+            {
+              "label": "Gold Bullion",
+              "routes": [
+                0
+              ]
+            },
+            {
+              "label": "Events & Activities",
+              "routes": [
+                1,
+                2
+              ]
+            }
+          ],
+          "source_tag": "Gold",
           "images": [],
           "image_source": "",
           "plan_page": "body-armour",
@@ -518,41 +816,6 @@
           "armour_role": "mod",
           "armour_group": "Brotherhood Recon",
           "armour_group_key": "brotherhood-recon",
-          "armour_group_solo": false,
-          "group": "armour-mod",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "armour",
-          "id": "PLAN_0094CE3D",
-          "name": "Plan: Crusader Pistol Piercing Magazine",
-          "has_image_box": false,
-          "image_dir": "body-armour",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
-          "category_label": "Armour (mod/recipe)",
-          "obtain_routes": [],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "0094CE3D",
-            "edid": "recipe_mod_BoSPistol_Magazine_Reload-ArmorPen"
-          },
-          "cobj": null,
-          "cnam": null,
-          "tradeable": true,
-          "stops_dropping": null,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [],
-          "images": [],
-          "image_source": "",
-          "plan_page": "body-armour",
-          "plan_page_group": null,
-          "armour_role": "mod",
-          "armour_group": "Crusader Pistol Piercing Magazine",
-          "armour_group_key": "crusader-pistol-piercing-magazine",
           "armour_group_solo": false,
           "group": "armour-mod",
           "is_new": true
@@ -596,8 +859,8 @@
           "kind": "plan",
           "brand": "df",
           "type": "armour",
-          "id": "PLAN_0094F7E2",
-          "name": "Plan: Crusader Pistol Stinging Magazine",
+          "id": "PLAN_0094CE3D",
+          "name": "Plan: Crusader Pistol Piercing Magazine",
           "has_image_box": false,
           "image_dir": "body-armour",
           "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
@@ -605,13 +868,13 @@
           "obtain_routes": [],
           "obtain_unlocks": [],
           "plan_item": {
-            "formid": "0094F7E2",
-            "edid": "recipe_mod_GaussPistol_Magazine_Ammo-ArmorPen"
+            "formid": "0094CE3D",
+            "edid": "recipe_mod_BoSPistol_Magazine_Reload-ArmorPen"
           },
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -621,8 +884,8 @@
           "plan_page": "body-armour",
           "plan_page_group": null,
           "armour_role": "mod",
-          "armour_group": "Crusader Pistol Stinging Magazine",
-          "armour_group_key": "crusader-pistol-stinging-magazine",
+          "armour_group": "Crusader Pistol Piercing Magazine",
+          "armour_group_key": "crusader-pistol-piercing-magazine",
           "armour_group_solo": false,
           "group": "armour-mod",
           "is_new": true
@@ -642,6 +905,41 @@
           "plan_item": {
             "formid": "0094CE3F",
             "edid": "recipe_mod_BoSPistol_Magazine_Ammo-ArmorPen"
+          },
+          "cobj": null,
+          "cnam": null,
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [],
+          "images": [],
+          "image_source": "",
+          "plan_page": "body-armour",
+          "plan_page_group": null,
+          "armour_role": "mod",
+          "armour_group": "Crusader Pistol Stinging Magazine",
+          "armour_group_key": "crusader-pistol-stinging-magazine",
+          "armour_group_solo": false,
+          "group": "armour-mod",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "armour",
+          "id": "PLAN_0094F7E2",
+          "name": "Plan: Crusader Pistol Stinging Magazine",
+          "has_image_box": false,
+          "image_dir": "body-armour",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+          "category_label": "Armour (mod/recipe)",
+          "obtain_routes": [],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "0094F7E2",
+            "edid": "recipe_mod_GaussPistol_Magazine_Ammo-ArmorPen"
           },
           "cobj": null,
           "cnam": null,
@@ -681,7 +979,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -716,7 +1014,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -751,7 +1049,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -786,7 +1084,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -810,9 +1108,20 @@
           "name": "Plan: Secret Service Spring Assisted Armor Limb",
           "has_image_box": false,
           "image_dir": "body-armour",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
           "category_label": "Armour (mod/recipe)",
-          "obtain_routes": [],
+          "obtain_routes": [
+            {
+              "route": "Wastelanders - Reginald (Secret Service Gold Bullion vendor)",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "0057CE6E"
+              ],
+              "conditions": []
+            }
+          ],
           "obtain_unlocks": [],
           "plan_item": {
             "formid": "0091665F",
@@ -821,11 +1130,19 @@
           "cobj": null,
           "cnam": null,
           "tradeable": false,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
-          "obtain_ledger": [],
+          "obtain_ledger": [
+            {
+              "label": "Gold Bullion",
+              "routes": [
+                0
+              ]
+            }
+          ],
+          "source_tag": "Gold",
           "images": [],
           "image_source": "",
           "plan_page": "body-armour",
@@ -845,9 +1162,20 @@
           "name": "Plan: Secret Service Tattered Armor Torso",
           "has_image_box": false,
           "image_dir": "body-armour",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
           "category_label": "Armour (mod/recipe)",
-          "obtain_routes": [],
+          "obtain_routes": [
+            {
+              "route": "Wastelanders - Reginald (Secret Service Gold Bullion vendor)",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "0057CE6E"
+              ],
+              "conditions": []
+            }
+          ],
           "obtain_unlocks": [],
           "plan_item": {
             "formid": "00916660",
@@ -856,11 +1184,19 @@
           "cobj": null,
           "cnam": null,
           "tradeable": false,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
-          "obtain_ledger": [],
+          "obtain_ledger": [
+            {
+              "label": "Gold Bullion",
+              "routes": [
+                0
+              ]
+            }
+          ],
+          "source_tag": "Gold",
           "images": [],
           "image_source": "",
           "plan_page": "body-armour",
@@ -1046,7 +1382,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -1083,7 +1419,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -1120,7 +1456,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -1157,7 +1493,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -1194,7 +1530,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -1231,7 +1567,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -1268,7 +1604,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -1305,7 +1641,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -1342,7 +1678,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -1379,7 +1715,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -1416,7 +1752,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -1453,7 +1789,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -1490,7 +1826,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -1527,7 +1863,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -1564,7 +1900,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -1623,7 +1959,7 @@
           "kind": "plan",
           "brand": "df",
           "type": "weapon",
-          "id": "PLAN_0094CE40",
+          "id": "PLAN_0094CE3B",
           "name": "Plan: Crusader Pistol Vicious Receiver",
           "has_image_box": false,
           "image_dir": "weapons",
@@ -1632,13 +1968,13 @@
           "obtain_routes": [],
           "obtain_unlocks": [],
           "plan_item": {
-            "formid": "0094CE40",
-            "edid": "recipe_mod_BoSPistol_Receiver_CritDMG-HipAccuracy"
+            "formid": "0094CE3B",
+            "edid": "recipe_mod_BoSPistol_Receiver_Damage-HipAccuracy"
           },
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -1675,7 +2011,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -1697,7 +2033,7 @@
           "kind": "plan",
           "brand": "df",
           "type": "weapon",
-          "id": "PLAN_0094CE3B",
+          "id": "PLAN_0094CE40",
           "name": "Plan: Crusader Pistol Vicious Receiver",
           "has_image_box": false,
           "image_dir": "weapons",
@@ -1706,13 +2042,13 @@
           "obtain_routes": [],
           "obtain_unlocks": [],
           "plan_item": {
-            "formid": "0094CE3B",
-            "edid": "recipe_mod_BoSPistol_Receiver_Damage-HipAccuracy"
+            "formid": "0094CE40",
+            "edid": "recipe_mod_BoSPistol_Receiver_CritDMG-HipAccuracy"
           },
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2085,7 +2421,7 @@
           },
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2122,7 +2458,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2159,7 +2495,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2199,7 +2535,7 @@
           },
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2239,7 +2575,7 @@
           },
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2279,7 +2615,7 @@
           },
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2319,7 +2655,7 @@
           },
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2356,7 +2692,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2396,7 +2732,7 @@
           },
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2433,7 +2769,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2470,7 +2806,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2507,7 +2843,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2544,7 +2880,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2581,7 +2917,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2618,7 +2954,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2655,7 +2991,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2692,7 +3028,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2729,7 +3065,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2766,7 +3102,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2803,7 +3139,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2840,7 +3176,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2877,7 +3213,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2914,7 +3250,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2951,7 +3287,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -2988,7 +3324,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3025,7 +3361,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3062,7 +3398,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3099,7 +3435,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3136,7 +3472,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3173,7 +3509,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3210,7 +3546,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3247,7 +3583,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3284,44 +3620,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [],
-          "images": [
-            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
-          ],
-          "image_source": "weapon-mod",
-          "plan_page": "weapon",
-          "plan_page_group": null,
-          "weapon_role": "mod",
-          "weapon_group": "M79 Grenade Launcher",
-          "weapon_group_key": "m79-grenade-launcher",
-          "weapon_group_solo": false,
-          "group": "weapon-mod",
-          "is_new": true
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_0094F154",
-          "name": "Plan: M79 Precise Grip",
-          "has_image_box": false,
-          "image_dir": "weapons",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
-          "category_label": "CAMP / Recipe (mod/recipe)",
-          "obtain_routes": [],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "0094F154",
-            "edid": "recipe_mod_M79_FullStock_HipAccuracy-SecondaryDMG"
-          },
-          "cobj": null,
-          "cnam": null,
-          "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3358,7 +3657,44 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [],
+          "images": [
+            "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+          ],
+          "image_source": "weapon-mod",
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "weapon_role": "mod",
+          "weapon_group": "M79 Grenade Launcher",
+          "weapon_group_key": "m79-grenade-launcher",
+          "weapon_group_solo": false,
+          "group": "weapon-mod",
+          "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_0094F154",
+          "name": "Plan: M79 Precise Grip",
+          "has_image_box": false,
+          "image_dir": "weapons",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. No source was resolved from the game files — see Technical for the recipe details.",
+          "category_label": "CAMP / Recipe (mod/recipe)",
+          "obtain_routes": [],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "0094F154",
+            "edid": "recipe_mod_M79_FullStock_HipAccuracy-SecondaryDMG"
+          },
+          "cobj": null,
+          "cnam": null,
+          "tradeable": true,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3395,7 +3731,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3432,7 +3768,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3469,7 +3805,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3506,7 +3842,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3543,7 +3879,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3580,7 +3916,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3617,7 +3953,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3654,7 +3990,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3691,7 +4027,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3728,7 +4064,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3765,7 +4101,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
@@ -3802,7 +4138,7 @@
           "cobj": null,
           "cnam": null,
           "tradeable": true,
-          "stops_dropping": null,
+          "stops_dropping": false,
           "effects": null,
           "cut": false,
           "cut_reason": null,
