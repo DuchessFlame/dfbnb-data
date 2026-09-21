@@ -17,17 +17,17 @@ Cut records (zzz / ZZZ / REUSE / TEMPLATE EDIDs) are dropped.
 
 IMAGES
 ======
-Scoreboard wallpapers REUSE the tile the site already serves from
-/wp-content/uploads/season_images/season-N/ — looked up through
-reusable_images (the season upload manifests in dist/), so the same art is
-never uploaded twice. Everything else resolves to the wallpaper folder, named
+Scoreboard wallpapers ALWAYS use /wp-content/uploads/season_images/season-N/ —
+the folder the scoreboard pages serve them from — so the same art is never
+uploaded twice. The exact filename comes from reusable_images (the season
+upload manifests in dist/) when it has one, else the texture name. Everything else resolves to the wallpaper folder, named
 after its DDS texture, lowercased, with the _l suffix dropped:
 
     ETDI  "ATX_CAMP_WallPaper_Tavern.dds"
       ->  /wp-content/uploads/guide-images/atom-shop/wallpaper/atx_camp_wallpaper_tavern.avif
 
-A scoreboard wallpaper whose season tile was never uploaded falls back to the
-wallpaper folder too, so it is still one file in one place.
+A scoreboard wallpaper whose season tile is missing is uploaded to its season
+folder, which fixes the scoreboard page and this page at once.
 
 USAGE
 =====
@@ -57,6 +57,7 @@ DIST_DIR = os.path.join(LIVE_DIST_DIR, "pts" if PTS else "")
 DIST_FILE = os.path.join(DIST_DIR, "wallpapers.json")
 
 IMAGE_BASE = "/wp-content/uploads/guide-images/atom-shop/wallpaper/"
+SEASON_BASE = "/wp-content/uploads/season_images/"
 FILTER_KYWD = "ATX_Entitlement_Filter_Store_CAMP_Wallpapers"
 TAG = "[wallpapers]"
 
@@ -270,9 +271,16 @@ def build() -> dict:
             hit = hosted.find(edid=edid, texture=etdi)
             if hit and "/season_images/" in hit:
                 image_url = hit
-                reused += 1
                 extra = [u for u in hosted.find_all(texture=etdi)
                          if u != hit and "/season_images/" in u][:3]
+            elif filename and obtain.get("season"):
+                # Not in the manifests (or flagged unpublished by a stale
+                # checker run) — still point at the season folder, which is
+                # where the scoreboard page serves it. One file, one place:
+                # if it is missing, uploading it there fixes both pages.
+                image_url = f"{SEASON_BASE}season-{obtain['season']}/{filename}"
+            if image_url:
+                reused += 1
         if not image_url and filename:
             image_url = IMAGE_BASE + filename
 
