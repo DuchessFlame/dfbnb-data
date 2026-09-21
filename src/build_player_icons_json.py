@@ -437,6 +437,92 @@ def resolve_obtain(row: dict, season_rows: dict, season_names: dict, chal: dict)
 
 
 # ---------------------------------------------------------------------------
+# AVTR — every player icon record, including ones with no entitlement
+# ---------------------------------------------------------------------------
+def _avtr_display(full: str, edid: str) -> str:
+    name = (full or "").strip() or prettify(edid.split("PlayerIcon_")[-1])
+    name = re.sub(r"\s+(?:Player\s+)?Icon$", "", name, flags=re.I).strip()
+    return name or edid
+
+
+def add_avtr_icons(icons: list, entm_rows: list, season_rows: dict,
+                   season_names: dict, chal: dict) -> int:
+    """Append AVTR icons the ENTM pass did not produce. Returns count added.
+
+    * RENT blank                -> unlocked by default ("Default").
+    * RENT -> an ENTM we listed -> already on the page, skipped.
+    * RENT -> a cut ENTM        -> skipped (unobtainable).
+    * RENT -> an ENTM we did not list (no icon keyword) -> routed from that ENTM.
+    """
+    path = tsv_source.newest("AVTR_Export_*.tsv", channel=CHANNEL, required=False)
+    if not path:
+        print(f"{TAG} AVTR: no export yet - default/in-game icons not included")
+        return 0
+    print(f"{TAG} AVTR: {os.path.basename(path)}")
+    by_fid = {(r.get("FormID") or "").strip().upper(): r for r in entm_rows}
+    have_ent = {i["formId"] for i in icons}
+    have_img = {i["imageFilename"] for i in icons}
+    added = 0
+    for a in read_tsv(path, repair=True):
+        edid = (a.get("EDID") or "").strip()
+        if not edid or is_cut(edid):
+            continue
+        filename = image_filename(a.get("SWFI") or "")
+        if not filename:
+            continue
+        rent = (a.get("RENT_FormID") or "").strip().upper()
+        if rent and rent in have_ent:
+            continue
+        if filename in have_img:
+            continue   # same art already listed under another record
+        avtr_fid = (a.get("FormID") or "").strip().upper()
+        refs = a.get("ReferencedBy") or ""
+        if rent:
+            ent = by_fid.get(rent)
+            ent_edid = (a.get("RENT_EDID") or (ent or {}).get("EDID") or "").strip()
+            if is_cut(ent_edid):
+                continue
+            row = dict(ent) if ent else {"EDID": ent_edid, "DESC": "", "XALG_Flags": "",
+                                          "ReferencedBy": refs}
+            row["EDID"] = ent_edid
+            obtain = resolve_obtain(row, season_rows, season_names, chal)
+            fid, desc = rent, clean_desc((ent or {}).get("DESC"))
+        else:
+            cm = _RE_CHAL_REWARD.search(refs)
+            if cm:
+                obtain = resolve_obtain({"EDID": edid, "DESC": "", "XALG_Flags": "",
+                                         "ReferencedBy": refs},
+                                        season_rows, season_names, chal)
+            else:
+                obtain = {"method": "default", "source": "Default",
+                          "text": "Unlocked for every player by default - no purchase or unlock needed.",
+                          "season": None, "seasonName": "", "rank": None, "page": None,
+                          "premium": False}
+            fid, desc = avtr_fid, ""
+        icons.append({
+            "formId": fid,
+            "edid": edid,
+            "name": _avtr_display(a.get("FULL"), edid),
+            "fullName": (a.get("FULL") or "").strip(),
+            "shortName": "",
+            "desc": desc,
+            "rarity": "",
+            "premium": "premium" in (a.get("XALG_Flags") or "").lower(),
+            "imageFilename": filename,
+            "imageUrl": IMAGE_BASE + filename,
+            "source": obtain["source"],
+            "howToObtain": obtain,
+            "avtr": f"{avtr_fid}:{edid}:AVTR",
+            "isNew": False,
+        })
+        have_ent.add(fid)
+        have_img.add(filename)
+        added += 1
+    print(f"{TAG} AVTR: +{added} icons with no listed entitlement")
+    return added
+
+
+# ---------------------------------------------------------------------------
 # Build
 # ---------------------------------------------------------------------------
 def build() -> dict:
@@ -503,6 +589,12 @@ def build() -> dict:
                           if ":AVTR" in p), ""),
             "isNew": False,
         })
+
+    # ---- AVTR pass: icons with no (visible) entitlement ----
+    # ENTM only covers icons that need unlocking. Default / auto-unlocked icons
+    # exist only as AVTR records, so the AVTR export (ExportAVTRToTSV.pas) is the
+    # complete list. Optional: until that export exists the page is ENTM-only.
+    avtr_added = add_avtr_icons(icons, rows, season_rows, season_names, chal)
 
     # ABC order, case-insensitive, on the displayed name.
     icons.sort(key=lambda i: (i["name"].lower(), i["edid"].lower()))
