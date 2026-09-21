@@ -490,6 +490,9 @@
     "activities/by_page/free-range-all-rewards.json": {
       "structural_change": true
     },
+    "activities/by_page/gearing-up-all-rewards.json": {
+      "structural_change": true
+    },
     "activities/by_page/grafton-day-all-rewards.json": {
       "structural_change": true
     },
@@ -606,29 +609,16 @@
     },
     "allies.json": {
       "key": "edid",
-      "added": [],
+      "added": [
+        "SCORE_S27_CAMP_MrMoore_Pod_FURN"
+      ],
       "removed": [],
       "changed": [
         {
           "key": "",
           "label": "",
           "fields": [
-            "buffsAndEffects",
-            "cobjFormId",
-            "description",
-            "dialog",
-            "displayName",
-            "entmFormId",
-            "formId",
-            "furnFormId",
-            "furnitureName",
-            "howToObtain",
-            "imageCarousel",
-            "imageUrl",
-            "inventory",
-            "obtainRoutes",
-            "obtainSource",
-            "seasonNumber"
+            "dialog"
           ]
         },
         {
@@ -699,7 +689,8 @@
           "key": "SCORE_S11_CAMP_LeoPetrov_Nukaagent_FURN",
           "label": "SCORE_S11_CAMP_LeoPetrov_Nukaagent_FURN",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "inventory"
           ]
         },
         {
@@ -745,14 +736,64 @@
     },
     "buff-stations.json": {
       "key": "edid",
-      "added": [],
-      "removed": [],
+      "added": [
+        "ATX_CAMP_FloorDecor_ExerciseEquipment_EnclaveEnduranceTrainer",
+        "ATX_Structure_Furniture_AssaultronAssemblyPlatform_AssaultronPlatform",
+        "ATX_Structure_Furniture_VatofFEV_FEVVat"
+      ],
+      "removed": [
+        "Instrument_Pipe_Organ"
+      ],
       "changed": [
+        {
+          "key": "ATX_Instrument_Pipe_Organ",
+          "label": "ATX_Instrument_Pipe_Organ",
+          "fields": [
+            "displayName",
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_Orgatronic",
+          "label": "ATX_Orgatronic",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_VaultTecSpa",
+          "label": "ATX_VaultTecSpa",
+          "fields": [
+            "imageUrl"
+          ]
+        },
         {
           "key": "BedTypeComfy",
           "label": "BedTypeComfy",
           "fields": [
+            "imageUrl",
             "technicalNotes"
+          ]
+        },
+        {
+          "key": "BedTypeMattress",
+          "label": "BedTypeMattress",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "BedTypeSleepingBag",
+          "label": "BedTypeSleepingBag",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "Instrument_Theremin",
+          "label": "Instrument_Theremin",
+          "fields": [
+            "imageUrl"
           ]
         }
       ]
@@ -1300,7 +1341,10 @@
     },
     "buffs/food.json": {
       "key": "edid",
-      "added": [],
+      "added": [
+        "SeasonalFish_Meal_WinterFishKabomb",
+        "SeasonalFish_Meal_WinterFishSauce"
+      ],
       "removed": [],
       "changed": [
         {
@@ -2637,9 +2681,6 @@
     "calculators/build_inspiration.json": {
       "structural_change": true
     },
-    "calculators/healing_calculator.json": {
-      "structural_change": true
-    },
     "calculators/outfit_inspiration.json": {
       "key": "edid",
       "added": [
@@ -2704,6 +2745,68 @@
         }
       ]
     },
+    "calculators/season_tickets_s27.json": {
+      "key": "id",
+      "added": [
+        "S27_P10_camp_ally_mrmoore",
+        "S27_P10_camp_camppets_cat_vt_robopaw",
+        "S27_P10_camp_camppets_dog_vt_robopaw",
+        "S27_P10_camp_display_bobblehead_chess",
+        "S27_P10_camp_lights_illuminatedvaultsigns_2",
+        "S27_P10_displaycase_beersteins_trophycasesteindisplay",
+        "S27_P10_skin_armorskin_jetpack_vaulttecjp",
+        "S27_P10_skin_weaponmodel_bow_vaulttec",
+        "S27_P1_emotes_applause",
+        "S27_P1_emotes_grenadetoss",
+        "S27_P2_apparel_headwear_ashwalker_hat",
+        "S27_P2_apparel_headwear_vaulttecsecurityhelmet_alt",
+        "S27_P2_apparel_headwear_vaulttecsecurityhelmet_vintage",
+        "S27_P2_apparel_outfit_ashwalker",
+        "S27_P2_apparel_outfit_vaulttecsecurity_alt",
+        "S27_P3_skin_powerarmor_model_adjudicator",
+        "S27_P3_skin_powerarmor_paint_excavator_vaulttec",
+        "S27_P3_skin_powerarmor_paint_hellcat_vaulttec",
+        "S27_P3_skin_powerarmor_paint_t65_vaulttec",
+        "S27_P3_skin_powerarmor_paint_union_vaulttec",
+        "S27_P4_skin_weaponskin_cremator_vaulttec",
+        "S27_P4_skin_weaponskin_gatlingplasma_vaulttec",
+        "S27_P4_skin_weaponskin_railwayrifle_raider",
+        "S27_P4_skin_weaponskin_teslarifle_vaulttec",
+        "S27_P5_weapons_baton_grip_mods_bundle1",
+        "S27_P5_weapons_baton_grip_mods_bundle2",
+        "S27_P5_weapons_baton_grip_mods_bundle3",
+        "S27_P5_weapons_baton_rod_mods_bundle",
+        "S27_P5_weapons_baton_rod_mods_bundle1",
+        "S27_P5_weapons_baton_rod_mods_ignited",
+        "S27_P5_weapons_paint_baton_vaulttec",
+        "S27_P6_camp_machinery_workbench_cannery_vaultteccannery",
+        "S27_P6_camp_machinery_workbench_cooking_vaultteccook",
+        "S27_P6_camp_machinery_workbench_powerarmor_vaulttecpacraft",
+        "S27_P6_camp_machinery_workbench_tinkers_vaulttectinker",
+        "S27_P6_camp_workbench_chemistry_vaulttecchem",
+        "S27_P7_camp_bed_hideaway",
+        "S27_P7_camp_collector_vtrollerdogs",
+        "S27_P7_camp_furniture_chair_wheelchair_vaulttec",
+        "S27_P7_camp_utility_plasmacorerecharger_vaultplasma",
+        "S27_P8_camp_floordecor_golddeskfan",
+        "S27_P8_camp_floordecor_stein_trophy",
+        "S27_P8_camp_floordecor_vtstandingflag",
+        "S27_P8_camp_walldecor_participationcertificate",
+        "S27_P8_camp_walldecor_youarespecial_endofseasonart",
+        "S27_P9_camp_aidbox_vaultaid",
+        "S27_P9_camp_camppets_radhog_bloodhog",
+        "S27_P9_camp_defense_turret_vaultturret",
+        "S27_P9_camp_displaycase_overseeraquarium",
+        "S27_P9_camp_wall_overseerwindow",
+        "S27_P9_skin_backpack_vtmedal_bronze_flair",
+        "S27_P9_skin_backpack_vtmedal_gold_flair",
+        "S27_P9_skin_backpack_vtmedal_silver_flair"
+      ],
+      "removed": [
+        "S27_P1_skin_weaponskin_railwayrifle_raider"
+      ],
+      "changed": []
+    },
     "calculators/upcoming_rewards_s27.json": {
       "structural_change": true
     },
@@ -2740,13 +2843,24 @@
     "camp.json": {
       "key": "edid",
       "added": [
-        "ATX_ENTM_CAMP_CAMPPets_Dog_HuntingDog"
+        "ATX_ENTM_Apparel_CAMPPets_Cat_Neckwear_BraidedCatCollar",
+        "ATX_ENTM_Apparel_CAMPPets_Dog_Neckwear_BraidedDogCollar",
+        "ATX_ENTM_Apparel_CAMPPets_Dog_Neckwear_TrackerCollar",
+        "ATX_ENTM_Apparel_CAMPPets_Radhog_Headwear_StarNoseRing",
+        "ATX_ENTM_CAMP_CAMPPets_Cat_Siamese",
+        "ATX_ENTM_CAMP_CAMPPets_Dog_HuntingDog",
+        "ATX_ENTM_CAMP_CAMPPets_Dog_PlottHound",
+        "ATX_ENTM_CAMP_CAMPPets_IdleFurniture_Cat_CatBirdBath",
+        "ATX_ENTM_CAMP_CAMPPets_IdleFurniture_Dog_DogBath",
+        "ATX_ENTM_CAMP_CAMPPets_IdleFurniture_Radhog_MudBath",
+        "ATX_ENTM_CAMP_CAMPPets_Radhog_Hampshire",
+        "ATX_ENTM_CAMP_Utility_WeatherStation_Wildfire",
+        "SCORE_S27_ENTM_CAMP_CAMPPets_Cat_VT_RoboPaw",
+        "SCORE_S27_ENTM_CAMP_CAMPPets_Dog_VT_RoboPaw",
+        "SCORE_S27_ENTM_CAMP_CAMPPets_Radhog_Bloodhog"
       ],
       "removed": [],
       "changed": []
-    },
-    "chainsaws.json": {
-      "structural_change": true
     },
     "chainsaws/chainsaw.json": {
       "structural_change": true
@@ -23302,9 +23416,6 @@
     "collectable_spawns_pint-sized-phantom-graves.json": {
       "structural_change": true
     },
-    "collectable_spawns_pint-sized-slasher-masks.json": {
-      "structural_change": true
-    },
     "collectable_spawns_treasure-maps-locations.json": {
       "structural_change": true
     },
@@ -23329,7 +23440,9 @@
     "collectables_keys.json": {
       "key": "edid",
       "added": [],
-      "removed": [],
+      "removed": [
+        "P62_TheDrifter_Keycard"
+      ],
       "changed": []
     },
     "collectables_magazines.json": {
@@ -34631,37 +34744,10 @@
     "cryptids/angler.json": {
       "structural_change": true
     },
-    "cryptids/bigfoot.json": {
-      "structural_change": true
-    },
-    "cryptids/blue-devil.json": {
-      "structural_change": true
-    },
     "cryptids/flatwoods-monster.json": {
       "structural_change": true
     },
-    "cryptids/grafton-monster.json": {
-      "structural_change": true
-    },
-    "cryptids/jersey-lesser-devils.json": {
-      "structural_change": true
-    },
-    "cryptids/megasloth.json": {
-      "structural_change": true
-    },
     "cryptids/mothman.json": {
-      "structural_change": true
-    },
-    "cryptids/ogua.json": {
-      "structural_change": true
-    },
-    "cryptids/sheepsquatch.json": {
-      "structural_change": true
-    },
-    "cryptids/snallygaster.json": {
-      "structural_change": true
-    },
-    "cryptids/wendigo.json": {
       "structural_change": true
     },
     "currency.json": {
@@ -34692,6 +34778,9 @@
       "structural_change": true
     },
     "curves/meta.json": {
+      "structural_change": true
+    },
+    "curves/perk_cards.pts.json": {
       "structural_change": true
     },
     "daily_ops/daily_ops_all_rewards.json": {
@@ -34791,6 +34880,9 @@
       "structural_change": true
     },
     "events/by_page/free-range-all-rewards.json": {
+      "structural_change": true
+    },
+    "events/by_page/gearing-up-all-rewards.json": {
       "structural_change": true
     },
     "events/by_page/grafton-day-all-rewards.json": {
@@ -34925,16 +35017,10 @@
     "farming_spawns/blood-sac_spawns.json": {
       "structural_change": true
     },
-    "farming_spawns/canned-coffee_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/chems-addictol_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/chems-adrenal-reaction-serum_spawns.json": {
-      "structural_change": true
-    },
-    "farming_spawns/chems-antibiotics_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/chems-berry-mentats_spawns.json": {
@@ -34997,9 +35083,6 @@
     "farming_spawns/chems-healing-factor-serum_spawns.json": {
       "structural_change": true
     },
-    "farming_spawns/chems-healing-salve_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/chems-herbivore-serum_spawns.json": {
       "structural_change": true
     },
@@ -35007,9 +35090,6 @@
       "structural_change": true
     },
     "farming_spawns/chems-high-radiation-fluids_spawns.json": {
-      "structural_change": true
-    },
-    "farming_spawns/chems-insect-repellent_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/chems-marsupial-serum_spawns.json": {
@@ -35060,9 +35140,6 @@
     "farming_spawns/chems-stealth-boy-mark-iii_spawns.json": {
       "structural_change": true
     },
-    "farming_spawns/chems-stealth-boy_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/chems-stimpak-diluted_spawns.json": {
       "structural_change": true
     },
@@ -35090,13 +35167,7 @@
     "farming_spawns/deathclaw-egg_spawns.json": {
       "structural_change": true
     },
-    "farming_spawns/frog-egg_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/glowing-blood_spawns.json": {
-      "structural_change": true
-    },
-    "farming_spawns/honey_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/honeycomb_spawns.json": {
@@ -35108,9 +35179,6 @@
     "farming_spawns/mirelurk-egg_spawns.json": {
       "structural_change": true
     },
-    "farming_spawns/mothman-egg_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/perfect-bubblegum_spawns.json": {
       "structural_change": true
     },
@@ -35120,9 +35188,6 @@
     "farming_spawns/radscorpion-egg_spawns.json": {
       "structural_change": true
     },
-    "farming_spawns/radtoad-egg_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/royal-jelly_spawns.json": {
       "structural_change": true
     },
@@ -35130,9 +35195,6 @@
       "structural_change": true
     },
     "farming_spawns/sugar-bombs_spawns.json": {
-      "structural_change": true
-    },
-    "farming_spawns/tick-blood_spawns.json": {
       "structural_change": true
     },
     "fishing.json": {
@@ -35228,6 +35290,28 @@
       ],
       "removed": [],
       "changed": [
+        {
+          "key": "HelpBountyHunting",
+          "label": "Bounty Hunting",
+          "fields": [
+            "desc"
+          ]
+        },
+        {
+          "key": "HelpCampTitles",
+          "label": "C.A.M.P. Titles",
+          "fields": [
+            "desc"
+          ]
+        },
+        {
+          "key": "HelpDirtyLaundry",
+          "label": "Collectibles",
+          "fields": [
+            "desc",
+            "name"
+          ]
+        },
         {
           "key": "HelpPingSystem_Console",
           "label": "Ping System",
@@ -36421,9 +36505,6 @@
         }
       ]
     },
-    "legendary_mod_drop_chances.json": {
-      "structural_change": true
-    },
     "legendary_mods.json": {
       "structural_change": true
     },
@@ -36623,7 +36704,115 @@
         "RECIPE_008EC313",
         "RECIPE_0090E770",
         "RECIPE_0090F5E5",
-        "RECIPE_00943AA3"
+        "RECIPE_00943AA3",
+        "RECIPE_00946743",
+        "RECIPE_00946748",
+        "RECIPE_0094674C",
+        "RECIPE_0094674D",
+        "RECIPE_0094674F",
+        "RECIPE_00946751",
+        "RECIPE_00946752",
+        "RECIPE_00946753",
+        "RECIPE_00947F42",
+        "RECIPE_00947F4B",
+        "RECIPE_00947F4E",
+        "RECIPE_00947F4F",
+        "RECIPE_00947F51",
+        "RECIPE_00947F52",
+        "RECIPE_00947F54",
+        "RECIPE_00947F55",
+        "RECIPE_0094826E",
+        "RECIPE_00948270",
+        "RECIPE_00948273",
+        "RECIPE_00948274",
+        "RECIPE_00948276",
+        "RECIPE_00948279",
+        "RECIPE_0094827A",
+        "RECIPE_0094827B",
+        "RECIPE_0094827D",
+        "RECIPE_0094827E",
+        "RECIPE_00948281",
+        "RECIPE_00948284",
+        "RECIPE_00948286",
+        "RECIPE_00948FFD",
+        "RECIPE_00949001",
+        "RECIPE_00949002",
+        "RECIPE_00949004",
+        "RECIPE_00949005",
+        "RECIPE_00949007",
+        "RECIPE_00949008",
+        "RECIPE_0094918B",
+        "RECIPE_0094918C",
+        "RECIPE_0094918D",
+        "RECIPE_0094918E",
+        "RECIPE_0094918F",
+        "RECIPE_00949190",
+        "RECIPE_0094A75A",
+        "RECIPE_0094A75B",
+        "RECIPE_0094CE41",
+        "RECIPE_0094CE42",
+        "RECIPE_0094CE45",
+        "RECIPE_0094CE46",
+        "RECIPE_0094CE4B",
+        "RECIPE_0094CE50",
+        "RECIPE_0094CE51",
+        "RECIPE_0094CE52",
+        "RECIPE_0094CE53",
+        "RECIPE_0094CE54",
+        "RECIPE_0094CE57",
+        "RECIPE_0094CE59",
+        "RECIPE_0094CF61",
+        "RECIPE_0094CF63",
+        "RECIPE_0094CF65",
+        "RECIPE_0094CF67",
+        "RECIPE_0094CF68",
+        "RECIPE_0094CF6E",
+        "RECIPE_0094CF6F",
+        "RECIPE_0094CF70",
+        "RECIPE_0094CF71",
+        "RECIPE_0094CF76",
+        "RECIPE_0094CF77",
+        "RECIPE_0094CF7C",
+        "RECIPE_0094CF82",
+        "RECIPE_0094CF83",
+        "RECIPE_0094CF84",
+        "RECIPE_0094CF85",
+        "RECIPE_0094CF8A",
+        "RECIPE_0094CF8C",
+        "RECIPE_0094CF8D",
+        "RECIPE_0094CF8F",
+        "RECIPE_0094CF93",
+        "RECIPE_0094CF94",
+        "RECIPE_0094CF9B",
+        "RECIPE_0094CF9C",
+        "RECIPE_0094CF9E",
+        "RECIPE_0094CFA0",
+        "RECIPE_0094CFA3",
+        "RECIPE_0094CFA5",
+        "RECIPE_0094CFA7",
+        "RECIPE_0094CFA8",
+        "RECIPE_0094CFAA",
+        "RECIPE_0094CFAC",
+        "RECIPE_0094CFAE",
+        "RECIPE_0094CFB0",
+        "RECIPE_0094CFB6",
+        "RECIPE_0094F15B",
+        "RECIPE_0094F15C",
+        "RECIPE_0094F15E",
+        "RECIPE_0094F15F",
+        "RECIPE_0094F160",
+        "RECIPE_0094F165",
+        "RECIPE_0094F7EE",
+        "RECIPE_0094F7F0",
+        "RECIPE_0094F7F2",
+        "RECIPE_00951607",
+        "RECIPE_00951608",
+        "RECIPE_0095160B",
+        "RECIPE_0095160D",
+        "RECIPE_0095160F",
+        "RECIPE_00951611",
+        "RECIPE_00951612",
+        "RECIPE_00951614"
       ],
       "removed": [
         "RECIPE_00399FB4",
@@ -36652,13 +36841,6 @@
         "RECIPE_00900A93"
       ],
       "changed": [
-        {
-          "key": "PLAN_00436FF9",
-          "label": "Plan: Mole Miner Gauntlet",
-          "fields": [
-            "routes"
-          ]
-        },
         {
           "key": "PLAN_0052A699",
           "label": "Plan: Single-Action Revolver Forceful Grip",
@@ -36817,37 +36999,13 @@
     "meat/angler.json": {
       "structural_change": true
     },
-    "meat/brahmin.json": {
-      "structural_change": true
-    },
-    "meat/cat.json": {
-      "structural_change": true
-    },
     "meat/chicken.json": {
       "structural_change": true
     },
     "meat/deathclaw.json": {
       "structural_change": true
     },
-    "meat/fox.json": {
-      "structural_change": true
-    },
-    "meat/frog.json": {
-      "structural_change": true
-    },
-    "meat/glowing-meat.json": {
-      "structural_change": true
-    },
     "meat/gulper.json": {
-      "structural_change": true
-    },
-    "meat/hermit-crab.json": {
-      "structural_change": true
-    },
-    "meat/iguana.json": {
-      "structural_change": true
-    },
-    "meat/megasloth.json": {
       "structural_change": true
     },
     "meat/mirelurk-queen.json": {
@@ -36859,46 +37017,13 @@
     "meat/mole-rat.json": {
       "structural_change": true
     },
-    "meat/mongrel-dog.json": {
-      "structural_change": true
-    },
     "meat/mutant-hound.json": {
-      "structural_change": true
-    },
-    "meat/opossum.json": {
-      "structural_change": true
-    },
-    "meat/owlet.json": {
-      "structural_change": true
-    },
-    "meat/pheasant.json": {
-      "structural_change": true
-    },
-    "meat/rabbit.json": {
       "structural_change": true
     },
     "meat/radhog.json": {
       "structural_change": true
     },
-    "meat/radrat.json": {
-      "structural_change": true
-    },
-    "meat/radstag.json": {
-      "structural_change": true
-    },
-    "meat/radtoad.json": {
-      "structural_change": true
-    },
     "meat/radturkey.json": {
-      "structural_change": true
-    },
-    "meat/scorchbeast.json": {
-      "structural_change": true
-    },
-    "meat/sheepsquatch.json": {
-      "structural_change": true
-    },
-    "meat/squirrel.json": {
       "structural_change": true
     },
     "meat/wolf.json": {
@@ -36934,9 +37059,6 @@
     "nuka_cola_spawns_nukashine.json": {
       "structural_change": true
     },
-    "nuka_cola_spawns_quantum.json": {
-      "structural_change": true
-    },
     "pennants.json": {
       "structural_change": true
     },
@@ -36948,7 +37070,12 @@
     },
     "pet-apparel.json": {
       "key": "edid",
-      "added": [],
+      "added": [
+        "ATX_ENTM_Apparel_CAMPPets_Cat_Neckwear_BraidedCatCollar",
+        "ATX_ENTM_Apparel_CAMPPets_Dog_Neckwear_BraidedDogCollar",
+        "ATX_ENTM_Apparel_CAMPPets_Dog_Neckwear_TrackerCollar",
+        "ATX_ENTM_Apparel_CAMPPets_Radhog_Headwear_StarNoseRing"
+      ],
       "removed": [],
       "changed": [
         {
@@ -36969,7 +37096,11 @@
     },
     "pet-furniture.json": {
       "key": "edid",
-      "added": [],
+      "added": [
+        "ATX_ENTM_CAMP_CAMPPets_IdleFurniture_Cat_CatBirdBath",
+        "ATX_ENTM_CAMP_CAMPPets_IdleFurniture_Dog_DogBath",
+        "ATX_ENTM_CAMP_CAMPPets_IdleFurniture_Radhog_MudBath"
+      ],
       "removed": [],
       "changed": [
         {
@@ -37251,7 +37382,115 @@
         "RECIPE_008EC313",
         "RECIPE_0090E770",
         "RECIPE_0090F5E5",
-        "RECIPE_00943AA3"
+        "RECIPE_00943AA3",
+        "RECIPE_00946743",
+        "RECIPE_00946748",
+        "RECIPE_0094674C",
+        "RECIPE_0094674D",
+        "RECIPE_0094674F",
+        "RECIPE_00946751",
+        "RECIPE_00946752",
+        "RECIPE_00946753",
+        "RECIPE_00947F42",
+        "RECIPE_00947F4B",
+        "RECIPE_00947F4E",
+        "RECIPE_00947F4F",
+        "RECIPE_00947F51",
+        "RECIPE_00947F52",
+        "RECIPE_00947F54",
+        "RECIPE_00947F55",
+        "RECIPE_0094826E",
+        "RECIPE_00948270",
+        "RECIPE_00948273",
+        "RECIPE_00948274",
+        "RECIPE_00948276",
+        "RECIPE_00948279",
+        "RECIPE_0094827A",
+        "RECIPE_0094827B",
+        "RECIPE_0094827D",
+        "RECIPE_0094827E",
+        "RECIPE_00948281",
+        "RECIPE_00948284",
+        "RECIPE_00948286",
+        "RECIPE_00948FFD",
+        "RECIPE_00949001",
+        "RECIPE_00949002",
+        "RECIPE_00949004",
+        "RECIPE_00949005",
+        "RECIPE_00949007",
+        "RECIPE_00949008",
+        "RECIPE_0094918B",
+        "RECIPE_0094918C",
+        "RECIPE_0094918D",
+        "RECIPE_0094918E",
+        "RECIPE_0094918F",
+        "RECIPE_00949190",
+        "RECIPE_0094A75A",
+        "RECIPE_0094A75B",
+        "RECIPE_0094CE41",
+        "RECIPE_0094CE42",
+        "RECIPE_0094CE45",
+        "RECIPE_0094CE46",
+        "RECIPE_0094CE4B",
+        "RECIPE_0094CE50",
+        "RECIPE_0094CE51",
+        "RECIPE_0094CE52",
+        "RECIPE_0094CE53",
+        "RECIPE_0094CE54",
+        "RECIPE_0094CE57",
+        "RECIPE_0094CE59",
+        "RECIPE_0094CF61",
+        "RECIPE_0094CF63",
+        "RECIPE_0094CF65",
+        "RECIPE_0094CF67",
+        "RECIPE_0094CF68",
+        "RECIPE_0094CF6E",
+        "RECIPE_0094CF6F",
+        "RECIPE_0094CF70",
+        "RECIPE_0094CF71",
+        "RECIPE_0094CF76",
+        "RECIPE_0094CF77",
+        "RECIPE_0094CF7C",
+        "RECIPE_0094CF82",
+        "RECIPE_0094CF83",
+        "RECIPE_0094CF84",
+        "RECIPE_0094CF85",
+        "RECIPE_0094CF8A",
+        "RECIPE_0094CF8C",
+        "RECIPE_0094CF8D",
+        "RECIPE_0094CF8F",
+        "RECIPE_0094CF93",
+        "RECIPE_0094CF94",
+        "RECIPE_0094CF9B",
+        "RECIPE_0094CF9C",
+        "RECIPE_0094CF9E",
+        "RECIPE_0094CFA0",
+        "RECIPE_0094CFA3",
+        "RECIPE_0094CFA5",
+        "RECIPE_0094CFA7",
+        "RECIPE_0094CFA8",
+        "RECIPE_0094CFAA",
+        "RECIPE_0094CFAC",
+        "RECIPE_0094CFAE",
+        "RECIPE_0094CFB0",
+        "RECIPE_0094CFB6",
+        "RECIPE_0094F15B",
+        "RECIPE_0094F15C",
+        "RECIPE_0094F15E",
+        "RECIPE_0094F15F",
+        "RECIPE_0094F160",
+        "RECIPE_0094F165",
+        "RECIPE_0094F7EE",
+        "RECIPE_0094F7F0",
+        "RECIPE_0094F7F2",
+        "RECIPE_00951607",
+        "RECIPE_00951608",
+        "RECIPE_0095160B",
+        "RECIPE_0095160D",
+        "RECIPE_0095160F",
+        "RECIPE_00951611",
+        "RECIPE_00951612",
+        "RECIPE_00951614"
       ],
       "removed": [
         "RECIPE_00399FB4",
@@ -37281,13 +37520,6 @@
       ],
       "changed": [
         {
-          "key": "PLAN_002B42AC",
-          "label": "Plan: Machete Sacrificial Blade",
-          "fields": [
-            "weapon_group_solo"
-          ]
-        },
-        {
           "key": "PLAN_003D6519",
           "label": "Plan: Vault Locker",
           "fields": [
@@ -37314,14 +37546,6 @@
         {
           "key": "PLAN_00436FF5",
           "label": "Plan: Golf Club",
-          "fields": [
-            "obtain_ledger",
-            "obtain_routes"
-          ]
-        },
-        {
-          "key": "PLAN_00436FF9",
-          "label": "Plan: Mole Miner Gauntlet",
           "fields": [
             "obtain_ledger",
             "obtain_routes"
@@ -37382,25 +37606,10 @@
           ]
         },
         {
-          "key": "PLAN_004EB73D",
-          "label": "Plan: Cultist Blade",
-          "fields": [
-            "weapon_group_solo"
-          ]
-        },
-        {
-          "key": "PLAN_004EB73E",
-          "label": "Plan: Cultist Dagger",
-          "fields": [
-            "weapon_group_solo"
-          ]
-        },
-        {
           "key": "PLAN_004EB740",
           "label": "Plan: Pickaxe",
           "fields": [
-            "cnam",
-            "weapon_group_solo"
+            "cnam"
           ]
         },
         {
@@ -37415,27 +37624,6 @@
           "label": "Plan: Crossbow",
           "fields": [
             "cnam"
-          ]
-        },
-        {
-          "key": "PLAN_0050194F",
-          "label": "Plan: Ultracite Optimized Servos",
-          "fields": [
-            "obtain_routes"
-          ]
-        },
-        {
-          "key": "PLAN_00501950",
-          "label": "Plan: Ultracite Overdrive Servos",
-          "fields": [
-            "obtain_routes"
-          ]
-        },
-        {
-          "key": "PLAN_00501954",
-          "label": "Plan: Ultracite Emergency Protocols",
-          "fields": [
-            "obtain_routes"
           ]
         },
         {
@@ -37461,6 +37649,13 @@
           "fields": [
             "image_source",
             "images"
+          ]
+        },
+        {
+          "key": "PLAN_00591421",
+          "label": "Plan: Gauss Pistol Drum Magazine",
+          "fields": [
+            "effects"
           ]
         },
         {
@@ -37577,7 +37772,40 @@
           "key": "PLAN_005E65F5",
           "label": "Plan: Crusader Pistol",
           "fields": [
-            "obtain_routes"
+            "obtain_routes",
+            "weapon_group_solo"
+          ]
+        },
+        {
+          "key": "PLAN_005E65F6",
+          "label": "Plan: Crusader Pistol Suppressor",
+          "fields": [
+            "weapon_group",
+            "weapon_group_key"
+          ]
+        },
+        {
+          "key": "PLAN_005E65F7",
+          "label": "Plan: Crusader Pistol Reflex Sight",
+          "fields": [
+            "weapon_group",
+            "weapon_group_key"
+          ]
+        },
+        {
+          "key": "PLAN_005E65F8",
+          "label": "Plan: Crusader Pistol Short Scope",
+          "fields": [
+            "weapon_group",
+            "weapon_group_key"
+          ]
+        },
+        {
+          "key": "PLAN_005E65F9",
+          "label": "Plan: Crusader Pistol Long Barrel",
+          "fields": [
+            "weapon_group",
+            "weapon_group_key"
           ]
         },
         {
@@ -37587,7 +37815,9 @@
             "cnam",
             "cobj",
             "name",
-            "plan_item"
+            "plan_item",
+            "weapon_group",
+            "weapon_group_key"
           ]
         },
         {
@@ -37597,7 +37827,9 @@
             "cnam",
             "cobj",
             "name",
-            "plan_item"
+            "plan_item",
+            "weapon_group",
+            "weapon_group_key"
           ]
         },
         {
@@ -37607,7 +37839,9 @@
             "cnam",
             "cobj",
             "name",
-            "plan_item"
+            "plan_item",
+            "weapon_group",
+            "weapon_group_key"
           ]
         },
         {
@@ -37617,7 +37851,17 @@
             "cnam",
             "cobj",
             "name",
-            "plan_item"
+            "plan_item",
+            "weapon_group",
+            "weapon_group_key"
+          ]
+        },
+        {
+          "key": "PLAN_005E65FE",
+          "label": "Plan: Crusader Pistol Extended Magazine",
+          "fields": [
+            "weapon_group",
+            "weapon_group_key"
           ]
         },
         {
@@ -38745,13 +38989,6 @@
           ]
         },
         {
-          "key": "PLAN_0090ECFD",
-          "label": "Plan: Gold Shovel Paint",
-          "fields": [
-            "weapon_group_solo"
-          ]
-        },
-        {
           "key": "PLAN_00918211",
           "label": "Plan: Cryolator Polar Lobber Mod",
           "fields": [
@@ -38862,7 +39099,10 @@
     },
     "resource_producers.json": {
       "key": "edid",
-      "added": [],
+      "added": [
+        "ATX_ENTM_CAMP_Collector_TreeOfSpoils",
+        "SCORE_S27_ENTM_CAMP_Collector_VTRollerDogs"
+      ],
       "removed": [],
       "changed": [
         {
@@ -38949,8 +39189,10 @@
           "label": "ATX_ENTM_CAMP_Collector_FeastSideTable",
           "fields": [
             "bucket",
+            "description",
             "production",
-            "releaseDate"
+            "releaseDate",
+            "subcategory"
           ]
         },
         {
@@ -39697,10 +39939,24 @@
           ]
         },
         {
+          "key": "CAMPTitles_Lifetime_Suffix_Hideout",
+          "label": "CAMPTitles_Lifetime_Suffix_Hideout",
+          "fields": [
+            "debug"
+          ]
+        },
+        {
           "key": "WorldPets_CampTitles_Prefix_LifetimeChallenge_Dog01",
           "label": "WorldPets_CampTitles_Prefix_LifetimeChallenge_Dog01",
           "fields": [
             "debug",
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "zzz_SCORE_S26_CAMPTitles_Suffix_Cemetery",
+          "label": "zzz_SCORE_S26_CAMPTitles_Suffix_Cemetery",
+          "fields": [
             "howToObtain"
           ]
         }
@@ -39717,9 +39973,26 @@
       "added": [
         "ATX_PlayerTitles_Prefix_Apex",
         "ATX_PlayerTitles_Prefix_Favorite",
-        "ATX_PlayerTitles_Prefix_Rugged"
+        "ATX_PlayerTitles_Prefix_Rugged",
+        "ATX_PlayerTitles_Prefix_Sudsy",
+        "ATX_PlayerTitles_Suffix_Handler",
+        "ATX_PlayerTitles_Suffix_Isotope",
+        "ATX_PlayerTitles_Suffix_Krampus",
+        "Fishing_PlayerTitles_Prefix_Gillded",
+        "Fishing_PlayerTitles_Prefix_Icy",
+        "HIDE_PlayerTitles_Both_Commando",
+        "HIDE_PlayerTitles_Both_Endurer",
+        "HIDE_PlayerTitles_Both_Prevailer",
+        "HIDE_PlayerTitles_Both_Resolute",
+        "HTO_PlayerTitles_Both_Terminated",
+        "RTSV_PlayerTitles_Prefix_Marshal",
+        "RTSV_PlayerTitles_Suffix_Collector",
+        "RTSV_PlayerTitles_Suffix_Rancher",
+        "RTSV_PlayerTitles_Suffix_Ranger"
       ],
-      "removed": [],
+      "removed": [
+        "zzz_Fishing_PlayerTitles_Prefix_Gillded"
+      ],
       "changed": [
         {
           "key": "ATX_PlayerTitles_Prefix_AdVictoriam",
@@ -39765,11 +40038,298 @@
           ]
         },
         {
+          "key": "DEL_PlayerTitles_Prefix_Apprentice",
+          "label": "DEL_PlayerTitles_Prefix_Apprentice",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_PlayerTitles_Prefix_Bossy",
+          "label": "DEL_PlayerTitles_Prefix_Bossy",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_PlayerTitles_Prefix_Clever",
+          "label": "DEL_PlayerTitles_Prefix_Clever",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_PlayerTitles_Prefix_Dire",
+          "label": "DEL_PlayerTitles_Prefix_Dire",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_PlayerTitles_Prefix_Dirty",
+          "label": "DEL_PlayerTitles_Prefix_Dirty",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_PlayerTitles_Prefix_Distracted",
+          "label": "DEL_PlayerTitles_Prefix_Distracted",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_PlayerTitles_Prefix_Ferocious",
+          "label": "DEL_PlayerTitles_Prefix_Ferocious",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_PlayerTitles_Prefix_Foolish",
+          "label": "DEL_PlayerTitles_Prefix_Foolish",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_PlayerTitles_Prefix_Giant",
+          "label": "DEL_PlayerTitles_Prefix_Giant",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_PlayerTitles_Prefix_Grave",
+          "label": "DEL_PlayerTitles_Prefix_Grave",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_PlayerTitles_Prefix_Hasty",
+          "label": "DEL_PlayerTitles_Prefix_Hasty",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_PlayerTitles_Prefix_Malicious",
+          "label": "DEL_PlayerTitles_Prefix_Malicious",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_PlayerTitles_Prefix_Natural",
+          "label": "DEL_PlayerTitles_Prefix_Natural",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_PlayerTitles_Prefix_Rotten",
+          "label": "DEL_PlayerTitles_Prefix_Rotten",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_PlayerTitles_Suffix_Assailant",
+          "label": "DEL_PlayerTitles_Suffix_Assailant",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_PlayerTitles_Suffix_Baron",
+          "label": "DEL_PlayerTitles_Suffix_Baron",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_PlayerTitles_Suffix_Beast",
+          "label": "DEL_PlayerTitles_Suffix_Beast",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_PlayerTitles_Suffix_Culprit",
+          "label": "DEL_PlayerTitles_Suffix_Culprit",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_PlayerTitles_Suffix_Dread",
+          "label": "DEL_PlayerTitles_Suffix_Dread",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_PlayerTitles_Suffix_Fool",
+          "label": "DEL_PlayerTitles_Suffix_Fool",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_PlayerTitles_Suffix_Miner",
+          "label": "DEL_PlayerTitles_Suffix_Miner",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_RD01_PlayerTitles_Suffix_BotCharmer",
+          "label": "DEL_RD01_PlayerTitles_Suffix_BotCharmer",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_RD01_PlayerTitles_Suffix_BotMaster",
+          "label": "DEL_RD01_PlayerTitles_Suffix_BotMaster",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_RD01_PlayerTitles_Suffix_BotSlayer",
+          "label": "DEL_RD01_PlayerTitles_Suffix_BotSlayer",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_RD01_PlayerTitles_Suffix_DrillCharmer",
+          "label": "DEL_RD01_PlayerTitles_Suffix_DrillCharmer",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_RD01_PlayerTitles_Suffix_DrillSlayerOld",
+          "label": "DEL_RD01_PlayerTitles_Suffix_DrillSlayerOld",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_RD01_PlayerTitles_Suffix_DrillSmasher",
+          "label": "DEL_RD01_PlayerTitles_Suffix_DrillSmasher",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_RD01_PlayerTitles_Suffix_RAIDMaster",
+          "label": "DEL_RD01_PlayerTitles_Suffix_RAIDMaster",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_RD01_PlayerTitles_Suffix_RAIDRookie",
+          "label": "DEL_RD01_PlayerTitles_Suffix_RAIDRookie",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_RD01_PlayerTitles_Suffix_RAIDWarrior",
+          "label": "DEL_RD01_PlayerTitles_Suffix_RAIDWarrior",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_RD01_PlayerTitles_Suffix_SnakeMaster",
+          "label": "DEL_RD01_PlayerTitles_Suffix_SnakeMaster",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_RD01_PlayerTitles_Suffix_SnakeSmasher",
+          "label": "DEL_RD01_PlayerTitles_Suffix_SnakeSmasher",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_RD01_PlayerTitles_Suffix_SnakeTamer",
+          "label": "DEL_RD01_PlayerTitles_Suffix_SnakeTamer",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_RD01_PlayerTitles_Suffix_SquadBeater",
+          "label": "DEL_RD01_PlayerTitles_Suffix_SquadBeater",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_RD01_PlayerTitles_Suffix_SquadSmasher",
+          "label": "DEL_RD01_PlayerTitles_Suffix_SquadSmasher",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_RD01_PlayerTitles_Suffix_SquadTamer",
+          "label": "DEL_RD01_PlayerTitles_Suffix_SquadTamer",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_RD01_PlayerTitles_Suffix_VulcanMaster",
+          "label": "DEL_RD01_PlayerTitles_Suffix_VulcanMaster",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_RD01_PlayerTitles_Suffix_VulcanSmasher",
+          "label": "DEL_RD01_PlayerTitles_Suffix_VulcanSmasher",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "DEL_RD01_PlayerTitles_Suffix_VulcanTamer",
+          "label": "DEL_RD01_PlayerTitles_Suffix_VulcanTamer",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
           "key": "Fishing_PlayerTitles_Suffix_OfTheMonth",
           "label": "Fishing_PlayerTitles_Suffix_OfTheMonth",
           "fields": [
             "debug",
             "howToObtain"
+          ]
+        },
+        {
+          "key": "MTNS06_PlayerTitles_Prefix_Feverish_Copy01",
+          "label": "MTNS06_PlayerTitles_Prefix_Feverish_Copy01",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "SFS09_PlayerTitles_Suffix_Manager",
+          "label": "SFS09_PlayerTitles_Suffix_Manager",
+          "fields": [
+            "debug"
           ]
         },
         {
@@ -39917,10 +40477,89 @@
           ]
         },
         {
-          "key": "zzz_Fishing_PlayerTitles_Prefix_Gillded",
-          "label": "zzz_Fishing_PlayerTitles_Prefix_Gillded",
+          "key": "zzzATX_PlayerTitles_Prefix_Festive",
+          "label": "zzzATX_PlayerTitles_Prefix_Festive",
           "fields": [
-            "debug"
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "zzzATX_PlayerTitles_Prefix_Glazed",
+          "label": "zzzATX_PlayerTitles_Prefix_Glazed",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "zzzATX_PlayerTitles_Suffix_Tribune",
+          "label": "zzzATX_PlayerTitles_Suffix_Tribune",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "zzzBurnBounty_PlayerTitles_Prefix_Notorious",
+          "label": "zzzBurnBounty_PlayerTitles_Prefix_Notorious",
+          "fields": [
+            "conditions",
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "zzzBurnBounty_PlayerTitles_Prefix_Predator",
+          "label": "zzzBurnBounty_PlayerTitles_Prefix_Predator",
+          "fields": [
+            "conditions",
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "zzz_MTNS06_PlayerTitles_Prefix_Suffix_Uranium_Copy01",
+          "label": "zzz_MTNS06_PlayerTitles_Prefix_Suffix_Uranium_Copy01",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "zzz_SCORE_S26_PlayerTitles_Prefix_Ripper",
+          "label": "zzz_SCORE_S26_PlayerTitles_Prefix_Ripper",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "zzz_SCORE_S26_PlayerTitles_Suffix_Strangler",
+          "label": "zzz_SCORE_S26_PlayerTitles_Suffix_Strangler",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "zzz_WorldPets_PlayerTitles_Prefix_LifetimeChallenge_Cat01",
+          "label": "zzz_WorldPets_PlayerTitles_Prefix_LifetimeChallenge_Cat01",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "zzz_WorldPets_PlayerTitles_Prefix_LifetimeChallenge_Deathclaw01",
+          "label": "zzz_WorldPets_PlayerTitles_Prefix_LifetimeChallenge_Deathclaw01",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "zzz_WorldPets_PlayerTitles_Prefix_LifetimeChallenge_Dog01",
+          "label": "zzz_WorldPets_PlayerTitles_Prefix_LifetimeChallenge_Dog01",
+          "fields": [
+            "howToObtain"
+          ]
+        },
+        {
+          "key": "zzz_WorldPets_PlayerTitles_Prefix_LifetimeChallenge_Radhog01",
+          "label": "zzz_WorldPets_PlayerTitles_Prefix_LifetimeChallenge_Radhog01",
+          "fields": [
+            "howToObtain"
           ]
         }
       ]
@@ -39939,9 +40578,65 @@
     },
     "unique_weapons_armour/unique_weapons_armour.json": {
       "key": "id",
-      "added": [],
+      "added": [
+        "mod-custom-corpsestacker",
+        "mod-custom-crybaby",
+        "mod-custom-deepbreath",
+        "mod-custom-mrlacerator",
+        "mod-custom-thebasilisk",
+        "rd01-ultraciteterrorsword-2"
+      ],
       "removed": [],
       "changed": [
+        {
+          "key": "10mmsmg-4",
+          "label": "Splinter",
+          "fields": [
+            "uniqueMods"
+          ]
+        },
+        {
+          "key": "50calmachinegun",
+          "label": "Final Word",
+          "fields": [
+            "uniqueMods"
+          ]
+        },
+        {
+          "key": "50calmachinegun-2",
+          "label": "The Action Hero",
+          "fields": [
+            "uniqueMods"
+          ]
+        },
+        {
+          "key": "baton",
+          "label": "Disorderly Conduct",
+          "fields": [
+            "uniqueMods"
+          ]
+        },
+        {
+          "key": "dlc01-assaultronblade-2",
+          "label": "Tempest",
+          "fields": [
+            "uniqueMods"
+          ]
+        },
+        {
+          "key": "m79",
+          "label": "Crushing Blow",
+          "fields": [
+            "uniqueMods"
+          ]
+        },
+        {
+          "key": "m79-2",
+          "label": "Chaos Engine",
+          "fields": [
+            "uniqueMods"
+          ]
+        },
         {
           "key": "pickaxe",
           "label": "Cultist Piercer",
@@ -39957,10 +40652,28 @@
           ]
         },
         {
-          "key": "stormcutter",
-          "label": "V63 Zweihaender",
+          "key": "plasmagun-4",
+          "label": "Slug Buster",
           "fields": [
-            "obtainRoutes"
+            "starEffects"
+          ]
+        },
+        {
+          "key": "rd01-ultraciteterrorsword",
+          "label": "Ultracite Terror Sword",
+          "fields": [
+            "starEffects",
+            "uniqueMods"
+          ]
+        },
+        {
+          "key": "stormcutter",
+          "label": "V63-Z Custom",
+          "fields": [
+            "name",
+            "obtainRoutes",
+            "recordIds",
+            "starEffects"
           ]
         }
       ]
@@ -39968,8 +40681,19 @@
     "vendors.json": {
       "structural_change": true
     },
+    "wallpapers.json": {
+      "structural_change": true
+    },
     "weapon_keywords.json": {
       "structural_change": true
+    },
+    "weather_stations.json": {
+      "key": "edid",
+      "added": [
+        "ATX_ENTM_CAMP_Utility_WeatherStation_Wildfire"
+      ],
+      "removed": [],
+      "changed": []
     },
     "world_pet_challenges.json": {
       "structural_change": true
