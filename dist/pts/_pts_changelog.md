@@ -1398,7 +1398,7 @@ _Couldn't key this file to records; contents differ._
 ## `load_screens.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `make_plan_checklist.json`  ·  +299 / -24 / ~21
+## `make_plan_checklist.json`  ·  +299 / -24 / ~22
 
 **Added (299)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1603,7 +1603,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 - SCORE_S25_CAMPPets_SpawnFurniture_Cat_CyprusCat  `SCORE_S25_CAMPPets_SpawnFurniture_Cat_CyprusCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +299 / -24 / ~202
+## `plan_master.json`  ·  +299 / -24 / ~203
 
 **Added (299)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1674,7 +1674,7 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (202)**
+**Changed (203)**
 - Plan: Vault Locker  `PLAN_003D6519` — fields: obtain_ledger, obtain_routes
 - Plan: Vault Dresser  `PLAN_003D651A` — fields: obtain_ledger, obtain_routes
 - Plan: Vault Desk  `PLAN_003D651B` — fields: obtain_ledger, obtain_routes
@@ -1714,8 +1714,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Crusader Pistol Short Scope  `PLAN_005E65F8` — fields: weapon_group, weapon_group_key
 - Plan: Crusader Pistol Long Barrel  `PLAN_005E65F9` — fields: weapon_group, weapon_group_key
 - Plan: Crusader Pistol Fusion Chamber  `PLAN_005E65FA` — fields: cnam, cobj, name, plan_item, weapon_group, weapon_group_key
-- Plan: Crusader Pistol Pyro Chamber  `PLAN_005E65FB` — fields: cnam, cobj, name, plan_item, weapon_group, weapon_group_key
-- …and 162 more
+- …and 163 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1824,7 +1823,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +18 / -1 / ~75
+## `titles_player.json`  ·  +18 / -1 / ~74
 
 **Added (18)**
 - ATX_PlayerTitles_Prefix_Apex  `ATX_PlayerTitles_Prefix_Apex`
@@ -1849,7 +1848,7 @@ _Couldn't key this file to records; contents differ._
 **Removed (1)**
 - zzz_Fishing_PlayerTitles_Prefix_Gillded  `zzz_Fishing_PlayerTitles_Prefix_Gillded`
 
-**Changed (75)**
+**Changed (74)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel
 - ATX_PlayerTitles_Prefix_Tribune  `ATX_PlayerTitles_Prefix_Tribune` — fields: releaseDate, releaseLabel, releaseYear
@@ -1890,7 +1889,7 @@ _Couldn't key this file to records; contents differ._
 - DEL_RD01_PlayerTitles_Suffix_SnakeTamer  `DEL_RD01_PlayerTitles_Suffix_SnakeTamer` — fields: howToObtain
 - DEL_RD01_PlayerTitles_Suffix_SquadBeater  `DEL_RD01_PlayerTitles_Suffix_SquadBeater` — fields: howToObtain
 - DEL_RD01_PlayerTitles_Suffix_SquadSmasher  `DEL_RD01_PlayerTitles_Suffix_SquadSmasher` — fields: howToObtain
-- …and 35 more
+- …and 34 more
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
