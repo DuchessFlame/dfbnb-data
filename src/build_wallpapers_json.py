@@ -20,7 +20,13 @@ IMAGES
 Scoreboard wallpapers ALWAYS use /wp-content/uploads/season_images/season-N/ —
 the folder the scoreboard pages serve them from — so the same art is never
 uploaded twice. The exact filename comes from reusable_images (the season
-upload manifests in dist/) when it has one, else the texture name. Everything else resolves to the wallpaper folder, named
+upload manifests in dist/) when it has one, else the texture name.
+
+Atom Shop wallpapers that already have a tile in the Atom Shop's
+request-item-images folder (read from dist/atom_shop.json + dist/bundles.json)
+reuse that exact URL too, for the same reason: one file, one place.
+
+Everything else resolves to the wallpaper folder, named
 after its DDS texture, lowercased, with the _l suffix dropped:
 
     ETDI  "ATX_CAMP_WallPaper_Tavern.dds"
@@ -125,6 +131,51 @@ def texture_file(etdi: str) -> str:
         return ""
     stem = re.sub(r"_l$", "", name[:-4], flags=re.I).lower()
     return stem + ".avif"
+
+
+REQUEST_ITEMS_DIR = "/request-item-images/"
+
+
+def request_item_tiles(dist_dir: str) -> dict:
+    """Texture stem -> URL for wallpaper tiles already hosted in the Atom Shop's
+    request-item-images folder, walking every item AND bundle item in
+    dist/atom_shop.json and dist/bundles.json (reusable_images only reads
+    top-level items, which misses most wallpapers - they sit inside bundles).
+
+    The server is case-sensitive, and those JSONs sometimes carry the same file
+    twice: once under its real mixed-case ETDI name (ATX_CAMP_WallPaper_
+    Flagstone01.avif - the file actually uploaded) and once as a lowercased
+    guess that 404s. When a stem has both, the mixed-case one wins; a stem
+    that only exists lowercased (atx_camp_wallpaper_tavern.avif) was uploaded
+    lowercased and is used as-is.
+    """
+    found: dict[str, set] = {}
+
+    def walk(node):
+        if isinstance(node, dict):
+            url = str(node.get("imageUrl") or "").strip()
+            if REQUEST_ITEMS_DIR in url and url.lower().endswith(".avif"):
+                stem = reusable_images.texture_stem(url)
+                if "wallpaper" in stem:
+                    found.setdefault(stem, set()).add(url)
+            for v in node.values():
+                walk(v)
+        elif isinstance(node, list):
+            for v in node:
+                walk(v)
+
+    for fname in ("atom_shop.json", "bundles.json"):
+        try:
+            with open(os.path.join(dist_dir, fname), encoding="utf-8") as fh:
+                walk(json.load(fh))
+        except Exception:
+            continue
+
+    out = {}
+    for stem, urls in found.items():
+        mixed = sorted(u for u in urls if os.path.basename(u) != os.path.basename(u).lower())
+        out[stem] = mixed[0] if mixed else sorted(urls)[0]
+    return out
 
 
 def read_tsv(path: str) -> list[dict]:
@@ -250,8 +301,10 @@ def build() -> dict:
     chal = challenge_names()
     hosted = reusable_images.build_index(LIVE_DIST_DIR)
     print(f"{TAG} {hosted.summary()}")
+    shop_tiles = request_item_tiles(LIVE_DIST_DIR)
+    print(f"{TAG} {len(shop_tiles)} wallpaper tile(s) already in request-item-images")
 
-    out, dropped_cut, reused = [], 0, 0
+    out, dropped_cut, reused, shop_reused = [], 0, 0, 0
     for r in rows:
         if FILTER_KYWD not in (r.get("KEYWORDS") or ""):
             continue
@@ -281,6 +334,12 @@ def build() -> dict:
                 image_url = f"{SEASON_BASE}season-{obtain['season']}/{filename}"
             if image_url:
                 reused += 1
+        if not image_url:
+            # Already uploaded for the Atom Shop page - don't upload it twice.
+            hit = shop_tiles.get(reusable_images.texture_stem(etdi))
+            if hit:
+                image_url = hit
+                shop_reused += 1
         if not image_url and filename:
             image_url = IMAGE_BASE + filename
 
@@ -300,7 +359,8 @@ def build() -> dict:
             "imageFilename": filename,
             "imageUrl": image_url,
             "images": [image_url] + extra if image_url else [],
-            "imageReused": bool(image_url) and "/season_images/" in image_url,
+            "imageReused": bool(image_url) and ("/season_images/" in image_url
+                                                or REQUEST_ITEMS_DIR in image_url),
             "source": obtain["source"],
             "howToObtain": obtain,
             "isNew": False,
@@ -324,7 +384,7 @@ def build() -> dict:
     for i in out:
         by_source[i["source"]] = by_source.get(i["source"], 0) + 1
     print(f"{TAG} wallpapers: {len(out)} (dropped {dropped_cut} cut)  "
-          f"season art reused: {reused}  NEW: {new_count}")
+          f"season art reused: {reused}  atom shop art reused: {shop_reused}  NEW: {new_count}")
     for k in sorted(by_source, key=lambda k: -by_source[k]):
         print(f"{TAG}   {by_source[k]:4d}  {k}")
 
@@ -351,7 +411,7 @@ def report_missing_images(payload: dict) -> int:
     need = [w for w in payload["wallpapers"] if not w["imageReused"]]
     missing = [w for w in need if w["imageFilename"] not in have]
     print(f"{TAG} wallpaper-folder coverage: {len(need) - len(missing)}/{len(need)} "
-          f"(+{payload['count'] - len(need)} reusing season art)")
+          f"(+{payload['count'] - len(need)} reusing season / atom shop art)")
     for w in missing:
         print(f"{TAG}   MISSING  {w['imageFilename']:60} {w['edid']}")
     used = {w["imageFilename"] for w in need}
