@@ -1362,6 +1362,12 @@ jobs:
       - name: Build Player Icons JSON
         run: python src/build_player_icons_json.py
 
+      # --- WALLPAPER ---
+      # Mirrors the same step in dfbnb-patch-build.yml (no --pts flag, same
+      # reason as Player Icons above).
+      - name: Build Wallpapers JSON
+        run: python src/build_wallpapers_json.py
+
       # --- SANITY CHECK ---
       - name: Sanity check dist outputs
         run: |

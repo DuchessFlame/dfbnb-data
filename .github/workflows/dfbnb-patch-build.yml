@@ -1202,6 +1202,15 @@ jobs:
       - name: Build Player Icons JSON
         run: python src/build_player_icons_json.py
 
+      # --- WALLPAPER ---
+      # Reads the newest tsv/ENTM_Export_*.tsv (store filter keyword
+      # ATX_Entitlement_Filter_Store_CAMP_Wallpapers) and emits
+      # dist/wallpapers.json for the Wallpaper checklist (df-bnb-atom-shop.js).
+      # Scoreboard wallpapers reuse the season_images tile via the dist/ season
+      # manifests. Also writes tsv/wallpapers_first_seen.json (NEW pill).
+      - name: Build Wallpapers JSON
+        run: python src/build_wallpapers_json.py
+
       # Point every scoreboard playerIcon reward at the same folder the Player
       # Icons page uses, and back-fill any blank storefrontEntitlement. Must run
       # AFTER build_player_icons_json.py (it reads dist/player_icons.json).
