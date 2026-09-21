@@ -15,6 +15,7 @@ from pathlib import Path
 
 from patchlog_utils import write_empty_patchlog_feed
 import tsv_source          # one resolver for every export selection
+from cut_content import cut_obtain   # cut rows get the standard "Cut content" line
 
 # ─── PATHS ───────────────────────────────────────────────────────────────────
 
@@ -315,7 +316,7 @@ def build():
             "displayName":   full,          # raw name; JS cleans qualifier suffix
             "pageType":      page_type,
             "description":   description,
-            "howToObtain":   how,
+            "howToObtain":   cut_obtain(how, cut),
             "dropRate":      "N/A",
             "seasonNumber":  season_num,
             "tradeable":     tradeable,

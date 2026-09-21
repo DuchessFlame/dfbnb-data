@@ -47,6 +47,8 @@ import re
 import sys
 from datetime import datetime, timezone
 
+from cut_content import cut_obtain   # cut rows get the standard "Cut content" line
+
 KEYWORD_FORMID = "003F51E3"          # PlayerDisplayCaseKeyword
 DDS_RE  = re.compile(r"([A-Za-z0-9_\-\.]+?\.dds)", re.I)
 ENT_RE  = re.compile(r'HasEntitlement\(.*?([A-Za-z0-9_]+)\s+"(.*?)"\s*\[ENTM:([0-9A-Fa-f]{8})\]')
@@ -227,9 +229,11 @@ def build(tsv_root, avif_dir, overrides_path=""):
             "id": "DISPLAY_" + it["formid"].upper(),
             "name": it["name"] or it["edid"],
             "source": source,
-            "obtain": (ent or {}).get("name") and
-                      "Unlocked by the \"{}\" entitlement.".format(ent["name"]) or
-                      "Craftable in a C.A.M.P. or workshop.",
+            "obtain": cut_obtain(
+                (ent or {}).get("name") and
+                "Unlocked by the \"{}\" entitlement.".format(ent["name"]) or
+                "Craftable in a C.A.M.P. or workshop.",
+                is_cut(it["edid"])),
             "unlock_hint": hint,
             "desc": ((row.get("DESC") or "").strip() if row else ""),
             "added": "",

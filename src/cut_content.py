@@ -113,3 +113,18 @@ def purge_cut_rows(rows: Iterable[dict], edid_col: str = "edid") -> "tuple[list[
         else:
             kept.append(r)
     return kept, removed
+
+
+# ── How-to-obtain wording for cut records ──────────────────────────────
+# House rule (2026-09-21): any record a builder flags as cut (zzz / ZZZ /
+# DEL / CUT / REUSE / TEMPLATE ...) that still renders with a how-to-obtain
+# line shows THIS line instead of whatever the route resolver guessed.
+# "Unlocked by Default" or "Purchase with tickets" on a cut record reads as
+# if it is still obtainable. Every builder that keeps cut rows on a page
+# must route its how-to text through cut_obtain().
+CUT_OBTAIN_TEXT = "Cut content \u2013 not obtainable."
+
+
+def cut_obtain(how, cut):
+    """Return the standard cut line when ``cut`` is truthy, else ``how`` unchanged."""
+    return CUT_OBTAIN_TEXT if cut else how

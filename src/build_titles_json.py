@@ -11,6 +11,8 @@ import subprocess
 import sys
 from typing import Any, Dict, List, Optional, Tuple
 
+from cut_content import cut_obtain   # cut rows get the standard "Cut content" line
+
 # ============================================================
 # DF/BNB Titles JSON Builder (Camp + Player) — v2
 #
@@ -3326,7 +3328,7 @@ def main() -> int:
             ),
             "conditions": conds,
             "condCount": len(conds),
-            "howToObtain": how,
+            "howToObtain": cut_obtain(how, starts_cut(edid)),
             "dropRate": dr,
             "releaseDate": release_date,
             "releaseYear": release_year,
@@ -3460,7 +3462,7 @@ def main() -> int:
             ),
             "conditions": conds,
             "condCount": len(conds),
-            "howToObtain": how,
+            "howToObtain": cut_obtain(how, starts_cut(edid)),
             "dropRate": dr,
             "releaseDate": release_date,
             "releaseYear": release_year,
