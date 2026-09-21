@@ -15,6 +15,7 @@ season-{N}:
     C.A.M.P. allies                          -> /guide-images/camp-items/camp-allies/
     emotes                                   -> /guide-images/atom-shop/emotes/
     survival tent skins                      -> /guide-images/atom-shop/survival-tents/
+    C.A.M.P. wallpapers (every route)        -> /guide-images/atom-shop/wallpaper/
     everything unique to one season          -> /season_images/season-{N}/
 
 Art shared by several rewards is stored once too. The S.C.O.R.E. Boost is the
@@ -55,6 +56,7 @@ SHARED = {
     "emotes":        UPLOADS + "guide-images/atom-shop/emotes/",
     "survival_tents": UPLOADS + "guide-images/atom-shop/survival-tents/",
     "camp_allies":   UPLOADS + "guide-images/camp-items/camp-allies/",
+    "wallpaper":     UPLOADS + "guide-images/atom-shop/wallpaper/",
 }
 
 SEASON_ROOT = UPLOADS + "season_images/season-{n}/"
@@ -72,6 +74,14 @@ _EMOTE_DIR_RE = re.compile(r"/atom-shop/emotes/", re.IGNORECASE)
 # per-season copies were the bug - S12, S14, S15 and S21 all pointed into
 # season_images/ and every one of them 404'd.
 _TENT_DIR_RE = re.compile(r"/atom-shop/survival-tents/", re.IGNORECASE)
+# Wallpapers: ONE folder for every route - Atom Shop, bundles, Scoreboard,
+# Fallout 1st, events. The file is the flat _l DDS swatch, named after the
+# texture, lowercased, _l dropped (atx_camp_wallpaper_flagstone01.avif,
+# score_s9_camp_wallpaper_rustedbrick.avif). The Atom Shop request-item tiles
+# were room-scene previews, and the season copies were a second upload of the
+# same art, so both are routed here instead.
+_WALLPAPER_DIR_RE = re.compile(r"/atom-shop/wallpaper/", re.IGNORECASE)
+_WALLPAPER_L_RE = re.compile(r"_l(\.avif)$", re.IGNORECASE)
 # Bethesda zero-pads the season in some texture names (SCORE_S04_) and not in
 # others (SCORE_S4_). Every upload is unpadded, so normalise once, here.
 _PAD_RE = re.compile(r"^(score_s)0+(\d)", re.IGNORECASE)
@@ -108,6 +118,11 @@ def asset_url(url: str) -> str:
 
     file = _PAD_RE.sub(r"\1\2", u.rsplit("/", 1)[-1])
     name = file.lower()
+
+    # Wallpapers - see _WALLPAPER_DIR_RE. Above the season fall-through,
+    # because the Scoreboard ones are named score_s{N}_camp_wallpaper_*.
+    if _WALLPAPER_DIR_RE.search(u) or "camp_wallpaper" in name:
+        return SHARED["wallpaper"] + _WALLPAPER_L_RE.sub(r"\1", name)
 
     # One texture for all three boost tiers - see _BOOST_RE above. Checked
     # before the folder rules because the older data files put the same art
@@ -147,6 +162,19 @@ def asset_url(url: str) -> str:
     # Anything else (atom-shop request items, bundle art) is already absolute
     # and belongs where it is.
     return u
+
+
+def wallpaper_url(etdi: str) -> str:
+    """Shared wallpaper URL from a DDS texture name (the ENTM ETDI field).
+
+    "ATX_CAMP_WallPaper_Flagstone01.dds" -> .../wallpaper/atx_camp_wallpaper_flagstone01.avif
+    "" when there is no .dds texture.
+    """
+    name = (etdi or "").strip().replace("\\", "/").rsplit("/", 1)[-1]
+    if not name.lower().endswith(".dds"):
+        return ""
+    stem = re.sub(r"_l$", "", name[:-4], flags=re.IGNORECASE).lower()
+    return SHARED["wallpaper"] + stem + ".avif"
 
 
 def season_url(filename: str, season_num: int) -> str:
@@ -397,6 +425,15 @@ CASES = [
      "/wp-content/uploads/guide-images/atom-shop/survival-tents/Gazebo Survival Tent.avif"),
     ("/wp-content/uploads/guide-images/atom-shop/survival-tents/Hunter's Blind Survival Tent.webp",
      "/wp-content/uploads/guide-images/atom-shop/survival-tents/Hunter's Blind Survival Tent.avif"),
+    # Wallpapers: one folder for every route, lowercased, _l dropped.
+    ("/wp-content/uploads/guide-images/atom-shop/request-item-images/ATX_CAMP_WallPaper_Flagstone01.avif",
+     "/wp-content/uploads/guide-images/atom-shop/wallpaper/atx_camp_wallpaper_flagstone01.avif"),
+    ("/wp-content/uploads/season_images/season-9/score_s9_camp_wallpaper_rustedbrick.avif",
+     "/wp-content/uploads/guide-images/atom-shop/wallpaper/score_s9_camp_wallpaper_rustedbrick.avif"),
+    ("/wp-content/uploads/season_images/SCORE_S04_CAMP_WallPaper_ColdSteel_l.webp",
+     "/wp-content/uploads/guide-images/atom-shop/wallpaper/score_s4_camp_wallpaper_coldsteel.avif"),
+    ("/wp-content/uploads/guide-images/atom-shop/wallpaper/atx_camp_wallpaper_tavern.avif",
+     "/wp-content/uploads/guide-images/atom-shop/wallpaper/atx_camp_wallpaper_tavern.avif"),
     ("", ""),
 ]
 

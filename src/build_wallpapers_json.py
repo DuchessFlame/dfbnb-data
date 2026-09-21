@@ -17,23 +17,13 @@ Cut records (zzz / ZZZ / REUSE / TEMPLATE EDIDs) are dropped.
 
 IMAGES
 ======
-Scoreboard wallpapers ALWAYS use /wp-content/uploads/season_images/season-N/ —
-the folder the scoreboard pages serve them from — so the same art is never
-uploaded twice. The exact filename comes from reusable_images (the season
-upload manifests in dist/) when it has one, else the texture name.
-
-Atom Shop wallpapers that already have a tile in the Atom Shop's
-request-item-images folder (read from dist/atom_shop.json + dist/bundles.json)
-reuse that exact URL too, for the same reason: one file, one place.
-
-Everything else resolves to the wallpaper folder, named
-after its DDS texture, lowercased, with the _l suffix dropped:
+ONE folder for every wallpaper, whatever route it comes from (Atom Shop,
+bundles, Scoreboard, Fallout 1st, events). The Atom Shop, bundle and
+Scoreboard pages route there too (asset_paths.py wallpaper rule), so each
+swatch is uploaded once. Named after the DDS texture, lowercased, _l dropped:
 
     ETDI  "ATX_CAMP_WallPaper_Tavern.dds"
       ->  /wp-content/uploads/guide-images/atom-shop/wallpaper/atx_camp_wallpaper_tavern.avif
-
-A scoreboard wallpaper whose season tile is missing is uploaded to its season
-folder, which fixes the scoreboard page and this page at once.
 
 USAGE
 =====
@@ -299,10 +289,6 @@ def build() -> dict:
     rows = read_tsv(entm_path)
     names = season_names()
     chal = challenge_names()
-    hosted = reusable_images.build_index(LIVE_DIST_DIR)
-    print(f"{TAG} {hosted.summary()}")
-    shop_tiles = request_item_tiles(LIVE_DIST_DIR)
-    print(f"{TAG} {len(shop_tiles)} wallpaper tile(s) already in request-item-images")
 
     out, dropped_cut, reused, shop_reused = [], 0, 0, 0
     for r in rows:
@@ -317,31 +303,9 @@ def build() -> dict:
         filename = texture_file(etdi)
         obtain = resolve_obtain(r, names, chal)
 
-        # Scoreboard art already lives in season_images — reuse it rather than
-        # uploading the same tile again into the wallpaper folder.
-        image_url, extra = "", []
-        if obtain["source"] == "Scoreboard":
-            hit = hosted.find(edid=edid, texture=etdi)
-            if hit and "/season_images/" in hit:
-                image_url = hit
-                extra = [u for u in hosted.find_all(texture=etdi)
-                         if u != hit and "/season_images/" in u][:3]
-            elif filename and obtain.get("season"):
-                # Not in the manifests (or flagged unpublished by a stale
-                # checker run) — still point at the season folder, which is
-                # where the scoreboard page serves it. One file, one place:
-                # if it is missing, uploading it there fixes both pages.
-                image_url = f"{SEASON_BASE}season-{obtain['season']}/{filename}"
-            if image_url:
-                reused += 1
-        if not image_url:
-            # Already uploaded for the Atom Shop page - don't upload it twice.
-            hit = shop_tiles.get(reusable_images.texture_stem(etdi))
-            if hit:
-                image_url = hit
-                shop_reused += 1
-        if not image_url and filename:
-            image_url = IMAGE_BASE + filename
+        # ONE folder for every route (Atom Shop, bundles, Scoreboard, F1st...)
+        # - the shared rule lives in asset_paths.py so every page agrees.
+        image_url, extra = (IMAGE_BASE + filename if filename else ""), []
 
         kw = r.get("KEYWORDS") or ""
         rm = _RE_RARITY.search(kw)
@@ -359,8 +323,7 @@ def build() -> dict:
             "imageFilename": filename,
             "imageUrl": image_url,
             "images": [image_url] + extra if image_url else [],
-            "imageReused": bool(image_url) and ("/season_images/" in image_url
-                                                or REQUEST_ITEMS_DIR in image_url),
+            "imageReused": False,
             "source": obtain["source"],
             "howToObtain": obtain,
             "isNew": False,
@@ -384,7 +347,7 @@ def build() -> dict:
     for i in out:
         by_source[i["source"]] = by_source.get(i["source"], 0) + 1
     print(f"{TAG} wallpapers: {len(out)} (dropped {dropped_cut} cut)  "
-          f"season art reused: {reused}  atom shop art reused: {shop_reused}  NEW: {new_count}")
+          f"NEW: {new_count}")
     for k in sorted(by_source, key=lambda k: -by_source[k]):
         print(f"{TAG}   {by_source[k]:4d}  {k}")
 

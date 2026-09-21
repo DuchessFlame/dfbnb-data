@@ -32,6 +32,7 @@ import os
 import re
 import sys
 import tsv_source          # one resolver for every export selection
+from asset_paths import wallpaper_url  # one shared wallpaper folder
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 SRC      = os.path.join(SCRIPT_DIR, "..", "dist", "atom_shop.json")
@@ -514,6 +515,25 @@ def apply_image_from_entm(item, etdi_lookup):
 def _is_wallpaper_edid(edid):
     e = str(edid or "").upper()
     return "_CAMP_WALLPAPER_" in e or e.startswith("REUSE_ATX_ENTM_CAMP_WALLPAPER_")
+
+
+def route_wallpaper(item, etdi_lookup):
+    """Point a wallpaper entitlement at the shared wallpaper folder. Returns 1/0.
+
+    Keyed on the item's OWN edid, so a bundle or set that merely borrows a
+    wallpaper texture as its cover (Sport_03) is left alone.
+    """
+    edid = str(item.get("edid") or "").strip()
+    # REUSE_ edids are the "Wallpaper Set" listings, whose tile is a set
+    # cover (Sport_03), not one wallpaper's swatch - they keep their tile.
+    if not _is_wallpaper_edid(edid) or edid.upper().startswith("REUSE_"):
+        return 0
+    etdi = etdi_lookup.get(edid.upper()) or ""
+    url = wallpaper_url(re.sub(r"\.avif$", ".dds", etdi, flags=re.IGNORECASE))
+    if not url:
+        return 0
+    item["imageUrl"] = url
+    return 1
 
 
 def category_from_edid(edid, is_bundle, name, bundle_items):
@@ -1154,6 +1174,7 @@ def main():
 
     fixed_count = 0
     img_filled_count = 0
+    wallpaper_count = 0
     cat_counts = {}
     fixed_items = []
     for item in items:
@@ -1211,9 +1232,16 @@ def main():
                 if bi_cobj_edids:
                     bi["relatedEdids"] = bi_cobj_edids
 
+        # Wallpapers live in ONE shared folder (asset_paths.py), not in
+        # request-item-images - those tiles were room-scene previews.
+        wallpaper_count += route_wallpaper(fixed, etdi_lookup)
+        for bi in fixed.get("bundleItems") or []:
+            wallpaper_count += route_wallpaper(bi, etdi_lookup)
+
         fixed_items.append(fixed)
 
     data["items"] = fixed_items
+    print(f"[atom_shop] Routed {wallpaper_count} wallpaper image(s) to the shared wallpaper folder")
 
     if fixed_count:
         print(f"[atom_shop] Rewrote {fixed_count} image URL(s)")
