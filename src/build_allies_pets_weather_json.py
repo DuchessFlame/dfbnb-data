@@ -31,6 +31,7 @@ import os
 import reusable_images   # art the site already serves (dist-derived, no manifest file)
 import re
 import argparse
+from datetime import datetime
 from pathlib import Path
 
 from patchlog_utils import write_patchlog_feed
@@ -387,6 +388,7 @@ IMAGE_BASES = {
     "pets":              CAMP_ITEMS_BASE + "/camp-pets",
     "allies":            CAMP_ITEMS_BASE + "/camp-allies",
     "fridges-and-cryos": CAMP_ITEMS_BASE + "/fridges-and-cryos",
+    "repair-bots":       CAMP_ITEMS_BASE + "/repair-bots",
 }
 
 def storefront_img_url(ecil_val, folder=""):
@@ -1594,17 +1596,42 @@ for _eid, _sfx in _rb_suffix_by_entm.items():
         print(f"  [WARN] repair bot '{_sfx}': no pod FURN matched — pod stats will be blank")
     REPAIR_BOT_FURN_IDS[_eid] = _fid
 
-# Bot NPC record + race per suffix (NPC actor TSV isn't loaded here — manual).
-# A new bot without an entry still builds; it just logs a [WARN] and leaves
-# the NPC fields blank until the suffix is added below.
-_RB_NPC_BY_SUFFIX = _CFG_REPAIR_BOTS["rb_npc_by_suffix"]
+# Bot NPC record + race — DERIVED. The NPC export's Refs file records which
+# records point at each NPC; the bot's own pod FURN is one of them, so the
+# pod -> NPC link comes straight out of the data. Race is the NPC's RNAM.
+# (Was a hand table in data/camp/repair_bots.json; a new bot now needs nothing.)
+_rb_npc_by_pod = {}
+_rb_npc_row = {}
+# tsv_source ranks the base export above its same-month _PRPS/_Refs
+# companions, so this lands on NPC_Export_<Month>_<Year>.tsv itself.
+_npc_main_path = tsv_source.newest(str(TSV_DIR / "NPC_Export_*.tsv"),
+                                   exclude=["_PRPS", "_Refs"], required=False)
+try:
+    _npc_refs_path = _resolve_tsv("NPC_REFS_TSV", "NPC_Export_*_Refs.tsv", "NPC_Export_Refs.tsv")
+except FileNotFoundError:
+    _npc_refs_path = None
+if _npc_main_path:
+    for _r in load_tsv(_npc_main_path):
+        if re.search(r"RepairBot", _r.get("EDID", ""), re.I):
+            _rb_npc_row[_r.get("FormID", "")] = _r
+if _npc_refs_path:
+    for _r in load_tsv(_npc_refs_path):
+        if (_r.get("RefBy_Signature", "").upper() == "FURN"
+                and _r.get("NPC_FormID", "") in _rb_npc_row):
+            _rb_npc_by_pod[_r.get("RefBy_FormID", "")] = _r.get("NPC_FormID", "")
+
 REPAIR_BOT_NPC_INFO = {}
 for _eid, _sfx in _rb_suffix_by_entm.items():
-    _info = _RB_NPC_BY_SUFFIX.get(_sfx)
-    if not _info:
-        print(f"  [WARN] repair bot '{_sfx}': no NPC info — add to _RB_NPC_BY_SUFFIX")
-        _info = {"npcFormId": "", "npcEdid": "", "race": ""}
-    REPAIR_BOT_NPC_INFO[_eid] = _info
+    _npc_id = _rb_npc_by_pod.get(REPAIR_BOT_FURN_IDS.get(_eid, ""), "")
+    _nr = _rb_npc_row.get(_npc_id, {})
+    if not _npc_id:
+        print(f"  [WARN] repair bot '{_sfx}': no NPC references its pod FURN "
+              f"— NPC fields left blank (check the NPC_Export Refs file)")
+    REPAIR_BOT_NPC_INFO[_eid] = {
+        "npcFormId": _npc_id,
+        "npcEdid":   _nr.get("EDID", ""),
+        "race":      _nr.get("RNAM_Name", "") or _nr.get("RNAM_EDID", ""),
+    }
 
 # NOTE: bot NPC combat stats (Health/AP/Perception) were dropped from the
 # page output June 2026 — the npc_prps_by_id map stays available for future
@@ -1613,26 +1640,51 @@ for _eid, _sfx in _rb_suffix_by_entm.items():
 # Crafting COBJ: ATX_workshop_co_CategoryResources_RepairBot (007AE545).
 # Its CNAM is the LVLI ATX_workshop_LL_RepairBots (007AE547) — entries are
 # entitlement-gated so the one COBJ crafts whichever skin you own.
-REPAIR_BOT_LVLI_ID = "007AE547"
+REPAIR_BOT_LVLI_ID = next((c.get("CNAM_FormID", "") for c in cobj_rows
+                           if re.search(r"LL_RepairBots?$", c.get("CNAM_EDID", ""), re.I)),
+                          "")
 
 # Build limits are read at build time from the WorkshopCount GLOBs via
 # workshop_count_for("RepairBot") — globals 008020FB ATX_WorkshopCount_RepairBot_CAMP
 # and 008020FA ATX_WorkshopCount_RepairBot. No hardcoded values.
 
-# Per-bot howToObtain overrides. The Enclave Repair Bot is NOT an Atoms
-# purchase — it shipped in the real-money Enclave Armory Bundle
-# (dist/atom_shop.json "ltb" section: released 2024-12-03, Gleaming Depths,
-# Steam / PlayStation / Xbox).
-REPAIR_BOT_HOW_OVERRIDE = {
-    "007AE546": ("Limited Time Bundle: Enclave Armory Bundle "
-                 "(released 3 December 2024 with the Gleaming Depths update)."),
-}
+# Per-bot howToObtain from real-money Limited Time Bundles — DERIVED from
+# dist/atom_shop.json "ltb" (bundle name, release date, update), keyed by the
+# ENTM FormID the bundle contains. The Enclave Repair Bot (Enclave Armory
+# Bundle, 3 Dec 2024) comes out of this with no hand entry.
+def _ltb_how_by_entm():
+    out = {}
+    try:
+        with open(OUT_DIR / "atom_shop.json", encoding="utf-8") as fh:
+            _ltb = json.load(fh).get("ltb") or []
+    except Exception:
+        return out
+    for _b in _ltb:
+        _name = (_b.get("name") or "").strip()
+        if not _name:
+            continue
+        _when = ""
+        try:
+            _d = datetime.strptime(str(_b.get("released") or ""), "%Y-%m-%d")
+            _when = f"{_d.day} {_d.strftime('%B %Y')}"
+        except ValueError:
+            pass
+        _upd = (_b.get("update") or "").strip()
+        _tail = ""
+        if _when:
+            _tail = f" (released {_when}" + (f" with the {_upd} update" if _upd else "") + ")"
+        _line = f"Limited Time Bundle: {_name}{_tail}."
+        for _fid in re.findall(r'"formId":\s*"([0-9A-Fa-f]{8})"', json.dumps(_b)):
+            out.setdefault(_fid.upper(), _line)
+    return out
 
-# Hand-uploaded page images (June 2026) — these live in guide-images, NOT the
-# storefront folder, and the filename suffixes are not uniform (base / _c1 /
-# _c2 / _l), so each bot maps to an explicit file list. First entry = primary.
-REPAIR_BOT_IMG_BASE = "/wp-content/uploads/guide-images/camp-items/repair-bots/"
-REPAIR_BOT_IMAGES = _CFG_REPAIR_BOTS["repair_bot_images"]
+REPAIR_BOT_HOW_OVERRIDE = {k: v for k, v in _ltb_how_by_entm().items()
+                           if k in set(REPAIR_BOT_ENTM_IDS)}
+
+# Images are derived, not mapped: main tile = the ENTM ETDI texture, carousel
+# = every ECIL frame (_C1, _C2 …), all under camp-items/repair-bots/ named
+# after the texture (lowercase, .avif). Repair bots keep their carousel. A frame
+# that is not uploaded yet is dropped by the renderer rather than shown broken.
 
 
 def build_repair_bots():
@@ -1644,12 +1696,8 @@ def build_repair_bots():
         if _craft_arr:
             break
     if not _craft_arr:
-        _craft_arr = [
-            {"name": "Circuitry", "qty": 1},
-            {"name": "Copper", "qty": 1},
-            {"name": "Gears", "qty": 1},
-            {"name": "Steel", "qty": 3},
-        ]
+        print(f"  [WARN] repair bots: COBJ for {REPAIR_BOT_LVLI_ID} has no components "
+              f"— Crafting Requirements left empty rather than guessed")
 
     items = []
     for entm_id in REPAIR_BOT_ENTM_IDS:
@@ -1676,20 +1724,18 @@ def build_repair_bots():
         desc      = clean_desc(entm.get("DESC", ""))
         display   = entm.get("FULL", "")
 
-        # Images: prefer the hand-uploaded guide-images set; fall back to the
-        # storefront ECIL-derived URLs for any future bot not yet mapped.
-        _hand = REPAIR_BOT_IMAGES.get(entm_id)
-        if _hand:
-            carousel  = [REPAIR_BOT_IMG_BASE + f for f in _hand]
-            image_url = carousel[0]
-        else:
-            _etdi     = entm.get("ETDI", "").strip()
-            carousel  = ecil_images(entm, "camp-utility")
-            image_url = main_image(_etdi, "camp-utility", carousel, entm.get("EDID") if entm else "")
+        # Images (season-first via main_image -> HOSTED, then the ETDI name).
+        _etdi     = entm.get("ETDI", "").strip()
+        _frames   = ecil_images(entm, "repair-bots")
+        image_url = main_image(_etdi, "repair-bots", _frames, edid)
+        carousel  = ([image_url] if image_url else []) + [u for u in _frames if u != image_url]
 
         # --- Output data (from the pod FURN PRPS) ---
-        repair_rate = fmt_num(furn_prps_value(furn_id, "ATX_RepairBot_RepairRate")) or "2"
-        budget_mult = fmt_num(furn_prps_value(furn_id, "WorkshopBudgetObjectMultiplier")) or "5"
+        repair_rate = fmt_num(furn_prps_value(furn_id, "ATX_RepairBot_RepairRate")) or "—"
+        budget_mult = fmt_num(furn_prps_value(furn_id, "WorkshopBudgetObjectMultiplier")) or "—"
+        if "—" in (repair_rate, budget_mult):
+            print(f"  [WARN] repair bot {entm_id}: pod FURN PRPS missing "
+                  f"RepairRate/Budget — shown as '—' (no guessed constants)")
         _rb_camp, _rb_workshop = workshop_count_for("RepairBot")
         # Power Required from FURN PRPS; absent property = needs no power (0).
         _rb_power_raw = furn_prps_value(furn_id, "PowerRequired")
@@ -1698,10 +1744,17 @@ def build_repair_bots():
         except (ValueError, TypeError):
             _rb_power = "0"
 
-        output_info = (
-            "Automatically repairs damaged objects in your C.A.M.P. while deployed.\n"
-            "Cannot rebuild objects that have been completely destroyed."
-        )
+        # Output — from the data: the pod's ATX_RepairBot_RepairRate AV and
+        # the limitation Bethesda states in the ENTM description.
+        _raw_desc = entm.get("DESC", "")
+        # (the rate itself renders as its own "Repair Rate" row from repairRate)
+        _out = ["Automatically repairs damaged objects in your C.A.M.P. while deployed."]
+        if re.search(r"(does not repair|cannot rebuild)[^.]*destroyed", _raw_desc, re.I):
+            _out.append("Cannot rebuild objects that have been completely destroyed.")
+        output_info = "\n".join(_out)
+        # Shelter placement — Bethesda states it in the ENTM text; there is no
+        # FURN keyword for it, so the description is the authoritative source.
+        _no_shelter = bool(re.search(r"cannot be built inside (?:of )?a Shelter", _raw_desc, re.I))
 
         # --- Build information (weather-station buildInfo format) ---
         build_info = (
@@ -1709,7 +1762,7 @@ def build_repair_bots():
             f"Build Limit per Workshop: {_limit_str(_rb_workshop)}\n"
             f"Power Required: {_rb_power}\n"
             f"Flamingo Units: {budget_mult}\n"
-            f"Shelter Placement: No"
+            f"Shelter Placement: {'No' if _no_shelter else 'Yes'}"
         )
 
         npc_id = npc_info.get("npcFormId", "")
