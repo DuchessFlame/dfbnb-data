@@ -108,7 +108,9 @@
     "0078CA7D": "Pool Table — world object, Storm questline",
     "00830006": "Ice Bath — ZZZ deprecated (S22)",
     "007267B6": "Hollywood Vanity _FROMATX — level-design copy of the Atom Shop asset, placed as AC_MQ02_Stage_ZaydesVanity in Showman's Pier (Expedition: Atlantic City). No ENTM, no COBJ, no XALG flags, single REFR. Not player-obtainable.",
-    "007AE386": "Accordion _FROMATX — unused dev copy of ATX_Furniture_Instrument_Accordion (007746A5). Zero references, no ENTM, no COBJ. Not player-obtainable."
+    "007AE386": "Accordion _FROMATX — unused dev copy of ATX_Furniture_Instrument_Accordion (007746A5). Zero references, no ENTM, no COBJ. Not player-obtainable.",
+    "0068D3D5": "SCORE_S12_CAMP_Scarberry_Shrine_FURN — ally furniture, not a buff station. Carries BlockPlayerActivation (players cannot use it) and is only built by the ally's companion camp object COBJ ATX_co_COMP_Constructible_CampObject_Scarberry (0068D3D2); Steven Scarberry applies the XP buff himself. Belongs on the Allies page.",
+    "00678D16": "Resonator Guitar B — second FURN for the same Atom Shop entitlement as the Resonator Guitar (ATX_ENTM_CAMP_Furniture_Instrument_ResonatorGuitar, one storefront image set). Not separately obtainable; duplicate row."
   },
   "image_overrides": {
     "BedTypeSleepingBag": "/wp-content/uploads/guide-images/camp-items/buff-stations/Fo4-Sleeping-bag.avif",
@@ -140,7 +142,8 @@
     "SCORE_MiniSeason_2026_SockHop_Furniture_Lonecycle": "/wp-content/uploads/guide-images/mini-seasons/summer-sock-hop/score_miniseason_2026_sockhop_camp_floordecor_lonecycle.avif",
     "Invaders_AlienWhackAMole": "/wp-content/uploads/guide-images/seasonal-events/invaders-from-beyond/reward-images/cosmic-capture.avif",
     "SCORE_MiniSeason_2026_Furniture_RipDaringPinballMachine": "/wp-content/uploads/guide-images/mini-seasons/rip-darling-weapons-expert/rewards/score_miniseason_2026_camp_furniture_ripdaringpinballmachine_l.avif",
-    "Score_S25_Furniture_CamdenClawMachine": "/wp-content/uploads/season_images/season-26/score_s26_camp_furniture_clawmachine.avif"
+    "Score_S25_Furniture_CamdenClawMachine": "/wp-content/uploads/season_images/season-26/score_s26_camp_furniture_clawmachine.avif",
+    "SCORE_S26_Instrument_AltoSax": "/wp-content/uploads/season_images/season-26/score_s26_camp_furniture_instrument_altosax.avif"
   },
   "image_overrides_notes": "FURN EDID -> imageUrl, used verbatim (the renderer does img.src = item.imageUrl, so it can point anywhere under /wp-content/). For items whose art is already hosted somewhere else on the site — Atom Shop request tiles, season_images/season-N, mini-season and seasonal-event galleries — so the file is not re-uploaded into guide-images/camp-items/buff-stations/. Every URL here was HTTP-verified 200 on 2026-09-03. Paths are case-sensitive on the server. Do not add /wp-content/uploads/storefront/ or /wp-content/uploads/fo76/storefront/ URLs: both folders are empty on the server despite appearing in older JSONs.",
   "manual_items": [
@@ -151,7 +154,11 @@
       ],
       "entm": "ATX_ENTM_CAMP_FloorDecor_BloodTransfusionPump",
       "how": null,
-      "buff": "Restores health and removes rads when used.\nGhoul characters gain rads instead.\n15 minute cooldown between uses."
+      "buff": "Restores health and removes rads when used",
+      "rows": [
+        "Ghoul Characters: Gain rads instead",
+        "Cooldown: 15 minutes between uses"
+      ]
     },
     {
       "fid": "008B1D5A",
@@ -162,16 +169,6 @@
       "how": null,
       "buff": "Sharpening Stone: 5% chance to gain a Blood Pack on melee kills for 30 minutes.",
       "spell": "008D1C9C “Sharpening Stone”"
-    },
-    {
-      "fid": "0068D3D5",
-      "groups": [
-        "experience"
-      ],
-      "entm": null,
-      "how": "Placed and used by Lite Ally: Steven Scarberry (Season 12 Scoreboard) — the ally applies the buff to your team.",
-      "name": "Scarberry’s Shrine",
-      "buff": "+5% XP for 60 minutes — team buff, applied by your companion."
     }
   ],
   "gold_merged": {
@@ -202,10 +199,11 @@
   },
   "name_overrides": {
     "00668025": "Nuka-lele (Quantum)",
-    "00678D16": "Resonator Guitar B",
     "00691B73": "Violin",
     "00684BAA": "Vault Girl Arm Wrestle Machine",
-    "006FA9F0": "Stars and Strikes Bowling Arcade Machine"
+    "006FA9F0": "Stars and Strikes Bowling Arcade Machine",
+    "007AE564": "Metal Barrel Drums",
+    "007AE565": "Chemical Barrel Drums"
   },
   "how_overrides": {
     "007CF731": "Plan: Cosmic Capture — rare reward drop from the Invaders from Beyond seasonal event.",
@@ -216,10 +214,21 @@
     "008C9559": "Purchase with tickets from the Summer Sock Hop Mini Season (2026) reward shop.",
     "00766AA3": "Plan: Stargazer's Telescope — sold by the Milepost Zero vendors (imported goods).",
     "0079B885": "Plan: Cauldron Hot Tub — event-specific reward during the Mischief Night event.",
-    "0078C78E": "Plan: Rusty Saxophone — Milepost Zero reward.",
+    "0078C78E": "@CUT_OBTAIN_TEXT",
     "00755EB1": "Reward from the Mothman Equinox seasonal event. Not craftable.",
     "005D98A5": "@ATX_HOW",
-    "006628D8": "Available to Fallout 1st members."
+    "006628D8": "Available to Fallout 1st members.",
+    "0076E0FF": "Free reward — Bethesda email opt-in \"Bethesda Bundle\" (July 2024). No longer available.",
+    "006C50B8": "Free reward — Bethesda email opt-in Free In-Game Bundle (2023, re-run August 2024).",
+    "006EB2BF": "Free reward — Fallout 76 5th Anniversary bundle on Prime Gaming and Game Pass Ultimate (October 2023).",
+    "007CEA86": "Fallout 1st monthly member reward (May 2025).",
+    "007DBEAA": "Purchase with tickets from the Gone Fission Scoreboard (Season 21) — Fallout 1st members only.",
+    "006628D9": "Not released — the item is in the game files but has never been sold.",
+    "006628DB": "Not released — the item is in the game files but has never been sold.",
+    "006FA9F0": "Not released — the item is in the game files but has never been sold.",
+    "006FCB2E": "Not released — the item is in the game files but has never been sold.",
+    "007746A5": "Not released — the item is in the game files but has never been sold.",
+    "008F2B02": "Not released yet — added on the Patch 70 test server (August 2026); not yet in the Atom Shop."
   },
   "tradeable_overrides": {
     "0078C78E": false
@@ -236,8 +245,9 @@
     "0068DF0A": "ATX_ENTM_CAMP_Furniture_SkullsFirePit",
     "00691B73": "SCORE_S12_ENTM_CAMP_Furniture_Instrument_ViolinChair",
     "0062C3E2": "ATX_ENTM_CAMP_Furniture_Instrument_Pipe_Organ",
-    "00678D16": "ATX_ENTM_CAMP_Furniture_Instrument_ResonatorGuitar",
-    "006FA9F0": "ATX_ENTM_CAMP_Furniture_BowlingArcadeMachine_StarsAndStrikes"
+    "006FA9F0": "ATX_ENTM_CAMP_Furniture_BowlingArcadeMachine_StarsAndStrikes",
+    "007AE564": "SCORE_S20_ENTM_CAMP_Furniture_Instrument_MetalBarrelDrum",
+    "007AE565": "SCORE_S20_ENTM_CAMP_Furniture_Instrument_ChemicalBarrelDrum"
   },
   "bed_entries": [
     [
@@ -279,7 +289,12 @@
     "00609E0A": "Antique Speed Bag (Gold Vendor) → Antique Speed Bag"
   },
   "how_overrides_notes": {
-    "005D98A5": "Sympto-matic — Atom Shop item with unbranded EDID"
+    "005D98A5": "Sympto-matic — Atom Shop item with unbranded EDID",
+    "0076E0FF": "Astro Attack Pinball — free email opt-in bundle, not Atom Shop",
+    "006C50B8": "Bowling Arcade Machine — free email opt-in bundle, not Atom Shop",
+    "006EB2BF": "American Bowling Alley Lane — third-party (ATX_TP_) Prime Gaming / Game Pass bundle",
+    "007CEA86": "Five Finger Filet Table — Fallout 1st monthly item",
+    "007DBEAA": "Poseidon Arm Wrestle Machine — S21 board, Fallout 1st only"
   },
   "tradeable_overrides_notes": {
     "0078C78E": "Rusty Saxophone"
@@ -290,5 +305,59 @@
   "excluded_notes": {
     "_FROMATX": "FURN records suffixed _FROMATX / _TakenFromAtx are level-design copies of Atom Shop assets so world/quest placements and NPC furniture do not need the entitlement. They carry no ENTM, no COBJ recipe and no XALG flags — never treat one as a free or obtainable player item."
   },
-  "_note": "Hand-maintained override tables for the Buff Stations page. Edit this file rather than build_buff_stations_json.py. 'excluded' maps FormID -> why it is off the page. A value of \"@NAME\" is resolved at load time against the script's own constant of that name (e.g. \"@ATX_HOW\")."
+  "_note": "Hand-maintained override tables for the Buff Stations page. Edit this file rather than build_buff_stations_json.py. 'excluded' maps FormID -> why it is off the page. A value of \"@NAME\" is resolved at load time against the script's own constant of that name (e.g. \"@ATX_HOW\").",
+  "status_overrides": {
+    "006628D9": "unreleased",
+    "006628DB": "unreleased",
+    "006FA9F0": "unreleased",
+    "006FCB2E": "unreleased",
+    "007746A5": "unreleased",
+    "008F2B02": "unreleased",
+    "0078C78E": "cut"
+  },
+  "status_overrides_notes": {
+    "_rule": "'unreleased' / 'cut' drive the head pill (Unreleased / Cut Content). Items stay on the page; cutContent stays false because the renderer strips cutContent rows entirely. Evidence checked 2026-09-22 against the SeventySix Textures BA2 storefront folders + Atom Shop history.",
+    "006628D9": "Wood 9 Ball Table — no storefront art (only Blue, Rustic, Red have it); never sold",
+    "006628DB": "Green 9 Ball Table — no storefront art; never sold",
+    "006FA9F0": "Stars and Strikes Bowling Arcade Machine — no storefront art (only the base machine); never sold",
+    "006FCB2E": "Rolling Stars Bowling Arcade Machine — no storefront art; never sold",
+    "007746A5": "Accordion — no storefront art for the instrument; never sold",
+    "008F2B02": "BoS Vertibird Training Simulator — storefront art exists, datamined on Patch 70 PTS (Aug 2026); flip to live when it hits the shop",
+    "0078C78E": "Rusty Saxophone — plan listed as unused in Milepost Zero; cut"
+  },
+  "variant_merged": {
+    "007AE563": "007AE564",
+    "007AE566": "007AE565"
+  },
+  "variant_merged_notes": {
+    "_rule": "One Atom Shop/Scoreboard ENTM unlocks a workshop leveled list holding several FURN versions (each LVLI entry is gated on Subject.HasEntitlement of that ENTM). The page shows one row per ENTM: the merged-away FURNs are skipped at discovery and listed on the kept row via variant_info.",
+    "007AE563": "Radioactive Barrel Drum -> Metal Barrel Drums (ENTM 007AE561, LVLI 007AE567)",
+    "007AE566": "Chemical Barrel Drum (Blue) -> Chemical Barrel Drums (ENTM 007AE562, LVLI 007AE568)"
+  },
+  "variant_info": {
+    "007AE564": {
+      "versions": [
+        "Metal Barrel Drum",
+        "Radioactive Barrel Drum"
+      ],
+      "tech": [
+        "Version FURN: SCORE_S20_Instrument_MetalBarrelDrum (007AE564)",
+        "Version FURN: SCORE_S20_Instrument_MetalBarrelDrum_Radioactive (007AE563)",
+        "Unlock List: 007AE567 workshop_LL_Instruments_MetalBarrelDrum",
+        "Recipe: 007AE55F workshop_co_Instruments_MetalbarrelDrum"
+      ]
+    },
+    "007AE565": {
+      "versions": [
+        "Chemical Barrel Drum (Yellow)",
+        "Chemical Barrel Drum (Blue)"
+      ],
+      "tech": [
+        "Version FURN: SCORE_S20_Instrument_ChemicalBarrelDrum (007AE565)",
+        "Version FURN: SCORE_S20_Instrument_ChemicalBarrelDrum_Blue (007AE566)",
+        "Unlock List: 007AE568 workshop_LL_Instruments_ChemicalBarrelDrum",
+        "Recipe: 007AE560 workshop_co_Instruments_ChemicalBarrelDrum"
+      ]
+    }
+  }
 }

@@ -41,6 +41,7 @@ import tsv_source          # one resolver for every export selection
 import camp_config       # hand-maintained tables live in data/camp/*.json
 import gold_vendor       # generative Gold Bullion route (ENTM -> vendor plan)
 import reusable_images   # art the site already hosts — season_images first
+from cut_content import CUT_OBTAIN_TEXT
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--tsv-dir", default="tsv",  help="Folder containing TSV exports")
@@ -118,7 +119,8 @@ ATX_HOW  = "Can be purchased with certain bundles from the Atom Shop."
 
 # Override tables (groups, exclusions, name/how/ENTM overrides, gold-vendor
 # merges, beds). One entry gets added most seasons — see data/camp/buff_stations.json.
-_CFG = camp_config.load("buff_stations", {"ATX_HOW": ATX_HOW})
+_CFG = camp_config.load("buff_stations", {"ATX_HOW": ATX_HOW,
+                                           "CUT_OBTAIN_TEXT": CUT_OBTAIN_TEXT})
 
 
 def rows(path):
@@ -157,6 +159,11 @@ if SEASONS_PATH.exists():
 HOMEBODY_LINE = ("Homebody Perk: while in your C.A.M.P. or workshop — "
                  "Heal Rate +2 and Limb Regeneration +200. "
                  "Also extends the Comfy Bed Well Rested buff from 2 hours to 3 hours.")
+# Output & Effects renders outputRows as an aligned label/value table, so the
+# buff is split into one fact per row instead of a run-on sentence.
+SOLO_ROW = "Applies To: You only (solo buff)"
+HOMEBODY_ROWS = ["Homebody Perk: Heal Rate +2 and Limb Regeneration +200 while in your C.A.M.P. or workshop",
+                 "Homebody Bonus: Comfy Bed Well Rested lasts 3 hours instead of 2"]
 
 # COBJ — crafting components + plan names, matched by created-object FormID.
 # PLAN_NAME_BY_NORMEDID lets a grouped/proxy component recipe (FVPA present,
@@ -347,6 +354,7 @@ KW_TO_GROUPS = _CFG["kw_to_groups"]
 # Records that carry a buff keyword but must NOT be on the page.
 # World-placed objects (REFR only, no buildable COBJ) and quest/companion props.
 EXCLUDED = set(_CFG["excluded"])
+STATUS_OVERRIDES = _CFG.get("status_overrides", {})
 
 # FURN EDID -> a wp-content URL for art the site already hosts elsewhere (Atom
 # Shop request tiles, season_images/season-N, event galleries). Used verbatim,
@@ -368,6 +376,9 @@ MANUAL_ITEMS = _CFG["manual_items"]
 # GLOBs. Same item with a DIFFERENT SKIN stays a separate sub-expand
 # (beds/sleeping bags excepted — they stay aggregated).
 GOLD_MERGED = _CFG["gold_merged"]
+# One ENTM -> several FURN versions: merged-away FURN -> kept FURN.
+VARIANT_MERGED = _CFG.get("variant_merged", {})
+VARIANT_INFO = _CFG.get("variant_info", {})
 
 # Gold bullion line appended to the base item's How to Obtain.
 # One labelled line per fact (camp-item-expands "Route detail formats") — the
@@ -430,7 +441,7 @@ for r in rows(KYWD_REFS_PATH):
     if k not in KW_TO_GROUPS:
         continue
     fid = r["RefFormID"]
-    if fid in EXCLUDED or fid in GOLD_MERGED:
+    if fid in EXCLUDED or fid in GOLD_MERGED or fid in VARIANT_MERGED:
         continue
     rec = FURN.get(fid) or ACTI.get(fid)
     if not rec:
@@ -702,26 +713,48 @@ def build_info_for(fid):
     return "\n".join(lines)
 
 
+_DUR_RE = re.compile(r"^(.*?) for (\d+ (?:minutes?|hours?))(?:\s*[—-]\s*solo buff \(player only\))?\.?$")
+
+
+def split_buff(text):
+    """'Accuracy Boost: +25% V.A.T.S. Accuracy for 2 hours.' ->
+    ('Accuracy Boost: +25% V.A.T.S. Accuracy', ['Duration: 2 hours']).
+    Text that doesn't fit the pattern is returned untouched."""
+    m = _DUR_RE.match(text.strip())
+    if not m:
+        return text.strip(), []
+    rows = [f"Duration: {m.group(2)}"]
+    if "solo buff" in text.lower():
+        rows.append(SOLO_ROW)
+    return m.group(1).strip(), rows
+
+
 def build_output(fid, groups):
-    if fid in BUFF_TEXT:
-        lines = [BUFF_TEXT[fid]]
+    """Returns (outputInfo, outputRows): the buff itself as one short line,
+    then one fact per row (duration, who it applies to, perks, stacking)."""
+    spec = MANUAL_BY_FID.get(fid)
+    rows = []
+    if spec and spec.get("buff") and fid not in BUFF_TEXT:
+        info, rows = split_buff(spec["buff"])
+        rows = rows + list(spec.get("rows") or [])
+    elif fid in BUFF_TEXT:
+        info, rows = split_buff(BUFF_TEXT[fid])
     elif "welltuned" in groups:
-        lines = [WT_OUT]
+        info, rows = "Well Tuned: +25 Action Point regeneration", ["Duration: 60 minutes", SOLO_ROW]
     elif "wellrested" in groups:
-        lines = [RESTED_OUT]
+        info, rows = "Rested: +5% XP", ["Duration: 60 minutes", SOLO_ROW]
     else:
         stats = [STAT_NAME[g] for g in groups if g in STAT_NAME]
         if stats:
-            joined = " and ".join(f"+2 {s}" for s in stats)
-            lines = [f"{joined} for 30 minutes.", "Solo buff — applies to the player only."]
+            info = " and ".join(f"+2 {s}" for s in stats)
+            rows = ["Duration: 30 minutes", SOLO_ROW]
         else:
-            lines = []
+            info = ""
     if "wellrested" in groups:
-        lines += ["", HOMEBODY_LINE]
-    spec = MANUAL_BY_FID.get(fid)
-    if spec and spec.get("buff") and fid not in BUFF_TEXT:
-        lines = [spec["buff"]]
-    return "\n".join(lines).strip()
+        rows += HOMEBODY_ROWS
+    if "welltuned" in groups:
+        rows += ["Stacks With Other Buffs: Yes", "Stacks On Itself: No"]
+    return info.strip(), rows
 
 
 # ---------------------------------------------------------------- build
@@ -751,11 +784,17 @@ for fid in sorted(discovered):
         tradeable = TRADEABLE_OVERRIDES[fid]
 
     how = spec.get("how") or auto_how(fid, furn_edid, entm, premium, season)
+    status = STATUS_OVERRIDES.get(fid, "")
     # Merged gold-vendor route: scoreboard line first, then the gold bullion
     # line (vendor, reputation rank, cost).
     if fid in GOLD_HOW:
         how = f"{how}\n\n{GOLD_HOW[fid]}"
+    if status:
+        tradeable = False   # unreleased / cut: nothing to trade
     obtain_routes = buff_obtain_routes(how, tradeable)
+    output_info, output_rows = build_output(fid, groups)
+    if fid in VARIANT_INFO:
+        output_rows = ["Versions: " + ", ".join(VARIANT_INFO[fid]["versions"])] + output_rows
     crafting, plan, crafting_arr = crafting_for(fid, furn_edid)
     if fid in PLAN_OVERRIDES:
         plan = PLAN_OVERRIDES[fid]
@@ -785,6 +824,8 @@ for fid in sorted(discovered):
         tech.append(f"Spell: {spec['spell']}")
     if fid in GOLD_TECH:
         tech += GOLD_TECH[fid]
+    if fid in VARIANT_INFO:
+        tech += VARIANT_INFO[fid]["tech"]
 
     items_out.append({
         "formId": fid,
@@ -800,7 +841,7 @@ for fid in sorted(discovered):
         "tradeable": tradeable,
         "planName": plan,
         "imageUrl": image_for(entm, furn_edid),
-        "outputInfo": build_output(fid, groups),
+        "outputInfo": output_info,
         "buildInfo": build_info_for(fid),
         "craftingRequirements": crafting_arr,
         "technicalNotes": "\n".join(tech),
@@ -810,8 +851,9 @@ for fid in sorted(discovered):
         "singleExpand": False,
         # Output stacking rows (rendered as aligned label/value rows).
         # Well Tuned stacks with other AP regen buffs but not with itself.
-        "outputRows": (["Stacks with other buffs: Yes", "Stacks on itself: No"]
-                       if "welltuned" in groups else []),
+        "outputRows": output_rows,
+        # "unreleased" / "cut" -> head pill; see status_overrides in the config.
+        "status": status,
         "cutContent": False,
     })
 
@@ -819,6 +861,11 @@ for fid in sorted(discovered):
 BED_ENTRIES = _CFG["bed_entries"]
 for fid, label, buff, spell, kwline, bkey in BED_ENTRIES:
     names = bed_names[bkey]
+    if bkey == "comfy":
+        bed_info = "Well Rested: +5% XP and +2 Agility"
+        bed_rows = ["Duration: 2 hours (3 hours with the Homebody perk)", SOLO_ROW]
+    else:
+        bed_info, bed_rows = split_buff(buff)
     tech = [f"Bed Type Keyword: {kwline}", f"Buff Spell: {spell}", "",
             f"Counts As ({len(names)}):"] + names
     items_out.append({
@@ -831,7 +878,8 @@ for fid, label, buff, spell, kwline, bkey in BED_ENTRIES:
         "dropRate": "N/A", "seasonNumber": None, "tradeable": None, "planName": "",
         "imageUrl": (IMAGE_OVERRIDES.get(kwline.split(" ")[1].lower())
                      or IMG_BASE + label.lower().replace(" ", "_") + ".avif"),
-        "outputInfo": buff + "\n\n" + HOMEBODY_LINE,
+        "outputInfo": bed_info,
+        "outputRows": bed_rows + HOMEBODY_ROWS,
         "craftingRequirements": [],
         "technicalNotes": "\n".join(tech),
         "buffTypes": ["wellrested", "experience"],
