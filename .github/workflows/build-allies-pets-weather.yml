@@ -19,6 +19,14 @@ on:
       - 'tsv/GLOB_Export_*.tsv'
       - 'src/build_allies_pets_weather_json.py'
       - 'src/verify_camp_items_json.py'
+      # Fridges & Cryos read their build list, recipe links, unlock CNDF and
+      # challenge rewards from these, plus the override table in data/camp/.
+      - 'tsv/LVLI_Export_*_LVLI_Entries.tsv'
+      - 'tsv/ACTI_Export_*_Refs.tsv'
+      - 'tsv/CNDF_Export_*.tsv'
+      - 'tsv/GMRW_Export_*.tsv'
+      - 'tsv/CHAL_Export_*.tsv'
+      - 'data/camp/*.json'
 
 jobs:
   build:

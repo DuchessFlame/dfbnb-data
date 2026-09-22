@@ -1,0 +1,12 @@
+{
+  "_note": "Fridges & Cryos are generative (Sept 2026). Membership is Bethesda's own tagging: every ACTI carrying the Workbench_Crafting_Refrigerator keyword is a Fridge, every ACTI carrying Workbench_Crafting_Freezer is a Cryo. The ACTI is tied to its ENTM through the HasEntitlement condition on its build-list LVLI entry, the ENTM's ReferencedBy COBJ (COBJ CNAM = ACTI), or an unlock CNDF that references both. Spoilage comes from the ACTI's SURV_FoodSpoilageRateMult property, Shelter Placement from ShelterWorkshopBlacklist membership, build limits from the WorkshopCount GLOBs that reference the recipe COBJ, obtain routes from Scoreboard EDIDs / GMRW challenge rewards / the gold-vendor index. The only thing here is the one link the exports do not carry.",
+  "storage_glob_by_workbench_keyword": {
+    "_note": "Which WorkshopStashActivatorGroup_* GLOB (shared storage capacity) belongs to each workbench keyword. The engine joins these internally; no export carries the link.",
+    "Workbench_Crafting_Refrigerator": "WorkshopStashActivatorGroup_Refrigerator",
+    "Workbench_Crafting_Freezer": "WorkshopStashActivatorGroup_Cryo_Freezer"
+  },
+  "kind_by_workbench_keyword": {
+    "Workbench_Crafting_Refrigerator": "Fridge",
+    "Workbench_Crafting_Freezer": "Cryo"
+  }
+}

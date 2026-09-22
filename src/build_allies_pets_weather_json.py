@@ -3074,170 +3074,400 @@ def build_pet_apparel():
 
 
 # ---------------------------------------------------------------------------
-# CRYOS
+# FRIDGES & CRYOS
 # ---------------------------------------------------------------------------
+# Fully generative (Sept 2026) — see data/camp/fridges_cryos.json "_note".
+#
+# MEMBERSHIP is Bethesda's own tagging, not an EDID pattern: every placeable
+# ACTI carrying the Workbench_Crafting_Refrigerator keyword is a Fridge, every
+# one carrying Workbench_Crafting_Freezer is a Cryo. That list is why the Beer
+# Keg, Blue Ridge Beer Keg Set and Beer Mystery Machine are NOT on this page —
+# they are drink dispensers with no spoilage property, built from the brewing
+# lists — and why the old ENTM-EDID regex had them.
+#
+# ACTI -> ENTM, in order of authority:
+#   1. the HasEntitlement condition on the ACTI's build-list LVLI entry
+#      (ATX_workshop_LL_Appliances_Refrigerators — one entry per fridge);
+#   2. the ENTM's ReferencedBy COBJ whose CNAM is the ACTI (the cryos);
+#   3. an unlock CNDF the ENTM is referenced by, which references the COBJ
+#      (Military Cryo-Freezer: SCORE_S14_COBJ_MilitaryCryofreezer_Condition);
+#   4. last resort, the ENTM/ACTI EDID suffix — only for an ACTI no list or
+#      recipe references at all, and the Technical block says so.
+#
+# Everything shown comes off those records: spoilage from the ACTI's
+# SURV_FoodSpoilageRateMult property, Shelter Placement from
+# ShelterWorkshopBlacklist membership (ACTI refs), build limits from the
+# WorkshopCount GLOBs that reference the recipe COBJ, components from that
+# COBJ's FVPA, obtain routes from the Scoreboard EDID, GMRW challenge rewards
+# and the gold-vendor index. A value with no record behind it prints "—".
 
-# AUTO-DISCOVERY: cryo freezer storefront records match CAMP_Utility_*Cryo*Fre*
-# in the ENTM EDID (covers the in-data "CryoFrezer" typo too).
-CRYO_ENTM_IDS = sorted({
-    _e["FormID"] for _e in entm_rows
-    if re.search(r"CAMP_Utility_.*Cryo.*Fre", _e.get("EDID", ""), re.I)
-    and not is_cut(_e.get("EDID", ""))
-})
-
-# ENTM FormID → gold-vendor plan BOOK FormID (was the CondProxy COBJ
-# 00732A95 pre-June-2026; now the BOOK 00732A91 so plan_purchase_block()
-# can derive the plan name / vendor / rank / price from the record).
-# NOTE: the old hardcoded "Samuel" line was wrong — the BOOK's vendor LVLI
-# is W05_LLV_GoldVendor_Raider_Mortimer_1_Cautious (Mortimer, not Samuel).
-CRYO_PLAN_BOOKS = {
-    "006C2F42": "00732A91",  # Military Cryo-Freezer
-}
+_CFG_FRIDGES_CRYOS = camp_config.load("fridges_cryos")
+_FC_KIND = {k: v for k, v in _CFG_FRIDGES_CRYOS["kind_by_workbench_keyword"].items()
+            if not k.startswith("_")}
+_FC_STORAGE_GLOB = {k: v for k, v in _CFG_FRIDGES_CRYOS["storage_glob_by_workbench_keyword"].items()
+                    if not k.startswith("_")}
+_FC_SPOIL_AV = "SURV_FoodSpoilageRateMult"
+_FC_PRIORITY_KW = "HighPriorityFoodSpoilageContainerKeyword"
+_FC_SHELTER_BLACKLIST = "ShelterWorkshopBlacklist"
+_FC_FOLDER = "fridges-and-cryos"
 
 
-def build_cryos():
+def _fc_optional_tsv(env_var, pattern, fallback):
+    try:
+        return _resolve_tsv(env_var, pattern, fallback)
+    except FileNotFoundError:
+        print(f"  [WARN] fridges/cryos: no {pattern} — dependent rows print '—'")
+        return None
+
+
+FC_LVLI_ENTRIES_PATH = _fc_optional_tsv("LVLI_ENTRIES_TSV", "LVLI_Export_*_LVLI_Entries.tsv",
+                                        "LVLI_Export_LVLI_Entries.tsv")
+FC_ACTI_REFS_PATH    = _fc_optional_tsv("ACTI_REFS_TSV", "ACTI_Export_*_Refs.tsv", "ACTI_Export_Refs.tsv")
+FC_CNDF_PATH         = _fc_optional_tsv("CNDF_TSV", "CNDF_Export_*.tsv", "CNDF_Export.tsv")
+FC_GMRW_PATH         = _fc_optional_tsv("GMRW_TSV", "GMRW_Export_*.tsv", "GMRW_Export.tsv")
+FC_CHAL_PATH         = _fc_optional_tsv("CHAL_TSV", "CHAL_Export_*.tsv", "CHAL_Export.tsv")
+
+_FC_REF_RE = re.compile(r"([0-9A-Fa-f]{8}):([^:|\t]+):([A-Z]{4})")
+_FC_ENT_RE = re.compile(r"HasEntitlement\([^)]*\[ENTM:([0-9A-Fa-f]{8})\]")
+
+
+def _fc_stream(path):
+    """Stream a TSV row by row — the LVLI / CNDF exports are too wide and too
+    long to hold whole just to pick out a couple of dozen records."""
+    if not path:
+        return
+    csv.field_size_limit(2 ** 31 - 1)
+    with open(path, encoding="utf-8", errors="replace", newline="") as f:
+        for row in csv.DictReader(f, delimiter="\t"):
+            yield row
+
+
+def _fc_refs(row, prefixes=("Ref",)):
+    """Every <FID>:<EDID>:<SIG> triple in a row's Ref* / ReferencedBy* cells."""
+    out = []
+    for k, v in row.items():
+        if k and v and k.startswith(prefixes):
+            for fid, ed, sig in _FC_REF_RE.findall(v):
+                out.append((fid.upper(), ed, sig))
+    return out
+
+
+def _fc_num(raw):
+    try:
+        return float(raw)
+    except (TypeError, ValueError):
+        return None
+
+
+def _fc_pct(x):
+    return f"{int(x)}%" if float(x).is_integer() else f"{x:g}%"
+
+
+# --- 1. the ACTIs Bethesda tags as fridges / freezers ------------------------
+_FC_ACTI = {}                                   # ACTI FID -> (row, workbench kw)
+for _r in acti_rows:
+    if is_cut(_r.get("ACTI_EDID", "")):
+        continue
+    for _i in range(1, 7):
+        _bits = (_r.get(f"KW_{_i}") or "").split(":")
+        if len(_bits) >= 2 and _bits[1] in _FC_KIND:
+            _FC_ACTI[_r["ACTI_FormID"].upper()] = (_r, _bits[1])
+            break
+
+# --- 2. build-list LVLI entries (+ gold-vendor plan BOOKs, same pass) --------
+_FC_LIST_BY_ACTI = {}                           # ACTI -> (LVLI fid, LVLI edid)
+_FC_ENTM_BY_ACTI = {}                           # ACTI -> ENTM (HasEntitlement)
+_FC_LINK_BY_ACTI = {}                           # ACTI -> how the ENTM was found
+_FC_BOOK_BY_ENTM = {}                           # ENTM -> (BOOK fid, BOOK edid, vendor LVLI edid)
+for _row in _fc_stream(FC_LVLI_ENTRIES_PATH):
+    _bits = (_row.get("LVLO_Reference") or "").split(":")
+    if len(_bits) < 3:
+        continue
+    _fid, _sig = _bits[0].strip().upper(), _bits[-1].strip()
+    if _sig == "ACTI" and _fid in _FC_ACTI:
+        _conds = " ".join(_row.get(f"Cond{_i}") or "" for _i in range(1, 11))
+        _FC_LIST_BY_ACTI.setdefault(_fid, (_row.get("LVLI_FormID", ""), _row.get("LVLI_EDID", "")))
+        _m = _FC_ENT_RE.search(_conds)
+        if _m and _fid not in _FC_ENTM_BY_ACTI:
+            _FC_ENTM_BY_ACTI[_fid] = _m.group(1).upper()
+            _FC_LINK_BY_ACTI[_fid] = "Build list HasEntitlement condition"
+    elif _sig == "BOOK" and "GoldVendor" in (_row.get("LVLI_EDID") or "") \
+            and not is_cut(_row.get("LVLI_EDID", "")):
+        _conds = " ".join(_row.get(f"Cond{_i}") or "" for _i in range(1, 11))
+        _m = _FC_ENT_RE.search(_conds)
+        if _m:
+            _FC_BOOK_BY_ENTM.setdefault(_m.group(1).upper(),
+                                        (_fid, _bits[1], _row.get("LVLI_EDID", "")))
+
+# --- 3. ACTI back-references (recipe COBJ, shelter blacklist) ----------------
+_FC_ACTI_REFS = {}
+for _row in _fc_stream(FC_ACTI_REFS_PATH):
+    _fid = (_row.get("ACTI_FormID") or "").upper()
+    if _fid in _FC_ACTI:
+        _FC_ACTI_REFS[_fid] = _fc_refs(_row, ("Ref_",))
+
+_FC_COBJ_BY_ID = {(r.get("COBJ_FormID") or "").upper(): r for r in cobj_rows}
+
+# --- 4. ENTM -> COBJ / CNDF -> COBJ -> ACTI -----------------------------------
+_fc_entm_refs = {e["FormID"].upper(): _FC_REF_RE.findall(e.get("ReferencedBy") or "")
+                 for e in entm_rows if not is_cut(e.get("EDID", ""))}
+_fc_want_cndf = {f.upper() for refs in _fc_entm_refs.values() for f, _, s in refs if s == "CNDF"}
+_FC_CNDF = {}                                   # CNDF fid -> (edid, [COBJ fids that use it])
+for _row in _fc_stream(FC_CNDF_PATH):
+    _fid = (_row.get("FormID") or "").upper()
+    if _fid in _fc_want_cndf:
+        _FC_CNDF[_fid] = (_row.get("EDID", ""),
+                          [f for f, _, s in _fc_refs(_row, ("Ref",)) if s == "COBJ"])
+
+_FC_RECIPE_BY_ACTI = {}                         # ACTI -> COBJ fid
+_FC_CNDF_BY_ACTI = {}                           # ACTI -> unlock CNDF (edid, fid)
+for _entm_fid, _refs in _fc_entm_refs.items():
+    _cands = [(f.upper(), None) for f, _, s in _refs if s == "COBJ"]
+    for _cf, _, _s in _refs:
+        if _s == "CNDF" and _cf.upper() in _FC_CNDF:
+            _ced, _cobjs = _FC_CNDF[_cf.upper()]
+            _cands += [(c, (_ced, _cf.upper())) for c in _cobjs]
+    for _cobj_fid, _via in _cands:
+        _cn = (_FC_COBJ_BY_ID.get(_cobj_fid) or {}).get("CNAM_FormID", "").upper()
+        if _cn not in _FC_ACTI:
+            continue
+        _FC_RECIPE_BY_ACTI.setdefault(_cn, _cobj_fid)
+        if _via:
+            _FC_CNDF_BY_ACTI.setdefault(_cn, _via)
+        if _cn not in _FC_ENTM_BY_ACTI:
+            _FC_ENTM_BY_ACTI[_cn] = _entm_fid
+            _FC_LINK_BY_ACTI[_cn] = ("Unlock condition (CNDF) references the recipe"
+                                     if _via else "ENTM ReferencedBy recipe COBJ")
+
+# --- 5. last resort: an ACTI nothing builds, matched to its ENTM by EDID -----
+def _fc_suffix(edid):
+    s = re.sub(r"^(?:SCORE_S\d+_|ATX_)", "", edid or "", flags=re.I)
+    s = re.sub(r"^(?:ENTM_)?CAMP_Utility_", "", s, flags=re.I)
+    return s.lower()
+
+
+_fc_entm_by_suffix = {_fc_suffix(e["EDID"]): e["FormID"].upper() for e in entm_rows
+                      if "CAMP_Utility" in e.get("EDID", "") and not is_cut(e.get("EDID", ""))}
+for _afid, (_arow, _kw) in _FC_ACTI.items():
+    if _afid not in _FC_ENTM_BY_ACTI:
+        _hit = _fc_entm_by_suffix.get(_fc_suffix(_arow.get("ACTI_EDID", "")))
+        if _hit and _hit not in _FC_ENTM_BY_ACTI.values():
+            _FC_ENTM_BY_ACTI[_afid] = _hit
+            _FC_LINK_BY_ACTI[_afid] = "EDID match only — no build list or recipe references this ACTI"
+
+# --- 6. WorkshopCount / storage GLOBs ----------------------------------------
+_FC_WC_BY_COBJ = {}                             # COBJ -> {"camp"|"workshop": (edid, value)}
+_FC_GLOB_VAL = {}                               # EDID -> FLTV (storage groups only)
+_fc_storage_names = set(_FC_STORAGE_GLOB.values())
+for _g in glob_rows:
+    _ed = _g.get("EDID", "")
+    if _ed in _fc_storage_names:
+        _FC_GLOB_VAL[_ed] = _g.get("FLTV", "")
+    if "WorkshopCount" not in _ed or _ed.lower().startswith("zzz"):
+        continue
+    _kind = "camp" if _ed.lower().endswith("_camp") else "workshop"
+    for _f, _, _s in _fc_refs(_g, ("Ref",)):
+        if _s == "COBJ":
+            _FC_WC_BY_COBJ.setdefault(_f, {}).setdefault(_kind, (_ed, _g.get("FLTV", "")))
+
+# --- 7. challenge rewards (GMRW -> CHAL) -------------------------------------
+_fc_want_gmrw = {f.upper() for refs in _fc_entm_refs.values() for f, _, s in refs if s == "GMRW"}
+_FC_GMRW = {}                                   # GMRW fid -> (edid, [CHAL fids])
+for _row in _fc_stream(FC_GMRW_PATH if _fc_want_gmrw else None):
+    _fid = (_row.get("FormID") or "").upper()
+    if _fid in _fc_want_gmrw and not is_cut(_row.get("EDID", "")):
+        _FC_GMRW[_fid] = (_row.get("EDID", ""),
+                          [f for f, _, s in _fc_refs(_row, ("Ref",)) if s == "CHAL"])
+_fc_want_chal = {c for _, cs in _FC_GMRW.values() for c in cs}
+_FC_CHAL_NAME = {}
+for _row in _fc_stream(FC_CHAL_PATH if _fc_want_chal else None):
+    _fid = (_row.get("FormID") or "").upper()
+    if _fid in _fc_want_chal:
+        _FC_CHAL_NAME[_fid] = (_row.get("FULL") or "").strip()
+
+
+def _fc_main_image(etdi, edid, season_num):
+    """Season-first, then the ETDI tile in camp-items/fridges-and-cryos/.
+
+    Deliberately NOT HOSTED.find(): its Atom Shop fallback returns the store's
+    request-item images, which are scene shots, not the transparent tile. A
+    Scoreboard item that the season manifest misses (Military Cryo-Freezer is
+    listed there with no entitlement) still lives under season_images, so its
+    path is derived with the season pipeline's own naming rule rather than
+    pointing at a second copy under camp-items."""
+    hit = HOSTED.find_season(edid=edid, texture=etdi or "")
+    if hit:
+        return hit
+    if season_num:
+        stem = re.sub(r"^zzz+_?", "", (edid or "").lower()).replace("_entm_", "_")
+        return f"/wp-content/uploads/season_images/season-{season_num}/{stem}.avif"
+    return storefront_img_url(etdi, _FC_FOLDER) or ""
+
+
+def _fc_int(raw):
+    v = _fc_num(raw)
+    return int(v) if v is not None else None
+
+
+def build_fridges_cryos():
+    """Both pages' items in one pass; the caller splits them by ``kind``."""
     items = []
-    for entm_id in CRYO_ENTM_IDS:
-        entm = entm_by_id.get(entm_id, {})
+    for acti_fid, (acti, wb_kw) in sorted(_FC_ACTI.items()):
+        entm_id = _FC_ENTM_BY_ACTI.get(acti_fid)
+        entm = entm_by_id.get(entm_id or "", {})
         if not entm:
+            print(f"  [WARN] fridge/cryo ACTI {acti_fid} {acti.get('ACTI_EDID')}: "
+                  f"no ENTM links to it — left off the page")
             continue
 
-        desc     = clean_desc(entm.get("DESC", ""))
-        display  = entm.get("FULL", "")
-        xalg     = entm.get("XALG", "")
-        source   = xalg_to_source(xalg) or "Atom Shop"
-        _etdi    = entm.get("ETDI", "").strip()
-        carousel = ecil_images(entm, "fridges-and-cryos")
-        img      = main_image(_etdi, "fridges-and-cryos", carousel, entm.get("EDID") if entm else "")
-        gv       = CRYO_PLAN_BOOKS.get(entm_id, "")
-        edid     = entm.get("EDID", "")
-
+        kind      = _FC_KIND[wb_kw]
+        edid      = entm.get("EDID", "")
+        acti_edid = acti.get("ACTI_EDID", "")
+        acti_kws  = [(acti.get(f"KW_{i}") or "").split(":")[1]
+                     for i in range(1, 7) if (acti.get(f"KW_{i}") or "").count(":") >= 2]
         season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
         season_num = int(season_m.group(1)) if season_m else None
-        # How to Obtain — standard templates; gold-merge convention puts the
-        # scoreboard line first, then the data-derived plan/vendor/price block.
-        _gv_block = plan_purchase_block(gv) if gv else ""
-        if season_num and _gv_block:
-            how = f"{scoreboard_how(season_num)}\nOR\n{_gv_block}"
-        elif season_num:
-            how = scoreboard_how(season_num)
-        elif _gv_block:
-            how = _gv_block
+
+        # --- recipe + build list -------------------------------------------
+        list_fid, list_edid = _FC_LIST_BY_ACTI.get(acti_fid, ("", ""))
+        recipe_fid = _FC_RECIPE_BY_ACTI.get(acti_fid, "")
+        if not recipe_fid:
+            for key in (acti_fid, list_fid.upper()):
+                rows = cobj_by_cnam.get(key) or []
+                if rows:
+                    recipe_fid = (rows[0].get("COBJ_FormID") or "").upper()
+                    break
+        recipe = _FC_COBJ_BY_ID.get(recipe_fid, {})
+        craft = fvpa_to_array(effective_fvpa(recipe)) if recipe else []
+
+        # --- output: spoilage straight off the ACTI property ----------------
+        spoil = _fc_num(acti_prps_value(acti_edid, _FC_SPOIL_AV))
+        priority = _FC_PRIORITY_KW in acti_kws
+        if spoil is None:
+            spoilage, output = "—", ""
+        elif priority:
+            # A high-priority spoilage container SETS the rate: 0 = frozen.
+            reduction = (1 - spoil) * 100
+            spoilage = "100% (no spoilage)" if spoil == 0 else _fc_pct(reduction)
+            output = ("Food and drink stored inside do not spoil (spoilage rate 0%)."
+                      if spoil == 0 else
+                      f"Food and drink stored inside spoil at {_fc_pct(spoil * 100)} of the normal rate.")
         else:
-            how = ATX_HOW
-        tradeable  = not bool(season_num)
+            reduction = -spoil * 100
+            spoilage = _fc_pct(reduction)
+            output = f"Reduces the spoilage rate of food and drink stored inside by {_fc_pct(reduction)}."
 
-        # Tradeable via plan: match ENTM EDID suffix against CondProxy tokens
-        _cryo_key = re.sub(
-            r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?ENTM_CAMP_Utility_",
-            "", edid, flags=re.IGNORECASE
-        ).lower()
-        _cryo_gnam_fid, _cryo_plan_name = plan_for_condproxy_token(_cryo_key)
-        _cryo_tradeable = tradeable_from_plan(_cryo_gnam_fid)
+        # --- build information ----------------------------------------------
+        wc = _FC_WC_BY_COBJ.get(recipe_fid, {})
+        camp_lim = _fc_int(wc["camp"][1]) if "camp" in wc else None
+        ws_lim   = _fc_int(wc["workshop"][1]) if "workshop" in wc else None
+        power_raw = acti_prps_value(acti_edid, "PowerRequired")
+        power = fmt_num(power_raw) or "0"          # absent property = needs no power
+        flamingo = fmt_num(acti_prps_value(acti_edid, "WorkshopBudgetObjectMultiplier")) or "—"
+        refs = _FC_ACTI_REFS.get(acti_fid, [])
+        no_shelter = any(ed == _FC_SHELTER_BLACKLIST for _, ed, _ in refs)
+        storage_glob = _FC_STORAGE_GLOB.get(wb_kw, "")
+        storage = fmt_num(_FC_GLOB_VAL.get(storage_glob, "")) or "—"
+        build_lines = [
+            f"Build Limit per Camp: {_limit_str(camp_lim) if wc else '—'}",
+            f"Build Limit per Workshop: {_limit_str(ws_lim) if wc else '—'}",
+            f"Power Required: {power}",
+            f"Flamingo Units: {flamingo}",
+            f"Shelter Placement: {'No' if no_shelter else 'Yes'}",
+            f"Storage Capacity: {storage}",
+        ]
 
-        items.append({
-            "formId":         entm_id,
-            "entmFormId":     entm_id,
-            "goldVendorFormId": gv,
-            "edid":           edid,
-            "displayName":    display,
-            "description":    desc,
-            "obtainSource":   "Scoreboard" if season_num else source,
-            "howToObtain":    how,
-            "dropRate":       "N/A",
-            "seasonNumber":   season_num,
-            "tradeable":      _cryo_tradeable,
-            "planName":       _cryo_plan_name,
-            "obtainRoutes":   simple_obtain_routes(
-                                  season_num=season_num,
-                                  gold_block=_gv_block,
-                                  atom_shop=(not season_num and not _gv_block),
-                                  tradeable=_cryo_tradeable),
-            "imageUrl":       img,
-            "imageCarousel":  carousel,
-            # Limits from SCORE_S14_WorkshopCount_Cyro_Freezer / _Camp — one
-            # per CAMP, zero per workshop (cryos can't be placed at a workshop
-            # at all, which _limit_str spells out so 0 isn't read as unlimited).
-            "buildInfo":      camp_build_block("", "Cyro_Freezer"),
-            "spoilageReduction": "100% (no spoilage)",
-            "xalgFlags":      xalg,
-            "craftingRequirements": craft_array_for(entm_id, edid_hint=_cryo_key),
-            "cutContent":     is_cut(edid),
-        })
+        # --- tradeability + obtain routes -----------------------------------
+        _key = re.sub(r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?(?:ENTM_)?CAMP_Utility_", "",
+                      edid, flags=re.IGNORECASE).lower()
+        gnam_fid, plan_name = plan_for_condproxy_token(_key)
+        tradeable = tradeable_from_plan(gnam_fid)
 
-    items.sort(key=lambda x: x["displayName"])
-    return {"items": items}
-
-
-# ---------------------------------------------------------------------------
-# FRIDGES
-# ---------------------------------------------------------------------------
-
-# AUTO-DISCOVERY: fridges/coolers match ENTM_CAMP_Utility_Refrigerator*;
-# beer kegs/dispensers match ENTM_CAMP_Utility_*Beer* (Beer Keg, Beer
-# Mystery Machine, Blue Ridge Beer Keg). Cryos are a separate page.
-FRIDGE_ENTM_IDS = sorted({
-    _e["FormID"] for _e in entm_rows
-    if (re.search(r"ENTM_CAMP_Utility_Refrigerator", _e.get("EDID", ""), re.I)
-        or re.search(r"ENTM_CAMP_Utility_\w*Beer", _e.get("EDID", ""), re.I))
-    and not re.search(r"Cryo", _e.get("EDID", ""), re.I)
-    and not is_cut(_e.get("EDID", ""))
-})
-
-
-def build_fridges():
-    items = []
-    for entm_id in FRIDGE_ENTM_IDS:
-        entm = entm_by_id.get(entm_id, {})
-        if not entm:
-            continue
-
-        edid     = entm.get("EDID", "")
-        desc     = clean_desc(entm.get("DESC", ""))
-        display  = entm.get("FULL", "")
-        xalg     = entm.get("XALG", "")
-        source   = xalg_to_source(xalg) or "Atom Shop"
-        _etdi    = entm.get("ETDI", "").strip()
-        carousel = ecil_images(entm, "fridges-and-cryos")
-        img      = main_image(_etdi, "fridges-and-cryos", carousel, entm.get("EDID") if entm else "")
-
-        season_m   = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
-        season_num = int(season_m.group(1)) if season_m else None
+        populated = {}
         if season_num:
-            source = "Scoreboard"
-            how    = scoreboard_how(season_num)
-        else:
-            how = ATX_HOW
+            populated["Scoreboard"] = ([scoreboard_how(season_num)], False, "N/A")
+        gold = gold_block_for(entm_id)
+        if gold:
+            populated["Gold Bullion"] = ([l for l in gold.split("\n") if l.strip()], tradeable, "N/A")
+        chal_lines, gmrw_notes = [], []
+        for f, _, s in _fc_entm_refs.get(entm_id, []):
+            if s != "GMRW" or f.upper() not in _FC_GMRW:
+                continue
+            g_edid, chals = _FC_GMRW[f.upper()]
+            gmrw_notes.append(f"Challenge Reward (GMRW): {g_edid} [{f.upper()}]")
+            for c in chals:
+                name = _FC_CHAL_NAME.get(c)
+                if name:
+                    chal_lines.append(f"Challenge: {name}")
+        if chal_lines:
+            populated["Challenges"] = (chal_lines, False, "N/A")
+        if not populated and edid.upper().startswith("ATX_"):
+            populated["Atom Shop"] = ([ATX_HOW], False, "N/A")
+        routes = make_obtain_routes(populated)
+        how = "\nOR\n".join("\n".join(v[0]) for k, v in
+                            ((r, populated[r]) for r in OBTAIN_ROUTE_ORDER if r in populated))
+        source = next((r for r in OBTAIN_ROUTE_ORDER if r in populated), "")
 
+        # --- Technical: record trail -----------------------------------------
+        notes = [
+            f"ACTI EDID: {acti_edid or '—'}",
+            f"ACTI FormID: {acti_fid}",
+            f"Build List (LVLI) EDID: {list_edid or '—'}",
+            f"Build List (LVLI) FormID: {list_fid or '—'}",
+            f"Recipe (COBJ) EDID: {recipe.get('COBJ_EDID', '') or '—'}",
+            f"Recipe (COBJ) FormID: {recipe_fid or '—'}",
+        ]
+        if acti_fid in _FC_CNDF_BY_ACTI:
+            c_ed, c_fid = _FC_CNDF_BY_ACTI[acti_fid]
+            notes += [f"Unlock Condition (CNDF) EDID: {c_ed}", f"Unlock Condition (CNDF) FormID: {c_fid}"]
+        notes.append(f"Workbench Keyword: {wb_kw}")
+        if priority:
+            notes.append(f"Spoilage Priority Keyword: {_FC_PRIORITY_KW}")
+        notes.append(f"Spoilage AV ({_FC_SPOIL_AV}): {fmt_num(str(spoil)) if spoil is not None else '—'}")
+        for k, label in (("camp", "CAMP"), ("workshop", "Workshop")):
+            if k in wc:
+                notes.append(f"Build Limit GLOB ({label}): {wc[k][0]}")
+        if storage_glob:
+            notes.append(f"Storage GLOB: {storage_glob}")
+        book = _FC_BOOK_BY_ENTM.get(entm_id)
+        if book:
+            notes += [f"Gold Vendor Plan (BOOK) EDID: {book[1]}",
+                      f"Gold Vendor Plan (BOOK) FormID: {book[0]}",
+                      f"Gold Vendor List: {book[2]}"]
+        notes += gmrw_notes
+        notes.append(f"ENTM Link: {_FC_LINK_BY_ACTI.get(acti_fid, '—')}")
+
+        etdi = entm.get("ETDI", "").strip()
         items.append({
-            "formId":        entm_id,
-            "entmFormId":    entm_id,
-            "edid":          edid,
-            "displayName":   display,
-            "description":   desc,
-            "obtainSource":  source,
-            "howToObtain":   how,
-            "dropRate":      "N/A",
-            "seasonNumber":  season_num,
-            "tradeable":     False,
-            "planName":      "",
-            "obtainRoutes":  simple_obtain_routes(
-                                 season_num=season_num,
-                                 atom_shop=(season_num is None),
-                                 tradeable=False),
-            "imageUrl":      img,
-            "imageCarousel": carousel,
-            "spoilageReduction": "-50%",
-            "xalgFlags":     xalg,
-            # Limits from WorkshopCount_ATX_WorkshopAppliance_Refrigerator /
-            # _CAMP — ten per CAMP, none at a workshop.
-            "buildInfo":     camp_build_block("", "ATX_WorkshopAppliance_Refrigerator"),
-            "craftingRequirements": craft_array_for(entm_id, edid_hint=edid),
-            "cutContent":    is_cut(edid),
+            "formId":            entm_id,
+            "entmFormId":        entm_id,
+            "actiFormId":        acti_fid,
+            "edid":              edid,
+            "kind":              kind,
+            "displayName":       entm.get("FULL", "") or acti.get("ACTI_FULL", ""),
+            "description":       clean_desc(entm.get("DESC", "")),
+            "obtainSource":      source,
+            "howToObtain":       how,
+            "dropRate":          "N/A",
+            "seasonNumber":      season_num,
+            "tradeable":         tradeable,
+            "planName":          plan_name,
+            "goldVendorFormId":  book[0] if book else "",
+            "obtainRoutes":      routes,
+            "imageUrl":          _fc_main_image(etdi, edid, season_num),
+            # Fridges & cryos are single-image pages (no C1/C2 carousel).
+            "imageCarousel":     [],
+            "outputInfo":        output,
+            "spoilageReduction": spoilage,
+            "buildInfo":         "\n".join(build_lines),
+            "craftingRequirements": craft,
+            "technicalNotes":    "\n".join(notes),
+            "xalgFlags":         acti.get("XALG_Flags", ""),
+            "cutContent":        is_cut(edid),
         })
 
-    items.sort(key=lambda x: x["displayName"])
-    return {"items": items}
+    items.sort(key=lambda x: x["displayName"].lower())
+    return items
 
 
 # ---------------------------------------------------------------------------
@@ -3252,8 +3482,9 @@ allies_data = build_allies()
 pets_data = build_pets()
 pet_furn_data = build_pet_furniture()
 pet_appr_data = build_pet_apparel()
-cryos_data = build_cryos()
-fridges_data = build_fridges()
+_fc_items = build_fridges_cryos()
+fridges_data = {"items": [i for i in _fc_items if i["kind"] == "Fridge"]}
+cryos_data = {"items": [i for i in _fc_items if i["kind"] == "Cryo"]}
 
 # Generative Gold Bullion route, one pass per page, before anything is written.
 # Every page goes through this — the route used to be decided by a per-script

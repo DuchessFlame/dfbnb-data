@@ -76,11 +76,13 @@ CONTRACT = {
         "coverage": {"imageUrl": 0.90, "craftingRequirements": 0.90},
     },
     "cryos.json": {
-        "required": ["formId", "displayName", "obtainRoutes", "buildInfo"],
+        # "kind" (Fridge / Cryo) is the row pill on the combined flat page.
+        "required": ["formId", "displayName", "obtainRoutes", "buildInfo", "kind"],
         "coverage": {"imageUrl": 0.90, "spoilageReduction": 0.90},
     },
     "fridges.json": {
-        "required": ["formId", "displayName", "obtainRoutes", "buildInfo"],
+        # "kind" (Fridge / Cryo) is the row pill on the combined flat page.
+        "required": ["formId", "displayName", "obtainRoutes", "buildInfo", "kind"],
         "coverage": {"imageUrl": 0.90, "spoilageReduction": 0.90},
     },
     "pets.json": {
