@@ -1,29 +1,29 @@
 {
  "coherent": {
   "ACTI": true,
-  "ALCH": false,
-  "ARMO": false,
+  "ALCH": true,
+  "ARMO": true,
   "BOOK": true,
-  "COBJ": false,
-  "CONT": false,
-  "FURN": false,
-  "LVLI": false,
-  "MISC": false,
+  "COBJ": true,
+  "CONT": true,
+  "FURN": true,
+  "LVLI": true,
+  "MISC": true,
   "NPC": true,
   "OMOD": true,
   "QUEST": true,
   "WEAP": true
  },
  "exports": {
-  "ACTI": "ACTI_Export_September_2026_ACTI.tsv",
-  "ALCH": "ALCH_Export_August_2026.tsv",
-  "ARMO": "ARMO_Export_July_2026_ARMOUR.tsv",
-  "BOOK": "BOOK_Export_September_2026.tsv",
-  "COBJ": "COBJ_Export_July_2026.tsv",
-  "CONT": "CONT_Export_July_2026.tsv",
-  "FURN": "FURN_Export_July_2026_FURN.tsv",
-  "LVLI": "LVLI_Export_July_2026_LVLI_Entries.tsv",
-  "MISC": "MISC_Export_July_2026.tsv",
+  "ACTI": "ACTI_Export_September_2026_Refs.tsv",
+  "ALCH": "ALCH_Export_September_2026_Effects.tsv",
+  "ARMO": "ARMO_Export_September_2026_ObjectTemplate.tsv",
+  "BOOK": "BOOK_Export_September_2026_Locations.tsv",
+  "COBJ": "COBJ_Export_September_2026.tsv",
+  "CONT": "CONT_Export_September_2026.tsv",
+  "FURN": "FURN_Export_September_2026_FURN.tsv",
+  "LVLI": "LVLI_Export_September_2026_LVLI_Math.tsv",
+  "MISC": "MISC_Export_September_2026.tsv",
   "NPC": "NPC_Export_September_2026.tsv",
   "OMOD": "OMOD_Export_September_2026.tsv",
   "QUEST": "QUEST_Export_September_2026.tsv",
@@ -5022,8 +5022,8 @@
    "routes": {
     "Daily: Idle Explosives|event-quest": "Events & Activities",
     "Daily: Queen of the Hunt|event-quest": "Events & Activities",
-    "Mod Under Armor Casual Mk5 Chance|event-quest": "Events & Activities",
-    "SFZ Waste|event-quest": "Events & Activities"
+    "Daily: Waste Not|event-quest": "Events & Activities",
+    "Mod Under Armor Casual Mk5 Chance|event-quest": "Events & Activities"
    },
    "stops_dropping": false,
    "tradeable": true
@@ -5685,7 +5685,7 @@
    "name": "Plan: Beer Keg",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_003F4769": {
    "cut": false,
@@ -8335,55 +8335,6 @@
   "PLAN_0046A3A9": {
    "cut": true,
    "name": "Plan: Aqua Backpack Material",
-   "routes": {},
-   "stops_dropping": null,
-   "tradeable": true
-  },
-  "PLAN_0046A3AA": {
-   "cut": true,
-   "name": "Plan: Blue Backpack Material",
-   "routes": {},
-   "stops_dropping": null,
-   "tradeable": true
-  },
-  "PLAN_0046A3AB": {
-   "cut": true,
-   "name": "Plan: Green Backpack Material",
-   "routes": {},
-   "stops_dropping": null,
-   "tradeable": true
-  },
-  "PLAN_0046A3AC": {
-   "cut": true,
-   "name": "Plan: Pink Backpack Material",
-   "routes": {},
-   "stops_dropping": null,
-   "tradeable": true
-  },
-  "PLAN_0046A3AD": {
-   "cut": true,
-   "name": "Plan: Red Backpack Material",
-   "routes": {},
-   "stops_dropping": null,
-   "tradeable": true
-  },
-  "PLAN_0046A3AE": {
-   "cut": true,
-   "name": "Plan: Vault-Tec Backpack Material",
-   "routes": {},
-   "stops_dropping": null,
-   "tradeable": true
-  },
-  "PLAN_0046A3AF": {
-   "cut": true,
-   "name": "Plan: White Backpack Material",
-   "routes": {},
-   "stops_dropping": null,
-   "tradeable": true
-  },
-  "PLAN_0046A3B0": {
-   "cut": true,
-   "name": "Plan: Yellow Backpack Material",
    "routes": {},
    "stops_dropping": null,
    "tradeable": true
@@ -16432,8 +16383,10 @@
   "PLAN_00510B79": {
    "cut": false,
    "name": "Plan: Long Recon Scope",
-   "routes": {},
-   "stops_dropping": false,
+   "routes": {
+    "Activity: Distant Thunder|event-quest": "Events & Activities"
+   },
+   "stops_dropping": true,
    "tradeable": true
   },
   "PLAN_005187CC": {
@@ -24052,7 +24005,8 @@
    "cut": false,
    "name": "Plan: Medium Supply Crate",
    "routes": {
-    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
+    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion",
+    "The Slasher - Daily Ops|event-quest": "Events & Activities"
    },
    "stops_dropping": false,
    "tradeable": true
@@ -24751,6 +24705,7 @@
    "cut": false,
    "name": "Plan: Ghillie Suit Hood",
    "routes": {
+    "Scorched Spooky|creature": "Events & Activities",
     "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
    },
    "stops_dropping": false,
@@ -24778,6 +24733,7 @@
    "cut": false,
    "name": "Plan: Nuclear Winter Letterman Jacket",
    "routes": {
+    "Scorched Spooky|creature": "Events & Activities",
     "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
    },
    "stops_dropping": false,
@@ -24832,7 +24788,8 @@
    "cut": false,
    "name": "Plan: Ring of Fire Pit",
    "routes": {
-    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
+    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion",
+    "The Slasher - Daily Ops|event-quest": "Events & Activities"
    },
    "stops_dropping": false,
    "tradeable": true
@@ -24841,6 +24798,7 @@
    "cut": false,
    "name": "Plan: Ghillie Suit",
    "routes": {
+    "Scorched Spooky|creature": "Events & Activities",
     "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
    },
    "stops_dropping": false,
@@ -24895,7 +24853,8 @@
    "cut": false,
    "name": "Plan: Wasteland Loveseat",
    "routes": {
-    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
+    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion",
+    "The Slasher - Daily Ops|event-quest": "Events & Activities"
    },
    "stops_dropping": false,
    "tradeable": true
@@ -24904,7 +24863,8 @@
    "cut": false,
    "name": "Plan: Antler Chandelier",
    "routes": {
-    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
+    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion",
+    "The Slasher - Daily Ops|event-quest": "Events & Activities"
    },
    "stops_dropping": false,
    "tradeable": true
@@ -26095,8 +26055,10 @@
   "PLAN_00682041": {
    "cut": false,
    "name": "Plan: Nuka-Launcher",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Steel Reign - Minerva (Gold Bullion vendor)|vendor": "Gold Bullion"
+   },
+   "stops_dropping": false,
    "tradeable": false
   },
   "PLAN_0068210B": {
@@ -27786,8 +27748,9 @@
    "name": "Plan: .44 Roulette Paint",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -27808,8 +27771,9 @@
    "name": "Plan: Showstopper Shotgun Paint",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -27897,8 +27861,9 @@
    "name": "Plan: Civil Engineer Underarmor",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -27994,8 +27959,9 @@
    "name": "Plan: Overgrown Missile Launcher Paint",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28006,8 +27972,9 @@
    "name": "Plan: Overgrown Assault Rifle Paint",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28018,8 +27985,9 @@
    "name": "Plan: Overgrown Deathclaw Gauntlet Paint",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28030,8 +27998,9 @@
    "name": "Plan: Civil Engineer Welded Armor Arms",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28042,8 +28011,9 @@
    "name": "Plan: Civil Engineer Tempered Armor Arms",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28054,8 +28024,9 @@
    "name": "Plan: Civil Engineer Hardened Armor Arms",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28066,8 +28037,9 @@
    "name": "Plan: Civil Engineer Buttressed Armor Arms",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28105,8 +28077,9 @@
    "name": "Plan: Civil Engineer Welded Armor Legs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28117,8 +28090,9 @@
    "name": "Plan: Civil Engineer Tempered Armor Legs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28129,8 +28103,9 @@
    "name": "Plan: Civil Engineer Hardened Armor Legs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28141,8 +28116,9 @@
    "name": "Plan: Civil Engineer Buttressed Armor Legs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28180,8 +28156,9 @@
    "name": "Plan: Civil Engineer Welded Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28192,8 +28169,9 @@
    "name": "Plan: Civil Engineer Tempered Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28204,8 +28182,9 @@
    "name": "Plan: Civil Engineer Hardened Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28216,8 +28195,9 @@
    "name": "Plan: Civil Engineer Buttressed Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28228,8 +28208,9 @@
    "name": "Plan: Civil Engineer Pocketed Armor Limbs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28240,8 +28221,9 @@
    "name": "Plan: Civil Engineer Deep Pocketed Armor Limbs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28251,8 +28233,9 @@
    "cut": false,
    "name": "Plan: Civil Engineer Lighter Build Armor Limbs",
    "routes": {
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Hells Eagles|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28263,8 +28246,9 @@
    "name": "Plan: Civil Engineer Ultra-Light Build Armor Limbs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28275,8 +28259,9 @@
    "name": "Plan: Civil Engineer Strengthened Armor Limbs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28287,9 +28272,10 @@
    "name": "Plan: Civil Engineer Lead Lined Armor Limbs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28300,8 +28286,9 @@
    "name": "Plan: Civil Engineer Braced Armor Arms",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28312,9 +28299,10 @@
    "name": "Plan: Civil Engineer Brawling Armor Arms",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28325,8 +28313,9 @@
    "name": "Plan: Civil Engineer Weighted Armor Arms",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28337,8 +28326,9 @@
    "name": "Plan: Civil Engineer Aerodynamic Armor Arms",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28349,9 +28339,10 @@
    "name": "Plan: Civil Engineer Stabilized Armor Arms",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28362,9 +28353,10 @@
    "name": "Plan: Civil Engineer Cushioned Armor Legs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28375,9 +28367,10 @@
    "name": "Plan: Civil Engineer Custom Fitted Armor Legs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28388,8 +28381,9 @@
    "name": "Plan: Civil Engineer Sleek Armor Legs",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28401,8 +28395,9 @@
    "routes": {
     "A Grand Reopening|event-quest": "Events & Activities",
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28413,8 +28408,9 @@
    "name": "Plan: Civil Engineer Dense Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28424,8 +28420,9 @@
    "cut": false,
    "name": "Plan: Civil Engineer Asbestos Lined Armor Torso",
    "routes": {
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Hells Eagles|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28436,8 +28433,9 @@
    "name": "Plan: Civil Engineer Pocketed Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28448,8 +28446,9 @@
    "name": "Plan: Civil Engineer Deep Pocketed Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28459,8 +28458,9 @@
    "cut": false,
    "name": "Plan: Civil Engineer Pneumatic Armor Torso",
    "routes": {
+    "Blood Eagle Destroyer|creature": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28471,8 +28471,9 @@
    "name": "Plan: Civil Engineer Lighter Build Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28483,8 +28484,9 @@
    "name": "Plan: Civil Engineer Ultra-Light Build Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28495,8 +28497,9 @@
    "name": "Plan: Civil Engineer BioCommMesh Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28507,9 +28510,10 @@
    "name": "Plan: Civil Engineer Lead Lined Armor Torso",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "Regent of the Dead|event-quest": "Events & Activities",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28520,8 +28524,9 @@
    "name": "Plan: Civil Engineer Jet Pack Armor",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28532,8 +28537,9 @@
    "name": "Plan: Treated Lining Civil Engineer Underarmor",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28544,8 +28550,9 @@
    "name": "Plan: Resistant Lining Civil Engineer Underarmor",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28556,8 +28563,9 @@
    "name": "Plan: Protective Lining Civil Engineer Underarmor",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28568,8 +28576,9 @@
    "name": "Plan: Shielded Lining Civil Engineer Underarmor",
    "routes": {
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -28581,8 +28590,9 @@
    "routes": {
     "A Grand Reopening|event-quest": "Events & Activities",
     "Atlantic City Expedition - Mission|event-quest": "Events & Activities",
+    "Blood Eagle Destroyer|creature": "Events & Activities",
     "Expeditions - Giuseppe vendor|vendor": "Stamps",
-    "The Drifter - Expeditions Atlantic City|event-quest": "Events & Activities",
+    "Infestations - Expeditions Atlantic City|event-quest": "Events & Activities",
     "The Drifter|event-quest": "Events & Activities"
    },
    "stops_dropping": true,
@@ -30758,13 +30768,6 @@
    "stops_dropping": false,
    "tradeable": true
   },
-  "PLAN_0077299B": {
-   "cut": true,
-   "name": "Plan: Pipe Quiver Backpack",
-   "routes": {},
-   "stops_dropping": null,
-   "tradeable": true
-  },
   "PLAN_0077299C": {
    "cut": false,
    "name": "Plan: Shenandoah Road Sign",
@@ -32398,25 +32401,25 @@
    "tradeable": false
   },
   "PLAN_007A8349": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Mirelurk Plushie",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007A8350": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Crab Boat Plushie",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007A8357": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Angler Plushie",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007A8775": {
    "cut": false,
@@ -33067,11 +33070,11 @@
    "tradeable": true
   },
   "PLAN_007B6D88": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Reclaimed Ship Chandelier",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007B7046": {
    "cut": false,
@@ -33140,11 +33143,11 @@
    "tradeable": true
   },
   "PLAN_007B9578": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Kelp Curtain",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007BB06B": {
    "cut": false,
@@ -33271,18 +33274,18 @@
    "tradeable": true
   },
   "PLAN_007F2715": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Blue Car Couch",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F2716": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Red Car Couch",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F2717": {
    "cut": false,
@@ -33298,70 +33301,70 @@
    "name": "Plan: Gas Pump Beer Keg",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F2767": {
    "cut": false,
    "name": "Plan: Blue Car Stash Box",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F2768": {
    "cut": false,
    "name": "Plan: Red Car Stash Box",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F2769": {
    "cut": false,
    "name": "Plan: Green Car Stash Box",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F276A": {
    "cut": false,
    "name": "Plan: Green Wall Mounted Headlamp",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F276B": {
    "cut": false,
    "name": "Plan: Green Wall Mounted Headlamp",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F276C": {
    "cut": false,
    "name": "Plan: Car Strip Light",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F4A10": {
    "cut": false,
    "name": "Plan: Saloon Car Doors",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F4A11": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Fridge With Doors",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F4A12": {
    "cut": false,
    "name": "Plan: Red Tailgate Bed",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F4A13": {
    "cut": false,
@@ -33377,28 +33380,28 @@
    "name": "Plan: Blue Tailgate Bed",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F4A15": {
    "cut": false,
    "name": "Plan: Stop Sign Stool",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F4A16": {
    "cut": false,
    "name": "Plan: Tire Bar Stool",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F4A17": {
    "cut": false,
    "name": "Plan: Car Seat Stool",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F4A18": {
    "cut": true,
@@ -33408,18 +33411,18 @@
    "tradeable": true
   },
   "PLAN_007F4A19": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Fridge With Shelves",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F4A1A": {
    "cut": false,
    "name": "Plan: Jeep Table",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F543D": {
    "cut": false,
@@ -33459,18 +33462,18 @@
    "tradeable": true
   },
   "PLAN_007F555D": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Flamewood Float",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F555E": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Red Tide Float",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F555F": {
    "cut": true,
@@ -33494,60 +33497,60 @@
    "tradeable": true
   },
   "PLAN_007F5562": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Crimson Stripe Float",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F5563": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Rocket Bobber",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F5564": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Skyfire Float",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F5565": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Festive Float",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F5566": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Twin Timber Float",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F5567": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Quantum Bobber",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F5568": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Makeshift Rod",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F5569": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Pin Bobber",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007F556A": {
    "cut": true,
@@ -33555,13 +33558,6 @@
    "routes": {},
    "stops_dropping": null,
    "tradeable": true
-  },
-  "PLAN_007F556B": {
-   "cut": true,
-   "name": "Plan: Scuba Tank Backpack",
-   "routes": {},
-   "stops_dropping": null,
-   "tradeable": false
   },
   "PLAN_007F556C": {
    "cut": true,
@@ -33787,7 +33783,7 @@
    "name": "Plan: Abraxodyne Sign",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_007FFEEF": {
    "cut": false,
@@ -33981,7 +33977,7 @@
    "name": "Plan: Balloon Turbine",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_0082BB81": {
    "cut": false,
@@ -34036,7 +34032,7 @@
    "name": "Plan: Starlight Drive-in Movie Poster",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_00833F55": {
    "cut": false,
@@ -34082,21 +34078,21 @@
    "name": "Plan: Rusted Abraxodyne Sign",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_00840357": {
    "cut": false,
    "name": "Plan: Lone Mechanic Statue",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_008409F7": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Abraxodyne Stash Box",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_008409F8": {
    "cut": false,
@@ -34117,11 +34113,11 @@
    "tradeable": true
   },
   "PLAN_00844586": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Head Hunter Outfit",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_00844912": {
    "cut": true,
@@ -34158,7 +34154,7 @@
    "name": "Recipe: Radhog Burnt Ends",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_0084CCA2": {
    "cut": false,
@@ -34203,7 +34199,7 @@
    "name": "Plan: Babydoll Head Bobber",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_00852810": {
    "cut": false,
@@ -34303,11 +34299,11 @@
    "tradeable": false
   },
   "PLAN_0085556A": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Abraxodyne Briefcase",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_008575FA": {
    "cut": false,
@@ -34346,14 +34342,14 @@
    "name": "Plan: Wanted Poster",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_00857C6B": {
    "cut": false,
    "name": "Plan: Bounty Board",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_008591ED": {
    "cut": false,
@@ -34587,8 +34583,10 @@
   "PLAN_008B3DBB": {
    "cut": false,
    "name": "Plan: Mr. Farmhand Collectron",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Wastelanders - Samuel (Settlers Gold Bullion vendor)|vendor": "Gold Bullion"
+   },
+   "stops_dropping": false,
    "tradeable": false
   },
   "PLAN_008B4C2F": {
@@ -34770,47 +34768,57 @@
   "PLAN_008DE080": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Power Armor Helmet Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher: Blood Will Have Blood (Head Hunts)|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": false
   },
   "PLAN_008DE087": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Power Armor Legs Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Reborn Pint-Sized Slasher|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008DE088": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Power Armor Jetpack Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Reborn Pint-Sized Slasher|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008DE089": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Power Armor Arms Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Reborn Pint-Sized Slasher|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008DE08B": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Power Armor Torso Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Reborn Pint-Sized Slasher|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008E068D": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Pint-Sized Slasher Bobber",
    "routes": {},
    "stops_dropping": null,
-   "tradeable": true
+   "tradeable": false
   },
   "PLAN_008E068E": {
-   "cut": true,
+   "cut": false,
    "name": "Plan: Pint-Sized Slasher Radio",
    "routes": {},
    "stops_dropping": null,
@@ -34819,78 +34827,107 @@
   "PLAN_008E068F": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Hat - Red",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher - Daily Ops|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008E0690": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Balloon",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Blood Eagle Destroyer|creature": "Events & Activities",
+    "Infestations - Events The Slasher|event-quest": "Events & Activities",
+    "Infestations - Events|event-quest": "Events & Activities",
+    "The Slasher - Infestations Rare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008E0691": {
    "cut": false,
    "name": "Plan: Pint-Sized Phantom Outfit",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher: Masked Truth (Quest)|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": false
   },
   "PLAN_008E0692": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Hat - Green",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher - Daily Ops|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008E0694": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Plushie",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Blood Eagle Destroyer|creature": "Events & Activities",
+    "Infestations - Events The Slasher|event-quest": "Events & Activities",
+    "Infestations - Events|event-quest": "Events & Activities",
+    "The Slasher - Infestations Rare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008E0696": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Ad Poster 1",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Scorched Spooky|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008E0697": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Gravestone",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher: Secrets to the Grave (Grave Digging)|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": false
   },
   "PLAN_008E0698": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Hat - Blue",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher - Daily Ops|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008E0699": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Wanted Poster 1",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher - Fan Party Crasher|creature": "Events & Activities",
+    "Uninvited Pint-Sized Phantom|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008E069A": {
    "cut": false,
    "name": "Plan: Pint-Sized Auto Axe Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Reborn Pint-Sized Slasher|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008E069B": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Hat - Orange",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher - Daily Ops|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008EE1AF": {
@@ -34914,134 +34951,182 @@
   "PLAN_008F20F0": {
    "cut": false,
    "name": "Plan: Love Tap Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Tunnel Of Love|event-quest": "Events & Activities"
+   },
+   "stops_dropping": true,
    "tradeable": true
   },
   "PLAN_008F20F1": {
    "cut": false,
    "name": "Plan: Crowd Control Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Eviction Notice|event-quest": "Events & Activities"
+   },
+   "stops_dropping": true,
    "tradeable": true
   },
   "PLAN_008F20F2": {
    "cut": false,
    "name": "Plan: Foundation's Vengeance Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Eviction Notice|event-quest": "Events & Activities"
+   },
+   "stops_dropping": true,
    "tradeable": true
   },
   "PLAN_008F20F3": {
    "cut": false,
    "name": "Plan: The Debilitator Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Eviction Notice|event-quest": "Events & Activities"
+   },
+   "stops_dropping": true,
    "tradeable": true
   },
   "PLAN_008F20F4": {
    "cut": false,
    "name": "Plan: Tone Death Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Eviction Notice|event-quest": "Events & Activities"
+   },
+   "stops_dropping": true,
    "tradeable": true
   },
   "PLAN_008F2A42": {
    "cut": false,
    "name": "Plan: Molerat Bat Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Seismic Activity|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F2A43": {
    "cut": false,
    "name": "Plan: Grand Finale Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Seismic Activity|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F2A44": {
    "cut": false,
    "name": "Plan: Western Spirit Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Most Wanted - GWWS|event-quest": "Events & Activities",
+    "Event: Most Wanted|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F2A45": {
    "cut": false,
    "name": "Plan: Gunther's Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Most Wanted - GWWS|event-quest": "Events & Activities",
+    "Event: Most Wanted|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F2A46": {
    "cut": false,
    "name": "Plan: Whacker Smacker Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Spin The Wheel|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F3624": {
    "cut": false,
    "name": "Plan: Fancy Pump Action Shotgun Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - High Chase Rare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F3625": {
    "cut": false,
    "name": "Plan: Fancy Single Action Revlover Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - High Chase Rare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F5209": {
    "cut": false,
    "name": "Plan: Whistle in the Dark Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - High Chase Rare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F520A": {
    "cut": false,
    "name": "Plan: Medical Malpractice Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - High Chase Rare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F520B": {
    "cut": false,
    "name": "Plan: Unstoppable Monster Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - High Chase Rare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F520C": {
    "cut": false,
    "name": "Plan: Mechanic's Best Friend Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - High Chase Rare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F520D": {
    "cut": false,
    "name": "Plan: Sole Survivor Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - High Chase Rare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F520E": {
    "cut": false,
    "name": "Plan: Face Breaker Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - High Chase Rare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_008F5215": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Photo Frame",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher: Out of the Shadows (Infestations)|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": false
   },
   "PLAN_008FF2B4": {
@@ -35054,57 +35139,86 @@
   "PLAN_00904CD5": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Wanted Poster 2",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher - Fan Party Crasher|creature": "Events & Activities",
+    "Uninvited Pint-Sized Phantom|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00904CD6": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Ad Poster 2",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Scorched Spooky|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00904CD7": {
    "cut": false,
    "name": "Plan: Pint-Sized Slasher Ad Poster 3",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Scorched Spooky|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_0090ECFD": {
    "cut": false,
    "name": "Plan: Gold Shovel Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "The Slasher - Repeatable Side Quests|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00913B60": {
    "cut": false,
    "name": "Plan: Prime Railway Rifle Automatic Receiver",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Good|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
+    "Scorchbeast Queen|creature": "Events & Activities",
+    "Scorchbeast|creature": "Events & Activities",
+    "Supplying Demands - Valuables|event-quest": "Events & Activities",
+    "Systemic Armor Weapons Plans|event-quest": "Events & Activities",
+    "Systemic Weapons Prime Mods|event-quest": "Events & Activities",
+    "Systemic Weapons|event-quest": "Events & Activities",
+    "Uninvited Scorchbeast|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00913B61": {
    "cut": false,
    "name": "Plan: Railway Rifle Shotgun Receiver",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - Low Chase Rare|event-quest": "Events & Activities",
+    "Daily Ops - Rare|event-quest": "Events & Activities",
+    "Weapons Common|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00915481": {
    "cut": false,
    "name": "Plan: Cannery Recipe Bundle #1",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Wastelanders - Samuel (Settlers Gold Bullion vendor)|vendor": "Gold Bullion"
+   },
+   "stops_dropping": false,
    "tradeable": false
   },
   "PLAN_00915482": {
    "cut": false,
    "name": "Plan: Cannery Recipe Bundle #2",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Wastelanders - Samuel (Settlers Gold Bullion vendor)|vendor": "Gold Bullion"
+   },
+   "stops_dropping": false,
    "tradeable": false
   },
   "PLAN_00918211": {
@@ -35138,137 +35252,6512 @@
   "PLAN_00918E2E": {
    "cut": false,
    "name": "Plan: Gatling Laser V63-HELGA Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Neurological Warfare - Unique Item|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00918E2F": {
    "cut": false,
    "name": "Plan: Laser Gun V63-OLGA Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Neurological Warfare - Unique Item|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00919FCD": {
    "cut": false,
    "name": "Plan: Laser Gun V63-BERTHA",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Neurological Warfare - Unique Item|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00919FDA": {
    "cut": false,
    "name": "Plan: Prime Railway Shotgun Receiver",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Good|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
+    "Scorchbeast Queen|creature": "Events & Activities",
+    "Scorchbeast|creature": "Events & Activities",
+    "Supplying Demands - Valuables|event-quest": "Events & Activities",
+    "Systemic Armor Weapons Plans|event-quest": "Events & Activities",
+    "Systemic Weapons Prime Mods|event-quest": "Events & Activities",
+    "Systemic Weapons|event-quest": "Events & Activities",
+    "Uninvited Scorchbeast|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00919FDD": {
    "cut": false,
    "name": "Plan: Gatling Laser Valkyrie Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Raids - Weapons Valkyrie|event-quest": "Events & Activities",
+    "Raids|event-quest": "Events & Activities"
+   },
+   "stops_dropping": true,
    "tradeable": false
   },
   "PLAN_0091A080": {
    "cut": false,
    "name": "Plan: Railway Rifle Lickety-Split Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Raids - Weapons Lickety Split|event-quest": "Events & Activities",
+    "Raids|event-quest": "Events & Activities"
+   },
+   "stops_dropping": true,
    "tradeable": false
   },
   "PLAN_0091A082": {
    "cut": false,
    "name": "Plan: Gauss Rifle Flatliner Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Raids - Weapons Strike Breaker|event-quest": "Events & Activities",
+    "Raids|event-quest": "Events & Activities"
+   },
+   "stops_dropping": true,
    "tradeable": false
   },
   "PLAN_0091A1ED": {
    "cut": false,
    "name": "Plan: Prime Combat Shotgun Automatic Receiver",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Test Your Metal - Best|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Good|event-quest": "Events & Activities",
+    "Event: Test Your Metal - Poor|event-quest": "Events & Activities",
+    "Scorchbeast Queen|creature": "Events & Activities",
+    "Scorchbeast|creature": "Events & Activities",
+    "Supplying Demands - Valuables|event-quest": "Events & Activities",
+    "Systemic Armor Weapons Plans|event-quest": "Events & Activities",
+    "Systemic Weapons Prime Mods|event-quest": "Events & Activities",
+    "Systemic Weapons|event-quest": "Events & Activities",
+    "Uninvited Scorchbeast|creature": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_0091B687": {
    "cut": false,
    "name": "Plan: Combat Rifle The Fixer Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Mutated Public Events - Chase Items|event-quest": "Events & Activities",
+    "Mutated Public Events - Double Mutation Fallout1st|event-quest": "Events & Activities",
+    "Mutated Public Events - Double Mutation|event-quest": "Events & Activities",
+    "Mutated Public Events - Rare Plans|event-quest": "Events & Activities",
+    "Mutated Public Events - Single Mutation Fallout1st|event-quest": "Events & Activities",
+    "Mutated Public Events - Single Mutation|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_0091C631": {
    "cut": false,
    "name": "Plan: Commie Whacker",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Daily Ops - Chase|event-quest": "Events & Activities",
+    "Daily Ops - High Chase Rare|event-quest": "Events & Activities",
+    "Liberator|creature": "Events & Activities",
+    "Robot Liberator|creature": "Events & Activities"
+   },
+   "stops_dropping": true,
    "tradeable": true
   },
   "PLAN_0091C667": {
    "cut": false,
    "name": "Plan: Spear Super Stimpike Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Gearin' Up - Unique Items|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_0091C669": {
    "cut": false,
    "name": "Plan: Compound Bow Burning Love Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Tunnel Of Love|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": false
   },
   "PLAN_0091C66A": {
    "cut": false,
    "name": "Plan: Shock Baton Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Neurological Warfare - Unique Item|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00921E5B": {
    "cut": false,
    "name": "Plan: Resolve Breaker Paint",
    "routes": {},
-   "stops_dropping": null,
+   "stops_dropping": true,
    "tradeable": false
   },
   "PLAN_0092A09B": {
    "cut": false,
    "name": "Plan: MG42 Red Terror Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Skyline Valley - Dangerous Pastimes|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_0092A09C": {
    "cut": false,
    "name": "Plan: MG42 Green Terror Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Skyline Valley - Dangerous Pastimes|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_0092A09D": {
    "cut": false,
    "name": "Plan: Ticket to Revenge Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Skyline Valley - Dangerous Pastimes|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_0092A09E": {
    "cut": false,
    "name": "Plan: 10mm SMG Arctic Paint",
-   "routes": {},
-   "stops_dropping": null,
+   "routes": {
+    "Event: Neurological Warfare|event-quest": "Events & Activities"
+   },
+   "stops_dropping": false,
    "tradeable": true
   },
   "PLAN_00930841": {
    "cut": false,
    "name": "Plan: Piercing Love",
+   "routes": {
+    "Wastelanders - Mortimer (Raiders Gold Bullion vendor)|vendor": "Gold Bullion"
+   },
+   "stops_dropping": false,
+   "tradeable": false
+  },
+  "RECIPE_00027F98": {
+   "cut": false,
+   "name": "Puncturing",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00027F99": {
+   "cut": false,
+   "name": "Sharp",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000483D2": {
+   "cut": false,
+   "name": "Heavy",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000483D7": {
+   "cut": false,
+   "name": "Puncturing",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00054BAD": {
+   "cut": false,
+   "name": "Barbed Flaming Pitchfork",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0005A0D5": {
+   "cut": false,
+   "name": "Guard Post",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": null
+  },
+  "RECIPE_00069090": {
+   "cut": false,
+   "name": "Barbed",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000690B3": {
+   "cut": false,
+   "name": "Heating Coil",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00090FF2": {
+   "cut": false,
+   "name": "Short Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00091009": {
+   "cut": false,
+   "name": "Medium Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0009100B": {
+   "cut": false,
+   "name": "Reflex Sight (Circle)",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00091059": {
+   "cut": false,
+   "name": "Glow Sights",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0009105A": {
+   "cut": false,
+   "name": "Long Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00091446": {
+   "cut": false,
+   "name": "Speedy Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00091447": {
+   "cut": false,
+   "name": "True Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000914B4": {
+   "cut": false,
+   "name": "Tuned Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000914B5": {
+   "cut": false,
+   "name": "Refined Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000914B6": {
+   "cut": false,
+   "name": "Hair Trigger Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000914C0": {
+   "cut": false,
+   "name": "Hardened Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000914C1": {
+   "cut": false,
+   "name": "Powerful Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000914C2": {
+   "cut": false,
+   "name": "Severe Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000914EC": {
+   "cut": false,
+   "name": "Tweaked Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000914ED": {
+   "cut": false,
+   "name": "Fierce Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000914EE": {
+   "cut": false,
+   "name": "Vicious Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00091F72": {
+   "cut": false,
+   "name": "Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00091F74": {
+   "cut": false,
+   "name": "Calibrated Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000920F4": {
+   "cut": false,
+   "name": "Large Bayonet",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000920F5": {
+   "cut": false,
+   "name": "Suppressor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000920F6": {
+   "cut": false,
+   "name": "Focused Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0009213C": {
+   "cut": false,
+   "name": "Muzzle Brake",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0009213D": {
+   "cut": false,
+   "name": "Compensator",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00092142": {
+   "cut": false,
+   "name": "Piercing Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00092144": {
+   "cut": false,
+   "name": "Bayonet",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000921E9": {
+   "cut": false,
+   "name": "Perforating Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000921EB": {
+   "cut": false,
+   "name": "Quick Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00092223": {
+   "cut": false,
+   "name": "Drum Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00092224": {
+   "cut": false,
+   "name": "Stinging Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00092225": {
+   "cut": false,
+   "name": "Swift Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00092470": {
+   "cut": false,
+   "name": "Stabilized Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00092471": {
+   "cut": false,
+   "name": "Forceful Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00092472": {
+   "cut": false,
+   "name": "Bruising Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000924A2": {
+   "cut": false,
+   "name": "True Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000924A3": {
+   "cut": false,
+   "name": "Aligned Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000924A4": {
+   "cut": false,
+   "name": "Precise Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000924A6": {
+   "cut": false,
+   "name": "Stabilized Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000924A7": {
+   "cut": false,
+   "name": "Aligned Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00092A98": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00092A9A": {
+   "cut": false,
+   "name": "True Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00093190": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00093191": {
+   "cut": false,
+   "name": "Stabilized Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000C73FB": {
+   "cut": false,
+   "name": "Extra Heavy",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_000C73FC": {
+   "cut": false,
+   "name": "Heavy",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0010BCD3": {
+   "cut": false,
+   "name": "Stabilized Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0010BCD8": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0010ECE4": {
+   "cut": false,
+   "name": "Charging Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0010F300": {
+   "cut": false,
+   "name": "Reflex Sight",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0010F6A0": {
+   "cut": false,
+   "name": "Automatic Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0011158C": {
+   "cut": false,
+   "name": "Short Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0011158E": {
+   "cut": false,
+   "name": "Reflex Sight",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00111737": {
+   "cut": false,
+   "name": "Extra Hooks",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00113F3C": {
+   "cut": false,
+   "name": "Heated Rocket",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00113F3D": {
+   "cut": false,
+   "name": "Spiked Rocket",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00113F3E": {
+   "cut": false,
+   "name": "Puncturing Rocket",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00113F46": {
+   "cut": false,
+   "name": "Sharp Rocket",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00113FF0": {
+   "cut": false,
+   "name": "Sharp",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00113FF1": {
+   "cut": false,
+   "name": "Heavy Rocket",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00113FF6": {
+   "cut": false,
+   "name": "Heavy Spiked",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0011607B": {
+   "cut": false,
+   "name": "True Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0011607E": {
+   "cut": false,
+   "name": "Stabilized Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00118CB9": {
+   "cut": false,
+   "name": "Aligned Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0013B021": {
+   "cut": false,
+   "name": "Electrified",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00149421": {
+   "cut": false,
+   "name": "Sharp",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00149423": {
+   "cut": false,
+   "name": "Spiked",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0014DBF8": {
+   "cut": false,
+   "name": "Hair Trigger Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0014FC8C": {
+   "cut": false,
+   "name": "Hair Trigger Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00150742": {
+   "cut": false,
+   "name": "Spiked",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00150743": {
+   "cut": false,
+   "name": "Sharp",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00150744": {
+   "cut": false,
+   "name": "Puncturing",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00150745": {
+   "cut": false,
+   "name": "Bladed",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00152181": {
+   "cut": false,
+   "name": "Puncturing",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00184A24": {
+   "cut": false,
+   "name": "Chain-Wrapped",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00184A25": {
+   "cut": false,
+   "name": "Spiked",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00184A26": {
+   "cut": false,
+   "name": "Sharp",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00184A27": {
+   "cut": false,
+   "name": "Bladed",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00185C27": {
+   "cut": false,
+   "name": "Hair Trigger Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00185D23": {
+   "cut": false,
+   "name": "Electrified",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00187815": {
+   "cut": false,
+   "name": "Spiked",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00187818": {
+   "cut": false,
+   "name": "Heavy",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0018781D": {
+   "cut": false,
+   "name": "Sharp",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00187822": {
+   "cut": false,
+   "name": "Hooked",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00187825": {
+   "cut": false,
+   "name": "Puncturing",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0018782B": {
+   "cut": false,
+   "name": "Sharp",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00187835": {
+   "cut": false,
+   "name": "Serrated Blade",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00187843": {
+   "cut": false,
+   "name": "Serrated Blade",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00187A11": {
+   "cut": false,
+   "name": "Serrated Blade",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00187A14": {
+   "cut": false,
+   "name": "Stealth Blade",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00187A27": {
+   "cut": false,
+   "name": "Spiked",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00187A28": {
+   "cut": false,
+   "name": "Puncturing",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001888E2": {
+   "cut": false,
+   "name": "Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001888E3": {
+   "cut": false,
+   "name": "Short Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188936": {
+   "cut": false,
+   "name": "Hair Trigger Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188981": {
+   "cut": false,
+   "name": "Heavy Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188984": {
+   "cut": false,
+   "name": "Comfort Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001889C0": {
+   "cut": false,
+   "name": "Crystallizing Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001889C2": {
+   "cut": false,
+   "name": "Glow Sights",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001889C4": {
+   "cut": false,
+   "name": "Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001889C8": {
+   "cut": false,
+   "name": "Large Propellant Tank",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001889CA": {
+   "cut": false,
+   "name": "Compression Nozzle",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001889D5": {
+   "cut": false,
+   "name": "Deep Dish",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001889D7": {
+   "cut": false,
+   "name": "Sharpshooter's Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001889D9": {
+   "cut": false,
+   "name": "Signal Repeater",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A08": {
+   "cut": false,
+   "name": "Accelerated Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A0A": {
+   "cut": false,
+   "name": "Shredder",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A0B": {
+   "cut": false,
+   "name": "Gunner Sight",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A11": {
+   "cut": false,
+   "name": "Bayonet",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A18": {
+   "cut": false,
+   "name": "Stabilizer",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A30": {
+   "cut": false,
+   "name": "Marksman's Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A31": {
+   "cut": false,
+   "name": "Recoil Compensating Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A46": {
+   "cut": false,
+   "name": "Long Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A48": {
+   "cut": false,
+   "name": "Medium Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A4A": {
+   "cut": false,
+   "name": "Short Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A4D": {
+   "cut": false,
+   "name": "Long Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A4E": {
+   "cut": false,
+   "name": "Reflex Sight",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A5B": {
+   "cut": false,
+   "name": "Short Light Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A5D": {
+   "cut": false,
+   "name": "Compensator",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A5F": {
+   "cut": false,
+   "name": "Large Drum",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A68": {
+   "cut": false,
+   "name": "Full Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A69": {
+   "cut": false,
+   "name": "Recoil Compensating Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A83": {
+   "cut": false,
+   "name": "Large Bayonet",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A84": {
+   "cut": false,
+   "name": "Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A86": {
+   "cut": false,
+   "name": "Reflex Sight",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A87": {
+   "cut": false,
+   "name": "Recoil Compensating Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00188A92": {
+   "cut": false,
+   "name": "Curved Blade",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001A0353": {
+   "cut": false,
+   "name": "Black",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001A0354": {
+   "cut": false,
+   "name": "Blue",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001A0355": {
+   "cut": false,
+   "name": "Grey",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001A0356": {
+   "cut": false,
+   "name": "Red",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001A0357": {
+   "cut": false,
+   "name": "Mahogany",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001A0358": {
+   "cut": false,
+   "name": "Cedar",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001A0359": {
+   "cut": false,
+   "name": "Oak",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001A035A": {
+   "cut": false,
+   "name": "Natural",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001A035B": {
+   "cut": false,
+   "name": "All Star",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001A4AB3": {
+   "cut": false,
+   "name": "Recoil Compensating Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001B2901": {
+   "cut": false,
+   "name": "Large Quick Eject Drum",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001B2902": {
+   "cut": false,
+   "name": "Medium Quick Eject Drum",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001B2903": {
+   "cut": false,
+   "name": "Muzzle Brake",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001B2904": {
+   "cut": false,
+   "name": "Suppressor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001C4050": {
+   "cut": false,
+   "name": "Short Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001C405B": {
+   "cut": false,
+   "name": "Long Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001C405D": {
+   "cut": false,
+   "name": "Medium Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001C4061": {
+   "cut": false,
+   "name": "Long Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001C509C": {
+   "cut": false,
+   "name": "Sharpshooter's Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001C5AB1": {
+   "cut": false,
+   "name": "Vaporization Nozzle",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001C5AB2": {
+   "cut": false,
+   "name": "Huge Propellant Tank",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001C6ED2": {
+   "cut": false,
+   "name": "Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001C6F26": {
+   "cut": false,
+   "name": "Hair Trigger Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001CA8D5": {
+   "cut": false,
+   "name": "Reflex Sight (Dot)",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001CA8D7": {
+   "cut": false,
+   "name": "Glow Sights",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001CCD5F": {
+   "cut": false,
+   "name": "Hair Trigger Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001F121D": {
+   "cut": false,
+   "name": "Rifled Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001F1220": {
+   "cut": false,
+   "name": "Beam Focuser",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001F1233": {
+   "cut": false,
+   "name": "Beam Splitter",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001F1238": {
+   "cut": false,
+   "name": "Reflex Sight (Circle)",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_001FB239": {
+   "cut": false,
+   "name": "Glow Sights",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0022BA9A": {
+   "cut": false,
+   "name": "Glow Reflex Sight",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002492D3": {
+   "cut": false,
+   "name": "Short Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002492D5": {
+   "cut": false,
+   "name": "Short Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002C8BAD": {
+   "cut": false,
+   "name": "Perimeter Wall Frame - Stairs",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": null
+  },
+  "RECIPE_002E411B": {
+   "cut": false,
+   "name": "Defensive Wall",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": null
+  },
+  "RECIPE_002EE35A": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD917": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD94B": {
+   "cut": false,
+   "name": "Stabilized Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD94C": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD950": {
+   "cut": false,
+   "name": "True Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD951": {
+   "cut": false,
+   "name": "Aligned Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD952": {
+   "cut": false,
+   "name": "Stabilized Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD956": {
+   "cut": false,
+   "name": "True Stub Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD957": {
+   "cut": false,
+   "name": "Stabilized Stub Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD958": {
+   "cut": false,
+   "name": "Aligned Stub Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD95B": {
+   "cut": false,
+   "name": "True Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD95D": {
+   "cut": false,
+   "name": "Aligned Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD95E": {
+   "cut": false,
+   "name": "Stabilized Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD960": {
+   "cut": false,
+   "name": "Forceful Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD961": {
+   "cut": false,
+   "name": "Bruising Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD962": {
+   "cut": false,
+   "name": "Precise Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD968": {
+   "cut": false,
+   "name": "Perforating Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD96B": {
+   "cut": false,
+   "name": "Quick Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD96D": {
+   "cut": false,
+   "name": "Piercing Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD970": {
+   "cut": false,
+   "name": "Calibrated Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD972": {
+   "cut": false,
+   "name": "Vicious Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD973": {
+   "cut": false,
+   "name": "Hardened Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD975": {
+   "cut": false,
+   "name": "Severe Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD976": {
+   "cut": false,
+   "name": "Refined Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_002FD978": {
+   "cut": false,
+   "name": "True Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031BFDD": {
+   "cut": false,
+   "name": "True Stub Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031BFDF": {
+   "cut": false,
+   "name": "Stabilized Stub Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031BFE0": {
+   "cut": false,
+   "name": "Aligned Very Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031BFE3": {
+   "cut": false,
+   "name": "True Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031BFE5": {
+   "cut": false,
+   "name": "Aligned Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031BFE6": {
+   "cut": false,
+   "name": "Precise Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031BFE7": {
+   "cut": false,
+   "name": "Stabilized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031BFE9": {
+   "cut": false,
+   "name": "Forceful Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031BFEA": {
+   "cut": false,
+   "name": "Bruising Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031BFEC": {
+   "cut": false,
+   "name": "Large Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031BFEE": {
+   "cut": false,
+   "name": "Stinging Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031BFEF": {
+   "cut": false,
+   "name": "Swift Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031BFF1": {
+   "cut": false,
+   "name": "Perforating Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031BFF4": {
+   "cut": false,
+   "name": "Quick Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031BFF6": {
+   "cut": false,
+   "name": "Piercing Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031BFF8": {
+   "cut": false,
+   "name": "Muzzle Brake",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031BFFF": {
+   "cut": false,
+   "name": "Compensator",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C006": {
+   "cut": false,
+   "name": "Suppressor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C00F": {
+   "cut": false,
+   "name": "Focused Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C012": {
+   "cut": false,
+   "name": "Calibrated Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C014": {
+   "cut": false,
+   "name": "Tweaked Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C015": {
+   "cut": false,
+   "name": "Vicious Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C016": {
+   "cut": false,
+   "name": "Hardened Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C018": {
+   "cut": false,
+   "name": "Powerful Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C019": {
+   "cut": false,
+   "name": "Severe Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C01A": {
+   "cut": false,
+   "name": "Refined Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C01B": {
+   "cut": false,
+   "name": "True Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C01D": {
+   "cut": false,
+   "name": "Standard Glow Sights",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C025": {
+   "cut": false,
+   "name": "Standard Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C03E": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C040": {
+   "cut": false,
+   "name": "Stabilized Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C041": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C045": {
+   "cut": false,
+   "name": "True Snubnose Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C047": {
+   "cut": false,
+   "name": "Stabilized Stub Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C048": {
+   "cut": false,
+   "name": "Aligned Snubnose Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C04B": {
+   "cut": false,
+   "name": "True Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C04D": {
+   "cut": false,
+   "name": "Aligned Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C04E": {
+   "cut": false,
+   "name": "Precise Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C04F": {
+   "cut": false,
+   "name": "Stabilized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C051": {
+   "cut": false,
+   "name": "Forceful Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C052": {
+   "cut": false,
+   "name": "Bruising Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C059": {
+   "cut": false,
+   "name": "Calibrated Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C05B": {
+   "cut": false,
+   "name": "Fierce Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C05C": {
+   "cut": false,
+   "name": "Vicious Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C05D": {
+   "cut": false,
+   "name": "Hardened Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C05F": {
+   "cut": false,
+   "name": "Severe Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C060": {
+   "cut": false,
+   "name": "Vigorous Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C061": {
+   "cut": false,
+   "name": "Refined Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C062": {
+   "cut": false,
+   "name": "Hair Trigger Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C064": {
+   "cut": false,
+   "name": "Steadfast Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C067": {
+   "cut": false,
+   "name": "True Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C072": {
+   "cut": false,
+   "name": "Short Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031C076": {
+   "cut": false,
+   "name": "Short Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031D5E6": {
+   "cut": false,
+   "name": "Thrower Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031D5EA": {
+   "cut": false,
+   "name": "Aligned Thrower Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031D5EE": {
+   "cut": false,
+   "name": "True Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031D5F0": {
+   "cut": false,
+   "name": "Stabilized Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031D5F1": {
+   "cut": false,
+   "name": "Aligned Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031D5F4": {
+   "cut": false,
+   "name": "Splitter",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031D5F8": {
+   "cut": false,
+   "name": "Aligned Splitter",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031D5FB": {
+   "cut": false,
+   "name": "Sniper Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031D5FC": {
+   "cut": false,
+   "name": "True Sniper Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031D5FE": {
+   "cut": false,
+   "name": "Stabilized Sniper Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031D5FF": {
+   "cut": false,
+   "name": "Aligned Sniper Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031D602": {
+   "cut": false,
+   "name": "Automatic Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031D603": {
+   "cut": false,
+   "name": "True Automatic Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031D605": {
+   "cut": false,
+   "name": "Stabilized Automatic Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F1E5": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F1E7": {
+   "cut": false,
+   "name": "Stabilized Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F1E8": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F1EC": {
+   "cut": false,
+   "name": "True Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F1EE": {
+   "cut": false,
+   "name": "Stabilized Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F1EF": {
+   "cut": false,
+   "name": "Aligned Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F1F2": {
+   "cut": false,
+   "name": "True Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F1F4": {
+   "cut": false,
+   "name": "Aligned Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F1F5": {
+   "cut": false,
+   "name": "Precise Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F1F6": {
+   "cut": false,
+   "name": "Stabilized Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F1F8": {
+   "cut": false,
+   "name": "Forceful Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F1F9": {
+   "cut": false,
+   "name": "Bruising Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F1FC": {
+   "cut": false,
+   "name": "Drum Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F1FE": {
+   "cut": false,
+   "name": "Stinging Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F1FF": {
+   "cut": false,
+   "name": "Swift Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F201": {
+   "cut": false,
+   "name": "Perforating Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F204": {
+   "cut": false,
+   "name": "Quick Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F206": {
+   "cut": false,
+   "name": "Piercing Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F208": {
+   "cut": false,
+   "name": "Muzzle Brake",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F20F": {
+   "cut": false,
+   "name": "Compensator",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F216": {
+   "cut": false,
+   "name": "Suppressor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F21D": {
+   "cut": false,
+   "name": "Tweaked Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F21E": {
+   "cut": false,
+   "name": "Powerful Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F21F": {
+   "cut": false,
+   "name": "Focused Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F222": {
+   "cut": false,
+   "name": "Calibrated Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F224": {
+   "cut": false,
+   "name": "Vicious Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F225": {
+   "cut": false,
+   "name": "Hardened Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F227": {
+   "cut": false,
+   "name": "Severe Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F228": {
+   "cut": false,
+   "name": "Refined Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F229": {
+   "cut": false,
+   "name": "True Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F236": {
+   "cut": false,
+   "name": "Long Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F23A": {
+   "cut": false,
+   "name": "Medium Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F244": {
+   "cut": false,
+   "name": "Short Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F24C": {
+   "cut": false,
+   "name": "Short Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F25C": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F25E": {
+   "cut": false,
+   "name": "Stabilized Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F25F": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F263": {
+   "cut": false,
+   "name": "True Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F265": {
+   "cut": false,
+   "name": "Stabilized Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F266": {
+   "cut": false,
+   "name": "Aligned Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F269": {
+   "cut": false,
+   "name": "True Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F26B": {
+   "cut": false,
+   "name": "Aligned Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F26C": {
+   "cut": false,
+   "name": "Precise Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F26D": {
+   "cut": false,
+   "name": "Stabilized Full Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F26F": {
+   "cut": false,
+   "name": "Forceful Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F270": {
+   "cut": false,
+   "name": "Bruising Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F275": {
+   "cut": false,
+   "name": "Large Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F277": {
+   "cut": false,
+   "name": "Stinging Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F278": {
+   "cut": false,
+   "name": "Swift Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F27A": {
+   "cut": false,
+   "name": "Perforating Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F27D": {
+   "cut": false,
+   "name": "Quick Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F27F": {
+   "cut": false,
+   "name": "Piercing Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F281": {
+   "cut": false,
+   "name": "Muzzle Brake",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F288": {
+   "cut": false,
+   "name": "Compensator",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F28F": {
+   "cut": false,
+   "name": "Standard Large Bayonet",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F296": {
+   "cut": false,
+   "name": "Suppressor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F2A8": {
+   "cut": false,
+   "name": "Calibrated Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F2AA": {
+   "cut": false,
+   "name": "Vicious Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F2AB": {
+   "cut": false,
+   "name": "Hardened Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F2AD": {
+   "cut": false,
+   "name": "Severe Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F2AE": {
+   "cut": false,
+   "name": "Refined Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F2B2": {
+   "cut": false,
+   "name": "Tuned Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F2B3": {
+   "cut": false,
+   "name": "Snappy Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F2B4": {
+   "cut": false,
+   "name": "Speedy Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F2B5": {
+   "cut": false,
+   "name": "True Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F2B9": {
+   "cut": false,
+   "name": "Glow Sights",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F2C1": {
+   "cut": false,
+   "name": "Long Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F2CD": {
+   "cut": false,
+   "name": "Medium Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F2D8": {
+   "cut": false,
+   "name": "Reflex Sight (Circle)",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F2DD": {
+   "cut": false,
+   "name": "Short Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F2E5": {
+   "cut": false,
+   "name": "Short Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F2F9": {
+   "cut": false,
+   "name": "Calibrated Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F2FB": {
+   "cut": false,
+   "name": "Vicious Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F2FC": {
+   "cut": false,
+   "name": "Hardened Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F2FE": {
+   "cut": false,
+   "name": "Severe Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F2FF": {
+   "cut": false,
+   "name": "Refined Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F300": {
+   "cut": false,
+   "name": "Hair Trigger Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F302": {
+   "cut": false,
+   "name": "Tuned Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F303": {
+   "cut": false,
+   "name": "Snappy Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F304": {
+   "cut": false,
+   "name": "Speedy Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F306": {
+   "cut": false,
+   "name": "True Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F30B": {
+   "cut": false,
+   "name": "Suppressor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F312": {
+   "cut": false,
+   "name": "Long Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F31A": {
+   "cut": false,
+   "name": "Long Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F31E": {
+   "cut": false,
+   "name": "Medium Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F326": {
+   "cut": false,
+   "name": "Short Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F32E": {
+   "cut": false,
+   "name": "Short Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F336": {
+   "cut": false,
+   "name": "Glow Reflex Sight",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F33B": {
+   "cut": false,
+   "name": "Standard Glow Sights",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F345": {
+   "cut": false,
+   "name": "Muzzle Brake",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F34D": {
+   "cut": false,
+   "name": "Compensator",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F353": {
+   "cut": false,
+   "name": "Perforating Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F358": {
+   "cut": false,
+   "name": "Quick Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F359": {
+   "cut": false,
+   "name": "Piercing Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F35B": {
+   "cut": false,
+   "name": "Stinging Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F35C": {
+   "cut": false,
+   "name": "Swift Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F360": {
+   "cut": false,
+   "name": "Standard Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F361": {
+   "cut": false,
+   "name": "True Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F363": {
+   "cut": false,
+   "name": "Aligned Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F364": {
+   "cut": false,
+   "name": "Precise Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F365": {
+   "cut": false,
+   "name": "Stabilized Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F367": {
+   "cut": false,
+   "name": "Forceful Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F368": {
+   "cut": false,
+   "name": "Bruising Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F36B": {
+   "cut": false,
+   "name": "Stabilized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F36D": {
+   "cut": false,
+   "name": "Forceful Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F372": {
+   "cut": false,
+   "name": "Bruising Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F378": {
+   "cut": false,
+   "name": "True Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F37A": {
+   "cut": false,
+   "name": "Stabilized Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F37B": {
+   "cut": false,
+   "name": "Aligned Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F380": {
+   "cut": false,
+   "name": "True Stub Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F382": {
+   "cut": false,
+   "name": "Stabilized Stub Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F383": {
+   "cut": false,
+   "name": "Aligned Stub Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F388": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F38A": {
+   "cut": false,
+   "name": "Stabilized Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F38B": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F38C": {
+   "cut": false,
+   "name": "Drum Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F38D": {
+   "cut": false,
+   "name": "True Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F38E": {
+   "cut": false,
+   "name": "Aligned Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F38F": {
+   "cut": false,
+   "name": "Precise Recoil Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F391": {
+   "cut": false,
+   "name": "Large Bayonet",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F398": {
+   "cut": false,
+   "name": "Small Bayonet",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F3A0": {
+   "cut": false,
+   "name": "Powerful Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F3A1": {
+   "cut": false,
+   "name": "Tweaked Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0031F3A2": {
+   "cut": false,
+   "name": "Focused Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032922D": {
+   "cut": false,
+   "name": "Standard Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032922E": {
+   "cut": false,
+   "name": "Standard Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329230": {
+   "cut": false,
+   "name": "Standard Glow Sights",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329232": {
+   "cut": false,
+   "name": "Glow Reflex Sight",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329233": {
+   "cut": false,
+   "name": "Long Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329235": {
+   "cut": false,
+   "name": "Long Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329236": {
+   "cut": false,
+   "name": "Medium Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329238": {
+   "cut": false,
+   "name": "Short Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032923A": {
+   "cut": false,
+   "name": "Short Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032923B": {
+   "cut": false,
+   "name": "Suppressor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032923C": {
+   "cut": false,
+   "name": "Muzzle Brake",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032923D": {
+   "cut": false,
+   "name": "Compensator",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032923E": {
+   "cut": false,
+   "name": "Small Bayonet",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032923F": {
+   "cut": false,
+   "name": "Large Bayonet",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329241": {
+   "cut": false,
+   "name": "Hardened Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329242": {
+   "cut": false,
+   "name": "Calibrated Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329243": {
+   "cut": false,
+   "name": "True Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329246": {
+   "cut": false,
+   "name": "Tuned Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329247": {
+   "cut": false,
+   "name": "Snappy Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329248": {
+   "cut": false,
+   "name": "Speedy Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032924E": {
+   "cut": false,
+   "name": "Severe Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032924F": {
+   "cut": false,
+   "name": "Refined Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329251": {
+   "cut": false,
+   "name": "Vicious Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329254": {
+   "cut": false,
+   "name": "True Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329255": {
+   "cut": false,
+   "name": "Stabilized Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329257": {
+   "cut": false,
+   "name": "Aligned Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329258": {
+   "cut": false,
+   "name": "Precise Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032925A": {
+   "cut": false,
+   "name": "Forceful Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032925D": {
+   "cut": false,
+   "name": "Stabilized Stub Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032925F": {
+   "cut": false,
+   "name": "True Stub Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329262": {
+   "cut": false,
+   "name": "Aligned Stub Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329263": {
+   "cut": false,
+   "name": "Stabilized Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329265": {
+   "cut": false,
+   "name": "True Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329268": {
+   "cut": false,
+   "name": "Aligned Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329269": {
+   "cut": false,
+   "name": "Stabilized Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032926B": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032926E": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292A8": {
+   "cut": false,
+   "name": "Standard Glow Sights",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292AA": {
+   "cut": false,
+   "name": "Glow Reflex Sight",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292AB": {
+   "cut": false,
+   "name": "Short Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292B3": {
+   "cut": false,
+   "name": "Short Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292B7": {
+   "cut": false,
+   "name": "Medium Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292BF": {
+   "cut": false,
+   "name": "Long Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292C7": {
+   "cut": false,
+   "name": "Long Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292CD": {
+   "cut": false,
+   "name": "Stabilized Stub Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292CF": {
+   "cut": false,
+   "name": "True Stub Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292D2": {
+   "cut": false,
+   "name": "Aligned Stub Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292D4": {
+   "cut": false,
+   "name": "Stabilized Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292D6": {
+   "cut": false,
+   "name": "True Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292D9": {
+   "cut": false,
+   "name": "Aligned Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292DB": {
+   "cut": false,
+   "name": "Stabilized Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292DD": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292E0": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292E2": {
+   "cut": false,
+   "name": "True Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292E3": {
+   "cut": false,
+   "name": "Stabilized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292E4": {
+   "cut": false,
+   "name": "Bruising Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292E6": {
+   "cut": false,
+   "name": "Aligned Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292E7": {
+   "cut": false,
+   "name": "Precise Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292E9": {
+   "cut": false,
+   "name": "Forceful Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292EC": {
+   "cut": false,
+   "name": "Full Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292ED": {
+   "cut": false,
+   "name": "True Full Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292EE": {
+   "cut": false,
+   "name": "Stabilized Full Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292EF": {
+   "cut": false,
+   "name": "Bruising Full Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292F1": {
+   "cut": false,
+   "name": "Aligned Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292F2": {
+   "cut": false,
+   "name": "Precise Full Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292F4": {
+   "cut": false,
+   "name": "Forceful Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292F7": {
+   "cut": false,
+   "name": "Large Bayonet",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003292FE": {
+   "cut": false,
+   "name": "Small Bayonet",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329305": {
+   "cut": false,
+   "name": "Suppressor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032930C": {
+   "cut": false,
+   "name": "Muzzle Brake",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329313": {
+   "cut": false,
+   "name": "Compensator",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032931B": {
+   "cut": false,
+   "name": "Hardened Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032931C": {
+   "cut": false,
+   "name": "Calibrated Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032931D": {
+   "cut": false,
+   "name": "True Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329320": {
+   "cut": false,
+   "name": "Tuned Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329321": {
+   "cut": false,
+   "name": "Snappy Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329322": {
+   "cut": false,
+   "name": "Speedy Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329328": {
+   "cut": false,
+   "name": "Severe Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329329": {
+   "cut": false,
+   "name": "Refined Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032932B": {
+   "cut": false,
+   "name": "Vicious Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329332": {
+   "cut": false,
+   "name": "Hair Trigger Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032937F": {
+   "cut": false,
+   "name": "True Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329381": {
+   "cut": false,
+   "name": "Aligned Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329382": {
+   "cut": false,
+   "name": "Precise Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329383": {
+   "cut": false,
+   "name": "Stabilized Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329385": {
+   "cut": false,
+   "name": "Forceful Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329386": {
+   "cut": false,
+   "name": "Bruising Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00329398": {
+   "cut": false,
+   "name": "Gamma Wave Emitter",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032939C": {
+   "cut": false,
+   "name": "Calibrated Capacitor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032939E": {
+   "cut": false,
+   "name": "Vicious Capacitor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032939F": {
+   "cut": false,
+   "name": "True Capacitor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003293A4": {
+   "cut": false,
+   "name": "Long Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003293AC": {
+   "cut": false,
+   "name": "Long Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003293B0": {
+   "cut": false,
+   "name": "Medium Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003293B9": {
+   "cut": false,
+   "name": "Short Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003293C1": {
+   "cut": false,
+   "name": "Short Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E204": {
+   "cut": false,
+   "name": "Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E207": {
+   "cut": false,
+   "name": "Muzzle Brake",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E212": {
+   "cut": false,
+   "name": "Heavy Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E220": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E222": {
+   "cut": false,
+   "name": "Stabilized Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E223": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E227": {
+   "cut": false,
+   "name": "True Charging Barrels",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E229": {
+   "cut": false,
+   "name": "Stabilized Charging Barrels",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E22A": {
+   "cut": false,
+   "name": "Aligned Charging Barrels",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E22C": {
+   "cut": false,
+   "name": "Beam Focuser",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E234": {
+   "cut": false,
+   "name": "Gamma Wave Emitter",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E238": {
+   "cut": false,
+   "name": "Calibrated Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E23A": {
+   "cut": false,
+   "name": "Vicious Gatling Laser Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E23B": {
+   "cut": false,
+   "name": "True Gatling Laser Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E23F": {
+   "cut": false,
+   "name": "Large Bayonet",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E24B": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E24D": {
+   "cut": false,
+   "name": "Stabilized Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E24E": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E252": {
+   "cut": false,
+   "name": "True Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E254": {
+   "cut": false,
+   "name": "Stabilized Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E255": {
+   "cut": false,
+   "name": "Aligned Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E259": {
+   "cut": false,
+   "name": "True Sawed-Off Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E25B": {
+   "cut": false,
+   "name": "Stabilized Sawed-Off Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E25C": {
+   "cut": false,
+   "name": "Aligned Sawed-Off Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E261": {
+   "cut": false,
+   "name": "Aligned Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E263": {
+   "cut": false,
+   "name": "Stabilized Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E26A": {
+   "cut": false,
+   "name": "True Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E26D": {
+   "cut": false,
+   "name": "Precise Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E270": {
+   "cut": false,
+   "name": "Forceful Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E271": {
+   "cut": false,
+   "name": "Bruising Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E274": {
+   "cut": false,
+   "name": "Muzzle Brake",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E27A": {
+   "cut": false,
+   "name": "Spiked Muzzle Brake",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E282": {
+   "cut": false,
+   "name": "Calibrated Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E284": {
+   "cut": false,
+   "name": "Vicious Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E285": {
+   "cut": false,
+   "name": "Hardened Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E287": {
+   "cut": false,
+   "name": "Severe Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E288": {
+   "cut": false,
+   "name": "Refined Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E28A": {
+   "cut": false,
+   "name": "Fierce Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E28B": {
+   "cut": false,
+   "name": "Vigorous Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E28C": {
+   "cut": false,
+   "name": "Steadfast Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E28D": {
+   "cut": false,
+   "name": "True Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E28F": {
+   "cut": false,
+   "name": "Glow Sights",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E292": {
+   "cut": false,
+   "name": "Reflex Sight (Circle)",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E2B1": {
+   "cut": false,
+   "name": "Speedy Capacitor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E2B2": {
+   "cut": false,
+   "name": "Snappy Capacitor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E2B4": {
+   "cut": false,
+   "name": "Vicious Capacitor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E2B6": {
+   "cut": false,
+   "name": "Calibrated Capacitor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E2CB": {
+   "cut": false,
+   "name": "Bruising Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E2CC": {
+   "cut": false,
+   "name": "Forceful Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E2CE": {
+   "cut": false,
+   "name": "Stabilized Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E2CF": {
+   "cut": false,
+   "name": "Precise Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E2D0": {
+   "cut": false,
+   "name": "Aligned Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E2D2": {
+   "cut": false,
+   "name": "True Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E2F0": {
+   "cut": false,
+   "name": "Long Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E2F4": {
+   "cut": false,
+   "name": "True Capacitor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E2F5": {
+   "cut": false,
+   "name": "Speedy Capacitor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E2F6": {
+   "cut": false,
+   "name": "Snappy Capacitor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E2F8": {
+   "cut": false,
+   "name": "Hair Trigger Capacitor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E2F9": {
+   "cut": false,
+   "name": "Vicious Capacitor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E2FB": {
+   "cut": false,
+   "name": "Calibrated Capacitor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E300": {
+   "cut": false,
+   "name": "Gamma Wave Emitter",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E308": {
+   "cut": false,
+   "name": "Beam Splitter",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E30F": {
+   "cut": false,
+   "name": "Beam Focuser",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E316": {
+   "cut": false,
+   "name": "Gyro Compensating Lens",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E319": {
+   "cut": false,
+   "name": "Bruising Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E31A": {
+   "cut": false,
+   "name": "Forceful Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E31C": {
+   "cut": false,
+   "name": "Stabilized Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E31D": {
+   "cut": false,
+   "name": "Precise Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E31E": {
+   "cut": false,
+   "name": "Aligned Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E320": {
+   "cut": false,
+   "name": "True Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E32E": {
+   "cut": false,
+   "name": "Aligned Sniper Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E32F": {
+   "cut": false,
+   "name": "Stabilized Sniper Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E331": {
+   "cut": false,
+   "name": "True Sniper Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E332": {
+   "cut": false,
+   "name": "Standard Sniper Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E336": {
+   "cut": false,
+   "name": "Stabilized Automatic Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E338": {
+   "cut": false,
+   "name": "True Automatic Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E339": {
+   "cut": false,
+   "name": "Standard Automatic Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E33C": {
+   "cut": false,
+   "name": "Aligned Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E33D": {
+   "cut": false,
+   "name": "Stabilized Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E33F": {
+   "cut": false,
+   "name": "True Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E343": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E344": {
+   "cut": false,
+   "name": "Stabilized Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E346": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E37B": {
+   "cut": false,
+   "name": "Short Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E383": {
+   "cut": false,
+   "name": "Short Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E38C": {
+   "cut": false,
+   "name": "Medium Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E390": {
+   "cut": false,
+   "name": "Long Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E398": {
+   "cut": false,
+   "name": "Long Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3AE": {
+   "cut": false,
+   "name": "Suppressor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3B4": {
+   "cut": false,
+   "name": "Compensator",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3B6": {
+   "cut": false,
+   "name": "Piercing Capacitors",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3B8": {
+   "cut": false,
+   "name": "Quick Capacitors",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3BB": {
+   "cut": false,
+   "name": "Perforating Capacitors",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3BD": {
+   "cut": false,
+   "name": "Swift Capacitors",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3BE": {
+   "cut": false,
+   "name": "Stinging Capacitors",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3C0": {
+   "cut": false,
+   "name": "Large Capacitors",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3C3": {
+   "cut": false,
+   "name": "Bruising Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3C4": {
+   "cut": false,
+   "name": "Forceful Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3C6": {
+   "cut": false,
+   "name": "Stabilized Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3C7": {
+   "cut": false,
+   "name": "Precise Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3C8": {
+   "cut": false,
+   "name": "Aligned Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3CA": {
+   "cut": false,
+   "name": "True Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3CD": {
+   "cut": false,
+   "name": "Aligned Shielded Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3CE": {
+   "cut": false,
+   "name": "Stabilized Shielded Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3D0": {
+   "cut": false,
+   "name": "True Shielded Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3D1": {
+   "cut": false,
+   "name": "Shielded Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3D4": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3D5": {
+   "cut": false,
+   "name": "Stabilized Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3D7": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0032E3D8": {
+   "cut": false,
+   "name": "Standard Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003407F7": {
+   "cut": false,
+   "name": "Large Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003407F9": {
+   "cut": false,
+   "name": "Stinging Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003407FA": {
+   "cut": false,
+   "name": "Swift Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00342562": {
+   "cut": false,
+   "name": "Spiked Golf Club",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00342563": {
+   "cut": false,
+   "name": "Sharp Golf Club",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00342564": {
+   "cut": false,
+   "name": "Heavy Club",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00342566": {
+   "cut": false,
+   "name": "Fire Axe Spikes",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0034256E": {
+   "cut": false,
+   "name": "Barbed Pitchfork",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00392B87": {
+   "cut": false,
+   "name": "Heavy Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003986CB": {
+   "cut": false,
+   "name": "Standard Glow Sights",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003986CC": {
+   "cut": false,
+   "name": "Standard Glow Front Sight Ring",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003986CD": {
+   "cut": false,
+   "name": "Standard Front Sight Ring",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003986D8": {
+   "cut": false,
+   "name": "Long Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003986DC": {
+   "cut": false,
+   "name": "Medium Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003986F3": {
+   "cut": false,
+   "name": "Bow Bar",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FA9": {
+   "cut": false,
+   "name": "True Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FAB": {
+   "cut": false,
+   "name": "Stabilized Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FAC": {
+   "cut": false,
+   "name": "Aligned Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FB1": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FB3": {
+   "cut": false,
+   "name": "Stabilized Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FB4": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FB8": {
+   "cut": false,
+   "name": "True Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FBA": {
+   "cut": false,
+   "name": "Aligned Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FBB": {
+   "cut": false,
+   "name": "Precise Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FBC": {
+   "cut": false,
+   "name": "Stabilized Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FBE": {
+   "cut": false,
+   "name": "Forceful Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FBF": {
+   "cut": false,
+   "name": "Bruising Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FC2": {
+   "cut": false,
+   "name": "Perforating Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FC5": {
+   "cut": false,
+   "name": "Quick Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FC7": {
+   "cut": false,
+   "name": "Piercing Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FCA": {
+   "cut": false,
+   "name": "Muzzle Brake",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FD1": {
+   "cut": false,
+   "name": "Compensator",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FD9": {
+   "cut": false,
+   "name": "Large Bayonet",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FE1": {
+   "cut": false,
+   "name": "Suppressor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FEA": {
+   "cut": false,
+   "name": "Focused Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FEB": {
+   "cut": false,
+   "name": "Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FED": {
+   "cut": false,
+   "name": "Calibrated Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FEF": {
+   "cut": false,
+   "name": "Tweaked Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FF1": {
+   "cut": false,
+   "name": "Vicious Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FF2": {
+   "cut": false,
+   "name": "Hardened Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FF4": {
+   "cut": false,
+   "name": "Powerful Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FF5": {
+   "cut": false,
+   "name": "Severe Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FF6": {
+   "cut": false,
+   "name": "Vigorous Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FF7": {
+   "cut": false,
+   "name": "Refined Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FF8": {
+   "cut": false,
+   "name": "Steadfast Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FF9": {
+   "cut": false,
+   "name": "True Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FFB": {
+   "cut": false,
+   "name": "Standard Front Sight Ring",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FFC": {
+   "cut": false,
+   "name": "Glow Front Sight Ring",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00399FFD": {
+   "cut": false,
+   "name": "Glow Sights",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039A000": {
+   "cut": false,
+   "name": "Long Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039A008": {
+   "cut": false,
+   "name": "Medium Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039A00F": {
+   "cut": false,
+   "name": "Reflex Sight (Circle)",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039A012": {
+   "cut": false,
+   "name": "Short Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039A01A": {
+   "cut": false,
+   "name": "Short Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C6DA": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C6DC": {
+   "cut": false,
+   "name": "Stabilized Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C6E0": {
+   "cut": false,
+   "name": "True Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C6E1": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C6E3": {
+   "cut": false,
+   "name": "Drum Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C6E7": {
+   "cut": false,
+   "name": "Calibrated Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C6EC": {
+   "cut": false,
+   "name": "True Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C6ED": {
+   "cut": false,
+   "name": "Vicious Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C700": {
+   "cut": false,
+   "name": "Aligned Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C702": {
+   "cut": false,
+   "name": "Stabilized Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C704": {
+   "cut": false,
+   "name": "Forceful Full Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C709": {
+   "cut": false,
+   "name": "True Short Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C70C": {
+   "cut": false,
+   "name": "Precise Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C70F": {
+   "cut": false,
+   "name": "Bruising Short Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C712": {
+   "cut": false,
+   "name": "Stinging Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C713": {
+   "cut": false,
+   "name": "Swift Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C715": {
+   "cut": false,
+   "name": "Perforating Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C718": {
+   "cut": false,
+   "name": "Quick Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C71A": {
+   "cut": false,
+   "name": "Powerful Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C71B": {
+   "cut": false,
+   "name": "Hardened Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C71D": {
+   "cut": false,
+   "name": "Severe Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C71E": {
+   "cut": false,
+   "name": "Refined Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C71F": {
+   "cut": false,
+   "name": "Muzzle Brake",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C724": {
+   "cut": false,
+   "name": "Compensator",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C725": {
+   "cut": false,
+   "name": "Large Bayonet",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039C727": {
+   "cut": false,
+   "name": "Suppressor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039E6B4": {
+   "cut": false,
+   "name": "Stabilized Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039E6B6": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039E6BE": {
+   "cut": false,
+   "name": "Charging Barrels",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039E6C1": {
+   "cut": false,
+   "name": "True Charging Barrels",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039E6C5": {
+   "cut": false,
+   "name": "Stabilized Charging Barrels",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039E6C8": {
+   "cut": false,
+   "name": "Aligned Charging Barrels",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039E6CE": {
+   "cut": false,
+   "name": "Beam Focuser",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039E6E4": {
+   "cut": false,
+   "name": "Gamma Wave Emitter",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039E6EF": {
+   "cut": false,
+   "name": "Calibrated Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0039E6F6": {
+   "cut": false,
+   "name": "True Gatling Laser Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003A6404": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003A6406": {
+   "cut": false,
+   "name": "Stabilized Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003A6407": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003A640B": {
+   "cut": false,
+   "name": "True Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003A640D": {
+   "cut": false,
+   "name": "Stabilized Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003A640E": {
+   "cut": false,
+   "name": "Aligned Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003A6411": {
+   "cut": false,
+   "name": "Standard Automatic Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003A6412": {
+   "cut": false,
+   "name": "True Automatic Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003A6414": {
+   "cut": false,
+   "name": "Stabilized Automatic Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003A6418": {
+   "cut": false,
+   "name": "Sniper Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003A641A": {
+   "cut": false,
+   "name": "Stabilized Sniper Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003A641B": {
+   "cut": false,
+   "name": "Aligned Sniper Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003A641C": {
+   "cut": false,
+   "name": "Gyro Compensating Lens",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003A641D": {
+   "cut": false,
+   "name": "Beam Focuser",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003A641E": {
+   "cut": false,
+   "name": "Beam Splitter",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003A641F": {
+   "cut": false,
+   "name": "Gamma Wave Emitter",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003A6425": {
+   "cut": false,
+   "name": "Long Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003A6427": {
+   "cut": false,
+   "name": "Long Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003A642B": {
+   "cut": false,
+   "name": "Short Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003A642D": {
+   "cut": false,
+   "name": "Short Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003AD550": {
+   "cut": false,
+   "name": "Stabilized Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003AD571": {
+   "cut": false,
+   "name": "Reflex Sight (Circle)",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003AD572": {
+   "cut": false,
+   "name": "True Sniper Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003AD573": {
+   "cut": false,
+   "name": "True Capacitor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003AD69A": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003AD69B": {
+   "cut": false,
+   "name": "Vicious Gatling Laser Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003BFBE0": {
+   "cut": false,
+   "name": "Piercing Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003BFBE2": {
+   "cut": false,
+   "name": "Focused Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003BFBE3": {
+   "cut": false,
+   "name": "Hair Trigger Capacitor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003C5F58": {
+   "cut": false,
+   "name": "Bleedout Syringe Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003C652A": {
+   "cut": false,
+   "name": "Bloatfly Larva Syringe Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003C652B": {
+   "cut": false,
+   "name": "Endangerol Syringe Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003C652E": {
+   "cut": false,
+   "name": "Radscorpion Venom Syringe Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003EB66E": {
+   "cut": false,
+   "name": "Dual Bar",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003EBAB2": {
+   "cut": false,
+   "name": "Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003EBAB4": {
+   "cut": false,
+   "name": "Comfort Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003EBAB6": {
+   "cut": false,
+   "name": "Extra Large Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003EBAB8": {
+   "cut": false,
+   "name": "Large Bayonet",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003EBAB9": {
+   "cut": false,
+   "name": "Speedy Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_003EBABB": {
+   "cut": false,
+   "name": "Front Sight Ring",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00453384": {
+   "cut": false,
+   "name": "Bruising Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004DEA99": {
+   "cut": false,
+   "name": "Reflex Sight (Circle)",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004DEA9B": {
+   "cut": false,
+   "name": "Short Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004DEAA2": {
+   "cut": false,
+   "name": "Short Recon Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E020B": {
+   "cut": false,
+   "name": "Extra Blade",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E0212": {
+   "cut": false,
+   "name": "Stabilized Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E0216": {
+   "cut": false,
+   "name": "Aligned Medium Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E021A": {
+   "cut": false,
+   "name": "True Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E0221": {
+   "cut": false,
+   "name": "True Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E0223": {
+   "cut": false,
+   "name": "Aligned Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E0224": {
+   "cut": false,
+   "name": "Reliable Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E0225": {
+   "cut": false,
+   "name": "Stabilized Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E0227": {
+   "cut": false,
+   "name": "Forceful Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E0228": {
+   "cut": false,
+   "name": "Bruising Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E022C": {
+   "cut": false,
+   "name": "Suppressor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E0234": {
+   "cut": false,
+   "name": "Calibrated Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E0236": {
+   "cut": false,
+   "name": "Vicious Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E0237": {
+   "cut": false,
+   "name": "Hardened Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E0239": {
+   "cut": false,
+   "name": "Severe Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E023A": {
+   "cut": false,
+   "name": "Refined Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E023C": {
+   "cut": false,
+   "name": "Hair Trigger Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E023E": {
+   "cut": false,
+   "name": "Snappy Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E023F": {
+   "cut": false,
+   "name": "Tuned Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E0240": {
+   "cut": false,
+   "name": "Speedy Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E0241": {
+   "cut": false,
+   "name": "True Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E98D7": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E98D9": {
+   "cut": false,
+   "name": "Stabilized Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E98DA": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E98DE": {
+   "cut": false,
+   "name": "True Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E98E0": {
+   "cut": false,
+   "name": "Stabilized Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E98E1": {
+   "cut": false,
+   "name": "Aligned Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E98E4": {
+   "cut": false,
+   "name": "True Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E98E6": {
+   "cut": false,
+   "name": "Aligned Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E98E7": {
+   "cut": false,
+   "name": "Precise Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E98E8": {
+   "cut": false,
+   "name": "Stabilized Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E98EA": {
+   "cut": false,
+   "name": "Forceful Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E98EB": {
+   "cut": false,
+   "name": "Bruising Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E98ED": {
+   "cut": false,
+   "name": "Large Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E98EF": {
+   "cut": false,
+   "name": "Stinging Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E98F0": {
+   "cut": false,
+   "name": "Swift Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E98F2": {
+   "cut": false,
+   "name": "Perforating Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E98F5": {
+   "cut": false,
+   "name": "Quick Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E98F7": {
+   "cut": false,
+   "name": "Piercing Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E98F9": {
+   "cut": false,
+   "name": "Muzzle Brake",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E9900": {
+   "cut": false,
+   "name": "Compensator",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E9907": {
+   "cut": false,
+   "name": "Suppressor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E9910": {
+   "cut": false,
+   "name": "Focused Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E9911": {
+   "cut": false,
+   "name": "Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E9913": {
+   "cut": false,
+   "name": "Calibrated Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E9915": {
+   "cut": false,
+   "name": "Tweaked Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E9916": {
+   "cut": false,
+   "name": "Snappy Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E9917": {
+   "cut": false,
+   "name": "Vicious Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E9918": {
+   "cut": false,
+   "name": "Hardened Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E991A": {
+   "cut": false,
+   "name": "Powerful Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E991B": {
+   "cut": false,
+   "name": "Severe Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E991C": {
+   "cut": false,
+   "name": "Tuned Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E991D": {
+   "cut": false,
+   "name": "Refined Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E991E": {
+   "cut": false,
+   "name": "Hair Trigger Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E991F": {
+   "cut": false,
+   "name": "Speedy Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E9920": {
+   "cut": false,
+   "name": "True Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E9922": {
+   "cut": false,
+   "name": "Glow Sights",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E9925": {
+   "cut": false,
+   "name": "Long Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E992D": {
+   "cut": false,
+   "name": "Medium Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E9933": {
+   "cut": false,
+   "name": "Reflex Sight (Dot)",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_004E9936": {
+   "cut": false,
+   "name": "Short Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00524424": {
+   "cut": false,
+   "name": "Fierce Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00524425": {
+   "cut": false,
+   "name": "Vigorous Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00524426": {
+   "cut": false,
+   "name": "Steadfast Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00524427": {
+   "cut": false,
+   "name": "Reflex Sight (Circle)",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005249E8": {
+   "cut": false,
+   "name": "Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00525597": {
+   "cut": false,
+   "name": "Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0052559D": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0052559F": {
+   "cut": false,
+   "name": "Stabilized Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255A3": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255A5": {
+   "cut": false,
+   "name": "True Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255A7": {
+   "cut": false,
+   "name": "Stabilized Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255A9": {
+   "cut": false,
+   "name": "Aligned Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255AD": {
+   "cut": false,
+   "name": "True Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255AF": {
+   "cut": false,
+   "name": "Precise Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255B1": {
+   "cut": false,
+   "name": "Aligned Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255B3": {
+   "cut": false,
+   "name": "Stabilized Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255B5": {
+   "cut": false,
+   "name": "Forceful Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255B7": {
+   "cut": false,
+   "name": "Bruising Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255B9": {
+   "cut": false,
+   "name": "Compensator",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255BB": {
+   "cut": false,
+   "name": "Suppressor",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255BD": {
+   "cut": false,
+   "name": "Vicious Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255BF": {
+   "cut": false,
+   "name": "Calibrated Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255C3": {
+   "cut": false,
+   "name": "Hardened Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255C5": {
+   "cut": false,
+   "name": "Severe Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255C7": {
+   "cut": false,
+   "name": "Refined Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255C9": {
+   "cut": false,
+   "name": "Tuned Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255CA": {
+   "cut": false,
+   "name": "Hair Trigger Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255CC": {
+   "cut": false,
+   "name": "Fierce Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255CE": {
+   "cut": false,
+   "name": "Steadfast Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255D0": {
+   "cut": false,
+   "name": "True Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255D2": {
+   "cut": false,
+   "name": "Glow Sights",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255D6": {
+   "cut": false,
+   "name": "Long Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255D8": {
+   "cut": false,
+   "name": "Medium Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255DC": {
+   "cut": false,
+   "name": "Reflex Sight (Dot)",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005255DE": {
+   "cut": false,
+   "name": "Short Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005261DE": {
+   "cut": false,
+   "name": "Aligned Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005261DF": {
+   "cut": false,
+   "name": "Tweaked Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00527ABE": {
+   "cut": false,
+   "name": "Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00527AC4": {
+   "cut": false,
+   "name": "Full Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00527C6F": {
+   "cut": false,
+   "name": "Automatic Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0052820F": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00528210": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00528217": {
+   "cut": false,
+   "name": "True Medium Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00528219": {
+   "cut": false,
+   "name": "Stabilized Medium Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0052821C": {
+   "cut": false,
+   "name": "Aligned Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0052821F": {
+   "cut": false,
+   "name": "Stabilized Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282BC": {
+   "cut": false,
+   "name": "True Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282BE": {
+   "cut": false,
+   "name": "Stabilized Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282C0": {
+   "cut": false,
+   "name": "Aligned Long Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282C4": {
+   "cut": false,
+   "name": "True Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282C6": {
+   "cut": false,
+   "name": "Stabilized Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282C8": {
+   "cut": false,
+   "name": "Aligned Short Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282CC": {
+   "cut": false,
+   "name": "True Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282CE": {
+   "cut": false,
+   "name": "Aligned Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282D0": {
+   "cut": false,
+   "name": "Precise Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282D2": {
+   "cut": false,
+   "name": "Stabilized Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282D4": {
+   "cut": false,
+   "name": "Forceful Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282D6": {
+   "cut": false,
+   "name": "Bruising Grip",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282DA": {
+   "cut": false,
+   "name": "Vicious Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282DC": {
+   "cut": false,
+   "name": "Calibrated Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282DE": {
+   "cut": false,
+   "name": "Hardened Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282E0": {
+   "cut": false,
+   "name": "Severe Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282E2": {
+   "cut": false,
+   "name": "Refined Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282E4": {
+   "cut": false,
+   "name": "Hair Trigger Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282E6": {
+   "cut": false,
+   "name": "Fierce Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282E8": {
+   "cut": false,
+   "name": "Vigorous Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282EA": {
+   "cut": false,
+   "name": "Steadfast Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282EC": {
+   "cut": false,
+   "name": "True Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_005282F2": {
+   "cut": false,
+   "name": "Short Scope",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0065295A": {
+   "cut": false,
+   "name": "Father Winter Paint",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00729BBA": {
+   "cut": false,
+   "name": "Large Propellant Tank",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00799F8E": {
+   "cut": false,
+   "name": "My Stash Box",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_007AED24": {
+   "cut": false,
+   "name": "Scuba Tank Backpack",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_007B23C5": {
+   "cut": false,
+   "name": "Thrower Nozzle",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_007F276D": {
+   "cut": false,
+   "name": "Beer Pump",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_007F2775": {
+   "cut": false,
+   "name": "Car Grill Lights",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00803E34": {
+   "cut": false,
+   "name": "Makeshift Rod Replica",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00825AA9": {
+   "cut": false,
+   "name": "Aerial Turbine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008468CB": {
+   "cut": false,
+   "name": "Pickled Prickeye",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0084CC9A": {
+   "cut": false,
+   "name": "Standard .45 Receiver",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00857C6C": {
+   "cut": false,
+   "name": "Head Hunt Flare",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0085A4BF": {
+   "cut": false,
+   "name": "Abraxodyne Coveralls Outfit",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008B33D7": {
+   "cut": false,
+   "name": "Jellied Fish",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008B507F": {
+   "cut": false,
+   "name": "Deathclaw Leveling Backpack Flair",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008B5081": {
+   "cut": false,
+   "name": "Cat Leveling Backpack Flair",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008B5082": {
+   "cut": false,
+   "name": "Dog Leveling Backpack Flair",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008B5084": {
+   "cut": false,
+   "name": "Radhog Leveling Backpack Flair",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008B6A26": {
+   "cut": false,
+   "name": "Dog Leveling Backpack",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008B6A27": {
+   "cut": false,
+   "name": "Cat Leveling Backpack",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008B6A28": {
+   "cut": false,
+   "name": "Radhog Leveling Backpack",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008B6A29": {
+   "cut": false,
+   "name": "Deathclaw Leveling Backpack",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008C910D": {
+   "cut": false,
+   "name": "Atomic Cats Plating (Deathclaw)",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008CCFA4": {
+   "cut": false,
+   "name": "Metallic Plating (Deathclaw)",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008D4739": {
+   "cut": false,
+   "name": "Ruby Leather Collar (Cat)",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008D473A": {
+   "cut": false,
+   "name": "Tan Leather Collar (Cat)",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008D4C4F": {
+   "cut": false,
+   "name": "Bandana Plaid",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008D4C50": {
+   "cut": false,
+   "name": "Badge Bandana",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008D5AB3": {
+   "cut": false,
+   "name": "Large Magazine",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008D5AB5": {
+   "cut": false,
+   "name": "Bruising Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008D5AB7": {
+   "cut": false,
+   "name": "Stabilized Stock",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008D5AB9": {
+   "cut": false,
+   "name": "Stub Barrel",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008D667D": {
+   "cut": false,
+   "name": "Patina Nose Ring (Radhog)",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008D667E": {
+   "cut": false,
+   "name": "Gold Nose Ring (Radhog)",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008EFCB2": {
+   "cut": false,
+   "name": "Spicy Eelgrass Soup",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_008F4DF2": {
+   "cut": false,
+   "name": "Pint-Sized Slasher Fishing Bobber",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00900A8C": {
+   "cut": false,
+   "name": "Dog Tamer Helmet",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00900A8D": {
+   "cut": false,
+   "name": "Dog Tamer Outfit",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00900A8E": {
+   "cut": false,
+   "name": "Deathclaw Tamer Helmet",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00900A90": {
+   "cut": false,
+   "name": "Radhog Tamer Helmet",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00900A91": {
+   "cut": false,
+   "name": "Radhog Tamer Outfit",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00900A92": {
+   "cut": false,
+   "name": "Cat Tamer Helmet",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_00900A93": {
+   "cut": false,
+   "name": "Cat Tamer Outfit",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_009136AF": {
+   "cut": false,
+   "name": "Barbed",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_009136B0": {
+   "cut": false,
+   "name": "Sharp",
+   "routes": {},
+   "stops_dropping": null,
+   "tradeable": false
+  },
+  "RECIPE_0091ECCD": {
+   "cut": false,
+   "name": "Reflex Sight (Dot)",
    "routes": {},
    "stops_dropping": null,
    "tradeable": false
   }
  },
- "taken": "2026-09-16T10:56:14+00:00",
+ "rules": {
+  "tradeable": 2
+ },
+ "taken": "2026-09-22T00:01:21+00:00",
  "version": 1
 }
