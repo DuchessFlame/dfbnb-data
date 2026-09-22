@@ -35825,6 +35825,13 @@
       ],
       "changed": [
         {
+          "key": "PLAN_00436FF9",
+          "label": "Plan: Mole Miner Gauntlet",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
           "key": "PLAN_0052A699",
           "label": "Plan: Single-Action Revolver Forceful Grip",
           "fields": [
@@ -36535,6 +36542,14 @@
           ]
         },
         {
+          "key": "PLAN_00436FF9",
+          "label": "Plan: Mole Miner Gauntlet",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
           "key": "PLAN_00436FFF",
           "label": "Plan: Sledge Hammer",
           "fields": [
@@ -36607,27 +36622,6 @@
           "label": "Plan: Crossbow",
           "fields": [
             "cnam"
-          ]
-        },
-        {
-          "key": "PLAN_0050194F",
-          "label": "Plan: Ultracite Optimized Servos",
-          "fields": [
-            "obtain_routes"
-          ]
-        },
-        {
-          "key": "PLAN_00501950",
-          "label": "Plan: Ultracite Overdrive Servos",
-          "fields": [
-            "obtain_routes"
-          ]
-        },
-        {
-          "key": "PLAN_00501954",
-          "label": "Plan: Ultracite Emergency Protocols",
-          "fields": [
-            "obtain_routes"
           ]
         },
         {
@@ -36967,13 +36961,6 @@
           ]
         },
         {
-          "key": "PLAN_00620A54",
-          "label": "Plan: Medium Supply Crate",
-          "fields": [
-            "obtain_routes"
-          ]
-        },
-        {
           "key": "PLAN_006366FD",
           "label": "Plan: Holiday Tree",
           "fields": [
@@ -37006,48 +36993,6 @@
             "obtain_ledger",
             "obtain_routes",
             "source_tag"
-          ]
-        },
-        {
-          "key": "PLAN_006369B6",
-          "label": "Plan: Ghillie Suit Hood",
-          "fields": [
-            "obtain_routes"
-          ]
-        },
-        {
-          "key": "PLAN_006369B9",
-          "label": "Plan: Nuclear Winter Letterman Jacket",
-          "fields": [
-            "obtain_routes"
-          ]
-        },
-        {
-          "key": "PLAN_006369BF",
-          "label": "Plan: Ring of Fire Pit",
-          "fields": [
-            "obtain_routes"
-          ]
-        },
-        {
-          "key": "PLAN_006369C0",
-          "label": "Plan: Ghillie Suit",
-          "fields": [
-            "obtain_routes"
-          ]
-        },
-        {
-          "key": "PLAN_006369C6",
-          "label": "Plan: Wasteland Loveseat",
-          "fields": [
-            "obtain_routes"
-          ]
-        },
-        {
-          "key": "PLAN_006369C7",
-          "label": "Plan: Antler Chandelier",
-          "fields": [
-            "obtain_routes"
           ]
         },
         {
@@ -38149,6 +38094,21 @@
     },
     "recipe_guide.json": {
       "structural_change": true
+    },
+    "repair-bots.json": {
+      "key": "edid",
+      "added": [],
+      "removed": [],
+      "changed": [
+        {
+          "key": "ATX_ENTM_CAMP_Utility_RepairBot_Enclave",
+          "label": "ATX_ENTM_CAMP_Utility_RepairBot_Enclave",
+          "fields": [
+            "howToObtain",
+            "obtainRoutes"
+          ]
+        }
+      ]
     },
     "resource_producers.json": {
       "key": "edid",
