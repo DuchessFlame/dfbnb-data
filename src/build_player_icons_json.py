@@ -468,12 +468,10 @@ def add_avtr_icons(icons: list, entm_rows: list, season_rows: dict,
         if not edid or is_cut(edid):
             continue
         filename = image_filename(a.get("SWFI") or "")
-        if not filename:
-            continue
         rent = (a.get("RENT_FormID") or "").strip().upper()
         if rent and rent in have_ent:
             continue
-        if filename in have_img:
+        if filename and filename in have_img:
             continue   # same art already listed under another record
         avtr_fid = (a.get("FormID") or "").strip().upper()
         refs = a.get("ReferencedBy") or ""
@@ -509,18 +507,124 @@ def add_avtr_icons(icons: list, entm_rows: list, season_rows: dict,
             "rarity": "",
             "premium": "premium" in (a.get("XALG_Flags") or "").lower(),
             "imageFilename": filename,
-            "imageUrl": IMAGE_BASE + filename,
+            "imageUrl": IMAGE_BASE + filename if filename else "",
             "source": obtain["source"],
             "howToObtain": obtain,
             "avtr": f"{avtr_fid}:{edid}:AVTR",
             "isNew": False,
         })
         have_ent.add(fid)
-        have_img.add(filename)
+        if filename:
+            have_img.add(filename)
         added += 1
     print(f"{TAG} AVTR: +{added} icons with no listed entitlement")
     return added
 
+
+
+# ---------------------------------------------------------------------------
+# Shared store art — one picture, one row
+# ---------------------------------------------------------------------------
+# The store thumbnail (ENTM ETDI) is not always the icon's own art. Bethesda
+# reuse a thumbnail across entitlements, so a naive build shows the same
+# picture on two rows:
+#   * SAME icon sold two ways (Expert Hacker: Atom Shop + S8 board) -> merge.
+#   * DIFFERENT icon borrowing art (Cold Steel Icon 4 wearing K.D. Inkwell's,
+#     Vault 96 wearing Vault 94's) -> the row whose AVTR record really uses
+#     that texture keeps it; the other takes its own AVTR texture, or shows
+#     "Image not available". It is NOT dropped: a non-cut record stays listed.
+# The AVTR record is the in-game icon, so its FULL also fixes store names that
+# were copy-pasted (Vault 96 Standard's ENTM is called "Vault 94 Player Icon").
+def _avtr_lookup() -> dict:
+    """Entitlement FormID -> AVTR row."""
+    path = tsv_source.newest("AVTR_Export_*.tsv", channel=CHANNEL, required=False)
+    if not path:
+        return {}
+    out = {}
+    for a in read_tsv(path, repair=True):
+        rent = (a.get("RENT_FormID") or "").strip().upper()
+        if rent:
+            out.setdefault(rent, a)
+    return out
+
+
+def _avtr_name(full: str) -> str:
+    n = _avtr_display(full, "")
+    return re.sub(r"\s+Standard$", "", n, flags=re.I).strip()
+
+
+def resolve_shared_art(icons: list) -> list:
+    avtr = _avtr_lookup()
+    if not avtr:
+        return icons
+
+    def own_file(i):
+        if i.get("avtr", "").endswith(":AVTR") and i["formId"] not in avtr:
+            return i["imageFilename"]          # AVTR-pass row: SWFI already
+        a = avtr.get(i["formId"])
+        return image_filename(a.get("SWFI") or "") if a else ""
+
+    # 1. Names: a store name shared with a different icon -> use the AVTR name.
+    by_name: dict = {}
+    for i in icons:
+        by_name.setdefault(i["name"].lower(), []).append(i)
+    renamed = 0
+    for group in by_name.values():
+        if len(group) < 2:
+            continue
+        for i in group:
+            a = avtr.get(i["formId"])
+            nm = _avtr_name(a.get("FULL")) if a else ""
+            if nm and nm.lower() != i["name"].lower():
+                i["name"] = nm
+                renamed += 1
+
+    # 2. Pictures.
+    by_file: dict = {}
+    for i in icons:
+        if i["imageFilename"]:
+            by_file.setdefault(i["imageFilename"], []).append(i)
+    drop, merged, reassigned = set(), 0, 0
+    for f, group in by_file.items():
+        if len(group) < 2:
+            continue
+        # Same icon, several entitlements -> one row, every route listed.
+        by_nm: dict = {}
+        for i in group:
+            by_nm.setdefault(i["name"].lower(), []).append(i)
+        survivors = []
+        for same in by_nm.values():
+            same.sort(key=lambda i: (own_file(i) != f, i["edid"].lower()))
+            keep = same[0]
+            for extra in same[1:]:
+                h = extra["howToObtain"]
+                keep.setdefault("alsoObtain", []).append(
+                    {"formId": extra["formId"], "edid": extra["edid"],
+                     "source": extra["source"], "text": h.get("text", "")})
+                keep["howToObtain"] = dict(keep["howToObtain"])
+                keep["howToObtain"]["text"] = (keep["howToObtain"].get("text", "").rstrip()
+                                               + " Also: " + h.get("text", "")).strip()
+                drop.add(id(extra))
+                merged += 1
+            survivors.append(keep)
+        if len(survivors) < 2:
+            continue
+        # Different icons on one picture -> only the real owner keeps it.
+        owners = [i for i in survivors if own_file(i) == f]
+        if not owners:
+            continue                            # nobody provably owns it; leave
+        for i in survivors:
+            if i in owners:
+                continue
+            mine = own_file(i)
+            i["sharedArtWith"] = owners[0]["edid"]
+            i["imageFilename"] = mine if mine and mine != f else ""
+            i["imageUrl"] = IMAGE_BASE + i["imageFilename"] if i["imageFilename"] else ""
+            reassigned += 1
+
+    print(f"{TAG} shared art: {merged} merged, {reassigned} moved off borrowed art, "
+          f"{renamed} renamed from AVTR")
+    return [i for i in icons if id(i) not in drop]
 
 # ---------------------------------------------------------------------------
 # Build
@@ -548,10 +652,10 @@ def build() -> dict:
 
         filename = image_filename(r.get("ETDI") or "")
         if not filename:
-            # No texture at all — these are the ..._Reuse0NN placeholder
-            # shells named "Player Icon" with no art. Nothing to show.
+            # No texture. The ..._Reuse0NN shells are already gone via is_cut;
+            # anything left is a real, non-cut record, and every non-cut icon
+            # is listed - it just shows "Image not available".
             dropped_no_texture += 1
-            continue
 
         full = (r.get("FULL") or "").strip()
         short = (r.get("NNAM") or "").strip()
@@ -582,7 +686,7 @@ def build() -> dict:
             "rarity": rarity_from_keywords(keywords),
             "premium": (r.get("XALG_Flags") or "").strip().lower() == "premium",
             "imageFilename": filename,
-            "imageUrl": IMAGE_BASE + filename,
+            "imageUrl": IMAGE_BASE + filename if filename else "",
             "source": obtain["source"],
             "howToObtain": obtain,
             "avtr": next((p for p in (r.get("ReferencedBy") or "").split("|")
@@ -595,6 +699,7 @@ def build() -> dict:
     # exist only as AVTR records, so the AVTR export (ExportAVTRToTSV.pas) is the
     # complete list. Optional: until that export exists the page is ENTM-only.
     avtr_added = add_avtr_icons(icons, rows, season_rows, season_names, chal)
+    icons = resolve_shared_art(icons)
 
     # ABC order, case-insensitive, on the displayed name.
     icons.sort(key=lambda i: (i["name"].lower(), i["edid"].lower()))
@@ -620,7 +725,7 @@ def build() -> dict:
         by_source[i["source"]] = by_source.get(i["source"], 0) + 1
 
     print(f"{TAG} icons: {len(icons)}  (dropped {dropped_cut} cut, "
-          f"{dropped_no_texture} textureless)  NEW: {new_count}{boot_note}")
+          f"{dropped_no_texture} listed without a texture)  NEW: {new_count}{boot_note}")
     for k in sorted(by_source, key=lambda k: -by_source[k]):
         print(f"{TAG}   {by_source[k]:4d}  {k}")
 

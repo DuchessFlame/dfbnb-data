@@ -1,0 +1,49 @@
+# Manual New-Plans pins — force-show a plan as ↻ Changed for a fixed window.
+#
+# WHY THIS FILE EXISTS
+# --------------------
+# The New Plans "changed" pass (src/plan_changes.py) diffs a plan's attributes
+# against a committed snapshot. Two things can make it MISS a real change:
+#   1. the snapshot was re-taken AFTER the patch built, so the new source got
+#      baked into the baseline and the diff sees no difference; and
+#   2. the coherence gate holds a route-add when a dependency export
+#      (COBJ / LVLI / CONT) is older than the BOOK export.
+# Either way a plan that genuinely gained a source this patch never gets the
+# ↻ Changed pill. This file is the manual override: list the plan, the source
+# it gained, and a start/end window, and the pipeline force-shows it as changed
+# until the end date passes — then it drops off on its own, no edit needed.
+#
+# It is READ GENERATIVELY by src/plan_pins.py during the plan_master re-enrich
+# (reenrich_plan_master.py). It never touches dist JSON by hand. A pin only
+# fires while  StartDate <= today <= EndDate ; outside that window it is inert.
+# A pin whose Route the diff has since detected on its own is de-duped, so it is
+# safe to leave a pin in place until its end date even after the export catches
+# up.
+#
+# COLUMNS (tab-separated)
+#   PlanId     plan_master item id, e.g. PLAN_00620A54  (== "PLAN_" + BOOK FormID)
+#   Kind       route-added | route-removed | tradeable | stops-dropping | cut
+#   Route      for route-added/removed: the exact obtain_routes[].route string.
+#              (blank for the scalar kinds)
+#   Bucket     for route-added/removed: the obtain-ledger label, e.g.
+#              "Events & Activities". (blank for the scalar kinds)
+#   StartDate  D/M/YYYY — first day the pin is live (matches fallout76_seasons.tsv)
+#   EndDate    D/M/YYYY — last day the pin is live; after this it stops showing
+#   Note       free text for maintainers; never rendered
+#
+# THE SLASHER / SDOW PINS (added 22 Sep 2026)
+# -------------------------------------------
+# 7 pre-existing plans were added to the new SDOW / "The Slasher" mini-season
+# loot in the 15 Sep 2026 patch but were swallowed by both causes above. End
+# date = 1/12/2026 = the S26 "Beware the Blood Moon" SEASON end. The Slasher
+# SEASONAL EVENT's own window is a PLACEHOLDER in src/home/events.tsv (Bethesda
+# has not stated it), so per the season-end fallback rule the season end is used.
+# If Bethesda confirms a shorter Slasher window, shorten EndDate to match.
+PlanId	Kind	Route	Bucket	StartDate	EndDate	Note
+PLAN_00620A54	route-added	The Slasher - Daily Ops	Events & Activities	15/9/2026	1/12/2026	Medium Supply Crate — SDOW/Slasher Daily Ops loot (S26)
+PLAN_006369BF	route-added	The Slasher - Daily Ops	Events & Activities	15/9/2026	1/12/2026	Ring of Fire Pit — SDOW/Slasher Daily Ops loot (S26)
+PLAN_006369C6	route-added	The Slasher - Daily Ops	Events & Activities	15/9/2026	1/12/2026	Wasteland Loveseat — SDOW/Slasher Daily Ops loot (S26)
+PLAN_006369C7	route-added	The Slasher - Daily Ops	Events & Activities	15/9/2026	1/12/2026	Antler Chandelier — SDOW/Slasher Daily Ops loot (S26)
+PLAN_006369B6	route-added	Scorched Spooky	Events & Activities	15/9/2026	1/12/2026	Ghillie Suit Hood — SDOW/Slasher Scorched Spooky creature (S26)
+PLAN_006369C0	route-added	Scorched Spooky	Events & Activities	15/9/2026	1/12/2026	Ghillie Suit — SDOW/Slasher Scorched Spooky creature (S26)
+PLAN_006369B9	route-added	Scorched Spooky	Events & Activities	15/9/2026	1/12/2026	Nuclear Winter Letterman Jacket — SDOW/Slasher Scorched Spooky creature (S26)

@@ -83,6 +83,7 @@ import build_make_plan_checklist_json
 import plan_images
 import plan_sources
 import plan_changes
+import plan_pins
 import plan_apparel_class
 import plan_subpages
 import plan_consumables
@@ -187,6 +188,17 @@ def enrich_file(path, dist_dir, tsv_dir, report_only=False):
                             stream=sys.stdout)
         doc["changes_since"] = snap.get("taken") or ""
         doc["changes_exports"] = snap.get("exports") or {}
+
+    # 1c. manual pins. AFTER the diff (which clears `changes` and pops route
+    #     "new" flags every run) so pins land on a clean slate and never
+    #     accumulate; and regardless of whether a snapshot existed, because a pin
+    #     is a manual override, not a data diff. It force-shows event-recycled
+    #     plans as ↻ Changed for a fixed window — the fix for same-patch source
+    #     additions that a re-taken snapshot or the coherence gate swallowed —
+    #     de-duped against anything the diff above already found, and inert once
+    #     a pin's EndDate passes. Pure data overlay: reads data/new_plans_pins.tsv,
+    #     no export.
+    plan_pins.report(plan_pins.apply(items, tsv_dir), stream=sys.stdout)
 
     # 2. armour or clothing. Corrects image_dir BEFORE anything routes on it.
     plan_apparel_class.report(plan_apparel_class.attach(items))
