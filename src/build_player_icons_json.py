@@ -626,6 +626,59 @@ def resolve_shared_art(icons: list) -> list:
           f"{renamed} renamed from AVTR")
     return [i for i in icons if id(i) not in drop]
 
+
+# Different icons that Bethesda gave the SAME name (Atom Shop "Devilish" vs the
+# S16 board "Devilish") get a qualifier, so the page never looks like it lists
+# one icon twice. The first row keeps the plain name; the rest are tagged by
+# route (season / source), or - when the route is the same too - by the art
+# family the texture belongs to.
+_ART_FAMILY = (("perks_", "Perk Card"), ("npe_loadout", "Starter Loadout"),
+               ("creature_", "Creature"), ("weapon_", "Weapon"),
+               ("vaultgirl_", "Vault Girl"), ("vaultboy_", "Vault Boy"))
+
+
+def _route_label(i) -> str:
+    h = i.get("howToObtain") or {}
+    if h.get("season"):
+        return f"Season {h['season']}"
+    if i["edid"].lower().startswith("babylon_"):      # Nuclear Winter's EDID prefix
+        return "NW - Legacy"
+    return i.get("source") or ""
+
+
+def _art_label(i) -> str:
+    f = (i.get("imageFilename") or "").lower()
+    for key, label in _ART_FAMILY:
+        if key in f:
+            return label
+    return prettify(re.sub(r"^.*?playericon_", "", f[:-5])) if f else ""
+
+
+def label_name_twins(icons: list) -> int:
+    by_name: dict = {}
+    for i in icons:
+        by_name.setdefault(i["name"].lower(), []).append(i)
+    n = 0
+    for group in by_name.values():
+        if len(group) < 2:
+            continue
+        # Plain name stays on the Atom Shop / oldest-looking row.
+        group.sort(key=lambda i: (i.get("source") != "Atom Shop",
+                                  (i.get("howToObtain") or {}).get("season") or 0,
+                                  i["edid"].lower()))
+        routes = [_route_label(i) for i in group]
+        clash = len(set(routes)) < len(routes)
+        base = group[0]["name"]
+        for idx, i in enumerate(group):
+            tag = _art_label(i) if clash else routes[idx]
+            if idx == 0 and not clash:
+                continue
+            if tag:
+                i["name"] = f"{base} ({tag})"
+                n += 1
+    print(f"{TAG} same-name icons labelled: {n}")
+    return n
+
 # ---------------------------------------------------------------------------
 # Build
 # ---------------------------------------------------------------------------
@@ -700,6 +753,7 @@ def build() -> dict:
     # complete list. Optional: until that export exists the page is ENTM-only.
     avtr_added = add_avtr_icons(icons, rows, season_rows, season_names, chal)
     icons = resolve_shared_art(icons)
+    label_name_twins(icons)
 
     # ABC order, case-insensitive, on the displayed name.
     icons.sort(key=lambda i: (i["name"].lower(), i["edid"].lower()))
