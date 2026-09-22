@@ -246,16 +246,61 @@ _Couldn't key this file to records; contents differ._
 ## `bounty-hunting/head_hunt_bosses.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `buff-stations.json`  ·  +3 / -0 / ~2
+## `buff-stations.json`  ·  +3 / -4 / ~81
 
 **Added (3)**
 - ATX_CAMP_FloorDecor_ExerciseEquipment_EnclaveEnduranceTrainer  `ATX_CAMP_FloorDecor_ExerciseEquipment_EnclaveEnduranceTrainer`
 - ATX_Structure_Furniture_AssaultronAssemblyPlatform_AssaultronPlatform  `ATX_Structure_Furniture_AssaultronAssemblyPlatform_AssaultronPlatform`
 - ATX_Structure_Furniture_VatofFEV_FEVVat  `ATX_Structure_Furniture_VatofFEV_FEVVat`
 
-**Changed (2)**
-- BedTypeComfy  `BedTypeComfy` — fields: technicalNotes
-- SCORE_S26_Instrument_AltoSax  `SCORE_S26_Instrument_AltoSax` — fields: imageUrl
+**Removed (4)**
+- ATX_Instrument_ResonatorGuitar_B  `ATX_Instrument_ResonatorGuitar_B`
+- SCORE_S12_CAMP_Scarberry_Shrine_FURN  `SCORE_S12_CAMP_Scarberry_Shrine_FURN`
+- SCORE_S20_Instrument_ChemicalBarrelDrum_Blue  `SCORE_S20_Instrument_ChemicalBarrelDrum_Blue`
+- SCORE_S20_Instrument_MetalBarrelDrum_Radioactive  `SCORE_S20_Instrument_MetalBarrelDrum_Radioactive`
+
+**Changed (81)**
+- ATX_9BallTable_C_Green  `ATX_9BallTable_C_Green` — fields: howToObtain, obtainRoutes, outputInfo, outputRows, status
+- ATX_9BallTable_D_WoodGreen  `ATX_9BallTable_D_WoodGreen` — fields: howToObtain, obtainRoutes, outputInfo, outputRows, status
+- ATX_9BallTable_Rustic_HandmadePoolTable  `ATX_9BallTable_Rustic_HandmadePoolTable` — fields: outputInfo, outputRows, status
+- ATX_ArmWrestleMachine_VaultGirl  `ATX_ArmWrestleMachine_VaultGirl` — fields: outputInfo, outputRows, status
+- ATX_CAMP_FloorDecor_ExerciseEquipment_Speed_Bag_RaiderSpeedBag  `ATX_CAMP_FloorDecor_ExerciseEquipment_Speed_Bag_RaiderSpeedBag` — fields: outputInfo, outputRows, status
+- ATX_Communal_Firepit  `ATX_Communal_Firepit` — fields: outputInfo, outputRows, status
+- ATX_F1_9BallTable_Red  `ATX_F1_9BallTable_Red` — fields: outputInfo, outputRows, status
+- ATX_FloorDecor_BloodTransfusionPump  `ATX_FloorDecor_BloodTransfusionPump` — fields: outputInfo, outputRows, status
+- ATX_FloorDecor_FiveFingerFiletTable  `ATX_FloorDecor_FiveFingerFiletTable` — fields: howToObtain, obtainRoutes, outputInfo, outputRows, status
+- ATX_Furniture_Atomicroller  `ATX_Furniture_Atomicroller` — fields: outputInfo, outputRows, status
+- ATX_Furniture_BoardwalkBonanzaPinballMachine  `ATX_Furniture_BoardwalkBonanzaPinballMachine` — fields: outputInfo, outputRows, status
+- ATX_Furniture_BowlingArcadeMachine  `ATX_Furniture_BowlingArcadeMachine` — fields: howToObtain, obtainRoutes, outputInfo, outputRows, status
+- ATX_Furniture_BowlingArcadeMachine_RollingStars  `ATX_Furniture_BowlingArcadeMachine_RollingStars` — fields: howToObtain, obtainRoutes, outputInfo, outputRows, status
+- ATX_Furniture_BowlingArcadeMachine_StarsAndStrikes  `ATX_Furniture_BowlingArcadeMachine_StarsAndStrikes` — fields: howToObtain, obtainRoutes, outputInfo, outputRows, status
+- ATX_Furniture_GameCabinet_AstroAttack  `ATX_Furniture_GameCabinet_AstroAttack` — fields: howToObtain, obtainRoutes, outputInfo, outputRows, status
+- ATX_Furniture_Instrument_Accordion  `ATX_Furniture_Instrument_Accordion` — fields: howToObtain, obtainRoutes, outputInfo, outputRows, status
+- ATX_Furniture_Motorcycle  `ATX_Furniture_Motorcycle` — fields: outputInfo, outputRows, status
+- ATX_Furniture_ShoeshineMachine  `ATX_Furniture_ShoeshineMachine` — fields: outputInfo, outputRows, status
+- ATX_Furniture_SkullsFirePitt  `ATX_Furniture_SkullsFirePitt` — fields: outputInfo, outputRows, status
+- ATX_Furniture_SummoningCircle  `ATX_Furniture_SummoningCircle` — fields: outputInfo, outputRows, status
+- ATX_Furniture_VaultTecPinballMachine  `ATX_Furniture_VaultTecPinballMachine` — fields: outputInfo, outputRows, status
+- ATX_HotTub  `ATX_HotTub` — fields: outputInfo, outputRows, status
+- ATX_Instrument_DrumSet  `ATX_Instrument_DrumSet` — fields: outputInfo, outputRows, status
+- ATX_Instrument_Hambone  `ATX_Instrument_Hambone` — fields: outputInfo, outputRows, status
+- ATX_Instrument_Pipe_Organ  `ATX_Instrument_Pipe_Organ` — fields: outputInfo, outputRows, status
+- ATX_Instrument_ResonatorGuitar  `ATX_Instrument_ResonatorGuitar` — fields: outputInfo, outputRows, status
+- ATX_Instrument_SkullDrumSet  `ATX_Instrument_SkullDrumSet` — fields: outputInfo, outputRows, status
+- ATX_Instrument_Xylophone  `ATX_Instrument_Xylophone` — fields: outputInfo, outputRows, status
+- ATX_Orgatronic  `ATX_Orgatronic` — fields: outputInfo, outputRows, status
+- ATX_RadiationGloveBox  `ATX_RadiationGloveBox` — fields: outputInfo, outputRows, status
+- ATX_Structure_Furniture_AtomicDryer  `ATX_Structure_Furniture_AtomicDryer` — fields: outputInfo, outputRows, status
+- ATX_Structure_Furniture_BoSVertibirdTrainingSimulator  `ATX_Structure_Furniture_BoSVertibirdTrainingSimulator` — fields: howToObtain, obtainRoutes, outputInfo, outputRows, status
+- ATX_Structure_Furniture_BowlingAlleyLane  `ATX_Structure_Furniture_BowlingAlleyLane` — fields: outputInfo, outputRows, status
+- ATX_Structure_Furniture_BowlingAlleyLane_Americana  `ATX_Structure_Furniture_BowlingAlleyLane_Americana` — fields: howToObtain, obtainRoutes, outputInfo, outputRows, status
+- ATX_Utility_Sharpening  `ATX_Utility_Sharpening` — fields: outputInfo, outputRows, status
+- ATX_VaultTecSpa  `ATX_VaultTecSpa` — fields: outputInfo, outputRows, status
+- BedTypeComfy  `BedTypeComfy` — fields: outputInfo, outputRows, technicalNotes
+- BedTypeMattress  `BedTypeMattress` — fields: outputInfo, outputRows
+- BedTypeSleepingBag  `BedTypeSleepingBag` — fields: outputInfo, outputRows
+- E07A_Furniture_SacredMothmanTome  `E07A_Furniture_SacredMothmanTome` — fields: outputInfo, outputRows, status
+- …and 41 more
 
 ## `buffs.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1590,7 +1635,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +299 / -24 / ~202
+## `plan_master.json`  ·  +299 / -24 / ~203
 
 **Added (299)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1661,7 +1706,7 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (202)**
+**Changed (203)**
 - Plan: Vault Locker  `PLAN_003D6519` — fields: obtain_ledger, obtain_routes
 - Plan: Vault Dresser  `PLAN_003D651A` — fields: obtain_ledger, obtain_routes
 - Plan: Vault Desk  `PLAN_003D651B` — fields: obtain_ledger, obtain_routes
@@ -1680,6 +1725,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Single-Action Revolver Forceful Grip  `PLAN_0052A699` — fields: cnam, cobj, name, plan_item
 - Recipe: Mirelurk Softshell Cake  `PLAN_0052FDFF` — fields: consumable_type
 - Plan: Evil Jack O'Lantern  `PLAN_005772C7` — fields: image_source, images
+- Plan: Radioactive Barrel  `PLAN_0058CC8C` — fields: image_source, images
 - Plan: Gauss Pistol Drum Magazine  `PLAN_00591421` — fields: effects
 - Plan: Gauss Pistol Suppressed Barrel  `PLAN_00591422` — fields: cnam
 - Plan: Auto Axe Burning Mod  `PLAN_00591903` — fields: obtain_routes
@@ -1701,8 +1747,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Crusader Pistol Reflex Sight  `PLAN_005E65F7` — fields: weapon_group, weapon_group_key
 - Plan: Crusader Pistol Short Scope  `PLAN_005E65F8` — fields: weapon_group, weapon_group_key
 - Plan: Crusader Pistol Long Barrel  `PLAN_005E65F9` — fields: weapon_group, weapon_group_key
-- Plan: Crusader Pistol Fusion Chamber  `PLAN_005E65FA` — fields: cnam, cobj, name, plan_item, weapon_group, weapon_group_key
-- …and 162 more
+- …and 163 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1823,7 +1868,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +18 / -1 / ~55
+## `titles_player.json`  ·  +18 / -1 / ~54
 
 **Added (18)**
 - ATX_PlayerTitles_Prefix_Apex  `ATX_PlayerTitles_Prefix_Apex`
@@ -1848,7 +1893,7 @@ _Couldn't key this file to records; contents differ._
 **Removed (1)**
 - zzz_Fishing_PlayerTitles_Prefix_Gillded  `zzz_Fishing_PlayerTitles_Prefix_Gillded`
 
-**Changed (55)**
+**Changed (54)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel
 - ATX_PlayerTitles_Prefix_Tribune  `ATX_PlayerTitles_Prefix_Tribune` — fields: releaseDate, releaseLabel, releaseYear
@@ -1885,11 +1930,11 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl
-- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 - WorldPets_PlayerTitles_Prefix_Cat01  `WorldPets_PlayerTitles_Prefix_Cat01` — fields: conditions, debug, unlockType
 - WorldPets_PlayerTitles_Prefix_Cat02  `WorldPets_PlayerTitles_Prefix_Cat02` — fields: conditions, debug, unlockType
 - WorldPets_PlayerTitles_Prefix_Deathclaw01  `WorldPets_PlayerTitles_Prefix_Deathclaw01` — fields: conditions, debug, unlockType
-- …and 15 more
+- WorldPets_PlayerTitles_Prefix_Deathclaw02  `WorldPets_PlayerTitles_Prefix_Deathclaw02` — fields: conditions, debug, unlockType
+- …and 14 more
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
