@@ -2,7 +2,7 @@
 """Contract check for the CAMP-items JSON family.
 
 Every /bnb/camp-items/ and /df/camp/ page is rendered by ONE module
-(df-bnb-camp-items.js) with ONE stylesheet, so all eleven JSONs have to agree
+(df-bnb-camp-items.js) with ONE stylesheet, so all twelve JSONs have to agree
 on a shape. Before the Aug 2026 unification they didn't: collectrons and the
 resource producers carried build info, images and a station block while the
 buff stations, allies, pets, fridges and cryos quietly shipped without them,
@@ -84,6 +84,12 @@ CONTRACT = {
         # "kind" (Fridge / Cryo) is the row pill on the combined flat page.
         "required": ["formId", "displayName", "obtainRoutes", "buildInfo", "kind"],
         "coverage": {"imageUrl": 0.90, "spoilageReduction": 0.90},
+    },
+    "dispensers.json": {
+        "required": ["formId", "displayName", "obtainRoutes", "buildInfo"],
+        # acceptedItems is the whole point of the Output sub-expand; a broken
+        # FLST/ALCH join empties it on every row at once.
+        "coverage": {"imageUrl": 0.90, "acceptedItems": 0.90, "craftingRequirements": 0.80},
     },
     "pets.json": {
         "required": ["formId", "displayName", "animalType", "buildInfo"],

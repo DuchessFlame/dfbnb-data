@@ -1245,6 +1245,7 @@ jobs:
           test -f dist/pet-apparel.json            && echo "OK pet-apparel.json"            || (echo "MISSING pet-apparel.json" && exit 1)
           test -f dist/cryos.json                  && echo "OK cryos.json"                  || (echo "MISSING cryos.json" && exit 1)
           test -f dist/fridges.json                && echo "OK fridges.json"                || (echo "MISSING fridges.json" && exit 1)
+          test -f dist/dispensers.json             && echo "OK dispensers.json"             || (echo "MISSING dispensers.json" && exit 1)
           test -f dist/repair-bots.json            && echo "OK repair-bots.json"            || (echo "MISSING repair-bots.json" && exit 1)
           test -f dist/buff-stations.json          && echo "OK buff-stations.json"          || (echo "MISSING buff-stations.json" && exit 1)
           test -f dist/collectables_bobbleheads.json && echo "OK collectables_bobbleheads.json" || (echo "MISSING collectables_bobbleheads.json" && exit 1)

@@ -1,0 +1,14 @@
+{
+  "_note": "Dispensers are generative (Sept 2026). Membership is Bethesda's own tagging: every ACTI carrying PlayerDispenserKeyword (kegs, punch bowls, the Nuka-Cola dispenser vending machines, the Trick Candy Bowl), plus every ACTI an accepted-items list below points at (the Halloween trick-or-treat candy bowls, which use their own script instead of the keyword). What each one accepts is the FLST that references the ACTI (PunchbowlItems, NukaColaVendingMachineItems, CandybowlItems, SpookyCandyBowlItems) resolved to the ALCH / MISC records carrying its keywords. ENTM links, obtain routes, build limits, power, shelter placement and components come off the records exactly as on Fridges & Cryos. Only the links the exports do not carry live here.",
+  "dispenser_keywords": ["PlayerDispenserKeyword"],
+  "item_lists_that_mark_a_dispenser": {
+    "_note": "Accepted-item FLSTs whose ACTIs are dispensers even without PlayerDispenserKeyword.",
+    "SpookyCandyBowlItems": "Halloween trick-or-treat candy bowls"
+  },
+  "storage_glob_by_item_list": {
+    "_note": "Which WorkshopStashActivatorGroup_Dispenser_* GLOB (shared storage capacity) goes with each accepted-items list. The engine joins these internally; no export carries the link. A list not named here prints Storage Capacity: —.",
+    "PunchbowlItems": "WorkshopStashActivatorGroup_Dispenser_Alcohol",
+    "NukaColaVendingMachineItems": "WorkshopStashActivatorGroup_Dispenser_NukaColaVending",
+    "CandybowlItems": "WorkshopStashActivatorGroup_Dispenser_Candy"
+  }
+}

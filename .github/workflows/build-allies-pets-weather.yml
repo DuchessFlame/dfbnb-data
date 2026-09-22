@@ -26,6 +26,11 @@ on:
       - 'tsv/CNDF_Export_*.tsv'
       - 'tsv/GMRW_Export_*.tsv'
       - 'tsv/CHAL_Export_*.tsv'
+      # Dispensers: accepted-item lists (FLST) and the drinks / candy they hold.
+      - 'tsv/FLST_Export_*_List.tsv'
+      - 'tsv/FLST_Export_*_Refs.tsv'
+      - 'tsv/ALCH_Export_*.tsv'
+      - 'tsv/MISC_Export_*.tsv'
       - 'data/camp/*.json'
 
 jobs:
@@ -125,7 +130,7 @@ jobs:
       - name: Commit updated JSON
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: rebuild allies/pets/weather/cryos/fridges/repair-bots JSON [skip ci]"
+          commit_message: "chore: rebuild allies/pets/weather/cryos/fridges/dispensers/repair-bots JSON [skip ci]"
           file_pattern: |
             dist/vendors.json
             dist/weather_stations.json
@@ -135,4 +140,5 @@ jobs:
             dist/pet-apparel.json
             dist/cryos.json
             dist/fridges.json
+            dist/dispensers.json
             dist/repair-bots.json

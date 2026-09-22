@@ -388,6 +388,7 @@ IMAGE_BASES = {
     "pets":              CAMP_ITEMS_BASE + "/camp-pets",
     "allies":            CAMP_ITEMS_BASE + "/camp-allies",
     "fridges-and-cryos": CAMP_ITEMS_BASE + "/fridges-and-cryos",
+    "dispensers":        CAMP_ITEMS_BASE + "/dispensers",
     "repair-bots":       CAMP_ITEMS_BASE + "/repair-bots",
 }
 
@@ -3286,7 +3287,7 @@ for _row in _fc_stream(FC_CHAL_PATH if _fc_want_chal else None):
         _FC_CHAL_NAME[_fid] = (_row.get("FULL") or "").strip()
 
 
-def _fc_main_image(etdi, edid, season_num):
+def _fc_main_image(etdi, edid, season_num, folder=_FC_FOLDER):
     """Season-first, then the ETDI tile in camp-items/fridges-and-cryos/.
 
     Deliberately NOT HOSTED.find(): its Atom Shop fallback returns the store's
@@ -3301,7 +3302,7 @@ def _fc_main_image(etdi, edid, season_num):
     if season_num:
         stem = re.sub(r"^zzz+_?", "", (edid or "").lower()).replace("_entm_", "_")
         return f"/wp-content/uploads/season_images/season-{season_num}/{stem}.avif"
-    return storefront_img_url(etdi, _FC_FOLDER) or ""
+    return storefront_img_url(etdi, folder) or ""
 
 
 def _fc_int(raw):
@@ -3471,6 +3472,414 @@ def build_fridges_cryos():
 
 
 # ---------------------------------------------------------------------------
+# DISPENSERS
+# ---------------------------------------------------------------------------
+# Fully generative (Sept 2026) — see data/camp/dispensers.json "_note".
+#
+# MEMBERSHIP: every ACTI carrying PlayerDispenserKeyword (Bethesda's own
+# dispenser tag: beer kegs, punch bowls, the dispenser Nuka-Cola vending
+# machines, the Trick Candy Bowl), plus every ACTI an accepted-items FLST named
+# in the config points at (the Halloween trick-or-treat candy bowls, which run
+# their own script instead of carrying the keyword).
+#
+# ACCEPTED ITEMS come from the FLST that references the ACTI — PunchbowlItems,
+# NukaColaVendingMachineItems, CandybowlItems, SpookyCandyBowlItems — expanded
+# to every live ALCH / MISC record carrying one of its keywords (or named in it
+# directly). Note the kegs point at PunchbowlItems, not BeerKegItems: the game
+# lets a keg hold any alcohol, and the page says what the game does.
+#
+# ONE ROW PER ENTITLEMENT. A set sold as one entitlement (Blue Ridge Beer Keg
+# Set = four kegs) is one row with its variants listed. A dispenser with no live
+# entitlement (the St. Patrick's Nukashine kegs, unlocked by owning a mix of
+# Mystery Items) is a row per ACTI, with its unlock condition spelled out.
+
+_CFG_DISPENSERS = camp_config.load("dispensers")
+_DSP_KWS = set(_CFG_DISPENSERS.get("dispenser_keywords") or [])
+_DSP_MARK_LISTS = {k for k in (_CFG_DISPENSERS.get("item_lists_that_mark_a_dispenser") or {})
+                   if not k.startswith("_")}
+_DSP_STORAGE_GLOB = {k: v for k, v in (_CFG_DISPENSERS.get("storage_glob_by_item_list") or {}).items()
+                     if not k.startswith("_")}
+_DSP_FOLDER = "dispensers"
+
+DSP_FLST_REFS_PATH = _fc_optional_tsv("FLST_REFS_TSV", "FLST_Export_*_Refs.tsv", "FLST_Export_Refs.tsv")
+DSP_FLST_LIST_PATH = _fc_optional_tsv("FLST_LIST_TSV", "FLST_Export_*_List.tsv", "FLST_Export_List.tsv")
+try:
+    DSP_ALCH_PATH = _resolve_tsv("ALCH_TSV", "ALCH_Export_*.tsv", "ALCH_Export.tsv",
+                                 exclude_suffix="_effects.tsv")
+except FileNotFoundError:
+    DSP_ALCH_PATH = None
+    print("  [WARN] dispensers: no ALCH export — accepted items print '—'")
+DSP_MISC_PATH = _fc_optional_tsv("MISC_TSV", "MISC_Export_*.tsv", "MISC_Export.tsv")
+_DSP_IFC_RE = re.compile(r"IsTrueForConditionForm\([^)]*\[CNDF:([0-9A-Fa-f]{8})\]")
+
+
+def _dsp_label(kw_edid):
+    """Readable label for a sorting keyword: BeerAlcoholType -> Beer,
+    DrinkTypeSoda -> Soda, ObjectTypeCandy -> Candy, Halloween_SpookyCandy ->
+    Spooky Candy. Bethesda leaves these keywords without a FULL name, so the
+    EDID is the only source; nothing is invented beyond splitting it."""
+    s = re.sub(r"^(?:DrinkType|ObjectType)", "", kw_edid or "")
+    s = re.sub(r"AlcoholType$", "", s)
+    s = re.sub(r"^Halloween_", "", s).replace("_", " ")
+    s = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", s).strip()
+    return s or kw_edid
+
+
+# --- 1. who is a dispenser --------------------------------------------------
+_DSP_FLST_REFS = {}                             # FLST fid -> (edid, [ACTI fids])
+for _row in _fc_stream(DSP_FLST_REFS_PATH):
+    _acts = [f for f, _, s in _fc_refs(_row, ("Ref_",)) if s == "ACTI"]
+    if _acts:
+        _DSP_FLST_REFS[(_row.get("FLST_FormID") or "").upper()] = (_row.get("FLST_EDID", ""), _acts)
+
+_acti_row_by_id = {(r.get("ACTI_FormID") or "").upper(): r for r in acti_rows}
+_DSP_ACTI = {}                                  # ACTI fid -> row
+for _fid, _r in _acti_row_by_id.items():
+    if is_cut(_r.get("ACTI_EDID", "")):
+        continue
+    _kws = {(_r.get(f"KW_{i}") or "").split(":")[1] for i in range(1, 7)
+            if (_r.get(f"KW_{i}") or "").count(":") >= 2}
+    if _kws & _DSP_KWS:
+        _DSP_ACTI[_fid] = _r
+for _lfid, (_led, _acts) in _DSP_FLST_REFS.items():
+    if _led in _DSP_MARK_LISTS:
+        for _a in _acts:
+            if _a in _acti_row_by_id and not is_cut(_acti_row_by_id[_a].get("ACTI_EDID", "")):
+                _DSP_ACTI.setdefault(_a, _acti_row_by_id[_a])
+
+# accepted-items lists per ACTI
+_DSP_LISTS_BY_ACTI = {}                         # ACTI -> [(FLST fid, FLST edid)]
+for _lfid, (_led, _acts) in _DSP_FLST_REFS.items():
+    for _a in _acts:
+        if _a in _DSP_ACTI:
+            _DSP_LISTS_BY_ACTI.setdefault(_a, []).append((_lfid, _led))
+_dsp_want_lists = {l for ls in _DSP_LISTS_BY_ACTI.values() for l, _ in ls}
+
+# --- 2. list contents -> keywords / direct items ------------------------------
+_DSP_LIST_ENTRIES = {}                          # FLST fid -> (FULL, [(fid, edid, sig)])
+for _row in _fc_stream(DSP_FLST_LIST_PATH if _dsp_want_lists else None):
+    _fid = (_row.get("FLST_FormID") or "").upper()
+    if _fid in _dsp_want_lists:
+        _DSP_LIST_ENTRIES[_fid] = ((_row.get("FLST_FULL") or "").strip(),
+                                   _fc_refs(_row, ("Entry_",)))
+_dsp_want_kws = {ed for _, ents in _DSP_LIST_ENTRIES.values() for _, ed, s in ents if s == "KYWD"}
+_dsp_want_items = {f for _, ents in _DSP_LIST_ENTRIES.values() for f, _, s in ents if s in ("ALCH", "MISC")}
+
+_DSP_ITEMS_BY_KW = {}                           # keyword edid -> {item names}
+_DSP_ITEM_NAME = {}                             # direct item fid -> name
+for _row in _fc_stream(DSP_ALCH_PATH if (_dsp_want_kws or _dsp_want_items) else None):
+    _fid = (_row.get("ALCH_FormID") or "").upper()
+    _ed, _nm = _row.get("ALCH_EDID", ""), (_row.get("FULL") or "").strip()
+    if is_cut(_ed) or not _nm:
+        continue
+    if _fid in _dsp_want_items:
+        _DSP_ITEM_NAME[_fid] = _nm
+    for _i in range(1, 12):
+        _bits = (_row.get(f"Keyword_{_i}") or "").split(":")
+        if len(_bits) >= 2 and _bits[1] in _dsp_want_kws:
+            _DSP_ITEMS_BY_KW.setdefault(_bits[1], set()).add(_nm)
+_dsp_misc_left = _dsp_want_items - set(_DSP_ITEM_NAME)
+for _row in _fc_stream(DSP_MISC_PATH if (_dsp_misc_left or _dsp_want_kws) else None):
+    _fid = (_row.get("FormID") or "").upper()
+    _ed, _nm = _row.get("EDID", ""), (_row.get("FULL") or "").strip()
+    if is_cut(_ed) or not _nm:
+        continue
+    if _fid in _dsp_misc_left:
+        _DSP_ITEM_NAME[_fid] = _nm
+    _kwtxt = _row.get("Keywords") or ""
+    for _kw in _dsp_want_kws:
+        if re.search(r"(?<![A-Za-z_])" + re.escape(_kw) + r"(?![A-Za-z_])", _kwtxt):
+            _DSP_ITEMS_BY_KW.setdefault(_kw, set()).add(_nm)
+
+# --- 3. ACTI -> ENTM (build list, recipe, CNDF) + condition-unlocked ACTIs ---
+_DSP_LIST_BY_ACTI, _DSP_ENTM_BY_ACTI, _DSP_LINK = {}, {}, {}
+_DSP_UNLOCK_CNDFS = {}                          # ACTI -> [CNDF fid] (IsTrueForConditionForm)
+for _row in _fc_stream(FC_LVLI_ENTRIES_PATH):
+    _bits = (_row.get("LVLO_Reference") or "").split(":")
+    if len(_bits) < 3 or _bits[-1].strip() != "ACTI":
+        continue
+    _fid = _bits[0].strip().upper()
+    if _fid not in _DSP_ACTI or is_cut(_row.get("LVLI_EDID", "")):
+        continue
+    _conds = " ".join(_row.get(f"Cond{_i}") or "" for _i in range(1, 11))
+    _DSP_LIST_BY_ACTI.setdefault(_fid, (_row.get("LVLI_FormID", ""), _row.get("LVLI_EDID", "")))
+    _m = _FC_ENT_RE.search(_conds)
+    if _m and _fid not in _DSP_ENTM_BY_ACTI:
+        _DSP_ENTM_BY_ACTI[_fid] = _m.group(1).upper()
+        _DSP_LINK[_fid] = "Build list HasEntitlement condition"
+    for _c in _DSP_IFC_RE.findall(_conds):
+        _DSP_UNLOCK_CNDFS.setdefault(_fid, [])
+        if _c.upper() not in _DSP_UNLOCK_CNDFS[_fid]:
+            _DSP_UNLOCK_CNDFS[_fid].append(_c.upper())
+
+_DSP_RECIPE_BY_ACTI = {}
+for _entm_fid, _refs in _fc_entm_refs.items():
+    _cands = [f.upper() for f, _, s in _refs if s == "COBJ"]
+    for _cf, _, _s in _refs:
+        if _s == "CNDF" and _cf.upper() in _FC_CNDF:
+            _cands += _FC_CNDF[_cf.upper()][1]
+    for _cobj_fid in _cands:
+        _cn = (_FC_COBJ_BY_ID.get(_cobj_fid) or {}).get("CNAM_FormID", "").upper()
+        if _cn in _DSP_ACTI:
+            _DSP_RECIPE_BY_ACTI.setdefault(_cn, _cobj_fid)
+            if _cn not in _DSP_ENTM_BY_ACTI:
+                _DSP_ENTM_BY_ACTI[_cn] = _entm_fid
+                _DSP_LINK[_cn] = "ENTM ReferencedBy recipe COBJ"
+
+# Unlock CNDFs: the entitlements whose ownership unlocks the ACTI.
+_dsp_want_unlock = {c for cs in _DSP_UNLOCK_CNDFS.values() for c in cs}
+_DSP_UNLOCK_ENTMS = {}                          # CNDF fid -> (edid, [ENTM fids])
+for _row in _fc_stream(FC_CNDF_PATH if _dsp_want_unlock else None):
+    _fid = (_row.get("FormID") or "").upper()
+    if _fid in _dsp_want_unlock:
+        _cells = " ".join(v for k, v in _row.items() if k and k.startswith("Cond") and v)
+        _DSP_UNLOCK_ENTMS[_fid] = (_row.get("EDID", ""),
+                                   [m.upper() for m in re.findall(r"\[ENTM:([0-9A-Fa-f]{8})\]", _cells)])
+
+# A condition-unlocked ACTI whose own ENTM was cut still names its texture and
+# description on that (cut) ENTM — found by exact display name, used for the
+# tile and DESC only, never for membership or obtain routes.
+_dsp_cut_entm_by_name = {}
+for _e in entm_rows:
+    if is_cut(_e.get("EDID", "")) and (_e.get("FULL") or "").strip():
+        _dsp_cut_entm_by_name.setdefault(_e["FULL"].strip().lower(), _e)
+
+# ACTI back-refs (shelter blacklist) + dispenser storage GLOB values
+_DSP_ACTI_REFS = {}
+for _row in _fc_stream(FC_ACTI_REFS_PATH):
+    _fid = (_row.get("ACTI_FormID") or "").upper()
+    if _fid in _DSP_ACTI:
+        _DSP_ACTI_REFS[_fid] = _fc_refs(_row, ("Ref_",))
+_dsp_storage_names = set(_DSP_STORAGE_GLOB.values())
+_DSP_GLOB_VAL = {g.get("EDID", ""): g.get("FLTV", "") for g in glob_rows
+                 if g.get("EDID", "") in _dsp_storage_names}
+
+
+# Mini-season / seasonal-event rewards already have a home on the site: the
+# mini-seasons page serves them from guide-images/mini-seasons/. Pointing the
+# dispenser row at that same URL means the tile is uploaded ONCE (storage is
+# tight) — the same reasoning as the season-first rule for Scoreboard art.
+def _dsp_mini_season_urls():
+    idx = {}
+    try:
+        txt = (OUT_DIR / "mini_seasons" / "mini_seasons.json").read_text(encoding="utf-8")
+    except OSError:
+        return idx
+    for u in re.findall(r"/wp-content/uploads/guide-images/mini-seasons/[^\"\s]+?\.avif", txt):
+        stem = os.path.splitext(os.path.basename(u))[0].lower()
+        if re.search(r"_c\d+$", stem):
+            continue
+        idx.setdefault(re.sub(r"_l$", "", stem), u)
+    return idx
+
+
+_DSP_MINI_SEASON_URL = _dsp_mini_season_urls()
+
+
+def _dsp_events_line(edid):
+    """Events & Activities line for mini-season / seasonal-event entitlements,
+    read off the EDID prefix exactly as build_displays_json.classify_source."""
+    m = re.match(r"(?i)^SCORE_MiniSeason_(\d{4})_([A-Za-z]+?)_(?:ENTM|CAMP)_", edid or "")
+    if m:
+        name = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", m.group(2))
+        return f"Mini-season reward: {name} ({m.group(1)})"
+    m = re.match(r"(?i)^DE(\d{4})_([A-Za-z]+?)_", edid or "")
+    if m:
+        return f"Seasonal event reward: {m.group(2)} {m.group(1)}"
+    return ""
+
+
+def build_dispensers():
+    """One row per live entitlement (its ACTIs as variants), else per ACTI."""
+    groups = {}                                 # key -> {"entm":…, "actis":[…]}
+    for acti_fid in sorted(_DSP_ACTI):
+        entm_id = _DSP_ENTM_BY_ACTI.get(acti_fid, "")
+        entm = entm_by_id.get(entm_id, {}) if entm_id else {}
+        if entm and is_cut(entm.get("EDID", "")):
+            entm, entm_id = {}, ""
+        key = entm_id or acti_fid
+        groups.setdefault(key, {"entm_id": entm_id, "entm": entm, "actis": []})["actis"].append(acti_fid)
+
+    items = []
+    for key, grp in groups.items():
+        entm, entm_id, actis = grp["entm"], grp["entm_id"], grp["actis"]
+        first = _DSP_ACTI[actis[0]]
+        acti_fid = actis[0]
+        acti_edid = first.get("ACTI_EDID", "")
+        name = (entm.get("FULL") or "").strip() or (first.get("ACTI_FULL") or "").strip() or acti_edid
+        art = entm or _dsp_cut_entm_by_name.get(name.lower(), {})
+        edid = entm.get("EDID", "") or acti_edid
+        season_m = re.match(r"SCORE_S(\d+)_", edid, re.IGNORECASE)
+        season_num = int(season_m.group(1)) if season_m else None
+
+        # --- accepted items --------------------------------------------------
+        lists = []
+        for a in actis:
+            for l in _DSP_LISTS_BY_ACTI.get(a, []):
+                if l not in lists:
+                    lists.append(l)
+        accepted, labels = [], []
+        for lfid, led in lists:
+            full, ents = _DSP_LIST_ENTRIES.get(lfid, ("", []))
+            for f, ed, s in ents:
+                if s == "KYWD":
+                    names = sorted(_DSP_ITEMS_BY_KW.get(ed, set()), key=str.lower)
+                    grp_label = _dsp_label(ed)
+                elif s in ("ALCH", "MISC") and f in _DSP_ITEM_NAME:
+                    names, grp_label = [_DSP_ITEM_NAME[f]], "Other"
+                else:
+                    continue
+                if not names:
+                    continue
+                hit = next((g for g in accepted if g["group"] == grp_label), None)
+                if hit:
+                    hit["items"] = sorted(set(hit["items"]) | set(names), key=str.lower)
+                else:
+                    accepted.append({"group": grp_label, "keyword": ed if s == "KYWD" else "",
+                                     "items": names})
+                    labels.append(grp_label)
+        n_items = len({i for g in accepted for i in g["items"]})
+        output = (f"Accepts {n_items} item{'s' if n_items != 1 else ''}: "
+                  f"{', '.join(labels)}." if accepted else "")
+
+        # --- recipe / build ----------------------------------------------------
+        list_fid, list_edid = _DSP_LIST_BY_ACTI.get(acti_fid, ("", ""))
+        recipe_fid = _DSP_RECIPE_BY_ACTI.get(acti_fid, "")
+        if not recipe_fid:
+            for k in (acti_fid, list_fid.upper()):
+                rows = cobj_by_cnam.get(k) or []
+                if rows:
+                    recipe_fid = (rows[0].get("COBJ_FormID") or "").upper()
+                    break
+        recipe = _FC_COBJ_BY_ID.get(recipe_fid, {})
+        craft = fvpa_to_array(effective_fvpa(recipe)) if recipe else []
+        wc = _FC_WC_BY_COBJ.get(recipe_fid, {})
+        camp_lim = _fc_int(wc["camp"][1]) if "camp" in wc else None
+        ws_lim = _fc_int(wc["workshop"][1]) if "workshop" in wc else None
+        power = fmt_num(acti_prps_value(acti_edid, "PowerRequired")) or "0"
+        flamingo = fmt_num(acti_prps_value(acti_edid, "WorkshopBudgetObjectMultiplier")) or "—"
+        no_shelter = any(ed == _FC_SHELTER_BLACKLIST
+                         for a in actis for _, ed, _ in _DSP_ACTI_REFS.get(a, []))
+        storage_glob = next((_DSP_STORAGE_GLOB[led] for _, led in lists if led in _DSP_STORAGE_GLOB), "")
+        storage = fmt_num(_DSP_GLOB_VAL.get(storage_glob, "")) or "—"
+        build_lines = [
+            f"Build Limit per Camp: {_limit_str(camp_lim) if wc else '—'}",
+            f"Build Limit per Workshop: {_limit_str(ws_lim) if wc else '—'}",
+            f"Power Required: {power}",
+            f"Flamingo Units: {flamingo}",
+            f"Shelter Placement: {'No' if no_shelter else 'Yes'}",
+            f"Storage Capacity: {storage}",
+        ]
+
+        # --- obtain routes -----------------------------------------------------
+        _key = re.sub(r"^(?:SCORE_S\d+_)?(?:ATX_|SCORE_)?(?:ENTM_)?CAMP_Utility_", "",
+                      edid, flags=re.IGNORECASE).lower()
+        gnam_fid, plan_name = plan_for_condproxy_token(_key)
+        tradeable = tradeable_from_plan(gnam_fid)
+        populated = {}
+        if season_num:
+            populated["Scoreboard"] = ([scoreboard_how(season_num)], False, "N/A")
+        gold = gold_block_for(entm_id) if entm_id else ""
+        if gold:
+            populated["Gold Bullion"] = ([l for l in gold.split("\n") if l.strip()], tradeable, "N/A")
+        chal_lines, gmrw_notes = [], []
+        for f, _, s in (_fc_entm_refs.get(entm_id, []) if entm_id else []):
+            if s != "GMRW" or f.upper() not in _FC_GMRW:
+                continue
+            g_edid, chals = _FC_GMRW[f.upper()]
+            gmrw_notes.append(f"Challenge Reward (GMRW): {g_edid} [{f.upper()}]")
+            chal_lines += [f"Challenge: {_FC_CHAL_NAME[c]}" for c in chals if _FC_CHAL_NAME.get(c)]
+        if chal_lines:
+            populated["Challenges"] = (chal_lines, False, "N/A")
+        ev_lines = []
+        ev = _dsp_events_line(edid)
+        if ev:
+            ev_lines.append(ev)
+        unlock_notes = []
+        cndfs = [c for a in actis for c in _DSP_UNLOCK_CNDFS.get(a, [])]
+        if cndfs and not entm_id:
+            owned = []
+            for c in cndfs:
+                for e in _DSP_UNLOCK_ENTMS.get(c, ("", []))[1]:
+                    nm = (entm_by_id.get(e, {}).get("FULL") or e).strip()
+                    if nm not in owned:
+                        owned.append(nm)
+            if owned:
+                ev_lines.append("Unlocked by owning a qualifying combination of: "
+                                + ", ".join(sorted(owned, key=str.lower)))
+            unlock_notes = [f"Unlock Condition (CNDF): {_DSP_UNLOCK_ENTMS.get(c, (c,))[0] or c} [{c}]"
+                            for c in cndfs]
+        if ev_lines:
+            populated["Events & Activities"] = (ev_lines, False, "N/A")
+        if not populated and edid.upper().startswith("ATX_"):
+            populated["Atom Shop"] = ([ATX_HOW], False, "N/A")
+        routes = make_obtain_routes(populated)
+        how = "\nOR\n".join("\n".join(populated[r][0]) for r in OBTAIN_ROUTE_ORDER if r in populated)
+        source = next((r for r in OBTAIN_ROUTE_ORDER if r in populated), "")
+
+        # --- Technical record trail -------------------------------------------
+        notes = []
+        for a in actis:
+            ar = _DSP_ACTI[a]
+            notes += [f"ACTI EDID: {ar.get('ACTI_EDID', '')}", f"ACTI FormID: {a}"]
+        notes += [
+            f"Build List (LVLI) EDID: {list_edid or '—'}",
+            f"Build List (LVLI) FormID: {list_fid or '—'}",
+            f"Recipe (COBJ) EDID: {recipe.get('COBJ_EDID', '') or '—'}",
+            f"Recipe (COBJ) FormID: {recipe_fid or '—'}",
+        ]
+        notes += [f"Accepted Items List (FLST): {led} [{lfid}]" for lfid, led in lists]
+        for g in accepted:
+            if g["keyword"]:
+                notes.append(f"Accepted Keyword: {g['keyword']}")
+        for k, label in (("camp", "CAMP"), ("workshop", "Workshop")):
+            if k in wc:
+                notes.append(f"Build Limit GLOB ({label}): {wc[k][0]}")
+        if storage_glob:
+            notes.append(f"Storage GLOB: {storage_glob}")
+        notes += unlock_notes + gmrw_notes
+        notes.append(f"ENTM Link: {_DSP_LINK.get(acti_fid, 'none — no live entitlement')}")
+        if not entm_id and art:
+            notes.append(f"Texture/Description ENTM (cut): {art.get('EDID', '')}")
+
+        output_rows = []
+        if len(actis) > 1:
+            output_rows.append("Variants: " + ", ".join(
+                (_DSP_ACTI[a].get("ACTI_FULL") or _DSP_ACTI[a].get("ACTI_EDID", "")).strip() for a in actis))
+
+        etdi = (art.get("ETDI") or "").strip()
+        items.append({
+            "formId":            entm_id or acti_fid,
+            "entmFormId":        entm_id,
+            "actiFormId":        acti_fid,
+            "edid":              edid,
+            "displayName":       name,
+            "description":       clean_desc(art.get("DESC", "")),
+            "obtainSource":      source,
+            "howToObtain":       how,
+            "dropRate":          "N/A",
+            "seasonNumber":      season_num,
+            "tradeable":         tradeable,
+            "planName":          plan_name,
+            "obtainRoutes":      routes,
+            "imageUrl":          (_DSP_MINI_SEASON_URL.get(os.path.splitext(etdi)[0].lower())
+                                  or _fc_main_image(etdi, art.get("EDID", "") or edid, season_num, _DSP_FOLDER)),
+            "imageCarousel":     [],
+            "outputInfo":        output,
+            "outputRows":        output_rows,
+            "acceptedItems":     accepted,
+            "buildInfo":         "\n".join(build_lines),
+            "craftingRequirements": craft,
+            "technicalNotes":    "\n".join(notes),
+            "xalgFlags":         first.get("XALG_Flags", ""),
+            "cutContent":        False,
+        })
+
+    items.sort(key=lambda x: x["displayName"].lower())
+    return items
+
+
+# ---------------------------------------------------------------------------
 # RUN ALL BUILDERS
 # ---------------------------------------------------------------------------
 
@@ -3485,6 +3894,7 @@ pet_appr_data = build_pet_apparel()
 _fc_items = build_fridges_cryos()
 fridges_data = {"items": [i for i in _fc_items if i["kind"] == "Fridge"]}
 cryos_data = {"items": [i for i in _fc_items if i["kind"] == "Cryo"]}
+dispensers_data = {"items": build_dispensers()}
 
 # Generative Gold Bullion route, one pass per page, before anything is written.
 # Every page goes through this — the route used to be decided by a per-script
@@ -3497,7 +3907,8 @@ for _label, _data in [("weather station", weather_data),
                       ("pet furniture",   pet_furn_data),
                       ("pet apparel",     pet_appr_data),
                       ("cryo",            cryos_data),
-                      ("fridge",          fridges_data)]:
+                      ("fridge",          fridges_data),
+                      ("dispenser",       dispensers_data)]:
     _GV.apply_to_items(_data.get("items", []), _label)
     _GV.report_unstocked(_data.get("items", []), _label)
 
@@ -3509,6 +3920,7 @@ save_json("pet-furniture.json",    pet_furn_data)
 save_json("pet-apparel.json",      pet_appr_data)
 save_json("cryos.json",            cryos_data)
 save_json("fridges.json",          fridges_data)
+save_json("dispensers.json",       dispensers_data)
 
 # Generate patchlog feed (all camp-related items combined)
 def combine_camp_items(*dicts):
@@ -3520,7 +3932,7 @@ def combine_camp_items(*dicts):
 
 camp_items = combine_camp_items(
     allies_data, pets_data, pet_furn_data, pet_appr_data,
-    cryos_data, fridges_data, repair_bots_data
+    cryos_data, fridges_data, dispensers_data, repair_bots_data
 )
 
 write_patchlog_feed(
