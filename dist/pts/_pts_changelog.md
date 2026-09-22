@@ -836,6 +836,11 @@ _Couldn't key this file to records; contents differ._
 ## `daily_ops/daily_ops_rewards.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
+## `dispensers.json`  ·  +0 / -0 / ~1
+
+**Changed (1)**
+- DE2024_Halloween_ENTM_CAMP_Utility_CraniaCandyBowl  `DE2024_Halloween_ENTM_CAMP_Utility_CraniaCandyBowl` — fields: description
+
 ## `displays.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
@@ -1256,19 +1261,6 @@ _Couldn't key this file to records; contents differ._
 ## `fishing_equipment.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `fridges.json`  ·  +0 / -0 / ~9
-
-**Changed (9)**
-- ATX_ENTM_CAMP_Utility_Refrigerator_Arktos  `ATX_ENTM_CAMP_Utility_Refrigerator_Arktos` — fields: imageUrl
-- ATX_ENTM_CAMP_Utility_Refrigerator_BeerBarrel  `ATX_ENTM_CAMP_Utility_Refrigerator_BeerBarrel` — fields: imageUrl
-- ATX_ENTM_CAMP_Utility_Refrigerator_Freezer_NukaCola  `ATX_ENTM_CAMP_Utility_Refrigerator_Freezer_NukaCola` — fields: imageUrl
-- ATX_ENTM_CAMP_Utility_Refrigerator_StainlessSteel  `ATX_ENTM_CAMP_Utility_Refrigerator_StainlessSteel` — fields: imageUrl
-- ATX_ENTM_CAMP_Utility_Refrigerator_VaultTec  `ATX_ENTM_CAMP_Utility_Refrigerator_VaultTec` — fields: imageUrl
-- SCORE_S17_ENTM_CAMP_Utility_Refrigerator_CampingCooler  `SCORE_S17_ENTM_CAMP_Utility_Refrigerator_CampingCooler` — fields: imageUrl
-- SCORE_S18_ENTM_CAMP_Utility_BlueRidgeBeerKeg  `SCORE_S18_ENTM_CAMP_Utility_BlueRidgeBeerKeg` — fields: imageUrl
-- SCORE_S21_ENTM_CAMP_Utility_Refrigerator_GoneFissionCampingCooler  `SCORE_S21_ENTM_CAMP_Utility_Refrigerator_GoneFissionCampingCooler` — fields: imageUrl
-- SCORE_S22_ENTM_CAMP_Utility_Refrigerator_MillersFridge  `SCORE_S22_ENTM_CAMP_Utility_Refrigerator_MillersFridge` — fields: imageUrl
-
 ## `help_menu.json`  ·  +5 / -0 / ~5
 
 **Added (5)**
@@ -1552,7 +1544,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 - SCORE_S25_CAMPPets_SpawnFurniture_Cat_CyprusCat  `SCORE_S25_CAMPPets_SpawnFurniture_Cat_CyprusCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +299 / -24 / ~203
+## `plan_master.json`  ·  +299 / -24 / ~207
 
 **Added (299)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1623,10 +1615,11 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (203)**
+**Changed (207)**
 - Plan: Vault Locker  `PLAN_003D6519` — fields: obtain_ledger, obtain_routes
 - Plan: Vault Dresser  `PLAN_003D651A` — fields: obtain_ledger, obtain_routes
 - Plan: Vault Desk  `PLAN_003D651B` — fields: obtain_ledger, obtain_routes
+- Plan: Beer Keg  `PLAN_003F4749` — fields: image_source, images
 - Plan: Golf Club  `PLAN_00436FF5` — fields: obtain_ledger, obtain_routes
 - Plan: Mole Miner Gauntlet  `PLAN_00436FF9` — fields: obtain_ledger, obtain_routes
 - Plan: Sledge Hammer  `PLAN_00436FFF` — fields: cnam
@@ -1660,11 +1653,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Hellstorm Missile Launcher  `PLAN_005E47CC` — fields: obtain_routes
 - Plan: Crusader Pistol  `PLAN_005E65F5` — fields: obtain_routes, weapon_group_solo
 - Plan: Crusader Pistol Suppressor  `PLAN_005E65F6` — fields: weapon_group, weapon_group_key
-- Plan: Crusader Pistol Reflex Sight  `PLAN_005E65F7` — fields: weapon_group, weapon_group_key
-- Plan: Crusader Pistol Short Scope  `PLAN_005E65F8` — fields: weapon_group, weapon_group_key
-- Plan: Crusader Pistol Long Barrel  `PLAN_005E65F9` — fields: weapon_group, weapon_group_key
-- Plan: Crusader Pistol Fusion Chamber  `PLAN_005E65FA` — fields: cnam, cobj, name, plan_item, weapon_group, weapon_group_key
-- …and 163 more
+- …and 167 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1749,7 +1738,7 @@ _Couldn't key this file to records; contents differ._
 ## `survival_tent_interiors.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_camp.json`  ·  +6 / -0 / ~6
+## `titles_camp.json`  ·  +6 / -0 / ~30
 
 **Added (6)**
 - ATX_CAMPTitles_Prefix_Festive  `ATX_CAMPTitles_Prefix_Festive`
@@ -1759,13 +1748,37 @@ _Couldn't key this file to records; contents differ._
 - ATX_CAMPTitles_Suffix_Zoo  `ATX_CAMPTitles_Suffix_Zoo`
 - CAMPTitles_Lifetime_Prefix_Fireside  `CAMPTitles_Lifetime_Prefix_Fireside`
 
-**Changed (6)**
-- ATX_CAMPTitles_Prefix_CrimeScene  `ATX_CAMPTitles_Prefix_CrimeScene` — fields: title
-- ATX_CAMPTitles_Suffix_AlienSupporter  `ATX_CAMPTitles_Suffix_AlienSupporter` — fields: title
-- ATX_CAMPTitles_Suffix_DaringSupporter  `ATX_CAMPTitles_Suffix_DaringSupporter` — fields: title
-- ATX_CAMPTitles_Suffix_Protector  `ATX_CAMPTitles_Suffix_Protector` — fields: title
+**Changed (30)**
+- ATX_CAMPTitles_Prefix_CrimeScene  `ATX_CAMPTitles_Prefix_CrimeScene` — fields: imageUrl, title
+- ATX_CAMPTitles_Prefix_Overgrown  `ATX_CAMPTitles_Prefix_Overgrown` — fields: imageUrl
+- ATX_CAMPTitles_Prefix_Police  `ATX_CAMPTitles_Prefix_Police` — fields: imageUrl
+- ATX_CAMPTitles_Suffix_AlienSupporter  `ATX_CAMPTitles_Suffix_AlienSupporter` — fields: imageUrl, title
+- ATX_CAMPTitles_Suffix_Base  `ATX_CAMPTitles_Suffix_Base` — fields: imageUrl
+- ATX_CAMPTitles_Suffix_DaringSupporter  `ATX_CAMPTitles_Suffix_DaringSupporter` — fields: imageUrl, title
+- ATX_CAMPTitles_Suffix_Diner  `ATX_CAMPTitles_Suffix_Diner` — fields: imageUrl
+- ATX_CAMPTitles_Suffix_Headquarters  `ATX_CAMPTitles_Suffix_Headquarters` — fields: imageUrl
+- ATX_CAMPTitles_Suffix_Protector  `ATX_CAMPTitles_Suffix_Protector` — fields: imageUrl, title
+- ATX_CAMPTitles_Suffix_Saloon  `ATX_CAMPTitles_Suffix_Saloon` — fields: imageUrl
 - CAMPTitles_Lifetime_Suffix_Hideout  `CAMPTitles_Lifetime_Suffix_Hideout` — fields: debug
+- SCORE_MiniSeason_2026_SockHop_CAMPTitles_Prefix_Varnished  `SCORE_MiniSeason_2026_SockHop_CAMPTitles_Prefix_Varnished` — fields: imageUrl
+- SCORE_MiniSeason_2026_SockHop_CAMPTitles_Suffix_Gym  `SCORE_MiniSeason_2026_SockHop_CAMPTitles_Suffix_Gym` — fields: imageUrl
+- SCORE_MiniSeason_2026_WeaponsExpert_CAMPTitles_Prefix_Sharpshooters  `SCORE_MiniSeason_2026_WeaponsExpert_CAMPTitles_Prefix_Sharpshooters` — fields: imageUrl
+- SCORE_MiniSeason_2026_WeaponsExpert_CAMPTitles_Suffix_Arsenal  `SCORE_MiniSeason_2026_WeaponsExpert_CAMPTitles_Suffix_Arsenal` — fields: imageUrl
+- SCORE_S24_CAMPTitles_Prefix_Alien  `SCORE_S24_CAMPTitles_Prefix_Alien` — fields: imageUrl
+- SCORE_S24_CAMPTitles_Prefix_Bigfoots  `SCORE_S24_CAMPTitles_Prefix_Bigfoots` — fields: imageUrl
+- SCORE_S24_CAMPTitles_Prefix_RipDarings  `SCORE_S24_CAMPTitles_Prefix_RipDarings` — fields: imageUrl
+- SCORE_S24_CAMPTitles_Suffix_Retreat  `SCORE_S24_CAMPTitles_Suffix_Retreat` — fields: imageUrl
+- SCORE_S25_CAMPTitles_Prefix_Fortified  `SCORE_S25_CAMPTitles_Prefix_Fortified` — fields: imageUrl
+- SCORE_S25_CAMPTitles_Prefix_Safeguarded  `SCORE_S25_CAMPTitles_Prefix_Safeguarded` — fields: imageUrl
+- SCORE_S25_CAMPTitles_Suffix_Bunker  `SCORE_S25_CAMPTitles_Suffix_Bunker` — fields: imageUrl
+- SCORE_S25_CAMPTitles_Suffix_LastStand  `SCORE_S25_CAMPTitles_Suffix_LastStand` — fields: imageUrl
+- SCORE_S26_CAMPTitles_Prefix_Eerie  `SCORE_S26_CAMPTitles_Prefix_Eerie` — fields: imageUrl
+- SCORE_S26_CAMPTitles_Prefix_Haunted  `SCORE_S26_CAMPTitles_Prefix_Haunted` — fields: imageUrl
+- SCORE_S26_CAMPTitles_Suffix_Mansion  `SCORE_S26_CAMPTitles_Suffix_Mansion` — fields: imageUrl
+- SCORE_S4_CAMPTitles_Prefix_Icebreakers  `SCORE_S4_CAMPTitles_Prefix_Icebreakers` — fields: imageUrl
+- SCORE_S4_CAMPTitles_Prefix_YukonFives  `SCORE_S4_CAMPTitles_Prefix_YukonFives` — fields: imageUrl
 - WorldPets_CampTitles_Prefix_LifetimeChallenge_Dog01  `WorldPets_CampTitles_Prefix_LifetimeChallenge_Dog01` — fields: debug, howToObtain
+- zzz_SCORE_S26_CAMPTitles_Suffix_Cemetery  `zzz_SCORE_S26_CAMPTitles_Suffix_Cemetery` — fields: imageUrl
 
 ## `titles_camp_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1773,7 +1786,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +18 / -1 / ~25
+## `titles_player.json`  ·  +18 / -1 / ~190
 
 **Added (18)**
 - ATX_PlayerTitles_Prefix_Apex  `ATX_PlayerTitles_Prefix_Apex`
@@ -1798,32 +1811,48 @@ _Couldn't key this file to records; contents differ._
 **Removed (1)**
 - zzz_Fishing_PlayerTitles_Prefix_Gillded  `zzz_Fishing_PlayerTitles_Prefix_Gillded`
 
-**Changed (25)**
-- ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear
-- ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel
-- ATX_PlayerTitles_Prefix_Tribune  `ATX_PlayerTitles_Prefix_Tribune` — fields: releaseDate, releaseLabel, releaseYear
-- ATX_PlayerTitles_Suffix_Buoy  `ATX_PlayerTitles_Suffix_Buoy` — fields: releaseDate, releaseLabel
-- ATX_PlayerTitles_Suffix_Sprinkles  `ATX_PlayerTitles_Suffix_Sprinkles` — fields: title, titleFemale, titleMale
-- Fishing_PlayerTitles_Suffix_OfTheMonth  `Fishing_PlayerTitles_Suffix_OfTheMonth` — fields: debug, howToObtain
-- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
-- WorldPets_PlayerTitles_Prefix_Cat01  `WorldPets_PlayerTitles_Prefix_Cat01` — fields: conditions, debug, unlockType
-- WorldPets_PlayerTitles_Prefix_Cat02  `WorldPets_PlayerTitles_Prefix_Cat02` — fields: conditions, debug, unlockType
-- WorldPets_PlayerTitles_Prefix_Deathclaw01  `WorldPets_PlayerTitles_Prefix_Deathclaw01` — fields: conditions, debug, unlockType
-- WorldPets_PlayerTitles_Prefix_Deathclaw02  `WorldPets_PlayerTitles_Prefix_Deathclaw02` — fields: conditions, debug, unlockType
-- WorldPets_PlayerTitles_Prefix_Dog01  `WorldPets_PlayerTitles_Prefix_Dog01` — fields: conditions, debug, unlockType
-- WorldPets_PlayerTitles_Prefix_Dog02  `WorldPets_PlayerTitles_Prefix_Dog02` — fields: conditions, debug, unlockType
-- WorldPets_PlayerTitles_Prefix_Radhog01  `WorldPets_PlayerTitles_Prefix_Radhog01` — fields: conditions, debug, unlockType
-- WorldPets_PlayerTitles_Prefix_Radhog02  `WorldPets_PlayerTitles_Prefix_Radhog02` — fields: conditions, debug, unlockType
-- WorldPets_PlayerTitles_Suffix_Cat01  `WorldPets_PlayerTitles_Suffix_Cat01` — fields: conditions, debug, unlockType
-- WorldPets_PlayerTitles_Suffix_Cat02  `WorldPets_PlayerTitles_Suffix_Cat02` — fields: conditions, debug, unlockType
-- WorldPets_PlayerTitles_Suffix_Deathclaw01  `WorldPets_PlayerTitles_Suffix_Deathclaw01` — fields: conditions, debug, unlockType
-- WorldPets_PlayerTitles_Suffix_Deathclaw02  `WorldPets_PlayerTitles_Suffix_Deathclaw02` — fields: conditions, debug, unlockType
-- WorldPets_PlayerTitles_Suffix_Dog01  `WorldPets_PlayerTitles_Suffix_Dog01` — fields: conditions, debug, unlockType
-- WorldPets_PlayerTitles_Suffix_Dog02  `WorldPets_PlayerTitles_Suffix_Dog02` — fields: conditions, debug, unlockType
-- WorldPets_PlayerTitles_Suffix_Radhog01  `WorldPets_PlayerTitles_Suffix_Radhog01` — fields: conditions, debug, unlockType
-- WorldPets_PlayerTitles_Suffix_Radhog02  `WorldPets_PlayerTitles_Suffix_Radhog02` — fields: conditions, debug, unlockType
-- zzzBurnBounty_PlayerTitles_Prefix_Notorious  `zzzBurnBounty_PlayerTitles_Prefix_Notorious` — fields: conditions
-- zzzBurnBounty_PlayerTitles_Prefix_Predator  `zzzBurnBounty_PlayerTitles_Prefix_Predator` — fields: conditions
+**Changed (190)**
+- ATX_F1_PlayerTitles_Prefix_Suffix_Fallout  `ATX_F1_PlayerTitles_Prefix_Suffix_Fallout` — fields: imageUrl
+- ATX_F1_PlayerTitles_Prefix_Suffix_First  `ATX_F1_PlayerTitles_Prefix_Suffix_First` — fields: imageUrl
+- ATX_PlayerTitles_Both_Power  `ATX_PlayerTitles_Both_Power` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Abandoned  `ATX_PlayerTitles_Prefix_Abandoned` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: imageUrl, releaseDate, releaseLabel, releaseYear
+- ATX_PlayerTitles_Prefix_Apothecary  `ATX_PlayerTitles_Prefix_Apothecary` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Buzzin  `ATX_PlayerTitles_Prefix_Buzzin` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Contaminated  `ATX_PlayerTitles_Prefix_Contaminated` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: imageUrl, releaseDate, releaseLabel
+- ATX_PlayerTitles_Prefix_Derelict  `ATX_PlayerTitles_Prefix_Derelict` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Enclave  `ATX_PlayerTitles_Prefix_Enclave` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Fizzy  `ATX_PlayerTitles_Prefix_Fizzy` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Flipped  `ATX_PlayerTitles_Prefix_Flipped` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Gleaming  `ATX_PlayerTitles_Prefix_Gleaming` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Heartened  `ATX_PlayerTitles_Prefix_Heartened` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Ice  `ATX_PlayerTitles_Prefix_Ice` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Jagged  `ATX_PlayerTitles_Prefix_Jagged` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Lucky  `ATX_PlayerTitles_Prefix_Lucky` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Midnight  `ATX_PlayerTitles_Prefix_Midnight` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Mothborn  `ATX_PlayerTitles_Prefix_Mothborn` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_NukaCola  `ATX_PlayerTitles_Prefix_NukaCola` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Offroad  `ATX_PlayerTitles_Prefix_Offroad` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Overgrown  `ATX_PlayerTitles_Prefix_Overgrown` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Patriotic  `ATX_PlayerTitles_Prefix_Patriotic` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Polluted  `ATX_PlayerTitles_Prefix_Polluted` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Radiant  `ATX_PlayerTitles_Prefix_Radiant` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Rusty  `ATX_PlayerTitles_Prefix_Rusty` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Scorched  `ATX_PlayerTitles_Prefix_Scorched` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Screaming  `ATX_PlayerTitles_Prefix_Screaming` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Suffix_Cat  `ATX_PlayerTitles_Prefix_Suffix_Cat` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Suffix_Diamond  `ATX_PlayerTitles_Prefix_Suffix_Diamond` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Suffix_Dog  `ATX_PlayerTitles_Prefix_Suffix_Dog` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Suffix_Queen  `ATX_PlayerTitles_Prefix_Suffix_Queen` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Switchback  `ATX_PlayerTitles_Prefix_Switchback` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Thankful  `ATX_PlayerTitles_Prefix_Thankful` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Tiki  `ATX_PlayerTitles_Prefix_Tiki` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Tribune  `ATX_PlayerTitles_Prefix_Tribune` — fields: imageUrl, releaseDate, releaseLabel, releaseYear
+- ATX_PlayerTitles_Prefix_Vintage  `ATX_PlayerTitles_Prefix_Vintage` — fields: imageUrl
+- ATX_PlayerTitles_Prefix_Weekend  `ATX_PlayerTitles_Prefix_Weekend` — fields: imageUrl
+- ATX_PlayerTitles_Suffix_Beauty  `ATX_PlayerTitles_Suffix_Beauty` — fields: imageUrl
+- …and 150 more
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
