@@ -24,11 +24,16 @@ So this asks the only authority there is: the server. It HEAD-checks every
 manifest URL and writes the verified-missing set to
 ``dist/season_images/unpublished_images.json``.
 
-Player icons, player titles and CAMP titles are reported separately and left out
-of the exclusion file. They are shared-folder art — ``dfbnbAssetUrl()`` in the
-front end reroutes them by filename to /guide-images/atom-shop/player-icons/ and
-/guide-images/titles/ — so their season-folder URL is expected to 404 and is
-never requested.
+Player icons are reported separately and left out of the exclusion file. They
+are shared-folder art — ``dfbnbAssetUrl()`` in the front end reroutes them by
+filename to /guide-images/atom-shop/player-icons/ — so their season-folder URL
+is expected to 404 and is never requested.
+
+Player and CAMP titles USED to be left out the same way. They are included now
+(Sept 2026): the Titles checklists take the season copy first
+(``reusable_images.find_season_upload``) and only fall back to
+/guide-images/titles/, so a title row the server does not serve must be listed
+here or the checklist would point at a 404.
 
 Run it after an upload run, and after adding a season. It is network-bound and
 read-only against the site.
@@ -56,7 +61,7 @@ TAG = "[check_season_image_uploads]"
 # Art that lives in a shared folder and is rerouted by filename in the front end,
 # so its season-folder URL is expected to 404 and must not be excluded (or
 # "fixed") on the strength of that.
-SHARED_ART = re.compile(r"playericon|playertitles|camptitles", re.IGNORECASE)
+SHARED_ART = re.compile(r"playericon", re.IGNORECASE)
 
 DEFAULT_SITE = "https://www.buffsnbrew.com"
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -179,9 +184,10 @@ def main():
         "_method": "HTTP HEAD against {} for every outAvif in dist/season_images/season_*_images.json".format(site),
         "_checked": len(rows),
         "_excludes": (
-            "Player icons, player titles and CAMP titles are left out: they are shared-folder "
-            "art that df-bnb-*.js reroutes by filename, so their season-folder URL is expected "
-            "to 404 and is never used."),
+            "Player icons are left out: they are shared-folder art that df-bnb-*.js reroutes "
+            "by filename, so their season-folder URL is expected to 404 and is never used. "
+            "Player and CAMP titles ARE included — the Titles checklists use the season copy "
+            "first."),
         "count": len(real),
         "images": [{k: r[k] for k in ("outAvif", "season", "name", "entitlement")} for r in real],
     }

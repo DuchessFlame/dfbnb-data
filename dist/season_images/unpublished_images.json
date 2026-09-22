@@ -1,10 +1,10 @@
 {
-  "_generated": "2026-09-22T06:17:57Z",
+  "_generated": "2026-09-22T08:31:45Z",
   "_note": "Manifest rows whose image is NOT on the server. A season manifest is a TO-DO list ('extract each ddsPath ... then upload with sync_season_images_to_site.ps1'), not a record of what was uploaded, so reusable_images.py must subtract this file before treating a manifest row as hosted art. Regenerate with src/check_season_image_uploads.py. Do not hand-edit: an entry that is wrong in either direction sends a CAMP page to a 404 or re-uploads a tile that exists.",
   "_method": "HTTP HEAD against https://www.buffsnbrew.com for every outAvif in dist/season_images/season_*_images.json",
   "_checked": 1777,
-  "_excludes": "Player icons, player titles and CAMP titles are left out: they are shared-folder art that df-bnb-*.js reroutes by filename, so their season-folder URL is expected to 404 and is never used.",
-  "count": 74,
+  "_excludes": "Player icons are left out: they are shared-folder art that df-bnb-*.js reroutes by filename, so their season-folder URL is expected to 404 and is never used. Player and CAMP titles ARE included \u2014 the Titles checklists use the season copy first.",
+  "count": 125,
   "images": [
     {
       "outAvif": "score_s1_camp_door_vault.avif",
@@ -37,10 +37,28 @@
       "entitlement": "SCORE_S3_ENTM_Apparel_Outfit_SolomonHardy"
     },
     {
-      "outAvif": "score_s4_camp_walldecor_endofseasonart.avif",
+      "outAvif": "score_s4_camptitles_prefix_icebreakers.avif",
       "season": 4,
-      "name": "Framed Cold Steel Wall Art",
-      "entitlement": "SCORE_S4_ENTM_CAMP_WallDecor_EndOfSeasonArt"
+      "name": "C.A.M.P. Title Prefix: \"Icebreaker's\"",
+      "entitlement": "SCORE_S4_ENTM_CAMPTitles_Prefix_Icebreakers"
+    },
+    {
+      "outAvif": "score_s4_camptitles_prefix_yukonfives.avif",
+      "season": 4,
+      "name": "C.A.M.P. Title Prefix: \"Yukon Five's\"",
+      "entitlement": "SCORE_S4_ENTM_CAMPTitles_Prefix_YukonFives"
+    },
+    {
+      "outAvif": "score_s4_playertitles_prefix_powerpatrol.avif",
+      "season": 4,
+      "name": "Player Title Prefix: \"Power Patrol\"",
+      "entitlement": "SCORE_S4_ENTM_PlayerTitles_Prefix_PowerPatrol"
+    },
+    {
+      "outAvif": "score_s4_playertitles_suffix_icebreaker.avif",
+      "season": 4,
+      "name": "Player Title Suffix: \"Icebreaker\"",
+      "entitlement": "SCORE_S4_ENTM_PlayerTitles_Suffix_Icebreaker"
     },
     {
       "outAvif": "score_s5_apparel_headwear_bloodeaglemerc_charmer2.avif",
@@ -337,6 +355,108 @@
       "entitlement": "zzzSCORE_S19_ENTM_CAMP_Misc_CryoTube_Deathclaw"
     },
     {
+      "outAvif": "score_s19_playertitles_prefix_hellfire.avif",
+      "season": 19,
+      "name": "Player Title Prefix: \"Hellfire\"",
+      "entitlement": "SCORE_S19_ENTM_PlayerTitles_Prefix_Hellfire"
+    },
+    {
+      "outAvif": "score_s19_playertitles_prefix_mad.avif",
+      "season": 19,
+      "name": "Player Title Prefix: \"Mad\"",
+      "entitlement": "SCORE_S19_ENTM_PlayerTitles_Prefix_Mad"
+    },
+    {
+      "outAvif": "score_s19_playertitles_suffix_delver.avif",
+      "season": 19,
+      "name": "Player Title Suffix: \"Delver\"",
+      "entitlement": "SCORE_S19_ENTM_PlayerTitles_Suffix_Delver"
+    },
+    {
+      "outAvif": "score_s19_playertitles_suffix_experimenter.avif",
+      "season": 19,
+      "name": "Player Title Suffix: \"Experimenter\"",
+      "entitlement": "SCORE_S19_ENTM_PlayerTitles_Suffix_Experimenter"
+    },
+    {
+      "outAvif": "score_s19_playertitles_suffix_scienceofficer.avif",
+      "season": 19,
+      "name": "Player Title Suffix: \"Science Officer\"",
+      "entitlement": "SCORE_S19_ENTM_PlayerTitles_Suffix_ScienceOfficer"
+    },
+    {
+      "outAvif": "score_s19_playertitles_suffix_scientist.avif",
+      "season": 19,
+      "name": "Player Title Suffix: \"Scientist\"",
+      "entitlement": "SCORE_S19_ENTM_PlayerTitles_Suffix_Scientist"
+    },
+    {
+      "outAvif": "score_s19_playertitles_suffix_trooper.avif",
+      "season": 19,
+      "name": "Player Title Suffix: \"Trooper\"",
+      "entitlement": "SCORE_S19_ENTM_PlayerTitles_Suffix_Trooper"
+    },
+    {
+      "outAvif": "score_s20_playertitles_prefix_abominable.avif",
+      "season": 20,
+      "name": "Player Title Prefix: \"Abominable\"",
+      "entitlement": "SCORE_S20_ENTM_PlayerTitles_Prefix_Abominable"
+    },
+    {
+      "outAvif": "score_s20_playertitles_prefix_feral.avif",
+      "season": 20,
+      "name": "Player Title Prefix: \"Feral\"",
+      "entitlement": "SCORE_S20_ENTM_PlayerTitles_Prefix_Feral"
+    },
+    {
+      "outAvif": "score_s20_playertitles_prefix_ghastly.avif",
+      "season": 20,
+      "name": "Player Title Prefix: \"Ghastly\"",
+      "entitlement": "SCORE_S20_ENTM_PlayerTitles_Prefix_Ghastly"
+    },
+    {
+      "outAvif": "score_s20_playertitles_prefix_ghoulish.avif",
+      "season": 20,
+      "name": "Player Title Prefix: \"Ghoulish\"",
+      "entitlement": "SCORE_S20_ENTM_PlayerTitles_Prefix_Ghoulish"
+    },
+    {
+      "outAvif": "score_s20_playertitles_prefix_irradiated.avif",
+      "season": 20,
+      "name": "Player Title Prefix: \"Irradiated\"",
+      "entitlement": "SCORE_S20_ENTM_PlayerTitles_Prefix_Irradiated"
+    },
+    {
+      "outAvif": "score_s20_playertitles_prefix_rotten.avif",
+      "season": 20,
+      "name": "Player Title Prefix: \"Rotten\"",
+      "entitlement": "SCORE_S20_ENTM_PlayerTitles_Prefix_Rotten"
+    },
+    {
+      "outAvif": "score_s20_playertitles_prefix_sickly.avif",
+      "season": 20,
+      "name": "Player Title Prefix: \"Sickly\"",
+      "entitlement": "SCORE_S20_ENTM_PlayerTitles_Prefix_Sickly"
+    },
+    {
+      "outAvif": "score_s20_playertitles_prefix_undead.avif",
+      "season": 20,
+      "name": "Player Title Prefix: \"Undead\"",
+      "entitlement": "SCORE_S20_ENTM_PlayerTitles_Prefix_Undead"
+    },
+    {
+      "outAvif": "score_s20_playertitles_suffix_cannibal.avif",
+      "season": 20,
+      "name": "Player Title Suffix: \"Cannibal\"",
+      "entitlement": "SCORE_S20_ENTM_PlayerTitles_Suffix_Cannibal"
+    },
+    {
+      "outAvif": "score_s20_playertitles_suffix_zombie.avif",
+      "season": 20,
+      "name": "Player Title Suffix: \"Zombie\"",
+      "entitlement": "SCORE_S20_ENTM_PlayerTitles_Suffix_Zombie"
+    },
+    {
       "outAvif": "score_s21_camp_ally_dottie.avif",
       "season": 21,
       "name": "Lite Ally: Dottie",
@@ -347,6 +467,102 @@
       "season": 21,
       "name": "Hanging Fishing Net",
       "entitlement": "zzzSCORE_S21_ENTM_CAMP_CeilingDecor_FishingNets"
+    },
+    {
+      "outAvif": "score_s21_playertitles_prefix_paranoid.avif",
+      "season": 21,
+      "name": "Player Title Prefix: \"Paranoid\"",
+      "entitlement": "SCORE_S21_ENTM_PlayerTitles_Prefix_Paranoid"
+    },
+    {
+      "outAvif": "score_s21_playertitles_prefix_reeling.avif",
+      "season": 21,
+      "name": "Player Title Prefix: \"Reeling\"",
+      "entitlement": "SCORE_S21_ENTM_PlayerTitles_Prefix_Reeling"
+    },
+    {
+      "outAvif": "score_s21_playertitles_prefix_sturdy.avif",
+      "season": 21,
+      "name": "Player Title Prefix: \"Sturdy\"",
+      "entitlement": "SCORE_S21_ENTM_PlayerTitles_Prefix_Sturdy"
+    },
+    {
+      "outAvif": "score_s21_playertitles_prefix_untangled.avif",
+      "season": 21,
+      "name": "Player Title Prefix: \"Untangled\"",
+      "entitlement": "SCORE_S21_ENTM_PlayerTitles_Prefix_Untangled"
+    },
+    {
+      "outAvif": "score_s21_playertitles_suffix_angler.avif",
+      "season": 21,
+      "name": "Player Title Suffix: \"Angler\"",
+      "entitlement": "SCORE_S21_ENTM_PlayerTitles_Suffix_Angler"
+    },
+    {
+      "outAvif": "score_s21_playertitles_suffix_bobber.avif",
+      "season": 21,
+      "name": "Player Title Suffix: \"Bobber\"",
+      "entitlement": "SCORE_S21_ENTM_PlayerTitles_Suffix_Bobber"
+    },
+    {
+      "outAvif": "score_s21_playertitles_suffix_theorist.avif",
+      "season": 21,
+      "name": "Player Title Suffix: \"Theorist\"",
+      "entitlement": "SCORE_S21_ENTM_PlayerTitles_Suffix_Theorist"
+    },
+    {
+      "outAvif": "score_s21_playertitles_suffix_trawler.avif",
+      "season": 21,
+      "name": "Player Title Suffix: \"Trawler\"",
+      "entitlement": "SCORE_S21_ENTM_PlayerTitles_Suffix_Trawler"
+    },
+    {
+      "outAvif": "score_s22_playertitles_prefix_homecooked.avif",
+      "season": 22,
+      "name": "Player Title Prefix: \"Homecooked\"",
+      "entitlement": "SCORE_S22_ENTM_PlayerTitles_Prefix_Homecooked"
+    },
+    {
+      "outAvif": "score_s22_playertitles_prefix_saturnite.avif",
+      "season": 22,
+      "name": "Player Title Prefix: \"Saturnite\"",
+      "entitlement": "SCORE_S22_ENTM_PlayerTitles_Prefix_Saturnite"
+    },
+    {
+      "outAvif": "score_s22_playertitles_prefix_squeakyclean.avif",
+      "season": 22,
+      "name": "Player Title Prefix: \"Squeaky-Clean\"",
+      "entitlement": "SCORE_S22_ENTM_PlayerTitles_Prefix_SqueakyClean"
+    },
+    {
+      "outAvif": "score_s22_playertitles_prefix_wellread.avif",
+      "season": 22,
+      "name": "Player Title Prefix: \"Well-Read\"",
+      "entitlement": "SCORE_S22_ENTM_PlayerTitles_Prefix_WellRead"
+    },
+    {
+      "outAvif": "score_s22_playertitles_suffix_deputy.avif",
+      "season": 22,
+      "name": "Player Title Suffix: \"Deputy\"",
+      "entitlement": "SCORE_S22_ENTM_PlayerTitles_Suffix_Deputy"
+    },
+    {
+      "outAvif": "score_s22_playertitles_suffix_housewifehousehousband.avif",
+      "season": 22,
+      "name": "Player Title Suffix: \"Housewife/Househusband\"",
+      "entitlement": "SCORE_S22_ENTM_PlayerTitles_Suffix_HouseWifeHouseHousband"
+    },
+    {
+      "outAvif": "score_s22_playertitles_suffix_reader.avif",
+      "season": 22,
+      "name": "Player Title Suffix: \"Reader\"",
+      "entitlement": "SCORE_S22_ENTM_PlayerTitles_Suffix_Reader"
+    },
+    {
+      "outAvif": "score_s22_playertitles_suffix_renovator.avif",
+      "season": 22,
+      "name": "Player Title Suffix: \"Renovator\"",
+      "entitlement": "SCORE_S22_ENTM_PlayerTitles_Suffix_Renovator"
     },
     {
       "outAvif": "score_s23_camp_floordecor_plushie_armordeathclaw.avif",
@@ -361,6 +577,66 @@
       "entitlement": "SCORE_S23_ENTM_CAMP_FloorDecor_Plushie_RustPlush"
     },
     {
+      "outAvif": "score_s23_playertitles_prefix_crushing.avif",
+      "season": 23,
+      "name": "Player Title Prefix: \"Crushing\"",
+      "entitlement": "SCORE_S23_ENTM_PlayerTitles_Prefix_Crushing"
+    },
+    {
+      "outAvif": "score_s23_playertitles_prefix_fiendish.avif",
+      "season": 23,
+      "name": "Player Title Prefix: \"Fiendish\"",
+      "entitlement": "SCORE_S23_ENTM_PlayerTitles_Prefix_Fiendish"
+    },
+    {
+      "outAvif": "score_s23_playertitles_prefix_raiding.avif",
+      "season": 23,
+      "name": "Player Title Prefix: \"Raiding\"",
+      "entitlement": "SCORE_S23_ENTM_PlayerTitles_Prefix_Raiding"
+    },
+    {
+      "outAvif": "score_s23_playertitles_prefix_skull.avif",
+      "season": 23,
+      "name": "Player Title Prefix: \"Skull\"",
+      "entitlement": "SCORE_S23_ENTM_PlayerTitles_Prefix_Skull"
+    },
+    {
+      "outAvif": "score_s23_playertitles_prefix_slashing.avif",
+      "season": 23,
+      "name": "Player Title Prefix: \"Slashing\"",
+      "entitlement": "SCORE_S23_ENTM_PlayerTitles_Prefix_Slashing"
+    },
+    {
+      "outAvif": "score_s23_playertitles_suffix_bandit.avif",
+      "season": 23,
+      "name": "Player Title Suffix: \"Bandit\"",
+      "entitlement": "SCORE_S23_ENTM_PlayerTitles_Suffix_Bandit"
+    },
+    {
+      "outAvif": "score_s23_playertitles_suffix_cutthroat.avif",
+      "season": 23,
+      "name": "Player Title Suffix: \"Cutthroat\"",
+      "entitlement": "SCORE_S23_ENTM_PlayerTitles_Suffix_Cutthroat"
+    },
+    {
+      "outAvif": "score_s23_playertitles_suffix_diehard.avif",
+      "season": 23,
+      "name": "Player Title Suffix: \"Diehard\"",
+      "entitlement": "SCORE_S23_ENTM_PlayerTitles_Suffix_Diehard"
+    },
+    {
+      "outAvif": "score_s23_playertitles_suffix_gourmand.avif",
+      "season": 23,
+      "name": "Player Title Suffix: \"Gourmand\"",
+      "entitlement": "SCORE_S23_ENTM_PlayerTitles_Suffix_Gourmand"
+    },
+    {
+      "outAvif": "score_s23_playertitles_suffix_trapper.avif",
+      "season": 23,
+      "name": "Player Title Suffix: \"Trapper\"",
+      "entitlement": "SCORE_S23_ENTM_PlayerTitles_Suffix_Trapper"
+    },
+    {
       "outAvif": "score_s25_camp_camppets_cat_cypruscat.avif",
       "season": 25,
       "name": "Cyprus Cat",
@@ -371,6 +647,36 @@
       "season": 26,
       "name": "Bloodstained Tinker's Workbench",
       "entitlement": "SCORE_S26_ENTM_CAMP_Machinery_Workbench_Tinkers_BloodStained"
+    },
+    {
+      "outAvif": "score_s26_camptitles_prefix_eerie.avif",
+      "season": 26,
+      "name": "C.A.M.P. Title Prefix: \"Eerie\"",
+      "entitlement": "SCORE_S26_ENTM_CAMPTitles_Prefix_Eerie"
+    },
+    {
+      "outAvif": "score_s26_camptitles_prefix_haunted.avif",
+      "season": 26,
+      "name": "C.A.M.P. Title Prefix: \"Haunted\"",
+      "entitlement": "SCORE_S26_ENTM_CAMPTitles_Prefix_Haunted"
+    },
+    {
+      "outAvif": "score_s26_camptitles_suffix_mansion.avif",
+      "season": 26,
+      "name": "C.A.M.P. Title Suffix: \"Mansion\"",
+      "entitlement": "SCORE_S26_ENTM_CAMPTitles_Suffix_Mansion"
+    },
+    {
+      "outAvif": "score_s26_playertitles_prefix_psycho.avif",
+      "season": 26,
+      "name": "Player Title Prefix: \"Psycho\"",
+      "entitlement": "SCORE_S26_ENTM_PlayerTitles_Prefix_Psycho"
+    },
+    {
+      "outAvif": "score_s26_playertitles_suffix_killer.avif",
+      "season": 26,
+      "name": "Player Title Suffix: \"Killer\"",
+      "entitlement": "SCORE_S26_ENTM_PlayerTitles_Suffix_Killer"
     },
     {
       "outAvif": "score_s26_skin_powerarmor_paint_hellcat_bloodmoon.avif",

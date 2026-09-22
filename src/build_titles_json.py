@@ -12,6 +12,8 @@ import sys
 from typing import Any, Dict, List, Optional, Tuple
 
 from cut_content import cut_obtain   # cut rows get the standard "Cut content" line
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import reusable_images               # season-first title art (verified-hosted uploads)
 
 # ============================================================
 # DF/BNB Titles JSON Builder (Camp + Player) — v2
@@ -1769,6 +1771,58 @@ def parse_entitlement_edid_from_condition(cond: str) -> Optional[str]:
     return m.group(1).strip()
 
 
+# Built in main() from --outdir (the dist/ tree), so the season manifests and
+# the upload checker's unpublished list are read from the same place the rest
+# of the build writes to.
+_HOSTED_TITLE_ART = None
+# Mini-season rewards: stem -> the URL the mini-seasons page serves the same
+# tile from (guide-images/mini-seasons/...). One upload serves both pages.
+_MINI_SEASON_TITLE_ART: Dict[str, str] = {}
+
+
+def load_mini_season_title_art(outdir: str) -> Dict[str, str]:
+    out: Dict[str, str] = {}
+    try:
+        with open(os.path.join(outdir, "mini_seasons", "mini_seasons.json"), encoding="utf-8") as fh:
+            txt = fh.read()
+    except OSError:
+        return out
+    for u in re.findall(r"/wp-content/uploads/guide-images/mini-seasons/[^\"\s]+?\.avif", txt):
+        stem = os.path.splitext(os.path.basename(u))[0].lower()
+        if ("playertitles" in stem or "camptitles" in stem) and not re.search(r"_c\d+$", stem):
+            out.setdefault(re.sub(r"_l$", "", stem), u)
+    return out
+
+
+def title_image_url(kind: str, extra: Dict[str, Any]) -> Optional[str]:
+    """Main image for a title row — SEASON FIRST.
+
+    1. The copy uploaded under /season_images/season-N/ by the season image
+       sync, when the upload checker has confirmed the server serves it.
+    2. A mini-season reward's tile on the mini-seasons page
+       (/guide-images/mini-seasons/...), so it is uploaded once for both.
+    3. Otherwise the shared /guide-images/titles/titles-{camp,player}/ folder.
+
+    Files are named after the title ENTITLEMENT with "_ENTM_" dropped — the
+    season pipeline's own rule (build_season_image_manifests.entitlement_to_avif),
+    and the name every title already on the site uses in both places.
+    """
+    img_ent = (extra.get("imageEntitlementEdid") or "").strip()
+    if not img_ent:
+        return None
+    folder = {"camp": "titles-camp", "player": "titles-player"}.get(kind)
+    if not folder:
+        return None
+    stem = re.sub(r"^zzz+_?", "", img_ent.lower()).replace("_entm_", "_")
+    if _HOSTED_TITLE_ART is not None:
+        hit = _HOSTED_TITLE_ART.find_season_upload(edid=img_ent, stem=stem)
+        if hit:
+            return hit
+    if stem in _MINI_SEASON_TITLE_ART:
+        return _MINI_SEASON_TITLE_ART[stem]
+    return "/wp-content/uploads/guide-images/titles/" + folder + "/" + stem + ".avif"
+
+
 def storefront_webp_url_from_extra(kind: str, extra: Dict[str, Any]) -> Optional[str]:
     """
     Storefront WEBP URL for Titles pages.
@@ -3034,6 +3088,10 @@ def main() -> int:
         raise SystemExit("Missing required TSV inputs: " + ", ".join(missing))
 
     os.makedirs(args.outdir, exist_ok=True)
+    global _HOSTED_TITLE_ART
+    _HOSTED_TITLE_ART = reusable_images.build_index(args.outdir)
+    _MINI_SEASON_TITLE_ART.update(load_mini_season_title_art(args.outdir))
+    print("[titles] " + _HOSTED_TITLE_ART.summary(), file=sys.stderr)
 
     # ------------------------------------------------------------
     # Release dates
@@ -3270,7 +3328,7 @@ def main() -> int:
         elif k_title in tradeable_by_book:
             tradeable = tradeable_by_book[k_title]
 
-        image_url = storefront_webp_url_from_extra("camp", extra)
+        image_url = title_image_url("camp", extra)
 
         fid8 = (form_id or "").strip().upper()
 
@@ -3408,7 +3466,7 @@ def main() -> int:
         elif k_title in tradeable_by_book:
             tradeable = tradeable_by_book[k_title]
 
-        image_url = storefront_webp_url_from_extra("player", extra)
+        image_url = title_image_url("player", extra)
 
         fid8 = (form_id or "").strip().upper()
 
