@@ -1,14 +1,14 @@
 {
-  "generated": "2026-09-21T19:39:10.501740+00:00",
+  "generated": "2026-09-22T03:41:20.033844+00:00",
   "schemaVersion": 1,
   "isPts": false,
   "source": "ENTM_Export_September_2026.tsv",
   "observed": "2026-09-01",
   "newCutoffDays": 31,
   "imageBase": "/wp-content/uploads/guide-images/atom-shop/player-icons/",
-  "count": 459,
+  "count": 458,
   "countsBySource": {
-    "Atom Shop": 184,
+    "Atom Shop": 183,
     "Scoreboard": 214,
     "Twitch Prime": 7,
     "Legacy": 19,
@@ -2129,8 +2129,8 @@
       "desc": "The intrepid time traveling historian!",
       "rarity": "Standard",
       "premium": false,
-      "imageFilename": "atx_playericon_score_14.avif",
-      "imageUrl": "/wp-content/uploads/guide-images/atom-shop/player-icons/atx_playericon_score_14.avif",
+      "imageFilename": "",
+      "imageUrl": "",
       "source": "Scoreboard",
       "howToObtain": {
         "method": "scoreboard",
@@ -2143,7 +2143,8 @@
         "premium": false
       },
       "avtr": "",
-      "isNew": false
+      "isNew": false,
+      "sharedArtWith": "SCORE_S3_ENTM_PlayerIcon_KDInkwell"
     },
     {
       "formId": "005FD9B8",
@@ -2154,8 +2155,8 @@
       "desc": "Show your allegiance to the Brotherhood with this Player Icon!",
       "rarity": "Standard",
       "premium": false,
-      "imageFilename": "atx_playericon_score_17.avif",
-      "imageUrl": "/wp-content/uploads/guide-images/atom-shop/player-icons/atx_playericon_score_17.avif",
+      "imageFilename": "",
+      "imageUrl": "",
       "source": "Fallout 1st",
       "howToObtain": {
         "method": "fallout-1st",
@@ -2168,7 +2169,8 @@
         "premium": true
       },
       "avtr": "",
-      "isNew": false
+      "isNew": false,
+      "sharedArtWith": "F1_SCORE_S3_ENTM_PlayerIcon_BoS"
     },
     {
       "formId": "00486733",
@@ -3621,31 +3623,6 @@
       "isNew": false
     },
     {
-      "formId": "004865BA",
-      "edid": "ATX_ENTM_PlayerIcon_Perks_11",
-      "name": "Expert Hacker",
-      "fullName": "Expert Hacker Player Icon",
-      "shortName": "Expert Hacker Icon",
-      "desc": "Crack the code.",
-      "rarity": "Standard",
-      "premium": false,
-      "imageFilename": "atx_playericon_perks_11.avif",
-      "imageUrl": "/wp-content/uploads/guide-images/atom-shop/player-icons/atx_playericon_perks_11.avif",
-      "source": "Atom Shop",
-      "howToObtain": {
-        "method": "atom-shop",
-        "source": "Atom Shop",
-        "text": "Purchased from the Atom Shop, on its own or as part of a bundle.",
-        "season": null,
-        "seasonName": "",
-        "rank": null,
-        "page": null,
-        "premium": false
-      },
-      "avtr": "",
-      "isNew": false
-    },
-    {
       "formId": "0063C6E8",
       "edid": "SCORE_S8_ENTM_PlayerIcon_ExpertHacker",
       "name": "Expert Hacker",
@@ -3660,7 +3637,7 @@
       "howToObtain": {
         "method": "scoreboard",
         "source": "Scoreboard",
-        "text": "Claim from the Season 8 - A Better Life Underground Scoreboard.",
+        "text": "Claim from the Season 8 - A Better Life Underground Scoreboard. Also: Purchased from the Atom Shop, on its own or as part of a bundle.",
         "season": 8,
         "seasonName": "A Better Life Underground",
         "rank": 44,
@@ -3668,7 +3645,15 @@
         "premium": false
       },
       "avtr": "004865AD:SCORE_S8_AVTR_PlayerIcon_ExpertHacker:AVTR",
-      "isNew": false
+      "isNew": false,
+      "alsoObtain": [
+        {
+          "formId": "004865BA",
+          "edid": "ATX_ENTM_PlayerIcon_Perks_11",
+          "source": "Atom Shop",
+          "text": "Purchased from the Atom Shop, on its own or as part of a bundle."
+        }
+      ]
     },
     {
       "formId": "0063C6E3",
@@ -10871,31 +10856,6 @@
       "isNew": false
     },
     {
-      "formId": "0055F9B4",
-      "edid": "Vaults_ENTM_PlayerIcon_Vault96_Standard",
-      "name": "Vault 94",
-      "fullName": "Vault 94 Player Icon",
-      "shortName": "Vault 94 Icon",
-      "desc": "Welcome to Vault 94!",
-      "rarity": "Standard",
-      "premium": false,
-      "imageFilename": "vaults_playericon_vault94_standard.avif",
-      "imageUrl": "/wp-content/uploads/guide-images/atom-shop/player-icons/vaults_playericon_vault94_standard.avif",
-      "source": "Legacy",
-      "howToObtain": {
-        "method": "legacy",
-        "source": "Legacy",
-        "text": "Earned from the Vault 94 / Vault 96 raids, which were removed from the game - no longer obtainable.",
-        "season": null,
-        "seasonName": "",
-        "rank": null,
-        "page": null,
-        "premium": false
-      },
-      "avtr": "0055F9B2:Vaults_AVTR_PlayerIcon_Vault96_Standard:AVTR",
-      "isNew": false
-    },
-    {
       "formId": "0055F9AC",
       "edid": "Vaults_ENTM_PlayerIcon_Vault94_Gold",
       "name": "Vault 94 Gold",
@@ -10919,6 +10879,32 @@
       },
       "avtr": "0055F9AA:Vaults_AVTR_PlayerIcon_Vault94_Gold:AVTR",
       "isNew": false
+    },
+    {
+      "formId": "0055F9B4",
+      "edid": "Vaults_ENTM_PlayerIcon_Vault96_Standard",
+      "name": "Vault 96",
+      "fullName": "Vault 94 Player Icon",
+      "shortName": "Vault 94 Icon",
+      "desc": "Welcome to Vault 94!",
+      "rarity": "Standard",
+      "premium": false,
+      "imageFilename": "atx_playericon_weapon8.avif",
+      "imageUrl": "/wp-content/uploads/guide-images/atom-shop/player-icons/atx_playericon_weapon8.avif",
+      "source": "Legacy",
+      "howToObtain": {
+        "method": "legacy",
+        "source": "Legacy",
+        "text": "Earned from the Vault 94 / Vault 96 raids, which were removed from the game - no longer obtainable.",
+        "season": null,
+        "seasonName": "",
+        "rank": null,
+        "page": null,
+        "premium": false
+      },
+      "avtr": "0055F9B2:Vaults_AVTR_PlayerIcon_Vault96_Standard:AVTR",
+      "isNew": false,
+      "sharedArtWith": "Vaults_ENTM_PlayerIcon_Vault94_Standard"
     },
     {
       "formId": "0055F9B3",
