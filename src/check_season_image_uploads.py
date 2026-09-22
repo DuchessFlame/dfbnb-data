@@ -59,6 +59,8 @@ TAG = "[check_season_image_uploads]"
 SHARED_ART = re.compile(r"playericon|playertitles|camptitles", re.IGNORECASE)
 
 DEFAULT_SITE = "https://www.buffsnbrew.com"
+UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+      "(KHTML, like Gecko) Chrome/128.0 Safari/537.36 dfbnb-image-check")
 
 
 def log(msg):
@@ -95,14 +97,28 @@ def head(url, timeout=20):
     """True if the URL serves 200. Anything else — including a transport error —
     is reported as its status so a network wobble is not silently filed as a
     missing image."""
-    req = urllib.request.Request(url, method="HEAD")
-    try:
-        with urllib.request.urlopen(req, timeout=timeout) as r:
-            return r.status
-    except urllib.error.HTTPError as exc:
-        return exc.code
-    except Exception:
-        return "ERR"
+    # 429 (rate limited) and 5xx say nothing about whether the file exists.
+    # Filing them as "missing" used to poison unpublished_images.json, so they
+    # are retried with backoff and, if they persist, reported as "ERR" — which
+    # stops the run from writing rather than excluding a tile that IS hosted.
+    import time
+    for attempt in range(5):
+        # Cloudflare 403s the default Python-urllib agent, which made every
+        # row look unpublished. Send a normal agent; a 403 that survives it is
+        # a block, not an answer, so it is retried/reported like a 429.
+        req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": UA})
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return r.status
+        except urllib.error.HTTPError as exc:
+            if exc.code in (403, 429) or exc.code >= 500:
+                time.sleep(2 * (attempt + 1))
+                continue
+            return exc.code
+        except Exception:
+            time.sleep(1 + attempt)
+            continue
+    return "ERR"
 
 
 def main():

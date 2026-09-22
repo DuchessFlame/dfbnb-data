@@ -931,7 +931,9 @@ def report_missing_images(payload: dict) -> int:
     if not os.path.isdir(LOCAL_AVIF_DIR):
         print(f"{TAG} local AVIF library not found: {LOCAL_AVIF_DIR}")
         return 0
-    have = {n.lower() for n in os.listdir(LOCAL_AVIF_DIR) if n.lower().endswith(".avif")}
+    # The library is split into subfolders (Avif/, Scoreboard/) - walk them all.
+    have = {n.lower() for _, _, files in os.walk(LOCAL_AVIF_DIR)
+            for n in files if n.lower().endswith(".avif")}
     missing = [i for i in payload["icons"] if i["imageFilename"] not in have]
     print(f"{TAG} image coverage: {payload['count'] - len(missing)}/{payload['count']}")
     for i in missing:

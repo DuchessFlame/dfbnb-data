@@ -40,6 +40,7 @@ from pathlib import Path
 import tsv_source          # one resolver for every export selection
 import camp_config       # hand-maintained tables live in data/camp/*.json
 import gold_vendor       # generative Gold Bullion route (ENTM -> vendor plan)
+import reusable_images   # art the site already hosts — season_images first
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--tsv-dir", default="tsv",  help="Folder containing TSV exports")
@@ -107,6 +108,12 @@ for _n, _p in [("FURN", FURN_PATH), ("ACTI", ACTI_PATH), ("ENTM", ENTM_PATH),
     print(f"  {_n}: {_p}")
 
 IMG_BASE = "/wp-content/uploads/guide-images/camp-items/buff-stations/"
+
+# Art the site already serves, read out of dist/ (season manifests first).
+# Scoreboard items resolve to their season_images tile before anything else,
+# so no second copy is ever uploaded into camp-items/buff-stations/.
+HOSTED = reusable_images.build_index(str(OUT_DIR))
+print("  " + HOSTED.summary())
 ATX_HOW  = "Can be purchased with certain bundles from the Atom Shop."
 
 # Override tables (groups, exclusions, name/how/ENTM overrides, gold-vendor
@@ -591,11 +598,21 @@ def entm_lookup(fid, full_name, furn_edid=""):
 
 
 def image_for(entm, furn_edid):
+    # 1. Scoreboard tile already hosted in season_images — always wins.
+    tex = ((entm or {}).get("ETDI") or "").strip()
+    season = (HOSTED.find_season(edid=(entm or {}).get("EDID") or "", texture=tex)
+              or HOSTED.find_season(edid=furn_edid or "", texture=furn_edid or ""))
+    if season:
+        return season
+    # 2. Hand-picked override (atom-shop tiles, mini-season galleries, beds).
     override = IMAGE_OVERRIDES.get((furn_edid or "").lower())
     if override:
         return override
+    # 3. Any other hosted art (Atom Shop / bundles).
+    hosted = HOSTED.find(edid=(entm or {}).get("EDID") or "", texture=tex)
+    if hosted:
+        return hosted
     if entm:
-        tex = (entm.get("ETDI") or "").strip()
         if tex.lower().endswith(".dds"):
             return IMG_BASE + tex[:-4].lower() + ".avif"
     return IMG_BASE + (furn_edid or "").lower() + ".avif"

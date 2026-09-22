@@ -157,7 +157,13 @@ class Index:
 
         ``texture`` is a convenience: pass the raw ETDI/ECIL value and it is
         reduced to a stem for you.
+
+        Season-first: a Scoreboard tile in season_images always beats an Atom
+        Shop / bundle copy of the same art, whatever its suffix ranking.
         """
+        season = self.find_season(edid=edid, stem=stem, texture=texture)
+        if season:
+            return season
         if edid:
             hit = self.by_edid.get(str(edid).strip().upper())
             if hit and not _is_frame(hit):
@@ -167,6 +173,31 @@ class Index:
             hit = self.by_stem.get(_SUFFIX.sub("", str(key).strip().lower()))
             if hit and not _is_frame(hit):
                 return hit
+        return ""
+
+    def find_season(self, edid="", stem="", texture=""):
+        """Return the Scoreboard (season_images) main tile for this item, or "".
+
+        SEASON-FIRST RULE: when an item came off a Scoreboard its tile is
+        already uploaded under season_images/season-N/, so every CAMP builder
+        asks this BEFORE its own hand map / image override / derived path.
+        Keeping a second copy in a camp-items/<page>/ folder costs storage for
+        the same picture (Duchess, Sept 2026: "it pulls from seasons first so
+        we don't need season images"). Frames are never returned — only the
+        main tile is in the season manifests.
+        """
+        def _season(u):
+            return bool(u) and "/season_images/" in u and not _is_frame(u)
+        if edid:
+            hit = self.by_edid.get(str(edid).strip().upper())
+            if _season(hit):
+                return hit
+        key = stem or texture_stem(texture)
+        if key:
+            key = _SUFFIX.sub("", str(key).strip().lower())
+            for u in sorted(self.by_stem_all.get(key, []), key=_rank):
+                if _season(u):
+                    return u
         return ""
 
     def find_all(self, stem="", texture=""):

@@ -1336,8 +1336,16 @@ def build_weather_stations():
         _etdi     = entm.get("ETDI", "").strip()
         _hand     = WEATHER_STATION_IMG_MAP.get(entm_id)
         if _hand:
-            carousel  = [WEATHER_STATION_IMG_BASE + f for f in _hand]
+            # An entry starting with "/" is a full URL (e.g. a season_images tile
+            # the season manifest does not list yet) and is used verbatim.
+            carousel  = [f if f.startswith("/") else WEATHER_STATION_IMG_BASE + f for f in _hand]
             image_url = carousel[0]
+            # Season-first: a Scoreboard station's main tile is already hosted
+            # in season_images, so use that and keep only the _c frames here.
+            _season = HOSTED.find_season(edid=entm.get("EDID", ""), texture=_etdi)
+            if _season:
+                image_url = _season
+                carousel  = [_season] + [u for u in carousel[1:]]
         else:
             carousel  = ecil_images(entm, "camp-utility")
             image_url = main_image(_etdi, "camp-utility", carousel, entm.get("EDID") if entm else "")

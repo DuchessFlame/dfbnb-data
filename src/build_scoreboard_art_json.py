@@ -2,49 +2,46 @@
 r"""
 build_scoreboard_art_json.py — /df/plan-checklists/scoreboard-art/
 
-WHY ITS OWN DATASET
--------------------
-This is the one page in the category with NOTHING behind it in plan_master —
-zero rows, so it rendered an empty header card. That is not a bug in the
-routing: scoreboard art is not learned from a plan at all. It is handed out as
-a season reward entitlement, so there is no BOOK record for plan_master to
-carry and no amount of re-classifying would have found one. The art has to come
-from the season data instead.
+WHAT "SCOREBOARD ART" IS
+------------------------
+Every season's Scoreboard ends with one framed piece of the board's own
+artwork: the "Framed … Gameboard" (Seasons 1-15) and the "Framed … Wall Art"
+(Season 16 on, EDID ``…_EndOfSeasonArt``). This page is a checklist of those —
+one root expand per piece, the usual Item Image / How to Obtain / Technical.
 
-ONE ROOT PER SEASON, RERUNS INSIDE IT
--------------------------------------
-Duchess's call, verbatim:
+It is NOT every wall decoration a season gave out (Hanging Raider Cage, the
+M.I.N.D. posters …). The first version of this page matched any wall decor and
+read as a random pile; the board art is the collectable set players track.
 
-    "season scoreboard art plans but do the roots per season because they are
-     releasing some of the old seasons with new art so sub expand them so it
-     catches under one season expand"
+WHERE THE DATA COMES FROM (generative)
+--------------------------------------
+* ENTM export — membership. Any entitlement whose EDID is a season board-art
+  record is on the page, so a new season's art appears on the next TSV drop
+  with no edit here (Season 25 was missing from season_rewards.tsv and only
+  showed up once this read ENTM).
+* tsv/season_rewards.tsv — rank, cost and ``addedInRerun`` where curated.
 
-So: a root expand per season, the season's original art loose inside it, and
-any art a LATER RERUN of that season added in a sub-expand beneath it. Season 4
-was rerun in Sep 2026 and gained a piece of art it did not ship with; without
-the sub-expand that either hides the new piece or splits Season 4 into two root
-expands, and both are worse than saying plainly which run a piece came from.
+LEGACY vs RE-RUN
+----------------
+Bethesda re-runs old seasons (Legacy scoreboards) and a re-run can ship NEW
+board art — Season 4 got "Framed Cold Steel Wall Art" in Sep 2026 on top of the
+original "Framed Cold Steel Gameboard". Duchess's call: keep both in season
+order and tag them so it is obvious why a season appears twice:
 
-`addedInRerun` in season_rewards.tsv is the field that records this, and it is
-already curated, so the page reads it rather than guessing from dates.
+    Framed Cold Steel Gameboard (Legacy)
+    Framed Cold Steel Wall Art (Re-Run)
 
-WHAT COUNTS AS ART
-------------------
-The reward's `storefrontEntitlement`, which is the record the scoreboard hands
-over. CAMP wall decor, posters, paintings, murals and banners are art you hang
-up. Deliberately NOT included:
+The re-run piece is the one season_rewards marks ``addedInRerun``; failing that,
+the later FormID (a re-run record is always added after the original).
 
-  * Photomode frames and poses. They carry art-ish words and are the obvious
-    near-miss, but a photo frame is a camera overlay, not something you build —
-    they have a `photomode` folder of their own for when that page exists.
-  * Statues, plushies and floor decor. They are CAMP items and are on the CAMP
-    plan checklist, where a player looking for furniture will go.
+IMAGES — season-first
+---------------------
+The tile is always the one the site already serves under
+/season_images/season-N/ (routed through asset_paths, the scoreboard pages' own
+rule), never a second copy in guide-images.
 
-A reward whose entitlement is missing or zzz-prefixed is dev leftover and is
-skipped with a count printed, never silently.
-
-    python3 src/build_scoreboard_art_json.py
-    python3 src/build_scoreboard_art_json.py --pts     -> dist/pts/
+    python3 src/build_scoreboard_art_json.py          -> dist/scoreboard_art.json
+    python3 src/build_scoreboard_art_json.py --pts    -> dist/pts/scoreboard_art.json
 """
 
 from __future__ import annotations
@@ -56,177 +53,208 @@ import re
 import sys
 from datetime import datetime, timezone
 
-SCHEMA = 1
+SCHEMA = 2
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(HERE)
-
-PTS = "--pts" in sys.argv
-TSV_DIR = os.path.join(REPO, "tsv", "pts") if PTS else os.path.join(REPO, "tsv")
-DIST_DIR = os.path.join(REPO, "dist", "pts") if PTS else os.path.join(REPO, "dist")
-OUT = os.path.join(DIST_DIR, "scoreboard_art.json")
-
-# season_rewards.tsv is a CURATED live file. The PTS tsv root does not carry it,
-# so fall back to the live one rather than shipping an empty PTS page — the same
-# fallback plan_images.py makes for the same file and the same reason.
-SEASONS_TSV = os.path.join(TSV_DIR, "season_rewards.tsv")
-if not os.path.exists(SEASONS_TSV):
-    SEASONS_TSV = os.path.join(REPO, "tsv", "season_rewards.tsv")
-
 sys.path.insert(0, HERE)
+
+import tsv_source                                   # one export resolver
 try:
     import asset_paths
 except ImportError:                                  # pragma: no cover
     asset_paths = None
 
-# The entitlement words that mean "art you hang on a wall".
-ART = re.compile(r"(walldeco(?:r)?|_poster|painting|mural|_art$|art_|tapestry|banner)", re.I)
-# The near-misses, named out so the rule is a decision rather than an accident.
-NOT_ART = re.compile(r"photomode|playericon|playertitle|camptitle", re.I)
-DEV = re.compile(r"^(zzz|CUT_|DEL_|DEBUG)", re.I)
+PTS = "--pts" in sys.argv
+CHANNEL = "pts" if PTS else "live"
+DIST_DIR = os.path.join(REPO, "dist", "pts") if PTS else os.path.join(REPO, "dist")
+OUT = os.path.join(DIST_DIR, "scoreboard_art.json")
 
-IMG_BASE = "/wp-content/uploads/guide-images/plan-checklist/scoreboard-art/"
+# season_rewards.tsv is curated on the live side only; PTS reads the live copy.
+SEASONS_TSV = os.path.join(REPO, "tsv", "pts", "season_rewards.tsv") if PTS else ""
+if not SEASONS_TSV or not os.path.exists(SEASONS_TSV):
+    SEASONS_TSV = os.path.join(REPO, "tsv", "season_rewards.tsv")
+
+csv.field_size_limit(10 ** 9)
+
+# SCORE_S4_ENTM_CAMP_WallDeco_ColdSteel_Gameboard
+# SCORE_S11_ENTM_CAMP_WallDecor_S11Board_NukaWorld / S13BoardHollywood
+# SCORE_S16_ENTM_CAMP_WallDecor_EndofSeasonArt / S25 …_UnderSiege_EndOfSeasonArt
+BOARD_ART = re.compile(
+    r"^SCORE_S(\d+)_ENTM_CAMP_WallDeco(?:r)?_(?:.*_Gameboard|S\d+Board.*|(?:.*_)?EndOfSeasonArt)$",
+    re.I)
+DEV = re.compile(r"^(zzz|CUT_|DEL_|DEBUG)", re.I)
 
 
 def route(url):
-    """Season art through the site's own routing rule; anything else as-is.
-
-    NEVER use the TSV value raw: it holds the flat authoring form
-    (/season_images/score_s3_*.webp) while the file is served from
-    /season_images/season-3/score_s3_*.avif. asset_paths.asset_url is the one
-    routing rule the scoreboard pages use, so a row here lands on exactly the
-    URL the scoreboard row does.
-    """
     if not url or asset_paths is None:
         return url
     try:
         return asset_paths.asset_url(url)
-    except Exception:                                # noqa: BLE001 - never fatal
+    except Exception:                                # noqa: BLE001
         return url
 
 
-def read_rows():
+def season_image(season, etdi):
+    """/season_images/season-N/<etdi stem>.avif — the scoreboard pages' name."""
+    stem = os.path.splitext(os.path.basename((etdi or "").replace("\\", "/")))[0].lower()
+    if not stem:
+        return ""
+    stem = re.sub(r"_l$", "", stem)
+    return route(f"/wp-content/uploads/season_images/season-{season}/{stem}.avif")
+
+
+def load_entm():
+    path = tsv_source.newest("ENTM_Export_*.tsv", channel=CHANNEL)
+    out = []
+    with open(path, encoding="latin1", errors="replace", newline="") as fh:
+        for r in csv.DictReader(fh, delimiter="\t"):
+            edid = (r.get("EDID") or "").strip()
+            if DEV.search(edid):
+                continue
+            m = BOARD_ART.match(edid)
+            if m:
+                out.append((int(m.group(1)), r))
+    return path, out
+
+
+def load_rewards():
+    by_ent = {}
     with open(SEASONS_TSV, encoding="utf-8", errors="replace", newline="") as fh:
-        return list(csv.DictReader(fh, delimiter="\t"))
+        for r in csv.DictReader(fh, delimiter="\t"):
+            ent = (r.get("storefrontEntitlement") or "").strip().lower()
+            if ent and ent not in by_ent:
+                by_ent[ent] = r
+    return by_ent
 
 
-def is_art(row):
-    ent = (row.get("storefrontEntitlement") or "").strip()
-    if not ent or DEV.search(ent) or NOT_ART.search(ent):
-        return False
-    return bool(ART.search(ent))
+def load_season_names():
+    names = {}
+    p = os.path.join(REPO, "tsv", "fallout76_seasons.tsv")
+    if not os.path.exists(p):
+        return names
+    with open(p, encoding="utf-8", errors="replace", newline="") as fh:
+        for r in csv.DictReader(fh, delimiter="\t"):
+            keys = {k.lower(): v for k, v in r.items() if k}
+            num = next((keys[k] for k in ("season", "seasonnumber", "number", "season_number")
+                        if keys.get(k)), "")
+            name = next((keys[k] for k in ("name", "theme", "seasonname", "title")
+                         if keys.get(k)), "")
+            if str(num).strip().isdigit() and name:
+                names[int(num)] = name.strip()
+    return names
 
 
-def make_row(r):
-    season = (r.get("seasonNumber") or "").strip()
-    rank = (r.get("rank") or "").strip()
-    cost = (r.get("cost") or "").strip()
-    name = (r.get("name") or "").strip()
-
-    where = f"Season {season} Scoreboard"
-    line = f"Claimed from the {where}" + (f", rank {rank}." if rank else ".")
-    if cost and cost not in ("0", ""):
-        line += f" Costs {cost} to claim."
-    if (r.get("addedInRerun") or "").strip():
-        line += (f" Added when Season {season} was rerun in "
-                 f"{r['addedInRerun'].strip()} — it was not on the original board.")
-
-    img = route((r.get("imageUrl") or "").strip())
-    return {
-        "kind": "plan", "brand": "df", "type": "scoreboard-art",
-        "id": f"SCOREART_{(r.get('id') or name).strip()}",
-        "name": name,
-        "display_name": name,
-        "has_image_box": True,
-        "image_dir": "scoreboard-art",
-        "obtain": "Not learned from a plan — it unlocks on your account when you "
-                  "claim the scoreboard rank.",
-        "category_label": "Scoreboard Art",
-        "obtain_routes": [],
-        "obtain_unlocks": [line],
-        "obtain_ledger": [{"label": "Scoreboard", "unlocks": [0], "drop": "N/A"}],
-        "plan_item": None,
-        "cobj": None,
-        "cnam": None,
-        "tradeable": False,
-        "stops_dropping": None,
-        "effects": None,
-        "cut": False,
-        "cut_reason": None,
-        "images": [img] if img else [],
-        "image_source": "season" if img else "",
-        "description": (r.get("description") or "").strip(),
-        "season": int(season) if season.isdigit() else 0,
-        "rank": int(rank) if rank.isdigit() else 0,
-        "added_in_rerun": (r.get("addedInRerun") or "").strip(),
-        "entitlement": (r.get("storefrontEntitlement") or "").strip(),
-    }
+def clean_desc(s):
+    s = re.sub(r"\s*-\s*C\.A\.M\.P\. ITEMS APPEAR.*$", "", s or "", flags=re.I)
+    return s.strip()
 
 
 def build():
-    rows = read_rows()
-    art = [make_row(r) for r in rows if is_art(r)]
-    skipped_dev = sum(1 for r in rows
-                      if DEV.search(r.get("storefrontEntitlement") or "")
-                      and ART.search(r.get("storefrontEntitlement") or ""))
+    entm_path, entm = load_entm()
+    rewards = load_rewards()
+    names = load_season_names()
 
     by_season = {}
-    for it in art:
-        by_season.setdefault(it["season"], []).append(it)
+    for season, r in entm:
+        by_season.setdefault(season, []).append(r)
 
-    groups = []
+    items = []
     for season in sorted(by_season):
-        mine = by_season[season]
-        original = [i for i in mine if not i["added_in_rerun"]]
-        reruns = {}
-        for i in mine:
-            if i["added_in_rerun"]:
-                reruns.setdefault(i["added_in_rerun"], []).append(i)
-        for lst in [original] + list(reruns.values()):
-            lst.sort(key=lambda x: (x["rank"], x["name"]))
-        groups.append({
-            "key": f"season-{season}",
-            "label": f"Season {season}",
-            "blurb": "",
-            "count": len(mine),
-            "items": original,
-            # A rerun of a season is still that season, so its new art sits
-            # INSIDE the season expand rather than making a second one.
-            "groups": [
-                {"key": f"season-{season}-rerun-{re.sub(r'[^a-z0-9]+', '-', label.lower()).strip('-')}",
-                 "label": f"Added in the {label} rerun",
-                 "blurb": "Art this season did not ship with. It was added when the "
-                          "season was rerun, so a player who finished the original "
-                          "board will not have it.",
-                 "items": items}
-                for label, items in sorted(reruns.items())
-            ],
-        })
+        rows = by_season[season]
+        # Which piece is the re-run art: curated flag first, else newest FormID.
+        rr = {id(r): (rewards.get(r["EDID"].strip().lower()) or {}) for r in rows}
+        flagged = [r for r in rows if (rr[id(r)].get("addedInRerun") or "").strip()]
+        if len(rows) > 1 and not flagged:
+            flagged = [max(rows, key=lambda r: int(r.get("FormID") or "0", 16))]
+        rows.sort(key=lambda r: (r in flagged, int(r.get("FormID") or "0", 16)))
+
+        theme = names.get(season, "")
+        for r in rows:
+            rw = rr[id(r)]
+            is_rerun = r in flagged
+            tag = ""
+            if len(rows) > 1:
+                tag = " (Re-Run)" if is_rerun else " (Legacy)"
+            name = (r.get("FULL") or rw.get("name") or r["EDID"]).strip()
+            rank = (rw.get("rank") or "").strip()
+            rerun_when = (rw.get("addedInRerun") or "").strip()
+
+            board = f"Season {season}" + (f" — {theme}" if theme else "")
+            # S16+ and any re-run board (re-runs use the ticket system) are
+            # bought with tickets; the original S1-S15 boards were claimed.
+            if season <= 15 and not is_rerun:
+                line = f"Claim from the Season {season} Scoreboard"
+            else:
+                line = f"Purchase with tickets from the Season {season} Scoreboard"
+            if theme:
+                line = line.replace(f"Season {season} Scoreboard",
+                                    f"{re.sub(r'^the ', '', theme, flags=re.I)} Scoreboard (Season {season}"
+                                    + (" re-run)" if is_rerun else ")"))
+            line += (f", rank {rank}." if rank else ".")
+            if is_rerun:
+                line += (" Added when the season was re-run"
+                         + (f" in {rerun_when}" if rerun_when else "")
+                         + " — it was not on the original board.")
+            elif tag:
+                line += " The original board's art — the re-run added a second piece."
+
+            img = route((rw.get("imageUrl") or "").strip()) or season_image(season, r.get("ETDI"))
+            items.append({
+                "kind": "plan", "brand": "df", "type": "scoreboard-art",
+                "id": f"SCOREART_{r['EDID'].strip()}",
+                "name": name + tag,
+                "display_name": f"Season {season}: {name}{tag}",
+                "has_image_box": True,
+                "image_dir": "scoreboard-art",
+                "obtain": line,
+                "category_label": "Scoreboard Art",
+                "obtain_routes": [],
+                "obtain_unlocks": [line],
+                "obtain_ledger": [{"label": "Scoreboard", "unlocks": [0], "drop": "N/A"}],
+                "plan_item": None, "cobj": None, "cnam": None,
+                "tradeable": False,
+                "stops_dropping": None, "effects": None,
+                "cut": False, "cut_reason": None,
+                "images": [img] if img else [],
+                "image_source": "season" if img else "",
+                "description": clean_desc(r.get("DESC") or rw.get("description") or ""),
+                "season": season,
+                "season_name": theme,
+                "board": board,
+                "rank": int(rank) if rank.isdigit() else 0,
+                "run": "rerun" if is_rerun else ("legacy" if tag else ""),
+                "added_in_rerun": rerun_when,
+                "entitlement": r["EDID"].strip(),
+                "formid": (r.get("FormID") or "").strip(),
+                "texture": (r.get("ETDI") or "").strip(),
+            })
 
     doc = {
         "schemaVersion": SCHEMA,
         "generated": datetime.now(timezone.utc).isoformat(),
         "isPts": PTS,
         "title": "Scoreboard Art",
+        "sub": "Track which season Scoreboard art you have claimed.",
+        "noun": {"one": "piece of scoreboard art", "many": "pieces of scoreboard art"},
+        "keep_order": True,   # season order, not A-Z — see df-bnb-plan-checklists.js
         "note": ["Not plans.",
-                 "Scoreboard art is claimed from a season's board rather than learned "
-                 "from a plan you find, so none of it appears in the plan data. This "
-                 "page is built from the season reward list instead."],
-        "source_files": [os.path.basename(SEASONS_TSV)],
-        "groups": groups,
+                 "Each season's board art is claimed from that season's Scoreboard. "
+                 "Where a Legacy season was re-run with new art, both pieces are listed "
+                 "and tagged (Legacy) and (Re-Run)."],
+        "source_files": [os.path.basename(entm_path), os.path.basename(SEASONS_TSV)],
+        "groups": [{"key": "all", "label": "", "items": items}],
     }
     os.makedirs(DIST_DIR, exist_ok=True)
     with open(OUT, "w", encoding="utf-8") as fh:
         json.dump(doc, fh, ensure_ascii=False, indent=2)
 
-    total = sum(g["count"] for g in groups)
-    rerun = sum(len(sg["items"]) for g in groups for sg in g["groups"])
-    print(f"[scoreboard-art] wrote {OUT} — {total} pieces across {len(groups)} seasons "
-          f"({rerun} added by a rerun)")
-    print(f"  source: {os.path.basename(SEASONS_TSV)}")
-    if skipped_dev:
-        print(f"  skipped {skipped_dev} dev leftovers (zzz/CUT prefixed entitlements)")
-    with_art = sum(1 for g in groups for i in g["items"] if i["images"])
-    print(f"  with a picture: {with_art} of {total}")
+    reruns = sum(1 for i in items if i["run"] == "rerun")
+    print(f"[scoreboard-art] wrote {OUT} — {len(items)} pieces across "
+          f"{len(by_season)} seasons ({reruns} re-run piece(s))")
+    print(f"  sources: {os.path.basename(entm_path)}, {os.path.basename(SEASONS_TSV)}")
+    missing = [i["name"] for i in items if not i["images"]]
+    if missing:
+        print(f"  no image: {', '.join(missing)}")
 
 
 if __name__ == "__main__":
