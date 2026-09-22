@@ -1,21 +1,21 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-build_challenges_json.py  (v4 — challenges + seasons + quests + encounters)
+build_challenges_json.py  (v4 — challenges + seasons + quests)
 
 Reads game-data TSVs and outputs an enriched JSON consumed by
 df-bnb-challenges.js for:
     /df/challenges/*          — lifetime / daily / weekly challenges
     /df/seasons/*             — mini-season challenge checklists
     /df/quests/*              — quest checklists (main, side, daily pipboy)
-    /df/random-encounters/*   — random encounter cards
 
 Outputs:
     dist/challenges/challenges.json
 
 Cross-references:
     CHAL  — challenge records (conditions, META/SUB hierarchy)
-    QUEST — quest records (quests, events, random encounters)
+    QUEST — quest records (quests, events; random encounters are skipped —
+            see build_random_encounters_json.py)
     GMRW  — game reward records (XP, caps, items)
     ENTM  — entitlements (Atom Shop items, images)
     BOOK  — notes / holotapes
@@ -1528,58 +1528,10 @@ def get_dlc_label(edid):
             return label
     return ""
 
-# ---- Random Encounter classification ----
-
-# Map EDID region codes to region display names
-REGION_CODES = {
-    "KMK": "Skyline Valley", "CMB": "Cranberry Bog", "MP": "The Mire",
-    "TS": "Toxic Valley", "DWD": "Savage Divide", "JM": "The Forest",
-    "MJP": "Ash Heap", "MD": "Savage Divide", "MT": "Burning Springs",
-    "BB": "The Forest", "SM": "Savage Divide", "PS": "The Forest",
-    "CT": "Cranberry Bog", "GR": "Burning Springs", "GO": "Burning Springs",
-    "RK": "Skyline Valley", "LD": "Burning Springs", "OB": "The Forest",
-    "MOON": "Skyline Drive", "AF": "The Forest", "ZW": "Ash Heap",
-    "JP": "The Forest", "BG": "Cranberry Bog",
-}
-
-RE_CATEGORY_MAP = {
-    "Assault": "re-assault",
-    "Camp": "re-camp",
-    "Travel": "re-travel",
-    "Object": "re-object",
-    "Scene": "re-scene",
-    "WhitespringAssault": "re-whitespring-external",
-    "Mining": "re-object",  # mining encounters go with objects
-}
-
-def classify_random_encounter(edid):
-    """Return (category_slug, region_name) or (None, None) if not an RE."""
-    e = str(edid or "")
-    # Strip DLC prefixes to get to RE_ part
-    clean = re.sub(r"^(Burn|BS|W05|Storm|COMP)_", "", e)
-    if not clean.startswith("RE_"):
-        return None, None
-    # Parse: RE_CategorySuffix
-    after_re = clean[3:]  # everything after RE_
-    # WhitespringAssault special case
-    if after_re.startswith("WhitespringAssault"):
-        return "re-whitespring-external", "Whitespring"
-    # Standard categories
-    for cat_name, slug in RE_CATEGORY_MAP.items():
-        if after_re.startswith(cat_name):
-            rest = after_re[len(cat_name):]
-            # Extract region code (first 2-4 uppercase letters)
-            m = re.match(r"([A-Z]{2,4})", rest)
-            region = REGION_CODES.get(m.group(1), "") if m else ""
-            # Special: Zetan encounters
-            if "_Zetan" in e or after_re.startswith(cat_name + "_Zetan"):
-                return "re-limited-invaders", "Limited Time"
-            return slug, region
-    return None, None
-
-def classify_hub_re(edid):
-    """Check if this is a Whitespring Refuge (Hub) random encounter."""
-    return "HubRE" in str(edid or "")
+# ---- Random Encounters ----
+# Random encounters are built by build_random_encounters_json.py (split out
+# Sept 2026). This build only needs to recognise them so they stay OFF the
+# quest pages.
 
 def is_random_encounter(edid):
     """Quick check if EDID is any kind of random encounter."""
@@ -1746,9 +1698,6 @@ def get_quest_line_name(prefix):
 
 quest_items = []         # for quest checklist pages
 daily_quest_items = []   # for daily pipboy quests page
-encounter_items = []     # for random encounter pages
-
-re_pages = defaultdict(list)   # slug -> list of encounter items
 quest_groups = defaultdict(list)  # quest_line_prefix -> list of quest items
 
 for row in QUEST:
@@ -1792,27 +1741,9 @@ for row in QUEST:
         "record_type": "quest",  # quest or encounter
     }
 
-    # ---- Random Encounters ----
+    # ---- Random Encounters: built by build_random_encounters_json.py ----
     if is_random_encounter(edid):
-        # Hub RE → Whitespring Refuge
-        if classify_hub_re(edid):
-            item["record_type"] = "encounter"
-            item["encounter_category"] = "re-whitespring-refuge"
-            item["encounter_region"] = "Whitespring Refuge"
-            item["has_vendor_inventory"] = False
-            re_pages["re-whitespring-refuge"].append(item)
-            continue
-
-        cat, region = classify_random_encounter(edid)
-        if cat:
-            item["record_type"] = "encounter"
-            item["encounter_category"] = cat
-            item["encounter_region"] = region
-            # Travel and Camp encounters may have vendor NPCs
-            item["has_vendor_inventory"] = cat in ("re-travel", "re-camp")
-            item["vendor_inventory"] = []  # placeholder for LVLI data
-            re_pages[cat].append(item)
-            continue
+        continue
 
     # ---- Skip event/activity types ----
     if quest_type in QUEST_TYPES_SKIP:
@@ -1847,10 +1778,6 @@ for row in QUEST:
 # Sort quest groups internally by EDID sort order
 for prefix in quest_groups:
     quest_groups[prefix].sort(key=lambda q: quest_sort_order(q["edid"]))
-
-# Sort encounter pages by name
-for slug in re_pages:
-    re_pages[slug].sort(key=lambda e: str(e.get("full") or "").lower())
 
 # Sort daily quests by name
 daily_quest_items.sort(key=lambda q: str(q.get("full") or "").lower())
@@ -1889,38 +1816,12 @@ quest_page_structure = {
     "expedition_quests": build_quest_page_groups(QUEST_TYPES_EXPEDITION, quest_items),
 }
 
-# ---- Build encounter page structure ----
-# Whitespring page gets two sections: External + The Refuge
-
-whitespring_page = {
-    "external": re_pages.get("re-whitespring-external", []),
-    "the_refuge": re_pages.get("re-whitespring-refuge", []),
-}
-
-encounter_page_structure = {
-    "re-assault": {"title": "Assault Encounters", "items": re_pages.get("re-assault", [])},
-    "re-camp": {"title": "CAMP Encounters", "items": re_pages.get("re-camp", [])},
-    "re-travel": {"title": "Travel Encounters", "items": re_pages.get("re-travel", [])},
-    "re-object": {"title": "Object Encounters", "items": re_pages.get("re-object", [])},
-    "re-scene": {"title": "Scene Encounters", "items": re_pages.get("re-scene", [])},
-    "re-whitespring": {"title": "Whitespring Random Encounters", "sections": whitespring_page},
-    "re-limited-invaders": {"title": "Invaders from Beyond", "items": re_pages.get("re-limited-invaders", [])},
-}
-
 print(f"  Quest items: {len(quest_items)}")
 print(f"  Daily pipboy quests: {len(daily_quest_items)}")
 print(f"  Quest line groups: {len(quest_groups)}")
 for qt_key, groups in quest_page_structure.items():
     total = sum(len(g["items"]) for g in groups)
     print(f"    {qt_key}: {len(groups)} groups, {total} quests")
-print(f"  Encounter pages:")
-for slug, data in encounter_page_structure.items():
-    if "sections" in data:
-        ext = len(data["sections"].get("external", []))
-        ref = len(data["sections"].get("the_refuge", []))
-        print(f"    {slug}: External={ext}, The Refuge={ref}")
-    else:
-        print(f"    {slug}: {len(data.get('items', []))} encounters")
 
 
 # ==================================================================
@@ -1932,7 +1833,7 @@ page_meta = {}
 for key, items in pages.items():
     page_meta[key] = {"count": len(items), "has_meta": any(it["is_meta"] for it in items)}
 
-# Add quest and encounter page meta
+# Add quest page meta
 page_meta["quest:fallout-76-quests-checklist"] = {
     "count": len(quest_items),
     "has_quest_groups": True,
@@ -1940,13 +1841,6 @@ page_meta["quest:fallout-76-quests-checklist"] = {
 page_meta["quest:daily-pipboy-quests"] = {
     "count": len(daily_quest_items),
 }
-for slug, data in encounter_page_structure.items():
-    if "sections" in data:
-        count = sum(len(v) for v in data["sections"].values())
-    else:
-        count = len(data.get("items", []))
-    page_meta[f"encounter:{slug}"] = {"count": count}
-
 output = {
     "generated": "build_challenges_json.py v4",
     "pages": {k: {"items": v} for k, v in pages.items()},
@@ -1958,8 +1852,6 @@ output = {
         "fallout-76-quests-checklist": quest_page_structure,
         "daily-pipboy-quests": {"items": daily_quest_items},
     },
-    # Random encounter pages
-    "encounter_pages": encounter_page_structure,
 }
 
 out_path = DIST_DIR / "challenges.json"
@@ -1971,7 +1863,7 @@ for k, v in sorted(page_meta.items()):
     print(f"    {k}: {v['count']} items" if 'count' in v else f"    {k}: {v}")
 
 # Generate patchlog feed
-# Challenges structure has pages with items, plus quest_pages and encounter_pages
+# Challenges structure has pages with items, plus quest_pages
 # Extract all challenge items from all pages for diffing
 def extract_all_challenges(data):
     if not data:
@@ -1985,11 +1877,6 @@ def extract_all_challenges(data):
     # Quest pages
     quest_pages = data.get('quest_pages', {})
     for page_name, page_data in quest_pages.items():
-        if isinstance(page_data, dict):
-            items.extend(page_data.get('items', []))
-    # Encounter pages
-    encounter_pages = data.get('encounter_pages', {})
-    for page_name, page_data in encounter_pages.items():
         if isinstance(page_data, dict):
             items.extend(page_data.get('items', []))
     return items

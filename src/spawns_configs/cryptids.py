@@ -17,7 +17,7 @@ PAGES (DF brand, under /df/cryptids/) — root-expand order per spawn-guide:
   3. Activities, Events & Quests — QUEST/GMRW registry + event-keyword pass over the
                              up-closure of the cryptid's death lists
   4. Drops                 — death-drop loot (INAM leveled item lists) resolved via rng76
-  5. Random Encounters     — cryptid REs from challenges.json encounter_pages
+  5. Random Encounters     — cryptid REs from dist/random_encounters/random_encounters.json
   6. Fixed Spawn Locations — ambush markers + static NPC placements + Mappalachia
                              npcName spawns, grouped region -> marker, one photo-slot
                              set per spawn (spawn-guide §9k)
@@ -590,18 +590,36 @@ def used_for(pg, cur_url):
     return dedup
 
 
-# ── Random Encounters (challenges.json encounter_pages) ──────────────────────
+# ── Random Encounters (dist/random_encounters/random_encounters.json) ─────────
+# Encounters moved out of challenges.json in Sept 2026 — they are built by
+# build_random_encounters_json.py now. One encounter can sit on two pages (its
+# type page AND its region page), so dedupe on FormID.
+RANDOM_ENCOUNTERS_JSON = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__)))), "dist", "random_encounters", "random_encounters.json")
+_RE_CACHE = {}
+
+
+def load_random_encounters():
+    if "d" in _RE_CACHE:
+        return _RE_CACHE["d"]
+    try:
+        d = json.load(open(RANDOM_ENCOUNTERS_JSON, encoding="utf-8"))
+    except Exception as e:
+        print(f"[cryptids] [warn] random_encounters.json unreadable ({e}); "
+              f"Random Encounters blank — run build_random_encounters_json.py first.")
+        d = {}
+    _RE_CACHE["d"] = d
+    return d
+
+
 def random_encounters(pg):
-    d = load_challenges()
-    eps = d.get("encounter_pages", {})
+    d = load_random_encounters()
     toks = _page_tokens(pg)
     out, seen = [], set()
-    for pk, page in eps.items():
-        for it in (page.get("items") if isinstance(page, dict) else []) or []:
-            if not isinstance(it, dict):
-                continue
-            hay = (it.get("full", "") + " " + it.get("edid", "") + " " +
-                   it.get("desc", "")).lower()
+    for page in (d.get("pages") or {}).values():
+        for it in page.get("encounters") or []:
+            hay = " ".join(str(it.get(k, "")) for k in
+                           ("name", "game_name", "edid", "description")).lower()
             if not any(t in hay for t in toks):
                 continue
             key = it.get("form_id") or it.get("edid")
@@ -610,8 +628,8 @@ def random_encounters(pg):
             seen.add(key)
             out.append({
                 "form_id": it.get("form_id", ""), "edid": it.get("edid", ""),
-                "name": it.get("full") or it.get("edid", ""),
-                "type": (page.get("title") if isinstance(page, dict) else pk),
+                "name": it.get("name") or it.get("edid", ""),
+                "type": f"{it.get('type', '')} Encounters".strip(),
                 "location": it.get("location", ""),
             })
     out.sort(key=lambda r: r["name"].lower())

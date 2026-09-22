@@ -1,12 +1,18 @@
 name: Build Random Encounters Data
 
+# Random encounters have their own builder (split out of the challenges build,
+# Sept 2026): src/build_random_encounters_json.py -> dist/random_encounters/.
+
 on:
   workflow_dispatch:
 
   push:
     paths:
-      - 'tsv/**'
-      - 'src/build_challenges_json_v3.py'
+      - 'tsv/QUEST_Export_*.tsv'
+      - 'tsv/GMRW_Export_*.tsv'
+      - 'tsv/guide_index.tsv'
+      - 'tsv/random_encounter_overrides.tsv'
+      - 'src/build_random_encounters_json.py'
 
 permissions:
   contents: write
@@ -33,7 +39,7 @@ jobs:
       - name: Build Random Encounters Data
         run: |
           python -V
-          python src/build_challenges_json_v3.py
+          python src/build_random_encounters_json.py
 
       - name: Commit dist outputs
         shell: bash
@@ -43,7 +49,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add dist/challenges/challenges.json
+          git add dist/random_encounters/random_encounters.json
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
