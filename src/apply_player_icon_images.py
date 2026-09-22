@@ -2,9 +2,13 @@
 r"""
 apply_player_icon_images.py
 ---------------------------
-Points every `kind=playerIcon` row in tsv/season_rewards.tsv at the canonical
-player-icon image, and back-fills a missing storefrontEntitlement while it is
-there.
+Back-fills a missing storefrontEntitlement on `kind=playerIcon` rows in
+tsv/season_rewards.tsv.
+
+CHANGED 2026-09: this script NO LONGER rewrites imageUrl. The direction was
+reversed - season_rewards.tsv is now the source of truth for Scoreboard icon
+art, and build_player_icons_json.py reads the image FROM it. The history
+below explains why the rows were once repointed.
 
 WHY THIS EXISTS
 ===============
@@ -101,7 +105,7 @@ def main() -> None:
 
     data = json.load(open(ICONS_JSON, encoding="utf-8"))
     image_base = site_relative(data["imageBase"])
-    by_edid = {i["edid"]: i for i in data["icons"]}
+    by_edid = {i["edid"]: i for i in data["icons"] if i["edid"]}  # texture-only rows have none
     by_name = {}
     for i in data["icons"]:
         by_name.setdefault(i["name"].strip().lower(), i)
@@ -148,13 +152,18 @@ def main() -> None:
         if filename is None:
             unmatched.append((r[SEASON], r[NAME], ent))
             continue
+        # Matched, but the icon has no art of its own yet (the builder moved it
+        # off borrowed store art) - leave the board row alone rather than
+        # pointing it at the bare folder.
+        if not filename:
+            continue
 
-        new_url = image_base + filename
-        if r[IMG] != new_url:
-            r[IMG] = new_url
-            changed += 1
+        # Images are NO LONGER written here. The seasons data is the source of
+        # truth for Scoreboard icon art and the Player Icons page reads it
+        # (build_player_icons_json.py apply_season_images). Writing back would
+        # make the two chase each other. Only the entitlement back-fill stays.
 
-    print(f"{TAG} playerIcon rows repointed: {changed}")
+    print(f"{TAG} playerIcon image rows repointed: {changed} (images are no longer written here)")
     print(f"{TAG} blank storefrontEntitlement back-filled: {filled_ent}")
     print(f"{TAG} unmatched (left untouched): {len(unmatched)}")
     for s, n, e in unmatched:

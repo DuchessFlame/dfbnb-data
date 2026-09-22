@@ -109,12 +109,16 @@ def today():
     return datetime.date.today()
 
 
+_CHANNELS = {"live", "pts", "both"}
+
+
 def load_pins(path=PINS_TSV):
-    """[{plan_id, kind, route, bucket, start(date), end(date), note, line}] .
+    """[{plan_id, kind, route, bucket, start(date), end(date), channel, note, line}].
 
     Comment lines (`#`) and blanks are skipped; the header row is detected by its
     first cell being 'PlanId'. Malformed rows are collected and returned so the
-    caller can warn rather than silently drop a pin.
+    caller can warn rather than silently drop a pin. A blank Channel defaults to
+    'live'. The Channel column is optional so a 7-column file still parses.
     """
     pins, errors = [], []
     if not os.path.exists(path):
@@ -126,11 +130,12 @@ def load_pins(path=PINS_TSV):
             cells = raw.rstrip("\n").split("\t")
             if cells and cells[0].strip() == "PlanId":
                 continue  # header
-            # PlanId, Kind, Route, Bucket, StartDate, EndDate, Note
-            cells += [""] * (7 - len(cells))
-            plan_id, kind, route, bucket, start_s, end_s, note = \
-                (c.strip() for c in cells[:7])
+            # PlanId, Kind, Route, Bucket, StartDate, EndDate, [Channel,] Note
+            cells += [""] * (8 - len(cells))
+            plan_id, kind, route, bucket, start_s, end_s, channel, note = \
+                (c.strip() for c in cells[:8])
             kind = kind.lower()
+            channel = (channel or "live").lower()
             start, end = _parse_dmy(start_s), _parse_dmy(end_s)
             problem = None
             if not plan_id:
@@ -139,6 +144,8 @@ def load_pins(path=PINS_TSV):
                 problem = f"unknown Kind {kind!r}"
             elif kind in _ROUTE_KINDS and not route:
                 problem = f"{kind} needs a Route"
+            elif channel not in _CHANNELS:
+                problem = f"unknown Channel {channel!r} (live|pts|both)"
             elif not start or not end:
                 problem = "bad StartDate/EndDate (need D/M/YYYY)"
             elif end < start:
@@ -148,8 +155,16 @@ def load_pins(path=PINS_TSV):
                 continue
             pins.append({"plan_id": plan_id, "kind": kind, "route": route,
                          "bucket": bucket, "start": start, "end": end,
-                         "note": note, "line": lineno})
+                         "channel": channel, "note": note, "line": lineno})
     return pins, errors
+
+
+def _channel_of(tsv_dir):
+    """'pts' or 'live' from the export root — same rule reenrich uses."""
+    if not tsv_dir:
+        return "live"
+    parts = os.path.normpath(tsv_dir).replace("\\", "/").split("/")
+    return "pts" if "pts" in parts else "live"
 
 
 def is_active(pin, day):
@@ -190,21 +205,28 @@ def _already_present(changes, change):
     return False
 
 
-def apply(items, tsv_dir=None, path=PINS_TSV, day=None):
+def apply(items, tsv_dir=None, path=PINS_TSV, day=None, channel=None):
     """Force-attach active pins' changes onto matching plan_master items.
 
-    tsv_dir is accepted for call-site symmetry with plan_changes.diff() and is
-    unused — pins are a pure data overlay, they read no export.
+    `channel` ("live"/"pts") gates which pins apply; when omitted it is derived
+    from `tsv_dir` (the same live/pts rule reenrich uses). A pin whose Channel is
+    "both" applies to either. This keeps a live-game change (e.g. an SDOW plan
+    already in the live game) off the PTS "what's coming next" page. Pins are a
+    pure data overlay otherwise — they read no export.
     """
     day = day or today()
+    channel = channel or _channel_of(tsv_dir)
     pins, errors = load_pins(path)
     by_id = {(it.get("id") or "").upper(): it for it in items}
 
-    stats = {"pins_total": len(pins), "active": 0, "inert": 0,
-             "applied": 0, "deduped": 0, "missing_plan": [],
-             "missing_route": [], "errors": errors}
+    stats = {"pins_total": len(pins), "channel": channel, "active": 0,
+             "inert": 0, "off_channel": 0, "applied": 0, "deduped": 0,
+             "missing_plan": [], "missing_route": [], "errors": errors}
 
     for pin in pins:
+        if pin["channel"] != "both" and pin["channel"] != channel:
+            stats["off_channel"] += 1
+            continue
         if not is_active(pin, day):
             stats["inert"] += 1
             continue
@@ -235,7 +257,8 @@ def apply(items, tsv_dir=None, path=PINS_TSV, day=None):
 
 
 def report(stats, stream=sys.stderr):
-    print(f"  pins: {stats['active']} active, {stats['inert']} inert "
+    print(f"  pins[{stats.get('channel','?')}]: {stats['active']} active, "
+          f"{stats['inert']} inert, {stats.get('off_channel',0)} off-channel "
           f"(of {stats['pins_total']}) — applied {stats['applied']}, "
           f"deduped {stats['deduped']}", file=stream)
     for lineno, why, raw in stats.get("errors", []):
@@ -266,7 +289,7 @@ def _cli(argv=None):
         for p in pins:
             tag = "ACTIVE" if is_active(p, day) else "inert "
             extra = f" -> {p['route']} ({p['bucket']})" if p["route"] else ""
-            print(f"  [{tag}] {p['plan_id']:16s} {p['kind']:14s}"
+            print(f"  [{tag}] {p['channel']:4s} {p['plan_id']:16s} {p['kind']:14s}"
                   f" {p['start'].isoformat()}..{p['end'].isoformat()}{extra}")
 
     if args.lint:

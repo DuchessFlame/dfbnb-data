@@ -523,6 +523,45 @@ def add_avtr_icons(icons: list, entm_rows: list, season_rows: dict,
 
 
 # ---------------------------------------------------------------------------
+# Scoreboard art comes FROM the seasons data
+# ---------------------------------------------------------------------------
+# The scoreboard pages are the source of truth for a Scoreboard icon's
+# picture: whatever image a season_rewards.tsv row carries is the image this
+# page shows for that entitlement. (This used to run the other way -
+# apply_player_icon_images.py copied this page's images onto the board rows.
+# That step no longer touches images.) The URL is routed through asset_paths
+# so it lands in the shared player-icons folder whatever the row spells.
+from asset_paths import asset_url  # noqa: E402
+
+
+def apply_season_images(icons: list, season_rows: dict) -> int:
+    n = 0
+    for i in icons:
+        r = season_rows.get(i["edid"])
+        url = asset_url(site_relative((r or {}).get("imageUrl") or ""))
+        if not url or not url.lower().endswith(".avif"):
+            continue
+        fname = url.rsplit("/", 1)[-1]
+        i["imageSource"] = "season"
+        if fname != i["imageFilename"] or url != i["imageUrl"]:
+            i["imageFilename"], i["imageUrl"] = fname, url
+            n += 1
+    print(f"{TAG} season art: {n} icon image(s) taken from season_rewards.tsv")
+    return n
+
+
+_SITE_ROOTS = ("https://www.theduchessflame.com", "https://theduchessflame.com",
+               "https://www.buffsnbrew.com", "https://buffsnbrew.com")
+
+
+def site_relative(url: str) -> str:
+    for root in _SITE_ROOTS:
+        if url.startswith(root):
+            return url[len(root):]
+    return url
+
+
+# ---------------------------------------------------------------------------
 # Shared store art — one picture, one row
 # ---------------------------------------------------------------------------
 # The store thumbnail (ENTM ETDI) is not always the icon's own art. Bethesda
@@ -679,6 +718,93 @@ def label_name_twins(icons: list) -> int:
     print(f"{TAG} same-name icons labelled: {n}")
     return n
 
+
+# ---------------------------------------------------------------------------
+# Texture-only icons - art left in the game files with no record
+# ---------------------------------------------------------------------------
+# Nuclear Winter's icon records were deleted with the mode, so the generative
+# ENTM/AVTR passes cannot see its art. tsv/player_icons_texture_only.json lists
+# those textures (and a few alternate/older textures of icons that ARE listed)
+# so they still appear, clearly marked as no longer obtainable. They have no
+# Form ID, so each gets a stable "TEX:" row key for the checklist instead.
+TEXTURE_ONLY_FILE = os.path.join(LIVE_TSV_DIR, "player_icons_texture_only.json")
+NW_LABEL = "NW - Legacy"
+
+
+# Texture stems run words together ("baseballglove"); spell the ones we know.
+_TEX_WORDS = {
+    "baseballglove": "Baseball Glove", "doctorbaby": "Doctor Baby",
+    "powerhelmet": "Power Helmet", "teddybear": "Teddy Bear", "toycar": "Toy Car",
+    "trifoldflag": "Tri-Fold Flag", "zaxlogo": "ZAX Logo", "molerat": "Mole Rat",
+    "vaultboy": "Vault Boy",
+}
+
+
+def _tex_name(filename: str, prefix: str) -> str:
+    stem = filename[:-5] if filename.endswith(".avif") else filename
+    stem = re.sub(r"^" + prefix, "", stem, flags=re.I)
+    words = [_TEX_WORDS.get(w.lower(), w if w.isdigit() else w.capitalize())
+             for w in re.split(r"_+", stem) if w]
+    return " ".join(words)
+
+
+def add_texture_only(icons: list) -> int:
+    if not os.path.exists(TEXTURE_ONLY_FILE):
+        return 0
+    try:
+        data = json.load(open(TEXTURE_ONLY_FILE, encoding="utf-8"))
+    except Exception as e:  # pragma: no cover
+        print(f"{TAG} [WARN] could not read texture-only list: {e}", file=sys.stderr)
+        return 0
+    have = {i["imageFilename"] for i in icons if i["imageFilename"]}
+    by_edid = {i["edid"]: i for i in icons}
+    added = 0
+
+    def row(filename, name, source, text, method, extra=None):
+        r = {
+            "formId": "", "rowKey": "TEX:" + filename[:-5],
+            "edid": "", "name": name, "fullName": "", "shortName": "",
+            "desc": "", "rarity": "", "premium": False,
+            "imageFilename": filename, "imageUrl": IMAGE_BASE + filename,
+            "source": source,
+            "howToObtain": {"method": method, "source": source, "text": text,
+                            "season": None, "seasonName": "", "rank": None,
+                            "page": None, "premium": False},
+            "avtr": "", "textureOnly": True, "isNew": False,
+        }
+        r.update(extra or {})
+        return r
+
+    for f in data.get("nuclearWinter") or []:
+        f = f.lower()
+        if f in have:
+            continue
+        icons.append(row(
+            f, f"{_tex_name(f, 'babylon_playericon_')} ({NW_LABEL})", "Legacy",
+            "A Nuclear Winter icon. Nuclear Winter was removed from the game in 2022 "
+            "and this icon's game record went with it - only its artwork is left in "
+            "the game files. No longer obtainable.", "legacy-nw"))
+        have.add(f)
+        added += 1
+
+    for a in data.get("altArt") or []:
+        f = (a.get("file") or "").lower()
+        parent = by_edid.get(a.get("parentEdid") or "")
+        if not f or f in have or not parent:
+            continue
+        label = a.get("label") or "Alternate Art"
+        verb = "Older" if label.lower().startswith("old") else "Alternate"
+        icons.append(row(
+            f, f"{parent['name']} ({label})", parent["source"],
+            f"{verb} artwork for the {parent['name']} icon, still in the game files. "
+            f"Not a separate unlock - the icon uses the art shown on the "
+            f"{parent['name']} row.", "alt-art", {"altArtOf": parent["edid"]}))
+        have.add(f)
+        added += 1
+
+    print(f"{TAG} texture-only: +{added} (no game record - Nuclear Winter / alternate art)")
+    return added
+
 # ---------------------------------------------------------------------------
 # Build
 # ---------------------------------------------------------------------------
@@ -752,8 +878,10 @@ def build() -> dict:
     # exist only as AVTR records, so the AVTR export (ExportAVTRToTSV.pas) is the
     # complete list. Optional: until that export exists the page is ENTM-only.
     avtr_added = add_avtr_icons(icons, rows, season_rows, season_names, chal)
+    apply_season_images(icons, season_rows)
     icons = resolve_shared_art(icons)
     label_name_twins(icons)
+    add_texture_only(icons)
 
     # ABC order, case-insensitive, on the displayed name.
     icons.sort(key=lambda i: (i["name"].lower(), i["edid"].lower()))
@@ -765,11 +893,12 @@ def build() -> dict:
         fs_path = os.path.join(LIVE_TSV_DIR, _FIRST_SEEN_FILENAME)
         bootstrap = not os.path.exists(fs_path)
         first_seen = load_first_seen()
-        update_first_seen(first_seen, [i["formId"] for i in icons], bootstrap)
+        update_first_seen(first_seen, [i["formId"] for i in icons if i["formId"]], bootstrap)
         save_first_seen(first_seen)
         cutoff = compute_new_cutoff()
         for i in icons:
-            i["isNew"] = first_seen.get(i["formId"], "2020-01-01") >= cutoff
+            i["isNew"] = (not i.get("textureOnly")
+                          and first_seen.get(i["formId"], "2020-01-01") >= cutoff)
             if i["isNew"]:
                 new_count += 1
         boot_note = " [bootstrap: seeded existing as not-new]" if bootstrap else ""

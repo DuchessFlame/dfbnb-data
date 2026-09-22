@@ -1211,13 +1211,10 @@ jobs:
       - name: Build Wallpapers JSON
         run: python src/build_wallpapers_json.py
 
-      # Point every scoreboard playerIcon reward at the same folder the Player
-      # Icons page uses, and back-fill any blank storefrontEntitlement. Must run
-      # AFTER build_player_icons_json.py (it reads dist/player_icons.json).
-      # Committing season_rewards.tsv fires build-season-rewards.yml, which
-      # regenerates the per-season JSON so the new URLs reach the scoreboards.
-      # Never invents an image — unmatched rows are reported and left alone.
-      - name: Repoint scoreboard player-icon images
+      # Back-fill any blank storefrontEntitlement on scoreboard playerIcon rows.
+      # It NO LONGER writes images: season_rewards.tsv is the source of truth
+      # for Scoreboard icon art and build_player_icons_json.py reads it.
+      - name: Back-fill scoreboard player-icon entitlements
         run: python src/apply_player_icon_images.py
 
       # --- SANITY CHECK ---

@@ -29,6 +29,9 @@
 #              "Events & Activities". (blank for the scalar kinds)
 #   StartDate  D/M/YYYY — first day the pin is live (matches fallout76_seasons.tsv)
 #   EndDate    D/M/YYYY — last day the pin is live; after this it stops showing
+#   Channel    live | pts | both  — which channel(s) the pin applies to. Blank =
+#              live. These SDOW plans are already in the LIVE game, so pinning
+#              them "live" keeps them off the PTS "what's coming next" page.
 #   Note       free text for maintainers; never rendered
 #
 # THE SLASHER / SDOW PINS (added 22 Sep 2026)
@@ -39,11 +42,11 @@
 # SEASONAL EVENT's own window is a PLACEHOLDER in src/home/events.tsv (Bethesda
 # has not stated it), so per the season-end fallback rule the season end is used.
 # If Bethesda confirms a shorter Slasher window, shorten EndDate to match.
-PlanId	Kind	Route	Bucket	StartDate	EndDate	Note
-PLAN_00620A54	route-added	The Slasher - Daily Ops	Events & Activities	15/9/2026	1/12/2026	Medium Supply Crate — SDOW/Slasher Daily Ops loot (S26)
-PLAN_006369BF	route-added	The Slasher - Daily Ops	Events & Activities	15/9/2026	1/12/2026	Ring of Fire Pit — SDOW/Slasher Daily Ops loot (S26)
-PLAN_006369C6	route-added	The Slasher - Daily Ops	Events & Activities	15/9/2026	1/12/2026	Wasteland Loveseat — SDOW/Slasher Daily Ops loot (S26)
-PLAN_006369C7	route-added	The Slasher - Daily Ops	Events & Activities	15/9/2026	1/12/2026	Antler Chandelier — SDOW/Slasher Daily Ops loot (S26)
-PLAN_006369B6	route-added	Scorched Spooky	Events & Activities	15/9/2026	1/12/2026	Ghillie Suit Hood — SDOW/Slasher Scorched Spooky creature (S26)
-PLAN_006369C0	route-added	Scorched Spooky	Events & Activities	15/9/2026	1/12/2026	Ghillie Suit — SDOW/Slasher Scorched Spooky creature (S26)
-PLAN_006369B9	route-added	Scorched Spooky	Events & Activities	15/9/2026	1/12/2026	Nuclear Winter Letterman Jacket — SDOW/Slasher Scorched Spooky creature (S26)
+PlanId	Kind	Route	Bucket	StartDate	EndDate	Channel	Note
+PLAN_00620A54	route-added	The Slasher - Daily Ops	Events & Activities	15/9/2026	1/12/2026	live	Medium Supply Crate — SDOW/Slasher Daily Ops loot (S26)
+PLAN_006369BF	route-added	The Slasher - Daily Ops	Events & Activities	15/9/2026	1/12/2026	live	Ring of Fire Pit — SDOW/Slasher Daily Ops loot (S26)
+PLAN_006369C6	route-added	The Slasher - Daily Ops	Events & Activities	15/9/2026	1/12/2026	live	Wasteland Loveseat — SDOW/Slasher Daily Ops loot (S26)
+PLAN_006369C7	route-added	The Slasher - Daily Ops	Events & Activities	15/9/2026	1/12/2026	live	Antler Chandelier — SDOW/Slasher Daily Ops loot (S26)
+PLAN_006369B6	route-added	Scorched Spooky	Events & Activities	15/9/2026	1/12/2026	live	Ghillie Suit Hood — SDOW/Slasher Scorched Spooky creature (S26)
+PLAN_006369C0	route-added	Scorched Spooky	Events & Activities	15/9/2026	1/12/2026	live	Ghillie Suit — SDOW/Slasher Scorched Spooky creature (S26)
+PLAN_006369B9	route-added	Scorched Spooky	Events & Activities	15/9/2026	1/12/2026	live	Nuclear Winter Letterman Jacket — SDOW/Slasher Scorched Spooky creature (S26)
