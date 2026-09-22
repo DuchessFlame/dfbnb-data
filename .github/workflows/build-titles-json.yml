@@ -10,6 +10,10 @@ on:
       # Exclude it so PTS pulls don't trigger a wasteful live rebuild.
       - "!tsv/pts/**"
       - "src/build_titles_json.py"
+      # Title art is season-first: a refreshed upload check (or index change)
+      # must rebuild the titles JSON so rows move to the season copy.
+      - "src/reusable_images.py"
+      - "dist/season_images/unpublished_images.json"
       - "src/build_drop_rates.py"
       - "src/rng76.py"
       - "src/build_patchlog_manifest_from_guide_index.py"

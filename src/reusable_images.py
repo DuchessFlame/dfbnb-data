@@ -131,6 +131,13 @@ class Index:
         # caller wants; the ally carousel needs the _c1/_c2/_c3 frames that
         # ranking deliberately discards, and is the only caller of find_all().
         self.by_stem_all = {}
+        # Verified-hosted season-folder URLs exactly as uploaded, NOT routed
+        # through asset_url(). The router sends player/CAMP title art to the
+        # shared /guide-images/titles/ folders, which hides the season copy
+        # from find_season(); the Titles checklists want the season copy first
+        # (Duchess, Sept 2026) and ask find_season_upload() for it.
+        self.season_upload_by_edid = {}
+        self.season_upload_by_stem = {}
         self.sources = []
 
     def _add(self, edid, stem, url):
@@ -200,6 +207,23 @@ class Index:
                     return u
         return ""
 
+    def find_season_upload(self, edid="", stem="", texture=""):
+        """The season_images/season-N/ URL a file was uploaded under, or "".
+
+        Unlike find_season() this is NOT routed through asset_url(), so it
+        still answers for art the router would send to a shared folder
+        (player / CAMP titles). Rows the upload checker found missing are
+        already excluded, so a hit is a URL the server serves.
+        """
+        if edid:
+            hit = self.season_upload_by_edid.get(str(edid).strip().upper())
+            if hit:
+                return hit
+        key = stem or texture_stem(texture)
+        if key:
+            return self.season_upload_by_stem.get(_SUFFIX.sub("", str(key).strip().lower()), "")
+        return ""
+
     def find_all(self, stem="", texture=""):
         """Every hosted URL sharing this texture stem, main tile first.
 
@@ -255,6 +279,13 @@ def build_index(dist_dir):
                 continue
             url = "{}/{}".format(folder, out)
             idx._add(img.get("entitlement") or "", texture_stem(img.get("ddsPath") or out), url)
+            if not _is_frame(url):
+                ent = (img.get("entitlement") or "").strip().upper()
+                if ent:
+                    idx.season_upload_by_edid.setdefault(ent, url)
+                for st in {texture_stem(out), texture_stem(img.get("ddsPath") or "")}:
+                    if st:
+                        idx.season_upload_by_stem.setdefault(st, url)
             n += 1
     if n:
         idx.sources.append("{} season manifest(s)".format(len(season_files)))

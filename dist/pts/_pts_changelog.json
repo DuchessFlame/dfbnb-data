@@ -33772,6 +33772,20 @@
     "daily_ops/daily_ops_rewards.json": {
       "structural_change": true
     },
+    "dispensers.json": {
+      "key": "edid",
+      "added": [],
+      "removed": [],
+      "changed": [
+        {
+          "key": "DE2024_Halloween_ENTM_CAMP_Utility_CraniaCandyBowl",
+          "label": "DE2024_Halloween_ENTM_CAMP_Utility_CraniaCandyBowl",
+          "fields": [
+            "description"
+          ]
+        }
+      ]
+    },
     "displays.json": {
       "structural_change": true
     },
@@ -34191,76 +34205,6 @@
     },
     "fishing_equipment.json": {
       "structural_change": true
-    },
-    "fridges.json": {
-      "key": "edid",
-      "added": [],
-      "removed": [],
-      "changed": [
-        {
-          "key": "ATX_ENTM_CAMP_Utility_Refrigerator_Arktos",
-          "label": "ATX_ENTM_CAMP_Utility_Refrigerator_Arktos",
-          "fields": [
-            "imageUrl"
-          ]
-        },
-        {
-          "key": "ATX_ENTM_CAMP_Utility_Refrigerator_BeerBarrel",
-          "label": "ATX_ENTM_CAMP_Utility_Refrigerator_BeerBarrel",
-          "fields": [
-            "imageUrl"
-          ]
-        },
-        {
-          "key": "ATX_ENTM_CAMP_Utility_Refrigerator_Freezer_NukaCola",
-          "label": "ATX_ENTM_CAMP_Utility_Refrigerator_Freezer_NukaCola",
-          "fields": [
-            "imageUrl"
-          ]
-        },
-        {
-          "key": "ATX_ENTM_CAMP_Utility_Refrigerator_StainlessSteel",
-          "label": "ATX_ENTM_CAMP_Utility_Refrigerator_StainlessSteel",
-          "fields": [
-            "imageUrl"
-          ]
-        },
-        {
-          "key": "ATX_ENTM_CAMP_Utility_Refrigerator_VaultTec",
-          "label": "ATX_ENTM_CAMP_Utility_Refrigerator_VaultTec",
-          "fields": [
-            "imageUrl"
-          ]
-        },
-        {
-          "key": "SCORE_S17_ENTM_CAMP_Utility_Refrigerator_CampingCooler",
-          "label": "SCORE_S17_ENTM_CAMP_Utility_Refrigerator_CampingCooler",
-          "fields": [
-            "imageUrl"
-          ]
-        },
-        {
-          "key": "SCORE_S18_ENTM_CAMP_Utility_BlueRidgeBeerKeg",
-          "label": "SCORE_S18_ENTM_CAMP_Utility_BlueRidgeBeerKeg",
-          "fields": [
-            "imageUrl"
-          ]
-        },
-        {
-          "key": "SCORE_S21_ENTM_CAMP_Utility_Refrigerator_GoneFissionCampingCooler",
-          "label": "SCORE_S21_ENTM_CAMP_Utility_Refrigerator_GoneFissionCampingCooler",
-          "fields": [
-            "imageUrl"
-          ]
-        },
-        {
-          "key": "SCORE_S22_ENTM_CAMP_Utility_Refrigerator_MillersFridge",
-          "label": "SCORE_S22_ENTM_CAMP_Utility_Refrigerator_MillersFridge",
-          "fields": [
-            "imageUrl"
-          ]
-        }
-      ]
     },
     "help_menu.json": {
       "key": "edid",
@@ -35825,6 +35769,13 @@
       ],
       "changed": [
         {
+          "key": "PLAN_00436FF9",
+          "label": "Plan: Mole Miner Gauntlet",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
           "key": "PLAN_0052A699",
           "label": "Plan: Single-Action Revolver Forceful Grip",
           "fields": [
@@ -36527,8 +36478,24 @@
           ]
         },
         {
+          "key": "PLAN_003F4749",
+          "label": "Plan: Beer Keg",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_00436FF5",
           "label": "Plan: Golf Club",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00436FF9",
+          "label": "Plan: Mole Miner Gauntlet",
           "fields": [
             "obtain_ledger",
             "obtain_routes"
@@ -36607,27 +36574,6 @@
           "label": "Plan: Crossbow",
           "fields": [
             "cnam"
-          ]
-        },
-        {
-          "key": "PLAN_0050194F",
-          "label": "Plan: Ultracite Optimized Servos",
-          "fields": [
-            "obtain_routes"
-          ]
-        },
-        {
-          "key": "PLAN_00501950",
-          "label": "Plan: Ultracite Overdrive Servos",
-          "fields": [
-            "obtain_routes"
-          ]
-        },
-        {
-          "key": "PLAN_00501954",
-          "label": "Plan: Ultracite Emergency Protocols",
-          "fields": [
-            "obtain_routes"
           ]
         },
         {
@@ -36967,13 +36913,6 @@
           ]
         },
         {
-          "key": "PLAN_00620A54",
-          "label": "Plan: Medium Supply Crate",
-          "fields": [
-            "obtain_routes"
-          ]
-        },
-        {
           "key": "PLAN_006366FD",
           "label": "Plan: Holiday Tree",
           "fields": [
@@ -37006,48 +36945,6 @@
             "obtain_ledger",
             "obtain_routes",
             "source_tag"
-          ]
-        },
-        {
-          "key": "PLAN_006369B6",
-          "label": "Plan: Ghillie Suit Hood",
-          "fields": [
-            "obtain_routes"
-          ]
-        },
-        {
-          "key": "PLAN_006369B9",
-          "label": "Plan: Nuclear Winter Letterman Jacket",
-          "fields": [
-            "obtain_routes"
-          ]
-        },
-        {
-          "key": "PLAN_006369BF",
-          "label": "Plan: Ring of Fire Pit",
-          "fields": [
-            "obtain_routes"
-          ]
-        },
-        {
-          "key": "PLAN_006369C0",
-          "label": "Plan: Ghillie Suit",
-          "fields": [
-            "obtain_routes"
-          ]
-        },
-        {
-          "key": "PLAN_006369C6",
-          "label": "Plan: Wasteland Loveseat",
-          "fields": [
-            "obtain_routes"
-          ]
-        },
-        {
-          "key": "PLAN_006369C7",
-          "label": "Plan: Antler Chandelier",
-          "fields": [
-            "obtain_routes"
           ]
         },
         {
@@ -38150,6 +38047,21 @@
     "recipe_guide.json": {
       "structural_change": true
     },
+    "repair-bots.json": {
+      "key": "edid",
+      "added": [],
+      "removed": [],
+      "changed": [
+        {
+          "key": "ATX_ENTM_CAMP_Utility_RepairBot_Enclave",
+          "label": "ATX_ENTM_CAMP_Utility_RepairBot_Enclave",
+          "fields": [
+            "howToObtain",
+            "obtainRoutes"
+          ]
+        }
+      ]
+    },
     "resource_producers.json": {
       "key": "edid",
       "added": [],
@@ -38978,28 +38890,74 @@
           "key": "ATX_CAMPTitles_Prefix_CrimeScene",
           "label": "ATX_CAMPTitles_Prefix_CrimeScene",
           "fields": [
+            "imageUrl",
             "title"
+          ]
+        },
+        {
+          "key": "ATX_CAMPTitles_Prefix_Overgrown",
+          "label": "ATX_CAMPTitles_Prefix_Overgrown",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_CAMPTitles_Prefix_Police",
+          "label": "ATX_CAMPTitles_Prefix_Police",
+          "fields": [
+            "imageUrl"
           ]
         },
         {
           "key": "ATX_CAMPTitles_Suffix_AlienSupporter",
           "label": "ATX_CAMPTitles_Suffix_AlienSupporter",
           "fields": [
+            "imageUrl",
             "title"
+          ]
+        },
+        {
+          "key": "ATX_CAMPTitles_Suffix_Base",
+          "label": "ATX_CAMPTitles_Suffix_Base",
+          "fields": [
+            "imageUrl"
           ]
         },
         {
           "key": "ATX_CAMPTitles_Suffix_DaringSupporter",
           "label": "ATX_CAMPTitles_Suffix_DaringSupporter",
           "fields": [
+            "imageUrl",
             "title"
+          ]
+        },
+        {
+          "key": "ATX_CAMPTitles_Suffix_Diner",
+          "label": "ATX_CAMPTitles_Suffix_Diner",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_CAMPTitles_Suffix_Headquarters",
+          "label": "ATX_CAMPTitles_Suffix_Headquarters",
+          "fields": [
+            "imageUrl"
           ]
         },
         {
           "key": "ATX_CAMPTitles_Suffix_Protector",
           "label": "ATX_CAMPTitles_Suffix_Protector",
           "fields": [
+            "imageUrl",
             "title"
+          ]
+        },
+        {
+          "key": "ATX_CAMPTitles_Suffix_Saloon",
+          "label": "ATX_CAMPTitles_Suffix_Saloon",
+          "fields": [
+            "imageUrl"
           ]
         },
         {
@@ -39010,11 +38968,137 @@
           ]
         },
         {
+          "key": "SCORE_MiniSeason_2026_SockHop_CAMPTitles_Prefix_Varnished",
+          "label": "SCORE_MiniSeason_2026_SockHop_CAMPTitles_Prefix_Varnished",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_MiniSeason_2026_SockHop_CAMPTitles_Suffix_Gym",
+          "label": "SCORE_MiniSeason_2026_SockHop_CAMPTitles_Suffix_Gym",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_MiniSeason_2026_WeaponsExpert_CAMPTitles_Prefix_Sharpshooters",
+          "label": "SCORE_MiniSeason_2026_WeaponsExpert_CAMPTitles_Prefix_Sharpshooters",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_MiniSeason_2026_WeaponsExpert_CAMPTitles_Suffix_Arsenal",
+          "label": "SCORE_MiniSeason_2026_WeaponsExpert_CAMPTitles_Suffix_Arsenal",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S24_CAMPTitles_Prefix_Alien",
+          "label": "SCORE_S24_CAMPTitles_Prefix_Alien",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S24_CAMPTitles_Prefix_Bigfoots",
+          "label": "SCORE_S24_CAMPTitles_Prefix_Bigfoots",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S24_CAMPTitles_Prefix_RipDarings",
+          "label": "SCORE_S24_CAMPTitles_Prefix_RipDarings",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S24_CAMPTitles_Suffix_Retreat",
+          "label": "SCORE_S24_CAMPTitles_Suffix_Retreat",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S25_CAMPTitles_Prefix_Fortified",
+          "label": "SCORE_S25_CAMPTitles_Prefix_Fortified",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S25_CAMPTitles_Prefix_Safeguarded",
+          "label": "SCORE_S25_CAMPTitles_Prefix_Safeguarded",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S25_CAMPTitles_Suffix_Bunker",
+          "label": "SCORE_S25_CAMPTitles_Suffix_Bunker",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S25_CAMPTitles_Suffix_LastStand",
+          "label": "SCORE_S25_CAMPTitles_Suffix_LastStand",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S26_CAMPTitles_Prefix_Eerie",
+          "label": "SCORE_S26_CAMPTitles_Prefix_Eerie",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S26_CAMPTitles_Prefix_Haunted",
+          "label": "SCORE_S26_CAMPTitles_Prefix_Haunted",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S26_CAMPTitles_Suffix_Mansion",
+          "label": "SCORE_S26_CAMPTitles_Suffix_Mansion",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S4_CAMPTitles_Prefix_Icebreakers",
+          "label": "SCORE_S4_CAMPTitles_Prefix_Icebreakers",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S4_CAMPTitles_Prefix_YukonFives",
+          "label": "SCORE_S4_CAMPTitles_Prefix_YukonFives",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
           "key": "WorldPets_CampTitles_Prefix_LifetimeChallenge_Dog01",
           "label": "WorldPets_CampTitles_Prefix_LifetimeChallenge_Dog01",
           "fields": [
             "debug",
             "howToObtain"
+          ]
+        },
+        {
+          "key": "zzz_SCORE_S26_CAMPTitles_Suffix_Cemetery",
+          "label": "zzz_SCORE_S26_CAMPTitles_Suffix_Cemetery",
+          "fields": [
+            "imageUrl"
           ]
         }
       ]
@@ -39052,46 +39136,604 @@
       ],
       "changed": [
         {
+          "key": "ATX_F1_PlayerTitles_Prefix_Suffix_Fallout",
+          "label": "ATX_F1_PlayerTitles_Prefix_Suffix_Fallout",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_F1_PlayerTitles_Prefix_Suffix_First",
+          "label": "ATX_F1_PlayerTitles_Prefix_Suffix_First",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Both_Power",
+          "label": "ATX_PlayerTitles_Both_Power",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Abandoned",
+          "label": "ATX_PlayerTitles_Prefix_Abandoned",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
           "key": "ATX_PlayerTitles_Prefix_AdVictoriam",
           "label": "ATX_PlayerTitles_Prefix_AdVictoriam",
           "fields": [
+            "imageUrl",
             "releaseDate",
             "releaseLabel",
             "releaseYear"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Apothecary",
+          "label": "ATX_PlayerTitles_Prefix_Apothecary",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Buzzin",
+          "label": "ATX_PlayerTitles_Prefix_Buzzin",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Contaminated",
+          "label": "ATX_PlayerTitles_Prefix_Contaminated",
+          "fields": [
+            "imageUrl"
           ]
         },
         {
           "key": "ATX_PlayerTitles_Prefix_Contessa",
           "label": "ATX_PlayerTitles_Prefix_Contessa",
           "fields": [
+            "imageUrl",
             "releaseDate",
             "releaseLabel"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Derelict",
+          "label": "ATX_PlayerTitles_Prefix_Derelict",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Enclave",
+          "label": "ATX_PlayerTitles_Prefix_Enclave",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Fizzy",
+          "label": "ATX_PlayerTitles_Prefix_Fizzy",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Flipped",
+          "label": "ATX_PlayerTitles_Prefix_Flipped",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Gleaming",
+          "label": "ATX_PlayerTitles_Prefix_Gleaming",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Heartened",
+          "label": "ATX_PlayerTitles_Prefix_Heartened",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Ice",
+          "label": "ATX_PlayerTitles_Prefix_Ice",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Jagged",
+          "label": "ATX_PlayerTitles_Prefix_Jagged",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Lucky",
+          "label": "ATX_PlayerTitles_Prefix_Lucky",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Midnight",
+          "label": "ATX_PlayerTitles_Prefix_Midnight",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Mothborn",
+          "label": "ATX_PlayerTitles_Prefix_Mothborn",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_NukaCola",
+          "label": "ATX_PlayerTitles_Prefix_NukaCola",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Offroad",
+          "label": "ATX_PlayerTitles_Prefix_Offroad",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Overgrown",
+          "label": "ATX_PlayerTitles_Prefix_Overgrown",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Patriotic",
+          "label": "ATX_PlayerTitles_Prefix_Patriotic",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Polluted",
+          "label": "ATX_PlayerTitles_Prefix_Polluted",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Radiant",
+          "label": "ATX_PlayerTitles_Prefix_Radiant",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Rusty",
+          "label": "ATX_PlayerTitles_Prefix_Rusty",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Scorched",
+          "label": "ATX_PlayerTitles_Prefix_Scorched",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Screaming",
+          "label": "ATX_PlayerTitles_Prefix_Screaming",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Suffix_Cat",
+          "label": "ATX_PlayerTitles_Prefix_Suffix_Cat",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Suffix_Diamond",
+          "label": "ATX_PlayerTitles_Prefix_Suffix_Diamond",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Suffix_Dog",
+          "label": "ATX_PlayerTitles_Prefix_Suffix_Dog",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Suffix_Queen",
+          "label": "ATX_PlayerTitles_Prefix_Suffix_Queen",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Switchback",
+          "label": "ATX_PlayerTitles_Prefix_Switchback",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Thankful",
+          "label": "ATX_PlayerTitles_Prefix_Thankful",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Tiki",
+          "label": "ATX_PlayerTitles_Prefix_Tiki",
+          "fields": [
+            "imageUrl"
           ]
         },
         {
           "key": "ATX_PlayerTitles_Prefix_Tribune",
           "label": "ATX_PlayerTitles_Prefix_Tribune",
           "fields": [
+            "imageUrl",
             "releaseDate",
             "releaseLabel",
             "releaseYear"
           ]
         },
         {
+          "key": "ATX_PlayerTitles_Prefix_Vintage",
+          "label": "ATX_PlayerTitles_Prefix_Vintage",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Weekend",
+          "label": "ATX_PlayerTitles_Prefix_Weekend",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Beauty",
+          "label": "ATX_PlayerTitles_Suffix_Beauty",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Broadcaster",
+          "label": "ATX_PlayerTitles_Suffix_Broadcaster",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
           "key": "ATX_PlayerTitles_Suffix_Buoy",
           "label": "ATX_PlayerTitles_Suffix_Buoy",
           "fields": [
+            "imageUrl",
             "releaseDate",
             "releaseLabel"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Centurion",
+          "label": "ATX_PlayerTitles_Suffix_Centurion",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Cold",
+          "label": "ATX_PlayerTitles_Suffix_Cold",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Conductor",
+          "label": "ATX_PlayerTitles_Suffix_Conductor",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Constable",
+          "label": "ATX_PlayerTitles_Suffix_Constable",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Cosmonaut",
+          "label": "ATX_PlayerTitles_Suffix_Cosmonaut",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_CozyCamper",
+          "label": "ATX_PlayerTitles_Suffix_CozyCamper",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Dinghy",
+          "label": "ATX_PlayerTitles_Suffix_Dinghy",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_FinalDweller",
+          "label": "ATX_PlayerTitles_Suffix_FinalDweller",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Floater",
+          "label": "ATX_PlayerTitles_Suffix_Floater",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Gamer",
+          "label": "ATX_PlayerTitles_Suffix_Gamer",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_GasJockey",
+          "label": "ATX_PlayerTitles_Suffix_GasJockey",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Gulper",
+          "label": "ATX_PlayerTitles_Suffix_Gulper",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Harvester",
+          "label": "ATX_PlayerTitles_Suffix_Harvester",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Hero",
+          "label": "ATX_PlayerTitles_Suffix_Hero",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_HouseFinalist",
+          "label": "ATX_PlayerTitles_Suffix_HouseFinalist",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_JunkyardDog",
+          "label": "ATX_PlayerTitles_Suffix_JunkyardDog",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Mannequin",
+          "label": "ATX_PlayerTitles_Suffix_Mannequin",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Marauder",
+          "label": "ATX_PlayerTitles_Suffix_Marauder",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Prospector",
+          "label": "ATX_PlayerTitles_Suffix_Prospector",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Protector",
+          "label": "ATX_PlayerTitles_Suffix_Protector",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_RaiderFinalist",
+          "label": "ATX_PlayerTitles_Suffix_RaiderFinalist",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Rascal",
+          "label": "ATX_PlayerTitles_Suffix_Rascal",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Salesman",
+          "label": "ATX_PlayerTitles_Suffix_Salesman",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Saleswoman",
+          "label": "ATX_PlayerTitles_Suffix_Saleswoman",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Speakeasy",
+          "label": "ATX_PlayerTitles_Suffix_Speakeasy",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Specialist",
+          "label": "ATX_PlayerTitles_Suffix_Specialist",
+          "fields": [
+            "imageUrl"
           ]
         },
         {
           "key": "ATX_PlayerTitles_Suffix_Sprinkles",
           "label": "ATX_PlayerTitles_Suffix_Sprinkles",
           "fields": [
+            "imageUrl",
             "title",
             "titleFemale",
             "titleMale"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Survivalist",
+          "label": "ATX_PlayerTitles_Suffix_Survivalist",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Technician",
+          "label": "ATX_PlayerTitles_Suffix_Technician",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_TheWatcher",
+          "label": "ATX_PlayerTitles_Suffix_TheWatcher",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Trooper",
+          "label": "ATX_PlayerTitles_Suffix_Trooper",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_UFOlogist",
+          "label": "ATX_PlayerTitles_Suffix_UFOlogist",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Wanderer",
+          "label": "ATX_PlayerTitles_Suffix_Wanderer",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Whopper",
+          "label": "ATX_PlayerTitles_Suffix_Whopper",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_WingedWatcher",
+          "label": "ATX_PlayerTitles_Suffix_WingedWatcher",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Woodsman",
+          "label": "ATX_PlayerTitles_Suffix_Woodsman",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Suffix_Woodswoman",
+          "label": "ATX_PlayerTitles_Suffix_Woodswoman",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "Community_ATX_PlayerTitles_Prefix_Hopeful",
+          "label": "Community_ATX_PlayerTitles_Prefix_Hopeful",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "Community_ATX_PlayerTitles_Suffix_FishingFinalist",
+          "label": "Community_ATX_PlayerTitles_Suffix_FishingFinalist",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "Community_ATX_PlayerTitles_Suffix_RadFinalist",
+          "label": "Community_ATX_PlayerTitles_Suffix_RadFinalist",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "Community_ATX_PlayerTitles_Suffix_RebuildFinalist",
+          "label": "Community_ATX_PlayerTitles_Suffix_RebuildFinalist",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "Community_ATX_PlayerTitles_Suffix_SpookyFinalist",
+          "label": "Community_ATX_PlayerTitles_Suffix_SpookyFinalist",
+          "fields": [
+            "imageUrl"
           ]
         },
         {
@@ -39100,6 +39742,580 @@
           "fields": [
             "debug",
             "howToObtain"
+          ]
+        },
+        {
+          "key": "PTS_PlayerTitles_Suffix_PublicTester",
+          "label": "PTS_PlayerTitles_Suffix_PublicTester",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "PlayerTitles_Prefix_Festive",
+          "label": "PlayerTitles_Prefix_Festive",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_MiniSeason_2025_AppalachianOutlaws_PlayerTitles_Suffix_Outlaw",
+          "label": "SCORE_MiniSeason_2025_AppalachianOutlaws_PlayerTitles_Suffix_Outlaw",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_MiniSeason_2025_MMMFE_PlayerTitles_Prefix_Salty",
+          "label": "SCORE_MiniSeason_2025_MMMFE_PlayerTitles_Prefix_Salty",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_MiniSeason_2025_MMMFE_PlayerTitles_Suffix_MarshalMalow",
+          "label": "SCORE_MiniSeason_2025_MMMFE_PlayerTitles_Suffix_MarshalMalow",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_MiniSeason_2025_NightAtTheMorgue_PlayerTitles_Prefix_Putrid",
+          "label": "SCORE_MiniSeason_2025_NightAtTheMorgue_PlayerTitles_Prefix_Putrid",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_MiniSeason_2025_NightAtTheMorgue_PlayerTitles_Suffix_Cadaver",
+          "label": "SCORE_MiniSeason_2025_NightAtTheMorgue_PlayerTitles_Suffix_Cadaver",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Prefix_Sassy",
+          "label": "SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Prefix_Sassy",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Prefix_Sunset",
+          "label": "SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Prefix_Sunset",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Suffix_Courier",
+          "label": "SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Suffix_Courier",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Suffix_Stranger",
+          "label": "SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Suffix_Stranger",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_MiniSeason_2026_SockHop_PlayerTitles_Prefix_SockHop",
+          "label": "SCORE_MiniSeason_2026_SockHop_PlayerTitles_Prefix_SockHop",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_MiniSeason_2026_SockHop_PlayerTitles_Prefix_Suffix_Enjoyer",
+          "label": "SCORE_MiniSeason_2026_SockHop_PlayerTitles_Prefix_Suffix_Enjoyer",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_MiniSeason_2026_WeaponsExpert_PlayerTitles_Prefix_Merciless",
+          "label": "SCORE_MiniSeason_2026_WeaponsExpert_PlayerTitles_Prefix_Merciless",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_MiniSeason_2026_WeaponsExpert_PlayerTitles_Prefix_Ripped",
+          "label": "SCORE_MiniSeason_2026_WeaponsExpert_PlayerTitles_Prefix_Ripped",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_MiniSeason_2026_WeaponsExpert_PlayerTitles_Suffix_WeaponMaster",
+          "label": "SCORE_MiniSeason_2026_WeaponsExpert_PlayerTitles_Suffix_WeaponMaster",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_MiniSeason_LoveHurts_PlayerTitles_Prefix_Gruesome",
+          "label": "SCORE_MiniSeason_LoveHurts_PlayerTitles_Prefix_Gruesome",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_MiniSeason_LoveHurts_PlayerTitles_Prefix_Infatuated",
+          "label": "SCORE_MiniSeason_LoveHurts_PlayerTitles_Prefix_Infatuated",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_MiniSeason_LoveHurts_PlayerTitles_Suffix_Masochist",
+          "label": "SCORE_MiniSeason_LoveHurts_PlayerTitles_Suffix_Masochist",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S17_PlayerTitles_Suffix_Camper",
+          "label": "SCORE_S17_PlayerTitles_Suffix_Camper",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S19_PlayerTitles_Prefix_Hellfire",
+          "label": "SCORE_S19_PlayerTitles_Prefix_Hellfire",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S19_PlayerTitles_Prefix_mad",
+          "label": "SCORE_S19_PlayerTitles_Prefix_mad",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S19_PlayerTitles_Suffix_Delver",
+          "label": "SCORE_S19_PlayerTitles_Suffix_Delver",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S19_PlayerTitles_Suffix_Experimenter",
+          "label": "SCORE_S19_PlayerTitles_Suffix_Experimenter",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S19_PlayerTitles_Suffix_ScienceOfficer",
+          "label": "SCORE_S19_PlayerTitles_Suffix_ScienceOfficer",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S19_PlayerTitles_Suffix_Scientist",
+          "label": "SCORE_S19_PlayerTitles_Suffix_Scientist",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S19_PlayerTitles_Suffix_Trooper",
+          "label": "SCORE_S19_PlayerTitles_Suffix_Trooper",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S20_PlayerTitles_Prefix_Abominable",
+          "label": "SCORE_S20_PlayerTitles_Prefix_Abominable",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S20_PlayerTitles_Prefix_Feral",
+          "label": "SCORE_S20_PlayerTitles_Prefix_Feral",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S20_PlayerTitles_Prefix_Ghastly",
+          "label": "SCORE_S20_PlayerTitles_Prefix_Ghastly",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S20_PlayerTitles_Prefix_Ghoulish",
+          "label": "SCORE_S20_PlayerTitles_Prefix_Ghoulish",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S20_PlayerTitles_Prefix_Irradiated",
+          "label": "SCORE_S20_PlayerTitles_Prefix_Irradiated",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S20_PlayerTitles_Prefix_Rotten",
+          "label": "SCORE_S20_PlayerTitles_Prefix_Rotten",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S20_PlayerTitles_Prefix_Sickly",
+          "label": "SCORE_S20_PlayerTitles_Prefix_Sickly",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S20_PlayerTitles_Prefix_Undead",
+          "label": "SCORE_S20_PlayerTitles_Prefix_Undead",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S20_PlayerTitles_Suffix_Cannibal",
+          "label": "SCORE_S20_PlayerTitles_Suffix_Cannibal",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S20_PlayerTitles_Suffix_Zombie",
+          "label": "SCORE_S20_PlayerTitles_Suffix_Zombie",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S21_PlayerTitles_Prefix_Paranoid",
+          "label": "SCORE_S21_PlayerTitles_Prefix_Paranoid",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S21_PlayerTitles_Prefix_Reeling",
+          "label": "SCORE_S21_PlayerTitles_Prefix_Reeling",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S21_PlayerTitles_Prefix_Sturdy",
+          "label": "SCORE_S21_PlayerTitles_Prefix_Sturdy",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S21_PlayerTitles_Prefix_Untangled",
+          "label": "SCORE_S21_PlayerTitles_Prefix_Untangled",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S21_PlayerTitles_Suffix_Angler",
+          "label": "SCORE_S21_PlayerTitles_Suffix_Angler",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S21_PlayerTitles_Suffix_Bobber",
+          "label": "SCORE_S21_PlayerTitles_Suffix_Bobber",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S21_PlayerTitles_Suffix_Theorist",
+          "label": "SCORE_S21_PlayerTitles_Suffix_Theorist",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S21_PlayerTitles_Suffix_Trawler",
+          "label": "SCORE_S21_PlayerTitles_Suffix_Trawler",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S22_PlayerTitles_Prefix_Homecooked",
+          "label": "SCORE_S22_PlayerTitles_Prefix_Homecooked",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S22_PlayerTitles_Prefix_Saturnite",
+          "label": "SCORE_S22_PlayerTitles_Prefix_Saturnite",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S22_PlayerTitles_Prefix_SqueakyClean",
+          "label": "SCORE_S22_PlayerTitles_Prefix_SqueakyClean",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S22_PlayerTitles_Prefix_WellRead",
+          "label": "SCORE_S22_PlayerTitles_Prefix_WellRead",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S22_PlayerTitles_Suffix_Deputy",
+          "label": "SCORE_S22_PlayerTitles_Suffix_Deputy",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S22_PlayerTitles_Suffix_Househusband",
+          "label": "SCORE_S22_PlayerTitles_Suffix_Househusband",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S22_PlayerTitles_Suffix_Housewife",
+          "label": "SCORE_S22_PlayerTitles_Suffix_Housewife",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S22_PlayerTitles_Suffix_Reader",
+          "label": "SCORE_S22_PlayerTitles_Suffix_Reader",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S22_PlayerTitles_Suffix_Renovator",
+          "label": "SCORE_S22_PlayerTitles_Suffix_Renovator",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S23_PlayerTitles_Prefix_Crushing",
+          "label": "SCORE_S23_PlayerTitles_Prefix_Crushing",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S23_PlayerTitles_Prefix_Fiendish",
+          "label": "SCORE_S23_PlayerTitles_Prefix_Fiendish",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S23_PlayerTitles_Prefix_Raiding",
+          "label": "SCORE_S23_PlayerTitles_Prefix_Raiding",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S23_PlayerTitles_Prefix_Skull",
+          "label": "SCORE_S23_PlayerTitles_Prefix_Skull",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S23_PlayerTitles_Prefix_Slashing",
+          "label": "SCORE_S23_PlayerTitles_Prefix_Slashing",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S23_PlayerTitles_Suffix_Bandit",
+          "label": "SCORE_S23_PlayerTitles_Suffix_Bandit",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S23_PlayerTitles_Suffix_Cutthroat",
+          "label": "SCORE_S23_PlayerTitles_Suffix_Cutthroat",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S23_PlayerTitles_Suffix_Diehard",
+          "label": "SCORE_S23_PlayerTitles_Suffix_Diehard",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S23_PlayerTitles_Suffix_Gourmand",
+          "label": "SCORE_S23_PlayerTitles_Suffix_Gourmand",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S23_PlayerTitles_Suffix_Trapper",
+          "label": "SCORE_S23_PlayerTitles_Suffix_Trapper",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S24_PlayerTitles_Both_Alien",
+          "label": "SCORE_S24_PlayerTitles_Both_Alien",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S24_PlayerTitles_Both_Bigfoot",
+          "label": "SCORE_S24_PlayerTitles_Both_Bigfoot",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S24_PlayerTitles_Both_CryptidHunter",
+          "label": "SCORE_S24_PlayerTitles_Both_CryptidHunter",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S24_PlayerTitles_Prefix_Armed",
+          "label": "SCORE_S24_PlayerTitles_Prefix_Armed",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S24_PlayerTitles_Prefix_Guinevere",
+          "label": "SCORE_S24_PlayerTitles_Prefix_Guinevere",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S24_PlayerTitles_Prefix_Interstellar",
+          "label": "SCORE_S24_PlayerTitles_Prefix_Interstellar",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S24_PlayerTitles_Prefix_Rip",
+          "label": "SCORE_S24_PlayerTitles_Prefix_Rip",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S24_PlayerTitles_Prefix_Space",
+          "label": "SCORE_S24_PlayerTitles_Prefix_Space",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S24_PlayerTitles_Suffix_Extraterrestrial",
+          "label": "SCORE_S24_PlayerTitles_Suffix_Extraterrestrial",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S24_PlayerTitles_Suffix_Terrestrial",
+          "label": "SCORE_S24_PlayerTitles_Suffix_Terrestrial",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S25_PlayerTitles_Prefix_Infested",
+          "label": "SCORE_S25_PlayerTitles_Prefix_Infested",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S25_PlayerTitles_Prefix_Outdoor",
+          "label": "SCORE_S25_PlayerTitles_Prefix_Outdoor",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S25_PlayerTitles_Suffix_Globetrotter",
+          "label": "SCORE_S25_PlayerTitles_Suffix_Globetrotter",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S25_PlayerTitles_Suffix_Pioneer",
+          "label": "SCORE_S25_PlayerTitles_Suffix_Pioneer",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S26_PlayerTitles_Prefix_Psycho",
+          "label": "SCORE_S26_PlayerTitles_Prefix_Psycho",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S26_PlayerTitles_Suffix_Killer",
+          "label": "SCORE_S26_PlayerTitles_Suffix_Killer",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S4_PlayerTitles_Prefix_PowerPatrol",
+          "label": "SCORE_S4_PlayerTitles_Prefix_PowerPatrol",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S4_PlayerTitles_Suffix_Icebreaker",
+          "label": "SCORE_S4_PlayerTitles_Suffix_Icebreaker",
+          "fields": [
+            "imageUrl"
           ]
         },
         {
@@ -39254,6 +40470,20 @@
           ]
         },
         {
+          "key": "zzzATX_PlayerTitles_Prefix_Festive",
+          "label": "zzzATX_PlayerTitles_Prefix_Festive",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "zzzATX_PlayerTitles_Prefix_Glazed",
+          "label": "zzzATX_PlayerTitles_Prefix_Glazed",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
           "key": "zzzBurnBounty_PlayerTitles_Prefix_Notorious",
           "label": "zzzBurnBounty_PlayerTitles_Prefix_Notorious",
           "fields": [
@@ -39265,6 +40495,20 @@
           "label": "zzzBurnBounty_PlayerTitles_Prefix_Predator",
           "fields": [
             "conditions"
+          ]
+        },
+        {
+          "key": "zzz_SCORE_S26_PlayerTitles_Prefix_Ripper",
+          "label": "zzz_SCORE_S26_PlayerTitles_Prefix_Ripper",
+          "fields": [
+            "imageUrl"
+          ]
+        },
+        {
+          "key": "zzz_SCORE_S26_PlayerTitles_Suffix_Strangler",
+          "label": "zzz_SCORE_S26_PlayerTitles_Suffix_Strangler",
+          "fields": [
+            "imageUrl"
           ]
         }
       ]

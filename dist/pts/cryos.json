@@ -3,8 +3,9 @@
     {
       "formId": "007D70D2",
       "entmFormId": "007D70D2",
-      "goldVendorFormId": "",
+      "actiFormId": "007D70CD",
       "edid": "ATX_ENTM_CAMP_Utility_FishingCoolerCryoFrezer",
+      "kind": "Cryo",
       "displayName": "Fishing Cooler Cryo Freezer",
       "description": "Keep your fish on ice with this Cryo Freezer. It will instantly freeze food and drink items reducing spoilage rates to 0%.",
       "obtainSource": "Atom Shop",
@@ -13,6 +14,7 @@
       "seasonNumber": null,
       "tradeable": false,
       "planName": "",
+      "goldVendorFormId": "",
       "obtainRoutes": [
         {
           "route": "Caps",
@@ -81,13 +83,10 @@
         }
       ],
       "imageUrl": "/wp-content/uploads/guide-images/camp-items/fridges-and-cryos/atx_camp_utility_fishingcoolercryofrezer.avif",
-      "imageCarousel": [
-        "/wp-content/uploads/guide-images/camp-items/fridges-and-cryos/atx_camp_utility_fishingcoolercryofrezer_c1.avif",
-        "/wp-content/uploads/guide-images/camp-items/fridges-and-cryos/atx_camp_utility_fishingcoolercryofrezer_c2.avif"
-      ],
-      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0 — Cannot be built",
+      "imageCarousel": [],
+      "outputInfo": "Food and drink stored inside do not spoil (spoilage rate 0%).",
       "spoilageReduction": "100% (no spoilage)",
-      "xalgFlags": "",
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0 — Cannot be built\nPower Required: 0\nFlamingo Units: —\nShelter Placement: No\nStorage Capacity: 50",
       "craftingRequirements": [
         {
           "name": "Circuitry",
@@ -106,21 +105,25 @@
           "qty": 2
         }
       ],
+      "technicalNotes": "ACTI EDID: ATX_Utility_FishingCoolerCryoFrezer\nACTI FormID: 007D70CD\nBuild List (LVLI) EDID: —\nBuild List (LVLI) FormID: —\nRecipe (COBJ) EDID: ATX_workshop_co_Utility_FishingCoolerCryoFrezer\nRecipe (COBJ) FormID: 007D70CF\nWorkbench Keyword: Workbench_Crafting_Freezer\nSpoilage Priority Keyword: HighPriorityFoodSpoilageContainerKeyword\nSpoilage AV (SURV_FoodSpoilageRateMult): 0\nBuild Limit GLOB (CAMP): SCORE_S14_WorkshopCount_Cyro_Freezer_Camp\nBuild Limit GLOB (Workshop): SCORE_S14_WorkshopCount_Cyro_Freezer\nStorage GLOB: WorkshopStashActivatorGroup_Cryo_Freezer\nENTM Link: ENTM ReferencedBy recipe COBJ",
+      "xalgFlags": "Premium",
       "cutContent": false
     },
     {
       "formId": "006C2F42",
       "entmFormId": "006C2F42",
-      "goldVendorFormId": "00732A91",
+      "actiFormId": "006C2F40",
       "edid": "SCORE_S14_CAMP_Utility_Military_Cryo_Freezer",
+      "kind": "Cryo",
       "displayName": "Military Cryo-Freezer",
       "description": "What's cooler than cool? Ice cold! Instantly freeze food and drink items reducing spoilage rates to 0%.",
       "obtainSource": "Scoreboard",
-      "howToObtain": "Claim from the Fight for Freedom Scoreboard (Season 14)\nOR\nPlan: Military Cryo-Freezer\nVendor: Mortimer\nCost: 1,250 Gold Bullion\nReputation: Raiders — Cautious",
+      "howToObtain": "Claim from the Fight for Freedom Scoreboard (Season 14)\nOR\nPlan: Military Cryo-Freezer\nVendor: Mortimer — Crater\nCost: 1,250 Gold Bullion\nReputation: Raiders — Cautious",
       "dropRate": "N/A",
       "seasonNumber": 14,
       "tradeable": false,
       "planName": "",
+      "goldVendorFormId": "00732A91",
       "obtainRoutes": [
         {
           "route": "Caps",
@@ -193,22 +196,39 @@
           "dropRate": null
         }
       ],
-      "imageUrl": "/wp-content/uploads/guide-images/camp-items/fridges-and-cryos/score_s14_camp_utility_military_cryo_freezer.avif",
-      "imageCarousel": [
-        "/wp-content/uploads/guide-images/camp-items/fridges-and-cryos/score_s14_camp_utility_military_cryo_freezer_c1.avif",
-        "/wp-content/uploads/guide-images/camp-items/fridges-and-cryos/score_s14_camp_utility_military_cryo_freezer_c2.avif"
-      ],
-      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0 — Cannot be built",
+      "imageUrl": "/wp-content/uploads/season_images/season-14/score_s14_camp_utility_military_cryo_freezer.avif",
+      "imageCarousel": [],
+      "outputInfo": "Food and drink stored inside do not spoil (spoilage rate 0%).",
       "spoilageReduction": "100% (no spoilage)",
-      "xalgFlags": "",
-      "craftingRequirements": [],
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0 — Cannot be built\nPower Required: 0\nFlamingo Units: —\nShelter Placement: No\nStorage Capacity: 50",
+      "craftingRequirements": [
+        {
+          "name": "Circuitry",
+          "qty": 5
+        },
+        {
+          "name": "Copper",
+          "qty": 3
+        },
+        {
+          "name": "Rubber",
+          "qty": 2
+        },
+        {
+          "name": "Steel",
+          "qty": 2
+        }
+      ],
+      "technicalNotes": "ACTI EDID: SCORE_S14_Military_Cryo_Freezer\nACTI FormID: 006C2F40\nBuild List (LVLI) EDID: —\nBuild List (LVLI) FormID: —\nRecipe (COBJ) EDID: SCORE_S14_workshop_co_Appliance_Military_Cryo_Freezer\nRecipe (COBJ) FormID: 006C2F41\nUnlock Condition (CNDF) EDID: SCORE_S14_COBJ_MilitaryCryofreezer_Condition\nUnlock Condition (CNDF) FormID: 00732A92\nWorkbench Keyword: Workbench_Crafting_Freezer\nSpoilage Priority Keyword: HighPriorityFoodSpoilageContainerKeyword\nSpoilage AV (SURV_FoodSpoilageRateMult): 0\nBuild Limit GLOB (CAMP): SCORE_S14_WorkshopCount_Cyro_Freezer_Camp\nBuild Limit GLOB (Workshop): SCORE_S14_WorkshopCount_Cyro_Freezer\nStorage GLOB: WorkshopStashActivatorGroup_Cryo_Freezer\nGold Vendor Plan (BOOK) EDID: SCORE_Recipe_workshop_CAMP_Utility_MilitaryCryofreezer_GoldVendor\nGold Vendor Plan (BOOK) FormID: 00732A91\nGold Vendor List: W05_LLV_GoldVendor_Raider_Mortimer_1_Cautious\nENTM Link: Unlock condition (CNDF) references the recipe",
+      "xalgFlags": "Premium",
       "cutContent": false
     },
     {
       "formId": "00773E30",
       "entmFormId": "00773E30",
-      "goldVendorFormId": "",
+      "actiFormId": "00773E15",
       "edid": "ATX_ENTM_CAMP_Utility_NukaColaCryoFreezer",
+      "kind": "Cryo",
       "displayName": "Nuka-Cola Cryo-Freezer",
       "description": "Keep your Nuka-Cola ice cold with this Cryo-Freezer. It will instantly freeze food and drink items reducing spoilage rates to 0%.",
       "obtainSource": "Atom Shop",
@@ -217,6 +237,7 @@
       "seasonNumber": null,
       "tradeable": false,
       "planName": "",
+      "goldVendorFormId": "",
       "obtainRoutes": [
         {
           "route": "Caps",
@@ -285,13 +306,10 @@
         }
       ],
       "imageUrl": "/wp-content/uploads/guide-images/camp-items/fridges-and-cryos/atx_entm_camp_utility_nukacolacryofreezer.avif",
-      "imageCarousel": [
-        "/wp-content/uploads/guide-images/camp-items/fridges-and-cryos/atx_entm_camp_utility_nukacolacryofreezer_c1.avif",
-        "/wp-content/uploads/guide-images/camp-items/fridges-and-cryos/atx_entm_camp_utility_nukacolacryofreezer_c2.avif"
-      ],
-      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0 — Cannot be built",
+      "imageCarousel": [],
+      "outputInfo": "Food and drink stored inside do not spoil (spoilage rate 0%).",
       "spoilageReduction": "100% (no spoilage)",
-      "xalgFlags": "",
+      "buildInfo": "Build Limit per Camp: 1\nBuild Limit per Workshop: 0 — Cannot be built\nPower Required: 0\nFlamingo Units: —\nShelter Placement: Yes\nStorage Capacity: 50",
       "craftingRequirements": [
         {
           "name": "Circuitry",
@@ -310,6 +328,8 @@
           "qty": 2
         }
       ],
+      "technicalNotes": "ACTI EDID: ATX_Utility_NukaColaCryoFreezer\nACTI FormID: 00773E15\nBuild List (LVLI) EDID: —\nBuild List (LVLI) FormID: —\nRecipe (COBJ) EDID: ATX_workshop_co_Utility_NukaColaCryoFreezer\nRecipe (COBJ) FormID: 00773E1D\nWorkbench Keyword: Workbench_Crafting_Freezer\nSpoilage Priority Keyword: HighPriorityFoodSpoilageContainerKeyword\nSpoilage AV (SURV_FoodSpoilageRateMult): 0\nBuild Limit GLOB (CAMP): SCORE_S14_WorkshopCount_Cyro_Freezer_Camp\nBuild Limit GLOB (Workshop): SCORE_S14_WorkshopCount_Cyro_Freezer\nStorage GLOB: WorkshopStashActivatorGroup_Cryo_Freezer\nENTM Link: ENTM ReferencedBy recipe COBJ",
+      "xalgFlags": "Premium",
       "cutContent": false
     }
   ]
