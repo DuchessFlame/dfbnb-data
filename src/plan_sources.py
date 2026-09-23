@@ -1037,6 +1037,80 @@ RARITY_WORDS = {"rare", "common", "uncommon", "ultra", "ultrarare",
 _KEY_STOP = {"vendor", "chest", "the", "of", "and", "a", "an", "for", "from"}
 
 
+_GENERIC_QUEST_KIND = re.compile(r"\b(Side|Main|Daily) Quests\b")
+
+
+def gmrw_quests_for(lvli_fid, lvli_refs, gmrw_quests, depth=3):
+    """Quest titles of the GMRW rewards that hand out this leveled list.
+
+    Walks UP the list's ReferencedBy (list -> parent list -> ... -> GMRW), at
+    most `depth` steps, and returns the ParentQuestDisplay of every GMRW it
+    reaches, de-duplicated and sorted. Only titles that passed
+    usable_quest_name() are in `gmrw_quests`, so nothing unprintable leaks.
+    """
+    found, seen = set(), set()
+    frontier = [str(lvli_fid).upper()]
+    for _ in range(depth):
+        nxt = []
+        for fid in frontier:
+            if fid in seen:
+                continue
+            seen.add(fid)
+            for rf, _redid, rsig in (lvli_refs.get(fid) or ()):
+                rf = (rf or "").upper()
+                if rsig == "GMRW":
+                    q = gmrw_quests.get(rf)
+                    if q:
+                        found.add(q)
+                elif rsig == "LVLI":
+                    nxt.append(rf)
+        frontier = nxt
+        if not frontier:
+            break
+    return sorted(found)
+
+
+def quest_route_label(fam, lvli_fid, lvli_refs, gmrw_quests):
+    """Swap a generic "Side Quests" / "Main Quests" / "Daily Quests" route name
+    for the real quest title(s), or return None to keep `fam`.
+
+    The EditorID only says SQ01, so source_label() can only print "Side
+    Quests" — which tells a reader nothing ("what side quest?!", Duchess,
+    23 Sep 2026). The GMRW that pays the list out DOES name the quest, in
+    ParentQuestDisplay:
+        SDOW_LL_SQ01_RepeatableRewards <- SDOW_SQ01_QuestRewards (GMRW)
+            "Repeatable: Disturbed Grave"
+        -> "The Slasher - Disturbed Grave (Repeatable)"
+    The area/family prefix before " - " is kept; everything after it is
+    replaced by the quest name(s). A "Repeatable: " title prefix becomes the
+    usual " (Repeatable)" suffix. Up to three quests are listed; more than
+    that and the generic name is kept rather than printing a wall of titles.
+    """
+    if not fam or not _GENERIC_QUEST_KIND.search(fam):
+        return None
+    names = gmrw_quests_for(lvli_fid, lvli_refs, gmrw_quests)
+    if not names or len(names) > 3:
+        return None
+    repeatable = fam.endswith("(Repeatable)")
+    clean = []
+    for n in names:
+        m = re.match(r"^\(?Repeatable\)?:?\s+(.*)$", n)
+        if m:
+            repeatable = True
+            n = m.group(1).strip()
+        if n and n not in clean:
+            clean.append(n)
+    if not clean:
+        return None
+    head = fam.split(" - ", 1)[0] if " - " in fam else ""
+    label = ", ".join(clean)
+    if head:
+        label = head + " - " + label
+    if repeatable:
+        label += " (Repeatable)"
+    return label
+
+
 def route_key(label):
     """Normalised identity for a route, for collapsing duplicate rows.
 
@@ -1098,6 +1172,7 @@ class UnlockIndex:
     def __init__(self, tsv_root, newest):
         self._quests_by_fid = {}
         self._gmrw_by_fid = {}
+        self.gmrw_quests = {}   # GMRW FormID -> printable ParentQuestDisplay
         self._gmrw_rewards = collections.defaultdict(list)
         self._names = {}          # FormID -> FULL/EDID for CONT, TERM, NPC_
         self._locations = {}
@@ -1139,6 +1214,21 @@ class UnlockIndex:
                            "quest": (r.get("ParentQuestDisplay") or "").strip()}
                     if fid:
                         self._gmrw_by_fid[fid] = rec
+                        # The quest that actually USES the reward (its
+                        # ReferencedBy QUST) beats ParentQuestDisplay: the Hells
+                        # Eagles reward's parent field points at Custodial
+                        # Compulsions, but only the Hells Eagles quest uses it.
+                        qname = ""
+                        for k, v in r.items():
+                            if k and k.startswith("Ref") and k[3:].isdigit() and v:
+                                parts = v.split(":")
+                                if len(parts) >= 3 and parts[-1].strip() == "QUST":
+                                    qname = self._quests_by_fid.get(parts[0].strip().upper(), "")
+                                    if qname:
+                                        break
+                        qname = qname or rec["quest"]
+                        if usable_quest_name(qname):
+                            self.gmrw_quests[fid] = qname
                     item = (r.get("RewardedItem") or "").strip()
                     if item:
                         self._gmrw_rewards[item.split(":")[0].strip().upper()].append(rec)

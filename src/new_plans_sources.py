@@ -150,7 +150,7 @@ def route_bucket(route, seasonal_rx, event_rx=None):
         return "events"
     if _ACTIVITY.search(label):
         return "activities"
-    if _RX_QUEST.search(label):
+    if _RX_QUEST.search(label) or route.get("quest_reward"):
         return "quests"
     if st == "vendor":
         return "vendors"

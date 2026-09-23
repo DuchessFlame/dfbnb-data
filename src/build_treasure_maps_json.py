@@ -126,12 +126,132 @@ for _omod_f in tsv_source.all_matching(str(TSV_DIR / "OMOD_Export_*.tsv")):
     try:    OMOD_DATA.extend(read_tsv(_omod_f))
     except Exception: pass
 
+# --- Effect-text sources for custom / legendary mods -----------------------
+# Many custom mods leave OMOD DESC empty and carry their effect on a linked
+# record instead: an AVIF (Night Light -> NightLight_IgnoreToD DESC), a PERK
+# (Relic Reaper variants -> Cap Collector etc.), or an ENCH whose MGEF DNAM
+# holds the text (legendary mods like Pick Pocketer's).
+def _read_cols(pattern, cols):
+    try:
+        path = newest(pattern)
+    except FileNotFoundError:
+        return []
+    out = []
+    with open(path, encoding="utf-8", errors="replace", newline="") as f:
+        rdr = csv.reader(f, delimiter="\t")
+        hdr = next(rdr, [])
+        idx = [hdr.index(c) if c in hdr else -1 for c in cols]
+        for row in rdr:
+            out.append({c: (row[i] if 0 <= i < len(row) else "") for c, i in zip(cols, idx)})
+    return out
+
+_PERK_TEXT = {}   # PERK fid -> (FULL, DESC)
+for _r in _read_cols("PERK_Export_*.tsv", ["PERK_FormID", "FULL", "DESC"]):
+    _f = (_r["PERK_FormID"] or "").strip().upper()
+    if _f and _f not in _PERK_TEXT:
+        _PERK_TEXT[_f] = ((_r["FULL"] or "").strip(), (_r["DESC"] or "").strip())
+_AVIF_DESC = {}   # AVIF fid -> DESC
+for _r in _read_cols("AVIF_Export_*.tsv", ["FormID", "DESC"]):
+    if (_r["DESC"] or "").strip():
+        _AVIF_DESC[(_r["FormID"] or "").strip().upper()] = _r["DESC"].strip()
+_MGEF_TEXT = {}   # MGEF fid -> DNAM text
+for _r in _read_cols("MGEF_Export_*.tsv", ["MGEF_FormID", "DNAM_MagicItemDescription"]):
+    if (_r["DNAM_MagicItemDescription"] or "").strip():
+        _MGEF_TEXT[(_r["MGEF_FormID"] or "").strip().upper()] = _r["DNAM_MagicItemDescription"].strip()
+_ENCH_EFFECTS = {}  # ENCH fid -> [(MGEF fid, magnitude)]
+for _r in _read_cols("ENCH_Export_*.tsv", ["ENCH_FormID"] + [
+        f"Effect_{i}_{k}" for i in range(1, 6) for k in ("MGEF_FID", "Magnitude")]):
+    _effs = []
+    for i in range(1, 6):
+        _m = (_r.get(f"Effect_{i}_MGEF_FID") or "").strip().upper()
+        if _m:
+            try:    _mag = float(_r.get(f"Effect_{i}_Magnitude") or 0)
+            except ValueError: _mag = 0.0
+            _effs.append((_m, _mag))
+    _ENCH_EFFECTS[(_r["ENCH_FormID"] or "").strip().upper()] = _effs
+
+_OMOD_PROPS = defaultdict(list)   # OMOD fid -> [(PropertyName, Value1)]
+_OMOD_INCLUDES = {}               # OMOD fid -> [included OMOD fids]
+for _r in OMOD_DATA:
+    _f = (pick(_r, "OMOD_FormID", "FormID") or "").strip().upper()
+    if not _f:
+        continue
+    if "PropertyName" in _r:
+        _OMOD_PROPS[_f].append((_r.get("PropertyName") or "", _r.get("Value1") or ""))
+    _inc = _r.get("Includes_Flat") or ""
+    if _inc and _f not in _OMOD_INCLUDES:
+        _OMOD_INCLUDES[_f] = [x.upper() for x in re.findall(r"\[OMOD:([0-9A-Fa-f]{8})\]", _inc)]
+
+def _fmt_mag(v):
+    return str(int(round(v))) if abs(v - round(v)) < 1e-9 else ("%g" % v)
+
+def _omod_linked_perk(ofid):
+    for _pn, v1 in _OMOD_PROPS.get(ofid, []):
+        m = re.search(r"\[PERK:([0-9A-Fa-f]{8})\]", v1)
+        if m:
+            full, desc = _PERK_TEXT.get(m.group(1).upper(), ("", ""))
+            if not full:
+                n = re.search(r'"+([^"]+)"+ \[PERK', v1)
+                full = n.group(1) if n else ""
+            return full, desc
+    return None
+
+def _omod_effect_desc(ofid):
+    """Effect text for a custom mod whose OMOD DESC is empty."""
+    ofid = (ofid or "").upper()
+    for _pn, v1 in _OMOD_PROPS.get(ofid, []):
+        m = re.search(r"\[AVIF:([0-9A-Fa-f]{8})\]", v1)
+        if m and _AVIF_DESC.get(m.group(1).upper()):
+            return _AVIF_DESC[m.group(1).upper()]
+    lp = _omod_linked_perk(ofid)
+    if lp and lp[1]:
+        return lp[1]
+    # Mod collection: one of the included mods is picked at random.
+    incs = _OMOD_INCLUDES.get(ofid) or []
+    if len(incs) > 1:
+        names = []
+        for inc in incs:
+            p = _omod_linked_perk(inc)
+            if not p or not p[0]:
+                return None
+            names.append(p[0])
+        names = sorted(set(names), key=str.lower)
+        if len(names) == 1:
+            return "Grants the " + names[0] + " perk effect"
+        return ("Grants one random perk effect: " + ", ".join(names[:-1]) +
+                " or " + names[-1])
+    return None
+
+def _legendary_omod_desc(ofid):
+    """Game-file text for a legendary mod: OMOD -> ENCH -> MGEF DNAM with
+    <MAG> filled in. None if the text keeps an unresolved token."""
+    for _pn, v1 in _OMOD_PROPS.get((ofid or "").upper(), []):
+        m = re.search(r"\[ENCH:([0-9A-Fa-f]{8})\]", v1)
+        if not m:
+            continue
+        for mgef, mag in _ENCH_EFFECTS.get(m.group(1).upper(), []):
+            txt = _MGEF_TEXT.get(mgef)
+            if not txt:
+                continue
+            txt = re.sub(r"<\+MAG>", "+" + _fmt_mag(mag), txt, flags=re.I)
+            txt = re.sub(r"<MAG>", _fmt_mag(mag), txt, flags=re.I)
+            if "<" in txt:
+                continue
+            return txt
+    return None
+
 # --------------------------------------------------
 # Index: WEAP Object Template (mod slots for named/unique weapons)
 # --------------------------------------------------
 
 # Slot labels inferred from OMOD EDID keywords or attach point index
 _MOD_SLOT_LABELS = {
+    # Random-legendary mod collections (modcol_Legendary_Crafting_Weapon1 etc.)
+    # are a star slot, not a generic "Mod".
+    "legendary_crafting_weapon1": "1★ Legendary",
+    "legendary_crafting_weapon2": "2★ Legendary",
+    "legendary_crafting_weapon3": "3★ Legendary",
+    "legendary_crafting_weapon4": "4★ Legendary",
     "appearance": "Appearance",
     "paint":      "Appearance",
     "weapon_paint": "Appearance",
@@ -394,6 +514,12 @@ def _filter_and_clean_modslots(slots, item_name=None):
         if d and d.strip().lower() not in _JUNK_OMOD_DESCS:
             if custom_desc is None or len(d) > len(custom_desc):
                 custom_desc = d
+    if not custom_desc:
+        for ofid in custom_omod_fids:
+            d = _omod_effect_desc(ofid)
+            if d:
+                custom_desc = d
+                break
     if not custom_desc and custom_prefix:
         custom_desc = mgef_desc_by_name.get(custom_prefix.lower())
 
@@ -424,7 +550,7 @@ for r in WEAP_OT:
     if combo_full:
         _weap_combo_names[fid][combo_idx] = combo_full
     mod_edid = re.split(r'["\[]', (mod_ref or ""))[0].strip().lower()
-    m = re.match(r"mod_custom_(\w+)", mod_edid)
+    m = re.search(r"(?:^|_)mod_custom_(\w+)", mod_edid)
     if m:
         kw = re.sub(r"_", "", m.group(1)).lower()
         _weap_combo_keywords[fid][combo_idx].add(kw)
@@ -455,6 +581,14 @@ for fid, combos in _weap_combos.items():
         ):
             best_legendary_count = legendary_count
             best_combo_idx = ci
+    # Custom-mod keyword keys win over combo-name keys. Shovel: combo 1 has
+    # FULL "Relic Reaper" but holds the old EN06 Cursed Shovel mods, combo 2
+    # holds SDOW_Mod_Custom_RelicReaper (the Pint-Sized Phantoms reward).
+    for ci, slots in combos.items():
+        if not any("Legendary" in s["label"] for s in slots):
+            continue
+        for kw in _weap_combo_keywords.get(fid, {}).get(ci, set()):
+            variants[kw] = sorted(slots, key=_mod_slot_sort_key)
     if best_combo_idx is not None:
         best_slots = sorted(combos[best_combo_idx], key=_mod_slot_sort_key)
         weap_mod_slots_by_formid[fid] = best_slots
@@ -466,6 +600,10 @@ for fid, combos in _weap_combos.items():
 # --------------------------------------------------
 
 _ARMOR_MOD_SLOT_LABELS = {
+    "legendary_crafting_armor1": "1★ Legendary",
+    "legendary_crafting_armor2": "2★ Legendary",
+    "legendary_crafting_armor3": "3★ Legendary",
+    "legendary_crafting_armor4": "4★ Legendary",
     "legendary_armor1": "1★ Legendary",
     "legendary_armor2": "2★ Legendary",
     "legendary_armor3": "3★ Legendary",
@@ -671,6 +809,11 @@ def _attach_modslots(item, variant_edid):
         return item
     raw = [{"label": s["label"], "value": s["value"], "omod_fid": s.get("omod_fid", "")} for s in resolved]
     cleaned, custom_prefix, custom_desc = _filter_and_clean_modslots(raw, item.get("name"))
+    for s in cleaned:
+        if "Legendary" in (s.get("label") or "") and s.get("omod_fid"):
+            d = _legendary_omod_desc(s["omod_fid"])
+            if d:
+                s["desc"] = d
     if cleaned:
         item["modSlots"] = cleaned
     if custom_prefix:
@@ -1997,9 +2140,23 @@ def build_teammate_reward(entries_idx):
     }
 
 
+_LGDI_TYPE_NAMES = {
+    "armor":          "Legendary Armour Piece",
+    "powerarmor":     "Legendary Power Armour Piece",
+    "weapons_melee":  "Legendary Melee Weapon",
+    "weapons_ranged": "Legendary Ranged Weapon",
+    "weapons_any":    "Legendary Weapon",
+}
+
+
 def _phantom_pretty_name(item, books):
     """Prefer the BOOK FULL name for plan/recipe leaves so they read as
-    'Plan: …' rather than a humanised EDID."""
+    'Plan: …' rather than a humanised EDID. Legendary LGDI leaves read
+    '{N}★ Legendary {Type}' (drop-rate-engine §16)."""
+    if (item.get("sig") or "").upper() == "LGDI":
+        m = re.match(r"(?i)^LegendaryItems_(.+?)_Rank(\d)$", item.get("edid") or "")
+        if m and m.group(1).lower() in _LGDI_TYPE_NAMES:
+            return m.group(2) + "★ " + _LGDI_TYPE_NAMES[m.group(1).lower()]
     if (item.get("sig") or "").upper() == "BOOK":
         nm = books.name(item.get("form_id", ""))
         if nm and nm != item.get("form_id", ""):

@@ -53,6 +53,7 @@ def main(argv=None):
     # exist before the first names_only call -- same order as the builder.
     unlock_idx = plan_sources.UnlockIndex(tsv, lambda pat, root: bpo.newest(pat, root))
     bpo.QUEST_NAMES = unlock_idx.quest_names
+    bpo.GMRW_QUESTS.clear(); bpo.GMRW_QUESTS.update(unlock_idx.gmrw_quests)
     index = plan_conditions.ConditionIndex(tsv, bpo.newest)
     print(f"[conditions] tables loaded in {time.time()-t0:.0f}s "
           f"({len(index.entries)} lists, {index.export})")

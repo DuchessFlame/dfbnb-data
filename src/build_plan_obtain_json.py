@@ -635,6 +635,9 @@ BUCKET_LABEL = {"container":"container","vendor":"vendor","creature":"creature",
 # is an empty index so this file stays importable (and testable) without a TSV
 # tree, in which case naming falls back to the AREA_CODE backstop alone.
 QUEST_NAMES = plan_sources.QuestNames()
+# GMRW FormID -> quest title; set in main() from UnlockIndex. Used to name
+# "Side Quests" routes after the actual quest (plan_sources.quest_route_label).
+GMRW_QUESTS = {}
 
 AREA_CODE  = plan_sources.AREA_CODE          # re-exported: other builders read these
 _DEV_CODES = plan_sources.DEV_CODES
@@ -782,6 +785,7 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
     #    (bucket, family, rate) so identical-rate variants dedupe.
     seen_c = set((r["source_type"], r["route"], round(r["rate"], 4)) for r in routes)  # containers
     seen_n = {}  # (bucket, family, rate4) -> route dict (collapse variants)
+    quest_named = set()  # labels taken from a GMRW quest title (quest_route_label)
     for L in closure:
         via = parent_edid.get(L, "")
         holders = lvli_refs.get(L) or lvli_refs.get(str(L).upper()) or ()
@@ -834,6 +838,14 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
                else source_label(via or str(L)))
         if not fam:
             continue
+        if bucket == "event-quest":
+            # "Side Quests" says nothing; the GMRW that pays this list out
+            # names the real quest.
+            qfam = plan_sources.quest_route_label(fam, str(L).upper(), lvli_refs,
+                                                  GMRW_QUESTS)
+            if qfam:
+                fam = qfam
+                quest_named.add(qfam)
         by_name.setdefault(fam, []).append(L)
         k = (bucket, fam.lower(), round(rate, 4))
         if k not in seen_n:
@@ -848,6 +860,10 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
     routes = routes[:12]
     for r in routes:
         r["lvli"] = sorted(set(by_name.get(r["route"], ())))
+        if r["route"] in quest_named:
+            # Named after the quest that pays it out -- lets New Plans file it
+            # under Quests now the label no longer says "Side Quests".
+            r["quest_reward"] = True
     return routes   # cap: a plan's most-likely dozen sources, highest rate first
 
 # ── main ─────────────────────────────────────────────────────────────────────
@@ -909,6 +925,7 @@ def main(argv=None):
         # index has to exist before the first resolve_routes() call, not after.
         unlock_idx = plan_sources.UnlockIndex(TSV, lambda pat, root: newest(pat, root))
         QUEST_NAMES = unlock_idx.quest_names
+        GMRW_QUESTS.clear(); GMRW_QUESTS.update(unlock_idx.gmrw_quests)
         print(f"[plan-obtain] quest names: {sum(1 for v in QUEST_NAMES.exact.values() if v)} "
               f"unambiguous prefixes, {len(QUEST_NAMES.family)} families")
 
