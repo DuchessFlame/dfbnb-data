@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "generated": "2026-09-22T22:27:02Z",
-  "channel": "pts",
-  "count": 114,
+  "generated": "2026-09-23T04:37:39Z",
+  "channel": "live",
+  "count": 113,
   "counts": {
-    "weapon": 106,
+    "weapon": 105,
     "armour": 8,
     "powerArmour": 0
   },
@@ -3869,7 +3869,7 @@
       "planName": "Plan: Pickaxe",
       "tradeable": true,
       "formId": "00002840",
-      "edid": "Pickaxe",
+      "edid": "pickaxe",
       "inCurrentExport": true,
       "isCut": false,
       "uniqueMods": [],
@@ -5540,7 +5540,7 @@
       "planName": "",
       "tradeable": true,
       "formId": "00002840",
-      "edid": "Pickaxe",
+      "edid": "pickaxe",
       "inCurrentExport": true,
       "isCut": false,
       "uniqueMods": [
@@ -10609,6 +10609,13 @@
       },
       "starEffects": [
         {
+          "star": 1,
+          "name": "Random",
+          "edid": "",
+          "formId": "",
+          "fixed": false
+        },
+        {
           "star": 2,
           "name": "Random",
           "edid": "",
@@ -14317,122 +14324,6 @@
       "recordIds": []
     },
     {
-      "id": "stormcutter",
-      "name": "V63 Zweihaender",
-      "kind": "Weapon",
-      "subType": "Melee",
-      "base": "V63 Zweihaender",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {
-        "damage": 40,
-        "fireRate": 1.0,
-        "range": 10,
-        "weight": 15.0,
-        "value": 100,
-        "ammoType": null,
-        "capacity": 0,
-        "apCost": 47,
-        "critMult": 3.0,
-        "minLevel": 30
-      },
-      "starEffects": [],
-      "inherentEffect": "",
-      "buffs": [],
-      "cosmeticOnly": false,
-      "cosmeticNote": "",
-      "howToObtain": "Quest: Skyline Valley",
-      "sourceType": "Quest",
-      "sourceRef": "Skyline Valley",
-      "questName": "Skyline Valley",
-      "craftable": true,
-      "planName": "",
-      "tradeable": true,
-      "formId": "0072DF0B",
-      "edid": "Stormcutter",
-      "inCurrentExport": true,
-      "isCut": false,
-      "uniqueMods": [],
-      "obtainRoutes": [
-        {
-          "route": "Caps",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Stamps",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Scoreboard",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Gold Bullion",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Atom Shop",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Limited Time Bundle",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Events & Activities",
-          "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon",
-            "Source: Expedition"
-          ],
-          "tradeable": true,
-          "dropRate": "N/A"
-        },
-        {
-          "route": "Quests",
-          "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon",
-            "Source: The Eye of the Storm"
-          ],
-          "tradeable": true,
-          "dropRate": "N/A"
-        },
-        {
-          "route": "Challenges",
-          "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon",
-            "Source: RTSV Challenge Reward Challenge Lifetime Brain 1",
-            "Source: RTSV Challenge Reward Challenge Lifetime Brain 9"
-          ],
-          "tradeable": true,
-          "dropRate": "N/A"
-        }
-      ],
-      "recordIds": [
-        "0072DF0B"
-      ]
-    },
-    {
       "id": "dlc01lightninggun-3",
       "name": "V63-BERTHA",
       "kind": "Weapon",
@@ -14556,8 +14447,8 @@
       "recordIds": []
     },
     {
-      "id": "stormcutter-2",
-      "name": "V63-Z",
+      "id": "stormcutter",
+      "name": "V63-Z Custom",
       "kind": "Weapon",
       "subType": "Melee",
       "base": "V63 Zweihaender",
@@ -14589,32 +14480,31 @@
           "edid": "mod_Legendary_Weapon2_DmgCrits",
           "formId": "0052414B",
           "fixed": true
+        },
+        {
+          "star": 3,
+          "name": "Random",
+          "edid": "",
+          "formId": "",
+          "fixed": false
         }
       ],
       "inherentEffect": "",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Source unconfirmed",
-      "sourceType": "Unknown",
-      "sourceRef": "",
-      "questName": "",
-      "craftable": false,
+      "howToObtain": "Quest: Skyline Valley",
+      "sourceType": "Quest",
+      "sourceRef": "Skyline Valley",
+      "questName": "Skyline Valley",
+      "craftable": true,
       "planName": "",
-      "tradeable": null,
+      "tradeable": true,
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
       "isCut": false,
-      "uniqueMods": [
-        {
-          "name": "V63-Z Custom",
-          "edid": "mod_custom_StormSlasher",
-          "formId": "008B0902",
-          "kind": "unique",
-          "desc": ""
-        }
-      ],
+      "uniqueMods": [],
       "obtainRoutes": [
         {
           "route": "Caps",
@@ -14667,10 +14557,13 @@
         },
         {
           "route": "Quests",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
+          "populated": true,
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Skyline Valley"
+          ],
+          "tradeable": true,
+          "dropRate": "N/A"
         },
         {
           "route": "Challenges",
