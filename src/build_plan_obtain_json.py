@@ -814,7 +814,9 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
             elif b == "creature" and not creature_name:
                 # An NPC's FULL name beats anything derivable from its EditorID:
                 # "Pint-Sized Slasher" rather than "SDOW Burn Bounty BIG Slasher".
-                creature_name = (npc_names.get((rf or "").upper())
+                creature_name = (plan_sources.CURATED_LABELS.get(redid)
+                                 or plan_sources.bounty_npc_label(redid, npc_names.get((rf or "").upper()))
+                                 or npc_names.get((rf or "").upper())
                                  or source_label(redid) or humanize(redid))
         if bucket == "vendor" and vend_name:
             name = vend_name

@@ -36,11 +36,16 @@ SOURCE_ORDER = [
     ("events",      "Events"),
     ("seasonal",    "Seasonal Events"),
     ("activities",  "Activities"),
+    ("maps",        "Maps"),
+    ("infestations", "Infestations"),
+    ("party-crashers", "Party Crashers"),
+    ("bounty",      "Bounty Hunting"),
+    ("mutated-packs", "Mutated Party Packs"),
     ("challenges",  "Challenges"),
     ("raids",       "Raids"),
     ("scoreboard",  "Scoreboard"),
     ("gold",        "Gold Bullion Vendors"),
-    ("vendors",     "Vendors"),
+    ("vendors",     "Vendors (Caps)"),
     ("enemies",     "Enemies"),
     ("scrap",       "Scrap to Learn"),
     ("atom",        "Atom Shop"),
@@ -54,9 +59,21 @@ LABELS = dict(SOURCE_ORDER)
 # contain the event's page name. Extend here if a new event's lists read oddly.
 SEASONAL_ALIASES = ["spooky", "halloween", "holiday", "festive", "fasnacht",
                     "invaders", "meat week", "mischief", "equinox",
-                    "big bloom", "treasure hunter"]
+                    "big bloom", "treasure hunter", "treasure hunt"]
 
-_ACTIVITY = re.compile(r"infestation|grave digging|head hunt|party crasher|expedition|"
+# Own groups (Duchess, 23 Sep 2026), tested before the general ones:
+#   Mutated Party Packs — every "Mutated Public Events - ..." list is the
+#     contents of the two packs a Mutated Event hands out (Single / Double
+#     Mutation, each with a Fallout 1st variant); the lists are opened by the
+#     MutatedEvents_Package_* effects, not rolled by the event itself.
+#   Bounty Hunting — Head Hunts and Grunt Hunts.
+_RX_MUTATED = re.compile(r"mutated public events?|mutatedevents", re.I)
+_RX_INFEST = re.compile(r"infestation", re.I)
+_RX_CRASHER = re.compile(r"party crasher", re.I)
+_RX_BOUNTY = re.compile(r"head hunt|grunt hunt|bounty", re.I)
+# Maps (Duchess, 23 Sep 2026): treasure maps, grave digging and Lucky Strike maps.
+_RX_MAPS = re.compile(r"treasure map|buried treasure|grave digging|lucky strike|dig site", re.I)
+_ACTIVITY = re.compile(r"expedition|"
                        r"\bactivity\b|dig site|treasure map|caravan", re.I)
 _RX_RAID = re.compile(r"\braids?\b", re.I)
 _RX_QUEST = re.compile(r"\(quest\)|\bside quests?\b|\bquest reward|\bquests?\b", re.I)
@@ -109,6 +126,20 @@ def route_bucket(route, seasonal_rx, event_rx=None):
         return "stamps"
     if "gold bullion" in low:
         return "gold"
+    # Any other trader is a caps vendor, whatever place or content their label
+    # names ("Expeditions - Giuseppe vendor" is a shop, not an expedition).
+    if st == "vendor":
+        return "vendors"
+    if _RX_MUTATED.search(label):
+        return "mutated-packs"
+    if _RX_INFEST.search(label):
+        return "infestations"
+    if _RX_CRASHER.search(label):
+        return "party-crashers"
+    if _RX_BOUNTY.search(label):
+        return "bounty"
+    if _RX_MAPS.search(label):
+        return "maps"
     if seasonal_rx.search(label):
         return "seasonal"
     if _RX_RAID.search(label):

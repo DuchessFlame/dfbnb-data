@@ -266,6 +266,7 @@ def cut_reason(edid, refs=None, recipe_unlock=None):
 # the lower->upper split fires between the o and the S. Protect first, expand
 # second — the order is the fix.
 ACRONYMS = {
+    "mischief":   "Mischief Night",       # the seasonal event, never the word alone
     "bos":        "Brotherhood of Steel",
     "pa":         "Power Armor",
     "nw":         "Nuclear Winter",
@@ -299,6 +300,7 @@ AREA_CODE = {
     "w05":           "Wastelanders",
     "bs01":          "Steel Dawn",
     "bs02":          "Steel Reign",
+    "treasurehunt":  "Treasure Hunter",     # the seasonal event; see LOOT_BAG_SUFFIX
     "v94":           "Vault 94",
     "v96":           "Vault 96",
     "atx":           "Atom Shop",
@@ -760,6 +762,29 @@ def _split_tokens(parts):
     return out
 
 
+# Burning Springs bounty targets: the NPC's own FULL ("The Reborn Pint-Sized
+# Slasher") says nothing about WHERE you meet it. _BIG_ targets are the
+# three-star Head Hunt bosses, _REG_/_SML_ the one/two-star Grunt Hunt targets
+# (Default Three/Two/One Star Target templates). Duchess, 23 Sep 2026.
+_RX_BOUNTY_NPC = re.compile(r"BountyTarget_(BIG|REG|SML)(?:_|$)", re.I)
+
+
+def bounty_npc_label(npc_edid, full):
+    """'Bounty Hunting: Head Hunt - <name>' for a bounty-target NPC, else None."""
+    m = _RX_BOUNTY_NPC.search(npc_edid or "")
+    if not m or not full:
+        return None
+    kind = "Head Hunt" if m.group(1).upper() == "BIG" else "Grunt Hunt"
+    return f"Bounty Hunting: {kind} - {full}"
+
+
+# EditorID fragment -> the loot bag its list is the contents of.
+LOOT_BAG_SUFFIX = {"treasurehunt": "Mole Miner Pail"}
+
+# Vendors named on their own, with no "<update/region> - " prefix.
+TRAVELLING_TRADERS = {"minerva"}
+
+
 def _shape_vendor(head, words):
     """Render a vendor route as a person and a currency, not a pile of tokens.
 
@@ -796,7 +821,12 @@ def _shape_vendor(head, words):
             break
 
     name = re.sub(r"\s+", " ", joined).strip()
-    if name:
+    if name and name.lower() in TRAVELLING_TRADERS:
+        # A trader who moves around has no place worth naming, and the head here
+        # is only the update she shipped in ("Steel Reign"). Duchess, 23 Sep
+        # 2026: "just the Minerva gold thing is fine".
+        lead, place = name, None
+    elif name:
         lead, place = name, head
     elif faction:
         # No trader name — these are the faction vendor chests, best identified
@@ -814,6 +844,19 @@ def _shape_vendor(head, words):
     return label
 
 
+# Names the EditorID can't produce on its own. Keyed by EditorID (list OR NPC).
+# The Mischief Night party crasher: the Uninvited Pint-Sized Phantom crashes
+# Mischief Night, and its drop list is SDOW_LLD_Creature_SlasherFan_PartyCrasher,
+# which says neither "Mischief" nor "Night" — the live site read "The Slasher -
+# Fan Party Crasher" (Duchess, 23 Sep 2026). The NPC override is read by
+# build_plan_obtain_json before the NPC's own FULL name.
+CURATED_LABELS = {
+    "SDOW_LLD_Creature_SlasherFan_PartyCrasher":             "Mischief Night - Party Crasher",
+    "SDOW_MischiefPartyCrasherRewards_Rare":                 "Mischief Night - Party Crasher",
+    "SDOW_LvlSlasherFanBossPowerArmorHeavyAuto_PartyCrasher": "Mischief Night - Uninvited Pint-Sized Phantom",
+}
+
+
 def source_label(edid, quests=None):
     """Readable name for a leveled list, or None if it is not a real source.
 
@@ -822,6 +865,8 @@ def source_label(edid, quests=None):
     return None so the caller can drop the route entirely.
     """
     raw = (edid or "").strip()
+    if raw in CURATED_LABELS:
+        return CURATED_LABELS[raw]
     if not raw:
         return None
 
@@ -965,6 +1010,14 @@ def source_label(edid, quests=None):
         label = head or tail or None
     if label and repeatable and "(repeatable)" not in label.lower():
         label = f"{label} (Repeatable)"
+    # Lists that are the CONTENTS of a loot bag the player opens, so the page
+    # says the plan comes out of the bag, not off the enemy (Duchess, 23 Sep
+    # 2026). Treasure Hunter's reward lists open from the Mole Miner Pails you
+    # dig up (c_TreasureHunt_EmptyChest_Tier_01-03 = Dusty / plain / Ornate).
+    if label:
+        for code, bag in LOOT_BAG_SUFFIX.items():
+            if code in raw.lower() and f"({bag.lower()})" not in label.lower():
+                label = f"{label} ({bag})"
     # Append the activity type for a bare quest/phase name ("... Out of the
     # Shadows" -> "... (Infestations)"). Keyed on the resolved head so the type
     # is looked up from the quest, not the whole assembled label.

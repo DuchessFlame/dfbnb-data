@@ -31,7 +31,7 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+              "route": "Minerva (Gold Bullion vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%",
@@ -136,7 +136,7 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+              "route": "Minerva (Gold Bullion vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%",
@@ -248,7 +248,7 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+              "route": "Minerva (Gold Bullion vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%",
@@ -353,7 +353,7 @@
           "category_label": "Armour Mod / Paint",
           "obtain_routes": [
             {
-              "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+              "route": "Minerva (Gold Bullion vendor)",
               "source_type": "vendor",
               "rate": 1.0,
               "rate_display": "100%",
@@ -566,12 +566,13 @@
           "armour_group": "Civil Engineer",
           "armour_group_key": "civil-engineer",
           "armour_group_solo": false,
-          "group": "activities",
+          "group": "vendors",
           "is_new": true,
-          "source_group": "activities",
+          "source_group": "vendors",
           "type_label": "Armour Mod",
           "type_group": "armour-mod",
           "source_groups": [
+            "vendors",
             "activities"
           ]
         },
@@ -688,12 +689,13 @@
           "armour_group": "Civil Engineer",
           "armour_group_key": "civil-engineer",
           "armour_group_solo": false,
-          "group": "activities",
+          "group": "vendors",
           "is_new": true,
-          "source_group": "activities",
+          "source_group": "vendors",
           "type_label": "Armour Mod",
           "type_group": "armour-mod",
           "source_groups": [
+            "vendors",
             "activities"
           ]
         }
@@ -1009,6 +1011,259 @@
           "type_group": "armour-mod",
           "source_groups": [
             "gold"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "vendors",
+      "label": "Vendors (Caps)",
+      "count": 2,
+      "items": [
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "armour",
+          "id": "PLAN_00916666",
+          "name": "Plan: Civil Engineer Spring Assisted Armor Limb",
+          "has_image_box": false,
+          "image_dir": "body-armour",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "Armour Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Expeditions - Giuseppe vendor",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "0063966F"
+              ],
+              "conditions": [
+                "Stops dropping once you learn it"
+              ]
+            },
+            {
+              "route": "Atlantic City Expedition - Mission",
+              "source_type": "event-quest",
+              "rate": 0.02439,
+              "rate_display": "2.44%",
+              "lvli": [
+                "006D3A67",
+                "006D3A68",
+                "006E5FFF",
+                "006F4DB9"
+              ],
+              "conditions": [
+                "Stops dropping once you learn it"
+              ]
+            },
+            {
+              "route": "Atlantic City Expedition - Mission",
+              "source_type": "event-quest",
+              "rate": 0.001876,
+              "rate_display": "0.19%",
+              "lvli": [
+                "006D3A67",
+                "006D3A68",
+                "006E5FFF",
+                "006F4DB9"
+              ],
+              "conditions": [
+                "Stops dropping once you learn it"
+              ]
+            },
+            {
+              "route": "Atlantic City Expedition - Mission",
+              "source_type": "event-quest",
+              "rate": 0.001524,
+              "rate_display": "0.15%",
+              "lvli": [
+                "006D3A67",
+                "006D3A68",
+                "006E5FFF",
+                "006F4DB9"
+              ],
+              "conditions": [
+                "Stops dropping once you learn it"
+              ]
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "00916666",
+            "edid": "Recipe_XPD_AC_mod_armor_Muni_Lining_Torso_ThrownDamage"
+          },
+          "cobj": {
+            "formid": "0090F5E6",
+            "edid": "co_mod_armor_XPD_AC_Muni_Lining_Limb_ThrownDamage"
+          },
+          "cnam": {
+            "formid": "0090F5F4",
+            "edid": "mod_armor_XPD_AC_Muni_Lining_Limb_ThrownDamage",
+            "sig": "OMOD"
+          },
+          "tradeable": false,
+          "stops_dropping": true,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Stamps",
+              "routes": [
+                0
+              ]
+            },
+            {
+              "label": "Events & Activities",
+              "routes": [
+                1,
+                2,
+                3
+              ]
+            }
+          ],
+          "source_tag": "Expos",
+          "images": [],
+          "image_source": "",
+          "plan_page": "body-armour",
+          "plan_page_group": null,
+          "armour_role": "mod",
+          "armour_group": "Civil Engineer",
+          "armour_group_key": "civil-engineer",
+          "armour_group_solo": false,
+          "group": "vendors",
+          "is_new": true,
+          "source_group": "vendors",
+          "type_label": "Armour Mod",
+          "type_group": "armour-mod",
+          "source_groups": [
+            "vendors",
+            "activities"
+          ]
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "armour",
+          "id": "PLAN_00916665",
+          "name": "Plan: Civil Engineer Tattered Armor Torso",
+          "has_image_box": false,
+          "image_dir": "body-armour",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "Armour Mod / Paint",
+          "obtain_routes": [
+            {
+              "route": "Expeditions - Giuseppe vendor",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "0063966F"
+              ],
+              "conditions": [
+                "Stops dropping once you learn it"
+              ]
+            },
+            {
+              "route": "Atlantic City Expedition - Mission",
+              "source_type": "event-quest",
+              "rate": 0.02439,
+              "rate_display": "2.44%",
+              "lvli": [
+                "006D3A67",
+                "006D3A68",
+                "006E5FFF",
+                "006F4DB9"
+              ],
+              "conditions": [
+                "Stops dropping once you learn it"
+              ]
+            },
+            {
+              "route": "Atlantic City Expedition - Mission",
+              "source_type": "event-quest",
+              "rate": 0.001876,
+              "rate_display": "0.19%",
+              "lvli": [
+                "006D3A67",
+                "006D3A68",
+                "006E5FFF",
+                "006F4DB9"
+              ],
+              "conditions": [
+                "Stops dropping once you learn it"
+              ]
+            },
+            {
+              "route": "Atlantic City Expedition - Mission",
+              "source_type": "event-quest",
+              "rate": 0.001524,
+              "rate_display": "0.15%",
+              "lvli": [
+                "006D3A67",
+                "006D3A68",
+                "006E5FFF",
+                "006F4DB9"
+              ],
+              "conditions": [
+                "Stops dropping once you learn it"
+              ]
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "00916665",
+            "edid": "Recipe_XPD_AC_mod_armor_Muni_Lining_Torso_RadResReduced"
+          },
+          "cobj": {
+            "formid": "0090E76F",
+            "edid": "co_mod_armor_XPD_AC_Muni_Lining_Torso_RadResistanceReduce"
+          },
+          "cnam": {
+            "formid": "0090E780",
+            "edid": "mod_armor_XPD_AC_Muni_Lining_Torso_RadResistanceReduce",
+            "sig": "OMOD"
+          },
+          "tradeable": false,
+          "stops_dropping": true,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Stamps",
+              "routes": [
+                0
+              ]
+            },
+            {
+              "label": "Events & Activities",
+              "routes": [
+                1,
+                2,
+                3
+              ]
+            }
+          ],
+          "source_tag": "Expos",
+          "images": [],
+          "image_source": "",
+          "plan_page": "body-armour",
+          "plan_page_group": null,
+          "armour_role": "mod",
+          "armour_group": "Civil Engineer",
+          "armour_group_key": "civil-engineer",
+          "armour_group_solo": false,
+          "group": "vendors",
+          "is_new": true,
+          "source_group": "vendors",
+          "type_label": "Armour Mod",
+          "type_group": "armour-mod",
+          "source_groups": [
+            "vendors",
+            "activities"
           ]
         }
       ]
