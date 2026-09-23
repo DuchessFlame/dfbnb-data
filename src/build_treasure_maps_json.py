@@ -155,7 +155,9 @@ for _r in _read_cols("AVIF_Export_*.tsv", ["FormID", "DESC"]):
     if (_r["DESC"] or "").strip():
         _AVIF_DESC[(_r["FormID"] or "").strip().upper()] = _r["DESC"].strip()
 _MGEF_TEXT = {}   # MGEF fid -> DNAM text
-for _r in _read_cols("MGEF_Export_*.tsv", ["MGEF_FormID", "DNAM_MagicItemDescription"]):
+_MGEF_EDID = {}   # MGEF fid -> EDID
+for _r in _read_cols("MGEF_Export_*.tsv", ["MGEF_FormID", "EDID", "DNAM_MagicItemDescription"]):
+    _MGEF_EDID[(_r["MGEF_FormID"] or "").strip().upper()] = (_r["EDID"] or "").strip()
     if (_r["DNAM_MagicItemDescription"] or "").strip():
         _MGEF_TEXT[(_r["MGEF_FormID"] or "").strip().upper()] = _r["DNAM_MagicItemDescription"].strip()
 _ENCH_EFFECTS = {}  # ENCH fid -> [(MGEF fid, magnitude)]
@@ -182,6 +184,32 @@ for _r in OMOD_DATA:
     if _inc and _f not in _OMOD_INCLUDES:
         _OMOD_INCLUDES[_f] = [x.upper() for x in re.findall(r"\[OMOD:([0-9A-Fa-f]{8})\]", _inc)]
 
+# Perks whose PERK record isn't in any export (only their PCRD card is), so
+# the text is written from what the game data does show:
+#  - Fortune Finder: caps-stash ACTIs carry PerkPlayLocationalAudio with
+#    RequiredPerk=FortuneFinder01 and SoundToPlay=UIPerkSonarBCapsStash.
+#  - Pannapictagraphist / Percepti-Bobble: same card family + sound
+#    (UIPerkMenuFortuneFinder); card text "You can just hear those sweet,
+#    sweet zines!" / "Gettin' warm!".
+_PERK_DESC_FALLBACK = {
+    "00518504": "Hear a sonar ping when you're near a caps stash.",
+    "003E956E": "Hear a sonar ping when you're near a magazine.",
+    "003E956D": "Hear a sonar ping when you're near a bobblehead.",
+}
+
+# Legendary effects whose MGEF text is missing or stale, written from the
+# ENCH stats. Keyed by MGEF EDID; {mag} = the ENCH magnitude.
+#  - Legendary_DamageNightEffect (Nocturnal): DNAM still reads the old
+#    "+<MAG.MAX> Damage while Cloaked"; ENCH FULL is "Damage at night", mag 50.
+_LEGENDARY_MGEF_TEXT = {
+    "Legendary_DamageNightEffect": "Up to +{mag}% damage at night.",
+}
+# Legendary mods with no ENCH at all — the effect is a plain OMOD stat.
+# Keyed by OMOD PropertyName; {pct} = Value1 × 100.
+_LEGENDARY_PROP_TEXT = {
+    "ReloadSpeed": "{pct}% faster reload speed.",
+}
+
 def _fmt_mag(v):
     return str(int(round(v))) if abs(v - round(v)) < 1e-9 else ("%g" % v)
 
@@ -190,6 +218,8 @@ def _omod_linked_perk(ofid):
         m = re.search(r"\[PERK:([0-9A-Fa-f]{8})\]", v1)
         if m:
             full, desc = _PERK_TEXT.get(m.group(1).upper(), ("", ""))
+            if not desc:
+                desc = _PERK_DESC_FALLBACK.get(m.group(1).upper(), "")
             if not full:
                 n = re.search(r'"+([^"]+)"+ \[PERK', v1)
                 full = n.group(1) if n else ""
@@ -209,17 +239,17 @@ def _omod_effect_desc(ofid):
     # Mod collection: one of the included mods is picked at random.
     incs = _OMOD_INCLUDES.get(ofid) or []
     if len(incs) > 1:
-        names = []
+        perks = {}
         for inc in incs:
             p = _omod_linked_perk(inc)
             if not p or not p[0]:
                 return None
-            names.append(p[0])
-        names = sorted(set(names), key=str.lower)
-        if len(names) == 1:
-            return "Grants the " + names[0] + " perk effect"
-        return ("Grants one random perk effect: " + ", ".join(names[:-1]) +
-                " or " + names[-1])
+            perks[p[0]] = p[1]
+        names = sorted(perks, key=str.lower)
+        lines = ["Grants one of these perk effects at random:"]
+        for n in names:
+            lines.append("• " + n + (" — " + perks[n] if perks[n] else ""))
+        return "\n".join(lines)
     return None
 
 def _legendary_omod_desc(ofid):
@@ -230,6 +260,9 @@ def _legendary_omod_desc(ofid):
         if not m:
             continue
         for mgef, mag in _ENCH_EFFECTS.get(m.group(1).upper(), []):
+            tmpl = _LEGENDARY_MGEF_TEXT.get(_MGEF_EDID.get(mgef, ""))
+            if tmpl:
+                return tmpl.format(mag=_fmt_mag(mag))
             txt = _MGEF_TEXT.get(mgef)
             if not txt:
                 continue
@@ -238,6 +271,13 @@ def _legendary_omod_desc(ofid):
             if "<" in txt:
                 continue
             return txt
+    for pn, v1 in _OMOD_PROPS.get((ofid or "").upper(), []):
+        tmpl = _LEGENDARY_PROP_TEXT.get(pn)
+        if tmpl:
+            try:
+                return tmpl.format(pct=_fmt_mag(float(v1) * 100))
+            except ValueError:
+                pass
     return None
 
 # --------------------------------------------------
