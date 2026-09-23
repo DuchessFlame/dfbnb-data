@@ -1749,9 +1749,6 @@
     "calculators/build_inspiration.json": {
       "structural_change": true
     },
-    "calculators/healing_calculator.json": {
-      "structural_change": true
-    },
     "calculators/outfit_inspiration.json": {
       "key": "edid",
       "added": [
@@ -1957,9 +1954,6 @@
       ],
       "removed": [],
       "changed": []
-    },
-    "chainsaws.json": {
-      "structural_change": true
     },
     "chainsaws/chainsaw.json": {
       "structural_change": true
@@ -22515,9 +22509,6 @@
     "collectable_spawns_pint-sized-phantom-graves.json": {
       "structural_change": true
     },
-    "collectable_spawns_pint-sized-slasher-masks.json": {
-      "structural_change": true
-    },
     "collectable_spawns_treasure-maps-locations.json": {
       "structural_change": true
     },
@@ -33760,35 +33751,45 @@
           "key": "SCORE_S11_ENTM_CAMP_Utility_Collectron_NukaQuantum",
           "label": "SCORE_S11_ENTM_CAMP_Utility_Collectron_NukaQuantum",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
           "key": "SCORE_S14_ENTM_CAMP_Utility_Collectron_AutoMiner",
           "label": "SCORE_S14_ENTM_CAMP_Utility_Collectron_AutoMiner",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
           "key": "SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster",
           "label": "SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
           "key": "SCORE_S22_ENTM_CAMP_Utility_Collectron_RoboButler",
           "label": "SCORE_S22_ENTM_CAMP_Utility_Collectron_RoboButler",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
           "key": "SCORE_S23_ENTM_CAMP_Utility_Collectron_Cornbot",
           "label": "SCORE_S23_ENTM_CAMP_Utility_Collectron_Cornbot",
           "fields": [
+            "howToObtain",
             "imageUrl",
+            "obtainRoutes",
             "production"
           ]
         },
@@ -33796,6 +33797,8 @@
           "key": "SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand",
           "label": "SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand",
           "fields": [
+            "howToObtain",
+            "obtainRoutes",
             "releaseDate"
           ]
         },
@@ -33810,7 +33813,9 @@
           "key": "SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola",
           "label": "SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
@@ -33832,6 +33837,7 @@
           "key": "zzzATX_ENTM_CAMP_Utility_Collectron_SilverBot",
           "label": "zzzATX_ENTM_CAMP_Utility_Collectron_SilverBot",
           "fields": [
+            "howToObtain",
             "releaseDate"
           ]
         }
@@ -33846,9 +33852,6 @@
     "cryptids/angler.json": {
       "structural_change": true
     },
-    "cryptids/bigfoot.json": {
-      "structural_change": true
-    },
     "cryptids/blue-devil.json": {
       "structural_change": true
     },
@@ -33856,9 +33859,6 @@
       "structural_change": true
     },
     "cryptids/grafton-monster.json": {
-      "structural_change": true
-    },
-    "cryptids/jersey-lesser-devils.json": {
       "structural_change": true
     },
     "cryptids/megasloth.json": {
@@ -34157,16 +34157,10 @@
     "farming_spawns/blood-sac_spawns.json": {
       "structural_change": true
     },
-    "farming_spawns/canned-coffee_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/chems-addictol_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/chems-adrenal-reaction-serum_spawns.json": {
-      "structural_change": true
-    },
-    "farming_spawns/chems-antibiotics_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/chems-berry-mentats_spawns.json": {
@@ -34229,9 +34223,6 @@
     "farming_spawns/chems-healing-factor-serum_spawns.json": {
       "structural_change": true
     },
-    "farming_spawns/chems-healing-salve_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/chems-herbivore-serum_spawns.json": {
       "structural_change": true
     },
@@ -34239,9 +34230,6 @@
       "structural_change": true
     },
     "farming_spawns/chems-high-radiation-fluids_spawns.json": {
-      "structural_change": true
-    },
-    "farming_spawns/chems-insect-repellent_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/chems-marsupial-serum_spawns.json": {
@@ -34292,9 +34280,6 @@
     "farming_spawns/chems-stealth-boy-mark-iii_spawns.json": {
       "structural_change": true
     },
-    "farming_spawns/chems-stealth-boy_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/chems-stimpak-diluted_spawns.json": {
       "structural_change": true
     },
@@ -34322,13 +34307,7 @@
     "farming_spawns/deathclaw-egg_spawns.json": {
       "structural_change": true
     },
-    "farming_spawns/frog-egg_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/glowing-blood_spawns.json": {
-      "structural_change": true
-    },
-    "farming_spawns/honey_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/honeycomb_spawns.json": {
@@ -34340,9 +34319,6 @@
     "farming_spawns/mirelurk-egg_spawns.json": {
       "structural_change": true
     },
-    "farming_spawns/mothman-egg_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/perfect-bubblegum_spawns.json": {
       "structural_change": true
     },
@@ -34352,9 +34328,6 @@
     "farming_spawns/radscorpion-egg_spawns.json": {
       "structural_change": true
     },
-    "farming_spawns/radtoad-egg_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/royal-jelly_spawns.json": {
       "structural_change": true
     },
@@ -34362,9 +34335,6 @@
       "structural_change": true
     },
     "farming_spawns/sugar-bombs_spawns.json": {
-      "structural_change": true
-    },
-    "farming_spawns/tick-blood_spawns.json": {
       "structural_change": true
     },
     "fishing.json": {
@@ -35605,9 +35575,6 @@
         }
       ]
     },
-    "legendary_mod_drop_chances.json": {
-      "structural_change": true
-    },
     "legendary_mods.json": {
       "structural_change": true
     },
@@ -35945,8 +35912,71 @@
       ],
       "changed": [
         {
+          "key": "PLAN_003B7F2D",
+          "label": "Recipe: Diluted RadAway",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_003B7F2E",
+          "label": "Recipe: Diluted Rad-X",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_003C7BF5",
+          "label": "Plan: Pool Table",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_003D6546",
+          "label": "Plan: Protective Lining BoS Underarmor",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_003D6548",
+          "label": "Plan: Protective Lining Casual Underarmor",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_003D654E",
+          "label": "Plan: Tesla Arc Trap",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_003D6550",
+          "label": "Plan: Flamethrower Trap",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_003F4600",
+          "label": "Plan: Fermenting Station",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
           "key": "PLAN_00436FF9",
           "label": "Plan: Mole Miner Gauntlet",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0046A36F",
+          "label": "Plan: Brewing Station",
           "fields": [
             "routes"
           ]
@@ -35956,6 +35986,13 @@
           "label": "Plan: Single-Action Revolver Forceful Grip",
           "fields": [
             "name"
+          ]
+        },
+        {
+          "key": "PLAN_0052E485",
+          "label": "Plan: 10mm Pistol",
+          "fields": [
+            "routes"
           ]
         },
         {
@@ -35994,8 +36031,71 @@
           ]
         },
         {
+          "key": "PLAN_006366FC",
+          "label": "Plan: Wrapped Presents",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006366FD",
+          "label": "Plan: Holiday Tree",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006366FE",
+          "label": "Plan: Jack O' Lantern Combat Rifle Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
           "key": "PLAN_006366FF",
           "label": "Plan: Vault-Tec University Diploma",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00636700",
+          "label": "Plan: Snowflakes Metal Armor Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00636701",
+          "label": "Plan: Bat Assault Rifle Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00636702",
+          "label": "Plan: Holiday Wreath",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00636703",
+          "label": "Plan: Jack O' Lantern Combat Armor Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00636704",
+          "label": "Plan: Wrapping Paper Hunting Rifle Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00636705",
+          "label": "Plan: Nuclear Winter Beanie",
           "fields": [
             "routes"
           ]
@@ -36008,8 +36108,169 @@
           ]
         },
         {
+          "key": "PLAN_00636707",
+          "label": "Plan: Bats Minigun Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00636708",
+          "label": "Plan: Glowing Skeleton Hood",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00636709",
+          "label": "Plan: Glowing Skeleton Costume",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0063670A",
+          "label": "Plan: Halloween 10mm Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0063670B",
+          "label": "Plan: Fur-lined Jacket and Jeans",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
           "key": "PLAN_0063670C",
           "label": "Plan: Vault-Tec University Poster",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006369B6",
+          "label": "Plan: Ghillie Suit Hood",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006369B7",
+          "label": "Plan: Nuclear Winter Tracksuit",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006369B8",
+          "label": "Plan: Atom Cats Leather Armor Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006369B9",
+          "label": "Plan: Nuclear Winter Letterman Jacket",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006369BA",
+          "label": "Plan: Marine Camouflage Gatling Laser Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006369BB",
+          "label": "Plan: Camouflage Gauss Shotgun Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006369BC",
+          "label": "Plan: Survivor's Cattle Prod Skin",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006369BD",
+          "label": "Plan: BOS Leather Armor Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006369BE",
+          "label": "Plan: Marine Camouflage Leather Armor Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006369BF",
+          "label": "Plan: Ring of Fire Pit",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006369C0",
+          "label": "Plan: Ghillie Suit",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006369C1",
+          "label": "Plan: Survivors Denim Underarmor",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006369C2",
+          "label": "Plan: Hot Rod Flames Gatling Laser Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006369C3",
+          "label": "Plan: BOS Combat Armor Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006369C4",
+          "label": "Plan: Survivor's Bow Skin",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006369C5",
+          "label": "Plan: Shi Leather Armor Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006369C6",
+          "label": "Plan: Wasteland Loveseat",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006369C7",
+          "label": "Plan: Antler Chandelier",
           "fields": [
             "routes"
           ]
@@ -36112,16 +36373,10 @@
     "meat/brahmin.json": {
       "structural_change": true
     },
-    "meat/cat.json": {
-      "structural_change": true
-    },
     "meat/chicken.json": {
       "structural_change": true
     },
     "meat/deathclaw.json": {
-      "structural_change": true
-    },
-    "meat/fox.json": {
       "structural_change": true
     },
     "meat/frog.json": {
@@ -36136,9 +36391,6 @@
     "meat/hermit-crab.json": {
       "structural_change": true
     },
-    "meat/iguana.json": {
-      "structural_change": true
-    },
     "meat/megasloth.json": {
       "structural_change": true
     },
@@ -36151,34 +36403,13 @@
     "meat/mole-rat.json": {
       "structural_change": true
     },
-    "meat/mongrel-dog.json": {
-      "structural_change": true
-    },
     "meat/mutant-hound.json": {
-      "structural_change": true
-    },
-    "meat/opossum.json": {
-      "structural_change": true
-    },
-    "meat/owlet.json": {
-      "structural_change": true
-    },
-    "meat/pheasant.json": {
-      "structural_change": true
-    },
-    "meat/rabbit.json": {
       "structural_change": true
     },
     "meat/radhog.json": {
       "structural_change": true
     },
-    "meat/radrat.json": {
-      "structural_change": true
-    },
     "meat/radstag.json": {
-      "structural_change": true
-    },
-    "meat/radtoad.json": {
       "structural_change": true
     },
     "meat/radturkey.json": {
@@ -36188,9 +36419,6 @@
       "structural_change": true
     },
     "meat/sheepsquatch.json": {
-      "structural_change": true
-    },
-    "meat/squirrel.json": {
       "structural_change": true
     },
     "meat/wolf.json": {
@@ -36220,37 +36448,10 @@
     "nuka_cola_spawns_cherry.json": {
       "structural_change": true
     },
-    "nuka_cola_spawns_cranberry.json": {
-      "structural_change": true
-    },
-    "nuka_cola_spawns_dark.json": {
-      "structural_change": true
-    },
-    "nuka_cola_spawns_grape.json": {
-      "structural_change": true
-    },
     "nuka_cola_spawns_nuka-cola.json": {
       "structural_change": true
     },
     "nuka_cola_spawns_nukashine.json": {
-      "structural_change": true
-    },
-    "nuka_cola_spawns_orange.json": {
-      "structural_change": true
-    },
-    "nuka_cola_spawns_quantum.json": {
-      "structural_change": true
-    },
-    "nuka_cola_spawns_sunset-sarsaparilla.json": {
-      "structural_change": true
-    },
-    "nuka_cola_spawns_twist.json": {
-      "structural_change": true
-    },
-    "nuka_cola_spawns_vaccinated.json": {
-      "structural_change": true
-    },
-    "nuka_cola_spawns_wild.json": {
       "structural_change": true
     },
     "pennants.json": {
@@ -36731,6 +36932,13 @@
           ]
         },
         {
+          "key": "PLAN_003D654D",
+          "label": "Plan: Shielded Lining Raider Underarmor",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
           "key": "PLAN_00436FF5",
           "label": "Plan: Golf Club",
           "fields": [
@@ -37171,6 +37379,7 @@
           "fields": [
             "obtain_ledger",
             "obtain_routes",
+            "retired_routes",
             "source_tag"
           ]
         },
@@ -37180,6 +37389,7 @@
           "fields": [
             "obtain_ledger",
             "obtain_routes",
+            "retired_routes",
             "source_tag"
           ]
         },
@@ -37189,6 +37399,7 @@
           "fields": [
             "obtain_ledger",
             "obtain_routes",
+            "retired_routes",
             "source_tag"
           ]
         },
@@ -37371,14 +37582,19 @@
           "key": "PLAN_0065DD0A",
           "label": "Plan: Cupid Cappy Sign",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_00675279",
           "label": "Plan: Nuka-Cola Balloons",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -37393,91 +37609,119 @@
           "key": "PLAN_0067F169",
           "label": "Plan: Tunnel of Love Snow Globe",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_0067F172",
           "label": "Plan: Cappy Smasher Super Sledge Paint",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
           "key": "PLAN_00682116",
           "label": "Plan: Nuka-Cola Ad Barrier",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
           "key": "PLAN_00682117",
           "label": "Plan: Nuka-Cola Crate Stalls",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
           "key": "PLAN_00682118",
           "label": "Plan: Tunnel of Love Poster",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_0068211C",
           "label": "Plan: Nuka-Cade Poster",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
           "key": "PLAN_0068211D",
           "label": "Plan: Nuka Cola Bottle Kiosk",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
           "key": "PLAN_006828E5",
           "label": "Plan: Cappy Clapper",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
           "key": "PLAN_006828E6",
           "label": "Plan: Bottle and Cappy Painting Statue",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
           "key": "PLAN_006828E8",
           "label": "Plan: Bottle and Cappy Balloon Statue",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
           "key": "PLAN_006828E9",
           "label": "Plan: Bottle and Cappy Hoop Jump Statue",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
           "key": "PLAN_006828EA",
           "label": "Plan: Bottle and Cappy Walking Globe Statue",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
           "key": "PLAN_006828EC",
           "label": "Plan: Bottle Bot",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -37492,63 +37736,90 @@
           "key": "PLAN_0068B8EB",
           "label": "Recipe: Nuka-Dog",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_0068B8EC",
           "label": "Recipe: Yao Guai Pastry",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_0068B8ED",
           "label": "Recipe: Gulper Stuffed Foot",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_0068B8EE",
           "label": "Recipe: Fried Radroach On A Stick",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_0068B8EF",
           "label": "Recipe: Fried Scorpion On A Stick",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_0068B8F0",
           "label": "Recipe: Brahmin Burgers",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_0068B8F1",
           "label": "Recipe: Caramel Mutfruit",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_0068B8F2",
           "label": "Recipe: Carnival Pie",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_0068B8F3",
           "label": "Recipe: Radscorpion Kebab",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
@@ -38173,7 +38444,10 @@
           "key": "PLAN_008F20F0",
           "label": "Plan: Love Tap Paint",
           "fields": [
-            "obtain_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
@@ -38432,6 +38706,8 @@
           "key": "ATX_ENTM_CAMP_Collector_PumpkinPie",
           "label": "ATX_ENTM_CAMP_Collector_PumpkinPie",
           "fields": [
+            "howToObtain",
+            "obtainRoutes",
             "releaseDate"
           ]
         },
@@ -38948,7 +39224,9 @@
           "key": "SCORE_S17_ENTM_CAMP_Collector_Pemmican",
           "label": "SCORE_S17_ENTM_CAMP_Collector_Pemmican",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
@@ -38990,7 +39268,9 @@
           "key": "SCORE_S23_ENTM_CAMP_Collector_CrashedCargoBot",
           "label": "SCORE_S23_ENTM_CAMP_Collector_CrashedCargoBot",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
@@ -39004,7 +39284,9 @@
           "key": "SCORE_S24_ENTM_CAMP_Collector_SurvivalCache",
           "label": "SCORE_S24_ENTM_CAMP_Collector_SurvivalCache",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
@@ -39035,6 +39317,7 @@
           "key": "SSE_Resource_CarnalWeeper",
           "label": "SSE_Resource_CarnalWeeper",
           "fields": [
+            "howToObtain",
             "releaseDate"
           ]
         },
@@ -39042,6 +39325,7 @@
           "key": "SSE_Resource_CrystalCup",
           "label": "SSE_Resource_CrystalCup",
           "fields": [
+            "howToObtain",
             "releaseDate"
           ]
         },
@@ -39049,6 +39333,7 @@
           "key": "SSE_Resource_Radlily",
           "label": "SSE_Resource_Radlily",
           "fields": [
+            "howToObtain",
             "releaseDate"
           ]
         },
