@@ -610,8 +610,10 @@ jobs:
           import json
           d = json.load(open("dist/new_plans.json"))
           groups = d.get("groups", [])
-          total = sum(len(g.get("items", [])) for g in groups)
-          assert total == d.get("count"), f"count {d.get('count')} != {total} rows in groups"
+          # Grouped by source: a plan with two sources sits in two groups,
+          # so compare unique plans, not rows.
+          total = len({i.get("id") for g in groups for i in g.get("items", [])})
+          assert total == d.get("count"), f"count {d.get('count')} != {total} unique plans in groups"
           print(f"new_plans.json: {total} new plan(s) in {len(groups)} group(s) "
                 f"[{d['baseline']['newest']} vs {d['baseline']['previous']}]")
           PYCHK

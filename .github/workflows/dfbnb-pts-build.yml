@@ -731,8 +731,10 @@ jobs:
           assert "PTS" in b["newest"], f"newest is not a PTS export: {b['newest']}"
           assert b["previous"] and "PTS" not in b["previous"], \
               f"baseline should be a LIVE export, got: {b['previous']}"
-          total = sum(len(g.get("items", [])) for g in d.get("groups", []))
-          assert total == d.get("count"), f"count {d.get('count')} != {total} rows in groups"
+          # Grouped by source: a plan with two sources sits in two groups,
+          # so compare unique plans, not rows.
+          total = len({i.get("id") for g in d.get("groups", []) for i in g.get("items", [])})
+          assert total == d.get("count"), f"count {d.get('count')} != {total} unique plans in groups"
           print(f"new_plans.json (PTS): {total} plan(s) not yet live "
                 f"[{b['newest']} vs {b['previous']}]")
           PYCHK
