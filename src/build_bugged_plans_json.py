@@ -733,6 +733,33 @@ def _load_json(path, default):
         return default
 
 
+def route_dead_reasons(scan, fids):
+    """Why a route through these leveled lists can never pay out, or an empty
+    set when it might. Only PROVEN reasons count: 0 links on its own is not
+    proof (scripts hand out plenty of 0-link lists), so a plain orphan without
+    its quest's reward record to compare against returns nothing.
+    Shared by the checklist cross-check here and src/prune_dead_routes.py."""
+    known = [str(f).upper() for f in fids if str(f).upper() in scan.lvli]
+    if not known or any(f in scan.live for f in known):
+        return set()
+    why = set()
+    for f in known:
+        if is_dev(scan.lvli[f]["edid"]):
+            why.add("cut list")
+        for rr in scan.why_unreached(f):
+            if rr["kind"] == "dead_edge":
+                why.add("entry can never roll")
+            elif rr["kind"] == "orphan":
+                e = scan.lvli[rr["list"]]["edid"]
+                if is_dev(e):
+                    why.add("cut list")
+                elif RX_PARKED.search(e):
+                    why.add("parked list (cut, not marked)")
+                elif scan.orphan_is_strong(e):
+                    why.add("reward pool not hooked up")
+    return why
+
+
 def checklist_dead_routes(scan, master_path):
     """Plan-checklist routes that point only at lists the game never rolls."""
     m = _load_json(master_path, None)

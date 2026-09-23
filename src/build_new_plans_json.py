@@ -155,6 +155,8 @@ GROUPS = {
 # every heading on the page has rows under it.
 GROUP_ORDER = sorted(GROUPS, key=lambda k: GROUPS[k].lower())
 
+import new_plans_sources   # page grouping by source (see module)
+
 # Manual last word, by the plan's BOOK FormID. Runs FIRST and wins. Each is a
 # CAMP placeable whose COBJ never resolved to a placeable upstream.
 GROUP_OVERRIDES = {
@@ -843,15 +845,12 @@ def main(argv=None):
     except Exception as exc:                      # noqa: BLE001 - never fatal
         print(f"[new-plans] WARNING image resolve skipped: {exc}", file=sys.stderr)
 
-    groups = []
-    ordered_keys = GROUP_ORDER + [k for k in GROUPS if k not in GROUP_ORDER]
-    for key in ordered_keys:
-        label = GROUPS.get(key, key)
-        members = sorted((r for r in rows if r["group"] == key),
-                         key=lambda r: plan_title(r).lower())
-        if members:
-            groups.append({"key": key, "label": label, "count": len(members),
-                           "items": members})
+    # Grouped by SOURCE since 23 Sep 2026 (Duchess): Daily Ops, Minerva, Stamps,
+    # Quests, Events ... — see new_plans_sources.py. The type classification
+    # above still runs; it now feeds each row's type pill (`type_label`).
+    groups = new_plans_sources.group_rows(rows, outdir,
+                                          lambda r: plan_title(r).lower(), GROUPS,
+                                          data_dir=args.data_dir)
 
     out = {
         "version": 2,
@@ -863,6 +862,7 @@ def main(argv=None):
         "count_new": sum(1 for r in rows if r.get("is_new")),
         "count_changed": sum(1 for r in rows if not r.get("is_new")),
         "skipped_not_in_master": sorted(skipped),
+        "grouping": "source",
         "groups": groups,
     }
 

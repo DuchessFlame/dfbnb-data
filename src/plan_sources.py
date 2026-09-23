@@ -884,6 +884,13 @@ def source_label(edid, quests=None):
     # 3. Whatever is left, cleaned: quest-set collapse, plumbing, cell codes,
     #    bare numbers, acronym expansion.
     kind, keep = None, []
+    # "Repeat" / "RepeatTier" / "Repeatable" says WHEN the list pays out (repeat
+    # runs, after the first clear of the day), not where. It is kept out of the
+    # words and put back as a " (Repeatable)" suffix, so
+    #     SDOW_DailyOps_LL_Rewards_RepeatTier -> "The Slasher - Daily Ops (Repeatable)"
+    # sits next to the first-clear row instead of being merged into it
+    # (Duchess, 23 Sep 2026; route_key no longer strips the word).
+    repeatable = False
     for t in _split_tokens(rest_parts):
         if re.fullmatch(r"(SQ|MQ|DQ)\d*", t, re.I):
             # The data does not say WHICH side quest; pretending it does would
@@ -892,6 +899,9 @@ def source_label(edid, quests=None):
                     "dq": "Daily Quests"}[t[:2].lower()]
             continue
         low = t.lower()
+        if low in ("repeat", "repeats", "repeatable", "repeattier"):
+            repeatable = True
+            continue
         if low in ("sidequest", "sidequests"):
             kind = "Side Quests"; continue
         if low in ("mainquest", "mainquests"):
@@ -953,6 +963,8 @@ def source_label(edid, quests=None):
         label = f"{head} - {tail}"
     else:
         label = head or tail or None
+    if label and repeatable and "(repeatable)" not in label.lower():
+        label = f"{label} (Repeatable)"
     # Append the activity type for a bare quest/phase name ("... Out of the
     # Shadows" -> "... (Infestations)"). Keyed on the resolved head so the type
     # is looked up from the quest, not the whole assembled label.
@@ -962,9 +974,12 @@ def source_label(edid, quests=None):
 # Words that name how RARE a pool is, not where it is. Two rows differing only
 # by one of these are the same place to go, and the resolved percentage already
 # says which tier you landed in — so they collapse when their rates match.
-RARITY_WORDS = {"rare", "common", "uncommon", "ultra", "ultrarare", "repeat",
-                "repeatable", "high", "low", "best", "good", "great", "base",
+RARITY_WORDS = {"rare", "common", "uncommon", "ultra", "ultrarare",
+                "high", "low", "best", "good", "great", "base",
                 "bonus", "extra"}
+# "repeat"/"repeatable" are deliberately NOT rarity words any more (23 Sep 2026):
+# a repeat-run reward list is a different way to get the plan, so "The Slasher -
+# Daily Ops" and "... (Repeatable)" stay as two rows.
 
 _KEY_STOP = {"vendor", "chest", "the", "of", "and", "a", "an", "for", "from"}
 

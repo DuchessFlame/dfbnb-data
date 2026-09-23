@@ -76,6 +76,7 @@ import rng76
 import plan_sources         # cut detection, readable source names, unlock routes
 import plan_unlocks         # COBJ.GNAM — what the game says unlocks each recipe
 import plan_source_pill     # the one-word source tag on each row
+import prune_dead_routes    # retire routes nothing in the game rolls (see module)
 import plan_conditions      # drop conditions per source (LVLI entry CTDAs)
 import plan_display_names   # row titles: model-first weapon paint names
 import plan_recipe_rows     # rows for recipes that have no plan book at all
@@ -855,6 +856,9 @@ def main(argv=None):
     ap.add_argument("--limit", type=int, default=0, help="cap roster (0=all) for testing")
     ap.add_argument("--offset", type=int, default=0, help="skip the first N of the roster (for chunked builds)")
     ap.add_argument("--only", default="", help="only plans whose name contains this substring")
+    ap.add_argument("--only-ids", default="",
+                    help="JSON file with a list of plan BOOK FormIDs; rebuild just those "
+                         "(post passes skipped, like --only). For targeted re-resolves.")
     ap.add_argument("--data-dir", default=TSV, help="TSV export root (PTS build points this at the PTS tsvs)")
     ap.add_argument("--outdir", default=DIST, help="output dir (PTS build relocates dist/ -> dist/pts/)")
     ap.add_argument("--out", default="", help="explicit output file (overrides --outdir/plan_master.json)")
@@ -931,6 +935,11 @@ def main(argv=None):
 
     if args.only:
         roster = [r for r in roster if args.only.lower() in (r.get("FULL") or "").lower()]
+    if args.only_ids:
+        with open(args.only_ids, encoding="utf-8") as _f:
+            _ids = {str(x).upper() for x in json.load(_f)}
+        roster = [r for r in roster if (r.get("FormID") or "").strip().upper() in _ids]
+        args.only = args.only or "__ids__"      # reuse --only's "skip post passes" gates
     if args.offset:
         roster = roster[args.offset:]
     if args.limit:
@@ -1090,6 +1099,15 @@ def main(argv=None):
     if not args.no_routes and not args.offset and not args.limit and not args.only:
         print("[plan-obtain] drop conditions:")
         plan_conditions.report(plan_conditions.attach(items, TSV, newest))
+
+    # Dead routes off the page: a list nothing in the game rolls (retired Minerva
+    # backlog, zzz lists, unhookable pools, First Match entries that never win)
+    # moves to `retired_routes` and the ledger is rebuilt. Same proof as the
+    # Current Bugged Plans page (prune_dead_routes.py). Before source tags, so a
+    # retired Gold Bullion route can't leave a "Gold" pill behind.
+    if not args.no_routes and not args.offset and not args.limit and not args.only:
+        print("[plan-obtain] dead routes:")
+        prune_dead_routes.report(prune_dead_routes.attach(items, TSV))
 
     # The one-word "where does this come from" tag on each row and in the
     # export poster's SOURCE column. Pure string work over the routes that were

@@ -55,7 +55,10 @@ LEAK = re.compile(
     r"|<|\[|NEED A NAME"                   # unresolved alias / placeholder title
     r"|vendor vendor"                       # doubled by the vendor shaper
     r"|\b(LL|LLI|LLS|LLV|LLD|LLE|LLQ|LPI)\b"
-    r"|RESTRICTED")
+    r"|RESTRICTED"
+    # A bare "Repeat" word means the repeat-list token escaped: it should have
+    # become the " (Repeatable)" suffix (plan_sources.source_label, 23 Sep 2026).
+    r"|\bRepeat\b(?! Chance)")
 
 
 # Quest titles are written by humans, so they are linted for editor scaffolding
