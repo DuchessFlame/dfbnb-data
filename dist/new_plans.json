@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated": "2026-09-22T22:24:35.751856+00:00",
+  "generated": "2026-09-23T02:59:27.422978+00:00",
   "mode": "vs-season",
   "season": {
     "key": "SCORE_S26",
@@ -19,15 +19,15 @@
     "recipes_newest": "COBJ_Export_September_2026.tsv",
     "recipes_previous": "COBJ_Export_July_2026.tsv"
   },
-  "count": 97,
+  "count": 104,
   "count_new": 97,
-  "count_changed": 0,
+  "count_changed": 7,
   "skipped_not_in_master": [],
   "groups": [
     {
       "key": "apparel",
       "label": "Apparel",
-      "count": 21,
+      "count": 24,
       "items": [
         {
           "kind": "plan",
@@ -561,6 +561,255 @@
           "plan_page_group": null,
           "group": "apparel",
           "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_006369C0",
+          "name": "Plan: Ghillie Suit",
+          "has_image_box": false,
+          "image_dir": "recipes",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (mod/recipe)",
+          "obtain_routes": [
+            {
+              "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "0063671E"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "Scorched Spooky",
+              "source_type": "creature",
+              "rate": 0.05,
+              "rate_display": "5%",
+              "lvli": [
+                "008F6AC2"
+              ],
+              "conditions": [
+                "Only while wearing SDOW Clothing Type Slasher Head"
+              ],
+              "new": true
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "006369C0",
+            "edid": "Recipe_Clothes_GhillieSuit_Survivors2020_NW"
+          },
+          "cobj": {
+            "formid": "006369D4",
+            "edid": "co_CondProxy_Clothes_Outfit_GhillieSuit_Survivors2020"
+          },
+          "cnam": null,
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Gold Bullion",
+              "routes": [
+                0
+              ]
+            },
+            {
+              "label": "Events & Activities",
+              "routes": [
+                1
+              ]
+            }
+          ],
+          "source_tag": "Gold",
+          "images": [],
+          "image_source": "",
+          "plan_page": "camp",
+          "plan_page_group": "Needs Sorting",
+          "changes": [
+            {
+              "field": "routes",
+              "kind": "added",
+              "route": "Scorched Spooky",
+              "bucket": "Events & Activities",
+              "text": "Now also comes from Scorched Spooky (Events & Activities).",
+              "since": "15 Sep 2026",
+              "pinned": true
+            }
+          ],
+          "group": "apparel",
+          "is_new": false
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_006369B6",
+          "name": "Plan: Ghillie Suit Hood",
+          "has_image_box": false,
+          "image_dir": "recipes",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (mod/recipe)",
+          "obtain_routes": [
+            {
+              "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "0063671E"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "Scorched Spooky",
+              "source_type": "creature",
+              "rate": 0.05,
+              "rate_display": "5%",
+              "lvli": [
+                "008F6AC2"
+              ],
+              "conditions": [
+                "Only while wearing SDOW Clothing Type Slasher Head"
+              ],
+              "new": true
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "006369B6",
+            "edid": "Recipe_Headwear_GhillieSuit_Helmet_Survivors2020_NW"
+          },
+          "cobj": {
+            "formid": "006369D7",
+            "edid": "co_CondProxy_Clothes_Headwear_GhillieSuitHelmet_Survivors2020"
+          },
+          "cnam": null,
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Gold Bullion",
+              "routes": [
+                0
+              ]
+            },
+            {
+              "label": "Events & Activities",
+              "routes": [
+                1
+              ]
+            }
+          ],
+          "source_tag": "Gold",
+          "images": [],
+          "image_source": "",
+          "plan_page": "camp",
+          "plan_page_group": "Needs Sorting",
+          "changes": [
+            {
+              "field": "routes",
+              "kind": "added",
+              "route": "Scorched Spooky",
+              "bucket": "Events & Activities",
+              "text": "Now also comes from Scorched Spooky (Events & Activities).",
+              "since": "15 Sep 2026",
+              "pinned": true
+            }
+          ],
+          "group": "apparel",
+          "is_new": false
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_006369B9",
+          "name": "Plan: Nuclear Winter Letterman Jacket",
+          "has_image_box": false,
+          "image_dir": "recipes",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (mod/recipe)",
+          "obtain_routes": [
+            {
+              "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "0063671E"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "Scorched Spooky",
+              "source_type": "creature",
+              "rate": 0.05,
+              "rate_display": "5%",
+              "lvli": [
+                "008F6AC2"
+              ],
+              "conditions": [
+                "Only while wearing SDOW Clothing Type Slasher Head"
+              ],
+              "new": true
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "006369B9",
+            "edid": "Recipe_Clothes_LetterJacket_NW"
+          },
+          "cobj": {
+            "formid": "006369C8",
+            "edid": "co_CondProxy_Clothes_Outfit_LetterJacket"
+          },
+          "cnam": null,
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Gold Bullion",
+              "routes": [
+                0
+              ]
+            },
+            {
+              "label": "Events & Activities",
+              "routes": [
+                1
+              ]
+            }
+          ],
+          "source_tag": "Gold",
+          "images": [],
+          "image_source": "",
+          "plan_page": "camp",
+          "plan_page_group": "Needs Sorting",
+          "changes": [
+            {
+              "field": "routes",
+              "kind": "added",
+              "route": "Scorched Spooky",
+              "bucket": "Events & Activities",
+              "text": "Now also comes from Scorched Spooky (Events & Activities).",
+              "since": "15 Sep 2026",
+              "pinned": true
+            }
+          ],
+          "group": "apparel",
+          "is_new": false
         },
         {
           "kind": "plan",
@@ -1479,8 +1728,174 @@
     {
       "key": "camp",
       "label": "CAMP",
-      "count": 10,
+      "count": 14,
       "items": [
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_006369C7",
+          "name": "Plan: Antler Chandelier",
+          "has_image_box": true,
+          "image_dir": "workshop",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (physical plan)",
+          "obtain_routes": [
+            {
+              "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "0063671E"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "The Slasher - Daily Ops",
+              "source_type": "event-quest",
+              "rate": 0.111111,
+              "rate_display": "11.11%",
+              "lvli": [
+                "00935CEA"
+              ],
+              "conditions": [],
+              "new": true
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "006369C7",
+            "edid": "Recipe_Workshop_Lights_AntlerChandelier_Survivors2020_NW"
+          },
+          "cobj": {
+            "formid": "006369CD",
+            "edid": "workshop_co_CondProxy_Lights_AntlerChandelier_Survivors2020"
+          },
+          "cnam": null,
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Gold Bullion",
+              "routes": [
+                0
+              ]
+            },
+            {
+              "label": "Events & Activities",
+              "routes": [
+                1
+              ]
+            }
+          ],
+          "source_tag": "Gold",
+          "images": [],
+          "image_source": "",
+          "plan_page": "camp",
+          "plan_page_group": "C.A.M.P. Plans",
+          "changes": [
+            {
+              "field": "routes",
+              "kind": "added",
+              "route": "The Slasher - Daily Ops",
+              "bucket": "Events & Activities",
+              "text": "Now also comes from The Slasher - Daily Ops (Events & Activities).",
+              "since": "15 Sep 2026",
+              "pinned": true
+            }
+          ],
+          "group": "camp",
+          "is_new": false
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_00620A54",
+          "name": "Plan: Medium Supply Crate",
+          "has_image_box": true,
+          "image_dir": "workshop",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (physical plan)",
+          "obtain_routes": [
+            {
+              "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "005FFDEB",
+                "00620AA5",
+                "00620AA8"
+              ],
+              "conditions": [
+                "Only while you do not own Medium Nuclear Winter Stash Box"
+              ]
+            },
+            {
+              "route": "The Slasher - Daily Ops",
+              "source_type": "event-quest",
+              "rate": 0.111111,
+              "rate_display": "11.11%",
+              "lvli": [
+                "00935CEA"
+              ],
+              "conditions": [],
+              "new": true
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "00620A54",
+            "edid": "Recipe_Workshop_MediumNWStash_NW"
+          },
+          "cobj": {
+            "formid": "00620A55",
+            "edid": "co_CondProxy_Workshop_MediumNWStash"
+          },
+          "cnam": null,
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Gold Bullion",
+              "routes": [
+                0
+              ]
+            },
+            {
+              "label": "Events & Activities",
+              "routes": [
+                1
+              ]
+            }
+          ],
+          "source_tag": "Gold",
+          "images": [],
+          "image_source": "",
+          "plan_page": "camp",
+          "plan_page_group": "C.A.M.P. Plans",
+          "changes": [
+            {
+              "field": "routes",
+              "kind": "added",
+              "route": "The Slasher - Daily Ops",
+              "bucket": "Events & Activities",
+              "text": "Now also comes from The Slasher - Daily Ops (Events & Activities).",
+              "since": "15 Sep 2026",
+              "pinned": true
+            }
+          ],
+          "group": "camp",
+          "is_new": false
+        },
         {
           "kind": "plan",
           "brand": "df",
@@ -2152,6 +2567,168 @@
           "plan_page_group": "C.A.M.P. Plans",
           "group": "camp",
           "is_new": true
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_006369BF",
+          "name": "Plan: Ring of Fire Pit",
+          "has_image_box": true,
+          "image_dir": "workshop",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (physical plan)",
+          "obtain_routes": [
+            {
+              "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "0063671E"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "The Slasher - Daily Ops",
+              "source_type": "event-quest",
+              "rate": 0.111111,
+              "rate_display": "11.11%",
+              "lvli": [
+                "00935CEA"
+              ],
+              "conditions": [],
+              "new": true
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "006369BF",
+            "edid": "Recipe_Workshop_FloorDecor_RingOfFirePit_Survivors2020_NW"
+          },
+          "cobj": {
+            "formid": "006369CC",
+            "edid": "workshop_co_CondProxy_FloorDecor_RingOfFirePit_Survivors2020"
+          },
+          "cnam": null,
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Gold Bullion",
+              "routes": [
+                0
+              ]
+            },
+            {
+              "label": "Events & Activities",
+              "routes": [
+                1
+              ]
+            }
+          ],
+          "source_tag": "Gold",
+          "images": [],
+          "image_source": "",
+          "plan_page": "camp",
+          "plan_page_group": "C.A.M.P. Plans",
+          "changes": [
+            {
+              "field": "routes",
+              "kind": "added",
+              "route": "The Slasher - Daily Ops",
+              "bucket": "Events & Activities",
+              "text": "Now also comes from The Slasher - Daily Ops (Events & Activities).",
+              "since": "15 Sep 2026",
+              "pinned": true
+            }
+          ],
+          "group": "camp",
+          "is_new": false
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_006369C6",
+          "name": "Plan: Wasteland Loveseat",
+          "has_image_box": true,
+          "image_dir": "workshop",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (physical plan)",
+          "obtain_routes": [
+            {
+              "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+              "source_type": "vendor",
+              "rate": 1.0,
+              "rate_display": "100%",
+              "lvli": [
+                "0063671E"
+              ],
+              "conditions": []
+            },
+            {
+              "route": "The Slasher - Daily Ops",
+              "source_type": "event-quest",
+              "rate": 0.111111,
+              "rate_display": "11.11%",
+              "lvli": [
+                "00935CEA"
+              ],
+              "conditions": [],
+              "new": true
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "006369C6",
+            "edid": "Recipe_Workshop_Benches_LogTrophies_Survivors2020_NW"
+          },
+          "cobj": {
+            "formid": "006369CF",
+            "edid": "workshop_co_CondProxy_Benches_LogTrophies_Survivors2020"
+          },
+          "cnam": null,
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Gold Bullion",
+              "routes": [
+                0
+              ]
+            },
+            {
+              "label": "Events & Activities",
+              "routes": [
+                1
+              ]
+            }
+          ],
+          "source_tag": "Gold",
+          "images": [],
+          "image_source": "",
+          "plan_page": "camp",
+          "plan_page_group": "C.A.M.P. Plans",
+          "changes": [
+            {
+              "field": "routes",
+              "kind": "added",
+              "route": "The Slasher - Daily Ops",
+              "bucket": "Events & Activities",
+              "text": "Now also comes from The Slasher - Daily Ops (Events & Activities).",
+              "since": "15 Sep 2026",
+              "pinned": true
+            }
+          ],
+          "group": "camp",
+          "is_new": false
         }
       ]
     },
