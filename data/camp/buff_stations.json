@@ -359,5 +359,33 @@
         "Recipe: 007AE560 workshop_co_Instruments_ChemicalBarrelDrum"
       ]
     }
-  }
+  },
+  "rested_spells": {
+    "furniture": "SURV_WellRested2",
+    "sleepingbag": "SURV_WellRested",
+    "mattress": "SURV_WellRested",
+    "comfy": "SURV_WellRested2"
+  },
+  "rested_spells_notes": {
+    "_rule": "Which SPEL each Rested source casts is decided by script, which the xEdit exports do not carry, so the source -> spell link is kept here. Everything else (name, XP text, duration, Homebody stat bonus, FormIDs) is read from SPEL/MGEF/PERK at build time.",
+    "furniture": "Hot tubs, firepits, Vault-Tec Spa etc. (ATX_FurnituretypeRested) - Well Rested, per Duchess's Wix guide 'How Well Rested Buffs Work in Fallout 76'",
+    "sleepingbag": "Rested - sleeping bags, per the same guide",
+    "mattress": "Rested - carried over from bed_entries; the guide says 'any bed (not a sleeping bag)' gives Well Rested, so confirm mattresses in game",
+    "comfy": "Well Rested - beds, per the same guide"
+  },
+  "rested_ally_spells": [
+    {
+      "spell": "COMP_WellRested3_KindredSpirit",
+      "when": "a CAMP ally is placed near the bed"
+    },
+    {
+      "spell": "COMP_WellRested3_LoversEmbrace",
+      "when": "your romanced ally is placed near the bed"
+    }
+  ],
+  "rested_ally_sources": [
+    "comfy"
+  ],
+  "rested_rules": "Only one Rested buff can be active at a time — sleeping again replaces it, and it is removed if you die. Stacks with other XP boosts.",
+  "rested_ally_notes": "Wording from Duchess's Wix guide. Ally buffs need a bed you own, so they are shown on the bed entry (rested_ally_sources) only."
 }

@@ -894,6 +894,244 @@ _GV = gold_vendor.index()
 _GV.apply_to_items(items_out, "buff station")
 _GV.report_unstocked(items_out)
 
+# ------------------------------------------------- fixed row schema
+# Every item carries the SAME labelled rows in Output & Effects, Build
+# Information and the record block, in the same order. A value the game data
+# does not give us prints "—" rather than the row disappearing, so two items
+# side by side never show different headings (user requirement, 23 Sep 2026).
+# Item-specific facts that are not one of the fixed rows (variant list, ghoul
+# note, cooldown) become plain sentences under the table — no extra headings.
+OUTPUT_FIXED = ["Duration", "Applies To", "Stacks With Other Buffs", "Stacks On Itself"]
+BUILD_FIXED  = ["Power Required", "Flamingo Units"]
+TECH_FIXED   = ["EDID", "FormID", "ENTM EDID", "ENTM FormID", "Buff Keyword",
+                "Buff Spell", "Buff Effect", "Duration Global", "Magnitude Global"]
+TECH_ALIASES = {"FURN EDID": "EDID", "FURN FormID": "FormID",
+                "Instrument Keyword": "Buff Keyword", "Bed Type Keyword": "Buff Keyword",
+                "Keyword": "Buff Keyword", "Spell": "Buff Spell"}
+for _s in STAT_NAME.values():
+    TECH_ALIASES[f"{_s} Keyword"] = "Buff Keyword"
+    TECH_ALIASES[f"{_s} Spell"] = "Buff Spell"
+# Groups whose buff is one shared spell per type: using a second source of
+# the same buff refreshes the timer rather than stacking, and it runs
+# alongside any different buff.
+SPELL_BUFF_GROUPS = set(SPECIAL_KW) | {"welltuned", "wellrested"}
+
+
+def _split_row(line):
+    if ": " not in line:
+        return None, line
+    k, v = line.split(": ", 1)
+    return k.strip(), v.strip()
+
+
+def _as_note(label, value):
+    if label == "Versions":
+        parts = [p.strip() for p in value.split(",") if p.strip()]
+        return f"Comes in {len(parts)} versions: {', '.join(parts)}."
+    if label == "Ghoul Characters":
+        return f"Ghoul characters: {value[:1].lower() + value[1:]}."
+    if label == "Cooldown":
+        return f"Cooldown of {value}."
+    return f"{label}: {value}"
+
+
+def normalize_fixed_rows(it):
+    # Output & Effects
+    vals, notes = {}, []
+    for line in it.get("outputRows") or []:
+        k, v = _split_row(line)
+        if k in OUTPUT_FIXED:
+            vals.setdefault(k, v)
+        elif k and k.startswith("Homebody"):
+            continue   # perk effect, not the item's; Comfy Beds keeps it in Duration
+        elif k:
+            notes.append(_as_note(k, v))
+        elif v.strip():
+            notes.append(v.strip())
+    if set(it.get("buffTypes") or []) & SPELL_BUFF_GROUPS:
+        vals.setdefault("Stacks With Other Buffs", "Yes")
+        vals.setdefault("Stacks On Itself", "No")
+    it["outputRows"] = [f"{k}: {vals.get(k) or '—'}" for k in OUTPUT_FIXED]
+    it["outputNotes"] = notes
+
+    # Build Information (Tradeable and Season are rendered from their own
+    # fields; the renderer prints "—" for those on this page too)
+    b = {}
+    for line in str(it.get("buildInfo") or "").split("\n"):
+        k, v = _split_row(line)
+        if k:
+            b.setdefault(k, v)
+    it["buildInfo"] = "\n".join(f"{k}: {b.get(k) or '—'}" for k in BUILD_FIXED)
+
+    # Record block: fixed core rows, then any extra records this item really
+    # has (gold-vendor refs, version FURNs, the bed "Counts As" list).
+    core, extras = {k: [] for k in TECH_FIXED}, []
+    lines = str(it.get("technicalNotes") or "").split("\n")
+    for i, line in enumerate(lines):
+        if not line.strip() or line.startswith("Counts As"):
+            extras += [l for l in lines[i:] if l.strip()]
+            break
+        k, v = _split_row(line)
+        k = TECH_ALIASES.get(k, k)
+        if k in core:
+            if v not in core[k]:
+                core[k].append(v)
+        else:
+            extras.append(line)
+    out = [f"{k}: {', '.join(core[k]) or '—'}" for k in TECH_FIXED]
+    it["technicalNotes"] = "\n".join(out + extras)
+
+
+for _it in items_out:
+    normalize_fixed_rows(_it)
+
+
+# ------------------------------------------------- Rested family (generative)
+# Output & Effects for every Rested / Well Rested source, read from the game
+# data: the buff name (SPEL FULL), the XP line (MGEF DNAM), the duration
+# (EFIT), the Homebody stat bonus (Fortify* effects on a spell the Homebody
+# PERK references) and the CAMP-ally variants (Kindred Spirit / Lover's
+# Embrace). Only the source -> spell link and the plain-English conditions
+# are hand-kept, in data/camp/buff_stations.json (rested_* keys).
+#
+# SURV_WellRested2 carries paired 7200s / 10800s rows for both the XP and the
+# Agility effect; the condition choosing between them is not in the export.
+# The shorter row is used, which matches the in-game testing in Duchess's
+# Well Rested guide (2 hours, Homebody adds +2 Agility for 2 hours).
+SPEL_FX_PATH = _resolve_tsv("SPEL_EFFECTS_TSV", "SPEL_Export_*_EFFECTS.tsv", "SPEL_Export_EFFECTS.tsv")
+MGEF_PATH    = _resolve_tsv("MGEF_TSV",         "MGEF_Export_*.tsv",         "MGEF_Export.tsv")
+print(f"  SPEL effects: {SPEL_FX_PATH}\n  MGEF: {MGEF_PATH}")
+
+SPEL_FX = {}
+for r in rows(SPEL_FX_PATH):
+    SPEL_FX.setdefault(r["SPEL_EDID"].strip(), []).append(r)
+MGEF_DESC = {r["MGEF_FormID"].strip(): (r.get("DNAM_MagicItemDescription") or "").strip()
+             for r in rows(MGEF_PATH)}
+
+
+def _secs(v):
+    try:
+        return int(float(v))
+    except (TypeError, ValueError):
+        return 0
+
+
+def fmt_duration(sec):
+    if sec and sec % 3600 == 0:
+        h = sec // 3600
+        return f"{h} hour{'s' if h != 1 else ''}"
+    m = round(sec / 60)
+    return f"{m} minute{'s' if m != 1 else ''}"
+
+
+def rested_spell(edid):
+    fx = SPEL_FX.get(edid) or []
+    if not fx:
+        print(f"  [WARN] Rested spell {edid} not in the SPEL export")
+        return None
+    xp = [e for e in fx if "XP" in MGEF_DESC.get(e["EFID_MGEF_FormID"].strip(), "")]
+    stats = {}
+    for e in fx:
+        full = (e.get("EFID_MGEF_FULL") or "").strip()
+        mag = float(e.get("EFIT_Magnitude") or 0)
+        if full.startswith("Fortify ") and mag > 0:
+            stat = full[len("Fortify "):]
+            d = _secs(e["EFIT_Duration"])
+            if stat not in stats or d < stats[stat][1]:
+                stats[stat] = (mag, d)
+    x = min(xp, key=lambda e: _secs(e["EFIT_Duration"])) if xp else None
+    return {
+        "fid": fx[0]["SPEL_FormID"].strip(), "edid": edid,
+        "name": (fx[0].get("SPEL_FULL") or "").strip() or edid,
+        "xp": re.sub(r"\s*Bonus\s*", " ", MGEF_DESC.get(x["EFID_MGEF_FormID"].strip(), "")).strip() if x else "",
+        "dur": _secs(x["EFIT_Duration"]) if x else 0,
+        "mgef": f"{x['EFID_MGEF_FormID'].strip()} {x['EFID_MGEF_EDID'].strip()}" if x else "",
+        "stats": stats,
+    }
+
+
+def _stat_text(stats):
+    return " and ".join(f"+{int(m) if m == int(m) else m} {s}" for s, (m, _d) in stats.items())
+
+
+# Homebody: the playable PERK whose references include a Rested spell.
+HOMEBODY = None
+_rested_edids = set(_CFG.get("rested_spells", {}).values())
+for r in rows(PERK_PATH):
+    if r["PERK_EDID"].startswith("zzz"):
+        continue
+    refs = [r.get(f"Ref_{i}", "") for i in range(1, 60)]
+    spells = {x.split(":")[1] for x in refs if x.endswith(":SPEL") and x.count(":") == 2}
+    if spells & _rested_edids:
+        HOMEBODY = {"fid": r["PERK_FormID"], "edid": r["PERK_EDID"],
+                    "name": r["FULL"].strip(), "spells": spells}
+        break
+
+RESTED_SPELLS = _CFG.get("rested_spells", {})
+RESTED_ALLY   = _CFG.get("rested_ally_spells", [])
+RESTED_ALLY_SOURCES = set(_CFG.get("rested_ally_sources", []))
+RESTED_RULES  = _CFG.get("rested_rules", "")
+BED_KEY_BY_FID = {e[0]: e[5] for e in _CFG.get("bed_entries", [])}
+
+
+def _homebody_note(sp):
+    if HOMEBODY and sp["stats"] and sp["edid"] in HOMEBODY["spells"]:
+        d = min(dd for _m, dd in sp["stats"].values())
+        return f"With the {HOMEBODY['name']} perk card equipped: also {_stat_text(sp['stats'])} for {fmt_duration(d)}."
+    return ""
+
+
+def _set_row(lines, label, value):
+    return [f"{label}: {value}" if l.startswith(label + ": ") else l for l in lines]
+
+
+def apply_rested(it):
+    key = BED_KEY_BY_FID.get(it["formId"]) or ("furniture" if "wellrested" in (it.get("buffTypes") or []) else None)
+    if not key or key not in RESTED_SPELLS:
+        return
+    sp = rested_spell(RESTED_SPELLS[key])
+    if not sp:
+        return
+    main = f"{sp['name']}: {sp['xp']}"
+    if sp["stats"] and not (HOMEBODY and sp["edid"] in HOMEBODY["spells"]):
+        main += f" and {_stat_text(sp['stats'])}"
+    it["outputInfo"] = main
+    it["outputRows"] = _set_row(_set_row(_set_row(_set_row(it["outputRows"],
+        "Duration", fmt_duration(sp["dur"])),
+        "Applies To", "You only (solo buff)"),
+        "Stacks With Other Buffs", "Yes"),
+        "Stacks On Itself", "No")
+
+    notes = [n for n in [_homebody_note(sp)] if n]
+    tech_extra = []
+    if key in RESTED_ALLY_SOURCES:
+        for a in RESTED_ALLY:
+            asp = rested_spell(a["spell"])
+            if not asp:
+                continue
+            line = (f"{asp['name']}: {asp['xp']} for {fmt_duration(asp['dur'])} "
+                    f"when you sleep in a bed you own while {a['when']}.")
+            if asp["stats"] and HOMEBODY and asp["edid"] in HOMEBODY["spells"]:
+                line += f" With {HOMEBODY['name']}: also {_stat_text(asp['stats'])}."
+            notes.append(line)
+            tech_extra.append(f"Ally Spell: {asp['fid']} {asp['edid']} “{asp['name']}”")
+    if RESTED_RULES:
+        notes.append(RESTED_RULES)
+    it["outputNotes"] = notes + [n for n in it.get("outputNotes") or [] if n not in notes]
+
+    t = str(it.get("technicalNotes") or "").split("\n")
+    t = _set_row(t, "Buff Spell", f"{sp['fid']} {sp['edid']} “{sp['name']}”")
+    t = _set_row(t, "Buff Effect", f"{sp['mgef']} — {sp['xp']}, {sp['dur']}s")
+    if HOMEBODY and sp["edid"] in HOMEBODY["spells"]:
+        tech_extra.insert(0, f"Homebody Perk: {HOMEBODY['fid']} {HOMEBODY['edid']}")
+    # extras go straight after the fixed core (before a bed's Counts As list)
+    cut = len(TECH_FIXED)
+    it["technicalNotes"] = "\n".join(t[:cut] + tech_extra + t[cut:])
+
+
+for _it in items_out:
+    apply_rested(_it)
+
 # ---------------------------------------------------------------- write
 data = {"groups": GROUPS, "items": items_out}
 OUT.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
