@@ -789,6 +789,32 @@ jobs:
                 f"{groups['style']['count']} styles), {d['new_pill']['count']} NEW")
           PYCHK
 
+      # --- CURRENT BUGGED PLANS (PTS) ---
+      # Same builder as the live patch build, run on this job's PTS tsv/ and the
+      # PTS plan_master built above (so it MUST stay after the plan-obtain step).
+      # The relocate step moves dist/bugged_plans.json -> dist/pts/, and the
+      # site-wide PTS switch (df-bnb-pts.js) then serves it to the bugged page
+      # and to the New Plans red rows. dist/ was cleared at the start of this
+      # job, so NEW/fixed history comes from the last committed PTS file.
+      - name: Fetch previous PTS bugged plans (for NEW / fixed history)
+        run: git show HEAD:dist/pts/bugged_plans.json > /tmp/prev_bugged_pts.json 2>/dev/null || echo '{}' > /tmp/prev_bugged_pts.json
+
+      - name: Build Current Bugged Plans JSON (PTS)
+        run: python src/build_bugged_plans_json.py --channel pts --previous /tmp/prev_bugged_pts.json
+
+      - name: Sanity check bugged_plans.json (PTS)
+        run: |
+          python - <<'PYCHK'
+          import json
+          d = json.load(open("dist/bugged_plans.json"))
+          st = d["stats"]
+          assert d["channel"] == "pts", f"channel {d['channel']!r}, expected pts"
+          assert st.get("plans_scanned", 0) > 2000, f"only {st.get('plans_scanned')} plans scanned - export missing?"
+          assert d["checklist_dead_routes"] is not None, "plan_master.json not read - gate did not run"
+          print(f"bugged_plans.json (PTS): {d['counts']['total']} bugged, "
+                f"{len(d['held_back'])} held back by gate, {len(d['fixed'])} fixed")
+          PYCHK
+
       # --- AXOLOTL ---
       - name: Build Axolotl Rotations JSON
         run: node tools/build-axolotl-rotations-json.mjs
@@ -1448,6 +1474,7 @@ jobs:
           test -f dist/pennants.json                 && echo "OK pennants.json"                 || (echo "MISSING pennants.json" && exit 1)
           test -f dist/displays.json                 && echo "OK displays.json"                 || (echo "MISSING displays.json" && exit 1)
           test -f dist/beer_steins.json              && echo "OK beer_steins.json"              || (echo "MISSING beer_steins.json" && exit 1)
+          test -f dist/bugged_plans.json             && echo "OK bugged_plans.json"             || (echo "MISSING bugged_plans.json" && exit 1)
           test -f dist/world_pet_challenges.json     && echo "OK world_pet_challenges.json"     || (echo "MISSING world_pet_challenges.json" && exit 1)
           test -f dist/world_pet_types.json          && echo "OK world_pet_types.json"          || (echo "MISSING world_pet_types.json" && exit 1)
           test -f dist/calculators/weak_spot_multipliers.json && echo "OK weak_spot_multipliers.json" || (echo "MISSING weak_spot_multipliers.json" && exit 1)

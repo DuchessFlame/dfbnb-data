@@ -1,0 +1,44 @@
+name: Build Current Bugged Plans
+
+# Standalone run for /df/data-mining/current-bugged-plans/.
+# The monthly patch build (dfbnb-patch-build.yml) also runs this inline, so a
+# new export is always covered. This one exists so that marking a result in
+# data/bugged_plans_review.json (confirmed / not_a_bug) updates the page
+# straight away, without a full patch build.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'data/bugged_plans_review.json'
+      - 'src/build_bugged_plans_json.py'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Build Current Bugged Plans JSON
+        run: |
+          mkdir -p dist
+          python src/build_bugged_plans_json.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add dist/bugged_plans.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Build Current Bugged Plans"
+            git pull --rebase
+            git push
+          fi

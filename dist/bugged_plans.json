@@ -1,0 +1,6591 @@
+{
+ "_generated_by": "src/build_bugged_plans_json.py",
+ "generated": "2026-09-23",
+ "channel": "live",
+ "exports": {
+  "WEAP": "WEAP_Export_September_2026_Base.tsv",
+  "ARMO": "ARMO_Export_September_2026_ARMOUR.tsv",
+  "OMOD": "OMOD_Export_September_2026.tsv",
+  "BOOK": "BOOK_Export_September_2026.tsv",
+  "GMRW": "GMRW_Export_September_2026.tsv",
+  "COBJ": "COBJ_Export_September_2026.tsv",
+  "LVLI_List": "LVLI_Export_September_2026_LVLI_List.tsv",
+  "LVLI_Entries": "LVLI_Export_September_2026_LVLI_Entries.tsv",
+  "LVLI_Refs": "LVLI_Export_September_2026_LVLI_Refs.tsv"
+ },
+ "stats": {
+  "lists_total": 10963,
+  "dead_entries_never_rolls": 60,
+  "dead_entries_shadowed_switch": 26,
+  "dead_entries_shadowed": 17,
+  "lists_live": 8809,
+  "plans_scanned": 3037,
+  "plans_cut": 309,
+  "plans_via_unreferenced_gmrw": 27,
+  "scrap_scanned": 863
+ },
+ "counts": {
+  "total": 51,
+  "unobtainable": 47,
+  "route_broken": 1,
+  "broken_item": 3,
+  "conf_strong": 15,
+  "conf_check": 36,
+  "confirmed": 0
+ },
+ "items": [
+  {
+   "id": "0068B8F0",
+   "name": "Recipe: Brahmin Burgers",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": true,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "006772EC",
+       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0068B8FE",
+       "edid": "NWOT_LL_Food_Recipes",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0068B8F0",
+     "edid": "NWOT_Recipe_Food_BrahminBurgers",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0068B8FA",
+      "edid": "co_meal_NWOT_BrahminBurgers",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00669392",
+      "edid": "NWOT_BrahminBurgers",
+      "type": ""
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0068B8F1",
+   "name": "Recipe: Caramel Mutfruit",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": true,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "006772EC",
+       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0068B8FE",
+       "edid": "NWOT_LL_Food_Recipes",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0068B8F1",
+     "edid": "NWOT_Recipe_Food_CaramelMutfruit",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0068B8F7",
+      "edid": "co_meal_NWOT_CaramelMutfruit",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00669393",
+      "edid": "NWOT_CaramelMutfruit",
+      "type": ""
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0068B8F2",
+   "name": "Recipe: Carnival Pie",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": true,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "006772EC",
+       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0068B8FE",
+       "edid": "NWOT_LL_Food_Recipes",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0068B8F2",
+     "edid": "NWOT_Recipe_Food_CarnivalPie",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0068B8F6",
+      "edid": "co_meal_NWOT_CarnivalPie",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0066D3F2",
+      "edid": "NWOT_CarnivalPie",
+      "type": ""
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0065DD0A",
+   "name": "Plan: Cupid Cappy Sign",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": true,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "006772EC",
+       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0068B8E9",
+       "edid": "E09C_LoveTunnel_Recipes",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0065DD0A",
+     "edid": "E09C_Recipe_Workshop_CupidCappy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0065DD0B",
+      "edid": "E09C_workshop_co_WallDecor_CupidCappy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "006772F1",
+      "edid": "workshop_NWOT_CappieLove02",
+      "type": ""
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0040DF45",
+   "name": "Plan: Deer Skull",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CAD2",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0040DF45",
+     "edid": "Recipe_Workshop_WallDecor_Taxidermy_MountedDeerSkull",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0050CBE0",
+      "edid": "workshop_co_CondProxy_Taxidermy_DeerSkull",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0068B8EE",
+   "name": "Recipe: Fried Radroach On A Stick",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": true,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "006772EC",
+       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0068B8FE",
+       "edid": "NWOT_LL_Food_Recipes",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0068B8EE",
+     "edid": "NWOT_Recipe_Food_RadroachSkewer2",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0068B8FC",
+      "edid": "co_meal_NWOT_RadroachSkewer2",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0066D3F5",
+      "edid": "NWOT_RadroachSkewer2",
+      "type": ""
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0068B8EF",
+   "name": "Recipe: Fried Scorpion On A Stick",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": true,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "006772EC",
+       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0068B8FE",
+       "edid": "NWOT_LL_Food_Recipes",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0068B8EF",
+     "edid": "NWOT_Recipe_Food_RadscorpionSkewer",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0068B8F8",
+      "edid": "co_meal_NWOT_RadscorpionSkewer",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0066D3F0",
+      "edid": "NWOT_RadscorpionSkewer",
+      "type": ""
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0068B8ED",
+   "name": "Recipe: Gulper Stuffed Foot",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": true,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "006772EC",
+       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0068B8FE",
+       "edid": "NWOT_LL_Food_Recipes",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0068B8ED",
+     "edid": "NWOT_Recipe_Food_GulperStuffedFoot",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0068B8F5",
+      "edid": "co_meal_NWOT_GulperStuffedFoot",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00669394",
+      "edid": "NWOT_GulperStuffedFoot",
+      "type": ""
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "008F20F0",
+   "name": "Plan: Love Tap Paint",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": true,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "006772EC",
+       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0068B8E9",
+       "edid": "E09C_LoveTunnel_Recipes",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "008F20F0",
+     "edid": "Recipe_mod_SubmachineGun_Paint_LoveTap",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00685D4A",
+      "edid": "E09C_co_SubmachineGun_Paint_LoveTap",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00685D56",
+      "edid": "E09C_mod_SubmachineGun_Paint_LoveTap",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "00435856",
+   "name": "Plan: Mounted Antlers",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CACF",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00435856",
+     "edid": "Recipe_Workshop_WallDecor_Taxidermy_MountedAntlers",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0050CBDF",
+      "edid": "workshop_co_CondProxy_Taxidermy_Antlers",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0043585F",
+   "name": "Plan: Mounted Beaver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CACF",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0043585F",
+     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_RadBeaver",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0050CBC3",
+      "edid": "workshop_co_CondProxy_Taxidermy_RadBeaver",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "004E9FF1",
+   "name": "Plan: Mounted Brahmin Heads",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CACF",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "004E9FF1",
+     "edid": "Recipe_Workshop_WallDecor_Taxidermy_Brahmin",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0007856A",
+      "edid": "workshop_co_CondProxy_Taxidermy_Brahmin01",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "004E9FE9",
+   "name": "Plan: Mounted Cat Head",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CACF",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "004E9FE9",
+     "edid": "Recipe_Workshop_WallDecor_Taxidermy_Cat",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0010FF1C",
+      "edid": "workshop_co_CondProxy_Taxidermy_Cat01",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "004E9FFB",
+   "name": "Plan: Mounted Deathclaw Head",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CAD2",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "004E9FFB",
+     "edid": "Recipe_Workshop_WallDecor_Taxidermy_Deathclaw",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0010FF1D",
+      "edid": "workshop_co_CondProxy_Taxidermy_Deathclaw01",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "00435857",
+   "name": "Plan: Mounted Deer Head",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CACF",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00435857",
+     "edid": "Recipe_Workshop_WallDecor_Taxidermy_MountedDeerHead",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0040DF46",
+      "edid": "workshop_co_CondProxy_Taxidermy_DeerHead",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "004E9FD4",
+   "name": "Plan: Mounted Dog Head",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CACF",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "004E9FD4",
+     "edid": "Recipe_Workshop_WallDecor_Taxidermy_Dog",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0010FF35",
+      "edid": "workshop_co_CondProxy_Taxidermy_Dog01",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "004E9FF3",
+   "name": "Plan: Mounted Feral Ghoul Head",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CAD2",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "004E9FF3",
+     "edid": "Recipe_Workshop_WallDecor_Taxidermy_FeralGhoul",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0010FF1F",
+      "edid": "workshop_co_CondProxy_Taxidermy_FeralGhoul01",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "00435859",
+   "name": "Plan: Mounted Fox",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CACF",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00435859",
+     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_Fox",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0050CBBE",
+      "edid": "workshop_co_CondProxy_Taxidermy_Fox",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "00435860",
+   "name": "Plan: Mounted Frog",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CAD2",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00435860",
+     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_RadFrogBlue",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0050CBC4",
+      "edid": "workshop_co_CondProxy_Taxidermy_RadFrogBlue",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "004E9FF7",
+   "name": "Plan: Mounted Glowing One Head",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CAD2",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "004E9FF7",
+     "edid": "Recipe_Workshop_WallDecor_Taxidermy_FeralGlowingOne",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0010FF20",
+      "edid": "workshop_co_CondProxy_Taxidermy_FeralGlowingone01",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0040DF43",
+   "name": "Plan: Mounted Gorilla Head",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CAD2",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0040DF43",
+     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_Gorilla",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0040DF44",
+      "edid": "workshop_co_CondProxy_Taxidermy_Gorilla_Head",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0043585A",
+   "name": "Plan: Mounted Honey Beast",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CAD2",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0043585A",
+     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_HoneyBeast",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0050CBBF",
+      "edid": "workshop_co_CondProxy_Taxidermy_HoneyBeast",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "004E9FFD",
+   "name": "Plan: Mounted Mirelurk Claw",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CAD2",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "004E9FFD",
+     "edid": "Recipe_Workshop_WallDecor_Taxidermy_Mirelurk",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0007856C",
+      "edid": "workshop_co_CondProxy_Taxidermy_Mirelurk01",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "004E9FF9",
+   "name": "Plan: Mounted Mirelurk Hunter Head",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CAD2",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "004E9FF9",
+     "edid": "Recipe_Workshop_WallDecor_Taxidermy_MirelurkHunter",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0010FF21",
+      "edid": "workshop_co_CondProxy_Taxidermy_MirelurkHunter01",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "004E9FDB",
+   "name": "Plan: Mounted Mirelurk King Head",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CAD2",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "004E9FDB",
+     "edid": "Recipe_Workshop_WallDecor_Taxidermy_MirelurkKing",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0010FF22",
+      "edid": "workshop_co_CondProxy_Taxidermy_MirelurkKing01",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "004E9FEB",
+   "name": "Plan: Mounted Molerat Head",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CACF",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "004E9FEB",
+     "edid": "Recipe_Workshop_WallDecor_Taxidermy_Molerat",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0007856E",
+      "edid": "workshop_co_CondProxy_Taxidermy_Molerat01",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "004E9FDF",
+   "name": "Plan: Mounted Mongrel Head",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CACF",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "004E9FDF",
+     "edid": "Recipe_Workshop_WallDecor_Taxidermy_Raddog",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0010FF24",
+      "edid": "workshop_co_CondProxy_Taxidermy_Raddog01",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0043585C",
+   "name": "Plan: Mounted Mothman",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CAD2",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0043585C",
+     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_Mothman",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0050CBC1",
+      "edid": "workshop_co_CondProxy_Taxidermy_Mothman",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "004E9FF5",
+   "name": "Plan: Mounted Mutant Hound Head",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CAD2",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "004E9FF5",
+     "edid": "Recipe_Workshop_WallDecor_Taxidermy_FEVHound",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0010FF1E",
+      "edid": "workshop_co_CondProxy_Taxidermy_FEVHound01",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0043585D",
+   "name": "Plan: Mounted Opossum",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CACF",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0043585D",
+     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_Opossum",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0050CBC2",
+      "edid": "workshop_co_CondProxy_Taxidermy_Opossum",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "004E9FE3",
+   "name": "Plan: Mounted Radscorpion",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CAD2",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "004E9FE3",
+     "edid": "Recipe_Workshop_WallDecor_Taxidermy_Radscorpion",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0010FF26",
+      "edid": "workshop_co_CondProxy_Taxidermy_Radscorpion01",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "00435862",
+   "name": "Plan: Mounted Radtoad",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CAD2",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00435862",
+     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_RadToad",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0050CBC6",
+      "edid": "workshop_co_CondProxy_Taxidermy_RadToad",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "00435863",
+   "name": "Plan: Mounted Scorchbeast",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CAD2",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00435863",
+     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_ScorchedBeast",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0050CBC7",
+      "edid": "workshop_co_CondProxy_Taxidermy_ScorchedBeast",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "00435865",
+   "name": "Plan: Mounted Snallygaster",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CAD2",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00435865",
+     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_Snallygaster",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0050CBC9",
+      "edid": "workshop_co_CondProxy_Taxidermy_Snallygaster",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "00435861",
+   "name": "Plan: Mounted Squirrel",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CACF",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00435861",
+     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_RadSquirrel",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0050CBC5",
+      "edid": "workshop_co_CondProxy_Taxidermy_RadSquirrel",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0068B8EB",
+   "name": "Recipe: Nuka-Dog",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": true,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "006772EC",
+       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0068B8FE",
+       "edid": "NWOT_LL_Food_Recipes",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0068B8EB",
+     "edid": "NWOT_Recipe_Food_NukaDog",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0068B8FD",
+      "edid": "co_meal_NWOT_NukaDog",
+      "type": "COBJ"
+     },
+     {
+      "form_id": "0068B8F4",
+      "edid": "co_meal_NWOT_NukaBottleDog",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0066D3F3",
+      "edid": "NWOT_NukaDog",
+      "type": ""
+     },
+     {
+      "form_id": "0066D3F4",
+      "edid": "NWOT_NukaBottleDog",
+      "type": ""
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0086DBE5",
+   "name": "Plan: Plasma Caster Automatic Barrel",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008B1D62",
+       "edid": "LLS_Mods_Weapons_Ranged_PlasmaCaster",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Plasma Caster reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_PlasmaCaster) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Plasma Caster."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0086DBE5",
+     "edid": "recipe_mod_PlasmaCaster_Barrel_Auto",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0058FDCC",
+      "edid": "co_mod_PlasmaCaster_Barrel_Auto",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00584FBB",
+      "edid": "mod_PlasmaCaster_Barrel_Auto",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0086DBE7",
+   "name": "Plan: Plasma Caster Gamma Wave Emitter",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008B1D62",
+       "edid": "LLS_Mods_Weapons_Ranged_PlasmaCaster",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Plasma Caster reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_PlasmaCaster) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Plasma Caster."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0086DBE7",
+     "edid": "recipe_mod_PlasmaCaster_Receiver_Burning",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0086DBE8",
+      "edid": "co_mod_PlasmaCaster_Receiver_Burning",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0086DBEC",
+      "edid": "mod_PlasmaCaster_Receiver_Burning",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "00590FC5",
+   "name": "Plan: Plasma Caster Short Scope",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008B1D62",
+       "edid": "LLS_Mods_Weapons_Ranged_PlasmaCaster",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Plasma Caster reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_PlasmaCaster) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Plasma Caster."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00590FC5",
+     "edid": "recipe_mod_PlasmaCaster_SCOPE_ShortScope",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0058FDCE",
+      "edid": "co_mod_PlasmaCaster_SCOPE_ShortScope_Base",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0086C9D7",
+      "edid": "mod_PlasmaCaster_Scope_ShortScope_Base",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0086DBE6",
+   "name": "Plan: Plasma Caster Splitter Barrel",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008B1D62",
+       "edid": "LLS_Mods_Weapons_Ranged_PlasmaCaster",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Plasma Caster reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_PlasmaCaster) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Plasma Caster."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0086DBE6",
+     "edid": "recipe_mod_PlasmaCaster_Barrel_Splitter",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0058FDCA",
+      "edid": "co_mod_PlasmaCaster_Barrel_Splitter",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00584FBD",
+      "edid": "mod_PlasmaCaster_Barrel_Splitter",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0068B8F3",
+   "name": "Recipe: Radscorpion Kebab",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": true,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "006772EC",
+       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0068B8FE",
+       "edid": "NWOT_LL_Food_Recipes",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0068B8F3",
+     "edid": "NWOT_Recipe_Food_RadscorpionKebab",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0068B8F9",
+      "edid": "co_meal_NWOT_RadscorpionKebab",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0066DFC2",
+      "edid": "NWOT_RadscorpionKebab",
+      "type": ""
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "00921E5B",
+   "name": "Plan: Resolve Breaker Paint",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "0079661D",
+       "edid": "RD01_LLS_Raids_Rewards_Enc03_Weapons_ResolveBreaker",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Raids - Weapons Resolve Breaker: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In RD01_LLS_Raids_Rewards_Enc03_Weapons_ResolveBreaker, entry 2 (this plan) needs GetRandomPercent <= 5, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (RD01_Recipe_Weapon_Ranged_ResolveBreaker, GetRandomPercent <= 5), entry 1 (RD01_LL_Weapon_Ranged_ResolveBreaker, GetRandomPercent <= 10). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00921E5B",
+     "edid": "RD01_Recipe_Weapon_Ranged_ResolveBreakerPaint",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "007AD490",
+      "edid": "RD01_co_Mod_AutoGrenadeLauncher_Weapon_Paint_ResolveBreaker",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "007934FD",
+      "edid": "RD01_Mod_Custom_ResolveBreaker_Appearance",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "005AFDEE",
+   "name": "Plan: Sitting Gorilla",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CAD2",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "005AFDEE",
+     "edid": "Recipe_Workshop_FloorDecor_Taxidermy_Gorilla_Sitting",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "005AFDEF",
+      "edid": "workshop_co_CondProxy_FloorDecor_Taxidermy_Gorilla_Sitting",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "005AD986",
+   "name": "Plan: Standing Gorilla",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0059CAD2",
+       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
+    },
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "005AD986",
+     "edid": "Recipe_Workshop_FloorDecor_Taxidermy_Gorilla_Standing",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "005AD987",
+      "edid": "workshop_co_CondProxy_FloorDecor_Taxidermy_Gorilla_Standing",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "00682118",
+   "name": "Plan: Tunnel of Love Poster",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": true,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "006772EC",
+       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0068B8E9",
+       "edid": "E09C_LoveTunnel_Recipes",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00682118",
+     "edid": "E09C_Recipe_Workshop_StandalonePoster",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00682126",
+      "edid": "workshop_co_CondProxy_WallDecor_Posters_E09CPosters",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0067F169",
+   "name": "Plan: Tunnel of Love Snow Globe",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": true,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "006772EC",
+       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0068B8E9",
+       "edid": "E09C_LoveTunnel_Recipes",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0067F169",
+     "edid": "E09C_Recipe_Workshop_FloorDecor_Snowglobe_ToL",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0067F17C",
+      "edid": "workshop_co_CondProxy_FloorDecor_NWOT_Snowglobe_TOL",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0068B8EC",
+   "name": "Recipe: Yao Guai Pastry",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": true,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "006772EC",
+       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0068B8FE",
+       "edid": "NWOT_LL_Food_Recipes",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0068B8EC",
+     "edid": "NWOT_Recipe_Food_YaoGuaiPastry",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0068B8FB",
+      "edid": "co_meal_NWOT_YaoGuaiPastry",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0066D3F1",
+      "edid": "NWOT_YaoGuaiPastry",
+      "type": ""
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0043585B",
+   "name": "Plan: Mounted Mega Sloth",
+   "kind": "plan",
+   "severity": "route_broken",
+   "bugs": [
+    {
+     "kind": "shadowed",
+     "title": "Can never win its roll",
+     "records": [
+      {
+       "form_id": "005DCA8B",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "00792614",
+       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
+     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
+    }
+   ],
+   "still_from": [
+    "Event: Fasnacht Day"
+   ],
+   "technical": {
+    "plan": {
+     "form_id": "0043585B",
+     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_Megasloth",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0050CBC0",
+      "edid": "workshop_co_CondProxy_Taxidermy_Megasloth",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "003E9FA7",
+   "name": "Recipe: Delbert's Delicious Deerskins",
+   "kind": "plan",
+   "severity": "broken_item",
+   "bugs": [
+    {
+     "kind": "no_recipe",
+     "title": "Teaches nothing",
+     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
+     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
+    }
+   ],
+   "still_from": [
+    "Back to School - Deerskins"
+   ],
+   "technical": {
+    "plan": {
+     "form_id": "003E9FA7",
+     "edid": "RSVP00_Book_Recipe05_Deerskins",
+     "type": "BOOK"
+    },
+    "recipes": [],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "007FFEF0",
+   "name": "Plan: Secret Settler Helmet",
+   "kind": "plan",
+   "severity": "broken_item",
+   "bugs": [
+    {
+     "kind": "no_recipe",
+     "title": "Teaches nothing",
+     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
+     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
+    }
+   ],
+   "still_from": [
+    "The Drifter - Armor Secret Service Helmet"
+   ],
+   "technical": {
+    "plan": {
+     "form_id": "007FFEF0",
+     "edid": "P62_Recipe_Armor_SecretServiceDrifter_Helmet",
+     "type": "BOOK"
+    },
+    "recipes": [],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "004E8541",
+   "name": "Plan: Stone Fountain",
+   "kind": "plan",
+   "severity": "broken_item",
+   "bugs": [
+    {
+     "kind": "no_recipe",
+     "title": "Teaches nothing",
+     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
+     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
+    }
+   ],
+   "still_from": [
+    "Daily: A Better Tomorrow",
+    "SPOTLIGHT Workshop",
+    "Whitespring Art Gallery vendor",
+    "Workshop",
+    "Workshop Common"
+   ],
+   "technical": {
+    "plan": {
+     "form_id": "004E8541",
+     "edid": "Recipe_Workshop_FloorDecor_Statues_Fountain01",
+     "type": "BOOK"
+    },
+    "recipes": [],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-09-23",
+   "is_new": false
+  }
+ ],
+ "parked_lists": [
+  {
+   "list": {
+    "form_id": "00618512",
+    "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog",
+    "type": "LVLI"
+   },
+   "source": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "plans": [
+    "Plan: Ammo Converter"
+   ]
+  },
+  {
+   "list": {
+    "form_id": "0063671E",
+    "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+    "type": "LVLI"
+   },
+   "source": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "plans": [
+    "Plan: 10mm Halloween Paint",
+    "Plan: Antler Chandelier",
+    "Plan: Assault Rifle Bat Paint",
+    "Plan: Atom Cats Leather Armor Paint",
+    "Plan: BOS Combat Armor Paint",
+    "Plan: BOS Leather Armor Paint",
+    "Plan: Camouflage Gauss Shotgun Paint",
+    "Plan: Combat Armor Jack O' Lantern Paint",
+    "Plan: Combat Rifle Jack O' Lantern Paint",
+    "Plan: Fur-lined Jacket and Jeans",
+    "Plan: Ghillie Suit",
+    "Plan: Ghillie Suit Hood",
+    "Plan: Glowing Skeleton Costume",
+    "Plan: Glowing Skeleton Hood",
+    "Plan: Holiday Tree",
+    "Plan: Holiday Wreath",
+    "Plan: Hot Rod Flames Gatling Laser Paint",
+    "Plan: Hunting Rifle Wrapping Paper Paint",
+    "Plan: Marine Camouflage Gatling Laser Paint",
+    "Plan: Marine Camouflage Leather Armor Paint",
+    "Plan: Metal Armor Snowflakes Paint",
+    "Plan: Minigun Bats Paint",
+    "Plan: Nuclear Winter Beanie",
+    "Plan: Nuclear Winter Letterman Jacket",
+    "Plan: Nuclear Winter Tracksuit",
+    "Plan: Ring of Fire Pit",
+    "Plan: Shi Leather Armor Paint",
+    "Plan: Survivor's Bow Skin",
+    "Plan: Survivor's Cattle Prod Skin",
+    "Plan: Survivors Denim Underarmor",
+    "Plan: Vault-Tec University Diploma",
+    "Plan: Vault-Tec University Pennant",
+    "Plan: Vault-Tec University Poster",
+    "Plan: Wasteland Loveseat",
+    "Plan: Wrapped Presents"
+   ]
+  }
+ ],
+ "fixed": [],
+ "held_back": [],
+ "hidden_not_a_bug": 0,
+ "checklist_dead_routes": [
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Plasma Mine",
+   "id": "004E84F1",
+   "route": "Reassembly Required",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "004E2531",
+     "edid": "FS02_MQ_Reassembly_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Plasma Grenade",
+   "id": "004E84F2",
+   "route": "Reassembly Required",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "004E2531",
+     "edid": "FS02_MQ_Reassembly_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Mirelurk Hunter Head",
+   "id": "004E9FF9",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Mirelurk King Head",
+   "id": "004E9FDB",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Mutant Hound Head",
+   "id": "004E9FF5",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Glowing One Head",
+   "id": "004E9FF7",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Radscorpion",
+   "id": "004E9FE3",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Mongrel Head",
+   "id": "004E9FDF",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Dog Head",
+   "id": "004E9FD4",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Mirelurk Claw",
+   "id": "004E9FFD",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Brahmin Heads",
+   "id": "004E9FF1",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Deathclaw Head",
+   "id": "004E9FFB",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Feral Ghoul Head",
+   "id": "004E9FF3",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Cat Head",
+   "id": "004E9FE9",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Molerat Head",
+   "id": "004E9FEB",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: 10mm Submachine Gun",
+   "id": "004F476A",
+   "route": "FF06 Event",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00519A21",
+     "edid": "zzzFF06_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Missile Launcher",
+   "id": "004F478E",
+   "route": "MTNM",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0014EAF3",
+     "edid": "zzzMTNM01_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Missile Launcher",
+   "id": "004F478E",
+   "route": "MTNS",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0014E9B7",
+     "edid": "zzzMTNS05_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Missile Launcher",
+   "id": "004F478E",
+   "route": "MTNS Event",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0014E9B8",
+     "edid": "zzzMTNS06_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Pump-Action Shotgun",
+   "id": "004F4769",
+   "route": "FF06 Event",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00519A21",
+     "edid": "zzzFF06_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Light Combat Legs",
+   "id": "004F5710",
+   "route": "TWZ Event",
+   "rate": "6.82%",
+   "lists": [
+    {
+     "form_id": "0039D25A",
+     "edid": "zzzTWZ05_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Trapper Torso",
+   "id": "004F571A",
+   "route": "TWZ Event",
+   "rate": "6.82%",
+   "lists": [
+    {
+     "form_id": "0039D25A",
+     "edid": "zzzTWZ05_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Trapper Legs",
+   "id": "004F5719",
+   "route": "TWZ Event",
+   "rate": "6.82%",
+   "lists": [
+    {
+     "form_id": "0039D25A",
+     "edid": "zzzTWZ05_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Light Combat Torso",
+   "id": "004F5711",
+   "route": "TWZ Event",
+   "rate": "6.82%",
+   "lists": [
+    {
+     "form_id": "0039D25A",
+     "edid": "zzzTWZ05_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Light Metal Legs",
+   "id": "004F570C",
+   "route": "TWZ Event",
+   "rate": "11.82%",
+   "lists": [
+    {
+     "form_id": "0039D25A",
+     "edid": "zzzTWZ05_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Light Metal Legs",
+   "id": "004F570C",
+   "route": "FF01 Event",
+   "rate": "4%",
+   "lists": [
+    {
+     "form_id": "004FE485",
+     "edid": "zzzFF01_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Light Metal Torso",
+   "id": "004F5709",
+   "route": "TWZ Event",
+   "rate": "11.82%",
+   "lists": [
+    {
+     "form_id": "0039D25A",
+     "edid": "zzzTWZ05_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Light Metal Torso",
+   "id": "004F5709",
+   "route": "FF01 Event",
+   "rate": "4%",
+   "lists": [
+    {
+     "form_id": "004FE485",
+     "edid": "zzzFF01_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Light Metal Arms",
+   "id": "004F570D",
+   "route": "TWZ Event",
+   "rate": "11.82%",
+   "lists": [
+    {
+     "form_id": "0039D25A",
+     "edid": "zzzTWZ05_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Light Metal Arms",
+   "id": "004F570D",
+   "route": "FF01 Event",
+   "rate": "4%",
+   "lists": [
+    {
+     "form_id": "004FE485",
+     "edid": "zzzFF01_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Trapper Arms",
+   "id": "004F5718",
+   "route": "TWZ Event",
+   "rate": "6.82%",
+   "lists": [
+    {
+     "form_id": "0039D25A",
+     "edid": "zzzTWZ05_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Light Combat Arms",
+   "id": "004F570F",
+   "route": "TWZ Event",
+   "rate": "6.82%",
+   "lists": [
+    {
+     "form_id": "0039D25A",
+     "edid": "zzzTWZ05_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Vault Tec University Jumpsuit",
+   "id": "00313494",
+   "route": "TWZ Event",
+   "rate": "6.82%",
+   "lists": [
+    {
+     "form_id": "0039D25A",
+     "edid": "zzzTWZ05_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Vault 76 Jumpsuit",
+   "id": "0031352A",
+   "route": "TWZ Event",
+   "rate": "5%",
+   "lists": [
+    {
+     "form_id": "0039D25A",
+     "edid": "zzzTWZ05_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Vault 76 Jumpsuit",
+   "id": "0031352A",
+   "route": "FF01 Event",
+   "rate": "4%",
+   "lists": [
+    {
+     "form_id": "004FE485",
+     "edid": "zzzFF01_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: 10mm Pistol",
+   "id": "0052E485",
+   "route": "RS01",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0052E1AF",
+     "edid": "zzzRS01B_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Diluted RadAway",
+   "id": "003B7F2D",
+   "route": "RS03",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0052E1B1",
+     "edid": "zzzRS03_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Diluted Rad-X",
+   "id": "003B7F2E",
+   "route": "RS03",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0052E1B1",
+     "edid": "zzzRS03_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Grape Mentats",
+   "id": "002B8BBE",
+   "route": "TWZ Daily",
+   "rate": "0.91%",
+   "lists": [
+    {
+     "form_id": "0039CF82",
+     "edid": "zzzTWZ11_LL_QuestReward_Daily",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Fury",
+   "id": "002B8BBD",
+   "route": "TWZ Daily",
+   "rate": "0.91%",
+   "lists": [
+    {
+     "form_id": "0039CF82",
+     "edid": "zzzTWZ11_LL_QuestReward_Daily",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Orange Mentats",
+   "id": "002B8BC7",
+   "route": "TWZ Daily",
+   "rate": "0.91%",
+   "lists": [
+    {
+     "form_id": "0039CF82",
+     "edid": "zzzTWZ11_LL_QuestReward_Daily",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Psychobuff",
+   "id": "002B8BCA",
+   "route": "TWZ Daily",
+   "rate": "0.91%",
+   "lists": [
+    {
+     "form_id": "0039CF82",
+     "edid": "zzzTWZ11_LL_QuestReward_Daily",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Healing Salve (Forest)",
+   "id": "002B8BC1",
+   "route": "RS01",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0052E1AE",
+     "edid": "zzzRS01A_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Mentats",
+   "id": "002B8BC6",
+   "route": "TWZ Daily",
+   "rate": "0.91%",
+   "lists": [
+    {
+     "form_id": "0039CF82",
+     "edid": "zzzTWZ11_LL_QuestReward_Daily",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Skeeto Spit",
+   "id": "002B8BCD",
+   "route": "TWZ Daily",
+   "rate": "0.91%",
+   "lists": [
+    {
+     "form_id": "0039CF82",
+     "edid": "zzzTWZ11_LL_QuestReward_Daily",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Bufftats",
+   "id": "002B8BBC",
+   "route": "TWZ Daily",
+   "rate": "0.91%",
+   "lists": [
+    {
+     "form_id": "0039CF82",
+     "edid": "zzzTWZ11_LL_QuestReward_Daily",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Berry Mentats",
+   "id": "002B8BBA",
+   "route": "TWZ Daily",
+   "rate": "0.91%",
+   "lists": [
+    {
+     "form_id": "0039CF82",
+     "edid": "zzzTWZ11_LL_QuestReward_Daily",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Overdrive",
+   "id": "002B8BC8",
+   "route": "TWZ Daily",
+   "rate": "0.91%",
+   "lists": [
+    {
+     "form_id": "0039CF82",
+     "edid": "zzzTWZ11_LL_QuestReward_Daily",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Sturdy Raider Legs",
+   "id": "002B9FD3",
+   "route": "MTNS",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "002B9FCF",
+     "edid": "zzzMTNS01_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Sturdy Raider Torso",
+   "id": "002B9FD5",
+   "route": "MTNS",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "002B9FCF",
+     "edid": "zzzMTNS01_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Sturdy Raider Arms",
+   "id": "002B9FD1",
+   "route": "MTNS",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "002B9FCF",
+     "edid": "zzzMTNS01_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Protective Lining Casual Underarmor",
+   "id": "003D6548",
+   "route": "Early Warnings",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0033C4FA",
+     "edid": "FS01_MQ_Warn_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Shielded Lining Casual Underarmor",
+   "id": "003D6549",
+   "route": "Daily: Idle Explosives",
+   "rate": "5%",
+   "lists": [
+    {
+     "form_id": "003AC41D",
+     "edid": "SFZ14_Bomb_Rewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Shielded Lining Raider Underarmor",
+   "id": "003D654D",
+   "route": "MTNZ Event",
+   "rate": "5%",
+   "lists": [
+    {
+     "form_id": "0014E915",
+     "edid": "zzzMTNZ05_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Shielded Lining Raider Underarmor",
+   "id": "003D654D",
+   "route": "MTNZ Event Repeatable Large",
+   "rate": "5%",
+   "lists": [
+    {
+     "form_id": "0014E800",
+     "edid": "zzzMTNZ05_LL_QuestReward_Event_Repeatable_Large",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Shielded Lining Raider Underarmor",
+   "id": "003D654D",
+   "route": "MTNZ Event Repeatable Medium",
+   "rate": "5%",
+   "lists": [
+    {
+     "form_id": "0014E82C",
+     "edid": "zzzMTNZ05_LL_QuestReward_Event_Repeatable_Medium",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Protective Lining BoS Underarmor",
+   "id": "003D6546",
+   "route": "Bo S01",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "00330C10",
+     "edid": "zzzBoS01_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Shielded Lining BoS Underarmor",
+   "id": "003D6547",
+   "route": "Bo Sr01",
+   "rate": "5%",
+   "lists": [
+    {
+     "form_id": "0035A298",
+     "edid": "zzzBoSr01_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Shielded Lining BoS Underarmor",
+   "id": "003D6547",
+   "route": "Bo Sz01",
+   "rate": "5%",
+   "lists": [
+    {
+     "form_id": "003CA93D",
+     "edid": "zzzBoSz01_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Shielded Lining BoS Underarmor",
+   "id": "003D6547",
+   "route": "Bo Sz04",
+   "rate": "5%",
+   "lists": [
+    {
+     "form_id": "003CA93F",
+     "edid": "zzzBoSz04_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Shielded Lining BoS Underarmor",
+   "id": "003D6547",
+   "route": "Free State Event",
+   "rate": "5%",
+   "lists": [
+    {
+     "form_id": "0050E3FC",
+     "edid": "zzzLLS_FreeState_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Shielded Lining BoS Underarmor",
+   "id": "003D6547",
+   "route": "Raider Event",
+   "rate": "5%",
+   "lists": [
+    {
+     "form_id": "0050E3FD",
+     "edid": "zzzLLS_Raider_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Shielded Lining BoS Underarmor",
+   "id": "003D6547",
+   "route": "Responder Event",
+   "rate": "5%",
+   "lists": [
+    {
+     "form_id": "004F9DF7",
+     "edid": "zzzLLS_Responder_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Pool Table",
+   "id": "003C7BF5",
+   "route": "Daily: Play Time",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "002474E1",
+     "edid": "SFS02_Play_Rewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Elder Paint",
+   "id": "00501931",
+   "route": "Bo Sr01",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "0035A298",
+     "edid": "zzzBoSr01_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Elder Paint",
+   "id": "00501931",
+   "route": "Bo Sz01",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "003CA93D",
+     "edid": "zzzBoSz01_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Elder Paint",
+   "id": "00501931",
+   "route": "Bo Sz04",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "003CA93F",
+     "edid": "zzzBoSz04_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Elder Paint",
+   "id": "00501931",
+   "route": "Free State Event",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "0050E3FC",
+     "edid": "zzzLLS_FreeState_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Elder Paint",
+   "id": "00501931",
+   "route": "Raider Event",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "0050E3FD",
+     "edid": "zzzLLS_Raider_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Elder Paint",
+   "id": "00501931",
+   "route": "Responder Event",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "004F9DF7",
+     "edid": "zzzLLS_Responder_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Paladin Paint",
+   "id": "00501937",
+   "route": "Bo Sr01",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "0035A298",
+     "edid": "zzzBoSr01_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Paladin Paint",
+   "id": "00501937",
+   "route": "Bo Sz01",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "003CA93D",
+     "edid": "zzzBoSz01_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Paladin Paint",
+   "id": "00501937",
+   "route": "Bo Sz04",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "003CA93F",
+     "edid": "zzzBoSz04_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Paladin Paint",
+   "id": "00501937",
+   "route": "Free State Event",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "0050E3FC",
+     "edid": "zzzLLS_FreeState_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Paladin Paint",
+   "id": "00501937",
+   "route": "Raider Event",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "0050E3FD",
+     "edid": "zzzLLS_Raider_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Paladin Paint",
+   "id": "00501937",
+   "route": "Responder Event",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "004F9DF7",
+     "edid": "zzzLLS_Responder_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Officer Paint",
+   "id": "00501936",
+   "route": "Bo Sr01",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "0035A298",
+     "edid": "zzzBoSr01_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Officer Paint",
+   "id": "00501936",
+   "route": "Bo Sz01",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "003CA93D",
+     "edid": "zzzBoSz01_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Officer Paint",
+   "id": "00501936",
+   "route": "Bo Sz04",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "003CA93F",
+     "edid": "zzzBoSz04_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Officer Paint",
+   "id": "00501936",
+   "route": "Free State Event",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "0050E3FC",
+     "edid": "zzzLLS_FreeState_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Officer Paint",
+   "id": "00501936",
+   "route": "Raider Event",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "0050E3FD",
+     "edid": "zzzLLS_Raider_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Officer Paint",
+   "id": "00501936",
+   "route": "Responder Event",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "004F9DF7",
+     "edid": "zzzLLS_Responder_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Knight CPT Paint",
+   "id": "00501934",
+   "route": "Bo Sr01",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "0035A298",
+     "edid": "zzzBoSr01_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Knight CPT Paint",
+   "id": "00501934",
+   "route": "Bo Sz01",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "003CA93D",
+     "edid": "zzzBoSz01_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Knight CPT Paint",
+   "id": "00501934",
+   "route": "Bo Sz04",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "003CA93F",
+     "edid": "zzzBoSz04_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Knight CPT Paint",
+   "id": "00501934",
+   "route": "Free State Event",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "0050E3FC",
+     "edid": "zzzLLS_FreeState_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Knight CPT Paint",
+   "id": "00501934",
+   "route": "Raider Event",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "0050E3FD",
+     "edid": "zzzLLS_Raider_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Knight CPT Paint",
+   "id": "00501934",
+   "route": "Responder Event",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "004F9DF7",
+     "edid": "zzzLLS_Responder_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Knight Paint",
+   "id": "00501933",
+   "route": "Bo Sr01",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "0035A298",
+     "edid": "zzzBoSr01_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Knight Paint",
+   "id": "00501933",
+   "route": "Bo Sz01",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "003CA93D",
+     "edid": "zzzBoSz01_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Knight Paint",
+   "id": "00501933",
+   "route": "Bo Sz04",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "003CA93F",
+     "edid": "zzzBoSz04_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Knight Paint",
+   "id": "00501933",
+   "route": "Free State Event",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "0050E3FC",
+     "edid": "zzzLLS_FreeState_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Knight Paint",
+   "id": "00501933",
+   "route": "Raider Event",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "0050E3FD",
+     "edid": "zzzLLS_Raider_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Knight Paint",
+   "id": "00501933",
+   "route": "Responder Event",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "004F9DF7",
+     "edid": "zzzLLS_Responder_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-45 Right Arm",
+   "id": "00501892",
+   "route": "Power Armor Excavator by",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0050EC82",
+     "edid": "zzzLLS_Recipes_PowerArmor_Excavator_byQuest",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Knight SGT Paint",
+   "id": "00501935",
+   "route": "Bo Sr01",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "0035A298",
+     "edid": "zzzBoSr01_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Knight SGT Paint",
+   "id": "00501935",
+   "route": "Bo Sz01",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "003CA93D",
+     "edid": "zzzBoSz01_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Knight SGT Paint",
+   "id": "00501935",
+   "route": "Bo Sz04",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "003CA93F",
+     "edid": "zzzBoSz04_LL_QuestReward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Knight SGT Paint",
+   "id": "00501935",
+   "route": "Free State Event",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "0050E3FC",
+     "edid": "zzzLLS_FreeState_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Knight SGT Paint",
+   "id": "00501935",
+   "route": "Raider Event",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "0050E3FD",
+     "edid": "zzzLLS_Raider_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: T-60 BOS Knight SGT Paint",
+   "id": "00501935",
+   "route": "Responder Event",
+   "rate": "4.29%",
+   "lists": [
+    {
+     "form_id": "004F9DF7",
+     "edid": "zzzLLS_Responder_Event_QuestRewards",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Thistle Tea",
+   "id": "0050DCC8",
+   "route": "FFZ Event",
+   "rate": "1.88%",
+   "lists": [
+    {
+     "form_id": "00519A37",
+     "edid": "zzzFFZ17_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Thistle Tea",
+   "id": "0050DCC8",
+   "route": "FFZ Daily",
+   "rate": "1.25%",
+   "lists": [
+    {
+     "form_id": "00519A33",
+     "edid": "zzzFFZ13_LL_QuestReward_Daily",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Fever Blossom Tea",
+   "id": "0050DCC1",
+   "route": "FFZ Event",
+   "rate": "1.88%",
+   "lists": [
+    {
+     "form_id": "00519A37",
+     "edid": "zzzFFZ17_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Fever Blossom Tea",
+   "id": "0050DCC1",
+   "route": "FFZ Daily",
+   "rate": "1.25%",
+   "lists": [
+    {
+     "form_id": "00519A33",
+     "edid": "zzzFFZ13_LL_QuestReward_Daily",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Sweet Blackberry Tea",
+   "id": "0050DCBD",
+   "route": "FFZ Event",
+   "rate": "1.88%",
+   "lists": [
+    {
+     "form_id": "00519A37",
+     "edid": "zzzFFZ17_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Sweet Blackberry Tea",
+   "id": "0050DCBD",
+   "route": "FFZ Daily",
+   "rate": "1.25%",
+   "lists": [
+    {
+     "form_id": "00519A33",
+     "edid": "zzzFFZ13_LL_QuestReward_Daily",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Gourd Blossom Tea",
+   "id": "0050DCC2",
+   "route": "FFZ Event",
+   "rate": "1.88%",
+   "lists": [
+    {
+     "form_id": "00519A37",
+     "edid": "zzzFFZ17_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Gourd Blossom Tea",
+   "id": "0050DCC2",
+   "route": "FFZ Daily",
+   "rate": "1.25%",
+   "lists": [
+    {
+     "form_id": "00519A33",
+     "edid": "zzzFFZ13_LL_QuestReward_Daily",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Melon Blossom Chai",
+   "id": "0050DCC4",
+   "route": "FFZ Event",
+   "rate": "1.88%",
+   "lists": [
+    {
+     "form_id": "00519A37",
+     "edid": "zzzFFZ17_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Strangler Pod Tea",
+   "id": "0050DCC6",
+   "route": "FFZ Event",
+   "rate": "1.88%",
+   "lists": [
+    {
+     "form_id": "00519A37",
+     "edid": "zzzFFZ17_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Strangler Pod Tea",
+   "id": "0050DCC6",
+   "route": "FFZ Daily",
+   "rate": "1.25%",
+   "lists": [
+    {
+     "form_id": "00519A33",
+     "edid": "zzzFFZ13_LL_QuestReward_Daily",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Ash Rose Tea",
+   "id": "0050DCBB",
+   "route": "FFZ Event",
+   "rate": "1.88%",
+   "lists": [
+    {
+     "form_id": "00519A37",
+     "edid": "zzzFFZ17_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Ash Rose Tea",
+   "id": "0050DCBB",
+   "route": "FFZ Daily",
+   "rate": "1.25%",
+   "lists": [
+    {
+     "form_id": "00519A33",
+     "edid": "zzzFFZ13_LL_QuestReward_Daily",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Strangler Bloom Tea",
+   "id": "0050DCC5",
+   "route": "FFZ Event",
+   "rate": "1.88%",
+   "lists": [
+    {
+     "form_id": "00519A37",
+     "edid": "zzzFFZ17_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Strangler Bloom Tea",
+   "id": "0050DCC5",
+   "route": "FFZ Daily",
+   "rate": "1.25%",
+   "lists": [
+    {
+     "form_id": "00519A33",
+     "edid": "zzzFFZ13_LL_QuestReward_Daily",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Carrot Flower Tea",
+   "id": "0050DCBF",
+   "route": "FFZ Event",
+   "rate": "1.88%",
+   "lists": [
+    {
+     "form_id": "00519A37",
+     "edid": "zzzFFZ17_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Melon Bloom Tea",
+   "id": "0050DCC3",
+   "route": "FFZ Event",
+   "rate": "1.88%",
+   "lists": [
+    {
+     "form_id": "00519A37",
+     "edid": "zzzFFZ17_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Melon Bloom Tea",
+   "id": "0050DCC3",
+   "route": "FFZ Daily",
+   "rate": "1.25%",
+   "lists": [
+    {
+     "form_id": "00519A33",
+     "edid": "zzzFFZ13_LL_QuestReward_Daily",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Tato Flower Tea",
+   "id": "0050DCC7",
+   "route": "FFZ Event",
+   "rate": "1.88%",
+   "lists": [
+    {
+     "form_id": "00519A37",
+     "edid": "zzzFFZ17_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Fern Flower Tea",
+   "id": "0050DCC0",
+   "route": "FFZ Event",
+   "rate": "1.88%",
+   "lists": [
+    {
+     "form_id": "00519A37",
+     "edid": "zzzFFZ17_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Fern Flower Tea",
+   "id": "0050DCC0",
+   "route": "FFZ Daily",
+   "rate": "1.25%",
+   "lists": [
+    {
+     "form_id": "00519A33",
+     "edid": "zzzFFZ13_LL_QuestReward_Daily",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Aster Tea",
+   "id": "0050DCBC",
+   "route": "FFZ Event",
+   "rate": "1.88%",
+   "lists": [
+    {
+     "form_id": "00519A37",
+     "edid": "zzzFFZ17_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Recipe: Steeped Aster Tea",
+   "id": "0050DCBC",
+   "route": "FFZ Daily",
+   "rate": "1.25%",
+   "lists": [
+    {
+     "form_id": "00519A33",
+     "edid": "zzzFFZ13_LL_QuestReward_Daily",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Beaver",
+   "id": "0043585F",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Fox",
+   "id": "00435859",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Radtoad",
+   "id": "00435862",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Mothman",
+   "id": "0043585C",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Frog",
+   "id": "00435860",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Deer Head",
+   "id": "00435857",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Mega Sloth",
+   "id": "0043585B",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Honey Beast",
+   "id": "0043585A",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Opossum",
+   "id": "0043585D",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Scorchbeast",
+   "id": "00435863",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Antlers",
+   "id": "00435856",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Squirrel",
+   "id": "00435861",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Snallygaster",
+   "id": "00435865",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Laser Gun",
+   "id": "00437008",
+   "route": "FF06 Event",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00519A21",
+     "edid": "zzzFF06_LL_QuestReward_Event",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Road Leathers",
+   "id": "00437019",
+   "route": "Burning Springs General Armor Mod vendor",
+   "rate": "20%",
+   "lists": [
+    {
+     "form_id": "0084C566",
+     "edid": "zzzBurn_LL_GeneralVendor_Recipe_Armor_Mod",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Brewing Station",
+   "id": "0046A36F",
+   "route": "Wasted on Nukashine",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "003F45FE",
+     "edid": "P01A_Nukashine_LL_Quest_Reward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Brewing Station",
+   "id": "0046A36F",
+   "route": "Wasted on Nukashine - Brewing Plans",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "003F45FF",
+     "edid": "P01A_Nukashine_LLS_Brewing_Plans",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Fermenting Station",
+   "id": "003F4600",
+   "route": "Wasted on Nukashine",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "003F45FE",
+     "edid": "P01A_Nukashine_LL_Quest_Reward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Fermenting Station",
+   "id": "003F4600",
+   "route": "Wasted on Nukashine - Brewing Plans",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "003F45FF",
+     "edid": "P01A_Nukashine_LLS_Brewing_Plans",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Recipe: Stimpak Diffuser",
+   "id": "003F5E9C",
+   "route": "Unsolved: Best of Intentions",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "003F5E9B",
+     "edid": "P01B_Mini_Albino01_LL_Quest_Reward",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Mounted Gorilla Head",
+   "id": "0040DF43",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Deer Skull",
+   "id": "0040DF45",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "cut list"
+   ],
+   "plan": "Plan: Small Backpack",
+   "id": "00564078",
+   "route": "Burning Springs General Armor Mod vendor",
+   "rate": "20%",
+   "lists": [
+    {
+     "form_id": "0084C566",
+     "edid": "zzzBurn_LL_GeneralVendor_Recipe_Armor_Mod",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Standing Gorilla",
+   "id": "005AD986",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "entry can never roll"
+   ],
+   "plan": "Plan: Sitting Gorilla",
+   "id": "005AFDEE",
+   "route": "Festive Holiday Rare Taxidermy",
+   "rate": "3.33%",
+   "lists": [
+    {
+     "form_id": "00792614",
+     "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Fur-lined Jacket and Jeans",
+   "id": "0063670B",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Holiday Tree",
+   "id": "006366FD",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Combat Armor Jack O' Lantern Paint",
+   "id": "00636703",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Vault-Tec University Diploma",
+   "id": "006366FF",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Vault-Tec University Pennant",
+   "id": "00636706",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Glowing Skeleton Hood",
+   "id": "00636708",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Hunting Rifle Wrapping Paper Paint",
+   "id": "00636704",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Assault Rifle Bat Paint",
+   "id": "00636701",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Wrapped Presents",
+   "id": "006366FC",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Combat Rifle Jack O' Lantern Paint",
+   "id": "006366FE",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Glowing Skeleton Costume",
+   "id": "00636709",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Vault-Tec University Poster",
+   "id": "0063670C",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Nuclear Winter Beanie",
+   "id": "00636705",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Metal Armor Snowflakes Paint",
+   "id": "00636700",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Minigun Bats Paint",
+   "id": "00636707",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Holiday Wreath",
+   "id": "00636702",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: 10mm Halloween Paint",
+   "id": "0063670A",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Atom Cats Leather Armor Paint",
+   "id": "006369B8",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Ghillie Suit",
+   "id": "006369C0",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Nuclear Winter Letterman Jacket",
+   "id": "006369B9",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Nuclear Winter Tracksuit",
+   "id": "006369B7",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: BOS Leather Armor Paint",
+   "id": "006369BD",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Antler Chandelier",
+   "id": "006369C7",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Ghillie Suit Hood",
+   "id": "006369B6",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Shi Leather Armor Paint",
+   "id": "006369C5",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: BOS Combat Armor Paint",
+   "id": "006369C3",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Survivor's Bow Skin",
+   "id": "006369C4",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Marine Camouflage Gatling Laser Paint",
+   "id": "006369BA",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Wasteland Loveseat",
+   "id": "006369C6",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Ring of Fire Pit",
+   "id": "006369BF",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Marine Camouflage Leather Armor Paint",
+   "id": "006369BE",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Survivor's Cattle Prod Skin",
+   "id": "006369BC",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Camouflage Gauss Shotgun Paint",
+   "id": "006369BB",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Hot Rod Flames Gatling Laser Paint",
+   "id": "006369C2",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "parked list (cut, not marked)"
+   ],
+   "plan": "Plan: Survivors Denim Underarmor",
+   "id": "006369C1",
+   "route": "Steel Reign - Minerva (Gold Bullion vendor)",
+   "rate": "100%",
+   "lists": [
+    {
+     "form_id": "0063671E",
+     "edid": "BS02_SpecialVendor_Minerva_LLS_GoldVendor_Backlog_02",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Cupid Cappy Sign",
+   "id": "0065DD0A",
+   "route": "Event: Tunnel Of Love",
+   "rate": "16.67%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Cupid Cappy Sign",
+   "id": "0065DD0A",
+   "route": "Event: Tunnel Of Love",
+   "rate": "8.33%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Nuka-Cola Balloons",
+   "id": "00675279",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.57%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Cappy Smasher Super Sledge Paint",
+   "id": "0067F172",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.57%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Tunnel of Love Snow Globe",
+   "id": "0067F169",
+   "route": "Event: Tunnel Of Love",
+   "rate": "16.67%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Tunnel of Love Snow Globe",
+   "id": "0067F169",
+   "route": "Event: Tunnel Of Love",
+   "rate": "8.33%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Nuka-Cola Crate Stalls",
+   "id": "00682117",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.57%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Nuka-Cola Ad Barrier",
+   "id": "00682116",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.57%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Tunnel of Love Poster",
+   "id": "00682118",
+   "route": "Event: Tunnel Of Love",
+   "rate": "16.67%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Tunnel of Love Poster",
+   "id": "00682118",
+   "route": "Event: Tunnel Of Love",
+   "rate": "8.33%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Nuka-Cade Poster",
+   "id": "0068211C",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.57%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Nuka Cola Bottle Kiosk",
+   "id": "0068211D",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.57%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Cappy Clapper",
+   "id": "006828E5",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.57%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Bottle Bot",
+   "id": "006828EC",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.57%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Bottle and Cappy Balloon Statue",
+   "id": "006828E8",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.57%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Bottle and Cappy Hoop Jump Statue",
+   "id": "006828E9",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.57%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Bottle and Cappy Painting Statue",
+   "id": "006828E6",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.57%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Bottle and Cappy Walking Globe Statue",
+   "id": "006828EA",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.57%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Recipe: Carnival Pie",
+   "id": "0068B8F2",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.7%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Recipe: Carnival Pie",
+   "id": "0068B8F2",
+   "route": "Event: Tunnel Of Love",
+   "rate": "1.85%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Recipe: Gulper Stuffed Foot",
+   "id": "0068B8ED",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.7%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Recipe: Gulper Stuffed Foot",
+   "id": "0068B8ED",
+   "route": "Event: Tunnel Of Love",
+   "rate": "1.85%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Recipe: Fried Scorpion On A Stick",
+   "id": "0068B8EF",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.7%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Recipe: Fried Scorpion On A Stick",
+   "id": "0068B8EF",
+   "route": "Event: Tunnel Of Love",
+   "rate": "1.85%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Recipe: Yao Guai Pastry",
+   "id": "0068B8EC",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.7%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Recipe: Yao Guai Pastry",
+   "id": "0068B8EC",
+   "route": "Event: Tunnel Of Love",
+   "rate": "1.85%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Recipe: Radscorpion Kebab",
+   "id": "0068B8F3",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.7%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Recipe: Radscorpion Kebab",
+   "id": "0068B8F3",
+   "route": "Event: Tunnel Of Love",
+   "rate": "1.85%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Recipe: Caramel Mutfruit",
+   "id": "0068B8F1",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.7%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Recipe: Caramel Mutfruit",
+   "id": "0068B8F1",
+   "route": "Event: Tunnel Of Love",
+   "rate": "1.85%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Recipe: Fried Radroach On A Stick",
+   "id": "0068B8EE",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.7%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Recipe: Fried Radroach On A Stick",
+   "id": "0068B8EE",
+   "route": "Event: Tunnel Of Love",
+   "rate": "1.85%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Recipe: Nuka-Dog",
+   "id": "0068B8EB",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.7%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Recipe: Nuka-Dog",
+   "id": "0068B8EB",
+   "route": "Event: Tunnel Of Love",
+   "rate": "1.85%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Recipe: Brahmin Burgers",
+   "id": "0068B8F0",
+   "route": "Event: Tunnel Of Love",
+   "rate": "3.7%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Recipe: Brahmin Burgers",
+   "id": "0068B8F0",
+   "route": "Event: Tunnel Of Love",
+   "rate": "1.85%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Love Tap Paint",
+   "id": "008F20F0",
+   "route": "Event: Tunnel Of Love",
+   "rate": "1.67%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  },
+  {
+   "why": [
+    "reward pool not hooked up"
+   ],
+   "plan": "Plan: Love Tap Paint",
+   "id": "008F20F0",
+   "route": "Event: Tunnel Of Love",
+   "rate": "0.83%",
+   "lists": [
+    {
+     "form_id": "006772EC",
+     "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
+     "type": "LVLI"
+    },
+    {
+     "form_id": "0068B8E9",
+     "edid": "E09C_LoveTunnel_Recipes",
+     "type": "LVLI"
+    }
+   ]
+  }
+ ]
+}
