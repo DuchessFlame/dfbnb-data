@@ -1,4 +1,4 @@
-name: Build Plan Checklist Datasets (camera mods, scoreboard art)
+name: Build Plan Checklist Datasets (camera mods, scoreboard art, beer steins)
 
 # Two plan-checklist pages do NOT render from plan_master and so are not built
 # by build-plan-obtain.yml:
@@ -33,8 +33,11 @@ on:
       - "src/tsv_source.py"
       - "tsv/OMOD_Export_*.tsv"
       - "tsv/pts/OMOD_Export_*.tsv"
+      - "tsv/MISC_Export_*.tsv"
+      - "tsv/pts/MISC_Export_*.tsv"
       - "src/build_camera_mods_json.py"
       - "src/build_scoreboard_art_json.py"
+      - "src/build_beer_steins_json.py"
       - ".github/workflows/build-plan-checklist-datasets.yml"
 
 permissions:
@@ -70,6 +73,11 @@ jobs:
           python src/build_scoreboard_art_json.py
           python src/build_scoreboard_art_json.py --pts
 
+      - name: Build beer steins (live + PTS)
+        run: |
+          python src/build_beer_steins_json.py
+          python src/build_beer_steins_json.py --pts
+
       # A page that ships an empty dataset renders an empty page with no error,
       # which is the failure this whole category has hit repeatedly. Assert
       # shape AND a non-zero roster.
@@ -79,7 +87,8 @@ jobs:
           import json, sys
           bad = []
           for path in ("dist/camera_mods.json", "dist/pts/camera_mods.json",
-                       "dist/scoreboard_art.json", "dist/pts/scoreboard_art.json"):
+                       "dist/scoreboard_art.json", "dist/pts/scoreboard_art.json",
+                       "dist/beer_steins.json", "dist/pts/beer_steins.json"):
               d = json.load(open(path))
               rows = sum(len(g.get("items", []))
                          + sum(len(sg.get("items", [])) for sg in g.get("groups", []))
@@ -98,9 +107,10 @@ jobs:
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add dist/camera_mods.json dist/pts/camera_mods.json \
-                    dist/scoreboard_art.json dist/pts/scoreboard_art.json
+                    dist/scoreboard_art.json dist/pts/scoreboard_art.json \
+                    dist/beer_steins.json dist/pts/beer_steins.json
             git diff --cached --quiet && echo "No changes staged." && exit 0
-            git commit -m "Build plan checklist datasets (camera mods, scoreboard art)"
+            git commit -m "Build plan checklist datasets (camera mods, scoreboard art, beer steins)"
             git fetch origin main
             git pull --rebase origin main
             git push origin main

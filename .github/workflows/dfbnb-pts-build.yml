@@ -1021,6 +1021,18 @@ jobs:
       - name: Build Displays JSON
         run: python src/build_displays_json.py --tsv-root tsv --outdir dist
 
+      # --- BEER STEINS (Beer Stein Checklist page) ---
+      # Outputs dist/beer_steins.json for df-bnb-plan-checklists.js. In this
+      # workflow tsv/ is already PTS-normalized, so this IS PTS data, and the
+      # "Relocate build output into dist/pts" step moves it to
+      # dist/pts/beer_steins.json like every other builder. Do NOT pass --pts
+      # here — that writes straight into dist/pts/ and collides with the relocate
+      # mv (same trap as unique_weapons --channel both). Membership is generative
+      # from the MISC export's BeerSteinsKeyword; SCORE_S<n> steins reuse the
+      # season pages' hosted artwork.
+      - name: Build Beer Steins JSON
+        run: python src/build_beer_steins_json.py
+
       # --- WORLD PET CHALLENGES (World Pet Challenges page) ---
       # Outputs dist/world_pet_challenges.json for df-bnb-world-pets.js.
       - name: Build World Pet Challenges JSON
@@ -1435,6 +1447,7 @@ jobs:
           test -f dist/mule-defaults.json            && echo "OK mule-defaults.json (static seed)" || echo "WARN missing mule-defaults.json (static seed, not built by patch)"
           test -f dist/pennants.json                 && echo "OK pennants.json"                 || (echo "MISSING pennants.json" && exit 1)
           test -f dist/displays.json                 && echo "OK displays.json"                 || (echo "MISSING displays.json" && exit 1)
+          test -f dist/beer_steins.json              && echo "OK beer_steins.json"              || (echo "MISSING beer_steins.json" && exit 1)
           test -f dist/world_pet_challenges.json     && echo "OK world_pet_challenges.json"     || (echo "MISSING world_pet_challenges.json" && exit 1)
           test -f dist/world_pet_types.json          && echo "OK world_pet_types.json"          || (echo "MISSING world_pet_types.json" && exit 1)
           test -f dist/calculators/weak_spot_multipliers.json && echo "OK weak_spot_multipliers.json" || (echo "MISSING weak_spot_multipliers.json" && exit 1)

@@ -107,6 +107,7 @@ sys.path.insert(0, HERE)
 
 import tsv_source
 import plan_images                            # row art, same resolver as the other pages
+import plan_pins                              # manual event-recycled-plan pins (data/new_plans_pins.tsv)
 
 # -- the BOOK export selector, shared -----------------------------------------
 BOOK_GLOB    = "BOOK_Export_*.tsv"
@@ -743,6 +744,24 @@ def main(argv=None):
     # -- pull the finished rows out of plan_master ---------------------------
     with open(master_path, encoding="utf-8") as f:
         master = json.load(f)
+
+    # -- manual pins ---------------------------------------------------------
+    # THE ONE THING THAT MAKES THE PINS SURVIVE CI. The change diff
+    # (plan_changes.py) only runs inside reenrich_plan_master.py, and the patch
+    # workflow does NOT run reenrich — it rebuilds plan_master with
+    # build_plan_obtain_json.py (no `changes` field at all) and then runs THIS
+    # script. So a pin applied only in reenrich is clobbered on every CI build
+    # and the New Plans page comes back with count_changed:0. Applying the pins
+    # HERE, against the in-memory master rows this build reads, force-attaches
+    # the same `changes` entry (and route `new` flag) the diff would have
+    # produced, so the existing "changed" loop below emits the pinned plans as
+    # ↻ Changed rows whether or not plan_master carries any changes of its own.
+    # De-duped against real changes and inert once a pin's EndDate passes; the
+    # channel (live/pts) is derived from --data-dir so a live pin never shows on
+    # the PTS "what's coming next" page.
+    plan_pins.report(plan_pins.apply(master.get("items", []), tsv_dir=args.data_dir),
+                     stream=sys.stdout)
+
     by_fid, by_cobj = {}, {}
     for it in master.get("items", []):
         fid = ((it.get("plan_item") or {}).get("formid") or "").upper()

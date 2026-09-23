@@ -1,0 +1,123 @@
+name: Build Titles JSON
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - "tsv/**"
+      # PTS data lives in tsv/pts/ and has its own workflow (dfbnb-pts-build.yml).
+      # Exclude it so PTS pulls don't trigger a wasteful live rebuild.
+      - "!tsv/pts/**"
+      - "src/build_titles_json.py"
+      # Title art is season-first: a refreshed upload check (or index change)
+      # must rebuild the titles JSON so rows move to the season copy.
+      - "src/reusable_images.py"
+      - "dist/season_images/unpublished_images.json"
+      - "src/build_drop_rates.py"
+      - "src/rng76.py"
+      - "src/build_patchlog_manifest_from_guide_index.py"
+      - "src/append_patchlog_history.py"
+      - ".github/workflows/build-titles-json.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-titles-json-main
+  cancel-in-progress: false
+
+jobs:
+  # Step 1: Build shared drop rates first
+  drop-rates:
+    uses: ./.github/workflows/build-drop-rates.yml
+
+  # Step 2: Build titles using the shared JSON
+  build:
+    needs: drop-rates
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Pull latest (includes drop_rates.json from previous job)
+        run: git pull origin main
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Verify drop_rates.json exists
+        run: |
+          if [ -f dist/drop_rates.json ]; then
+            echo "drop_rates.json found ($(wc -c < dist/drop_rates.json) bytes)"
+          else
+            echo "Warning: dist/drop_rates.json not found — script will use fallback"
+          fi
+
+      - name: Build Titles JSON
+        run: |
+          python src/build_titles_json.py \
+            --tsv-root tsv \
+            --seasons tsv/fallout76_seasons.tsv \
+            --outdir dist
+
+      - name: Show dist outputs (debug)
+        run: |
+          echo "---- dist listing ----"
+          ls -la dist || true
+          echo "---- dist *.json ----"
+          find dist -maxdepth 1 -type f -name "*.json" -print -exec wc -c {} \; || true
+
+      - name: Sanity check Titles outputs exist
+        run: |
+          test -f dist/titles_camp.json || (echo "Missing dist/titles_camp.json" && exit 1)
+          test -f dist/titles_player.json || (echo "Missing dist/titles_player.json" && exit 1)
+          test -f dist/titles_patchlog.json || (echo "Missing dist/titles_patchlog.json" && exit 1)
+
+      - name: Stage patchlog latest (titles -> generic)
+        run: |
+          cp dist/titles_patchlog.json dist/patchlog_latest_titles.json
+
+      - name: Build patchlog manifest (from guide_index.tsv)
+        run: |
+          python src/build_patchlog_manifest_from_guide_index.py \
+            --guide-index tsv/guide_index.tsv \
+            --out dist/patchlog_manifest.json \
+            --dist-base-url "https://raw.githubusercontent.com/${{ github.repository }}/${{ github.ref_name }}/dist" \
+            --titles-feed patchlog_latest_titles.json
+
+      - name: Append patchlog history (append-only)
+        run: |
+          python src/append_patchlog_history.py \
+            --latest dist/patchlog_latest_titles.json \
+            --history dist/patchlog_history.json \
+            --kind titles
+
+      - name: Show git status (debug)
+        run: |
+          echo "---- git status ----"
+          git status --porcelain
+          echo "---- dist status ----"
+          git status --porcelain dist/ || true
+
+      - name: Commit dist
+        run: |
+          if git status --porcelain dist/ | grep -q .; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+
+            git add dist/
+            git commit -m "Update Titles dist outputs"
+
+            git fetch origin main
+            git pull --rebase origin main
+            git push origin main
+          else
+            echo "No dist changes to commit."
+          fi
