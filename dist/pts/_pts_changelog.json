@@ -1640,6 +1640,103 @@
       "removed": [],
       "changed": []
     },
+    "bugged_plans.json": {
+      "key": "id",
+      "added": [
+        "008D5AA7",
+        "008D5AA8",
+        "008D5AAE",
+        "0094673A",
+        "0094673B",
+        "0094673C",
+        "0094673D",
+        "0094673E",
+        "0094673F",
+        "00946740",
+        "00946741",
+        "00946742",
+        "00947F29",
+        "00947F2A",
+        "00947F2B",
+        "00947F2C",
+        "00947F2D",
+        "00947F2E",
+        "00947F2F",
+        "00947F30",
+        "00947F31",
+        "00947F32",
+        "00947F33",
+        "00947F34",
+        "00947F35",
+        "00947F36",
+        "00947F37",
+        "00947F38",
+        "00947F39",
+        "00947F3A",
+        "00947F3B",
+        "00947F3C",
+        "00947F3D",
+        "00947F3E",
+        "00948262",
+        "00948263",
+        "00948264",
+        "00948265",
+        "00948266",
+        "00948267",
+        "00948268",
+        "00948269",
+        "0094826A",
+        "0094826B",
+        "0094826C",
+        "00948FF2",
+        "00948FF3",
+        "00948FF4",
+        "00948FF5",
+        "00948FF6",
+        "00948FF7",
+        "00948FF8",
+        "00948FF9",
+        "00948FFA",
+        "00948FFB",
+        "00948FFC",
+        "0094CE36",
+        "0094CE37",
+        "0094CE38",
+        "0094CE39",
+        "0094CE3A",
+        "0094CE3B",
+        "0094CE3C",
+        "0094CE3D",
+        "0094CE3E",
+        "0094CE3F",
+        "0094CE40",
+        "0094F152",
+        "0094F154",
+        "0094F155",
+        "0094F156",
+        "0094F157",
+        "0094F158",
+        "0094F159",
+        "0094F15A"
+      ],
+      "removed": [
+        "0065DD0A",
+        "0067F169",
+        "00682118",
+        "0068B8EB",
+        "0068B8EC",
+        "0068B8ED",
+        "0068B8EE",
+        "0068B8EF",
+        "0068B8F0",
+        "0068B8F1",
+        "0068B8F2",
+        "0068B8F3",
+        "007FFEF0",
+        "008F20F0"
+      ],
+      "changed": []
+    },
     "bundles.json": {
       "key": "name",
       "added": [],
@@ -33663,45 +33760,35 @@
           "key": "SCORE_S11_ENTM_CAMP_Utility_Collectron_NukaQuantum",
           "label": "SCORE_S11_ENTM_CAMP_Utility_Collectron_NukaQuantum",
           "fields": [
-            "howToObtain",
-            "imageUrl",
-            "obtainRoutes"
+            "imageUrl"
           ]
         },
         {
           "key": "SCORE_S14_ENTM_CAMP_Utility_Collectron_AutoMiner",
           "label": "SCORE_S14_ENTM_CAMP_Utility_Collectron_AutoMiner",
           "fields": [
-            "howToObtain",
-            "imageUrl",
-            "obtainRoutes"
+            "imageUrl"
           ]
         },
         {
           "key": "SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster",
           "label": "SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster",
           "fields": [
-            "howToObtain",
-            "imageUrl",
-            "obtainRoutes"
+            "imageUrl"
           ]
         },
         {
           "key": "SCORE_S22_ENTM_CAMP_Utility_Collectron_RoboButler",
           "label": "SCORE_S22_ENTM_CAMP_Utility_Collectron_RoboButler",
           "fields": [
-            "howToObtain",
-            "imageUrl",
-            "obtainRoutes"
+            "imageUrl"
           ]
         },
         {
           "key": "SCORE_S23_ENTM_CAMP_Utility_Collectron_Cornbot",
           "label": "SCORE_S23_ENTM_CAMP_Utility_Collectron_Cornbot",
           "fields": [
-            "howToObtain",
             "imageUrl",
-            "obtainRoutes",
             "production"
           ]
         },
@@ -33709,8 +33796,6 @@
           "key": "SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand",
           "label": "SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand",
           "fields": [
-            "howToObtain",
-            "obtainRoutes",
             "releaseDate"
           ]
         },
@@ -33725,9 +33810,7 @@
           "key": "SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola",
           "label": "SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola",
           "fields": [
-            "howToObtain",
-            "imageUrl",
-            "obtainRoutes"
+            "imageUrl"
           ]
         },
         {
@@ -33749,7 +33832,6 @@
           "key": "zzzATX_ENTM_CAMP_Utility_Collectron_SilverBot",
           "label": "zzzATX_ENTM_CAMP_Utility_Collectron_SilverBot",
           "fields": [
-            "howToObtain",
             "releaseDate"
           ]
         }
@@ -35863,6 +35945,13 @@
       ],
       "changed": [
         {
+          "key": "PLAN_00436FF9",
+          "label": "Plan: Mole Miner Gauntlet",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
           "key": "PLAN_0052A699",
           "label": "Plan: Single-Action Revolver Forceful Grip",
           "fields": [
@@ -36644,6 +36733,14 @@
         {
           "key": "PLAN_00436FF5",
           "label": "Plan: Golf Club",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00436FF9",
+          "label": "Plan: Mole Miner Gauntlet",
           "fields": [
             "obtain_ledger",
             "obtain_routes"
@@ -38335,8 +38432,6 @@
           "key": "ATX_ENTM_CAMP_Collector_PumpkinPie",
           "label": "ATX_ENTM_CAMP_Collector_PumpkinPie",
           "fields": [
-            "howToObtain",
-            "obtainRoutes",
             "releaseDate"
           ]
         },
@@ -38853,9 +38948,7 @@
           "key": "SCORE_S17_ENTM_CAMP_Collector_Pemmican",
           "label": "SCORE_S17_ENTM_CAMP_Collector_Pemmican",
           "fields": [
-            "howToObtain",
-            "imageUrl",
-            "obtainRoutes"
+            "imageUrl"
           ]
         },
         {
@@ -38897,9 +38990,7 @@
           "key": "SCORE_S23_ENTM_CAMP_Collector_CrashedCargoBot",
           "label": "SCORE_S23_ENTM_CAMP_Collector_CrashedCargoBot",
           "fields": [
-            "howToObtain",
-            "imageUrl",
-            "obtainRoutes"
+            "imageUrl"
           ]
         },
         {
@@ -38913,9 +39004,7 @@
           "key": "SCORE_S24_ENTM_CAMP_Collector_SurvivalCache",
           "label": "SCORE_S24_ENTM_CAMP_Collector_SurvivalCache",
           "fields": [
-            "howToObtain",
-            "imageUrl",
-            "obtainRoutes"
+            "imageUrl"
           ]
         },
         {
@@ -38946,7 +39035,6 @@
           "key": "SSE_Resource_CarnalWeeper",
           "label": "SSE_Resource_CarnalWeeper",
           "fields": [
-            "howToObtain",
             "releaseDate"
           ]
         },
@@ -38954,7 +39042,6 @@
           "key": "SSE_Resource_CrystalCup",
           "label": "SSE_Resource_CrystalCup",
           "fields": [
-            "howToObtain",
             "releaseDate"
           ]
         },
@@ -38962,7 +39049,6 @@
           "key": "SSE_Resource_Radlily",
           "label": "SSE_Resource_Radlily",
           "fields": [
-            "howToObtain",
             "releaseDate"
           ]
         },
@@ -39459,6 +39545,13 @@
           "label": "SCORE_S25_PlayerTitles_Suffix_Pioneer",
           "fields": [
             "imageUrl"
+          ]
+        },
+        {
+          "key": "SFS09_PlayerTitles_Suffix_Manager",
+          "label": "SFS09_PlayerTitles_Suffix_Manager",
+          "fields": [
+            "debug"
           ]
         },
         {
