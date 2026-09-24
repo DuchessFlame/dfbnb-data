@@ -440,7 +440,9 @@ def storefront_img_url(ecil_val, folder=""):
         return None
     base = IMAGE_BASES.get(folder)
     if base:
-        return f"{base}/{name}.avif"
+        # Ally art routes through the one asset rule: Scoreboard allies' frames
+        # live in their season folder, Atom Shop allies' in camp-allies.
+        return asset_url(f"{base}/{name}.avif") if folder == "allies" else f"{base}/{name}.avif"
     if folder:
         return f"{LEGACY_STOREFRONT}/{folder}/{name}.avif"
     return f"{LEGACY_STOREFRONT}/{name}.avif"
@@ -467,13 +469,14 @@ def main_image(etdi, folder, carousel=None, edid=""):
     hit = HOSTED.find(edid=edid, texture=etdi or "")
     if hit:
         return hit
-    # Scoreboard ally not uploaded yet: use the season-folder name the season
-    # sync gives it (Leo's ETDI says leopetrov, his Scoreboard tile is
-    # nukaagent_leo), so the page and the Scoreboard share one file.
-    if folder == "allies" and edid:
-        sb = SCOREBOARD_TILE.get(edid.strip().upper())
-        if sb:
-            return sb
+    # Scoreboard ally the season manifest does not list as hosted: Duchess
+    # uploads its cartoon tile to season_images/season-{N} as <ETDI stem>_l.avif
+    # (score_s11_camp_ally_leopetrov_l.avif, Sept 2026), beside the frames.
+    if folder == "allies" and etdi:
+        _stem = os.path.splitext(os.path.basename(etdi.strip()))[0].lower()
+        _sm = re.match(r"score_s0*(\d+)_", _stem)
+        if _sm:
+            return f"/wp-content/uploads/season_images/season-{_sm.group(1)}/{_stem}_l.avif"
     if etdi:
         url = storefront_img_url(etdi, folder)
         if url:
@@ -2752,7 +2755,7 @@ def build_allies():
         # or ECIL names a frame that was never shot). Filenames only - they all
         # live in camp-allies. An empty list means "no frames yet".
         if isinstance(meta.get("carousel_frames"), list):
-            carousel = [IMAGE_BASES["allies"] + "/" + f for f in meta["carousel_frames"] if f]
+            carousel = [asset_url(IMAGE_BASES["allies"] + "/" + f) for f in meta["carousel_frames"] if f]
         img      = main_image(_etdi, "allies", carousel, entm.get("EDID") if entm else "")
 
         # Use FURN XALG to refine source if available
