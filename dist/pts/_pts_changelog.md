@@ -839,17 +839,17 @@ _Couldn't key this file to records; contents differ._
 - ATX_ENTM_CAMP_Utility_Collectron_SirLoin  `ATX_ENTM_CAMP_Utility_Collectron_SirLoin` — fields: production, releaseDate
 - ATX_ENTM_CAMP_Utility_Collectron_ToxicBob  `ATX_ENTM_CAMP_Utility_Collectron_ToxicBob` — fields: releaseDate
 - ATX_EvidenceCollectionAssistantResource_Collector  `ATX_EvidenceCollectionAssistantResource_Collector` — fields: releaseDate
-- SCORE_S11_ENTM_CAMP_Utility_Collectron_NukaQuantum  `SCORE_S11_ENTM_CAMP_Utility_Collectron_NukaQuantum` — fields: howToObtain, imageUrl, obtainRoutes
-- SCORE_S14_ENTM_CAMP_Utility_Collectron_AutoMiner  `SCORE_S14_ENTM_CAMP_Utility_Collectron_AutoMiner` — fields: howToObtain, imageUrl, obtainRoutes
-- SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster  `SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster` — fields: howToObtain, imageUrl, obtainRoutes
-- SCORE_S22_ENTM_CAMP_Utility_Collectron_RoboButler  `SCORE_S22_ENTM_CAMP_Utility_Collectron_RoboButler` — fields: howToObtain, imageUrl, obtainRoutes
-- SCORE_S23_ENTM_CAMP_Utility_Collectron_Cornbot  `SCORE_S23_ENTM_CAMP_Utility_Collectron_Cornbot` — fields: howToObtain, imageUrl, obtainRoutes, production
-- SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand  `SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand` — fields: howToObtain, obtainRoutes, releaseDate
+- SCORE_S11_ENTM_CAMP_Utility_Collectron_NukaQuantum  `SCORE_S11_ENTM_CAMP_Utility_Collectron_NukaQuantum` — fields: imageUrl
+- SCORE_S14_ENTM_CAMP_Utility_Collectron_AutoMiner  `SCORE_S14_ENTM_CAMP_Utility_Collectron_AutoMiner` — fields: imageUrl
+- SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster  `SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster` — fields: imageUrl
+- SCORE_S22_ENTM_CAMP_Utility_Collectron_RoboButler  `SCORE_S22_ENTM_CAMP_Utility_Collectron_RoboButler` — fields: imageUrl
+- SCORE_S23_ENTM_CAMP_Utility_Collectron_Cornbot  `SCORE_S23_ENTM_CAMP_Utility_Collectron_Cornbot` — fields: imageUrl, production
+- SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand  `SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand` — fields: releaseDate
 - SCORE_S3_ENTM_CAMP_Utility_Collectron_GoldBot  `SCORE_S3_ENTM_CAMP_Utility_Collectron_GoldBot` — fields: imageUrl
-- SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola  `SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola` — fields: howToObtain, imageUrl, obtainRoutes
+- SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola  `SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola` — fields: imageUrl
 - SCORE_S5_ENTM_CAMP_Utility_Collectron_RedRocket  `SCORE_S5_ENTM_CAMP_Utility_Collectron_RedRocket` — fields: imageUrl
 - SCORE_S6_ENTM_CAMP_Utility_Collectron_FETCH  `SCORE_S6_ENTM_CAMP_Utility_Collectron_FETCH` — fields: imageUrl, production
-- zzzATX_ENTM_CAMP_Utility_Collectron_SilverBot  `zzzATX_ENTM_CAMP_Utility_Collectron_SilverBot` — fields: howToObtain, releaseDate
+- zzzATX_ENTM_CAMP_Utility_Collectron_SilverBot  `zzzATX_ENTM_CAMP_Utility_Collectron_SilverBot` — fields: releaseDate
 
 ## `cryptids.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1700,7 +1700,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +299 / -24 / ~219
+## `plan_master.json`  ·  +299 / -24 / ~209
 
 **Added (299)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1771,7 +1771,7 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (219)**
+**Changed (209)**
 - Plan: Vault Locker  `PLAN_003D6519` — fields: obtain_ledger, obtain_routes
 - Plan: Vault Dresser  `PLAN_003D651A` — fields: obtain_ledger, obtain_routes
 - Plan: Vault Desk  `PLAN_003D651B` — fields: obtain_ledger, obtain_routes
@@ -1787,9 +1787,6 @@ _Couldn't key this file to records; contents differ._
 - Plan: Pickaxe  `PLAN_004EB740` — fields: cnam
 - Plan: Laser Gun Medium Scope  `PLAN_004F476D` — fields: obtain_routes
 - Plan: Crossbow  `PLAN_004F4780` — fields: cnam
-- Plan: Ultracite Optimized Servos  `PLAN_0050194F` — fields: obtain_routes
-- Plan: Ultracite Overdrive Servos  `PLAN_00501950` — fields: obtain_routes
-- Plan: Ultracite Emergency Protocols  `PLAN_00501954` — fields: obtain_routes
 - Plan: Single-Action Revolver Forceful Grip  `PLAN_0052A699` — fields: cnam, cobj, name, plan_item
 - Recipe: Mirelurk Softshell Cake  `PLAN_0052FDFF` — fields: consumable_type
 - Plan: Evil Jack O'Lantern  `PLAN_005772C7` — fields: image_source, images
@@ -1812,7 +1809,10 @@ _Couldn't key this file to records; contents differ._
 - Plan: Crusader Pistol  `PLAN_005E65F5` — fields: obtain_routes, weapon_group_solo
 - Plan: Crusader Pistol Suppressor  `PLAN_005E65F6` — fields: weapon_group, weapon_group_key
 - Plan: Crusader Pistol Reflex Sight  `PLAN_005E65F7` — fields: weapon_group, weapon_group_key
-- …and 179 more
+- Plan: Crusader Pistol Short Scope  `PLAN_005E65F8` — fields: weapon_group, weapon_group_key
+- Plan: Crusader Pistol Long Barrel  `PLAN_005E65F9` — fields: weapon_group, weapon_group_key
+- Plan: Crusader Pistol Fusion Chamber  `PLAN_005E65FA` — fields: cnam, cobj, name, plan_item, weapon_group, weapon_group_key
+- …and 169 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1851,7 +1851,7 @@ _Couldn't key this file to records; contents differ._
 - ATX_ENTM_CAMP_Collector_PackBrahmin  `ATX_ENTM_CAMP_Collector_PackBrahmin` — fields: releaseDate
 - ATX_ENTM_CAMP_Collector_PaintCanGenerator_WhrilWhizard  `ATX_ENTM_CAMP_Collector_PaintCanGenerator_WhrilWhizard` — fields: releaseDate
 - ATX_ENTM_CAMP_Collector_PoisonedEarthWell  `ATX_ENTM_CAMP_Collector_PoisonedEarthWell` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_PumpkinPie  `ATX_ENTM_CAMP_Collector_PumpkinPie` — fields: howToObtain, obtainRoutes, releaseDate
+- ATX_ENTM_CAMP_Collector_PumpkinPie  `ATX_ENTM_CAMP_Collector_PumpkinPie` — fields: releaseDate
 - ATX_ENTM_CAMP_Collector_RadTurkeyFieldDressingStation  `ATX_ENTM_CAMP_Collector_RadTurkeyFieldDressingStation` — fields: releaseDate
 - ATX_ENTM_CAMP_Collector_RockerBox  `ATX_ENTM_CAMP_Collector_RockerBox` — fields: releaseDate
 - ATX_ENTM_CAMP_Collector_Shredder  `ATX_ENTM_CAMP_Collector_Shredder` — fields: production, releaseDate
