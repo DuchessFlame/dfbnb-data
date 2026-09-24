@@ -1145,3 +1145,109 @@ for g in GROUPS:
 missing = [it["displayName"] for it in items_out if not it["entmFormId"] and it["formId"] not in
            ("003CD038", "003CD037", "003CD036")]
 print("No ENTM match (desc/image fall back to FURN):", ", ".join(missing) or "none")
+
+
+# ------------------------------------------ Well Rested Buffs guide (generative)
+# dist/well-rested-buffs.json feeds the SPECIALs & Stats - Well Rested Buffs
+# guide (df-bnb-well-rested-buffs.js). It reuses the Rested family resolved
+# above, so the guide and the Buff Stations page can never disagree:
+#   - buff name / XP / duration / Homebody stats  -> SPEL + MGEF + PERK
+#   - which bed types give which buff             -> rested_spells + bed_entries
+#   - the Well Rested furniture list              -> the live wellrested items
+#   - Kindred Spirit / Lover's Embrace allies     -> dist/allies.json (live
+#     allies, split on the romanceable flag that builder reads from the TSVs)
+# The only hand-kept part is rested_guide_no_ally_buff (script-decided).
+# CI runs build_allies_pets_weather_json.py before this script, so
+# dist/allies.json is current by the time we read it.
+WR_OUT = OUT_DIR / "well-rested-buffs.json"
+
+
+def _wr_buff(edid):
+    sp = rested_spell(edid)
+    if not sp:
+        return None
+    out = {
+        "name": sp["name"],
+        "xp": sp["xp"],
+        "duration": fmt_duration(sp["dur"]),
+        "durationSec": sp["dur"],
+        "spell": f"{sp['fid']} {sp['edid']}",
+        "homebody": None,
+    }
+    if sp["stats"] and HOMEBODY and sp["edid"] in HOMEBODY["spells"]:
+        d = min(dd for _m, dd in sp["stats"].values())
+        out["homebody"] = {
+            "stats": [{"stat": s, "value": int(m) if m == int(m) else m}
+                      for s, (m, _dd) in sp["stats"].items()],
+            "text": _stat_text(sp["stats"]),
+            "duration": fmt_duration(d),
+            "durationSec": d,
+        }
+    return out
+
+
+def _wr_bed_types(edid):
+    return [e[1] for e in _CFG.get("bed_entries", [])
+            if RESTED_SPELLS.get(e[5]) == edid]
+
+
+_wr_no_buff = dict(_CFG.get("rested_guide_no_ally_buff", {}))
+_wr_allies = {"kindred": [], "lovers": [], "none": []}
+_allies_path = OUT_DIR / "allies.json"
+if _allies_path.exists():
+    for a in json.loads(_allies_path.read_text(encoding="utf-8")).get("items", []):
+        if a.get("cutContent"):
+            continue
+        name = (a.get("displayName") or "").strip()
+        if not name:
+            continue
+        if name in _wr_no_buff:
+            _wr_allies["none"].append(name)
+        elif (a.get("buffsAndEffects") or {}).get("romanceable"):
+            _wr_allies["lovers"].append(name)
+        else:
+            _wr_allies["kindred"].append(name)
+    for k in _wr_allies:
+        _wr_allies[k].sort(key=str.lower)
+else:
+    print(f"  [WARN] {_allies_path} missing — ally lists left empty")
+
+_wr_rested = _wr_buff(RESTED_SPELLS.get("sleepingbag", ""))
+_wr_well = _wr_buff(RESTED_SPELLS.get("furniture", ""))
+if _wr_rested:
+    _wr_rested["bedTypes"] = _wr_bed_types(RESTED_SPELLS.get("sleepingbag", ""))
+if _wr_well:
+    _wr_well["bedTypes"] = _wr_bed_types(RESTED_SPELLS.get("furniture", ""))
+    _wr_well["furniture"] = sorted(
+        [{"name": it["displayName"], "formId": it["formId"], "imageUrl": it.get("imageUrl", "")}
+         for it in items_out
+         if "wellrested" in (it.get("buffTypes") or [])
+         and not it.get("cutContent")
+         and it["formId"] not in BED_KEY_BY_FID],
+        key=lambda x: x["name"].lower())
+
+_wr_ally_keys = {"COMP_WellRested3_KindredSpirit": ("kindredSpirit", "kindred"),
+                 "COMP_WellRested3_LoversEmbrace": ("loversEmbrace", "lovers")}
+wr = {
+    "homebody": ({"name": HOMEBODY["name"], "formId": HOMEBODY["fid"], "edid": HOMEBODY["edid"]}
+                 if HOMEBODY else None),
+    "rested": _wr_rested,
+    "wellRested": _wr_well,
+}
+for a in RESTED_ALLY:
+    key, bucket = _wr_ally_keys.get(a["spell"], (None, None))
+    if not key:
+        continue
+    b = _wr_buff(a["spell"])
+    if b:
+        b["allies"] = _wr_allies[bucket]
+    wr[key] = b
+wr["noAllyBuff"] = _wr_allies["none"]
+
+WR_OUT.write_text(json.dumps(wr, indent=2, ensure_ascii=False), encoding="utf-8")
+print(f"Wrote Well Rested Buffs guide data -> {WR_OUT}")
+for k in ("rested", "wellRested", "kindredSpirit", "loversEmbrace"):
+    b = wr.get(k) or {}
+    print(f"  {k}: {b.get('name')} {b.get('xp')} {b.get('duration')}"
+          f" | Homebody: {(b.get('homebody') or {}).get('text', '-')}"
+          f" | allies: {len(b.get('allies', []))} furniture: {len(b.get('furniture', []))}")
