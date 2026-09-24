@@ -29,6 +29,7 @@ import json
 import os
 
 import reusable_images   # art the site already serves (dist-derived, no manifest file)
+from asset_paths import asset_url   # one routing rule for reward art (Python twin of dfbnbAssetUrl)
 import re
 import argparse
 from datetime import datetime
@@ -69,6 +70,33 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 # dist/ — the season upload manifests plus atom shop and bundles — so there is
 # no separate index file to fall out of date. See src/reusable_images.py.
 HOSTED = reusable_images.build_index(str(OUT_DIR))
+
+
+def _scoreboard_tile_by_entm(dist_dir):
+    """Entitlement EDID -> the Scoreboard tile path the season sync uploads to.
+
+    Read from every row of dist/season_images/season_*_images.json, INCLUDING
+    rows still listed in unpublished_images.json: HOSTED leaves those out
+    because the site does not serve them yet, but for a Scoreboard ally the
+    season folder is still the one place the tile should live, so pointing at
+    it now means uploading the season set fixes the page with no second copy.
+    zzz/cut entitlements are skipped.
+    """
+    out = {}
+    for f in sorted(Path(dist_dir, "season_images").glob("season_*_images.json")):
+        try:
+            data = json.loads(f.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        for row in data.get("images", []):
+            ent = (row.get("entitlement") or "").strip()
+            name, up = row.get("outAvif") or "", row.get("uploadTo") or ""
+            if ent and name and up and not ent.lower().startswith("zzz"):
+                out.setdefault(ent.upper(), up.rstrip("/") + "/" + name)
+    return out
+
+
+SCOREBOARD_TILE = _scoreboard_tile_by_entm(OUT_DIR)
 print("  " + HOSTED.summary())
 
 
@@ -199,6 +227,11 @@ def scoreboard_how(season_num):
         # left untouched.
         if name.lower().startswith("the "):
             name = name[4:]
+        # A theme that already opens with an article keeps it and gets no
+        # "the": "...from A Better Life Underground Scoreboard", never
+        # "...from the A Better Life Underground Scoreboard".
+        if re.match(r"(?:a|an)\s", name, re.IGNORECASE):
+            return f"{verb} {name} Scoreboard (Season {season_num})"
         return f"{verb} the {name} Scoreboard (Season {season_num})"
     return f"{verb} the Season {season_num} Scoreboard"
 
@@ -274,7 +307,7 @@ def gold_block_for(entm_form_id="", display_name=""):
 
 
 def simple_obtain_routes(season_num=None, gold_block="", atom_shop=False,
-                         tradeable=None):
+                         tradeable=None, quest_lines=None):
     """Build the 9-route obtain array for the simpler camp item types
     (pets / pet furniture / pet apparel / cryos / fridges / allies) from the
     same signals their howToObtain string is built from.
@@ -294,6 +327,9 @@ def simple_obtain_routes(season_num=None, gold_block="", atom_shop=False,
             tradeable, "N/A")
     if atom_shop:
         populated["Atom Shop"] = ([ATX_HOW], tradeable, "N/A")
+    if quest_lines:
+        # Quest unlocks bind to the character, so the route is never tradeable.
+        populated["Quests"] = (list(quest_lines), False, "N/A")
     if not populated:
         return []
     return make_obtain_routes(populated)
@@ -431,10 +467,21 @@ def main_image(etdi, folder, carousel=None, edid=""):
     hit = HOSTED.find(edid=edid, texture=etdi or "")
     if hit:
         return hit
+    # Scoreboard ally not uploaded yet: use the season-folder name the season
+    # sync gives it (Leo's ETDI says leopetrov, his Scoreboard tile is
+    # nukaagent_leo), so the page and the Scoreboard share one file.
+    if folder == "allies" and edid:
+        sb = SCOREBOARD_TILE.get(edid.strip().upper())
+        if sb:
+            return sb
     if etdi:
         url = storefront_img_url(etdi, folder)
         if url:
-            return url
+            # A Scoreboard ally's tile lives in its season folder (the season
+            # sync uploads it there), not camp-allies - asset_url() owns that
+            # rule, so a tile the index has not seen yet still gets the one
+            # path it will be uploaded to instead of a second copy's path.
+            return asset_url(url) if folder == "allies" else url
     return ""
 
 
@@ -1846,6 +1893,22 @@ def build_repair_bots():
 # These are IDs/tokens only — all display text (name, buff, rates) is pulled
 # generatively from the TSVs at build time, never hardcoded.
 ALLY_COBJ_FURN = _CFG_ALLIES["ally_cobj_furn"]
+_FURN_FRAME = _CFG_ALLIES.get("furniture_frame", {}) or {}
+
+
+def ally_furniture_image(cobj_id, carousel):
+    """The carousel frame that shows the ally's FURNITURE, for the Allies
+    Furniture expand. Default frame c2; data/camp/allies.json furniture_frame
+    overrides it per ally ("" = no furniture shot, so no image rather than the
+    NPC). Never the ally's cartoon tile - that is the item image, not the
+    thing you place."""
+    key = (_FURN_FRAME.get("overrides", {}) or {}).get(cobj_id, _FURN_FRAME.get("default", "c2"))
+    if not key:
+        return ""
+    for u in carousel or []:
+        if re.search(rf"_{re.escape(key)}\.[a-z0-9]+$", u, re.IGNORECASE):
+            return u
+    return ""
 
 # Drift check: warn when a NEW ally camp object exists that isn't mapped.
 # Ally COBJ EDIDs match COMP_Constructible_CampObject (or LiteAlly for the
@@ -2657,6 +2720,12 @@ def build_allies():
             if not entm:
                 _sm = re.search(r"SCORE_S(\d+)_", (furn_edid_val or ""), re.IGNORECASE)
                 entm = find_ally_entm_by_token(meta["name"], int(_sm.group(1)) if _sm else None)
+            if not entm and meta.get("ally"):
+                # "Sam's Workbench" gives the 3-letter owner "Sam", below the
+                # 4-letter floor, so Sam Nguyen matched no ENTM at all and lost
+                # his image and his Season 8 Scoreboard route. The ally's full
+                # name ("Sam Nguyen" -> "nguyen") finds SCORE_S8_ENTM_..._SamNguyen.
+                entm = find_ally_entm_by_token(meta["ally"], None)
 
         furniture_name = meta["name"]
         # Row label is the ALLY, not the furniture. A hand row wins; otherwise
@@ -2678,6 +2747,12 @@ def build_allies():
         # Use ETDI for the primary icon image (not ECIL_1 which has _C1 suffix)
         _etdi    = entm.get("ETDI", "").strip() if entm else ""
         carousel = ecil_images(entm, "allies") if entm else []
+        # Carousel frames the site actually has, when ECIL disagrees with the
+        # frame set in the camp-allies folder (ECIL lists 2, the folder has 4;
+        # or ECIL names a frame that was never shot). Filenames only - they all
+        # live in camp-allies. An empty list means "no frames yet".
+        if isinstance(meta.get("carousel_frames"), list):
+            carousel = [IMAGE_BASES["allies"] + "/" + f for f in meta["carousel_frames"] if f]
         img      = main_image(_etdi, "allies", carousel, entm.get("EDID") if entm else "")
 
         # Use FURN XALG to refine source if available
@@ -2685,10 +2760,18 @@ def build_allies():
         if xalg:
             source = xalg_to_source(xalg) or source
 
-        # Season from FURN or ENTM EDID
+        # Season: the ENTM (the storefront entitlement the Scoreboard hands
+        # out) is the authority, the FURN EDID only a fallback. Reading the FURN
+        # first mislabelled six allies: Yasmin, Solomon, Katherine, Xerxo and
+        # Dottie have furniture with no SCORE_S prefix (BS01_/ATX_/COMP_), so
+        # they fell to "Atom Shop"; Maul's furniture is SCORE_S5_ but his
+        # entitlement is SCORE_S6_ (Season 6, rank 50 - season_rewards.tsv).
         _ally_furn_edid = furn.get("FURN_EDID", "")
-        _season_edid    = _ally_furn_edid or (entm.get("EDID", "") if entm else "")
-        season_m        = re.match(r"SCORE_S(\d+)_", _season_edid, re.IGNORECASE)
+        season_m = None
+        for _season_edid in ((entm.get("EDID", "") if entm else ""), _ally_furn_edid):
+            season_m = re.match(r"SCORE_S0*(\d+)_", _season_edid or "", re.IGNORECASE)
+            if season_m:
+                break
         season_num      = int(season_m.group(1)) if season_m else None
         if season_num:
             source = "Scoreboard"
@@ -2705,6 +2788,14 @@ def build_allies():
                              r"Radio|Guitar|Stove|Box|Boxes|Bag|Cauldron|Spaceship|Desk).*$",
                              "", _ally_token, flags=re.IGNORECASE).lower().replace("_", "")
         _ally_gnam_fid, _ally_plan_name = plan_for_condproxy_token(_ally_token)
+        # The CondProxy lookup is a substring search, so a long token can land
+        # on an unrelated plan - Del Lawson came back as "Plan: Robot Beer
+        # Steins Display Case" and was marked tradeable off it. Keep a plan
+        # only if it names this ally or this ally's furniture.
+        _plan_l = (_ally_plan_name or "").lower()
+        _names  = [w.lower() for w in re.split(r"[^A-Za-z]+", f"{display} {furniture_name}") if len(w) >= 4]
+        if _plan_l and not any(w in _plan_l for w in _names):
+            _ally_gnam_fid, _ally_plan_name = "", ""
         _ally_tradeable = tradeable_from_plan(_ally_gnam_fid)
 
         # Crafting Requirements — pull from COBJ via FURN FormID
@@ -2717,9 +2808,17 @@ def build_allies():
         # Buffs & Effects: passive buff + romanceable flag (both from TSVs)
         _ally_buff = resolve_ally_buff(meta.get("buff_token", ""))
         _ally_romance = ally_romanceable(meta.get("rom_token", ""))
+        # Record EDIDs (W05_AbCompanionLiteAllyInitialSpell_RaiderPunk) are
+        # technical data, not buff text - a reader can't use them. Anything
+        # that looks like an EDID (no spaces, has an underscore) moves to
+        # Technical; only readable names and effect lines stay in the buff box.
+        _edid_like = lambda t: bool(re.fullmatch(r"[A-Za-z0-9]+(?:_[A-Za-z0-9]+)+", str(t or "").strip()))
+        _bname  = (_ally_buff or {}).get("buffName", "")
+        _blines = list((_ally_buff or {}).get("lines", []))
+        _buff_edids = [t for t in [_bname] + _blines if _edid_like(t)]
         _buffs_effects = {
-            "buffName":    (_ally_buff or {}).get("buffName", ""),
-            "lines":       (_ally_buff or {}).get("lines", []),
+            "buffName":    "" if _edid_like(_bname) else _bname,
+            "lines":       [t for t in _blines if not _edid_like(t)],
             "hasBuff":     bool(_ally_buff),
             "romanceable": _ally_romance,
         }
@@ -2758,9 +2857,14 @@ def build_allies():
                                     season_num=season_num,
                                     gold_block=gold_block_for(entm_id, display),
                                     atom_shop=(not season_num and obtain == ATX_HOW),
-                                    tradeable=_ally_tradeable),
+                                    tradeable=_ally_tradeable,
+                                    # Quest allies' recruitment quest, from
+                                    # data/camp/allies.json (see quest_lines_note).
+                                    quest_lines=meta.get("quest_lines") or None),
             "imageUrl":         img,
             "imageCarousel":    carousel,
+            "furnitureImageUrl": ally_furniture_image(cobj_id, carousel),
+            "technicalNotes":   "\n".join(f"Buff Spell EDID: {t}" for t in dict.fromkeys(_buff_edids)),
             "xalgFlags":        xalg,
             "buffsAndEffects":  _buffs_effects,
             # Dialog sub-expand. None for the Atom Shop allies, which have no

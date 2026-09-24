@@ -19,6 +19,11 @@ on:
       - 'tsv/GLOB_Export_*.tsv'
       - 'src/build_allies_pets_weather_json.py'
       - 'src/verify_camp_items_json.py'
+      # Ally main tiles route through asset_paths.py (Scoreboard copy first),
+      # and the verifier checks ally Scoreboard routes against season_rewards.tsv.
+      - 'src/asset_paths.py'
+      - 'src/reusable_images.py'
+      - 'tsv/season_rewards.tsv'
       # Fridges & Cryos read their build list, recipe links, unlock CNDF and
       # challenge rewards from these, plus the override table in data/camp/.
       - 'tsv/LVLI_Export_*_LVLI_Entries.tsv'

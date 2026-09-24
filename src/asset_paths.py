@@ -86,6 +86,8 @@ _WALLPAPER_L_RE = re.compile(r"_l(\.avif)$", re.IGNORECASE)
 # others (SCORE_S4_). Every upload is unpadded, so normalise once, here.
 _PAD_RE = re.compile(r"^(score_s)0+(\d)", re.IGNORECASE)
 _SEASON_RE = re.compile(r"^score_s0*(\d+)_", re.IGNORECASE)
+# A carousel frame suffix (_c1, _c2 ...) before the extension.
+_ALLY_FRAME_RE = re.compile(r"_c\d+\.[a-z0-9]+$", re.IGNORECASE)
 # Every S.C.O.R.E. Boost tier - 5%, 10%, 10% again - is the SAME in-game
 # texture (textures/atx/storefront/utility/score_account_scoreboost.dds). It was
 # exported under three names, only _1 was ever uploaded, and the data files
@@ -149,8 +151,16 @@ def asset_url(url: str) -> str:
     # This MUST sit above the _SEASON_RE fall-through below: the seasonal
     # allies are all named score_s{N}_camp_ally_*, so the season rule would
     # otherwise claim them and send the page back to season-{N}.
+    #
+    # EXCEPT the main tile of a Scoreboard ally (score_s{N}_camp_ally_x, no
+    # _c frame suffix). That tile is already hosted in season_images/season-{N}
+    # by the season sync, so it falls through to the season rule and the site
+    # keeps ONE copy (Duchess, Sept 2026 - storage is tight, scoreboard copy
+    # first). Only the _c1.._cN carousel frames and the non-season Atom Shop
+    # allies (atx_camp_ally_*) live in camp-allies.
     if "camp_ally" in name:
-        return SHARED["camp_allies"] + file
+        if not (_SEASON_RE.match(name) and not _ALLY_FRAME_RE.search(name)):
+            return SHARED["camp_allies"] + file
 
     # Unique season art. The season comes from the FILENAME, never from the
     # season being generated - a reused texture keeps the season it was
@@ -379,18 +389,21 @@ CASES = [
      "/wp-content/uploads/guide-images/atom-shop/player-icons/atx_playericon_score_22.avif"),
     ("/wp-content/uploads/season_images/score_s4_camp_floor_coldsteel.webp",
      "/wp-content/uploads/season_images/season-4/score_s4_camp_floor_coldsteel.avif"),
-    # CAMP allies beat the season rule even though they are named score_s{N}_.
+    # A Scoreboard ally's main tile stays in its season folder (one copy).
     ("/wp-content/uploads/season_images/season-16/score_s16_camp_ally_adelaide.webp",
-     "/wp-content/uploads/guide-images/camp-items/camp-allies/score_s16_camp_ally_adelaide.avif"),
+     "/wp-content/uploads/season_images/season-16/score_s16_camp_ally_adelaide.avif"),
+    # ...even when an older data file still points it at camp-allies.
+    ("/wp-content/uploads/guide-images/camp-items/camp-allies/score_s3_camp_ally_chef_yasminchowdhury.avif",
+     "/wp-content/uploads/season_images/season-3/score_s3_camp_ally_chef_yasminchowdhury.avif"),
     # Carousel frame: same folder, suffix preserved — the allies page needs it.
     ("/wp-content/uploads/season_images/season-16/score_s16_camp_ally_adelaide_c1.avif",
      "/wp-content/uploads/guide-images/camp-items/camp-allies/score_s16_camp_ally_adelaide_c1.avif"),
     # Non-season ally (Atom Shop): no season prefix to route on, same folder.
     ("/wp-content/uploads/season_images/atx_camp_ally_cambot.webp",
      "/wp-content/uploads/guide-images/camp-items/camp-allies/atx_camp_ally_cambot.avif"),
-    # Idempotent: routing an already-routed ally URL returns it unchanged.
-    ("/wp-content/uploads/guide-images/camp-items/camp-allies/score_s3_camp_ally_medic_solomonhardy.avif",
-     "/wp-content/uploads/guide-images/camp-items/camp-allies/score_s3_camp_ally_medic_solomonhardy.avif"),
+    # Idempotent: routing an already-routed ally frame returns it unchanged.
+    ("/wp-content/uploads/guide-images/camp-items/camp-allies/score_s3_camp_ally_medic_solomonhardy_c1.avif",
+     "/wp-content/uploads/guide-images/camp-items/camp-allies/score_s3_camp_ally_medic_solomonhardy_c1.avif"),
     # A CAMP item that is NOT an ally still routes to its season folder.
     ("/wp-content/uploads/season_images/score_s16_camp_floor_tile.webp",
      "/wp-content/uploads/season_images/season-16/score_s16_camp_floor_tile.avif"),

@@ -28,6 +28,7 @@ Exit code 1 on any violation, with every problem printed — not just the first.
 from __future__ import annotations
 
 import argparse
+import csv
 import json
 import re
 import os
@@ -293,6 +294,43 @@ def check_ally_roster(tsv_dir: Path, dist: Path) -> list[str]:
             )
     return missing
 
+def check_ally_scoreboard(tsv_dir: Path, dist: Path) -> list[str]:
+    """Every "Lite Ally:" on a Scoreboard (tsv/season_rewards.tsv) must show a
+    Scoreboard route for its first season on the allies page.
+
+    Six allies once shipped as "Atom Shop" / "Companion Quest" because the
+    builder read the season off the FURN EDID, which for Yasmin, Solomon,
+    Katherine, Xerxo, Sam and Dottie carries no SCORE_S prefix. This is the
+    official list, so it is what the page is checked against. The first season
+    wins, which also sidesteps the cut S8_P8 row that reuses Xerxo's name.
+    """
+    rewards = tsv_dir / "season_rewards.tsv"
+    allies = dist / "allies.json"
+    if not rewards.exists() or not allies.exists():
+        return []
+    want: dict[str, int] = {}
+    with open(rewards, encoding="utf-8", errors="replace", newline="") as fh:
+        for row in csv.DictReader(fh, delimiter="\t"):
+            name = (row.get("name") or "").strip()
+            num = (row.get("seasonNumber") or "").strip()
+            if name.lower().startswith("lite ally:") and num.isdigit():
+                ally = name.split(":", 1)[1].strip()
+                want[ally] = min(int(num), want.get(ally, 10**6))
+    items = {i.get("displayName"): i for i in json.loads(allies.read_text(encoding="utf-8")).get("items", [])}
+    problems = []
+    for ally, season in sorted(want.items()):
+        it = items.get(ally)
+        if not it:
+            continue  # the roster check owns missing allies
+        routes = {r.get("route"): r for r in it.get("obtainRoutes") or [] if r.get("populated")}
+        if it.get("seasonNumber") != season or "Scoreboard" not in routes:
+            problems.append(
+                f"allies.json: {ally} is a Season {season} Scoreboard reward "
+                f"(season_rewards.tsv) but the page says season={it.get('seasonNumber')} "
+                f"routes={sorted(routes)}")
+    return problems
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--dist", default="dist", help="Folder holding the built JSON")
@@ -326,6 +364,12 @@ def main() -> int:
         all_problems.extend(roster)
     else:
         print("  OK   allies.json roster (every TSV ally is in the built dist/allies.json)")
+
+    sb = check_ally_scoreboard(Path(args.tsv), dist)
+    if sb:
+        all_problems.extend(sb)
+    else:
+        print("  OK   allies.json Scoreboard routes match season_rewards.tsv")
 
     if all_problems:
         print(f"\nCamp-items JSON contract FAILED ({len(all_problems)} problem(s)):",
