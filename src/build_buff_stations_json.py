@@ -908,6 +908,9 @@ def build_output(fid, groups):
 # ---------------------------------------------------------------- build
 items_out = []
 ATX_SIBLING = {}   # fid -> the extra Atom Shop ENTM found for it
+# Scoreboard / event items later sold in the Atomic Shop, each with its
+# official source — see atom_shop_releases in data/camp/buff_stations.json.
+ATOM_SHOP_RELEASES = _CFG.get("atom_shop_releases", {})
 
 for fid in sorted(discovered):
     groups = sorted(discovered[fid], key=lambda g: GROUP_ORDER.get(g, 99))
@@ -944,6 +947,9 @@ for fid in sorted(discovered):
     # plain ATX_ entitlement under the same name (e.g. Weight Bench, sold in
     # the Cash Plus Interest bundle alongside its Season 2 record). F1_ / TP_
     # entitlements are Fallout 1st claims and promo codes, not shop sales.
+    if (not status and fid in ATOM_SHOP_RELEASES
+            and "atom shop" not in (how or "").lower()):
+        how = f"{how}\n\n{ATX_HOW}" if how and how != "—" else ATX_HOW
     if not status and "atom shop" not in (how or "").lower():
         _own = (entm or {}).get("FormID", "")
         for _e in ENTM_BY_FULL.get(display.strip().lower(), []):
@@ -988,6 +994,8 @@ for fid in sorted(discovered):
         tech += GOLD_TECH[fid]
     if fid in VARIANT_INFO:
         tech += VARIANT_INFO[fid]["tech"]
+    if fid in ATOM_SHOP_RELEASES:
+        tech.append(f"Atom Shop Release: {ATOM_SHOP_RELEASES[fid]}")
     if fid in ATX_SIBLING:
         tech.append(f"Atom Shop ENTM: {ATX_SIBLING[fid]['FormID']} {ATX_SIBLING[fid]['EDID']}")
     lim_camp, lim_ws, lim_shares, lim_tech = build_limits_for(fid, display)
