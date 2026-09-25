@@ -169,6 +169,19 @@
       "how": null,
       "buff": "Sharpening Stone: 5% chance to gain a Blood Pack on melee kills for 30 minutes.",
       "spell": "008D1C9C “Sharpening Stone”"
+    },
+    {
+      "fid": "0089AD98",
+      "groups": [
+        "utility"
+      ],
+      "entm": "SCORE_S24_ENTM_CAMP_Utility_HealingArch",
+      "how": null,
+      "buff": "Restores health when you walk through it",
+      "rows": [
+        "Healing: Restore Health, 2 HP per second for 1 second each pass"
+      ],
+      "spell": "008AEDDB SCORE_S24_SPELL_HealingArch “Restore Health”"
     }
   ],
   "gold_merged": {
@@ -177,7 +190,8 @@
   },
   "gold_how": {
     "0056744C": "Gold Bullion: Plan: Weight Bench\nVendor: Mortimer — The Crater\nCost: 1,250 Gold Bullion\nReputation: Raiders — Cautious\nNote: Available once per character",
-    "005D80E0": "Gold Bullion: Plan: Speed Bag\nVendor: Mortimer — The Crater\nCost: 1,250 Gold Bullion\nReputation: Raiders — Cautious\nNote: Available once per character"
+    "005D80E0": "Gold Bullion: Plan: Speed Bag\nVendor: Mortimer — The Crater\nCost: 1,250 Gold Bullion\nReputation: Raiders — Cautious\nNote: Available once per character",
+    "0089AD98": "Gold Bullion: Plan: Healing Arch\nVendor: Samuel — Foundation\nCost: 4,000 Gold Bullion\nReputation: Settlers — Ally"
   },
   "plan_overrides": {
     "0056744C": "Plan: Weight Bench",
@@ -195,6 +209,11 @@
       "Gold Vendor Plan: SCORE_Recipe_workshop_CAMP_Utility_SpeedBag_GoldVendor (00609E06)",
       "Vendor List: 005A0EE5 W05_LLV_GoldVendor_Raider_Mortimer_1_Cautious",
       "Price Global: 005A504D Econ_GoldVendor_Tier_10 = 1250"
+    ],
+    "0089AD98": [
+      "Gold Vendor Plan: SCORE_S24_Recipe_HealingArch_StampVendor (008EE1B0)",
+      "Vendor List: 005A0AC3 W05_LLV_GoldVendor_Settler_Samuel_6_Ally",
+      "Price Global: 005A5050 Econ_GoldVendor_Tier_13 = 4000"
     ]
   },
   "name_overrides": {
@@ -404,5 +423,35 @@
   },
   "atom_shop_releases_notes": {
     "_rule": "Scoreboard / event items Bethesda later sold in the Atomic Shop. The game files do not record a bundle sale (bundles are not in the ENTM export), so each entry cites the official Atomic Shop update on fallout.bethesda.net. The builder adds the standard Atom Shop route for every FormID here; the value is written to Technical as 'Atom Shop Release'. Checked 25 Sep 2026: no Atomic Shop listing found for Violin, Goo-Tub, Homemade Xylophone, Phoropter, the barrel drums or the Poseidon Arm Wrestle Machine."
-  }
+  },
+  "manual_items_notes": "Stations whose effect is not a timed buff, so neither keyword nor script discovery reaches them. Healing Arch (0089AD98): WorkshopDeconArchScript::DeconArchSpell = SCORE_S24_SPELL_HealingArch (RestoreHealthGeneric, magnitude 2, duration 1s) — instant heal on walking through, listed like the Blood Transfusion Pump.",
+  "vmad_discovery": {
+    "spell_props": [
+      "SpellToCast",
+      "BuffSpell"
+    ],
+    "spell_edid_prefixes": [
+      "ATX_Buff"
+    ]
+  },
+  "vmad_discovery_notes": "Script-cast buff discovery: an ACTI/FURN VMAD script property named in spell_props, or any property whose value is a SPEL whose EDID starts with one of spell_edid_prefixes, is resolved through the SPEL's timed 'Fortify <SPECIAL>' effects to page groups (no FormID table). Adds e.g. Mechanical Derby Game (OnActivateCastSpell::SpellToCast = ATX_BuffIntelligence), Fortune Teller Machine, West Virginia Slot Machine, Scent-o-matic, Body Scanner. Records still need an obtain route (COBJ, workshop build list, or ENTM).",
+  "interaction": {
+    "labels": {
+      "animation": "Plays an animation",
+      "instant": "Instant on activate",
+      "walkthrough": "Walk-through"
+    },
+    "walkthrough_keywords": [
+      "BlockPlayerActivation"
+    ],
+    "machine_anim_keywords": [
+      "AllowNonActorToAnimateOnServer"
+    ],
+    "machine_anim_scripts": [
+      "RandomResultPowered"
+    ],
+    "anim_keyword_re": "^(ATX_)?Anims?Furn"
+  },
+  "interaction_notes": "Per-station 'interaction' field. FURN -> animation (anim_keyword = first KWDA keyword matching anim_keyword_re); ACTI -> instant; ACTI carrying a walkthrough_keywords keyword -> walkthrough. machine_animates = the ACTI object itself animates (keyword or script listed above) while the player does not.",
+  "gold_how_notes": "Healing Arch (0089AD98): hand-kept because src/gold_vendor.py joins ENTM -> plan through a *CondProxy*_GoldVendor COBJ + CNDF, and this plan is SCORE_S24_Recipe_HealingArch_StampVendor (COBJ SCORE_S24_co_HealingArch_StampVendor, no CondProxy/GoldVendor token). Samuel stocks it directly (LVLI 005A0AC3 entry 37, condition HasEntitlement(SCORE_S24_ENTM_CAMP_Utility_HealingArch)); BOOK price global Econ_GoldVendor_Tier_13 = 4000."
 }

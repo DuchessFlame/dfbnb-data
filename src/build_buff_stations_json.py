@@ -139,9 +139,13 @@ for r in rows(FURN_PATH):
 
 ACTI = {}
 for r in rows(ACTI_PATH):
-    ACTI[r["ACTI_FormID"]] = {"FURN_EDID": r["ACTI_EDID"],
-                              "FURN_FULL": r["ACTI_FULL"],
-                              "XALG_Flags": r.get("XALG_Flags", "")}
+    # Keep the whole row (KW_n, Prop_n_*, VMAD_Scripts): script-driven buff
+    # discovery and the interaction type read them. The FURN_* aliases let
+    # FURN and ACTI records share one code path.
+    _a = dict(r)
+    _a.update({"FURN_EDID": r["ACTI_EDID"], "FURN_FULL": r["ACTI_FULL"],
+               "XALG_Flags": r.get("XALG_Flags", "")})
+    ACTI[r["ACTI_FormID"]] = _a
 
 ENTM_BY_EDID = {}
 ENTM_BY_FULL = {}
@@ -696,8 +700,9 @@ def build_info_for(fid):
     the PowerRequired property or a WorkshopCanBePowered/PowerConnection
     keyword) and Flamingo Units (the WorkshopBudgetObjectMultiplier property —
     the item's C.A.M.P. budget cost). Per-camp / per-workshop build limits are
-    not present in the FURN export, so they are not emitted (no fabrication)."""
-    r = FURN.get(fid)
+    not present in the FURN export, so they are not emitted (no fabrication).
+    ACTI stations (script-cast buffs) carry the same KW_n / Prop_n columns."""
+    r = FURN.get(fid) or ACTI.get(fid)
     if not r:
         return ""
     flamingo = None
@@ -905,6 +910,151 @@ def build_output(fid, groups):
     return info.strip(), rows
 
 
+# ------------------------------------------------ script-driven discovery
+# Some stations carry NO buff keyword: an activator script casts the buff
+# (e.g. Mechanical Derby Game: OnActivateCastSpell::SpellToCast=ATX_BuffIntelligence).
+# Read the VMAD_Scripts column (ACTI export; FURN too once its export carries
+# it — until then this is a no-op for FURN), take every script property that
+# points at a buff SPEL, and resolve the SPEL's timed "Fortify <SPECIAL>"
+# effects to page groups. Keyword discovery wins; this only adds records the
+# keyword pass did not find. Same cut / exclusion filters, plus an obtain route
+# (a live COBJ, a workshop build list with a recipe, or an ENTM) so world /
+# expedition / Atlantic City copies stay off the page.
+_VMAD_CFG = _CFG.get("vmad_discovery", {})
+_VMAD_PROPS = set(_VMAD_CFG.get("spell_props", ["SpellToCast", "BuffSpell"]))
+_VMAD_PREFIXES = tuple(x.lower() for x in _VMAD_CFG.get("spell_edid_prefixes", ["ATX_Buff"]))
+_VMAD_SKIP_RE = re.compile(r"^(zzz|test|chargen|post_|del_|cut_)", re.I)
+_VMAD_VAL_RE = re.compile(r"^([0-9A-Fa-f]{8}):([^:]*):SPEL$")
+_FORTIFY_RE = re.compile(r"^fortify\s+(\w+)$", re.I)
+_STAT_BY_NAME = {v.lower(): k for k, v in STAT_NAME.items()}
+
+SPEL_FX_BY_FID = {}
+for _r in rows(_resolve_tsv("SPEL_EFFECTS_TSV", "SPEL_Export_*_EFFECTS.tsv", "SPEL_Export_EFFECTS.tsv")):
+    SPEL_FX_BY_FID.setdefault((_r.get("SPEL_FormID") or "").strip().upper(), []).append(_r)
+
+
+def vmad_spells(vmad):
+    """[(script, property, SPEL FormID, SPEL EDID)] for every VMAD property
+    ('Script::Prop=FormID:EDID:SPEL##...') that points at a buff spell."""
+    out = []
+    for part in (vmad or "").split("##"):
+        if "::" not in part or "=" not in part:
+            continue
+        script, rest = part.split("::", 1)
+        prop, val = rest.split("=", 1)
+        m = _VMAD_VAL_RE.match(val.strip())
+        if not m:
+            continue
+        sfid, sedid = m.group(1).upper(), m.group(2)
+        if prop.strip() in _VMAD_PROPS or sedid.lower().startswith(_VMAD_PREFIXES):
+            out.append((script.strip(), prop.strip(), sfid, sedid))
+    return out
+
+
+def spell_groups(sfid):
+    """(groups, seconds, spell FULL) from the SPEL's timed Fortify effects."""
+    groups, dur, full = [], 0, ""
+    for fx in SPEL_FX_BY_FID.get(sfid, []):
+        full = full or (fx.get("SPEL_FULL") or "").strip()
+        try:
+            secs = int(float(fx.get("EFIT_Duration") or 0))
+        except ValueError:
+            secs = 0
+        m = _FORTIFY_RE.match((fx.get("EFID_MGEF_FULL") or "").strip())
+        if secs > 0 and m and m.group(1).lower() in _STAT_BY_NAME:
+            g = _STAT_BY_NAME[m.group(1).lower()]
+            if g not in groups:
+                groups.append(g)
+            dur = max(dur, secs)
+    return groups, dur, full
+
+
+def has_obtain_route(fid, full, edid):
+    if any(not _DEAD_RE.match(c.get("COBJ_EDID", "")) for c in COBJ_BY_CNAM.get(fid, [])):
+        return True
+    if _build_lists(fid):
+        return True
+    return entm_lookup(fid, full, edid) is not None
+
+
+VMAD_FOUND = {}   # fid -> {"script","prop","fid","edid","full","secs"}
+for _table in (ACTI, FURN):
+    for _fid, _rec in _table.items():
+        _vm = _rec.get("VMAD_Scripts") or ""
+        if not _vm or _fid in discovered:
+            continue
+        if _fid in EXCLUDED or _fid in GOLD_MERGED or _fid in VARIANT_MERGED:
+            continue
+        _edid = _rec.get("FURN_EDID") or ""
+        if _VMAD_SKIP_RE.match(_edid) or "nonplayer" in _edid.lower():
+            continue
+        _groups, _hit = [], None
+        for _script, _prop, _sfid, _sedid in vmad_spells(_vm):
+            _g, _secs, _sfull = spell_groups(_sfid)
+            if _g:
+                _groups += [g for g in _g if g not in _groups]
+                _hit = _hit or {"script": _script, "prop": _prop, "fid": _sfid,
+                                "edid": _sedid, "full": _sfull, "secs": _secs}
+        if not _groups:
+            continue
+        _full = (_rec.get("FURN_FULL") or "").strip()
+        if not has_obtain_route(_fid, NAME_OVERRIDES.get(_fid) or _full, _edid):
+            print(f"  [INFO] script buff {_fid} {_edid} skipped — no COBJ / build list / ENTM")
+            continue
+        discovered[_fid] = set(_groups)
+        VMAD_FOUND[_fid] = _hit
+        print(f"  Script-cast buff: {_fid} {_edid} ({_full}) -> {', '.join(_groups)} "
+              f"via {_hit['script']}::{_hit['prop']} = {_hit['edid']}")
+
+
+# ------------------------------------------------ interaction type
+# How the player uses the station, straight from the record:
+#   FURN            -> the player enters the furniture and plays an animation
+#                      (the AnimFurn* keyword names the animation set)
+#   ACTI            -> instant: the buff is cast on the button press
+#   ACTI + BlockPlayerActivation -> walk-through (a trigger fires it)
+# machine_animates flags activators whose OBJECT animates (derby games, slot
+# machines) — the player still does not.
+_INT_CFG = _CFG.get("interaction", {})
+_INT_LABELS = _INT_CFG.get("labels", {"animation": "Plays an animation",
+                                      "instant": "Instant on activate",
+                                      "walkthrough": "Walk-through"})
+_INT_WALK_KW = {k.lower() for k in _INT_CFG.get("walkthrough_keywords", ["BlockPlayerActivation"])}
+_INT_MACHINE_KW = {k.lower() for k in _INT_CFG.get("machine_anim_keywords", ["AllowNonActorToAnimateOnServer"])}
+_INT_MACHINE_SCRIPTS = [s.lower() for s in _INT_CFG.get("machine_anim_scripts", ["RandomResultPowered"])]
+_INT_ANIM_RE = re.compile(_INT_CFG.get("anim_keyword_re", r"^(ATX_)?Anims?Furn"), re.I)
+
+
+def _kw_edids(rec):
+    out = []
+    for k, v in (rec or {}).items():
+        if k.startswith("KW_") and v:
+            bits = v.split(":")
+            out.append(bits[1] if len(bits) > 1 else v)
+    return out
+
+
+def _interaction(kind, anim=None, machine=False):
+    return {"type": kind, "label": _INT_LABELS.get(kind, kind),
+            "anim_keyword": anim, "machine_animates": bool(machine)}
+
+
+def interaction_for(fid):
+    fr = FURN.get(fid)
+    if fr is not None:
+        anim = next((k for k in _kw_edids(fr) if _INT_ANIM_RE.match(k)), None)
+        return _interaction("animation", anim)
+    ar = ACTI.get(fid)
+    if ar is not None:
+        kws = {k.lower() for k in _kw_edids(ar)}
+        vm = (ar.get("VMAD_Scripts") or "").lower()
+        machine = bool(kws & _INT_MACHINE_KW) or any(s in vm for s in _INT_MACHINE_SCRIPTS)
+        if kws & _INT_WALK_KW:
+            return _interaction("walkthrough", None, machine)
+        return _interaction("instant", None, machine)
+    return None
+
+
 # ---------------------------------------------------------------- build
 items_out = []
 ATX_SIBLING = {}   # fid -> the extra Atom Shop ENTM found for it
@@ -976,7 +1126,8 @@ for fid in sorted(discovered):
     g0 = [g for g in groups if g in SPECIAL_KW]
     for g in g0:
         kw, sp = SPECIAL_KW[g]
-        tech.append(f"{STAT_NAME[g]} Keyword: {kw}")
+        if fid not in VMAD_FOUND:
+            tech.append(f"{STAT_NAME[g]} Keyword: {kw}")
         tech.append(f"{STAT_NAME[g]} Spell: {sp}")
     if g0:
         tech += DUR_NOTE.split("\n")
@@ -990,6 +1141,12 @@ for fid in sorted(discovered):
         tech.append(f"Spell: {SPELL_NOTES[fid]}")
     if spec.get("spell"):
         tech.append(f"Spell: {spec['spell']}")
+    if fid in VMAD_FOUND:
+        _v = VMAD_FOUND[fid]
+        if not any(SPECIAL_KW[g][1].startswith(_v["fid"]) for g in g0):
+            tech.append(f"Buff Spell: {_v['fid']} {_v['edid']}"
+                        + (f" \u201c{_v['full']}\u201d" if _v['full'] else ""))
+        tech.append(f"Buff Script: {_v['script']} ({_v['prop']})")
     if fid in GOLD_TECH:
         tech += GOLD_TECH[fid]
     if fid in VARIANT_INFO:
@@ -1035,6 +1192,8 @@ for fid in sorted(discovered):
         # "unreleased" / "cut" -> head pill; see status_overrides in the config.
         "status": status,
         "cutContent": False,
+        # How the station is used: animation / instant / walk-through.
+        "interaction": interaction_for(fid),
     })
 
 # ----- aggregate bed entries -------------------------------------------------
@@ -1064,6 +1223,8 @@ for fid, label, buff, spell, kwline, bkey in BED_ENTRIES:
         "technicalNotes": "\n".join(tech),
         "buffTypes": ["wellrested", "experience"],
         "singleExpand": False, "cutContent": False,
+        # Sleeping in the bed is a furniture animation.
+        "interaction": _interaction("animation"),
     })
 
 # ------------------------------------------------- Gold Bullion (generative)
