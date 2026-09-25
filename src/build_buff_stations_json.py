@@ -102,6 +102,10 @@ try:
     LVLI_ENTRIES_PATH = _resolve_tsv("LVLI_ENTRIES_TSV", "*LVLI*Entries*.tsv", "LVLI_Entries.tsv")
 except FileNotFoundError:
     LVLI_ENTRIES_PATH = None
+try:
+    GLOB_PATH = _resolve_tsv("GLOB_TSV", "GLOB_Export_*.tsv", "GLOB_Export.tsv")
+except FileNotFoundError:
+    GLOB_PATH = None
 
 print("Loading TSVs…")
 for _n, _p in [("FURN", FURN_PATH), ("ACTI", ACTI_PATH), ("ENTM", ENTM_PATH),
@@ -210,6 +214,11 @@ def plan_name_for_row(c):
 # it belongs to -> the COBJ whose CNAM == that LVLI -> its FVPA.
 # LVLI_BY_MEMBER maps each member FormID to the LVLI FormIDs it appears in.
 LVLI_BY_MEMBER = {}
+# LVLI FormID -> its entries [(FormID, EDID, signature)], same workshop filter.
+# Drives "Shares a Build Limit with": everything on one build list is built
+# from one recipe, so it shares that recipe's WorkshopCount limit.
+LVLI_ENTRIES_BY_LIST = {}
+LVLI_EDID = {}
 if LVLI_ENTRIES_PATH:
     for r in rows(LVLI_ENTRIES_PATH):
         lvli = (r.get("LVLI_FormID") or "").strip().upper()
@@ -221,6 +230,10 @@ if LVLI_ENTRIES_PATH:
         member = ref.split(":")[0].strip().upper() if ref else ""
         if lvli and member:
             LVLI_BY_MEMBER.setdefault(member, []).append(lvli)
+            bits = [b.strip() for b in ref.split(":")]
+            LVLI_ENTRIES_BY_LIST.setdefault(lvli, []).append(
+                (member, bits[1] if len(bits) > 1 else "", bits[2] if len(bits) > 2 else ""))
+            LVLI_EDID[lvli] = (r.get("LVLI_EDID") or "").strip()
 
 
 def crafting_via_lvli_membership(fid):
@@ -713,6 +726,141 @@ def build_info_for(fid):
     return "\n".join(lines)
 
 
+# ---------------------------------------------------------------- build limits
+# Generative, from the game data (user requirement, 25 Sep 2026):
+#   FURN -> the COBJ that builds it (CNAM == the FURN, or CNAM == a workshop
+#   leveled list the FURN is an entry of) -> the WorkshopCount GLOBs that
+#   reference that COBJ. "..._CAMP" / "..._Camp" is the C.A.M.P. limit, the
+#   unsuffixed one the workshop limit. A recipe with only one unsuffixed global
+#   (the communal firepit / hot tub counts) applies it to both.
+# Everything on the same build list — or built by another recipe tied to the
+# same global — counts against the same limit, so it is listed under
+# "Shares a Build Limit with".
+_DEAD_RE = re.compile(r"^(zzz|del_|cut_|test)", re.I)
+WSCOUNT_BY_COBJ = {}     # COBJ FormID -> [(GLOB FormID, EDID, value)]
+COBJS_BY_GLOB = {}       # GLOB FormID -> [COBJ FormID]
+if GLOB_PATH:
+    with open(GLOB_PATH, encoding="utf-8", errors="replace", newline="") as _f:
+        # Stream it: GLOB is thousands of columns wide (project-wide-tsv-exports).
+        _hdr = _f.readline().rstrip("\r\n").split("\t")
+        _ref0 = next((i for i, h in enumerate(_hdr) if h.lower().startswith("ref")
+                      and h.lower() != "referencedbycount"), 4)
+        for _line in _f:
+            _p = _line.rstrip("\r\n").split("\t")
+            if len(_p) < 3 or "workshopcount" not in _p[1].lower() or _DEAD_RE.match(_p[1]):
+                continue
+            try:
+                _val = int(float(_p[2]))
+            except ValueError:
+                continue
+            for _x in _p[_ref0:]:
+                _b = _x.split(":")
+                if len(_b) >= 3 and _b[2] == "COBJ" and not _DEAD_RE.match(_b[1]):
+                    WSCOUNT_BY_COBJ.setdefault(_b[0], []).append((_p[0], _p[1], _val))
+                    COBJS_BY_GLOB.setdefault(_p[0], []).append(_b[0])
+COBJ_BY_FID = {r.get("COBJ_FormID", ""): r for r in ALL_COBJ_ROWS}
+
+
+def _record_name(fid, edid=""):
+    """Player-facing name of a build-list entry: this page's own name for it,
+    then the FURN/ACTI FULL, then the plan that builds it (STAT entries such
+    as the base-game PoolTable01 carry no FULL), then a spaced-out EDID."""
+    if NAME_OVERRIDES.get(fid):
+        return NAME_OVERRIDES[fid]
+    rec = FURN.get(fid) or ACTI.get(fid)
+    full = ((rec or {}).get("FURN_FULL") or "").strip()
+    if full:
+        return full
+    for c in COBJ_BY_CNAM.get(fid, []) + [c for c in ALL_COBJ_ROWS
+                                          if f"_{(edid or '').lower()}" in c.get("COBJ_EDID", "").lower()][:3]:
+        plan = re.sub(r"^Plan:\s*", "", plan_name_for_row(c) or "").strip()
+        if plan:
+            return plan
+    e = re.sub(r"\d+$", "", edid or fid)
+    return re.sub(r"([a-z])([A-Z])", r"\1 \2", e) or fid
+
+
+def _list_members(lvli, seen=None):
+    """Every record on a build list, nested lists expanded."""
+    seen = seen if seen is not None else set()
+    if lvli in seen:
+        return []
+    seen.add(lvli)
+    out = []
+    for fid, edid, sig in LVLI_ENTRIES_BY_LIST.get(lvli, []):
+        if sig == "LVLI":
+            out += _list_members(fid, seen)
+        else:
+            out.append((fid, edid))
+    return out
+
+
+def _build_lists(fid):
+    """Workshop build lists (direct, then parent lists) that a recipe builds."""
+    out, todo, seen = [], list(LVLI_BY_MEMBER.get((fid or "").upper(), [])), set()
+    while todo:
+        l = todo.pop(0)
+        if l in seen:
+            continue
+        seen.add(l)
+        if COBJ_BY_CNAM.get(l):
+            out.append(l)
+        todo += LVLI_BY_MEMBER.get(l, [])
+    return out
+
+
+def build_limits_for(fid, display):
+    """(camp, workshop, shares, tech_lines) for one buff station."""
+    lists = _build_lists(fid)
+    cobjs = [c.get("COBJ_FormID", "") for c in COBJ_BY_CNAM.get(fid, [])]
+    for l in lists:
+        cobjs += [c.get("COBJ_FormID", "") for c in COBJ_BY_CNAM.get(l, [])]
+    cobjs = [c for c in dict.fromkeys(cobjs)
+             if c and not _DEAD_RE.match(COBJ_BY_FID.get(c, {}).get("COBJ_EDID", ""))]
+    globs = {}
+    for c in cobjs:
+        for g in WSCOUNT_BY_COBJ.get(c, []):
+            globs[g[0]] = g
+    camp = [g[2] for g in globs.values() if g[1].lower().endswith("_camp")]
+    shop = [g[2] for g in globs.values() if not g[1].lower().endswith("_camp")]
+    if shop and not camp and len(shop) == 1:
+        camp = shop[:]
+    # Shared: the rest of each build list, plus whatever other recipes tied to
+    # the same global build.
+    members = []
+    for l in lists:
+        members += _list_members(l)
+    for g in globs:
+        for c in COBJS_BY_GLOB.get(g, []):
+            if c in cobjs:
+                continue
+            cn = (COBJ_BY_FID.get(c, {}).get("CNAM_FormID") or "").strip()
+            if not cn:
+                continue
+            if cn in LVLI_ENTRIES_BY_LIST:
+                members += _list_members(cn)
+            else:
+                members.append((cn, COBJ_BY_FID[c].get("CNAM_EDID", "")))
+    own = (display or "").strip().lower()
+    names = []
+    for mfid, medid in members:
+        if mfid == fid or _DEAD_RE.match(medid or "") or "nonplayer" in (medid or "").lower():
+            continue
+        # A gold-vendor or merged variant record of this same item.
+        if GOLD_MERGED.get(mfid) == fid or VARIANT_MERGED.get(mfid) == fid:
+            continue
+        nm = _record_name(mfid, medid)
+        # A gold-vendor / variant copy of this same item is not "another" item.
+        if nm.strip().lower() == own or nm in names:
+            continue
+        names.append(nm)
+    names.sort(key=str.lower)
+    tech = [f"Build List: {l} {LVLI_EDID.get(l, '')}".rstrip() for l in lists]
+    tech += [f"Build Limit Global: {g[0]} {g[1]} = {g[2]}"
+             for g in sorted(globs.values(), key=lambda x: x[1].lower())]
+    return (min(camp) if camp else None, min(shop) if shop else None, names, tech)
+
+
 _DUR_RE = re.compile(r"^(.*?) for (\d+ (?:minutes?|hours?))(?:\s*[—-]\s*solo buff \(player only\))?\.?$")
 
 
@@ -759,6 +907,7 @@ def build_output(fid, groups):
 
 # ---------------------------------------------------------------- build
 items_out = []
+ATX_SIBLING = {}   # fid -> the extra Atom Shop ENTM found for it
 
 for fid in sorted(discovered):
     groups = sorted(discovered[fid], key=lambda g: GROUP_ORDER.get(g, 99))
@@ -791,6 +940,19 @@ for fid in sorted(discovered):
         how = f"{how}\n\n{GOLD_HOW[fid]}"
     if status:
         tradeable = False   # unreleased / cut: nothing to trade
+    # Atom Shop re-release: a scoreboard / event item that ALSO has its own
+    # plain ATX_ entitlement under the same name (e.g. Weight Bench, sold in
+    # the Cash Plus Interest bundle alongside its Season 2 record). F1_ / TP_
+    # entitlements are Fallout 1st claims and promo codes, not shop sales.
+    if not status and "atom shop" not in (how or "").lower():
+        _own = (entm or {}).get("FormID", "")
+        for _e in ENTM_BY_FULL.get(display.strip().lower(), []):
+            _ed = (_e.get("EDID") or "").upper()
+            if (_e.get("FormID") != _own and _ed.startswith("ATX_")
+                    and not _ed.startswith(("ATX_F1_", "ATX_TP_"))):
+                how = f"{how}\n\n{ATX_HOW}" if how and how != "—" else ATX_HOW
+                ATX_SIBLING[fid] = _e
+                break
     obtain_routes = buff_obtain_routes(how, tradeable)
     output_info, output_rows = build_output(fid, groups)
     if fid in VARIANT_INFO:
@@ -826,6 +988,16 @@ for fid in sorted(discovered):
         tech += GOLD_TECH[fid]
     if fid in VARIANT_INFO:
         tech += VARIANT_INFO[fid]["tech"]
+    if fid in ATX_SIBLING:
+        tech.append(f"Atom Shop ENTM: {ATX_SIBLING[fid]['FormID']} {ATX_SIBLING[fid]['EDID']}")
+    lim_camp, lim_ws, lim_shares, lim_tech = build_limits_for(fid, display)
+    tech += lim_tech
+    _bi = [f"Build Limit CAMP: {lim_camp if lim_camp is not None else '—'}",
+           f"Build Limit Workshop: {lim_ws if lim_ws is not None else '—'}",
+           f"Shares a Build Limit with: {', '.join(lim_shares) if lim_shares else '—'}"]
+    _pw = build_info_for(fid)
+    if _pw:
+        _bi.append(_pw)
 
     items_out.append({
         "formId": fid,
@@ -842,7 +1014,7 @@ for fid in sorted(discovered):
         "planName": plan,
         "imageUrl": image_for(entm, furn_edid),
         "outputInfo": output_info,
-        "buildInfo": build_info_for(fid),
+        "buildInfo": "\n".join(_bi),
         "craftingRequirements": crafting_arr,
         "technicalNotes": "\n".join(tech),
         "buffTypes": groups,
@@ -902,7 +1074,8 @@ _GV.report_unstocked(items_out)
 # Item-specific facts that are not one of the fixed rows (variant list, ghoul
 # note, cooldown) become plain sentences under the table — no extra headings.
 OUTPUT_FIXED = ["Duration", "Applies To", "Stacks With Other Buffs", "Stacks On Itself"]
-BUILD_FIXED  = ["Power Required", "Flamingo Units"]
+BUILD_FIXED  = ["Build Limit CAMP", "Build Limit Workshop", "Shares a Build Limit with",
+                "Power Required", "Flamingo Units"]
 TECH_FIXED   = ["EDID", "FormID", "ENTM EDID", "ENTM FormID", "Buff Keyword",
                 "Buff Spell", "Buff Effect", "Duration Global", "Magnitude Global"]
 TECH_ALIASES = {"FURN EDID": "EDID", "FURN FormID": "FormID",
