@@ -138,6 +138,10 @@ SET_META = {
         "name": "Pint-Sized Phantoms' Grave Sites",
         "page_title": "Pint-Sized Phantoms' Grave Site Locations",
         "blurb": "Every grave site for the Pint-Sized Phantoms' treasure map, grouped by region.",
+        # Overview + numbered maps from src/render_treasure_map_locations.py (numbers =
+        # grave site numbers). Dated names for the same CDN-cache reason as the masks.
+        "full_map": "/wp-content/uploads/guide-images/treasure-maps/slasher-grave-locations/slasher_graves-2026-09.jpg",
+        "numbered_map": "/wp-content/uploads/guide-images/treasure-maps/slasher-grave-locations/slasher_graves_numbered-2026-09.jpg",
     },
     # Two more TSV-sourced dig-site sets that render through the SAME
     # df-bnb-collectables-spawns.js engine + collect tracking, but live under
@@ -147,11 +151,17 @@ SET_META = {
         "name": "Treasure Map Locations",
         "page_title": "Treasure Map Dig Locations",
         "blurb": "Every treasure-map dig site in Appalachia, grouped by region.",
+        # render_treasure_map_locations.py — numbers = the mound's map number (01-35).
+        "full_map": "/wp-content/uploads/guide-images/treasure-maps/treasure-map-locations/treasure_map_locations-2026-09.jpg",
+        "numbered_map": "/wp-content/uploads/guide-images/treasure-maps/treasure-map-locations/treasure_map_locations_numbered-2026-09.jpg",
     },
     "u-mine-it": {
         "name": "U Mine It Dig Locations",
         "page_title": "U Mine It (Lucky Strike) Dig Locations",
         "blurb": "Every U-Mine-It / Lucky Strike dig site in Appalachia, grouped by region.",
+        # render_treasure_map_locations.py — numbers run 1..N in page order.
+        "full_map": "/wp-content/uploads/guide-images/treasure-maps/u-mine-it-locations/u_mine_it_locations-2026-09.jpg",
+        "numbered_map": "/wp-content/uploads/guide-images/treasure-maps/u-mine-it-locations/u_mine_it_locations_numbered-2026-09.jpg",
     },
 }
 
@@ -685,6 +695,10 @@ def build_grave_set():
     if challenges:
         print(f"[collectable_spawns] {GRAVE_SLUG}: {cchal.build_report(challenges)}")
 
+    # Numbers published by render_treasure_map_locations.py, so the printable
+    # checklist reads the same numbers as the numbered map.
+    map_numbers = load_map_numbers(GRAVE_SLUG, RUN_CHANNEL)
+
     def region_norm(r):
         return GRAVE_REGION_ALIASES.get((r or "").strip().lower(), (r or "").strip())
 
@@ -724,6 +738,8 @@ def build_grave_set():
                     "image_bottom": nt.get("photo_spawn") or hf.get("image_bottom", ""),
                     "refs": [g["ref_formid"]] if g["ref_formid"] else [],
                 })
+                if (g["ref_formid"] or "").upper() in map_numbers:
+                    spawns[-1]["map_number"] = map_numbers[g["ref_formid"].upper()]
             total += len(spawns)
             locs.append({"marker": marker, "count": len(spawns), "spawns": spawns})
         regions_out.append({"region": region, "locations": locs})
@@ -807,6 +823,8 @@ def build_dig_set(slug):
     challenges = (cchal.challenges_for_set(slug, channel=RUN_CHANNEL)
                   or existing_top.get("challenges"))
 
+    map_numbers = load_map_numbers(slug, RUN_CHANNEL)   # see build_grave_set
+
     by_region = defaultdict(lambda: defaultdict(list))
     for r in _read_dig_rows(tsv_path):
         region = r["region"] or ""
@@ -828,6 +846,8 @@ def build_dig_set(slug):
                     "image_bottom": g["photo_spawn"] or hf.get("image_bottom", ""),
                     "refs": [g["ref_formid"]] if g["ref_formid"] else [],
                 })
+                if (g["ref_formid"] or "").upper() in map_numbers:
+                    spawns[-1]["map_number"] = map_numbers[g["ref_formid"].upper()]
             total += len(spawns)
             locs.append({"marker": marker, "count": len(spawns), "spawns": spawns})
         regions_out.append({"region": region, "locations": locs})

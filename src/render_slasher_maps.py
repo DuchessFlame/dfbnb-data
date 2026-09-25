@@ -75,7 +75,9 @@ TILE_SLUGS = {"Forest": "TheForest"}
 # on the page can say "mask #7" and mean the #7 the reader sees on the map.
 SET_SLUG_FOR_KEY = {
     "masks":  "pint-sized-slasher-masks",
-    "graves": "pint-sized-phantom-graves",
+    # The graves numbering is published by render_treasure_map_locations.py now (the
+    # grave page lives under Treasure Maps and its maps are drawn there). Two writers
+    # for one set's numbers is how a checklist ends up disagreeing with its map.
 }
 
 # Committed so CI can read it — the page build has no Mappalachia DB and cannot
@@ -221,11 +223,23 @@ def load_graves():
     """[{ref, region, marker, x, y}] straight from the rebuilt grave TSV."""
     if not os.path.exists(GRAVE_TSV):
         raise SystemExit(f"missing {GRAVE_TSV} - run build_phantom_grave_sites_tsv.py first")
+    # Graves 5/7/9 were hand-added to the live TSV from xEdit with no coordinates;
+    # the PTS placement export has them, so backfill by ref instead of dropping them.
+    backfill = {}
+    pts_tsv = os.path.join(REPO, "tsv", "pts", "phantom_grave_sites.tsv")
+    if os.path.exists(pts_tsv):
+        with open(pts_tsv, encoding="utf-8") as fh:
+            for r in csv.DictReader(fh, delimiter="\t"):
+                if r.get("x") and r.get("y"):
+                    backfill[(r.get("ref_formid") or "").strip().upper()] = (r["x"], r["y"])
     pts = []
     with open(GRAVE_TSV, encoding="utf-8") as fh:
         for r in csv.DictReader(fh, delimiter="\t"):
             if not r.get("x") or not r.get("y"):
-                continue
+                bf = backfill.get((r.get("ref_formid") or "").strip().upper())
+                if not bf:
+                    continue
+                r["x"], r["y"] = bf
             done = all((r.get(c) or "").strip() for c in
                        ("photo_region", "photo_approach", "photo_spawn"))
             pts.append({
@@ -424,7 +438,8 @@ def write_map_numbers(key, numbered_rows):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--sets", nargs="+", default=["graves", "masks", "combined"],
+    # graves are drawn by render_treasure_map_locations.py; still selectable here
+    ap.add_argument("--sets", nargs="+", default=["masks", "combined"],
                     choices=list(SETS))
     ap.add_argument("--out", default=DEFAULT_OUT)
     args = ap.parse_args()
