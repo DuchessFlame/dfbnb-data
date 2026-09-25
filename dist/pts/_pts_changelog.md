@@ -287,7 +287,7 @@ _Couldn't key this file to records; contents differ._
 - ATX_Instrument_SkullDrumSet  `ATX_Instrument_SkullDrumSet` — fields: buildInfo, technicalNotes
 - ATX_Instrument_Xylophone  `ATX_Instrument_Xylophone` — fields: buildInfo, technicalNotes
 - ATX_Orgatronic  `ATX_Orgatronic` — fields: buildInfo, technicalNotes
-- ATX_RadiationGloveBox  `ATX_RadiationGloveBox` — fields: buildInfo, technicalNotes
+- ATX_RadiationGloveBox  `ATX_RadiationGloveBox` — fields: buildInfo, howToObtain, obtainRoutes, technicalNotes
 - ATX_Structure_Furniture_AtomicDryer  `ATX_Structure_Furniture_AtomicDryer` — fields: buildInfo
 - ATX_Structure_Furniture_BoSVertibirdTrainingSimulator  `ATX_Structure_Furniture_BoSVertibirdTrainingSimulator` — fields: buildInfo
 - ATX_Structure_Furniture_BowlingAlleyLane  `ATX_Structure_Furniture_BowlingAlleyLane` — fields: buildInfo, technicalNotes
@@ -2057,7 +2057,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +18 / -1 / ~55
+## `titles_player.json`  ·  +18 / -1 / ~54
 
 **Added (18)**
 - ATX_PlayerTitles_Prefix_Apex  `ATX_PlayerTitles_Prefix_Apex`
@@ -2082,7 +2082,7 @@ _Couldn't key this file to records; contents differ._
 **Removed (1)**
 - zzz_Fishing_PlayerTitles_Prefix_Gillded  `zzz_Fishing_PlayerTitles_Prefix_Gillded`
 
-**Changed (55)**
+**Changed (54)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel
 - ATX_PlayerTitles_Prefix_Tribune  `ATX_PlayerTitles_Prefix_Tribune` — fields: releaseDate, releaseLabel, releaseYear
@@ -2119,11 +2119,11 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl
-- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 - WorldPets_PlayerTitles_Prefix_Cat01  `WorldPets_PlayerTitles_Prefix_Cat01` — fields: conditions, debug, unlockType
 - WorldPets_PlayerTitles_Prefix_Cat02  `WorldPets_PlayerTitles_Prefix_Cat02` — fields: conditions, debug, unlockType
 - WorldPets_PlayerTitles_Prefix_Deathclaw01  `WorldPets_PlayerTitles_Prefix_Deathclaw01` — fields: conditions, debug, unlockType
-- …and 15 more
+- WorldPets_PlayerTitles_Prefix_Deathclaw02  `WorldPets_PlayerTitles_Prefix_Deathclaw02` — fields: conditions, debug, unlockType
+- …and 14 more
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
