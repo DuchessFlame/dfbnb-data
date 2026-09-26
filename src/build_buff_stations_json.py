@@ -474,7 +474,7 @@ MANUAL_BY_FID = {m["fid"]: m for m in MANUAL_ITEMS}
 
 # Bed name lists (for the three aggregate bed entries)
 BED_KW = {"003CD038": "sleepingbag", "003CD037": "mattress", "003CD036": "comfy"}
-BED_CUT_RE = re.compile(r"^(zzz|test|chargen|post_|npc|workshopnpc)", re.I)
+BED_CUT_RE = re.compile(r"^(zzz|test|chargen|post_|npc)", re.I)  # WorkshopNpc* are the buildable workshop beds (the only Mattress records) — keep them
 bed_names = {"sleepingbag": [], "mattress": [], "comfy": []}
 for r in rows(KYWD_REFS_PATH):
     k = r["KeywordFormID"]
