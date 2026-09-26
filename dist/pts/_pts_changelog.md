@@ -1434,7 +1434,7 @@ _Couldn't key this file to records; contents differ._
 ## `load_screens.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `make_plan_checklist.json`  ·  +299 / -24 / ~35
+## `make_plan_checklist.json`  ·  +299 / -24 / ~34
 
 **Added (299)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1505,8 +1505,7 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (35)**
-- Plan: Mole Miner Gauntlet  `PLAN_00436FF9` — fields: routes
+**Changed (34)**
 - Plan: Single-Action Revolver Forceful Grip  `PLAN_0052A699` — fields: name
 - Plan: Gauss Shotgun Long Barrel  `PLAN_0059560D` — fields: name
 - Plan: Crusader Pistol Fusion Chamber  `PLAN_005E65FA` — fields: name
@@ -1676,7 +1675,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +299 / -24 / ~212
+## `plan_master.json`  ·  +299 / -24 / ~208
 
 **Added (299)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1747,12 +1746,11 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (212)**
+**Changed (208)**
 - Plan: Vault Locker  `PLAN_003D6519` — fields: obtain_ledger, obtain_routes
 - Plan: Vault Dresser  `PLAN_003D651A` — fields: obtain_ledger, obtain_routes
 - Plan: Vault Desk  `PLAN_003D651B` — fields: obtain_ledger, obtain_routes
 - Plan: Golf Club  `PLAN_00436FF5` — fields: obtain_ledger, obtain_routes
-- Plan: Mole Miner Gauntlet  `PLAN_00436FF9` — fields: obtain_ledger, obtain_routes
 - Plan: Sledge Hammer  `PLAN_00436FFF` — fields: cnam
 - Plan: Super Sledge  `PLAN_00437000` — fields: obtain_ledger, obtain_routes
 - Plan: War Drum  `PLAN_00437003` — fields: obtain_ledger, obtain_routes
@@ -1763,9 +1761,6 @@ _Couldn't key this file to records; contents differ._
 - Plan: Pickaxe  `PLAN_004EB740` — fields: cnam
 - Plan: Laser Gun Medium Scope  `PLAN_004F476D` — fields: obtain_routes
 - Plan: Crossbow  `PLAN_004F4780` — fields: cnam
-- Plan: Ultracite Optimized Servos  `PLAN_0050194F` — fields: obtain_routes
-- Plan: Ultracite Overdrive Servos  `PLAN_00501950` — fields: obtain_routes
-- Plan: Ultracite Emergency Protocols  `PLAN_00501954` — fields: obtain_routes
 - Plan: Single-Action Revolver Forceful Grip  `PLAN_0052A699` — fields: cnam, cobj, name, plan_item
 - Recipe: Mirelurk Softshell Cake  `PLAN_0052FDFF` — fields: consumable_type
 - Plan: Evil Jack O'Lantern  `PLAN_005772C7` — fields: image_source, images
@@ -1788,7 +1783,11 @@ _Couldn't key this file to records; contents differ._
 - Plan: Crusader Pistol  `PLAN_005E65F5` — fields: obtain_routes, weapon_group_solo
 - Plan: Crusader Pistol Suppressor  `PLAN_005E65F6` — fields: weapon_group, weapon_group_key
 - Plan: Crusader Pistol Reflex Sight  `PLAN_005E65F7` — fields: weapon_group, weapon_group_key
-- …and 172 more
+- Plan: Crusader Pistol Short Scope  `PLAN_005E65F8` — fields: weapon_group, weapon_group_key
+- Plan: Crusader Pistol Long Barrel  `PLAN_005E65F9` — fields: weapon_group, weapon_group_key
+- Plan: Crusader Pistol Fusion Chamber  `PLAN_005E65FA` — fields: cnam, cobj, name, plan_item, weapon_group, weapon_group_key
+- Plan: Crusader Pistol Pyro Chamber  `PLAN_005E65FB` — fields: cnam, cobj, name, plan_item, weapon_group, weapon_group_key
+- …and 168 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1909,7 +1908,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +18 / -1 / ~54
+## `titles_player.json`  ·  +18 / -1 / ~55
 
 **Added (18)**
 - ATX_PlayerTitles_Prefix_Apex  `ATX_PlayerTitles_Prefix_Apex`
@@ -1934,7 +1933,7 @@ _Couldn't key this file to records; contents differ._
 **Removed (1)**
 - zzz_Fishing_PlayerTitles_Prefix_Gillded  `zzz_Fishing_PlayerTitles_Prefix_Gillded`
 
-**Changed (54)**
+**Changed (55)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel
 - ATX_PlayerTitles_Prefix_Tribune  `ATX_PlayerTitles_Prefix_Tribune` — fields: releaseDate, releaseLabel, releaseYear
@@ -1971,11 +1970,11 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl
+- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 - WorldPets_PlayerTitles_Prefix_Cat01  `WorldPets_PlayerTitles_Prefix_Cat01` — fields: conditions, debug, unlockType
 - WorldPets_PlayerTitles_Prefix_Cat02  `WorldPets_PlayerTitles_Prefix_Cat02` — fields: conditions, debug, unlockType
 - WorldPets_PlayerTitles_Prefix_Deathclaw01  `WorldPets_PlayerTitles_Prefix_Deathclaw01` — fields: conditions, debug, unlockType
-- WorldPets_PlayerTitles_Prefix_Deathclaw02  `WorldPets_PlayerTitles_Prefix_Deathclaw02` — fields: conditions, debug, unlockType
-- …and 14 more
+- …and 15 more
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
