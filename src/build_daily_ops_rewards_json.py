@@ -1133,6 +1133,14 @@ def build_checklist_section(reward_tree, tradeable):
     }
 
 
+# ---------------------------------------------------------------------------
+# "How Daily Ops Rewards Work" card (restored from the old Daily Ops page)
+# ---------------------------------------------------------------------------
+# The old checklist page opened with a visible card: a three-cell rank grid
+# (Elder / Paladin / Knight - time + what you get) and short sections on how
+# plan drops work, double mutations and the level split. This rebuilds it from
+# the same tree the page renders, so the numbers can't drift from the rates.
+
 def slot_nodes(slot):
     out = []
     if slot["formid"]:
