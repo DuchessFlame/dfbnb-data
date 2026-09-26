@@ -170,7 +170,7 @@ def build_pool_index():
         ("dist/activities/activities_rewards.json", "Public Event", "Event"),
         ("dist/events/events_rewards.json", "Public Event", "Event"),
         ("dist/seasonal_events/seasonal_events_rewards.json", "Seasonal", "Seasonal Event"),
-        ("dist/daily_ops/daily_ops_rewards.json", "Daily Ops", "Daily Ops"),
+        ("dist/daily_ops/daily_ops_reward_checklist.json", "Daily Ops", "Daily Ops"),
         ("dist/expos/expos_rewards.json", "Expedition", "Expedition"),
         ("dist/bounty-hunting/bounty_hunting_rewards.json", "Vendor", "Bounty Hunting"),
     ]

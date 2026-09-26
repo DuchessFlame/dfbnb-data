@@ -1,15 +1,30 @@
 name: Build Daily Ops Data
 
+# Standalone Daily Ops build. Reads the xEdit exports in tsv/ directly - it does
+# NOT wait on drop_rates.json or events_rewards.json any more - so it runs on its
+# own and a failure anywhere else can't hold it up (or the other way round).
+#
+# Writes one JSON per page:
+#   dist/daily_ops/daily_ops_all_rewards.json       All Rewards page
+#   dist/daily_ops/daily_ops_reward_checklist.json  Reward Checklist + Guide pages
+#   dist/daily_ops/patchlog_latest_df_daily_ops_rewards.json
+
 on:
   workflow_dispatch:
 
   push:
     paths:
-      - 'tsv/**'
-      - 'src/build_daily_ops_json.py'
-      - 'src/events_page_pools.py'
+      - 'tsv/GMRW_Export_*'
+      - 'tsv/LVLI_Export_*'
+      - 'tsv/GLOB_Export_*'
+      - 'tsv/FLST_Export_*'
+      - 'tsv/LCTN_Export_*'
+      - 'tsv/BOOK_Export_*'
+      - 'tsv/ARMO_Export_*'
+      - 'src/build_daily_ops_rewards_json.py'
       - 'src/build_events_rewards_json.py'
-      - 'src/build_drop_rates.py'
+      - 'src/events_page_pools.py'
+      - 'src/rng76.py'
 
 permissions:
   contents: write
@@ -19,60 +34,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Step 1: Build shared drop rates first
-  drop-rates:
-    uses: ./.github/workflows/build-drop-rates.yml
-
-  # Step 2: Build events rewards (rewards depends on events_rewards.json)
-  events:
-    needs: drop-rates
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-          ref: main
-
-      - name: Pull latest (includes drop_rates.json)
-        run: git pull origin main
-
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: "3.11"
-
-      - name: Build Events Rewards JSON
-        run: |
-          python -V
-          python src/build_events_rewards_json.py
-
-      - name: Commit events dist
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          git add dist/events/events_rewards.json dist/events/events_rewards_by_page.json dist/patchlogs/patchlog_latest_df_events.json
-          # by_page_slices.py prunes retired slices; -A stages the deletions too,
-          # otherwise the prune runs on the runner and is thrown away.
-          git add -A dist/events/by_page
-
-          if git diff --cached --quiet; then
-            echo "No events changes to commit."
-            exit 0
-          fi
-
-          git commit -m "Build Events Rewards JSON"
-
-          git fetch origin main
-          git pull --rebase origin main
-          git push origin main
-
-  # Step 3: Build Daily Ops using shared JSON + events_rewards.json
   build:
-    needs: events
     runs-on: ubuntu-latest
 
     steps:
@@ -82,33 +44,30 @@ jobs:
           fetch-depth: 0
           ref: main
 
-      - name: Pull latest (includes drop_rates.json + events_rewards.json)
-        run: git pull origin main
-
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
-      - name: Verify dependencies exist
-        run: |
-          echo "--- drop_rates.json ---"
-          ls -la dist/drop_rates.json || echo "NOT FOUND"
-          echo "--- events_rewards.json ---"
-          ls -la dist/events/events_rewards.json || echo "NOT FOUND"
-
-      - name: Build Daily Ops Data
+      - name: Build Daily Ops JSONs
         run: |
           python -V
-          python src/build_daily_ops_json.py
+          python src/build_daily_ops_rewards_json.py
 
       - name: Commit dist outputs
+        # Runs even if one of the two JSONs failed: the builder only writes the
+        # ones that built cleanly, so whatever did build still gets published.
+        if: always()
         shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add dist/daily_ops/daily_ops_rewards.json dist/daily_ops/patchlog_latest_df_daily_ops_rewards.json
+          git add dist/daily_ops/daily_ops_all_rewards.json 2>/dev/null || true
+          git add dist/daily_ops/daily_ops_reward_checklist.json 2>/dev/null || true
+          git add dist/daily_ops/patchlog_latest_df_daily_ops_rewards.json 2>/dev/null || true
+          # daily_ops_rewards.json was retired Sept 2026; stage its removal if it is still tracked.
+          git rm --cached --ignore-unmatch dist/daily_ops/daily_ops_rewards.json
 
           if git diff --cached --quiet; then
             echo "No changes to commit."

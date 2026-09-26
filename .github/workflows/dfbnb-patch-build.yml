@@ -258,13 +258,14 @@ jobs:
       - name: Build Expos Rewards JSON
         run: python src/build_expos_json.py
 
-      - name: Build Daily Ops JSON
-        run: python src/build_daily_ops_json.py
-
-      # Activities-shaped Daily Ops rewards page. Imports
-      # build_events_rewards_json for the shared LVLI tree walker, so it MUST
-      # run after "Build Events Rewards JSON" above.
-      - name: Build Daily Ops All Rewards JSON
+      # The one Daily Ops rewards builder. Writes one JSON per page
+      # (daily_ops_all_rewards.json + daily_ops_reward_checklist.json) straight
+      # from the xEdit exports - it no longer reads events_rewards.json.
+      # continue-on-error: a Daily Ops failure must not stop every other page
+      # from building and committing. The last good Daily Ops JSONs stay live and
+      # the step still shows red in the run log.
+      - name: Build Daily Ops Rewards JSONs
+        continue-on-error: true
         run: python src/build_daily_ops_rewards_json.py
 
       # --- BOUNTY HUNTING CHALLENGES (reads CHAL TSV directly) ---
@@ -1318,8 +1319,8 @@ jobs:
           test -f dist/seasonal_events/seasonal_events_rewards_by_page.json && echo "OK seasonal_events_rewards_by_page.json" || (echo "MISSING seasonal_events_rewards_by_page.json" && exit 1)
           test -f dist/raids/raids_rewards.json && echo "OK raids/raids_rewards.json" || (echo "MISSING raids/raids_rewards.json" && exit 1)
           test -f dist/expos/expos_rewards.json && echo "OK expos/expos_rewards.json" || (echo "MISSING expos/expos_rewards.json" && exit 1)
-          test -f dist/daily_ops/daily_ops_rewards.json && echo "OK daily_ops/daily_ops_rewards.json" || (echo "MISSING daily_ops/daily_ops_rewards.json" && exit 1)
           test -f dist/daily_ops/daily_ops_all_rewards.json && echo "OK daily_ops/daily_ops_all_rewards.json" || (echo "MISSING daily_ops/daily_ops_all_rewards.json" && exit 1)
+          test -f dist/daily_ops/daily_ops_reward_checklist.json && echo "OK daily_ops/daily_ops_reward_checklist.json" || (echo "MISSING daily_ops/daily_ops_reward_checklist.json" && exit 1)
           test -f dist/minerva/minerva_plans.json      && echo "OK minerva/minerva_plans.json"       || (echo "MISSING minerva/minerva_plans.json" && exit 1)
           test -f dist/mule-defaults.json            && echo "OK mule-defaults.json (static seed)" || echo "WARN missing mule-defaults.json (static seed, not built by patch)"
           test -f dist/pennants.json                 && echo "OK pennants.json"                 || (echo "MISSING pennants.json" && exit 1)

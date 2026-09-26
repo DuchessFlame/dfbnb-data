@@ -3,13 +3,30 @@
 """
 build_daily_ops_rewards_json.py - Daily Ops All Rewards (Activities-shaped)
 
-Writes:
-    dist/daily_ops/daily_ops_all_rewards.json          (live)
-    dist/pts/daily_ops/daily_ops_all_rewards.json      (--pts)
+Writes (one JSON per page, so one bad file can never blank another page):
+    dist/daily_ops/daily_ops_all_rewards.json        All Rewards page tree
+                                                     (df-bnb-daily-ops-rewards.js)
+    dist/daily_ops/daily_ops_reward_checklist.json   flat pools for the Reward
+                                                     Checklist + Guide pages
+                                                     (df-bnb-daily-ops.js) and the
+                                                     Unique Weapons & Armour lookup
+    dist/daily_ops/patchlog_latest_df_daily_ops_rewards.json
 
-This is a NEW output path. The legacy builder (build_daily_ops_json.py ->
-daily_ops_rewards.json) and the legacy renderer (df-bnb-daily-ops.js) are left
-alone so the live page keeps working until the new renderer is wired up.
+This is the ONLY Daily Ops rewards builder. It replaced build_daily_ops_json.py
+(-> daily_ops_rewards.json, retired 26 Sept 2026). It reads the xEdit exports
+directly and does NOT depend on dist/events/events_rewards.json, so a broken
+events build cannot take Daily Ops down. Each JSON is built and written on its
+own (atomic write, parse-checked); if one fails the other still ships and the
+old copy of the failed one stays live.
+
+ROOT EXPANDS (one per way of earning rewards, built from the GMRW rows):
+    Elder / Paladin / Knight  first clear of the day at that rank. CUMULATIVE -
+                              the rank rows gate on remaining time <= 480/720/960,
+                              so Elder also passes Paladin + Knight, Paladin also
+                              passes Knight (confirmed in-game 26 Sept 2026).
+    Every Clear               GMRW row with no conditions -> every completion.
+    Double Mutation           GetGlobalValue == 1 + Elder timer, every Elder clear.
+    Slasher Daily Ops         SDOW_ lists: first Elder clear 100%, repeats 25%.
 
 WHY THIS FILE IMPORTS build_events_rewards_json
 -----------------------------------------------
@@ -49,10 +66,11 @@ other page that goes through build_lvli_tree_node (events, activities). That is
 a separate, site-wide call - see HANDOFF notes.
 
 Usage:
-    python3 src/build_daily_ops_rewards_json.py            # live
-    python3 src/build_daily_ops_rewards_json.py --pts      # PTS twin
+    python3 src/build_daily_ops_rewards_json.py
+    (PTS twin: dfbnb-pts-build.yml runs it normally, then relocates dist/.)
 """
 
+import copy
 import csv
 import json
 import re
@@ -64,6 +82,9 @@ sys.path.insert(0, str(_REPO_ROOT / "src"))
 
 import build_events_rewards_json as ev      # import-safe: writes nothing
 import tsv_source
+from events_page_pools import process_pool, merge_duplicate_pools
+from rng76 import parse_randompercent_multiplier
+from patchlog_utils import write_patchlog_feed, _git_show_json
 
 # NO --pts MODE, ON PURPOSE.
 #
@@ -110,31 +131,83 @@ TIER_META = {
     "elder":   {"label": "Elder",   "seconds": 480, "timeLabel": "8:00",  "order": 0},
     "paladin": {"label": "Paladin", "seconds": 720, "timeLabel": "12:00", "order": 1},
     "knight":  {"label": "Knight",  "seconds": 960, "timeLabel": "16:00", "order": 2},
-    "repeat":  {"label": "Repeat Runs", "seconds": None, "timeLabel": None, "order": 3},
 }
+TIER_ORDER = ["elder", "paladin", "knight"]
+
+# Root expands, in page order. Rank roots are cumulative (see build_rank_root):
+# the GMRW rank rows gate on GetRemainingQuestTimeSeconds <= DailyOps_Timer_Tier_*,
+# and 480 <= 720 <= 960, so an Elder clear passes all three rank rows, a Paladin
+# clear passes Paladin + Knight, and a Knight clear passes Knight only.
+# Confirmed in-game by Duchess, 26 Sept 2026.
+ROOT_META = {
+    "elder": {
+        "label": "Elder",
+        "subtitle": "First Elder clear of the day · rolls the Elder, Paladin and Knight rewards",
+        "note": ("An Elder clear also counts as a Paladin and a Knight clear, so it "
+                 "rolls all three chase lists - Elder at 100%, Paladin at 10% and "
+                 "Knight at 5% - on top of the Elder-only bonus currency and "
+                 "Legendary Modules. Each rank pays out once per day."),
+    },
+    "paladin": {
+        "label": "Paladin",
+        "subtitle": "First Paladin clear of the day · rolls the Paladin and Knight rewards",
+        "note": ("A Paladin clear also counts as a Knight clear, so it rolls the "
+                 "Paladin chase list at 10% and the Knight chase list at 5%. Each "
+                 "rank pays out once per day."),
+    },
+    "knight": {
+        "label": "Knight",
+        "subtitle": "First Knight clear of the day · Knight rewards only",
+        "note": "A Knight clear rolls the Knight chase list at 5%. Each rank pays out once per day.",
+    },
+    "everyClear": {
+        "label": "Every Clear",
+        "subtitle": "Every completion, any rank, first run or repeat · no plans in this pool",
+        "note": ("This pool has no rank or first-run condition, so it pays out on "
+                 "every completion - including your first of the day, alongside the "
+                 "rank rewards above. Repeat runs only ever get this pool."),
+    },
+    "doubleMutation": {
+        "label": "Double Mutation",
+        "subtitle": "Double mutation ops only · Elder clears, every run",
+        "note": ("Needs the double-mutation flag on and a clear inside 8:00. It is "
+                 "not limited to your first run - every Elder clear of a double "
+                 "mutation op pays it."),
+    },
+    "slasher": {
+        "label": "Slasher Daily Ops",
+        "subtitle": "Slasher ops only · during the Pint-Sized Slasher event",
+        "note": ("Only fires while the Pint-Sized Slasher event is running and the "
+                 "op's enemy is the Slasher encounter. The first Elder clear of the "
+                 "day always rolls this list; repeat clears roll it 1 time in 4."),
+    },
+}
+ROOT_ORDER = ["elder", "paladin", "knight", "everyClear", "doubleMutation", "slasher"]
 
 POOL_TITLES = {
-    "005DBD0D": "Chase Rewards",
-    "005DBD0F": "Chase Rewards",
-    "005CB9FF": "Chase Rewards",
+    "005DBD0D": "Elder Chase Roll",
+    "005DBD0F": "Paladin Chase Roll",
+    "005CB9FF": "Knight Chase Roll",
     "005DBD10": "Bonus Currency",
     "00612800": "Legendary Modules",
-    "005CBA06": "Repeat Run Rewards",
+    "005CBA06": "Every Clear Rewards",
     "0061F72A": "Double Mutation Bonus",
-    "00935CEA": "Seasonal Event Rewards",
-    "008FCEA5": "Seasonal Event Rewards",
+    "00935CEA": "First Elder Clear of the Day",
+    "008FCEA5": "Repeat Clears",
 }
 
 # Intro card copy. Lives in the data, not the renderer, so it can be corrected
 # without an FTP push. Every claim here is traceable to a record:
 #   tier times          GLOB 005CB976/7/8  (480 / 720 / 960)
 #   chase roll 100/10/5 GLOB 005CB979/A/B via each tier list's ListCond1
+#   ranks stack         GMRW rank rows use <= on nested timers (confirmed in-game)
 #   level split         005DBD0D entry 0 GetLevel >= 50 + First Match fallthrough
-#   no plans on repeats 005CBA06 walked: 333 items, 0 plans/recipes
-#   only title removed  "already learned" condition appears once, on Pint-Sized
+#   every clear         GMRW 006311EA index 3 has no conditions
+#   double mutation     GMRW index 4: GetGlobalValue == 1 + Tier_High, no GetValue
+#   slasher             GMRW index 7/8 + list gates 005CB979 (100) / 00935CE9 (25)
 DESCRIPTION = (
     "Daily Ops rewards, pulled straight from the game files. Your clear time "
-    "decides your rank, and your rank decides whether you get a plan at all."
+    "decides your rank, and your rank decides how many chase rolls you get."
 )
 
 INFO_CARD = [
@@ -144,36 +217,36 @@ INFO_CARD = [
     "Finish an op and the game checks your clear time. Under 8 minutes is Elder, "
     "under 12 is Paladin, under 16 is Knight.",
 
-    "Your rank decides whether you get a plan at all. At Elder the chase reward "
-    "is guaranteed - it fires every run. At Paladin it fires 1 run in 10. At "
-    "Knight, 1 in 20. The list of possible plans is the same either way. Speed "
-    "does not change what you can win, it changes whether you get to roll.",
+    "Ranks stack. An Elder clear also counts as a Paladin and a Knight clear, so "
+    "it rolls all three chase lists: Elder at 100%, Paladin at 10% and Knight at "
+    "5%. A Paladin clear rolls Paladin and Knight. A Knight clear rolls Knight only.",
 
-    "Plans only drop on your first op of the day. Repeat runs move to a "
-    "different pool with no plans or recipes in it at all - caps, scrip, aid, "
-    "ammo and up to three grenades. If you are farming plans, the first run is "
-    "the one that counts.",
+    "Each rank's rewards pay out once per day. After that, repeat runs only get "
+    "the Every Clear pool - currency, aid, ammo, up to three grenades and a 3★ "
+    "Legendary Item. There are no plans or recipes in it at all.",
 
-    "The chase reward is one roll, one item. The game picks a list, then a list "
-    "inside that, then one thing out of it.",
+    "Each chase roll is one item. The game picks a list, then a list inside that, "
+    "then one thing out of it.",
 
-    "Your level picks which chase list you are on, and you only ever get one. At "
-    "level 50 and up you roll the high-level list. At 49 and under you roll the "
-    "low-level one. There is no crossover in either direction.",
+    "Your level picks which chase list you are on. At level 50 and up you roll "
+    "the high-level list. At 49 and under you roll the low-level one. There is no "
+    "crossover in either direction.",
 
-    "Double mutation ops only pay out at Elder. The bonus needs the "
-    "double-mutation flag on and a clear inside 8 minutes. Paladin and Knight "
-    "get nothing extra from it.",
+    "Double mutation ops add a bonus pool on Elder clears only - and unlike the "
+    "rank rewards, it pays on every Elder clear, not just the first.",
 
-    "Almost nothing stops dropping once you learn it. Across all nine reward "
-    "lists - 1,374 items, 907 of them plans and recipes - exactly one is removed "
-    "once you own it: Player Title: Pint-Sized. Everything else keeps rolling "
-    "forever. That is why the same plan keeps coming back.",
+    "During the Pint-Sized Slasher event, Slasher ops add their own list: "
+    "guaranteed on your first Elder clear of the day, 1 in 4 on repeat clears.",
 
-    "A few work backwards. The War Glaive, Plasma Cutter, Crusader Pistol, Face "
-    "Breaker, and the Brotherhood Recon, Covert Scout and Arctic Marine armour "
-    "pieces drop mods that only appear once you already know the base plan. "
-    "Learn the plan first or they cannot drop at all.",
+    "Almost nothing stops dropping once you learn it. Exactly one reward is "
+    "removed once you own it: Player Title: Pint-Sized. Everything else keeps "
+    "rolling forever. That is why the same plan keeps coming back.",
+
+    "A few work backwards. Mod and paint plans for the War Glaive, Plasma "
+    "Cutter, Crusader Pistol, Face Breaker, Hellstorm Missile Launcher, the "
+    "Brotherhood Recon, Covert Scout and Arctic Marine armour, the Deep-Space "
+    "Alien power armour and a handful of others only drop once you already know "
+    "the base plan. Learn the base plan first or they cannot drop at all.",
 ]
 
 DAILY_OPS_LOCATION_FLST = "005C65E0"
@@ -279,9 +352,11 @@ def stamp_level_lock(node):
     if fid == CHASE_HIGH_LVL_LIST:
         node["levelLock"] = {"min": CHASE_LEVEL_SPLIT, "max": None,
                              "label": "Level %d+ only" % CHASE_LEVEL_SPLIT}
+        node["label"] = "Level %d+ Chase List" % CHASE_LEVEL_SPLIT
     elif fid == CHASE_LOW_LVL_LIST:
         node["levelLock"] = {"min": None, "max": CHASE_LEVEL_SPLIT - 1,
                              "label": "Level %d and under only" % (CHASE_LEVEL_SPLIT - 1)}
+        node["label"] = "Level %d and Under Chase List" % (CHASE_LEVEL_SPLIT - 1)
     for child in (node.get("children") or []):
         stamp_level_lock(child)
     return node
@@ -301,34 +376,145 @@ def gmrw_rows_for_daily_ops():
     return out
 
 
-def tier_for_row(row):
-    globs = (row.get("ConditionGlobs") or "")
-    for fid, tier in TIER_BY_GLOB.items():
-        if fid in globs:
-            return tier
-    return "repeat"
+def classify_row(row):
+    """
+    One GMRW reward row -> a reward slot.
 
-
-def collect_reward_lists(rows):
-    """{tier: [ {formid, edid, title} ]} preserving GMRW reward order."""
-    by_tier = {}
-    seen = set()
-    for row in sorted(rows, key=lambda r: int(r.get("RewardIndex") or 0)):
-        ref = (row.get("RewardedItem") or "").strip()
-        if not ref or ":LVLI" not in ref:
-            continue
+    kind:
+      rank           first clear of the day at a rank (GetValue == 0 + a timer GLOB)
+      everyClear     no conditions at all -> every completion
+      doubleMutation GetGlobalValue == 1 + Elder timer, no GetValue (every Elder clear)
+      slasher        rewards an SDOW_ list (Pint-Sized Slasher event)
+    Rows that reward no LVLI and no legendary item (XP / caps only) return None.
+    """
+    conds = (row.get("Conditions") or "").strip()
+    ref = (row.get("RewardedItem") or "").strip()
+    fid = edid = ""
+    if ":LVLI" in ref:
         fid, edid = ref.split(":")[0], ref.split(":")[1]
-        tier = tier_for_row(row)
-        key = (tier, fid)
+    lgdi = (row.get("QRLI_LegendaryItemRewardList") or "").strip()
+    if not fid and not lgdi:
+        return None
+
+    tier = None
+    globs = row.get("ConditionGlobs") or ""
+    for gfid, t in TIER_BY_GLOB.items():
+        if gfid in globs:
+            tier = t
+
+    if edid.upper().startswith("SDOW_"):
+        kind = "slasher"
+    elif "GetGlobalValue" in conds:
+        kind = "doubleMutation"
+    elif not conds:
+        kind = "everyClear"
+    elif tier:
+        kind = "rank"
+    else:
+        return None
+
+    return {
+        "kind": kind,
+        "tier": tier,
+        "formid": fid,
+        "edid": edid,
+        "lgdi": lgdi.split(":")[0] if lgdi else "",
+        "lgdiRank": (row.get("QRLR_LegendaryItemRewardRank") or "").strip(),
+        "index": (int(row.get("RewardIndex") or 0), int(row.get("RewardedItemIndex") or 0)),
+    }
+
+
+def collect_slots(rows):
+    slots, seen = [], set()
+    for row in sorted(rows, key=lambda r: (int(r.get("RewardIndex") or 0),
+                                           int(r.get("RewardedItemIndex") or 0))):
+        s = classify_row(row)
+        if not s:
+            continue
+        key = (s["kind"], s["tier"], s["formid"], s["lgdi"], s["index"][0])
         if key in seen:
             continue
         seen.add(key)
-        by_tier.setdefault(tier, []).append({
-            "formid": fid,
-            "edid": edid,
-            "title": POOL_TITLES.get(fid) or ev.prettify_lvli_label(edid),
+        slots.append(s)
+    return slots
+
+
+def lvli_node(formid):
+    node = ev.build_lvli_tree_node(formid)
+    if not node:
+        return None
+    node = copy.deepcopy(node)
+    node = stamp_list_self_chance(node)
+    node = stamp_level_lock(node)
+    node["label"] = POOL_TITLES.get(formid) or ev.prettify_lvli_label(node.get("edid") or "")
+    return node
+
+
+def legendary_node(slot):
+    """The GMRW's own legendary-item reward (QRLI + QRLR), shown as a one-item list."""
+    rank = slot.get("lgdiRank") or ""
+    name = ("%s★ Legendary Item" % rank) if rank else "Legendary Item"
+    return {
+        "type": "gmrwLegendary",
+        "formid": slot["lgdi"],
+        "label": name,
+        "useAll": False,
+        "items": [{"formid": slot["lgdi"], "name": name, "qty": 1, "dropRate": 100.0}],
+    }
+
+
+def slot_nodes(slot):
+    out = []
+    if slot["formid"]:
+        n = lvli_node(slot["formid"])
+        if n:
+            out.append(n)
+    if slot["lgdi"] and not any(o.get("type") == "gmrwLegendary" and o["formid"] == slot["lgdi"]
+                                for o in out):
+        out.append(legendary_node(slot))
+    return out
+
+
+def build_roots(slots):
+    roots = []
+    for key in ROOT_ORDER:
+        meta = ROOT_META[key]
+        if key in TIER_META:
+            # Cumulative: this rank plus every slower rank, own rank first.
+            my_order = TIER_META[key]["order"]
+            picked = [s for s in slots if s["kind"] == "rank"
+                      and TIER_META[s["tier"]]["order"] >= my_order]
+            picked.sort(key=lambda s: (TIER_META[s["tier"]]["order"], s["index"]))
+            time_label = TIER_META[key]["timeLabel"]
+            seconds = TIER_META[key]["seconds"]
+        else:
+            picked = [s for s in slots if s["kind"] == key]
+            tiers = [s["tier"] for s in picked if s["tier"]]
+            time_label = TIER_META[tiers[0]]["timeLabel"] if key == "doubleMutation" and tiers else None
+            seconds = TIER_META[tiers[0]]["seconds"] if key == "doubleMutation" and tiers else None
+
+        children, seen_lgdi = [], set()
+        for s in picked:
+            for n in slot_nodes(s):
+                if n.get("type") == "gmrwLegendary":
+                    if n["formid"] in seen_lgdi:
+                        continue
+                    seen_lgdi.add(n["formid"])
+                children.append(n)
+        if not children:
+            continue
+        roots.append({
+            "type": "tier",
+            "tier": key,
+            "label": meta["label"],
+            "subtitle": meta["subtitle"],
+            "note": meta["note"],
+            "timeLabel": time_label,
+            "seconds": seconds,
+            "isTierWrapper": True,
+            "children": children,
         })
-    return by_tier
+    return roots
 
 
 # ---------------------------------------------------------------------------
@@ -376,6 +562,128 @@ def build_locations():
 
 
 # ---------------------------------------------------------------------------
+# Checklist pools (folded in from the retired build_daily_ops_json.py)
+# ---------------------------------------------------------------------------
+# The Daily Ops Reward Checklist page and the Daily Ops Guide page
+# (df-bnb-daily-ops.js) read a flat `pools` list with per-item dropRate /
+# isPlan / tradeable. They get it from their OWN file,
+# daily_ops_reward_checklist.json, so a problem with the All Rewards tree can
+# never blank the checklist and vice versa.
+#
+# These pools are built straight from the GMRW + LVLI exports. They used to be
+# lifted out of dist/events/events_rewards.json, which meant a bad events build
+# took Daily Ops down with it. The maths is the events builder's own
+# (compute_lvli -> rng76, same normalisation, same cond_mult), so the numbers
+# are identical - verified field-for-field against the old file on 26 Sept 2026.
+
+CHECKLIST_CONFIG = {
+    "name": "Daily Ops",
+    "questFormID": "005A77D4",
+    "pageType": "dailyops",
+    "timerGlobs": {
+        "elder": ("005CB976", 480),
+        "paladin": ("005CB977", 720),
+        "knight": ("005CB978", 960),
+    },
+}
+
+
+def _is_non_tradeable(row):
+    blob = " ".join(str(v) for v in row.values() if v).lower()
+    return ("nonplayertradeable" in blob or "nonplayertradable" in blob
+            or "unsellableobject" in blob)
+
+
+def build_tradeable_map():
+    """FormID -> tradeable, from the newest BOOK (plans) then ARMO (apparel) export."""
+    tradeable = {}
+    for row in read_tsv_rows("BOOK_Export_*.tsv"):
+        fid = (row.get("FormID") or "").strip().upper()
+        if fid:
+            tradeable[fid] = not _is_non_tradeable(row)
+    for row in read_tsv_rows("ARMO_Export_*.tsv"):
+        fid = (row.get("FormID") or row.get("ARMO_FormID") or "").strip().upper()
+        if fid and fid not in tradeable:
+            tradeable[fid] = not _is_non_tradeable(row)
+    return tradeable
+
+
+def _raw_pool(row):
+    """One GMRW LVLI row -> the raw pool dict events_page_pools.process_pool expects."""
+    rewarded = (row.get("RewardedItem") or "").strip()
+    if ":LVLI" not in rewarded:
+        return None
+    formid = rewarded.split(":")[0]
+    conds = ev.merge_conditions(row.get("Conditions"), row.get("TierConditionFunc"),
+                                row.get("ConditionGlobs"))
+    tier_func = (row.get("TierConditionFunc") or "").strip()
+    tier_val = (row.get("TierConditionValue") or "").strip()
+    if tier_func.lower() == "getrandompercent" and tier_val:
+        cond_mult = max(0.0, min(1.0, float(tier_val) / 100.0))
+        synth = "GetRandomPercent <= %.6f" % float(tier_val)
+        if synth not in conds:
+            conds = list(conds) + [synth]
+    else:
+        raw = " | ".join(c for c in [row.get("Conditions"), row.get("ConditionGlobs")]
+                         if (c or "").strip())
+        cond_mult = parse_randompercent_multiplier(raw)
+
+    lvli_edid = ev.lvli_edid_by_formid.get(formid, "")
+    label = ev.prettify_lvli_label(lvli_edid) or ev.prettify_lvli_label(rewarded.replace(":", "_"))
+
+    probs = ev.compute_lvli(formid)
+    total = sum(probs.values())
+    if total > 0 and abs(total - 1.0) > 0.0001:
+        probs = {k: v / total for k, v in probs.items()}
+    items = []
+    for fid, ch in probs.items():
+        nm = ev.resolve_name_for_formid(fid)
+        items.append({
+            "formid": fid,
+            "name": nm,
+            "dropRate": ev.pct(ch * cond_mult),
+            "qty": 1,
+            "isPlan": bool(nm) and nm.startswith(("Plan:", "Recipe:")),
+        })
+    items.sort(key=lambda x: (x["name"] or "", x["formid"] or ""))
+    return {
+        "title": label or "Reward Pool", "lvliFormID": formid, "lvliEdid": lvli_edid,
+        "conditions": conds, "poolChance": ev.pct(cond_mult), "items": items,
+    }
+
+
+def build_checklist_pools(rows):
+    pools, seen = [], set()
+    for row in sorted(rows, key=lambda r: (int(r.get("RewardIndex") or 0),
+                                           int(r.get("RewardedItemIndex") or 0))):
+        raw = _raw_pool(row)
+        if not raw:
+            continue
+        key = (raw["lvliFormID"], row.get("RewardIndex") or "")
+        if key in seen:
+            continue
+        seen.add(key)
+        pools.append(process_pool(raw, CHECKLIST_CONFIG))
+    pools = merge_duplicate_pools(pools)
+    pools.sort(key=lambda p: p.get("title") or "")   # same order the old file had
+
+    tmap = build_tradeable_map()
+    for pool in pools:
+        for item in pool.get("items", []):
+            fid = (item.get("formid") or "").strip().upper()
+            if fid in tmap:
+                item["tradeable"] = tmap[fid]
+    return pools
+
+
+def _checklist_items(data):
+    items = []
+    for pool in (data or {}).get("pools", []):
+        items.extend(pool.get("items", []))
+    return items
+
+
+# ---------------------------------------------------------------------------
 # Build
 # ---------------------------------------------------------------------------
 
@@ -384,7 +692,7 @@ def build():
     if not per_quest:
         raise SystemExit("No Daily Ops GMRW rows found - check the GMRW export.")
 
-    # Uplink and Decryption were verified identical (all 11 reward entries, every
+    # Uplink and Decryption were verified identical (every reward entry, every
     # non-identity column). Build from Uplink and say so on the page; if they ever
     # diverge the check below fails loudly rather than silently showing one.
     def sig(rows):
@@ -406,36 +714,16 @@ def build():
         )
 
     rows = per_quest.get("005A77D4") or per_quest[quest_ids[0]]
-    by_tier = collect_reward_lists(rows)
+    timer_tiers = {
+        k: {"seconds": v["seconds"], "label": "%s (≤ %s)" % (v["label"], v["timeLabel"])}
+        for k, v in TIER_META.items()
+    }
+    return rows, quest_ids, identical, timer_tiers
 
-    reward_tree = []
-    audit = []
-    for tier in sorted(by_tier, key=lambda t: TIER_META.get(t, {}).get("order", 99)):
-        meta = TIER_META.get(tier, {"label": tier.title(), "timeLabel": None})
-        children = []
-        for pool in by_tier[tier]:
-            node = ev.build_lvli_tree_node(pool["formid"])
-            if not node:
-                continue
-            before = node.get("entryRate")
-            node = stamp_list_self_chance(node)
-            node = stamp_level_lock(node)
-            node["label"] = pool["title"]
-            after = node.get("entryRate")
-            audit.append((tier, pool["title"], pool["formid"], before, after))
-            children.append(node)
-        if not children:
-            continue
-        reward_tree.append({
-            "type": "tier",
-            "tier": tier,
-            "label": meta["label"],
-            "timeLabel": meta.get("timeLabel"),
-            "seconds": meta.get("seconds"),
-            "isTierWrapper": True,
-            "children": children,
-        })
 
+def build_all_rewards(rows, quest_ids, identical, timer_tiers):
+    """Page 1: /df/daily-ops/daily-ops-all-rewards/ (df-bnb-daily-ops-rewards.js)."""
+    slots = collect_slots(rows)
     data = {
         "slug": "daily-ops-all-rewards",
         "pageType": "dailyops",
@@ -444,32 +732,101 @@ def build():
         "infoCard": INFO_CARD,
         "opTypes": [QUESTS[q] for q in quest_ids],
         "opRewardsIdentical": bool(identical),
-        "meta": {
-            "timerTiers": {
-                k: {"seconds": v["seconds"], "label": "%s (<= %s)" % (v["label"], v["timeLabel"])}
-                for k, v in TIER_META.items() if v.get("seconds")
-            }
-        },
+        "meta": {"timerTiers": timer_tiers},
         "locations": build_locations(),
         "gallery": [],
-        "rewardTree": reward_tree,
+        "rewardTree": build_roots(slots),
         "warnings": [],
     }
-    return data, audit
+    if len(data["rewardTree"]) < 3:
+        raise SystemExit("All Rewards tree has only %d roots - refusing to write it." % len(data["rewardTree"]))
+    return data, slots
+
+
+def build_checklist(rows, timer_tiers):
+    """Page 2 + 3: Reward Checklist and Guide (df-bnb-daily-ops.js)."""
+    data = {
+        "slug": "daily-ops-reward-checklist",
+        "pageType": "dailyops",
+        "name": "Daily Ops",
+        "meta": {"timerTiers": timer_tiers},
+        "pools": build_checklist_pools(rows),
+        "baseRewards": {"xp": "varies", "caps": "varies"},
+    }
+    if not data["pools"] or not any(p.get("items") for p in data["pools"]):
+        raise SystemExit("Checklist pools came back empty - refusing to write them.")
+    return data
+
+
+def write_json_atomic(path, data):
+    """Write to a temp file and swap it in, so a crash mid-write never leaves a
+    half-written JSON on the site."""
+    tmp = path.with_suffix(path.suffix + ".tmp")
+    with open(tmp, "w", encoding="utf-8") as f:
+        json.dump(data, f, separators=(",", ":"), ensure_ascii=False)
+    with open(tmp, encoding="utf-8") as f:
+        json.load(f)                      # must parse before it replaces the live file
+    tmp.replace(path)
+
+
+ALL_REWARDS_FILE = "daily_ops_all_rewards.json"
+CHECKLIST_FILE = "daily_ops_reward_checklist.json"
+
+
+def write_checklist_patchlog(data):
+    """Patchlog feed for the checklist items. Same feed name the retired builder
+    wrote, so the patchlog manifest keeps working. The previous version comes
+    from git; if there is none yet (first build of the split file), skip rather
+    than report every item as "added"."""
+    rel = "dist/daily_ops/" + CHECKLIST_FILE
+    prev = _git_show_json("HEAD^", rel)
+    if not (isinstance(prev, dict) and prev.get("pools")):
+        print("patchlog  : skipped (no previous checklist build to diff against)")
+        return
+    write_patchlog_feed(
+        dist_dir=str(OUT_DIR),
+        feed_name="patchlog_latest_df_daily_ops_rewards.json",
+        current_items=_checklist_items(data),
+        key_field="formId",
+        name_field="name",
+        compare_fields=["name", "category", "rarity"],
+        prev_json_path=rel,
+        items_extractor=_checklist_items,
+    )
 
 
 if __name__ == "__main__":
-    data, audit = build()
+    # Each page's JSON is built and written on its own. If one fails, the other
+    # still ships and the old copy of the failed one stays live untouched; the
+    # script then exits non-zero so the workflow log shows what broke.
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    out_path = OUT_DIR / "daily_ops_all_rewards.json"
-    with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(data, f, separators=(",", ":"))
+    rows, quest_ids, identical, timer_tiers = build()
+    failed = []
 
-    print("TIER ROLL FIX - entryRate stamped on each reward-list root")
-    print("%-9s %-24s %-9s %-10s %-10s" % ("tier", "pool", "formid", "before", "after"))
-    for tier, title, fid, before, after in audit:
-        print("%-9s %-24s %-9s %-10s %-10s" % (tier, title[:24], fid, before, after))
-    print()
-    print("locations : %d" % len(data["locations"]))
-    print("tier roots: %d" % len(data["rewardTree"]))
-    print("written   : %s" % out_path)
+    try:
+        tree, slots = build_all_rewards(rows, quest_ids, identical, timer_tiers)
+        write_json_atomic(OUT_DIR / ALL_REWARDS_FILE, tree)
+        print("GMRW reward slots")
+        for s in slots:
+            print("  %-15s %-8s %-9s %-45s lgdi=%s" % (s["kind"], s["tier"] or "-", s["formid"] or "-",
+                                                        s["edid"] or "-", s["lgdi"] or "-"))
+        print("Root expands")
+        for r in tree["rewardTree"]:
+            print("  %-18s %s" % (r["label"], ", ".join(
+                "%s (%s)" % (c.get("label"), c.get("entryRate")) for c in r["children"])))
+        print("written   : %s  (%d locations)" % (ALL_REWARDS_FILE, len(tree["locations"])))
+    except BaseException as e:            # SystemExit included - keep going
+        failed.append(ALL_REWARDS_FILE)
+        print("FAILED    : %s - %s" % (ALL_REWARDS_FILE, e))
+
+    try:
+        checklist = build_checklist(rows, timer_tiers)
+        write_json_atomic(OUT_DIR / CHECKLIST_FILE, checklist)
+        write_checklist_patchlog(checklist)
+        print("written   : %s  (%d pools)" % (CHECKLIST_FILE, len(checklist["pools"])))
+    except BaseException as e:
+        failed.append(CHECKLIST_FILE)
+        print("FAILED    : %s - %s" % (CHECKLIST_FILE, e))
+
+    if failed:
+        raise SystemExit("Daily Ops build failed for: " + ", ".join(failed))

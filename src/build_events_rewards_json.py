@@ -3167,7 +3167,7 @@ def find_quest_candidates_for_key(event_key):
 # Everything above is import-safe: TSV loading, helpers and the LVLI tree
 # walker (build_lvli_tree_node / resolve_lvli_items_deep) run on import so
 # other builders can reuse them instead of keeping a third hand-rolled copy.
-# build_daily_ops_json.py imports this module for exactly that reason.
+# build_daily_ops_rewards_json.py imports this module for exactly that reason.
 # The event build loop and the dist writes below only run when this file is
 # executed directly -- importing it must never write to dist/.
 # ---------------------------------------------------------------------------

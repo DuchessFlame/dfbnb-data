@@ -6,7 +6,7 @@ Neutral-named helper (no page-specific coupling) imported by the per-category
 build scripts:
     build_raids_json.py       -> dist/raids/raids_rewards.json
     build_expos_json.py       -> dist/expos/expos_rewards.json
-    build_daily_ops_json.py   -> dist/daily_ops/daily_ops_rewards.json
+    build_daily_ops_rewards_json.py -> process_pool / merge_duplicate_pools only (no events JSON)
 
 It contains the events-based pool assembly that previously lived once inside
 build_reho_json.py (_build_from_events + _process_pool + title cleanup + pool

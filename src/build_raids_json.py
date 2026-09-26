@@ -39,7 +39,7 @@ no rate arithmetic of its own beyond aggregating duplicate quantity rows for one
 FormID: the game lists e.g. Stimpak x6 / x5 / x4 / x3 as four entries, and the
 checklist wants one row reading "x3-6" with the summed chance of getting any of them.
 
-Two modes (mirrors build_daily_ops_json.py):
+Two modes (mirrors the retired build_daily_ops_json.py):
   (default / live)  -> dist/raids/raids_rewards.json
   --pts             -> dist/pts/raids/raids_rewards.json
 

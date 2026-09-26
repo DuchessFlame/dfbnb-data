@@ -12,7 +12,7 @@ Output shape (unchanged from the renderer's point of view):
 keyed by both slug and path so df-bnb-expos.js's byPage[slug] lookup and its
 path fallback both resolve.
 
-Two modes (mirrors build_daily_ops_json.py):
+Two modes (mirrors the retired build_daily_ops_json.py):
   (default / live)  reads dist/events/...          -> dist/expos/expos_rewards.json
   --pts             reads dist/pts/events/... (falling back to the live twin
                     when a PTS twin is absent)      -> dist/pts/expos/expos_rewards.json
@@ -91,7 +91,7 @@ def main() -> int:
     print(f"✓ Pages: {len(PAGE_MAPPINGS)}  Items: {total_items}")
 
     # Preserve the wrapper's two feed names (empty feeds), written into the
-    # page's own dist dir to match build_daily_ops_json.py.
+    # page's own dist dir (same pattern the retired build_daily_ops_json.py used).
     write_empty_patchlog_feed(str(out_dir), "patchlog_latest_df_expos_atlantic_city_rewards.json", total_items)
     write_empty_patchlog_feed(str(out_dir), "patchlog_latest_df_expos_pitt_rewards.json", total_items)
 
