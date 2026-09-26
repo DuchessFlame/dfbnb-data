@@ -1675,7 +1675,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +299 / -24 / ~208
+## `plan_master.json`  ·  +299 / -24 / ~211
 
 **Added (299)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1746,7 +1746,7 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (208)**
+**Changed (211)**
 - Plan: Vault Locker  `PLAN_003D6519` — fields: obtain_ledger, obtain_routes
 - Plan: Vault Dresser  `PLAN_003D651A` — fields: obtain_ledger, obtain_routes
 - Plan: Vault Desk  `PLAN_003D651B` — fields: obtain_ledger, obtain_routes
@@ -1761,6 +1761,9 @@ _Couldn't key this file to records; contents differ._
 - Plan: Pickaxe  `PLAN_004EB740` — fields: cnam
 - Plan: Laser Gun Medium Scope  `PLAN_004F476D` — fields: obtain_routes
 - Plan: Crossbow  `PLAN_004F4780` — fields: cnam
+- Plan: Ultracite Optimized Servos  `PLAN_0050194F` — fields: obtain_routes
+- Plan: Ultracite Overdrive Servos  `PLAN_00501950` — fields: obtain_routes
+- Plan: Ultracite Emergency Protocols  `PLAN_00501954` — fields: obtain_routes
 - Plan: Single-Action Revolver Forceful Grip  `PLAN_0052A699` — fields: cnam, cobj, name, plan_item
 - Recipe: Mirelurk Softshell Cake  `PLAN_0052FDFF` — fields: consumable_type
 - Plan: Evil Jack O'Lantern  `PLAN_005772C7` — fields: image_source, images
@@ -1784,10 +1787,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Crusader Pistol Suppressor  `PLAN_005E65F6` — fields: weapon_group, weapon_group_key
 - Plan: Crusader Pistol Reflex Sight  `PLAN_005E65F7` — fields: weapon_group, weapon_group_key
 - Plan: Crusader Pistol Short Scope  `PLAN_005E65F8` — fields: weapon_group, weapon_group_key
-- Plan: Crusader Pistol Long Barrel  `PLAN_005E65F9` — fields: weapon_group, weapon_group_key
-- Plan: Crusader Pistol Fusion Chamber  `PLAN_005E65FA` — fields: cnam, cobj, name, plan_item, weapon_group, weapon_group_key
-- Plan: Crusader Pistol Pyro Chamber  `PLAN_005E65FB` — fields: cnam, cobj, name, plan_item, weapon_group, weapon_group_key
-- …and 168 more
+- …and 171 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
