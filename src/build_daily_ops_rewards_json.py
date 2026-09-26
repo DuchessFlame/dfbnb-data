@@ -160,7 +160,7 @@ ROOT_META = {
     },
     "doubleMutation": {
         "label": "Double Mutation",
-        "subtitle": "Double mutation ops only · Elder clears, every run",
+        "subtitle": "Elder clear of a double mutation op · Elder + Double Mutation rewards",
         "note": ("Double mutation ops cleared in 8:00 or less. The extra "
                  "currency only pays on your first Elder clear of the day; the "
                  "double mutation bonus pays on every Elder clear."),
@@ -173,7 +173,7 @@ ROOT_META = {
                  "day always rolls this list; repeat clears roll it 1 time in 4."),
     },
 }
-ROOT_ORDER = ["elder", "paladin", "knight", "everyClear", "doubleMutation", "slasher"]
+ROOT_ORDER = ["elder", "doubleMutation", "paladin", "knight", "everyClear", "slasher"]
 
 POOL_TITLES = {
     "005DBD0D": "Elder Rewards",
