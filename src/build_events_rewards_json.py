@@ -310,6 +310,21 @@ def simplify_condition(cond_str):
         # Extract comparison value (last number in the raw string, e.g. "10000000 1.000000")
         comp_match = re.search(r'(\d+\.\d+)\s*$', s)
         comp_val = float(comp_match.group(1)) if comp_match else 1.0
+        # The operator matters, not just the value. xEdit exports the CTDA type
+        # as 8 flag chars; the first three are Equal / Greater / Less, so
+        # "10000000 1.0" is == 1 (must know) but "00000000 1.0" is != 1 (must
+        # NOT know). Reading only the value turned every != 1 into "Requires
+        # ... to be learned" - the opposite of what the game does.
+        op_match = re.search(r'\)\s+([01]{3})[01]{5}\s+\d+\.\d+\s*$', s)
+        eq, gt, lt = (op_match.group(1) if op_match else "100")
+        if eq == "1" and gt == "0" and lt == "0":      # ==
+            _must_know = comp_val >= 1.0
+        elif eq == "0" and gt == "0" and lt == "0":    # !=
+            _must_know = comp_val < 1.0
+        elif gt == "1":                                # > / >=
+            _must_know = True
+        else:                                          # < / <=
+            _must_know = False
 
         # Resolve recipe name from COBJ
         recipe_name = ""
@@ -333,8 +348,8 @@ def simplify_condition(cond_str):
         # Strip "Player Title: " / "Camp Title: " prefix and rephrase
         is_title = recipe_name.startswith(("Player Title:", "Camp Title:"))
 
-        if comp_val >= 1.0:
-            # = 1 means player MUST have learned the recipe
+        if _must_know:
+            # player MUST have learned the recipe
             if recipe_name:
                 return f"Requires Plan: {recipe_name} to be learned"
             return "Requires the base plan to be learned"
