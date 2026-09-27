@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "generated": "2026-09-27T06:25:18Z",
+  "generated": "2026-09-27T08:58:28Z",
   "channel": "live",
   "count": 113,
   "counts": {
-    "weapon": 106,
+    "weapon": 105,
     "armour": 8,
     "powerArmour": 0
   },
@@ -3869,7 +3869,7 @@
       "planName": "Plan: Pickaxe",
       "tradeable": true,
       "formId": "00002840",
-      "edid": "Pickaxe",
+      "edid": "pickaxe",
       "inCurrentExport": true,
       "isCut": false,
       "uniqueMods": [],
@@ -5540,7 +5540,7 @@
       "planName": "",
       "tradeable": true,
       "formId": "00002840",
-      "edid": "Pickaxe",
+      "edid": "pickaxe",
       "inCurrentExport": true,
       "isCut": false,
       "uniqueMods": [
@@ -10609,6 +10609,13 @@
       },
       "starEffects": [
         {
+          "star": 1,
+          "name": "Random",
+          "edid": "",
+          "formId": "",
+          "fixed": false
+        },
+        {
           "star": 2,
           "name": "Random",
           "edid": "",
@@ -14440,8 +14447,8 @@
       "recordIds": []
     },
     {
-      "id": "stormcutter-2",
-      "name": "V63-Z",
+      "id": "stormcutter",
+      "name": "V63-Z Custom",
       "kind": "Weapon",
       "subType": "Melee",
       "base": "V63 Zweihaender",
@@ -14473,32 +14480,31 @@
           "edid": "mod_Legendary_Weapon2_DmgCrits",
           "formId": "0052414B",
           "fixed": true
+        },
+        {
+          "star": 3,
+          "name": "Random",
+          "edid": "",
+          "formId": "",
+          "fixed": false
         }
       ],
       "inherentEffect": "",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Source unconfirmed",
-      "sourceType": "Unknown",
-      "sourceRef": "",
-      "questName": "",
-      "craftable": false,
+      "howToObtain": "Quest: Skyline Valley",
+      "sourceType": "Quest",
+      "sourceRef": "Skyline Valley",
+      "questName": "Skyline Valley",
+      "craftable": true,
       "planName": "",
-      "tradeable": null,
+      "tradeable": true,
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
       "isCut": false,
-      "uniqueMods": [
-        {
-          "name": "V63-Z Custom",
-          "edid": "mod_custom_StormSlasher",
-          "formId": "008B0902",
-          "kind": "unique",
-          "desc": ""
-        }
-      ],
+      "uniqueMods": [],
       "obtainRoutes": [
         {
           "route": "Caps",
@@ -14551,10 +14557,13 @@
         },
         {
           "route": "Quests",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
+          "populated": true,
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Skyline Valley"
+          ],
+          "tradeable": true,
+          "dropRate": "N/A"
         },
         {
           "route": "Challenges",
