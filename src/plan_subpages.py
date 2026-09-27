@@ -83,6 +83,27 @@ SCHEMA = 2   # 1 -> 2: every page listed, multi-folder select, `when`, `grouping
 # rest — so Recipe is listed first.
 
 SUBPAGES = {
+    "legacy-nuclear-winter-plans": {
+        "title": "Legacy Nuclear Winter",
+        # Claimed by what the plan WAS, not what it builds: legacy_nw.py tags
+        # every plan for a Nuclear Winter reward, and plan_images.page_folder()
+        # sends a tagged row to this folder before any other rule runs. So these
+        # plans leave the Weapon / Apparel / Power Armour / CAMP pages they
+        # would otherwise sit on — one plan, one page.
+        # Flat A-Z (Duchess, 27 Sep 2026): no group headings.
+        "folder": "legacy-nuclear-winter",
+        "groups": None,
+        "skip": [],
+        # The intro-card blurb, in place of the generic "Track which … plans".
+        "sub": ("Nuclear Winter was retired in September 2021. Most of its rewards came "
+                "back as plans you can still find in Adventure — from events like "
+                "Mischief Night, Encryptid, A Colossal Problem and Project Paradise, "
+                "Festive Holiday gifts, Treasure Hunter pails, The Slasher Daily Ops and "
+                "Minerva. The rest never came back and are marked Not obtainable. Open a "
+                "row to see where it drops now and how it was first earned in Nuclear Winter."),
+        # Plans AND the rewards that never became plans (legacy_nw.reward_rows).
+        "noun": {"one": "item", "many": "items"},
+    },
     "fishing-rod": {
         "title": "Fishing Rod",
         "folder": "fishing-rod",
@@ -358,6 +379,8 @@ def config():
             "grouping": page.get("grouping") or None,
             "dataset": bool(page.get("dataset")),
             "note": page.get("note") or None,
+            "sub": page.get("sub") or None,
+            "noun": page.get("noun") or None,
         }
         for slug, page in SUBPAGES.items()
     }

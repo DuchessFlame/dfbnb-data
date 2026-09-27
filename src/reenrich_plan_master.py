@@ -170,6 +170,11 @@ def enrich_file(path, dist_dir, tsv_dir, report_only=False):
 
     # 1. art + classification
     idx, staged = plan_images.load(dist_dir, tsv_dir, verbose=False)
+    # Legacy Nuclear Winter rewards with no plan (legacy_nw.reward_rows) —
+    # added BEFORE the art pass so they get pictures and a page like any row.
+    if getattr(idx, "legacy", None):
+        import legacy_nw
+        print(f"  legacy_nw: {legacy_nw.reward_rows(items, idx.legacy)} Nuclear Winter reward row(s) with no plan")
     plan_images.report(plan_images.attach(items, idx, staged))
 
     # 1b. what changed since the last build. Runs BEFORE the grouping passes so

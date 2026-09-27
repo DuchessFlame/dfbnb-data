@@ -539,6 +539,31 @@ def main() -> int:
                 })
                 break
 
+    # --- Hosted-first images (plan_images.hosted_url) -----------------------
+    # Same rule as every other plan checklist page and the Titles checklists:
+    # art the site already serves anywhere under /wp-content/uploads/ wins over
+    # this page's own pts-pennants/ copy, so a pennant another page already
+    # shows is not uploaded twice. IMAGES_BY_ID stays the fallback.
+    try:
+        import plan_images
+        pidx, _staged = plan_images.load(args.outdir, args.data_dir, verbose=False)
+        reused = 0
+        for p in pennants:
+            ent = p.get("entitlement") or {}
+            url, src = plan_images.hosted_url(
+                pidx,
+                fids=[ent.get("formid") or ""],
+                edids=[ent.get("edid") or ""] + [i.get("edid") or "" for i in p.get("items") or []],
+                names=[p.get("name") or ""],
+                textures=list(p.get("images") or []))
+            if url:
+                p["images"] = plan_images.hosted_first(p.get("images"), url)
+                p["image_source"] = src
+                reused += 1
+        print(f"[pennants] hosted-first: {reused} pennant(s) use art already on the site")
+    except Exception as exc:                          # noqa: BLE001 - never fatal
+        print(f"[pennants] WARNING: hosted-first lookup skipped: {exc}")
+
     out = {
         "version": dt.date.today().isoformat(),
         "generated": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),

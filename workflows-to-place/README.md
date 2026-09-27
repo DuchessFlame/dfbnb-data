@@ -6,7 +6,7 @@ any new or edited workflow lands here and has to be moved in by hand.
 | File | Move to | Why |
 |---|---|---|
 | `build-plan-checklist-datasets.yml` | `.github/workflows/build-plan-checklist-datasets.yml` | Builds `camera_mods.json` and `scoreboard_art.json` for both channels. `build_camera_mods_json.py` has never had a workflow step; `build_scoreboard_art_json.py` is new. |
-| `build-plan-obtain.yml` | `.github/workflows/build-plan-obtain.yml` | Plan-master consolidation, 20 Sept 2026 — see below. |
+| `build-plan-obtain.yml` | `.github/workflows/build-plan-obtain.yml` | Plan-master consolidation, 20 Sept 2026 — see below. **Updated 27 Sept 2026:** copied from the live `.github` version (keeps its `src/plan-system/plan_master.json` sync step) and adds `src/legacy_nw.py`, `src/plan_images.py`, `src/plan_subpages.py`, `src/reusable_images.py` and `data/plan_images.json` to the push triggers, so the Legacy Nuclear Winter page and the hosted-first image rule rebuild when they change. |
 | `dfbnb-patch-build.yml` | `.github/workflows/dfbnb-patch-build.yml` | Same. |
 | `dfbnb-pts-build.yml` | `.github/workflows/dfbnb-pts-build.yml` | Same. |
 

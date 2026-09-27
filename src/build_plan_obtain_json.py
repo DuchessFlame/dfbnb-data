@@ -1157,6 +1157,11 @@ def main(argv=None):
     try:
         idx, staged = plan_images.load(os.path.dirname(args.out) or DIST,
                                        args.data_dir)
+        # Legacy Nuclear Winter rewards with no plan (legacy_nw.reward_rows) —
+        # added BEFORE the art pass so they get pictures and a page like any row.
+        if getattr(idx, "legacy", None):
+            import legacy_nw
+            print(f"  legacy_nw: {legacy_nw.reward_rows(items, idx.legacy)} Nuclear Winter reward row(s) with no plan")
         plan_images.report(plan_images.attach(items, idx, staged))
     except Exception as exc:                      # noqa: BLE001 - never fatal
         print(f"  WARNING: image resolve skipped: {exc}", file=sys.stderr)

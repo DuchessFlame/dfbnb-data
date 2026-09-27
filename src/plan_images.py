@@ -46,6 +46,14 @@ try:
     import asset_paths
 except ImportError:                                # pragma: no cover
     asset_paths = None
+try:
+    import legacy_nw                               # Legacy Nuclear Winter page
+except ImportError:                                # pragma: no cover
+    legacy_nw = None
+try:
+    import reusable_images                         # season-upload manifests (titles' rule)
+except ImportError:                                # pragma: no cover
+    reusable_images = None
 
 
 def _route(url):
@@ -83,6 +91,10 @@ PAGE_FOLDER = {
     "power-armour":   "power-armour",
     "snow-globes":    "snowglobe",
     "scoreboard-art": "scoreboard-art",
+    # Legacy Nuclear Winter plans. Claimed by WHAT THE PLAN WAS (a Nuclear
+    # Winter reward, see legacy_nw.py), not by what it builds, so it is tested
+    # before every other rule in page_folder().
+    "legacy-nuclear-winter-plans": "legacy-nuclear-winter",
 }
 
 FOLDERS = sorted(set(PAGE_FOLDER.values()))
@@ -162,6 +174,10 @@ def page_folder(item):
                      (item.get("plan_item") or {}).get("edid") or ""])
     blob = blob.replace("_", " ")
 
+    # A Legacy Nuclear Winter plan belongs to its own page whatever it builds —
+    # a paint, a hat or a stash box. legacy_nw.tag() sets the flag in attach().
+    if item.get("legacy_nw"):
+        return PAGE_FOLDER["legacy-nuclear-winter-plans"]
     if _RX_UNDERARM.search(blob):
         return "underarmour"
     if _RX_FISHING.search(blob):
@@ -213,9 +229,13 @@ SOURCES = [
     ("allies",            "allies.json"),
     ("camp",              "camp.json"),
     ("fishing-equipment", "fishing_equipment.json"),
+    ("player-icons",      "player_icons.json"),
     ("bundles",           "bundles.json"),
     ("atom-shop",         "atom_shop.json"),
 ]
+
+# Sources whose display names are not identity (see load()).
+NAME_UNSAFE = {"player-icons"}
 
 _RX_PLAN_PREFIX = re.compile(r"^\s*(plan|recipe|schematic)\s*:\s*", re.I)
 _RX_NONWORD     = re.compile(r"[^a-z0-9]+")
@@ -372,9 +392,35 @@ def load(dist_dir="dist", tsv_dir="tsv", config_path=CONFIG, verbose=True):
                           row.get("entmFormId"), row.get("resoFormId"),
                           row.get("contFormId")],
                     edids=[row.get("edid")],
-                    names=[row.get("name"), row.get("displayName"),
+                    # Player icons are named after things ("Minigun", "Vault
+                    # Boy"), so a name match would put an icon on the plan for
+                    # the real item. They match by FormID / EditorID only.
+                    names=[] if source in NAME_UNSAFE else
+                          [row.get("name"), row.get("displayName"),
                            row.get("shortName"), row.get("planName")],
                     url=url or "")
+
+    # The season-upload manifests, filtered by the upload checker — the same
+    # index the Titles checklists ask first (reusable_images.py). Searched after
+    # the published-page sets above and before any page's own folder.
+    idx.reuse = None
+    if reusable_images is not None:
+        try:
+            idx.reuse = reusable_images.build_index(dist_dir)
+        except Exception as exc:                   # noqa: BLE001 - never fatal
+            if verbose:
+                print(f"  WARNING: reusable_images: {exc}", file=sys.stderr)
+
+    # Legacy Nuclear Winter tagging rides on the index so every caller of
+    # load()/attach() — full build, add_plan_images, reenrich, underarmour, new
+    # plans — tags the rows in the same pass that decides their folder.
+    idx.legacy = None
+    if legacy_nw is not None:
+        try:
+            idx.legacy = legacy_nw.load(tsv_dir, verbose=verbose)
+        except Exception as exc:                   # noqa: BLE001 - never fatal
+            if verbose:
+                print(f"  WARNING: legacy_nw: {exc}", file=sys.stderr)
 
     staged = read_staged(config_path, verbose=verbose)
     if verbose:
@@ -382,6 +428,73 @@ def load(dist_dir="dist", tsv_dir="tsv", config_path=CONFIG, verbose=True):
               .format(len(idx.by_fid), len(idx.by_edid), len(idx.by_name)),
               file=sys.stderr)
     return idx, staged
+
+
+# ── THE HOSTED-FIRST RULE ───────────────────────────────────────────────────
+# Every plan checklist page — plan_master pages, and the pages with their own
+# dataset (pennants, camera mods, displays, Legacy Nuclear Winter) — asks this
+# BEFORE it looks in its own /guide-images/plan-checklist/<folder>/. Same rule
+# the Titles checklists follow: if the site already serves a picture of this
+# item anywhere under /wp-content/uploads/, use that URL; only fall back to the
+# page's own folder when nothing is hosted. One upload serves every page, and
+# nobody pays to store the same picture twice.
+#
+# Order, first hit wins:
+#   1. the published page sets (ImageIndex: scoreboard, CAMP pages, titles,
+#      Atom Shop, bundles …) by FormID, EditorID, then display name
+#   2. the season-upload manifests (reusable_images: verified-hosted only)
+#      by entitlement EditorID, then texture name
+#   3. a stem staged in ANOTHER plan-checklist folder (already uploaded there)
+# and only then the page's own folder.
+def hosted_url(idx, fids=(), edids=(), names=(), textures=()):
+    """(url, source) for art the site already hosts, or ("", "")."""
+    for fid in fids:
+        hit = idx.by_fid.get(str(fid or "").strip().upper())
+        if hit:
+            return hit
+    for edid in edids:
+        if edid:
+            hit = idx.by_edid.get(norm_edid(edid))
+            if hit:
+                return hit
+    for name in names:
+        key = norm_name(name)
+        if len(key) >= 4:
+            hit = idx.by_name.get(key)
+            if hit:
+                return hit
+    reuse = getattr(idx, "reuse", None)
+    if reuse:
+        for edid in edids:
+            if edid:
+                url = reuse.find(edid=edid)
+                if url:
+                    return url, "season-upload"
+        for tex in textures:
+            if tex:
+                url = reuse.find(texture=tex)
+                if url:
+                    return url, "season-upload"
+    return "", ""
+
+
+def hosted_first(own, hosted):
+    """A page's own image list with hosted art put in front of it.
+
+    `own` is the page's own ordered list (bare stems or absolute URLs). The
+    hosted URL replaces the own-folder copy of the SAME picture (same texture
+    stem, any _l/_cN suffix aside) so the row does not show one image twice;
+    the page's other images (colour variants) stay after it.
+    """
+    own = list(own or [])
+    if not hosted:
+        return own
+    def key(v):
+        st = os.path.splitext(os.path.basename(str(v)))[0].lower()
+        return re.sub(r"_(l|c\d)$", "", st)
+    main = key(hosted)
+    rest = [v for v in own if not (key(v) == main and not re.search(r"_c\d$", str(v).lower()))]
+    return [hosted] + rest
 
 
 # ── staged stems ────────────────────────────────────────────────────────────
@@ -483,6 +596,10 @@ def scan_staging(avif_root, config_path=CONFIG, verbose=True):
     staged = {}
     for folder in FOLDERS:
         path = os.path.join(avif_root, folder)
+        # The local staging copy is sometimes spelled with spaces
+        # ("legacy nuclear winter") where the server folder has hyphens.
+        if not os.path.isdir(path) and os.path.isdir(os.path.join(avif_root, folder.replace("-", " "))):
+            path = os.path.join(avif_root, folder.replace("-", " "))
         stems = set()
         if os.path.isdir(path):
             for dirpath, _dirs, files in os.walk(path):
@@ -587,6 +704,11 @@ def candidate_stems(item):
     cobj = item.get("cobj") or {}
     plan = item.get("plan_item") or {}
     out = []
+    # Texture names the builder already resolved for this row (legacy_nw.py
+    # writes the Nuclear Winter entitlement's ETDI here). Staging folders keep
+    # the game's own texture name, so this is the likeliest spelling of all.
+    for s in ((item.get("art_stems") or {}).get("main") or []):
+        out.append(str(s).strip().lower())
     # Every record this plan touches, strongest link first: the thing it makes,
     # the recipe that makes it, then the plan book itself. A file dropped in by
     # hand is usually named after the record it is a PICTURE of, which is the
@@ -639,19 +761,23 @@ def attach(items, idx, staged, folder_override="", stats=None, overrides=None):
     is an absolute URL used as-is (art another page already hosts); anything
     else is a stem inside this page's own folder.
 
-    Resolution order, first hit wins:
+    Resolution order, first hit wins (the hosted-first rule — see hosted_url):
 
       1. an override      — the manual map, always the last word
-      2. published art    — a picture another page already serves
-      3. staged, own folder
-      4. staged, another page's folder, when the stem is unambiguous
+      2. published art    — a picture another page already serves, then the
+                            verified season-upload manifests
+      3. staged, another page's folder, when the stem is unambiguous
+      4. staged, own folder
       5. the generic class picture (weapon mods only)
 
     """
     stats = stats if stats is not None else {}
     overrides = read_overrides() if overrides is None else overrides
     xfolder = {}
+    legacy = getattr(idx, "legacy", None)
     for item in items:
+        if legacy:
+            legacy.tag(item)
         folder = folder_override or page_folder(item)
         item["image_dir"] = folder or (item.get("type") or "")
 
@@ -674,6 +800,13 @@ def attach(items, idx, staged, folder_override="", stats=None, overrides=None):
                   f" -> {ov!r} is not staged; falling through", file=sys.stderr)
 
         url, source = idx.lookup(item)
+        if not url:
+            # Same hosted-first rule, the season-upload manifests this time:
+            # the entitlement a Legacy NW plan replaces and its texture names.
+            ent = (item.get("nw_entitlement") or {}).get("edid") or ""
+            url, source = hosted_url(
+                idx, edids=[ent] if ent else [],
+                textures=(item.get("art_stems") or {}).get("main") or [])
         if url:
             item["images"] = [url]
             item["image_source"] = source
@@ -682,18 +815,14 @@ def attach(items, idx, staged, folder_override="", stats=None, overrides=None):
 
         stems = candidate_stems(item)
         pool = staged.get(folder) or set()
-        hit = next((s for s in stems if s in pool), "")
-        if hit:
-            item["images"] = [hit]
-            item["image_source"] = "staged"
-            _bump(stats, folder, "staged")
-            continue
 
-        # 4. The same picture, filed under another page's folder. Emitted as an
-        #    absolute URL rather than a bare stem, because a bare stem is read
-        #    by the front end against THIS row's folder and would 404 there.
-        #    dspImgURL() appends .avif to a bare stem and passes an absolute
-        #    entry through verbatim, so the extension has to be written here.
+        # 3. The same picture, already uploaded under ANOTHER page's folder.
+        #    Asked before this page's own folder (hosted-first rule above), so a
+        #    picture that is already on the server is never uploaded twice.
+        #    Emitted as an absolute URL rather than a bare stem, because a bare
+        #    stem is read by the front end against THIS row's folder and would
+        #    404 there. dspImgURL() appends .avif to a bare stem and passes an
+        #    absolute entry through verbatim, so the extension is written here.
         if folder not in xfolder:
             xfolder[folder] = _elsewhere(staged, folder)
         other = xfolder[folder]
@@ -702,6 +831,14 @@ def attach(items, idx, staged, folder_override="", stats=None, overrides=None):
             item["images"] = [PLAN_IMG_BASE + other[hit] + "/" + hit + ".avif"]
             item["image_source"] = "staged-elsewhere"
             _bump(stats, folder, "staged-elsewhere")
+            continue
+
+        # 4. This page's own folder.
+        hit = next((s for s in stems if s in pool), "")
+        if hit:
+            item["images"] = [hit] + staged_extras(item, hit, pool)
+            item["image_source"] = "staged"
+            _bump(stats, folder, "staged")
             continue
 
         # Last resort: the one picture that stands for this whole class of plan.
@@ -714,6 +851,31 @@ def attach(items, idx, staged, folder_override="", stats=None, overrides=None):
         item["image_source"] = kind if generic else ""
         _bump(stats, folder, kind if generic else "none")
     return stats
+
+
+MAX_EXTRAS = 3
+
+
+def staged_extras(item, hit, pool):
+    """The colour variants staged beside a row's main picture.
+
+    A skin or paint set ships one render (`foo_l`) plus a frame per colour
+    (`foo_c1`, `foo_c2` …). The row's Item Image shows every one that is
+    actually staged, main render first — never a stem that is not staged, so
+    nothing 404s. The texture list legacy_nw.py resolved is tried first, then
+    the `_cN` siblings of the hit itself.
+    """
+    base = re.sub(r"_l$", "", hit)
+    want = list((item.get("art_stems") or {}).get("extra") or [])
+    want += [f"{base}_c{n}" for n in range(1, 10)]
+    out, seen = [], {hit}
+    for s in want:
+        s = str(s).strip().lower()
+        if s and s in pool and s not in seen:
+            seen.add(s)
+            out.append(s)
+    # Item Image shows 1-4 pictures (checklist style guide): main + 3 extras.
+    return out[:MAX_EXTRAS]
 
 
 def _bump(stats, folder, source):

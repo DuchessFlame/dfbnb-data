@@ -235,6 +235,15 @@ def build():
         print(f"[camera-mods] WARNING: {PLAN_MASTER} missing — rows will have no plan ledger",
               file=sys.stderr)
 
+    # Hosted-first rule (plan_images.hosted_url): a camera mod pictured anywhere
+    # else on the site uses that URL before this page's own camera/ folder.
+    try:
+        import plan_images
+        hidx, _staged = plan_images.load(DIST_DIR, TSV_DIR, verbose=False)
+    except Exception as exc:                          # noqa: BLE001 - never fatal
+        print(f"[camera-mods] WARNING: hosted-first lookup skipped: {exc}", file=sys.stderr)
+        hidx = None
+
     groups = []
     for key, label, _ap, blurb in GROUPS:
         items = []
@@ -273,6 +282,12 @@ def build():
             # rows that all start the same way is a column you cannot scan.
             row["display_name"] = re.sub(r"^Plan:\s*", "", row.get("name") or "")
             row["display_name"] = re.sub(r"^ProSnap Deluxe\s+", "", row["display_name"])
+            if not row.get("images") and hidx is not None:
+                url, src = plan_images.hosted_url(hidx, fids=[m["formid"]],
+                                                  edids=[m["edid"]], names=[m["name"]])
+                if url:
+                    row["images"] = [url]
+                    row["image_source"] = src
             if not row.get("images"):
                 row["images"] = [IMAGE_BASE + image_name(m["edid"])]
                 row["image_source"] = "camera"
