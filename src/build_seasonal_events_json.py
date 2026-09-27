@@ -886,6 +886,9 @@ EVENTS = {
     "treasure-hunter-all-rewards": {
         "name": "Hunt for the Treasure Hunter",
         "eventSlug": "hunt-for-the-treasure-hunter",
+        # Reward thumbnails (and the cover) live in
+        # .../guide-images/seasonal-events/treasure-hunters/ on the server.
+        "imageDir": "treasure-hunters",
         "description": "Hunt down Mole Miner Treasure Hunters and open their pails for rare rewards.",
         "isContainerLoot": True,
         "containers": [
