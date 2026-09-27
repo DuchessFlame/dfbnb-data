@@ -56,6 +56,8 @@ def apply(dist_dir, tsv_dir):
     if getattr(idx, "legacy", None):
         import legacy_nw
         print(f"  legacy_nw: {legacy_nw.reward_rows(items, idx.legacy)} Nuclear Winter reward row(s) with no plan")
+    import plan_sources as _ps
+    print(f"  slasher routes tagged: {_ps.tag_slasher_routes(items)}")
     plan_images.report(plan_images.attach(items, idx, staged), stream=sys.stdout)
     plan_apparel_class.report(plan_apparel_class.attach(items))
     plan_subpages.report(plan_subpages.attach(items))
@@ -141,6 +143,23 @@ def patch_downstream(dist_dir):
                     for v in n:
                         walk(v)
             walk(doc)
+            # Slasher-gated route names (plan_sources.tag_slasher_routes) on any
+            # copied plan row this file carries.
+            rows = []
+
+            def collect(n):
+                if isinstance(n, dict):
+                    if isinstance(n.get("obtain_routes"), list):
+                        rows.append(n)
+                    for v in n.values():
+                        collect(v)
+                elif isinstance(n, list):
+                    for v in n:
+                        collect(v)
+            collect(doc)
+            import plan_sources as _ps
+            if _ps.tag_slasher_routes(rows):
+                hits.append("(slasher routes)")
             if hits:
                 with open(path, "w", encoding="utf-8") as fh:
                     if pretty:

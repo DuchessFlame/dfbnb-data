@@ -386,10 +386,43 @@ def reward_rows(items, idx):
         return 0
     linked = set()
     for it in items:
+        # Undo last run's duplicate call before re-deciding (see below).
+        if it.pop("nw_duplicate", None):
+            it["cut"] = False
+            it["cut_reason"] = None
         if idx.tag(it):
             ent = (it.get("nw_entitlement") or {}).get("edid")
             if ent:
                 linked.add(ent)
+    # Two plan books for one NW item (Hellfire Prototype, the Medium stash box):
+    # Duchess, 27 Sep 2026 — merge them, it is the same plan. The copy that
+    # actually drops is kept as THE row; a copy nothing gives out is folded into
+    # it: listed under Technical ("Also the same plan": FormID / EDID / recipe)
+    # and marked cut so it leaves the page. Generative — the merge is decided
+    # every build, so if the live copy stops dropping both rows come back.
+    by_ent = {}
+    for it in items:
+        it.pop("merged_plans", None)
+        ent = (it.get("nw_entitlement") or {}).get("edid")
+        if it.get("legacy_nw") and ent and it.get("plan_item") and not it.get("cut"):
+            by_ent.setdefault(ent, []).append(it)
+    for rows in by_ent.values():
+        live = [r for r in rows if not r.get("not_obtainable")]
+        if len(rows) < 2 or not live:
+            continue
+        keep = max(live, key=lambda r: len(r.get("obtain_routes") or []) + len(r.get("obtain_unlocks") or []))
+        for r in rows:
+            if r is keep or not r.get("not_obtainable"):
+                continue
+            keep.setdefault("merged_plans", []).append({
+                "name": r.get("name"),
+                "plan_item": r.get("plan_item"),
+                "cobj": r.get("cobj"),
+            })
+            r["cut"] = True
+            r["cut_reason"] = f"merged into {keep.get('name')} — the same Nuclear Winter item"
+            r["nw_duplicate"] = True
+
     labeler = None
     added = 0
     for edid, rec in sorted(idx.entm.items(), key=lambda kv: kv[1]["name"].lower()):

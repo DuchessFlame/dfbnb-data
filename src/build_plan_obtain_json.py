@@ -1162,6 +1162,8 @@ def main(argv=None):
         if getattr(idx, "legacy", None):
             import legacy_nw
             print(f"  legacy_nw: {legacy_nw.reward_rows(items, idx.legacy)} Nuclear Winter reward row(s) with no plan")
+        import plan_sources as _ps
+        print(f"  slasher routes tagged: {_ps.tag_slasher_routes(items)}")
         plan_images.report(plan_images.attach(items, idx, staged))
     except Exception as exc:                      # noqa: BLE001 - never fatal
         print(f"  WARNING: image resolve skipped: {exc}", file=sys.stderr)
