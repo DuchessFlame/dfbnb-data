@@ -11,222 +11,27 @@
  "map_base": "",
  "drop_rates": {
   "creatures": {
-   "note": "Every Mole Rat you kill drops Mole Rat Meat (100%). Mole Rat: 142 variants, levels 1–150, up to 800 HP.",
-   "drops": {
-    "lists": [
-     {
-      "edid": "LLD_Creature_Molerat",
-      "form_id": "0002EF68",
-      "row_count": 3,
-      "direct_items": 1,
-      "pool_count": 2,
-      "item_count": 4,
-      "rows": [
-       {
-        "kind": "item",
-        "name": "Mole Rat Meat",
-        "form_id": "00033101",
-        "edid": "MoleratMeat",
-        "sig": "ALCH",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "Extra meat (Butcher's Bounty)",
-        "sub_id": "0008E3B0",
-        "edid": "LLE_Creature_Molerat",
-        "item_count": 3,
-        "rate_value": 0.5,
-        "rate_display": "50%",
-        "top_items": [
-         {
-          "name": "Mole Rat Hide",
-          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
-         },
-         {
-          "name": "Mole Rat Teeth",
-          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
-         },
-         {
-          "name": "Mole Rat Meat",
-          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
-         }
-        ]
-       }
-      ]
-     },
-     {
-      "edid": "LLD_Creature_Molerat_Broodmother",
-      "form_id": "00452A60",
-      "row_count": 5,
-      "direct_items": 3,
-      "pool_count": 2,
-      "item_count": 1171,
-      "rows": [
-       {
-        "kind": "pool",
-        "name": "Base Item Super Mutant Melee",
-        "sub_id": "0044191D",
-        "edid": "LLD_Creature_BaseItem_SuperMutant_Melee",
-        "item_count": 1165,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Ammo Grenade Launcher",
-          "rate_display": "15.25%"
-         },
-         {
-          "name": "Ammo2mm EC",
-          "rate_display": "8.47%"
-         },
-         {
-          "name": "Ammo38Caliber",
-          "rate_display": "8.47%"
-         },
-         {
-          "name": "Ammo45Caliber",
-          "rate_display": "8.47%"
-         },
-         {
-          "name": "Ammo10mm",
-          "rate_display": "8.47%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Mole Rat Hide",
-        "form_id": "0022B628",
-        "edid": "MoleratHide",
-        "sig": "MISC",
-        "qty": 2,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "item",
-        "name": "Mole Rat Meat",
-        "form_id": "00033101",
-        "edid": "MoleratMeat",
-        "sig": "ALCH",
-        "qty": 3,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "item",
-        "name": "Mole Rat Teeth",
-        "form_id": "00034603",
-        "edid": "MoleRatTeeth",
-        "sig": "MISC",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "Extra meat (Butcher's Bounty)",
-        "sub_id": "0008E3B0",
-        "edid": "LLE_Creature_Molerat",
-        "item_count": 3,
-        "rate_value": 0.5,
-        "rate_display": "50%",
-        "top_items": [
-         {
-          "name": "Mole Rat Hide",
-          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
-         },
-         {
-          "name": "Mole Rat Teeth",
-          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
-         },
-         {
-          "name": "Mole Rat Meat",
-          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
-         }
-        ]
-       }
-      ]
-     },
-     {
-      "edid": "LLD_Creature_Molerat_E09C",
-      "form_id": "0068D9B2",
-      "row_count": 4,
-      "direct_items": 1,
-      "pool_count": 3,
-      "item_count": 1110,
-      "rows": [
-       {
-        "kind": "item",
-        "name": "Mole Rat Meat",
-        "form_id": "00033101",
-        "edid": "MoleratMeat",
-        "sig": "ALCH",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "Ammo Loot Contextual Open World",
-        "sub_id": "006CD246",
-        "edid": "LL_Ammo_Loot_Contextual_OpenWorld",
-        "item_count": 1106,
-        "rate_value": 0.91,
-        "rate_display": "91%",
-        "top_items": [
-         {
-          "name": "Ammo Grenade Launcher",
-          "rate_display": "42.75%"
-         },
-         {
-          "name": "Ammo2mm EC",
-          "rate_display": "23.75%"
-         },
-         {
-          "name": "Ammo38Caliber",
-          "rate_display": "23.75%"
-         },
-         {
-          "name": "Ammo45Caliber",
-          "rate_display": "23.75%"
-         },
-         {
-          "name": "Ammo10mm",
-          "rate_display": "23.75%"
-         }
-        ]
-       },
-       {
-        "kind": "pool",
-        "name": "Extra meat (Butcher's Bounty)",
-        "sub_id": "0008E3B0",
-        "edid": "LLE_Creature_Molerat",
-        "item_count": 3,
-        "rate_value": 0.5,
-        "rate_display": "50%",
-        "top_items": [
-         {
-          "name": "Mole Rat Hide",
-          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
-         },
-         {
-          "name": "Mole Rat Teeth",
-          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
-         },
-         {
-          "name": "Mole Rat Meat",
-          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
-         }
-        ]
-       }
-      ]
-     }
-    ]
-   }
+   "note": "",
+   "items": [
+    {
+     "name": "Mole Rat Meat",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    },
+    {
+     "name": "Mole Rat Hide",
+     "qty": 2,
+     "rate_display": "100%",
+     "note": ""
+    },
+    {
+     "name": "Mole Rat Teeth",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    }
+   ]
   },
   "collectrons": {
    "entries": [
@@ -648,7 +453,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Ground Molerat"
+    "how_to_obtain": "Known by default."
    },
    {
     "name": "Mole Rat Chunks",
@@ -795,7 +600,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Delbert's Mountain Hocks"
+    "how_to_obtain": "Learned from a cookbook terminal (RSVP questline)."
    }
   ]
  },
@@ -1013,7 +818,8 @@
    "edid": "RE_TravelCMB08",
    "name": "Molerats vs. Ghouls",
    "type": "Travel Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/travel-random-encounters/"
   }
  ],
  "regions": [

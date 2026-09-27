@@ -11,415 +11,21 @@
  "map_base": "",
  "drop_rates": {
   "creatures": {
-   "note": "Every Gulper you kill drops Gulper Innards (100%). Gulper: 20 variants, levels 1–200, up to 1,800 HP.",
-   "drops": {
-    "lists": [
-     {
-      "edid": "LLD_Creature_Gulper",
-      "form_id": "001113BC",
-      "row_count": 4,
-      "direct_items": 1,
-      "pool_count": 3,
-      "item_count": 9328,
-      "rows": [
-       {
-        "kind": "pool",
-        "name": "Generic creature loot (medium)",
-        "sub_id": "003DF3F8",
-        "edid": "LLS_Creature_Medium",
-        "item_count": 1106,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Ammo Grenade Launcher",
-          "rate_display": "38.48%"
-         },
-         {
-          "name": "Ammo2mm EC",
-          "rate_display": "21.38%"
-         },
-         {
-          "name": "Ammo38Caliber",
-          "rate_display": "21.38%"
-         },
-         {
-          "name": "Ammo45Caliber",
-          "rate_display": "21.38%"
-         },
-         {
-          "name": "Ammo10mm",
-          "rate_display": "21.38%"
-         }
-        ]
-       },
-       {
-        "kind": "pool",
-        "name": "Gulper",
-        "sub_id": "003533DD",
-        "edid": "LLS_Creature_Gulper",
-        "item_count": 6532,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Gulper Innards",
-          "rate_display": "60%"
-         },
-         {
-          "name": "Disease Cure",
-          "rate_display": "8.74%"
-         },
-         {
-          "name": "Hard Hat",
-          "rate_display": "4.5%"
-         },
-         {
-          "name": "Caps",
-          "rate_display": "3.33%"
-         },
-         {
-          "name": "Plan: Puncturing Pole Hook",
-          "rate_display": "3%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Gulper Innards",
-        "form_id": "001115E9",
-        "edid": "GulperMeat",
-        "sig": "ALCH",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "Junk Small",
-        "sub_id": "0003678C",
-        "edid": "LL_Junk_Small",
-        "item_count": 1689,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Disease Cure",
-          "rate_display": "48.57%"
-         },
-         {
-          "name": "Cutting Fluid",
-          "rate_display": "48.21%"
-         },
-         {
-          "name": "Vegetable Starch",
-          "rate_display": "48.21%"
-         },
-         {
-          "name": "Hard Hat",
-          "rate_display": "25%"
-         },
-         {
-          "name": "Blood Pack",
-          "rate_display": "11.25%"
-         }
-        ]
-       }
-      ]
-     },
-     {
-      "edid": "E08A_LLD_Creature_ToxAcidGulper",
-      "form_id": "0064722D",
-      "row_count": 7,
-      "direct_items": 2,
-      "pool_count": 5,
-      "item_count": 9332,
-      "rows": [
-       {
-        "kind": "pool",
-        "name": "E08A LL Gulper Hand",
-        "sub_id": "00658D13",
-        "edid": "E08A_LL_GulperHand",
-        "item_count": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Acidic Gulper Hand",
-          "rate_display": "5%"
-         }
-        ]
-       },
-       {
-        "kind": "pool",
-        "name": "E08A LL Gulper Venom",
-        "sub_id": "00647A3C",
-        "edid": "E08A_LL_GulperVenom",
-        "item_count": 2,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Acidic Gulper Venom",
-          "rate_display": "80%"
-         }
-        ]
-       },
-       {
-        "kind": "pool",
-        "name": "Generic creature loot (medium)",
-        "sub_id": "003DF3F8",
-        "edid": "LLS_Creature_Medium",
-        "item_count": 1106,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Ammo Grenade Launcher",
-          "rate_display": "38.48%"
-         },
-         {
-          "name": "Ammo2mm EC",
-          "rate_display": "21.38%"
-         },
-         {
-          "name": "Ammo38Caliber",
-          "rate_display": "21.38%"
-         },
-         {
-          "name": "Ammo45Caliber",
-          "rate_display": "21.38%"
-         },
-         {
-          "name": "Ammo10mm",
-          "rate_display": "21.38%"
-         }
-        ]
-       },
-       {
-        "kind": "pool",
-        "name": "Gulper",
-        "sub_id": "003533DD",
-        "edid": "LLS_Creature_Gulper",
-        "item_count": 6532,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Gulper Innards",
-          "rate_display": "60%"
-         },
-         {
-          "name": "Disease Cure",
-          "rate_display": "8.74%"
-         },
-         {
-          "name": "Hard Hat",
-          "rate_display": "4.5%"
-         },
-         {
-          "name": "Caps",
-          "rate_display": "3.33%"
-         },
-         {
-          "name": "Plan: Puncturing Pole Hook",
-          "rate_display": "3%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Gulper Innards",
-        "form_id": "001115E9",
-        "edid": "GulperMeat",
-        "sig": "ALCH",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "Junk Small",
-        "sub_id": "0003678C",
-        "edid": "LL_Junk_Small",
-        "item_count": 1689,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Disease Cure",
-          "rate_display": "48.57%"
-         },
-         {
-          "name": "Cutting Fluid",
-          "rate_display": "48.21%"
-         },
-         {
-          "name": "Vegetable Starch",
-          "rate_display": "48.21%"
-         },
-         {
-          "name": "Hard Hat",
-          "rate_display": "25%"
-         },
-         {
-          "name": "Blood Pack",
-          "rate_display": "11.25%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Acidic Gulper Gland",
-        "form_id": "00658D14",
-        "edid": "E08A_AcidGulperGland",
-        "sig": "MISC",
-        "qty": 1,
-        "rate_value": 0.8,
-        "rate_display": "80%"
-       }
-      ]
-     },
-     {
-      "edid": "E08A_LLD_Creature_AcidGulper",
-      "form_id": "00647A3D",
-      "row_count": 6,
-      "direct_items": 2,
-      "pool_count": 4,
-      "item_count": 9331,
-      "rows": [
-       {
-        "kind": "pool",
-        "name": "E08A LL Gulper Venom",
-        "sub_id": "00647A3C",
-        "edid": "E08A_LL_GulperVenom",
-        "item_count": 2,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Acidic Gulper Venom",
-          "rate_display": "80%"
-         }
-        ]
-       },
-       {
-        "kind": "pool",
-        "name": "Generic creature loot (medium)",
-        "sub_id": "003DF3F8",
-        "edid": "LLS_Creature_Medium",
-        "item_count": 1106,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Ammo Grenade Launcher",
-          "rate_display": "38.48%"
-         },
-         {
-          "name": "Ammo2mm EC",
-          "rate_display": "21.38%"
-         },
-         {
-          "name": "Ammo38Caliber",
-          "rate_display": "21.38%"
-         },
-         {
-          "name": "Ammo45Caliber",
-          "rate_display": "21.38%"
-         },
-         {
-          "name": "Ammo10mm",
-          "rate_display": "21.38%"
-         }
-        ]
-       },
-       {
-        "kind": "pool",
-        "name": "Gulper",
-        "sub_id": "003533DD",
-        "edid": "LLS_Creature_Gulper",
-        "item_count": 6532,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Gulper Innards",
-          "rate_display": "60%"
-         },
-         {
-          "name": "Disease Cure",
-          "rate_display": "8.74%"
-         },
-         {
-          "name": "Hard Hat",
-          "rate_display": "4.5%"
-         },
-         {
-          "name": "Caps",
-          "rate_display": "3.33%"
-         },
-         {
-          "name": "Plan: Puncturing Pole Hook",
-          "rate_display": "3%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Gulper Innards",
-        "form_id": "001115E9",
-        "edid": "GulperMeat",
-        "sig": "ALCH",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "Junk Small",
-        "sub_id": "0003678C",
-        "edid": "LL_Junk_Small",
-        "item_count": 1689,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Disease Cure",
-          "rate_display": "48.57%"
-         },
-         {
-          "name": "Cutting Fluid",
-          "rate_display": "48.21%"
-         },
-         {
-          "name": "Vegetable Starch",
-          "rate_display": "48.21%"
-         },
-         {
-          "name": "Hard Hat",
-          "rate_display": "25%"
-         },
-         {
-          "name": "Blood Pack",
-          "rate_display": "11.25%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Acidic Gulper Gland",
-        "form_id": "00658D14",
-        "edid": "E08A_AcidGulperGland",
-        "sig": "MISC",
-        "qty": 1,
-        "rate_value": 0.8,
-        "rate_display": "80%"
-       }
-      ]
-     }
-    ]
-   }
+   "note": "",
+   "items": [
+    {
+     "name": "Gulper Innards",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    },
+    {
+     "name": "Acidic Gulper Gland",
+     "qty": 1,
+     "rate_display": "80%",
+     "note": ""
+    }
+   ]
   },
   "collectrons": null,
   "resource_generators": null,
@@ -834,7 +440,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Gulper Stuffed Foot"
+    "how_to_obtain": "Known by default."
    },
    {
     "name": "Pepperoni Roll",
@@ -916,7 +522,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Pepperoni Roll"
+    "how_to_obtain": "Known by default."
    }
   ]
  },
@@ -928,28 +534,32 @@
    "edid": "RE_AssaultMP08",
    "name": "Gulpers vs. Mirelurks",
    "type": "Assault Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
   },
   {
    "form_id": "004FC061",
    "edid": "RE_AssaultKMK05",
    "name": "Gulpers vs. Scorched",
    "type": "Assault Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
   },
   {
    "form_id": "004FC067",
    "edid": "RE_AssaultKMK11",
    "name": "Gulpers vs. Super Mutants",
    "type": "Assault Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
   },
   {
    "form_id": "003D7873",
    "edid": "RE_TravelMP04",
    "name": "Mirelurks vs. Gulpers",
    "type": "Travel Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/travel-random-encounters/"
   }
  ],
  "regions": [

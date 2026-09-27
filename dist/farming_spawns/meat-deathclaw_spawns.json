@@ -11,301 +11,33 @@
  "map_base": "",
  "drop_rates": {
   "creatures": {
-   "note": "Every Deathclaw you kill drops Deathclaw Meat (100%). Deathclaw: 51 variants, levels 21–101, up to 11,725 HP.",
-   "drops": {
-    "lists": [
-     {
-      "edid": "LLD_Creature_Deathclaw",
-      "form_id": "0002EF6C",
-      "row_count": 6,
-      "direct_items": 3,
-      "pool_count": 3,
-      "item_count": 11648,
-      "rows": [
-       {
-        "kind": "pool",
-        "name": "Deathclaw",
-        "sub_id": "0008E3AE",
-        "edid": "LLS_Creature_Deathclaw",
-        "item_count": 104,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Plan: Deathclaw Gauntlet",
-          "rate_display": "1.46%"
-         },
-         {
-          "name": "Plan: Deathclaw Gauntlet Extra Claw",
-          "rate_display": "1.46%"
-         },
-         {
-          "name": "Caps",
-          "rate_display": "0.15%"
-         },
-         {
-          "name": "Deathclaw Meat",
-          "rate_display": "0%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Deathclaw Meat",
-        "form_id": "00074D0E",
-        "edid": "DeathclawMeat",
-        "sig": "ALCH",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "Generic creature loot (large)",
-        "sub_id": "003DF3F4",
-        "edid": "LLS_Creature_Large",
-        "item_count": 11535,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Raw Cobalt Flux",
-          "rate_display": "20%"
-         },
-         {
-          "name": "Raw Fluorescent Flux",
-          "rate_display": "20%"
-         },
-         {
-          "name": "Raw Violet Flux",
-          "rate_display": "20%"
-         },
-         {
-          "name": "Raw Crimson Flux",
-          "rate_display": "20%"
-         },
-         {
-          "name": "Raw Yellowcake Flux",
-          "rate_display": "20%"
-         }
-        ]
-       },
-       {
-        "kind": "pool",
-        "name": "LLE Creature Boss Component Deathclaw",
-        "sub_id": "00434383",
-        "edid": "LLE_Creature_Boss_Component_Deathclaw",
-        "item_count": 6,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Black Titanium Scrap",
-          "rate_display": "100%"
-         },
-         {
-          "name": "Loose Gears",
-          "rate_display": "100%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Deathclaw Hand",
-        "form_id": "0002EF67",
-        "edid": "DeathclawHand",
-        "sig": "MISC",
-        "qty": 1,
-        "rate_value": 0.25,
-        "rate_display": "25%"
-       },
-       {
-        "kind": "item",
-        "name": "Deathclaw Hide",
-        "form_id": "00034604",
-        "edid": "DeathclawHide",
-        "sig": "MISC",
-        "qty": 1,
-        "rate_value": 0.25,
-        "rate_display": "25%"
-       }
-      ]
-     },
-     {
-      "edid": "LLD_Creature_Deathclaw_PartyCrasher",
-      "form_id": "0089740B",
-      "row_count": 9,
-      "direct_items": 4,
-      "pool_count": 5,
-      "item_count": 11655,
-      "rows": [
-       {
-        "kind": "pool",
-        "name": "Deathclaw",
-        "sub_id": "0008E3AE",
-        "edid": "LLS_Creature_Deathclaw",
-        "item_count": 104,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Plan: Deathclaw Gauntlet",
-          "rate_display": "1.46%"
-         },
-         {
-          "name": "Plan: Deathclaw Gauntlet Extra Claw",
-          "rate_display": "1.46%"
-         },
-         {
-          "name": "Caps",
-          "rate_display": "0.15%"
-         },
-         {
-          "name": "Deathclaw Meat",
-          "rate_display": "0%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Deathclaw Meat",
-        "form_id": "00074D0E",
-        "edid": "DeathclawMeat",
-        "sig": "ALCH",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "Generic creature loot (large)",
-        "sub_id": "003DF3F4",
-        "edid": "LLS_Creature_Large",
-        "item_count": 11535,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Raw Cobalt Flux",
-          "rate_display": "20%"
-         },
-         {
-          "name": "Raw Fluorescent Flux",
-          "rate_display": "20%"
-         },
-         {
-          "name": "Raw Violet Flux",
-          "rate_display": "20%"
-         },
-         {
-          "name": "Raw Crimson Flux",
-          "rate_display": "20%"
-         },
-         {
-          "name": "Raw Yellowcake Flux",
-          "rate_display": "20%"
-         }
-        ]
-       },
-       {
-        "kind": "pool",
-        "name": "LLE Creature Boss Component Deathclaw",
-        "sub_id": "00434383",
-        "edid": "LLE_Creature_Boss_Component_Deathclaw",
-        "item_count": 6,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Black Titanium Scrap",
-          "rate_display": "100%"
-         },
-         {
-          "name": "Loose Gears",
-          "rate_display": "100%"
-         }
-        ]
-       },
-       {
-        "kind": "pool",
-        "name": "RA LL Rewards Legendary Items Rank3",
-        "sub_id": "0086A8BC",
-        "edid": "RA_LL_Rewards_LegendaryItems_Rank3",
-        "item_count": 3,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Legendary Items Armor Rank3",
-          "rate_display": "33.33%"
-         },
-         {
-          "name": "Legendary Items Power Armor Rank3",
-          "rate_display": "33.33%"
-         },
-         {
-          "name": "Legendary Items Weapons Any Rank3",
-          "rate_display": "33.33%"
-         }
-        ]
-       },
-       {
-        "kind": "pool",
-        "name": "RA LL Rewards Legendary Items Rank3",
-        "sub_id": "0086A8BC",
-        "edid": "RA_LL_Rewards_LegendaryItems_Rank3",
-        "item_count": 3,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Legendary Items Armor Rank3",
-          "rate_display": "33.33%"
-         },
-         {
-          "name": "Legendary Items Power Armor Rank3",
-          "rate_display": "33.33%"
-         },
-         {
-          "name": "Legendary Items Weapons Any Rank3",
-          "rate_display": "33.33%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Deathclaw Hand",
-        "form_id": "0002EF67",
-        "edid": "DeathclawHand",
-        "sig": "MISC",
-        "qty": 1,
-        "rate_value": 0.25,
-        "rate_display": "25%"
-       },
-       {
-        "kind": "item",
-        "name": "Deathclaw Hide",
-        "form_id": "00034604",
-        "edid": "DeathclawHide",
-        "sig": "MISC",
-        "qty": 1,
-        "rate_value": 0.25,
-        "rate_display": "25%"
-       },
-       {
-        "kind": "item",
-        "name": "Player Title: Uninvited",
-        "form_id": "008AA951",
-        "edid": "PlayerTitle_Recipe_Prefix_Uninvited",
-        "sig": "BOOK",
-        "qty": 1,
-        "rate_value": 0.05,
-        "rate_display": "5%"
-       }
-      ]
-     }
-    ]
-   }
+   "note": "",
+   "items": [
+    {
+     "name": "Deathclaw Meat",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    },
+    {
+     "name": "Deathclaw Hand",
+     "qty": 1,
+     "rate_display": "25%",
+     "note": ""
+    },
+    {
+     "name": "Deathclaw Hide",
+     "qty": 1,
+     "rate_display": "25%",
+     "note": ""
+    },
+    {
+     "name": "Player Title: Uninvited",
+     "qty": 1,
+     "rate_display": "5%",
+     "note": ""
+    }
+   ]
   },
   "collectrons": null,
   "resource_generators": null,
@@ -1030,7 +762,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Deathclaw Wellington"
+    "how_to_obtain": "Known by default."
    }
   ]
  },
@@ -1088,91 +820,104 @@
    "edid": "Burn_RE_Assault_KK01",
    "name": "Armored Deathclaw vs Ogua",
    "type": "Assault Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
   },
   {
    "form_id": "00823682",
    "edid": "Burn_RE_Scene_KK02",
    "name": "Armoured Deathclaw rampage",
    "type": "Scene Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/scene-random-encounters/"
   },
   {
    "form_id": "008438FA",
    "edid": "Burn_RE_Travel_KK01",
    "name": "Deathclaw Hunter Runs",
    "type": "Travel Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/travel-random-encounters/"
   },
   {
    "form_id": "0035EC0F",
    "edid": "RE_ObjectMP09",
    "name": "Deathclaw Nest vs Scorched",
    "type": "Object Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/object-random-encounters/"
   },
   {
    "form_id": "0035EBED",
    "edid": "RE_ObjectMP10",
    "name": "Deathclaw Nest vs Super Mutants",
    "type": "Object Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/object-random-encounters/"
   },
   {
    "form_id": "0056AC46",
    "edid": "W05_RE_AssaultZW10",
    "name": "Deathclaw v Raiders",
    "type": "Assault Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
   },
   {
    "form_id": "0035EBFD",
    "edid": "RE_AssaultMP04",
    "name": "Deathclaw vs Ants",
    "type": "Assault Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
   },
   {
    "form_id": "0035EBF0",
    "edid": "RE_ObjectMP06",
    "name": "Deathclaw vs Merchant Caravan",
    "type": "Object Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/object-random-encounters/"
   },
   {
    "form_id": "0081EFC0",
    "edid": "Burn_RE_Assault_KK03",
    "name": "Deathclaw vs Ogua",
    "type": "Assault Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
   },
   {
    "form_id": "0035EC00",
    "edid": "RE_AssaultMP02",
    "name": "Deathclaw vs. Super Mutants",
    "type": "Assault Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
   },
   {
    "form_id": "0024D081",
    "edid": "RE_SceneTS03",
    "name": "Glowing Deathclaw vs Sentry Bot",
    "type": "Scene Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/scene-random-encounters/"
   },
   {
    "form_id": "0048F8C4",
    "edid": "RE_SceneKMK19_Nuke",
    "name": "Nuked: Deathclaw",
    "type": "Scene Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/scene-random-encounters/"
   },
   {
    "form_id": "00876382",
    "edid": "Burn_RE_Assault_MT01",
    "name": "Radhogs vs Deathclaw",
    "type": "Assault Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
   },
   {
    "form_id": "003CB648",
@@ -1186,28 +931,32 @@
    "edid": "Burn_RE_Assault_KK07",
    "name": "Stingwings vs Deathclaw",
    "type": "Assault Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
   },
   {
    "form_id": "0035EBF9",
    "edid": "RE_AssaultMP07",
    "name": "Super Mutants vs. Deathclaw",
    "type": "Assault Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
   },
   {
    "form_id": "00529E1B",
    "edid": "RE_TravelCMB05",
    "name": "Wandering Deathclaw Boss",
    "type": "Travel Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/travel-random-encounters/"
   },
   {
    "form_id": "0035EC0A",
    "edid": "RE_TravelMP09",
    "name": "Yao Guai vs. Deathclaw",
    "type": "Travel Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/travel-random-encounters/"
   }
  ],
  "regions": [

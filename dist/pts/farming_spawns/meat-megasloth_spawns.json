@@ -11,162 +11,27 @@
  "map_base": "",
  "drop_rates": {
   "creatures": {
-   "note": "Every Megasloth you kill drops Megasloth Meat (100%). Megasloth: 15 variants, levels 20–50, up to 1,500 HP.",
-   "drops": {
-    "lists": [
-     {
-      "edid": "LLD_Creature_Megasloth",
-      "form_id": "00053032",
-      "row_count": 8,
-      "direct_items": 3,
-      "pool_count": 5,
-      "item_count": 12707,
-      "rows": [
-       {
-        "kind": "pool",
-        "name": "Generic creature loot (very large)",
-        "sub_id": "003DF3DA",
-        "edid": "LLS_Creature_VeryLarge",
-        "item_count": 12636,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Ammo Grenade Launcher",
-          "rate_display": "40.18%"
-         },
-         {
-          "name": "Ammo2mm EC",
-          "rate_display": "22.32%"
-         },
-         {
-          "name": "Ammo38Caliber",
-          "rate_display": "22.32%"
-         },
-         {
-          "name": "Ammo45Caliber",
-          "rate_display": "22.32%"
-         },
-         {
-          "name": "Ammo10mm",
-          "rate_display": "22.32%"
-         }
-        ]
-       },
-       {
-        "kind": "pool",
-        "name": "LLE Creature Boss Component Megasloth",
-        "sub_id": "00434388",
-        "edid": "LLE_Creature_Boss_Component_Megasloth",
-        "item_count": 6,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Silver Scrap",
-          "rate_display": "100%"
-         },
-         {
-          "name": "Loose Screws",
-          "rate_display": "100%"
-         }
-        ]
-       },
-       {
-        "kind": "pool",
-        "name": "LLE Creature Caps Very Large",
-        "sub_id": "003DF3D7",
-        "edid": "LLE_Creature_Caps_VeryLarge",
-        "item_count": 40,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Caps",
-          "rate_display": "10%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Megasloth Meat",
-        "form_id": "0005303E",
-        "edid": "MegaslothMeat",
-        "sig": "ALCH",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "Spotlight Back To Nature",
-        "sub_id": "004845CB",
-        "edid": "LLD_Spotlight_BackToNature",
-        "item_count": 19,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Backwoodsman 3",
-          "rate_display": "6.25%"
-         },
-         {
-          "name": "Backwoodsman 5",
-          "rate_display": "6.25%"
-         },
-         {
-          "name": "Guns and Bullets 5",
-          "rate_display": "6.25%"
-         },
-         {
-          "name": "Guns and Bullets 8",
-          "rate_display": "6.25%"
-         },
-         {
-          "name": "Leather Left Arm",
-          "rate_display": "3.33%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Megasloth Claw",
-        "form_id": "003259EA",
-        "edid": "MegaSlothClaw",
-        "sig": "MISC",
-        "qty": 1,
-        "rate_value": 0.3,
-        "rate_display": "30%"
-       },
-       {
-        "kind": "pool",
-        "name": "Flora Fungus Mega Sloth",
-        "sub_id": "002AB0F4",
-        "edid": "LL_Flora_FungusMegaSloth",
-        "item_count": 3,
-        "rate_value": 0.2,
-        "rate_display": "20%",
-        "top_items": [
-         {
-          "name": "Megasloth Mushroom",
-          "rate_display": "100%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Megasloth Pelt",
-        "form_id": "00053040",
-        "edid": "MegaslothPelt",
-        "sig": "MISC",
-        "qty": 1,
-        "rate_value": 0.2,
-        "rate_display": "20%"
-       }
-      ]
-     }
-    ]
-   }
+   "note": "",
+   "items": [
+    {
+     "name": "Megasloth Meat",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    },
+    {
+     "name": "Megasloth Claw",
+     "qty": 1,
+     "rate_display": "30%",
+     "note": ""
+    },
+    {
+     "name": "Megasloth Pelt",
+     "qty": 1,
+     "rate_display": "20%",
+     "note": ""
+    }
+   ]
   },
   "collectrons": {
    "entries": [
@@ -517,7 +382,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Megasloth Tenderloin"
+    "how_to_obtain": "Known by default."
    },
    {
     "name": "Roast Megasloth",
@@ -643,21 +508,24 @@
    "edid": "RE_SceneKMK18_Nuke",
    "name": "Nuked: Megasloth",
    "type": "Scene Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/scene-random-encounters/"
   },
   {
    "form_id": "004FC069",
    "edid": "RE_AssaultKMK13",
    "name": "Scorched MegaSloth vs. Super Mutants",
    "type": "Assault Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
   },
   {
    "form_id": "0035EC05",
    "edid": "RE_AssaultMP10",
    "name": "Wolves vs. Megasloth",
    "type": "Assault Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
   }
  ],
  "regions": [

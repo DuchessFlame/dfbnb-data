@@ -11,122 +11,21 @@
  "map_base": "",
  "drop_rates": {
   "creatures": {
-   "note": "Every Angler you kill drops Angler Meat (100%). Angler: 20 variants, levels 1–100, up to 2,200 HP.",
-   "drops": {
-    "lists": [
-     {
-      "edid": "LLD_Creature_Angler",
-      "form_id": "0011077A",
-      "row_count": 5,
-      "direct_items": 2,
-      "pool_count": 3,
-      "item_count": 7909,
-      "rows": [
-       {
-        "kind": "pool",
-        "name": "Angler",
-        "sub_id": "00111600",
-        "edid": "LLS_Creature_Angler",
-        "item_count": 6796,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Disease Cure",
-          "rate_display": "3.04%"
-         },
-         {
-          "name": "Cutting Fluid",
-          "rate_display": "3.01%"
-         },
-         {
-          "name": "Vegetable Starch",
-          "rate_display": "3.01%"
-         },
-         {
-          "name": "Hard Hat",
-          "rate_display": "1.56%"
-         },
-         {
-          "name": "Blood Pack",
-          "rate_display": "0.7%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Angler Meat",
-        "form_id": "00110BA4",
-        "edid": "AnglerMeat",
-        "sig": "ALCH",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "Generic creature loot (medium)",
-        "sub_id": "003DF3F8",
-        "edid": "LLS_Creature_Medium",
-        "item_count": 1106,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Ammo Grenade Launcher",
-          "rate_display": "38.48%"
-         },
-         {
-          "name": "Ammo2mm EC",
-          "rate_display": "21.38%"
-         },
-         {
-          "name": "Ammo38Caliber",
-          "rate_display": "21.38%"
-         },
-         {
-          "name": "Ammo45Caliber",
-          "rate_display": "21.38%"
-         },
-         {
-          "name": "Ammo10mm",
-          "rate_display": "21.38%"
-         }
-        ]
-       },
-       {
-        "kind": "pool",
-        "name": "LLE Creature Boss Component Angler",
-        "sub_id": "00434381",
-        "edid": "LLE_Creature_Boss_Component_Angler",
-        "item_count": 5,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Raw Asbestos",
-          "rate_display": "100%"
-         },
-         {
-          "name": "Excess Adhesive",
-          "rate_display": "50%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Plan: Puncturing Pole Hook",
-        "form_id": "002B42B9",
-        "edid": "recipe_DLC03_mod_melee_polehook_Multihook",
-        "sig": "BOOK",
-        "qty": 1,
-        "rate_value": 0.03,
-        "rate_display": "3%"
-       }
-      ]
-     }
-    ]
-   }
+   "note": "",
+   "items": [
+    {
+     "name": "Angler Meat",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    },
+    {
+     "name": "Plan: Puncturing Pole Hook",
+     "qty": 1,
+     "rate_display": "3%",
+     "note": ""
+    }
+   ]
   },
   "collectrons": {
    "entries": [
@@ -492,28 +391,32 @@
    "edid": "RE_TravelCMB07",
    "name": "Anglers vs. Fog Crawler",
    "type": "Travel Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/travel-random-encounters/"
   },
   {
    "form_id": "004FC060",
    "edid": "RE_AssaultKMK04",
    "name": "Anglers vs. Scorched",
    "type": "Assault Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
   },
   {
    "form_id": "004FC066",
    "edid": "RE_AssaultKMK10",
    "name": "Anglers vs. Super Mutants",
    "type": "Assault Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
   },
   {
    "form_id": "00454C49",
    "edid": "RE_SceneCMB02",
    "name": "Brahmin Wrangler",
    "type": "Scene Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/scene-random-encounters/"
   }
  ],
  "regions": [

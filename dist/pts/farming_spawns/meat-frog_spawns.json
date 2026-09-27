@@ -11,64 +11,21 @@
  "map_base": "",
  "drop_rates": {
   "creatures": {
-   "note": "Every Frog you kill drops Frog Leg (20%), Glowing Meat (30%). Frog: 4 variants, level 1, up to 10 HP.",
-   "drops": {
-    "lists": [
-     {
-      "edid": "LLD_Creature_Radfrog",
-      "form_id": "003B9761",
-      "row_count": 4,
-      "direct_items": 2,
-      "pool_count": 2,
-      "item_count": 5,
-      "rows": [
-       {
-        "kind": "item",
-        "name": "Frog Egg",
-        "form_id": "004FE51C",
-        "edid": "RadFrogEgg",
-        "sig": "ALCH",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "LLE Creature Radfrog",
-        "sub_id": "0043C16D",
-        "edid": "LLE_Creature_Radfrog",
-        "item_count": 3,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Uranium Ore",
-          "rate_display": "49%"
-         },
-         {
-          "name": "Glowing Meat",
-          "rate_display": "30%"
-         },
-         {
-          "name": "Glowing Blood Pack",
-          "rate_display": "21%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Frog Leg",
-        "form_id": "004FE51D",
-        "edid": "RadFrogLeg",
-        "sig": "ALCH",
-        "qty": 4,
-        "rate_value": 0.2,
-        "rate_display": "20%"
-       }
-      ]
-     }
-    ]
-   }
+   "note": "",
+   "items": [
+    {
+     "name": "Frog Egg",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    },
+    {
+     "name": "Frog Leg",
+     "qty": 4,
+     "rate_display": "20%",
+     "note": ""
+    }
+   ]
   },
   "collectrons": null,
   "resource_generators": null,
@@ -449,7 +406,8 @@
    "edid": "Burn_RE_Object_LD01",
    "name": "DANGER: FROG",
    "type": "Object Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/object-random-encounters/"
   }
  ],
  "regions": [

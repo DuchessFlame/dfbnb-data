@@ -11,61 +11,15 @@
  "map_base": "",
  "drop_rates": {
   "creatures": {
-   "note": "Every Chicken you kill drops Chicken Thigh (100%), Intestine (100%). Chicken: 21 variants, levels 1–65535, up to 2,000 HP.",
-   "drops": {
-    "lists": [
-     {
-      "edid": "LLD_Creature_Chicken",
-      "form_id": "00111969",
-      "row_count": 4,
-      "direct_items": 1,
-      "pool_count": 3,
-      "item_count": 3,
-      "rows": [
-       {
-        "kind": "item",
-        "name": "Chicken Thigh",
-        "form_id": "00111967",
-        "edid": "ChickenMeat",
-        "sig": "ALCH",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "Loot Critters Intestines",
-        "sub_id": "00477AF3",
-        "edid": "LLS_Loot_Critters_Intestines",
-        "item_count": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Intestine",
-          "rate_display": "100%"
-         }
-        ]
-       },
-       {
-        "kind": "pool",
-        "name": "Loot Critters Intestines",
-        "sub_id": "00477AF3",
-        "edid": "LLS_Loot_Critters_Intestines",
-        "item_count": 1,
-        "rate_value": 0.6,
-        "rate_display": "60%",
-        "top_items": [
-         {
-          "name": "Intestine",
-          "rate_display": "100%"
-         }
-        ]
-       }
-      ]
-     }
-    ]
-   }
+   "note": "",
+   "items": [
+    {
+     "name": "Chicken Thigh",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    }
+   ]
   },
   "collectrons": null,
   "resource_generators": {
@@ -655,7 +609,8 @@
    "edid": "W05_RE_TravelBB02",
    "name": "Chased by Chickens",
    "type": "Travel Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/travel-random-encounters/"
   }
  ],
  "regions": [

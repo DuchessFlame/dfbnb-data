@@ -11,61 +11,15 @@
  "map_base": "",
  "drop_rates": {
   "creatures": {
-   "note": "Every Squirrel you kill drops Intestine (100%), Squirrel Bits (100%). Squirrel: 5 variants, level 1, up to 5 HP.",
-   "drops": {
-    "lists": [
-     {
-      "edid": "LLD_Creature_RadSquirrel",
-      "form_id": "00382264",
-      "row_count": 4,
-      "direct_items": 1,
-      "pool_count": 3,
-      "item_count": 3,
-      "rows": [
-       {
-        "kind": "pool",
-        "name": "Loot Critters Intestines",
-        "sub_id": "00477AF3",
-        "edid": "LLS_Loot_Critters_Intestines",
-        "item_count": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Intestine",
-          "rate_display": "100%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Squirrel Bits",
-        "form_id": "000366BC",
-        "edid": "SquirrelMeat",
-        "sig": "ALCH",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "Loot Critters Intestines",
-        "sub_id": "00477AF3",
-        "edid": "LLS_Loot_Critters_Intestines",
-        "item_count": 1,
-        "rate_value": 0.6,
-        "rate_display": "60%",
-        "top_items": [
-         {
-          "name": "Intestine",
-          "rate_display": "100%"
-         }
-        ]
-       }
-      ]
-     }
-    ]
-   }
+   "note": "",
+   "items": [
+    {
+     "name": "Squirrel Bits",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    }
+   ]
   },
   "collectrons": {
    "entries": [
@@ -558,7 +512,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Fasnacht Sausage"
+    "how_to_obtain": "Known by default."
    },
    {
     "name": "Mystery Meat Pie",
@@ -650,7 +604,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Mystery Meat Pie"
+    "how_to_obtain": "Known by default."
    }
   ]
  },

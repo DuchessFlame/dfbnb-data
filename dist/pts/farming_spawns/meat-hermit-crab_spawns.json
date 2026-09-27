@@ -11,188 +11,15 @@
  "map_base": "",
  "drop_rates": {
   "creatures": {
-   "note": "Every Hermit Crab you kill drops Hermit Crab Meat (100%). Hermit Crab: 11 variants, levels 1–100, up to 2,250 HP.",
-   "drops": {
-    "lists": [
-     {
-      "edid": "LLD_Creature_HermitCrab",
-      "form_id": "001117C2",
-      "row_count": 4,
-      "direct_items": 1,
-      "pool_count": 3,
-      "item_count": 12678,
-      "rows": [
-       {
-        "kind": "pool",
-        "name": "Generic creature loot (very large)",
-        "sub_id": "003DF3DA",
-        "edid": "LLS_Creature_VeryLarge",
-        "item_count": 12636,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Ammo Grenade Launcher",
-          "rate_display": "40.18%"
-         },
-         {
-          "name": "Ammo2mm EC",
-          "rate_display": "22.32%"
-         },
-         {
-          "name": "Ammo38Caliber",
-          "rate_display": "22.32%"
-         },
-         {
-          "name": "Ammo45Caliber",
-          "rate_display": "22.32%"
-         },
-         {
-          "name": "Ammo10mm",
-          "rate_display": "22.32%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Hermit Crab Meat",
-        "form_id": "0011159C",
-        "edid": "HermitCrabMeat",
-        "sig": "ALCH",
-        "qty": 2,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "LLE Creature Caps Very Large",
-        "sub_id": "003DF3D7",
-        "edid": "LLE_Creature_Caps_VeryLarge",
-        "item_count": 40,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Caps",
-          "rate_display": "10%"
-         }
-        ]
-       },
-       {
-        "kind": "pool",
-        "name": "Meat Hermit Crab75",
-        "sub_id": "001117C3",
-        "edid": "LL_Meat_HermitCrab75",
-        "item_count": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Hermit Crab Meat",
-          "rate_display": "100%"
-         }
-        ]
-       }
-      ]
-     },
-     {
-      "edid": "LLD_Creature_ThunderCrab",
-      "form_id": "00773F9A",
-      "row_count": 5,
-      "direct_items": 1,
-      "pool_count": 4,
-      "item_count": 12681,
-      "rows": [
-       {
-        "kind": "pool",
-        "name": "Generic creature loot (very large)",
-        "sub_id": "003DF3DA",
-        "edid": "LLS_Creature_VeryLarge",
-        "item_count": 12636,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Ammo Grenade Launcher",
-          "rate_display": "40.18%"
-         },
-         {
-          "name": "Ammo2mm EC",
-          "rate_display": "22.32%"
-         },
-         {
-          "name": "Ammo38Caliber",
-          "rate_display": "22.32%"
-         },
-         {
-          "name": "Ammo45Caliber",
-          "rate_display": "22.32%"
-         },
-         {
-          "name": "Ammo10mm",
-          "rate_display": "22.32%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Hermit Crab Meat",
-        "form_id": "0011159C",
-        "edid": "HermitCrabMeat",
-        "sig": "ALCH",
-        "qty": 2,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "LLE Creature Caps Very Large",
-        "sub_id": "003DF3D7",
-        "edid": "LLE_Creature_Caps_VeryLarge",
-        "item_count": 40,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Caps",
-          "rate_display": "10%"
-         }
-        ]
-       },
-       {
-        "kind": "pool",
-        "name": "Meat Hermit Crab75",
-        "sub_id": "001117C3",
-        "edid": "LL_Meat_HermitCrab75",
-        "item_count": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Hermit Crab Meat",
-          "rate_display": "100%"
-         }
-        ]
-       },
-       {
-        "kind": "pool",
-        "name": "Scrap Ballistic Fiber",
-        "sub_id": "00432C9A",
-        "edid": "LLS_Scrap_BallisticFiber",
-        "item_count": 3,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Ballistic Fiber Scrap",
-          "rate_display": "33.33%"
-         }
-        ]
-       }
-      ]
-     }
-    ]
-   }
+   "note": "",
+   "items": [
+    {
+     "name": "Hermit Crab Meat",
+     "qty": 2,
+     "rate_display": "100%",
+     "note": ""
+    }
+   ]
   },
   "collectrons": null,
   "resource_generators": null,
@@ -730,7 +557,8 @@
    "edid": "RE_SceneKMK21_Nuke",
    "name": "Nuked: Hermit Crab",
    "type": "Scene Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/scene-random-encounters/"
   }
  ],
  "regions": [

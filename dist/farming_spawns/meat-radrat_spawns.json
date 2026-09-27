@@ -11,46 +11,15 @@
  "map_base": "",
  "drop_rates": {
   "creatures": {
-   "note": "Every Radrat you kill drops Radrat Meat (100%). Radrat: 15 variants, levels 1–56, up to 300 HP.",
-   "drops": {
-    "lists": [
-     {
-      "edid": "LLD_Creature_Radrat",
-      "form_id": "00112F03",
-      "row_count": 3,
-      "direct_items": 1,
-      "pool_count": 2,
-      "item_count": 2,
-      "rows": [
-       {
-        "kind": "item",
-        "name": "Radrat Meat",
-        "form_id": "00112F04",
-        "edid": "RadRatMeat",
-        "sig": "ALCH",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "Extra meat (Butcher's Bounty)",
-        "sub_id": "00114882",
-        "edid": "LLE_Creature_RadRat",
-        "item_count": 1,
-        "rate_value": 0.5,
-        "rate_display": "50%",
-        "top_items": [
-         {
-          "name": "Radrat Meat",
-          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
-         }
-        ]
-       }
-      ]
-     }
-    ]
-   }
+   "note": "",
+   "items": [
+    {
+     "name": "Radrat Meat",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    }
+   ]
   },
   "collectrons": null,
   "resource_generators": null,

@@ -18,76 +18,27 @@
  ],
  "drop_rates": {
   "creatures": {
-   "note": "Every Radstag you kill drops Radstag Meat (100%). Radstag: 20 variants, levels 1–40, up to 300 HP.",
-   "drops": {
-    "lists": [
-     {
-      "edid": "LLD_Creature_Radstag",
-      "form_id": "0008E3B5",
-      "row_count": 4,
-      "direct_items": 2,
-      "pool_count": 2,
-      "item_count": 3,
-      "rows": [
-       {
-        "kind": "item",
-        "name": "Radstag Hide",
-        "form_id": "0022B626",
-        "edid": "RadstagHide",
-        "sig": "MISC",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "item",
-        "name": "Radstag Meat",
-        "form_id": "0004A14F",
-        "edid": "RadstagMeat",
-        "sig": "ALCH",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "Extra meat (Butcher's Bounty)",
-        "sub_id": "0008E3B6",
-        "edid": "LLE_Creature_Radstag",
-        "item_count": 1,
-        "rate_value": 0.5,
-        "rate_display": "50%",
-        "top_items": [
-         {
-          "name": "Radstag Meat",
-          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
-         }
-        ]
-       }
-      ]
-     },
-     {
-      "edid": "E07A_Mothman_LLD_Creature_AlbinoRadStags",
-      "form_id": "0079B4F0",
-      "row_count": 1,
-      "direct_items": 1,
-      "pool_count": 0,
-      "item_count": 1,
-      "rows": [
-       {
-        "kind": "item",
-        "name": "Albino Radstag Blood",
-        "form_id": "0061D14C",
-        "edid": "E07A_Mothman_Blood_MiscItem",
-        "sig": "MISC",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       }
-      ]
-     }
-    ]
-   }
+   "note": "",
+   "items": [
+    {
+     "name": "Radstag Hide",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    },
+    {
+     "name": "Radstag Meat",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    },
+    {
+     "name": "Albino Radstag Blood",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": "only drops during The Mothman Equinox"
+    }
+   ]
   },
   "collectrons": {
    "entries": [
@@ -551,7 +502,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Fried Deerskins"
+    "how_to_obtain": "Learned from a cookbook terminal (RSVP questline)."
    },
    {
     "name": "Grilled Radstag",
@@ -713,7 +664,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Radstag Stew"
+    "how_to_obtain": "Known by default."
    },
    {
     "name": "Seared Venison With Berries",
@@ -796,7 +747,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Seared Venison With Berries"
+    "how_to_obtain": "Known by default."
    }
   ]
  },
@@ -1413,14 +1364,16 @@
    "edid": "W05_RE_SceneAF01",
    "name": "Radstag Hunter",
    "type": "Scene Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/scene-random-encounters/"
   },
   {
    "form_id": "00460611",
    "edid": "RE_SceneDWD07",
    "name": "Sheepsquatch vs Albino Radstags",
    "type": "Scene Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/scene-random-encounters/"
   }
  ],
  "regions": [

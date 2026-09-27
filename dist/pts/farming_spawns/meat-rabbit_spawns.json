@@ -11,71 +11,21 @@
  "map_base": "",
  "drop_rates": {
   "creatures": {
-   "note": "Every Rabbit you kill drops Intestine (100%), Rabbit Leg (100%). Rabbit: 5 variants, level 1, up to 10 HP.",
-   "drops": {
-    "lists": [
-     {
-      "edid": "LLD_Creature_Rabbit",
-      "form_id": "00111968",
-      "row_count": 5,
-      "direct_items": 2,
-      "pool_count": 3,
-      "item_count": 4,
-      "rows": [
-       {
-        "kind": "pool",
-        "name": "Loot Critters Intestines",
-        "sub_id": "00477AF3",
-        "edid": "LLS_Loot_Critters_Intestines",
-        "item_count": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Intestine",
-          "rate_display": "100%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Rabbit Leg",
-        "form_id": "00111966",
-        "edid": "RabbitMeat",
-        "sig": "ALCH",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "Loot Critters Intestines",
-        "sub_id": "00477AF3",
-        "edid": "LLS_Loot_Critters_Intestines",
-        "item_count": 1,
-        "rate_value": 0.6,
-        "rate_display": "60%",
-        "top_items": [
-         {
-          "name": "Intestine",
-          "rate_display": "100%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Rabbit Hide",
-        "form_id": "004FE51F",
-        "edid": "RabbitHide",
-        "sig": "MISC",
-        "qty": 1,
-        "rate_value": 0.5,
-        "rate_display": "50%"
-       }
-      ]
-     }
-    ]
-   }
+   "note": "",
+   "items": [
+    {
+     "name": "Rabbit Leg",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    },
+    {
+     "name": "Rabbit Hide",
+     "qty": 1,
+     "rate_display": "50%",
+     "note": ""
+    }
+   ]
   },
   "collectrons": null,
   "resource_generators": null,
@@ -383,7 +333,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Fasnacht Sausage"
+    "how_to_obtain": "Known by default."
    },
    {
     "name": "Mystery Meat Pie",
@@ -475,7 +425,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Mystery Meat Pie"
+    "how_to_obtain": "Known by default."
    }
   ]
  },

@@ -11,72 +11,21 @@
  "map_base": "",
  "drop_rates": {
   "creatures": {
-   "note": "Every Brahmin you kill drops Brahmin Meat (100%). Brahmin: 46 variants, levels 1–50, up to 3,700 HP.",
-   "drops": {
-    "lists": [
-     {
-      "edid": "LLD_Creature_Brahmin",
-      "form_id": "0008E3AB",
-      "row_count": 3,
-      "direct_items": 2,
-      "pool_count": 1,
-      "item_count": 1702,
-      "rows": [
-       {
-        "kind": "item",
-        "name": "Brahmin Hide",
-        "form_id": "0022B623",
-        "edid": "BrahminHide",
-        "sig": "MISC",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "item",
-        "name": "Brahmin Meat",
-        "form_id": "0004A13F",
-        "edid": "BrahminMeat",
-        "sig": "ALCH",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "Extra meat (Butcher's Bounty)",
-        "sub_id": "0008E3AC",
-        "edid": "LLE_Creature_Brahmin",
-        "item_count": 1700,
-        "rate_value": 0.5,
-        "rate_display": "50%",
-        "top_items": [
-         {
-          "name": "Disease Cure",
-          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
-         },
-         {
-          "name": "Cutting Fluid",
-          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
-         },
-         {
-          "name": "Vegetable Starch",
-          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
-         },
-         {
-          "name": "Hard Hat",
-          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
-         },
-         {
-          "name": "Blood Pack",
-          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
-         }
-        ]
-       }
-      ]
-     }
-    ]
-   }
+   "note": "",
+   "items": [
+    {
+     "name": "Brahmin Hide",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    },
+    {
+     "name": "Brahmin Meat",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    }
+   ]
   },
   "collectrons": null,
   "resource_generators": {
@@ -459,7 +408,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Delbert's Appalachili"
+    "how_to_obtain": "Learned from a cookbook terminal (RSVP questline)."
    },
    {
     "name": "Brahmin Burgers",
@@ -521,7 +470,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Brahmin Burgers"
+    "how_to_obtain": "Known by default."
    },
    {
     "name": "Headhunter's Headcheese",
@@ -609,7 +558,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Headhunter's Headcheese"
+    "how_to_obtain": "Plan/Note: WL046_Note_HeadhuntersHeadcheese"
    },
    {
     "name": "Nuka-Bottle Dog",
@@ -682,7 +631,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Nuka-Dog"
+    "how_to_obtain": "Known by default."
    },
    {
     "name": "Nuka-Dog",
@@ -755,7 +704,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Nuka-Dog"
+    "how_to_obtain": "Known by default."
    },
    {
     "name": "Ribeye Steak",
@@ -897,35 +846,40 @@
    "edid": "RE_ObjectDWD03",
    "name": "Brahmin Quill Attack",
    "type": "Object Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/object-random-encounters/"
   },
   {
    "form_id": "00454C49",
    "edid": "RE_SceneCMB02",
    "name": "Brahmin Wrangler",
    "type": "Scene Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/scene-random-encounters/"
   },
   {
    "form_id": "0052E47D",
    "edid": "RE_SceneMJP01",
    "name": "Dead Brahmin Herd",
    "type": "Scene Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/scene-random-encounters/"
   },
   {
    "form_id": "0061DADA",
    "edid": "RE_Travel_Zetan_04",
    "name": "Flaming Brahmin",
    "type": "Travel Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/travel-random-encounters/"
   },
   {
    "form_id": "0052E49C",
    "edid": "RE_SceneMD02",
    "name": "Wolves and dead brahmin",
    "type": "Scene Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/scene-random-encounters/"
   }
  ],
  "regions": [

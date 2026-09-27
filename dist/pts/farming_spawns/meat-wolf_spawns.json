@@ -11,92 +11,15 @@
  "map_base": "",
  "drop_rates": {
   "creatures": {
-   "note": "Every Wolf you kill drops Raw Wolf Meat (100%). Wolf: 28 variants, levels 10–100, up to 1,050 HP.",
-   "drops": {
-    "lists": [
-     {
-      "edid": "LLD_Creature_Wolf",
-      "form_id": "00110A49",
-      "row_count": 4,
-      "direct_items": 1,
-      "pool_count": 3,
-      "item_count": 1113,
-      "rows": [
-       {
-        "kind": "pool",
-        "name": "Generic creature loot (medium)",
-        "sub_id": "003DF3F8",
-        "edid": "LLS_Creature_Medium",
-        "item_count": 1106,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Ammo Grenade Launcher",
-          "rate_display": "38.48%"
-         },
-         {
-          "name": "Ammo2mm EC",
-          "rate_display": "21.38%"
-         },
-         {
-          "name": "Ammo38Caliber",
-          "rate_display": "21.38%"
-         },
-         {
-          "name": "Ammo45Caliber",
-          "rate_display": "21.38%"
-         },
-         {
-          "name": "Ammo10mm",
-          "rate_display": "21.38%"
-         }
-        ]
-       },
-       {
-        "kind": "pool",
-        "name": "PWMLoose 10",
-        "sub_id": "00126395",
-        "edid": "LLD_Creature_PWMLoose_10",
-        "item_count": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Pre-War Money",
-          "rate_display": "10%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Raw Wolf Meat",
-        "form_id": "00110A48",
-        "edid": "WolfMeat",
-        "sig": "ALCH",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "Wolf",
-        "sub_id": "003DF3CD",
-        "edid": "LLS_Creature_Wolf",
-        "item_count": 5,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Raw Wolf Meat",
-          "rate_display": "0%"
-         }
-        ]
-       }
-      ]
-     }
-    ]
-   }
+   "note": "",
+   "items": [
+    {
+     "name": "Raw Wolf Meat",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    }
+   ]
   },
   "collectrons": null,
   "resource_generators": {
@@ -436,7 +359,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Delbert's Traditional Chitlins"
+    "how_to_obtain": "Learned from a cookbook terminal (RSVP questline)."
    },
    {
     "name": "Wolf Ribs",

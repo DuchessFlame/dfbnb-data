@@ -168,6 +168,57 @@ def clean_drops(drops, lvli, bb_card):
     return out
 
 
+def _load_quest_names():
+    """Quest EDID -> display name, from the QUEST export ("Event: X" -> "X")."""
+    import csv
+    import tsv_source
+    csv.field_size_limit(10 ** 9)
+    out = {}
+    # Newest export by its name's date, through tsv_source (never by mtime).
+    path = tsv_source.newest("QUEST_Export_*.tsv", required=False)
+    if not path:
+        return out
+    with open(path, encoding="utf-8", errors="replace", newline="") as f:
+        r = csv.reader(f, delimiter="\t")
+        h = next(r)
+        ie, iname = h.index("EDID"), h.index("FULL - Name")
+        for row in r:
+            if len(row) > max(ie, iname):
+                name = re.sub(r"^Event:\s*", "", row[iname].strip())
+                if name and not name.startswith("["):
+                    out[row[ie].strip()] = name
+    return out
+
+
+def flat_drops(drops, quests):
+    """One flat list of what the creature drops — item + % — with no pools and
+    no per-list headings. A drop from an event-only death list (its EDID starts
+    with the event quest's EDID, e.g. E07A_Mothman_LLD_...) carries a note naming
+    the event, read from the QUEST export."""
+    out, seen = [], {}
+    for lst in (drops or {}).get("lists", []):
+        edid = lst.get("edid") or ""
+        note = ""
+        m = re.match(r"^(.*?)_LLD_", edid)
+        if m:
+            parts = m.group(1).split("_")
+            for i in range(len(parts), 0, -1):
+                q = quests.get("_".join(parts[:i]))
+                if q:
+                    note = f"only drops during {q}"
+                    break
+        for r in lst.get("rows", []):
+            if r.get("kind") != "item":
+                continue
+            key = (r.get("name"), note)
+            if key in seen:
+                continue
+            seen[key] = True
+            out.append({"name": r.get("name"), "qty": r.get("qty") or 1,
+                        "rate_display": r.get("rate_display", ""), "note": note})
+    return out
+
+
 # ── Fixed spawns ────────────────────────────────────────────────────────────
 def _existing_slots(path):
     """{ref: {image_top, directions, image_bottom}} from the last build, so
@@ -333,11 +384,10 @@ def build_one(meat_path, ctx):
         bits.append(f"up to {s['health_max']:,} HP")
     yields = ", ".join(f"{m['name']} ({m['rate_display']})" if m.get("rate_display")
                        else m["name"] for m in meats)
+    # Just the drop line — the variant / level / HP summary was dropped on request.
     note = f"Every {creature} you kill drops {yields}."
-    if bits:
-        note += f" {creature}: " + ", ".join(bits) + "."
     doc["drop_rates"] = collections.OrderedDict([
-        ("creatures", {"note": note, "drops": drops}),
+        ("creatures", {"note": "", "items": flat_drops(drops, ctx["quests"])}),
         ("collectrons", None),
         ("resource_generators", None),
     ])
@@ -411,6 +461,7 @@ def load_ctx():
         "cont_names": B._load_cont_names(TSV),
         "vendors": B._load_vendor_master(DIST),
         "maps_live": _maps_live(),
+        "quests": _load_quest_names(),
     }
 
 

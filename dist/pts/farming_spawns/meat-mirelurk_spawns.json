@@ -11,162 +11,15 @@
  "map_base": "",
  "drop_rates": {
   "creatures": {
-   "note": "Every Mirelurk you kill drops Mirelurk Meat (100%), Softshell Mirelurk Meat (31.46%). Mirelurk: 76 variants, levels 1–100, up to 4,500 HP.",
-   "drops": {
-    "lists": [
-     {
-      "edid": "LLD_Creature_MirelurkHunter",
-      "form_id": "003533D9",
-      "row_count": 4,
-      "direct_items": 1,
-      "pool_count": 3,
-      "item_count": 1180,
-      "rows": [
-       {
-        "kind": "pool",
-        "name": "Generic creature loot (medium)",
-        "sub_id": "003DF3F8",
-        "edid": "LLS_Creature_Medium",
-        "item_count": 1106,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Ammo Grenade Launcher",
-          "rate_display": "38.48%"
-         },
-         {
-          "name": "Ammo2mm EC",
-          "rate_display": "21.38%"
-         },
-         {
-          "name": "Ammo38Caliber",
-          "rate_display": "21.38%"
-         },
-         {
-          "name": "Ammo45Caliber",
-          "rate_display": "21.38%"
-         },
-         {
-          "name": "Ammo10mm",
-          "rate_display": "21.38%"
-         }
-        ]
-       },
-       {
-        "kind": "pool",
-        "name": "Mirelurk Hunter",
-        "sub_id": "003DF3F9",
-        "edid": "LLS_Creature_MirelurkHunter",
-        "item_count": 72,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Mirelurk Meat",
-          "rate_display": "8.33%"
-         },
-         {
-          "name": "Softshell Mirelurk Meat",
-          "rate_display": "2.08%"
-         },
-         {
-          "name": "Pre-War Money",
-          "rate_display": "0.83%"
-         },
-         {
-          "name": "Caps",
-          "rate_display": "0.46%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Mirelurk Meat",
-        "form_id": "000330FF",
-        "edid": "MirelurkMeat",
-        "sig": "ALCH",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "Mirelurk Softshell Meat 25",
-        "sub_id": "0002EF6A",
-        "edid": "LLS_Mirelurk_SoftshellMeat_25",
-        "item_count": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Softshell Mirelurk Meat",
-          "rate_display": "25%"
-         }
-        ]
-       }
-      ]
-     },
-     {
-      "edid": "LLD_Creature_Mirelurk",
-      "form_id": "0002EF69",
-      "row_count": 4,
-      "direct_items": 1,
-      "pool_count": 3,
-      "item_count": 50,
-      "rows": [
-       {
-        "kind": "pool",
-        "name": "Mirelurk",
-        "sub_id": "003533DF",
-        "edid": "LLS_Creature_Mirelurk",
-        "item_count": 48,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Mirelurk Meat",
-          "rate_display": "4.17%"
-         },
-         {
-          "name": "Softshell Mirelurk Meat",
-          "rate_display": "1.04%"
-         },
-         {
-          "name": "Caps",
-          "rate_display": "0.69%"
-         }
-        ]
-       },
-       {
-        "kind": "item",
-        "name": "Mirelurk Meat",
-        "form_id": "000330FF",
-        "edid": "MirelurkMeat",
-        "sig": "ALCH",
-        "qty": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%"
-       },
-       {
-        "kind": "pool",
-        "name": "Mirelurk Softshell Meat 25",
-        "sub_id": "0002EF6A",
-        "edid": "LLS_Mirelurk_SoftshellMeat_25",
-        "item_count": 1,
-        "rate_value": 1.0,
-        "rate_display": "100%",
-        "top_items": [
-         {
-          "name": "Softshell Mirelurk Meat",
-          "rate_display": "25%"
-         }
-        ]
-       }
-      ]
-     }
-    ]
-   }
+   "note": "",
+   "items": [
+    {
+     "name": "Mirelurk Meat",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    }
+   ]
   },
   "collectrons": {
    "entries": [
@@ -666,7 +519,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Larry's Lowcountry Mirelurk Boil"
+    "how_to_obtain": "Plan/Note: WL046_Note_MirelurkBoil"
    },
    {
     "name": "Mirelurk Cake",
@@ -748,7 +601,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Mirelurk Cake"
+    "how_to_obtain": "Known by default."
    },
    {
     "name": "Mirelurk Cake With Bloodleaf Aioli",
@@ -842,7 +695,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Mirelurk Cake With Bloodleaf Aioli"
+    "how_to_obtain": "Known by default."
    },
    {
     "name": "Mirelurk Jerky",
@@ -924,7 +777,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Mirelurk Jerky"
+    "how_to_obtain": "Known by default."
    },
    {
     "name": "Roasted Mirelurk Meat",
@@ -1087,7 +940,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Smoked Mirelurk Fillets"
+    "how_to_obtain": "Known by default."
    }
   ]
  },
@@ -1741,35 +1594,40 @@
    "edid": "RE_AssaultMP08",
    "name": "Gulpers vs. Mirelurks",
    "type": "Assault Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
   },
   {
    "form_id": "0056A0BE",
    "edid": "W05_RE_AssaultZW07",
    "name": "Mirelurks v Settlers",
    "type": "Assault Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
   },
   {
    "form_id": "003D7873",
    "edid": "RE_TravelMP04",
    "name": "Mirelurks vs. Gulpers",
    "type": "Travel Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/travel-random-encounters/"
   },
   {
    "form_id": "004FC063",
    "edid": "RE_AssaultKMK07",
    "name": "Mirelurks vs. Scorched",
    "type": "Assault Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
   },
   {
    "form_id": "004FC068",
    "edid": "RE_AssaultKMK12",
    "name": "Mirelurks vs. Super Mutants",
    "type": "Assault Encounters",
-   "location": ""
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
   }
  ],
  "regions": [
