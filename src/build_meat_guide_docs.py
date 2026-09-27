@@ -370,6 +370,18 @@ def build_one(meat_path, ctx):
     # inside an interior cell has no region tile, and its link would 404.
     if slug in ctx["maps_live"]:
         doc["map_regions"] = ctx["maps_live"][slug]
+        # 4K download + bottom-of-page gallery (art, interior cell maps) —
+        # data/meat_guide_extras.json. Same live gate as the tiles, so nothing 404s.
+        ex = ctx.get("extras", {}).get(slug) or {}
+        if ex.get("map_ext"):
+            doc["map_ext"] = ex["map_ext"]
+        if ex.get("full_map"):
+            doc["full_map"] = doc["map_base"] + ex["full_map"]
+        if ex.get("gallery"):
+            doc["gallery"] = [dict({"url": doc["map_base"] + g["file"],
+                                    "caption": g.get("caption", "")},
+                                   **({"credit": g["credit"]} if g.get("credit") else {}))
+                              for g in ex["gallery"] if g.get("file")]
 
     bb = (tips or {}).get("perk_cards", {}).get("butchers_bounty")
     drops = clean_drops(md.get("drops"), ctx["lvli"], bb)
@@ -461,8 +473,18 @@ def load_ctx():
         "cont_names": B._load_cont_names(TSV),
         "vendors": B._load_vendor_master(DIST),
         "maps_live": _maps_live(),
+        "extras": _extras(),
         "quests": _load_quest_names(),
     }
+
+
+def _extras():
+    """{slug: {full_map, gallery[]}} from data/meat_guide_extras.json."""
+    path = os.path.join(REPO, "data", "meat_guide_extras.json")
+    if not os.path.exists(path):
+        return {}
+    d = json.load(open(path, encoding="utf-8"))
+    return {k: v for k, v in d.items() if not k.startswith("_")}
 
 
 def _maps_live():
