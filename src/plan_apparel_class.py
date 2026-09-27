@@ -160,7 +160,13 @@ def attach(items):
     moved_ids = {id(i) for i in moved}
     for it in items:
         if it.get("reclassified_from") and id(it) not in moved_ids:
-            it["image_dir"] = it.pop("reclassified_from")
+            origin = it.pop("reclassified_from")
+            # Only undo a move this module made. A row that plan_images has
+            # since routed somewhere else entirely (a Legacy Nuclear Winter
+            # plan, say) just loses the stale marker — sending it back to
+            # body-armour would pull it off its own page.
+            if (it.get("image_dir") or "") == TO_FOLDER:
+                it["image_dir"] = origin
 
     return {"source": source, "moved": len(moved), "kept": len(kept),
             "names": sorted(i["name"] for i in moved),

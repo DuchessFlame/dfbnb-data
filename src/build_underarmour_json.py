@@ -378,6 +378,13 @@ def main(argv=None):
                          (it.get("cnam") or {}).get("edid") or ""])
 
     candidates = [it for it in master.get("items", []) if RX_UA.search(blob_of(it))]
+    # Legacy Nuclear Winter underarmour (the NW Tracksuit, Survivors Denim) lives
+    # on /legacy-nuclear-winter-plans/ — one plan, one page, so it is not
+    # listed here too. legacy_nw.py sets the flag during the plan_master build.
+    nw = [it.get("name") for it in candidates if it.get("legacy_nw")]
+    candidates = [it for it in candidates if not it.get("legacy_nw")]
+    if nw:
+        print(f"[underarmour] {len(nw)} Legacy Nuclear Winter plan(s) left to that page: {', '.join(nw)}")
     roster, not_ua = [], []
     for it in candidates:
         if RX_NOT_UA_CREATED.search(created_blob(it)):

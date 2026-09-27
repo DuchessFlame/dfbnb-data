@@ -83,6 +83,37 @@ SCHEMA = 2   # 1 -> 2: every page listed, multi-folder select, `when`, `grouping
 # rest — so Recipe is listed first.
 
 SUBPAGES = {
+    "legacy-nuclear-winter-plans": {
+        "title": "Legacy Nuclear Winter",
+        # Claimed by what the plan WAS, not what it builds: legacy_nw.py tags
+        # every plan for a Nuclear Winter reward, and plan_images.page_folder()
+        # sends a tagged row to this folder before any other rule runs. So these
+        # plans leave the Weapon / Apparel / Power Armour / CAMP pages they
+        # would otherwise sit on — one plan, one page.
+        "folder": "legacy-nuclear-winter",
+        "groups": [
+            ["power-armour", "Power Armour Paints",
+             "Full power armour paint sets.",
+             r"PowerArmor"],
+            ["armour-paint", "Armour Paints",
+             "Paints for regular armour sets.",
+             r"mod_(armou?r|Combat|MetalArmou?r)_"],
+            ["weapon-paint", "Weapon Paints & Skins",
+             "Paints and skins for guns, melee weapons and bows.",
+             r"mod_"],
+            ["apparel", "Apparel",
+             "Outfits, headwear and underarmour.",
+             r"Headwear|Clothes|Underarmou?r|TrackSuit"],
+            ["camp", "C.A.M.P.",
+             "Stash boxes, decorations and furniture.",
+             r"."],
+        ],
+        "skip": [],
+        "note": ["Retired mode.",
+                 "Nuclear Winter closed in September 2021. These are the plans Bethesda "
+                 "added afterwards so its rewards can still be learned in Adventure. "
+                 "Each row says how the item was first earned in Nuclear Winter."],
+    },
     "fishing-rod": {
         "title": "Fishing Rod",
         "folder": "fishing-rod",
