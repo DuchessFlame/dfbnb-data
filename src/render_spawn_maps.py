@@ -341,6 +341,11 @@ SOURCES = {
     "plants":   lambda slug: (
         os.path.join(REPO, "dist", "plants", f"{slug}.json"),
         os.path.join(REPO, "data", "plant_spawns", f"{slug}.json")),
+    # DF Score Challenges enemy pages (src/build_npc_spawn_guides.py). Farming-shaped
+    # doc (shape A) keyed npc-<slug>; one geo cache per page, keyed `<page>:<inst>`.
+    "npc":      lambda slug: (
+        os.path.join(REPO, "dist", "farming_spawns", f"npc-{slug}_spawns.json"),
+        os.path.join(REPO, "data", "npc_spawns", "geo", f"{slug}.json")),
     "insects":  lambda slug: (
         os.path.join(REPO, "dist", "insects", f"{slug}.json"),
         os.path.join(REPO, "data", "insect_spawns", f"{slug}.json")),
