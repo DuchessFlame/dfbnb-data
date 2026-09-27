@@ -1,0 +1,723 @@
+{
+ "_meta": {
+  "generated": "2026-09-27",
+  "source": "dist/meat/pheasant.json + farming pipeline (src/build_meat_guide_docs.py)"
+ },
+ "set": "meat",
+ "slug": "meat-pheasant",
+ "name": "Intestine",
+ "page_title": "Pheasant Location Guide",
+ "blurb": "The Pheasant in Fallout 76 — drops Intestine, 6 NPC variants, 12 known spawn points.",
+ "map_base": "",
+ "drop_rates": {
+  "creatures": {
+   "note": "Every Pheasant you kill drops Intestine (100%). Pheasant: 6 variants, level 1, up to 350 HP.",
+   "drops": {
+    "lists": [
+     {
+      "edid": "LLD_Creature_Pheasant",
+      "form_id": "0074E6BF",
+      "row_count": 3,
+      "direct_items": 0,
+      "pool_count": 3,
+      "item_count": 2,
+      "rows": [
+       {
+        "kind": "pool",
+        "name": "Loot Critters Intestines",
+        "sub_id": "00477AF3",
+        "edid": "LLS_Loot_Critters_Intestines",
+        "item_count": 1,
+        "rate_value": 1.0,
+        "rate_display": "100%",
+        "top_items": [
+         {
+          "name": "Intestine",
+          "rate_display": "100%"
+         }
+        ]
+       },
+       {
+        "kind": "pool",
+        "name": "Loot Critters Intestines",
+        "sub_id": "00477AF3",
+        "edid": "LLS_Loot_Critters_Intestines",
+        "item_count": 1,
+        "rate_value": 0.6,
+        "rate_display": "60%",
+        "top_items": [
+         {
+          "name": "Intestine",
+          "rate_display": "100%"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "collectrons": null,
+  "resource_generators": null,
+  "containers": {
+   "types": []
+  }
+ },
+ "farming_tips": {
+  "spawn_note": "Intestine comes from killing Pheasants and looting the body.",
+  "spoils": true,
+  "spoil_duration_hours": null,
+  "base_weight": 0.5,
+  "object_type": "Food",
+  "yield_perk": "butchers_bounty",
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.28
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.05
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.05,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.3
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.1
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.05
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": true,
+  "perk_cards": {
+   "butchers_bounty": {
+    "name": "Butcher's Bounty",
+    "special": "Perception",
+    "min_level": 3,
+    "rank_count": 3,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "40% chance to find extra meat from animal corpses.",
+      "percent": "40%"
+     },
+     {
+      "rank": 2,
+      "desc": "60% chance to find extra meat from animal corpses.",
+      "percent": "60%"
+     },
+     {
+      "rank": 3,
+      "desc": "80% chance to find extra meat from animal corpses.",
+      "percent": "80%"
+     }
+    ]
+   },
+   "thru_hiker": {
+    "name": "Thru-Hiker",
+    "special": "Endurance",
+    "min_level": 7,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "Food and drink weights are reduced by 45%.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "desc": "Food and drink weights are reduced by 90%.",
+      "percent": "90%"
+     }
+    ]
+   },
+   "good_with_salt": {
+    "name": "Good With Salt",
+    "special": "Intelligence",
+    "min_level": 9,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "reduction": "45%",
+      "desc": "Food in your inventory will spoil 45% slower.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "reduction": "90%"
+     }
+    ]
+   }
+  },
+  "refrigerated": {
+   "name": "Refrigerated Backpack",
+   "reduction": "50%",
+   "stacks_with_good_with_salt": false
+  }
+ },
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.5,
+   "value": 8,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": true,
+   "note": "Intestine is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Disease Chance",
+     "display": "3% chance to catch a disease",
+     "duration": null,
+     "label": "Disease Chance",
+     "value": 3.0,
+     "unit": "percent",
+     "scales": false,
+     "zeroed": true,
+     "sign": false
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (720/12 min)",
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 720.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Rads",
+     "display": "+15 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 15.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
+    }
+   ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
+  },
+  "challenges": [],
+  "recipes": [
+   {
+    "name": "Fasnacht Sausage",
+    "form_id": "003EEA45",
+    "recipe_edid": "co_meal_Sausage_Fasnacht",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 2
+     },
+     {
+      "name": "Spices",
+      "qty": 1
+     },
+     {
+      "name": "Spoiled Meat",
+      "qty": 2
+     },
+     {
+      "name": "Tick Blood",
+      "qty": 1,
+      "url": "/bnb/farming/non-perishable/tick-blood/"
+     },
+     {
+      "name": "Intestine",
+      "qty": 1,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 30 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 30.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Health",
+      "display": "+40 Fortify Health",
+      "duration": "30 min",
+      "label": "Health",
+      "value": 40.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1440/24 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1440.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+2 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Recipe: Fasnacht Sausage"
+   },
+   {
+    "name": "Mystery Meat Pie",
+    "form_id": "0040FC27",
+    "recipe_edid": "P01B_co_meal_MysteryMeatPie",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 2,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Toxic Water",
+      "qty": 1
+     },
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Spices",
+      "qty": 1
+     },
+     {
+      "name": "Spoiled Meat",
+      "qty": 2
+     },
+     {
+      "name": "Intestine",
+      "qty": 2,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 60 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 60.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Carry Weight",
+      "display": "+20 Fortify Carry Weight",
+      "duration": "30 min",
+      "label": "Carry Weight",
+      "value": 20.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Fortify Endurance",
+      "display": "+3 Fortify Endurance",
+      "duration": "30 min",
+      "label": "Endurance",
+      "value": 3.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1080/18 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1080.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+2 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Recipe: Mystery Meat Pie"
+   }
+  ]
+ },
+ "vendor_list": [
+  {
+   "name": "Wandering Doctor",
+   "marker": "Vault 76",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  }
+ ],
+ "events_activities": [],
+ "random_encounters": [],
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": []
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": []
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": []
+  },
+  {
+   "region": "Forest",
+   "locations": []
+  },
+  {
+   "region": "Savage Divide",
+   "locations": []
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": [
+    {
+     "marker": "Naked Creek",
+     "count": 8,
+     "sources": {
+      "placement": 8
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "7338D3",
+      "75DDE3",
+      "75DDE4",
+      "75DDE5",
+      "788C5F",
+      "788C61",
+      "788C62",
+      "788C63"
+     ],
+     "coords": [
+      -32301.3,
+      -236411.3
+     ],
+     "breakdown": [
+      {
+       "label": "Pheasant",
+       "count": 8,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Pheasant #1",
+       "ref": "7338D3",
+       "source_type": "placement",
+       "coords": [
+        -33532.3,
+        -236230.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Pheasant #2",
+       "ref": "75DDE3",
+       "source_type": "placement",
+       "coords": [
+        -20368.8,
+        -248320.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Pheasant #3",
+       "ref": "75DDE4",
+       "source_type": "placement",
+       "coords": [
+        -20215.3,
+        -247414.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Pheasant #4",
+       "ref": "75DDE5",
+       "source_type": "placement",
+       "coords": [
+        -20104.5,
+        -248170.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Pheasant #5",
+       "ref": "788C5F",
+       "source_type": "placement",
+       "coords": [
+        -32301.3,
+        -236411.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Pheasant #6",
+       "ref": "788C61",
+       "source_type": "placement",
+       "coords": [
+        -31949.9,
+        -236758.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Pheasant #7",
+       "ref": "788C62",
+       "source_type": "placement",
+       "coords": [
+        -32990.9,
+        -236702.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Pheasant #8",
+       "ref": "788C63",
+       "source_type": "placement",
+       "coords": [
+        -31218.1,
+        -236421.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Research Site Bavaria",
+     "count": 4,
+     "sources": {
+      "placement": 4
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "76AA24",
+      "76AA25",
+      "76AA26",
+      "76AA27"
+     ],
+     "coords": [
+      82389.8,
+      -232450.3
+     ],
+     "breakdown": [
+      {
+       "label": "Pheasant",
+       "count": 4,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Pheasant #1",
+       "ref": "76AA24",
+       "source_type": "placement",
+       "coords": [
+        82389.8,
+        -232450.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Pheasant #2",
+       "ref": "76AA25",
+       "source_type": "placement",
+       "coords": [
+        82083.5,
+        -232630.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Pheasant #3",
+       "ref": "76AA26",
+       "source_type": "placement",
+       "coords": [
+        82154.9,
+        -232016.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Pheasant #4",
+       "ref": "76AA27",
+       "source_type": "placement",
+       "coords": [
+        82409.2,
+        -232243.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Mire",
+   "locations": []
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": []
+  }
+ ],
+ "chance_spawns": {
+  "regions": [],
+  "total_markers": 0,
+  "total": 0,
+  "no_maps": true
+ },
+ "breakdown_lead": "Spawns here:",
+ "treasure_maps": {
+  "maps": []
+ }
+}

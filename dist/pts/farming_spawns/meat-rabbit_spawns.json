@@ -1,0 +1,1083 @@
+{
+ "_meta": {
+  "generated": "2026-09-27",
+  "source": "dist/meat/rabbit.json + farming pipeline (src/build_meat_guide_docs.py)"
+ },
+ "set": "meat",
+ "slug": "meat-rabbit",
+ "name": "Intestine",
+ "page_title": "Rabbit Location Guide",
+ "blurb": "The Rabbit in Fallout 76 — drops Intestine, Rabbit Leg, 5 NPC variants, 13 known spawn points.",
+ "map_base": "",
+ "drop_rates": {
+  "creatures": {
+   "note": "Every Rabbit you kill drops Intestine (100%), Rabbit Leg (100%). Rabbit: 5 variants, level 1, up to 10 HP.",
+   "drops": {
+    "lists": [
+     {
+      "edid": "LLD_Creature_Rabbit",
+      "form_id": "00111968",
+      "row_count": 5,
+      "direct_items": 2,
+      "pool_count": 3,
+      "item_count": 4,
+      "rows": [
+       {
+        "kind": "pool",
+        "name": "Loot Critters Intestines",
+        "sub_id": "00477AF3",
+        "edid": "LLS_Loot_Critters_Intestines",
+        "item_count": 1,
+        "rate_value": 1.0,
+        "rate_display": "100%",
+        "top_items": [
+         {
+          "name": "Intestine",
+          "rate_display": "100%"
+         }
+        ]
+       },
+       {
+        "kind": "item",
+        "name": "Rabbit Leg",
+        "form_id": "00111966",
+        "edid": "RabbitMeat",
+        "sig": "ALCH",
+        "qty": 1,
+        "rate_value": 1.0,
+        "rate_display": "100%"
+       },
+       {
+        "kind": "pool",
+        "name": "Loot Critters Intestines",
+        "sub_id": "00477AF3",
+        "edid": "LLS_Loot_Critters_Intestines",
+        "item_count": 1,
+        "rate_value": 0.6,
+        "rate_display": "60%",
+        "top_items": [
+         {
+          "name": "Intestine",
+          "rate_display": "100%"
+         }
+        ]
+       },
+       {
+        "kind": "item",
+        "name": "Rabbit Hide",
+        "form_id": "004FE51F",
+        "edid": "RabbitHide",
+        "sig": "MISC",
+        "qty": 1,
+        "rate_value": 0.5,
+        "rate_display": "50%"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "collectrons": null,
+  "resource_generators": null,
+  "containers": {
+   "types": [
+    {
+     "name": "Meat Pile",
+     "rate": 0.008823529411764707,
+     "rate_display": "0.88%"
+    }
+   ]
+  }
+ },
+ "farming_tips": {
+  "spawn_note": "Intestine comes from killing Rabbits and looting the body.",
+  "spoils": true,
+  "spoil_duration_hours": null,
+  "base_weight": 0.5,
+  "object_type": "Food",
+  "yield_perk": "butchers_bounty",
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.28
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.05
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.05,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.3
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.1
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.05
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": true,
+  "perk_cards": {
+   "butchers_bounty": {
+    "name": "Butcher's Bounty",
+    "special": "Perception",
+    "min_level": 3,
+    "rank_count": 3,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "40% chance to find extra meat from animal corpses.",
+      "percent": "40%"
+     },
+     {
+      "rank": 2,
+      "desc": "60% chance to find extra meat from animal corpses.",
+      "percent": "60%"
+     },
+     {
+      "rank": 3,
+      "desc": "80% chance to find extra meat from animal corpses.",
+      "percent": "80%"
+     }
+    ]
+   },
+   "thru_hiker": {
+    "name": "Thru-Hiker",
+    "special": "Endurance",
+    "min_level": 7,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "Food and drink weights are reduced by 45%.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "desc": "Food and drink weights are reduced by 90%.",
+      "percent": "90%"
+     }
+    ]
+   },
+   "good_with_salt": {
+    "name": "Good With Salt",
+    "special": "Intelligence",
+    "min_level": 9,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "reduction": "45%",
+      "desc": "Food in your inventory will spoil 45% slower.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "reduction": "90%"
+     }
+    ]
+   }
+  },
+  "refrigerated": {
+   "name": "Refrigerated Backpack",
+   "reduction": "50%",
+   "stacks_with_good_with_salt": false
+  }
+ },
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.5,
+   "value": 8,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": true,
+   "note": "Intestine is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Disease Chance",
+     "display": "3% chance to catch a disease",
+     "duration": null,
+     "label": "Disease Chance",
+     "value": 3.0,
+     "unit": "percent",
+     "scales": false,
+     "zeroed": true,
+     "sign": false
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (720/12 min)",
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 720.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Rads",
+     "display": "+15 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 15.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
+    }
+   ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
+  },
+  "challenges": [
+   {
+    "type": "Daily",
+    "name": "Hunt Rabbits",
+    "required": 2,
+    "edid": "SCORE_Challenge_Daily_Kill_Rabbits_Easter",
+    "page": "daily"
+   }
+  ],
+  "recipes": [
+   {
+    "name": "Fasnacht Sausage",
+    "form_id": "003EEA45",
+    "recipe_edid": "co_meal_Sausage_Fasnacht",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 2
+     },
+     {
+      "name": "Spices",
+      "qty": 1
+     },
+     {
+      "name": "Spoiled Meat",
+      "qty": 2
+     },
+     {
+      "name": "Tick Blood",
+      "qty": 1,
+      "url": "/bnb/farming/non-perishable/tick-blood/"
+     },
+     {
+      "name": "Intestine",
+      "qty": 1,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 30 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 30.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Health",
+      "display": "+40 Fortify Health",
+      "duration": "30 min",
+      "label": "Health",
+      "value": 40.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1440/24 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1440.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+2 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Recipe: Fasnacht Sausage"
+   },
+   {
+    "name": "Mystery Meat Pie",
+    "form_id": "0040FC27",
+    "recipe_edid": "P01B_co_meal_MysteryMeatPie",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 2,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Toxic Water",
+      "qty": 1
+     },
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Spices",
+      "qty": 1
+     },
+     {
+      "name": "Spoiled Meat",
+      "qty": 2
+     },
+     {
+      "name": "Intestine",
+      "qty": 2,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 60 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 60.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Carry Weight",
+      "display": "+20 Fortify Carry Weight",
+      "duration": "30 min",
+      "label": "Carry Weight",
+      "value": 20.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Fortify Endurance",
+      "display": "+3 Fortify Endurance",
+      "duration": "30 min",
+      "label": "Endurance",
+      "value": 3.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1080/18 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1080.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+2 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Recipe: Mystery Meat Pie"
+   }
+  ]
+ },
+ "vendor_list": [
+  {
+   "name": "Wandering Doctor",
+   "marker": "Vault 76",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Chad",
+   "marker": "Camden Park",
+   "region": "Ash Heap",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Lewisburg Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Welch Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Carver Timmerman",
+   "marker": "Big Bend Tunnel East",
+   "region": "Cranberry Bog",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Rudy Fernandez",
+   "marker": "Big Bend Tunnel East",
+   "region": "Cranberry Bog",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Mack",
+   "marker": "Charleston Fire Department",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Charleston Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Bob",
+   "marker": "Flatwoods",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Responder Vendor",
+   "marker": "Morgantown High School",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Morgantown Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Resin",
+   "marker": "Pleasant Valley Ski Resort",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Marie",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Raiders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Responders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Greg",
+   "marker": "Grafton",
+   "region": "Toxic Valley",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Grafton Station",
+   "region": "Toxic Valley",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Maul",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 2
+  }
+ ],
+ "events_activities": [
+  {
+   "list_id": "0090312D",
+   "edid": "SDOW_LL_SQ01_RepeatableRewards",
+   "name": "Repeatable: Disturbed Grave",
+   "type": "Secondary",
+   "note": "Chance the item is in the Repeatable: Disturbed Grave reward pool per event/activity payout.",
+   "rate_value": 0.058824,
+   "rate_display": "5.88%",
+   "rate_lines": [
+    "5.88%"
+   ]
+  },
+  {
+   "list_id": "0092B344",
+   "edid": "SDOW_SlasherFanReward_Loot",
+   "name": "SDOW Slasher Fan Reward Loot",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the SDOW Slasher Fan Reward Loot reward pool per event/activity payout.",
+   "rate_value": 0.058824,
+   "rate_display": "5.88%",
+   "rate_lines": [
+    "5.88%"
+   ]
+  }
+ ],
+ "random_encounters": [],
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": [
+    {
+     "marker": "Rollins Labor Camp",
+     "count": 3,
+     "sources": {
+      "placement": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "572603",
+      "572604",
+      "572605"
+     ],
+     "coords": [
+      -97293.9,
+      -115115.2
+     ],
+     "breakdown": [
+      {
+       "label": "Rabbit",
+       "count": 3,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Rabbit #1",
+       "ref": "572603",
+       "source_type": "placement",
+       "coords": [
+        -97293.9,
+        -115115.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rabbit #2",
+       "ref": "572604",
+       "source_type": "placement",
+       "coords": [
+        -97306.3,
+        -115099.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rabbit #3",
+       "ref": "572605",
+       "source_type": "placement",
+       "coords": [
+        -97344.3,
+        -115133.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": []
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": [
+    {
+     "marker": "Watoga Underground",
+     "count": 2,
+     "sources": {
+      "placement": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "59E669",
+      "59E66A"
+     ],
+     "coords": [
+      -7160.9,
+      7028.9
+     ],
+     "breakdown": [
+      {
+       "label": "Rabbit",
+       "count": 2,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Rabbit #1",
+       "ref": "59E669",
+       "source_type": "placement",
+       "coords": [
+        -7160.9,
+        7028.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rabbit #2",
+       "ref": "59E66A",
+       "source_type": "placement",
+       "coords": [
+        -7243.0,
+        7373.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Forest",
+   "locations": [
+    {
+     "marker": "Moonshiner's Shack",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "554243"
+     ],
+     "coords": [
+      -116252.0,
+      86699.6
+     ],
+     "breakdown": [
+      {
+       "label": "Rabbit",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Rabbit",
+       "ref": "554243",
+       "source_type": "placement",
+       "coords": [
+        -116252.0,
+        86699.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Savage Divide",
+   "locations": [
+    {
+     "marker": "Whitespring Bunker",
+     "count": 3,
+     "sources": {
+      "placement": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3D63F9",
+      "3D7520",
+      "3D7521"
+     ],
+     "coords": [
+      6443.1,
+      -61765.9
+     ],
+     "breakdown": [
+      {
+       "label": "Rabbit",
+       "count": 3,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Rabbit #1",
+       "ref": "3D63F9",
+       "source_type": "placement",
+       "coords": [
+        6443.1,
+        -61765.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rabbit #2",
+       "ref": "3D7520",
+       "source_type": "placement",
+       "coords": [
+        6187.1,
+        -61763.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rabbit #3",
+       "ref": "3D7521",
+       "source_type": "placement",
+       "coords": [
+        7893.7,
+        -63632.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Yellow Sandy's Still",
+     "count": 4,
+     "sources": {
+      "placement": 4
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "43CC72",
+      "52940C",
+      "52940E",
+      "52940F"
+     ],
+     "coords": [
+      82277.2,
+      28659.3
+     ],
+     "breakdown": [
+      {
+       "label": "Rabbit",
+       "count": 4,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Rabbit #1",
+       "ref": "43CC72",
+       "source_type": "placement",
+       "coords": [
+        82277.2,
+        28659.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rabbit #2",
+       "ref": "52940C",
+       "source_type": "placement",
+       "coords": [
+        82338.2,
+        28523.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rabbit #3",
+       "ref": "52940E",
+       "source_type": "placement",
+       "coords": [
+        82485.9,
+        28570.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rabbit #4",
+       "ref": "52940F",
+       "source_type": "placement",
+       "coords": [
+        82613.9,
+        28570.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": []
+  },
+  {
+   "region": "The Mire",
+   "locations": []
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": []
+  }
+ ],
+ "chance_spawns": {
+  "regions": [
+   {
+    "region": "Cranberry Bog",
+    "markers": [
+     {
+      "name": "Superior Sunset Farm",
+      "placements": 1
+     }
+    ],
+    "placements": 1
+   },
+   {
+    "region": "Forest",
+    "markers": [
+     {
+      "name": "Vault-Tec Agricultural Research Center",
+      "placements": 3
+     }
+    ],
+    "placements": 3
+   }
+  ],
+  "total_markers": 2,
+  "total": 4,
+  "no_maps": true,
+  "lead": "Rabbits can spawn at 2 locations that share a spawn pool with other creatures, so a Rabbit is not guaranteed there. They are listed by name only."
+ },
+ "breakdown_lead": "Spawns here:",
+ "treasure_maps": {
+  "maps": [
+   {
+    "group": "Pint-Sized Phantoms",
+    "name": "Pint-Sized Phantoms' Map",
+    "region": "",
+    "form_id": "008F15E4",
+    "edid": "SDOW_MQ02_SlasherMap",
+    "rate": 0.058824,
+    "rate_display": "5.88%",
+    "sources": [
+     {
+      "form_id": "0090312D",
+      "edid": "SDOW_LL_SQ01_RepeatableRewards",
+      "rate": 0.058824,
+      "rate_display": "5.88%"
+     }
+    ]
+   }
+  ]
+ }
+}

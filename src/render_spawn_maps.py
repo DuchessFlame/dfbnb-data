@@ -72,7 +72,8 @@ MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", os.path.join(MAPPALACHIA, "dat
 S = 4096                       # native canvas size, matches Mappalachia's own exports
 APPALACHIA_SPACE = 2480661
 
-DOT_D = 20                     # dot diameter in px at S=4096
+DOT_D = 36                     # dot diameter in px at S=4096 — same as the slasher masks map;
+                               # at 20 the dots were too small to find on the dark regions
 DOT_FILL = (255, 193, 7)       # #FFC107 amber, as used on the slasher masks map
 DOT_OUTLINE = (18, 18, 18)
 DOT_OUTLINE_W = 3
@@ -121,10 +122,13 @@ TYPE_COLOURS = {
     "harvestable": (255, 193, 7),
     "flora": (76, 217, 100),            # green
     "enlightened-flora": (0, 209, 255), # cyan
-    "npc": (244, 67, 54),               # red
+    # NO RED on any map: red dots vanish on the dark Mire / Cranberry Bog ground and on
+    # the red Toxic Valley paint (Duchess, Sept 2026). Creatures use amber like every
+    # other fixed spawn — the slasher-masks colour, the easiest to see on this map.
+    "npc": (255, 193, 7),               # amber
     "machine": (0, 209, 255),           # cyan
     "chance": (120, 160, 255),          # pale blue — reads as "maybe", not "go here"
-    "placement": (244, 67, 54),         # red, same as npc — it IS a creature
+    "placement": (255, 193, 7),         # amber, same as npc — it IS a creature
     "spawn": (255, 138, 30),            # orange — a spawn point, not the creature itself
     "ambush": (139, 92, 246),           # violet
 }
@@ -508,10 +512,91 @@ def legend_rows(rows):
             for t, n in sorted(tally.items(), key=lambda kv: (-kv[1], kv[0]))]
 
 
+def spread_dots(rows):
+    """Nudge dots that sit on top of each other apart, so every dot can be seen.
+
+    Two source types at one marker (a loose egg and a nest at the same POI) cluster
+    to almost the same pixel, and the second dot hid the first. Dots closer than one
+    dot-width are spread round a small ring centred on where they were."""
+    import math
+    groups, used = [], set()
+    for i, a in enumerate(rows):
+        if i in used:
+            continue
+        g = [i]
+        used.add(i)
+        for j in range(i + 1, len(rows)):
+            if j in used:
+                continue
+            b = rows[j]
+            if any(math.hypot(rows[k]["px"] - b["px"], rows[k]["py"] - b["py"]) < DOT_D
+                   for k in g):
+                g.append(j)
+                used.add(j)
+        groups.append(g)
+    for g in groups:
+        if len(g) < 2:
+            continue
+        cx = sum(rows[k]["px"] for k in g) / len(g)
+        cy = sum(rows[k]["py"] for k in g) / len(g)
+        rad = DOT_D * 0.75 if len(g) == 2 else DOT_D
+        for n, k in enumerate(g):
+            ang = math.pi + 2 * math.pi * n / len(g)
+            rows[k]["px"] = cx + rad * math.cos(ang)
+            rows[k]["py"] = cy + rad * math.sin(ang)
+
+
+def place_labels(d, rows, font):
+    """Pick a spot for each number that doesn't sit on another number or dot.
+
+    Tries right, left, above, below, then the four corners, and keeps the first
+    that is clear. Fixes numbers printed over each other (Deathclaw Egg #8 / #11
+    on The Mire). Sets r["label_xy"] (where to draw) and r["label_box"] (what it
+    covers, so the region tile crop can include the whole number)."""
+    taken = [(r["px"] - DOT_D / 2, r["py"] - DOT_D / 2,
+              r["px"] + DOT_D / 2, r["py"] + DOT_D / 2) for r in rows]
+
+    def hits(b):
+        return any(not (b[2] <= t[0] or b[0] >= t[2] or b[3] <= t[1] or b[1] >= t[3])
+                   for t in taken)
+
+    for r in rows:
+        bb = d.textbbox((0, 0), str(r["n"]), font=font)
+        w, h = bb[2] - bb[0], bb[3] - bb[1]
+        ox, oy = bb[0], bb[1]
+        gap = DOT_D * 0.6
+        px, py = r["px"], r["py"]
+        spots = [(px + gap, py - h / 2), (px - gap - w, py - h / 2),
+                 (px - w / 2, py - gap - h), (px - w / 2, py + gap),
+                 (px + gap, py - gap - h), (px - gap - w, py - gap - h),
+                 (px + gap, py + gap), (px - gap - w, py + gap)]
+        choice = spots[0]
+        for step in (1, 2, 3):
+            found = None
+            for sx, sy in spots:
+                # step 2 / 3 push the same spot further out, one label-width at a time
+                push = (step - 1) * (w + 8)
+                sx2 = sx + push if sx >= px else sx - push
+                sy2 = sy
+                box = (sx2 - 4, sy2 - 4, sx2 + w + 4, sy2 + h + 4)
+                if not hits(box):
+                    found = (sx2, sy2)
+                    break
+            if found:
+                choice = found
+                break
+        lx, ly = choice
+        r["label_box"] = (lx - 4, ly - 4, lx + w + 4, ly + h + 4)
+        taken.append(r["label_box"])
+        r["label_xy"] = (lx - ox, ly - oy)
+
+
 def render_exterior(bg_path, rows, title, out_plain, out_numbered):
     base = Image.open(bg_path).convert("RGB")
     if base.size != (S, S):
         base = base.resize((S, S), Image.LANCZOS)
+
+    spread_dots(rows)
 
     plain = base.copy()
     d = ImageDraw.Draw(plain)
@@ -526,8 +611,9 @@ def render_exterior(bg_path, rows, title, out_plain, out_numbered):
     numbered = plain.copy()
     dn = ImageDraw.Draw(numbered)
     f = _font(56)
+    place_labels(dn, rows, f)
     for r in rows:
-        draw_outlined_text(dn, (r["px"] + DOT_D, r["py"] - 34), str(r["n"]), f, w=3)
+        draw_outlined_text(dn, r["label_xy"], str(r["n"]), f, w=3)
     os.makedirs(os.path.dirname(out_numbered), exist_ok=True)
     map_watermark.apply(numbered).save(out_numbered, "JPEG", quality=88, optimize=True)
     return plain, numbered
@@ -556,6 +642,13 @@ def render_region_tiles(numbered_img, rows, boxes, to_px, out_dir, slug,
         else:
             xs = [r["px"] for r in rrows]; ys = [r["py"] for r in rrows]
             x0, x1 = min(xs), max(xs); y0, y1 = min(ys), max(ys)
+        # Grow the crop to take in every dot AND its number. A dot sitting on the
+        # region's edge used to have its number sliced off the tile (Radstag #20 on
+        # The Mire), because the crop followed the region box, not what was drawn.
+        for r in rrows:
+            lb = r.get("label_box") or (r["px"], r["py"], r["px"], r["py"])
+            x0 = min(x0, r["px"] - DOT_D, lb[0]); y0 = min(y0, r["py"] - DOT_D, lb[1])
+            x1 = max(x1, r["px"] + DOT_D, lb[2]); y1 = max(y1, r["py"] + DOT_D, lb[3])
         pad = 120
         x0 = max(0, int(x0 - pad)); y0 = max(0, int(y0 - pad))
         x1 = min(S, int(x1 + pad)); y1 = min(S, int(y1 + pad))

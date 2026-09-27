@@ -1,0 +1,1502 @@
+{
+ "_meta": {
+  "generated": "2026-09-27",
+  "source": "dist/meat/chicken.json + farming pipeline (src/build_meat_guide_docs.py)"
+ },
+ "set": "meat",
+ "slug": "meat-chicken",
+ "name": "Chicken Thigh",
+ "page_title": "Chicken Location Guide",
+ "blurb": "The Chicken in Fallout 76 — drops Chicken Thigh, Intestine, 21 NPC variants, 34 known spawn points.",
+ "map_base": "",
+ "drop_rates": {
+  "creatures": {
+   "note": "Every Chicken you kill drops Chicken Thigh (100%), Intestine (100%). Chicken: 21 variants, levels 1–65535, up to 2,000 HP.",
+   "drops": {
+    "lists": [
+     {
+      "edid": "LLD_Creature_Chicken",
+      "form_id": "00111969",
+      "row_count": 4,
+      "direct_items": 1,
+      "pool_count": 3,
+      "item_count": 3,
+      "rows": [
+       {
+        "kind": "item",
+        "name": "Chicken Thigh",
+        "form_id": "00111967",
+        "edid": "ChickenMeat",
+        "sig": "ALCH",
+        "qty": 1,
+        "rate_value": 1.0,
+        "rate_display": "100%"
+       },
+       {
+        "kind": "pool",
+        "name": "Loot Critters Intestines",
+        "sub_id": "00477AF3",
+        "edid": "LLS_Loot_Critters_Intestines",
+        "item_count": 1,
+        "rate_value": 1.0,
+        "rate_display": "100%",
+        "top_items": [
+         {
+          "name": "Intestine",
+          "rate_display": "100%"
+         }
+        ]
+       },
+       {
+        "kind": "pool",
+        "name": "Loot Critters Intestines",
+        "sub_id": "00477AF3",
+        "edid": "LLS_Loot_Critters_Intestines",
+        "item_count": 1,
+        "rate_value": 0.6,
+        "rate_display": "60%",
+        "top_items": [
+         {
+          "name": "Intestine",
+          "rate_display": "100%"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "collectrons": null,
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Thrasher Field Dressing Station",
+     "edid": "ATX_ENTM_CAMP_Collector_RadTurkeyFieldDressingStation",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Chicken Thigh",
+       "form_id": "00111967",
+       "rate": 0.090909,
+       "rate_display": "9.09%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Wall-mounted Oven",
+     "edid": "ATX_ENTM_CAMP_Collector_WallmountedOven",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Chicken Thigh",
+       "form_id": "00111967",
+       "rate": 0.090909,
+       "rate_display": "9.09%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  },
+  "containers": {
+   "types": [
+    {
+     "name": "Meat Pile",
+     "rate": 0.008823529411764707,
+     "rate_display": "0.88%"
+    }
+   ]
+  }
+ },
+ "farming_tips": {
+  "spawn_note": "Chicken Thigh comes from killing Chickens and looting the body.",
+  "spoils": true,
+  "spoil_duration_hours": null,
+  "base_weight": 0.5,
+  "object_type": "Food",
+  "yield_perk": "butchers_bounty",
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.28
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.05
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.05,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.3
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.1
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.05
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": true,
+  "perk_cards": {
+   "butchers_bounty": {
+    "name": "Butcher's Bounty",
+    "special": "Perception",
+    "min_level": 3,
+    "rank_count": 3,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "40% chance to find extra meat from animal corpses.",
+      "percent": "40%"
+     },
+     {
+      "rank": 2,
+      "desc": "60% chance to find extra meat from animal corpses.",
+      "percent": "60%"
+     },
+     {
+      "rank": 3,
+      "desc": "80% chance to find extra meat from animal corpses.",
+      "percent": "80%"
+     }
+    ]
+   },
+   "thru_hiker": {
+    "name": "Thru-Hiker",
+    "special": "Endurance",
+    "min_level": 7,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "Food and drink weights are reduced by 45%.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "desc": "Food and drink weights are reduced by 90%.",
+      "percent": "90%"
+     }
+    ]
+   },
+   "good_with_salt": {
+    "name": "Good With Salt",
+    "special": "Intelligence",
+    "min_level": 9,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "reduction": "45%",
+      "desc": "Food in your inventory will spoil 45% slower.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "reduction": "90%"
+     }
+    ]
+   }
+  },
+  "refrigerated": {
+   "name": "Refrigerated Backpack",
+   "reduction": "50%",
+   "stacks_with_good_with_salt": false
+  }
+ },
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.5,
+   "value": 8,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": true,
+   "note": "Chicken Thigh is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Disease Chance",
+     "display": "3% chance to catch a disease",
+     "duration": null,
+     "label": "Disease Chance",
+     "value": 3.0,
+     "unit": "percent",
+     "scales": false,
+     "zeroed": true,
+     "sign": false
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (720/12 min)",
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 720.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Rads",
+     "display": "+15 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 15.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
+    }
+   ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
+  },
+  "challenges": [],
+  "recipes": [
+   {
+    "name": "Chicken Noodle Soup",
+    "form_id": "001119DB",
+    "recipe_edid": "co_meal_ChickenMeatCookedSoup",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 1
+     },
+     {
+      "name": "Chicken Thigh",
+      "qty": 1,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 30 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 30.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Disease Resistance",
+      "display": "+10 Disease Resistance",
+      "duration": "30 min",
+      "label": "Disease Resistance",
+      "value": 10.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Quench Thirst",
+      "display": "Quenches thirst (540/9 min)",
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 540.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (720/12 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 720.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Known by default."
+   }
+  ]
+ },
+ "vendor_list": [
+  {
+   "name": "Marie",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "67.23%"
+   ],
+   "rate_display": "67.23%",
+   "rate_value": 0.67232,
+   "count": 1
+  },
+  {
+   "name": "Carver Timmerman",
+   "marker": "Big Bend Tunnel East",
+   "region": "Cranberry Bog",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "36%"
+   ],
+   "rate_display": "36%",
+   "rate_value": 0.36,
+   "count": 1
+  },
+  {
+   "name": "Rudy Fernandez",
+   "marker": "Big Bend Tunnel East",
+   "region": "Cranberry Bog",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "36%"
+   ],
+   "rate_display": "36%",
+   "rate_value": 0.36,
+   "count": 1
+  },
+  {
+   "name": "Maul",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "20%"
+   ],
+   "rate_display": "20%",
+   "rate_value": 0.2,
+   "count": 2
+  },
+  {
+   "name": "Vendor Bot Chad",
+   "marker": "Camden Park",
+   "region": "Ash Heap",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.48%"
+   ],
+   "rate_display": "3.48%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Mack",
+   "marker": "Charleston Fire Department",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.48%"
+   ],
+   "rate_display": "3.48%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Bob",
+   "marker": "Flatwoods",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.48%"
+   ],
+   "rate_display": "3.48%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Responder Vendor",
+   "marker": "Morgantown High School",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.48%"
+   ],
+   "rate_display": "3.48%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Responders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.48%"
+   ],
+   "rate_display": "3.48%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Greg",
+   "marker": "Grafton",
+   "region": "Toxic Valley",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.48%"
+   ],
+   "rate_display": "3.48%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Lewisburg Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.96%"
+   ],
+   "rate_display": "2.96%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Welch Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.96%"
+   ],
+   "rate_display": "2.96%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Charleston Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.96%"
+   ],
+   "rate_display": "2.96%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Morgantown Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.96%"
+   ],
+   "rate_display": "2.96%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Grafton Station",
+   "region": "Toxic Valley",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.96%"
+   ],
+   "rate_display": "2.96%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Resin",
+   "marker": "Pleasant Valley Ski Resort",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "0.44%"
+   ],
+   "rate_display": "0.44%",
+   "rate_value": 0.004412,
+   "count": 1
+  },
+  {
+   "name": "Raiders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "0.44%"
+   ],
+   "rate_display": "0.44%",
+   "rate_value": 0.004412,
+   "count": 1
+  },
+  {
+   "name": "Wandering Doctor",
+   "marker": "Vault 76",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  }
+ ],
+ "events_activities": [
+  {
+   "name": "Storm Encounter: Roast Chicken",
+   "edid": "Storm_SE09",
+   "type": "Secondary",
+   "location": "",
+   "form_id": "00783A58"
+  },
+  {
+   "list_id": "0090312D",
+   "edid": "SDOW_LL_SQ01_RepeatableRewards",
+   "name": "Repeatable: Disturbed Grave",
+   "type": "Secondary",
+   "note": "Chance the item is in the Repeatable: Disturbed Grave reward pool per event/activity payout.",
+   "rate_value": 0.058824,
+   "rate_display": "5.88%",
+   "rate_lines": [
+    "5.88%"
+   ]
+  },
+  {
+   "list_id": "0092B344",
+   "edid": "SDOW_SlasherFanReward_Loot",
+   "name": "SDOW Slasher Fan Reward Loot",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the SDOW Slasher Fan Reward Loot reward pool per event/activity payout.",
+   "rate_value": 0.058824,
+   "rate_display": "5.88%",
+   "rate_lines": [
+    "5.88%"
+   ]
+  }
+ ],
+ "random_encounters": [
+  {
+   "form_id": "0056F034",
+   "edid": "W05_RE_TravelBB02",
+   "name": "Chased by Chickens",
+   "type": "Travel Encounters",
+   "location": ""
+  }
+ ],
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": [
+    {
+     "marker": "Rollins Labor Camp",
+     "count": 2,
+     "sources": {
+      "placement": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5725F4",
+      "5725F5"
+     ],
+     "coords": [
+      -97377.8,
+      -115436.0
+     ],
+     "breakdown": [
+      {
+       "label": "Chicken",
+       "count": 2,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Chicken #1",
+       "ref": "5725F4",
+       "source_type": "placement",
+       "coords": [
+        -97377.8,
+        -115436.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chicken #2",
+       "ref": "5725F5",
+       "source_type": "placement",
+       "coords": [
+        -97168.1,
+        -115103.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": [
+    {
+     "marker": "Highway Town Interior",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "83113C"
+     ],
+     "coords": [
+      -1888.1,
+      13896.2
+     ],
+     "breakdown": [
+      {
+       "label": "Chicken",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Chicken",
+       "ref": "83113C",
+       "source_type": "placement",
+       "coords": [
+        -1888.1,
+        13896.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": [
+    {
+     "marker": "Watoga Underground",
+     "count": 2,
+     "sources": {
+      "placement": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5A4D7D",
+      "5A4D7E"
+     ],
+     "coords": [
+      -7177.2,
+      7017.0
+     ],
+     "breakdown": [
+      {
+       "label": "Chicken",
+       "count": 2,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Chicken #1",
+       "ref": "5A4D7D",
+       "source_type": "placement",
+       "coords": [
+        -7177.2,
+        7017.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chicken #2",
+       "ref": "5A4D7E",
+       "source_type": "placement",
+       "coords": [
+        -6989.7,
+        7013.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Forest",
+   "locations": [
+    {
+     "marker": "Moonshiner's Shack",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "554247"
+     ],
+     "coords": [
+      -116161.1,
+      86877.9
+     ],
+     "breakdown": [
+      {
+       "label": "Chicken",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Chicken",
+       "ref": "554247",
+       "source_type": "placement",
+       "coords": [
+        -116161.1,
+        86877.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Savage Divide",
+   "locations": [
+    {
+     "marker": "Enclave Research Facility",
+     "count": 3,
+     "sources": {
+      "placement": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5E41AC",
+      "5E41AD",
+      "5E43CA"
+     ],
+     "coords": [
+      303.7,
+      8226.5
+     ],
+     "breakdown": [
+      {
+       "label": "Chicken",
+       "count": 3,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Chicken #1",
+       "ref": "5E41AC",
+       "source_type": "placement",
+       "coords": [
+        303.7,
+        8226.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chicken #2",
+       "ref": "5E41AD",
+       "source_type": "placement",
+       "coords": [
+        513.2,
+        8108.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chicken #3",
+       "ref": "5E43CA",
+       "source_type": "placement",
+       "coords": [
+        539.7,
+        8164.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Foundation",
+     "count": 7,
+     "sources": {
+      "placement": 7
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "4253AC",
+      "4253AD",
+      "54A90E",
+      "54A911",
+      "54A91C",
+      "54A91F",
+      "54A922"
+     ],
+     "coords": [
+      34091.9,
+      -99797.2
+     ],
+     "breakdown": [
+      {
+       "label": "Chicken",
+       "count": 7,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Chicken #1",
+       "ref": "4253AC",
+       "source_type": "placement",
+       "coords": [
+        34091.9,
+        -99797.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chicken #2",
+       "ref": "4253AD",
+       "source_type": "placement",
+       "coords": [
+        34141.5,
+        -99963.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chicken #3",
+       "ref": "54A90E",
+       "source_type": "placement",
+       "coords": [
+        35095.9,
+        -104296.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chicken #4",
+       "ref": "54A911",
+       "source_type": "placement",
+       "coords": [
+        35152.0,
+        -104014.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chicken #5",
+       "ref": "54A91C",
+       "source_type": "placement",
+       "coords": [
+        35030.8,
+        -104143.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chicken #6",
+       "ref": "54A91F",
+       "source_type": "placement",
+       "coords": [
+        35324.1,
+        -103948.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chicken #7",
+       "ref": "54A922",
+       "source_type": "placement",
+       "coords": [
+        35292.4,
+        -104336.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Hidden Crevice",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "605F52"
+     ],
+     "coords": [
+      900.5,
+      2416.1
+     ],
+     "breakdown": [
+      {
+       "label": "Bawk Bawk",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Bawk Bawk",
+       "ref": "605F52",
+       "source_type": "placement",
+       "coords": [
+        900.5,
+        2416.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Uncanny Caverns",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "6184F4"
+     ],
+     "coords": [
+      7154.3,
+      414.3
+     ],
+     "breakdown": [
+      {
+       "label": "Bawk Bawk",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Bawk Bawk",
+       "ref": "6184F4",
+       "source_type": "placement",
+       "coords": [
+        7154.3,
+        414.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": [
+    {
+     "marker": "Naked Creek",
+     "count": 8,
+     "sources": {
+      "placement": 8
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "7338D3",
+      "75DDE3",
+      "75DDE4",
+      "75DDE5",
+      "788C5F",
+      "788C61",
+      "788C62",
+      "788C63"
+     ],
+     "coords": [
+      -32301.3,
+      -236411.3
+     ],
+     "breakdown": [
+      {
+       "label": "Pheasant",
+       "count": 5,
+       "source_type": "placement"
+      },
+      {
+       "label": "Chicken",
+       "count": 3,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Pheasant #1",
+       "ref": "7338D3",
+       "source_type": "placement",
+       "coords": [
+        -33532.3,
+        -236230.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chicken #1",
+       "ref": "75DDE3",
+       "source_type": "placement",
+       "coords": [
+        -20368.8,
+        -248320.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chicken #2",
+       "ref": "75DDE4",
+       "source_type": "placement",
+       "coords": [
+        -20215.3,
+        -247414.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chicken #3",
+       "ref": "75DDE5",
+       "source_type": "placement",
+       "coords": [
+        -20104.5,
+        -248170.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Pheasant #2",
+       "ref": "788C5F",
+       "source_type": "placement",
+       "coords": [
+        -32301.3,
+        -236411.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Pheasant #3",
+       "ref": "788C61",
+       "source_type": "placement",
+       "coords": [
+        -31949.9,
+        -236758.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Pheasant #4",
+       "ref": "788C62",
+       "source_type": "placement",
+       "coords": [
+        -32990.9,
+        -236702.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Pheasant #5",
+       "ref": "788C63",
+       "source_type": "placement",
+       "coords": [
+        -31218.1,
+        -236421.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Research Site Bavaria",
+     "count": 4,
+     "sources": {
+      "placement": 4
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "76AA24",
+      "76AA25",
+      "76AA26",
+      "76AA27"
+     ],
+     "coords": [
+      82389.8,
+      -232450.3
+     ],
+     "breakdown": [
+      {
+       "label": "Chicken",
+       "count": 4,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Chicken #1",
+       "ref": "76AA24",
+       "source_type": "placement",
+       "coords": [
+        82389.8,
+        -232450.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chicken #2",
+       "ref": "76AA25",
+       "source_type": "placement",
+       "coords": [
+        82083.5,
+        -232630.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chicken #3",
+       "ref": "76AA26",
+       "source_type": "placement",
+       "coords": [
+        82154.9,
+        -232016.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chicken #4",
+       "ref": "76AA27",
+       "source_type": "placement",
+       "coords": [
+        82409.2,
+        -232243.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Trading Post",
+     "count": 2,
+     "sources": {
+      "placement": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "783A68",
+      "783A69"
+     ],
+     "coords": [
+      39542.3,
+      -224347.0
+     ],
+     "breakdown": [
+      {
+       "label": "Chicken",
+       "count": 2,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Chicken #1",
+       "ref": "783A68",
+       "source_type": "placement",
+       "coords": [
+        39542.3,
+        -224347.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chicken #2",
+       "ref": "783A69",
+       "source_type": "placement",
+       "coords": [
+        38823.9,
+        -224506.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Mire",
+   "locations": [
+    {
+     "marker": "Dagger's Den",
+     "count": 2,
+     "sources": {
+      "placement": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5B79B9",
+      "5B79D6"
+     ],
+     "coords": [
+      5082.8,
+      -432.4
+     ],
+     "breakdown": [
+      {
+       "label": "Bloody Pecker",
+       "count": 1,
+       "source_type": "placement"
+      },
+      {
+       "label": "Chicken",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Bloody Pecker",
+       "ref": "5B79B9",
+       "source_type": "placement",
+       "coords": [
+        5005.6,
+        -487.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Chicken",
+       "ref": "5B79D6",
+       "source_type": "placement",
+       "coords": [
+        5082.8,
+        -432.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": []
+  }
+ ],
+ "chance_spawns": {
+  "regions": [
+   {
+    "region": "Forest",
+    "markers": [
+     {
+      "name": "Vault-Tec Agricultural Research Center",
+      "placements": 3
+     }
+    ],
+    "placements": 3
+   }
+  ],
+  "total_markers": 1,
+  "total": 3,
+  "no_maps": true,
+  "lead": "Chickens can spawn at 1 location that share a spawn pool with other creatures, so a Chicken is not guaranteed there. They are listed by name only."
+ },
+ "breakdown_lead": "Spawns here:",
+ "treasure_maps": {
+  "maps": [
+   {
+    "group": "Pint-Sized Phantoms",
+    "name": "Pint-Sized Phantoms' Map",
+    "region": "",
+    "form_id": "008F15E4",
+    "edid": "SDOW_MQ02_SlasherMap",
+    "rate": 0.058824,
+    "rate_display": "5.88%",
+    "sources": [
+     {
+      "form_id": "0090312D",
+      "edid": "SDOW_LL_SQ01_RepeatableRewards",
+      "rate": 0.058824,
+      "rate_display": "5.88%"
+     }
+    ]
+   }
+  ]
+ }
+}
