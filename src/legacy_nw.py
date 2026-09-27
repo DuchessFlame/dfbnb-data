@@ -135,6 +135,31 @@ def origin_sentence(gmrw_edids):
     return "Originally a Nuclear Winter reward. Nuclear Winter was retired in September 2021."
 
 
+def nw_route(gmrw_edids):
+    """The Nuclear Winter row for the How to Obtain ledger — how it was earned.
+
+    Only rows on the Legacy Nuclear Winter page carry it, so the ledger row
+    appears on that page and nowhere else.
+    """
+    ranks = sorted({int(m.group(1)) for e in gmrw_edids
+                    for m in [_RX_OVERSEER.search(e)] if m})
+    lines = []
+    if ranks:
+        lines.append(f"Reach Overseer Rank {ranks[0]}")
+    else:
+        seen = set()
+        for e in gmrw_edids:
+            m = _RX_NW_EVENT.search(e)
+            if m and (m.group(1), m.group(2)) not in seen:
+                seen.add((m.group(1), m.group(2)))
+                ev = EVENT_NAMES.get(m.group(1).lower(), m.group(1).title())
+                lines.append(f"Complete the {ev} {m.group(2)} challenges")
+    if not lines:
+        lines.append("Nuclear Winter reward")
+    return {"label": "Nuclear Winter", "lines": lines,
+            "retired": "Retired September 2021"}
+
+
 class Index:
     """Everything needed to tag a plan row, read once from the exports."""
 
@@ -193,7 +218,7 @@ class Index:
         """Write the legacy fields onto one row. Returns True when it is one."""
         if str(item.get("id") or "").startswith(REWARD_ID_PREFIX):
             return True                   # a reward row carries its own fields
-        for k in ("legacy_nw", "nw_entitlement", "nw_origin", "art_stems"):
+        for k in ("legacy_nw", "nw_entitlement", "nw_origin", "nw_route", "art_stems"):
             item.pop(k, None)
         if (item.get("kind") or "plan") != "plan" or not self.is_legacy(item):
             return False
@@ -204,9 +229,11 @@ class Index:
             item["nw_entitlement"] = {"formid": rec["formid"], "edid": edid,
                                       "name": rec["name"]}
             item["nw_origin"] = origin_sentence(rec["gmrw"])
+            item["nw_route"] = nw_route(rec["gmrw"])
             item["art_stems"] = rec["art"]
         else:
             item["nw_origin"] = origin_sentence([])
+            item["nw_route"] = nw_route([])
         return True
 
 
@@ -226,7 +253,13 @@ def load(tsv_dir="tsv", verbose=True):
     with open(entm_path, encoding="utf-8", errors="replace") as fh:
         for r in csv.DictReader(fh, delimiter="\t"):
             edid = (r.get("EDID") or "").strip()
-            if not edid.lower().startswith("babylon"):
+            # Babylon_ENTM_* are the Nuclear Winter rewards. ATX_Babylon_ENTM_*
+            # are the same items' Atom Shop records (the NW Tracksuit is only
+            # linked that way) — read for plan links and art, but never given a
+            # reward row of their own, since they were sold, not earned.
+            low = edid.lower()
+            atx = low.startswith("atx_babylon")
+            if not (low.startswith("babylon") or atx):
                 continue
             refs = _refs(r.get("ReferencedBy"))
             main = _stem(r.get("ETDI"))
@@ -244,16 +277,22 @@ def load(tsv_dir="tsv", verbose=True):
                 "gmrw": [e for _f, e, s in refs if s == "GMRW"],
                 "cobj": [f for f, _e, s in refs if s == "COBJ"],
                 "art": art,
+                "atx": atx,
             }
+            # The NW reward record always wins a key over its Atom Shop twin.
+            def _put(table, key):
+                cur = table.get(key)
+                if cur is None or (not atx and idx.entm.get(cur, {}).get("atx")):
+                    table[key] = edid
             for f, e, s in refs:
                 if s == "COBJ":
-                    idx.by_cobj[f] = edid
+                    _put(idx.by_cobj, f)
                     if _RX_BABYLON.search(e):
                         idx.babylon_cobj.add(f)
             for nm in (r.get("FULL"), r.get("NNAM")):
                 key = _norm(nm)
                 if len(key) >= 4:
-                    idx.by_name.setdefault(key, edid)
+                    _put(idx.by_name, key)
     idx.sources.append(os.path.basename(entm_path))
 
     cobj_path = _newest(tsv_dir, "COBJ_Export_*.tsv") or _newest("tsv", "COBJ_Export_*.tsv")
@@ -347,7 +386,7 @@ def reward_rows(items, idx):
     labeler = None
     added = 0
     for edid, rec in sorted(idx.entm.items(), key=lambda kv: kv[1]["name"].lower()):
-        if edid in linked or not rec["name"]:
+        if edid in linked or not rec["name"] or rec.get("atx"):
             continue
         live = live_sources(rec)
         routes = []
@@ -385,6 +424,7 @@ def reward_rows(items, idx):
             "legacy_nw": True,
             "nw_entitlement": {"formid": rec["formid"], "edid": edid, "name": rec["name"]},
             "nw_origin": origin_sentence(rec["gmrw"]),
+            "nw_route": nw_route(rec["gmrw"]),
             "art_stems": rec["art"],
         })
         added += 1
