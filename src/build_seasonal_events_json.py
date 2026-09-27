@@ -83,6 +83,13 @@ EVENT_GALLERIES = {
         {"src": "meat-per-region.avif",        "alt": "Meat List Per Region"},
         {"src": "ash-heap-scenic.avif",        "alt": "Ash Heap Primal Cuts"},
     ],
+    # Hunt for the Treasure Hunter: one shot of each pail. These sit in the
+    # page's imageDir (seasonal-events/treasure-hunters/) with the cover.
+    "treasure-hunter-all-rewards": [
+        {"src": "ornate-mole-miner-pail.avif",  "alt": "Ornate Mole Miner Pail"},
+        {"src": "regular-mole-miner-pail.avif", "alt": "Regular Mole Miner Pail"},
+        {"src": "dusty-mole-miner-pail.avif",   "alt": "Dusty Mole Miner Pail"},
+    ],
 }
 
 # Meat Sweats buff (Prime Meat turn-in). EFFECT magnitudes are read GENERATIVELY
