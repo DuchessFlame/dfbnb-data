@@ -1,0 +1,926 @@
+{
+ "_meta": {
+  "generated": "2026-09-26",
+  "source": "dist/meat/opossum.json + farming pipeline (src/build_meat_guide_docs.py)"
+ },
+ "set": "meat",
+ "slug": "meat-opossum",
+ "name": "Intestine",
+ "page_title": "Opossum Location Guide",
+ "blurb": "The Opossum in Fallout 76 — drops Intestine, Opossum Meat, 7 NPC variants, 14 known spawn points.",
+ "map_base": "",
+ "drop_rates": {
+  "creatures": {
+   "note": "Every Opossum you kill drops Intestine (100%), Opossum Meat (100%). Opossum: 7 variants, level 1, up to 10 HP.",
+   "drops": {
+    "lists": [
+     {
+      "edid": "LLD_Creature_Opossum",
+      "form_id": "002FD038",
+      "row_count": 4,
+      "direct_items": 1,
+      "pool_count": 3,
+      "item_count": 3,
+      "rows": [
+       {
+        "kind": "pool",
+        "name": "Loot Critters Intestines",
+        "sub_id": "00477AF3",
+        "edid": "LLS_Loot_Critters_Intestines",
+        "item_count": 1,
+        "rate_value": 1.0,
+        "rate_display": "100%",
+        "top_items": [
+         {
+          "name": "Intestine",
+          "rate_display": "100%"
+         }
+        ]
+       },
+       {
+        "kind": "item",
+        "name": "Opossum Meat",
+        "form_id": "004FE51A",
+        "edid": "OpossumMeat",
+        "sig": "ALCH",
+        "qty": 1,
+        "rate_value": 1.0,
+        "rate_display": "100%"
+       },
+       {
+        "kind": "pool",
+        "name": "Loot Critters Intestines",
+        "sub_id": "00477AF3",
+        "edid": "LLS_Loot_Critters_Intestines",
+        "item_count": 1,
+        "rate_value": 0.6,
+        "rate_display": "60%",
+        "top_items": [
+         {
+          "name": "Intestine",
+          "rate_display": "100%"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "collectrons": null,
+  "resource_generators": null,
+  "containers": {
+   "types": []
+  }
+ },
+ "farming_tips": {
+  "spawn_note": "Intestine comes from killing Opossums and looting the body.",
+  "spoils": true,
+  "spoil_duration_hours": null,
+  "base_weight": 0.5,
+  "object_type": "Food",
+  "yield_perk": "butchers_bounty",
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.28
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.05
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.05,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.3
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.1
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.05
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": true,
+  "perk_cards": {
+   "butchers_bounty": {
+    "name": "Butcher's Bounty",
+    "special": "Perception",
+    "min_level": 3,
+    "rank_count": 3,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "40% chance to find extra meat from animal corpses.",
+      "percent": "40%"
+     },
+     {
+      "rank": 2,
+      "desc": "60% chance to find extra meat from animal corpses.",
+      "percent": "60%"
+     },
+     {
+      "rank": 3,
+      "desc": "80% chance to find extra meat from animal corpses.",
+      "percent": "80%"
+     }
+    ]
+   },
+   "thru_hiker": {
+    "name": "Thru-Hiker",
+    "special": "Endurance",
+    "min_level": 7,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "Food and drink weights are reduced by 45%.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "desc": "Food and drink weights are reduced by 90%.",
+      "percent": "90%"
+     }
+    ]
+   },
+   "good_with_salt": {
+    "name": "Good With Salt",
+    "special": "Intelligence",
+    "min_level": 9,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "reduction": "45%",
+      "desc": "Food in your inventory will spoil 45% slower.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "reduction": "90%"
+     }
+    ]
+   }
+  },
+  "refrigerated": {
+   "name": "Refrigerated Backpack",
+   "reduction": "50%",
+   "stacks_with_good_with_salt": false
+  }
+ },
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.5,
+   "value": 8,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": true,
+   "note": "Intestine is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Disease Chance",
+     "display": "3% chance to catch a disease",
+     "duration": null,
+     "label": "Disease Chance",
+     "value": 3.0,
+     "unit": "percent",
+     "scales": false,
+     "zeroed": true,
+     "sign": false
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (720/12 min)",
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 720.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Rads",
+     "display": "+15 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 15.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
+    }
+   ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
+  },
+  "challenges": [
+   {
+    "type": "Event",
+    "name": "Birthday: Collect Oppossum Meat while wearing the Birthday Suit",
+    "required": 5,
+    "edid": "ATX_DE2023_Birthday_Challenge_Collect_OpposumMeat",
+    "page": "events"
+   }
+  ],
+  "recipes": [
+   {
+    "name": "Fasnacht Sausage",
+    "form_id": "003EEA45",
+    "recipe_edid": "co_meal_Sausage_Fasnacht",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 2
+     },
+     {
+      "name": "Spices",
+      "qty": 1
+     },
+     {
+      "name": "Spoiled Meat",
+      "qty": 2
+     },
+     {
+      "name": "Tick Blood",
+      "qty": 1,
+      "url": "/bnb/farming/non-perishable/tick-blood/"
+     },
+     {
+      "name": "Intestine",
+      "qty": 1,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 30 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 30.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Health",
+      "display": "+40 Fortify Health",
+      "duration": "30 min",
+      "label": "Health",
+      "value": 40.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1440/24 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1440.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+2 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Known by default."
+   },
+   {
+    "name": "Mystery Meat Pie",
+    "form_id": "0040FC27",
+    "recipe_edid": "P01B_co_meal_MysteryMeatPie",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 2,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Toxic Water",
+      "qty": 1
+     },
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Spices",
+      "qty": 1
+     },
+     {
+      "name": "Spoiled Meat",
+      "qty": 2
+     },
+     {
+      "name": "Intestine",
+      "qty": 2,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 60 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 60.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Carry Weight",
+      "display": "+20 Fortify Carry Weight",
+      "duration": "30 min",
+      "label": "Carry Weight",
+      "value": 20.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Fortify Endurance",
+      "display": "+3 Fortify Endurance",
+      "duration": "30 min",
+      "label": "Endurance",
+      "value": 3.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1080/18 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1080.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+2 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Known by default."
+   }
+  ]
+ },
+ "vendor_list": [
+  {
+   "name": "Wandering Doctor",
+   "marker": "Vault 76",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  }
+ ],
+ "events_activities": [],
+ "random_encounters": [],
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": [
+    {
+     "marker": "Nuka-World On Tour",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "66EA1C"
+     ],
+     "coords": [
+      -73751.7,
+      -115985.4
+     ],
+     "breakdown": [
+      {
+       "label": "Opossum",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Opossum",
+       "ref": "66EA1C",
+       "source_type": "placement",
+       "coords": [
+        -73751.7,
+        -115985.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": []
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": []
+  },
+  {
+   "region": "Forest",
+   "locations": [
+    {
+     "marker": "Flatwoods",
+     "count": 2,
+     "sources": {
+      "placement": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "31C8A0",
+      "31C8A3"
+     ],
+     "coords": [
+      -106124.9,
+      18676.4
+     ],
+     "breakdown": [
+      {
+       "label": "Opossum",
+       "count": 2,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Opossum #1",
+       "ref": "31C8A0",
+       "source_type": "placement",
+       "coords": [
+        -106124.9,
+        18676.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Opossum #2",
+       "ref": "31C8A3",
+       "source_type": "placement",
+       "coords": [
+        -106800.7,
+        17230.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Green Country Lodge",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3337D6"
+     ],
+     "coords": [
+      -100750.9,
+      29567.6
+     ],
+     "breakdown": [
+      {
+       "label": "Opossum",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Opossum",
+       "ref": "3337D6",
+       "source_type": "placement",
+       "coords": [
+        -100750.9,
+        29567.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Moonshiner's Shack",
+     "count": 2,
+     "sources": {
+      "placement": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "554235",
+      "554236"
+     ],
+     "coords": [
+      -116299.7,
+      86794.3
+     ],
+     "breakdown": [
+      {
+       "label": "Opossum",
+       "count": 2,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Opossum #1",
+       "ref": "554235",
+       "source_type": "placement",
+       "coords": [
+        -116299.7,
+        86794.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Opossum #2",
+       "ref": "554236",
+       "source_type": "placement",
+       "coords": [
+        -116293.1,
+        86840.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "White Powder Winter Sports",
+     "count": 4,
+     "sources": {
+      "placement": 4
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "43CCCC",
+      "43CCCD",
+      "43CCCE",
+      "43CCCF"
+     ],
+     "coords": [
+      8697.9,
+      18106.8
+     ],
+     "breakdown": [
+      {
+       "label": "Opossum",
+       "count": 4,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Opossum #1",
+       "ref": "43CCCC",
+       "source_type": "placement",
+       "coords": [
+        9474.9,
+        18296.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Opossum #2",
+       "ref": "43CCCD",
+       "source_type": "placement",
+       "coords": [
+        9472.6,
+        17890.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Opossum #3",
+       "ref": "43CCCE",
+       "source_type": "placement",
+       "coords": [
+        8697.9,
+        18106.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Opossum #4",
+       "ref": "43CCCF",
+       "source_type": "placement",
+       "coords": [
+        9760.9,
+        17752.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Savage Divide",
+   "locations": [
+    {
+     "marker": "East Mountain Lookout",
+     "count": 2,
+     "sources": {
+      "placement": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "389E82",
+      "389E8B"
+     ],
+     "coords": [
+      117188.3,
+      -59925.1
+     ],
+     "breakdown": [
+      {
+       "label": "Opossum",
+       "count": 2,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Opossum #1",
+       "ref": "389E82",
+       "source_type": "placement",
+       "coords": [
+        117188.3,
+        -59925.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Opossum #2",
+       "ref": "389E8B",
+       "source_type": "placement",
+       "coords": [
+        116921.2,
+        -60295.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Enclave Research Facility",
+     "count": 2,
+     "sources": {
+      "placement": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5E41AE",
+      "5E41AF"
+     ],
+     "coords": [
+      -1152.4,
+      6655.3
+     ],
+     "breakdown": [
+      {
+       "label": "Opossum",
+       "count": 2,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Opossum #1",
+       "ref": "5E41AE",
+       "source_type": "placement",
+       "coords": [
+        -1152.4,
+        6655.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Opossum #2",
+       "ref": "5E41AF",
+       "source_type": "placement",
+       "coords": [
+        -1134.9,
+        6754.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": []
+  },
+  {
+   "region": "The Mire",
+   "locations": []
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": []
+  }
+ ],
+ "chance_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "markers": [
+     {
+      "name": "Brim Quarry",
+      "placements": 3
+     }
+    ],
+    "placements": 3
+   },
+   {
+    "region": "Cranberry Bog",
+    "markers": [
+     {
+      "name": "Superior Sunset Farm",
+      "placements": 1
+     }
+    ],
+    "placements": 1
+   },
+   {
+    "region": "Forest",
+    "markers": [
+     {
+      "name": "Vault-Tec Agricultural Research Center",
+      "placements": 3
+     }
+    ],
+    "placements": 3
+   }
+  ],
+  "total_markers": 3,
+  "total": 7,
+  "no_maps": true,
+  "lead": "Opossums can spawn at 3 locations that share a spawn pool with other creatures, so a Opossum is not guaranteed there. They are listed by name only."
+ },
+ "breakdown_lead": "Spawns here:",
+ "treasure_maps": {
+  "maps": []
+ }
+}

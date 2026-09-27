@@ -1,0 +1,2150 @@
+{
+ "_meta": {
+  "generated": "2026-09-26",
+  "source": "dist/meat/brahmin.json + farming pipeline (src/build_meat_guide_docs.py)"
+ },
+ "set": "meat",
+ "slug": "meat-brahmin",
+ "name": "Brahmin Meat",
+ "page_title": "Brahmin Location Guide",
+ "blurb": "The Brahmin in Fallout 76 — drops Brahmin Meat, 46 NPC variants, 45 known spawn points.",
+ "map_base": "",
+ "drop_rates": {
+  "creatures": {
+   "note": "Every Brahmin you kill drops Brahmin Meat (100%). Brahmin: 46 variants, levels 1–50, up to 3,700 HP.",
+   "drops": {
+    "lists": [
+     {
+      "edid": "LLD_Creature_Brahmin",
+      "form_id": "0008E3AB",
+      "row_count": 3,
+      "direct_items": 2,
+      "pool_count": 1,
+      "item_count": 1702,
+      "rows": [
+       {
+        "kind": "item",
+        "name": "Brahmin Hide",
+        "form_id": "0022B623",
+        "edid": "BrahminHide",
+        "sig": "MISC",
+        "qty": 1,
+        "rate_value": 1.0,
+        "rate_display": "100%"
+       },
+       {
+        "kind": "item",
+        "name": "Brahmin Meat",
+        "form_id": "0004A13F",
+        "edid": "BrahminMeat",
+        "sig": "ALCH",
+        "qty": 1,
+        "rate_value": 1.0,
+        "rate_display": "100%"
+       },
+       {
+        "kind": "pool",
+        "name": "Extra meat (Butcher's Bounty)",
+        "sub_id": "0008E3AC",
+        "edid": "LLE_Creature_Brahmin",
+        "item_count": 1700,
+        "rate_value": 0.5,
+        "rate_display": "50%",
+        "top_items": [
+         {
+          "name": "Disease Cure",
+          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
+         },
+         {
+          "name": "Cutting Fluid",
+          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
+         },
+         {
+          "name": "Vegetable Starch",
+          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
+         },
+         {
+          "name": "Hard Hat",
+          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
+         },
+         {
+          "name": "Blood Pack",
+          "rate_display": "needs Butcher's Bounty 40% / 60% / 80%"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "collectrons": null,
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Thrasher Field Dressing Station",
+     "edid": "ATX_ENTM_CAMP_Collector_RadTurkeyFieldDressingStation",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Brahmin Meat",
+       "form_id": "0004A13F",
+       "rate": 0.090909,
+       "rate_display": "9.09%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Wall-mounted Oven",
+     "edid": "ATX_ENTM_CAMP_Collector_WallmountedOven",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Brahmin Meat",
+       "form_id": "0004A13F",
+       "rate": 0.090909,
+       "rate_display": "9.09%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  },
+  "containers": {
+   "types": [
+    {
+     "name": "Meat Bag",
+     "rate": 0.07692307692307687,
+     "rate_display": "7.69%"
+    },
+    {
+     "name": "Scorchbeast Guano Pile",
+     "rate": 0.07538461538461538,
+     "rate_display": "7.54%"
+    },
+    {
+     "name": "Waste Pile",
+     "rate": 0.07538461538461538,
+     "rate_display": "7.54%"
+    },
+    {
+     "name": "Meat Bag",
+     "rate": 0.007692307692307665,
+     "rate_display": "0.77%"
+    },
+    {
+     "name": "Bear-Proof Trash Can",
+     "rate": 0.0050000000000000044,
+     "rate_display": "0.5%"
+    }
+   ]
+  }
+ },
+ "farming_tips": {
+  "spawn_note": "Brahmin Meat comes from killing Brahmins and looting the body.",
+  "spoils": true,
+  "spoil_duration_hours": null,
+  "base_weight": 1.0,
+  "object_type": "Food",
+  "yield_perk": "butchers_bounty",
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.55
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.1
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.1,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.8
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.6
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.1
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": true,
+  "perk_cards": {
+   "butchers_bounty": {
+    "name": "Butcher's Bounty",
+    "special": "Perception",
+    "min_level": 3,
+    "rank_count": 3,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "40% chance to find extra meat from animal corpses.",
+      "percent": "40%"
+     },
+     {
+      "rank": 2,
+      "desc": "60% chance to find extra meat from animal corpses.",
+      "percent": "60%"
+     },
+     {
+      "rank": 3,
+      "desc": "80% chance to find extra meat from animal corpses.",
+      "percent": "80%"
+     }
+    ]
+   },
+   "thru_hiker": {
+    "name": "Thru-Hiker",
+    "special": "Endurance",
+    "min_level": 7,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "Food and drink weights are reduced by 45%.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "desc": "Food and drink weights are reduced by 90%.",
+      "percent": "90%"
+     }
+    ]
+   },
+   "good_with_salt": {
+    "name": "Good With Salt",
+    "special": "Intelligence",
+    "min_level": 9,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "reduction": "45%",
+      "desc": "Food in your inventory will spoil 45% slower.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "reduction": "90%"
+     }
+    ]
+   }
+  },
+  "refrigerated": {
+   "name": "Refrigerated Backpack",
+   "reduction": "50%",
+   "stacks_with_good_with_salt": false
+  }
+ },
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 1.0,
+   "value": 12,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": true,
+   "note": "Brahmin Meat is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Disease Chance",
+     "display": "3% chance to catch a disease",
+     "duration": null,
+     "label": "Disease Chance",
+     "value": 3.0,
+     "unit": "percent",
+     "scales": false,
+     "zeroed": true,
+     "sign": false
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (1080/18 min)",
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 1080.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Rads",
+     "display": "+15 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 15.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
+    }
+   ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
+  },
+  "challenges": [
+   {
+    "type": "Daily",
+    "name": "Epic - Kill a Brahmin with Fire Damage",
+    "required": 1,
+    "edid": "SCORE_Challenge_Daily_Kill_Brahmin_Fire_Epic",
+    "page": "daily"
+   },
+   {
+    "type": "Event",
+    "name": "Birthday: Gather Milk from Brahmin while wearing the Birthday Suit",
+    "required": 3,
+    "edid": "ATX_DE2023_Birthday_Challenge_Collect_MilkBrahmin",
+    "page": "events"
+   },
+   {
+    "type": "Mini Season",
+    "name": "Kill a Brahmin",
+    "required": 5,
+    "edid": "ATX_DE2022_Anniversary_Challenge_Weekly_Kill_Enemies_SUB_Brahmin",
+    "page": "season:anniversary"
+   }
+  ],
+  "recipes": [
+   {
+    "name": "Appalachili",
+    "form_id": "003DB3E7",
+    "recipe_edid": "co_meal_Appalachili_RSVP02",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 1
+     },
+     {
+      "name": "Brahmin Meat",
+      "qty": 1,
+      "is_main": true
+     },
+     {
+      "name": "Tato",
+      "qty": 2,
+      "url": "/bnb/farming/plants/tato/"
+     },
+     {
+      "name": "Silt Bean",
+      "qty": 1,
+      "url": "/bnb/farming/plants/silt-bean/"
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 30 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 30.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Luck",
+      "display": "+2 Fortify Luck",
+      "duration": "30 min",
+      "label": "Luck",
+      "value": 2.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Quench Thirst",
+      "display": "Quenches thirst (540/9 min)",
+      "duration": null,
+      "label": "Quenches Thirst",
+      "value": 540.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (720/12 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 720.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Learned from a cookbook terminal (RSVP questline)."
+   },
+   {
+    "name": "Brahmin Burgers",
+    "form_id": "00669392",
+    "recipe_edid": "co_meal_NWOT_BrahminBurgers",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 2,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Brahmin Meat",
+      "qty": 2,
+      "is_main": true
+     },
+     {
+      "name": "Salt",
+      "qty": 2
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 20 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 20.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (720/12 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 720.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+2 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Known by default."
+   },
+   {
+    "name": "Headhunter's Headcheese",
+    "form_id": "005543B4",
+    "recipe_edid": "WL046__co_meal_HeadhuntersHeadcheese",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 2,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Bone",
+      "qty": 1,
+      "url": "/df/farming/junk/bone/"
+     },
+     {
+      "name": "Brahmin Meat",
+      "qty": 2,
+      "is_main": true
+     },
+     {
+      "name": "Salt",
+      "qty": 1
+     },
+     {
+      "name": "Spices",
+      "qty": 1
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 200 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 200.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Damage Resist",
+      "display": "+10 Fortify Damage Resist",
+      "duration": "30 min",
+      "label": "Damage Resist",
+      "value": 10.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (720/12 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 720.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Increase Thirst",
+      "display": "+180 Increase Thirst",
+      "duration": null,
+      "label": "Increase Thirst",
+      "value": 180.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Rads",
+      "display": "+15 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 15.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Plan/Note: WL046_Note_HeadhuntersHeadcheese"
+   },
+   {
+    "name": "Nuka-Bottle Dog",
+    "form_id": "0066D3F4",
+    "recipe_edid": "co_meal_NWOT_NukaBottleDog",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Brahmin Meat",
+      "qty": 1,
+      "is_main": true
+     },
+     {
+      "name": "Razorgrain Flour",
+      "qty": 1
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 30 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 30.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Health",
+      "display": "+30 Fortify Health",
+      "duration": "30 min",
+      "label": "Health",
+      "value": 30.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1080/18 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1080.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Known by default."
+   },
+   {
+    "name": "Nuka-Dog",
+    "form_id": "0066D3F3",
+    "recipe_edid": "co_meal_NWOT_NukaDog",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Brahmin Meat",
+      "qty": 1,
+      "is_main": true
+     },
+     {
+      "name": "Razorgrain Flour",
+      "qty": 1
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 30 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 30.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Health",
+      "display": "+30 Fortify Health",
+      "duration": "30 min",
+      "label": "Health",
+      "value": 30.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1080/18 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1080.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Known by default."
+   },
+   {
+    "name": "Ribeye Steak",
+    "form_id": "0004695A",
+    "recipe_edid": "co_meal_BrahminMeatCooked",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Brahmin Meat",
+      "qty": 1,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 45 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 45.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Carry Weight",
+      "display": "+20 Fortify Carry Weight",
+      "duration": "30 min",
+      "label": "Carry Weight",
+      "value": 20.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1080/18 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1080.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Known by default."
+   }
+  ]
+ },
+ "vendor_list": [
+  {
+   "name": "Marie",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "67.23%"
+   ],
+   "rate_display": "67.23%",
+   "rate_value": 0.67232,
+   "count": 1
+  },
+  {
+   "name": "Carver Timmerman",
+   "marker": "Big Bend Tunnel East",
+   "region": "Cranberry Bog",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "36%"
+   ],
+   "rate_display": "36%",
+   "rate_value": 0.36,
+   "count": 1
+  },
+  {
+   "name": "Rudy Fernandez",
+   "marker": "Big Bend Tunnel East",
+   "region": "Cranberry Bog",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "36%"
+   ],
+   "rate_display": "36%",
+   "rate_value": 0.36,
+   "count": 1
+  },
+  {
+   "name": "Maul",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "20%"
+   ],
+   "rate_display": "20%",
+   "rate_value": 0.2,
+   "count": 2
+  },
+  {
+   "name": "Grahm",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "14.79%"
+   ],
+   "rate_display": "14.79%",
+   "rate_value": 0.147929,
+   "count": 1
+  }
+ ],
+ "events_activities": [],
+ "random_encounters": [
+  {
+   "form_id": "00402CBC",
+   "edid": "RE_ObjectDWD03",
+   "name": "Brahmin Quill Attack",
+   "type": "Object Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "00454C49",
+   "edid": "RE_SceneCMB02",
+   "name": "Brahmin Wrangler",
+   "type": "Scene Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0052E47D",
+   "edid": "RE_SceneMJP01",
+   "name": "Dead Brahmin Herd",
+   "type": "Scene Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0061DADA",
+   "edid": "RE_Travel_Zetan_04",
+   "name": "Flaming Brahmin",
+   "type": "Travel Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0052E49C",
+   "edid": "RE_SceneMD02",
+   "name": "Wolves and dead brahmin",
+   "type": "Scene Encounters",
+   "location": ""
+  }
+ ],
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": [
+    {
+     "marker": "Big Bend Tunnel West",
+     "count": 2,
+     "sources": {
+      "placement": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "58395E",
+      "58395F"
+     ],
+     "coords": [
+      -45444.5,
+      -120178.8
+     ],
+     "breakdown": [
+      {
+       "label": "Brahmin",
+       "count": 2,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Brahmin #1",
+       "ref": "58395E",
+       "source_type": "placement",
+       "coords": [
+        -45444.5,
+        -120178.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Brahmin #2",
+       "ref": "58395F",
+       "source_type": "placement",
+       "coords": [
+        -46104.2,
+        -119550.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": [
+    {
+     "marker": "Abraxodyne Chemical Power Substation",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "824490"
+     ],
+     "coords": [
+      -221766.0,
+      8125.8
+     ],
+     "breakdown": [
+      {
+       "label": "Brahmin",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Brahmin",
+       "ref": "824490",
+       "source_type": "placement",
+       "coords": [
+        -221766.0,
+        8125.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Highway Town",
+     "count": 3,
+     "sources": {
+      "placement": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "7F1DC6",
+      "7F1DC7",
+      "8338FF"
+     ],
+     "coords": [
+      -233148.5,
+      99034.2
+     ],
+     "breakdown": [
+      {
+       "label": "Brahmin",
+       "count": 2,
+       "source_type": "placement"
+      },
+      {
+       "label": "Pack Brahmin",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Brahmin #1",
+       "ref": "7F1DC6",
+       "source_type": "placement",
+       "coords": [
+        -233148.5,
+        99034.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Brahmin #2",
+       "ref": "7F1DC7",
+       "source_type": "placement",
+       "coords": [
+        -233083.2,
+        98708.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Pack Brahmin",
+       "ref": "8338FF",
+       "source_type": "placement",
+       "coords": [
+        -233584.2,
+        100351.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Westbrook Horse Ranch",
+     "count": 2,
+     "sources": {
+      "placement": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "854253",
+      "854254"
+     ],
+     "coords": [
+      -212152.0,
+      46784.0
+     ],
+     "breakdown": [
+      {
+       "label": "Brahmin",
+       "count": 2,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Brahmin #1",
+       "ref": "854253",
+       "source_type": "placement",
+       "coords": [
+        -212152.0,
+        46784.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Brahmin #2",
+       "ref": "854254",
+       "source_type": "placement",
+       "coords": [
+        -211737.9,
+        46434.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": [
+    {
+     "marker": "Big Bend Tunnel East",
+     "count": 3,
+     "sources": {
+      "placement": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "56F4C0",
+      "56F4C1",
+      "56F4C2"
+     ],
+     "coords": [
+      115411.6,
+      -149162.4
+     ],
+     "breakdown": [
+      {
+       "label": "Brahmin",
+       "count": 3,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Brahmin #1",
+       "ref": "56F4C0",
+       "source_type": "placement",
+       "coords": [
+        115411.6,
+        -149162.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Brahmin #2",
+       "ref": "56F4C1",
+       "source_type": "placement",
+       "coords": [
+        115152.3,
+        -149307.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Brahmin #3",
+       "ref": "56F4C2",
+       "source_type": "placement",
+       "coords": [
+        115376.4,
+        -148718.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Sacramental Glade",
+     "count": 1,
+     "sources": {
+      "ambush": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "6A1739"
+     ],
+     "coords": [
+      192187.4,
+      -121054.2
+     ],
+     "breakdown": [
+      {
+       "label": "Brahmin",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Brahmin",
+       "ref": "6A1739",
+       "source_type": "ambush",
+       "coords": [
+        192187.4,
+        -121054.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Forest",
+   "locations": [
+    {
+     "marker": "Anchor Farm",
+     "count": 2,
+     "sources": {
+      "placement": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "53C3E7",
+      "53C3E8"
+     ],
+     "coords": [
+      -121018.3,
+      119147.8
+     ],
+     "breakdown": [
+      {
+       "label": "Brahmin",
+       "count": 2,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Brahmin #1",
+       "ref": "53C3E7",
+       "source_type": "placement",
+       "coords": [
+        -121018.3,
+        119147.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Brahmin #2",
+       "ref": "53C3E8",
+       "source_type": "placement",
+       "coords": [
+        -120678.1,
+        119314.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Blue Ridge Bunkhouse",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "731EE4"
+     ],
+     "coords": [
+      -136320.3,
+      87836.1
+     ],
+     "breakdown": [
+      {
+       "label": "Brahmin",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Brahmin",
+       "ref": "731EE4",
+       "source_type": "placement",
+       "coords": [
+        -136320.3,
+        87836.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Flatwoods",
+     "count": 9,
+     "sources": {
+      "placement": 9
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3DB3DB",
+      "3DB3DC",
+      "3DB3DD",
+      "3DB3DE",
+      "3DB3DF",
+      "3DB3E0",
+      "3DB3E1",
+      "3DB3E2",
+      "3DB3E5"
+     ],
+     "coords": [
+      -106556.4,
+      24908.6
+     ],
+     "breakdown": [
+      {
+       "label": "Brahmin",
+       "count": 9,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Brahmin #1",
+       "ref": "3DB3DB",
+       "source_type": "placement",
+       "coords": [
+        -109939.8,
+        15377.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Brahmin #2",
+       "ref": "3DB3DC",
+       "source_type": "placement",
+       "coords": [
+        -109241.8,
+        15923.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Brahmin #3",
+       "ref": "3DB3DD",
+       "source_type": "placement",
+       "coords": [
+        -108671.0,
+        14510.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Brahmin #4",
+       "ref": "3DB3DE",
+       "source_type": "placement",
+       "coords": [
+        -109602.8,
+        13384.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Brahmin #5",
+       "ref": "3DB3DF",
+       "source_type": "placement",
+       "coords": [
+        -105909.0,
+        24937.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Brahmin #6",
+       "ref": "3DB3E0",
+       "source_type": "placement",
+       "coords": [
+        -106556.4,
+        24908.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Brahmin #7",
+       "ref": "3DB3E1",
+       "source_type": "placement",
+       "coords": [
+        -105664.5,
+        19435.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Brahmin #8",
+       "ref": "3DB3E2",
+       "source_type": "placement",
+       "coords": [
+        -104414.2,
+        20228.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Brahmin #9",
+       "ref": "3DB3E5",
+       "source_type": "placement",
+       "coords": [
+        -105993.2,
+        25567.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Lewis & Sons Farming Supply",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5C44B1"
+     ],
+     "coords": [
+      -173459.3,
+      -41620.2
+     ],
+     "breakdown": [
+      {
+       "label": "Brahmin",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Brahmin",
+       "ref": "5C44B1",
+       "source_type": "placement",
+       "coords": [
+        -173459.3,
+        -41620.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Wayward",
+     "count": 3,
+     "sources": {
+      "placement": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "404363",
+      "404364",
+      "404365"
+     ],
+     "coords": [
+      -80480.0,
+      48342.2
+     ],
+     "breakdown": [
+      {
+       "label": "Brahmin",
+       "count": 3,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Brahmin #1",
+       "ref": "404363",
+       "source_type": "placement",
+       "coords": [
+        -80480.0,
+        48342.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Brahmin #2",
+       "ref": "404364",
+       "source_type": "placement",
+       "coords": [
+        -80692.6,
+        48847.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Brahmin #3",
+       "ref": "404365",
+       "source_type": "placement",
+       "coords": [
+        -80188.0,
+        48668.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Savage Divide",
+   "locations": [
+    {
+     "marker": "Enclave Research Facility",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5EACE5"
+     ],
+     "coords": [
+      -4654.9,
+      3483.6
+     ],
+     "breakdown": [
+      {
+       "label": "Brahmin",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Brahmin",
+       "ref": "5EACE5",
+       "source_type": "placement",
+       "coords": [
+        -4654.9,
+        3483.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Fort Atlas",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "605F16"
+     ],
+     "coords": [
+      84147.2,
+      72581.3
+     ],
+     "breakdown": [
+      {
+       "label": "Minos",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Minos",
+       "ref": "605F16",
+       "source_type": "placement",
+       "coords": [
+        84147.2,
+        72581.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Foundation",
+     "count": 2,
+     "sources": {
+      "placement": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "4253AB",
+      "6058CB"
+     ],
+     "coords": [
+      33945.3,
+      -100022.8
+     ],
+     "breakdown": [
+      {
+       "label": "Brahmin",
+       "count": 1,
+       "source_type": "placement"
+      },
+      {
+       "label": "Minos",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Brahmin",
+       "ref": "4253AB",
+       "source_type": "placement",
+       "coords": [
+        33945.3,
+        -100022.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Minos",
+       "ref": "6058CB",
+       "source_type": "placement",
+       "coords": [
+        32509.2,
+        -102764.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Middle Mountain Pitstop",
+     "count": 4,
+     "sources": {
+      "placement": 4
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "693D96",
+      "693D97",
+      "693D98",
+      "693D9A"
+     ],
+     "coords": [
+      46209.4,
+      -38050.8
+     ],
+     "breakdown": [
+      {
+       "label": "Boil & Foil",
+       "count": 1,
+       "source_type": "placement"
+      },
+      {
+       "label": "Shock & Awe",
+       "count": 1,
+       "source_type": "placement"
+      },
+      {
+       "label": "Vikki & Vance",
+       "count": 1,
+       "source_type": "placement"
+      },
+      {
+       "label": "Hocus & Pocus",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Boil & Foil",
+       "ref": "693D96",
+       "source_type": "placement",
+       "coords": [
+        46402.0,
+        -37697.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Shock & Awe",
+       "ref": "693D97",
+       "source_type": "placement",
+       "coords": [
+        46209.4,
+        -38050.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Vikki & Vance",
+       "ref": "693D98",
+       "source_type": "placement",
+       "coords": [
+        46472.4,
+        -37937.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Hocus & Pocus",
+       "ref": "693D9A",
+       "source_type": "placement",
+       "coords": [
+        46023.2,
+        -37890.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Monongah",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3C7124"
+     ],
+     "coords": [
+      57974.5,
+      84595.2
+     ],
+     "breakdown": [
+      {
+       "label": "Pack Brahmin",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Pack Brahmin",
+       "ref": "3C7124",
+       "source_type": "placement",
+       "coords": [
+        57974.5,
+        84595.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Monongah Power Plant",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "44D49F"
+     ],
+     "coords": [
+      38647.7,
+      67488.5
+     ],
+     "breakdown": [
+      {
+       "label": "Chally the Moo-Moo",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Chally the Moo-Moo",
+       "ref": "44D49F",
+       "source_type": "placement",
+       "coords": [
+        38647.7,
+        67488.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Pleasant Valley Station",
+     "count": 3,
+     "sources": {
+      "placement": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "43CC56",
+      "43CC57",
+      "43CC58"
+     ],
+     "coords": [
+      64686.5,
+      5651.0
+     ],
+     "breakdown": [
+      {
+       "label": "Brahmin",
+       "count": 3,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Brahmin #1",
+       "ref": "43CC56",
+       "source_type": "placement",
+       "coords": [
+        64686.5,
+        5651.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Brahmin #2",
+       "ref": "43CC57",
+       "source_type": "placement",
+       "coords": [
+        64349.8,
+        5494.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Brahmin #3",
+       "ref": "43CC58",
+       "source_type": "placement",
+       "coords": [
+        64105.8,
+        5606.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Rose Room",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "6A5913"
+     ],
+     "coords": [
+      27641.0,
+      100565.0
+     ],
+     "breakdown": [
+      {
+       "label": "Brahmin",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Brahmin",
+       "ref": "6A5913",
+       "source_type": "placement",
+       "coords": [
+        27641.0,
+        100565.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Whitespring Resort",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "65B0EA"
+     ],
+     "coords": [
+      6940.1,
+      -49738.7
+     ],
+     "breakdown": [
+      {
+       "label": "Minos",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Minos",
+       "ref": "65B0EA",
+       "source_type": "placement",
+       "coords": [
+        6940.1,
+        -49738.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": [
+    {
+     "marker": "Stony Man Lookout",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "76B16D"
+     ],
+     "coords": [
+      59367.8,
+      -228021.8
+     ],
+     "breakdown": [
+      {
+       "label": "Pack Brahmin",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Pack Brahmin",
+       "ref": "76B16D",
+       "source_type": "placement",
+       "coords": [
+        59367.8,
+        -228021.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Mire",
+   "locations": []
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": [
+    {
+     "marker": "The Crater",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "605F1A"
+     ],
+     "coords": [
+      22256.0,
+      198897.4
+     ],
+     "breakdown": [
+      {
+       "label": "Minos",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Minos",
+       "ref": "605F1A",
+       "source_type": "placement",
+       "coords": [
+        22256.0,
+        198897.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "chance_spawns": {
+  "regions": [],
+  "total_markers": 0,
+  "total": 0,
+  "no_maps": true
+ },
+ "breakdown_lead": "Spawns here:",
+ "treasure_maps": {
+  "maps": []
+ }
+}

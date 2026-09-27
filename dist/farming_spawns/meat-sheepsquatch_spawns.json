@@ -1,0 +1,1111 @@
+{
+ "_meta": {
+  "generated": "2026-09-26",
+  "source": "dist/meat/sheepsquatch.json + farming pipeline (src/build_meat_guide_docs.py)"
+ },
+ "set": "meat",
+ "slug": "meat-sheepsquatch",
+ "name": "Sheepsquatch Meat",
+ "page_title": "Sheepsquatch Location Guide",
+ "blurb": "The Sheepsquatch in Fallout 76 — drops Sheepsquatch Meat, 11 NPC variants, 19 known spawn points.",
+ "map_base": "",
+ "drop_rates": {
+  "creatures": {
+   "note": "Every Sheepsquatch you kill drops Sheepsquatch Meat (100%). Sheepsquatch: 11 variants, levels 50–100, up to 10,000 HP.",
+   "drops": {
+    "lists": [
+     {
+      "edid": "LLD_Creature_Sheepsquatch",
+      "form_id": "00479D47",
+      "row_count": 2,
+      "direct_items": 0,
+      "pool_count": 2,
+      "item_count": 11543,
+      "rows": [
+       {
+        "kind": "pool",
+        "name": "Generic creature loot (large)",
+        "sub_id": "003DF3F4",
+        "edid": "LLS_Creature_Large",
+        "item_count": 11535,
+        "rate_value": 1.0,
+        "rate_display": "100%",
+        "top_items": [
+         {
+          "name": "Raw Cobalt Flux",
+          "rate_display": "20%"
+         },
+         {
+          "name": "Raw Fluorescent Flux",
+          "rate_display": "20%"
+         },
+         {
+          "name": "Raw Violet Flux",
+          "rate_display": "20%"
+         },
+         {
+          "name": "Raw Crimson Flux",
+          "rate_display": "20%"
+         },
+         {
+          "name": "Raw Yellowcake Flux",
+          "rate_display": "20%"
+         }
+        ]
+       },
+       {
+        "kind": "pool",
+        "name": "Sheepsquatch Misc",
+        "sub_id": "0046C85C",
+        "edid": "LLS_Creature_Sheepsquatch_Misc",
+        "item_count": 8,
+        "rate_value": 1.0,
+        "rate_display": "100%",
+        "top_items": [
+         {
+          "name": "Mysterious Quill",
+          "rate_display": "100%"
+         },
+         {
+          "name": "Sheepsquatch Meat",
+          "rate_display": "100%"
+         },
+         {
+          "name": "Mysterious Fur",
+          "rate_display": "100%"
+         },
+         {
+          "name": "Sheepsquatch Skull",
+          "rate_display": "100%"
+         },
+         {
+          "name": "Large Sheepsquatch Horn",
+          "rate_display": "100%"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Sir Loin Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_SirLoin",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "9 min",
+     "items": [
+      {
+       "name": "Sheepsquatch Meat",
+       "form_id": "0046C85D",
+       "rate": 0.0,
+       "rate_display": "0%",
+       "rate_source": "computed_zero"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": null,
+  "containers": {
+   "types": []
+  }
+ },
+ "farming_tips": {
+  "spawn_note": "Sheepsquatch Meat comes from killing Sheepsquatchs and looting the body.",
+  "spoils": true,
+  "spoil_duration_hours": null,
+  "base_weight": 2.0,
+  "object_type": "Food",
+  "yield_perk": "butchers_bounty",
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 1.1
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.2
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.2,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 1.6
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 1.2
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.8
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.2
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": true,
+  "perk_cards": {
+   "butchers_bounty": {
+    "name": "Butcher's Bounty",
+    "special": "Perception",
+    "min_level": 3,
+    "rank_count": 3,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "40% chance to find extra meat from animal corpses.",
+      "percent": "40%"
+     },
+     {
+      "rank": 2,
+      "desc": "60% chance to find extra meat from animal corpses.",
+      "percent": "60%"
+     },
+     {
+      "rank": 3,
+      "desc": "80% chance to find extra meat from animal corpses.",
+      "percent": "80%"
+     }
+    ]
+   },
+   "thru_hiker": {
+    "name": "Thru-Hiker",
+    "special": "Endurance",
+    "min_level": 7,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "Food and drink weights are reduced by 45%.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "desc": "Food and drink weights are reduced by 90%.",
+      "percent": "90%"
+     }
+    ]
+   },
+   "good_with_salt": {
+    "name": "Good With Salt",
+    "special": "Intelligence",
+    "min_level": 9,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "reduction": "45%",
+      "desc": "Food in your inventory will spoil 45% slower.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "reduction": "90%"
+     }
+    ]
+   }
+  },
+  "refrigerated": {
+   "name": "Refrigerated Backpack",
+   "reduction": "50%",
+   "stacks_with_good_with_salt": false
+  }
+ },
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 2.0,
+   "value": 17,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": true,
+   "note": "Sheepsquatch Meat is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (1080/18 min)",
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 1080.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Rads",
+     "display": "+15 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 15.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
+    }
+   ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
+  },
+  "challenges": [
+   {
+    "type": "Daily",
+    "name": "Epic - Kill a Sheepsquatch",
+    "required": 1,
+    "edid": "SCORE_Challenge_Daily_Kill_Sheepsquatch",
+    "page": "daily"
+   },
+   {
+    "type": "Weekly",
+    "name": "Epic - Take a Camera Picture of a Cryptid",
+    "required": 1,
+    "edid": "SCORE_Challenge_Weekly_Picture_Creatures_LegendaryCryptid_Camera_Epic",
+    "page": "weekly"
+   },
+   {
+    "type": "Weekly",
+    "name": "Epic: Take a Camera Picture of a Glowing Cryptid",
+    "required": 1,
+    "edid": "SCORE_Challenge_Weekly_Picture_Creatures_GlowingCryptid_Camera_Epic",
+    "page": "weekly"
+   },
+   {
+    "type": "Weekly",
+    "name": "Kill a Sheepsquatch",
+    "required": 1,
+    "edid": "SCORE_Challenge_Weekly_Kill_HugeMonsters_SUB_Sheepsquatch_Med",
+    "page": "weekly"
+   },
+   {
+    "type": "Weekly",
+    "name": "Take a Picture of a Sheepsquatch",
+    "required": 1,
+    "edid": "SCORE_Challenge_Weekly_Picture_Creatures_Sheepsquatch_Camera",
+    "page": "weekly"
+   }
+  ],
+  "recipes": [
+   {
+    "name": "Light Mutton Chops",
+    "form_id": "007331D0",
+    "recipe_edid": "co_meal_SheepsquatchMeatCookedLight",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 2,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 2,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Sheepsquatch Meat",
+      "qty": 2,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 25 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 25.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Melee Damage",
+      "display": "+20 Fortify Melee Damage",
+      "duration": "30 min",
+      "label": "Melee Damage",
+      "value": 20.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1080/18 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1080.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+2 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Known by default."
+   },
+   {
+    "name": "Mutton Chops",
+    "form_id": "0046ECB2",
+    "recipe_edid": "co_meal_SheepsquatchMeatCooked",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 4,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 4,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Sheepsquatch Meat",
+      "qty": 4,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 45 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 45.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Melee Damage",
+      "display": "+40 Fortify Melee Damage",
+      "duration": "30 min",
+      "label": "Melee Damage",
+      "value": 40.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1080/18 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1080.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Known by default."
+   },
+   {
+    "name": "Tasty Mutton Meat Pie",
+    "form_id": "0046ECB1",
+    "recipe_edid": "co_meal_SheepsquatchMeatTasty",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 12,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 6,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 4
+     },
+     {
+      "name": "Carrot",
+      "qty": 6,
+      "url": "/bnb/farming/plants/carrot/"
+     },
+     {
+      "name": "Pepper",
+      "qty": 4
+     },
+     {
+      "name": "Sheepsquatch Meat",
+      "qty": 12,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 90 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 90.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Melee Damage",
+      "display": "+85 Fortify Melee Damage",
+      "duration": "1 hour",
+      "label": "Melee Damage",
+      "value": 85.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1800/30 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1800.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Known by default."
+   }
+  ]
+ },
+ "vendor_list": [],
+ "events_activities": [],
+ "random_encounters": [
+  {
+   "form_id": "00571ACA",
+   "edid": "W05_RE_Camp_JP10_CryptidStories_Sheepsquatch",
+   "name": "Cryptid Stories Sheepsquatch",
+   "type": "CAMP Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "00402AA4",
+   "edid": "RE_SceneTS08",
+   "name": "Distant Sheepsquatch Howl",
+   "type": "Scene Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0046491F",
+   "edid": "RE_ObjectTS07",
+   "name": "Sheepsquatch Empty Nest",
+   "type": "Object Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0046985F",
+   "edid": "RE_TravelTS02",
+   "name": "Sheepsquatch Hunt",
+   "type": "Travel Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "00460611",
+   "edid": "RE_SceneDWD07",
+   "name": "Sheepsquatch vs Albino Radstags",
+   "type": "Scene Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0045DF09",
+   "edid": "RE_AssaultDWD03",
+   "name": "Sheepsquatch vs. Mole Miners",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0045DF08",
+   "edid": "RE_AssaultDWD02",
+   "name": "Sheepsquatch vs. Scorched",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "0045DF06",
+   "edid": "RE_AssaultDWD01",
+   "name": "Sheepsquatch vs. Super Mutants",
+   "type": "Assault Encounters",
+   "location": ""
+  },
+  {
+   "form_id": "00464922",
+   "edid": "RE_ObjectTS08",
+   "name": "Sleeping Sheepsquatch",
+   "type": "Object Encounters",
+   "location": ""
+  }
+ ],
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": [
+    {
+     "marker": "Welch",
+     "count": 2,
+     "sources": {
+      "ambush": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5561EB",
+      "5561EE"
+     ],
+     "coords": [
+      -156006.1,
+      -123254.3
+     ],
+     "breakdown": [
+      {
+       "label": "Sheepsquatch",
+       "count": 2,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Sheepsquatch #1",
+       "ref": "5561EB",
+       "source_type": "ambush",
+       "coords": [
+        -156006.1,
+        -123254.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Sheepsquatch #2",
+       "ref": "5561EE",
+       "source_type": "ambush",
+       "coords": [
+        -155042.7,
+        -124783.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Welch Station",
+     "count": 2,
+     "sources": {
+      "ambush": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5561EC",
+      "5561ED"
+     ],
+     "coords": [
+      -154159.9,
+      -120162.2
+     ],
+     "breakdown": [
+      {
+       "label": "Sheepsquatch",
+       "count": 2,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Sheepsquatch #1",
+       "ref": "5561EC",
+       "source_type": "ambush",
+       "coords": [
+        -154159.9,
+        -120162.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Sheepsquatch #2",
+       "ref": "5561ED",
+       "source_type": "ambush",
+       "coords": [
+        -153733.6,
+        -123604.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": []
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": []
+  },
+  {
+   "region": "Forest",
+   "locations": [
+    {
+     "marker": "Aaronholt Homestead",
+     "count": 2,
+     "sources": {
+      "ambush": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "4161C0",
+      "4161C1"
+     ],
+     "coords": [
+      -125301.5,
+      180059.6
+     ],
+     "breakdown": [
+      {
+       "label": "Sheepsquatch",
+       "count": 2,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Sheepsquatch #1",
+       "ref": "4161C0",
+       "source_type": "ambush",
+       "coords": [
+        -125301.5,
+        180059.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Sheepsquatch #2",
+       "ref": "4161C1",
+       "source_type": "ambush",
+       "coords": [
+        -128362.7,
+        179305.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Arktos Pharma Biome Lab",
+     "count": 8,
+     "sources": {
+      "ambush": 8
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "53B4A8",
+      "53B4A9",
+      "53B4AA",
+      "53B4AB",
+      "53B4AC",
+      "53B4AD",
+      "53B4AE",
+      "53B4AF"
+     ],
+     "coords": [
+      -2797.3,
+      487.4
+     ],
+     "breakdown": [
+      {
+       "label": "Sheepsquatch",
+       "count": 8,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Sheepsquatch #1",
+       "ref": "53B4A8",
+       "source_type": "ambush",
+       "coords": [
+        -2797.3,
+        487.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Sheepsquatch #2",
+       "ref": "53B4A9",
+       "source_type": "ambush",
+       "coords": [
+        -2160.4,
+        1360.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Sheepsquatch #3",
+       "ref": "53B4AA",
+       "source_type": "ambush",
+       "coords": [
+        -3486.9,
+        2610.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Sheepsquatch #4",
+       "ref": "53B4AB",
+       "source_type": "ambush",
+       "coords": [
+        -4868.0,
+        2569.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Sheepsquatch #5",
+       "ref": "53B4AC",
+       "source_type": "ambush",
+       "coords": [
+        -4956.1,
+        1988.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Sheepsquatch #6",
+       "ref": "53B4AD",
+       "source_type": "ambush",
+       "coords": [
+        -4098.8,
+        890.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Sheepsquatch #7",
+       "ref": "53B4AE",
+       "source_type": "ambush",
+       "coords": [
+        -2859.6,
+        2616.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Sheepsquatch #8",
+       "ref": "53B4AF",
+       "source_type": "ambush",
+       "coords": [
+        -2222.5,
+        800.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Savage Divide",
+   "locations": [
+    {
+     "marker": "Beckwith Farm",
+     "count": 2,
+     "sources": {
+      "ambush": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "4161C2",
+      "4161C3"
+     ],
+     "coords": [
+      43323.1,
+      -6520.5
+     ],
+     "breakdown": [
+      {
+       "label": "Sheepsquatch",
+       "count": 2,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Sheepsquatch #1",
+       "ref": "4161C2",
+       "source_type": "ambush",
+       "coords": [
+        43323.1,
+        -6520.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Sheepsquatch #2",
+       "ref": "4161C3",
+       "source_type": "ambush",
+       "coords": [
+        43380.4,
+        -8157.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": [
+    {
+     "marker": "South River Bridge",
+     "count": 1,
+     "sources": {
+      "placement": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "769BED"
+     ],
+     "coords": [
+      42610.2,
+      -253943.4
+     ],
+     "breakdown": [
+      {
+       "label": "Sheepsquatch",
+       "count": 1,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Sheepsquatch",
+       "ref": "769BED",
+       "source_type": "placement",
+       "coords": [
+        42610.2,
+        -253943.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Mire",
+   "locations": [
+    {
+     "marker": "Delano Grange",
+     "count": 2,
+     "sources": {
+      "ambush": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "4161CF",
+      "4161D0"
+     ],
+     "coords": [
+      183436.6,
+      9771.9
+     ],
+     "breakdown": [
+      {
+       "label": "Sheepsquatch",
+       "count": 2,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Sheepsquatch #1",
+       "ref": "4161CF",
+       "source_type": "ambush",
+       "coords": [
+        183436.6,
+        9771.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Sheepsquatch #2",
+       "ref": "4161D0",
+       "source_type": "ambush",
+       "coords": [
+        183769.0,
+        11830.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": []
+  }
+ ],
+ "chance_spawns": {
+  "regions": [],
+  "total_markers": 0,
+  "total": 0,
+  "no_maps": true
+ },
+ "breakdown_lead": "Spawns here:",
+ "treasure_maps": {
+  "maps": []
+ }
+}

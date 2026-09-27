@@ -49,6 +49,13 @@ def main(argv=None):
     argv = sys.argv[1:] if argv is None else argv
     slugs = [a for a in argv if not a.startswith("-")]
     meat.run(["meat"] + slugs)
+    # The meat GUIDE pages render through the farming-guide renderer (the Deathclaw
+    # Egg baseline), from a farming-shaped doc made out of each meat doc.
+    try:
+        import build_meat_guide_docs
+        build_meat_guide_docs.main(slugs)
+    except Exception as e:
+        print(f"[meat] [warn] meat guide docs not rebuilt: {e}")
     if "--pts" in argv:
         _mirror_to_pts()
 

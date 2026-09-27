@@ -1,0 +1,1052 @@
+{
+ "_meta": {
+  "generated": "2026-09-26",
+  "source": "dist/meat/radturkey.json + farming pipeline (src/build_meat_guide_docs.py)"
+ },
+ "set": "meat",
+ "slug": "meat-radturkey",
+ "name": "Intestine",
+ "page_title": "Rad Turkey Location Guide",
+ "blurb": "The Rad Turkey in Fallout 76 — drops Intestine, 7 NPC variants, 23 known spawn points.",
+ "map_base": "",
+ "drop_rates": {
+  "creatures": {
+   "note": "Every Rad Turkey you kill drops Intestine (100%). Rad Turkey: 7 variants, levels 10–50, up to 10,000 HP.",
+   "drops": {
+    "lists": [
+     {
+      "edid": "LLD_Creature_RadTurkey",
+      "form_id": "0075469D",
+      "row_count": 4,
+      "direct_items": 1,
+      "pool_count": 3,
+      "item_count": 9324,
+      "rows": [
+       {
+        "kind": "pool",
+        "name": "Generic creature loot (medium)",
+        "sub_id": "003DF3F8",
+        "edid": "LLS_Creature_Medium",
+        "item_count": 1106,
+        "rate_value": 1.0,
+        "rate_display": "100%",
+        "top_items": [
+         {
+          "name": "Ammo Grenade Launcher",
+          "rate_display": "38.48%"
+         },
+         {
+          "name": "Ammo2mm EC",
+          "rate_display": "21.38%"
+         },
+         {
+          "name": "Ammo38Caliber",
+          "rate_display": "21.38%"
+         },
+         {
+          "name": "Ammo45Caliber",
+          "rate_display": "21.38%"
+         },
+         {
+          "name": "Ammo10mm",
+          "rate_display": "21.38%"
+         }
+        ]
+       },
+       {
+        "kind": "item",
+        "name": "Intestine",
+        "form_id": "003EEA40",
+        "edid": "Cooking_Intestine",
+        "sig": "ALCH",
+        "qty": 1,
+        "rate_value": 1.0,
+        "rate_display": "100%"
+       },
+       {
+        "kind": "pool",
+        "name": "Junk Small",
+        "sub_id": "0003678C",
+        "edid": "LL_Junk_Small",
+        "item_count": 1689,
+        "rate_value": 1.0,
+        "rate_display": "100%",
+        "top_items": [
+         {
+          "name": "Disease Cure",
+          "rate_display": "48.57%"
+         },
+         {
+          "name": "Cutting Fluid",
+          "rate_display": "48.21%"
+         },
+         {
+          "name": "Vegetable Starch",
+          "rate_display": "48.21%"
+         },
+         {
+          "name": "Hard Hat",
+          "rate_display": "25%"
+         },
+         {
+          "name": "Blood Pack",
+          "rate_display": "11.25%"
+         }
+        ]
+       },
+       {
+        "kind": "pool",
+        "name": "Rad Turkey",
+        "sub_id": "0075469F",
+        "edid": "LLS_Creature_RadTurkey",
+        "item_count": 6528,
+        "rate_value": 1.0,
+        "rate_display": "100%",
+        "top_items": [
+         {
+          "name": "Intestine",
+          "rate_display": "60%"
+         },
+         {
+          "name": "Disease Cure",
+          "rate_display": "8.74%"
+         },
+         {
+          "name": "Hard Hat",
+          "rate_display": "4.5%"
+         },
+         {
+          "name": "Caps",
+          "rate_display": "3.33%"
+         },
+         {
+          "name": "Giddyup Buttercup Back Leg",
+          "rate_display": "2.41%"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "collectrons": null,
+  "resource_generators": null,
+  "containers": {
+   "types": []
+  }
+ },
+ "farming_tips": {
+  "spawn_note": "Intestine comes from killing Rad Turkeys and looting the body.",
+  "spoils": true,
+  "spoil_duration_hours": null,
+  "base_weight": 0.5,
+  "object_type": "Food",
+  "yield_perk": "butchers_bounty",
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.28
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.05
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.05,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.3
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.1
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.05
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": true,
+  "perk_cards": {
+   "butchers_bounty": {
+    "name": "Butcher's Bounty",
+    "special": "Perception",
+    "min_level": 3,
+    "rank_count": 3,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "40% chance to find extra meat from animal corpses.",
+      "percent": "40%"
+     },
+     {
+      "rank": 2,
+      "desc": "60% chance to find extra meat from animal corpses.",
+      "percent": "60%"
+     },
+     {
+      "rank": 3,
+      "desc": "80% chance to find extra meat from animal corpses.",
+      "percent": "80%"
+     }
+    ]
+   },
+   "thru_hiker": {
+    "name": "Thru-Hiker",
+    "special": "Endurance",
+    "min_level": 7,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "Food and drink weights are reduced by 45%.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "desc": "Food and drink weights are reduced by 90%.",
+      "percent": "90%"
+     }
+    ]
+   },
+   "good_with_salt": {
+    "name": "Good With Salt",
+    "special": "Intelligence",
+    "min_level": 9,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "reduction": "45%",
+      "desc": "Food in your inventory will spoil 45% slower.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "reduction": "90%"
+     }
+    ]
+   }
+  },
+  "refrigerated": {
+   "name": "Refrigerated Backpack",
+   "reduction": "50%",
+   "stacks_with_good_with_salt": false
+  }
+ },
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.5,
+   "value": 8,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": true,
+   "note": "Intestine is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Disease Chance",
+     "display": "3% chance to catch a disease",
+     "duration": null,
+     "label": "Disease Chance",
+     "value": 3.0,
+     "unit": "percent",
+     "scales": false,
+     "zeroed": true,
+     "sign": false
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (720/12 min)",
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 720.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Rads",
+     "display": "+15 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 15.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
+    }
+   ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
+  },
+  "challenges": [
+   {
+    "type": "Event",
+    "name": "Uncharted Scouts: Kill a Thrasher while wearing the Marshal Mallow T-Shirt & Shorts",
+    "required": 2,
+    "edid": "ATX_DE2024_UnchartedScouts_Week2_Challenge_Kill_Thrasher",
+    "page": "events"
+   }
+  ],
+  "recipes": [
+   {
+    "name": "Fasnacht Sausage",
+    "form_id": "003EEA45",
+    "recipe_edid": "co_meal_Sausage_Fasnacht",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 2
+     },
+     {
+      "name": "Spices",
+      "qty": 1
+     },
+     {
+      "name": "Spoiled Meat",
+      "qty": 2
+     },
+     {
+      "name": "Tick Blood",
+      "qty": 1,
+      "url": "/bnb/farming/non-perishable/tick-blood/"
+     },
+     {
+      "name": "Intestine",
+      "qty": 1,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 30 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 30.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Health",
+      "display": "+40 Fortify Health",
+      "duration": "30 min",
+      "label": "Health",
+      "value": 40.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1440/24 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1440.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+2 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Known by default."
+   },
+   {
+    "name": "Mystery Meat Pie",
+    "form_id": "0040FC27",
+    "recipe_edid": "P01B_co_meal_MysteryMeatPie",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 2,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Toxic Water",
+      "qty": 1
+     },
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Spices",
+      "qty": 1
+     },
+     {
+      "name": "Spoiled Meat",
+      "qty": 2
+     },
+     {
+      "name": "Intestine",
+      "qty": 2,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 60 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 60.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Carry Weight",
+      "display": "+20 Fortify Carry Weight",
+      "duration": "30 min",
+      "label": "Carry Weight",
+      "value": 20.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Fortify Endurance",
+      "display": "+3 Fortify Endurance",
+      "duration": "30 min",
+      "label": "Endurance",
+      "value": 3.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1080/18 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1080.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+2 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Known by default."
+   }
+  ]
+ },
+ "vendor_list": [
+  {
+   "name": "Wandering Doctor",
+   "marker": "Vault 76",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  }
+ ],
+ "events_activities": [],
+ "random_encounters": [],
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": []
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": []
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": []
+  },
+  {
+   "region": "Forest",
+   "locations": []
+  },
+  {
+   "region": "Savage Divide",
+   "locations": []
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": [
+    {
+     "marker": "Big Meadows Gas Well",
+     "count": 3,
+     "sources": {
+      "placement": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "769075",
+      "769076",
+      "769077"
+     ],
+     "coords": [
+      5952.0,
+      -244224.0
+     ],
+     "breakdown": [
+      {
+       "label": "Rad Turkey",
+       "count": 3,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Rad Turkey #1",
+       "ref": "769075",
+       "source_type": "placement",
+       "coords": [
+        5952.0,
+        -244224.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rad Turkey #2",
+       "ref": "769076",
+       "source_type": "placement",
+       "coords": [
+        6208.0,
+        -244096.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rad Turkey #3",
+       "ref": "769077",
+       "source_type": "placement",
+       "coords": [
+        5952.0,
+        -244480.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Camp Liberty",
+     "count": 5,
+     "sources": {
+      "placement": 5
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "769E8B",
+      "769E8D",
+      "769E91",
+      "769E92",
+      "769E93"
+     ],
+     "coords": [
+      75467.9,
+      -247789.1
+     ],
+     "breakdown": [
+      {
+       "label": "Rad Turkey",
+       "count": 5,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Rad Turkey #1",
+       "ref": "769E8B",
+       "source_type": "placement",
+       "coords": [
+        75467.9,
+        -247789.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rad Turkey #2",
+       "ref": "769E8D",
+       "source_type": "placement",
+       "coords": [
+        75735.5,
+        -247369.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rad Turkey #3",
+       "ref": "769E91",
+       "source_type": "placement",
+       "coords": [
+        71140.8,
+        -255937.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rad Turkey #4",
+       "ref": "769E92",
+       "source_type": "placement",
+       "coords": [
+        71538.4,
+        -256166.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rad Turkey #5",
+       "ref": "769E93",
+       "source_type": "placement",
+       "coords": [
+        71538.4,
+        -255796.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Milepost Zero",
+     "count": 3,
+     "sources": {
+      "placement": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "769072",
+      "769073",
+      "769074"
+     ],
+     "coords": [
+      10052.2,
+      -251657.4
+     ],
+     "breakdown": [
+      {
+       "label": "Rad Turkey",
+       "count": 3,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Rad Turkey #1",
+       "ref": "769072",
+       "source_type": "placement",
+       "coords": [
+        10052.2,
+        -251657.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rad Turkey #2",
+       "ref": "769073",
+       "source_type": "placement",
+       "coords": [
+        10364.2,
+        -251657.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rad Turkey #3",
+       "ref": "769074",
+       "source_type": "placement",
+       "coords": [
+        10224.2,
+        -251877.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Naked Creek",
+     "count": 3,
+     "sources": {
+      "placement": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "760D23",
+      "788C57",
+      "788C5E"
+     ],
+     "coords": [
+      -31728.7,
+      -235946.5
+     ],
+     "breakdown": [
+      {
+       "label": "Alpha Thrasher",
+       "count": 1,
+       "source_type": "placement"
+      },
+      {
+       "label": "Thrasher",
+       "count": 2,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Alpha Thrasher",
+       "ref": "760D23",
+       "source_type": "placement",
+       "coords": [
+        -32466.4,
+        -236947.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Thrasher #1",
+       "ref": "788C57",
+       "source_type": "placement",
+       "coords": [
+        -31728.7,
+        -235946.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Thrasher #2",
+       "ref": "788C5E",
+       "source_type": "placement",
+       "coords": [
+        -31962.7,
+        -236962.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Research Site Bavaria",
+     "count": 6,
+     "sources": {
+      "placement": 6
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "782CC0",
+      "782CC2",
+      "782CC3",
+      "782CC4",
+      "782CC5",
+      "782CC6"
+     ],
+     "coords": [
+      76869.5,
+      -230451.0
+     ],
+     "breakdown": [
+      {
+       "label": "Rad Turkey",
+       "count": 6,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Rad Turkey #1",
+       "ref": "782CC0",
+       "source_type": "placement",
+       "coords": [
+        76869.5,
+        -230451.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rad Turkey #2",
+       "ref": "782CC2",
+       "source_type": "placement",
+       "coords": [
+        77392.0,
+        -230272.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rad Turkey #3",
+       "ref": "782CC3",
+       "source_type": "placement",
+       "coords": [
+        74538.1,
+        -232627.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rad Turkey #4",
+       "ref": "782CC4",
+       "source_type": "placement",
+       "coords": [
+        75011.8,
+        -232058.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rad Turkey #5",
+       "ref": "782CC5",
+       "source_type": "placement",
+       "coords": [
+        74384.0,
+        -231696.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rad Turkey #6",
+       "ref": "782CC6",
+       "source_type": "placement",
+       "coords": [
+        75928.0,
+        -230872.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Research Site Saxony",
+     "count": 3,
+     "sources": {
+      "placement": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "792AED",
+      "792AF0",
+      "792AF1"
+     ],
+     "coords": [
+      -41553.3,
+      -230169.3
+     ],
+     "breakdown": [
+      {
+       "label": "Rad Turkey",
+       "count": 3,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Rad Turkey #1",
+       "ref": "792AED",
+       "source_type": "placement",
+       "coords": [
+        -41553.3,
+        -230169.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rad Turkey #2",
+       "ref": "792AF0",
+       "source_type": "placement",
+       "coords": [
+        -41436.6,
+        -230852.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Rad Turkey #3",
+       "ref": "792AF1",
+       "source_type": "placement",
+       "coords": [
+        -41233.9,
+        -230309.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Mire",
+   "locations": []
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": []
+  }
+ ],
+ "chance_spawns": {
+  "regions": [],
+  "total_markers": 0,
+  "total": 0,
+  "no_maps": true
+ },
+ "breakdown_lead": "Spawns here:",
+ "treasure_maps": {
+  "maps": []
+ }
+}

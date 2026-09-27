@@ -1,0 +1,871 @@
+{
+ "_meta": {
+  "generated": "2026-09-26",
+  "source": "dist/meat/glowing-meat.json + farming pipeline (src/build_meat_guide_docs.py)"
+ },
+ "set": "meat",
+ "slug": "meat-glowing-meat",
+ "name": "Frog Leg",
+ "page_title": "Glowing Meat Location Guide",
+ "blurb": "The Glowing Meat in Fallout 76 — drops Frog Leg, Glowing Meat, 4 NPC variants, 19 known spawn points.",
+ "map_base": "",
+ "drop_rates": {
+  "creatures": {
+   "note": "Every Glowing Meat you kill drops Frog Leg (20%), Glowing Meat (30%). Glowing Meat: 4 variants, level 1, up to 10 HP.",
+   "drops": {
+    "lists": [
+     {
+      "edid": "LLD_Creature_Radfrog",
+      "form_id": "003B9761",
+      "row_count": 4,
+      "direct_items": 2,
+      "pool_count": 2,
+      "item_count": 5,
+      "rows": [
+       {
+        "kind": "item",
+        "name": "Frog Egg",
+        "form_id": "004FE51C",
+        "edid": "RadFrogEgg",
+        "sig": "ALCH",
+        "qty": 1,
+        "rate_value": 1.0,
+        "rate_display": "100%"
+       },
+       {
+        "kind": "pool",
+        "name": "LLE Creature Radfrog",
+        "sub_id": "0043C16D",
+        "edid": "LLE_Creature_Radfrog",
+        "item_count": 3,
+        "rate_value": 1.0,
+        "rate_display": "100%",
+        "top_items": [
+         {
+          "name": "Uranium Ore",
+          "rate_display": "49%"
+         },
+         {
+          "name": "Glowing Meat",
+          "rate_display": "30%"
+         },
+         {
+          "name": "Glowing Blood Pack",
+          "rate_display": "21%"
+         }
+        ]
+       },
+       {
+        "kind": "item",
+        "name": "Frog Leg",
+        "form_id": "004FE51D",
+        "edid": "RadFrogLeg",
+        "sig": "ALCH",
+        "qty": 4,
+        "rate_value": 0.2,
+        "rate_display": "20%"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "collectrons": null,
+  "resource_generators": null,
+  "containers": {
+   "types": [
+    {
+     "name": "Meat Pile",
+     "rate": 0.008823529411764707,
+     "rate_display": "0.88%"
+    }
+   ]
+  }
+ },
+ "farming_tips": {
+  "spawn_note": "Frog Leg comes from killing Glowing Meats and looting the body.",
+  "spoils": true,
+  "spoil_duration_hours": null,
+  "base_weight": 0.25,
+  "object_type": "Food",
+  "yield_perk": "butchers_bounty",
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.14
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.03
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.03,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.15
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.1
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.05
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.03
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": true,
+  "perk_cards": {
+   "butchers_bounty": {
+    "name": "Butcher's Bounty",
+    "special": "Perception",
+    "min_level": 3,
+    "rank_count": 3,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "40% chance to find extra meat from animal corpses.",
+      "percent": "40%"
+     },
+     {
+      "rank": 2,
+      "desc": "60% chance to find extra meat from animal corpses.",
+      "percent": "60%"
+     },
+     {
+      "rank": 3,
+      "desc": "80% chance to find extra meat from animal corpses.",
+      "percent": "80%"
+     }
+    ]
+   },
+   "thru_hiker": {
+    "name": "Thru-Hiker",
+    "special": "Endurance",
+    "min_level": 7,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "Food and drink weights are reduced by 45%.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "desc": "Food and drink weights are reduced by 90%.",
+      "percent": "90%"
+     }
+    ]
+   },
+   "good_with_salt": {
+    "name": "Good With Salt",
+    "special": "Intelligence",
+    "min_level": 9,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "reduction": "45%",
+      "desc": "Food in your inventory will spoil 45% slower.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "reduction": "90%"
+     }
+    ]
+   }
+  },
+  "refrigerated": {
+   "name": "Refrigerated Backpack",
+   "reduction": "50%",
+   "stacks_with_good_with_salt": false
+  }
+ },
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.25,
+   "value": 8,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": true,
+   "note": "Frog Leg is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Disease Chance",
+     "display": "3% chance to catch a disease",
+     "duration": null,
+     "label": "Disease Chance",
+     "value": 3.0,
+     "unit": "percent",
+     "scales": false,
+     "zeroed": true,
+     "sign": false
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (360/6 min)",
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 360.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Rads",
+     "display": "+10 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 10.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
+    }
+   ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
+  },
+  "challenges": [],
+  "recipes": []
+ },
+ "vendor_list": [
+  {
+   "name": "Vendor Bot Chad",
+   "marker": "Camden Park",
+   "region": "Ash Heap",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Lewisburg Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Welch Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Mack",
+   "marker": "Charleston Fire Department",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Charleston Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Bob",
+   "marker": "Flatwoods",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Responder Vendor",
+   "marker": "Morgantown High School",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Morgantown Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Resin",
+   "marker": "Pleasant Valley Ski Resort",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Raiders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Responders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Greg",
+   "marker": "Grafton",
+   "region": "Toxic Valley",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Grafton Station",
+   "region": "Toxic Valley",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [],
+   "rate_display": "0%",
+   "rate_value": 0.0,
+   "count": 1
+  }
+ ],
+ "events_activities": [
+  {
+   "list_id": "0090312D",
+   "edid": "SDOW_LL_SQ01_RepeatableRewards",
+   "name": "Repeatable: Disturbed Grave",
+   "type": "Secondary",
+   "note": "Chance the item is in the Repeatable: Disturbed Grave reward pool per event/activity payout.",
+   "rate_value": 0.058824,
+   "rate_display": "5.88%",
+   "rate_lines": [
+    "5.88%"
+   ]
+  },
+  {
+   "list_id": "0092B344",
+   "edid": "SDOW_SlasherFanReward_Loot",
+   "name": "SDOW Slasher Fan Reward Loot",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the SDOW Slasher Fan Reward Loot reward pool per event/activity payout.",
+   "rate_value": 0.058824,
+   "rate_display": "5.88%",
+   "rate_lines": [
+    "5.88%"
+   ]
+  }
+ ],
+ "random_encounters": [
+  {
+   "form_id": "0081ACCE",
+   "edid": "Burn_RE_Object_LD01",
+   "name": "DANGER: FROG",
+   "type": "Object Encounters",
+   "location": ""
+  }
+ ],
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": []
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": []
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": []
+  },
+  {
+   "region": "Forest",
+   "locations": []
+  },
+  {
+   "region": "Savage Divide",
+   "locations": [
+    {
+     "marker": "The Whitespring Golf Club",
+     "count": 5,
+     "sources": {
+      "placement": 5
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "50BBFF",
+      "50BC00",
+      "50BC01",
+      "50BC02",
+      "50BC03"
+     ],
+     "coords": [
+      -10527.1,
+      -55166.9
+     ],
+     "breakdown": [
+      {
+       "label": "Glowing Meat",
+       "count": 5,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Glowing Meat #1",
+       "ref": "50BBFF",
+       "source_type": "placement",
+       "coords": [
+        -10527.1,
+        -55166.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Glowing Meat #2",
+       "ref": "50BC00",
+       "source_type": "placement",
+       "coords": [
+        -10456.4,
+        -55273.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Glowing Meat #3",
+       "ref": "50BC01",
+       "source_type": "placement",
+       "coords": [
+        -10385.7,
+        -55380.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Glowing Meat #4",
+       "ref": "50BC02",
+       "source_type": "placement",
+       "coords": [
+        -10315.0,
+        -55487.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Glowing Meat #5",
+       "ref": "50BC03",
+       "source_type": "placement",
+       "coords": [
+        -10244.2,
+        -55593.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    },
+    {
+     "marker": "Toxic Larry's Meat 'n Go",
+     "count": 4,
+     "sources": {
+      "placement": 4
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5228CA",
+      "5228CC",
+      "5228CD",
+      "5228CE"
+     ],
+     "coords": [
+      118453.0,
+      50019.2
+     ],
+     "breakdown": [
+      {
+       "label": "Glowing Meat",
+       "count": 4,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Glowing Meat #1",
+       "ref": "5228CA",
+       "source_type": "placement",
+       "coords": [
+        118453.0,
+        50019.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Glowing Meat #2",
+       "ref": "5228CC",
+       "source_type": "placement",
+       "coords": [
+        118325.0,
+        50147.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Glowing Meat #3",
+       "ref": "5228CD",
+       "source_type": "placement",
+       "coords": [
+        118453.0,
+        50147.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Glowing Meat #4",
+       "ref": "5228CE",
+       "source_type": "placement",
+       "coords": [
+        118581.0,
+        50147.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": []
+  },
+  {
+   "region": "The Mire",
+   "locations": []
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": [
+    {
+     "marker": "Carleton Mine",
+     "count": 10,
+     "sources": {
+      "placement": 10
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "556493",
+      "556494",
+      "556497",
+      "55649B",
+      "55649C",
+      "556EB1",
+      "556EB4",
+      "556EB6",
+      "556F6B",
+      "556F9F"
+     ],
+     "coords": [
+      -6404.0,
+      21701.2
+     ],
+     "breakdown": [
+      {
+       "label": "Frog",
+       "count": 10,
+       "source_type": "placement"
+      }
+     ],
+     "spawns": [
+      {
+       "label": "Frog #1",
+       "ref": "556493",
+       "source_type": "placement",
+       "coords": [
+        -6404.0,
+        21701.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Frog #2",
+       "ref": "556494",
+       "source_type": "placement",
+       "coords": [
+        -6448.9,
+        20325.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Frog #3",
+       "ref": "556497",
+       "source_type": "placement",
+       "coords": [
+        -7649.0,
+        19423.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Frog #4",
+       "ref": "55649B",
+       "source_type": "placement",
+       "coords": [
+        -9366.7,
+        18898.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Frog #5",
+       "ref": "55649C",
+       "source_type": "placement",
+       "coords": [
+        -8798.7,
+        20978.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Frog #6",
+       "ref": "556EB1",
+       "source_type": "placement",
+       "coords": [
+        -9936.1,
+        22019.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Frog #7",
+       "ref": "556EB4",
+       "source_type": "placement",
+       "coords": [
+        -10266.9,
+        24209.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Frog #8",
+       "ref": "556EB6",
+       "source_type": "placement",
+       "coords": [
+        -9553.3,
+        23279.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Frog #9",
+       "ref": "556F6B",
+       "source_type": "placement",
+       "coords": [
+        -7671.7,
+        22347.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Frog #10",
+       "ref": "556F9F",
+       "source_type": "placement",
+       "coords": [
+        -7445.6,
+        23482.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "chance_spawns": {
+  "regions": [
+   {
+    "region": "Cranberry Bog",
+    "markers": [
+     {
+      "name": "Superior Sunset Farm",
+      "placements": 1
+     }
+    ],
+    "placements": 1
+   },
+   {
+    "region": "Forest",
+    "markers": [
+     {
+      "name": "Vault-Tec Agricultural Research Center",
+      "placements": 3
+     }
+    ],
+    "placements": 3
+   }
+  ],
+  "total_markers": 2,
+  "total": 4,
+  "no_maps": true,
+  "lead": "Glowing Meats can spawn at 2 locations that share a spawn pool with other creatures, so a Glowing Meat is not guaranteed there. They are listed by name only."
+ },
+ "breakdown_lead": "Spawns here:",
+ "treasure_maps": {
+  "maps": [
+   {
+    "group": "Pint-Sized Phantoms",
+    "name": "Pint-Sized Phantoms' Map",
+    "region": "",
+    "form_id": "008F15E4",
+    "edid": "SDOW_MQ02_SlasherMap",
+    "rate": 0.058824,
+    "rate_display": "5.88%",
+    "sources": [
+     {
+      "form_id": "0090312D",
+      "edid": "SDOW_LL_SQ01_RepeatableRewards",
+      "rate": 0.058824,
+      "rate_display": "5.88%"
+     }
+    ]
+   }
+  ]
+ }
+}
