@@ -1229,6 +1229,8 @@ def build_image_url(event_slug, item_name, slug_override=None):
 # <slug>-2.avif, <slug>-3.avif … The first is the primary / row thumbnail.
 # Keyed by image-folder slug so it is page-agnostic.
 IMAGE_GALLERIES = {
+    # Hunt for the Treasure Hunter — the Golf Carts plan unlocks three paint variants.
+    "golf-carts": 3,
     "decoy-ducks": 3,
     "meat-week-souvenir-beer-stein": 2,
     "bloody-chef-outfit": 2,
@@ -2189,6 +2191,61 @@ def _humanize_cobj_edid(edid):
     return out.strip()
 
 
+def _level_condition_text(s, globs=None):
+    """GetLevel condition -> display text, reading the OPERATOR as well as the
+    value (first three TYPE bits low-bit-first: 0 !=, 1 ==, 2 >, 3 >=, 4 <,
+    5 <=, the same reading rng76 uses for GetRandomPercent). The Stimpak entry
+    on the activity / public-event reward lists is "10100000 55" = level <= 55,
+    which used to print as "Requires player level 55+"."""
+    m0 = re.match(r'^GetLevel\(\)\s*>=\s*(\d+)', s.strip())
+    if m0:   # the builder's own MinLvl-GLOB note
+        return f"Requires player level {m0.group(1)}+" if int(m0.group(1)) > 1 else ""
+    m = re.search(r'\)\s+([01]{8})\s+(?:(-?\d+(?:\.\d+)?)|\w+\s*\[GLOB:([0-9A-Fa-f]{8})\])\s*$', s)
+    if not m:
+        return ""
+    b = m.group(1)
+    op = int(b[0]) + 2 * int(b[1]) + 4 * int(b[2])
+    if m.group(2) is not None:
+        lvl = float(m.group(2))
+    else:
+        lvl = (globs or {}).get((m.group(3) or "").upper())
+        if lvl is None:
+            return ""
+    lvl = int(round(float(lvl)))
+    if op == 3:
+        return f"Requires player level {lvl}+" if lvl > 1 else ""
+    if op == 2:
+        return f"Requires player level {lvl + 1}+"
+    if op == 5:
+        return f"Only drops up to player level {lvl}"
+    if op == 4:
+        return f"Only drops up to player level {lvl - 1}"
+    if op == 1:
+        return f"Only at player level {lvl}"
+    return ""
+
+
+def _fo1_condition_text(s, globs=None):
+    """IsPlayerFO1Member -> display text. Run on "Active Players" against a
+    threshold GLOB it is a count of Fallout 1st players taking part; ">=" picks
+    the Fallout 1st reward list and "<" the standard one."""
+    m = re.search(r'\s([01]{8})\s+(?:(-?\d+(?:\.\d+)?)|\w+\s*\[GLOB:([0-9A-Fa-f]{8})\])\s*$', s)
+    if m:
+        b = m.group(1)
+        op = int(b[0]) + 2 * int(b[1]) + 4 * int(b[2])
+        v = float(m.group(2)) if m.group(2) is not None else (globs or {}).get((m.group(3) or "").upper())
+        if "Active Players" in s and v is not None:
+            n = int(round(float(v)))
+            return {3: f"Only when {n} or more players taking part have Fallout 1st",
+                    2: f"Only when more than {n} players taking part have Fallout 1st",
+                    4: f"Only when fewer than {n} players taking part have Fallout 1st",
+                    5: f"Only when {n} or fewer players taking part have Fallout 1st"}.get(op, "Requires Fallout 1st membership")
+        if v is not None and op in (0, 1):
+            member = (float(v) != 0) if op == 1 else (float(v) == 0)
+            return "Requires Fallout 1st membership" if member else "Only for players without Fallout 1st"
+    return "Requires Fallout 1st membership"
+
+
 def _simplify_condition_basic(cond_str):
     """Convert a raw xEdit condition string into a friendly display string.
     Returns "" for conditions that should be hidden (internal toggles, etc.).
@@ -2214,12 +2271,9 @@ def _simplify_condition_basic(cond_str):
             return "Requires the {} quest to be completed".format(m.group(1))
         return ""
 
-    # GetLevel → "Requires player level X+"
+    # GetLevel → player-level gate (operator-aware, see _level_condition_text)
     if "GetLevel" in s:
-        m = re.search(r'(\d+)\.0+\s*$', s)
-        if m:
-            return "Requires player level {}+".format(m.group(1))
-        return ""
+        return _level_condition_text(s, globals().get("glob_vals"))
 
     # GetIsPlayerGhoul → character race restriction
     if "GetIsPlayerGhoul" in s:

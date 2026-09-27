@@ -385,11 +385,101 @@ def simplify_condition(cond_str):
     if "GetRandomPercent" in s:
         return ""
 
-    # GetLevel → "Requires player level X+"
+    # Comparison operator, read the way rng76/plan_conditions read it: the
+    # first three TYPE bits low-bit-first -> 0 !=, 1 ==, 2 >, 3 >=, 4 <, 5 <=.
+    _opm = re.search(r'\)\s+([01]{8})\s+(-?\d+(?:\.\d+)?)\s*$', s)
+    _op = None
+    _num = None
+    if _opm:
+        _b = _opm.group(1)
+        _op = int(_b[0]) + 2 * int(_b[1]) + 4 * int(_b[2])
+        _num = float(_opm.group(2))
+
+    def _yes():
+        """Does a yes/no condition mean YES? None when it can't be read."""
+        if _op is None:
+            return None
+        if _op == 1:
+            return _num != 0
+        if _op == 0:
+            return _num == 0
+        if _op in (2, 3):
+            return True
+        return False
+
+    _full_name = re.search(r'"([^"]+)"\s*\[[A-Z_]{4}:', s)
+    _full_name = _full_name.group(1) if _full_name else ""
+
+    # HasEntitlement → Atom Shop ownership. "== 0" = only while you do NOT own it.
+    if "HasEntitlement" in s:
+        if _full_name and _yes() is False:
+            return f"Won\u2019t drop if you already own {_full_name} from the Atom Shop"
+        if _full_name and _yes() is True:
+            return f"Only if you own {_full_name} from the Atom Shop"
+        return ""
+
+    # GetValue(PioneerScoutRank) → Pioneer Scout rank gate (Campfire Tales badges)
+    if "GetValue" in s and "PioneerScoutRank" in s and _op is not None:
+        _rank = int(_num)
+        _rank_names = {1: "Tadpole", 2: "Possum"}
+        _rn = _rank_names.get(_rank)
+        _lbl = f"{_rank} ({_rn})" if _rn else f"{_rank}"
+        if _op == 3:
+            return f"Requires Pioneer Scout rank {_lbl} or higher"
+        if _op == 2:
+            return f"Requires Pioneer Scout rank higher than {_lbl}"
+        if _op == 1:
+            return f"Only while your Pioneer Scout rank is {_lbl}"
+        if _op == 4:
+            return f"Only while your Pioneer Scout rank is below {_lbl}"
+        if _op == 5:
+            return f"Only while your Pioneer Scout rank is {_lbl} or lower"
+        return ""
+
+    # GetNumTimesCompletedQuest → "completed the quest at least once"
+    if "GetNumTimesCompletedQuest" in s and quest_name and _op is not None:
+        if _yes():
+            return f"Requires the quest \u201c{quest_name}\u201d to be completed"
+        return f"Only before completing the quest \u201c{quest_name}\u201d"
+
+    # GetItemCount on the reward itself → "only while you don't already have one"
+    if "GetItemCount" in s and _op is not None and _num is not None:
+        _item = _full_name
+        if (_op == 4 and _num <= 1) or (_op == 1 and _num == 0) or (_op == 5 and _num == 0):
+            if _item:
+                return f"Won\u2019t drop if {_item} is already in your inventory"
+            return "Won\u2019t drop if you already have one in your inventory"
+        if _item and _op in (2, 3):
+            return f"Requires {_item} in your inventory"
+        return ""
+
+    # GetLevel → a player-level gate. The OPERATOR decides the wording: the
+    # activity/public-event Stimpak entry is written "10100000 55", which is
+    # GetLevel <= 55 (same bits as the verified GetRandomPercent <= 20 on the
+    # legendary list) -- it only drops UP TO level 55. Reading the value alone
+    # printed "Requires player level 55+", the opposite of what the game does.
+    # The comparison value can also be a GLOB (bit 5 set).
     if "GetLevel" in s:
-        level_match = re.search(r'(\d+)\.0+\s*$', s)
-        if level_match:
-            return f"Requires player level {level_match.group(1)}+"
+        _lop, _lvl = _op, _num
+        if _lvl is None:
+            _gm = re.search(r'\)\s+([01]{8})\s+\w+\s*\[GLOB:([0-9A-Fa-f]{8})\]\s*$', s)
+            if _gm and _gm.group(2).upper() in glob_vals:
+                _b = _gm.group(1)
+                _lop = int(_b[0]) + 2 * int(_b[1]) + 4 * int(_b[2])
+                _lvl = float(glob_vals[_gm.group(2).upper()])
+        if _lvl is None or _lop is None:
+            return ""
+        _lvl = int(round(_lvl))
+        if _lop == 3:                       # >=
+            return f"Requires player level {_lvl}+" if _lvl > 1 else ""
+        if _lop == 2:                       # >
+            return f"Requires player level {_lvl + 1}+"
+        if _lop == 5:                       # <=
+            return f"Only drops up to player level {_lvl}"
+        if _lop == 4:                       # <
+            return f"Only drops up to player level {_lvl - 1}"
+        if _lop == 1:                       # ==
+            return f"Only at player level {_lvl}"
         return ""
 
     # GetGlobalValue → extract GLOB name and make readable
@@ -415,6 +505,10 @@ def simplify_condition(cond_str):
             # Clean up "Toggle" / "Enabled" suffix if redundant
             pretty = re.sub(r"\s+Toggle$", "", pretty, flags=re.IGNORECASE)
             pretty = re.sub(r"\s+Enabled$", "", pretty, flags=re.IGNORECASE)
+            # "== 0" (or "< 1") means the reward only drops while the switch
+            # is OFF (Bratsnacht, Fasnacht boss masks, "not during Fasnacht").
+            if _yes() is False:
+                return f"Toggle: {pretty} (off)"
             return f"Toggle: {pretty}"
         return ""
 
@@ -438,8 +532,32 @@ def simplify_condition(cond_str):
         # With SPEL reference → specific mutation check (too granular, hide)
         return ""
 
-    # IsPlayerFO1Member → Fallout 1st membership check
+    # IsPlayerFO1Member → Fallout 1st check. On the Mutated Events lists it is
+    # run on "Active Players" against MutatedEvents_LCP_Fallout1stRewardsThreshold
+    # (3): ">= GLOB" picks the Fallout 1st reward list, "< GLOB" the standard
+    # one. Both used to print "Requires Fallout 1st membership", so the
+    # standard list claimed the opposite of what it does.
     if "IsPlayerFO1Member" in s:
+        _fm = re.search(r'\s([01]{8})\s+(?:(-?\d+(?:\.\d+)?)|\w+\s*\[GLOB:([0-9A-Fa-f]{8})\])\s*$', s)
+        if _fm:
+            _b = _fm.group(1)
+            _fop = int(_b[0]) + 2 * int(_b[1]) + 4 * int(_b[2])
+            _fv = (float(_fm.group(2)) if _fm.group(2) is not None
+                   else glob_vals.get((_fm.group(3) or "").upper()))
+            if "Active Players" in s and _fv is not None:
+                _n = int(round(_fv))
+                if _fop == 3:
+                    return f"Only when {_n} or more players taking part have Fallout 1st"
+                if _fop == 2:
+                    return f"Only when more than {_n} players taking part have Fallout 1st"
+                if _fop == 4:
+                    return f"Only when fewer than {_n} players taking part have Fallout 1st"
+                if _fop == 5:
+                    return f"Only when {_n} or fewer players taking part have Fallout 1st"
+            if _fv is not None and _fop in (1, 0):
+                _member = (_fv != 0) if _fop == 1 else (_fv == 0)
+                return ("Requires Fallout 1st membership" if _member
+                        else "Only for players without Fallout 1st")
         return "Requires Fallout 1st membership"
 
     # SDOW map-hunt (Shadows of the Dead of Winter): GetValue(MapsAcquired) and
@@ -1284,6 +1402,26 @@ for r in AMMO:
     full = pick(r, "AMMO_FULL", "FULL - Name", "FULL")
     if fid and full: ammo_names[fid] = full
 
+# There is no AMMO export in tsv/, so every ammo reward used to print its raw
+# EditorID ("Ammo44", "Ammo556"). The WEAP DNAM export names each weapon's
+# ammo in full -- Ammo44 ".44 Round" [AMMO:0009221C] -- which covers every
+# ammo type a player can be handed. An AMMO export, when one is added, wins.
+_AMMO_REF_RE = re.compile(r'(\w+)\s+"([^"]+)"\s*\[AMMO:([0-9A-Fa-f]{8})\]')
+ammo_edid_names = {}
+try:
+    _weap_dnam = read_tsv(newest("tsv/WEAP_Export_*_DNAM.tsv"))
+except FileNotFoundError:
+    _weap_dnam = []
+for r in _weap_dnam:
+    m = _AMMO_REF_RE.search(r.get("DNAM_Ammo") or "")
+    if not m:
+        continue
+    _a_edid, _a_full, _a_fid = m.group(1), m.group(2).strip(), m.group(3).upper()
+    if not _a_full or _a_edid.lower().startswith("zzz"):
+        continue
+    ammo_names.setdefault(_a_fid, _a_full)
+    ammo_edid_names.setdefault(_a_edid, _a_full)
+
 crea_names = {}
 for r in CREA:
     fid  = pick(r, "CREA_FormID", "FormID")
@@ -1455,7 +1593,7 @@ def resolve_name_for_formid(formid, edid=None):
         return name
     # Try EDID-based lookup
     if edid:
-        name = edid_to_name.get(edid)
+        name = edid_to_name.get(edid) or ammo_edid_names.get(edid)
         if name:
             return name
         # Humanize EDID as last resort
@@ -1894,6 +2032,7 @@ def resolve_lvli_items_deep(list_id, depth=0, seen=None):
                     conditions.append(cond_val)
 
         # Extract minimum level requirement as a display condition (skip trivial level 1).
+        # Same rule as _entry_min_level() below, which build_lvli_tree_node uses.
         # Priority: GLOB+CURV (curve-interpolated) > GLOB only > static LVLV value.
         # Also checks LVOG_ChanceNoneGlobal for misplaced MinLvl GLOBs (xEdit bug
         # where PowerArmor MinLvl GLOBs appear in the ChanceNone column).
@@ -2092,6 +2231,45 @@ def _resolve_variant_modslots(item_fid, item_sig, lvli_edid, fallback=True):
 # Regex to skip cut/Drifter content LVLIs and items
 _CUT_LVLI_RE = re.compile(r'(?:^|[_\-])(?:CUT|DEL|ZZZ|POST|P62|TheDrifter|Drifter)(?:[_\-]|$)', re.IGNORECASE)
 
+def _entry_min_level(entry):
+    """Minimum player level for one LVLI entry, or 0 when there is none.
+
+    Same order as resolve_lvli_items_deep: GLOB+CURV (curve-interpolated) >
+    GLOB only > misplaced MinLvl GLOB in the ChanceNone column (xEdit bug) >
+    static LVLV value. The reward TREE never read this, so a plan or weapon
+    that only drops from level 25 up showed no condition in the tree even
+    though the flat planRewards bucket said "Requires player level 25+".
+    """
+    min_lvl = 0
+    _g = (entry.get("LVLG_MinimumLevelGlobal") or "").strip()
+    _c = (entry.get("LVLT_MinimumLevelCurve") or "").strip()
+    _gv = None
+    if _g:
+        _gfid = _g.split(":")[0]
+        if _gfid in glob_vals:
+            _gv = glob_vals[_gfid]
+    if _c and _gv is not None:
+        _pts = _curv_pts.get(_c.split(":")[0])
+        if _pts:
+            _y = _interp_curve(_pts, _gv)
+            if _y is not None:
+                min_lvl = int(round(_y))
+    if min_lvl == 0 and _gv is not None:
+        min_lvl = int(round(_gv))
+    if min_lvl == 0:
+        _cn = (entry.get("LVOG_ChanceNoneGlobal") or "").strip()
+        if _cn and "MinLvl" in _cn:
+            _cfid = _cn.split(":")[0]
+            if _cfid in glob_vals:
+                min_lvl = int(round(glob_vals[_cfid]))
+    if min_lvl == 0:
+        try:
+            min_lvl = int(float((entry.get("LVLV_MinimumLevel") or "").strip() or 0))
+        except (ValueError, TypeError):
+            min_lvl = 0
+    return min_lvl if min_lvl > 1 else 0
+
+
 def build_lvli_tree_node(list_id, depth=0, seen=None):
     """
     Builds a hierarchical tree representation of an LVLI for rendering as expandable sections.
@@ -2196,14 +2374,12 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 if cond_val:
                     conditions.append(cond_val)
 
-        # MinLvl GLOBs in the ChanceNone slot encode a player level requirement,
-        # not a drop chance.  Extract the GLOB's FLTV value and surface it as a
-        # condition so the JS can display "Requires player level X+".
-        if _is_minlvl and _ecn_glob:
-            _minlvl_fid = _ecn_glob.split(":")[0] if ":" in _ecn_glob else _ecn_glob
-            _minlvl_val = glob_vals.get(_minlvl_fid)
-            if _minlvl_val is not None and int(float(_minlvl_val)) > 1:
-                conditions.append(f"GetLevel() >= {int(float(_minlvl_val))}")
+        # Minimum player level for this entry -- LVLV / LVLG+LVLT, or a MinLvl
+        # GLOB sitting in the ChanceNone slot (xEdit bug). Surfaced as a drop
+        # condition so the page can say "Requires player level X+".
+        _min_lvl = _entry_min_level(entry)
+        if _min_lvl:
+            conditions.append(f"Requires player level {_min_lvl}+")
 
         # For UseAll lists, if entry has a GetRandomPercent condition (with a GLOB
         # or literal threshold), use that as the effective entry rate.  xEdit can't
@@ -3406,7 +3582,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             # text may contain OTHER conditions (e.g. HasLearnedRecipe) that still
             # need to be surfaced.  Split on comma-quote boundary and process each
             # sub-condition individually, skipping GetRandomPercent.
-            gmrw_cond_display = ""
+            gmrw_conds = []
             if cond_text:
                 parts = re.split(r',(?=")', cond_text)
                 for part in parts:
@@ -3414,12 +3590,12 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     if not part or "GetRandomPercent" in part:
                         continue
                     result = simplify_condition(part)
-                    if result:
-                        gmrw_cond_display = result
-                        break
+                    if result and result not in gmrw_conds:
+                        gmrw_conds.append(result)
         else:
             gmrw_mult = parse_randompercent_multiplier(cond_text)
-            gmrw_cond_display = simplify_condition(cond_text) if cond_text else ""
+            gmrw_conds = simplify_conditions([cond_text]) if cond_text else []
+        gmrw_cond_display = gmrw_conds[0] if gmrw_conds else ""
 
         if kind.upper() == "LVLI":
             if formid in seen_fids:
@@ -3428,8 +3604,14 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             tree_node = build_lvli_tree_node(formid)
             if tree_node and (tree_node.get("children") or tree_node.get("items")):
                 tree_node["gmrwDropRate"] = round(gmrw_mult * 100, 6)
-                if gmrw_cond_display:
-                    tree_node["gmrwConditions"] = [gmrw_cond_display]
+                if gmrw_conds:
+                    # The renderer only reads `conditions`, so a GMRW gate such
+                    # as "Only during Mutated Public Events" never reached the
+                    # page. Carry it on the node itself, first in the list.
+                    tree_node["gmrwConditions"] = list(gmrw_conds)
+                    tree_node["conditions"] = gmrw_conds + [
+                        c for c in (tree_node.get("conditions") or [])
+                        if c not in gmrw_conds]
                 roll_count_raw = (rr.get("RewardedItemCount") or "1").strip()
                 try:
                     roll_count = int(float(roll_count_raw))
@@ -3463,7 +3645,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 "name": name or formid,
                 "qty": qty,
                 "dropRate": round(gmrw_mult * 100, 6),
-                "conditions": [gmrw_cond_display] if gmrw_cond_display else [],
+                "conditions": list(gmrw_conds),
                 "edid": item_edid,
                 "sig": kind.upper(),
             }
@@ -4722,6 +4904,15 @@ for key, pages in sorted(reward_pages_by_key.items()):
             "freeRewards": [], "conditionalRewards": [], "baseRewards": {"tiers": []},
             "pools": [], "banners": [], "scenarios": [],
         }
+
+        # A zzz_ quest is cut content (Dogwood Die Off = zzz_TWZ09): its only
+        # reward record is zzz_QuestReward_..., which the GMRW filter skips, so
+        # the page rendered as empty expands. Say so on the page instead.
+        _q_edid = pick(q, "EDID", "QUEST_EDID", default="") or ""
+        if re.match(r"^zzz_", _q_edid, re.IGNORECASE):
+            event["isCutContent"] = True
+            event["warnings"] = [{"title": "Cut Content",
+                                  "message": f"'{event['name']}' was cut from the game and has no reward data."}]
 
         # Invaders flag
         if str(q.get("InvadersTakeOver") or "0").strip() == "1":
