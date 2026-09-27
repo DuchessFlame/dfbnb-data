@@ -1672,3 +1672,28 @@ def obtain_ledger(item):
             row["drop"] = "N/A"
         out.append(row)
     return out
+
+
+# ── Slasher-gated routes ─────────────────────────────────────────────────────
+# Some drop lists are only rolled while the player wears the Slasher head
+# (The Slasher seasonal event, EditorID SDOW_). The route inherits its holder's
+# name — "Scorched Spooky" — which reads exactly like the ordinary Mischief
+# Night Spooky Scorched drops, and readers do not open Drop Conditions.
+# Duchess, 27 Sep 2026: every page names these "… (Slasher Seasonal)". Only the
+# Slasher-gated routes; the normal Spooky Scorched routes are untouched.
+SLASHER_SUFFIX = " (Slasher Seasonal)"
+_RX_SLASHER_COND = re.compile(r"slasher", re.I)
+
+
+def tag_slasher_routes(items):
+    """Suffix routes gated on the Slasher head. Idempotent. Returns a count."""
+    n = 0
+    for it in items:
+        for r in it.get("obtain_routes") or []:
+            label = r.get("route") or ""
+            if not label or "slasher" in label.lower():
+                continue
+            if any(_RX_SLASHER_COND.search(str(c)) for c in (r.get("conditions") or [])):
+                r["route"] = label + SLASHER_SUFFIX
+                n += 1
+    return n

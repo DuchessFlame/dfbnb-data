@@ -1,0 +1,1167 @@
+{
+ "_meta": {
+  "generated": "2026-09-27",
+  "source": "dist/meat/mongrel-dog.json + farming pipeline (src/build_meat_guide_docs.py)"
+ },
+ "set": "meat",
+ "slug": "meat-mongrel-dog",
+ "name": "Mongrel Dog Meat",
+ "page_title": "Mongrel Dog Location Guide",
+ "blurb": "The Mongrel Dog in Fallout 76 — drops Mongrel Dog Meat, 82 NPC variants, 3205 known spawn points.",
+ "map_base": "",
+ "drop_rates": {
+  "creatures": {
+   "note": "",
+   "items": [
+    {
+     "name": "Mongrel Dog Meat",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    }
+   ]
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Sir Loin Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_SirLoin",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "9 min",
+     "items": [
+      {
+       "name": "Mongrel Dog Meat",
+       "form_id": "000330FB",
+       "rate": 0.066667,
+       "rate_display": "6.67%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Thrasher Field Dressing Station",
+     "edid": "ATX_ENTM_CAMP_Collector_RadTurkeyFieldDressingStation",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Mongrel Dog Meat",
+       "form_id": "000330FB",
+       "rate": 0.090909,
+       "rate_display": "9.09%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Wall-mounted Oven",
+     "edid": "ATX_ENTM_CAMP_Collector_WallmountedOven",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Mongrel Dog Meat",
+       "form_id": "000330FB",
+       "rate": 0.090909,
+       "rate_display": "9.09%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  },
+  "containers": {
+   "types": [
+    {
+     "name": "Meat Pile",
+     "rate": 0.008823529411764707,
+     "rate_display": "0.88%"
+    }
+   ]
+  }
+ },
+ "farming_tips": {
+  "spawn_note": "Mongrel Dog Meat comes from killing Mongrel Dogs and looting the body.",
+  "spoils": true,
+  "spoil_duration_hours": null,
+  "base_weight": 1.0,
+  "object_type": "Food",
+  "yield_perk": "butchers_bounty",
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.55
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.1
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.1,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.8
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.6
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.1
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": true,
+  "perk_cards": {
+   "butchers_bounty": {
+    "name": "Butcher's Bounty",
+    "special": "Perception",
+    "min_level": 3,
+    "rank_count": 3,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "40% chance to find extra meat from animal corpses.",
+      "percent": "40%"
+     },
+     {
+      "rank": 2,
+      "desc": "60% chance to find extra meat from animal corpses.",
+      "percent": "60%"
+     },
+     {
+      "rank": 3,
+      "desc": "80% chance to find extra meat from animal corpses.",
+      "percent": "80%"
+     }
+    ]
+   },
+   "thru_hiker": {
+    "name": "Thru-Hiker",
+    "special": "Endurance",
+    "min_level": 7,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "Food and drink weights are reduced by 45%.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "desc": "Food and drink weights are reduced by 90%.",
+      "percent": "90%"
+     }
+    ]
+   },
+   "good_with_salt": {
+    "name": "Good With Salt",
+    "special": "Intelligence",
+    "min_level": 9,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "reduction": "45%",
+      "desc": "Food in your inventory will spoil 45% slower.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "reduction": "90%"
+     }
+    ]
+   }
+  },
+  "refrigerated": {
+   "name": "Refrigerated Backpack",
+   "reduction": "50%",
+   "stacks_with_good_with_salt": false
+  }
+ },
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 1.0,
+   "value": 8,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": true,
+   "note": "Mongrel Dog Meat is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Disease Chance",
+     "display": "3% chance to catch a disease",
+     "duration": null,
+     "label": "Disease Chance",
+     "value": 3.0,
+     "unit": "percent",
+     "scales": false,
+     "zeroed": true,
+     "sign": false
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (720/12 min)",
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 720.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Rads",
+     "display": "+15 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 15.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
+    }
+   ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
+  },
+  "challenges": [
+   {
+    "type": "Lifetime",
+    "name": "Take a Camera Picture of an Albino Mongrel Dog",
+    "required": 1,
+    "edid": "Challenge_Lifetime_Picture_Albino_SUB_MongrelDog_Camera",
+    "page": "world"
+   },
+   {
+    "type": "Lifetime",
+    "name": "Take a Camera Picture of an Alpha Mongrel Dog",
+    "required": 1,
+    "edid": "Challenge_Lifetime_Picture_Alpha_SUB_Dog_Camera",
+    "page": "world"
+   }
+  ],
+  "recipes": [
+   {
+    "name": "Dog Meat Steak",
+    "form_id": "003C60D5",
+    "recipe_edid": "co_meal_DogMeatTasty",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 2,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Mongrel Dog Meat",
+      "qty": 2,
+      "is_main": true
+     },
+     {
+      "name": "Mutfruit",
+      "qty": 2,
+      "url": "/bnb/farming/plants/mutfruit/"
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 2
+     },
+     {
+      "name": "Salt",
+      "qty": 2
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 60 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 60.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Endurance",
+      "display": "+3 Fortify Endurance",
+      "duration": "1 hour",
+      "label": "Endurance",
+      "value": 3.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1440/24 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1440.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+2 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Known by default."
+   },
+   {
+    "name": "Mutt Chops",
+    "form_id": "00046940",
+    "recipe_edid": "co_meal_DogMeatCooked",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Mongrel Dog Meat",
+      "qty": 1,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 45 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 45.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Endurance",
+      "display": "+2 Fortify Endurance",
+      "duration": "30 min",
+      "label": "Endurance",
+      "value": 2.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1080/18 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1080.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Known by default."
+   }
+  ]
+ },
+ "vendor_list": [
+  {
+   "name": "Vendor Bot Chad",
+   "marker": "Camden Park",
+   "region": "Ash Heap",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.48%"
+   ],
+   "rate_display": "3.48%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Mack",
+   "marker": "Charleston Fire Department",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.48%"
+   ],
+   "rate_display": "3.48%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Bob",
+   "marker": "Flatwoods",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.48%"
+   ],
+   "rate_display": "3.48%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Responder Vendor",
+   "marker": "Morgantown High School",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.48%"
+   ],
+   "rate_display": "3.48%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Responders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.48%"
+   ],
+   "rate_display": "3.48%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Greg",
+   "marker": "Grafton",
+   "region": "Toxic Valley",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.48%"
+   ],
+   "rate_display": "3.48%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Lewisburg Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.96%"
+   ],
+   "rate_display": "2.96%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Welch Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.96%"
+   ],
+   "rate_display": "2.96%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Charleston Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.96%"
+   ],
+   "rate_display": "2.96%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Morgantown Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.96%"
+   ],
+   "rate_display": "2.96%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Grafton Station",
+   "region": "Toxic Valley",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.96%"
+   ],
+   "rate_display": "2.96%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Resin",
+   "marker": "Pleasant Valley Ski Resort",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "0.44%"
+   ],
+   "rate_display": "0.44%",
+   "rate_value": 0.004412,
+   "count": 1
+  },
+  {
+   "name": "Raiders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "0.44%"
+   ],
+   "rate_display": "0.44%",
+   "rate_value": 0.004412,
+   "count": 1
+  }
+ ],
+ "events_activities": [
+  {
+   "list_id": "00893F74",
+   "edid": "HTO_crLLS_Rewards_Bespoke_Support",
+   "name": "HTO cr LLS Rewards Bespoke Support",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the HTO cr LLS Rewards Bespoke Support reward pool per event/activity payout.",
+   "rate_value": 0.75,
+   "rate_display": "75%",
+   "rate_lines": [
+    "75%"
+   ]
+  },
+  {
+   "list_id": "0090312D",
+   "edid": "SDOW_LL_SQ01_RepeatableRewards",
+   "name": "Repeatable: Disturbed Grave",
+   "type": "Secondary",
+   "note": "Chance the item is in the Repeatable: Disturbed Grave reward pool per event/activity payout.",
+   "rate_value": 0.058824,
+   "rate_display": "5.88%",
+   "rate_lines": [
+    "5.88%"
+   ]
+  },
+  {
+   "list_id": "0092B344",
+   "edid": "SDOW_SlasherFanReward_Loot",
+   "name": "SDOW Slasher Fan Reward Loot",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the SDOW Slasher Fan Reward Loot reward pool per event/activity payout.",
+   "rate_value": 0.058824,
+   "rate_display": "5.88%",
+   "rate_lines": [
+    "5.88%"
+   ]
+  }
+ ],
+ "random_encounters": [],
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": []
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": []
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": []
+  },
+  {
+   "region": "Forest",
+   "locations": []
+  },
+  {
+   "region": "Savage Divide",
+   "locations": []
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": []
+  },
+  {
+   "region": "The Mire",
+   "locations": []
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": []
+  }
+ ],
+ "chance_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "markers": [
+     {
+      "name": "Abandoned Mine Shaft 1",
+      "placements": 4
+     },
+     {
+      "name": "Abandoned Mine Shaft Elaine",
+      "placements": 2
+     },
+     {
+      "name": "Hornwright Air Purifier Site #03",
+      "placements": 2
+     },
+     {
+      "name": "Hornwright Testing Site #02",
+      "placements": 3
+     },
+     {
+      "name": "Monongah Power Substation MZ-03",
+      "placements": 4
+     },
+     {
+      "name": "Red Rocket Filling Station",
+      "placements": 3
+     },
+     {
+      "name": "Relay Tower HG-B7-09",
+      "placements": 4
+     },
+     {
+      "name": "The Burning Mine",
+      "placements": 11
+     },
+     {
+      "name": "Unfinished Mansion",
+      "placements": 3
+     },
+     {
+      "name": "Vault 63",
+      "placements": 4
+     }
+    ],
+    "placements": 40
+   },
+   {
+    "region": "Burning Springs",
+    "markers": [
+     {
+      "name": "Honey Well Apiary",
+      "placements": 6
+     },
+     {
+      "name": "The Chop Shop",
+      "placements": 3
+     }
+    ],
+    "placements": 9
+   },
+   {
+    "region": "Cranberry Bog",
+    "markers": [
+     {
+      "name": "Abandoned Bog Town",
+      "placements": 1
+     },
+     {
+      "name": "Big Bend Tunnel East",
+      "placements": 4
+     },
+     {
+      "name": "Drop Site V9",
+      "placements": 3
+     },
+     {
+      "name": "Flooded Trainyard",
+      "placements": 9
+     },
+     {
+      "name": "Glassed Cavern",
+      "placements": 5
+     },
+     {
+      "name": "Kerwood Mine",
+      "placements": 6
+     },
+     {
+      "name": "Overgrown Sundew Grove",
+      "placements": 2
+     },
+     {
+      "name": "Ranger Lookout",
+      "placements": 4
+     },
+     {
+      "name": "RobCo Research Center",
+      "placements": 2
+     },
+     {
+      "name": "Sacramental Glade",
+      "placements": 5
+     },
+     {
+      "name": "The General's Steakhouse",
+      "placements": 4
+     },
+     {
+      "name": "Watoga",
+      "placements": 1
+     },
+     {
+      "name": "Watoga Underground",
+      "placements": 4
+     }
+    ],
+    "placements": 50
+   },
+   {
+    "region": "Forest",
+    "markers": [
+     {
+      "name": "Arktos Pharma",
+      "placements": 9
+     },
+     {
+      "name": "Black Mountain Ordnance Works",
+      "placements": 3
+     },
+     {
+      "name": "Camp McClintock",
+      "placements": 2
+     },
+     {
+      "name": "Clancy Manor",
+      "placements": 1
+     },
+     {
+      "name": "Cliffwatch",
+      "placements": 1
+     },
+     {
+      "name": "Cow Spots Creamery",
+      "placements": 3
+     },
+     {
+      "name": "Darling Sister's Lab",
+      "placements": 3
+     },
+     {
+      "name": "Gauley Mine Exit",
+      "placements": 3
+     },
+     {
+      "name": "Helvetia",
+      "placements": 4
+     },
+     {
+      "name": "Hunter's Ridge",
+      "placements": 3
+     },
+     {
+      "name": "Lady Janet's Soft Serve",
+      "placements": 2
+     },
+     {
+      "name": "Landview Lighthouse",
+      "placements": 7
+     },
+     {
+      "name": "New River Gorge Bridge - East",
+      "placements": 8
+     },
+     {
+      "name": "North Kanawha Lookout",
+      "placements": 3
+     },
+     {
+      "name": "Organ Cave South",
+      "placements": 3
+     },
+     {
+      "name": "Orwell Orchards",
+      "placements": 3
+     },
+     {
+      "name": "Relay Tower HN-B1-12",
+      "placements": 4
+     },
+     {
+      "name": "Slocum's Joe",
+      "placements": 3
+     },
+     {
+      "name": "Sutton Station",
+      "placements": 3
+     },
+     {
+      "name": "The Coop",
+      "placements": 7
+     },
+     {
+      "name": "The Wayward",
+      "placements": 1
+     },
+     {
+      "name": "Twin Pine Cabins",
+      "placements": 4
+     },
+     {
+      "name": "Tygart Water Treatment",
+      "placements": 4
+     },
+     {
+      "name": "Vault-Tec Agricultural Research Center",
+      "placements": 5
+     },
+     {
+      "name": "Wilson Brother's Auto Repair",
+      "placements": 5
+     },
+     {
+      "name": "Wixon Homestead",
+      "placements": 2
+     },
+     {
+      "name": "WV Lumber Co.",
+      "placements": 3
+     }
+    ],
+    "placements": 99
+   },
+   {
+    "region": "Savage Divide",
+    "markers": [
+     {
+      "name": "Ammo Dump",
+      "placements": 5
+     },
+     {
+      "name": "Autumn Acre Cabin",
+      "placements": 3
+     },
+     {
+      "name": "Beckwith Farm",
+      "placements": 3
+     },
+     {
+      "name": "Cliffwatch",
+      "placements": 3
+     },
+     {
+      "name": "Dent & Sons Construction",
+      "placements": 3
+     },
+     {
+      "name": "Devil's Backbone",
+      "placements": 3
+     },
+     {
+      "name": "Gleaming Depths",
+      "placements": 3
+     },
+     {
+      "name": "Hornwright Testing Site #03",
+      "placements": 4
+     },
+     {
+      "name": "Lucky Hole Mine",
+      "placements": 3
+     },
+     {
+      "name": "Miners Monument",
+      "placements": 5
+     },
+     {
+      "name": "Monongah",
+      "placements": 3
+     },
+     {
+      "name": "Monongah Overlook",
+      "placements": 2
+     },
+     {
+      "name": "Monongah Power Plant",
+      "placements": 2
+     },
+     {
+      "name": "Monongah Power Plant Yard",
+      "placements": 3
+     },
+     {
+      "name": "Monongah Power Substation MZ-01",
+      "placements": 5
+     },
+     {
+      "name": "Mysterious Cave",
+      "placements": 7
+     },
+     {
+      "name": "National Isolated Radio Array",
+      "placements": 4
+     },
+     {
+      "name": "National Radio Astronomy Research Center",
+      "placements": 7
+     },
+     {
+      "name": "R & G Processing Services",
+      "placements": 3
+     },
+     {
+      "name": "Relay Tower LW-B1-22",
+      "placements": 5
+     },
+     {
+      "name": "Seneca Rocks Visitor Center",
+      "placements": 3
+     },
+     {
+      "name": "Site Alpha",
+      "placements": 4
+     },
+     {
+      "name": "Site Bravo",
+      "placements": 3
+     },
+     {
+      "name": "South Mountain Lookout",
+      "placements": 7
+     },
+     {
+      "name": "Striker Row",
+      "placements": 3
+     },
+     {
+      "name": "Sugar Grove",
+      "placements": 3
+     },
+     {
+      "name": "Sunnytop Station",
+      "placements": 2
+     },
+     {
+      "name": "Twin Lakes",
+      "placements": 3
+     }
+    ],
+    "placements": 104
+   },
+   {
+    "region": "Skyline Valley",
+    "markers": [
+     {
+      "name": "Dark Hollow Manor",
+      "placements": 2
+     },
+     {
+      "name": "Hawksbill Weather Station",
+      "placements": 2
+     },
+     {
+      "name": "Hemlock Springs Dump",
+      "placements": 6
+     },
+     {
+      "name": "High Knob Lookout",
+      "placements": 3
+     },
+     {
+      "name": "Johnson's Acre",
+      "placements": 6
+     },
+     {
+      "name": "Makeout Point",
+      "placements": 2
+     },
+     {
+      "name": "Naked Creek",
+      "placements": 1
+     },
+     {
+      "name": "Rapidan Camp",
+      "placements": 3
+     },
+     {
+      "name": "Research Site Bavaria",
+      "placements": 3
+     },
+     {
+      "name": "Research Site Rhineland",
+      "placements": 7
+     },
+     {
+      "name": "Slumber Mill Motel",
+      "placements": 3
+     },
+     {
+      "name": "Stony Man Lookout",
+      "placements": 7
+     },
+     {
+      "name": "Susan's Cabin",
+      "placements": 3
+     },
+     {
+      "name": "Three Ponds",
+      "placements": 3
+     },
+     {
+      "name": "Thunder Mountain Substation TM-03",
+      "placements": 5
+     }
+    ],
+    "placements": 56
+   },
+   {
+    "region": "The Mire",
+    "markers": [
+     {
+      "name": "Dolly Sods Lookout",
+      "placements": 2
+     },
+     {
+      "name": "Dolly Sods Wilderness",
+      "placements": 7
+     }
+    ],
+    "placements": 9
+   },
+   {
+    "region": "Toxic Valley",
+    "markers": [
+     {
+      "name": "Pioneer Scout Camp",
+      "placements": 7
+     }
+    ],
+    "placements": 7
+   }
+  ],
+  "total_markers": 98,
+  "total": 374,
+  "no_maps": true,
+  "lead": "Mongrel Dogs can spawn at 98 locations that share a spawn pool with other creatures, so a Mongrel Dog is not guaranteed there. They are listed by name only."
+ },
+ "breakdown_lead": "Spawns here:",
+ "treasure_maps": {
+  "maps": [
+   {
+    "group": "Pint-Sized Phantoms",
+    "name": "Pint-Sized Phantoms' Map",
+    "region": "",
+    "form_id": "008F15E4",
+    "edid": "SDOW_MQ02_SlasherMap",
+    "rate": 0.058824,
+    "rate_display": "5.88%",
+    "sources": [
+     {
+      "form_id": "0090312D",
+      "edid": "SDOW_LL_SQ01_RepeatableRewards",
+      "rate": 0.058824,
+      "rate_display": "5.88%"
+     }
+    ]
+   }
+  ]
+ },
+ "total": 0
+}

@@ -244,6 +244,14 @@ jobs:
           python src/build_hto_locations_json.py
           python src/build_hto_locations_json.py --pts
 
+      # --- APPAREL vs ARMOUR (ARMO keyword split) ---
+      # Read by every reward renderer to file outfits/hats/masks under
+      # "Apparel Rewards" instead of "Armour Rewards".
+      - name: Build Apparel FormIDs JSON
+        run: |
+          python src/build_apparel_formids_json.py
+          python -c "import json;d=json.load(open('dist/apparel_formids.json'));assert len(d['formids'])>100,d['_meta'];print('apparel ok',len(d['formids']))"
+
       # --- SEASONAL EVENTS REWARDS ---
       - name: Build Seasonal Events Rewards JSON
         run: python src/build_seasonal_events_json.py

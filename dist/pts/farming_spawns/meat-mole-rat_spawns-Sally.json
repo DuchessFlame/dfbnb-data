@@ -1,0 +1,1758 @@
+{
+ "_meta": {
+  "generated": "2026-09-27",
+  "source": "dist/meat/mole-rat.json + farming pipeline (src/build_meat_guide_docs.py)"
+ },
+ "set": "meat",
+ "slug": "meat-mole-rat",
+ "name": "Mole Rat Meat",
+ "page_title": "Mole Rat Location Guide",
+ "blurb": "The Mole Rat in Fallout 76 — drops Mole Rat Meat, 142 NPC variants, 388 known spawn points.",
+ "map_base": "",
+ "drop_rates": {
+  "creatures": {
+   "note": "",
+   "items": [
+    {
+     "name": "Mole Rat Meat",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    },
+    {
+     "name": "Mole Rat Hide",
+     "qty": 2,
+     "rate_display": "100%",
+     "note": ""
+    },
+    {
+     "name": "Mole Rat Teeth",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    }
+   ]
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Sir Loin Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_SirLoin",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "9 min",
+     "items": [
+      {
+       "name": "Mole Rat Meat",
+       "form_id": "00033101",
+       "rate": 0.066667,
+       "rate_display": "6.67%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Thrasher Field Dressing Station",
+     "edid": "ATX_ENTM_CAMP_Collector_RadTurkeyFieldDressingStation",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Mole Rat Meat",
+       "form_id": "00033101",
+       "rate": 0.090909,
+       "rate_display": "9.09%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Wall-mounted Oven",
+     "edid": "ATX_ENTM_CAMP_Collector_WallmountedOven",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Mole Rat Meat",
+       "form_id": "00033101",
+       "rate": 0.090909,
+       "rate_display": "9.09%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  },
+  "containers": {
+   "types": [
+    {
+     "name": "Meat Bag",
+     "rate": 0.07692307692307687,
+     "rate_display": "7.69%"
+    },
+    {
+     "name": "Scorchbeast Guano Pile",
+     "rate": 0.07538461538461538,
+     "rate_display": "7.54%"
+    },
+    {
+     "name": "Waste Pile",
+     "rate": 0.07538461538461538,
+     "rate_display": "7.54%"
+    },
+    {
+     "name": "Meat Pile",
+     "rate": 0.008823529411764707,
+     "rate_display": "0.88%"
+    },
+    {
+     "name": "Meat Bag",
+     "rate": 0.007692307692307665,
+     "rate_display": "0.77%"
+    },
+    {
+     "name": "Bear-Proof Trash Can",
+     "rate": 0.0050000000000000044,
+     "rate_display": "0.5%"
+    }
+   ]
+  }
+ },
+ "farming_tips": {
+  "spawn_note": "Mole Rat Meat comes from killing Mole Rats and looting the body.",
+  "spoils": true,
+  "spoil_duration_hours": null,
+  "base_weight": 0.5,
+  "object_type": "Food",
+  "yield_perk": "butchers_bounty",
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.28
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.05
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.05,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.3
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.1
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.05
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": true,
+  "perk_cards": {
+   "butchers_bounty": {
+    "name": "Butcher's Bounty",
+    "special": "Perception",
+    "min_level": 3,
+    "rank_count": 3,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "40% chance to find extra meat from animal corpses.",
+      "percent": "40%"
+     },
+     {
+      "rank": 2,
+      "desc": "60% chance to find extra meat from animal corpses.",
+      "percent": "60%"
+     },
+     {
+      "rank": 3,
+      "desc": "80% chance to find extra meat from animal corpses.",
+      "percent": "80%"
+     }
+    ]
+   },
+   "thru_hiker": {
+    "name": "Thru-Hiker",
+    "special": "Endurance",
+    "min_level": 7,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "Food and drink weights are reduced by 45%.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "desc": "Food and drink weights are reduced by 90%.",
+      "percent": "90%"
+     }
+    ]
+   },
+   "good_with_salt": {
+    "name": "Good With Salt",
+    "special": "Intelligence",
+    "min_level": 9,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "reduction": "45%",
+      "desc": "Food in your inventory will spoil 45% slower.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "reduction": "90%"
+     }
+    ]
+   }
+  },
+  "refrigerated": {
+   "name": "Refrigerated Backpack",
+   "reduction": "50%",
+   "stacks_with_good_with_salt": false
+  }
+ },
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.5,
+   "value": 5,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": true,
+   "note": "Mole Rat Meat is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Disease Chance",
+     "display": "3% chance to catch a disease",
+     "duration": null,
+     "label": "Disease Chance",
+     "value": 3.0,
+     "unit": "percent",
+     "scales": false,
+     "zeroed": true,
+     "sign": false
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (720/12 min)",
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 720.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Rads",
+     "display": "+15 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 15.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
+    }
+   ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
+  },
+  "challenges": [
+   {
+    "type": "Daily",
+    "name": "Cook Mole Rat Chunks",
+    "required": 3,
+    "edid": "SCORE_Challenge_Daily_Craft_Molerat_Chunks",
+    "page": "daily"
+   },
+   {
+    "type": "Daily",
+    "name": "Epic - Consume Ground Mole Rat",
+    "required": 1,
+    "edid": "SCORE_Challenge_Daily_Consume_GroundMoleRat_Epic",
+    "page": "daily"
+   },
+   {
+    "type": "Daily",
+    "name": "Epic - Kill a Mole Rat with Explosives",
+    "required": 1,
+    "edid": "SCORE_Challenge_Daily_Kill_MoleRat_Explosive_Epic",
+    "page": "daily"
+   },
+   {
+    "type": "Daily",
+    "name": "Kill a Mole Rat",
+    "required": 5,
+    "edid": "SCORE_Challenge_Daily_Kill_Molerats",
+    "page": "daily"
+   },
+   {
+    "type": "Event",
+    "name": "Summer Camp: Kill Radrat or Molerat with the Squirrel Backpack equipped",
+    "required": 10,
+    "edid": "ATX_DE2023_SummerCamp_Challenge_Kill_Radrats",
+    "page": "events"
+   },
+   {
+    "type": "Lifetime",
+    "name": "Take a Camera Picture of a Glowing Mole Rat",
+    "required": 1,
+    "edid": "Challenge_Lifetime_Picture_Glowing_SUB_Molerat_Camera",
+    "page": "world"
+   },
+   {
+    "type": "Lifetime",
+    "name": "Take a Camera Picture of a Legendary Mole Rat",
+    "required": 1,
+    "edid": "Challenge_Lifetime_Picture_Legendary_SUB_Molerat_Camera",
+    "page": "world"
+   }
+  ],
+  "recipes": [
+   {
+    "name": "Ground Mole Rat",
+    "form_id": "0004A3B8",
+    "recipe_edid": "co_meal_MoleratMeatTasty",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 2,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Mole Rat Meat",
+      "qty": 2,
+      "is_main": true
+     },
+     {
+      "name": "Boiled Water",
+      "qty": 2
+     },
+     {
+      "name": "Pepper",
+      "qty": 2
+     },
+     {
+      "name": "Silt Bean",
+      "qty": 2,
+      "url": "/bnb/farming/plants/silt-bean/"
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 60 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 60.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Agility",
+      "display": "+3 Fortify Agility",
+      "duration": "1 hour",
+      "label": "Agility",
+      "value": 3.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1440/24 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1440.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+2 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 2.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Known by default."
+   },
+   {
+    "name": "Mole Rat Chunks",
+    "form_id": "00046943",
+    "recipe_edid": "co_meal_MoleratMeatCooked",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Mole Rat Meat",
+      "qty": 1,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 25 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 25.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Strength",
+      "display": "+1 Fortify Strength",
+      "duration": "30 min",
+      "label": "Strength",
+      "value": 1.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (720/12 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 720.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Known by default."
+   },
+   {
+    "name": "Mountain Hocks",
+    "form_id": "003E9FA5",
+    "recipe_edid": "co_meal_MountainHocks_RSVP02",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 2,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Mole Rat Meat",
+      "qty": 2,
+      "is_main": true
+     },
+     {
+      "name": "Vodka",
+      "qty": 1
+     },
+     {
+      "name": "Glowing Resin",
+      "qty": 2,
+      "url": "/bnb/farming/plants/glowing-resin/"
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 25 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 25.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Disease Resistance",
+      "display": "+10 Disease Resistance",
+      "duration": "30 min",
+      "label": "Disease Resistance",
+      "value": 10.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (720/12 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 720.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Learned from a cookbook terminal (RSVP questline)."
+   }
+  ]
+ },
+ "vendor_list": [
+  {
+   "name": "Grahm",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "14.79%"
+   ],
+   "rate_display": "14.79%",
+   "rate_value": 0.147929,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Chad",
+   "marker": "Camden Park",
+   "region": "Ash Heap",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.48%"
+   ],
+   "rate_display": "3.48%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Mack",
+   "marker": "Charleston Fire Department",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.48%"
+   ],
+   "rate_display": "3.48%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Bob",
+   "marker": "Flatwoods",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.48%"
+   ],
+   "rate_display": "3.48%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Responder Vendor",
+   "marker": "Morgantown High School",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.48%"
+   ],
+   "rate_display": "3.48%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Responders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.48%"
+   ],
+   "rate_display": "3.48%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Greg",
+   "marker": "Grafton",
+   "region": "Toxic Valley",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "3.48%"
+   ],
+   "rate_display": "3.48%",
+   "rate_value": 0.03483,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Lewisburg Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.96%"
+   ],
+   "rate_display": "2.96%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Welch Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.96%"
+   ],
+   "rate_display": "2.96%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Charleston Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.96%"
+   ],
+   "rate_display": "2.96%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Morgantown Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.96%"
+   ],
+   "rate_display": "2.96%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Grafton Station",
+   "region": "Toxic Valley",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "2.96%"
+   ],
+   "rate_display": "2.96%",
+   "rate_value": 0.029605,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Resin",
+   "marker": "Pleasant Valley Ski Resort",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "0.44%"
+   ],
+   "rate_display": "0.44%",
+   "rate_value": 0.004412,
+   "count": 1
+  },
+  {
+   "name": "Raiders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "0.44%"
+   ],
+   "rate_display": "0.44%",
+   "rate_value": 0.004412,
+   "count": 1
+  }
+ ],
+ "events_activities": [
+  {
+   "list_id": "00893F74",
+   "edid": "HTO_crLLS_Rewards_Bespoke_Support",
+   "name": "HTO cr LLS Rewards Bespoke Support",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the HTO cr LLS Rewards Bespoke Support reward pool per event/activity payout.",
+   "rate_value": 0.75,
+   "rate_display": "75%",
+   "rate_lines": [
+    "75%"
+   ]
+  },
+  {
+   "list_id": "0090312D",
+   "edid": "SDOW_LL_SQ01_RepeatableRewards",
+   "name": "Repeatable: Disturbed Grave",
+   "type": "Secondary",
+   "note": "Chance the item is in the Repeatable: Disturbed Grave reward pool per event/activity payout.",
+   "rate_value": 0.058824,
+   "rate_display": "5.88%",
+   "rate_lines": [
+    "5.88%"
+   ]
+  },
+  {
+   "list_id": "0092B344",
+   "edid": "SDOW_SlasherFanReward_Loot",
+   "name": "SDOW Slasher Fan Reward Loot",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the SDOW Slasher Fan Reward Loot reward pool per event/activity payout.",
+   "rate_value": 0.058824,
+   "rate_display": "5.88%",
+   "rate_lines": [
+    "5.88%"
+   ]
+  }
+ ],
+ "random_encounters": [
+  {
+   "form_id": "00529E1E",
+   "edid": "RE_TravelCMB08",
+   "name": "Molerats vs. Ghouls",
+   "type": "Travel Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/travel-random-encounters/"
+  }
+ ],
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": []
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": []
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": []
+  },
+  {
+   "region": "Forest",
+   "locations": []
+  },
+  {
+   "region": "Savage Divide",
+   "locations": []
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": []
+  },
+  {
+   "region": "The Mire",
+   "locations": []
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": []
+  }
+ ],
+ "chance_spawns": {
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "markers": [
+     {
+      "name": "Abandoned Mine Shaft 1",
+      "placements": 4
+     },
+     {
+      "name": "Abandoned Mine Shaft 2",
+      "placements": 2
+     },
+     {
+      "name": "Abandoned Mine Shaft 4",
+      "placements": 5
+     },
+     {
+      "name": "Abandoned Mine Shaft 5",
+      "placements": 3
+     },
+     {
+      "name": "Abandoned Mine Shaft Elaine",
+      "placements": 2
+     },
+     {
+      "name": "Abandoned Mine Site Kittery",
+      "placements": 6
+     },
+     {
+      "name": "AMS Testing Site",
+      "placements": 5
+     },
+     {
+      "name": "Big Bend Tunnel West",
+      "placements": 1
+     },
+     {
+      "name": "Brim Quarry",
+      "placements": 4
+     },
+     {
+      "name": "Camden Park",
+      "placements": 9
+     },
+     {
+      "name": "Garrahan Mining Headquarters",
+      "placements": 4
+     },
+     {
+      "name": "Hornwright Air Purifier Site #03",
+      "placements": 2
+     },
+     {
+      "name": "Hornwright Air Purifier Site #04",
+      "placements": 2
+     },
+     {
+      "name": "Hornwright Testing Site #02",
+      "placements": 11
+     },
+     {
+      "name": "Hornwright Testing Site #04",
+      "placements": 4
+     },
+     {
+      "name": "Kanawha Nuka-Cola Plant",
+      "placements": 2
+     },
+     {
+      "name": "Lake Reynolds",
+      "placements": 3
+     },
+     {
+      "name": "Lewisburg Station",
+      "placements": 1
+     },
+     {
+      "name": "Monongah Power Substation MZ-03",
+      "placements": 4
+     },
+     {
+      "name": "Mount Blair",
+      "placements": 3
+     },
+     {
+      "name": "Pylon Ambush Site",
+      "placements": 5
+     },
+     {
+      "name": "Red Rocket Filling Station",
+      "placements": 6
+     },
+     {
+      "name": "Relay Tower HG-B7-09",
+      "placements": 8
+     },
+     {
+      "name": "The Burning Mine",
+      "placements": 12
+     },
+     {
+      "name": "Unfinished Mansion",
+      "placements": 3
+     },
+     {
+      "name": "Vault 63",
+      "placements": 4
+     },
+     {
+      "name": "Welch",
+      "placements": 1
+     },
+     {
+      "name": "Widow's Perch",
+      "placements": 2
+     }
+    ],
+    "placements": 118
+   },
+   {
+    "region": "Cranberry Bog",
+    "markers": [
+     {
+      "name": "Abandoned Bog Town",
+      "placements": 3
+     },
+     {
+      "name": "Appalachian Antiques",
+      "placements": 3
+     },
+     {
+      "name": "Big Bend Tunnel East",
+      "placements": 4
+     },
+     {
+      "name": "Crimson Prospect",
+      "placements": 1
+     },
+     {
+      "name": "Drop Site G3",
+      "placements": 4
+     },
+     {
+      "name": "Drop Site V9",
+      "placements": 6
+     },
+     {
+      "name": "Firebase Major",
+      "placements": 1
+     },
+     {
+      "name": "Fissure Site",
+      "placements": 4
+     },
+     {
+      "name": "Flooded Trainyard",
+      "placements": 11
+     },
+     {
+      "name": "Forward Station Alpha",
+      "placements": 4
+     },
+     {
+      "name": "Glassed Cavern",
+      "placements": 6
+     },
+     {
+      "name": "Kerwood Mine",
+      "placements": 6
+     },
+     {
+      "name": "Overgrown Sundew Grove",
+      "placements": 6
+     },
+     {
+      "name": "Quarry X3",
+      "placements": 6
+     },
+     {
+      "name": "Ranger Lookout",
+      "placements": 5
+     },
+     {
+      "name": "RobCo Research Center",
+      "placements": 2
+     },
+     {
+      "name": "Sacramental Glade",
+      "placements": 8
+     },
+     {
+      "name": "Sunrise Field",
+      "placements": 4
+     },
+     {
+      "name": "Survey Camp Alpha",
+      "placements": 5
+     },
+     {
+      "name": "The General's Steakhouse",
+      "placements": 4
+     },
+     {
+      "name": "The Thorn",
+      "placements": 4
+     },
+     {
+      "name": "Thunder Mountain Substation TM-02",
+      "placements": 4
+     },
+     {
+      "name": "Veiled Sundew Grove",
+      "placements": 3
+     },
+     {
+      "name": "Watoga",
+      "placements": 1
+     },
+     {
+      "name": "Watoga Station",
+      "placements": 4
+     },
+     {
+      "name": "Watoga Underground",
+      "placements": 4
+     }
+    ],
+    "placements": 113
+   },
+   {
+    "region": "Forest",
+    "markers": [
+     {
+      "name": "Aaronholt Homestead",
+      "placements": 4
+     },
+     {
+      "name": "Alpine River Cabins",
+      "placements": 7
+     },
+     {
+      "name": "Anchor Farm",
+      "placements": 5
+     },
+     {
+      "name": "Arktos Pharma",
+      "placements": 11
+     },
+     {
+      "name": "Becker Farm",
+      "placements": 1
+     },
+     {
+      "name": "Black Mountain Ordnance Works",
+      "placements": 7
+     },
+     {
+      "name": "Bolton Greens",
+      "placements": 8
+     },
+     {
+      "name": "Camp Adams Lookout",
+      "placements": 4
+     },
+     {
+      "name": "Camp McClintock",
+      "placements": 7
+     },
+     {
+      "name": "Charleston Landfill",
+      "placements": 4
+     },
+     {
+      "name": "Charleston Station",
+      "placements": 7
+     },
+     {
+      "name": "Clancy Manor",
+      "placements": 1
+     },
+     {
+      "name": "Cliffwatch",
+      "placements": 1
+     },
+     {
+      "name": "Cow Spots Creamery",
+      "placements": 3
+     },
+     {
+      "name": "Darling Sister's Lab",
+      "placements": 11
+     },
+     {
+      "name": "Flatwoods",
+      "placements": 3
+     },
+     {
+      "name": "Gauley Mine",
+      "placements": 3
+     },
+     {
+      "name": "Gauley Mine Exit",
+      "placements": 7
+     },
+     {
+      "name": "Greg's Mine Supply",
+      "placements": 3
+     },
+     {
+      "name": "Helvetia",
+      "placements": 4
+     },
+     {
+      "name": "Hillfolk Hotdogs",
+      "placements": 3
+     },
+     {
+      "name": "Horizon's Rest",
+      "placements": 4
+     },
+     {
+      "name": "Hornwright Summer Villa",
+      "placements": 1
+     },
+     {
+      "name": "Hunter's Ridge",
+      "placements": 3
+     },
+     {
+      "name": "Isolated Cabin",
+      "placements": 2
+     },
+     {
+      "name": "Kanawha Nuka-Cola Plant",
+      "placements": 4
+     },
+     {
+      "name": "Lady Janet's Soft Serve",
+      "placements": 4
+     },
+     {
+      "name": "Landview Lighthouse",
+      "placements": 7
+     },
+     {
+      "name": "Morgantown High School",
+      "placements": 1
+     },
+     {
+      "name": "New River Gorge Bridge - East",
+      "placements": 14
+     },
+     {
+      "name": "New River Gorge Bridge - West",
+      "placements": 3
+     },
+     {
+      "name": "North Kanawha Lookout",
+      "placements": 5
+     },
+     {
+      "name": "Organ Cave North",
+      "placements": 4
+     },
+     {
+      "name": "Organ Cave South",
+      "placements": 5
+     },
+     {
+      "name": "Orwell Orchards",
+      "placements": 6
+     },
+     {
+      "name": "Overseer's Camp",
+      "placements": 5
+     },
+     {
+      "name": "Overseer's Home",
+      "placements": 2
+     },
+     {
+      "name": "Poseidon Power Substation PX-01",
+      "placements": 3
+     },
+     {
+      "name": "Poseidon Power Substation PX-02",
+      "placements": 4
+     },
+     {
+      "name": "Relay Tower HN-B1-12",
+      "placements": 4
+     },
+     {
+      "name": "Settler's Ridge",
+      "placements": 3
+     },
+     {
+      "name": "Silva Homestead",
+      "placements": 10
+     },
+     {
+      "name": "Slocum's Joe",
+      "placements": 3
+     },
+     {
+      "name": "Summersville",
+      "placements": 4
+     },
+     {
+      "name": "Summersville Dam",
+      "placements": 4
+     },
+     {
+      "name": "Sunshine Meadows Industrial Farm",
+      "placements": 3
+     },
+     {
+      "name": "Sutton",
+      "placements": 7
+     },
+     {
+      "name": "Sutton Station",
+      "placements": 7
+     },
+     {
+      "name": "The Coop",
+      "placements": 9
+     },
+     {
+      "name": "The Giant Teapot",
+      "placements": 2
+     },
+     {
+      "name": "The Wayward",
+      "placements": 1
+     },
+     {
+      "name": "Twin Pine Cabins",
+      "placements": 7
+     },
+     {
+      "name": "Tygart Water Treatment",
+      "placements": 4
+     },
+     {
+      "name": "Tyler County Dirt Track",
+      "placements": 6
+     },
+     {
+      "name": "Vault 76",
+      "placements": 1
+     },
+     {
+      "name": "Vault-Tec Agricultural Research Center",
+      "placements": 8
+     },
+     {
+      "name": "White Powder Winter Sports",
+      "placements": 3
+     },
+     {
+      "name": "Wilson Brother's Auto Repair",
+      "placements": 5
+     },
+     {
+      "name": "Wixon Homestead",
+      "placements": 2
+     },
+     {
+      "name": "WV Lumber Co.",
+      "placements": 3
+     }
+    ],
+    "placements": 277
+   },
+   {
+    "region": "Savage Divide",
+    "markers": [
+     {
+      "name": "Ammo Dump",
+      "placements": 5
+     },
+     {
+      "name": "Autumn Acre Cabin",
+      "placements": 3
+     },
+     {
+      "name": "Bailey Family Cabin",
+      "placements": 3
+     },
+     {
+      "name": "Beckwith Farm",
+      "placements": 7
+     },
+     {
+      "name": "Big Bend Tunnel West",
+      "placements": 4
+     },
+     {
+      "name": "Big Fred's BBQ Shack",
+      "placements": 2
+     },
+     {
+      "name": "Blackwater Mine",
+      "placements": 3
+     },
+     {
+      "name": "Bolton Greens",
+      "placements": 4
+     },
+     {
+      "name": "Cliffwatch",
+      "placements": 3
+     },
+     {
+      "name": "Converted Munitions Factory",
+      "placements": 12
+     },
+     {
+      "name": "Dagger's Den",
+      "placements": 6
+     },
+     {
+      "name": "Dent & Sons Construction",
+      "placements": 6
+     },
+     {
+      "name": "Devil's Backbone",
+      "placements": 3
+     },
+     {
+      "name": "East Mountain Lookout",
+      "placements": 3
+     },
+     {
+      "name": "Federal Disposal Field HZ-21",
+      "placements": 3
+     },
+     {
+      "name": "Firebase Major",
+      "placements": 2
+     },
+     {
+      "name": "Fort Atlas",
+      "placements": 3
+     },
+     {
+      "name": "Garrahan Mining Headquarters",
+      "placements": 3
+     },
+     {
+      "name": "Gleaming Depths",
+      "placements": 7
+     },
+     {
+      "name": "Hopewell Cave",
+      "placements": 11
+     },
+     {
+      "name": "Hornwright Estate",
+      "placements": 4
+     },
+     {
+      "name": "Hornwright Testing Site #03",
+      "placements": 4
+     },
+     {
+      "name": "Huntersville",
+      "placements": 3
+     },
+     {
+      "name": "Lucky Hole Mine",
+      "placements": 9
+     },
+     {
+      "name": "Metal Dome",
+      "placements": 3
+     },
+     {
+      "name": "Miners Monument",
+      "placements": 5
+     },
+     {
+      "name": "Monongah",
+      "placements": 3
+     },
+     {
+      "name": "Monongah Mine",
+      "placements": 6
+     },
+     {
+      "name": "Monongah Overlook",
+      "placements": 5
+     },
+     {
+      "name": "Monongah Power Plant",
+      "placements": 2
+     },
+     {
+      "name": "Monongah Power Plant Yard",
+      "placements": 3
+     },
+     {
+      "name": "Monongah Power Substation MZ-01",
+      "placements": 13
+     },
+     {
+      "name": "Moth-Home",
+      "placements": 1
+     },
+     {
+      "name": "Mysterious Cave",
+      "placements": 12
+     },
+     {
+      "name": "National Isolated Radio Array",
+      "placements": 8
+     },
+     {
+      "name": "National Radio Astronomy Research Center",
+      "placements": 7
+     },
+     {
+      "name": "North Cutthroat Camp",
+      "placements": 4
+     },
+     {
+      "name": "North Mountain Lookout",
+      "placements": 9
+     },
+     {
+      "name": "Pumpkin House",
+      "placements": 9
+     },
+     {
+      "name": "R & G Processing Services",
+      "placements": 3
+     },
+     {
+      "name": "Red Rocket Mega Stop",
+      "placements": 3
+     },
+     {
+      "name": "Relay Tower LW-B1-22",
+      "placements": 5
+     },
+     {
+      "name": "Scenic Overlook",
+      "placements": 3
+     },
+     {
+      "name": "Seneca Rocks Visitor Center",
+      "placements": 3
+     },
+     {
+      "name": "Site Alpha",
+      "placements": 4
+     },
+     {
+      "name": "Site Bravo",
+      "placements": 3
+     },
+     {
+      "name": "South Mountain Lookout",
+      "placements": 11
+     },
+     {
+      "name": "Striker Row",
+      "placements": 11
+     },
+     {
+      "name": "Sugar Grove",
+      "placements": 17
+     },
+     {
+      "name": "Sunnytop Ski Lanes",
+      "placements": 8
+     },
+     {
+      "name": "Sunnytop Ski Lanes Base Lodge",
+      "placements": 2
+     },
+     {
+      "name": "Sunnytop Station",
+      "placements": 4
+     },
+     {
+      "name": "Sylvie & Sons Logging Camp",
+      "placements": 2
+     },
+     {
+      "name": "The Freak Show",
+      "placements": 11
+     },
+     {
+      "name": "Twin Lakes",
+      "placements": 3
+     },
+     {
+      "name": "Uncanny Caverns",
+      "placements": 11
+     },
+     {
+      "name": "Yellow Sandy's Still",
+      "placements": 6
+     }
+    ],
+    "placements": 313
+   },
+   {
+    "region": "Skyline Valley",
+    "markers": [
+     {
+      "name": "Camp Liberty",
+      "placements": 3
+     },
+     {
+      "name": "Dark Hollow Manor",
+      "placements": 5
+     },
+     {
+      "name": "Grindstone Arch",
+      "placements": 12
+     },
+     {
+      "name": "Hawksbill Weather Station",
+      "placements": 11
+     },
+     {
+      "name": "Hemlock Springs Dump",
+      "placements": 8
+     },
+     {
+      "name": "Johnson's Acre",
+      "placements": 6
+     },
+     {
+      "name": "Makeout Point",
+      "placements": 2
+     },
+     {
+      "name": "Old Crimora Mines",
+      "placements": 4
+     },
+     {
+      "name": "Old Rag Lookout",
+      "placements": 13
+     },
+     {
+      "name": "Rapidan Camp",
+      "placements": 3
+     },
+     {
+      "name": "Research Site Bavaria",
+      "placements": 3
+     },
+     {
+      "name": "Research Site Rhineland",
+      "placements": 3
+     },
+     {
+      "name": "Shenandoah Visitor Center",
+      "placements": 2
+     },
+     {
+      "name": "Slumber Mill Motel",
+      "placements": 8
+     },
+     {
+      "name": "South River Bridge",
+      "placements": 9
+     },
+     {
+      "name": "Susan's Cabin",
+      "placements": 6
+     },
+     {
+      "name": "Three Ponds",
+      "placements": 6
+     },
+     {
+      "name": "Thunder Mountain Substation TM-03",
+      "placements": 5
+     }
+    ],
+    "placements": 109
+   },
+   {
+    "region": "Toxic Valley",
+    "markers": [
+     {
+      "name": "Becker Farm",
+      "placements": 3
+     },
+     {
+      "name": "Black Bear Lodge",
+      "placements": 5
+     },
+     {
+      "name": "Carleton Mine",
+      "placements": 2
+     },
+     {
+      "name": "Clarksburg Shooting Club",
+      "placements": 6
+     },
+     {
+      "name": "Crater Watchstation",
+      "placements": 3
+     },
+     {
+      "name": "Eastern Regional Penitentiary",
+      "placements": 2
+     },
+     {
+      "name": "Grafton Station",
+      "placements": 2
+     },
+     {
+      "name": "Graninger Farm",
+      "placements": 11
+     },
+     {
+      "name": "Hemlock Holes",
+      "placements": 2
+     },
+     {
+      "name": "Hemlock Holes Maintenance",
+      "placements": 4
+     },
+     {
+      "name": "Knife Edge",
+      "placements": 6
+     },
+     {
+      "name": "Philippi Battlefield Cemetery",
+      "placements": 4
+     },
+     {
+      "name": "Pioneer Scout Camp",
+      "placements": 2
+     },
+     {
+      "name": "Pioneer Scout Lookout",
+      "placements": 2
+     },
+     {
+      "name": "Prickett's Fort",
+      "placements": 1
+     },
+     {
+      "name": "The Crater",
+      "placements": 4
+     },
+     {
+      "name": "Toxic Dried Lakebed",
+      "placements": 1
+     }
+    ],
+    "placements": 60
+   }
+  ],
+  "total_markers": 206,
+  "total": 990,
+  "no_maps": true,
+  "lead": "Mole Rats can spawn at 206 locations that share a spawn pool with other creatures, so a Mole Rat is not guaranteed there. They are listed by name only."
+ },
+ "breakdown_lead": "Spawns here:",
+ "treasure_maps": {
+  "maps": [
+   {
+    "group": "Pint-Sized Phantoms",
+    "name": "Pint-Sized Phantoms' Map",
+    "region": "",
+    "form_id": "008F15E4",
+    "edid": "SDOW_MQ02_SlasherMap",
+    "rate": 0.058824,
+    "rate_display": "5.88%",
+    "sources": [
+     {
+      "form_id": "0090312D",
+      "edid": "SDOW_LL_SQ01_RepeatableRewards",
+      "rate": 0.058824,
+      "rate_display": "5.88%"
+     }
+    ]
+   }
+  ]
+ },
+ "total": 0
+}
