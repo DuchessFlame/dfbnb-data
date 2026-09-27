@@ -25,6 +25,7 @@ Usage:
     python src/add_spawn_map_base.py            # all families
     python src/add_spawn_map_base.py --pts      # PTS dist tree
     python src/add_spawn_map_base.py --dry-run
+    python src/add_spawn_map_base.py --full-map-only   # just the 4K download links
 """
 
 import argparse, json, os, sys
@@ -47,7 +48,7 @@ FAMILIES = [
 
 
 def dist_root(pts):
-    return os.path.join(REPO, "dist_pts" if pts else "dist")
+    return os.path.join(REPO, "dist", "pts") if pts else os.path.join(REPO, "dist")
 
 
 def docs_for(family, root):
@@ -75,6 +76,50 @@ def docs_for(family, root):
 
 
 OVERRIDES_PATH = os.path.join(REPO, "data", "spawn_map_base_overrides.tsv")
+
+GUIDES_ROOT = os.environ.get(
+    "GUIDES_ROOT", r"C:\Users\Duche\OneDrive\Guides and Stuff")
+
+
+def render_job(family, slug):
+    """(render source, render slug) for a doc, or None when it has no farming map.
+
+    The meat LOCATION GUIDES live in farming_spawns as `meat-<slug>` but their maps
+    are rendered from dist/meat as source `meat`. NPC score-challenge pages have
+    their own finisher (finish_npc_spawn_maps.py) and the meat hub docs are not
+    guide pages, so neither gets a full map from here."""
+    if family == "meat":
+        return None
+    if family == "farming_spawns":
+        if slug.startswith("npc-"):
+            return None
+        if slug.startswith("meat-"):
+            return ("meat", slug[len("meat-"):])
+        return ("farming", slug)
+    return ({"nuka": "nuka", "plants": "plants", "insects": "insects"}[family], slug)
+
+
+def local_full_map(family, slug, doc):
+    """-> (render slug, path) of the 4096 full map on disk, or None.
+
+    render_spawn_maps.py writes `01 Full Maps (4096)/<render-slug>.jpg` in the
+    item's own folder; render_all_maps.item_folder() finds that folder the same
+    way the renderer did."""
+    job = render_job(family, slug)
+    if not job or not os.path.isdir(GUIDES_ROOT):
+        return None
+    try:
+        import render_all_maps as RA
+    except Exception:
+        return None
+    source, rslug = job
+    cat_dir = os.path.join(GUIDES_ROOT, RA.category_folder(source, rslug))
+    name = doc.get("name") or rslug
+    if source == "meat" and name.endswith(" Meat"):
+        name = name[:-len(" Meat")]
+    folder = RA.item_folder(cat_dir, name, rslug)
+    path = os.path.join(folder, "01 Full Maps (4096)", f"{rslug}.jpg")
+    return (rslug, path) if os.path.exists(path) else None
 
 
 def load_overrides():
@@ -128,6 +173,9 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--pts", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--full-map-only", action="store_true",
+                    help="stamp only the header-card full_map link; leave map_base "
+                         "alone (region links must wait until their tiles are uploaded)")
     args = ap.parse_args()
 
     root = dist_root(args.pts)
@@ -137,6 +185,7 @@ def main():
 
     overrides = load_overrides()
     changed = missing = total = 0
+    full_maps = []
     for family, category in FAMILIES:
         for path, slug in docs_for(family, root):
             total += 1
@@ -153,11 +202,27 @@ def main():
                 continue
 
             dirty = False
-            if doc.get("map_base") != base:
+            if not args.full_map_only and doc.get("map_base") != base:
                 doc["map_base"] = base
                 dirty = True
+            # Header-card "Download the full 4K spawn map" link (spawn-guide §9m).
+            # Maps go on the site as JPEG, so the file is `<render-slug>.jpg` in the
+            # item's guide-images folder. Only stamped when the render exists on this
+            # machine; an existing value is never removed (CI has no Guides folder).
+            fm = local_full_map(family, slug, doc)
+            if fm and not doc.get("full_map"):
+                # The page's own folder: its map_base when it has one; a meat
+                # location guide lives in farming-meat/<creature>/ (same as
+                # build_meat_guide_docs.MAP_ROOT); else the derived base.
+                fbase = doc.get("map_base") or (
+                    f"{ebuild.UPLOADS}farming-meat/{fm[0]}/"
+                    if family == "farming_spawns" and slug.startswith("meat-") else base)
+                doc["full_map"] = fbase + fm[0] + ".jpg"
+                full_maps.append((slug, fm[1], fbase))
+                dirty = True
             cs = doc.get("chance_spawns")
-            if isinstance(cs, dict) and cs.get("regions") and not cs.get("map_base"):
+            if (not args.full_map_only and isinstance(cs, dict) and cs.get("regions")
+                    and not cs.get("map_base")):
                 cs["map_base"] = base
                 dirty = True
 
@@ -168,6 +233,8 @@ def main():
                     with open(path, "w", encoding="utf-8") as fh:
                         json.dump(doc, fh, ensure_ascii=False, indent=1)
 
+    for slug, path, base in full_maps:
+        print(f"  full map  {slug:34} {path}  ->  {base}")
     verb = "would update" if args.dry_run else "updated"
     print(f"map_base: {verb} {changed} of {total} docs"
           + (f" ({missing} unresolved)" if missing else ""))
