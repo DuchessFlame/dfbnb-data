@@ -92,6 +92,64 @@ def apply(dist_dir, tsv_dir):
     return True
 
 
+# Pages that show Legacy NW items with their own copy of the row. New Plans and
+# Daily Ops copy plan_master rows and pick the NW art up on their next build;
+# Seasonal Events builds its own URLs and now asks legacy_nw.nw_image_map()
+# first. This brings the already-published files in line without a rebuild.
+DOWNSTREAM = ["new_plans.json", "daily_ops/*.json", "seasonal_events/*.json"]
+
+
+def patch_downstream(dist_dir):
+    import glob
+    import legacy_nw
+    art = legacy_nw.nw_image_map(os.path.join(dist_dir, "plan_master.json"))
+    if not art:
+        return
+
+    def keys(n):
+        plan = n.get("plan_item") if isinstance(n.get("plan_item"), dict) else {}
+        for k in (plan.get("formid"), plan.get("edid"), n.get("formId"),
+                  n.get("formid"), n.get("edid"), n.get("entitlement")):
+            if isinstance(k, str) and k:
+                yield k.strip().upper()
+
+    for pat in DOWNSTREAM:
+        for path in glob.glob(os.path.join(dist_dir, pat)):
+            try:
+                with open(path, encoding="utf-8") as fh:
+                    raw = fh.read()
+                doc = json.loads(raw)
+            except Exception:                        # noqa: BLE001
+                continue
+            pretty = raw.lstrip().startswith(("{\n", "[\n"))   # keep the file's own layout
+            hits = []
+
+            def walk(n):
+                if isinstance(n, dict):
+                    if "images" in n or "imageUrl" in n:
+                        urls = next((art[k] for k in keys(n) if k in art), None)
+                        if urls:
+                            if "images" in n and n.get("images") != urls:
+                                n["images"] = list(urls)
+                                hits.append(n.get("name"))
+                            if "imageUrl" in n and n.get("imageUrl") != urls[0]:
+                                n["imageUrl"] = urls[0]
+                                hits.append(n.get("name"))
+                    for v in n.values():
+                        walk(v)
+                elif isinstance(n, list):
+                    for v in n:
+                        walk(v)
+            walk(doc)
+            if hits:
+                with open(path, "w", encoding="utf-8") as fh:
+                    if pretty:
+                        json.dump(doc, fh, ensure_ascii=False, indent=2)
+                    else:
+                        json.dump(doc, fh, ensure_ascii=False, separators=(",", ":"))
+                print(f"  {os.path.relpath(path, dist_dir)}: NW art on {len(hits)} row(s)")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--channel", choices=sorted(CHANNELS), default="")
@@ -104,6 +162,7 @@ def main():
             continue
         print(f"[apply_legacy_nw] {ch}")
         ok = apply(dist_dir, tsv_dir) and ok
+        patch_downstream(dist_dir)
     return 0 if ok else 1
 
 

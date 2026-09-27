@@ -3423,6 +3423,14 @@ def _build_caps_block_summary(caps_breakdown):
     }
 
 
+# Legacy Nuclear Winter art, read once from plan_master (see legacy_nw.py).
+try:
+    import legacy_nw as _legacy_nw
+    _NW_ART = _legacy_nw.nw_image_map(str(_REPO_ROOT / "dist" / "plan_master.json"))
+except Exception:                                    # noqa: BLE001 - never fatal
+    _NW_ART = {}
+
+
 def _build_flat_rewards_from_tree(tree, event_def, groups):
     """Produce the legacy flat rewards[] list from the event reward tree."""
     ev_slug = event_def.get("imageDir") or event_def["eventSlug"]
@@ -3436,9 +3444,12 @@ def _build_flat_rewards_from_tree(tree, event_def, groups):
             edid = it["edid"]
             if fid not in by_fid:
                 _slug_ovr = REWARD_IMAGE_SLUG_OVERRIDES.get(str(fid).upper())
-                _imgs = build_image_list(
-                    ev_slug, name, slug_override=_slug_ovr, manifest=_manifest
-                )
+                # Legacy Nuclear Winter plans use the NW page's art first
+                # (legacy_nw.nw_image_map); the event folder is the fallback.
+                _imgs = (_NW_ART.get(str(fid).upper())
+                         or _NW_ART.get(str(edid or "").upper())
+                         or build_image_list(
+                             ev_slug, name, slug_override=_slug_ovr, manifest=_manifest))
                 by_fid[fid] = {
                     "name":         name,
                     "formId":       fid,
