@@ -2706,9 +2706,9 @@ def _build_lvli_node(title, lvli_fid, lvli_edid, resolver, ev_slug,
                           "qty":  qty,
                           "rate": round(rate * 100, 6)}],
         }
-        # Tradeable / unsellable flags — only attach to ARMO and BOOK items
-        # (where the JS Technical: section actually renders something useful).
-        if sig in ("ARMO", "BOOK"):
+        # Tradeable / unsellable flags — ARMO, BOOK and WEAP items (named
+        # weapon rewards like the Cursed Broadsider need the trade pill too).
+        if sig in ("ARMO", "BOOK", "WEAP"):
             item_dict["tradeable"] = fid_lc not in non_tradable_fids
             if fid_lc in unsellable_fids:
                 item_dict["unsellable"] = True
