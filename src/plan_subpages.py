@@ -90,29 +90,17 @@ SUBPAGES = {
         # sends a tagged row to this folder before any other rule runs. So these
         # plans leave the Weapon / Apparel / Power Armour / CAMP pages they
         # would otherwise sit on — one plan, one page.
+        # Flat A-Z (Duchess, 27 Sep 2026): no group headings.
         "folder": "legacy-nuclear-winter",
-        "groups": [
-            ["power-armour", "Power Armour Paints",
-             "Full power armour paint sets.",
-             r"PowerArmor"],
-            ["armour-paint", "Armour Paints",
-             "Paints for regular armour sets.",
-             r"mod_(armou?r|Combat|MetalArmou?r)_"],
-            ["weapon-paint", "Weapon Paints & Skins",
-             "Paints and skins for guns, melee weapons and bows.",
-             r"mod_"],
-            ["apparel", "Apparel",
-             "Outfits, headwear and underarmour.",
-             r"Headwear|Clothes|Underarmou?r|TrackSuit"],
-            ["camp", "C.A.M.P.",
-             "Stash boxes, decorations and furniture.",
-             r"."],
-        ],
+        "groups": None,
         "skip": [],
-        "note": ["Retired mode.",
-                 "Nuclear Winter closed in September 2021. These are the plans Bethesda "
-                 "added afterwards so its rewards can still be learned in Adventure. "
-                 "Each row says how the item was first earned in Nuclear Winter."],
+        # The intro-card blurb, in place of the generic "Track which … plans".
+        "sub": ("Nuclear Winter was retired in September 2021. Most of its rewards came "
+                "back as plans you can still find in Adventure — from events like "
+                "Mischief Night, Encryptid, A Colossal Problem and Project Paradise, "
+                "Festive Holiday gifts, Treasure Hunter pails, The Slasher Daily Ops and "
+                "Minerva. Open a plan to see where it drops now and how it was first "
+                "earned in Nuclear Winter."),
     },
     "fishing-rod": {
         "title": "Fishing Rod",
@@ -389,6 +377,7 @@ def config():
             "grouping": page.get("grouping") or None,
             "dataset": bool(page.get("dataset")),
             "note": page.get("note") or None,
+            "sub": page.get("sub") or None,
         }
         for slug, page in SUBPAGES.items()
     }
