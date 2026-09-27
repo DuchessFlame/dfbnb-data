@@ -378,9 +378,15 @@ def main(argv=None):
         # Prune only on --all. run_item() builds a single slug, so pruning inside
         # it would delete every other item on a one-item run.
         dist_dir = os.path.join(REPO, "dist", "pts" if args.pts else "", "farming_spawns")
+        # meat-<slug>_spawns.json share this folder but are written by
+        # build_meat_guide_docs.py (the meat guide pages), not by this builder —
+        # never prune them, or every CI run deletes all 31 meat pages.
+        meat_docs = [n for n in os.listdir(os.path.normpath(dist_dir))
+                     if n.startswith("meat-") and n.endswith("_spawns.json")] \
+            if os.path.isdir(os.path.normpath(dist_dir)) else []
         prune_outputs(os.path.normpath(dist_dir),
                       [c["slug"] + "_spawns" for c in ALL_SETS],
-                      tag="[farming_spawns]", also_keep=())
+                      tag="[farming_spawns]", also_keep=tuple(meat_docs))
     else:
         cfg = SETS_BY_SLUG.get(args.item)
         if cfg is None:

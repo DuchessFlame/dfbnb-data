@@ -1688,7 +1688,9 @@ def _patch_random_encounters(doc: Dict[str, Any]) -> None:
     for r in rows:
         if not isinstance(r, dict):
             continue
-        url = urls.get((r.get("type") or "").strip().lower())
+        t = (r.get("type") or "").strip().lower()
+        # "Scene Encounters" -> "scene": the guide index keys on the bare type word.
+        url = urls.get(t) or urls.get(re.sub(r"\s+encounters?$", "", t))
         if url:
             r["type_url"] = url
 
