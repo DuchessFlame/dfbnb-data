@@ -1,0 +1,625 @@
+{
+ "_meta": {
+  "generated": "2026-09-27",
+  "source": "dist/meat/angler.json + farming pipeline (src/build_meat_guide_docs.py)"
+ },
+ "set": "meat",
+ "slug": "meat-angler",
+ "name": "Angler Meat",
+ "page_title": "Angler Location Guide",
+ "blurb": "The Angler in Fallout 76 — drops Angler Meat, 20 NPC variants, 1137 known spawn points.",
+ "map_base": "",
+ "drop_rates": {
+  "creatures": {
+   "note": "",
+   "items": [
+    {
+     "name": "Angler Meat",
+     "qty": 1,
+     "rate_display": "100%",
+     "note": ""
+    },
+    {
+     "name": "Plan: Puncturing Pole Hook",
+     "qty": 1,
+     "rate_display": "3%",
+     "note": ""
+    }
+   ]
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Sir Loin Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_SirLoin",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "9 min",
+     "items": [
+      {
+       "name": "Angler Meat",
+       "form_id": "00110BA4",
+       "rate": 0.0,
+       "rate_display": "0%",
+       "rate_source": "computed_zero"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": null,
+  "containers": {
+   "types": []
+  }
+ },
+ "farming_tips": {
+  "spawn_note": "Angler Meat comes from killing Anglers and looting the body.",
+  "spoils": true,
+  "spoil_duration_hours": null,
+  "base_weight": 0.5,
+  "object_type": "Food",
+  "yield_perk": "butchers_bounty",
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.28
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.05
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.05,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.3
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.1
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.05
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": true,
+  "perk_cards": {
+   "butchers_bounty": {
+    "name": "Butcher's Bounty",
+    "special": "Perception",
+    "min_level": 3,
+    "rank_count": 3,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "40% chance to find extra meat from animal corpses.",
+      "percent": "40%"
+     },
+     {
+      "rank": 2,
+      "desc": "60% chance to find extra meat from animal corpses.",
+      "percent": "60%"
+     },
+     {
+      "rank": 3,
+      "desc": "80% chance to find extra meat from animal corpses.",
+      "percent": "80%"
+     }
+    ]
+   },
+   "thru_hiker": {
+    "name": "Thru-Hiker",
+    "special": "Endurance",
+    "min_level": 7,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "Food and drink weights are reduced by 45%.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "desc": "Food and drink weights are reduced by 90%.",
+      "percent": "90%"
+     }
+    ]
+   },
+   "good_with_salt": {
+    "name": "Good With Salt",
+    "special": "Intelligence",
+    "min_level": 9,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "reduction": "45%",
+      "desc": "Food in your inventory will spoil 45% slower.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "reduction": "90%"
+     }
+    ]
+   }
+  },
+  "refrigerated": {
+   "name": "Refrigerated Backpack",
+   "reduction": "50%",
+   "stacks_with_good_with_salt": false
+  }
+ },
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.5,
+   "value": 14,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": true,
+   "note": "Angler Meat is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Disease Chance",
+     "display": "3% chance to catch a disease",
+     "duration": null,
+     "label": "Disease Chance",
+     "value": 3.0,
+     "unit": "percent",
+     "scales": false,
+     "zeroed": true,
+     "sign": false
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (720/12 min)",
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 720.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Rads",
+     "display": "+15 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 15.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
+    }
+   ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
+  },
+  "challenges": [
+   {
+    "type": "Daily",
+    "name": "Kill an Angler",
+    "required": 5,
+    "edid": "SCORE_Challenge_Daily_Kill_Angler",
+    "page": "daily"
+   },
+   {
+    "type": "Lifetime",
+    "name": "Take a Camera Picture of a Glowing Angler",
+    "required": 1,
+    "edid": "Challenge_Lifetime_Picture_Glowing_SUB_Angler_Camera",
+    "page": "world"
+   },
+   {
+    "type": "Lifetime",
+    "name": "Take a Camera Picture of an Albino Angler",
+    "required": 1,
+    "edid": "Challenge_Lifetime_Picture_Albino_SUB_Angler_Camera",
+    "page": "world"
+   }
+  ],
+  "recipes": [
+   {
+    "name": "Poached Angler",
+    "form_id": "00110BA5",
+    "recipe_edid": "co_meal_AnglerMeatCooked",
+    "category": "Food (Meat)",
+    "workbench": "Cooking Station",
+    "output_qty": 1,
+    "item_qty": 1,
+    "mutation": "Carnivore",
+    "ingredients": [
+     {
+      "name": "Wood",
+      "qty": 1,
+      "url": "/df/farming/junk/wood/"
+     },
+     {
+      "name": "Angler Meat",
+      "qty": 1,
+      "is_main": true
+     }
+    ],
+    "effects": [
+     {
+      "name": "Restore Health",
+      "display": "Restores 45 Health",
+      "duration": "25s",
+      "label": "Restores Health",
+      "value": 45.0,
+      "unit": "health",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Fortify Action Points",
+      "display": "+20 Action Points",
+      "duration": "30 min",
+      "label": "Action Points",
+      "value": 20.0,
+      "unit": "flat",
+      "scales": true,
+      "zeroed": false,
+      "sign": true
+     },
+     {
+      "name": "Satisfy Hunger",
+      "display": "Satisfies hunger (1080/18 min)",
+      "duration": null,
+      "label": "Satisfies Hunger",
+      "value": 1080.0,
+      "unit": "seconds",
+      "scales": true,
+      "zeroed": false,
+      "sign": false
+     },
+     {
+      "name": "Rads",
+      "display": "+5 Rads",
+      "duration": null,
+      "label": "Rads",
+      "value": 5.0,
+      "unit": "rads",
+      "scales": false,
+      "zeroed": true,
+      "sign": true
+     }
+    ],
+    "how_to_obtain": "Known by default."
+   }
+  ]
+ },
+ "vendor_list": [
+  {
+   "name": "Marie",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "33.01%"
+   ],
+   "rate_display": "33.01%",
+   "rate_value": 0.330078,
+   "count": 1
+  },
+  {
+   "name": "Rudy Fernandez",
+   "marker": "Big Bend Tunnel East",
+   "region": "Cranberry Bog",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "12.5%"
+   ],
+   "rate_display": "12.5%",
+   "rate_value": 0.125,
+   "count": 1
+  },
+  {
+   "name": "Maul",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "12.5%"
+   ],
+   "rate_display": "12.5%",
+   "rate_value": 0.125,
+   "count": 2
+  }
+ ],
+ "events_activities": [],
+ "random_encounters": [
+  {
+   "form_id": "00529E1D",
+   "edid": "RE_TravelCMB07",
+   "name": "Anglers vs. Fog Crawler",
+   "type": "Travel Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/travel-random-encounters/"
+  },
+  {
+   "form_id": "004FC060",
+   "edid": "RE_AssaultKMK04",
+   "name": "Anglers vs. Scorched",
+   "type": "Assault Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
+  },
+  {
+   "form_id": "004FC066",
+   "edid": "RE_AssaultKMK10",
+   "name": "Anglers vs. Super Mutants",
+   "type": "Assault Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/assault-random-encounters/"
+  },
+  {
+   "form_id": "00454C49",
+   "edid": "RE_SceneCMB02",
+   "name": "Brahmin Wrangler",
+   "type": "Scene Encounters",
+   "location": "",
+   "type_url": "/df/random-encounters/random-encounter-guides/scene-random-encounters/"
+  }
+ ],
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": []
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": []
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": []
+  },
+  {
+   "region": "Forest",
+   "locations": []
+  },
+  {
+   "region": "Savage Divide",
+   "locations": []
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": []
+  },
+  {
+   "region": "The Mire",
+   "locations": []
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": []
+  }
+ ],
+ "chance_spawns": {
+  "regions": [
+   {
+    "region": "Cranberry Bog",
+    "markers": [
+     {
+      "name": "Abandoned Bog Town",
+      "placements": 2
+     },
+     {
+      "name": "Appalachian Antiques",
+      "placements": 3
+     },
+     {
+      "name": "Drop Site G3",
+      "placements": 4
+     },
+     {
+      "name": "Firebase Major",
+      "placements": 1
+     },
+     {
+      "name": "Fissure Site",
+      "placements": 1
+     },
+     {
+      "name": "Forward Station Alpha",
+      "placements": 2
+     },
+     {
+      "name": "Pylon V-13",
+      "placements": 2
+     },
+     {
+      "name": "The Thorn",
+      "placements": 4
+     },
+     {
+      "name": "Thunder Mountain Substation TM-02",
+      "placements": 1
+     }
+    ],
+    "placements": 20
+   },
+   {
+    "region": "Savage Divide",
+    "markers": [
+     {
+      "name": "Beckwith Farm",
+      "placements": 3
+     }
+    ],
+    "placements": 3
+   },
+   {
+    "region": "The Mire",
+    "markers": [
+     {
+      "name": "Abandoned Waste Dump",
+      "placements": 2
+     },
+     {
+      "name": "Abbie's Bunker",
+      "placements": 3
+     },
+     {
+      "name": "Berkeley Springs West",
+      "placements": 1
+     },
+     {
+      "name": "Blakes Offering",
+      "placements": 4
+     },
+     {
+      "name": "Dolly Sods Campground",
+      "placements": 4
+     },
+     {
+      "name": "Ella Ames' Bunker",
+      "placements": 3
+     },
+     {
+      "name": "Gnarled Shallows",
+      "placements": 3
+     },
+     {
+      "name": "Gulper Lagoon",
+      "placements": 2
+     },
+     {
+      "name": "Mire's Eye",
+      "placements": 2
+     },
+     {
+      "name": "Raleigh Clay's Bunker",
+      "placements": 8
+     },
+     {
+      "name": "Sunday Brothers' Cabin",
+      "placements": 2
+     }
+    ],
+    "placements": 34
+   },
+   {
+    "region": "Toxic Valley",
+    "markers": [
+     {
+      "name": "Becker Farm",
+      "placements": 3
+     },
+     {
+      "name": "Black Bear Lodge",
+      "placements": 5
+     },
+     {
+      "name": "Carleton Mine",
+      "placements": 2
+     },
+     {
+      "name": "Crater Watchstation",
+      "placements": 3
+     },
+     {
+      "name": "Graninger Farm",
+      "placements": 2
+     },
+     {
+      "name": "Knife Edge",
+      "placements": 3
+     },
+     {
+      "name": "Philippi Battlefield Cemetery",
+      "placements": 1
+     },
+     {
+      "name": "Pioneer Scout Camp",
+      "placements": 2
+     },
+     {
+      "name": "The Crater",
+      "placements": 4
+     },
+     {
+      "name": "Toxic Dried Lakebed",
+      "placements": 1
+     }
+    ],
+    "placements": 26
+   }
+  ],
+  "total_markers": 31,
+  "total": 83,
+  "no_maps": true,
+  "lead": "Anglers can spawn at 31 locations that share a spawn pool with other creatures, so a Angler is not guaranteed there. They are listed by name only."
+ },
+ "breakdown_lead": "Spawns here:",
+ "treasure_maps": {
+  "maps": []
+ },
+ "total": 0
+}
