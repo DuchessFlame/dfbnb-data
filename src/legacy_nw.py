@@ -218,11 +218,18 @@ class Index:
         """Write the legacy fields onto one row. Returns True when it is one."""
         if str(item.get("id") or "").startswith(REWARD_ID_PREFIX):
             return True                   # a reward row carries its own fields
-        for k in ("legacy_nw", "nw_entitlement", "nw_origin", "nw_route", "art_stems"):
+        for k in ("legacy_nw", "nw_entitlement", "nw_origin", "nw_route", "art_stems",
+                  "not_obtainable"):
             item.pop(k, None)
         if (item.get("kind") or "plan") != "plan" or not self.is_legacy(item):
             return False
         item["legacy_nw"] = True
+        # Not obtainable, generatively: a Legacy NW plan the build resolved no
+        # drop route and no unlock for. Six of them (the leather / combat /
+        # Gatling paints) only sit in a Minerva "Backlog" list that no live
+        # rotation uses, so the game never hands them out. The pill drops by
+        # itself the day a real route resolves.
+        item["not_obtainable"] = not (item.get("obtain_routes") or item.get("obtain_unlocks"))
         edid = self.entitlement_for(item)
         rec = self.entm.get(edid)
         if rec:
@@ -379,10 +386,43 @@ def reward_rows(items, idx):
         return 0
     linked = set()
     for it in items:
+        # Undo last run's duplicate call before re-deciding (see below).
+        if it.pop("nw_duplicate", None):
+            it["cut"] = False
+            it["cut_reason"] = None
         if idx.tag(it):
             ent = (it.get("nw_entitlement") or {}).get("edid")
             if ent:
                 linked.add(ent)
+    # Two plan books for one NW item (Hellfire Prototype, the Medium stash box):
+    # Duchess, 27 Sep 2026 — merge them, it is the same plan. The copy that
+    # actually drops is kept as THE row; a copy nothing gives out is folded into
+    # it: listed under Technical ("Also the same plan": FormID / EDID / recipe)
+    # and marked cut so it leaves the page. Generative — the merge is decided
+    # every build, so if the live copy stops dropping both rows come back.
+    by_ent = {}
+    for it in items:
+        it.pop("merged_plans", None)
+        ent = (it.get("nw_entitlement") or {}).get("edid")
+        if it.get("legacy_nw") and ent and it.get("plan_item") and not it.get("cut"):
+            by_ent.setdefault(ent, []).append(it)
+    for rows in by_ent.values():
+        live = [r for r in rows if not r.get("not_obtainable")]
+        if len(rows) < 2 or not live:
+            continue
+        keep = max(live, key=lambda r: len(r.get("obtain_routes") or []) + len(r.get("obtain_unlocks") or []))
+        for r in rows:
+            if r is keep or not r.get("not_obtainable"):
+                continue
+            keep.setdefault("merged_plans", []).append({
+                "name": r.get("name"),
+                "plan_item": r.get("plan_item"),
+                "cobj": r.get("cobj"),
+            })
+            r["cut"] = True
+            r["cut_reason"] = f"merged into {keep.get('name')} — the same Nuclear Winter item"
+            r["nw_duplicate"] = True
+
     labeler = None
     added = 0
     for edid, rec in sorted(idx.entm.items(), key=lambda kv: kv[1]["name"].lower()):
@@ -461,3 +501,50 @@ if __name__ == "__main__":
     live = [i for i in rows if not i.get("cut")]
     print(f"{len(live)} live legacy NW plans ({len(rows) - len(live)} cut), "
           f"{sum(1 for i in live if i.get('nw_entitlement'))} linked to an entitlement")
+
+
+# ── NW art for OTHER pages ───────────────────────────────────────────────────
+# The Legacy Nuclear Winter page owns the art for these items (Duchess, 27 Sep
+# 2026): any other page that shows a Legacy NW plan or reward — Seasonal Events,
+# Daily Ops, New Plans — reads it from here BEFORE building a URL into its own
+# wp-content folder. New Plans and Daily Ops copy plan_master rows verbatim, so
+# they inherit it for free; builders that invent their own URLs (Seasonal
+# Events) ask nw_image_map().
+PLAN_IMG_BASE = "/wp-content/uploads/guide-images/plan-checklist/"
+
+
+def row_image_urls(item):
+    """A plan_master row's images as absolute URLs (bare stems resolved)."""
+    base = PLAN_IMG_BASE + (item.get("image_dir") or item.get("type") or "") + "/"
+    out = []
+    for s in item.get("images") or []:
+        s = str(s)
+        out.append(s if s.startswith("/") else base + s + ".avif")
+    return out
+
+
+def nw_image_map(plan_master_path):
+    """{KEY -> [absolute urls]} for every Legacy NW row that has art.
+
+    Keys (upper-cased): the plan's FormID, the plan's EditorID, the NW
+    entitlement's FormID and EditorID — whichever the calling page carries.
+    Empty when plan_master is missing; callers then keep their own URLs.
+    """
+    import json
+    try:
+        with open(plan_master_path, encoding="utf-8") as fh:
+            items = json.load(fh).get("items") or []
+    except Exception:                                # noqa: BLE001
+        return {}
+    out = {}
+    for it in items:
+        if not it.get("legacy_nw"):
+            continue
+        urls = row_image_urls(it)
+        if not urls:
+            continue
+        for rec in (it.get("plan_item") or {}, it.get("nw_entitlement") or {}):
+            for k in (rec.get("formid"), rec.get("edid")):
+                if k:
+                    out.setdefault(str(k).strip().upper(), urls)
+    return out
