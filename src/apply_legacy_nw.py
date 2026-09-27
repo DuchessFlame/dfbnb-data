@@ -51,6 +51,11 @@ def apply(dist_dir, tsv_dir):
     # defaults to live — point it at this channel's exports, as reenrich does.
     add_weapon_groups.set_tsv_dir(tsv_dir)
     idx, staged = plan_images.load(dist_dir, tsv_dir, verbose=False)
+    # Legacy Nuclear Winter rewards with no plan (legacy_nw.reward_rows) —
+    # added BEFORE the art pass so they get pictures and a page like any row.
+    if getattr(idx, "legacy", None):
+        import legacy_nw
+        print(f"  legacy_nw: {legacy_nw.reward_rows(items, idx.legacy)} Nuclear Winter reward row(s) with no plan")
     plan_images.report(plan_images.attach(items, idx, staged), stream=sys.stdout)
     plan_apparel_class.report(plan_apparel_class.attach(items))
     plan_subpages.report(plan_subpages.attach(items))

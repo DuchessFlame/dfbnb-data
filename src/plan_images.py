@@ -229,9 +229,13 @@ SOURCES = [
     ("allies",            "allies.json"),
     ("camp",              "camp.json"),
     ("fishing-equipment", "fishing_equipment.json"),
+    ("player-icons",      "player_icons.json"),
     ("bundles",           "bundles.json"),
     ("atom-shop",         "atom_shop.json"),
 ]
+
+# Sources whose display names are not identity (see load()).
+NAME_UNSAFE = {"player-icons"}
 
 _RX_PLAN_PREFIX = re.compile(r"^\s*(plan|recipe|schematic)\s*:\s*", re.I)
 _RX_NONWORD     = re.compile(r"[^a-z0-9]+")
@@ -388,7 +392,11 @@ def load(dist_dir="dist", tsv_dir="tsv", config_path=CONFIG, verbose=True):
                           row.get("entmFormId"), row.get("resoFormId"),
                           row.get("contFormId")],
                     edids=[row.get("edid")],
-                    names=[row.get("name"), row.get("displayName"),
+                    # Player icons are named after things ("Minigun", "Vault
+                    # Boy"), so a name match would put an icon on the plan for
+                    # the real item. They match by FormID / EditorID only.
+                    names=[] if source in NAME_UNSAFE else
+                          [row.get("name"), row.get("displayName"),
                            row.get("shortName"), row.get("planName")],
                     url=url or "")
 

@@ -99,8 +99,10 @@ SUBPAGES = {
                 "back as plans you can still find in Adventure — from events like "
                 "Mischief Night, Encryptid, A Colossal Problem and Project Paradise, "
                 "Festive Holiday gifts, Treasure Hunter pails, The Slasher Daily Ops and "
-                "Minerva. Open a plan to see where it drops now and how it was first "
-                "earned in Nuclear Winter."),
+                "Minerva. The rest never came back and are marked Not obtainable. Open a "
+                "row to see where it drops now and how it was first earned in Nuclear Winter."),
+        # Plans AND the rewards that never became plans (legacy_nw.reward_rows).
+        "noun": {"one": "item", "many": "items"},
     },
     "fishing-rod": {
         "title": "Fishing Rod",
@@ -378,6 +380,7 @@ def config():
             "dataset": bool(page.get("dataset")),
             "note": page.get("note") or None,
             "sub": page.get("sub") or None,
+            "noun": page.get("noun") or None,
         }
         for slug, page in SUBPAGES.items()
     }

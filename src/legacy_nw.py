@@ -191,6 +191,8 @@ class Index:
 
     def tag(self, item):
         """Write the legacy fields onto one row. Returns True when it is one."""
+        if str(item.get("id") or "").startswith(REWARD_ID_PREFIX):
+            return True                   # a reward row carries its own fields
         for k in ("legacy_nw", "nw_entitlement", "nw_origin", "art_stems"):
             item.pop(k, None)
         if (item.get("kind") or "plan") != "plan" or not self.is_legacy(item):
@@ -237,6 +239,8 @@ def load(tsv_dir="tsv", verbose=True):
             idx.entm[edid] = {
                 "formid": (r.get("FormID") or "").strip().upper(),
                 "name": (r.get("FULL") or "").strip(),
+                "desc": (r.get("DESC") or "").strip(),
+                "refs": refs,
                 "gmrw": [e for _f, e, s in refs if s == "GMRW"],
                 "cobj": [f for f, _e, s in refs if s == "COBJ"],
                 "art": art,
@@ -273,6 +277,131 @@ def load(tsv_dir="tsv", verbose=True):
               f"{len(idx.by_cobj)} linked recipes ({', '.join(idx.sources)})",
               file=sys.stderr)
     return idx
+
+
+# ── Nuclear Winter rewards that never came back as a plan ────────────────────
+# Player icons, photo frames, the NW trophies and statues, the Overseer Chair …
+# Duchess wants them on the page too (27 Sep 2026), marked Not obtainable.
+#
+# GENERATIVE, both ways:
+#   * A reward row is emitted for every Babylon entitlement that NO plan row
+#     links to. The day Bethesda ships a plan for one, that plan's row links to
+#     the entitlement and the reward row simply stops being emitted — the plan
+#     takes its place with its real drop routes.
+#   * `not_obtainable` is decided from the entitlement's own references: any
+#     live source (a leveled list, container, NPC, quest or challenge reward
+#     that is not an editor/NW record) makes it obtainable and the pill drops.
+#     Workshop build-menu lists (workshop_LL_*) are where a CAMP item sits in
+#     the build menu once owned — they hand nothing out, so they don't count.
+_ROUTE_SIGS = {"LVLI", "CONT", "NPC_", "QUST", "GMRW", "TERM", "REFR"}
+_RX_DEAD = re.compile(r"babylon|(^|_)(zzz\w*|cut|del|post|deprecated|debug)(_|$)|^zzz", re.I)
+_RX_BUILD_MENU = re.compile(r"(^|_)workshop_LL_", re.I)
+REWARD_ID_PREFIX = "NWREWARD_"
+
+# What the reward IS, from its EditorID — the category label and page type.
+_KINDS = [
+    (re.compile(r"PlayerIcon", re.I), "Player Icon"),
+    (re.compile(r"Photomode_Frame", re.I), "Photo Frame"),
+    (re.compile(r"Skin_PowerArmor|PowerArmor", re.I), "Power Armour Paint"),
+    (re.compile(r"ArmorSkin", re.I), "Armour Paint"),
+    (re.compile(r"WeaponSkin", re.I), "Weapon Paint"),
+    (re.compile(r"Apparel|Headwear|Outfit|Underarmor", re.I), "Apparel"),
+    (re.compile(r"CAMP", re.I), "C.A.M.P."),
+]
+
+
+def reward_kind(edid):
+    for rx, label in _KINDS:
+        if rx.search(edid):
+            return label
+    return "Nuclear Winter Reward"
+
+
+def live_sources(rec):
+    """[(sig, edid)] of references that could still hand this reward out."""
+    out = []
+    for _fid, edid, sig in rec.get("refs") or []:
+        if sig not in _ROUTE_SIGS or not edid:
+            continue
+        if _RX_DEAD.search(edid) or _RX_BUILD_MENU.search(edid):
+            continue
+        out.append((sig, edid))
+    return out
+
+
+def reward_rows(items, idx):
+    """Replace the reward rows in a plan_master item list. Returns the count.
+
+    Idempotent: previous reward rows are removed first, so a re-run after a
+    plan appears (or a reward gains a live source) converges.
+    """
+    items[:] = [i for i in items if not str(i.get("id") or "").startswith(REWARD_ID_PREFIX)]
+    if not idx:
+        return 0
+    linked = set()
+    for it in items:
+        if idx.tag(it):
+            ent = (it.get("nw_entitlement") or {}).get("edid")
+            if ent:
+                linked.add(ent)
+    labeler = None
+    added = 0
+    for edid, rec in sorted(idx.entm.items(), key=lambda kv: kv[1]["name"].lower()):
+        if edid in linked or not rec["name"]:
+            continue
+        live = live_sources(rec)
+        routes = []
+        if live:
+            if labeler is None:
+                labeler = _source_labeler()
+            routes = sorted({labeler(e) or e for _s, e in live})
+        kind = reward_kind(edid)
+        obtain = ("Not obtainable. This was a Nuclear Winter reward and nothing in the "
+                  "current game files gives it out — there is no plan for it."
+                  if not routes else
+                  "No plan for this one — the reward itself is given out by the sources below.")
+        items.append({
+            "kind": "plan", "brand": "both", "type": "legacy-nw-reward",
+            "id": REWARD_ID_PREFIX + rec["formid"],
+            "name": rec["name"],
+            "has_image_box": True,
+            "category_label": f"{kind} (Nuclear Winter reward, no plan)",
+            "obtain": obtain,
+            "obtain_routes": [],
+            "obtain_unlocks": [f"Found in: {r}" for r in routes],
+            "obtain_ledger": ([{"label": "Events & Activities",
+                                "unlocks": list(range(len(routes)))}] if routes else []),
+            "plan_item": None, "cobj": None, "cnam": None,
+            "entitlement_only": True,
+            "not_obtainable": not routes,
+            "tradeable": False,
+            "stops_dropping": None,
+            "effects": None,
+            "cut": False, "cut_reason": None,
+            "desc": rec.get("desc") or "",
+            "source_tag": kind.split()[0] if routes else "",
+            "images": [], "image_source": "",
+            # legacy fields (tag() would find nothing to link — set directly)
+            "legacy_nw": True,
+            "nw_entitlement": {"formid": rec["formid"], "edid": edid, "name": rec["name"]},
+            "nw_origin": origin_sentence(rec["gmrw"]),
+            "art_stems": rec["art"],
+        })
+        added += 1
+    return added
+
+
+def _source_labeler():
+    """plan_sources.source_label with the quest names loaded, or a no-op."""
+    try:
+        import plan_sources
+        q = plan_sources.QuestNames()
+        path = _newest("tsv", "QUEST_Export_*.tsv")
+        if path:
+            q.load(path)
+        return lambda e: plan_sources.source_label(e, q)
+    except Exception:                                # noqa: BLE001
+        return lambda e: None
 
 
 def tag_all(items, idx):
