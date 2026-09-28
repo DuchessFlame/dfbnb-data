@@ -403,6 +403,8 @@
     "seasonal_fish_guide.json",
     "seed-staff.json",
     "storage_boxes.json",
+    "titles/title_art_index.json",
+    "titles/title_art_missing.json",
     "unique_weapons/unique_weapons_test.json",
     "world_pet_types_pts.json"
   ],
@@ -728,6 +730,9 @@
           ]
         }
       ]
+    },
+    "apparel_formids.json": {
+      "structural_change": true
     },
     "armour.json": {
       "structural_change": true
@@ -34341,6 +34346,9 @@
     "farming_spawns/chems-stealth-boy-mark-iii_spawns.json": {
       "structural_change": true
     },
+    "farming_spawns/chems-stealth-boy_spawns.json": {
+      "structural_change": true
+    },
     "farming_spawns/chems-stimpak-diluted_spawns.json": {
       "structural_change": true
     },
@@ -34377,15 +34385,6 @@
     "farming_spawns/hotdog_spawns.json": {
       "structural_change": true
     },
-    "farming_spawns/meat-angler_spawns.json": {
-      "structural_change": true
-    },
-    "farming_spawns/meat-mole-rat_spawns.json": {
-      "structural_change": true
-    },
-    "farming_spawns/meat-mongrel-dog_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/mirelurk-egg_spawns.json": {
       "structural_change": true
     },
@@ -34396,6 +34395,9 @@
       "structural_change": true
     },
     "farming_spawns/radscorpion-egg_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/radtoad-egg_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/royal-jelly_spawns.json": {
@@ -36315,10 +36317,28 @@
     "nuka_cola_spawns_cherry.json": {
       "structural_change": true
     },
+    "nuka_cola_spawns_cranberry.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_dark.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_grape.json": {
+      "structural_change": true
+    },
     "nuka_cola_spawns_nuka-cola.json": {
       "structural_change": true
     },
     "nuka_cola_spawns_nukashine.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_orange.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_quantum.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_wild.json": {
       "structural_change": true
     },
     "pennants.json": {
@@ -37010,20 +37030,6 @@
           ]
         },
         {
-          "key": "PLAN_00501950",
-          "label": "Plan: Ultracite Overdrive Servos",
-          "fields": [
-            "obtain_routes"
-          ]
-        },
-        {
-          "key": "PLAN_00501954",
-          "label": "Plan: Ultracite Emergency Protocols",
-          "fields": [
-            "obtain_routes"
-          ]
-        },
-        {
           "key": "PLAN_0052A699",
           "label": "Plan: Single-Action Revolver Forceful Grip",
           "fields": [
@@ -37046,13 +37052,6 @@
           "fields": [
             "image_source",
             "images"
-          ]
-        },
-        {
-          "key": "PLAN_00589621",
-          "label": "Plan: Cattle Prod",
-          "fields": [
-            "weapon_group_solo"
           ]
         },
         {
@@ -37381,185 +37380,11 @@
           ]
         },
         {
-          "key": "PLAN_0062042E",
-          "label": "Plan: Blue Camo Power Armor Paints",
-          "fields": [
-            "armour_group",
-            "armour_group_key",
-            "armour_group_solo",
-            "armour_role"
-          ]
-        },
-        {
-          "key": "PLAN_0062042F",
-          "label": "Plan: Inferno Mark 1 Power Armor Paints",
-          "fields": [
-            "armour_group",
-            "armour_group_key",
-            "armour_group_solo",
-            "armour_role"
-          ]
-        },
-        {
-          "key": "PLAN_00620430",
-          "label": "Plan: Inferno Mark 2 Power Armor Paints",
-          "fields": [
-            "armour_group",
-            "armour_group_key",
-            "armour_group_solo",
-            "armour_role"
-          ]
-        },
-        {
-          "key": "PLAN_00620431",
-          "label": "Plan: Inferno Mark 3 Power Armor Paints",
-          "fields": [
-            "armour_group",
-            "armour_group_key",
-            "armour_group_solo",
-            "armour_role"
-          ]
-        },
-        {
-          "key": "PLAN_00620432",
-          "label": "Plan: Outcast Power Armor Paints",
-          "fields": [
-            "armour_group",
-            "armour_group_key",
-            "armour_group_solo",
-            "armour_role"
-          ]
-        },
-        {
-          "key": "PLAN_00620433",
-          "label": "Plan: Pink Sprinkles Power Armor Paints",
-          "fields": [
-            "armour_group",
-            "armour_group_key",
-            "armour_group_solo",
-            "armour_role"
-          ]
-        },
-        {
-          "key": "PLAN_00620434",
-          "label": "Plan: 10mm Hot Rod Shark Paint",
-          "fields": [
-            "weapon_group",
-            "weapon_group_key",
-            "weapon_group_solo",
-            "weapon_role"
-          ]
-        },
-        {
-          "key": "PLAN_00620435",
-          "label": "Plan: .44 Blue Camo Paint",
-          "fields": [
-            "weapon_group",
-            "weapon_group_key",
-            "weapon_group_solo",
-            "weapon_role"
-          ]
-        },
-        {
-          "key": "PLAN_00620436",
-          "label": "Plan: Laser Gun Blue Camo Paint",
-          "fields": [
-            "weapon_group",
-            "weapon_group_key",
-            "weapon_group_solo",
-            "weapon_role"
-          ]
-        },
-        {
-          "key": "PLAN_00620437",
-          "label": "Plan: Laser Gun Hot Rod Flames Paint",
-          "fields": [
-            "weapon_group",
-            "weapon_group_key",
-            "weapon_group_solo",
-            "weapon_role"
-          ]
-        },
-        {
-          "key": "PLAN_00620438",
-          "label": "Plan: Minigun Hot Rod Shark Paint",
-          "fields": [
-            "weapon_group",
-            "weapon_group_key",
-            "weapon_group_solo",
-            "weapon_role"
-          ]
-        },
-        {
-          "key": "PLAN_00620439",
-          "label": "Plan: Minigun Vault-Tec Paint",
-          "fields": [
-            "weapon_group",
-            "weapon_group_key",
-            "weapon_group_solo",
-            "weapon_role"
-          ]
-        },
-        {
-          "key": "PLAN_0062043A",
-          "label": "Plan: Missile Launcher Atom Cats Paint",
-          "fields": [
-            "weapon_group",
-            "weapon_group_key",
-            "weapon_group_solo",
-            "weapon_role"
-          ]
-        },
-        {
-          "key": "PLAN_0062043B",
-          "label": "Plan: Missile Launcher Shi Paint",
-          "fields": [
-            "weapon_group",
-            "weapon_group_key",
-            "weapon_group_solo",
-            "weapon_role"
-          ]
-        },
-        {
-          "key": "PLAN_006209C6",
-          "label": "Plan: Hellfire Prototype Power Armor Paint",
-          "fields": [
-            "armour_group",
-            "armour_group_key",
-            "armour_group_solo",
-            "armour_role"
-          ]
-        },
-        {
           "key": "PLAN_006209C7",
           "label": "Plan: Slocum Joe's Power Armor Paint",
           "fields": [
-            "armour_group",
-            "armour_group_key",
-            "armour_group_solo",
-            "armour_role",
             "image_source",
             "images"
-          ]
-        },
-        {
-          "key": "PLAN_00620A51",
-          "label": "Plan: Hellfire Prototype Power Armor Paint",
-          "fields": [
-            "armour_group",
-            "armour_group_key",
-            "armour_group_solo",
-            "armour_role"
-          ]
-        },
-        {
-          "key": "PLAN_00620A53",
-          "label": "Plan: Brotherhood of Steel Minigun Paint",
-          "fields": [
-            "weapon_group",
-            "weapon_group_key",
-            "weapon_group_solo",
-            "weapon_role"
           ]
         },
         {
@@ -37585,16 +37410,6 @@
           ]
         },
         {
-          "key": "PLAN_006366FE",
-          "label": "Plan: Combat Rifle Jack O' Lantern Paint",
-          "fields": [
-            "weapon_group",
-            "weapon_group_key",
-            "weapon_group_solo",
-            "weapon_role"
-          ]
-        },
-        {
           "key": "PLAN_006366FF",
           "label": "Plan: Vault-Tec University Diploma",
           "fields": [
@@ -37603,46 +37418,6 @@
             "obtain_routes",
             "retired_routes",
             "source_tag"
-          ]
-        },
-        {
-          "key": "PLAN_00636700",
-          "label": "Plan: Metal Armor Snowflakes Paint",
-          "fields": [
-            "armour_group",
-            "armour_group_key",
-            "armour_group_solo",
-            "armour_role"
-          ]
-        },
-        {
-          "key": "PLAN_00636701",
-          "label": "Plan: Assault Rifle Bat Paint",
-          "fields": [
-            "weapon_group",
-            "weapon_group_key",
-            "weapon_group_solo",
-            "weapon_role"
-          ]
-        },
-        {
-          "key": "PLAN_00636703",
-          "label": "Plan: Combat Armor Jack O' Lantern Paint",
-          "fields": [
-            "armour_group",
-            "armour_group_key",
-            "armour_group_solo",
-            "armour_role"
-          ]
-        },
-        {
-          "key": "PLAN_00636704",
-          "label": "Plan: Hunting Rifle Wrapping Paper Paint",
-          "fields": [
-            "weapon_group",
-            "weapon_group_key",
-            "weapon_group_solo",
-            "weapon_role"
           ]
         },
         {
@@ -37657,26 +37432,6 @@
           ]
         },
         {
-          "key": "PLAN_00636707",
-          "label": "Plan: Minigun Bats Paint",
-          "fields": [
-            "weapon_group",
-            "weapon_group_key",
-            "weapon_group_solo",
-            "weapon_role"
-          ]
-        },
-        {
-          "key": "PLAN_0063670A",
-          "label": "Plan: 10mm Halloween Paint",
-          "fields": [
-            "weapon_group",
-            "weapon_group_key",
-            "weapon_group_solo",
-            "weapon_role"
-          ]
-        },
-        {
           "key": "PLAN_0063670C",
           "label": "Plan: Vault-Tec University Poster",
           "fields": [
@@ -37687,76 +37442,6 @@
             "obtain_routes",
             "retired_routes",
             "source_tag"
-          ]
-        },
-        {
-          "key": "PLAN_006369B8",
-          "label": "Plan: Atom Cats Leather Armor Paint",
-          "fields": [
-            "armour_group",
-            "armour_group_key",
-            "armour_group_solo",
-            "armour_role"
-          ]
-        },
-        {
-          "key": "PLAN_006369BB",
-          "label": "Plan: Camouflage Gauss Shotgun Paint",
-          "fields": [
-            "weapon_group",
-            "weapon_group_key",
-            "weapon_group_solo",
-            "weapon_role"
-          ]
-        },
-        {
-          "key": "PLAN_006369BC",
-          "label": "Plan: Survivor's Cattle Prod Skin",
-          "fields": [
-            "weapon_group",
-            "weapon_group_key",
-            "weapon_group_solo",
-            "weapon_role"
-          ]
-        },
-        {
-          "key": "PLAN_006369BD",
-          "label": "Plan: BOS Leather Armor Paint",
-          "fields": [
-            "armour_group",
-            "armour_group_key",
-            "armour_group_solo",
-            "armour_role"
-          ]
-        },
-        {
-          "key": "PLAN_006369BE",
-          "label": "Plan: Marine Camouflage Leather Armor Paint",
-          "fields": [
-            "armour_group",
-            "armour_group_key",
-            "armour_group_solo",
-            "armour_role"
-          ]
-        },
-        {
-          "key": "PLAN_006369C3",
-          "label": "Plan: BOS Combat Armor Paint",
-          "fields": [
-            "armour_group",
-            "armour_group_key",
-            "armour_group_solo",
-            "armour_role"
-          ]
-        },
-        {
-          "key": "PLAN_006369C5",
-          "label": "Plan: Shi Leather Armor Paint",
-          "fields": [
-            "armour_group",
-            "armour_group_key",
-            "armour_group_solo",
-            "armour_role"
           ]
         },
         {
