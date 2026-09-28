@@ -160,7 +160,8 @@ def wp_pages(home: str) -> dict:
         for r in rows:
             path = "/" + r["link"].split("://", 1)[-1].split("/", 1)[-1]
             out[path] = (r.get("modified") or "")[:10]
-        total = int(hdr.get("X-WP-TotalPages") or hdr.get("x-wp-totalpages") or page)
+        hl = {k.lower(): v for k, v in hdr.items()}
+        total = int(hl.get("x-wp-totalpages") or page)
         if page >= total:
             break
         page += 1
@@ -173,7 +174,7 @@ def check_url(url: str) -> str:
     if st == 200:
         return "ok"
     if st in (301, 302, 303, 307, 308):
-        loc = hdr.get("Location") or hdr.get("location") or ""
+        loc = {k.lower(): v for k, v in hdr.items()}.get("location", "")
         if "wp-login" in loc:
             return "login"
         return "redirect:" + re.sub(r"^https?://[^/]+", "", loc)
@@ -241,7 +242,11 @@ def by_page_names() -> dict:
 def clean_name(n: str) -> str:
     n = re.sub(r"^(Plan|Recipe|Player Title|Mod|Diagram):\s*", "", n.strip())
     n = re.sub(r"\s*\[[A-Z]+:[0-9A-F]+\]$", "", n)
-    return n.strip()
+    n = n.strip()
+    # Drop form IDs (00417C40), editor IDs and fragments like ".44" - not search words.
+    if re.fullmatch(r"[0-9A-Fa-f]{6,8}", n) or len(n) < 3 or "_" in n or not re.search(r"[A-Za-z]{2}", n):
+        return ""
+    return n
 
 
 _TITLE_NOISE = re.compile(
@@ -329,6 +334,9 @@ def main():
                 report["not_in_wordpress"].append(url)  # the site can still serve it; checked below
             state = check_url(full)
             time.sleep(delay)
+            checked = len(seen)
+            if checked % 200 == 0:
+                print(f"  checked {checked} URLs...", flush=True)
             if state == "login":
                 report["login_only"].append(url); continue
             if state == "notfound":
@@ -343,7 +351,7 @@ def main():
 
         files = list(data_map.get(url) or [])
         src, item_names = names.get(slug, (None, []))
-        if src and src not in files:
+        if src and not files:
             files.append(src)
         if not files and url not in data_map:
             files = fallback_files(template)
