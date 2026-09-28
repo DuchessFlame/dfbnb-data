@@ -3822,6 +3822,38 @@ _TH_WORKBENCH_NAMES = {
 }
 
 
+# Vendor buy price = item value x a Charisma-based multiplier. The barter
+# game settings aren't in any export we have (no GMST export), so these two
+# multipliers come from Duchess's old pail table (227c/683c/2002c base,
+# 219c/656c/1925c at 25 Charisma, on values 125/375/1100). Replace with the
+# GMST values if a game-settings export is ever added.
+TH_BUY_MULT_BASE = 1.82
+TH_BUY_MULT_BEST = 1.75
+
+
+def _th_challenges(tsv_root):
+    """Live daily/weekly SCORE challenges a Treasure Hunter kill counts
+    towards: the Treasure Hunter keyword, mole miner race/class conditions,
+    or the 'Mole Miners Killed' counter."""
+    out = []
+    for r in _th_rows("CHAL_Export_*.tsv", tsv_root):
+        edid = r.get("EDID") or ""
+        cad = r.get("CNAM") or ""
+        if not edid.startswith("SCORE_") or cad not in ("Daily", "Weekly"):
+            continue
+        conds = " ".join(r.get("Cond%d" % i) or "" for i in range(1, 11))
+        hit = (TH_HUNTER_KEYWORD in conds or "MoleMinerRace" in conds or "MoleMinerClass" in conds
+               or (r.get("SNAM") or "") == "Mole Miners Killed")
+        if not hit:
+            continue
+        out.append({"name": r.get("FULL") or edid, "cadence": cad,
+                    "required": int(safe_float(r.get("TNAM"), 1) or 1),
+                    "treasureHunterOnly": TH_HUNTER_KEYWORD in conds,
+                    "formid": r.get("FormID") or ""})
+    out.sort(key=lambda c: (not c["treasureHunterOnly"], c["cadence"] != "Daily", c["name"]))
+    return out
+
+
 def _th_menu_name(kw):
     """RecipeFilter_Tinkers_Chest -> "Chests" (the workbench menu tab)."""
     name = humanize_edid(re.sub(r"^RecipeFilter_[A-Za-z]+_", "", kw or ""))
@@ -4076,7 +4108,7 @@ def _th_pails(tsv_root, rewards_page):
             recipes[_th_tier_of(r["CNAM_EDID"])] = r
 
     # Common / Rare reward chances per pail, from the All Rewards page
-    tier_rates = defaultdict(lambda: {"common": [], "rare": [], "title": []})
+    tier_rates = defaultdict(lambda: {"common": [], "rare": [], "title": [], "plan": [], "gear": []})
     for rw in (rewards_page or {}).get("rewards", []):
         pool = rw.get("rarityPool")
         key = pool or ("title" if (rw.get("name") or "").startswith("Player Title") else None)
@@ -4086,6 +4118,10 @@ def _th_pails(tsv_root, rewards_page):
         for t in rw.get("tiers") or rw.get("dropRates") or []:
             rate = safe_float(str(t.get("rate") or "0").rstrip("%"), 0.0) or 0.0
             tier_rates[t.get("tier")][key].append(rate)
+            if pool:
+                # plans/recipes vs apparel & weapons, for the pail tables
+                kind = "plan" if re.match(r"^(Plan|Recipe):", rw.get("name") or "") else "gear"
+                tier_rates[t.get("tier")][kind].append(rate)
 
     def rates(label):
         tr = tier_rates.get(label)
@@ -4096,7 +4132,7 @@ def _th_pails(tsv_root, rewards_page):
         if not tr:
             return None
         out = {}
-        for k in ("common", "rare", "title"):
+        for k in ("common", "rare", "title", "plan", "gear"):
             vals = tr[k]
             out[k] = {"any": round(sum(vals), 4), "each": round(max(vals), 4) if vals else 0,
                       "count": len(vals)}
@@ -4148,6 +4184,9 @@ def _th_pails(tsv_root, rewards_page):
                         "materials": materials},
             "empty": empty,
             "capsPerCraftedReward": cost_per,
+            "buyCost": ({"base": int(round(empty["value"] * TH_BUY_MULT_BASE)),
+                         "best": int(round(empty["value"] * TH_BUY_MULT_BEST))}
+                        if empty else None),
             "keywords": sorted(kws.get((crafted or {}).get("FormID", "").upper(), set())),
         })
     pails.sort(key=lambda p: p["tier"])
@@ -4157,7 +4196,11 @@ def _th_pails(tsv_root, rewards_page):
     everywhere = set.intersection(*all_kw) if all_kw else set()
     chem_kw = any("ObjectTypeChem" in k for k in all_kw)
     benches = {r.get("BNAM_EDID") for r in recipes.values()}
+    empty_kw = [set((m.get("Keywords") or "").split("|")) for m in misc.values()]
     rules = {
+        # empty (bought) pails carry the same lock keywords as found/crafted
+        "emptyLocked": bool(empty_kw) and all(
+            "NonPlayerTradable" in k and "UnsellableObject" in k for k in empty_kw),
         "tradeable": "NonPlayerTradable" not in everywhere,
         "sellable": "UnsellableObject" not in everywhere,
         "superDuper": "BlockSuperDuperPerk" not in everywhere,
@@ -4457,6 +4500,7 @@ def _build_treasure_hunter_guide(tsv_root, resolver, output):
         "eventSlug": "treasure-hunters",
         "isGuide": True,
         "hunter": hunter,
+        "challenges": _th_challenges(tsv_root),
         "legendaryEffects": _th_legendary_effects(tsv_root),
         "pails": pails,
         "pailRules": rules,
