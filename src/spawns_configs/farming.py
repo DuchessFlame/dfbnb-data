@@ -314,6 +314,19 @@ def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir, channel="l
         "regions": regions_out,
         "chance_spawns": chance_spawns,
     }
+    # Region-map link fields (map_base / map_ext / map_regions / full_map). They are
+    # set in the item's config, or stamped later by add_spawn_map_base.py. Either way
+    # a rebuild must carry them over — they used to be dropped here on every patch
+    # build, which silently removed the "View {Region} spawn map" links from the page.
+    prev_top = {}
+    try:
+        prev_top = json.load(open(path, encoding="utf-8"))
+    except Exception:
+        pass
+    for k in ("map_base", "map_ext", "map_regions", "full_map"):
+        v = cfg.get(k, prev_top.get(k))
+        if v:
+            doc[k] = v
     os.makedirs(dist_dir, exist_ok=True)
     json.dump(doc, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     extra = f"  [{sum(unresolved.values())} unresolved]" if unresolved else ""

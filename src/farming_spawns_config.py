@@ -51,6 +51,14 @@ CREAM = {
     "name": "Cream",
     "page_title": "Cream Spawn Locations",
     "blurb": "Every known world spawn for Cream, grouped by region. Directions and photos are added by hand.",
+    # Region-map links on the page ("View {Region} spawn map"). Tiles come from
+    # 03 Region Tiles in the Cream folder and go on the site as JPEG so they stay
+    # sharp when zoomed. Atlantic City and The Pitt are interior-only — no tile.
+    "map_base": "/wp-content/uploads/guide-images/farming-non-perishable/cream/",
+    "map_ext": ".jpg",
+    "map_regions": ["Ash Heap", "Forest", "Toxic Valley", "Savage Divide",
+                    "Skyline Valley", "Cranberry Bog", "The Mire", "Burning Springs"],
+    "full_map": "/wp-content/uploads/guide-images/farming-non-perishable/cream/cream.jpg",
     # Resolve Position by the item's own base FormID too (like Mappalachia), catching
     # any directly world-placed base the ref columns miss. Needs a local DB reseed.
     "place_item_bases": True,
