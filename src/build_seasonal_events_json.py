@@ -4406,6 +4406,11 @@ def _th_charisma_link(tsv_root):
 # LGDI (it is the one the LegendaryCreatureLegendaryItem_DO default object
 # points at). Found by EDID so a FormID change doesn't break it.
 TH_CREATURE_LGDI_EDID = "LegendaryItems_Creatures_AllItems"
+# That LGDI is shared by every legendary creature and also carries the 4★
+# pools, but a Treasure Hunter is at most a 3★ legendary (confirmed by
+# Duchess, Sept 2026) - the game files hold no per-creature star cap, so the
+# cap lives here. Star pools above it are left off the guide.
+TH_MAX_LEGENDARY_STARS = 3
 
 
 def _th_legendary_effects(tsv_root):
@@ -4424,16 +4429,19 @@ def _th_legendary_effects(tsv_root):
     tree = build_legendary_effects([lgdi])
     if not tree:
         return None
-    stars = [c.get("star") for g in tree.get("children", []) for c in g.get("children", [])]
+    groups = []
+    for g in tree.get("children", []):
+        kids = [c for c in g.get("children", []) if (c.get("star") or 0) <= TH_MAX_LEGENDARY_STARS]
+        if kids:
+            groups.append(dict(g, children=kids))
+    stars = [c.get("star") for g in groups for c in g["children"]]
     top = max([x for x in stars if x] or [0])
     return {
         "label": "Possible Legendary Effects",
         "subtitle": "The effects a Treasure Hunter's legendary item can roll, by star",
-        "note": ("A {0}★ item gets one effect from each star tier up to {0}★. Listed A-Z.".format(top)
-                 if top else ""),
         "maxStar": top,
         "lgdi": lgdi,
-        "children": tree.get("children", []),
+        "children": groups,
     }
 
 
