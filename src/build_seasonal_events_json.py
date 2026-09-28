@@ -1236,8 +1236,8 @@ def build_image_url(event_slug, item_name, slug_override=None):
 # <slug>-2.avif, <slug>-3.avif … The first is the primary / row thumbnail.
 # Keyed by image-folder slug so it is page-agnostic.
 IMAGE_GALLERIES = {
-    # Hunt for the Treasure Hunter — the Golf Carts plan unlocks three paint variants.
-    "golf-carts": 3,
+    # Hunt for the Treasure Hunter — Golf Carts: the three paint variants are
+    # one combined image (golf-carts.avif) since Sept 2026, so no extra views.
     "decoy-ducks": 3,
     "meat-week-souvenir-beer-stein": 2,
     "bloody-chef-outfit": 2,
