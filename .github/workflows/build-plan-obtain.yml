@@ -32,6 +32,13 @@ on:
       - "src/plan_unlocks.py"
       - "src/plan_sources.py"
       - "src/build_new_plans_json.py"
+      # Page routing + art (Legacy Nuclear Winter page, hosted-first image
+      # rule, Sept 2026). These run inside build_plan_obtain_json.py.
+      - "src/legacy_nw.py"
+      - "src/plan_images.py"
+      - "src/plan_subpages.py"
+      - "src/reusable_images.py"
+      - "data/plan_images.json"
       - ".github/workflows/build-plan-obtain.yml"
 
 permissions:

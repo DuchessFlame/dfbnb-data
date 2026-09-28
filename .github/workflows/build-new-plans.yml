@@ -26,6 +26,8 @@ on:
     branches: [ main ]
     paths:
       - "src/build_new_plans_json.py"
+      - "src/plan_changes.py"
+      - "data/plan_snapshot.json"
       - ".github/workflows/build-new-plans.yml"
 
 permissions:
@@ -59,6 +61,19 @@ jobs:
             exit 1
           }
 
+      # Change notes, before the page is built. build_new_plans_json.py reads
+      # `changes` off the plan_master rows to decide which already-here plans
+      # join the type groups with a Changed pill, so this has to run first.
+      #
+      # NOT --write. The snapshot is the baseline the NEXT diff compares
+      # against, and re-taking it on every CI run would move it forward one
+      # build at a time until it always matched and nothing ever looked
+      # changed. It is re-taken deliberately, once a patch has settled:
+      #     python3 src/reenrich_plan_master.py --channel live --snapshot
+      - name: Attach change notes
+        run: |
+          python src/plan_changes.py dist/plan_master.json --tsv-dir tsv
+
       - name: Build New Plans JSON
         run: |
           mkdir -p dist
@@ -90,7 +105,7 @@ jobs:
           if git status --porcelain | grep -q .; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add dist/new_plans.json
+            git add dist/new_plans.json dist/plan_master.json
             git diff --cached --quiet && echo "No changes staged." && exit 0
             git commit -m "Build new_plans.json"
             git fetch origin main

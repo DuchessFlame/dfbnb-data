@@ -1238,6 +1238,13 @@ def build_image_url(event_slug, item_name, slug_override=None):
 IMAGE_GALLERIES = {
     # Hunt for the Treasure Hunter — Golf Carts: the three paint variants are
     # one combined image (golf-carts.avif) since Sept 2026, so no extra views.
+    # Hunt for the Treasure Hunter outfits — item render first, the same outfit
+    # on a mannequin second (the Item Image expand shows them as a carousel).
+    "garrahan-foreman-outfit": 2,
+    "deathclaw-hunter-outfit": 2,
+    "strongman-outfit": 2,
+    "insurgent-outfit": 2,
+    "treasure-hunter-outfit": 2,
     "decoy-ducks": 3,
     "meat-week-souvenir-beer-stein": 2,
     "bloody-chef-outfit": 2,
