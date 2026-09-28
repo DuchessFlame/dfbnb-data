@@ -57,6 +57,7 @@ for _p in [_this_dir, _this_dir / "src", _this_dir.parent / "src"]:
 from rng76 import (
     Rng76Data, Rng76Resolver,
     humanize_edid, fmt_pct, pick, read_tsv, newest, safe_float,
+    prettify_lvli_label,
 )
 import tsv_source          # one resolver for every export selection
 
@@ -3763,6 +3764,671 @@ def _apply_rarity_pools(output, index):
     return stamped
 
 
+# ---------------------------------------------------------------------------
+# Hunt for the Treasure Hunter — GUIDE page (treasure-hunter-guide)
+# ---------------------------------------------------------------------------
+# Everything the guide shows that lives in the game files is built here, so a
+# patch that changes the pails, the hunter's loot, the vendors or the perk
+# rules updates the page on the next build:
+#   hunter    the Treasure Hunter mole miner (NPC carrying the
+#             MoleMinerTreasureHunter keyword) and its death-loot lists,
+#             resolved with rng76 and grouped (pail / ammo / chems / junk)
+#   pails     one row per pail tier: found pail, crafted pail, crafting
+#             recipe (COBJ), empty-pail value (MISC), and the chance of a
+#             Common-list / Rare-list reward read from the All Rewards page
+#   rules     tradeable / sellable / Super Duper / Chemist, read from the
+#             pail keywords (BlockSuperDuperPerk, NonPlayerTradable, ...)
+#   vendors   every vendor whose stock closure holds the empty-pail list,
+#             from dist/vendors.json (+ NPC fallback for vendors that
+#             file misses), and a buying route of places with 2+ vendors
+#   charisma  the Charisma Guide link, from tsv/guide_index.tsv
+TH_GUIDE_SLUG = "treasure-hunter-guide"
+TH_GUIDE_URL = "/df/seasonal-events/hunt-for-the-treasure-hunter/treasure-hunter-guide/"
+TH_HUNTER_KEYWORD = "MoleMinerTreasureHunter"
+TH_EMPTY_PAIL_LIST_EDID = "LLS_Vendor_TreasureHunt_Chests"
+TH_CHARISMA_GUIDE_ID = "bnb-special-charisma"
+TH_VENDOR_PLACES = _REPO_ROOT / "data" / "vendors" / "th_vendor_places.json"
+# Two vendors this close (game units; one cell = 4096) count as one stop.
+# 17000 joins the Whitespring Mall door to Whitespring Station (~16000)
+# without joining Charleston Fire Dept to Charleston Station (~35000).
+TH_ROUTE_RADIUS = 17000.0
+
+# Gallery + crafting screenshots (files live in
+# /wp-content/uploads/guide-images/seasonal-events/treasure-hunters/).
+TH_GUIDE_GALLERY = [
+    {"src": "legendary-treasure-hunter.avif",
+     "caption": "A legendary Treasure Hunter"},
+    {"src": "treasure-hunter-mole-miner-rooftop.avif",
+     "caption": "Treasure Hunter on a rooftop",
+     "credit": "Garlic (garlicwizard on Discord)"},
+    {"src": "treasure-hunter-mole-miner-corner.avif",
+     "caption": "Treasure Hunter tucked into a corner",
+     "credit": "Garlic (garlicwizard on Discord)"},
+]
+TH_GUIDE_CRAFT_IMAGES = {
+    "menu": {"src": "crafting-tinkers-workbench-chests.avif",
+             "caption": "Tinker's Workbench - the pails are under Chests"},
+    1: {"src": "crafting-dusty-mole-miner-pail.avif",
+        "caption": "Crafting a Dusty Mole Miner Pail"},
+    2: {"src": "crafting-regular-mole-miner-pail.avif",
+        "caption": "Crafting a Mole Miner Pail"},
+    3: {"src": "crafting-ornate-mole-miner-pail.avif",
+        "caption": "Crafting an Ornate Mole Miner Pail"},
+}
+
+_TH_WORKBENCH_NAMES = {
+    "Workbench_Crafting_Tinkers": "Tinker's Workbench",
+    "Workbench_Crafting_Chemlab": "Chemistry Station",
+}
+
+
+def _th_menu_name(kw):
+    """RecipeFilter_Tinkers_Chest -> "Chests" (the workbench menu tab)."""
+    name = humanize_edid(re.sub(r"^RecipeFilter_[A-Za-z]+_", "", kw or ""))
+    return name + "s" if name and not name.endswith("s") else name
+
+
+def _th_rows(pattern, tsv_root):
+    # "NPC_Export_*.tsv" would also match the _Refs / _PRPS side files (and
+    # ALCH the _Effects one), so those are skipped unless asked for by name.
+    side = [x for x in ("_Refs", "_PRPS", "_Effects", "_EFFECTS", "_HEADER", "_List",
+                        "_Entries", "_Math", "_ObjectTemplate") if x not in pattern]
+    try:
+        path = newest(os.path.join(tsv_root, pattern), exclude_substrings=side)
+    except FileNotFoundError:
+        print("  [WARN] treasure-hunter-guide: no {} export".format(pattern))
+        return []
+    return read_tsv(path)
+
+
+def _th_tier_of(edid):
+    m = re.search(r"_Tier_0*(\d+)$", edid or "")
+    return int(m.group(1)) if m else None
+
+
+def _th_lvli_tree(tsv_root):
+    """children[lvli] = [(child formid, child edid, sig, qty)], edid[lvli]."""
+    children, edids = defaultdict(list), {}
+    for row in _th_rows("LVLI_Export_*_LVLI_Entries.tsv", tsv_root):
+        parent = (row.get("LVLI_FormID") or "").upper()
+        parts = (row.get("LVLO_Reference") or "").split(":")
+        if not parent or len(parts) < 3:
+            continue
+        edids[parent] = row.get("LVLI_EDID") or ""
+        children[parent].append((parts[0].upper(), parts[1], parts[-1].upper(),
+                                 safe_float(row.get("LVIV_Quantity"), 1.0) or 1.0))
+        _TH_ENTRY_CN.setdefault(parent, []).append(
+            (parts[0].upper(), safe_float(row.get("LVOV_ChanceNoneValue"), 0.0) or 0.0,
+             bool((row.get("LVOG_ChanceNoneGlobal") or "").strip()),
+             bool(" ".join(row.get("Cond%d" % i) or "" for i in range(1, 4)).strip())))
+    return children, edids
+
+
+_TH_ENTRY_CN = {}   # lvli -> [(child, ChanceNoneValue, has CN global, has conditions)]
+
+
+def _th_path_chance(start, target, children):
+    """Chance that the first, unconditioned route from *start* down to
+    *target* fires: the product of the plain ChanceNone values on the way."""
+    def walk(fid, depth):
+        if fid == target:
+            return 1.0
+        if depth > 6:
+            return None
+        for cfid, cn, has_glob, has_cond in _TH_ENTRY_CN.get(fid, []):
+            if has_glob or has_cond:
+                continue
+            sub = walk(cfid, depth + 1) if cfid != target else 1.0
+            if sub is not None:
+                return (1.0 - cn / 100.0) * sub
+        return None
+    return walk(start, 0)
+
+
+def _th_closure(children, fid, seen=None):
+    """Every non-LVLI FormID reachable from *fid*."""
+    seen = set() if seen is None else seen
+    out = set()
+    if fid in seen:
+        return out
+    seen.add(fid)
+    for cfid, _e, sig, _q in children.get(fid, []):
+        if sig == "LVLI":
+            out |= _th_closure(children, cfid, seen)
+        else:
+            out.add(cfid)
+    return out
+
+
+# There is no AMMO export, so contextual-ammo leaves come through with
+# EDID-style names ("Ammo308Caliber Anti Scorch Beast"). Map them to the
+# in-game names; anything unknown keeps the humanised name.
+_TH_AMMO_NAMES = {
+    "10mm": "10mm Round", "2mm EC": "2mm Electromagnetic Cartridge",
+    "308Caliber": ".308 Round", "38Caliber": ".38 Round", "44": ".44 Round",
+    "45Caliber": ".45 Round", "50Caliber": ".50 Caliber Round", "50Cal": ".50 Caliber Round",
+    "50Caliber Ball": ".50 Ball", "556": "5.56 Round", "5mm": "5mm Round",
+    "Grenade Launcher": "40mm Grenade Round", "Alien Blaster": "Alien Blaster Round",
+    "RRSpike": "Railway Spike", "Fat Man Mini Nuke": "Mini Nuke", "Gamma Cell": "Gamma Round",
+    "Cannon Ball": "Cannonball",
+}
+
+
+def _th_ammo_name(name):
+    n = re.sub(r"^Ammo\s*", "", name or "")
+    anti = re.search(r"\s+Anti\s*Scorch(?:ed|\s*Beast|beast)?$", n, re.I)
+    if anti:
+        n = n[:anti.start()]
+    n = _TH_AMMO_NAMES.get(n, n)
+    return ("Ultracite " + n) if anti else n
+
+
+def _th_hunter_label(edid, leaves):
+    """Friendly group name for one of the hunter's death-loot lists."""
+    e = (edid or "").lower()
+    if any((lf.get("edid") or "").startswith("TreasureHunt_Chest") for lf in leaves):
+        return "Mole Miner Pail"
+    if "ammo" in e:
+        return "Contextual Ammo"
+    if "rads" in e or "radaway" in e:
+        return "Chems"
+    if "junk" in e:
+        return "Junk"
+    return prettify_lvli_label(edid) if edid else "Miscellaneous"
+
+
+def _th_hunter(tsv_root, resolver, children, edids):
+    """The Treasure Hunter NPC and its death-loot lists, grouped."""
+    kw_refs = _th_rows("KYWD_Export_*_Refs.tsv", tsv_root)
+    npc_ids = {(r.get("RefFormID") or "").upper() for r in kw_refs
+               if r.get("KeywordEDID") == TH_HUNTER_KEYWORD
+               and r.get("RefSignature") == "NPC_"}
+    npc = next((r for r in _th_rows("NPC_Export_*.tsv", tsv_root)
+                if (r.get("FormID") or "").upper() in npc_ids
+                and r.get("INAM_FormID")), None)
+    if not npc:
+        print("  [WARN] treasure-hunter-guide: no NPC with the {} keyword".format(
+            TH_HUNTER_KEYWORD))
+        return None
+    death = npc["INAM_FormID"].upper()
+    leaves = resolver.resolve_deep(death)
+
+    # Group by the death list's children, opening up "container" lists that
+    # only hold other lists (LLD_Creature_BaseItem, LLS_Creature_Medium).
+    groups = []   # (edid, closure)
+
+    def add_groups(fid, depth):
+        for cfid, cedid, sig, _q in children.get(fid, []):
+            if sig != "LVLI":
+                continue
+            kids = children.get(cfid, [])
+            # only open Use-All containers (every child rolls on its own);
+            # a pick-one list like LLS_Loot_Rads_All stays one group
+            only_lists = kids and all(k[2] == "LVLI" for k in kids) and \
+                resolver.lvli.flags_for(cfid).get("use_all")
+            distinct = {k[0] for k in kids}
+            if only_lists and depth < 2 and len(distinct) > 1:
+                add_groups(cfid, depth + 1)
+            elif only_lists and depth < 2 and len(distinct) == 1:
+                # e.g. LLS_Creature_Medium -> one ammo list: name it after that
+                groups.append((kids[0][1], _th_closure(children, cfid)))
+            else:
+                groups.append((cedid, _th_closure(children, cfid)))
+    add_groups(death, 0)
+
+    out = {}
+    order = []
+    for lf in leaves:
+        fid = (lf.get("formid") or "").upper()
+        g = next((e for e, clo in groups if fid in clo), None)
+        if g is None:
+            continue
+        if g not in out:
+            out[g] = {}
+            order.append(g)
+        rate = float(lf.get("dropRate") or 0) * 100.0
+        row = out[g].get(fid)
+        if row is None:
+            out[g][fid] = {"name": lf.get("name") or lf.get("edid") or fid,
+                           "edid": lf.get("edid") or "", "formid": fid,
+                           "qty": int(lf.get("qty") or 1), "rate": rate}
+        elif "ammo" in g.lower():
+            # the extra level-gated ammo rolls add more of the SAME ammo;
+            # the row shows the chance of getting it at all (the base roll)
+            row["rate"] = max(row["rate"], rate)
+        else:
+            row["rate"] += rate
+
+    lists = []
+    edid_to_fid = {e: f for f, e in edids.items()}
+    for g in order:
+        rows = sorted(out[g].values(), key=lambda r: (-r["rate"], r["name"]))
+        label = _th_hunter_label(g, rows)
+        note = None
+        if label == "Contextual Ammo":
+            for r in rows:
+                r["name"] = _th_ammo_name(r["name"])
+            rows.sort(key=lambda r: r["name"])
+            # One ammo type drops - the one for the weapon you have equipped -
+            # so every row gets the chance of that first roll; the extra rolls
+            # are level-gated bonus stacks of the same ammo.
+            p = _th_path_chance(death, edid_to_fid.get(g, ""), children)
+            first = None
+            for cfid, cn, has_glob, has_cond in _TH_ENTRY_CN.get(edid_to_fid.get(g, ""), []):
+                if not has_glob and not has_cond:
+                    first = 1.0 - cn / 100.0
+                    break
+            if p is not None and first is not None:
+                for r in rows:
+                    r["rate"] = p * first * 100.0
+                extra = sum(1 for e in _TH_ENTRY_CN.get(edid_to_fid.get(g, ""), []) if e[3])
+                if extra:
+                    note = "Up to {} extra stacks of the same ammo as your level goes up".format(extra)
+        for r in rows:
+            r["rate"] = round(r["rate"], 6)
+        lists.append({"label": label, "edid": g, "items": rows, "note": note})
+    rank = {"Mole Miner Pail": 0, "Contextual Ammo": 1, "Chems": 2, "Junk": 3}
+    lists.sort(key=lambda l: rank.get(l["label"], 9))
+
+    # Daily SCORE challenge that targets the same keyword
+    challenge = None
+    for r in _th_rows("CHAL_Export_*.tsv", tsv_root):
+        conds = " ".join(r.get("Cond%d" % i) or "" for i in range(1, 6))
+        if TH_HUNTER_KEYWORD in conds and "CUT_" not in (r.get("EDID") or ""):
+            challenge = {"name": r.get("FULL") or "", "cadence": r.get("CNAM") or "",
+                         "required": int(safe_float(r.get("TNAM"), 1) or 1),
+                         "formid": r.get("FormID") or ""}
+            break
+
+    return {"name": npc.get("FULL") or "Treasure Hunter",
+            "race": npc.get("SHRT") or "",
+            "formid": npc.get("FormID") or "", "edid": npc.get("EDID") or "",
+            "deathList": death, "lists": lists, "challenge": challenge}
+
+
+def _th_pail_keywords(tsv_root, fids):
+    kws = defaultdict(set)
+    for r in _th_rows("KYWD_Export_*_Refs.tsv", tsv_root):
+        f = (r.get("RefFormID") or "").upper()
+        if f in fids:
+            kws[f].add(r.get("KeywordEDID") or "")
+    return kws
+
+
+def _th_pails(tsv_root, rewards_page):
+    """One row per pail tier (Dusty / Regular / Ornate)."""
+    alch = {}
+    for r in _th_rows("ALCH_Export_*.tsv", tsv_root):
+        edid = pick(r, "ALCH_EDID", "EDID")
+        if edid.startswith("TreasureHunt_Chest_"):
+            fid = pick(r, "ALCH_FormID", "FormID").upper()
+            alch[fid] = {"FormID": fid, "EDID": edid, "FULL": r.get("FULL") or ""}
+    misc = {}
+    for pat in ("MISC_Export_*.tsv",):
+        for r in _th_rows(pat, tsv_root):
+            if (r.get("EDID") or "").startswith("c_TreasureHunt_EmptyChest"):
+                misc[r["EDID"]] = r
+    cmpo = {r.get("CMPO_EDID"): r.get("FULL") for r in _th_rows("CMPO_Export_*.tsv", tsv_root)}
+    recipes = {}
+    for r in _th_rows("COBJ_Export_*.tsv", tsv_root):
+        if (r.get("CNAM_EDID") or "").startswith("TreasureHunt_Chest_Craftable"):
+            recipes[_th_tier_of(r["CNAM_EDID"])] = r
+
+    # Common / Rare reward chances per pail, from the All Rewards page
+    tier_rates = defaultdict(lambda: {"common": [], "rare": [], "title": []})
+    for rw in (rewards_page or {}).get("rewards", []):
+        pool = rw.get("rarityPool")
+        key = pool or ("title" if (rw.get("name") or "").startswith("Player Title") else None)
+        if not key:
+            continue
+        # flat rewards carry the per-pail rates as dropRates ["1.03%"]
+        for t in rw.get("tiers") or rw.get("dropRates") or []:
+            rate = safe_float(str(t.get("rate") or "0").rstrip("%"), 0.0) or 0.0
+            tier_rates[t.get("tier")][key].append(rate)
+
+    def rates(label):
+        tr = tier_rates.get(label)
+        if not tr:
+            # the reward tiers call the tier-2 pail "Regular Mole Miner Pail"
+            base, _, kind = label.rpartition(" (")
+            tr = tier_rates.get("Regular {} ({}".format(base, kind))
+        if not tr:
+            return None
+        out = {}
+        for k in ("common", "rare", "title"):
+            vals = tr[k]
+            out[k] = {"any": round(sum(vals), 4), "each": round(max(vals), 4) if vals else 0,
+                      "count": len(vals)}
+        out["anyUnique"] = round(out["common"]["any"] + out["rare"]["any"], 4)
+        return out
+
+    pails = []
+    tiers = sorted({t for t in (_th_tier_of(r.get("EDID")) for r in alch.values()) if t})
+    kws = _th_pail_keywords(tsv_root, set(alch))
+    for t in tiers:
+        found = next((r for r in alch.values() if r["EDID"] == "TreasureHunt_Chest_Loot_Tier_%02d" % t), None)
+        crafted = next((r for r in alch.values() if r["EDID"] == "TreasureHunt_Chest_Craftable_Tier_%02d" % t), None)
+        rec = recipes.get(t) or {}
+        materials, empty = [], None
+        for part in (rec.get("FVPA") or "").split("|"):
+            bits = part.split(":")
+            if len(bits) < 2 or not bits[0]:
+                continue
+            qty = int(safe_float(bits[1], 1) or 1)
+            if bits[0].startswith("c_TreasureHunt_EmptyChest"):
+                m = misc.get(bits[0], {})
+                empty = {"name": m.get("FULL") or humanize_edid(bits[0]), "edid": bits[0],
+                         "formid": m.get("FormID") or "",
+                         "value": int(safe_float(m.get("Value"), 0) or 0)}
+                continue
+            materials.append({"name": cmpo.get(bits[0]) or humanize_edid(bits[0].replace("c_", "")),
+                              "qty": qty})
+        fname = (found or {}).get("FULL") or ""
+        cname = (crafted or {}).get("FULL") or ""
+        found_label = "{} (Found)".format(fname)
+        # crafted pails are named "Crafted X" in game; the reward tiers call
+        # them "X (Crafted)"
+        crafted_label = "{} (Crafted)".format(fname)
+        r_found, r_crafted = rates(found_label), rates(crafted_label)
+        cost_per = None
+        if empty and r_crafted and r_crafted["anyUnique"] > 0:
+            cost_per = round(empty["value"] / (r_crafted["anyUnique"] / 100.0))
+        bench_kw = next((k for k in (rec.get("BNAM_EDID"), rec.get("FNAM_Keywords")) if k), "")
+        pails.append({
+            "tier": t,
+            "name": fname,
+            "found": {"name": fname, "formid": (found or {}).get("FormID") or "",
+                      "rates": r_found},
+            "crafted": {"name": cname, "formid": (crafted or {}).get("FormID") or "",
+                        "rates": r_crafted,
+                        "workbench": _TH_WORKBENCH_NAMES.get(rec.get("BNAM_EDID") or "",
+                                                             humanize_edid(rec.get("BNAM_EDID") or "")),
+                        "menu": _th_menu_name(rec.get("FNAM_Keywords") or ""),
+                        "materials": materials},
+            "empty": empty,
+            "capsPerCraftedReward": cost_per,
+            "keywords": sorted(kws.get((crafted or {}).get("FormID", "").upper(), set())),
+        })
+    pails.sort(key=lambda p: p["tier"])
+
+    # Rules, from the keywords every pail carries
+    all_kw = [set(kws.get(f, set())) for f in alch]
+    everywhere = set.intersection(*all_kw) if all_kw else set()
+    chem_kw = any("ObjectTypeChem" in k for k in all_kw)
+    benches = {r.get("BNAM_EDID") for r in recipes.values()}
+    rules = {
+        "tradeable": "NonPlayerTradable" not in everywhere,
+        "sellable": "UnsellableObject" not in everywhere,
+        "superDuper": "BlockSuperDuperPerk" not in everywhere,
+        "chemist": bool(chem_kw or "Workbench_Crafting_Chemlab" in benches),
+    }
+    # Best value = fewest caps (empty-pail value) per unique reward. Ties
+    # are all returned, cheapest pail first.
+    costs = [p["capsPerCraftedReward"] for p in pails if p["capsPerCraftedReward"]]
+    best = [p["crafted"]["name"] for p in pails
+            if costs and p["capsPerCraftedReward"] == min(costs)]
+    return pails, rules, best
+
+
+def _th_vendor_places(names):
+    """Placement check + interior door anchors from Mappalachia, cached so CI
+    (no database) rebuilds from data/vendors/th_vendor_places.json."""
+    cache = {"placed": {}, "anchors": {}}
+    if TH_VENDOR_PLACES.exists():
+        try:
+            cache = json.loads(TH_VENDOR_PLACES.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+    db = os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db")
+    if not os.path.exists(db):
+        return cache
+    try:
+        import sqlite3
+        con = sqlite3.connect("file:{}?mode=ro".format(db), uri=True)
+        placed = {}
+        for edid in names["npcs"]:
+            row = con.execute("SELECT entityFormID FROM Entity WHERE editorID = ?", (edid,)).fetchone()
+            n = 0
+            if row:
+                n = con.execute("SELECT COUNT(*) FROM Position WHERE referenceFormID = ?",
+                                (row[0],)).fetchone()[0]
+            placed[edid] = n > 0
+        app = con.execute("SELECT spaceFormID FROM Space WHERE isWorldspace = 1 AND "
+                          "spaceEditorID = 'Appalachia' COLLATE NOCASE").fetchone()
+        anchors = {}
+        for sp in names["spaces"]:
+            s = con.execute("SELECT spaceFormID FROM Space WHERE spaceDisplayName = ?", (sp,)).fetchone()
+            if not (s and app):
+                continue
+            d = con.execute("SELECT x, y FROM Position WHERE spaceFormID = ? AND teleportsToFormID = ? "
+                            "LIMIT 1", (app[0], s[0])).fetchone()
+            if d:
+                anchors[sp] = [round(d[0], 1), round(d[1], 1)]
+        markers = con.execute("SELECT label, x, y FROM MapMarker WHERE spaceFormID = ?",
+                              (app[0],)).fetchall() if app else []
+        near, near_region = {}, {}
+        try:
+            from nuka_cola_spawns_geo import Geo
+            geo = Geo(db)
+        except Exception:
+            geo = None
+        for edid in names["npcs"]:
+            row = con.execute("SELECT p.x, p.y FROM Entity e JOIN Position p ON p.referenceFormID = "
+                              "e.entityFormID WHERE e.editorID = ? AND p.spaceFormID = ? LIMIT 1",
+                              (edid, app[0] if app else -1)).fetchone()
+            if row and markers:
+                m = min(markers, key=lambda mk: (mk[1] - row[0]) ** 2 + (mk[2] - row[1]) ** 2)
+                near[edid] = m[0]
+                if geo is not None:
+                    try:
+                        near_region[edid] = geo.resolve(app[0], row[0], row[1])[0] or ""
+                    except Exception:
+                        pass
+        cache = {"placed": placed, "anchors": anchors, "near": near, "nearRegion": near_region,
+                 "_note": "Built from Mappalachia by build_seasonal_events_json.py"}
+        TH_VENDOR_PLACES.parent.mkdir(parents=True, exist_ok=True)
+        TH_VENDOR_PLACES.write_text(json.dumps(cache, indent=2, sort_keys=True) + "\n",
+                                    encoding="utf-8")
+    except Exception as e:
+        print("  [WARN] treasure-hunter-guide: Mappalachia read failed ({})".format(e))
+    return cache
+
+
+def _th_vendors(tsv_root, children, edids):
+    """Vendors that stock the empty pails, plus the buying route."""
+    target = next((f for f, e in edids.items() if e == TH_EMPTY_PAIL_LIST_EDID), None)
+    if not target:
+        print("  [WARN] treasure-hunter-guide: {} not found".format(TH_EMPTY_PAIL_LIST_EDID))
+        return [], [], False
+    # upward closure + how many copies of the pail list each list holds
+    parents = defaultdict(list)
+    for p, kids in children.items():
+        for cfid, _e, sig, q in kids:
+            if sig == "LVLI":
+                parents[cfid].append((p, q))
+    copies = {target: 1}
+    stack = [target]
+    while stack:
+        f = stack.pop()
+        for p, q in parents.get(f, []):
+            copies[p] = copies.get(p, 0) + copies[f] * int(q or 1)
+            stack.append(p)
+    # the event gate on the pail list's entries
+    event_only = False
+    for row in _th_rows("LVLI_Export_*_LVLI_Entries.tsv", tsv_root):
+        if (row.get("LVLO_Reference") or "").upper().startswith(target) and \
+                "TreasureHunt_EventEnabled" in " ".join(row.get("Cond%d" % i) or "" for i in range(1, 4)):
+            event_only = True
+            break
+
+    vend_path = _REPO_ROOT / "dist" / "vendors.json"
+    master = []
+    if vend_path.exists():
+        master = json.loads(vend_path.read_text(encoding="utf-8")).get("vendors", [])
+    rows, seen_bases = [], set()
+    for v in master:
+        sells = set(v.get("sells_formids") or [])
+        if target not in sells:
+            continue
+        if (v.get("edid") or "").lower().startswith(("zzz", "cut_")):
+            continue
+        stock = max((copies.get(f, 0) for f in sells if f in copies), default=1)
+        rows.append({"name": v.get("name") or "", "edid": v.get("edid") or "",
+                     "marker": v.get("marker") or "", "region": v.get("region") or "",
+                     "coords": v.get("coords") or [], "resolvedBy": v.get("resolved_by") or "",
+                     "stock": stock})
+        seen_bases.add(v.get("container_base") or "")
+
+    # Vendors vendors.json doesn't list: find the chest (CONT) holding one of
+    # the stock lists and the NPC whose EDID / faction matches the chest.
+    refs = _th_rows("LVLI_Export_*_LVLI_Refs.tsv", tsv_root)
+    npcs = _th_rows("NPC_Export_*.tsv", tsv_root)
+    for r in refs:
+        f = (r.get("LVLI_FormID") or "").upper()
+        if f not in copies:
+            continue
+        for k, val in r.items():
+            if not (k and k.startswith("Ref") and val and val.endswith(":CONT")):
+                continue
+            chest = val.split(":")[1]
+            if chest in seen_bases or "VendorChest" not in chest:
+                continue
+            stem = chest.replace("_VendorChest", "").replace("VendorChest", "Vendor")
+            cand = [n for n in npcs if (n.get("EDID") or "") == stem]
+            if not cand:
+                pre = re.sub(r"_?VendorChest.*$", "", chest).replace("_", "").lower()
+                cand = [n for n in npcs
+                        if any(pre and fac.replace("_", "").lower().startswith(pre) and "vendor" in fac.lower()
+                               for fac in re.findall(r"([A-Za-z0-9_]+)\[Rank", n.get("Factions_Flat") or ""))]
+            cand = [n for n in cand if not (n.get("EDID") or "").lower().startswith(("cut_", "zzz"))]
+            if not cand:
+                print("  [WARN] treasure-hunter-guide: no vendor NPC found for {}".format(chest))
+                continue
+            n = cand[0]
+            seen_bases.add(chest)
+            rows.append({"name": n.get("FULL") or n.get("EDID"), "edid": n.get("EDID") or "",
+                         "marker": "", "region": "", "coords": [], "resolvedBy": "npc-match",
+                         "stock": copies.get(f, 1)})
+
+    places = _th_vendor_places({"npcs": [r["edid"] for r in rows],
+                                "spaces": sorted({r["marker"] for r in rows
+                                                  if r["resolvedBy"] == "interior"})})
+    placed = places.get("placed") or {}
+    anchors = places.get("anchors") or {}
+    near = places.get("near") or {}
+    vendors = []
+    for r in rows:
+        # companions / random-encounter traders spawn in, so "unplaced" is fine
+        spawned = r["edid"].startswith(("ATX_COMP", "W05_RE_", "GQ_")) or \
+            r["resolvedBy"] in ("unplaced", "npc-match") and not r["coords"]
+        if placed.get(r["edid"]) is False and not spawned:
+            print("  [INFO] treasure-hunter-guide: skipping {} ({}) - not placed in the world".format(
+                r["name"], r["edid"]))
+            continue
+        kind = ("CAMP Ally" if r["edid"].startswith("ATX_COMP") else
+                "Random Encounter" if r["edid"].startswith("W05_RE_") else
+                "Travelling" if r["edid"].startswith("GQ_") else
+                "Vendor")
+        r["kind"] = kind
+        if not r["marker"] and near.get(r["edid"]) and kind == "Vendor":
+            r["marker"] = near[r["edid"]]
+            r["region"] = r["region"] or (places.get("nearRegion") or {}).get(r["edid"], "")
+        vendors.append(r)
+
+    # Buying route: stops with 2+ vendors close together (interiors use
+    # their door into Appalachia), north to south.
+    pts = []
+    for v in vendors:
+        xy = None
+        if v["resolvedBy"] == "exterior" and len(v["coords"]) == 2:
+            xy = v["coords"]
+        elif v["resolvedBy"] == "interior" and v["marker"] in anchors:
+            xy = anchors[v["marker"]]
+        if xy:
+            pts.append((v, float(xy[0]), float(xy[1])))
+    parent = list(range(len(pts)))
+
+    def find(i):
+        while parent[i] != i:
+            parent[i] = parent[parent[i]]
+            i = parent[i]
+        return i
+    for i in range(len(pts)):
+        for j in range(i + 1, len(pts)):
+            if ((pts[i][1] - pts[j][1]) ** 2 + (pts[i][2] - pts[j][2]) ** 2) ** 0.5 <= TH_ROUTE_RADIUS:
+                parent[find(i)] = find(j)
+    clusters = defaultdict(list)
+    for i, p in enumerate(pts):
+        clusters[find(i)].append(p)
+    route = []
+    for members in clusters.values():
+        if len(members) < 2:
+            continue
+        members.sort(key=lambda p: (0 if "Station" in p[0]["marker"] else 1, p[0]["marker"], p[0]["name"]))
+        markers = []
+        for p in members:
+            if p[0]["marker"] not in markers:
+                markers.append(p[0]["marker"])
+        area = next((m for m in markers if "Station" not in m), markers[0])
+        route.append({
+            "area": area,
+            "region": members[0][0]["region"],
+            "y": max(p[2] for p in members),
+            "stops": [{"marker": m,
+                       "vendors": [{"name": p[0]["name"], "stock": p[0]["stock"]}
+                                   for p in members if p[0]["marker"] == m]}
+                      for m in markers],
+            "pailsEach": sum(p[0]["stock"] for p in members),
+        })
+    route.sort(key=lambda s: -s["y"])
+    for s in route:
+        s.pop("y", None)
+
+    kind_rank = {"Vendor": 0, "Travelling": 1, "Random Encounter": 2, "CAMP Ally": 3}
+    vendors.sort(key=lambda v: (kind_rank.get(v["kind"], 9), v["region"] or "~", v["marker"] or "~", v["name"]))
+    for v in vendors:
+        v.pop("coords", None)
+    return vendors, route, event_only
+
+
+def _th_charisma_link(tsv_root):
+    path = os.path.join(tsv_root, "guide_index.tsv")
+    if not os.path.exists(path):
+        return None
+    for r in read_tsv(path):
+        if r.get("id") == TH_CHARISMA_GUIDE_ID and r.get("url"):
+            return {"title": r.get("title") or "Charisma Guide", "url": r["url"]}
+    return None
+
+
+def _build_treasure_hunter_guide(tsv_root, resolver, output):
+    rewards_page = output.get("byPage", {}).get("treasure-hunter-all-rewards") or {}
+    children, edids = _th_lvli_tree(tsv_root)
+    hunter = _th_hunter(tsv_root, resolver, children, edids)
+    pails, rules, best = _th_pails(tsv_root, rewards_page)
+    vendors, route, event_only = _th_vendors(tsv_root, children, edids)
+    page = {
+        "name": "Hunt for the Treasure Hunter",
+        "slug": TH_GUIDE_SLUG,
+        "eventSlug": "treasure-hunters",
+        "isGuide": True,
+        "hunter": hunter,
+        "pails": pails,
+        "pailRules": rules,
+        "bestValuePails": best,
+        "vendors": vendors,
+        "vendorsEventOnly": event_only,
+        "route": route,
+        "charismaGuide": _th_charisma_link(tsv_root),
+        "gallery": TH_GUIDE_GALLERY,
+        "craftImages": {str(k): v for k, v in TH_GUIDE_CRAFT_IMAGES.items()},
+    }
+    print("  treasure-hunter-guide: {} hunter lists, {} pails, {} vendors, {} route stops".format(
+        len((hunter or {}).get("lists") or []), len(pails), len(vendors), len(route)))
+    return page
+
+
+
 def _grahm_plan_pool_size(tsv_root):
     """Count entries in Grahm's vendor recipe list (pick-one denominator N)."""
     entries_path = newest(os.path.join(tsv_root, "LVLI_Export_*_LVLI_Entries.tsv"))
@@ -4133,6 +4799,13 @@ def main():
     rarity_stamped = _apply_rarity_pools(output, _rarity_pool_index(TSV_ROOT))
     print("[build_seasonal_events] Stamped rarityPool on {} rewards".format(
         rarity_stamped))
+
+    # Hunt for the Treasure Hunter guide page (needs the rewards + C/R pools)
+    print("\n[build_seasonal_events] Processing: Treasure Hunter Guide ({})".format(TH_GUIDE_SLUG))
+    _thg = _build_treasure_hunter_guide(TSV_ROOT, resolver, output)
+    output["byPage"][TH_GUIDE_SLUG] = _thg
+    output["byPage"][TH_GUIDE_URL] = _thg
+    output["byPage"][TH_GUIDE_URL.rstrip("/")] = _thg
 
     DIST_DIR.mkdir(parents=True, exist_ok=True)
     out_path = DIST_DIR / "seasonal_events_rewards_by_page.json"
