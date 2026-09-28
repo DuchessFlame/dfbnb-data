@@ -1,0 +1,65 @@
+name: Build Guide Index (Brewmaster)
+
+# Rebuilds dist/guide-index.json - the list of every PUBLIC guide page on both
+# sites, read by the Brewmaster Discord bot.
+#
+# Runs:
+#   - when tsv/guide_index.tsv, the generator or its data map change
+#   - every day (picks up pages made public / deleted / renamed in WordPress,
+#     and new dist/ data from the other builds - their commits can't trigger
+#     push workflows)
+#   - on demand: Actions tab -> "Build Guide Index (Brewmaster)" -> Run workflow
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "17 20 * * *"   # 04:17 Perth time
+  push:
+    branches: [main]
+    paths:
+      - "tsv/guide_index.tsv"
+      - "tools/build_guide_index.py"
+      - "data/guide_index_data_map.json"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Build guide-index.json (checks every URL as a logged-out visitor)
+        env:
+          SITE_URL: https://theduchessflame.com
+        run: python tools/build_guide_index.py
+
+      - name: Commit dist changes
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/guide-index.json dist/guide-index-report.json
+          # Ignore changes that are only the "generated" timestamp.
+          if git diff --cached -I '"generated":' --quiet; then
+            echo "No real changes."
+            exit 0
+          fi
+          git commit -m "Build dist/guide-index.json"
+          git fetch origin main
+          git pull --rebase origin main
+          git push origin main

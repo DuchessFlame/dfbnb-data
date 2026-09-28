@@ -39,6 +39,7 @@ Usage: python build_seasonal_events_json.py
 """
 
 import json
+import math
 import os
 import re
 import sys
@@ -3359,6 +3360,14 @@ def _split_categories(merged_node, split_config, resolver):
                 if fid and fid not in fid_to_cat:
                     fid_to_cat[fid] = cat_key
 
+    # There is no AMMO export, so ammo leaves arrive with EDID-style names
+    # ("Ammo556 Anti Scorch Beast"). Swap in the in-game FULL name from the
+    # KYWD refs export ("Ultracite 5.56 Round").
+    for it in merged_node.get("items", []):
+        full = _th_ammo_full(TSV_ROOT, it.get("formid"))
+        if full:
+            it["name"] = full
+
     # Bucket the merged node's items by category.
     items_by_cat = {c["key"]: [] for c in categories}
     unmatched = []
@@ -3806,7 +3815,7 @@ TH_GUIDE_GALLERY = [
      "credit": "Garlic (garlicwizard on Discord)"},
 ]
 TH_GUIDE_CRAFT_IMAGES = {
-    "menu": {"src": "crafting-tinkers-workbench-chests.avif",
+    "menu": {"src": "crafting-tinkers-workbench-chests-menu.avif",
              "caption": "Tinker's Workbench - the pails are under Chests"},
     1: {"src": "crafting-dusty-mole-miner-pail.avif",
         "caption": "Crafting a Dusty Mole Miner Pail"},
@@ -3820,6 +3829,75 @@ _TH_WORKBENCH_NAMES = {
     "Workbench_Crafting_Tinkers": "Tinker's Workbench",
     "Workbench_Crafting_Chemlab": "Chemistry Station",
 }
+
+
+# Vendor buy price = item value x the Charisma barter multiplier. The
+# multiplier comes from the CHR_BarterBuyCurve CURV (Charisma -> multiplier,
+# linear between points) and the price is rounded half up. Checked against
+# an in-game vendor at 6 Charisma: 125/375/1100 value -> 290/871/2554 caps.
+TH_BARTER_BUY_CURVE = "CHR_BarterBuyCurve"
+TH_HARD_BARGAIN_CARD = "HardBargainCard"
+
+
+def _th_round(x):
+    return int(math.floor(x + 0.5))
+
+
+def _th_barter(tsv_root):
+    """The Charisma buy curve plus the Hard Bargain bonus, from the exports."""
+    pts = []
+    for r in _th_rows("CURV_Export_*_POINTS.tsv", tsv_root):
+        if (r.get("EDID") or "") == TH_BARTER_BUY_CURVE:
+            try:
+                pts.append((float(r.get("X")), float(r.get("Y"))))
+            except (TypeError, ValueError):
+                pass
+    pts.sort()
+    if not pts:
+        print("  [WARN] treasure-hunter-guide: {} not found - no pail prices".format(TH_BARTER_BUY_CURVE))
+        return None
+    # Hard Bargain: "Gain N CHA when bartering" on the card's top rank.
+    hb = None
+    perks = {(r.get("PERK_FormID") or "").upper(): r for r in _th_rows("PERK_Export_*.tsv", tsv_root)}
+    for c in _th_rows("PCRD_Export_*.tsv", tsv_root):
+        if (c.get("PCRD_EDID") or "") != TH_HARD_BARGAIN_CARD:
+            continue
+        n = int(float(c.get("RankCount") or 1))
+        pr = perks.get((c.get("Rank_{}_MalePerk_FormID".format(n)) or "").upper()) or {}
+        m = re.search(r"Gain (\d+) CHA", pr.get("DESC") or "")
+        if m:
+            hb = {"name": pr.get("FULL") or "Hard Bargain", "charisma": int(m.group(1)),
+                  "special": c.get("DATA_Special") or "Charisma"}
+    lo = min(pts, key=lambda p: (p[1], p[0]))
+    return {
+        "curve": [{"charisma": int(x), "mult": y} for x, y in pts],
+        "maxMult": pts[0][1], "minCharisma": int(pts[0][0]),
+        "minMult": lo[1], "floorCharisma": int(lo[0]),
+        "hardBargain": hb,
+    }
+
+
+def _th_challenges(tsv_root):
+    """Live daily/weekly SCORE challenges a Treasure Hunter kill counts
+    towards: the Treasure Hunter keyword, mole miner race/class conditions,
+    or the 'Mole Miners Killed' counter."""
+    out = []
+    for r in _th_rows("CHAL_Export_*.tsv", tsv_root):
+        edid = r.get("EDID") or ""
+        cad = r.get("CNAM") or ""
+        if not edid.startswith("SCORE_") or cad not in ("Daily", "Weekly"):
+            continue
+        conds = " ".join(r.get("Cond%d" % i) or "" for i in range(1, 11))
+        hit = (TH_HUNTER_KEYWORD in conds or "MoleMinerRace" in conds or "MoleMinerClass" in conds
+               or (r.get("SNAM") or "") == "Mole Miners Killed")
+        if not hit:
+            continue
+        out.append({"name": r.get("FULL") or edid, "cadence": cad,
+                    "required": int(safe_float(r.get("TNAM"), 1) or 1),
+                    "treasureHunterOnly": TH_HUNTER_KEYWORD in conds,
+                    "formid": r.get("FormID") or ""})
+    out.sort(key=lambda c: (not c["treasureHunterOnly"], c["cadence"] != "Daily", c["name"]))
+    return out
 
 
 def _th_menu_name(kw):
@@ -3915,6 +3993,21 @@ _TH_AMMO_NAMES = {
 }
 
 
+_TH_AMMO_FULL = None
+
+
+def _th_ammo_full(tsv_root, fid):
+    """In-game name of an AMMO record, read from the KYWD refs export
+    (every ammo carries ObjectTypeAmmo, and RefName is its FULL)."""
+    global _TH_AMMO_FULL
+    if _TH_AMMO_FULL is None:
+        _TH_AMMO_FULL = {}
+        for r in _th_rows("KYWD_Export_*_Refs.tsv", tsv_root):
+            if r.get("RefSignature") == "AMMO" and r.get("RefName"):
+                _TH_AMMO_FULL.setdefault((r.get("RefFormID") or "").upper(), r["RefName"])
+    return _TH_AMMO_FULL.get((fid or "").upper())
+
+
 def _th_ammo_name(name):
     n = re.sub(r"^Ammo\s*", "", name or "")
     anti = re.search(r"\s+Anti\s*Scorch(?:ed|\s*Beast|beast)?$", n, re.I)
@@ -4008,7 +4101,8 @@ def _th_hunter(tsv_root, resolver, children, edids):
         note = None
         if label == "Contextual Ammo":
             for r in rows:
-                r["name"] = _th_ammo_name(r["name"])
+                r["name"] = (_th_ammo_full(tsv_root, r["formid"])
+                             or _th_ammo_name(r["name"]))
             rows.sort(key=lambda r: r["name"])
             # One ammo type drops - the one for the weapon you have equipped -
             # so every row gets the chance of that first roll; the extra rolls
@@ -4058,6 +4152,7 @@ def _th_pail_keywords(tsv_root, fids):
 
 def _th_pails(tsv_root, rewards_page):
     """One row per pail tier (Dusty / Regular / Ornate)."""
+    barter = _th_barter(tsv_root)
     alch = {}
     for r in _th_rows("ALCH_Export_*.tsv", tsv_root):
         edid = pick(r, "ALCH_EDID", "EDID")
@@ -4076,7 +4171,7 @@ def _th_pails(tsv_root, rewards_page):
             recipes[_th_tier_of(r["CNAM_EDID"])] = r
 
     # Common / Rare reward chances per pail, from the All Rewards page
-    tier_rates = defaultdict(lambda: {"common": [], "rare": [], "title": []})
+    tier_rates = defaultdict(lambda: {"common": [], "rare": [], "title": [], "plan": [], "gear": []})
     for rw in (rewards_page or {}).get("rewards", []):
         pool = rw.get("rarityPool")
         key = pool or ("title" if (rw.get("name") or "").startswith("Player Title") else None)
@@ -4086,6 +4181,10 @@ def _th_pails(tsv_root, rewards_page):
         for t in rw.get("tiers") or rw.get("dropRates") or []:
             rate = safe_float(str(t.get("rate") or "0").rstrip("%"), 0.0) or 0.0
             tier_rates[t.get("tier")][key].append(rate)
+            if pool:
+                # plans/recipes vs apparel & weapons, for the pail tables
+                kind = "plan" if re.match(r"^(Plan|Recipe):", rw.get("name") or "") else "gear"
+                tier_rates[t.get("tier")][kind].append(rate)
 
     def rates(label):
         tr = tier_rates.get(label)
@@ -4096,7 +4195,7 @@ def _th_pails(tsv_root, rewards_page):
         if not tr:
             return None
         out = {}
-        for k in ("common", "rare", "title"):
+        for k in ("common", "rare", "title", "plan", "gear"):
             vals = tr[k]
             out[k] = {"any": round(sum(vals), 4), "each": round(max(vals), 4) if vals else 0,
                       "count": len(vals)}
@@ -4148,6 +4247,11 @@ def _th_pails(tsv_root, rewards_page):
                         "materials": materials},
             "empty": empty,
             "capsPerCraftedReward": cost_per,
+            "buyCost": ({"base": _th_round(empty["value"] * barter["maxMult"]),
+                         "best": _th_round(empty["value"] * barter["minMult"]),
+                         "byCharisma": [{"charisma": c["charisma"], "caps": _th_round(empty["value"] * c["mult"])}
+                                        for c in barter["curve"]]}
+                        if empty and barter else None),
             "keywords": sorted(kws.get((crafted or {}).get("FormID", "").upper(), set())),
         })
     pails.sort(key=lambda p: p["tier"])
@@ -4157,7 +4261,11 @@ def _th_pails(tsv_root, rewards_page):
     everywhere = set.intersection(*all_kw) if all_kw else set()
     chem_kw = any("ObjectTypeChem" in k for k in all_kw)
     benches = {r.get("BNAM_EDID") for r in recipes.values()}
+    empty_kw = [set((m.get("Keywords") or "").split("|")) for m in misc.values()]
     rules = {
+        # empty (bought) pails carry the same lock keywords as found/crafted
+        "emptyLocked": bool(empty_kw) and all(
+            "NonPlayerTradable" in k and "UnsellableObject" in k for k in empty_kw),
         "tradeable": "NonPlayerTradable" not in everywhere,
         "sellable": "UnsellableObject" not in everywhere,
         "superDuper": "BlockSuperDuperPerk" not in everywhere,
@@ -4457,9 +4565,11 @@ def _build_treasure_hunter_guide(tsv_root, resolver, output):
         "eventSlug": "treasure-hunters",
         "isGuide": True,
         "hunter": hunter,
+        "challenges": _th_challenges(tsv_root),
         "legendaryEffects": _th_legendary_effects(tsv_root),
         "pails": pails,
         "pailRules": rules,
+        "barter": _th_barter(tsv_root),
         "bestValuePails": best,
         "vendors": vendors,
         "vendorsEventOnly": event_only,
