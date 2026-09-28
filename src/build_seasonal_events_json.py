@@ -3832,7 +3832,8 @@ def _th_rows(pattern, tsv_root):
     # "NPC_Export_*.tsv" would also match the _Refs / _PRPS side files (and
     # ALCH the _Effects one), so those are skipped unless asked for by name.
     side = [x for x in ("_Refs", "_PRPS", "_Effects", "_EFFECTS", "_HEADER", "_List",
-                        "_Entries", "_Math", "_ObjectTemplate") if x not in pattern]
+                        "_Entries", "_Math", "_ObjectTemplate", "_Mods", "_Properties")
+            if x not in pattern]
     try:
         path = newest(os.path.join(tsv_root, pattern), exclude_substrings=side)
     except FileNotFoundError:
@@ -4401,6 +4402,41 @@ def _th_charisma_link(tsv_root):
     return None
 
 
+# The legendary item a legendary creature drops rolls its effects from this
+# LGDI (it is the one the LegendaryCreatureLegendaryItem_DO default object
+# points at). Found by EDID so a FormID change doesn't break it.
+TH_CREATURE_LGDI_EDID = "LegendaryItems_Creatures_AllItems"
+
+
+def _th_legendary_effects(tsv_root):
+    """Possible legendary effects on a Treasure Hunter's legendary drop, by
+    type and star. Reuses the Daily Ops builder's generative LGDI/OMOD walk."""
+    lgdi = next((pick(r, "LGDI_FormID") for r in _th_rows("LGDI_Export_*.tsv", tsv_root)
+                 if pick(r, "LGDI_EDID") == TH_CREATURE_LGDI_EDID), "")
+    if not lgdi:
+        print("  [WARN] treasure-hunter-guide: LGDI {} not found".format(TH_CREATURE_LGDI_EDID))
+        return None
+    try:
+        from build_daily_ops_rewards_json import build_legendary_effects
+    except Exception as e:
+        print("  [WARN] treasure-hunter-guide: legendary effects skipped ({})".format(e))
+        return None
+    tree = build_legendary_effects([lgdi])
+    if not tree:
+        return None
+    stars = [c.get("star") for g in tree.get("children", []) for c in g.get("children", [])]
+    top = max([x for x in stars if x] or [0])
+    return {
+        "label": "Possible Legendary Effects",
+        "subtitle": "The effects a Treasure Hunter's legendary item can roll, by star",
+        "note": ("A {0}★ item gets one effect from each star tier up to {0}★. Listed A-Z.".format(top)
+                 if top else ""),
+        "maxStar": top,
+        "lgdi": lgdi,
+        "children": tree.get("children", []),
+    }
+
+
 def _build_treasure_hunter_guide(tsv_root, resolver, output):
     rewards_page = output.get("byPage", {}).get("treasure-hunter-all-rewards") or {}
     children, edids = _th_lvli_tree(tsv_root)
@@ -4413,6 +4449,7 @@ def _build_treasure_hunter_guide(tsv_root, resolver, output):
         "eventSlug": "treasure-hunters",
         "isGuide": True,
         "hunter": hunter,
+        "legendaryEffects": _th_legendary_effects(tsv_root),
         "pails": pails,
         "pailRules": rules,
         "bestValuePails": best,
