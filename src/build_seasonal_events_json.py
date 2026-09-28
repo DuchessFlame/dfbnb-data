@@ -3623,6 +3623,146 @@ MEAT_WEEK_TRACKED_PLANS = [
 ]
 
 
+# ---------------------------------------------------------------------------
+# Rarity pools (C / R pill)
+# ---------------------------------------------------------------------------
+# Some events split their plan/apparel rewards into a Common and a Rare
+# (chase) sub-list. Every item reachable from the listed LVLI gets
+# rarityPool = "common" / "rare" so the renderer can show a C / R pill on
+# the row and a Common / Rare column on the downloads and print copies.
+#
+# Generative: the builder sweeps every LVLI whose EDID starts with the page's
+# prefix (e.g. "LLS_TreasureHunt_Rewards_") in the newest LVLI export and
+# sorts each list by the rest of its name, so lists Bethesda adds, renames
+# or replaces are picked up without touching this file:
+#   ..._Chase            -> rare
+#   ..._Rare_Common      -> common   (any "Rare_...Common" list)
+#   Rare / Currency* / PlayerTitles / Treasure_Common -> not a pill list
+#   anything else        -> [WARN] so a new list never slips through silently
+# DEPRECATED_* lists never match the prefix, so retired lists drop out.
+RARITY_SWEEPS = {
+    "treasure-hunter-all-rewards": {
+        "prefix": "LLS_TreasureHunt_Rewards_",
+        # Suffixes (after the prefix) that are known and deliberately get no
+        # pill: the parent Rare list, currency, titles and scrap.
+        "ignore": [r"^Rare$", r"^Currency(_|$)", r"^PlayerTitles$",
+                   r"^Treasure_Common$"],
+    },
+}
+
+
+def _classify_rarity_list(suffix):
+    """Map the part of an EDID after the sweep prefix to rare / common."""
+    s = suffix.lower()
+    if "chase" in s:
+        return "rare"
+    if s.startswith("rare_") and "common" in s:
+        return "common"
+    return None
+
+
+def _rarity_pool_index(tsv_root):
+    """Return {page slug: {"pools": {item FormID: pool}, "ignored": set()}}
+    by sweeping every prefix-matching LVLI (nested LVLIs followed, e.g. the
+    Cursed weapon sub-lists)."""
+    if not RARITY_SWEEPS:
+        return {}
+    entries_path = newest(os.path.join(tsv_root, "LVLI_Export_*_LVLI_Entries.tsv"))
+    if not entries_path:
+        print("  [WARN] No LVLI entries TSV - rarity pools skipped")
+        return {}
+    children = defaultdict(list)   # LVLI formid -> [(child formid, sig)]
+    edids = {}                     # LVLI formid -> EDID
+    for row in read_tsv(entries_path):
+        parent = (row.get("LVLI_FormID") or "").upper()
+        ref = row.get("LVLO_Reference") or ""
+        parts = ref.split(":")
+        if not parent or len(parts) < 3:
+            continue
+        edids[parent] = row.get("LVLI_EDID") or ""
+        children[parent].append((parts[0].upper(), parts[-1].upper()))
+
+    def collect(fid, seen):
+        out = set()
+        if fid in seen:
+            return out
+        seen.add(fid)
+        for child, sig in children.get(fid, []):
+            if sig == "LVLI":
+                out |= collect(child, seen)
+            else:
+                out.add(child)
+        return out
+
+    index = {}
+    for slug, cfg in RARITY_SWEEPS.items():
+        prefix = cfg["prefix"]
+        ignore = [re.compile(x, re.I) for x in cfg.get("ignore", [])]
+        pools, ignored = {}, set()
+        found = {"rare": [], "common": []}
+        for fid, edid in sorted(edids.items(), key=lambda kv: kv[1]):
+            if not edid.startswith(prefix):
+                continue
+            suffix = edid[len(prefix):]
+            pool = _classify_rarity_list(suffix)
+            if pool is None:
+                if any(rx.search(suffix) for rx in ignore):
+                    ignored |= collect(fid, set())
+                else:
+                    print("  [WARN] {}: new list {} ({}) is not sorted into "
+                          "Common or Rare - check it and update "
+                          "RARITY_SWEEPS".format(slug, edid, fid))
+                continue
+            found[pool].append(edid)
+            for item_fid in collect(fid, set()):
+                # An item in both lists counts as rare (the harder pull).
+                if pools.get(item_fid) != "rare":
+                    pools[item_fid] = pool
+        for pool in ("common", "rare"):
+            if not found[pool]:
+                print("  [WARN] {}: no {} list found under {}* - the C / R "
+                      "pills may be wrong".format(slug, pool, prefix))
+        print("  {}: rare lists {}, common lists {}".format(
+            slug, found["rare"], found["common"]))
+        index[slug] = {"pools": pools, "ignored": ignored}
+    return index
+
+
+def _apply_rarity_pools(output, index):
+    """Stamp rarityPool on flat rewards[] and eventRewardTree items, and warn
+    about any unique plan / apparel / weapon on the page that ended up with no pill
+    (e.g. it moved into a list the sweep doesn't know about)."""
+    stamped = 0
+    seen_slugs = set()
+    for page_data in output.get("byPage", {}).values():
+        slug = page_data.get("slug", "")
+        entry = index.get(slug)
+        if not entry:
+            continue
+        m = entry["pools"]
+        for reward in page_data.get("rewards", []):
+            pool = m.get((reward.get("formId") or "").upper())
+            if pool and reward.get("rarityPool") != pool:
+                reward["rarityPool"] = pool
+                stamped += 1
+        missing = set()
+        for node in page_data.get("eventRewardTree", []) or []:
+            for item in node.get("items", []) or []:
+                fid = (item.get("formid") or item.get("formId") or "").upper()
+                pool = m.get(fid)
+                if pool:
+                    item["rarityPool"] = pool
+                elif (node.get("isUniqueReward")
+                      and item.get("sig") in ("BOOK", "ARMO", "WEAP")
+                      and fid not in entry["ignored"]):
+                    missing.add(item.get("name") or fid)
+        if missing and slug not in seen_slugs:
+            print("  [WARN] {}: no Common/Rare pill for {}".format(
+                slug, ", ".join(sorted(missing))))
+        seen_slugs.add(slug)
+    return stamped
+
+
 def _grahm_plan_pool_size(tsv_root):
     """Count entries in Grahm's vendor recipe list (pick-one denominator N)."""
     entries_path = newest(os.path.join(tsv_root, "LVLI_Export_*_LVLI_Entries.tsv"))
@@ -3988,6 +4128,11 @@ def main():
     tree_stamped = _stamp_release_years_on_tree(output, release_years)
     print("[build_seasonal_events] Stamped releaseYear on {} tree items".format(
         tree_stamped))
+
+    # Common / Rare sub-list pill (C / R) for events that split their pool
+    rarity_stamped = _apply_rarity_pools(output, _rarity_pool_index(TSV_ROOT))
+    print("[build_seasonal_events] Stamped rarityPool on {} rewards".format(
+        rarity_stamped))
 
     DIST_DIR.mkdir(parents=True, exist_ok=True)
     out_path = DIST_DIR / "seasonal_events_rewards_by_page.json"
