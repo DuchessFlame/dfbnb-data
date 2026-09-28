@@ -1470,7 +1470,7 @@ _Couldn't key this file to records; contents differ._
 ## `load_screens.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `make_plan_checklist.json`  ·  +299 / -24 / ~35
+## `make_plan_checklist.json`  ·  +299 / -24 / ~34
 
 **Added (299)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1541,8 +1541,7 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (35)**
-- Plan: Mole Miner Gauntlet  `PLAN_00436FF9` — fields: routes
+**Changed (34)**
 - Plan: Single-Action Revolver Forceful Grip  `PLAN_0052A699` — fields: name
 - Plan: Gauss Shotgun Long Barrel  `PLAN_0059560D` — fields: name
 - Plan: Crusader Pistol Fusion Chamber  `PLAN_005E65FA` — fields: name
@@ -1712,7 +1711,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +299 / -24 / ~225
+## `plan_master.json`  ·  +299 / -24 / ~224
 
 **Added (299)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1783,7 +1782,7 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (225)**
+**Changed (224)**
 - Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images
 - Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images
 - MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images
@@ -1803,7 +1802,6 @@ _Couldn't key this file to records; contents differ._
 - Plan: Vault Dresser  `PLAN_003D651A` — fields: obtain_ledger, obtain_routes
 - Plan: Vault Desk  `PLAN_003D651B` — fields: obtain_ledger, obtain_routes
 - Plan: Golf Club  `PLAN_00436FF5` — fields: obtain_ledger, obtain_routes
-- Plan: Mole Miner Gauntlet  `PLAN_00436FF9` — fields: obtain_ledger, obtain_routes
 - Plan: Sledge Hammer  `PLAN_00436FFF` — fields: cnam
 - Plan: Super Sledge  `PLAN_00437000` — fields: obtain_ledger, obtain_routes
 - Plan: War Drum  `PLAN_00437003` — fields: obtain_ledger, obtain_routes
@@ -1824,7 +1822,8 @@ _Couldn't key this file to records; contents differ._
 - Plan: Auto Axe Poisoned Mod  `PLAN_00591905` — fields: obtain_routes
 - Plan: Auto Axe Turbo Mod  `PLAN_00591906` — fields: obtain_routes
 - Plan: Gauss Shotgun Long Barrel  `PLAN_0059560D` — fields: cnam, cobj, name, plan_item
-- …and 185 more
+- Plan: Gauss Shotgun Extended Magazine  `PLAN_00595616` — fields: cnam, cobj, plan_item
+- …and 184 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
