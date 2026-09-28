@@ -1944,7 +1944,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +18 / -1 / ~54
+## `titles_player.json`  ·  +18 / -1 / ~55
 
 **Added (18)**
 - ATX_PlayerTitles_Prefix_Apex  `ATX_PlayerTitles_Prefix_Apex`
@@ -1969,7 +1969,7 @@ _Couldn't key this file to records; contents differ._
 **Removed (1)**
 - zzz_Fishing_PlayerTitles_Prefix_Gillded  `zzz_Fishing_PlayerTitles_Prefix_Gillded`
 
-**Changed (54)**
+**Changed (55)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel
 - ATX_PlayerTitles_Prefix_Tribune  `ATX_PlayerTitles_Prefix_Tribune` — fields: releaseDate, releaseLabel, releaseYear
@@ -2006,11 +2006,11 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl
+- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 - WorldPets_PlayerTitles_Prefix_Cat01  `WorldPets_PlayerTitles_Prefix_Cat01` — fields: conditions, debug, unlockType
 - WorldPets_PlayerTitles_Prefix_Cat02  `WorldPets_PlayerTitles_Prefix_Cat02` — fields: conditions, debug, unlockType
 - WorldPets_PlayerTitles_Prefix_Deathclaw01  `WorldPets_PlayerTitles_Prefix_Deathclaw01` — fields: conditions, debug, unlockType
-- WorldPets_PlayerTitles_Prefix_Deathclaw02  `WorldPets_PlayerTitles_Prefix_Deathclaw02` — fields: conditions, debug, unlockType
-- …and 14 more
+- …and 15 more
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
