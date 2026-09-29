@@ -1274,6 +1274,15 @@ jobs:
       - name: Build Farming Spawns "Used For" JSON
         run: python src/build_farming_used_for.py --all
 
+      # --- SPAWN MAP DOWNLOAD LINKS (map_base + full_map) ---
+      # Stamps every farming/meat/plants/insects/drinks spawn doc with its map
+      # folder and 4K full-map path. The pages HEAD-check each map and only show
+      # the "Download the ... map here" line once the file is on the server, so
+      # this is safe before any upload. Runs AFTER every spawn build + Used For,
+      # so a rebuild can never strip the links again.
+      - name: Stamp spawn map download links
+        run: python src/add_spawn_map_base.py
+
       # --- FISHING ---
       # Reads FISH/GLOB/LVLI TSVs directly and emits dist/fishing.json with
       # fish metadata, spawn rate tables per bait type, axolotl monthly

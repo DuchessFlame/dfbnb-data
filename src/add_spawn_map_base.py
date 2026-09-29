@@ -21,6 +21,15 @@ add_treasure_maps.py, so no builder had to change and it is safe to re-run. It w
 a top-level `map_base` on every doc and backfills `chance_spawns.map_base` when the
 family has one and it is missing.
 
+Sept 2026 — the pages now CHECK for each map before showing its link (a HEAD
+request in the renderer), so this step is safe to run over every doc before any map
+is uploaded: `map_base` and `full_map` are stamped everywhere, and the links appear
+on their own once Duchess uploads the files. It runs in CI after every spawn build
+(dfbnb-patch-build.yml / dfbnb-pts-build.yml), so a rebuild can never strip them.
+`full_map` is derived (<map_base><render-slug>.jpg) — no local Guides folder needed;
+when that folder IS on this machine the upload sheet lists the local file too.
+NPC score-challenge pages (npc-*) are skipped — finish_npc_spawn_maps.py owns them.
+
 Usage:
     python src/add_spawn_map_base.py            # all families
     python src/add_spawn_map_base.py --pts      # PTS dist tree
@@ -56,7 +65,8 @@ def docs_for(family, root):
     if family == "nuka":
         out = []
         for fn in sorted(os.listdir(root)):
-            if fn.startswith("nuka_cola_spawns_") and fn.endswith(".json"):
+            if (fn.startswith("nuka_cola_spawns_") and fn.endswith(".json")
+                    and "-WorkHorse" not in fn and "manifest" not in fn):
                 out.append((os.path.join(root, fn),
                             fn[len("nuka_cola_spawns_"):-len(".json")]))
         return out
@@ -66,7 +76,7 @@ def docs_for(family, root):
         return []
     out = []
     for fn in sorted(os.listdir(d)):
-        if not fn.endswith(".json"):
+        if not fn.endswith(".json") or "-WorkHorse" in fn:   # OneDrive conflict copies
             continue
         slug = fn[:-len(".json")]
         if family == "farming_spawns":
@@ -174,8 +184,7 @@ def main():
     ap.add_argument("--pts", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--full-map-only", action="store_true",
-                    help="stamp only the header-card full_map link; leave map_base "
-                         "alone (region links must wait until their tiles are uploaded)")
+                    help="stamp only full_map; leave map_base alone")
     args = ap.parse_args()
 
     root = dist_root(args.pts)
@@ -195,7 +204,14 @@ def main():
                 print(f"  !! {path}: {e}", file=sys.stderr)
                 continue
 
-            base = resolve_base(doc, slug, category, overrides)
+            if family == "farming_spawns" and slug.startswith("npc-"):
+                continue
+            if family == "farming_spawns" and slug.startswith("meat-") and slug not in overrides:
+                # Meat location guides live in the creature's farming-meat folder,
+                # same as build_meat_guide_docs.MAP_ROOT.
+                base = f"{ebuild.UPLOADS}farming-meat/{slug[len('meat-'):]}/"
+            else:
+                base = resolve_base(doc, slug, category, overrides)
             if not base:
                 missing += 1
                 print(f"  ?? {slug}: could not derive a map_base")
@@ -205,20 +221,16 @@ def main():
             if not args.full_map_only and doc.get("map_base") != base:
                 doc["map_base"] = base
                 dirty = True
-            # Header-card "Download the full 4K spawn map" link (spawn-guide §9m).
-            # Maps go on the site as JPEG, so the file is `<render-slug>.jpg` in the
-            # item's guide-images folder. Only stamped when the render exists on this
-            # machine; an existing value is never removed (CI has no Guides folder).
-            fm = local_full_map(family, slug, doc)
-            if fm and not doc.get("full_map"):
-                # The page's own folder: its map_base when it has one; a meat
-                # location guide lives in farming-meat/<creature>/ (same as
-                # build_meat_guide_docs.MAP_ROOT); else the derived base.
-                fbase = doc.get("map_base") or (
-                    f"{ebuild.UPLOADS}farming-meat/{fm[0]}/"
-                    if family == "farming_spawns" and slug.startswith("meat-") else base)
-                doc["full_map"] = fbase + fm[0] + ".jpg"
-                full_maps.append((slug, fm[1], fbase))
+            # "Download the full 4K spawn map here" (Fixed Spawn Locations). Maps go
+            # on the site as JPEG: `<render-slug>.jpg` in the page's own folder. The
+            # page hides the link until the file is uploaded, so it is stamped on
+            # every page; an existing value is never replaced.
+            job = render_job(family, slug)
+            if job and not doc.get("full_map"):
+                fbase = doc.get("map_base") or base
+                doc["full_map"] = fbase + job[1] + ".jpg"
+                fm = local_full_map(family, slug, doc)
+                full_maps.append((slug, fm[1] if fm else "(not rendered yet)", fbase))
                 dirty = True
             cs = doc.get("chance_spawns")
             if (not args.full_map_only and isinstance(cs, dict) and cs.get("regions")

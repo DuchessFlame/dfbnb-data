@@ -362,21 +362,22 @@ def build_one(meat_path, ctx):
     doc["name"] = item
     doc["page_title"] = f"{creature} Location Guide"
     doc["blurb"] = md.get("blurb", "")
-    # Region map links only once that page's tiles are on the site — otherwise
-    # every meat page would link to maps that 404. Add the slug to
-    # data/meat_spawn_maps_live.txt after uploading its tiles.
-    doc["map_base"] = (MAP_ROOT + slug + "/") if slug in ctx["maps_live"] else ""
-    # Only regions that HAVE a tile get a link: a region whose spawns are all
-    # inside an interior cell has no region tile, and its link would 404.
+    # Map download links (Sept 2026). Every meat guide gets its map folder and its
+    # 4K full-map path. The page itself HEAD-checks each map and only shows the
+    # link once the file is on the server, so these can be stamped before the
+    # maps are uploaded — no dead links, and nothing to switch on by hand.
+    doc["map_base"] = MAP_ROOT + slug + "/"
+    doc["map_ext"] = ".jpg"
+    doc["full_map"] = doc["map_base"] + slug + ".jpg"
+    ex = ctx.get("extras", {}).get(slug) or {}
+    if ex.get("map_ext"):
+        doc["map_ext"] = ex["map_ext"]
+    if ex.get("full_map"):
+        doc["full_map"] = doc["map_base"] + ex["full_map"]
+    # The gallery (art, interior cell maps) still waits for
+    # data/meat_spawn_maps_live.txt — a gallery thumb has no check of its own.
     if slug in ctx["maps_live"]:
         doc["map_regions"] = ctx["maps_live"][slug]
-        # 4K download + bottom-of-page gallery (art, interior cell maps) —
-        # data/meat_guide_extras.json. Same live gate as the tiles, so nothing 404s.
-        ex = ctx.get("extras", {}).get(slug) or {}
-        if ex.get("map_ext"):
-            doc["map_ext"] = ex["map_ext"]
-        if ex.get("full_map"):
-            doc["full_map"] = doc["map_base"] + ex["full_map"]
         if ex.get("gallery"):
             doc["gallery"] = [dict({"url": doc["map_base"] + g["file"],
                                     "caption": g.get("caption", "")},

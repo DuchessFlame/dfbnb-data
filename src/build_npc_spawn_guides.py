@@ -579,6 +579,10 @@ def build_one(pg, ctx):
             f"spawn is shared with other enemies, so what you find there changes between "
             f"visits. They are listed by name only"
             + ("." if chance_block.get("no_maps") else " — open a region map to place them."))
+    # NPC score-challenge pages keep their chance-map links. Farming guides show
+    # none unless a page opts in with this same key (Duchess, Sept 2026).
+    if nm and not chance_block.get("no_maps"):
+        doc["chance_spawns"]["show_maps"] = True
     doc["treasure_maps"] = {"maps": []}
 
     # map links only for regions that actually get a tile (exterior fixed spawns /
