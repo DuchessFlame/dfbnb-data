@@ -1712,7 +1712,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +299 / -24 / ~227
+## `plan_master.json`  ·  +299 / -24 / ~228
 
 **Added (299)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1783,7 +1783,7 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (227)**
+**Changed (228)**
 - Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images
 - Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images
 - MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images
@@ -1816,6 +1816,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Crossbow  `PLAN_004F4780` — fields: cnam
 - Plan: Ultracite Optimized Servos  `PLAN_0050194F` — fields: obtain_routes
 - Plan: Ultracite Overdrive Servos  `PLAN_00501950` — fields: obtain_routes
+- Plan: Ultracite Emergency Protocols  `PLAN_00501954` — fields: obtain_routes
 - Plan: Single-Action Revolver Forceful Grip  `PLAN_0052A699` — fields: cnam, cobj, name, plan_item
 - Recipe: Mirelurk Softshell Cake  `PLAN_0052FDFF` — fields: consumable_type
 - Plan: Evil Jack O'Lantern  `PLAN_005772C7` — fields: image_source, images
@@ -1823,8 +1824,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Gauss Pistol Suppressed Barrel  `PLAN_00591422` — fields: cnam
 - Plan: Auto Axe Burning Mod  `PLAN_00591903` — fields: obtain_routes
 - Plan: Auto Axe Electrified Mod  `PLAN_00591904` — fields: obtain_routes
-- Plan: Auto Axe Poisoned Mod  `PLAN_00591905` — fields: obtain_routes
-- …and 187 more
+- …and 188 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
