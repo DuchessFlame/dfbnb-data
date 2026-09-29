@@ -1712,7 +1712,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +299 / -24 / ~226
+## `plan_master.json`  ·  +299 / -24 / ~227
 
 **Added (299)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1783,7 +1783,7 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (226)**
+**Changed (227)**
 - Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images
 - Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images
 - MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images
@@ -1814,7 +1814,8 @@ _Couldn't key this file to records; contents differ._
 - Plan: Pickaxe  `PLAN_004EB740` — fields: cnam
 - Plan: Laser Gun Medium Scope  `PLAN_004F476D` — fields: obtain_routes
 - Plan: Crossbow  `PLAN_004F4780` — fields: cnam
-- Plan: Ultracite Emergency Protocols  `PLAN_00501954` — fields: obtain_routes
+- Plan: Ultracite Optimized Servos  `PLAN_0050194F` — fields: obtain_routes
+- Plan: Ultracite Overdrive Servos  `PLAN_00501950` — fields: obtain_routes
 - Plan: Single-Action Revolver Forceful Grip  `PLAN_0052A699` — fields: cnam, cobj, name, plan_item
 - Recipe: Mirelurk Softshell Cake  `PLAN_0052FDFF` — fields: consumable_type
 - Plan: Evil Jack O'Lantern  `PLAN_005772C7` — fields: image_source, images
@@ -1823,8 +1824,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Auto Axe Burning Mod  `PLAN_00591903` — fields: obtain_routes
 - Plan: Auto Axe Electrified Mod  `PLAN_00591904` — fields: obtain_routes
 - Plan: Auto Axe Poisoned Mod  `PLAN_00591905` — fields: obtain_routes
-- Plan: Auto Axe Turbo Mod  `PLAN_00591906` — fields: obtain_routes
-- …and 186 more
+- …and 187 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1945,7 +1945,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +18 / -1 / ~55
+## `titles_player.json`  ·  +18 / -1 / ~54
 
 **Added (18)**
 - ATX_PlayerTitles_Prefix_Apex  `ATX_PlayerTitles_Prefix_Apex`
@@ -1970,7 +1970,7 @@ _Couldn't key this file to records; contents differ._
 **Removed (1)**
 - zzz_Fishing_PlayerTitles_Prefix_Gillded  `zzz_Fishing_PlayerTitles_Prefix_Gillded`
 
-**Changed (55)**
+**Changed (54)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel
 - ATX_PlayerTitles_Prefix_Tribune  `ATX_PlayerTitles_Prefix_Tribune` — fields: releaseDate, releaseLabel, releaseYear
@@ -2007,11 +2007,11 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl
-- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 - WorldPets_PlayerTitles_Prefix_Cat01  `WorldPets_PlayerTitles_Prefix_Cat01` — fields: conditions, debug, unlockType
 - WorldPets_PlayerTitles_Prefix_Cat02  `WorldPets_PlayerTitles_Prefix_Cat02` — fields: conditions, debug, unlockType
 - WorldPets_PlayerTitles_Prefix_Deathclaw01  `WorldPets_PlayerTitles_Prefix_Deathclaw01` — fields: conditions, debug, unlockType
-- …and 15 more
+- WorldPets_PlayerTitles_Prefix_Deathclaw02  `WorldPets_PlayerTitles_Prefix_Deathclaw02` — fields: conditions, debug, unlockType
+- …and 14 more
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
