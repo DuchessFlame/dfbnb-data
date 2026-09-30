@@ -138,7 +138,18 @@ def numbered(points):
             for i, k in enumerate(keys, 1)]
 
 
-def page_regions(clusters, geo, all_regions, regions):
+def workshop_markers(db):
+    """Map-marker labels that are public workshops (PublicWorkshopMarker icon in
+    Mappalachia's MapMarker table). A workshop only spawns its attackers while you
+    first clear it, so it is left off the looping routes."""
+    con = sqlite3.connect("file:{}?mode=ro".format(db), uri=True)
+    rows = con.execute("SELECT label FROM MapMarker WHERE spaceFormID = ? AND icon = ?",
+                       [APPALACHIA_SPACE, "PublicWorkshopMarker"]).fetchall()
+    con.close()
+    return sorted({r[0] for r in rows})
+
+
+def page_regions(clusters, geo, all_regions, regions, workshops=()):
     """The farming-map page's region lists: one entry per region (A-Z), every
     location filed under the region its marker icon sits in, sorted by spawn
     points, carrying the dot number(s) on each region's map."""
@@ -158,9 +169,15 @@ def page_regions(clusters, geo, all_regions, regions):
         for m, cs in by_marker.items():
             if home[m] != r:
                 continue
-            locs.append({"marker": m, "spawns": sum(c["count"] for c in cs),
-                         "map": [{"region": c["region"], "n": c["n"]}
-                                 for c in sorted(cs, key=lambda c: c["n"])]})
+            loc = {"marker": m, "spawns": sum(c["count"] for c in cs),
+                   "map": [{"region": c["region"], "n": c["n"]}
+                           for c in sorted(cs, key=lambda c: c["n"])]}
+            xy = geo.marker_xy.get(m)
+            if xy:   # map-marker position - the page's route builder orders by it
+                loc["x"], loc["y"] = round(xy[0]), round(xy[1])
+            if m in workshops:
+                loc["workshop"] = True
+            locs.append(loc)
         locs.sort(key=lambda l: (-l["spawns"], l["marker"]))
         entry = {"region": r, "total": sum(l["spawns"] for l in locs), "locations": locs,
                  "tile": (re.sub(r"[^a-z0-9]+", "-", r.lower()).strip("-") + "-spawn-map.jpg")
@@ -175,7 +192,7 @@ def page_regions(clusters, geo, all_regions, regions):
 # ---------------------------------------------------------------------------
 # Suggested farming route (the farming-map page's "Suggested Route" section and
 # the route map render_event_swap_maps.py draws). Every location with at least
-# ROUTE_MIN_SPAWNS spawn points, region by region in ROUTE_REGIONS order - a loop
+# ROUTE_MIN_SPAWNS spawn points (workshops left out), region by region in ROUTE_REGIONS order - a loop
 # that starts at the top of the map in the Toxic Valley, runs down the Forest,
 # across the Ash Heap, up the east side (Cranberry Bog, The Mire) and back
 # through the Savage Divide (Duchess, 30 Sep 2026). Inside a region the stops are
@@ -233,6 +250,8 @@ def route(page_regions_list, geo, min_spawns=ROUTE_MIN_SPAWNS, order=ROUTE_REGIO
         r = by.get(name)
         stops = []
         for l in (r or {}).get("locations") or []:
+            if l.get("workshop"):
+                continue   # workshops don't respawn once cleared - no use on a loop
             xy = geo.marker_xy.get(l["marker"])
             if l["spawns"] >= min_spawns and xy:
                 stops.append({"marker": l["marker"], "spawns": l["spawns"], "xy": xy})
@@ -266,3 +285,108 @@ def route(page_regions_list, geo, min_spawns=ROUTE_MIN_SPAWNS, order=ROUTE_REGIO
         out.append({"region": name, "colour": "#{:02X}{:02X}{:02X}".format(*c), "stops": rows})
         prev_end = path[-1]["xy"]
     return out
+
+
+# ---------------------------------------------------------------------------
+# Recommended N-stop loop (the farming-map page's "Recommended 20-Stop Route").
+# Pick the N locations that give the most enemy spawn points for the least
+# travel: maximise  spawns - RECOMMENDED_LAMBDA * loop length / 10,000 units,
+# workshops excluded. Search: seed with the N stops nearest each busy location
+# (weighted towards busy ones), then swap stops in/out while the score improves;
+# keep the best seed. The loop is ordered by nearest neighbour + 2-opt and
+# starts at its northernmost stop. The stats compare it with simply taking the
+# N busiest locations anywhere, so the page can say what the trade-off buys.
+# ---------------------------------------------------------------------------
+RECOMMENDED_STOPS = 20
+RECOMMENDED_LAMBDA = 2.0
+_UNIT = 10000.0
+
+
+def _loop_len_nn(pts):
+    cur, left, L = pts[0], list(pts[1:]), 0.0
+    while left:
+        j = min(left, key=lambda q: _dist(cur, q))
+        L += _dist(cur, j)
+        cur = j
+        left.remove(j)
+    return L + _dist(cur, pts[0])
+
+
+def _loop(stops):
+    """Closed loop (NN + 2-opt); returns (length, ordered stops)."""
+    left = list(stops[1:])
+    path = [stops[0]]
+    while left:
+        nxt = min(left, key=lambda s: (_dist(path[-1]["xy"], s["xy"]), s["marker"]))
+        left.remove(nxt)
+        path.append(nxt)
+    n = len(path)
+    improved = True
+    while improved:
+        improved = False
+        for i in range(1, n - 1):
+            for j in range(i + 1, n):
+                a, b = path[i - 1]["xy"], path[i]["xy"]
+                c, d = path[j]["xy"], path[(j + 1) % n]["xy"]
+                if _dist(a, c) + _dist(b, d) < _dist(a, b) + _dist(c, d) - 1e-6:
+                    path[i:j + 1] = path[i:j + 1][::-1]
+                    improved = True
+    L = sum(_dist(path[i]["xy"], path[(i + 1) % n]["xy"]) for i in range(n))
+    return L, path
+
+
+def recommended_route(page_regions_list, n=RECOMMENDED_STOPS, lam=RECOMMENDED_LAMBDA):
+    cands = [{"marker": l["marker"], "spawns": l["spawns"], "region": r["region"],
+              "xy": (l["x"], l["y"])}
+             for r in page_regions_list for l in r.get("locations") or []
+             if "x" in l and not l.get("workshop")]
+    if len(cands) < n:
+        return None
+    cands.sort(key=lambda c: (-c["spawns"], c["marker"]))
+
+    def score(S):
+        return sum(c["spawns"] for c in S) - lam * _loop_len_nn([c["xy"] for c in S]) / _UNIT
+
+    pool_all = cands[:max(40, n * 2)]
+    best = None
+    for seed in [c for c in cands if c["spawns"] >= 20]:
+        S = sorted(cands, key=lambda c: (_dist(c["xy"], seed["xy"]) - 3000 * c["spawns"], c["marker"]))[:n]
+        cur = score(S)
+        improved = True
+        while improved:
+            improved = False
+            pool = [c for c in pool_all if c not in S]
+            for i in range(n):
+                for q in pool:
+                    T = S[:i] + [q] + S[i + 1:]
+                    v = score(T)
+                    if v > cur + 1e-6:
+                        S, cur, improved = T, v, True
+                        break
+                if improved:
+                    break
+        if best is None or cur > best[0] + 1e-6:
+            best = (cur, S)
+    S = best[1]
+    L, path = _loop(sorted(S, key=lambda c: (-c["xy"][1], c["marker"])))
+    top = cands[:n]
+    topL, _ = _loop(top)
+    stops = [{"n": i, "marker": c["marker"], "spawns": c["spawns"], "region": c["region"],
+              "colour": "#{:02X}{:02X}{:02X}".format(*ROUTE_COLOURS.get(c["region"], (255, 255, 255))),
+              "x": round(c["xy"][0]), "y": round(c["xy"][1])}
+             for i, c in enumerate(path, 1)]
+    return {"stops": stops,
+            "spawns": sum(c["spawns"] for c in S),
+            "loop": round(L / _UNIT, 1),
+            "busiest": {"spawns": sum(c["spawns"] for c in top), "loop": round(topL / _UNIT, 1)},
+            "regions": sorted({c["region"] for c in S})}
+
+
+def legs_of(stops):
+    """Group a stop list into consecutive same-region legs (for render_route)."""
+    legs = []
+    for s in stops:
+        if not legs or legs[-1]["region"] != s["region"]:
+            legs.append({"region": s["region"], "stops": []})
+        legs[-1]["stops"].append(s)
+    return legs

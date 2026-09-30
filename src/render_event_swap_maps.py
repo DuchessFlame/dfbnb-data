@@ -136,21 +136,66 @@ def _arrow_at(d, a, b, colour):
     d.polygon([tip, l, r], fill=colour, outline=(10, 10, 10), width=4)
 
 
-def render_route(legs, bg_path, to_px, out_path, title="Suggested Treasure Hunter Route"):
-    from PIL import Image, ImageDraw
+# Route maps are drawn on the in-game map (Mappalachia's Appalachia_menu.jpg) with
+# its map-marker icons on top. Not the satellite map (Duchess, 30 Sep 2026).
+ROUTE_BG = "Appalachia_menu.jpg"
+ROUTE_BG_DIM = 0.0
+ROUTE_ICON_PX = 46          # map-marker icon size on the 4096 canvas
+ROUTE_BADGE_OFF = (34, -34)  # stop number sits up-right of its location's icon
+
+
+def map_marker_icons(size=ROUTE_ICON_PX):
+    """The in-game map-marker icons Mappalachia ships (img/mapmarker/*.svg), placed
+    from its MapMarker table: [(x, y, label, RGBA icon)]. Needs cairosvg."""
+    import io
+    import cairosvg
+    from PIL import Image
+    con = sqlite3.connect("file:{}?mode=ro".format(R.MAPPALACHIA_DB), uri=True)
+    rows = con.execute("SELECT x, y, label, icon FROM MapMarker WHERE spaceFormID = ?",
+                       [R.APPALACHIA_SPACE]).fetchall()
+    con.close()
+    cache, out = {}, []
+    for x, y, label, icon in rows:
+        if icon not in cache:
+            svg = os.path.join(R.MAPPALACHIA, "img", "mapmarker", icon + ".svg")
+            if not os.path.exists(svg):
+                cache[icon] = None
+            else:
+                png = cairosvg.svg2png(url=svg, output_height=size * 4)
+                im = Image.open(io.BytesIO(png)).convert("RGBA")
+                im.thumbnail((size, size), Image.LANCZOS)
+                cache[icon] = im
+        if cache[icon] is not None:
+            out.append((x, y, label, cache[icon]))
+    return out
+
+
+def render_route(legs, bg_path, to_px, out_path, title="Suggested Treasure Hunter Route",
+                 icons=True, dim=ROUTE_BG_DIM, closed=False, crop=False, legend=None):
+    """legs = [{region, stops: [{n, x, y}]}] in route order. closed = draw the hop
+    from the last stop back to the first. crop = cut the map down to the route and
+    put the legend in a band above it (else the legend sits top-left on the full
+    4096 map). legend = [(label, text, rgb)] rows, default region + stop range."""
+    from PIL import Image, ImageDraw, ImageEnhance
     base = Image.open(bg_path).convert("RGB")
     if base.size != (R.S, R.S):
         base = base.resize((R.S, R.S), Image.LANCZOS)
+    if dim:
+        base = ImageEnhance.Brightness(base).enhance(1.0 - dim)
     d = ImageDraw.Draw(base)
+    marks = map_marker_icons() if icons else []
     stops = []
     for leg in legs:
         col = ROUTE_COLOURS.get(leg["region"], (255, 255, 255))
         for s in leg["stops"]:
             px, py = to_px(s["x"], s["y"])
             stops.append((px, py, col, s["n"]))
+    hop_pairs = [(i - 1, i) for i in range(1, len(stops)) if stops[i - 1][2] != stops[i][2]]
+    line_pairs = [(i - 1, i) for i in range(1, len(stops)) if stops[i - 1][2] == stops[i][2]]
+    if closed and len(stops) > 2:
+        (line_pairs if stops[-1][2] == stops[0][2] else hop_pairs).append((len(stops) - 1, 0))
     # Lines inside a region: solid, in the region's colour (dark casing under it).
-    segs = [(stops[i - 1][:2], stops[i][:2], stops[i][2]) for i in range(1, len(stops))
-            if stops[i - 1][2] == stops[i][2]]
+    segs = [(stops[i][:2], stops[j][:2], stops[j][2]) for i, j in line_pairs]
     for a, b, _ in segs:
         d.line([a, b], fill=(10, 10, 10), width=ROUTE_LINE_W + 8)
     for a, b, col in segs:
@@ -160,11 +205,9 @@ def render_route(legs, bg_path, to_px, out_path, title="Suggested Treasure Hunte
     # Region to region: a dashed white curve (a fast-travel hop). It bows to the
     # side that keeps it furthest from other stops, so a hop never looks like it
     # runs through a stop it doesn't visit.
-    for i in range(1, len(stops)):
-        if stops[i - 1][2] == stops[i][2]:
-            continue
-        a, b = stops[i - 1][:2], stops[i][:2]
-        others = [p[:2] for j, p in enumerate(stops) if j not in (i - 1, i)]
+    for i0, i in hop_pairs:
+        a, b = stops[i0][:2], stops[i][:2]
+        others = [p[:2] for j, p in enumerate(stops) if j not in (i0, i)]
         best = None
         for k in (0.0, 0.12, -0.12, 0.2, -0.2, 0.3, -0.3):
             pts = _bow(a, b, k)
@@ -182,7 +225,18 @@ def render_route(legs, bg_path, to_px, out_path, title="Suggested Treasure Hunte
         _arrow_at(d, pts[m], pts[m + 1], (255, 255, 255))
     f = R._font(40)
     r = ROUTE_STOP_D / 2
-    for px, py, col, n in stops:
+    if marks:
+        # Every map marker, over the lines, so each stop's own icon shows where
+        # the line meets it; the stop number sits beside the icon.
+        for x, y, _, im in marks:
+            px, py = to_px(x, y)
+            base.paste(im, (int(px - im.width / 2), int(py - im.height / 2)), im)
+        stop_xy = [(px + ROUTE_BADGE_OFF[0], py + ROUTE_BADGE_OFF[1]) for px, py, _, _ in stops]
+        for (px, py, col, _), (bx, by) in zip(stops, stop_xy):
+            d.line([(px, py), (bx, by)], fill=(10, 10, 10), width=6)
+    else:
+        stop_xy = [(px, py) for px, py, _, _ in stops]
+    for (px, py), (_, _, col, n) in zip(stop_xy, stops):
         d.ellipse([px - r, py - r, px + r, py + r], fill=col, outline=(10, 10, 10), width=5)
         t = str(n)
         tw = d.textlength(t, font=f)
@@ -190,30 +244,36 @@ def render_route(legs, bg_path, to_px, out_path, title="Suggested Treasure Hunte
     # START flag beside stop 1.
     if stops:
         fs = R._font(56)
-        R.draw_outlined_text(d, (stops[0][0] + r + 14, stops[0][1] - 34), "START", fs, w=4)
-    # Legend: region colour + its stop range, in route order.
-    rows = []
-    for leg in legs:
-        if leg["stops"]:
-            a, b = leg["stops"][0]["n"], leg["stops"][-1]["n"]
-            rows.append((leg["region"], "{}-{}".format(a, b),
-                         ROUTE_COLOURS.get(leg["region"], (255, 255, 255))))
-    R.draw_legend(base, title, [(lbl, rng, col) for lbl, rng, col in rows])
+        R.draw_outlined_text(d, (stop_xy[0][0] + r + 14, stop_xy[0][1] - 34), "START", fs, w=4)
+    # Legend: region colour + its stop range, in route order (or the caller's rows).
+    if legend is None:
+        legend = []
+        for leg in legs:
+            if leg["stops"]:
+                a_, b_ = leg["stops"][0]["n"], leg["stops"][-1]["n"]
+                legend.append((leg["region"], "{}-{}".format(a_, b_),
+                               ROUTE_COLOURS.get(leg["region"], (255, 255, 255))))
+    if crop:
+        xs = [p[0] for p in stop_xy]; ys = [p[1] for p in stop_xy]
+        pad = 260
+        x0, y0 = max(0, int(min(xs) - pad)), max(0, int(min(ys) - pad))
+        x1, y1 = min(R.S, int(max(xs) + pad)), min(R.S, int(max(ys) + pad))
+        mapimg = base.crop((x0, y0, x1, y1))
+        band_h = R.LEGEND_PAD * 2 + 96 + 26 + len(legend) * 84 + 24 + 120
+        img = Image.new("RGB", (mapimg.width, mapimg.height + band_h), R.LEGEND_BG)
+        img.paste(mapimg, (0, band_h))
+    else:
+        img = base
+    R.draw_legend(img, title, legend)
+    d = ImageDraw.Draw(img)
     # Key for the dashed hop, under the legend box.
     fk = R._font(60)
-    ky = R.LEGEND_PAD + 96 + 26 + len(rows) * 84 + 24 + 30
+    ky = R.LEGEND_PAD + 96 + 26 + len(legend) * 84 + 24 + 30
     kx = R.LEGEND_PAD
     d.rectangle([kx, ky, kx + 620, ky + 90], fill=R.LEGEND_BG, outline=R.LEGEND_BORDER, width=R.LEGEND_BORDER_W)
     for j in range(4):
         d.line([(kx + 28 + j * 40, ky + 45), (kx + 48 + j * 40, ky + 45)], fill=(255, 255, 255), width=8)
     d.text((kx + 200, ky + 12), "Next region", font=fk, fill=(230, 230, 230))
-    # Crop to the route (+ the legend in the top-left corner).
-    xs = [p[0] for p in stops]; ys = [p[1] for p in stops]
-    pad = 220
-    x0 = max(0, int(min(xs) - pad)); y0 = 0
-    x1 = min(R.S, int(max(xs) + pad)); y1 = min(R.S, int(max(ys) + pad))
-    x0 = min(x0, 0)
-    img = base.crop((x0, y0, x1, y1))
     os.makedirs(os.path.dirname(out_path), exist_ok=True)
     R.map_watermark.apply(img).save(out_path, "JPEG", quality=86, optimize=True)
     return out_path
@@ -260,10 +320,28 @@ def main():
             # numbers on the map match the page's route list.
             from spawns_configs.cryptids import ALL_REGIONS
             clusters = ESS.numbered(pts)
-            legs = ESS.route(ESS.page_regions(clusters, geo, ALL_REGIONS, ESS.event_regions()), geo)
+            try:
+                workshops = ESS.workshop_markers(R.MAPPALACHIA_DB)
+            except Exception:
+                workshops = []
+            pr = ESS.page_regions(clusters, geo, ALL_REGIONS, ESS.event_regions(), workshops)
+            legs = ESS.route(pr, geo)
+            rbg = os.path.join(R.MAPPALACHIA, "img", "wrld", ROUTE_BG)
             p_route = os.path.join(a.out, "04 Route Map", f"{slug}-route-map.jpg")
-            render_route(legs, bg, to_px, p_route)
+            render_route(legs, rbg, to_px, p_route)
             print(slug, "route", sum(len(l["stops"]) for l in legs), "stops ->", p_route)
+            rec = ESS.recommended_route(pr)
+            if rec:
+                tally = {}
+                for st in rec["stops"]:
+                    tally[st["region"]] = tally.get(st["region"], 0) + 1
+                rows = [(rg, "{} {}".format(k, "stop" if k == 1 else "stops"),
+                         ROUTE_COLOURS.get(rg, (255, 255, 255))) for rg, k in tally.items()]
+                p_rec = os.path.join(a.out, "04 Route Map", f"{slug}-recommended-route-map.jpg")
+                render_route(ESS.legs_of(rec["stops"]), rbg, to_px, p_rec,
+                             title="Recommended {}-Stop Route".format(len(rec["stops"])),
+                             closed=True, crop=True, legend=rows)
+                print(slug, "recommended", len(rec["stops"]), "stops,", rec["spawns"], "spawns ->", p_rec)
 
 
 if __name__ == "__main__":

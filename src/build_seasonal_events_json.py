@@ -4624,6 +4624,7 @@ def _th_farm_clusters(npcs, regions):
         TH_FARM_CACHE.write_text(json.dumps({
             "_note": "Built from Mappalachia by build_seasonal_events_json.py (event_swap_spawns)",
             "npcs": npcs, "eventRegions": regions, "clusters": clusters,
+            "workshops": ESS.workshop_markers(db),
         }, indent=1) + "\n", encoding="utf-8")
         return clusters
     except Exception as e:
@@ -4639,7 +4640,11 @@ def _build_treasure_hunter_farming_map():
     regions = ESS.event_regions()
     clusters = _th_farm_clusters(npcs, regions)
     geo = Geo(os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db"))
-    page_regions = ESS.page_regions(clusters, geo, ALL_REGIONS, regions)
+    try:
+        workshops = json.loads(TH_FARM_CACHE.read_text(encoding="utf-8")).get("workshops") or []
+    except Exception:
+        workshops = []
+    page_regions = ESS.page_regions(clusters, geo, ALL_REGIONS, regions, workshops)
     live = [r for r in page_regions if r["locations"]]
     page = {
         "name": "Hunt for the Treasure Hunter",
@@ -4658,6 +4663,10 @@ def _build_treasure_hunter_farming_map():
         "routeMinSpawns": ESS.ROUTE_MIN_SPAWNS,
         "route": ESS.route(page_regions, geo),
         "routeMap": ESS.MAP_SLUG + "-route-map.jpg",
+        # Recommended 20-stop loop (most spawns for the least travel, no workshops)
+        # - map: 04 Route Map/<MAP_SLUG>-recommended-route-map.jpg.
+        "recommended": ESS.recommended_route(page_regions),
+        "recommendedMap": ESS.MAP_SLUG + "-recommended-route-map.jpg",
     }
     print("  {}: {} spawn points at {} locations in {} regions ({} pool actors), route {} stops".format(
         TH_FARM_SLUG, page["totals"]["points"], page["totals"]["locations"], len(live), len(npcs),
