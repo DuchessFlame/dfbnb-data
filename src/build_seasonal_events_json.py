@@ -4594,9 +4594,6 @@ def _build_treasure_hunter_guide(tsv_root, resolver, output):
 TH_FARM_SLUG = "treasure-hunter-farming-map"
 TH_FARM_URL = "/df/seasonal-events/hunt-for-the-treasure-hunter/treasure-hunter-farming-map/"
 TH_FARM_CACHE = _REPO_ROOT / "data" / "seasonal_events" / "th_swap_spawns.json"
-TH_FARM_GALLERY = [g for g in TH_GUIDE_GALLERY
-                   if g["src"] in ("legendary-treasure-hunter.avif",
-                                   "treasure-hunter-mole-miner-corner.avif")]
 
 
 def _th_farm_clusters(npcs, regions):
@@ -4655,10 +4652,16 @@ def _build_treasure_hunter_farming_map():
                    "locations": sum(len(r["locations"]) for r in live)},
         "eventRegions": regions,
         "regions": page_regions,
-        "gallery": TH_FARM_GALLERY,
+        # Suggested route: every location with ESS.ROUTE_MIN_SPAWNS+ spawn points,
+        # in route order - stop numbers match the route map render_event_swap_maps.py
+        # draws (04 Route Map/<MAP_SLUG>-route-map.jpg). No gallery on this page.
+        "routeMinSpawns": ESS.ROUTE_MIN_SPAWNS,
+        "route": ESS.route(page_regions, geo),
+        "routeMap": ESS.MAP_SLUG + "-route-map.jpg",
     }
-    print("  {}: {} spawn points at {} locations in {} regions ({} pool actors)".format(
-        TH_FARM_SLUG, page["totals"]["points"], page["totals"]["locations"], len(live), len(npcs)))
+    print("  {}: {} spawn points at {} locations in {} regions ({} pool actors), route {} stops".format(
+        TH_FARM_SLUG, page["totals"]["points"], page["totals"]["locations"], len(live), len(npcs),
+        sum(len(l["stops"]) for l in page["route"])))
     return page
 
 

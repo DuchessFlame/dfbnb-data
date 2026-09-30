@@ -170,3 +170,99 @@ def page_regions(clusters, geo, all_regions, regions):
                 "not-event-region" if r not in regions else "no-spawns")
         out.append(entry)
     return out
+
+
+# ---------------------------------------------------------------------------
+# Suggested farming route (the farming-map page's "Suggested Route" section and
+# the route map render_event_swap_maps.py draws). Every location with at least
+# ROUTE_MIN_SPAWNS spawn points, region by region in ROUTE_REGIONS order - a loop
+# that starts at the top of the map in the Toxic Valley, runs down the Forest,
+# across the Ash Heap, up the east side (Cranberry Bog, The Mire) and back
+# through the Savage Divide (Duchess, 30 Sep 2026). Inside a region the stops are
+# ordered by distance between map-marker icons (nearest neighbour, then 2-opt),
+# entering near the last stop of the previous region and leaving towards the next
+# region, so the whole route is one line on the map. Stop numbers run 1..N across
+# the whole route and match the route map.
+# ---------------------------------------------------------------------------
+ROUTE_MIN_SPAWNS = 10
+ROUTE_REGIONS = ("Toxic Valley", "Forest", "Ash Heap", "Cranberry Bog", "The Mire", "Savage Divide")
+# Line/stop colour per region on the route map; the page uses the same colours
+# for the swatch beside each region's heading, so map and list agree.
+ROUTE_COLOURS = {
+    "Toxic Valley": (198, 255, 0),     # lime
+    "Forest": (0, 229, 255),           # cyan
+    "Ash Heap": (255, 109, 0),         # orange
+    "Cranberry Bog": (255, 64, 129),   # pink
+    "The Mire": (179, 136, 255),       # lavender
+    "Savage Divide": (255, 234, 0),    # yellow
+}
+
+
+def _dist(a, b):
+    return ((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2) ** 0.5
+
+
+def _open_path(stops, start_xy, end_xy):
+    """Order stops as a path from start_xy to end_xy (both fixed, not stops)."""
+    left = list(stops)
+    path, cur = [], start_xy
+    while left:
+        nxt = min(left, key=lambda s: (_dist(cur, s["xy"]), s["marker"]))
+        left.remove(nxt)
+        path.append(nxt)
+        cur = nxt["xy"]
+    pts = [start_xy] + [s["xy"] for s in path] + [end_xy]
+    improved = True
+    while improved:
+        improved = False
+        for i in range(1, len(pts) - 2):
+            for j in range(i + 1, len(pts) - 1):
+                if (_dist(pts[i - 1], pts[j]) + _dist(pts[i], pts[j + 1])
+                        < _dist(pts[i - 1], pts[i]) + _dist(pts[j], pts[j + 1]) - 1e-6):
+                    pts[i:j + 1] = pts[i:j + 1][::-1]
+                    path[i - 1:j] = path[i - 1:j][::-1]
+                    improved = True
+    return path
+
+
+def route(page_regions_list, geo, min_spawns=ROUTE_MIN_SPAWNS, order=ROUTE_REGIONS):
+    """[{region, stops: [{n, marker, spawns, x, y}]}] - see the block comment above."""
+    by = {r["region"]: r for r in page_regions_list}
+    legs = []
+    for name in order:
+        r = by.get(name)
+        stops = []
+        for l in (r or {}).get("locations") or []:
+            xy = geo.marker_xy.get(l["marker"])
+            if l["spawns"] >= min_spawns and xy:
+                stops.append({"marker": l["marker"], "spawns": l["spawns"], "xy": xy})
+            elif l["spawns"] >= min_spawns:
+                print("  [WARN] event_swap_spawns.route: no map marker for {} - left off the route"
+                      .format(l["marker"]))
+        if stops:
+            legs.append((name, stops))
+
+    def centre(stops):
+        return (sum(s["xy"][0] for s in stops) / len(stops), sum(s["xy"][1] for s in stops) / len(stops))
+
+    out, n, prev_end = [], 0, None
+    first_start = None
+    for i, (name, stops) in enumerate(legs):
+        if prev_end is None:
+            # Start at the top of the map (the northernmost stop of the first region).
+            top = max(stops, key=lambda s: s["xy"][1])
+            start = (top["xy"][0], top["xy"][1] + 1)
+            first_start = top["xy"]
+        else:
+            start = prev_end
+        end = centre(legs[i + 1][1]) if i + 1 < len(legs) else (first_start or centre(stops))
+        path = _open_path(stops, start, end)
+        rows = []
+        for s in path:
+            n += 1
+            rows.append({"n": n, "marker": s["marker"], "spawns": s["spawns"],
+                         "x": round(s["xy"][0], 1), "y": round(s["xy"][1], 1)})
+        c = ROUTE_COLOURS.get(name, (255, 255, 255))
+        out.append({"region": name, "colour": "#{:02X}{:02X}{:02X}".format(*c), "stops": rows})
+        prev_end = path[-1]["xy"]
+    return out
