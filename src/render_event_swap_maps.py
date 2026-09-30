@@ -170,6 +170,27 @@ def map_marker_icons(size=ROUTE_ICON_PX):
     return out
 
 
+def _icon_background(bg_path, to_px):
+    """The background with every map-marker icon pasted on, written to a temp
+    JPEG (render_exterior takes a path). Falls back to the plain background."""
+    import tempfile
+    from PIL import Image
+    try:
+        marks = map_marker_icons()
+    except Exception as e:
+        print("  [WARN] map-marker icons skipped ({})".format(e))
+        return bg_path
+    base = Image.open(bg_path).convert("RGB")
+    if base.size != (R.S, R.S):
+        base = base.resize((R.S, R.S), Image.LANCZOS)
+    for x, y, _, im in marks:
+        px, py = to_px(x, y)
+        base.paste(im, (int(px - im.width / 2), int(py - im.height / 2)), im)
+    out = os.path.join(tempfile.gettempdir(), "event_swap_bg_icons.jpg")
+    base.save(out, "JPEG", quality=95)
+    return out
+
+
 def render_route(legs, bg_path, to_px, out_path, title="Suggested Treasure Hunter Route",
                  icons=True, dim=ROUTE_BG_DIM, closed=False, crop=False, legend=None):
     """legs = [{region, stops: [{n, x, y}]}] in route order. closed = draw the hop
@@ -300,9 +321,14 @@ def main():
         rows = R.cluster_by_marker(pts, to_px)
         p_plain = os.path.join(a.out, "01 Full Maps (4096)", f"{slug}.jpg")
         p_num = os.path.join(a.out, "02 Numbered Maps (4096)", f"{slug}_numbered.jpg")
-        plain, numbered = R.render_exterior(bg, rows, title, p_plain, p_num)
+        # The spawn maps carry the in-game map-marker icons too (under the dots),
+        # same as the route maps, so readers can find each spot by its icon.
+        bg_icons = _icon_background(bg, to_px)
+        plain, numbered = R.render_exterior(bg_icons, rows, title, p_plain, p_num)
+        # Tiles go straight into "03 Region Tiles" - --out is already the item's
+        # own Maps folder, so a <slug> subfolder only made a second copy of each.
         tiles = R.render_region_tiles(numbered, rows, boxes, to_px,
-                                      os.path.join(a.out, "03 Region Tiles", slug), slug,
+                                      os.path.join(a.out, "03 Region Tiles"), slug,
                                       name_fn=lambda r: f"{R._region_slug(r)}-spawn-map.jpg")
         with open(os.path.join(a.out, f"{slug}_exterior_coords.csv"), "w",
                   newline="", encoding="utf-8") as fh:
