@@ -843,9 +843,15 @@ def _load_guide_urls() -> Dict[str, str]:
                     continue
                 brand_rank = 0 if (row.get("brand") or "").strip() == "bnb" else 1
                 key = (brand_rank, len(url))
-                if low not in best or key < best[low]:
-                    best[low] = key
-                    out[low] = SITE_BASE + url if url.startswith("/") else url
+                # Combined pages ("Strangler Pod, Strangler Bloom & Swamp Plant")
+                # link every item they cover, not just the full title.
+                names = [low]
+                if "," in low or " & " in low:
+                    names += [n.strip() for n in re.split(r",| & ", low) if n.strip()]
+                for nm in names:
+                    if nm not in best or key < best[nm]:
+                        best[nm] = key
+                        out[nm] = SITE_BASE + url if url.startswith("/") else url
     except FileNotFoundError:
         pass
     _GUIDE_URL_CACHE = out
