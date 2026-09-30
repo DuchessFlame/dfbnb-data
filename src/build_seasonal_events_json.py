@@ -4583,6 +4583,85 @@ def _build_treasure_hunter_guide(tsv_root, resolver, output):
     return page
 
 
+# ---------------------------------------------------------------------------
+# Hunt for the Treasure Hunter - FARMING MAP page (treasure-hunter-farming-map)
+# Every outdoor enemy spawn point a Treasure Hunter can swap in at, by region,
+# with the dot numbers of the maps render_event_swap_maps.py draws. The pool
+# (actor bases + event regions) comes from the NPC / CNDF exports via
+# event_swap_spawns; the placements come from Mappalachia and are cached in
+# data/seasonal_events/th_swap_spawns.json so CI (no database) rebuilds it.
+# ---------------------------------------------------------------------------
+TH_FARM_SLUG = "treasure-hunter-farming-map"
+TH_FARM_URL = "/df/seasonal-events/hunt-for-the-treasure-hunter/treasure-hunter-farming-map/"
+TH_FARM_CACHE = _REPO_ROOT / "data" / "seasonal_events" / "th_swap_spawns.json"
+TH_FARM_GALLERY = [g for g in TH_GUIDE_GALLERY
+                   if g["src"] in ("legendary-treasure-hunter.avif",
+                                   "treasure-hunter-mole-miner-corner.avif")]
+
+
+def _th_farm_clusters(npcs, regions):
+    """Numbered (region, marker) clusters - from Mappalachia when the DB is
+    here (and the cache is refreshed), else from the committed cache."""
+    import event_swap_spawns as ESS
+    cache = None
+    if TH_FARM_CACHE.exists():
+        try:
+            cache = json.loads(TH_FARM_CACHE.read_text(encoding="utf-8"))
+        except Exception:
+            cache = None
+    db = os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db")
+    if not os.path.exists(db):
+        if cache is None:
+            print("  [WARN] {}: no Mappalachia DB and no {} - page left empty".format(
+                TH_FARM_SLUG, TH_FARM_CACHE.name))
+            return []
+        if cache.get("npcs") != npcs or cache.get("eventRegions") != regions:
+            print("  [WARN] {}: the pool changed in the exports since the cache was built - "
+                  "rebuild locally with the Mappalachia DB".format(TH_FARM_SLUG))
+        return cache.get("clusters") or []
+    try:
+        from spawns_engine.geo import Geo
+        pts = ESS.pool_points(db, Geo(db), npcs, regions)
+        clusters = ESS.numbered(pts)
+        TH_FARM_CACHE.parent.mkdir(parents=True, exist_ok=True)
+        TH_FARM_CACHE.write_text(json.dumps({
+            "_note": "Built from Mappalachia by build_seasonal_events_json.py (event_swap_spawns)",
+            "npcs": npcs, "eventRegions": regions, "clusters": clusters,
+        }, indent=1) + "\n", encoding="utf-8")
+        return clusters
+    except Exception as e:
+        print("  [WARN] {}: Mappalachia read failed ({})".format(TH_FARM_SLUG, e))
+        return (cache or {}).get("clusters") or []
+
+
+def _build_treasure_hunter_farming_map():
+    import event_swap_spawns as ESS
+    from spawns_engine.geo import Geo
+    from spawns_configs.cryptids import ALL_REGIONS
+    npcs = ESS.pool_npcs()
+    regions = ESS.event_regions()
+    clusters = _th_farm_clusters(npcs, regions)
+    geo = Geo(os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db"))
+    page_regions = ESS.page_regions(clusters, geo, ALL_REGIONS, regions)
+    live = [r for r in page_regions if r["locations"]]
+    page = {
+        "name": "Hunt for the Treasure Hunter",
+        "slug": TH_FARM_SLUG,
+        "eventSlug": "treasure-hunters",
+        "isGuide": True,
+        "imageDir": "treasure-hunters",
+        "fullMap": ESS.MAP_SLUG + ".jpg",
+        "totals": {"points": sum(r["total"] for r in live),
+                   "locations": sum(len(r["locations"]) for r in live)},
+        "eventRegions": regions,
+        "regions": page_regions,
+        "gallery": TH_FARM_GALLERY,
+    }
+    print("  {}: {} spawn points at {} locations in {} regions ({} pool actors)".format(
+        TH_FARM_SLUG, page["totals"]["points"], page["totals"]["locations"], len(live), len(npcs)))
+    return page
+
+
 
 def _grahm_plan_pool_size(tsv_root):
     """Count entries in Grahm's vendor recipe list (pick-one denominator N)."""
@@ -4961,6 +5040,16 @@ def main():
     output["byPage"][TH_GUIDE_SLUG] = _thg
     output["byPage"][TH_GUIDE_URL] = _thg
     output["byPage"][TH_GUIDE_URL.rstrip("/")] = _thg
+
+    # Treasure Hunter Farming Map (swap-spawn locations by region)
+    print("\n[build_seasonal_events] Processing: Treasure Hunter Farming Map ({})".format(TH_FARM_SLUG))
+    try:
+        _thf = _build_treasure_hunter_farming_map()
+        output["byPage"][TH_FARM_SLUG] = _thf
+        output["byPage"][TH_FARM_URL] = _thf
+        output["byPage"][TH_FARM_URL.rstrip("/")] = _thf
+    except Exception as e:
+        print("  [ERROR] treasure-hunter-farming-map failed: {}".format(e))
 
     DIST_DIR.mkdir(parents=True, exist_ok=True)
     out_path = DIST_DIR / "seasonal_events_rewards_by_page.json"

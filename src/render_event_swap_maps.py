@@ -41,10 +41,7 @@ sys.path.insert(0, HERE)
 import render_spawn_maps as R
 from spawns_engine.geo import Geo
 
-POOL_A_NPCS = ["LvlMainBoss", "LvlMainGiant", "LvlMainGiantBoss", "LvlMainHelper",
-               "LvlMainLarge", "LvlMainLargeBoss", "LvlMainLong", "LvlMainMedium",
-               "LvlMainMelee", "LvlMainShort"]
-NOT_EVENT_REGIONS = {"Skyline Valley", "Burning Springs"}
+import event_swap_spawns as ESS   # pool A (actor bases + event regions) from the game files
 
 R.TYPE_LABELS["event-swap"] = "Possible swap spawn"
 R.TYPE_COLOURS["event-swap"] = (255, 193, 7)       # amber
@@ -52,8 +49,11 @@ R.TYPE_LABELS["scorched-swap"] = "Possible swap spawn"
 R.TYPE_COLOURS["scorched-swap"] = (255, 138, 30)   # orange
 
 SETS = {
-    "event-swap-treasure-hunters-slashers":
-        ("Treasure Hunters & Slashers", "event-swap"),
+    # Names are the in-game FULLs: LvlMoleMinerTreasureHunt = "Treasure Hunter",
+    # CultistHighPriest = "Cultist High Priest"; SDOW_LvlSlasherFanMelee has no FULL,
+    # its SDOW_LCharSlasherFan members are all "Pint-Sized Phantom <role>".
+    ESS.MAP_SLUG:
+        ("Treasure Hunters, Pint-Sized Phantoms and Cultist High Priests", "event-swap"),
     "event-swap-spooky-holiday-scorched":
         ("Spooky & Holiday Scorched", "scorched-swap"),
 }
@@ -65,8 +65,9 @@ def points(conn, geo, which, scorched_npcs):
          "WHERE p.spaceFormID = ? AND e.signature = 'NPC_' AND e.editorID IN (%s)")
     out = []
     if which == "event-swap":
-        eds = POOL_A_NPCS
-        rows = conn.execute(q % ",".join("?" * len(eds)), [R.APPALACHIA_SPACE] + eds).fetchall()
+        # Same points the Treasure Hunter Farming Map page lists, so its dot
+        # numbers match (event_swap_spawns.numbered mirrors cluster_by_marker).
+        return ESS.pool_points(R.MAPPALACHIA_DB, geo, ESS.pool_npcs(), ESS.event_regions())
     else:
         lvl = [e for e in scorched_npcs if e.startswith(("LvlMain", "LvlSub"))]
         ded = [e for e in scorched_npcs if e not in lvl]
@@ -84,8 +85,6 @@ def points(conn, geo, which, scorched_npcs):
             continue
         seen.add(inst)
         region, marker, _ = geo.resolve(R.APPALACHIA_SPACE, x, y)
-        if which == "event-swap" and region in NOT_EVENT_REGIONS:
-            continue
         out.append({"ref": f"{inst:08X}", "x": x, "y": y, "space": R.APPALACHIA_SPACE,
                     "region": region or "Unknown", "marker": marker or "Unmarked",
                     "source_type": which, "base": eid})
@@ -97,6 +96,7 @@ def main():
     ap.add_argument("--out", required=True)
     ap.add_argument("--scorched-npcs", required=True,
                     help="text file, one scorched NPC_ EDID per line (from the ESM walk)")
+    ap.add_argument("--only", help="render just this set slug")
     a = ap.parse_args()
     scorched = [l.strip() for l in open(a.scorched_npcs, encoding="utf-8") if l.strip()]
     conn = sqlite3.connect(R.MAPPALACHIA_DB)
@@ -106,6 +106,8 @@ def main():
     to_px = R.projector(spaces[R.APPALACHIA_SPACE])
     bg = os.path.join(R.MAPPALACHIA, "img", "wrld", "Appalachia_menu.jpg")
     for slug, (title, which) in SETS.items():
+        if a.only and slug != a.only:
+            continue
         pts = points(conn, geo, which, scorched)
         rows = R.cluster_by_marker(pts, to_px)
         p_plain = os.path.join(a.out, "01 Full Maps (4096)", f"{slug}.jpg")
