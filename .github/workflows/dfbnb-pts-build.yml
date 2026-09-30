@@ -1274,6 +1274,17 @@ jobs:
       - name: Build Farming Spawns "Used For" JSON
         run: python src/build_farming_used_for.py --all
 
+      # --- COMBINED PLANT PAGES (Strangler Pod, Strangler Bloom & Swamp Plant) ---
+      # Several plant items that grow from ONE node, on one page drawn by the
+      # farming (Deathclaw Egg) renderer: shared fixed/chance spawns from
+      # dist/plants/, and per-item Used For / Farming Tips / Vendors / Containers /
+      # Events / Treasure Maps / Collectrons from the shared farming functions.
+      # Writes dist/farming_spawns/plant-<page>_spawns.json. Must run AFTER
+      # build_farming_used_for.py (reads recipe_guide / vendors / treasure maps)
+      # and BEFORE the map-link stamp below.
+      - name: Build combined plant guide pages
+        run: python src/build_plant_combo_guides.py
+
       # --- SPAWN MAP DOWNLOAD LINKS (map_base + full_map) ---
       # Stamps every farming/meat/plants/insects/drinks spawn doc with its map
       # folder and 4K full-map path. The pages HEAD-check each map and only show

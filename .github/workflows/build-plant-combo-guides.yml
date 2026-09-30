@@ -1,0 +1,63 @@
+name: Build Combined Plant Guide Pages
+
+# Strangler Pod, Strangler Bloom & Swamp Plant (and any page added to COMBOS in
+# src/build_plant_combo_guides.py). The main Patch / PTS builds also run this
+# script; this workflow is for rebuilding just these pages after a plants
+# rebuild (dist/plants/ is built locally with the Mappalachia DB and committed).
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'src/build_plant_combo_guides.py'
+      - 'dist/plants/strangler-pod.json'
+      - '.github/workflows/build-plant-combo-guides.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Build live page(s)
+        run: python src/build_plant_combo_guides.py
+
+      # PTS reads tsv/pts/ + dist/pts/. The full PTS build (dfbnb-pts-build.yml)
+      # is the authority for PTS; this keeps the PTS copy current between runs
+      # and never blocks the live commit if a PTS export is missing.
+      - name: Build PTS page(s)
+        continue-on-error: true
+        run: python src/build_plant_combo_guides.py --pts
+
+      - name: Stamp map download links
+        run: |
+          python src/add_spawn_map_base.py
+          python src/add_spawn_map_base.py --pts || true
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add dist/farming_spawns/plant-*_spawns.json || true
+          git add dist/pts/farming_spawns/plant-*_spawns.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Build combined plant guide pages"
+            git reset --hard HEAD   # drop the other docs the stamp touched
+            git pull --rebase
+            git push
+          fi

@@ -105,6 +105,10 @@ def render_job(family, slug):
             return None
         if slug.startswith("meat-"):
             return ("meat", slug[len("meat-"):])
+        if slug.startswith("plant-"):
+            # Combined plant pages (build_plant_combo_guides.py) reuse the map of
+            # the plant whose spots they show.
+            return ("plants", slug[len("plant-"):])
         return ("farming", slug)
     return ({"nuka": "nuka", "plants": "plants", "insects": "insects"}[family], slug)
 
@@ -206,7 +210,9 @@ def main():
 
             if family == "farming_spawns" and slug.startswith("npc-"):
                 continue
-            if family == "farming_spawns" and slug.startswith("meat-") and slug not in overrides:
+            if family == "farming_spawns" and slug.startswith("plant-") and slug not in overrides:
+                base = f"{ebuild.UPLOADS}farming-plants/{slug[len('plant-'):]}/"
+            elif family == "farming_spawns" and slug.startswith("meat-") and slug not in overrides:
                 # Meat location guides live in the creature's farming-meat folder,
                 # same as build_meat_guide_docs.MAP_ROOT.
                 base = f"{ebuild.UPLOADS}farming-meat/{slug[len('meat-'):]}/"
