@@ -1,12 +1,752 @@
 {
  "version": 1,
- "generated": "2026-09-30T19:00:03.735Z",
+ "generated": "2026-10-01T21:48:15.551Z",
  "platform": "xbox",
  "label": "Xbox",
  "source": "discord",
- "synced_at": "2026-09-30T19:00:03.734Z",
- "updated_at": "2026-09-30T07:58:57.475Z",
- "count": 0,
+ "synced_at": "2026-10-01T21:48:15.551Z",
+ "updated_at": "2026-10-01T21:47:15.533Z",
+ "count": 10,
  "grouping": "plan-page",
- "groups": []
+ "groups": [
+  {
+   "key": "snow-globes",
+   "label": "Snow Globes",
+   "items": [
+    {
+     "kind": "plan",
+     "brand": "df",
+     "type": "recipe",
+     "id": "PLAN_0067F16A",
+     "name": "Plan: Most Wanted Snow Globe",
+     "has_image_box": true,
+     "image_dir": "snowglobe",
+     "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+     "category_label": "CAMP / Recipe (physical plan)",
+     "obtain_routes": [
+      {
+       "route": "Event: Most Wanted",
+       "source_type": "event-quest",
+       "rate": 0.055556,
+       "rate_display": "5.56%",
+       "lvli": [
+        "0068B8EA"
+       ],
+       "conditions": []
+      },
+      {
+       "route": "Event: Most Wanted - GWWS",
+       "source_type": "event-quest",
+       "rate": 0.027778,
+       "rate_display": "2.78%",
+       "lvli": [
+        "0065E293",
+        "00660860"
+       ],
+       "conditions": []
+      }
+     ],
+     "obtain_unlocks": [],
+     "plan_item": {
+      "formid": "0067F16A",
+      "edid": "E09D_Recipe_Workshop_FloorDecor_Snowglobe_MostWanted"
+     },
+     "cobj": {
+      "formid": "0067F174",
+      "edid": "workshop_co_CondProxy_FloorDecor_NWOT_Snowglobe_MostWanted"
+     },
+     "cnam": null,
+     "tradeable": true,
+     "stops_dropping": false,
+     "effects": null,
+     "cut": false,
+     "cut_reason": null,
+     "obtain_ledger": [
+      {
+       "label": "Events & Activities",
+       "routes": [
+        0,
+        1
+       ]
+      }
+     ],
+     "source_tag": "Events",
+     "images": [],
+     "image_source": "",
+     "plan_page": "snow-globes",
+     "plan_page_group": null
+    }
+   ],
+   "count": 1
+  },
+  {
+   "key": "weapon",
+   "label": "Weapon",
+   "items": [
+    {
+     "kind": "plan",
+     "brand": "df",
+     "type": "weapon",
+     "id": "PLAN_0091C631",
+     "name": "Plan: Commie Whacker",
+     "has_image_box": true,
+     "image_dir": "weapons",
+     "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+     "category_label": "Weapon (physical plan)",
+     "obtain_routes": [
+      {
+       "route": "Liberator",
+       "source_type": "creature",
+       "rate": 0.03,
+       "rate_display": "3%",
+       "lvli": [
+        "00109F98",
+        "00377D06"
+       ],
+       "conditions": [
+        "Stops dropping once you learn it"
+       ]
+      },
+      {
+       "route": "Daily Ops - High Chase Rare",
+       "source_type": "event-quest",
+       "rate": 0.02439,
+       "rate_display": "2.44%",
+       "lvli": [
+        "005D080E"
+       ],
+       "conditions": [
+        "Level 50 and above"
+       ]
+      },
+      {
+       "route": "Daily Ops - Chase",
+       "source_type": "event-quest",
+       "rate": 0.010976,
+       "rate_display": "1.1%",
+       "lvli": [
+        "005CB9FF",
+        "005DBD0D",
+        "005DBD0F"
+       ],
+       "conditions": [
+        "Level 50 and above"
+       ]
+      },
+      {
+       "route": "Liberator",
+       "source_type": "creature",
+       "rate": 0.006,
+       "rate_display": "0.6%",
+       "lvli": [
+        "00109F98",
+        "00377D06"
+       ],
+       "conditions": [
+        "Stops dropping once you learn it"
+       ]
+      },
+      {
+       "route": "Robot Liberator",
+       "source_type": "creature",
+       "rate": 0.006,
+       "rate_display": "0.6%",
+       "lvli": [
+        "0038232C"
+       ],
+       "conditions": [
+        "Stops dropping once you learn it"
+       ]
+      }
+     ],
+     "obtain_unlocks": [],
+     "plan_item": {
+      "formid": "0091C631",
+      "edid": "recipe_DLC04_Weapon_melee_DLC04_CommieWhacker"
+     },
+     "cobj": {
+      "formid": "0015FAFC",
+      "edid": "co_Weapon_Melee_DLC04_CommieWhacker"
+     },
+     "cnam": {
+      "formid": "0011475B",
+      "edid": "DLC04_CommieWhacker",
+      "sig": "WEAP"
+     },
+     "tradeable": true,
+     "stops_dropping": true,
+     "effects": null,
+     "cut": false,
+     "cut_reason": null,
+     "obtain_ledger": [
+      {
+       "label": "Events & Activities",
+       "routes": [
+        0,
+        1,
+        2,
+        3,
+        4
+       ]
+      }
+     ],
+     "source_tag": "Enemy",
+     "images": [],
+     "image_source": "",
+     "plan_page": "weapon",
+     "plan_page_group": null,
+     "weapon_role": "base",
+     "weapon_group": "Commie Whacker",
+     "weapon_group_key": "commie-whacker",
+     "weapon_group_solo": false
+    },
+    {
+     "kind": "plan",
+     "brand": "df",
+     "type": "weapon",
+     "id": "PLAN_008F520E",
+     "name": "Plan: Face Breaker Paint",
+     "has_image_box": false,
+     "image_dir": "weapons",
+     "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+     "category_label": "Weapon Mod / Paint",
+     "obtain_routes": [
+      {
+       "route": "Daily Ops - High Chase Rare",
+       "source_type": "event-quest",
+       "rate": 0.02439,
+       "rate_display": "2.44%",
+       "lvli": [
+        "005D080E"
+       ],
+       "conditions": [
+        "Level 50 and above"
+       ]
+      },
+      {
+       "route": "Daily Ops - Chase",
+       "source_type": "event-quest",
+       "rate": 0.010976,
+       "rate_display": "1.1%",
+       "lvli": [
+        "005CB9FF",
+        "005DBD0D",
+        "005DBD0F"
+       ],
+       "conditions": [
+        "Level 50 and above"
+       ]
+      }
+     ],
+     "obtain_unlocks": [],
+     "plan_item": {
+      "formid": "008F520E",
+      "edid": "Recipe_mod_PowerFist_Weapon_Paint_FaceBreaker"
+     },
+     "cobj": {
+      "formid": "008F5213",
+      "edid": "co_mod_PowerFist_Weapon_Paint_FaceBreaker"
+     },
+     "cnam": {
+      "formid": "008F1033",
+      "edid": "mod_PowerFist_Weapon_Paint_FaceBreaker",
+      "sig": "OMOD"
+     },
+     "tradeable": true,
+     "stops_dropping": false,
+     "effects": null,
+     "cut": false,
+     "cut_reason": null,
+     "obtain_ledger": [
+      {
+       "label": "Events & Activities",
+       "routes": [
+        0,
+        1
+       ]
+      }
+     ],
+     "source_tag": "Ops",
+     "images": [],
+     "image_source": "",
+     "plan_page": "weapon",
+     "plan_page_group": null,
+     "weapon_role": "skin",
+     "weapon_group": "Power Fist",
+     "weapon_group_key": "power-fist",
+     "weapon_group_solo": false
+    },
+    {
+     "kind": "plan",
+     "brand": "df",
+     "type": "weapon",
+     "id": "PLAN_00918E2E",
+     "name": "Plan: Gatling Laser V63-HELGA Paint",
+     "has_image_box": false,
+     "image_dir": "weapons",
+     "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+     "category_label": "Weapon Mod / Paint",
+     "obtain_routes": [
+      {
+       "route": "Event: Neurological Warfare - Unique Item",
+       "source_type": "event-quest",
+       "rate": 0.037037,
+       "rate_display": "3.7%",
+       "lvli": [
+        "0076EA4B"
+       ],
+       "conditions": []
+      }
+     ],
+     "obtain_unlocks": [],
+     "plan_item": {
+      "formid": "00918E2E",
+      "edid": "STORM_Recipe_mod_GatlingLaser_Weapon_Paint_V63-HELGA"
+     },
+     "cobj": {
+      "formid": "007CEA90",
+      "edid": "Storm_co_mod_GatlingLaser_V63-HELGA_Paint"
+     },
+     "cnam": {
+      "formid": "0072DF08",
+      "edid": "mod_custom_V63GatlingLaser",
+      "sig": "OMOD"
+     },
+     "tradeable": true,
+     "stops_dropping": false,
+     "effects": null,
+     "cut": false,
+     "cut_reason": null,
+     "obtain_ledger": [
+      {
+       "label": "Events & Activities",
+       "routes": [
+        0
+       ]
+      }
+     ],
+     "source_tag": "Events",
+     "display_name": "Plan: V63-HELGA Gatling Laser Paint",
+     "images": [],
+     "image_source": "",
+     "plan_page": "weapon",
+     "plan_page_group": null,
+     "weapon_role": "skin",
+     "weapon_group": "Gatling Laser",
+     "weapon_group_key": "gatling-laser",
+     "weapon_group_solo": false
+    },
+    {
+     "kind": "plan",
+     "brand": "df",
+     "type": "weapon",
+     "id": "PLAN_008F2A45",
+     "name": "Plan: Gunther's Paint",
+     "has_image_box": false,
+     "image_dir": "weapons",
+     "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+     "category_label": "Weapon Mod / Paint",
+     "obtain_routes": [
+      {
+       "route": "Event: Most Wanted",
+       "source_type": "event-quest",
+       "rate": 0.055556,
+       "rate_display": "5.56%",
+       "lvli": [
+        "0068B8EA"
+       ],
+       "conditions": []
+      },
+      {
+       "route": "Event: Most Wanted - GWWS",
+       "source_type": "event-quest",
+       "rate": 0.027778,
+       "rate_display": "2.78%",
+       "lvli": [
+        "0065E293",
+        "00660860"
+       ],
+       "conditions": []
+      }
+     ],
+     "obtain_unlocks": [],
+     "plan_item": {
+      "formid": "008F2A45",
+      "edid": "Recipe_mod_SingleActionRevolver_Paint_GunthersRevolver"
+     },
+     "cobj": {
+      "formid": "00669578",
+      "edid": "co_mod_SingleActionRevolver_Paint_GunthersRevolver"
+     },
+     "cnam": {
+      "formid": "00663504",
+      "edid": "E09D_mod_SingleActionRevolver_Paint_GunthersRevolver",
+      "sig": "OMOD"
+     },
+     "tradeable": true,
+     "stops_dropping": false,
+     "effects": null,
+     "cut": false,
+     "cut_reason": null,
+     "obtain_ledger": [
+      {
+       "label": "Events & Activities",
+       "routes": [
+        0,
+        1
+       ]
+      }
+     ],
+     "source_tag": "Events",
+     "images": [],
+     "image_source": "",
+     "plan_page": "weapon",
+     "plan_page_group": null,
+     "weapon_role": "skin",
+     "weapon_group": "Single Action Revolver",
+     "weapon_group_key": "single-action-revolver",
+     "weapon_group_solo": false
+    },
+    {
+     "kind": "plan",
+     "brand": "df",
+     "type": "weapon",
+     "id": "PLAN_00918E2F",
+     "name": "Plan: Laser Gun V63-OLGA Paint",
+     "has_image_box": false,
+     "image_dir": "weapons",
+     "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+     "category_label": "Weapon Mod / Paint",
+     "obtain_routes": [
+      {
+       "route": "Event: Neurological Warfare - Unique Item",
+       "source_type": "event-quest",
+       "rate": 0.037037,
+       "rate_display": "3.7%",
+       "lvli": [
+        "0076EA4B"
+       ],
+       "conditions": []
+      }
+     ],
+     "obtain_unlocks": [],
+     "plan_item": {
+      "formid": "00918E2F",
+      "edid": "STORM_Recipe_mod_LaserGun_Weapon_Paint_V63-OLGA"
+     },
+     "cobj": {
+      "formid": "007CEA91",
+      "edid": "Storm_co_mod_LaserGun_V63-OLGA_Paint"
+     },
+     "cnam": {
+      "formid": "0072DF06",
+      "edid": "mod_custom_V63LaserRifle",
+      "sig": "OMOD"
+     },
+     "tradeable": true,
+     "stops_dropping": false,
+     "effects": null,
+     "cut": false,
+     "cut_reason": null,
+     "obtain_ledger": [
+      {
+       "label": "Events & Activities",
+       "routes": [
+        0
+       ]
+      }
+     ],
+     "source_tag": "Events",
+     "display_name": "Plan: V63-OLGA Laser Gun Paint",
+     "images": [],
+     "image_source": "",
+     "plan_page": "weapon",
+     "plan_page_group": null,
+     "weapon_role": "skin",
+     "weapon_group": "Laser Gun",
+     "weapon_group_key": "laser-gun",
+     "weapon_group_solo": false
+    },
+    {
+     "kind": "plan",
+     "brand": "df",
+     "type": "weapon",
+     "id": "PLAN_008F20F0",
+     "name": "Plan: Love Tap Paint",
+     "has_image_box": false,
+     "image_dir": "weapons",
+     "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+     "category_label": "Weapon Mod / Paint",
+     "obtain_routes": [],
+     "obtain_unlocks": [],
+     "plan_item": {
+      "formid": "008F20F0",
+      "edid": "Recipe_mod_SubmachineGun_Paint_LoveTap"
+     },
+     "cobj": {
+      "formid": "00685D4A",
+      "edid": "E09C_co_SubmachineGun_Paint_LoveTap"
+     },
+     "cnam": {
+      "formid": "00685D56",
+      "edid": "E09C_mod_SubmachineGun_Paint_LoveTap",
+      "sig": "OMOD"
+     },
+     "tradeable": true,
+     "stops_dropping": true,
+     "effects": null,
+     "cut": false,
+     "cut_reason": null,
+     "obtain_ledger": [],
+     "retired_routes": [
+      {
+       "route": "Event: Tunnel Of Love",
+       "source_type": "event-quest",
+       "rate": 0.016667,
+       "rate_display": "1.67%",
+       "lvli": [
+        "006772EC",
+        "0068B8E9"
+       ],
+       "conditions": [
+        "Stops dropping once you learn it"
+       ],
+       "retired_because": [
+        "reward pool not hooked up"
+       ]
+      },
+      {
+       "route": "Event: Tunnel Of Love",
+       "source_type": "event-quest",
+       "rate": 0.008333,
+       "rate_display": "0.83%",
+       "lvli": [
+        "006772EC",
+        "0068B8E9"
+       ],
+       "conditions": [
+        "Stops dropping once you learn it"
+       ],
+       "retired_because": [
+        "reward pool not hooked up"
+       ]
+      }
+     ],
+     "images": [],
+     "image_source": "",
+     "plan_page": "weapon",
+     "plan_page_group": null,
+     "weapon_role": "skin",
+     "weapon_group": "Submachine Gun",
+     "weapon_group_key": "submachine-gun",
+     "weapon_group_solo": false
+    },
+    {
+     "kind": "plan",
+     "brand": "df",
+     "type": "weapon",
+     "id": "PLAN_0091C66A",
+     "name": "Plan: Shock Baton Paint",
+     "has_image_box": false,
+     "image_dir": "weapons",
+     "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+     "category_label": "Weapon Mod / Paint",
+     "obtain_routes": [
+      {
+       "route": "Event: Neurological Warfare - Unique Item",
+       "source_type": "event-quest",
+       "rate": 0.037037,
+       "rate_display": "3.7%",
+       "lvli": [
+        "0076EA4B"
+       ],
+       "conditions": []
+      }
+     ],
+     "obtain_unlocks": [],
+     "plan_item": {
+      "formid": "0091C66A",
+      "edid": "STORM_Recipe_mod_Baton_Weapon_Paint_ShockBaton"
+     },
+     "cobj": {
+      "formid": "0079395A",
+      "edid": "Storm_co_mod_baton_Weapon_Paint_V63ShockBaton"
+     },
+     "cnam": {
+      "formid": "0072DF09",
+      "edid": "mod_custom_V63ShockBaton_Paint",
+      "sig": "OMOD"
+     },
+     "tradeable": true,
+     "stops_dropping": false,
+     "effects": null,
+     "cut": false,
+     "cut_reason": null,
+     "obtain_ledger": [
+      {
+       "label": "Events & Activities",
+       "routes": [
+        0
+       ]
+      }
+     ],
+     "source_tag": "Events",
+     "images": [],
+     "image_source": "",
+     "plan_page": "weapon",
+     "plan_page_group": null,
+     "weapon_role": "skin",
+     "weapon_group": "Baton",
+     "weapon_group_key": "baton",
+     "weapon_group_solo": false
+    },
+    {
+     "kind": "plan",
+     "brand": "df",
+     "type": "weapon",
+     "id": "PLAN_008F2A44",
+     "name": "Plan: Western Spirit Paint",
+     "has_image_box": false,
+     "image_dir": "weapons",
+     "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+     "category_label": "Weapon Mod / Paint",
+     "obtain_routes": [
+      {
+       "route": "Event: Most Wanted",
+       "source_type": "event-quest",
+       "rate": 0.055556,
+       "rate_display": "5.56%",
+       "lvli": [
+        "0068B8EA"
+       ],
+       "conditions": []
+      },
+      {
+       "route": "Event: Most Wanted - GWWS",
+       "source_type": "event-quest",
+       "rate": 0.027778,
+       "rate_display": "2.78%",
+       "lvli": [
+        "0065E293",
+        "00660860"
+       ],
+       "conditions": []
+      }
+     ],
+     "obtain_unlocks": [],
+     "plan_item": {
+      "formid": "008F2A44",
+      "edid": "Recipe_mod_LeverGun_Paint_WesternSpirit"
+     },
+     "cobj": {
+      "formid": "00669577",
+      "edid": "E09D_co_mod_LeverGun_Ranged_Paint_WesternSpirit"
+     },
+     "cnam": {
+      "formid": "0066957D",
+      "edid": "E09D_mod_LeverGun_Weapon_Paint_WesternSpirit",
+      "sig": "OMOD"
+     },
+     "tradeable": true,
+     "stops_dropping": false,
+     "effects": null,
+     "cut": false,
+     "cut_reason": null,
+     "obtain_ledger": [
+      {
+       "label": "Events & Activities",
+       "routes": [
+        0,
+        1
+       ]
+      }
+     ],
+     "source_tag": "Events",
+     "images": [],
+     "image_source": "",
+     "plan_page": "weapon",
+     "plan_page_group": null,
+     "weapon_role": "skin",
+     "weapon_group": "Lever Gun",
+     "weapon_group_key": "lever-gun",
+     "weapon_group_solo": false
+    },
+    {
+     "kind": "plan",
+     "brand": "df",
+     "type": "weapon",
+     "id": "PLAN_008F2A46",
+     "name": "Plan: Whacker Smacker Paint",
+     "has_image_box": false,
+     "image_dir": "weapons",
+     "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+     "category_label": "Weapon Mod / Paint",
+     "obtain_routes": [
+      {
+       "route": "Event: Spin The Wheel",
+       "source_type": "event-quest",
+       "rate": 0.071429,
+       "rate_display": "7.14%",
+       "lvli": [
+        "00647B22",
+        "00647B23",
+        "0068B8E8"
+       ],
+       "conditions": []
+      },
+      {
+       "route": "Event: Spin The Wheel",
+       "source_type": "event-quest",
+       "rate": 0.035714,
+       "rate_display": "3.57%",
+       "lvli": [
+        "00647B22",
+        "00647B23",
+        "0068B8E8"
+       ],
+       "conditions": []
+      }
+     ],
+     "obtain_unlocks": [],
+     "plan_item": {
+      "formid": "008F2A46",
+      "edid": "Recipe_mod_SuperSledge_Paint_WhackerSmacker"
+     },
+     "cobj": {
+      "formid": "00685D4B",
+      "edid": "E09B_co_SuperSledge_Paint_WhackerSmacker"
+     },
+     "cnam": {
+      "formid": "00674C25",
+      "edid": "E09B_SuperSledge_Weapon_Paint_WhackerSmacker",
+      "sig": "OMOD"
+     },
+     "tradeable": true,
+     "stops_dropping": false,
+     "effects": null,
+     "cut": false,
+     "cut_reason": null,
+     "obtain_ledger": [
+      {
+       "label": "Events & Activities",
+       "routes": [
+        0,
+        1
+       ]
+      }
+     ],
+     "source_tag": "Events",
+     "images": [],
+     "image_source": "",
+     "plan_page": "weapon",
+     "plan_page_group": null,
+     "weapon_role": "skin",
+     "weapon_group": "Super Sledge",
+     "weapon_group_key": "super-sledge",
+     "weapon_group_solo": false
+    }
+   ],
+   "count": 9
+  }
+ ]
 }
