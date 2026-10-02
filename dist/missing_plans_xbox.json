@@ -1,12 +1,12 @@
 {
  "version": 1,
- "generated": "2026-10-01T21:48:15.551Z",
+ "generated": "2026-10-02T19:00:04.375Z",
  "platform": "xbox",
  "label": "Xbox",
  "source": "discord",
- "synced_at": "2026-10-01T21:48:15.551Z",
+ "synced_at": "2026-10-02T19:00:04.374Z",
  "updated_at": "2026-10-01T21:47:15.533Z",
- "count": 10,
+ "count": 11,
  "grouping": "plan-page",
  "groups": [
   {
@@ -545,6 +545,108 @@
      "kind": "plan",
      "brand": "df",
      "type": "weapon",
+     "id": "PLAN_00913B61",
+     "name": "Plan: Railway Rifle Shotgun Receiver",
+     "has_image_box": false,
+     "image_dir": "weapons",
+     "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+     "category_label": "Weapon Mod / Paint",
+     "obtain_routes": [
+      {
+       "route": "Weapons Common",
+       "source_type": "event-quest",
+       "rate": 0.017241,
+       "rate_display": "1.72%",
+       "lvli": [
+        "005D9CC2"
+       ],
+       "conditions": []
+      },
+      {
+       "route": "Daily Ops - Low Chase Rare",
+       "source_type": "event-quest",
+       "rate": 0.008621,
+       "rate_display": "0.86%",
+       "lvli": [
+        "005D9CBC"
+       ],
+       "conditions": [
+        "Level 49 and below"
+       ]
+      },
+      {
+       "route": "Daily Ops - Rare",
+       "source_type": "event-quest",
+       "rate": 0.008621,
+       "rate_display": "0.86%",
+       "lvli": [
+        "005D9CBF"
+       ],
+       "conditions": [
+        "Level 49 and below"
+       ]
+      },
+      {
+       "route": "Daily Ops - Chase",
+       "source_type": "event-quest",
+       "rate": 0.00431,
+       "rate_display": "0.43%",
+       "lvli": [
+        "005CB9FF",
+        "005DBD0D",
+        "005DBD0F"
+       ],
+       "conditions": [
+        "Level 49 and below"
+       ]
+      }
+     ],
+     "obtain_unlocks": [],
+     "plan_item": {
+      "formid": "00913B61",
+      "edid": "recipe_mod_RailwayRifle_Receiver_Splitter"
+     },
+     "cobj": {
+      "formid": "00913B63",
+      "edid": "co_mod_RailwayRifle_Receiver_Splitter"
+     },
+     "cnam": {
+      "formid": "00913B65",
+      "edid": "mod_RailwayRifle_Receiver_Splitter",
+      "sig": "OMOD"
+     },
+     "tradeable": true,
+     "stops_dropping": false,
+     "effects": null,
+     "cut": false,
+     "cut_reason": null,
+     "obtain_ledger": [
+      {
+       "label": "Events & Activities",
+       "routes": [
+        0,
+        1,
+        2,
+        3
+       ]
+      }
+     ],
+     "source_tag": "Activities",
+     "images": [
+      "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
+     ],
+     "image_source": "weapon-mod",
+     "plan_page": "weapon",
+     "plan_page_group": null,
+     "weapon_role": "mod",
+     "weapon_group": "Railway Rifle",
+     "weapon_group_key": "railway-rifle",
+     "weapon_group_solo": false
+    },
+    {
+     "kind": "plan",
+     "brand": "df",
+     "type": "weapon",
      "id": "PLAN_0091C66A",
      "name": "Plan: Shock Baton Paint",
      "has_image_box": false,
@@ -746,7 +848,7 @@
      "weapon_group_solo": false
     }
    ],
-   "count": 9
+   "count": 10
   }
  ]
 }
