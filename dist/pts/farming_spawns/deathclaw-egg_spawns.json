@@ -2,7 +2,7 @@
  "_meta": {
   "generated": "2026-10-02",
   "source": "Game-file exports (LVLI/ALCH/MISC) + Mappalachia Position (cached for CI)",
-  "lists_in_closure": 18,
+  "lists_in_closure": 17,
   "source_totals": {
    "direct": 15,
    "nest": 19,
@@ -43,42 +43,9 @@
    "types": []
   },
   "vendors": null,
-  "resource_generators": {
-   "entries": [
-    {
-     "name": "Abandoned Nest",
-     "edid": "ATX_ENTM_CAMP_Collector_AbandonedNest",
-     "obtain": "Purchase from the Atom Shop.",
-     "interval": "10 min 12 sec",
-     "items": [
-      {
-       "name": "Deathclaw Egg",
-       "form_id": "00046939",
-       "rate": 0.6,
-       "rate_display": "60%",
-       "rate_source": "computed"
-      }
-     ]
-    }
-   ]
-  },
+  "resource_generators": null,
   "collectrons": {
    "entries": [
-    {
-     "name": "Sir Loin Collectron Station",
-     "edid": "ATX_ENTM_CAMP_Utility_Collectron_SirLoin",
-     "obtain": "Purchase from the Atom Shop.",
-     "interval": "9 min",
-     "items": [
-      {
-       "name": "Deathclaw Egg",
-       "form_id": "00046939",
-       "rate": 0.0625,
-       "rate_display": "6.25%",
-       "rate_source": "computed"
-      }
-     ]
-    },
     {
      "name": "F.E.T.C.H. Collectron Station",
      "edid": "SCORE_S6_ENTM_CAMP_Utility_Collectron_FETCH",
@@ -106,6 +73,21 @@
        "rate": 0.001023,
        "rate_display": "0.1%",
        "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Sir Loin Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_SirLoin",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "9 min",
+     "items": [
+      {
+       "name": "Deathclaw Egg",
+       "form_id": "00046939",
+       "rate": 0.0,
+       "rate_display": "0%",
+       "rate_source": "computed_zero"
       }
      ]
     }

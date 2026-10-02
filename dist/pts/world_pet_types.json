@@ -1,9 +1,9 @@
 {
   "meta": {
-    "export": "September 2026",
+    "export": "October 2026",
     "featureAdded": "Jun 2026",
     "channel": "live",
-    "hasWorldPetsData": true
+    "hasWorldPetsData": false
   },
   "routes": [
     "Caps",
@@ -233,9 +233,9 @@
       "fortifyCarryWeight": {
         "name": "Pet Carrier",
         "ranks": [
+          5,
           10,
-          20,
-          30
+          15
         ],
         "levels": [
           null,
@@ -251,10 +251,10 @@
           null
         ],
         "damage": [
-          2,
-          3.5,
-          5.5,
-          8
+          200,
+          350,
+          550,
+          800
         ],
         "damageMult": [
           2,
@@ -275,919 +275,12 @@
     "source": "FLST WorldPets_LvRewards_<Species> + GMRW + ENTM",
     "claimedIn": "Pip-Boy PETS - Pet Progression Menu",
     "species": {
-      "cat": [
-        {
-          "level": 10,
-          "levelConfirmed": false,
-          "slot": "COS_PlayerTitlePrefix01",
-          "type": "cosmetic",
-          "kind": "TITL",
-          "gmrw": "WorldPets_LvReward_Cat_TITL_Prefix01_Feline",
-          "gmrwFormId": "0091C657",
-          "entitlement": "WorldPets_ENTM_Cat_TITL_Prefix01_Feline",
-          "name": "Feline",
-          "texture": "Textures/ATX/Storefront/Player/PlayerTitles/WorldPets_Reward_PlayerTitles_Prefix_Feline",
-          "titlePart": "prefix"
-        },
-        {
-          "level": 15,
-          "levelConfirmed": false,
-          "slot": "CUR_Atom01",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_Caps01",
-          "gmrwFormId": "0091C653",
-          "entitlement": "",
-          "name": "350 Caps",
-          "texture": "",
-          "amount": 350,
-          "unit": "Caps"
-        },
-        {
-          "level": 25,
-          "levelConfirmed": true,
-          "slot": "COS_PlayerIcon01",
-          "type": "cosmetic",
-          "kind": "ICON",
-          "gmrw": "WorldPets_LvReward_Cat_ICON_01_PawIcon",
-          "gmrwFormId": "008B2002",
-          "entitlement": "WorldPets_ENTM_Cat_ICON_01_PawIcon",
-          "name": "Cat Print Player Icon",
-          "texture": "Textures/ATX/Storefront/Player/PlayerIcons/WorldPets_PlayerIcon_PetCat01.dds"
-        },
-        {
-          "level": 35,
-          "levelConfirmed": true,
-          "slot": "CUR_PerkCards01",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_Atoms01_Copy01",
-          "gmrwFormId": "008B2018",
-          "entitlement": "",
-          "name": "50 Atoms",
-          "texture": "",
-          "amount": 50,
-          "unit": "Atoms"
-        },
-        {
-          "level": 45,
-          "levelConfirmed": false,
-          "slot": "COS_PetEquipment01",
-          "type": "cosmetic",
-          "kind": "COSM",
-          "gmrw": "WorldPets_LvReward_Cat_COSM_01_TanCollar",
-          "gmrwFormId": "0091C659",
-          "entitlement": "WorldPets_ENTM_Cat_COSM_01_TanCollar",
-          "name": "Cat Tan Collar",
-          "texture": "Textures/ATX/Storefront/Player/Outfit/WorldPets_Reward_Apparel_Pet_Cat_TanCollar.dds",
-          "cosmetic": "pet"
-        },
-        {
-          "level": 55,
-          "levelConfirmed": false,
-          "slot": "COS_PlayerTitleSuffix01",
-          "type": "cosmetic",
-          "kind": "TITL",
-          "gmrw": "WorldPets_LvReward_Cat_TITL_Suffix01_Whiskers",
-          "gmrwFormId": "0091C65D",
-          "entitlement": "WorldPets_ENTM_Cat_TITL_Suffix01_Whiskers",
-          "name": "Whiskers",
-          "texture": "Textures/ATX/Storefront/Player/PlayerTitles/WorldPets_Reward_PlayerTitles_Suffix_Whiskers",
-          "titlePart": "suffix"
-        },
-        {
-          "level": 65,
-          "levelConfirmed": false,
-          "slot": "COS_BackpackFlair01",
-          "type": "cosmetic",
-          "kind": "COSM",
-          "gmrw": "WorldPets_LvReward_Cat_COSM_01_Medallion",
-          "gmrwFormId": "0091C658",
-          "entitlement": "WorldPets_ENTM_Cat_COSM_01_Medallion",
-          "name": "Cat Medallion",
-          "texture": "Textures/ATX/Storefront/Player/Flair/WorldPets_Reward_Skin_BackpackFlair_Cat.dds",
-          "cosmetic": "flair"
-        },
-        {
-          "level": 75,
-          "levelConfirmed": true,
-          "slot": "CUR_PerkCoins01",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_PerkCoins01",
-          "gmrwFormId": "008B2019",
-          "entitlement": "",
-          "name": "150 Perk Coins",
-          "texture": "",
-          "amount": 150,
-          "unit": "Perk Coins"
-        },
-        {
-          "level": 80,
-          "levelConfirmed": true,
-          "slot": "COS_PlayerIcon02",
-          "type": "cosmetic",
-          "kind": "ICON",
-          "gmrw": "WorldPets_LvReward_Cat_ICON_02_FaceIcon",
-          "gmrwFormId": "008B2003",
-          "entitlement": "WorldPets_ENTM_Cat_ICON_02_FaceIcon",
-          "name": "Cat Face Player Icon",
-          "texture": "Textures/ATX/Storefront/Player/PlayerIcons/WorldPets_PlayerIcon_PetCat02.dds"
-        },
-        {
-          "level": 90,
-          "levelConfirmed": false,
-          "slot": "COS_PlayerTitlePrefix02",
-          "type": "cosmetic",
-          "kind": "TITL",
-          "gmrw": "WorldPets_LvReward_Cat_TITL_Prefix02_Prowling",
-          "gmrwFormId": "0091C655",
-          "entitlement": "WorldPets_ENTM_Cat_TITL_Prefix02_Prowling",
-          "name": "Prowling",
-          "texture": "Textures/ATX/Storefront/Player/PlayerTitles/WorldPets_Reward_PlayerTitles_Prefix_Prowling",
-          "titlePart": "prefix"
-        },
-        {
-          "level": 95,
-          "levelConfirmed": false,
-          "slot": "COS_PetEquipment02",
-          "type": "cosmetic",
-          "kind": "COSM",
-          "gmrw": "WorldPets_LvReward_Cat_COSM_02_RedRubyCollar",
-          "gmrwFormId": "0091C65B",
-          "entitlement": "WorldPets_ENTM_Cat_COSM_02_RedRubyCollar",
-          "name": "Cat Red Collar",
-          "texture": "Textures/ATX/Storefront/Player/Outfit/WorldPets_Reward_Apparel_Pet_Cat_RedRubyCollar.dds",
-          "cosmetic": "pet"
-        },
-        {
-          "level": 110,
-          "levelConfirmed": true,
-          "slot": "CUR_Lunchboxes01",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_Lunchboxes01",
-          "gmrwFormId": "008B2017",
-          "entitlement": "",
-          "name": "10 Lunchbox",
-          "texture": "",
-          "amount": 10,
-          "unit": "Lunchbox"
-        },
-        {
-          "level": 130,
-          "levelConfirmed": false,
-          "slot": "COS_PlayerTitleSuffix02",
-          "type": "cosmetic",
-          "kind": "TITL",
-          "gmrw": "WorldPets_LvReward_Cat_TITL_Suffix02_Meow",
-          "gmrwFormId": "0091C65A",
-          "entitlement": "WorldPets_ENTM_Cat_TITL_Suffix02_Meow",
-          "name": "Meow",
-          "texture": "Textures/ATX/Storefront/Player/PlayerTitles/WorldPets_Reward_PlayerTitles_Suffix_Meow",
-          "titlePart": "suffix"
-        },
-        {
-          "level": 140,
-          "levelConfirmed": true,
-          "slot": "CUR_GoldBullions01",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_LegendaryModules01",
-          "gmrwFormId": "008B2016",
-          "entitlement": "",
-          "name": "100 Legendary Module",
-          "texture": "",
-          "amount": 100,
-          "unit": "Legendary Module"
-        },
-        {
-          "level": 160,
-          "levelConfirmed": false,
-          "slot": "COS_Backpack01",
-          "type": "cosmetic",
-          "kind": "COSM",
-          "gmrw": "WorldPets_LvReward_Cat_COSM_01_Backpack",
-          "gmrwFormId": "0091C65C",
-          "entitlement": "WorldPets_ENTM_Cat_COSM_01_Backpack",
-          "name": "Cat Backpack",
-          "texture": "Textures/ATX/Storefront/Player/Backpack/WorldPets_Reward_Skin_Backpack_Cat.dds",
-          "cosmetic": "backpack"
-        },
-        {
-          "level": 180,
-          "levelConfirmed": false,
-          "slot": "CUR_Atom02",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_Atoms02",
-          "gmrwFormId": "0091C652",
-          "entitlement": "",
-          "name": "500 Atoms",
-          "texture": "",
-          "amount": 500,
-          "unit": "Atoms"
-        },
-        {
-          "level": 190,
-          "levelConfirmed": false,
-          "slot": "COS_PlayerOutfit01",
-          "type": "cosmetic",
-          "kind": "COSM",
-          "gmrw": "WorldPets_LvReward_Cat_COSM_01_TamerOutfit",
-          "gmrwFormId": "0091C656",
-          "entitlement": "WorldPets_ENTM_Cat_COSM_01_TamerOutfit",
-          "name": "Cat Tamer Outfit",
-          "texture": "Textures/ATX/Storefront/Player/Outfit/WorldPets_Reward_Apparel_Outfit_TamerCat.dds",
-          "cosmetic": "outfit"
-        }
-      ],
-      "deathclaw": [
-        {
-          "level": 10,
-          "levelConfirmed": false,
-          "slot": "COS_PlayerTitlePrefix01",
-          "type": "cosmetic",
-          "kind": "TITL",
-          "gmrw": "WorldPets_LvReward_Deathclaw_TITL_Prefix01_Fearsome",
-          "gmrwFormId": "0091C654",
-          "entitlement": "WorldPets_ENTM_Deathclaw_TITL_Prefix01_Fearsome",
-          "name": "Fearsome",
-          "texture": "Textures/ATX/Storefront/Player/PlayerTitles/WorldPets_Reward_PlayerTitles_Prefix_Fearsome",
-          "titlePart": "prefix"
-        },
-        {
-          "level": 15,
-          "levelConfirmed": false,
-          "slot": "CUR_Atom01",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_Caps01",
-          "gmrwFormId": "0091C653",
-          "entitlement": "",
-          "name": "350 Caps",
-          "texture": "",
-          "amount": 350,
-          "unit": "Caps"
-        },
-        {
-          "level": 25,
-          "levelConfirmed": true,
-          "slot": "COS_PlayerIcon01",
-          "type": "cosmetic",
-          "kind": "ICON",
-          "gmrw": "WorldPets_LvReward_Deathclaw_ICON_01_PawIcon",
-          "gmrwFormId": "008C90DE",
-          "entitlement": "WorldPets_ENTM_Deathclaw_ICON_01_PawIcon",
-          "name": "Deathclaw Print Player Icon",
-          "texture": "Textures/ATX/Storefront/Player/PlayerIcons/WorldPets_PlayerIcon_PetDeathclaw01.dds"
-        },
-        {
-          "level": 35,
-          "levelConfirmed": true,
-          "slot": "CUR_PerkCards01",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_Atoms01_Copy01",
-          "gmrwFormId": "008B2018",
-          "entitlement": "",
-          "name": "50 Atoms",
-          "texture": "",
-          "amount": 50,
-          "unit": "Atoms"
-        },
-        {
-          "level": 45,
-          "levelConfirmed": false,
-          "slot": "COS_PetEquipment01",
-          "type": "cosmetic",
-          "kind": "COSM",
-          "gmrw": "WorldPets_LvReward_Deathclaw_COSM_01_RustyArmor",
-          "gmrwFormId": "008B5387",
-          "entitlement": "WorldPets_ENTM_Deathclaw_COSM_01_RustyArmor",
-          "name": "Deathclaw Rusty Armor",
-          "texture": "Textures/ATX/Storefront/Player/Outfit/WorldPets_Reward_Apparel_Pet_Deathclaw_RustyArmor.dds",
-          "cosmetic": "pet"
-        },
-        {
-          "level": 55,
-          "levelConfirmed": false,
-          "slot": "COS_PlayerTitleSuffix01",
-          "type": "cosmetic",
-          "kind": "TITL",
-          "gmrw": "WorldPets_LvReward_Deathclaw_TITL_Suffix01_Reptilian",
-          "gmrwFormId": "0091C651",
-          "entitlement": "WorldPets_ENTM_Deathclaw_TITL_Suffix01_Reptilian",
-          "name": "Reptilian",
-          "texture": "Textures/ATX/Storefront/Player/PlayerTitles/WorldPets_Reward_PlayerTitles_Suffix_Reptilian",
-          "titlePart": "suffix"
-        },
-        {
-          "level": 65,
-          "levelConfirmed": false,
-          "slot": "COS_BackpackFlair01",
-          "type": "cosmetic",
-          "kind": "COSM",
-          "gmrw": "WorldPets_LvReward_Deathclaw_COSM_01_Medallion",
-          "gmrwFormId": "008B5388",
-          "entitlement": "WorldPets_ENTM_Deathclaw_COSM_01_Medallion",
-          "name": "Deathclaw Medallion",
-          "texture": "Textures/ATX/Storefront/Player/Flair/WorldPets_Reward_Skin_BackpackFlair_Deathclaw.dds",
-          "cosmetic": "flair"
-        },
-        {
-          "level": 75,
-          "levelConfirmed": true,
-          "slot": "CUR_PerkCoins01",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_PerkCoins01",
-          "gmrwFormId": "008B2019",
-          "entitlement": "",
-          "name": "150 Perk Coins",
-          "texture": "",
-          "amount": 150,
-          "unit": "Perk Coins"
-        },
-        {
-          "level": 80,
-          "levelConfirmed": true,
-          "slot": "COS_PlayerIcon02",
-          "type": "cosmetic",
-          "kind": "ICON",
-          "gmrw": "WorldPets_LvReward_Deathclaw_ICON_02_FaceIcon",
-          "gmrwFormId": "008C90DF",
-          "entitlement": "WorldPets_ENTM_Deathclaw_ICON_02_FaceIcon",
-          "name": "Deathclaw Face Player Icon",
-          "texture": "Textures/ATX/Storefront/Player/PlayerIcons/WorldPets_PlayerIcon_PetDeathclaw02.dds"
-        },
-        {
-          "level": 90,
-          "levelConfirmed": false,
-          "slot": "COS_PlayerTitlePrefix02",
-          "type": "cosmetic",
-          "kind": "TITL",
-          "gmrw": "WorldPets_LvReward_Deathclaw_TITL_Prefix02_ColdBlooded",
-          "gmrwFormId": "0091C64F",
-          "entitlement": "WorldPets_ENTM_Deathclaw_TITL_Prefix02_ColdBlooded",
-          "name": "Cold Blooded",
-          "texture": "Textures/ATX/Storefront/Player/PlayerTitles/WorldPets_Reward_PlayerTitles_Prefix_ColdBlooded",
-          "titlePart": "prefix"
-        },
-        {
-          "level": 95,
-          "levelConfirmed": false,
-          "slot": "COS_PetEquipment02",
-          "type": "cosmetic",
-          "kind": "COSM",
-          "gmrw": "WorldPets_LvReward_Deathclaw_COSM_02_FlameArmor",
-          "gmrwFormId": "008B5389",
-          "entitlement": "WorldPets_ENTM_Deathclaw_COSM_02_FlameArmor",
-          "name": "Deathclaw Flame Armor",
-          "texture": "Textures/ATX/Storefront/Player/Outfit/WorldPets_Reward_Apparel_Pet_Deathclaw_FlameArmor.dds",
-          "cosmetic": "pet"
-        },
-        {
-          "level": 110,
-          "levelConfirmed": true,
-          "slot": "CUR_Lunchboxes01",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_Lunchboxes01",
-          "gmrwFormId": "008B2017",
-          "entitlement": "",
-          "name": "10 Lunchbox",
-          "texture": "",
-          "amount": 10,
-          "unit": "Lunchbox"
-        },
-        {
-          "level": 130,
-          "levelConfirmed": false,
-          "slot": "COS_PlayerTitleSuffix02",
-          "type": "cosmetic",
-          "kind": "TITL",
-          "gmrw": "WorldPets_LvReward_Deathclaw_TITL_Suffix02_Brute",
-          "gmrwFormId": "0091C650",
-          "entitlement": "WorldPets_ENTM_Deathclaw_TITL_Suffix02_Brute",
-          "name": "Brute",
-          "texture": "Textures/ATX/Storefront/Player/PlayerTitles/WorldPets_Reward_PlayerTitles_Suffix_Brute",
-          "titlePart": "suffix"
-        },
-        {
-          "level": 140,
-          "levelConfirmed": true,
-          "slot": "CUR_GoldBullions01",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_LegendaryModules01",
-          "gmrwFormId": "008B2016",
-          "entitlement": "",
-          "name": "100 Legendary Module",
-          "texture": "",
-          "amount": 100,
-          "unit": "Legendary Module"
-        },
-        {
-          "level": 160,
-          "levelConfirmed": false,
-          "slot": "COS_Backpack01",
-          "type": "cosmetic",
-          "kind": "COSM",
-          "gmrw": "WorldPets_LvReward_Deathclaw_COSM_01_Backpack",
-          "gmrwFormId": "008B538A",
-          "entitlement": "WorldPets_ENTM_Deathclaw_COSM_01_Backpack",
-          "name": "Deathclaw Backpack",
-          "texture": "Textures/ATX/Storefront/Player/Backpack/WorldPets_Reward_Skin_Backpack_Deathclaw.dds",
-          "cosmetic": "backpack"
-        },
-        {
-          "level": 180,
-          "levelConfirmed": false,
-          "slot": "CUR_Atom02",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_Atoms02",
-          "gmrwFormId": "0091C652",
-          "entitlement": "",
-          "name": "500 Atoms",
-          "texture": "",
-          "amount": 500,
-          "unit": "Atoms"
-        },
-        {
-          "level": 190,
-          "levelConfirmed": false,
-          "slot": "COS_PlayerOutfit01",
-          "type": "cosmetic",
-          "kind": "COSM",
-          "gmrw": "WorldPets_LvReward_Deathclaw_COSM_01_TamerOutfit",
-          "gmrwFormId": "008B538C",
-          "entitlement": "WorldPets_ENTM_Deathclaw_COSM_01_TamerOutfit",
-          "name": "Deathclaw Tamer Outfit",
-          "texture": "Textures/ATX/Storefront/Player/Outfit/WorldPets_Reward_Apparel_Outfit_TamerDeathclaw.dds",
-          "cosmetic": "outfit"
-        }
-      ],
-      "dog": [
-        {
-          "level": 10,
-          "levelConfirmed": false,
-          "slot": "COS_PlayerTitlePrefix01",
-          "type": "cosmetic",
-          "kind": "TITL",
-          "gmrw": "WorldPets_LvReward_Dog_TITL_Prefix01_Canine",
-          "gmrwFormId": "00921CCA",
-          "entitlement": "WorldPets_ENTM_Dog_TITL_Prefix01_Canine",
-          "name": "Canine",
-          "texture": "Textures/ATX/Storefront/Player/PlayerTitles/WorldPets_Reward_PlayerTitles_Prefix_Canine",
-          "titlePart": "prefix"
-        },
-        {
-          "level": 15,
-          "levelConfirmed": false,
-          "slot": "CUR_Atom01",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_Caps01",
-          "gmrwFormId": "0091C653",
-          "entitlement": "",
-          "name": "350 Caps",
-          "texture": "",
-          "amount": 350,
-          "unit": "Caps"
-        },
-        {
-          "level": 25,
-          "levelConfirmed": true,
-          "slot": "COS_PlayerIcon01",
-          "type": "cosmetic",
-          "kind": "ICON",
-          "gmrw": "WorldPets_LvReward_Dog_ICON_01_PawIcon",
-          "gmrwFormId": "008B200A",
-          "entitlement": "WorldPets_ENTM_Dog_ICON_01_PawIcon",
-          "name": "Dog Print Player Icon",
-          "texture": "Textures/ATX/Storefront/Player/PlayerIcons/WorldPets_PlayerIcon_PetDog01.dds"
-        },
-        {
-          "level": 35,
-          "levelConfirmed": true,
-          "slot": "CUR_PerkCards01",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_Atoms01_Copy01",
-          "gmrwFormId": "008B2018",
-          "entitlement": "",
-          "name": "50 Atoms",
-          "texture": "",
-          "amount": 50,
-          "unit": "Atoms"
-        },
-        {
-          "level": 45,
-          "levelConfirmed": false,
-          "slot": "COS_PetEquipment01",
-          "type": "cosmetic",
-          "kind": "COSM",
-          "gmrw": "WorldPets_LvReward_Dog_COSM_01_PlaidBandana",
-          "gmrwFormId": "008B538E",
-          "entitlement": "WorldPets_ENTM_Dog_COSM_01_PlaidBandana",
-          "name": "Dog Plaid Bandana",
-          "texture": "Textures/ATX/Storefront/Player/Outfit/WorldPets_Reward_Apparel_Pet_Dog_PlaidBandana.dds",
-          "cosmetic": "pet"
-        },
-        {
-          "level": 55,
-          "levelConfirmed": false,
-          "slot": "COS_PlayerTitleSuffix01",
-          "type": "cosmetic",
-          "kind": "TITL",
-          "gmrw": "WorldPets_LvReward_Dog_TITL_Suffix01_Hound",
-          "gmrwFormId": "00921CCC",
-          "entitlement": "WorldPets_ENTM_Dog_TITL_Suffix01_Hound",
-          "name": "Hound",
-          "texture": "Textures/ATX/Storefront/Player/PlayerTitles/WorldPets_Reward_PlayerTitles_Suffix_Hound",
-          "titlePart": "suffix"
-        },
-        {
-          "level": 65,
-          "levelConfirmed": false,
-          "slot": "COS_BackpackFlair01",
-          "type": "cosmetic",
-          "kind": "COSM",
-          "gmrw": "WorldPets_LvReward_Dog_COSM_01_Medallion",
-          "gmrwFormId": "008B5390",
-          "entitlement": "WorldPets_ENTM_Dog_COSM_01_Medallion",
-          "name": "Dog Medallion",
-          "texture": "Textures/ATX/Storefront/Player/Flair/WorldPets_Reward_Skin_BackpackFlair_Dog.dds",
-          "cosmetic": "flair"
-        },
-        {
-          "level": 75,
-          "levelConfirmed": true,
-          "slot": "CUR_PerkCoins01",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_PerkCoins01",
-          "gmrwFormId": "008B2019",
-          "entitlement": "",
-          "name": "150 Perk Coins",
-          "texture": "",
-          "amount": 150,
-          "unit": "Perk Coins"
-        },
-        {
-          "level": 80,
-          "levelConfirmed": true,
-          "slot": "COS_PlayerIcon02",
-          "type": "cosmetic",
-          "kind": "ICON",
-          "gmrw": "WorldPets_LvReward_Dog_ICON_02_FaceIcon",
-          "gmrwFormId": "008B200B",
-          "entitlement": "WorldPets_ENTM_Dog_ICON_02_FaceIcon",
-          "name": "Dog Face Player Icon",
-          "texture": "Textures/ATX/Storefront/Player/PlayerIcons/WorldPets_PlayerIcon_PetDog02.dds"
-        },
-        {
-          "level": 90,
-          "levelConfirmed": false,
-          "slot": "COS_PlayerTitlePrefix02",
-          "type": "cosmetic",
-          "kind": "TITL",
-          "gmrw": "WorldPets_LvReward_Dog_TITL_Prefix02_Pup",
-          "gmrwFormId": "00921CCB",
-          "entitlement": "WorldPets_ENTM_Dog_TITL_Prefix02_Pup",
-          "name": "Pup",
-          "texture": "Textures/ATX/Storefront/Player/PlayerTitles/WorldPets_Reward_PlayerTitles_Prefix_Pup",
-          "titlePart": "prefix"
-        },
-        {
-          "level": 95,
-          "levelConfirmed": false,
-          "slot": "COS_PetEquipment02",
-          "type": "cosmetic",
-          "kind": "COSM",
-          "gmrw": "WorldPets_LvReward_Dog_COSM_02_VaultTecBandana",
-          "gmrwFormId": "008B5392",
-          "entitlement": "WorldPets_ENTM_Dog_COSM_02_VaultTecBandana",
-          "name": "Dog Vault-Tec Bandana",
-          "texture": "Textures/ATX/Storefront/Player/Outfit/WorldPets_Reward_Apparel_Pet_Dog_VaultTecBandana.dds",
-          "cosmetic": "pet"
-        },
-        {
-          "level": 110,
-          "levelConfirmed": true,
-          "slot": "CUR_Lunchboxes01",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_Lunchboxes01",
-          "gmrwFormId": "008B2017",
-          "entitlement": "",
-          "name": "10 Lunchbox",
-          "texture": "",
-          "amount": 10,
-          "unit": "Lunchbox"
-        },
-        {
-          "level": 130,
-          "levelConfirmed": false,
-          "slot": "COS_PlayerTitleSuffix02",
-          "type": "cosmetic",
-          "kind": "TITL",
-          "gmrw": "WorldPets_LvReward_Dog_TITL_Suffix02_Loyal",
-          "gmrwFormId": "00921CCD",
-          "entitlement": "WorldPets_ENTM_Dog_TITL_Suffix02_Loyal",
-          "name": "Loyal",
-          "texture": "Textures/ATX/Storefront/Player/PlayerTitles/WorldPets_Reward_PlayerTitles_Suffix_Loyal",
-          "titlePart": "suffix"
-        },
-        {
-          "level": 140,
-          "levelConfirmed": true,
-          "slot": "CUR_GoldBullions01",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_LegendaryModules01",
-          "gmrwFormId": "008B2016",
-          "entitlement": "",
-          "name": "100 Legendary Module",
-          "texture": "",
-          "amount": 100,
-          "unit": "Legendary Module"
-        },
-        {
-          "level": 160,
-          "levelConfirmed": false,
-          "slot": "COS_Backpack01",
-          "type": "cosmetic",
-          "kind": "COSM",
-          "gmrw": "WorldPets_LvReward_Dog_COSM_01_Backpack",
-          "gmrwFormId": "008B2013",
-          "entitlement": "WorldPets_ENTM_Dog_COSM_01_Backpack",
-          "name": "Dog Backpack",
-          "texture": "Textures/ATX/Storefront/Player/Backpack/WorldPets_Reward_Skin_Backpack_Dog.dds",
-          "cosmetic": "backpack"
-        },
-        {
-          "level": 180,
-          "levelConfirmed": false,
-          "slot": "CUR_Atom02",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_Atoms02",
-          "gmrwFormId": "0091C652",
-          "entitlement": "",
-          "name": "500 Atoms",
-          "texture": "",
-          "amount": 500,
-          "unit": "Atoms"
-        },
-        {
-          "level": 190,
-          "levelConfirmed": false,
-          "slot": "COS_PlayerOutfit01",
-          "type": "cosmetic",
-          "kind": "COSM",
-          "gmrw": "WorldPets_LvReward_Dog_COSM_01_TamerOutfit",
-          "gmrwFormId": "008B2012",
-          "entitlement": "WorldPets_ENTM_Dog_COSM_01_TamerOutfit",
-          "name": "Dog Tamer Outfit",
-          "texture": "Textures/ATX/Storefront/Player/Outfit/WorldPets_Reward_Apparel_Outfit_TamerDog.dds",
-          "cosmetic": "outfit"
-        }
-      ],
-      "radhog": [
-        {
-          "level": 10,
-          "levelConfirmed": false,
-          "slot": "COS_PlayerTitlePrefix01",
-          "type": "cosmetic",
-          "kind": "TITL",
-          "gmrw": "WorldPets_LvReward_Radhog_TITL_Prefix01_Boarish",
-          "gmrwFormId": "00921CCE",
-          "entitlement": "WorldPets_ENTM_Radhog_TITL_Prefix01_Boarish",
-          "name": "Boarish",
-          "texture": "Textures/ATX/Storefront/Player/PlayerTitles/WorldPets_Reward_PlayerTitles_Prefix_Boarish",
-          "titlePart": "prefix"
-        },
-        {
-          "level": 15,
-          "levelConfirmed": false,
-          "slot": "CUR_Atom01",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_Caps01",
-          "gmrwFormId": "0091C653",
-          "entitlement": "",
-          "name": "350 Caps",
-          "texture": "",
-          "amount": 350,
-          "unit": "Caps"
-        },
-        {
-          "level": 25,
-          "levelConfirmed": true,
-          "slot": "COS_PlayerIcon01",
-          "type": "cosmetic",
-          "kind": "ICON",
-          "gmrw": "WorldPets_LvReward_Radhog_ICON_01_PawIcon",
-          "gmrwFormId": "008B201A",
-          "entitlement": "WorldPets_ENTM_Radhog_ICON_01_PawIcon",
-          "name": "Radhog Print Player Icon",
-          "texture": "Textures/ATX/Storefront/Player/PlayerIcons/WorldPets_PlayerIcon_PetRadhog01.dds"
-        },
-        {
-          "level": 35,
-          "levelConfirmed": true,
-          "slot": "CUR_PerkCards01",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_Atoms01_Copy01",
-          "gmrwFormId": "008B2018",
-          "entitlement": "",
-          "name": "50 Atoms",
-          "texture": "",
-          "amount": 50,
-          "unit": "Atoms"
-        },
-        {
-          "level": 45,
-          "levelConfirmed": false,
-          "slot": "COS_PetEquipment01",
-          "type": "cosmetic",
-          "kind": "COSM",
-          "gmrw": "WorldPets_LvReward_Radhog_COSM_01_GoldNoseRing",
-          "gmrwFormId": "008B2014",
-          "entitlement": "WorldPets_ENTM_Radhog_COSM_01_GoldNoseRing",
-          "name": "Radhog Gold Nose Ring",
-          "texture": "Textures/ATX/Storefront/Player/Outfit/WorldPets_Reward_Apparel_Pet_Radhog_GoldNoseRing.dds",
-          "cosmetic": "pet"
-        },
-        {
-          "level": 55,
-          "levelConfirmed": false,
-          "slot": "COS_PlayerTitleSuffix01",
-          "type": "cosmetic",
-          "kind": "TITL",
-          "gmrw": "WorldPets_LvReward_Radhog_TITL_Suffix01_Glutton",
-          "gmrwFormId": "00921CD0",
-          "entitlement": "WorldPets_ENTM_Radhog_TITL_Suffix01_Glutton",
-          "name": "Glutton",
-          "texture": "Textures/ATX/Storefront/Player/PlayerTitles/WorldPets_Reward_PlayerTitles_Suffix_Glutton",
-          "titlePart": "suffix"
-        },
-        {
-          "level": 65,
-          "levelConfirmed": false,
-          "slot": "COS_BackpackFlair01",
-          "type": "cosmetic",
-          "kind": "COSM",
-          "gmrw": "WorldPets_LvReward_Radhog_COSM_01_Medallion",
-          "gmrwFormId": "008B2015",
-          "entitlement": "WorldPets_ENTM_Radhog_COSM_01_Medallion",
-          "name": "Radhog Medallion",
-          "texture": "Textures/ATX/Storefront/Player/Flair/WorldPets_Reward_Skin_BackpackFlair_Radhog.dds",
-          "cosmetic": "flair"
-        },
-        {
-          "level": 75,
-          "levelConfirmed": true,
-          "slot": "CUR_PerkCoins01",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_PerkCoins01",
-          "gmrwFormId": "008B2019",
-          "entitlement": "",
-          "name": "150 Perk Coins",
-          "texture": "",
-          "amount": 150,
-          "unit": "Perk Coins"
-        },
-        {
-          "level": 80,
-          "levelConfirmed": true,
-          "slot": "COS_PlayerIcon02",
-          "type": "cosmetic",
-          "kind": "ICON",
-          "gmrw": "WorldPets_LvReward_Radhog_ICON_02_FaceIcon",
-          "gmrwFormId": "008B201B",
-          "entitlement": "WorldPets_ENTM_Radhog_ICON_02_FaceIcon",
-          "name": "Radhog Face Player Icon",
-          "texture": "Textures/ATX/Storefront/Player/PlayerIcons/WorldPets_PlayerIcon_PetRadhog02.dds"
-        },
-        {
-          "level": 90,
-          "levelConfirmed": false,
-          "slot": "COS_PlayerTitlePrefix02",
-          "type": "cosmetic",
-          "kind": "TITL",
-          "gmrw": "WorldPets_LvReward_Radhog_TITL_Prefix02_Porcine",
-          "gmrwFormId": "00921CCF",
-          "entitlement": "WorldPets_ENTM_Radhog_TITL_Prefix02_Porcine",
-          "name": "Porcine",
-          "texture": "Textures/ATX/Storefront/Player/PlayerTitles/WorldPets_Reward_PlayerTitles_Prefix_Porcine",
-          "titlePart": "prefix"
-        },
-        {
-          "level": 95,
-          "levelConfirmed": false,
-          "slot": "COS_PetEquipment02",
-          "type": "cosmetic",
-          "kind": "COSM",
-          "gmrw": "WorldPets_LvReward_Radhog_COSM_02_PatinaNoseRing",
-          "gmrwFormId": "00921CC7",
-          "entitlement": "WorldPets_ENTM_Radhog_COSM_02_PatinaNoseRing",
-          "name": "Radhog Patina Nose Ring",
-          "texture": "Textures/ATX/Storefront/Player/Outfit/WorldPets_Reward_Apparel_Pet_Radhog_PatinaNoseRing.dds",
-          "cosmetic": "pet"
-        },
-        {
-          "level": 110,
-          "levelConfirmed": true,
-          "slot": "CUR_Lunchboxes01",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_Lunchboxes01",
-          "gmrwFormId": "008B2017",
-          "entitlement": "",
-          "name": "10 Lunchbox",
-          "texture": "",
-          "amount": 10,
-          "unit": "Lunchbox"
-        },
-        {
-          "level": 130,
-          "levelConfirmed": false,
-          "slot": "COS_PlayerTitleSuffix02",
-          "type": "cosmetic",
-          "kind": "TITL",
-          "gmrw": "WorldPets_LvReward_Radhog_TITL_Suffix02_Swine",
-          "gmrwFormId": "00921CD1",
-          "entitlement": "WorldPets_ENTM_Radhog_TITL_Suffix02_Swine",
-          "name": "Swine",
-          "texture": "Textures/ATX/Storefront/Player/PlayerTitles/WorldPets_Reward_PlayerTitles_Suffix_Swine",
-          "titlePart": "suffix"
-        },
-        {
-          "level": 140,
-          "levelConfirmed": true,
-          "slot": "CUR_GoldBullions01",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_LegendaryModules01",
-          "gmrwFormId": "008B2016",
-          "entitlement": "",
-          "name": "100 Legendary Module",
-          "texture": "",
-          "amount": 100,
-          "unit": "Legendary Module"
-        },
-        {
-          "level": 160,
-          "levelConfirmed": false,
-          "slot": "COS_Backpack01",
-          "type": "cosmetic",
-          "kind": "COSM",
-          "gmrw": "WorldPets_LvReward_Radhog_COSM_01_Backpack",
-          "gmrwFormId": "00921CC8",
-          "entitlement": "WorldPets_ENTM_Radhog_COSM_01_Backpack",
-          "name": "Radhog Backpack",
-          "texture": "Textures/ATX/Storefront/Player/Backpack/WorldPets_Reward_Skin_Backpack_Radhog.dds",
-          "cosmetic": "backpack"
-        },
-        {
-          "level": 180,
-          "levelConfirmed": false,
-          "slot": "CUR_Atom02",
-          "type": "currency",
-          "kind": "CNCY",
-          "gmrw": "WorldPets_LvReward_All_CNCY_Atoms02",
-          "gmrwFormId": "0091C652",
-          "entitlement": "",
-          "name": "500 Atoms",
-          "texture": "",
-          "amount": 500,
-          "unit": "Atoms"
-        },
-        {
-          "level": 190,
-          "levelConfirmed": false,
-          "slot": "COS_PlayerOutfit01",
-          "type": "cosmetic",
-          "kind": "COSM",
-          "gmrw": "WorldPets_LvReward_Radhog_COSM_01_TamerOutfit",
-          "gmrwFormId": "00921CC9",
-          "entitlement": "WorldPets_ENTM_Radhog_COSM_01_TamerOutfit",
-          "name": "Radhog Tamer Outfit",
-          "texture": "Textures/ATX/Storefront/Player/Outfit/WorldPets_Reward_Apparel_Outfit_TamerRadhog.dds",
-          "cosmetic": "outfit"
-        }
-      ]
+      "cat": [],
+      "deathclaw": [],
+      "dog": [],
+      "radhog": []
     },
-    "unusedAltCaps": [
-      250,
-      800
-    ]
+    "unusedAltCaps": []
   },
   "levelling": {
     "totalXp": 303770,
@@ -1361,46 +454,13 @@
         3200
       ]
     ],
-    "tickSeconds": 60,
-    "rested": {
-      "name": "Pet Rested",
-      "desc": "10x Pet XP Bonus",
-      "multiplier": 10,
-      "durationSec": 14400,
-      "durationHours": 4.0,
-      "resets": "daily challenge reset"
-    },
+    "tickSeconds": null,
+    "rested": null,
     "help": {
-      "overview": [
-        "Pets can follow you in the Appalachian. More than that, they can be issued commands, do combat, earn experience points and rewards!",
-        "You may acquire Pets in the Atomic Shop. Luckily, there is one available for free!",
-        "Pip-Boy  You can manage your Pet in the PETS section of the Pip-Boy, where is displayed the list of Pets you own, their name, their XP Level and their current health.",
-        "Use the Pip-Boy to activate any of your Pets. They will appear right next to you. Only 1 Pet can be active at a time. Pets can follow you pretty much everywhere. If your Pet cannot path to you, no worries. They will automatically find a way to regroup when allowed.",
-        "Command Wheel  You can interact with your Pet directly (or through the player emote wheel) to bring up the Pet Command Wheel and give your Pet Commands. This is also where you find the option to rename or customize your Pet."
-      ],
-      "leveling": [
-        "XP and Leveling  Pets gain experience points, level-up and earn rewards. Your active Pet banks XP every second (max 1 minute) and collects the banked XP every time you earn XP. Collecting Pet XP from a kill earns your Pet an extra 10 percent Pet XP.",
-        "Pets earn Bonus XP for the first few hours of every day. Players must have a Pet active and the Pet XP Bonus resets at the same time as daily challenges.",
-        "When your Pet as earned enough XP, they will gain Levels. At major level milestones, it unlocks rewards. You can review the list of milestones and the claim the rewards in the Pet Progression Menu accessible via the Pip-Boy PETS section.",
-        "Rewards  Pets earn many different rewards. The list or rewards for each Pet species are: 2 unique passive buffs, 4 damage+health upgrades, 3 weight reductions, 4 player titles, 6 currencies/consumables and 7 cosmetics/customizations.",
-        "Buffs, upgrades and weight reductions stats are displayed in the Pip-Boy under STATS/EFFECTS.",
-        "Passive buffs (which are unique for each species), damage+health upgrades and weight reductions have tiers and can be improved multiple times."
-      ],
-      "buffs": [
-        "The list of unique passive buffs per species are:",
-        "Dog  Find Stimpak. Get additional Legendary Item when completing a Grunt Hunt.",
-        "Cat  Find Improved Baits. Get Fish Bits when catching a fish.",
-        "Radhog  Find Toxic-Goo. Get High-Radiation Fluid in nuke zones.",
-        "Deathclaw  Find Black Titanium. Get additional Legendary Item when completing an Infestation."
-      ],
-      "controls": [
-        "Using the Pet Command Wheel, Pets can FOLLOW, STAY, ATTACK and PROTECT.",
-        "During FOLLOW and STAY, they won't engage enemies and enemies will ignore them.",
-        "In ATTACK they will automatically attack when in combat range. PROTECT means they will wait for the player to take damage before automatically engaging in combat. They are always neutral to other human Players.",
-        "PROTECT is the Pet default stance.",
-        "Pet can sustain damage and ultimately fall wounded but they will never die. Use a Stimpak on your injured or wounded Pet to instantly bring them back to full health. They also get up after combats ends with minimum health.",
-        "In combat, your Pet will target the last Ping enemy."
-      ]
+      "overview": [],
+      "leveling": [],
+      "buffs": [],
+      "controls": []
     }
   },
   "stats": {
@@ -1554,8 +614,8 @@
     ]
   },
   "playerGift": {
-    "interval": 1801,
-    "intervalMin": 30,
+    "interval": 7000,
+    "intervalMin": 117,
     "note": "The finder buff delivers its item on this timer while the pet is active."
   },
   "species": [
@@ -1567,104 +627,36 @@
       "sig1": "Bait Finder",
       "sig2": "Mega Bits",
       "sig1Mag": [
-        2,
-        3,
-        4
+        null,
+        null,
+        null
       ],
       "sig2Mag": [
-        1,
-        2,
-        3
+        null,
+        null,
+        null
       ],
       "activity": "Catch Fish with an active Pet Cat",
       "treasure": {
-        "item": "Bait - Improved",
+        "item": "",
         "isList": false,
-        "qtyByRank": [
-          2,
-          3,
-          4
-        ]
+        "qtyByRank": []
       },
       "buffs": {
         "sig1": {
           "name": "Bait Finder",
           "spell": "WorldPets_CatBuff_Buff01",
-          "descs": [
-            "Cat finds <MAG> Improved Baits every 30 min",
-            "Cat finds <MAG> Improved Baits every 30 min",
-            "Cat finds <MAG> Improved Baits every 30 min"
-          ],
-          "intervalMin": 30,
-          "ranks": [
-            {
-              "rank": 1,
-              "item": "Bait - Improved",
-              "itemEdid": "Fishing_Bait_Improved",
-              "qty": 2,
-              "qtyStatic": 2,
-              "entitlement": "",
-              "entitlementMissing": false
-            },
-            {
-              "rank": 2,
-              "item": "Bait - Improved",
-              "itemEdid": "Fishing_Bait_Improved",
-              "qty": 3,
-              "qtyStatic": 3,
-              "entitlement": "",
-              "entitlementMissing": false
-            },
-            {
-              "rank": 3,
-              "item": "Bait - Improved",
-              "itemEdid": "Fishing_Bait_Improved",
-              "qty": 4,
-              "qtyStatic": 4,
-              "entitlement": "",
-              "entitlementMissing": false
-            }
-          ]
+          "descs": [],
+          "intervalMin": 117,
+          "ranks": []
         },
         "sig2": {
           "name": "Mega Bits",
           "spell": "WorldPets_CatBuff_Buff02",
-          "descs": [
-            "<MAG> Fish Bits when catching a fish with a Cat",
-            "<MAG> Fish Bits when catching a fish with a Cat",
-            "<MAG> Fish Bits when catching a fish with a Cat"
-          ],
+          "descs": [],
           "trigger": "catch",
           "intervalMin": null,
-          "ranks": [
-            {
-              "rank": 1,
-              "item": "Fish Bits",
-              "itemEdid": "Fish_Fishbits",
-              "qty": 1,
-              "qtyStatic": 2,
-              "entitlement": "",
-              "entitlementMissing": false
-            },
-            {
-              "rank": 2,
-              "item": "Fish Bits",
-              "itemEdid": "Fish_Fishbits",
-              "qty": 2,
-              "qtyStatic": 3,
-              "entitlement": "",
-              "entitlementMissing": false
-            },
-            {
-              "rank": 3,
-              "item": "Fish Bits",
-              "itemEdid": "Fish_Fishbits",
-              "qty": 3,
-              "qtyStatic": 4,
-              "entitlement": "",
-              "entitlementMissing": false
-            }
-          ]
+          "ranks": []
         }
       },
       "foodTypes": [
@@ -2351,81 +1343,6 @@
           ]
         },
         {
-          "name": "Siamese Cat",
-          "formId": "0090ABCB",
-          "edid": "ATX_CAMPPets_Actor_Cat_Siamese",
-          "obtainSource": "Atom Shop",
-          "tradeable": false,
-          "description": "A great furry friend to go on adventures with you or just sleep at your C.A.M.P.",
-          "obtainRoutes": [
-            {
-              "route": "Caps",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Stamps",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Scoreboard",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Gold Bullion",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Atom Shop",
-              "populated": true,
-              "lines": [
-                "Purchased from the Atomic Shop — sold individually or as part of a bundle."
-              ],
-              "tradeable": false,
-              "dropRate": "N/A"
-            },
-            {
-              "route": "Limited Time Bundle",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Events & Activities",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Quests",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Challenges",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            }
-          ]
-        },
-        {
           "name": "Sphynx Cat",
           "formId": "007AE523",
           "edid": "ATX_CAMPPets_Actor_Cat_Sphynx",
@@ -2499,82 +1416,6 @@
               "dropRate": null
             }
           ]
-        },
-        {
-          "name": "Vault-Tec RoboPaw Steel Cat",
-          "formId": "0092804B",
-          "edid": "SCORE_S27_CAMPPets_Actor_Cat_VT_RoboPaw",
-          "obtainSource": "Scoreboard",
-          "tradeable": false,
-          "description": "Meet your new companion, the Vault-Tec way. Independent, observant, and engineered for optimal companionship.",
-          "obtainRoutes": [
-            {
-              "route": "Caps",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Stamps",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Scoreboard",
-              "populated": true,
-              "lines": [
-                "Purchase with tickets from the Season 27 Scoreboard."
-              ],
-              "tradeable": false,
-              "dropRate": "N/A"
-            },
-            {
-              "route": "Gold Bullion",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Atom Shop",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Limited Time Bundle",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Events & Activities",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Quests",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Challenges",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            }
-          ],
-          "seasonNumber": 27
         },
         {
           "name": "Wild Cat",
@@ -2657,10 +1498,10 @@
         "weapEdid": "crUnarmedWorldPet_Cat",
         "attackType": "Scratch",
         "speed": 1,
-        "reach": 1,
-        "minRange": 50,
+        "reach": 0.5,
+        "minRange": 100,
         "maxRange": 2000,
-        "attackDelay": 0,
+        "attackDelay": 0.2,
         "animAttackSec": 2,
         "critDmgMult": 2,
         "outOfRangeMult": 1,
@@ -2680,9 +1521,9 @@
         null
       ],
       "sig2Mag": [
-        null,
-        null,
-        null
+        1,
+        2,
+        3
       ],
       "activity": "Kill Infestation enemies with an active Pet Deathclaw",
       "treasure": {
@@ -2694,25 +1535,45 @@
         "sig1": {
           "name": "Dark Titan",
           "spell": "WorldPets_DeathclawBuff_Buff01",
-          "descs": [
-            "Deathclaw finds <MAG> Black Titanium every 30 min",
-            "Deathclaw finds <MAG> Black Titanium every 30 min",
-            "Deathclaw finds <MAG> Black Titanium every 30 min"
-          ],
-          "intervalMin": 30,
+          "descs": [],
+          "intervalMin": 117,
           "ranks": []
         },
         "sig2": {
           "name": "Fun-Festation",
           "spell": "WorldPets_DeathclawBuff_Buff02",
-          "descs": [
-            "+<MAG> Legendary item (�) when completing an Infestation with a Deathclaw",
-            "+<MAG> Legendary item (��) when completing an Infestation with a Deathclaw",
-            "+<MAG> Legendary item (���) when completing an Infestation with a Deathclaw"
-          ],
+          "descs": [],
           "trigger": "infestation",
           "intervalMin": null,
-          "ranks": []
+          "ranks": [
+            {
+              "rank": 1,
+              "item": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
+              "itemEdid": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
+              "qty": 1,
+              "qtyStatic": 1,
+              "entitlement": "",
+              "entitlementMissing": false
+            },
+            {
+              "rank": 2,
+              "item": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
+              "itemEdid": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
+              "qty": 2,
+              "qtyStatic": 1,
+              "entitlement": "",
+              "entitlementMissing": false
+            },
+            {
+              "rank": 3,
+              "item": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
+              "itemEdid": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
+              "qty": 3,
+              "qtyStatic": 1,
+              "entitlement": "",
+              "entitlementMissing": false
+            }
+          ]
         }
       },
       "foodTypes": [
@@ -2892,9 +1753,9 @@
       "sig1": "Stimpak Fetcher",
       "sig2": "Bounty Sniffer",
       "sig1Mag": [
-        2,
-        2,
-        2
+        null,
+        null,
+        null
       ],
       "sig2Mag": [
         null,
@@ -2903,62 +1764,22 @@
       ],
       "activity": "Complete Grunt Hunts with an active Pet Dog",
       "treasure": {
-        "item": "Stimpak: Diluted",
+        "item": "",
         "isList": false,
-        "qtyByRank": [
-          2,
-          2,
-          2
-        ]
+        "qtyByRank": []
       },
       "buffs": {
         "sig1": {
           "name": "Stimpak Fetcher",
           "spell": "WorldPets_DogBuff_Buff01",
-          "descs": [
-            "Dog finds <MAG> Stimpak: Diluted every 30 min",
-            "Dog finds <MAG> Stimpak every 30 min",
-            "Dog finds <MAG> Stimpak: Super every 30 min"
-          ],
-          "intervalMin": 30,
-          "ranks": [
-            {
-              "rank": 1,
-              "item": "Stimpak: Diluted",
-              "itemEdid": "StimpakDiluted",
-              "qty": 2,
-              "qtyStatic": 2,
-              "entitlement": "",
-              "entitlementMissing": false
-            },
-            {
-              "rank": 2,
-              "item": "Stimpak",
-              "itemEdid": "Stimpak",
-              "qty": 2,
-              "qtyStatic": 3,
-              "entitlement": "",
-              "entitlementMissing": false
-            },
-            {
-              "rank": 3,
-              "item": "Stimpak: Super",
-              "itemEdid": "SuperStimpak",
-              "qty": 2,
-              "qtyStatic": 4,
-              "entitlement": "",
-              "entitlementMissing": false
-            }
-          ]
+          "descs": [],
+          "intervalMin": 117,
+          "ranks": []
         },
         "sig2": {
           "name": "Bounty Sniffer",
           "spell": "WorldPets_DogBuff_Buff02",
-          "descs": [
-            "+<MAG> Legendary item (�) when completing a Grunt Hunt with a Dog",
-            "+<MAG> Legendary item (��) when completing a Grunt Hunt with a Dog",
-            "+<MAG> Legendary item (���) when completing a Grunt Hunt with a Dog"
-          ],
+          "descs": [],
           "trigger": "grunt-hunt",
           "intervalMin": null,
           "ranks": []
@@ -3345,162 +2166,12 @@
           ]
         },
         {
-          "name": "Hunting Dog",
-          "formId": "008F4E10",
-          "edid": "ATX_CAMPPets_Actor_Dog_HuntingDog",
-          "obtainSource": "Atom Shop",
-          "tradeable": false,
-          "description": "Lean, rugged and always ready to play!",
-          "obtainRoutes": [
-            {
-              "route": "Caps",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Stamps",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Scoreboard",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Gold Bullion",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Atom Shop",
-              "populated": true,
-              "lines": [
-                "Purchased from the Atomic Shop — sold individually or as part of a bundle."
-              ],
-              "tradeable": false,
-              "dropRate": "N/A"
-            },
-            {
-              "route": "Limited Time Bundle",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Events & Activities",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Quests",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Challenges",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            }
-          ]
-        },
-        {
           "name": "Mongrel",
           "formId": "0084132D",
           "edid": "ATX_CAMPPets_Actor_Dog_Mongrel",
           "obtainSource": "Atom Shop",
           "tradeable": false,
           "description": "A vicious companion for a true wanderer of The Wasteland.",
-          "obtainRoutes": [
-            {
-              "route": "Caps",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Stamps",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Scoreboard",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Gold Bullion",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Atom Shop",
-              "populated": true,
-              "lines": [
-                "Purchased from the Atomic Shop — sold individually or as part of a bundle."
-              ],
-              "tradeable": false,
-              "dropRate": "N/A"
-            },
-            {
-              "route": "Limited Time Bundle",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Events & Activities",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Quests",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Challenges",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            }
-          ]
-        },
-        {
-          "name": "Plott Hound",
-          "formId": "0090ABCC",
-          "edid": "ATX_CAMPPets_Actor_Dog_PlottHound",
-          "obtainSource": "Atom Shop",
-          "tradeable": false,
-          "description": "A loyal hunting hound for anyone venturing into the Wasteland.",
           "obtainRoutes": [
             {
               "route": "Caps",
@@ -3871,82 +2542,6 @@
           "seasonNumber": 22
         },
         {
-          "name": "Vault-Tec RoboPaw Steel Dog",
-          "formId": "0092804A",
-          "edid": "SCORE_S27_CAMPPets_Actor_Dog_VT_RoboPaw",
-          "obtainSource": "Scoreboard",
-          "tradeable": false,
-          "description": "Meet your new best friend, the Vault-Tec way. Loyal, reliable, and engineered for optimal companionship.",
-          "obtainRoutes": [
-            {
-              "route": "Caps",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Stamps",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Scoreboard",
-              "populated": true,
-              "lines": [
-                "Purchase with tickets from the Season 27 Scoreboard."
-              ],
-              "tradeable": false,
-              "dropRate": "N/A"
-            },
-            {
-              "route": "Gold Bullion",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Atom Shop",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Limited Time Bundle",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Events & Activities",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Quests",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Challenges",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            }
-          ],
-          "seasonNumber": 27
-        },
-        {
           "name": "White Shepherd",
           "formId": "007A19B8",
           "edid": "SCORE_S19_CAMPPets_Actor_Dog_WhiteGermanShepherd",
@@ -4046,104 +2641,36 @@
       "sig1": "Goo-Getter",
       "sig2": "Rad-Dration",
       "sig1Mag": [
-        1,
-        2,
-        3
+        null,
+        null,
+        null
       ],
       "sig2Mag": [
-        1,
-        2,
-        3
+        null,
+        null,
+        null
       ],
       "activity": "Collect Flux with an active Pet Radhog",
       "treasure": {
-        "item": "Toxic Goo",
+        "item": "",
         "isList": false,
-        "qtyByRank": [
-          1,
-          2,
-          3
-        ]
+        "qtyByRank": []
       },
       "buffs": {
         "sig1": {
           "name": "Goo-Getter",
           "spell": "WorldPets_RadhogBuff_Buff01",
-          "descs": [
-            "Radhog finds <MAG> Toxic Goo every 30 min",
-            "Radhog finds <MAG> Toxic Goo every 30 min",
-            "Radhog finds <MAG> Toxic Goo every 30 min"
-          ],
-          "intervalMin": 30,
-          "ranks": [
-            {
-              "rank": 1,
-              "item": "Toxic Goo",
-              "itemEdid": "WaterToxicGoo",
-              "qty": 1,
-              "qtyStatic": 2,
-              "entitlement": "",
-              "entitlementMissing": false
-            },
-            {
-              "rank": 2,
-              "item": "Toxic Goo",
-              "itemEdid": "WaterToxicGoo",
-              "qty": 2,
-              "qtyStatic": 3,
-              "entitlement": "",
-              "entitlementMissing": false
-            },
-            {
-              "rank": 3,
-              "item": "Toxic Goo",
-              "itemEdid": "WaterToxicGoo",
-              "qty": 3,
-              "qtyStatic": 4,
-              "entitlement": "",
-              "entitlementMissing": false
-            }
-          ]
+          "descs": [],
+          "intervalMin": 117,
+          "ranks": []
         },
         "sig2": {
           "name": "Rad-Dration",
           "spell": "WorldPets_RadhogBuff_Buff02",
-          "descs": [
-            "+<MAG>High-Radiation Fluids every 30 min in a Nuke zone with a Radhog",
-            "+<MAG>High-Radiation Fluids every 30 min in a Nuke zone with a Radhog",
-            "+<MAG>High-Radiation Fluids every 30 min in a Nuke zone with a Radhog"
-          ],
+          "descs": [],
           "trigger": "nuke-zone",
-          "intervalMin": 30,
-          "ranks": [
-            {
-              "rank": 1,
-              "item": "High-Radiation Fluids",
-              "itemEdid": "EN07_HighRadiationFluids",
-              "qty": 1,
-              "qtyStatic": 2,
-              "entitlement": "",
-              "entitlementMissing": false
-            },
-            {
-              "rank": 2,
-              "item": "High-Radiation Fluids",
-              "itemEdid": "EN07_HighRadiationFluids",
-              "qty": 2,
-              "qtyStatic": 3,
-              "entitlement": "",
-              "entitlementMissing": false
-            },
-            {
-              "rank": 3,
-              "item": "High-Radiation Fluids",
-              "itemEdid": "EN07_HighRadiationFluids",
-              "qty": 3,
-              "qtyStatic": 4,
-              "entitlement": "",
-              "entitlementMissing": false
-            }
-          ]
+          "intervalMin": null,
+          "ranks": []
         }
       },
       "foodTypes": [
@@ -4151,82 +2678,6 @@
         "Plant"
       ],
       "skins": [
-        {
-          "name": "Blood Eagle Radhog",
-          "formId": "00924DCF",
-          "edid": "SCORE_S27_CAMPPets_Actor_Radhog_Bloodhog",
-          "obtainSource": "Scoreboard",
-          "tradeable": false,
-          "description": "That's one bloody pig!",
-          "obtainRoutes": [
-            {
-              "route": "Caps",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Stamps",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Scoreboard",
-              "populated": true,
-              "lines": [
-                "Purchase with tickets from the Season 27 Scoreboard."
-              ],
-              "tradeable": false,
-              "dropRate": "N/A"
-            },
-            {
-              "route": "Gold Bullion",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Atom Shop",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Limited Time Bundle",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Events & Activities",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Quests",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Challenges",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            }
-          ],
-          "seasonNumber": 27
-        },
         {
           "name": "Glowing Radhog",
           "formId": "008B1F0D",
@@ -4310,81 +2761,6 @@
           "obtainSource": "Atom Shop",
           "tradeable": false,
           "description": "Aged in the Wastleand, pungent and powerful Gruyere melts hearts and breaks bones.",
-          "obtainRoutes": [
-            {
-              "route": "Caps",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Stamps",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Scoreboard",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Gold Bullion",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Atom Shop",
-              "populated": true,
-              "lines": [
-                "Purchased from the Atomic Shop — sold individually or as part of a bundle."
-              ],
-              "tradeable": false,
-              "dropRate": "N/A"
-            },
-            {
-              "route": "Limited Time Bundle",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Events & Activities",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Quests",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            },
-            {
-              "route": "Challenges",
-              "populated": false,
-              "lines": [],
-              "tradeable": null,
-              "dropRate": null
-            }
-          ]
-        },
-        {
-          "name": "Hampshire Radhog",
-          "formId": "0090ABCD",
-          "edid": "ATX_CAMPPets_Actor_Radhog_Hampshire",
-          "obtainSource": "Atom Shop",
-          "tradeable": false,
-          "description": "Everyone could use a great Radhog buddy.",
           "obtainRoutes": [
             {
               "route": "Caps",

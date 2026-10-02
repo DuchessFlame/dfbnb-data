@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-02T05:18:23+00:00",
+  "generatedAt": "2026-10-02T18:10:29+00:00",
   "type": "collectrons",
   "count": 30,
   "items": [
@@ -154,14 +154,14 @@
         }
       ],
       "howToObtain": {
-        "method": "gold",
+        "method": "scoreboard",
         "seasonNumber": 14,
-        "goldBullionPrice": 1250,
-        "vendor": "Samuel",
-        "tradeable": false,
-        "planName": "Plan: Auto-Miner Collectron",
-        "display": "Purchase from Samuel for 1250 Gold Bullion. Requires unlocking the Fight for Freedom Scoreboard (Season 14).",
-        "badge": "gold"
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Claim from the Fight for Freedom Scoreboard (Season 14)",
+        "badge": "scoreboard"
       },
       "obtainRoutes": [
         {
@@ -180,10 +180,12 @@
         },
         {
           "route": "Scoreboard",
-          "populated": false,
-          "lines": [],
+          "populated": true,
+          "lines": [
+            "Claim from the Fight for Freedom Scoreboard (Season 14)"
+          ],
           "tradeable": null,
-          "dropRate": null
+          "dropRate": "N/A"
         },
         {
           "route": "Gold Bullion",
@@ -1857,12 +1859,18 @@
             "item": "CornVegetable",
             "name": "Corn",
             "formId": "000330F8",
-            "chance": 35.0
+            "chance": 30.0
           },
           {
             "item": "BloodLeafHerb",
             "name": "Bloodleaf",
             "formId": "001C25EE",
+            "chance": 5.0
+          },
+          {
+            "item": "c_Fertilizer",
+            "name": "Fertilizer",
+            "formId": "0005A0C7",
             "chance": 5.0
           },
           {
@@ -1881,6 +1889,12 @@
             "item": "CornVegetableCookedSoup",
             "name": "Corn Soup",
             "formId": "00294510",
+            "chance": 5.0
+          },
+          {
+            "item": "GlowingFungusVegetable",
+            "name": "Glowing Fungus",
+            "formId": "001C0FC3",
             "chance": 5.0
           },
           {
@@ -1930,18 +1944,6 @@
             "name": "Sweet Tato Stew",
             "formId": "003C60E3",
             "chance": 5.0
-          },
-          {
-            "item": "c_Fertilizer_scrap",
-            "name": "Raw Fertilizer",
-            "formId": "001BF730",
-            "chance": 2.5
-          },
-          {
-            "item": "GlowingFungusVegetable",
-            "name": "Glowing Fungus",
-            "formId": "001C0FC3",
-            "chance": 2.5
           }
         ],
         "modes": [
@@ -1955,12 +1957,18 @@
                 "item": "CornVegetable",
                 "name": "Corn",
                 "formId": "000330F8",
-                "chance": 35.0
+                "chance": 30.0
               },
               {
                 "item": "BloodLeafHerb",
                 "name": "Bloodleaf",
                 "formId": "001C25EE",
+                "chance": 5.0
+              },
+              {
+                "item": "c_Fertilizer",
+                "name": "Fertilizer",
+                "formId": "0005A0C7",
                 "chance": 5.0
               },
               {
@@ -1979,6 +1987,12 @@
                 "item": "CornVegetableCookedSoup",
                 "name": "Corn Soup",
                 "formId": "00294510",
+                "chance": 5.0
+              },
+              {
+                "item": "GlowingFungusVegetable",
+                "name": "Glowing Fungus",
+                "formId": "001C0FC3",
                 "chance": 5.0
               },
               {
@@ -2028,18 +2042,6 @@
                 "name": "Sweet Tato Stew",
                 "formId": "003C60E3",
                 "chance": 5.0
-              },
-              {
-                "item": "c_Fertilizer_scrap",
-                "name": "Raw Fertilizer",
-                "formId": "001BF730",
-                "chance": 2.5
-              },
-              {
-                "item": "GlowingFungusVegetable",
-                "name": "Glowing Fungus",
-                "formId": "001C0FC3",
-                "chance": 2.5
               }
             ]
           }
@@ -2090,14 +2092,14 @@
         }
       ],
       "howToObtain": {
-        "method": "gold",
+        "method": "scoreboard",
         "seasonNumber": 23,
-        "goldBullionPrice": 4000,
-        "vendor": "Samuel",
-        "tradeable": false,
-        "planName": "Plan: Cobby Collectron",
-        "display": "Purchase from Samuel for 4000 Gold Bullion. Requires unlocking the Blood x Rust Scoreboard (Season 23).",
-        "badge": "gold"
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Purchase with tickets from the Blood x Rust Scoreboard (Season 23)",
+        "badge": "scoreboard"
       },
       "obtainRoutes": [
         {
@@ -2116,10 +2118,12 @@
         },
         {
           "route": "Scoreboard",
-          "populated": false,
-          "lines": [],
+          "populated": true,
+          "lines": [
+            "Purchase with tickets from the Blood x Rust Scoreboard (Season 23)"
+          ],
           "tradeable": null,
-          "dropRate": null
+          "dropRate": "N/A"
         },
         {
           "route": "Gold Bullion",
@@ -2606,7 +2610,7 @@
             "chance": 0.0
           },
           {
-            "item": "pickaxe",
+            "item": "Pickaxe",
             "name": "Pickaxe",
             "formId": "00002840",
             "chance": 0.0
@@ -2962,7 +2966,7 @@
                 "chance": 0.0
               },
               {
-                "item": "pickaxe",
+                "item": "Pickaxe",
                 "name": "Pickaxe",
                 "formId": "00002840",
                 "chance": 0.0
@@ -3629,7 +3633,7 @@
             "chance": 6.36364
           },
           {
-            "item": "Camera",
+            "item": "CAMERA",
             "name": "Broken Camera",
             "formId": "00059A83",
             "chance": 6.36364
@@ -3847,7 +3851,7 @@
                 "chance": 6.36364
               },
               {
-                "item": "Camera",
+                "item": "CAMERA",
                 "name": "Broken Camera",
                 "formId": "00059A83",
                 "chance": 6.36364
@@ -4294,7 +4298,7 @@
             "chance": 6.25
           },
           {
-            "item": "Camera",
+            "item": "CAMERA",
             "name": "Broken Camera",
             "formId": "00059A83",
             "chance": 6.25
@@ -4542,7 +4546,7 @@
                 "chance": 6.25
               },
               {
-                "item": "Camera",
+                "item": "CAMERA",
                 "name": "Broken Camera",
                 "formId": "00059A83",
                 "chance": 6.25
@@ -6223,7 +6227,7 @@
             "chance": 3.33333
           },
           {
-            "item": "Camera",
+            "item": "CAMERA",
             "name": "Broken Camera",
             "formId": "00059A83",
             "chance": 3.33333
@@ -6615,7 +6619,7 @@
                 "chance": 3.33333
               },
               {
-                "item": "Camera",
+                "item": "CAMERA",
                 "name": "Broken Camera",
                 "formId": "00059A83",
                 "chance": 3.33333
@@ -9079,14 +9083,14 @@
         }
       ],
       "howToObtain": {
-        "method": "gold",
+        "method": "scoreboard",
         "seasonNumber": 25,
-        "goldBullionPrice": 4000,
-        "vendor": "Samuel",
-        "tradeable": false,
-        "planName": "Plan: Mr. Farmhand Collectron",
-        "display": "Purchase from Samuel for 4000 Gold Bullion. Requires unlocking the Appalachia Under Siege Scoreboard (Season 25).",
-        "badge": "gold"
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Purchase with tickets from the Appalachia Under Siege Scoreboard (Season 25)",
+        "badge": "scoreboard"
       },
       "obtainRoutes": [
         {
@@ -9105,10 +9109,12 @@
         },
         {
           "route": "Scoreboard",
-          "populated": false,
-          "lines": [],
+          "populated": true,
+          "lines": [
+            "Purchase with tickets from the Appalachia Under Siege Scoreboard (Season 25)"
+          ],
           "tradeable": null,
-          "dropRate": null
+          "dropRate": "N/A"
         },
         {
           "route": "Gold Bullion",
@@ -9339,14 +9345,14 @@
         }
       ],
       "howToObtain": {
-        "method": "gold",
+        "method": "scoreboard",
         "seasonNumber": 4,
-        "goldBullionPrice": 1250,
-        "vendor": "Samuel",
-        "tradeable": false,
-        "planName": "Plan: Nuka-Cola Collectron",
-        "display": "Purchase from Samuel for 1250 Gold Bullion. Requires unlocking the Armor Ace and the Power Patrol in Cold Steel Scoreboard (Season 4).",
-        "badge": "gold"
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Claim from the Armor Ace and the Power Patrol in Cold Steel Scoreboard (Season 4)",
+        "badge": "scoreboard"
       },
       "obtainRoutes": [
         {
@@ -9365,10 +9371,12 @@
         },
         {
           "route": "Scoreboard",
-          "populated": false,
-          "lines": [],
+          "populated": true,
+          "lines": [
+            "Claim from the Armor Ace and the Power Patrol in Cold Steel Scoreboard (Season 4)"
+          ],
           "tradeable": null,
-          "dropRate": null
+          "dropRate": "N/A"
         },
         {
           "route": "Gold Bullion",
@@ -9599,14 +9607,14 @@
         }
       ],
       "howToObtain": {
-        "method": "gold",
+        "method": "scoreboard",
         "seasonNumber": 11,
-        "goldBullionPrice": 1250,
-        "vendor": "Samuel",
-        "tradeable": false,
-        "planName": "Plan: Nuka-Cola Quantum Collectron",
-        "display": "Purchase from Samuel for 1250 Gold Bullion. Requires unlocking the Nuka-World Scoreboard (Season 11).",
-        "badge": "gold"
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Claim from the Nuka-World Scoreboard (Season 11)",
+        "badge": "scoreboard"
       },
       "obtainRoutes": [
         {
@@ -9625,10 +9633,12 @@
         },
         {
           "route": "Scoreboard",
-          "populated": false,
-          "lines": [],
+          "populated": true,
+          "lines": [
+            "Claim from the Nuka-World Scoreboard (Season 11)"
+          ],
           "tradeable": null,
-          "dropRate": null
+          "dropRate": "N/A"
         },
         {
           "route": "Gold Bullion",
@@ -11819,7 +11829,7 @@
             "chance": 2.5625
           },
           {
-            "item": "Camera",
+            "item": "CAMERA",
             "name": "Broken Camera",
             "formId": "00059A83",
             "chance": 2.5625
@@ -11983,7 +11993,7 @@
                 "chance": 2.5625
               },
               {
-                "item": "Camera",
+                "item": "CAMERA",
                 "name": "Broken Camera",
                 "formId": "00059A83",
                 "chance": 2.5625
@@ -13475,10 +13485,10 @@
       "howToObtain": {
         "method": "default",
         "seasonNumber": null,
-        "goldBullionPrice": 4000,
-        "vendor": "Samuel",
-        "tradeable": false,
-        "planName": "Plan: Silver Collectron",
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
         "display": "Available in the base game.",
         "badge": "default"
       },
@@ -13861,14 +13871,14 @@
         }
       ],
       "howToObtain": {
-        "method": "gold",
+        "method": "scoreboard",
         "seasonNumber": 17,
-        "goldBullionPrice": 4000,
-        "vendor": "Samuel",
-        "tradeable": false,
-        "planName": "Plan: Scoutmaster Collectron",
-        "display": "Purchase from Samuel for 4000 Gold Bullion. Requires unlocking the Pioneer Scouts: Skyline Valley Scoreboard (Season 17).",
-        "badge": "gold"
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Purchase with tickets from the Pioneer Scouts: Skyline Valley Scoreboard (Season 17)",
+        "badge": "scoreboard"
       },
       "obtainRoutes": [
         {
@@ -13887,10 +13897,12 @@
         },
         {
           "route": "Scoreboard",
-          "populated": false,
-          "lines": [],
+          "populated": true,
+          "lines": [
+            "Purchase with tickets from the Pioneer Scouts: Skyline Valley Scoreboard (Season 17)"
+          ],
           "tradeable": null,
-          "dropRate": null
+          "dropRate": "N/A"
         },
         {
           "route": "Gold Bullion",
@@ -14147,52 +14159,94 @@
         "resourceEdid": "ATX_ResourceAV_Collectron_SirLoin_Collector",
         "drops": [
           {
-            "item": "DeathclawEgg",
-            "name": "Deathclaw Egg",
-            "formId": "00046939",
-            "chance": 6.25
+            "item": "Bowl_Generic",
+            "name": "Bowl",
+            "formId": "00140B1A",
+            "chance": 6.66667
           },
           {
-            "item": "MegaslothMeat",
-            "name": "Megasloth Meat",
-            "formId": "0005303E",
-            "chance": 6.25
+            "item": "CookingPot01",
+            "name": "Cooking Pot",
+            "formId": "00059ABA",
+            "chance": 6.66667
           },
           {
-            "item": "MirelurkQueenMeat",
-            "name": "Queen Mirelurk Meat",
-            "formId": "0020D3DE",
-            "chance": 6.25
+            "item": "Dogmeat",
+            "name": "Mongrel Dog Meat",
+            "formId": "000330FB",
+            "chance": 6.66667
           },
           {
-            "item": "ScorchBeastMeat",
-            "name": "Scorchbeast Meat",
-            "formId": "002DB87A",
-            "chance": 6.25
+            "item": "Fork_02_StainlessSteel",
+            "name": "Dinner Fork",
+            "formId": "00060E93",
+            "chance": 6.66667
           },
           {
-            "item": "ScorchBeastMeatHeart",
-            "name": "Scorchbeast Heart",
-            "formId": "002DB87C",
-            "chance": 6.25
+            "item": "KitchenScale",
+            "name": "Kitchen Scale",
+            "formId": "000AF8EF",
+            "chance": 6.66667
           },
           {
-            "item": "ScorchBeastMeatLiver",
-            "name": "Scorchbeast Liver",
-            "formId": "002DB87D",
-            "chance": 6.25
+            "item": "Knife_02_StainlessSteel",
+            "name": "Table Knife",
+            "formId": "00059AE1",
+            "chance": 6.66667
           },
           {
-            "item": "ScorchBeastMeatLung",
-            "name": "Scorchbeast Lung",
-            "formId": "002DB87E",
-            "chance": 6.25
+            "item": "Ladle",
+            "name": "Ladle",
+            "formId": "00059B11",
+            "chance": 6.66667
           },
           {
-            "item": "SheepsquatchMeat",
-            "name": "Sheepsquatch Meat",
-            "formId": "0046C85D",
-            "chance": 6.25
+            "item": "MoleratMeat",
+            "name": "Mole Rat Meat",
+            "formId": "00033101",
+            "chance": 6.66667
+          },
+          {
+            "item": "Plate_02_Dinner",
+            "name": "Dinner Plate",
+            "formId": "00060E90",
+            "chance": 6.66667
+          },
+          {
+            "item": "PlayerHouse_Ruin_PepperMill01",
+            "name": "Pepper Mill",
+            "formId": "00020189",
+            "chance": 6.66667
+          },
+          {
+            "item": "PlayerHouse_Ruin_SaltShaker01",
+            "name": "Salt Shaker",
+            "formId": "0002018A",
+            "chance": 6.66667
+          },
+          {
+            "item": "RadstagMeat",
+            "name": "Radstag Meat",
+            "formId": "0004A14F",
+            "chance": 6.66667
+          },
+          {
+            "item": "Spoon_02_StainlessSteel",
+            "name": "Table Spoon",
+            "formId": "00060E96",
+            "chance": 6.66667
+          },
+          {
+            "item": "SquirrelMeat",
+            "name": "Squirrel Bits",
+            "formId": "000366BC",
+            "chance": 6.66667
+          },
+          {
+            "item": "TeacupSaucer01",
+            "name": "Saucer",
+            "formId": "0019269B",
+            "chance": 6.66667
           },
           {
             "item": "AnglerMeat",
@@ -14201,45 +14255,15 @@
             "chance": 0.0
           },
           {
-            "item": "Bowl_Generic",
-            "name": "Bowl",
-            "formId": "00140B1A",
+            "item": "DeathclawEgg",
+            "name": "Deathclaw Egg",
+            "formId": "00046939",
             "chance": 0.0
           },
           {
-            "item": "CookingPot01",
-            "name": "Cooking Pot",
-            "formId": "00059ABA",
-            "chance": 0.0
-          },
-          {
-            "item": "Dogmeat",
-            "name": "Mongrel Dog Meat",
-            "formId": "000330FB",
-            "chance": 0.0
-          },
-          {
-            "item": "Fork_02_StainlessSteel",
-            "name": "Dinner Fork",
-            "formId": "00060E93",
-            "chance": 0.0
-          },
-          {
-            "item": "KitchenScale",
-            "name": "Kitchen Scale",
-            "formId": "000AF8EF",
-            "chance": 0.0
-          },
-          {
-            "item": "Knife_02_StainlessSteel",
-            "name": "Table Knife",
-            "formId": "00059AE1",
-            "chance": 0.0
-          },
-          {
-            "item": "Ladle",
-            "name": "Ladle",
-            "formId": "00059B11",
+            "item": "MegaslothMeat",
+            "name": "Megasloth Meat",
+            "formId": "0005303E",
             "chance": 0.0
           },
           {
@@ -14249,27 +14273,9 @@
             "chance": 0.0
           },
           {
-            "item": "MoleratMeat",
-            "name": "Mole Rat Meat",
-            "formId": "00033101",
-            "chance": 0.0
-          },
-          {
-            "item": "Plate_02_Dinner",
-            "name": "Dinner Plate",
-            "formId": "00060E90",
-            "chance": 0.0
-          },
-          {
-            "item": "PlayerHouse_Ruin_PepperMill01",
-            "name": "Pepper Mill",
-            "formId": "00020189",
-            "chance": 0.0
-          },
-          {
-            "item": "PlayerHouse_Ruin_SaltShaker01",
-            "name": "Salt Shaker",
-            "formId": "0002018A",
+            "item": "MirelurkQueenMeat",
+            "name": "Queen Mirelurk Meat",
+            "formId": "0020D3DE",
             "chance": 0.0
           },
           {
@@ -14279,33 +14285,39 @@
             "chance": 0.0
           },
           {
-            "item": "RadstagMeat",
-            "name": "Radstag Meat",
-            "formId": "0004A14F",
+            "item": "ScorchBeastMeat",
+            "name": "Scorchbeast Meat",
+            "formId": "002DB87A",
             "chance": 0.0
           },
           {
-            "item": "Spoon_02_StainlessSteel",
-            "name": "Table Spoon",
-            "formId": "00060E96",
+            "item": "ScorchBeastMeatHeart",
+            "name": "Scorchbeast Heart",
+            "formId": "002DB87C",
             "chance": 0.0
           },
           {
-            "item": "SquirrelMeat",
-            "name": "Squirrel Bits",
-            "formId": "000366BC",
+            "item": "ScorchBeastMeatLiver",
+            "name": "Scorchbeast Liver",
+            "formId": "002DB87D",
+            "chance": 0.0
+          },
+          {
+            "item": "ScorchBeastMeatLung",
+            "name": "Scorchbeast Lung",
+            "formId": "002DB87E",
+            "chance": 0.0
+          },
+          {
+            "item": "SheepsquatchMeat",
+            "name": "Sheepsquatch Meat",
+            "formId": "0046C85D",
             "chance": 0.0
           },
           {
             "item": "StingwingMeat",
             "name": "Stingwing Meat",
             "formId": "00074D0F",
-            "chance": 0.0
-          },
-          {
-            "item": "TeacupSaucer01",
-            "name": "Saucer",
-            "formId": "0019269B",
             "chance": 0.0
           },
           {
@@ -14323,52 +14335,94 @@
             "resourceName": "Fleisch",
             "drops": [
               {
-                "item": "DeathclawEgg",
-                "name": "Deathclaw Egg",
-                "formId": "00046939",
-                "chance": 6.25
+                "item": "Bowl_Generic",
+                "name": "Bowl",
+                "formId": "00140B1A",
+                "chance": 6.66667
               },
               {
-                "item": "MegaslothMeat",
-                "name": "Megasloth Meat",
-                "formId": "0005303E",
-                "chance": 6.25
+                "item": "CookingPot01",
+                "name": "Cooking Pot",
+                "formId": "00059ABA",
+                "chance": 6.66667
               },
               {
-                "item": "MirelurkQueenMeat",
-                "name": "Queen Mirelurk Meat",
-                "formId": "0020D3DE",
-                "chance": 6.25
+                "item": "Dogmeat",
+                "name": "Mongrel Dog Meat",
+                "formId": "000330FB",
+                "chance": 6.66667
               },
               {
-                "item": "ScorchBeastMeat",
-                "name": "Scorchbeast Meat",
-                "formId": "002DB87A",
-                "chance": 6.25
+                "item": "Fork_02_StainlessSteel",
+                "name": "Dinner Fork",
+                "formId": "00060E93",
+                "chance": 6.66667
               },
               {
-                "item": "ScorchBeastMeatHeart",
-                "name": "Scorchbeast Heart",
-                "formId": "002DB87C",
-                "chance": 6.25
+                "item": "KitchenScale",
+                "name": "Kitchen Scale",
+                "formId": "000AF8EF",
+                "chance": 6.66667
               },
               {
-                "item": "ScorchBeastMeatLiver",
-                "name": "Scorchbeast Liver",
-                "formId": "002DB87D",
-                "chance": 6.25
+                "item": "Knife_02_StainlessSteel",
+                "name": "Table Knife",
+                "formId": "00059AE1",
+                "chance": 6.66667
               },
               {
-                "item": "ScorchBeastMeatLung",
-                "name": "Scorchbeast Lung",
-                "formId": "002DB87E",
-                "chance": 6.25
+                "item": "Ladle",
+                "name": "Ladle",
+                "formId": "00059B11",
+                "chance": 6.66667
               },
               {
-                "item": "SheepsquatchMeat",
-                "name": "Sheepsquatch Meat",
-                "formId": "0046C85D",
-                "chance": 6.25
+                "item": "MoleratMeat",
+                "name": "Mole Rat Meat",
+                "formId": "00033101",
+                "chance": 6.66667
+              },
+              {
+                "item": "Plate_02_Dinner",
+                "name": "Dinner Plate",
+                "formId": "00060E90",
+                "chance": 6.66667
+              },
+              {
+                "item": "PlayerHouse_Ruin_PepperMill01",
+                "name": "Pepper Mill",
+                "formId": "00020189",
+                "chance": 6.66667
+              },
+              {
+                "item": "PlayerHouse_Ruin_SaltShaker01",
+                "name": "Salt Shaker",
+                "formId": "0002018A",
+                "chance": 6.66667
+              },
+              {
+                "item": "RadstagMeat",
+                "name": "Radstag Meat",
+                "formId": "0004A14F",
+                "chance": 6.66667
+              },
+              {
+                "item": "Spoon_02_StainlessSteel",
+                "name": "Table Spoon",
+                "formId": "00060E96",
+                "chance": 6.66667
+              },
+              {
+                "item": "SquirrelMeat",
+                "name": "Squirrel Bits",
+                "formId": "000366BC",
+                "chance": 6.66667
+              },
+              {
+                "item": "TeacupSaucer01",
+                "name": "Saucer",
+                "formId": "0019269B",
+                "chance": 6.66667
               },
               {
                 "item": "AnglerMeat",
@@ -14377,45 +14431,15 @@
                 "chance": 0.0
               },
               {
-                "item": "Bowl_Generic",
-                "name": "Bowl",
-                "formId": "00140B1A",
+                "item": "DeathclawEgg",
+                "name": "Deathclaw Egg",
+                "formId": "00046939",
                 "chance": 0.0
               },
               {
-                "item": "CookingPot01",
-                "name": "Cooking Pot",
-                "formId": "00059ABA",
-                "chance": 0.0
-              },
-              {
-                "item": "Dogmeat",
-                "name": "Mongrel Dog Meat",
-                "formId": "000330FB",
-                "chance": 0.0
-              },
-              {
-                "item": "Fork_02_StainlessSteel",
-                "name": "Dinner Fork",
-                "formId": "00060E93",
-                "chance": 0.0
-              },
-              {
-                "item": "KitchenScale",
-                "name": "Kitchen Scale",
-                "formId": "000AF8EF",
-                "chance": 0.0
-              },
-              {
-                "item": "Knife_02_StainlessSteel",
-                "name": "Table Knife",
-                "formId": "00059AE1",
-                "chance": 0.0
-              },
-              {
-                "item": "Ladle",
-                "name": "Ladle",
-                "formId": "00059B11",
+                "item": "MegaslothMeat",
+                "name": "Megasloth Meat",
+                "formId": "0005303E",
                 "chance": 0.0
               },
               {
@@ -14425,27 +14449,9 @@
                 "chance": 0.0
               },
               {
-                "item": "MoleratMeat",
-                "name": "Mole Rat Meat",
-                "formId": "00033101",
-                "chance": 0.0
-              },
-              {
-                "item": "Plate_02_Dinner",
-                "name": "Dinner Plate",
-                "formId": "00060E90",
-                "chance": 0.0
-              },
-              {
-                "item": "PlayerHouse_Ruin_PepperMill01",
-                "name": "Pepper Mill",
-                "formId": "00020189",
-                "chance": 0.0
-              },
-              {
-                "item": "PlayerHouse_Ruin_SaltShaker01",
-                "name": "Salt Shaker",
-                "formId": "0002018A",
+                "item": "MirelurkQueenMeat",
+                "name": "Queen Mirelurk Meat",
+                "formId": "0020D3DE",
                 "chance": 0.0
               },
               {
@@ -14455,33 +14461,39 @@
                 "chance": 0.0
               },
               {
-                "item": "RadstagMeat",
-                "name": "Radstag Meat",
-                "formId": "0004A14F",
+                "item": "ScorchBeastMeat",
+                "name": "Scorchbeast Meat",
+                "formId": "002DB87A",
                 "chance": 0.0
               },
               {
-                "item": "Spoon_02_StainlessSteel",
-                "name": "Table Spoon",
-                "formId": "00060E96",
+                "item": "ScorchBeastMeatHeart",
+                "name": "Scorchbeast Heart",
+                "formId": "002DB87C",
                 "chance": 0.0
               },
               {
-                "item": "SquirrelMeat",
-                "name": "Squirrel Bits",
-                "formId": "000366BC",
+                "item": "ScorchBeastMeatLiver",
+                "name": "Scorchbeast Liver",
+                "formId": "002DB87D",
+                "chance": 0.0
+              },
+              {
+                "item": "ScorchBeastMeatLung",
+                "name": "Scorchbeast Lung",
+                "formId": "002DB87E",
+                "chance": 0.0
+              },
+              {
+                "item": "SheepsquatchMeat",
+                "name": "Sheepsquatch Meat",
+                "formId": "0046C85D",
                 "chance": 0.0
               },
               {
                 "item": "StingwingMeat",
                 "name": "Stingwing Meat",
                 "formId": "00074D0F",
-                "chance": 0.0
-              },
-              {
-                "item": "TeacupSaucer01",
-                "name": "Saucer",
-                "formId": "0019269B",
                 "chance": 0.0
               },
               {
@@ -15030,14 +15042,14 @@
         }
       ],
       "howToObtain": {
-        "method": "gold",
+        "method": "scoreboard",
         "seasonNumber": 22,
-        "goldBullionPrice": 1250,
-        "vendor": "Samuel",
-        "tradeable": false,
-        "planName": "Plan: Whitespring Robo Butler Collectron",
-        "display": "Purchase from Samuel for 1250 Gold Bullion. Requires unlocking the Appalachian Modern Living Scoreboard (Season 22).",
-        "badge": "gold"
+        "goldBullionPrice": null,
+        "vendor": null,
+        "tradeable": null,
+        "planName": null,
+        "display": "Purchase with tickets from the Appalachian Modern Living Scoreboard (Season 22)",
+        "badge": "scoreboard"
       },
       "obtainRoutes": [
         {
@@ -15056,10 +15068,12 @@
         },
         {
           "route": "Scoreboard",
-          "populated": false,
-          "lines": [],
+          "populated": true,
+          "lines": [
+            "Purchase with tickets from the Appalachian Modern Living Scoreboard (Season 22)"
+          ],
           "tradeable": null,
-          "dropRate": null
+          "dropRate": "N/A"
         },
         {
           "route": "Gold Bullion",
