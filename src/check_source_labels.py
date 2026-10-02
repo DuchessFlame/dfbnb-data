@@ -245,6 +245,33 @@ def main(argv=None):
             leaks[f"(content type) {name} resolved {got!r}, expected {want!r}"] += 1
     print(f"[labels] {ct_emitted} quest(s) carry a content-type parenthetical")
 
+    # Slasher-gated route names are a SIXTH way text reaches a page — a post-pass
+    # (plan_sources.tag_slasher_routes) renames routes AFTER the label is built.
+    # The masked Spooky Scorched route must come out as its own name with the
+    # "not from Spooky Treat Bags" condition, whether it arrives raw from a build
+    # or already tagged in an older plan_master; other Slasher-gated routes keep
+    # the " (Slasher Seasonal)" suffix; an ordinary Spooky Scorched is untouched.
+    mask = "Only while wearing SDOW Clothing Type Slasher Head"
+    probe = [{"obtain_routes": [
+        {"route": "Scorched Spooky", "conditions": [mask]},
+        {"route": "Scorched Spooky" + plan_sources.SLASHER_SUFFIX, "conditions": [mask]},
+        {"route": "Spooky Scorched", "conditions": []},
+        {"route": "Blood Eagle Destroyer", "conditions": ["Only while The Slasher is on"]},
+    ]}]
+    plan_sources.tag_slasher_routes(probe)
+    plan_sources.tag_slasher_routes(probe)          # idempotent
+    got = [(r["route"], r.get("conditions")) for r in probe[0]["obtain_routes"]]
+    want = [
+        (plan_sources.SLASHER_MASKED_LABEL, [plan_sources.SLASHER_MASKED_NOTE]),
+        (plan_sources.SLASHER_MASKED_LABEL, [plan_sources.SLASHER_MASKED_NOTE]),
+        ("Spooky Scorched", []),
+        ("Blood Eagle Destroyer" + plan_sources.SLASHER_SUFFIX, ["Only while The Slasher is on"]),
+    ]
+    for g, w in zip(got, want):
+        if g != w:
+            leaks[f"(slasher route) {g!r}, expected {w!r}"] += 1
+    print("[labels] slasher route naming checked")
+
     if leaks:
         print(f"[labels] FAIL — {sum(leaks.values())} leaked name(s):")
         for l, n in leaks.most_common():

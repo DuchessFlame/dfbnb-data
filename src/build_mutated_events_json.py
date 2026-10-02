@@ -306,15 +306,42 @@ def _norm_keep_us(s):
     return re.sub(r"[^a-z0-9_]", "", (s or "").lower())
 
 
-# Legendary stars the game gives a templated weapon that the exports cannot
-# show. The Fancy template (if_tmp_Fancy -> MTNL01 Fancy Paint) has no
-# legendary include at all, yet the Fancy Pump Action Shotgun and Fancy Single
-# Action Revolver from the mutated packs drop as random 1-star legendaries -
-# confirmed in-game by Duchess, 2 Oct 2026. Remove an entry if a later export
-# shows where the star comes from.
-CONFIRMED_TEMPLATE_STARS = {
-    "if_tmp_Fancy": {1: "Random Legendary Mod"},
-}
+_OMOD_POOL_CACHE = None
+
+
+def _omod_pool(omod_fid):
+    """(EDID, [effect names]) of an OMOD mod collection, from the OMOD
+    export's Includes_Flat (mod_Legendary_* members only)."""
+    global _OMOD_POOL_CACHE
+    if _OMOD_POOL_CACHE is None:
+        _OMOD_POOL_CACHE = {}
+        for r in _rows("OMOD_Export_*.tsv", exclude=["_Properties"]):
+            fid = (r.get("OMOD_FormID") or "").strip().upper()
+            flat = r.get("Includes_Flat") or ""
+            if fid and "mod_Legendary_" in flat:
+                members = re.findall(r'(mod_Legendary_\w+)\s+"+([^"]+)"+', flat)
+                _OMOD_POOL_CACHE[fid] = ((r.get("OMOD_EDID") or "").strip(), members)
+    return _OMOD_POOL_CACHE.get((omod_fid or "").upper(), ("", []))
+
+
+def _twin_weapon_combo(sig, base_fid, paint_ref):
+    """The named twin of a base weapon: another WEAP whose template carries the
+    same preset paint (Fancy Single Action Revolver 0034CBD8 for the plain
+    revolver's if_tmp_Fancy). Returns (twin fid, twin FULL, include refs)."""
+    paint = re.split(r'["\[]', paint_ref)[0].strip().lower()
+    col = sig.upper() + "_FormID"
+    found = {}
+    for r in sev._ot_rows(sig):
+        f = (r.get(col) or "").upper()
+        if not f or f == base_fid.upper():
+            continue
+        found.setdefault((f, r.get("CombinationIndex") or "0"),
+                         {"full": r.get(sig.upper() + "_FULL") or "", "refs": []})["refs"].append(
+            r.get("Include_Mod") or "")
+    for (f, _ci), v in sorted(found.items()):
+        if any(re.split(r'["\[]', x)[0].strip().lower() == paint for x in v["refs"]):
+            return f, v["full"], v["refs"]
+    return None, "", []
 
 
 def _template_mod_slots(fid, sig, keyword):
@@ -357,8 +384,22 @@ def _template_mod_slots(fid, sig, keyword):
                 break
     if hit is None:
         return None
+    refs = list(combos[hit])
+    twin = None
+    pools = {}
+    if paint_only:
+        # The preset only paints the base weapon. The named twin record that
+        # carries the same paint (MTNL01_SingleActionRevolver_Fancy) holds the
+        # legendary part - e.g. MTNL01_modcol_Legendary_Weapons_Fancy
+        # (OMOD 0014E5C0), a 1-star-only roll list. Use the twin's template.
+        paint_ref = next((x for x in refs if re.search(r"paint_" + re.escape(want) + r"$",
+                                                         _norm_keep_us(sev._ot_classify(x)[2]))), "")
+        tfid, tfull, trefs = _twin_weapon_combo(sig, fid, paint_ref)
+        if tfid:
+            twin = {"formid": tfid, "name": tfull}
+            refs = trefs
     custom_name, custom_desc, stars, extras = "", "", {}, []
-    for ref in combos[hit]:
+    for ref in refs:
         lab, value, edid_lower = sev._ot_classify(ref)
         if (value or "").strip().lower() in sev._OT_JUNK_VALUES:
             continue
@@ -370,6 +411,18 @@ def _template_mod_slots(fid, sig, keyword):
                 if d and d.strip().lower() not in sev._OT_JUNK_VALUES:
                     custom_desc = d.strip()
             continue
+        coll = re.search(r"\[OMOD:([0-9A-Fa-f]+)\]", ref)
+        if edid_lower.startswith(("modcol_", "mtnl01_modcol_")) or "_modcol_legendary" in edid_lower:
+            pool_edid, members = _omod_pool(coll.group(1) if coll else "")
+            ranks = {int(m.group(1)) for e, _n in members
+                     for m in [re.search(r"_Weapon(\d)_", e)] if m}
+            if members and len(ranks) == 1 and "crafting" not in edid_lower:
+                st = ranks.pop()
+                stars[st] = "Random Legendary Mod"
+                pools[st] = {"omod": coll.group(1).upper(), "edid": pool_edid,
+                             "effects": sorted({n for e, n in members if "_Melee_" not in e},
+                                               key=str.lower)}
+                continue
         rnd = re.search(r"legendary_crafting_(?:weapon|armor|powerarmor)(\d)", edid_lower)
         if rnd:
             # A rolled star (modcol_Legendary_Crafting_Weapon2) - same wording
@@ -379,10 +432,6 @@ def _template_mod_slots(fid, sig, keyword):
             stars[int(re.search(r"(\d)", lab).group(1))] = value
         elif lab in ("Lining", "Appearance"):
             extras.append((lab, value))
-    # Stars the template itself does not carry but the game gives anyway
-    # (see CONFIRMED_TEMPLATE_STARS).
-    for st, val in CONFIRMED_TEMPLATE_STARS.get(keyword, {}).items():
-        stars.setdefault(st, val)
     slots = []
     if stars:
         for st in range(1, max(4, max(stars)) + 1):
@@ -392,6 +441,10 @@ def _template_mod_slots(fid, sig, keyword):
     out = {"modSlots": slots, "templateKeyword": keyword, "templateIndex": hit}
     if paint_only:
         out["namePrefix"] = re.sub(r"^if_tmp_", "", keyword, flags=re.I)
+    if twin:
+        out["twin"] = twin
+    if pools:
+        out["rollPools"] = pools
     if custom_name:
         out["customModName"] = custom_name
     if custom_desc:
@@ -548,6 +601,10 @@ class PackBuilder:
                     it["customModName"] = mods["customModName"]
                 if mods.get("customModDescription"):
                     it["customModDescription"] = mods["customModDescription"]
+                if mods.get("rollPools"):
+                    it["rollPools"] = mods["rollPools"]
+                if mods.get("twin"):
+                    it["templateWeapon"] = mods["twin"]
                 if mods.get("namePrefix") and not it["name"].startswith(mods["namePrefix"]):
                     it["name"] = mods["namePrefix"] + " " + it["name"]
         conds = sev._simplify_conditions(leaf.get("conditions") or [])
@@ -796,16 +853,25 @@ def build_legendary_effects(packs):
     come from the OMOD export. All the pack weapons are guns, so melee-only
     effects are left out. Reference list only - not a reward."""
     used = set()
+    special = {}        # own roll lists (Fancy revolver: OMOD 0014E5C0)
     for p in packs:
         for c in p["categories"]:
             if c["key"] != "weapons":
                 continue
             for it in c["items"]:
+                own = {int(k): v for k, v in (it.get("rollPools") or {}).items()}
+                for st, pool in own.items():
+                    special.setdefault(pool["omod"], {
+                        "label": "{} - {}★".format(it["name"], st),
+                        "star": st, "omod": pool["omod"], "edid": pool["edid"],
+                        "effects": [{"name": n, "desc": ""} for n in pool["effects"]],
+                    })
                 for sl in it.get("modSlots") or []:
                     m = re.match(r"(\d)★", sl.get("label") or "")
-                    if m and sl.get("value") == "Random Legendary Mod":
+                    if (m and sl.get("value") == "Random Legendary Mod"
+                            and int(m.group(1)) not in own):
                         used.add(int(m.group(1)))
-    if not used:
+    if not used and not special:
         return None
     omod = {}
     for r in _rows("OMOD_Export_*.tsv", exclude=["_Properties"]):
@@ -826,9 +892,10 @@ def build_legendary_effects(packs):
             if name:
                 eff.setdefault(name, desc)
         pools[star] = [{"name": n, "desc": d} for n, d in sorted(eff.items(), key=lambda kv: kv[0].lower())]
-    if not pools:
+    if not pools and not special:
         return None
-    return {"stars": [{"star": st, "effects": pools[st]} for st in sorted(pools)]}
+    return {"stars": [{"star": st, "effects": pools[st]} for st in sorted(pools)],
+            "special": list(special.values())}
 
 
 def build_checklist(packs, title_items):

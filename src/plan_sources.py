@@ -1681,19 +1681,62 @@ def obtain_ledger(item):
 # Night Spooky Scorched drops, and readers do not open Drop Conditions.
 # Duchess, 27 Sep 2026: every page names these "… (Slasher Seasonal)". Only the
 # Slasher-gated routes; the normal Spooky Scorched routes are untouched.
+#
+# Duchess, 2 Oct 2026: the Spooky Scorched ones get their own name. In the game
+# files LLD_Creature_Scorched_Spooky only rolls SDOW_LLD_SpookyScorched when
+# LCP_SDOW_Slasher == 1 AND the scorched itself WornHasKeyword
+# SDOW_ClothingTypeSlasherHead — i.e. it is wearing a Slasher mask. It is corpse
+# loot: Spooky_TreatBag_Loot -> LL_Spooky_TreatBag_Loot never reaches these
+# lists. "Scorched Spooky (Slasher Seasonal)" sent people farming treat bags
+# and unmasked scorched, so the route is named after the enemy that drops it
+# and the condition line says where it does NOT come from. The engine's own
+# sentence ("Only while wearing SDOW Clothing Type Slasher Head") reads as if
+# the PLAYER wears it — the subject of that condition is the scorched.
 SLASHER_SUFFIX = " (Slasher Seasonal)"
+SLASHER_MASKED_LABEL = "Slasher Masked Spooky Scorched"
+SLASHER_MASKED_NOTE = ("Only from Spooky Scorched wearing a Slasher mask, while the "
+                       "Slasher seasonal event is on — not from Spooky Treat Bags")
 _RX_SLASHER_COND = re.compile(r"slasher", re.I)
+_RX_SPOOKY_SCORCHED = re.compile(r"^\s*(?:scorched\s+spooky|spooky\s+scorched)\b", re.I)
+_RX_MASK_COND = re.compile(r"slasher\s*head", re.I)
+
+
+def _is_masked_spooky_scorched(label, conds):
+    """A Spooky Scorched route gated on the Slasher mask (already-tagged or not)."""
+    if label == SLASHER_MASKED_LABEL:
+        return True
+    base = label[:-len(SLASHER_SUFFIX)] if label.endswith(SLASHER_SUFFIX) else label
+    if not _RX_SPOOKY_SCORCHED.match(base):
+        return False
+    return (label.endswith(SLASHER_SUFFIX)
+            or any(_RX_MASK_COND.search(str(c)) for c in conds))
 
 
 def tag_slasher_routes(items):
-    """Suffix routes gated on the Slasher head. Idempotent. Returns a count."""
+    """Name routes gated on the Slasher head. Idempotent. Returns a count."""
     n = 0
     for it in items:
         for r in it.get("obtain_routes") or []:
             label = r.get("route") or ""
-            if not label or "slasher" in label.lower():
+            if not label:
                 continue
-            if any(_RX_SLASHER_COND.search(str(c)) for c in (r.get("conditions") or [])):
+            conds = list(r.get("conditions") or [])
+            if _is_masked_spooky_scorched(label, conds):
+                changed = False
+                if label != SLASHER_MASKED_LABEL:
+                    r["route"] = SLASHER_MASKED_LABEL
+                    changed = True
+                keep = [c for c in conds
+                        if c != SLASHER_MASKED_NOTE and not _RX_MASK_COND.search(str(c))]
+                new_conds = [SLASHER_MASKED_NOTE] + keep
+                if new_conds != conds:
+                    r["conditions"] = new_conds
+                    changed = True
+                n += changed
+                continue
+            if "slasher" in label.lower():
+                continue
+            if any(_RX_SLASHER_COND.search(str(c)) for c in conds):
                 r["route"] = label + SLASHER_SUFFIX
                 n += 1
     return n
