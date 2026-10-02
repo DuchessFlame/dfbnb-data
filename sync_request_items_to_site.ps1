@@ -11,8 +11,8 @@
 $ErrorActionPreference = "Stop"
 
 # ---- Paths ----
-$LocalBase = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\json\uploads\fo76\storefront"
-$Local     = Join-Path $LocalBase "request-item-images"
+# Moved out of json\uploads\fo76\storefront\request-item-images (Oct 2026).
+$Local     = "C:\Users\Duche\OneDrive\Guides and Stuff\.Atom Shop\Request Item Images"
 
 if (-not (Test-Path -LiteralPath $Local)) {
     Write-Host "Local folder not found: $Local"

@@ -1,0 +1,81 @@
+name: Build Mutated Events Data
+
+# Standalone Mutated Events build. Reads the xEdit exports in tsv/ directly
+# (LVLI, ALCH + ALCH Effects, GLOB, GMRW, KYWD refs, ARMO/WEAP object
+# templates) through the shared rng76 engine - it does not wait on any other
+# build, so a failure anywhere else can't hold it up (or the other way round).
+#
+# Writes one JSON for the one page:
+#   dist/mutated_events/mutated_events_all_rewards.json
+#     -> /df/mutated-events/mutated-events-all-rewards/ (df-bnb-mutated-events.js)
+#
+# The PTS twin (dist/pts/mutated_events/) is built by dfbnb-pts-build.yml.
+
+on:
+  workflow_dispatch:
+
+  push:
+    paths:
+      - 'tsv/LVLI_Export_*'
+      - 'tsv/ALCH_Export_*'
+      - 'tsv/GLOB_Export_*'
+      - 'tsv/GMRW_Export_*'
+      - 'tsv/KYWD_Export_*'
+      - 'tsv/ARMO_Export_*'
+      - 'tsv/WEAP_Export_*'
+      - 'tsv/BOOK_Export_*'
+      - 'src/build_mutated_events_json.py'
+      - 'src/build_seasonal_events_json.py'
+      - 'src/rng76.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.11"
+
+      - name: Build Mutated Events JSON
+        run: |
+          python -V
+          python src/build_mutated_events_json.py
+
+      - name: Sanity check
+        run: |
+          test -f dist/mutated_events/mutated_events_all_rewards.json && echo "OK mutated_events_all_rewards.json" || (echo "MISSING mutated_events_all_rewards.json" && exit 1)
+          python -c "import json;d=json.load(open('dist/mutated_events/mutated_events_all_rewards.json'));p=d['byPage']['mutated-events-all-rewards'];assert p['packs'] and p['checklist'];print(len(p['packs']),'packs',len(p['checklist']),'checklist items')"
+
+      - name: Commit dist output
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add dist/mutated_events/mutated_events_all_rewards.json
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Build Mutated Events data"
+
+          git fetch origin main
+          git pull --rebase origin main
+          git push origin main

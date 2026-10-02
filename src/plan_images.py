@@ -670,8 +670,12 @@ _RX_WEAPON_MOD_NAME = re.compile(
 # gun works, and a picture of a receiver on "Plan: Western Spirit Paint" tells
 # the reader something untrue about what they are looking at. Paints get no
 # stand-in until there is a picture worth standing in for them.
-_RX_COSMETIC = re.compile(r"\bpaints?\b|\bskins?\b|modelswap|appearance|"
-                          r"\bcamo\b|\bwrap\b", re.I)
+# Paints and skins are NOT mods - they get their own picture, never the mod
+# box. Bounded by "not a letter" rather than \b: EditorIDs join words with
+# underscores, which \b treats as word characters, so \bpaint\b missed
+# mod_AssaultronBlade_Weapon_Paint_TheGutter (The Gutter got the mod box).
+_RX_COSMETIC = re.compile(r"(?<![a-z])(paints?|skins?|camo|wrap)(?![a-z])|modelswap|appearance",
+                          re.I)
 
 
 def generic_kind(item):
@@ -681,8 +685,15 @@ def generic_kind(item):
     edid = (cnam.get("edid") or "") + " " + name
     if _RX_NOT_WEAPON_MOD.search(edid) or _RX_COSMETIC.search(edid):
         return ""
-    if (cnam.get("sig") or "").upper() == "OMOD":
+    sig = (cnam.get("sig") or "").upper()
+    if sig == "OMOD":
         return "weapon-mod"
+    # A plan that builds something else (an ACTI, FURN, STAT ...) is never a
+    # weapon mod, whatever its name says - "Plan: Radioactive Barrel" builds the
+    # E05_RadioactiveBarrel ACTI and was getting the mod box off the word
+    # "Barrel" (fixed Oct 2026).
+    if sig:
+        return ""
     # No created record. Only a weapon or recipe row can fall through to the
     # name test — a CAMP or apparel plan called "… Core" is not a weapon mod.
     if (item.get("type") or "") in ("weapon", "recipe") and _RX_WEAPON_MOD_NAME.search(name):

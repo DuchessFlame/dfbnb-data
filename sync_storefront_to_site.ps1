@@ -9,8 +9,13 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$localBase = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\json\uploads\fo76\storefront"
-$local = Join-Path $localBase $Target
+# Images now live in their own Guides and Stuff folders (moved out of json\uploads\fo76\storefront, Oct 2026).
+$localMap = @{
+    "titles-camp"   = "C:\Users\Duche\OneDrive\Guides and Stuff\.Titles\CAMP Titles"
+    "titles-player" = "C:\Users\Duche\OneDrive\Guides and Stuff\.Titles\Player Titles"
+    "player-icons"  = "C:\Users\Duche\OneDrive\Guides and Stuff\.Atom Shop\Player Icons"
+}
+$local = $localMap[$Target]
 
 if (-not (Test-Path -LiteralPath $local)) {
     Write-Host "Local folder not found: $local"

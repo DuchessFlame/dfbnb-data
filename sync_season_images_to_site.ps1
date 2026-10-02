@@ -34,15 +34,23 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$localBase = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\json\uploads\fo76\season_images"
+# Images live in Guides and Stuff\.Season Images (moved out of json\uploads\fo76\season_images, Oct 2026).
+#   Season N rewards: .Season Images\Season N - <name>\Season N - Reward Images  (or .Season Images\Season N - Reward Images)
+#   utility:          .Season Images\Utility
+$seasonRoot = "C:\Users\Duche\OneDrive\Guides and Stuff\.Season Images"
+$localBase = $seasonRoot
 $remoteBase = "/wp-content/uploads/season_images"
 
 if ($PSCmdlet.ParameterSetName -eq "BySeason") {
   $Target = "season-$Season"
-  $local  = Join-Path $localBase $Target
+  $local  = Join-Path $seasonRoot "Season $Season - Reward Images"
+  if (-not (Test-Path -LiteralPath $local)) {
+    $sf = Get-ChildItem -LiteralPath $seasonRoot -Directory | Where-Object { $_.Name -like "Season $Season - *" } | Select-Object -First 1
+    if ($sf) { $local = Join-Path $sf.FullName "Season $Season - Reward Images" }
+  }
   $remote = "$remoteBase/$Target"
 } elseif ($Target -eq "utility") {
-  $local  = Join-Path $localBase $Target
+  $local  = Join-Path $seasonRoot "Utility"
   $remote = "$remoteBase/utility"
 } else {
   $local  = Join-Path $localBase $Target

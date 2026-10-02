@@ -24,10 +24,16 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$localBase = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\json\uploads\guide-images\mini-seasons"
+# Mini season images live in Guides and Stuff\.Mini Seasons (Oct 2026). -Target is the folder on the
+# SITE (e.g. love-hurts); $folderMap says which local folder feeds it. Add a line here for each new event.
+$localBase = "C:\Users\Duche\OneDrive\Guides and Stuff\.Mini Seasons"
+$folderMap = @{
+    "love-hurts"     = "Love Hurts"
+    "weapons-expert" = "RIP Daring weapons expert extraordinaire mini season\AVIF Files"
+}
 
 if ($Target) {
-    $local = Join-Path $localBase $Target
+    if ($folderMap.ContainsKey($Target)) { $local = Join-Path $localBase $folderMap[$Target] } else { $local = Join-Path $localBase $Target }
 } else {
     $local = $localBase
 }

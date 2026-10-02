@@ -32,8 +32,10 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-$localBase = "C:\Users\Duche\OneDrive\Guides and Stuff\Json Files for Website\1 site-data\json\uploads\fo76\season_images"
-$local  = Join-Path $localBase ("season-$Season\AVIF")
+# Gallery AVIFs live in Guides and Stuff\.Season Images\Season N - <name>\AVIF (moved Oct 2026).
+$seasonRoot = "C:\Users\Duche\OneDrive\Guides and Stuff\.Season Images"
+$sf = Get-ChildItem -LiteralPath $seasonRoot -Directory | Where-Object { $_.Name -like "Season $Season - *" -and (Test-Path -LiteralPath (Join-Path $_.FullName "AVIF")) } | Select-Object -First 1
+if ($sf) { $local = Join-Path $sf.FullName "AVIF" } else { $local = Join-Path $seasonRoot "Season $Season - <not found>\AVIF" }
 $remote = "/wp-content/uploads/season_images/season-$Season/AVIF"
 
 if (-not (Test-Path -LiteralPath $local)) {
