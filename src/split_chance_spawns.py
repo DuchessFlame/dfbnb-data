@@ -84,6 +84,7 @@ def chance_points(item_records, tbls, ok_refs, geo_cache, all_regions):
         if not e:
             continue                       # never resolved to a place
         region, marker = e.get("region", ""), e.get("marker", "")
+        region = ebuild.MARKER_REGION_FORCE.get(marker, region)   # user-confirmed fixes
         if not region or not marker or (regions and region not in regions):
             continue
         out[region].setdefault(marker, []).append(f"{inst:06X}")

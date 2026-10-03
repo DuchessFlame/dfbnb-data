@@ -91,6 +91,13 @@ RX_REF_COL = re.compile(r"^Ref_?\d+$")
 RX_COND_COL = re.compile(r"^Cond\d+$")
 RX_DEV = plan_sources._RX_DEV_RECORD   # babylon/zw/test/qa/debug/cut/del/post/template
 RECIPE_KW = "ObjectTypeRecipe"
+# Title books ("Player Title: Zookeeper" -> PlayerTitle_Recipe_Suffix_Zookeeper)
+# teach a CondProxy recipe the title's own condition checks. They are listed
+# under the title they unlock, not as a plan.
+RX_TITLE_BOOK = re.compile(r"^\s*(player|c\.?a\.?m\.?p\.?)\s+title\s*:", re.I)
+RX_TITLE_BOOK_EDID = re.compile(r"Titles?_Recipe_", re.I)
+RX_COND_COBJ = re.compile(r"HasLearnedRecipe\(.*?\[COBJ:([0-9A-Fa-f]{8})\]")
+RX_COND_ENTM = re.compile(r"HasEntitlement\(.*?\[ENTM:([0-9A-Fa-f]{8})\]")
 # An orphaned list whose EditorID says it is a holding pen is parked stock that
 # Bethesda never marked cut (e.g. Minerva's ..._GoldVendor_Backlog_02, 0 refs since
 # at least July 2026). Those are reported in their own "cut but not zzz'd" section,
@@ -240,7 +247,7 @@ class Scan:
         self.cobj = {}
         self.cobj_by_gnam = collections.defaultdict(list)
         self.cobj_by_cnam = collections.defaultdict(list)
-        for d, _, _ in rows(self._f("COBJ", "COBJ_Export_*.tsv")):
+        for d, crefs, _ in rows(self._f("COBJ", "COBJ_Export_*.tsv")):
             fid = (d.get("COBJ_FormID") or "").strip().upper()
             if not fid:
                 continue
@@ -250,7 +257,8 @@ class Scan:
                  "cnam_full": (d.get("CNAM_FULL") or "").strip(),
                  "gnam": (d.get("GNAM_FormID") or "").strip().upper(),
                  "gnam_edid": (d.get("GNAM_EDID") or "").strip(),
-                 "gnam_full": (d.get("GNAM_FULL") or "").strip()}
+                 "gnam_full": (d.get("GNAM_FULL") or "").strip(),
+                 "refs": [split_ref(x) for x in crefs]}
             self.cobj[fid] = c
             if c["gnam"]:
                 self.cobj_by_gnam[c["gnam"]].append(c)
@@ -290,6 +298,20 @@ class Scan:
         for L in self.lvli.values():
             L["entries"].sort(key=lambda e: e["idx"])
         self.stats["lists_total"] = len(self.lvli)
+
+        # PLYT (player titles) + CMPT (C.A.M.P. titles)
+        self.titles = []
+        for key, pat, kind, ncol in (("PLYT", "PLYT_Export_*.tsv", "player_title", "ANAM - Male Title"),
+                                     ("CMPT", "CMPT_Export_*.tsv", "camp_title", "ANAM")):
+            for d, _, conds in rows(self._f(key, pat)):
+                fid = (d.get("FormID") or "").strip().upper()
+                if not fid:
+                    continue
+                edid = (d.get("EDID - Editor ID") or d.get("EDID") or "").strip()
+                name = (d.get(ncol) or d.get("ANAM") or "").strip()
+                pre = (d.get("PTPR - Is Prefix") or d.get("PTPR") or "").strip().lower() == "true"
+                self.titles.append({"fid": fid, "edid": edid, "name": name, "kind": kind,
+                                    "affix": "Prefix" if pre else "Suffix", "conds": conds})
 
     # ------------------------------------------------------- entry liveness
     def _grp_uses_glob(self, conds):
@@ -476,12 +498,56 @@ class Scan:
                     return self.gmrw_quest.get(g) or e
         return None
 
+    def book_routes(self, b):
+        """(live_routes, dead_routes, switch) for one BOOK -- every route its
+        references give it. Shared by the plan scan and the title scan, so a
+        title book is judged by exactly the same rules as a plan."""
+        live_routes, dead_routes, switch = [], [], False
+        for f, e, s in b["refs"]:
+            if s == "LVLI" and f in self.lvli:
+                if is_dev(e):
+                    continue
+                if f in self.live:
+                    st = self.edge_state(f, b["fid"])
+                    if st == "live":
+                        live_routes.append(self.rec(f, e, s))
+                    elif st == "switch":
+                        switch = True
+                    else:
+                        dead_routes.append({"holder": f, "reasons": [
+                            {"kind": "dead_edge", "parent": f, "child": b["fid"], "entries": st[1]}]})
+                else:
+                    rs = self.why_unreached(f)
+                    if any(r["kind"] == "switch" for r in rs):
+                        switch = True
+                    rs = [r for r in rs if r["kind"] != "switch"]
+                    if rs:
+                        dead_routes.append({"holder": f, "reasons": rs})
+                    else:
+                        switch = True
+            elif s in ("COBJ",):
+                continue
+            elif s == "FLST" and (not e or is_dev(e) or e.startswith("Challenge_All_Recipes")):
+                continue
+            elif e and is_dev(e):
+                continue
+            elif s == "GMRW" and f in self.gmrw_dead:
+                self.stats["plans_via_unreferenced_gmrw"] += 1
+                continue
+            elif s == "CONT" and e and is_dev(e):
+                continue
+            else:
+                live_routes.append(self.rec(f, e, s))
+        return live_routes, dead_routes, switch
+
     def scan_plans(self):
         out = []
         for b in self.books.values():
             if not (b["recipe_kw"] or b["fid"] in self.cobj_by_gnam
                     or re.match(r"^(plan|recipe)\s*:", b["full"], re.I)):
                 continue
+            if RX_TITLE_BOOK.match(b["full"]) or RX_TITLE_BOOK_EDID.search(b["edid"]):
+                continue                      # judged by scan_titles instead
             self.stats["plans_scanned"] += 1
             cobjs = self.plan_cobjs(b)
             proof = next((self.unlocks.proof_of_life(c["fid"]) for c in cobjs
@@ -495,42 +561,7 @@ class Scan:
                 self.stats["plans_cut"] += 1
                 continue
 
-            live_routes, dead_routes, switch = [], [], False
-            for f, e, s in b["refs"]:
-                if s == "LVLI" and f in self.lvli:
-                    if is_dev(e):
-                        continue
-                    if f in self.live:
-                        st = self.edge_state(f, b["fid"])
-                        if st == "live":
-                            live_routes.append(self.rec(f, e, s))
-                        elif st == "switch":
-                            switch = True
-                        else:
-                            dead_routes.append({"holder": f, "reasons": [
-                                {"kind": "dead_edge", "parent": f, "child": b["fid"], "entries": st[1]}]})
-                    else:
-                        rs = self.why_unreached(f)
-                        if any(r["kind"] == "switch" for r in rs):
-                            switch = True
-                        rs = [r for r in rs if r["kind"] != "switch"]
-                        if rs:
-                            dead_routes.append({"holder": f, "reasons": rs})
-                        else:
-                            switch = True
-                elif s in ("COBJ",):
-                    continue
-                elif s == "FLST" and (not e or is_dev(e) or e.startswith("Challenge_All_Recipes")):
-                    continue
-                elif e and is_dev(e):
-                    continue
-                elif s == "GMRW" and f in self.gmrw_dead:
-                    self.stats["plans_via_unreferenced_gmrw"] += 1
-                    continue
-                elif s == "CONT" and e and is_dev(e):
-                    continue
-                else:
-                    live_routes.append(self.rec(f, e, s))
+            live_routes, dead_routes, switch = self.book_routes(b)
 
             bugs, severity = [], None
             if dead_routes:
@@ -597,7 +628,7 @@ class Scan:
                 out.append(re.sub(r"\(.*?\)", "", c).split()[0] if c.strip() else c)
         return out
 
-    def describe_dead(self, b, dead_routes):
+    def describe_dead(self, b, dead_routes, noun="plan"):
         bugs, seen = [], set()
         for dr in dead_routes:
             holder = self.lvli[dr["holder"]]
@@ -616,7 +647,7 @@ class Scan:
                     bugs.append({
                         "kind": "orphan", "strong": self.orphan_is_strong(top["edid"]),
                         "title": "Reward list isn't connected to anything",
-                        "text": (f"The leveled list that holds this plan ({top['edid']}) isn't referenced by any "
+                        "text": (f"The leveled list that holds this {noun} ({top['edid']}) isn't referenced by any "
                                  f"quest reward, enemy, container, vendor or parent list, so nothing in the game "
                                  f"ever rolls it." + (f" It looks like it belongs to {src}." if src != top['edid'] else "")),
                         "records": [self.rec(top["fid"], top["edid"], "LVLI")]
@@ -629,7 +660,7 @@ class Scan:
                             continue
                         seen.add(key)
                         d = e["dead"]
-                        what = "this plan" if r["child"] == b["fid"] else f"the list holding this plan ({e['edid']})"
+                        what = f"this {noun}" if r["child"] == b["fid"] else f"the list holding this {noun} ({e['edid']})"
                         rec_rows = [self.rec(P["fid"], P["edid"], "LVLI")]
                         if r["child"] != b["fid"]:
                             rec_rows.append(self.rec(e["fid"], e["edid"], "LVLI"))
@@ -665,6 +696,16 @@ class Scan:
         recs = bug.get("records") or []
         src = next((self._nice(r["edid"]) for r in recs if self._nice(r["edid"])), None)
         k = bug["kind"]
+        if it.get("kind") in ("player_title", "camp_title"):
+            if k == "orphan":
+                return (f"The {src} reward pool that holds this title isn't hooked up to anything, so it never drops."
+                        if src else "The reward pool that holds this title isn't hooked up to anything, so it never drops.")
+            if k == "shadowed":
+                return (f"{src}: another reward always wins the roll before this title gets its turn, so it never drops."
+                        if src else "Another reward always wins the roll before this title gets its turn, so it never drops.")
+            if k == "never_rolls":
+                return "The entry that should give out this title can never drop."
+            return bug.get("text", "")
         if k == "orphan":
             return (f"The {src} reward pool that holds this plan isn't hooked up to anything, so it never drops."
                     if src else "The reward pool that holds this plan isn't hooked up to anything, so it never drops.")
@@ -680,6 +721,90 @@ class Scan:
         if k == "scrap_cut":
             return bug["text"]
         return bug.get("text", "")
+
+    # -------------------------------------------------------------- titles
+    def scan_titles(self):
+        """Player + C.A.M.P. titles the files show can't be earned.
+
+        A title unlocks on one of two conditions:
+          HasLearnedRecipe(CondProxy COBJ)  the recipe is taught by a title BOOK
+                                            that drops from leveled lists -- the
+                                            SAME machinery as a plan, so the same
+                                            route checks apply (orphan / shadowed /
+                                            never_rolls), via book_routes().
+          HasEntitlement(ENTM)              granted by the scoreboard, the Atom
+                                            Shop, a challenge or the server. The
+                                            exports cannot see that grant, so these
+                                            are counted, never judged.
+        Atom Shop titles (ATX_) and cut / editor-only titles are skipped.
+        """
+        out = []
+        for t in self.titles:
+            self.stats["titles_scanned"] += 1
+            if is_dev(t["edid"]) or t["edid"].upper().startswith("ATX_") or not t["name"]:
+                self.stats["titles_skipped_cut_or_atom"] += 1
+                continue
+            text = " ".join(t["conds"])
+            cobj_ids = [x.upper() for x in RX_COND_COBJ.findall(text)]
+            if not cobj_ids:
+                self.stats["titles_entitlement_or_default"] += 1
+                continue
+            noun = "title"
+            label = "Player Title" if t["kind"] == "player_title" else "C.A.M.P. Title"
+            bugs, live_any, dead_routes, books_seen, roll_id = [], False, [], [], None
+            missing = []
+            for cx in cobj_ids:
+                c = self.cobj.get(cx)
+                if not c:
+                    missing.append(cx)
+                    continue
+                if self.cobj_given_directly(cx):
+                    live_any = True
+                    continue
+                # anything outside the title machinery that references the recipe
+                # (a challenge, a quest, a script) counts as a way in. LVLI does
+                # NOT: a leveled list only names the CondProxy in an entry's
+                # "not already learned" condition, it never hands it out.
+                if any(s not in ("BOOK", "PLYT", "CMPT", "FLST", "COBJ", "LVLI") and not (e and is_dev(e))
+                       for _, e, s in c.get("refs", [])):
+                    live_any = True
+                    continue
+                b = self.books.get(c["gnam"]) if c["gnam"] else None
+                if not b or is_dev(b["edid"]):
+                    continue
+                books_seen.append(b)
+                lr, dr, sw = self.book_routes(b)
+                if lr or sw:
+                    live_any = True
+                if dr:
+                    dead_routes.extend(dr)
+                    roll_id = roll_id or b["fid"]
+            if books_seen or missing:
+                self.stats["titles_checked"] += 1
+            if missing and not live_any and not books_seen:
+                bugs.append({"kind": "missing_record", "title": "Unlock check points at nothing",
+                             "text": f"The title only unlocks once a recipe is learned, but that recipe "
+                                     f"({', '.join(missing)}) isn't in the game files, so it can never unlock."})
+            if dead_routes:
+                found = self.describe_dead({"fid": roll_id}, dead_routes, noun=noun)
+                if live_any:
+                    found = [x for x in found if x["kind"] != "orphan"]
+                bugs.extend(found)
+            if not bugs:
+                continue
+            out.append({
+                "id": t["fid"], "name": f"{label}: {t['name']}", "kind": t["kind"],
+                "affix": t["affix"], "roll_id": roll_id,
+                "severity": "route_broken" if live_any else "unobtainable",
+                "bugs": bugs,
+                "still_from": [],
+                "technical": {
+                    "plan": self.rec(t["fid"], t["edid"], "PLYT" if t["kind"] == "player_title" else "CMPT"),
+                    "recipes": [self.rec(cx, (self.cobj.get(cx) or {}).get("edid", ""), "COBJ") for cx in cobj_ids],
+                    "creates": [self.rec(b["fid"], b["edid"], "BOOK") for b in books_seen][:4],
+                },
+            })
+        return out
 
     # --------------------------------------------------------------- scrap
     def scan_scrap(self):
@@ -832,8 +957,8 @@ def gate(scan, items, master_path):
             # always ask about the PLAN itself: pick_rate walks sub-lists down to
             # leaf items, so asking about a sub-list FormID would read 0% for
             # anything and let every row through unchecked
-            child = it["id"]
-            if parent and it["kind"] == "plan":
+            child = it.get("roll_id") or it["id"]
+            if parent and it["kind"] in ("plan", "player_title", "camp_title"):
                 try:
                     rate = scan.res.pick_rate(parent, child)
                 except Exception as e:          # engine can't resolve -> can't confirm
@@ -878,7 +1003,7 @@ def main(argv=None):
     s = Scan(a.data_dir)
     s.analyse_entries()
     s.analyse_reach()
-    items = s.scan_plans() + s.scan_scrap()
+    items = s.scan_plans() + s.scan_scrap() + s.scan_titles()
     items, held_back = gate(s, items, a.master)
     STRONG = {"shadowed", "never_rolls", "wrong_tier"}
     for it in items:
@@ -917,6 +1042,8 @@ def main(argv=None):
     counts = collections.Counter(x["severity"] for x in items)
     counts.update("conf_" + x["confidence"] for x in items)
     counts["confirmed"] = sum(1 for x in items if x.get("confirmed"))
+    counts["titles"] = sum(1 for x in items if x["kind"] in ("player_title", "camp_title"))
+    counts["plans"] = len(items) - counts["titles"]
     doc = {
         "_generated_by": "src/build_bugged_plans_json.py",
         "generated": datetime.date.today().isoformat(),

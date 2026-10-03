@@ -572,6 +572,120 @@ def resolve_season_baseline(data_dir, newest_f, seasons):
     return baseline, active, before
 
 
+# ---------------------------------------------------------------------------
+# NEW TITLES  (the section under the dashed "Titles" divider)
+# ---------------------------------------------------------------------------
+# Same window as the plans: the newest title export against the export the
+# plans' baseline rule picks for that record type (season-start for live, the
+# newest LIVE export for PTS). Rows are copied out of the titles pages' own
+# JSON (dist/titles_player.json / titles_camp.json, built earlier in the same
+# workflow) so a title reads identically here and on its own checklist.
+#
+# In-game titles only. Atom Shop titles (unlockType "atx", EditorID ATX_) and
+# cut / not-obtainable titles are dropped -- the page's disclaimer already says
+# it does not cover the Atom Shop.
+TITLE_KINDS = (
+    # key,     export glob,          titles JSON,          label
+    ("player", "PLYT_Export_*.tsv", "titles_player.json", "Player Titles"),
+    ("camp",   "CMPT_Export_*.tsv", "titles_camp.json",   "C.A.M.P. Titles"),
+)
+
+
+def title_ids(path):
+    """{FormID: EditorID} for every title in one PLYT / CMPT export."""
+    out = {}
+    with open(path, encoding="utf-8", errors="replace") as f:
+        for row in csv.DictReader(f, delimiter="\t"):
+            fid = (row.get("FormID") or "").strip().upper()
+            if fid:
+                out[fid] = (row.get("EDID - Editor ID") or row.get("EDID") or "").strip()
+    return out
+
+
+def resolve_title_pair(glob_pat, data_dir, baseline_dir, mode, season):
+    """(newest, baseline) title exports for this page's window, or (x, None)."""
+    hits = tsv_source.all_matching(os.path.join(data_dir, glob_pat))
+    if not hits:
+        return None, None
+    newest_f = hits[-1]
+    if baseline_dir:                                   # PTS: vs newest LIVE
+        base = tsv_source.all_matching(os.path.join(baseline_dir, glob_pat))
+        return newest_f, (base[-1] if base else None)
+    if mode == "vs-season":
+        if not season:
+            return newest_f, None
+        start_ym = _ym(date.fromisoformat(season["start"]))
+        before = [h for h in hits if _ym(tsv_source.export_date(h)) < start_ym]
+        return newest_f, (before[-1] if before else None)
+    return newest_f, (hits[-2] if len(hits) > 1 else None)   # vs-previous
+
+
+def _is_in_game_title(t):
+    if t.get("cutContent"):
+        return False
+    if (t.get("unlockType") or "").lower() == "atx":
+        return False
+    if (t.get("edid") or "").upper().startswith(("ATX_", "ZZZ", "DEL_")):
+        return False
+    if "atom shop" in (t.get("howToObtain") or "").lower():
+        return False
+    return True
+
+
+def build_title_groups(data_dir, baseline_dir, outdir, mode, season):
+    """[{key, label, count, items}] -- new in-game titles, A-Z, empty kinds dropped."""
+    groups, info = [], {}
+    for key, glob_pat, js, label in TITLE_KINDS:
+        new_f, base_f = resolve_title_pair(glob_pat, data_dir, baseline_dir, mode, season)
+        info[key] = {"newest": os.path.basename(new_f) if new_f else None,
+                     "previous": os.path.basename(base_f) if base_f else None}
+        if not new_f or not base_f:
+            print(f"[new-plans] titles/{key}: no usable baseline -- section skipped")
+            continue
+        added = set(title_ids(new_f)) - set(title_ids(base_f))
+        try:
+            with open(os.path.join(outdir, js), encoding="utf-8") as f:
+                rows_by_fid = {str(t.get("formId") or "").upper(): t
+                               for t in json.load(f).get("items", [])}
+        except (OSError, ValueError) as exc:
+            print(f"[new-plans] titles/{key}: {js} unreadable ({exc}) -- section skipped")
+            continue
+        items, dropped, missing = [], 0, 0
+        for fid in added:
+            t = rows_by_fid.get(fid)
+            if not t:
+                missing += 1
+                continue
+            if not _is_in_game_title(t):
+                dropped += 1
+                continue
+            items.append({
+                "id":          "title:" + fid,
+                "formId":      fid,
+                "edid":        t.get("edid") or "",
+                "kind":        key,
+                "title":       t.get("title") or t.get("titleMale") or "",
+                "titleFemale": t.get("titleFemale") or "",
+                "affixType":   t.get("affixType") or "",
+                "imageUrl":    t.get("imageUrl") or "",
+                "howToObtain": t.get("howToObtain") or "",
+                "dropRate":    t.get("dropRate") or "",
+                "releaseLabel": t.get("releaseLabel") or "",
+                "tradeable":   t.get("tradeable"),
+                "unlockType":  t.get("unlockType") or "",
+                "seasonNumber": t.get("seasonNumber"),
+                "conditions":  t.get("conditions") or [],
+            })
+        items.sort(key=lambda r: (r["title"].lower(), r["affixType"]))
+        print(f"[new-plans] titles/{key}: {os.path.basename(new_f)} vs "
+              f"{os.path.basename(base_f)} -> {len(added)} added, {len(items)} in-game "
+              f"({dropped} Atom Shop/cut dropped, {missing} not in {js})")
+        if items:
+            groups.append({"key": "titles-" + key, "label": label,
+                           "count": len(items), "items": items})
+    return groups, info
+
+
 def resolve_baseline(data_dir, baseline_dir, cur_ids, newest_f):
     """(baseline_file, mode, skipped) -- the ORIGINAL shared resolver.
 
@@ -852,6 +966,9 @@ def main(argv=None):
                                           lambda r: plan_title(r).lower(), GROUPS,
                                           data_dir=args.data_dir)
 
+    title_groups, title_info = build_title_groups(
+        args.data_dir, args.baseline_dir, outdir, mode, season_block)
+
     out = {
         "version": 2,
         "generated": datetime.now(timezone.utc).isoformat(),
@@ -864,6 +981,10 @@ def main(argv=None):
         "skipped_not_in_master": sorted(skipped),
         "grouping": "source",
         "groups": groups,
+        # Rendered under a dashed "Titles" divider at the bottom of the page.
+        # Not counted in count / the plan progress bar.
+        "title_groups": title_groups,
+        "titles_baseline": title_info,
     }
 
     os.makedirs(os.path.dirname(os.path.abspath(out_path)), exist_ok=True)

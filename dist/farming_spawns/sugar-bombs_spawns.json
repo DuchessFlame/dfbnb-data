@@ -174,11 +174,6 @@
      "rate_display": "1.6%"
     },
     {
-     "name": "Vault Desk",
-     "rate": 0.01602280468750006,
-     "rate_display": "1.6%"
-    },
-    {
      "name": "Crashed Vertibot",
      "rate": 0.012842781249999935,
      "rate_display": "1.28%"
@@ -344,11 +339,6 @@
      "rate_display": "0.81%"
     },
     {
-     "name": "Vault Dresser",
-     "rate": 0.008125000000000049,
-     "rate_display": "0.81%"
-    },
-    {
      "name": "Washer",
      "rate": 0.008125000000000049,
      "rate_display": "0.81%"
@@ -377,6 +367,11 @@
      "name": "Tent",
      "rate": 0.0031249999999999993,
      "rate_display": "0.31%"
+    },
+    {
+     "name": "Refrigerator",
+     "rate": 0.0029166666666666785,
+     "rate_display": "0.29%"
     },
     {
      "name": "Refrigerator",
@@ -427,6 +422,70 @@
      "name": "Tent",
      "rate": 0.0007738095238095655,
      "rate_display": "0.08%"
+    }
+   ]
+  },
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Scoutmaster Collectron Station",
+     "edid": "SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster",
+     "obtain": "Purchase with tickets from the Pioneer Scouts: Skyline Valley Scoreboard (Season 17)",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Sugar Bombs",
+       "form_id": "000330F2",
+       "rate": 0.025,
+       "rate_display": "2.5%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "BoS Collectron Station",
+     "edid": "ATX_Community2020_ATLAS_ENTM_CAMP_Utility_Collectron_BoS",
+     "obtain": "Awarded through a Bethesda community event or promotion.",
+     "interval": "7 min 12 sec",
+     "items": [
+      {
+       "name": "Sugar Bombs",
+       "form_id": "000330F2",
+       "rate": 0.0,
+       "rate_display": "0%",
+       "rate_source": "computed_zero"
+      }
+     ]
+    },
+    {
+     "name": "Fasnacht Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Fasnacht",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "7 min 12 sec",
+     "items": [
+      {
+       "name": "Sugar Bombs",
+       "form_id": "000330F2",
+       "rate": 0.0,
+       "rate_display": "0%",
+       "rate_source": "computed_zero"
+      }
+     ]
+    },
+    {
+     "name": "Santatron Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Santa",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "7 min 12 sec",
+     "items": [
+      {
+       "name": "Sugar Bombs",
+       "form_id": "000330F2",
+       "rate": 0.0,
+       "rate_display": "0%",
+       "rate_source": "computed_zero"
+      }
+     ]
     }
    ]
   }
@@ -2198,9 +2257,9 @@
       "direct": 1,
       "npc": 2
      },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
+     "image_top": "/wp-content/uploads/guide-images/farming-non-perishable/sugar-bombs/ash-heap/ash-heap-avr-medical-center-location.avif",
+     "directions": "From the front door, face North and follow the corridor until you get to a large open room. The dining area will be on your right. The kitchen is behind the dining area. The sugar bombs are in the kitchen on the bench.",
+     "image_bottom": "/wp-content/uploads/guide-images/farming-non-perishable/sugar-bombs/ash-heap/ash-heap-avr-medical-center-item.avif",
      "refs": [
       "002B49",
       "09538A",
@@ -2315,9 +2374,9 @@
      "sources": {
       "direct": 1
      },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
+     "image_top": "/wp-content/uploads/guide-images/farming-non-perishable/sugar-bombs/ash-heap/ash-heap-charleston-landfill-location.avif",
+     "directions": "Inside the portable building on the left, in the kitchen area, on a metal shelf.",
+     "image_bottom": "/wp-content/uploads/guide-images/farming-non-perishable/sugar-bombs/ash-heap/ash-heap-charleston-landfill-item.avif",
      "refs": [
       "2D2D77",
       "2D2D88",
@@ -2360,9 +2419,9 @@
       "direct": 1,
       "npc": 6
      },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
+     "image_top": "/wp-content/uploads/guide-images/farming-non-perishable/sugar-bombs/ash-heap/ash-heap-sals-grinders-location.avif",
+     "directions": "Out the back of the dining area, in the kitchen, in the corner, on a metal shelf.",
+     "image_bottom": "/wp-content/uploads/guide-images/farming-non-perishable/sugar-bombs/ash-heap/ash-heap-sals-grinders-item.avif",
      "refs": [
       "036B3B",
       "11B4A3",
@@ -2493,9 +2552,9 @@
       "direct": 1,
       "npc": 5
      },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
+     "image_top": "/wp-content/uploads/guide-images/farming-non-perishable/sugar-bombs/ash-heap/ash-heap-welch-location.avif",
+     "directions": "In the house behind the post office, in the kitchen area, on top of the fridge.",
+     "image_bottom": "/wp-content/uploads/guide-images/farming-non-perishable/sugar-bombs/ash-heap/ash-heap-welch-item.avif",
      "refs": [
       "00A2EA",
       "27E9A4",
@@ -2619,8 +2678,8 @@
      "sources": {
       "direct": 2
      },
-     "image_top": "",
-     "directions": "",
+     "image_top": "/wp-content/uploads/guide-images/farming-non-perishable/sugar-bombs/ash-heap/ash-heap-pleasant-hills-cemetery-location.avif",
+     "directions": "Down in the bottom corner of the cemetery, inside the mausoleum, on the floor.",
      "image_bottom": "",
      "refs": [
       "12B169",
@@ -2646,8 +2705,8 @@
         -101171.6
        ],
        "image_top": "",
-       "directions": "",
-       "image_bottom": ""
+       "directions": "Note: as of 23/11/2021 this box is bugged and cannot be interacted with.",
+       "image_bottom": "/wp-content/uploads/guide-images/farming-non-perishable/sugar-bombs/ash-heap/ash-heap-pleasant-hills-cemetery-item.avif"
       },
       {
        "label": "",
