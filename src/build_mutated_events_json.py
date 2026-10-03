@@ -19,7 +19,7 @@ EVERYTHING IS READ FROM THE GAME FILES - nothing below is typed in by hand:
         |                                 GMRW row awards (GMRW export -> the
         |                                 page's "Public Events" line)
         |-- one reward list per pack      gated by GetPublicEventHasMutation
-        |     (Single / Double, and the   (which mutations) and
+        |     (Single, and the            (which mutations) and
         |      Fallout 1st "Party Pack"   Active Players.IsPlayerFO1Member vs
         |      twins)                     MutatedEvents_LCP_Fallout1stRewardsThreshold
         |       |-- Legendary Scrip, Treasury Notes   (paid with the pack)
@@ -28,6 +28,11 @@ EVERYTHING IS READ FROM THE GAME FILES - nothing below is typed in by hand:
         |                   '-- contents LVLI -> LVLI Refs export (the LVLI the
         |                                        MGEF script points at)
         '-- Player Title (BOOK)            stops once learned (HasLearnedRecipe)
+
+CUT CONTENT - DOUBLE MUTATIONS: the root list also holds Double-mutation
+pack lists (Double Mutated Package / Double Mutated Party Pack). Double
+mutations are cut from the game, so build() skips every double-gated list.
+Do NOT pull them back up onto the page.
 
 Pack names, descriptions, scrip / treasury-note amounts, the mutation lists,
 the Fallout 1st player threshold, every item, quantity and rate come from the
@@ -766,6 +771,15 @@ def build():
 
         list_fid = _fid(ref)
         mutations, is_double, fo1 = _pack_gate(conds, data.globs)
+        # CUT CONTENT - DO NOT PULL UP. Double mutations (Blistering Cold,
+        # Chilling Mend, Clouded Toxins, ...) and their packs (Double Mutated
+        # Package, Double Mutated Party Pack) are still in LL_MutatedEvents_Rewards
+        # but are cut from the live game. Never add them back to the page - skip
+        # every double-gated pack list here so the packs, the "Double Mutations"
+        # header line and any rewards only they give never reach the JSON.
+        if is_double:
+            print("  [CUT] {} - double-mutation pack, cut content - skipped".format(_edid(ref)))
+            continue
         package, paid = None, []
         for pe in lvli.entries_by_list.get(list_fid, []):
             pref = pe.get("LVLO_Reference") or ""
@@ -838,7 +852,7 @@ def build():
     if pb.unknown:
         print("  [WARN] lists not sorted into a category: {}".format(", ".join(sorted(set(pb.unknown)))))
 
-    # Pack order: single before double, standard before Party Pack.
+    # Pack order: standard before Party Pack (double packs are cut - see build()).
     packs.sort(key=lambda p: (p["fallout1st"] is not None and p["fallout1st"].get("op") in (2, 3),
                               p["mutationType"] == "double"))
     return data, root, packs, title_items
