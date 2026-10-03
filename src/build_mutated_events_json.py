@@ -80,6 +80,22 @@ OUT_FILE = OUT_DIR / "mutated_events_all_rewards.json"
 PAGE_SLUG = "mutated-events-all-rewards"
 PAGE_URL = "/df/mutated-events/mutated-events-all-rewards/"
 IMAGE_BASE = "/wp-content/uploads/guide-images/mutated-events/reward-images/"
+
+# Regional recipe variants share one image - the item looks the same in every
+# region, so only one copy lives in reward-images/ (no duplicates):
+#   Recipe: Healing Salve (Ash Heap / Cranberry Bog / ...) -> healing-salve.avif
+#   Recipe: Disease Cure  (Ash Heap / Cranberry Bog / ...) -> disease-cure.avif
+SHARED_IMAGES = [
+    (re.compile(r"^Recipe:\s*Healing Salve\b", re.I), "healing-salve.avif"),
+    (re.compile(r"^Recipe:\s*Disease Cure\b", re.I), "disease-cure.avif"),
+]
+
+
+def _own_image_name(name):
+    for rx, fname in SHARED_IMAGES:
+        if rx.search(name or ""):
+            return fname
+    return sev.slugify_item(name) + ".avif"
 # Plans and apparel reuse the plan-checklist art (same folders the Daily Ops
 # checklist reads); titles fall back to the blank name-tag placeholder until
 # their own render is uploaded.
@@ -1043,7 +1059,7 @@ def _image_list(row, pm, pi, idx, stats):
             urls.append(u)
             if source == "own":
                 source = "weapon-mod" if u in generic else "plan-checklist"
-    urls.append(IMAGE_BASE + sev.slugify_item(row["name"]) + ".avif")
+    urls.append(IMAGE_BASE + _own_image_name(row["name"]))
     if re.match(r"^(Player|Camp) Title:", row["name"]):
         urls.append(TITLE_PLACEHOLDER)
     stats[source] = stats.get(source, 0) + 1
