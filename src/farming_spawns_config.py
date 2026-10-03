@@ -1811,6 +1811,16 @@ SUGAR_BOMBS = {
     "name": "Sugar Bombs",
     "page_title": "Sugar Bombs Spawn Locations",
     "blurb": "Every known world spawn for Sugar Bombs, grouped by region. Directions and photos are added by hand.",
+    # Only loose world placements are FIXED spawns. The engine also finds NPC
+    # inventories (scorched etc. carrying a box) and quest rewards; those are not
+    # things lying in the world, and counting them inflated the page to 3000+.
+    "fixed_sources": ["direct"],
+    # Region pages: the region is the root expand, pinned open (no "Fixed Spawn
+    # Locations" wrapper). The main guide's Fixed Spawn Locations becomes a plain
+    # list of links to those pages (build_farming_used_for._inject_region_links).
+    "region_root": True,
+    "region_index_base": "/bnb/farming/non-perishable/sugar-bombs/location-guide/",
+    "region_index_style": "links",
     "items": [
         {
             "formid": "000330F2",

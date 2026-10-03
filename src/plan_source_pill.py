@@ -18,6 +18,7 @@ THE TAGS
 --------
     Ops Expos Raids Events Activities   -- things you run
     CHAL Quest Workshop                 -- things you complete
+    Scrap                               -- scrap the item to learn the mod
     Gold Atom Vendor                    -- things you buy from
     Loot Enemy Fixed                    -- things you find
 
@@ -38,7 +39,7 @@ import re
 # Order matters twice over: it is the tie-break when two routes share the best
 # rate, and it is the order the label tests run in.
 TAG_ORDER = ["Ops", "Expos", "Raids", "Events", "Activities",
-             "CHAL", "Quest", "Workshop",
+             "CHAL", "Quest", "Workshop", "Scrap",
              "Gold", "Atom", "Vendor", "Loot", "Enemy", "Fixed"]
 _RANK = {t: i for i, t in enumerate(TAG_ORDER)}
 
@@ -59,6 +60,11 @@ _BY_TYPE = {"vendor": "Vendor", "container": "Loot",
 # A guaranteed unlock is worth the same as a 100% route: you go and do the thing
 # and the plan is yours.
 _UNLOCK_TESTS = [
+    # Scrap to Learn (plan_unlocks SCRAP): "Scrap a 10mm for up to 100% chance
+    # to learn this plan ...". Tested FIRST, because the scrapped item's name
+    # is free text and could contain any of the words below ("Scrap a
+    # Workshop ..."). Same opener plan_sources._ledger_unlock_bucket keys on.
+    ("Scrap",    re.compile(r"^\s*scrap\b", re.I)),
     ("CHAL",     re.compile(r"challenge", re.I)),
     ("Workshop", re.compile(r"workshop", re.I)),
     ("Atom",     re.compile(r"atom\s*shop", re.I)),

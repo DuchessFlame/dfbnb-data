@@ -217,6 +217,21 @@ SUBPAGES = {
         "skip": [],
     },
 
+    "mines-and-grenades": {
+        "title": "Mines and Grenades",
+        # Split off the Weapon page (Oct 2026). plan_images.is_ordnance() files
+        # a plan here when the WEAP it builds carries WeaponTypeMine, or
+        # WeaponTypeGrenade plus Explosive/Ordnance — the game's own word for
+        # it, so a new grenade lands here with no change. Tomahawks and
+        # throwing knives sit in the grenade slot too, but are not explosive,
+        # and stay on the Weapon page. Flat A-Z: a grenade has no mods or
+        # skins to nest.
+        "folder": "mines-and-grenades",
+        "groups": None,
+        "skip": [],
+        "sub": "Track which grenade and mine plans you have learned.",
+    },
+
     "weapon": {
         "title": "Weapon",
         "folder": "weapons",

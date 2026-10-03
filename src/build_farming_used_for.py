@@ -1759,6 +1759,11 @@ def _load_cont_names(data_dir: str) -> Dict[str, str]:
     return out
 
 
+def _is_camp_storage(edid) -> bool:
+    e = (edid or "").strip().lower()
+    return e.startswith("atx_") or e.startswith("score_")
+
+
 def container_types(closure, targets: set, appearance, cont_names: Dict[str, str],
                     lvli_refs: Dict[str, Any], parent_edid: Dict[str, Any]) -> List[Dict[str, Any]]:
     """The Containers type+rate list. REUSABLE across families (farming / meat /
@@ -1775,6 +1780,10 @@ def container_types(closure, targets: set, appearance, cont_names: Dict[str, str
             if rs != "CONT":
                 continue
             if _classify("CONT", red, via) != "container":
+                continue
+            # CAMP storage (Atom Shop / scoreboard fridges and coolers: ATX_*, SCORE_*)
+            # is player storage you put food into, never loot you can search.
+            if _is_camp_storage(red):
                 continue
             nm = cont_names.get((rf or "").upper())
             if nm:
@@ -1947,6 +1956,8 @@ def run(slugs: List[str], dist_dir: str, data_dir: str) -> None:
                cont_names=cont_names, tables=tables, closure_lists=closure_lists)
         if cfg.get("multi_item"):
             _inject_multi_item(slug, cfg, dist_dir, data_dir)
+        elif cfg.get("region_index_style") == "links" and cfg.get("region_index_base"):
+            _inject_region_links(slug, cfg, dist_dir)
         # Honeycomb also hosts the Honey Beast creature (it drops Honeycomb). Fold
         # the creature bundle in AFTER used_for so both survive (inject() above
         # copies unknown keys like honey_beast through). Runs in the CI --all pass.
@@ -1985,6 +1996,33 @@ def _inject_multi_item(slug, cfg, dist_dir, data_dir):
     json.dump(doc, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"  {os.path.basename(path):<34} multi_item: {len(breakdown)} items, "
           f"{len(regions)} region-index links")
+
+
+def _inject_region_links(slug, cfg, dist_dir):
+    """Single-item page whose Fixed Spawn Locations is just a list of links to its
+    per-region location guides (Sugar Bombs). Writes fixed_spawn_index with
+    style "links"; regions A-Z, each counted by the page's fixed sources only."""
+    path = os.path.join(dist_dir, "farming_spawns", f"{slug}_spawns.json")
+    if not os.path.exists(path):
+        return
+    doc = json.load(open(path, encoding="utf-8"),
+                    object_pairs_hook=collections.OrderedDict)
+    base = cfg.get("region_index_base") or ""
+    fixed = set(cfg.get("fixed_sources") or [])
+
+    def is_fixed(loc):
+        src = loc.get("sources") or {}
+        return any(v for k, v in src.items()
+                   if k != "vendor" and (not fixed or k in fixed))
+
+    regions = [{"region": r.get("region"),
+                "count": sum(1 for l in (r.get("locations") or []) if is_fixed(l)),
+                "url": base + _region_slug(r.get("region")) + "/"}
+               for r in sorted(doc.get("regions", []), key=lambda r: r.get("region") or "")]
+    regions = [r for r in regions if r["count"]]
+    doc["fixed_spawn_index"] = {"base": base, "style": "links", "regions": regions}
+    json.dump(doc, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    print(f"  {os.path.basename(path):<34} region links: {len(regions)}")
 
 
 def _region_slug(region):

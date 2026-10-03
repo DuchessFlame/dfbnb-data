@@ -89,6 +89,15 @@ def load_existing(path):
 
 
 # ── placement resolution ─────────────────────────────────────────────────────
+# Marker -> region, user-confirmed (Oct 2026, Sugar Bombs guide). The SubRegion
+# polygons / interior rules put these in the wrong region. Exterior markers and
+# interior display names both key here. Applied at the end of resolve_placements.
+MARKER_REGION_FORCE = {
+    "AVR Medical Center": "Ash Heap",
+    "Charleston Landfill": "Ash Heap",
+}
+
+
 def resolve_placements(src, geo, cur, cache, db_ok):
     """Given a get_sources() result, return
         (seen: {instanceFormID: (x, y, region, marker, source_type)}, lists_n).
@@ -134,6 +143,13 @@ def resolve_placements(src, geo, cur, cache, db_ok):
             if e and inst not in seen:
                 seen[inst] = (e.get("x"), e.get("y"), e.get("region", ""),
                               e.get("marker", ""), direct_type[inst])
+
+    # Region fixes Duchess has confirmed in-game. Applied last, on the DB path AND
+    # the cache path, so it always wins over the polygon / interior rules.
+    for inst, t in list(seen.items()):
+        forced = MARKER_REGION_FORCE.get(t[3])
+        if forced and forced != t[2]:
+            seen[inst] = (t[0], t[1], forced, t[3], t[4])
 
     return seen, lists_n
 

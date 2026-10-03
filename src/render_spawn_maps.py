@@ -416,7 +416,11 @@ def load_points(slug, source):
             # back to those and every point still lands on the map. Without this the
             # 13,342-point Blackberries map would draw nothing.
             entries = loc.get("spawns") or []
-            if len(entries) < len(loc.get("refs") or []):
+            # Only when the spawn list is actually short of the marker's count: a
+            # marker's `refs` can also hold its shared-pool (chance) points, which
+            # must never be drawn as fixed spawns.
+            if (len(entries) < int(loc.get("count") or 0)
+                    and len(entries) < len(loc.get("refs") or [])):
                 have = {e.get("ref") for e in entries}
                 entries = list(entries) + [{"ref": r} for r in loc["refs"]
                                            if r not in have]
@@ -437,6 +441,11 @@ def load_points(slug, source):
                     "label": sp.get("label", ""),
                     "source_type": sp.get("source_type") or _marker_type(loc),
                 })
+    # A doc can narrow what counts as a fixed spawn (Sugar Bombs: ["direct"] — NPC
+    # inventories are not places to walk to). Same rule the page uses.
+    fixed = data.get("fixed_sources")
+    if isinstance(fixed, list) and fixed:
+        pts = [p for p in pts if p.get("source_type") in fixed]
     return data.get("name", slug), data.get("page_title", slug), pts
 
 

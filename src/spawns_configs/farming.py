@@ -314,6 +314,12 @@ def build_one(cfg, tbls, geo, cur, cache, db_ok, generated, dist_dir, channel="l
         "regions": regions_out,
         "chance_spawns": chance_spawns,
     }
+    # Per-page display knobs (Sugar Bombs): which source types are fixed spawns,
+    # and region page as pinned root. (Walking-route order lives in
+    # data/spawn_route_order.tsv.)
+    for k in ("fixed_sources", "region_root"):
+        if cfg.get(k):
+            doc[k] = cfg[k]
     # Region-map link fields (map_base / map_ext / map_regions / full_map). They are
     # set in the item's config, or stamped later by add_spawn_map_base.py. Either way
     # a rebuild must carry them over — they used to be dropped here on every patch

@@ -79,6 +79,10 @@ PAGE_FOLDER = {
     "backpack-mod":   "backpack",
     "recipe":         "recipes",
     "weapon":         "weapons",
+    # Grenades, mines and other thrown ordnance — split off the Weapon page
+    # (Oct 2026). Claimed by the created WEAP's own keywords, see
+    # is_ordnance() below, not by name.
+    "mines-and-grenades": "mines-and-grenades",
     "underarmour":    "underarmour",
     # Pages that do not render from plan_master, listed so this map is the one
     # place the folder names live.
@@ -161,6 +165,67 @@ _RX_FOOD      = re.compile(r"\bfood\b|drink|chem\b|brew|cook|meal|soup|stew|reci
                            r"\bpie\b|cake|juice|tea\b|coffee", re.I)
 
 
+# ── ordnance: the Mines and Grenades page ───────────────────────────────────
+# A grenade or a mine is a WEAP like any gun, so the weapons rule would claim
+# it. The game says which ones are ordnance on the record itself:
+#
+#   WeaponTypeMine                                   -> a mine
+#   WeaponTypeGrenade + (WeaponTypeExplosive or ObjectTypeOrdnance) -> a grenade
+#
+# The second test needs the explosive/ordnance half because the tomahawk and
+# the throwing knives carry WeaponTypeGrenade too (they sit in the grenade
+# slot) and they are weapons, not ordnance. Read from the newest WEAP export
+# every build, so a new grenade lands on the page by itself.
+#
+# A plan whose created record never resolved still has its plan EditorID, and
+# Bethesda files every grenade/mine recipe as Recipe_Tinkers_* — the same rule
+# add_weapon_groups.STANDALONE uses.
+_RX_TINKERS = re.compile(r"(^|_)recipe_tinkers_", re.I)
+_ORDNANCE = None          # WEAP FormID set, loaded once per process
+
+
+def load_ordnance(tsv_dir="tsv", verbose=False):
+    """FormIDs of every ordnance WEAP in the newest WEAP export."""
+    global _ORDNANCE
+    files = sorted(glob.glob(os.path.join(tsv_dir, "WEAP_Export_*_Base.tsv")),
+                   key=os.path.getmtime)
+    if not files and tsv_dir != "tsv":
+        files = sorted(glob.glob(os.path.join("tsv", "WEAP_Export_*_Base.tsv")),
+                       key=os.path.getmtime)
+    out = set()
+    if files:
+        with open(files[-1], encoding="utf-8", errors="replace") as f:
+            for r in csv.DictReader(f, delimiter="\t"):
+                kw = r.get("Keywords") or ""
+                mine = "WeaponTypeMine [" in kw
+                gren = "WeaponTypeGrenade [" in kw and (
+                    "WeaponTypeExplosive" in kw or "ObjectTypeOrdnance" in kw)
+                if mine or gren:
+                    out.add((r.get("WEAP_FormID") or "").strip().upper())
+        if verbose:
+            print(f"  ordnance WEAPs: {len(out)} from {os.path.basename(files[-1])}",
+                  file=sys.stderr)
+    elif verbose:
+        print("  WARNING: no WEAP export — Mines and Grenades falls back to "
+              "Recipe_Tinkers_ EditorIDs only", file=sys.stderr)
+    _ORDNANCE = out
+    return out
+
+
+def is_ordnance(item):
+    """True for a grenade / mine plan — the Mines and Grenades page."""
+    if _ORDNANCE is None:
+        load_ordnance()
+    cnam = item.get("cnam") or {}
+    if (cnam.get("sig") or "").upper() == "WEAP":
+        return (cnam.get("formid") or "").strip().upper() in _ORDNANCE
+    # No created WEAP resolved: fall back to the recipe naming convention.
+    if cnam.get("sig"):
+        return False
+    edid = (item.get("plan_item") or {}).get("edid") or (item.get("cobj") or {}).get("edid") or ""
+    return bool(_RX_TINKERS.search(edid))
+
+
 def page_folder(item):
     """The server folder this row's art belongs in — by what it IS."""
     cnam = item.get("cnam") or {}
@@ -193,6 +258,8 @@ def page_folder(item):
         return "power-armour"
     if _RX_BACKPACK.search(blob):
         return "backpack"
+    if is_ordnance(item):
+        return PAGE_FOLDER["mines-and-grenades"]
     if sig == "WEAP" or generic_kind(item) == "weapon-mod" or kind == "weapon":
         return "weapons"
     if _RX_IS_APPAREL.search(blob) and not _RX_NOT_APPAREL.search(blob):
@@ -422,6 +489,9 @@ def load(dist_dir="dist", tsv_dir="tsv", config_path=CONFIG, verbose=True):
             if verbose:
                 print(f"  WARNING: legacy_nw: {exc}", file=sys.stderr)
 
+    # Ordnance from THIS channel's WEAP export (tsv/pts on the PTS build).
+    load_ordnance(tsv_dir, verbose=verbose)
+
     staged = read_staged(config_path, verbose=verbose)
     if verbose:
         print("  published art indexed: {} FormIDs, {} EditorIDs, {} names"
@@ -600,6 +670,14 @@ def scan_staging(avif_root, config_path=CONFIG, verbose=True):
         # ("legacy nuclear winter") where the server folder has hyphens.
         if not os.path.isdir(path) and os.path.isdir(os.path.join(avif_root, folder.replace("-", " "))):
             path = os.path.join(avif_root, folder.replace("-", " "))
+        # ...and sometimes title-cased ("Mines and Grenades"). Match the
+        # spaced spelling case-insensitively so this works off Windows too.
+        if not os.path.isdir(path) and os.path.isdir(avif_root):
+            want = folder.replace("-", " ").lower()
+            for d in os.listdir(avif_root):
+                if d.lower() == want and os.path.isdir(os.path.join(avif_root, d)):
+                    path = os.path.join(avif_root, d)
+                    break
         stems = set()
         if os.path.isdir(path):
             for dirpath, _dirs, files in os.walk(path):
