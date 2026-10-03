@@ -1015,6 +1015,43 @@ def _load_hosted_index():
         os.chdir(cwd)
 
 
+_STAGED_CACHE = {}
+
+
+def _staged_by_stem():
+    """stem -> plan-checklist folder, from the committed staged-stem list
+    (data/plan_images.json, written by add_plan_images.py --avif-dir). Only
+    stems staged in exactly ONE folder - a filename in two folders does not
+    identify a picture (plan_images._elsewhere's rule)."""
+    if "map" in _STAGED_CACHE:
+        return _STAGED_CACHE["map"]
+    out = {}
+    try:
+        with open(_REPO_ROOT / "data" / "plan_images.json", encoding="utf-8") as f:
+            cfg = json.load(f)
+        for folder, stems in (cfg.get("staged_images") or {}).items():
+            for st in stems:
+                st = str(st).lower()
+                out[st] = None if st in out else folder
+    except (OSError, ValueError) as e:
+        print("  [WARN] data/plan_images.json not read ({}) - staged art skipped".format(e))
+    _STAGED_CACHE["map"] = out
+    return out
+
+
+def _staged_url(name):
+    """The plan-checklist art for an item that is not itself a plan row
+    (apparel rewards, or a plan whose plan_master row has no picture yet),
+    matched on the hyphen slug the hand-cropped renders are saved under."""
+    base = re.sub(r"^\s*(plan|recipe|schematic)\s*:\s*", "", name or "", flags=re.I)
+    for b in (base, re.sub(r"\s*\([^)]*\)\s*$", "", base)):   # regional variants share one file
+        stem = re.sub(r"[^a-z0-9]+", "-", b.lower()).strip("-")
+        folder = _staged_by_stem().get(stem)
+        if folder:
+            return PLAN_IMG_BASE + folder + "/" + stem + ".avif"
+    return ""
+
+
 def _image_list(row, pm, pi, idx, stats):
     """Ordered image URLs for a checklist row, first hit first:
         1. art the site already hosts (by FormID, EditorID, then name)
@@ -1059,6 +1096,11 @@ def _image_list(row, pm, pi, idx, stats):
             urls.append(u)
             if source == "own":
                 source = "weapon-mod" if u in generic else "plan-checklist"
+    if not urls:
+        u = _staged_url(row["name"])
+        if u:
+            urls.append(u)
+            source = "plan-checklist"
     urls.append(IMAGE_BASE + _own_image_name(row["name"]))
     if re.match(r"^(Player|Camp) Title:", row["name"]):
         urls.append(TITLE_PLACEHOLDER)

@@ -733,6 +733,22 @@ def candidate_stems(item):
     name = _RX_PLAN_PREFIX.sub("", item.get("name") or "").strip().lower()
     if name:
         out.append(re.sub(r"[^a-z0-9]+", "_", name).strip("_"))
+        # Hand-cropped Inspect renders are saved as hyphen slugs
+        # ("bos-knight-uniform", "undershirt-jeans"), the same spelling the
+        # reward pages' own folders use.
+        out.append(re.sub(r"[^a-z0-9]+", "-", name).strip("-"))
+        # Headlamp colours share one picture per helmet: "T-45 Headlamp Blue",
+        # "... Purple", "... Vault Boy" all show the same T-45 helmet, so only
+        # one file is kept (t-45-headlamp.avif). Tried last, so a colour that
+        # ever gets its own render still wins.
+        m = re.match(r"^(.*\bheadlamp)\b", name)
+        if m:
+            out.append(re.sub(r"[^a-z0-9]+", "-", m.group(1)).strip("-"))
+        # Regional recipe variants ("Healing Salve (Ash Heap)") look the same
+        # in every region, so one file serves them all (healing-salve.avif).
+        base = re.sub(r"\s*\([^)]*\)\s*$", "", name)
+        if base and base != name:
+            out.append(re.sub(r"[^a-z0-9]+", "-", base).strip("-"))
     seen, uniq = set(), []
     for s in out:
         if s and s not in seen:
