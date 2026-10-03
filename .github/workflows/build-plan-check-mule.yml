@@ -1,0 +1,66 @@
+name: Build Plan Check Mule Pages
+
+# /df/community/{xbox,playstation,pc}-plan-check-mule-missing-plans-list/
+#
+# Brewmaster commits dist/missing_plans_<platform>[_<mule>].json whenever a
+# mule's list changes. This rebuilds the page data from those lists, re-reading
+# every plan from the current plan_master so images and routes stay current:
+#   live -> dist/community/plan_check_mule_<platform>.json
+#   PTS  -> dist/pts/community/plan_check_mule_<platform>.json
+# The full patch / PTS builds run the same script after plan_master rebuilds.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'dist/missing_plans_*.json'
+      - 'dist/plan_master.json'
+      - 'dist/pts/plan_master.json'
+      - 'src/build_plan_check_mule_json.py'
+      - '.github/workflows/build-plan-check-mule.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Build Plan Check Mule pages (live)
+        run: python src/build_plan_check_mule_json.py
+
+      - name: Build Plan Check Mule pages (PTS)
+        # Non-fatal: the live pages must still publish if the PTS plan_master is absent.
+        run: python src/build_plan_check_mule_json.py --pts || echo "PTS build skipped"
+
+      - name: Commit and push
+        shell: bash
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/community/plan_check_mule_*.json
+          git add dist/pts/community/plan_check_mule_*.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Build Plan Check Mule pages"
+          git fetch origin main
+          git pull --rebase origin main
+          git push origin main

@@ -1299,6 +1299,13 @@ jobs:
       - name: Back-fill scoreboard player-icon entitlements
         run: python src/apply_player_icon_images.py
 
+      # --- COMMUNITY: Plan Check Mule missing plans lists ---
+      # Re-reads every plan on Brewmaster's lists from the plan_master this
+      # run just built, so images / routes / rates are never the bot's stale
+      # snapshot. Runs after plan_master and every image source it uses.
+      - name: Build Plan Check Mule pages JSON
+        run: python src/build_plan_check_mule_json.py
+
       # --- SANITY CHECK ---
       - name: Sanity check dist outputs
         run: |
