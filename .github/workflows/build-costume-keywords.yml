@@ -1,0 +1,67 @@
+name: Build Costume Keyword Index Data
+
+# /df/score-challenges/costume-keyword-index/
+# Builds both channels from src/build_costume_keywords_json.py:
+#   live -> dist/costume_keywords.json      (reads tsv/)
+#   PTS  -> dist/pts/costume_keywords.json  (reads tsv/pts/ only)
+# The full patch / PTS builds run the same script too; this one exists so the
+# page can be rebuilt on its own.
+
+on:
+  workflow_dispatch:
+
+  push:
+    paths:
+      - 'tsv/**'
+      - 'src/build_costume_keywords_json.py'
+      # The cut-record rule is imported from the spin wheel builder, so a change
+      # there changes this page's contents too.
+      - 'src/build_spin_wheel_json.py'
+      - 'src/tsv_source.py'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Build Costume Keyword Index (live)
+        run: python src/build_costume_keywords_json.py
+
+      - name: Build Costume Keyword Index (PTS)
+        # Non-fatal: if tsv/pts/ has no KYWD / ARMO / CHAL pull yet, the live
+        # page must still publish.
+        run: python src/build_costume_keywords_json.py --pts || echo "PTS build skipped"
+
+      - name: Commit and push
+        shell: bash
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/costume_keywords.json
+          git add dist/pts/costume_keywords.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Build Costume Keyword Index data"
+          git fetch origin main
+          git pull --rebase origin main
+          git push origin main

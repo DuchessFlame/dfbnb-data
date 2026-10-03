@@ -484,6 +484,12 @@ jobs:
         # counts as a player weapon.
         run: python src/build_weapon_keywords_json.py --pts
 
+      - name: Build Costume Keyword Index JSON (PTS)
+        # /df/score-challenges/costume-keyword-index/ — every wearable carrying
+        # ClothingTypeCostume and the challenges that ask for it. Uses the
+        # spin wheel builder's cut rule, so it sits beside the weapon index.
+        run: python src/build_costume_keywords_json.py --pts
+
       # --- DF SCOREBOARDS (placeholder patchlog) ---
       - name: Stage scoreboards patchlog feed (placeholder)
         # No dedicated builder for the scoreboards category yet — the Season
