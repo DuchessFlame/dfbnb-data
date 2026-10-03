@@ -847,10 +847,7 @@ _Couldn't key this file to records; contents differ._
 ## `load_screens.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `make_plan_checklist.json`  ·  +0 / -0 / ~1
-
-**Changed (1)**
-- Plan: Mole Miner Gauntlet  `PLAN_00436FF9` — fields: routes
+## `make_plan_checklist.json`  ·  +0 / -0 / ~0
 
 ## `meat.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1032,9 +1029,9 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +0 / -0 / ~34
+## `plan_master.json`  ·  +0 / -0 / ~30
 
-**Changed (34)**
+**Changed (30)**
 - Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images
 - Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images
 - MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images
@@ -1050,10 +1047,6 @@ _Couldn't key this file to records; contents differ._
 - Nuke Goggles Man Player Icon  `NWREWARD_0041662B` — fields: image_source, images
 - Nuke Goggles Woman Player Icon  `NWREWARD_0041662C` — fields: image_source, images
 - Power Armor Player Icon  `NWREWARD_0041662D` — fields: image_source, images
-- Plan: Mole Miner Gauntlet  `PLAN_00436FF9` — fields: obtain_ledger, obtain_routes
-- Plan: Ultracite Optimized Servos  `PLAN_0050194F` — fields: obtain_routes
-- Plan: Ultracite Overdrive Servos  `PLAN_00501950` — fields: obtain_routes
-- Plan: Ultracite Emergency Protocols  `PLAN_00501954` — fields: obtain_routes
 - Plan: Evil Jack O'Lantern  `PLAN_005772C7` — fields: image_source, images
 - Plan: Solomon Hardy  `PLAN_00608AEB` — fields: images
 - Plan: Yasmin Chowdhury  `PLAN_00608AEC` — fields: images
@@ -1247,6 +1240,9 @@ _Couldn't key this file to records; contents differ._
 - WorldPets_PlayerTitles_Prefix_Cat02  `WorldPets_PlayerTitles_Prefix_Cat02` — fields: conditions, debug, unlockType
 - WorldPets_PlayerTitles_Prefix_Deathclaw01  `WorldPets_PlayerTitles_Prefix_Deathclaw01` — fields: conditions, debug, unlockType
 - …and 15 more
+
+## `titles_player_generator.json`  ·  changed (structural)
+_Couldn't key this file to records; contents differ._
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
