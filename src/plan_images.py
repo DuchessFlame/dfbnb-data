@@ -187,14 +187,16 @@ _ORDNANCE = None          # WEAP FormID set, loaded once per process
 def load_ordnance(tsv_dir="tsv", verbose=False):
     """FormIDs of every ordnance WEAP in the newest WEAP export."""
     global _ORDNANCE
-    files = sorted(glob.glob(os.path.join(tsv_dir, "WEAP_Export_*_Base.tsv")),
-                   key=os.path.getmtime)
-    if not files and tsv_dir != "tsv":
-        files = sorted(glob.glob(os.path.join("tsv", "WEAP_Export_*_Base.tsv")),
-                       key=os.path.getmtime)
+    # Chronological, not mtime: every file shares the checkout timestamp in CI.
+    import tsv_source
+    newest = tsv_source.newest(os.path.join(tsv_dir, "WEAP_Export_*_Base.tsv"),
+                               required=False)
+    if not newest and tsv_dir != "tsv":
+        newest = tsv_source.newest(os.path.join("tsv", "WEAP_Export_*_Base.tsv"),
+                                   required=False)
     out = set()
-    if files:
-        with open(files[-1], encoding="utf-8", errors="replace") as f:
+    if newest:
+        with open(newest, encoding="utf-8", errors="replace") as f:
             for r in csv.DictReader(f, delimiter="\t"):
                 kw = r.get("Keywords") or ""
                 mine = "WeaponTypeMine [" in kw
@@ -203,7 +205,7 @@ def load_ordnance(tsv_dir="tsv", verbose=False):
                 if mine or gren:
                     out.add((r.get("WEAP_FormID") or "").strip().upper())
         if verbose:
-            print(f"  ordnance WEAPs: {len(out)} from {os.path.basename(files[-1])}",
+            print(f"  ordnance WEAPs: {len(out)} from {os.path.basename(newest)}",
                   file=sys.stderr)
     elif verbose:
         print("  WARNING: no WEAP export — Mines and Grenades falls back to "

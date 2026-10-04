@@ -3157,6 +3157,30 @@ def build_patchlog(prev: Optional[dict], curr: dict) -> dict:
         "changed": sorted(changed)[:500],
     }
 
+_HLR_RE = re.compile(r"HasLearnedRecipe\(", re.IGNORECASE)
+
+
+def book_stops_dropping_map(lvli_entry_rows) -> Dict[str, bool]:
+    """Title BOOK FormID -> whether it stops dropping once learnt.
+
+    Same rule as the plan checklists (build_plan_obtain_json.resolve_stops_dropping):
+      True  -> at least one leveled-list entry for the BOOK is gated on
+               HasLearnedRecipe, so it leaves the pool once the title is learnt
+      False -> it sits in leveled lists but no entry gates on it
+      (absent -> not in any leveled list: bought / quest / scoreboard, so the
+       page shows "Drop: N/A" instead)
+    """
+    out: Dict[str, bool] = {}
+    for r in lvli_entry_rows:
+        ref = (r.get("LVLO_Reference") or "").strip()
+        if ":BOOK" not in ref.upper():
+            continue
+        fid = ref.split(":")[0].strip().upper()
+        conds = " ".join((r.get(f"Cond{i}") or "") for i in range(1, 11))
+        out[fid] = out.get(fid, False) or bool(_HLR_RE.search(conds))
+    return out
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
 
@@ -3371,6 +3395,7 @@ def main() -> int:
 
     # build lookup maps AFTER all TSVs are loaded
     tradeable_by_book = book_tradeable_map(book_rows)
+    stops_by_book = book_stops_dropping_map(lvli_entry_rows)
     gmrw_by_token = gmrw_parentquest_map(gmrw_rows)
     gmrw_by_formid = gmrw_parentquest_by_any_ref_formid_map(gmrw_rows)
     gmrw_by_ref_formid = gmrw_by_formid
@@ -3529,6 +3554,7 @@ def main() -> int:
             "releaseLabel": release_label,
             "isNew": (release_date >= new_cutoff_str),
             "tradeable": tradeable,
+            "stopsDropping": stops_by_book.get((extra.get("cobjGNAM_FormID") or "").strip().upper()),
             "unlockType": unlock_type,
             "seasonNumber": sn,
             "cutContent": starts_cut(edid),
@@ -3672,6 +3698,7 @@ def main() -> int:
             "releaseLabel": release_label,
             "isNew": (release_date >= new_cutoff_str),
             "tradeable": tradeable,
+            "stopsDropping": stops_by_book.get((extra.get("cobjGNAM_FormID") or "").strip().upper()),
             "unlockType": unlock_type,
             "seasonNumber": sn,
             "cutContent": starts_cut(edid),
