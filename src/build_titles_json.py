@@ -1730,7 +1730,7 @@ def tidy_how_to_obtain(how: str) -> str:
     return h
 
 
-def title_source(how: str, unlock_type: str, cut: bool) -> str:
+def title_source(how: str, unlock_type: str, cut: bool, is_ltb: bool = False) -> str:
     """
     One short label for WHERE a title comes from -- the row's source pill and
     the poster / spreadsheet Source column. Read from the finished howToObtain
@@ -1738,18 +1738,23 @@ def title_source(how: str, unlock_type: str, cut: bool) -> str:
     "atx" but actually drops from Holiday Scorched gifts). Order matters:
     challenges and quests are checked before drop sources, so "Complete the
     Lifetime Challenge: Complete an Infestation" is a Challenge.
+
+    Bundles: a title that ships in a Limited Time Bundle (its entitlement is in
+    atom_shop.json "ltb") is "Limited Time Bundle"; any other bundle is
+    "Atom Shop". Pet level-up titles count as Challenges.
     """
     if cut:
         return "Cut"
     h = (how or "").lower()
     ut = (unlock_type or "").lower()
-    if "lifetime challenge" in h or "following challenges" in h or ut == "challenge":
+    if is_ltb:
+        return "Limited Time Bundle"
+    if ("lifetime challenge" in h or "following challenges" in h or ut == "challenge"
+            or "level up your pet" in h):
         return "Challenge"
     if "complete the quest" in h or "following quests" in h or ut == "quest":
         return "Quest"
-    if "available for purchase from the xbox" in h:
-        return "Store Bundle"
-    if "atom shop" in h:
+    if "atom shop" in h or "bundle" in h:
         return "Atom Shop"
     if "mini season" in h or ut == "miniseason":
         return "Mini Season"
@@ -1759,8 +1764,6 @@ def title_source(how: str, unlock_type: str, cut: bool) -> str:
         return "Ops"
     if "infestation" in h:
         return "Infestation"
-    if "level up your pet" in h:
-        return "Pets"
     if re.search(r"\bcaps\b|purveyor|vendor", h):
         return "Caps"
     if ("seasonal" in h or "crafted holiday" in h or "spooky treat" in h
@@ -3517,7 +3520,8 @@ def main() -> int:
             "conditions": conds,
             "condCount": len(conds),
             "howToObtain": tidy_how_to_obtain(cut_obtain(how, starts_cut(edid))),
-            "source": title_source(tidy_how_to_obtain(cut_obtain(how, starts_cut(edid))), unlock_type, starts_cut(edid)),
+            "source": title_source(tidy_how_to_obtain(cut_obtain(how, starts_cut(edid))), unlock_type, starts_cut(edid),
+                                   any((e or "").lower() in ltb_title_dates for e in (extra.get("entitlementEdids") or []))),
             "images": [image_url] if image_url else [],
             "dropRate": dr,
             "releaseDate": release_date,
@@ -3659,7 +3663,8 @@ def main() -> int:
             "conditions": conds,
             "condCount": len(conds),
             "howToObtain": tidy_how_to_obtain(cut_obtain(how, starts_cut(edid))),
-            "source": title_source(tidy_how_to_obtain(cut_obtain(how, starts_cut(edid))), unlock_type, starts_cut(edid)),
+            "source": title_source(tidy_how_to_obtain(cut_obtain(how, starts_cut(edid))), unlock_type, starts_cut(edid),
+                                   any((e or "").lower() in ltb_title_dates for e in (extra.get("entitlementEdids") or []))),
             "images": [image_url] if image_url else [],
             "dropRate": dr,
             "releaseDate": release_date,
