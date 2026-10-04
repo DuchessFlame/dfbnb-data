@@ -863,10 +863,9 @@ _Couldn't key this file to records; contents differ._
 ## `load_screens.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `make_plan_checklist.json`  ·  +0 / -0 / ~2
+## `make_plan_checklist.json`  ·  +0 / -0 / ~1
 
-**Changed (2)**
-- Plan: Mole Miner Gauntlet  `PLAN_00436FF9` — fields: routes
+**Changed (1)**
 - Plan: Gold Scavenge Bot  `PLAN_00614395` — fields: cut, routes
 
 ## `meat.json`  ·  changed (structural)
@@ -1049,9 +1048,9 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +0 / -0 / ~182
+## `plan_master.json`  ·  +0 / -0 / ~178
 
-**Changed (182)**
+**Changed (178)**
 - Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images, source_tag
 - Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images, source_tag
 - MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images, source_tag
@@ -1092,7 +1091,7 @@ _Couldn't key this file to records; contents differ._
 - Recipe: Grape Mentats  `PLAN_002B8BBE` — fields: retired_routes
 - Recipe: Healing Salve (Forest)  `PLAN_002B8BC1` — fields: retired_routes
 - Recipe: Mentats  `PLAN_002B8BC6` — fields: retired_routes
-- …and 142 more
+- …and 138 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1171,7 +1170,7 @@ _Couldn't key this file to records; contents differ._
 ## `survival_tent_interiors.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_camp.json`  ·  +6 / -0 / ~98
+## `titles_camp.json`  ·  +6 / -0 / ~14
 
 **Added (6)**
 - ATX_CAMPTitles_Prefix_Festive  `ATX_CAMPTitles_Prefix_Festive`
@@ -1181,53 +1180,26 @@ _Couldn't key this file to records; contents differ._
 - ATX_CAMPTitles_Suffix_Zoo  `ATX_CAMPTitles_Suffix_Zoo`
 - CAMPTitles_Lifetime_Prefix_Fireside  `CAMPTitles_Lifetime_Prefix_Fireside`
 
-**Changed (98)**
-- ATX_CAMPTitles_Prefix_CrimeScene  `ATX_CAMPTitles_Prefix_CrimeScene` — fields: 
-- ATX_CAMPTitles_Prefix_Overgrown  `ATX_CAMPTitles_Prefix_Overgrown` — fields: 
-- ATX_CAMPTitles_Prefix_Police  `ATX_CAMPTitles_Prefix_Police` — fields: 
-- ATX_CAMPTitles_Suffix_AlienSupporter  `ATX_CAMPTitles_Suffix_AlienSupporter` — fields: 
-- ATX_CAMPTitles_Suffix_Base  `ATX_CAMPTitles_Suffix_Base` — fields: 
-- ATX_CAMPTitles_Suffix_DaringSupporter  `ATX_CAMPTitles_Suffix_DaringSupporter` — fields: 
-- ATX_CAMPTitles_Suffix_Diner  `ATX_CAMPTitles_Suffix_Diner` — fields: 
-- ATX_CAMPTitles_Suffix_Headquarters  `ATX_CAMPTitles_Suffix_Headquarters` — fields: 
-- ATX_CAMPTitles_Suffix_OfTheMonth  `ATX_CAMPTitles_Suffix_OfTheMonth` — fields: 
-- ATX_CAMPTitles_Suffix_Protector  `ATX_CAMPTitles_Suffix_Protector` — fields: 
-- ATX_CAMPTitles_Suffix_Saloon  `ATX_CAMPTitles_Suffix_Saloon` — fields: 
-- CAMPTitles_Both_Camp  `CAMPTitles_Both_Camp` — fields: 
-- CAMPTitles_Both_Farm  `CAMPTitles_Both_Farm` — fields: 
-- CAMPTitles_Both_Vault  `CAMPTitles_Both_Vault` — fields: 
-- CAMPTitles_Both_Wasteland  `CAMPTitles_Both_Wasteland` — fields: 
-- CAMPTitles_Lifetime_Both_Chapel  `CAMPTitles_Lifetime_Both_Chapel` — fields: stopsDropping
-- CAMPTitles_Lifetime_Both_Forge  `CAMPTitles_Lifetime_Both_Forge` — fields: stopsDropping
-- CAMPTitles_Lifetime_Both_Homestead  `CAMPTitles_Lifetime_Both_Homestead` — fields: stopsDropping
-- CAMPTitles_Lifetime_Both_Junkyard  `CAMPTitles_Lifetime_Both_Junkyard` — fields: stopsDropping
-- CAMPTitles_Lifetime_Both_Precinct  `CAMPTitles_Lifetime_Both_Precinct` — fields: stopsDropping
-- CAMPTitles_Lifetime_Both_Sinkhole  `CAMPTitles_Lifetime_Both_Sinkhole` — fields: stopsDropping
-- CAMPTitles_Lifetime_Both_Workshop  `CAMPTitles_Lifetime_Both_Workshop` — fields: 
-- CAMPTitles_Lifetime_Prefix_Anglers  `CAMPTitles_Lifetime_Prefix_Anglers` — fields: 
-- CAMPTitles_Lifetime_Prefix_Bootleggers  `CAMPTitles_Lifetime_Prefix_Bootleggers` — fields: 
-- CAMPTitles_Lifetime_Prefix_Electric  `CAMPTitles_Lifetime_Prefix_Electric` — fields: stopsDropping
-- CAMPTitles_Lifetime_Prefix_Excavator  `CAMPTitles_Lifetime_Prefix_Excavator` — fields: stopsDropping
-- CAMPTitles_Lifetime_Prefix_PioneerScout  `CAMPTitles_Lifetime_Prefix_PioneerScout` — fields: 
-- CAMPTitles_Lifetime_Prefix_Rusted  `CAMPTitles_Lifetime_Prefix_Rusted` — fields: 
-- CAMPTitles_Lifetime_Prefix_Solar  `CAMPTitles_Lifetime_Prefix_Solar` — fields: 
-- CAMPTitles_Lifetime_Prefix_Sunset  `CAMPTitles_Lifetime_Prefix_Sunset` — fields: 
-- CAMPTitles_Lifetime_Suffix_CommandPost  `CAMPTitles_Lifetime_Suffix_CommandPost` — fields: 
-- CAMPTitles_Lifetime_Suffix_Cove  `CAMPTitles_Lifetime_Suffix_Cove` — fields: 
-- CAMPTitles_Lifetime_Suffix_CryptidHunter  `CAMPTitles_Lifetime_Suffix_CryptidHunter` — fields: 
-- CAMPTitles_Lifetime_Suffix_Hideout  `CAMPTitles_Lifetime_Suffix_Hideout` — fields: debug, stopsDropping
-- CAMPTitles_Lifetime_Suffix_Laboratory  `CAMPTitles_Lifetime_Suffix_Laboratory` — fields: stopsDropping
-- CAMPTitles_Lifetime_Suffix_Settlement  `CAMPTitles_Lifetime_Suffix_Settlement` — fields: 
-- CAMPTitles_Lifetime_Suffix_Silo  `CAMPTitles_Lifetime_Suffix_Silo` — fields: 
-- CAMPTitles_Prefix_Adventure  `CAMPTitles_Prefix_Adventure` — fields: 
-- CAMPTitles_Prefix_Appalachian  `CAMPTitles_Prefix_Appalachian` — fields: 
-- CAMPTitles_Prefix_Frontier  `CAMPTitles_Prefix_Frontier` — fields: 
-- …and 58 more
+**Changed (14)**
+- CAMPTitles_Lifetime_Suffix_Hideout  `CAMPTitles_Lifetime_Suffix_Hideout` — fields: debug
+- SCORE_MiniSeason_2026_SockHop_CAMPTitles_Prefix_Varnished  `SCORE_MiniSeason_2026_SockHop_CAMPTitles_Prefix_Varnished` — fields: imageUrl, images
+- SCORE_MiniSeason_2026_SockHop_CAMPTitles_Suffix_Gym  `SCORE_MiniSeason_2026_SockHop_CAMPTitles_Suffix_Gym` — fields: imageUrl, images
+- SCORE_MiniSeason_2026_WeaponsExpert_CAMPTitles_Prefix_Sharpshooters  `SCORE_MiniSeason_2026_WeaponsExpert_CAMPTitles_Prefix_Sharpshooters` — fields: imageUrl, images
+- SCORE_MiniSeason_2026_WeaponsExpert_CAMPTitles_Suffix_Arsenal  `SCORE_MiniSeason_2026_WeaponsExpert_CAMPTitles_Suffix_Arsenal` — fields: imageUrl, images
+- SCORE_S24_CAMPTitles_Prefix_Alien  `SCORE_S24_CAMPTitles_Prefix_Alien` — fields: imageUrl, images
+- SCORE_S24_CAMPTitles_Prefix_Bigfoots  `SCORE_S24_CAMPTitles_Prefix_Bigfoots` — fields: imageUrl, images
+- SCORE_S24_CAMPTitles_Prefix_RipDarings  `SCORE_S24_CAMPTitles_Prefix_RipDarings` — fields: imageUrl, images
+- SCORE_S24_CAMPTitles_Suffix_Retreat  `SCORE_S24_CAMPTitles_Suffix_Retreat` — fields: imageUrl, images
+- SCORE_S25_CAMPTitles_Prefix_Fortified  `SCORE_S25_CAMPTitles_Prefix_Fortified` — fields: imageUrl, images
+- SCORE_S25_CAMPTitles_Prefix_Safeguarded  `SCORE_S25_CAMPTitles_Prefix_Safeguarded` — fields: imageUrl, images
+- SCORE_S25_CAMPTitles_Suffix_Bunker  `SCORE_S25_CAMPTitles_Suffix_Bunker` — fields: imageUrl, images
+- SCORE_S25_CAMPTitles_Suffix_LastStand  `SCORE_S25_CAMPTitles_Suffix_LastStand` — fields: imageUrl, images
+- WorldPets_CampTitles_Prefix_LifetimeChallenge_Dog01  `WorldPets_CampTitles_Prefix_LifetimeChallenge_Dog01` — fields: debug, howToObtain
 
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +18 / -1 / ~389
+## `titles_player.json`  ·  +18 / -1 / ~56
 
 **Added (18)**
 - ATX_PlayerTitles_Prefix_Apex  `ATX_PlayerTitles_Prefix_Apex`
@@ -1252,48 +1224,48 @@ _Couldn't key this file to records; contents differ._
 **Removed (1)**
 - zzz_Fishing_PlayerTitles_Prefix_Gillded  `zzz_Fishing_PlayerTitles_Prefix_Gillded`
 
-**Changed (389)**
-- ATX_F1_PlayerTitles_Prefix_Suffix_Fallout  `ATX_F1_PlayerTitles_Prefix_Suffix_Fallout` — fields: 
-- ATX_F1_PlayerTitles_Prefix_Suffix_First  `ATX_F1_PlayerTitles_Prefix_Suffix_First` — fields: 
-- ATX_PlayerTitles_Both_Power  `ATX_PlayerTitles_Both_Power` — fields: 
-- ATX_PlayerTitles_Prefix_Abandoned  `ATX_PlayerTitles_Prefix_Abandoned` — fields: 
+**Changed (56)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear, source
-- ATX_PlayerTitles_Prefix_Apothecary  `ATX_PlayerTitles_Prefix_Apothecary` — fields: 
-- ATX_PlayerTitles_Prefix_Buzzin  `ATX_PlayerTitles_Prefix_Buzzin` — fields: 
-- ATX_PlayerTitles_Prefix_Contaminated  `ATX_PlayerTitles_Prefix_Contaminated` — fields: 
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel, source
-- ATX_PlayerTitles_Prefix_Derelict  `ATX_PlayerTitles_Prefix_Derelict` — fields: 
-- ATX_PlayerTitles_Prefix_Enclave  `ATX_PlayerTitles_Prefix_Enclave` — fields: 
-- ATX_PlayerTitles_Prefix_Fizzy  `ATX_PlayerTitles_Prefix_Fizzy` — fields: 
-- ATX_PlayerTitles_Prefix_Flipped  `ATX_PlayerTitles_Prefix_Flipped` — fields: 
 - ATX_PlayerTitles_Prefix_Gleaming  `ATX_PlayerTitles_Prefix_Gleaming` — fields: source
-- ATX_PlayerTitles_Prefix_Heartened  `ATX_PlayerTitles_Prefix_Heartened` — fields: 
-- ATX_PlayerTitles_Prefix_Ice  `ATX_PlayerTitles_Prefix_Ice` — fields: 
-- ATX_PlayerTitles_Prefix_Jagged  `ATX_PlayerTitles_Prefix_Jagged` — fields: 
-- ATX_PlayerTitles_Prefix_Lucky  `ATX_PlayerTitles_Prefix_Lucky` — fields: 
-- ATX_PlayerTitles_Prefix_Midnight  `ATX_PlayerTitles_Prefix_Midnight` — fields: 
-- ATX_PlayerTitles_Prefix_Mothborn  `ATX_PlayerTitles_Prefix_Mothborn` — fields: 
-- ATX_PlayerTitles_Prefix_NukaCola  `ATX_PlayerTitles_Prefix_NukaCola` — fields: 
-- ATX_PlayerTitles_Prefix_Offroad  `ATX_PlayerTitles_Prefix_Offroad` — fields: 
-- ATX_PlayerTitles_Prefix_Overgrown  `ATX_PlayerTitles_Prefix_Overgrown` — fields: 
-- ATX_PlayerTitles_Prefix_Patriotic  `ATX_PlayerTitles_Prefix_Patriotic` — fields: 
-- ATX_PlayerTitles_Prefix_Polluted  `ATX_PlayerTitles_Prefix_Polluted` — fields: 
-- ATX_PlayerTitles_Prefix_Radiant  `ATX_PlayerTitles_Prefix_Radiant` — fields: 
-- ATX_PlayerTitles_Prefix_Rusty  `ATX_PlayerTitles_Prefix_Rusty` — fields: 
-- ATX_PlayerTitles_Prefix_Scorched  `ATX_PlayerTitles_Prefix_Scorched` — fields: 
-- ATX_PlayerTitles_Prefix_Screaming  `ATX_PlayerTitles_Prefix_Screaming` — fields: 
-- ATX_PlayerTitles_Prefix_Suffix_Cat  `ATX_PlayerTitles_Prefix_Suffix_Cat` — fields: 
-- ATX_PlayerTitles_Prefix_Suffix_Diamond  `ATX_PlayerTitles_Prefix_Suffix_Diamond` — fields: 
-- ATX_PlayerTitles_Prefix_Suffix_Dog  `ATX_PlayerTitles_Prefix_Suffix_Dog` — fields: 
-- ATX_PlayerTitles_Prefix_Suffix_Queen  `ATX_PlayerTitles_Prefix_Suffix_Queen` — fields: 
-- ATX_PlayerTitles_Prefix_Switchback  `ATX_PlayerTitles_Prefix_Switchback` — fields: 
-- ATX_PlayerTitles_Prefix_Thankful  `ATX_PlayerTitles_Prefix_Thankful` — fields: 
-- ATX_PlayerTitles_Prefix_Tiki  `ATX_PlayerTitles_Prefix_Tiki` — fields: 
 - ATX_PlayerTitles_Prefix_Tribune  `ATX_PlayerTitles_Prefix_Tribune` — fields: releaseDate, releaseLabel, releaseYear, source
-- ATX_PlayerTitles_Prefix_Vintage  `ATX_PlayerTitles_Prefix_Vintage` — fields: 
-- ATX_PlayerTitles_Prefix_Weekend  `ATX_PlayerTitles_Prefix_Weekend` — fields: 
-- ATX_PlayerTitles_Suffix_Beauty  `ATX_PlayerTitles_Suffix_Beauty` — fields: 
-- …and 349 more
+- ATX_PlayerTitles_Suffix_Buoy  `ATX_PlayerTitles_Suffix_Buoy` — fields: releaseDate, releaseLabel, source
+- ATX_PlayerTitles_Suffix_Technician  `ATX_PlayerTitles_Suffix_Technician` — fields: source
+- Fishing_PlayerTitles_Suffix_OfTheMonth  `Fishing_PlayerTitles_Suffix_OfTheMonth` — fields: debug, howToObtain
+- SCORE_MiniSeason_2025_AppalachianOutlaws_PlayerTitles_Suffix_Outlaw  `SCORE_MiniSeason_2025_AppalachianOutlaws_PlayerTitles_Suffix_Outlaw` — fields: imageUrl, images
+- SCORE_MiniSeason_2025_MMMFE_PlayerTitles_Prefix_Salty  `SCORE_MiniSeason_2025_MMMFE_PlayerTitles_Prefix_Salty` — fields: imageUrl, images
+- SCORE_MiniSeason_2025_MMMFE_PlayerTitles_Suffix_MarshalMalow  `SCORE_MiniSeason_2025_MMMFE_PlayerTitles_Suffix_MarshalMalow` — fields: imageUrl, images
+- SCORE_MiniSeason_2025_NightAtTheMorgue_PlayerTitles_Prefix_Putrid  `SCORE_MiniSeason_2025_NightAtTheMorgue_PlayerTitles_Prefix_Putrid` — fields: imageUrl, images
+- SCORE_MiniSeason_2025_NightAtTheMorgue_PlayerTitles_Suffix_Cadaver  `SCORE_MiniSeason_2025_NightAtTheMorgue_PlayerTitles_Suffix_Cadaver` — fields: imageUrl, images
+- SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Prefix_Sassy  `SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Prefix_Sassy` — fields: imageUrl, images
+- SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Prefix_Sunset  `SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Prefix_Sunset` — fields: imageUrl, images
+- SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Suffix_Courier  `SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Suffix_Courier` — fields: imageUrl, images
+- SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Suffix_Stranger  `SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Suffix_Stranger` — fields: imageUrl, images
+- SCORE_MiniSeason_2026_SockHop_PlayerTitles_Prefix_SockHop  `SCORE_MiniSeason_2026_SockHop_PlayerTitles_Prefix_SockHop` — fields: imageUrl, images
+- SCORE_MiniSeason_2026_SockHop_PlayerTitles_Prefix_Suffix_Enjoyer  `SCORE_MiniSeason_2026_SockHop_PlayerTitles_Prefix_Suffix_Enjoyer` — fields: imageUrl, images
+- SCORE_MiniSeason_2026_WeaponsExpert_PlayerTitles_Prefix_Merciless  `SCORE_MiniSeason_2026_WeaponsExpert_PlayerTitles_Prefix_Merciless` — fields: imageUrl, images
+- SCORE_MiniSeason_2026_WeaponsExpert_PlayerTitles_Prefix_Ripped  `SCORE_MiniSeason_2026_WeaponsExpert_PlayerTitles_Prefix_Ripped` — fields: imageUrl, images
+- SCORE_MiniSeason_2026_WeaponsExpert_PlayerTitles_Suffix_WeaponMaster  `SCORE_MiniSeason_2026_WeaponsExpert_PlayerTitles_Suffix_WeaponMaster` — fields: imageUrl, images
+- SCORE_MiniSeason_LoveHurts_PlayerTitles_Prefix_Gruesome  `SCORE_MiniSeason_LoveHurts_PlayerTitles_Prefix_Gruesome` — fields: imageUrl, images
+- SCORE_MiniSeason_LoveHurts_PlayerTitles_Prefix_Infatuated  `SCORE_MiniSeason_LoveHurts_PlayerTitles_Prefix_Infatuated` — fields: imageUrl, images
+- SCORE_MiniSeason_LoveHurts_PlayerTitles_Suffix_Masochist  `SCORE_MiniSeason_LoveHurts_PlayerTitles_Suffix_Masochist` — fields: imageUrl, images
+- SCORE_S24_PlayerTitles_Both_Bigfoot  `SCORE_S24_PlayerTitles_Both_Bigfoot` — fields: imageUrl, images
+- SCORE_S24_PlayerTitles_Both_CryptidHunter  `SCORE_S24_PlayerTitles_Both_CryptidHunter` — fields: imageUrl, images
+- SCORE_S24_PlayerTitles_Prefix_Armed  `SCORE_S24_PlayerTitles_Prefix_Armed` — fields: imageUrl, images
+- SCORE_S24_PlayerTitles_Prefix_Guinevere  `SCORE_S24_PlayerTitles_Prefix_Guinevere` — fields: imageUrl, images
+- SCORE_S24_PlayerTitles_Prefix_Interstellar  `SCORE_S24_PlayerTitles_Prefix_Interstellar` — fields: imageUrl, images
+- SCORE_S24_PlayerTitles_Prefix_Rip  `SCORE_S24_PlayerTitles_Prefix_Rip` — fields: imageUrl, images
+- SCORE_S24_PlayerTitles_Prefix_Space  `SCORE_S24_PlayerTitles_Prefix_Space` — fields: imageUrl, images
+- SCORE_S24_PlayerTitles_Suffix_Extraterrestrial  `SCORE_S24_PlayerTitles_Suffix_Extraterrestrial` — fields: imageUrl, images
+- SCORE_S24_PlayerTitles_Suffix_Terrestrial  `SCORE_S24_PlayerTitles_Suffix_Terrestrial` — fields: imageUrl, images
+- SCORE_S25_PlayerTitles_Prefix_Infested  `SCORE_S25_PlayerTitles_Prefix_Infested` — fields: imageUrl, images
+- SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl, images
+- SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl, images
+- SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl, images
+- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
+- WorldPets_PlayerTitles_Prefix_Cat01  `WorldPets_PlayerTitles_Prefix_Cat01` — fields: conditions, debug, unlockType
+- WorldPets_PlayerTitles_Prefix_Cat02  `WorldPets_PlayerTitles_Prefix_Cat02` — fields: conditions, debug, unlockType
+- …and 16 more
 
 ## `treasure_maps.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
