@@ -3157,28 +3157,77 @@ def build_patchlog(prev: Optional[dict], curr: dict) -> dict:
         "changed": sorted(changed)[:500],
     }
 
-_HLR_RE = re.compile(r"HasLearnedRecipe\(", re.IGNORECASE)
+# LVLI entry condition that removes a title BOOK from the pool once learnt:
+#   Subject.HasLearnedRecipe(00 00 00, 00 00, <proxy> [COBJ:xxxxxxxx], ...) 10000000 0.000000
+# The 8-char field is xEdit's condition-type bits: char 1 = "Equal to" (1) or
+# "Not equal to" (0), char 4 = OR. So the not-yet-learnt gate is written two
+# ways in the files — "10000000 0.000000" (== 0) and "00000000 1.000000"
+# (!= 1, e.g. The Big Bloom's Gardener). "10000000 1.000000" (== 1) is a
+# PREREQUISITE ("must already know the flower crown plans"), not a gate.
+# i.e. "only roll this entry while HasLearnedRecipe(<proxy COBJ>) is 0". That
+# condition IS the game's "stops dropping once learnt" flag — the BOOK record
+# itself carries nothing (DNAM_Flags is the same on titles that do and don't).
+_HLR_ENTRY_RE = re.compile(
+    r"HasLearnedRecipe\([^)]*\[COBJ:([0-9A-Fa-f]{8})\][^)]*\)\s*([01]{8})\s+(-?[\d.]+)",
+    re.IGNORECASE)
+_COND_COBJ_RE = re.compile(r"HasLearnedRecipe\([^)]*\[COBJ:([0-9A-Fa-f]{8})\]", re.IGNORECASE)
 
 
-def book_stops_dropping_map(lvli_entry_rows) -> Dict[str, bool]:
-    """Title BOOK FormID -> whether it stops dropping once learnt.
+def book_stops_dropping_map(lvli_entry_rows, book_rows=None) -> Dict[str, bool]:
+    """BOOK FormID AND proxy-COBJ FormID -> stops dropping once learnt.
 
     Same rule as the plan checklists (build_plan_obtain_json.resolve_stops_dropping):
       True  -> at least one leveled-list entry for the BOOK is gated on
-               HasLearnedRecipe, so it leaves the pool once the title is learnt
-      False -> it sits in leveled lists but no entry gates on it
-      (absent -> not in any leveled list: bought / quest / scoreboard, so the
-       page shows "Drop: N/A" instead)
+               HasLearnedRecipe(<COBJ>) == 0, so it leaves the pool once learnt
+      False -> the BOOK sits in leveled lists but no entry gates on it
+      (absent -> in no leveled list: bought / quest / scoreboard, so the page
+       shows "Drop: N/A" instead)
+
+    Keyed by the proxy COBJ as well as the BOOK so a title can be looked up from
+    its own PLYT/CMPT condition. That matters for titles with TWO unlock
+    conditions (Festive: HasLearnedRecipe OR HasEntitlement), which the
+    resolver files as "atx" and never attaches a cobjGNAM to.
     """
     out: Dict[str, bool] = {}
     for r in lvli_entry_rows:
         ref = (r.get("LVLO_Reference") or "").strip()
         if ":BOOK" not in ref.upper():
             continue
-        fid = ref.split(":")[0].strip().upper()
+        book = ref.split(":")[0].strip().upper()
         conds = " ".join((r.get(f"Cond{i}") or "") for i in range(1, 11))
-        out[fid] = out.get(fid, False) or bool(_HLR_RE.search(conds))
+        gated = False
+        for m in _HLR_ENTRY_RE.finditer(conds):
+            try:
+                equal = m.group(2)[0] == "1"
+                val = float(m.group(3))
+                if (equal and val == 0.0) or (not equal and val == 1.0):
+                    gated = True
+                    cobj = m.group(1).upper()
+                    out[cobj] = True
+            except ValueError:
+                pass
+        out[book] = out.get(book, False) or gated
+    # BOOK refs list its proxy COBJ: carry False (in lists, never gated) onto
+    # the COBJ key too, so a condition-only lookup can still answer "No".
+    for r in book_rows or []:
+        book = (r.get("FormID") or "").strip().upper()
+        if book not in out:
+            continue
+        for k, v in r.items():
+            if k and k.startswith("Ref") and v and ":COBJ" in v.upper():
+                cobj = v.split(":")[0].strip().upper()
+                out.setdefault(cobj, out[book])
     return out
+
+
+def title_stops_dropping(stops_map: Dict[str, bool], conds, extra) -> Optional[bool]:
+    """Look a title up by the proxy COBJ in its own conditions, then by its BOOK."""
+    for c in conds or []:
+        for m in _COND_COBJ_RE.finditer(c or ""):
+            v = stops_map.get(m.group(1).upper())
+            if v is not None:
+                return v
+    return stops_map.get(((extra or {}).get("cobjGNAM_FormID") or "").strip().upper())
 
 
 def main() -> int:
@@ -3395,7 +3444,7 @@ def main() -> int:
 
     # build lookup maps AFTER all TSVs are loaded
     tradeable_by_book = book_tradeable_map(book_rows)
-    stops_by_book = book_stops_dropping_map(lvli_entry_rows)
+    stops_by_book = book_stops_dropping_map(lvli_entry_rows, book_rows)
     gmrw_by_token = gmrw_parentquest_map(gmrw_rows)
     gmrw_by_formid = gmrw_parentquest_by_any_ref_formid_map(gmrw_rows)
     gmrw_by_ref_formid = gmrw_by_formid
@@ -3554,7 +3603,7 @@ def main() -> int:
             "releaseLabel": release_label,
             "isNew": (release_date >= new_cutoff_str),
             "tradeable": tradeable,
-            "stopsDropping": stops_by_book.get((extra.get("cobjGNAM_FormID") or "").strip().upper()),
+            "stopsDropping": title_stops_dropping(stops_by_book, conds, extra),
             "unlockType": unlock_type,
             "seasonNumber": sn,
             "cutContent": starts_cut(edid),
@@ -3698,7 +3747,7 @@ def main() -> int:
             "releaseLabel": release_label,
             "isNew": (release_date >= new_cutoff_str),
             "tradeable": tradeable,
-            "stopsDropping": stops_by_book.get((extra.get("cobjGNAM_FormID") or "").strip().upper()),
+            "stopsDropping": title_stops_dropping(stops_by_book, conds, extra),
             "unlockType": unlock_type,
             "seasonNumber": sn,
             "cutContent": starts_cut(edid),
