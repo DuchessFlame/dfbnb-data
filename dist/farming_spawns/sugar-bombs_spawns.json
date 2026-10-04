@@ -29,17 +29,17 @@
      "rate_display": "38.75%"
     },
     {
-     "name": "Daniel's Safe",
-     "rate": 0.3875371231874023,
-     "rate_display": "38.75%"
-    },
-    {
      "name": "Mayor's Safe",
      "rate": 0.3875371231874023,
      "rate_display": "38.75%"
     },
     {
      "name": "Pre-War Safe",
+     "rate": 0.3875371231874023,
+     "rate_display": "38.75%"
+    },
+    {
+     "name": "Safe",
      "rate": 0.3875371231874023,
      "rate_display": "38.75%"
     },
@@ -60,11 +60,6 @@
     },
     {
      "name": "Safe",
-     "rate": 0.3875371231874022,
-     "rate_display": "38.75%"
-    },
-    {
-     "name": "Safe",
      "rate": 0.29020287115357346,
      "rate_display": "29.02%"
     },
@@ -72,11 +67,6 @@
      "name": "Vault Trunk",
      "rate": 0.29020287115357346,
      "rate_display": "29.02%"
-    },
-    {
-     "name": "RunOnCondition",
-     "rate": 0.07142857142857142,
-     "rate_display": "7.14%"
     },
     {
      "name": "Overseer's Cache",
@@ -99,11 +89,6 @@
      "rate_display": "4.94%"
     },
     {
-     "name": "Test Cooler",
-     "rate": 0.04937500000000006,
-     "rate_display": "4.94%"
-    },
-    {
      "name": "Metal Box",
      "rate": 0.03523881015356545,
      "rate_display": "3.52%"
@@ -122,11 +107,6 @@
      "name": "Duffle Bag",
      "rate": 0.025000000000000022,
      "rate_display": "2.5%"
-    },
-    {
-     "name": "Resource Drop Crate",
-     "rate": 0.023667800453514687,
-     "rate_display": "2.37%"
     },
     {
      "name": "Asylum Desk",
@@ -159,11 +139,6 @@
      "rate_display": "1.6%"
     },
     {
-     "name": "Presidential Desk",
-     "rate": 0.01602280468750006,
-     "rate_display": "1.6%"
-    },
-    {
      "name": "Primitive End Table",
      "rate": 0.01602280468750006,
      "rate_display": "1.6%"
@@ -190,11 +165,6 @@
     },
     {
      "name": "Loot Cache",
-     "rate": 0.012499999999999956,
-     "rate_display": "1.25%"
-    },
-    {
-     "name": "Safe Room Crate",
      "rate": 0.012499999999999956,
      "rate_display": "1.25%"
     },
@@ -415,7 +385,7 @@
     },
     {
      "name": "Ash Pile",
-     "rate": 0.0011904761904761901,
+     "rate": 0.0011904761904761862,
      "rate_display": "0.12%"
     },
     {
@@ -427,6 +397,21 @@
   },
   "collectrons": {
    "entries": [
+    {
+     "name": "Fasnacht Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Fasnacht",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "7 min 12 sec",
+     "items": [
+      {
+       "name": "Sugar Bombs",
+       "form_id": "000330F2",
+       "rate": 0.03125,
+       "rate_display": "3.12%",
+       "rate_source": "computed"
+      }
+     ]
+    },
     {
      "name": "Scoutmaster Collectron Station",
      "edid": "SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster",
@@ -458,21 +443,6 @@
      ]
     },
     {
-     "name": "Fasnacht Collectron Station",
-     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Fasnacht",
-     "obtain": "Purchase from the Atom Shop.",
-     "interval": "7 min 12 sec",
-     "items": [
-      {
-       "name": "Sugar Bombs",
-       "form_id": "000330F2",
-       "rate": 0.0,
-       "rate_display": "0%",
-       "rate_source": "computed_zero"
-      }
-     ]
-    },
-    {
      "name": "Santatron Collectron Station",
      "edid": "ATX_ENTM_CAMP_Utility_Collectron_Santa",
      "obtain": "Purchase from the Atom Shop.",
@@ -486,6 +456,281 @@
        "rate_source": "computed_zero"
       }
      ]
+    }
+   ]
+  },
+  "creatures": {
+   "note": "Sugar Bombs come from the junk and food loot these creatures carry. The chance is per kill, and for most of them it depends on where the creature dies.",
+   "items": [
+    {
+     "name": "Acidic Gulper",
+     "rate": 0.018044,
+     "rate_display": "1.8%",
+     "note": "only during Moonshine Jamboree"
+    },
+    {
+     "name": "Glowing Toxic Acidic Gulper",
+     "rate": 0.018044,
+     "rate_display": "1.8%",
+     "note": "only during Moonshine Jamboree"
+    },
+    {
+     "name": "Gulper",
+     "rate": 0.018044,
+     "rate_display": "1.8%",
+     "note": ""
+    },
+    {
+     "name": "Radtoad",
+     "rate": 0.018044,
+     "rate_display": "1.8%",
+     "note": ""
+    },
+    {
+     "name": "Thrasher",
+     "rate": 0.018044,
+     "rate_display": "1.8%",
+     "note": ""
+    },
+    {
+     "name": "Behemoth",
+     "rate": 0.014944,
+     "rate_display": "1.49%",
+     "note": ""
+    },
+    {
+     "name": "Bigfoot",
+     "rate": 0.014944,
+     "rate_display": "1.49%",
+     "note": ""
+    },
+    {
+     "name": "Agent",
+     "rate": 0.0125,
+     "rate_display": "1.25%",
+     "note": "body found in the world"
+    },
+    {
+     "name": "Overgrown Tank",
+     "rate": 0.0125,
+     "rate_display": "1.25%",
+     "note": "only during The Big Bloom"
+    },
+    {
+     "name": "Brahmin",
+     "rate": 0.003125,
+     "rate_display": "0.31%",
+     "note": ""
+    },
+    {
+     "name": "Super Mutant",
+     "rate": 0.002974,
+     "rate_display": "0.3%",
+     "note": ""
+    },
+    {
+     "name": "Hunter",
+     "rate": 0.0025,
+     "rate_display": "0.25%",
+     "note": "body found in the world"
+    },
+    {
+     "name": "Feral Ghoul",
+     "rate": 0.002256,
+     "rate_display": "0.23%",
+     "note": ""
+    },
+    {
+     "name": "Feral Ghoul Reaver",
+     "rate": 0.002256,
+     "rate_display": "0.23%",
+     "note": ""
+    },
+    {
+     "name": "Angler",
+     "rate": 0.001953,
+     "rate_display": "0.2%",
+     "note": ""
+    },
+    {
+     "name": "Brotherhood Soldier Initiate",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": ""
+    },
+    {
+     "name": "Assaultron Intimidator",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": "only during Infestation"
+    },
+    {
+     "name": "Brotherhood Corpse",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": "body found in the world"
+    },
+    {
+     "name": "Civilian Corpse",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": "body found in the world"
+    },
+    {
+     "name": "Competitor Corpse",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": "body found in the world"
+    },
+    {
+     "name": "Ella Ames",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": "body found in the world"
+    },
+    {
+     "name": "Enclave Corpse",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": "body found in the world"
+    },
+    {
+     "name": "Miner Corpse",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": "body found in the world"
+    },
+    {
+     "name": "Mob Corpse",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": "body found in the world"
+    },
+    {
+     "name": "Municipal Auditor Corpse",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": "body found in the world"
+    },
+    {
+     "name": "Municipal Worker Corpse",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": "body found in the world"
+    },
+    {
+     "name": "Older Woman",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": "body found in the world"
+    },
+    {
+     "name": "Protectron",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": "only during Infestation"
+    },
+    {
+     "name": "Raider Corpse",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": "body found in the world"
+    },
+    {
+     "name": "Responder Corpse",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": "body found in the world"
+    },
+    {
+     "name": "Scorched",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": ""
+    },
+    {
+     "name": "Secret Service Agent",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": "body found in the world"
+    },
+    {
+     "name": "Showman Corpse",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": "body found in the world"
+    },
+    {
+     "name": "Soldier",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": "body found in the world"
+    },
+    {
+     "name": "Spooky Scorched",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": ""
+    },
+    {
+     "name": "Mole Rat Brood Mother",
+     "rate": 0.00112,
+     "rate_display": "0.11%",
+     "note": ""
+    },
+    {
+     "name": "Super Mutant Suicider",
+     "rate": 0.001095,
+     "rate_display": "0.11%",
+     "note": ""
+    },
+    {
+     "name": "Civilian",
+     "rate": 0.000893,
+     "rate_display": "0.09%",
+     "note": ""
+    },
+    {
+     "name": "Civilian Competitor",
+     "rate": 0.000893,
+     "rate_display": "0.09%",
+     "note": ""
+    },
+    {
+     "name": "Clown",
+     "rate": 0.000893,
+     "rate_display": "0.09%",
+     "note": ""
+    },
+    {
+     "name": "Doorman",
+     "rate": 0.000893,
+     "rate_display": "0.09%",
+     "note": ""
+    },
+    {
+     "name": "Mob Collector",
+     "rate": 0.000893,
+     "rate_display": "0.09%",
+     "note": ""
+    },
+    {
+     "name": "Municipal Auditor Punisher",
+     "rate": 0.000893,
+     "rate_display": "0.09%",
+     "note": ""
+    },
+    {
+     "name": "Patron",
+     "rate": 0.000893,
+     "rate_display": "0.09%",
+     "note": ""
+    },
+    {
+     "name": "Showman",
+     "rate": 0.000893,
+     "rate_display": "0.09%",
+     "note": ""
     }
    ]
   }
@@ -2679,7 +2924,7 @@
       "direct": 2
      },
      "image_top": "/wp-content/uploads/guide-images/farming-non-perishable/sugar-bombs/ash-heap/ash-heap-pleasant-hills-cemetery-location.avif",
-     "directions": "Down in the bottom corner of the cemetery, inside the mausoleum, on the floor.",
+     "directions": "",
      "image_bottom": "",
      "refs": [
       "12B169",
@@ -2697,7 +2942,7 @@
      ],
      "spawns": [
       {
-       "label": "",
+       "label": "Sugar Bombs #1",
        "ref": "349BAC",
        "source_type": "direct",
        "coords": [
@@ -2705,11 +2950,11 @@
         -101171.6
        ],
        "image_top": "",
-       "directions": "Note: as of 23/11/2021 this box is bugged and cannot be interacted with.",
+       "directions": "Down in the bottom corner of the cemetery, inside the mausoleum, on the floor.",
        "image_bottom": "/wp-content/uploads/guide-images/farming-non-perishable/sugar-bombs/ash-heap/ash-heap-pleasant-hills-cemetery-item.avif"
       },
       {
-       "label": "",
+       "label": "Sugar Bombs #2",
        "ref": "793F25",
        "source_type": "direct",
        "coords": [

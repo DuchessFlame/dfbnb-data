@@ -75,6 +75,15 @@ _UNLOCK_TESTS = [
 def tag_for_route(route):
     """The tag one obtain_route belongs to."""
     label = str((route or {}).get("route") or "")
+    # `kind` (plan_route_kinds.py) is read off the quest / NPC records, so it
+    # beats the label: "Atlantic City Expedition - Custodial Compulsions, ..."
+    # says expedition but is the reward list of three Atlantic City QUESTS,
+    # and a trick-or-treater's body at the Pumpkin House is loot, not an enemy.
+    kind = str((route or {}).get("kind") or "")
+    if kind == "quest":
+        return "Quest"
+    if kind == "corpse":
+        return "Loot"
     for tag, rx in _LABEL_TESTS:
         if rx.search(label):
             return tag

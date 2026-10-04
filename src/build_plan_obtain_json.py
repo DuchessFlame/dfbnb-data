@@ -83,6 +83,7 @@ import plan_recipe_rows     # rows for recipes that have no plan book at all
 import plan_images           # row art: published images first, staged files second
 import add_weapon_groups    # weapon page grouping: weapon -> Mods / Skins
 import plan_apparel_class   # armour or clothing, off the ARMO record
+import plan_route_kinds     # quest vs event vs enemy, cut double-mutation lists
 import plan_subpages        # which page every plan renders on
 import plan_consumables     # Recipe page grouping: Food / Drinks / Alcohol / ...
 import add_armour_groups    # armour page grouping: set -> Mods / Skins
@@ -928,6 +929,14 @@ def main(argv=None):
         GMRW_QUESTS.clear(); GMRW_QUESTS.update(unlock_idx.gmrw_quests)
         print(f"[plan-obtain] quest names: {sum(1 for v in QUEST_NAMES.exact.values() if v)} "
               f"unambiguous prefixes, {len(QUEST_NAMES.family)} families")
+    # What kind of place each route is (quest / event / enemy / corpse), read
+    # off the QUEST, GMRW and NPC records — the ledger files it by this.
+    route_kinds = None
+    if not args.no_routes:
+        try:
+            route_kinds = plan_route_kinds.Ctx(TSV)
+        except Exception as exc:                  # noqa: BLE001 - never fatal
+            print(f"  WARNING: route kinds unavailable: {exc}", file=sys.stderr)
 
     # COBJ.GNAM — what unlocks each recipe, straight from the game files. Needed
     # whether or not routes are being resolved, because cut detection consults
@@ -1044,10 +1053,14 @@ def main(argv=None):
         refs = [v for v in ((row.get(f"Ref{j}") or "").strip() for j in range(1, 46)) if v]
         recipe_unlock = recipe_unlocks.proof_of_life(co_fid)
         cut_why = plan_sources.cut_reason(edid, refs, recipe_unlock=recipe_unlock)
+        if not cut_why:
+            cut_why = plan_sources.dead_plan_reason(refs, bool(cobj), recipe_unlock)
         if cut_why:
             unresolved["cut"].append(f"{name} [{edid}]")
 
         routes = [] if args.no_routes else resolve_routes(fid, tables, rates, cont_names, npc_names)
+        if routes and route_kinds is not None:
+            routes = plan_route_kinds.apply_to_routes(routes, route_kinds)
 
         # Non-drop routes: bought, quested, challenged, placed. Kept OUT of
         # obtain_routes so every row in that table still carries a real rng76

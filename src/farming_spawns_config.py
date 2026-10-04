@@ -1821,6 +1821,12 @@ SUGAR_BOMBS = {
     "region_root": True,
     "region_index_base": "/bnb/farming/non-perishable/sugar-bombs/location-guide/",
     "region_index_style": "links",
+    # Creatures expand: one row per creature type with its per-kill chance
+    # (build_farming_used_for._patch_creatures).
+    "creatures_per_type": True,
+    "creatures_note": ("Sugar Bombs come from the junk and food loot these creatures carry. "
+                       "The chance is per kill, and for most of them it depends on where "
+                       "the creature dies."),
     "items": [
         {
             "formid": "000330F2",

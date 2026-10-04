@@ -1415,11 +1415,41 @@ def _load_camp_producers(dist_dir: str) -> Dict[str, List[Dict[str, Any]]]:
     return out
 
 
-def _producer_entries(items: List[Dict[str, Any]], targets: set) -> List[Dict[str, Any]]:
+_CUT_LIST_RE = re.compile(r"^(zz|cut_|del_|deprecated_)|notinuse", re.IGNORECASE)
+
+
+def _station_drops(st: Dict[str, Any], list_edid: Optional[Dict[str, str]] = None) -> List[Dict[str, Any]]:
+    """One drop row per item for a station, taking the BEST chance across its modes.
+
+    `production.drops` is a flat merge that keeps the FIRST mode's row for each
+    item, so on a two-mode station the second mode's chance was lost: the
+    Fasnacht collectron's Party mode (zzz_NOTinUSE_… list, cut) lists Sugar Bombs
+    at 0% and hid the 3.125% from its live Treats mode. Modes whose list is cut
+    content are skipped when the list EDIDs are known."""
+    prod = st.get("production") or {}
+    modes = prod.get("modes") or []
+    if not modes:
+        return prod.get("drops") or []
+    best: Dict[str, Dict[str, Any]] = {}
+    for m in modes:
+        lf = (m.get("lvliFormId") or "").upper()
+        if list_edid and _CUT_LIST_RE.search(list_edid.get(lf, "") or ""):
+            continue
+        for d in m.get("drops") or []:
+            fid = (d.get("formId") or "").upper()
+            c = d.get("chance")
+            c = float(c) if isinstance(c, (int, float)) else 0.0
+            if fid not in best or c > float(best[fid].get("chance") or 0.0):
+                best[fid] = d
+    return list(best.values()) or (prod.get("drops") or [])
+
+
+def _producer_entries(items: List[Dict[str, Any]], targets: set,
+                      list_edid: Optional[Dict[str, str]] = None) -> List[Dict[str, Any]]:
     """Cards for every station whose production drops include any target FormID."""
     entries: List[Dict[str, Any]] = []
     for st in items:
-        drops = ((st.get("production") or {}).get("drops")) or []
+        drops = _station_drops(st, list_edid)
         rows = []
         for d in drops:
             if (d.get("formId") or "").upper() not in targets:
@@ -1452,7 +1482,8 @@ def _producer_entries(items: List[Dict[str, Any]], targets: set) -> List[Dict[st
     return entries
 
 
-def _patch_camp_producers(doc: Dict[str, Any], targets: set, dist_dir: str) -> None:
+def _patch_camp_producers(doc: Dict[str, Any], targets: set, dist_dir: str,
+                          rates: Optional["VendorRates"] = None) -> None:
     """Fill drop_rates.collectrons / .resource_generators with joined station cards.
 
     Any hand-written `note` on those nodes is PRESERVED (it renders under the
@@ -1462,8 +1493,9 @@ def _patch_camp_producers(doc: Dict[str, Any], targets: set, dist_dir: str) -> N
     if not isinstance(dr, dict):
         return
     producers = _load_camp_producers(dist_dir)
+    list_edid = {k.upper(): v for k, v in (rates.lvli.edid_by_formid.items() if rates else [])}
     for key in ("collectrons", "resource_generators"):
-        entries = _producer_entries(producers.get(key) or [], targets)
+        entries = _producer_entries(producers.get(key) or [], targets, list_edid)
         if not entries:
             continue
         node = dr.get(key)
@@ -1760,16 +1792,70 @@ def _load_cont_names(data_dir: str) -> Dict[str, str]:
 
 
 def _is_camp_storage(edid) -> bool:
+    """Name fallback ONLY — used when no world-placement data is available (see
+    container_types). Atom Shop / scoreboard storage is ATX_* / SCORE_*."""
     e = (edid or "").strip().lower()
     return e.startswith("atx_") or e.startswith("score_")
 
 
+# Record types that put a container into the game for a player to search: a
+# placed REFR (or a static collection / default object holding one), a quest or
+# quest module that spawns it, an effect, race or explosion that leaves it behind
+# (ash piles, corpse containers), an NPC or activator. NOT here: COBJ / ENTM
+# (a CAMP build recipe or Atom Shop entitlement — what the player builds is
+# storage that never rolls the loot list), LVLI (workshop build lists) and FLST.
+_CONT_WORLD_SIGS = {"REFR", "ACHR", "SCOL", "DFOB", "QUST", "QMDL", "MGEF", "RACE",
+                    "EXPL", "NPC_", "ACTI", "SCEN", "PACK", "SPEL", "PERK"}
+_CONT_DEV_RE = re.compile(r"^(test|debug|qa_|zz|cut_|del_|deprecated_)|_test_|debug", re.IGNORECASE)
+_LIVE_CONT_CACHE: Dict[str, set] = {}
+
+
+def live_cont_bases(data_dir: str) -> Optional[set]:
+    """CONT FormIDs (upper 8-hex) that the game can actually put in front of a
+    player as loot, read from the CONT export's own ReferencedBy columns.
+
+    Why: a CONT record can carry a loot list and still never be searchable. The
+    Atom Shop / scoreboard CAMP fridges (ATX_Refrigerator01_*, ATX_Refrigerator_
+    Icebox_CONT, ATX_Refrigerator01_SugarBombs …) all carry
+    Container_Loot_Refrigerator_Broken in the game data, so the LVLI closure walk
+    reaches them honestly — but nothing in the game references them at all: no
+    REFR, no quest, no effect. Others (ATX_VaultDesk01) are only referenced by a
+    CAMP build list. "Does the game place or spawn it?" is the real test, not the
+    ATX_/SCORE_ name. Dev containers (test_/Debug/QA_) are dropped too — those
+    REFRs sit in dev cells. Returns None when the export has no ReferencedBy
+    columns (old export), and the caller falls back to the name test."""
+    if data_dir in _LIVE_CONT_CACHE:
+        return _LIVE_CONT_CACHE[data_dir] or None
+    out: set = set()
+    path = _newest_export(data_dir, "CONT_Export_*.tsv")
+    if path:
+        with open(path, encoding="utf-8", errors="replace", newline="") as f:
+            rd = csv.reader(f, delimiter="\t")
+            head = next(rd, [])
+            if "ReferencedByCount" in head:
+                i = head.index("ReferencedByCount")
+                for row in rd:
+                    if len(row) <= i or _CONT_DEV_RE.search(row[1] or ""):
+                        continue
+                    sigs = {c.strip().rsplit(":", 1)[-1] for c in row[i + 1:] if c.strip()}
+                    if sigs & _CONT_WORLD_SIGS:
+                        out.add((row[0] or "").strip().upper().zfill(8))
+    _LIVE_CONT_CACHE[data_dir] = out
+    return out or None
+
+
 def container_types(closure, targets: set, appearance, cont_names: Dict[str, str],
-                    lvli_refs: Dict[str, Any], parent_edid: Dict[str, Any]) -> List[Dict[str, Any]]:
+                    lvli_refs: Dict[str, Any], parent_edid: Dict[str, Any],
+                    placed_bases: Optional[set] = None) -> List[Dict[str, Any]]:
     """The Containers type+rate list. REUSABLE across families (farming / meat /
     drinks): `appearance(list_id, targets) -> float` is the family's rng76
     appearance-probability callable. Distinct rates under one name are kept as
-    separate rows; identical rates dedupe; 0% dropped; sorted by rate desc, name."""
+    separate rows; identical rates dedupe; 0% dropped; sorted by rate desc, name.
+
+    `placed_bases` (upper 8-hex CONT FormIDs the game places or spawns, see
+    live_cont_bases) keeps only containers a player can actually search. When it
+    is None (an export with no ReferencedBy columns) the ATX_/SCORE_ name test is
+    the fallback."""
     from spawns_engine.classify import farming_classify as _classify  # lazy (avoid import cycle)
     by_name: Dict[str, Dict[float, float]] = {}
     for L in closure:
@@ -1781,9 +1867,13 @@ def container_types(closure, targets: set, appearance, cont_names: Dict[str, str
                 continue
             if _classify("CONT", red, via) != "container":
                 continue
-            # CAMP storage (Atom Shop / scoreboard fridges and coolers: ATX_*, SCORE_*)
-            # is player storage you put food into, never loot you can search.
-            if _is_camp_storage(red):
+            # Only containers the game places or spawns. CAMP storage (Atom Shop /
+            # scoreboard fridges and coolers) carries a loot list in the data but
+            # nothing in the game puts it in the world, so this drops it at the source.
+            if placed_bases is not None:
+                if (rf or "").upper().zfill(8) not in placed_bases:
+                    continue
+            elif _is_camp_storage(red):
                 continue
             nm = cont_names.get((rf or "").upper())
             if nm:
@@ -1806,12 +1896,13 @@ def container_types(closure, targets: set, appearance, cont_names: Dict[str, str
 
 def _patch_containers(doc: Dict[str, Any], closure, targets: set,
                       rates: Optional["VendorRates"], cont_names: Dict[str, str],
-                      tables: Any) -> None:
+                      tables: Any, placed_bases: Optional[set] = None) -> None:
     """Set doc['drop_rates']['containers'] = {'types': [{name, rate, rate_display}]}"""
     if not rates or not tables or not closure or not targets:
         return
     types = container_types(closure, targets, lambda L, t: rates.appearance([L], t),
-                            cont_names, tables.get("lvli_refs", {}), tables.get("parent_edid", {}))
+                            cont_names, tables.get("lvli_refs", {}), tables.get("parent_edid", {}),
+                            placed_bases=placed_bases)
     dr = doc.get("drop_rates")
     if not isinstance(dr, dict):
         dr = {}
@@ -1827,6 +1918,126 @@ def _patch_containers(doc: Dict[str, Any], closure, targets: set,
         dr["containers"] = existing
     else:
         dr["containers"] = {"types": types}
+
+
+# ── Creatures expand: one row per creature type, with its per-kill chance ─────
+# Opt-in per item (`"creatures_per_type": True` in the config). For every list in
+# the item's LVLI up-closure that an NPC_ record references (its death item list
+# or an inventory list), the rate is rng76 appearance_prob(list, item): the chance
+# the item is on the body after ONE kill. Rows are named by the in-game FULL name
+# most of that list's NPCs carry. Cut / test / unused NPCs are ignored, and a list
+# whose NPCs are all pre-placed corpses (Loot_Corpse*) is marked as a body you
+# find, not a creature you kill. Same name, several lists -> the best rate.
+_NPC_NAME_CACHE: Dict[str, Dict[str, Tuple[str, str]]] = {}
+_DEAD_NPC_RE = re.compile(r"^(zz|cut_|del_|deleted_|deprecated_|donotuse|test|debug|qa_|audiotemplate)"
+                          r"|_voiceonly$|test", re.IGNORECASE)
+
+
+def _load_npc_names(data_dir: str) -> Dict[str, Tuple[str, str]]:
+    """NPC_ FormID -> (FULL, race name) from the newest NPC_Export (main table)."""
+    if data_dir in _NPC_NAME_CACHE:
+        return _NPC_NAME_CACHE[data_dir]
+    cands = [p for p in _glob.glob(os.path.join(data_dir, "NPC_Export_*.tsv"))
+             if not re.search(r"_(PRPS|Refs)\.tsv$", p)]
+    out: Dict[str, Tuple[str, str]] = {}
+    if cands:
+        path = max(cands, key=lambda p: (tsv_source.export_date(p), os.path.basename(p)))
+        for r in _read_tsv(path):
+            fid = (r.get("FormID") or "").strip().upper()
+            if fid:
+                out[fid] = ((r.get("FULL") or "").strip(), (r.get("RNAM_Name") or "").strip())
+    _NPC_NAME_CACHE[data_dir] = out
+    return out
+
+
+_GENERIC_NPC_NAMES = {"human", "ghoul", "corpse"}
+_EVENT_QUEST_CACHE: Dict[str, List[Tuple[str, str]]] = {}
+
+
+def _event_quests(data_dir: str) -> List[Tuple[str, str]]:
+    """[(QUEST EDID, FULL)] for quests with a name — used to tell an event-only
+    death list (HTO_crLLD_Mob -> Infestation) from an everyday one."""
+    if data_dir in _EVENT_QUEST_CACHE:
+        return _EVENT_QUEST_CACHE[data_dir]
+    out: List[Tuple[str, str]] = []
+    path = _newest_export(data_dir, "QUEST_Export_*.tsv")
+    if path:
+        with open(path, encoding="utf-8", errors="replace", newline="") as f:
+            rd = csv.reader(f, delimiter="\t")
+            next(rd, None)
+            for row in rd:
+                if len(row) > 2 and row[1].strip() and row[2].strip():
+                    out.append((row[1].strip(), row[2].strip()))
+    _EVENT_QUEST_CACHE[data_dir] = out
+    return out
+
+
+def _event_for_list(list_edid: str, quests: List[Tuple[str, str]]) -> str:
+    """'HTO_crLLD_Mob' -> 'Infestation'; '' for an everyday list. The prefix before
+    _LLD/_crLLD must start a named quest's EDID (Master quest preferred)."""
+    m = re.match(r"^([A-Za-z0-9]+)_(?:cr)?LLD", list_edid or "")
+    if not m:
+        return ""
+    pre = m.group(1).lower() + "_"
+    hits = [(e, f) for e, f in quests if e.lower().startswith(pre)]
+    if not hits:
+        return ""
+    hits.sort(key=lambda h: (0 if "master" in h[0].lower() else 1, len(h[0])))
+    return re.sub(r"^event:\s*", "", hits[0][1], flags=re.IGNORECASE)
+
+
+def creature_rows(closure, targets: set, appearance, lvli_refs: Dict[str, Any],
+                  npc_names: Dict[str, Tuple[str, str]],
+                  parent_edid: Optional[Dict[str, Any]] = None,
+                  quests: Optional[List[Tuple[str, str]]] = None) -> List[Dict[str, Any]]:
+    by_key: Dict[Tuple[str, str], Dict[str, Any]] = {}
+    for L in closure or ():
+        refs = lvli_refs.get(L) or lvli_refs.get(str(L).upper()) or ()
+        npcs = [(rf, red) for rf, red, rs in refs
+                if rs == "NPC_" and not _DEAD_NPC_RE.search(red or "")]
+        if not npcs:
+            continue
+        rate = appearance(L, targets)
+        if not rate or rate <= 0:
+            continue
+        counts: Dict[str, int] = {}
+        for rf, _red in npcs:
+            full, race = npc_names.get((rf or "").upper().zfill(8), ("", ""))
+            nm = full or race
+            if nm:
+                counts[nm] = counts.get(nm, 0) + 1
+        ranked = sorted(counts.items(), key=lambda kv: (kv[0].lower() in _GENERIC_NPC_NAMES,
+                                                        -kv[1], kv[0]))
+        if not ranked:
+            continue
+        name = ranked[0][0]
+        corpse = all("corpse" in (red or "").lower() for _rf, red in npcs)
+        event = _event_for_list((parent_edid or {}).get(L, ""), quests or [])
+        note = ("body found in the world" if corpse
+                else (f"only during {event}" if event else ""))
+        key = (name, note)
+        row = by_key.get(key)
+        if row is None or rate > row["rate"]:
+            by_key[key] = {"name": name, "rate": rate, "rate_display": _fmt_rate(rate),
+                           "note": note}
+    return sorted(by_key.values(), key=lambda r: (-r["rate"], r["name"].lower(), r["note"]))
+
+
+def _patch_creatures(doc: Dict[str, Any], cfg: Dict[str, Any], closure, targets: set,
+                     rates: Optional["VendorRates"], tables: Any, data_dir: str) -> None:
+    if not cfg.get("creatures_per_type") or not rates or not tables or not closure:
+        return
+    rows = creature_rows(closure, targets, lambda L, t: rates.appearance([L], t),
+                         tables.get("lvli_refs", {}), _load_npc_names(data_dir),
+                         parent_edid=tables.get("parent_edid", {}),
+                         quests=_event_quests(data_dir))
+    dr = doc.get("drop_rates")
+    if not isinstance(dr, dict):
+        dr = collections.OrderedDict()
+        doc["drop_rates"] = dr
+    dr["creatures"] = ({"note": cfg.get("creatures_note") or "", "items": [
+        {"name": r["name"], "rate": round(r["rate"], 6), "rate_display": r["rate_display"],
+         "note": r["note"]} for r in rows]} if rows else None)
 
 
 def inject(slug: str, used_for: Dict[str, Any], cfg: Dict[str, Any], dist_dir: str,
@@ -1847,12 +2058,14 @@ def inject(slug: str, used_for: Dict[str, Any], cfg: Dict[str, Any], dist_dir: s
     _patch_drop_rates(doc, rates, _target_fids(cfg), harvest=harvest, extra_base_ids=extra_ids)
     _patch_events_activities(doc, rates, _target_fids(cfg),
                              closure_lists=closure_lists, tables=tables)
-    _patch_camp_producers(doc, _target_fids(cfg), dist_dir)
+    _patch_camp_producers(doc, _target_fids(cfg), dist_dir, rates)
     _patch_treasure_maps(doc, rates, _target_fids(cfg), dist_dir)
     # Containers expand → container-type → rng76 rate (runs AFTER _patch_drop_rates
     # so the type list is the final word on doc['drop_rates']['containers']).
     _patch_containers(doc, closure_lists, _target_fids(cfg), rates,
-                      cont_names or {}, tables)
+                      cont_names or {}, tables, placed_bases=live_cont_bases(os.path.join(REPO, "tsv")))
+    _patch_creatures(doc, cfg, closure_lists, _target_fids(cfg), rates, tables,
+                     os.path.join(REPO, "tsv"))
     # Random-encounter TYPE -> that type's guide page (guide-index driven).
     _patch_random_encounters(doc)
     _patch_farming_tips(doc)

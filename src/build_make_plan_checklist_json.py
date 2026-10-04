@@ -69,7 +69,7 @@ SCHEMA = 1
 # for routes that actually occur, but the ORDER is anchored here.
 LEDGER_ROWS = [
     "Caps", "Stamps", "Scoreboard", "Gold Bullion", "Atom Shop",
-    "Limited Time Bundle", "Containers", "Scrap to Learn",
+    "Limited Time Bundle", "Containers", "Enemies", "Scrap to Learn",
     "Events & Activities", "Quests", "Challenges",
 ]
 
