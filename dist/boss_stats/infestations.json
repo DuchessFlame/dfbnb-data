@@ -1,18 +1,19 @@
 {
- "generated": "2026-09-16T10:36:53+00:00",
+ "generated": "2026-10-04T04:51:06+00:00",
  "channel": "live",
  "isPts": false,
  "sources": {
-  "CURV_POINTS": "tsv/CURV_Export_July_2026_POINTS.tsv",
-  "FLST_Entries": "tsv/FLST_Export_July_2026_Entries.tsv",
-  "GLOB": "tsv/GLOB_Export_July_2026.tsv",
-  "KYWD": "tsv/KYWD_Export_July_2026.tsv",
-  "LVLI_Entries": "tsv/LVLI_Export_July_2026_LVLI_Entries.tsv",
-  "NPC": "tsv/NPC_Export_September_2026.tsv",
-  "NPC_PRPS": "tsv/NPC_Export_September_2026_PRPS.tsv",
-  "NPC_Refs": "tsv/NPC_Export_September_2026_Refs.tsv",
-  "SPEL_HEADER": "tsv/SPEL_Export_September_2026_HEADER.tsv",
-  "WEAP_DNAM": "tsv/WEAP_Export_September_2026_DNAM.tsv",
+  "BPTD": "tsv/BPTD_Export_October_2026.tsv",
+  "CURV_POINTS": "tsv/CURV_Export_October_2026_POINTS.tsv",
+  "FLST_Entries": "tsv/FLST_Export_October_2026_Entries.tsv",
+  "GLOB": "tsv/GLOB_Export_October_2026.tsv",
+  "KYWD": "tsv/KYWD_Export_October_2026.tsv",
+  "LVLI_Entries": "tsv/LVLI_Export_October_2026_LVLI_Entries.tsv",
+  "NPC": "tsv/NPC_Export_October_2026.tsv",
+  "NPC_PRPS": "tsv/NPC_Export_October_2026_PRPS.tsv",
+  "NPC_Refs": "tsv/NPC_Export_October_2026_Refs.tsv",
+  "SPEL_HEADER": "tsv/SPEL_Export_October_2026_HEADER.tsv",
+  "WEAP_DNAM": "tsv/WEAP_Export_October_2026_DNAM.tsv",
   "head_hunt_bosses": "dist/bounty-hunting/head_hunt_bosses.json"
  },
  "page": "infestations",
@@ -52,7 +53,6 @@
    "faction": "Blood Eagles",
    "factionKey": "BloodEagle",
    "tierRecords": 5,
-   "weakSpot": "Head",
    "weapons": [
     {
      "edid": "HTO_crBloodEagle_Boss_50CalMachineGun",
@@ -108,7 +108,53 @@
    "grenades": [
     "Molotov Cocktail",
     "Fragmentation Grenade"
-   ]
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 83329,
+     "hpMax": 138199,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 312483,
+     "hpMax": 518246,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 104161,
+     "hpMax": 172749,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 145825,
+     "hpMax": 241848,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
   },
   {
    "edid": "HTO_LvlCultist_Boss_T1",
@@ -134,7 +180,6 @@
    "faction": "Cultists",
    "factionKey": "Cultist",
    "tierRecords": 5,
-   "weakSpot": "Head",
    "specials": [
     {
      "name": "Tesla Cannon",
@@ -195,7 +240,53 @@
    ],
    "grenades": [
     "Dynamite Bundle"
-   ]
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 83329,
+     "hpMax": 138199,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 312483,
+     "hpMax": 518246,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 104161,
+     "hpMax": 172749,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 145825,
+     "hpMax": 241848,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
   },
   {
    "edid": "HTO_LvlMoleMiner_Boss_T1",
@@ -221,7 +312,6 @@
    "faction": "Mole Miners",
    "factionKey": "MoleMiner",
    "tierRecords": 5,
-   "weakSpot": "Head",
    "weapons": [
     {
      "edid": "HTO_crMoleMiner_Boss_AutoGrenadeLauncher",
@@ -276,7 +366,53 @@
    ],
    "grenades": [
     "Dynamite Bundle"
-   ]
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 25.0,
+     "mult": 1.5,
+     "hpMin": 104161,
+     "hpMax": 172749,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 312483,
+     "hpMax": 518246,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 104161,
+     "hpMax": 172749,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 145825,
+     "hpMax": 241848,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "MoleMinerBodyPartData"
   },
   {
    "edid": "HTO_LvlPRCGhoul_Boss_T1",
@@ -302,7 +438,6 @@
    "faction": "Communists",
    "factionKey": "PRCGhoul",
    "tierRecords": 5,
-   "weakSpot": "Head",
    "specials": [
     {
      "name": "Communist T-60 Power Armor",
@@ -363,7 +498,53 @@
    ],
    "grenades": [
     "Fragmentation Grenade"
-   ]
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 83329,
+     "hpMax": 138199,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 312483,
+     "hpMax": 518246,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 104161,
+     "hpMax": 172749,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 145825,
+     "hpMax": 241848,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
   },
   {
    "edid": "HTO_LvlRobot_Boss_T1",
@@ -389,7 +570,6 @@
    "faction": "Robots",
    "factionKey": "Robot",
    "tierRecords": 5,
-   "weakSpot": "None — head and torso are armoured. Aim for the limbs.",
    "specials": [
     {
      "name": "Arm-mounted weapons",
@@ -465,7 +645,63 @@
      "damageMax": 38,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier06"
     }
-   ]
+   ],
+   "weakSpot": "None — no body part takes bonus damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 0.5,
+     "hpMin": 83329,
+     "hpMax": 138199,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Torso",
+     "pct": 80.0,
+     "mult": 0.85,
+     "hpMin": 333315,
+     "hpMax": 552796,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 145825,
+     "hpMax": 241848,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 40.0,
+     "mult": 1.0,
+     "hpMin": 166658,
+     "hpMax": 276398,
+     "severable": false,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    },
+    {
+     "name": "Combat Inhibitor",
+     "pct": 10.0,
+     "mult": 0.25,
+     "hpMin": 41664,
+     "hpMax": 69100,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "AssaultronBodyPartData"
   },
   {
    "edid": "HTO_LvlScorched_Boss_T1",
@@ -491,7 +727,6 @@
    "faction": "Scorched",
    "factionKey": "Scorched",
    "tierRecords": 5,
-   "weakSpot": "Head",
    "specials": [
     {
      "name": "V63 Laser Carbine (Meltdown)",
@@ -560,7 +795,53 @@
    ],
    "grenades": [
     "Plasma Grenade"
-   ]
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 83329,
+     "hpMax": 138199,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 312483,
+     "hpMax": 518246,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 104161,
+     "hpMax": 172749,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 145825,
+     "hpMax": 241848,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "ScorchedBodyPartData"
   },
   {
    "edid": "SDOW_HTO_LvlSlasherShadow_Boss_T1",
@@ -637,7 +918,56 @@
      "damageMax": 116,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier18"
     }
-   ]
+   ],
+   "grenades": [
+    "Dynamite Bundle"
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 83329,
+     "hpMax": 138199,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 312483,
+     "hpMax": 518246,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 104161,
+     "hpMax": 172749,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 145825,
+     "hpMax": 241848,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
   },
   {
    "edid": "HTO_LvlSuperMutant_Boss_T1",
@@ -663,7 +993,6 @@
    "faction": "Super Mutants",
    "factionKey": "SuperMutant",
    "tierRecords": 5,
-   "weakSpot": "Head",
    "specials": [
     {
      "name": "Cremator",
@@ -729,7 +1058,51 @@
    "grenades": [
     "Molotov Cocktail",
     "Fragmentation Grenade"
-   ]
+   ],
+   "weakSpot": "Head — takes 1.25× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.25,
+     "hpMin": 83329,
+     "hpMax": 138199,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 0.9,
+     "hpMin": 312483,
+     "hpMax": 518246,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 30.0,
+     "mult": 1.0,
+     "hpMin": 124993,
+     "hpMax": 207298,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 145825,
+     "hpMax": 241848,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "SuperMutantBodyPartData"
   }
  ],
  "mutations": {
