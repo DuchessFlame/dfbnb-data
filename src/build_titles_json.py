@@ -1684,6 +1684,122 @@ def _prettify_camel(tok: str) -> str:
     return spaced.strip()
 
 
+def own_entitlement_title(edid: str, conds: List[str]) -> str:
+    """
+    The display name of the title's OWN entitlement: the HasEntitlement
+    condition whose ENTM EDID carries the same affix token as the title EDID
+    (ATX_CAMPTitles_Suffix_AlienSupporter <-> ATX_ENTM_CAMPTitles_Suffix_AlienSupporter).
+    Season titles that unlock off a gameboard / wall-art entitlement never
+    match, so this returns "" for them. Name = first quoted phrase in the
+    entitlement FULL ("Alien Supporter" from '"Alien Supporter" C.A.M.P. Title Suffix').
+    """
+    edid_tok = _edid_affix_token(edid)
+    if not edid_tok:
+        return ""
+    for c in conds or []:
+        if "HasEntitlement" not in c:
+            continue
+        m_ed = re.search(r"HasEntitlement\(\s*([A-Za-z0-9_\-]+)", c, flags=re.IGNORECASE)
+        if not m_ed:
+            continue
+        ent_edid = m_ed.group(1)
+        if "title" not in ent_edid.lower():
+            continue
+        ent_tok = _edid_affix_token(ent_edid)
+        if not ent_tok or ent_tok.lower() != edid_tok.lower():
+            continue
+        m = re.search(r'"""([^"]+?)""', c)
+        if m:
+            return m.group(1).strip()
+    return ""
+
+
+def tidy_how_to_obtain(how: str) -> str:
+    """
+    Wording fixes on the connecting text only. Event / quest / season / bundle
+    NAMES are never touched.
+      - "claimed the The Big Score"   -> "claimed The Big Score"
+        (season names that start with "The" doubled the article)
+      - "Unlocked by Default"         -> "Unlocked by default"
+      - "Party Crasher Creatures."    -> "Party Crasher creatures."
+    """
+    h = how or ""
+    h = re.sub(r"\bclaimed the (The )", r"claimed \1", h)
+    h = h.replace("Unlocked by Default", "Unlocked by default")
+    h = h.replace("Drops from Party Crasher Creatures.", "Drops from Party Crasher creatures.")
+    return h
+
+
+def title_source(how: str, unlock_type: str, cut: bool) -> str:
+    """
+    One short label for WHERE a title comes from -- the row's source pill and
+    the poster / spreadsheet Source column. Read from the finished howToObtain
+    sentence (unlockType is only a fallback: e.g. the Festive title is tagged
+    "atx" but actually drops from Holiday Scorched gifts). Order matters:
+    challenges and quests are checked before drop sources, so "Complete the
+    Lifetime Challenge: Complete an Infestation" is a Challenge.
+    """
+    if cut:
+        return "Cut"
+    h = (how or "").lower()
+    ut = (unlock_type or "").lower()
+    if "lifetime challenge" in h or "following challenges" in h or ut == "challenge":
+        return "Challenge"
+    if "complete the quest" in h or "following quests" in h or ut == "quest":
+        return "Quest"
+    if "available for purchase from the xbox" in h:
+        return "Store Bundle"
+    if "atom shop" in h:
+        return "Atom Shop"
+    if "mini season" in h or ut == "miniseason":
+        return "Mini Season"
+    if "scoreboard" in h or "unlocked if you have claimed" in h or ut == "season_score":
+        return "Scoreboard"
+    if "daily ops" in h:
+        return "Ops"
+    if "infestation" in h:
+        return "Infestation"
+    if "level up your pet" in h:
+        return "Pets"
+    if re.search(r"\bcaps\b|purveyor|vendor", h):
+        return "Caps"
+    if ("seasonal" in h or "crafted holiday" in h or "spooky treat" in h
+            or "mole miner pail" in h):
+        return "Seasonal Event"
+    if "complete the activity" in h:
+        return "Activity"
+    if "complete the event" in h or "party crasher" in h:
+        return "Event"
+    if "by default" in h or ut == "default":
+        return "Default"
+    if ut == "community" or "community event" in h:
+        return "Community"
+    if ut == "pts" or re.search(r"\bpts\b", h):
+        return "PTS"
+    if ut == "atx":
+        return "Atom Shop"
+    return "Other"
+
+
+def fix_copied_title(edid: str, title: str, conds: List[str], title_counts: Dict[str, int]) -> str:
+    """
+    Bethesda sometimes clones a title record and never renames its ANAM, e.g.
+    ATX_CAMPTitles_Suffix_AlienSupporter / _DaringSupporter / _Protector all
+    carry ANAM "Diner", and ATX_PlayerTitles_Suffix_Sprinkles carries "Glazed".
+    Their own entitlement still has the right name. Rule: only when the ANAM
+    text is shared with another record (title_counts > 1) AND the title's own
+    entitlement names it differently, use the entitlement name. The original
+    record (Diner's own entitlement IS "Diner") is left alone.
+    """
+    if not title or title_counts.get(title.strip().casefold(), 0) < 2:
+        return title
+    own = own_entitlement_title(edid, conds)
+    if own and own.casefold() != title.strip().casefold():
+        print(f"[titles] copied ANAM fixed: {edid} {title!r} -> {own!r}", file=sys.stderr)
+        return own
+    return title
+
+
 def derive_title_from_conditions(edid: str, conds: List[str]) -> str:
     # When ANAM (camp) / male+female ANAM/BNAM (player) are empty in the TSV,
     # extract a display title from the entitlement FULL string baked into the
@@ -3264,6 +3380,18 @@ def main() -> int:
         if fid:
             cndf_by_id[fid] = r
 
+    # ANAM text -> how many records carry it (feeds fix_copied_title)
+    camp_title_counts: Dict[str, int] = {}
+    for _r in cmpt_rows:
+        _t = (_r.get("ANAM - Title") or _r.get("ANAM") or "").strip().casefold()
+        if _t:
+            camp_title_counts[_t] = camp_title_counts.get(_t, 0) + 1
+    player_title_counts: Dict[str, int] = {}
+    for _r in plyt_rows:
+        _t = ((_r.get("ANAM - Male Title") or "").strip() or (_r.get("BNAM - Female Title") or "").strip()).casefold()
+        if _t:
+            player_title_counts[_t] = player_title_counts.get(_t, 0) + 1
+
     # CAMP
     camp_items: List[Dict[str, Any]] = []
     for r in cmpt_rows:
@@ -3291,6 +3419,8 @@ def main() -> int:
         # entitlement FULL embedded in the conditions (or, last resort, EDID).
         if not title:
             title = derive_title_from_conditions(edid, conds)
+        else:
+            title = fix_copied_title(edid, title, conds, camp_title_counts)
 
         how, dr, sn, unlock_type, extra = compute_unlock_and_rates(
             kind="camp",
@@ -3386,7 +3516,9 @@ def main() -> int:
             ),
             "conditions": conds,
             "condCount": len(conds),
-            "howToObtain": cut_obtain(how, starts_cut(edid)),
+            "howToObtain": tidy_how_to_obtain(cut_obtain(how, starts_cut(edid))),
+            "source": title_source(tidy_how_to_obtain(cut_obtain(how, starts_cut(edid))), unlock_type, starts_cut(edid)),
+            "images": [image_url] if image_url else [],
             "dropRate": dr,
             "releaseDate": release_date,
             "releaseYear": release_year,
@@ -3429,6 +3561,12 @@ def main() -> int:
                 title_m = title_display
             if not title_f:
                 title_f = title_display
+        else:
+            _fixed = fix_copied_title(edid, title_display, conds, player_title_counts)
+            if _fixed != title_display:
+                if title_m == title_display: title_m = _fixed
+                if title_f == title_display: title_f = _fixed
+                title_display = _fixed
 
         how, dr, sn, unlock_type, extra = compute_unlock_and_rates(
             kind="player",
@@ -3520,7 +3658,9 @@ def main() -> int:
             ),
             "conditions": conds,
             "condCount": len(conds),
-            "howToObtain": cut_obtain(how, starts_cut(edid)),
+            "howToObtain": tidy_how_to_obtain(cut_obtain(how, starts_cut(edid))),
+            "source": title_source(tidy_how_to_obtain(cut_obtain(how, starts_cut(edid))), unlock_type, starts_cut(edid)),
+            "images": [image_url] if image_url else [],
             "dropRate": dr,
             "releaseDate": release_date,
             "releaseYear": release_year,

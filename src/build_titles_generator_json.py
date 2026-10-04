@@ -19,19 +19,17 @@ OUT_CAMP = DIST_DIR / "titles_camp_generator.json"
 OUT_PLAYER = DIST_DIR / "titles_player_generator.json"
 
 
-# Always remove cut content, no toggles.
-CUT_PATTERNS = [
-    r"\bCUT\b", r"CUT_", r"_CUT",
-    r"\bPOST\b", r"POST_", r"_POST",
-    r"\bDEL\b", r"DEL_", r"_DEL",
-    r"ZZZZ", r"ZZZ",
-]
-CUT_RE = re.compile("|".join(CUT_PATTERNS), re.IGNORECASE)
+# Cut content uses the SAME rule as the title checklist (build_titles_json.starts_cut):
+# an EDID that STARTS with DEL / POST / CUT / ZZZ, or ENDS with _Copy01.
+# The old regex here searched anywhere in the EDID *and* the title text, so it
+# wrongly dropped live titles such as Delver's (SCORE_S19_..._Delvers matched
+# "_DEL"), Post / Command Post (text matched "POST") and Cutthroat
+# (..._Suffix_Cutthroat matched "_CUT"). Never match on the title text.
+from build_titles_json import starts_cut, extract_conditions, fix_copied_title
 
 
-def is_cut(edid: str, text: str) -> bool:
-    hay = f"{edid or ''} {text or ''}"
-    return bool(CUT_RE.search(hay))
+def is_cut(edid: str, text: str = "") -> bool:
+    return starts_cut(edid)
 
 
 def read_tsv(path: Path) -> Tuple[List[str], List[Dict[str, str]]]:
@@ -62,6 +60,19 @@ def truthy(v: str) -> bool:
     return str(v).strip().lower() in ("true", "1", "yes", "y")
 
 
+def _title_counts(rows: List[Dict[str, str]], keys: List[str]) -> Dict[str, int]:
+    counts: Dict[str, int] = {}
+    for r in rows:
+        t = ""
+        for k in keys:
+            t = (r.get(k, "") or "").strip()
+            if t:
+                break
+        if t:
+            counts[t.casefold()] = counts.get(t.casefold(), 0) + 1
+    return counts
+
+
 def camp_extract(headers: List[str], rows: List[Dict[str, str]]) -> Tuple[List[Dict[str, str]], List[Dict[str, str]]]:
     """
     Supports both column-name styles found in CMPT exports:
@@ -73,6 +84,7 @@ def camp_extract(headers: List[str], rows: List[Dict[str, str]]) -> Tuple[List[D
     suffixes: List[Dict[str, str]] = []
 
     is_long = "ANAM - Title" in headers
+    counts = _title_counts(rows, ["ANAM - Title", "ANAM"])
 
     for r in rows:
         formid = (r.get("FormID", "") or "").strip()
@@ -91,6 +103,10 @@ def camp_extract(headers: List[str], rows: List[Dict[str, str]]) -> Tuple[List[D
             continue
         if is_cut(edid, text):
             continue
+        # Copied ANAM (e.g. Alien Supporter / Daring Supporter / Protector
+        # all say "Diner") -> use the title's own entitlement name. Same rule
+        # as the title checklist.
+        text = fix_copied_title(edid, text, extract_conditions(r), counts)
 
         # Some entries are both prefix and suffix.
         item = {"id": formid or edid, "text": text}
@@ -119,6 +135,7 @@ def player_extract(headers: List[str], rows: List[Dict[str, str]]) -> Tuple[List
     suffixes: List[Dict[str, str]] = []
 
     is_new_format = "EDID - Editor ID" in headers or any("EDID - Editor ID" == h for h in headers)
+    counts = _title_counts(rows, ["ANAM - Male Title", "BNAM - Female Title", "MaleTitle", "FemaleTitle"])
 
     for r in rows:
         if is_new_format:
@@ -146,6 +163,7 @@ def player_extract(headers: List[str], rows: List[Dict[str, str]]) -> Tuple[List
             continue
         if is_cut(edid, text):
             continue
+        text = fix_copied_title(edid, text, extract_conditions(r), counts)
 
         item = {"id": formid or edid, "text": text}
 
@@ -160,11 +178,16 @@ def player_extract(headers: List[str], rows: List[Dict[str, str]]) -> Tuple[List
 
 
 def dedupe_items(items: List[Dict[str, str]]) -> List[Dict[str, str]]:
+    """
+    One entry per visible title text. Several records can share the same text
+    (e.g. base-game + E05 "Scavenger"); in the generator they are the same
+    word, so a duplicate would just double its odds. First record wins.
+    """
     seen = set()
     out: List[Dict[str, str]] = []
     for it in items:
-        key = (it.get("id", ""), it.get("text", ""))
-        if key in seen:
+        key = (it.get("text", "") or "").strip().casefold()
+        if not key or key in seen:
             continue
         seen.add(key)
         out.append(it)
