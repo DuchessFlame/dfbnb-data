@@ -58,7 +58,14 @@ LEAK = re.compile(
     r"|RESTRICTED"
     # A bare "Repeat" word means the repeat-list token escaped: it should have
     # become the " (Repeatable)" suffix (plan_sources.source_label, 23 Sep 2026).
-    r"|\bRepeat\b(?! Chance)")
+    r"|\bRepeat\b(?! Chance)"
+    # "Event Specific" / Bethesda's "Recipies" restate the head a list sits
+    # under ("MN2 Event Specific Recipies", Oct 2026) — dropped by source_label.
+    r"|Event Specific|\bRecipies\b"
+    # A label that IS a bare content code ("MN2", "MTNS") never resolved to a
+    # name; QuestNames resolves a code shared by one event and only non-story
+    # scaffolding to that event.
+    r"|^(?:MN\d|MTNS|FF\d\d)$")
 
 
 # Quest titles are written by humans, so they are linted for editor scaffolding

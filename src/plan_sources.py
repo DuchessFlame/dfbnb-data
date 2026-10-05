@@ -187,6 +187,25 @@ def meaningful_refs(refs):
     return out
 
 
+def dead_plan_reason(refs, has_recipe, recipe_unlock=None):
+    """Why a plan with a CLEAN EditorID is still not a real plan, or None.
+
+    Two facts, both read off the records, both required:
+      * no recipe (COBJ) uses this BOOK, so reading it would teach nothing, and
+      * nothing in the game files gives it out — no meaningful reference and no
+        non-plan unlock of a recipe.
+    "Plan: Veracio Hat" (Recipe_XPD_AC_Headwear_) and "Plan: Spy Outfit" are
+    the Apparel cases (Duchess, 4 Oct 2026); the Dino Peaks plans are the CAMP
+    ones — their items ship as SCORE_S23 scoreboard rewards and these books are
+    the leftovers. A clean EditorID with a recipe is never called dead on
+    missing references alone — a script-granted plan would be buried.
+    """
+    if has_recipe or recipe_unlock or meaningful_refs(refs):
+        return None
+    return ("no recipe uses this plan and nothing in the game files gives it "
+            "out, so it teaches nothing and cannot be obtained")
+
+
 def cut_reason(edid, refs=None, recipe_unlock=None):
     """Why this plan is cut content, or None if it is not.
 
@@ -595,6 +614,7 @@ class QuestNames:
 
     STORY_TYPES = {"primary", "public event", "side quest", "secondary",
                    "expedition", "raid", "daily ops", "event", "caravan"}
+    EVENT_TYPES = {"public event", "event"}
     MAX_PREFIX = 4        # tokens; SDOW_MQ01 is 2, XPD_AC_Mission_Tier is 4
 
     def __init__(self, path=None):
@@ -622,6 +642,7 @@ class QuestNames:
     def load(self, path):
         by_prefix = collections.defaultdict(set)
         by_code   = collections.defaultdict(set)
+        type_of   = {}
         try:
             with open(path, encoding="utf-8", errors="replace") as f:
                 for row in csv.DictReader(f, delimiter="\t"):
@@ -646,6 +667,7 @@ class QuestNames:
                     if any(edid.upper().startswith(p) for p in CUT_PREFIXES):
                         continue
                     parts = [p for p in edid.split("_") if p]
+                    type_of[full] = qtype
                     for n in range(1, min(self.MAX_PREFIX, len(parts)) + 1):
                         by_prefix["_".join(parts[:n]).lower()].add(full)
                     if qtype in self.STORY_TYPES and parts:
@@ -655,6 +677,15 @@ class QuestNames:
 
         for k, names in by_prefix.items():
             self.exact[k] = next(iter(names)) if len(names) == 1 else None
+            # A bare content code shared by one EVENT and only non-story
+            # scaffolding (a radio quest, a misc tracker) is that event:
+            # MN2_Quest_Mischief "Event: Mischief Night" shares MN2 with
+            # "Mischief Night Radio", so MN2 resolved to nothing and every
+            # Mischief Night reward published as the raw code "MN2".
+            if self.exact[k] is None and "_" not in k:
+                story = [n for n in names if type_of.get(n) in self.STORY_TYPES]
+                if len(story) == 1 and type_of.get(story[0]) in self.EVENT_TYPES:
+                    self.exact[k] = story[0]
 
         for code, names in by_code.items():
             # "The Slasher: Masked Truth" and three siblings all say the code is
@@ -936,7 +967,20 @@ def source_label(edid, quests=None):
     # sits next to the first-clear row instead of being merged into it
     # (Duchess, 23 Sep 2026; route_key no longer strips the word).
     repeatable = False
-    for t in _split_tokens(rest_parts):
+    toks = list(_split_tokens(rest_parts))
+    # "Event Specific" (and Bethesda's "Recipies") is how a list says it is the
+    # event's own pool — restating the head it sits under. MN2_LL_EventSpecific-
+    # Recipies printed as a second row "... Event Specific Recipies" beside the
+    # event's own row at the same rate.
+    _drop = set()
+    for i, t in enumerate(toks):
+        lt = t.lower()
+        if lt == "specific" and i and toks[i - 1].lower() == "event":
+            _drop.update({i - 1, i})
+        elif lt in ("eventspecific", "recipies"):
+            _drop.add(i)
+    toks = [t for i, t in enumerate(toks) if i not in _drop]
+    for t in toks:
         if re.fullmatch(r"(SQ|MQ|DQ)\d*", t, re.I):
             # The data does not say WHICH side quest; pretending it does would
             # be worse than collapsing them.
@@ -1459,8 +1503,11 @@ have told the reader to go and do an event for something that sits in a locker.
 """
 
 LEDGER_ROWS = ["Caps", "Stamps", "Scoreboard", "Gold Bullion", "Atom Shop",
-               "Limited Time Bundle", "Containers", "Scrap to Learn",
+               "Limited Time Bundle", "Containers", "Enemies", "Scrap to Learn",
                "Events & Activities", "Quests", "Challenges"]
+# "Enemies" (Oct 2026): creature drops used to fall through to Events &
+# Activities, so a plan that drops off a Deathclaw read as an event. Keep this
+# list and OBTAIN_LEDGER_ROWS in df-bnb-plan-checklists.js in the same order.
 
 # How many sources one row lists before it is cut short with "and N more".
 # Eight is where the faction vendor lists stop reading as a source list and
@@ -1507,7 +1554,16 @@ def _ledger_route_bucket(route):
     if st in ("container", "fixed"):
         return "Containers"
 
-    # event-quest, creature, and anything a later builder adds.
+    # `kind` is set by plan_route_kinds.py off the records themselves: the
+    # Quest Type of the quest whose reward pays the list out, and the NPC that
+    # carries a creature list. Without it, every quest reward read as an event.
+    kind = (route.get("kind") or "").lower()
+    if st == "creature":
+        return "Containers" if kind == "corpse" else "Enemies"
+    if st == "event-quest" and kind == "quest":
+        return "Quests"
+
+    # events, and anything a later builder adds.
     return "Events & Activities"
 
 

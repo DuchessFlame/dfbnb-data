@@ -123,54 +123,104 @@ def set_token(item):
     return None
 
 
+def family(item, armoured_sets):
+    """The armour set a piece belongs to, or None.
+
+    set_token() anchors on `Armor_`, which a helmet's own record usually lacks
+    (Headwear_Clothes_DLC03_Marine_Helmet, Headwear_ChineseStealthArmor,
+    Headwear_Clothes_SecretService_Helmet). So a headwear piece whose EditorID
+    carries a WHOLE underscore-delimited token naming a real armour set belongs
+    to that set. Whole tokens only: the Vault 63 helmets end in `_Storm`, and
+    "storm" is a POWER armour set, which is why power armour sets are never in
+    `armoured_sets`.
+    """
+    tok = set_token(item)
+    if tok and tok in armoured_sets:
+        return tok
+    cn = (item.get("cnam") or {}).get("edid", "") or ""
+    toks = [t.lower() for t in cn.split("_") if t]
+    if not toks or "headwear" not in toks:
+        return None
+    for t in toks:
+        if t in armoured_sets:
+            return t
+    return tok
+
+
 def attach(items):
     source, armo = load_armo()
-    rows = [i for i in items if (i.get("image_dir") or "") == FROM_FOLDER]
-    if not rows:
-        return {}
 
-    # Pass 1: which SETS contain a piece with stats.
+    # Which SETS contain a piece with stats. Read across Body Armour AND
+    # Apparel: the Enclave scout sets (Covert Scout, Solar, Thorn) were filed
+    # under Apparel by the bucket and were never looked at, so 15 real armour
+    # pieces with a resistance ladder and 100 durability sat on the Apparel
+    # page (Duchess, 4 Oct 2026). Power armour is its own page and never counts.
     armoured_sets = set()
-    statless = []
-    for it in rows:
+    pieces = []
+    for it in items:
+        folder = (it.get("image_dir") or "")
+        if folder not in (FROM_FOLDER, TO_FOLDER):
+            continue
         cn = it.get("cnam") or {}
         if cn.get("sig") != "ARMO":
             continue
         stats = has_stats(armo.get(cn.get("formid") or ""))
-        tok = set_token(it)
+        pieces.append((it, stats))
         if stats:
+            tok = set_token(it)
             if tok:
                 armoured_sets.add(tok)
-        elif stats is False:
-            statless.append((it, tok))
 
-    # Pass 2: move the pieces whose whole set is clothing.
-    moved, kept = [], []
-    for it, tok in statless:
-        if tok and tok in armoured_sets:
-            kept.append(it)          # a cosmetic helmet inside a real set
-            continue
-        it["image_dir"] = TO_FOLDER
-        it["reclassified_from"] = FROM_FOLDER
-        moved.append(it)
+    moved, kept, to_armour = [], [], []
+    for it, stats in pieces:
+        folder = it.get("image_dir") or ""
+        fam = family(it, armoured_sets)
+        if folder == FROM_FOLDER:
+            if it.get("reclassified_from") == TO_FOLDER:
+                # moved here by an earlier run — keep it while it still qualifies
+                if stats or (fam and fam in armoured_sets):
+                    to_armour.append(it)
+                continue
+            if stats is False:
+                if fam and fam in armoured_sets:
+                    kept.append(it)          # a cosmetic helmet inside a real set
+                    continue
+                it["image_dir"] = TO_FOLDER
+                it["reclassified_from"] = FROM_FOLDER
+                moved.append(it)
+        elif folder == TO_FOLDER and not it.get("reclassified_from"):
+            # Real armour filed as apparel, or a statless piece of a real set.
+            if stats or (stats is False and fam and fam in armoured_sets):
+                it["image_dir"] = FROM_FOLDER
+                it["reclassified_from"] = TO_FOLDER
+                to_armour.append(it)
+        elif folder == TO_FOLDER and it.get("reclassified_from") == FROM_FOLDER:
+            # moved by an earlier run; re-test with the family rule
+            if stats is False and fam and fam in armoured_sets:
+                it["image_dir"] = FROM_FOLDER
+                it.pop("reclassified_from", None)
+                kept.append(it)
+            else:
+                moved.append(it)
 
-    # Anything that had been moved by an earlier run and no longer qualifies
-    # must go back — these enrichers are re-run in place and data that is not
-    # pruned is data that lies.
-    moved_ids = {id(i) for i in moved}
+    # Anything moved by an earlier run that no longer qualifies goes back —
+    # these enrichers are re-run in place, and data that is not pruned lies.
+    done = {id(i) for i in moved} | {id(i) for i in to_armour}
     for it in items:
-        if it.get("reclassified_from") and id(it) not in moved_ids:
-            origin = it.pop("reclassified_from")
-            # Only undo a move this module made. A row that plan_images has
-            # since routed somewhere else entirely (a Legacy Nuclear Winter
-            # plan, say) just loses the stale marker — sending it back to
-            # body-armour would pull it off its own page.
-            if (it.get("image_dir") or "") == TO_FOLDER:
+        origin = it.get("reclassified_from")
+        if origin and id(it) not in done:
+            it.pop("reclassified_from")
+            # Only undo a move this module made — a row routed elsewhere since
+            # (a Legacy Nuclear Winter plan, say) just loses the stale marker.
+            here = it.get("image_dir") or ""
+            if here in (FROM_FOLDER, TO_FOLDER) and here != origin:
                 it["image_dir"] = origin
 
     return {"source": source, "moved": len(moved), "kept": len(kept),
+            "to_armour": len(to_armour),
             "names": sorted(i["name"] for i in moved),
-            "kept_names": sorted(i["name"] for i in kept)}
+            "kept_names": sorted(i["name"] for i in kept),
+            "to_armour_names": sorted(i["name"] for i in to_armour)}
 
 
 def report(stats, where=""):
@@ -179,6 +229,9 @@ def report(stats, where=""):
         return
     print(f"[plan_apparel_class] {where}{stats['moved']} statless plans moved "
           f"body-armour -> apparel, from {stats['source']}")
+    if stats.get("to_armour"):
+        print(f"  apparel -> body-armour (real armour, or a piece of a real set): "
+              + ", ".join(stats["to_armour_names"]))
     if stats["kept"]:
         print(f"  kept with their set (statless but one piece of a real one): "
               + ", ".join(stats["kept_names"]))

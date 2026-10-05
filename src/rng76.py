@@ -2081,42 +2081,28 @@ class Rng76Resolver:
         """
         One First Match cascade over the entry indices in *active*, in order.
 
-        Entries whose GetRandomPercent gate is byte-for-byte the same claim that
-        gate's slice **together and split it evenly**. Bethesda authors these
-        lists in tiers — the Scoutmaster collectron has one entry at ``>= 98``,
-        three at ``>= 90``, four at ``>= 80`` — and a strict reading hands the
-        whole tier to whichever entry happens to be listed first, leaving its
-        siblings at 0%. Splitting is what the tier is plainly for, and it can't
-        disturb a list without ties: a group of one gets the whole slice, which
-        is the old behaviour exactly.
+        **Each entry's GetRandomPercent check rolls its OWN fresh number.** The
+        game walks the list top to bottom; an entry wins when its own check
+        passes, otherwise the next entry gets its turn with a new roll. So:
 
-        Only a real, shared gate groups. Entries with no GetRandomPercent at all
-        are catch-alls, not a tier — the first one genuinely does take the rest
-        of the range and the ones after it genuinely are unreachable, so each
-        gets its own group and the old sequential behaviour stands.
+            rate[i] = P(check i passes) x P(every entry above it failed)
+
+        Proven in game (Oct 2026): a Scoutmaster collectron produced Blast Radius
+        Board Game, Bowie Knife, Starlight Berries and Sugar Bombs inside two
+        hours. All four sit BEHIND an earlier entry with the same check
+        (>= 90 / >= 80), so under the old "one shared roll" model they could
+        never appear. That model (and the even tie-split before it) is gone.
+
+        An entry with no GetRandomPercent check always passes, so it takes
+        everything that reaches it and the entries below it get 0%.
         """
-        # Group by identical span, positioned at the group's first appearance.
-        # Ungated entries get a key unique to themselves so they never group.
-        order: List[Any] = []
-        members: Dict[Any, List[int]] = {}
-        group_span: Dict[Any, Tuple[float, float]] = {}
-        for i in active:
-            key = spans[i] if spans[i] is not None else ("ungated", i)
-            if key not in members:
-                members[key] = []
-                group_span[key] = spans[i] if spans[i] is not None else (0.0, 100.0)
-                order.append(key)
-            members[key].append(i)
-
         rates: Dict[int, float] = {}
-        covered: List[Tuple[float, float]] = []
-        for key in order:
-            group = members[key]
-            eff = group_span[key]
-            share = span_uncovered_width(eff, covered) / 100.0 / len(group)
-            for i in group:
-                rates[i] = share
-            covered = span_union(covered, eff)
+        reach = 1.0
+        for i in active:
+            sp = spans[i]
+            p = 1.0 if sp is None else max(0.0, min(1.0, span_uncovered_width(sp, []) / 100.0))
+            rates[i] = p * reach
+            reach *= (1.0 - p)
         return rates
 
     def first_match_rates(
@@ -2126,15 +2112,15 @@ class Rng76Resolver:
         """
         Per-entry selection rates (0–1) for a First Match (bit 6) list.
 
-        One random roll is taken and entries are checked top-to-bottom; the
-        first entry whose condition matches wins.  Each entry therefore gets the
-        part of the roll range its condition covers that no earlier entry
-        already claimed, and an entry with no condition sweeps up everything
-        left.
+        Entries are checked top-to-bottom and the first whose condition passes
+        wins. Each GetRandomPercent check rolls its own fresh number (proven in
+        game, Oct 2026 — see ``_first_match_pass``), so an entry's rate is its
+        own pass chance times the chance every entry above it failed. An entry
+        with no condition sweeps up everything left.
 
         Works for ascending ``<=`` lists and descending ``>=`` lists alike, and
-        for lists that mix the two.  Entries sharing a threshold split its slice
-        (see ``_first_match_pass``).
+        for lists that mix the two.  Repeated or out-of-order checks are fine —
+        every entry still gets its own roll (see ``_first_match_pass``).
 
         **World-state branches get their own cascade.** The list is resolved once
         per context (see ``first_match_contexts``): each pass runs the ungated

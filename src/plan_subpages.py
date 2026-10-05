@@ -207,7 +207,14 @@ SUBPAGES = {
         "title": "Apparel",
         "folder": "apparel",
         "groups": None,
-        "skip": [],
+        # Pet clothing (collars, nose rings, Tamer outfits, Deathclaw plating)
+        # has its own page, built from the pet data — Duchess, 4 Oct 2026.
+        "skip": [(r"(?:^|_)(?:WorldPets|CAMPPets)(?:_|$)",
+                  "pet apparel — listed on the pet page")],
+        # A plan checklist lists PLANS. An outfit whose recipe is unlocked some
+        # other way (a challenge, a pet level) has nothing to find or learn, so
+        # it is not on this page (Duchess, 4 Oct 2026).
+        "skip_when": [("no_plan", "no plan item — the recipe is unlocked another way")],
     },
 
     "backpack-mod": {
@@ -288,6 +295,7 @@ SUBPAGES = {
 
 WHEN = {
     "creates_alch": lambda it: ((it.get("cnam") or {}).get("sig") or "") == "ALCH",
+    "no_plan":      lambda it: not ((it.get("plan_item") or {}).get("formid")),
 }
 
 
@@ -355,6 +363,9 @@ def page_of(item):
         for rx, _why in page["_skip"]:
             if rx.search(edid):
                 return (None, None)
+        for name, _why in page.get("skip_when") or []:
+            if WHEN[name](item):
+                return (None, None)
         if not page["_groups"]:
             return (slug, None)
         for _k, label, _blurb, rule in page["_groups"]:
@@ -374,6 +385,9 @@ def skipped(item):
             continue
         for rx, why in page["_skip"]:
             if rx.search(edid):
+                return (slug, why)
+        for name, why in page.get("skip_when") or []:
+            if WHEN[name](item):
                 return (slug, why)
     return (None, None)
 

@@ -150,8 +150,11 @@ def route_bucket(route, seasonal_rx, event_rx=None):
         return "events"
     if _ACTIVITY.search(label):
         return "activities"
-    if _RX_QUEST.search(label) or route.get("quest_reward"):
+    # kind: plan_route_kinds.py, from the quest record's own Quest Type.
+    if _RX_QUEST.search(label) or route.get("quest_reward") or route.get("kind") == "quest":
         return "quests"
+    if route.get("kind") == "corpse":
+        return "loot"
     if st == "vendor":
         return "vendors"
     if st == "creature":

@@ -1265,14 +1265,17 @@ def build_station_item(reso_rows, cont_row, entm_row, cobj_row, book_row,
     entm_fid = clean_str(entm_row.get("FormID") or "") if entm_row else ""
     fid_key = formid8(entm_fid or primary_fid)
     release_date = prev_release_dates.get(fid_key) or release_date_from_edid(entm_edid) or today
-    # Flat drops list for backward compat: merge all mode drops, dedup by formId
-    flat_drops = []
-    seen_drop_fids = set()
+    # Flat drops list for backward compat: merge all mode drops, one row per
+    # formId, keeping the HIGHEST chance across modes. Keeping the first mode's
+    # row hid the Fasnacht Treats mode's Sugar Bombs (3.125%) behind the cut
+    # Party mode's 0%.
+    _best_drop = {}
     for m in modes:
         for d in m.get("drops", []):
-            if d["formId"] not in seen_drop_fids:
-                seen_drop_fids.add(d["formId"])
-                flat_drops.append(d)
+            prev = _best_drop.get(d["formId"])
+            if prev is None or d.get("chance", 0) > prev.get("chance", 0):
+                _best_drop[d["formId"]] = d
+    flat_drops = list(_best_drop.values())
     flat_drops.sort(key=lambda d: -d.get("chance", 0))
     # What the station produces, as the game labels it (AVIF FULL). Prefer the
     # primary RESO; multi-mode stations whose every RESO carries a mode suffix
