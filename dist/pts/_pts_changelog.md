@@ -1394,7 +1394,7 @@ _Couldn't key this file to records; contents differ._
 ## `load_screens.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `make_plan_checklist.json`  ·  +173 / -0 / ~11
+## `make_plan_checklist.json`  ·  +173 / -0 / ~12
 
 **Added (173)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1439,7 +1439,8 @@ _Couldn't key this file to records; contents differ._
 - Plan: LMG True .45 Receiver  `PLAN_00947F34`
 - …and 133 more
 
-**Changed (11)**
+**Changed (12)**
+- Plan: Mole Miner Gauntlet  `PLAN_00436FF9` — fields: routes
 - Plan: Single-Action Revolver Forceful Grip  `PLAN_0052A699` — fields: name
 - Plan: Gauss Shotgun Long Barrel  `PLAN_0059560D` — fields: name
 - Plan: Crusader Pistol Fusion Chamber  `PLAN_005E65FA` — fields: name
@@ -1635,7 +1636,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +173 / -0 / ~322
+## `plan_master.json`  ·  +173 / -0 / ~323
 
 **Added (173)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1680,7 +1681,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: LMG True .45 Receiver  `PLAN_00947F34`
 - …and 133 more
 
-**Changed (322)**
+**Changed (323)**
 - Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images, source_tag
 - Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images, source_tag
 - MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images, source_tag
@@ -1721,7 +1722,7 @@ _Couldn't key this file to records; contents differ._
 - Recipe: Fury  `PLAN_002B8BBD` — fields: retired_routes
 - Recipe: Grape Mentats  `PLAN_002B8BBE` — fields: retired_routes
 - Recipe: Healing Salve (Forest)  `PLAN_002B8BC1` — fields: retired_routes
-- …and 282 more
+- …and 283 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
