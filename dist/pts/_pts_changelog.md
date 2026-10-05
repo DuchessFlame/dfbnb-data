@@ -1289,9 +1289,10 @@ _Couldn't key this file to records; contents differ._
 ## `load_screens.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `make_plan_checklist.json`  ·  +0 / -0 / ~2
+## `make_plan_checklist.json`  ·  +0 / -0 / ~3
 
-**Changed (2)**
+**Changed (3)**
+- Plan: Mole Miner Gauntlet  `PLAN_00436FF9` — fields: routes
 - Plan: Gold Scavenge Bot  `PLAN_00614395` — fields: cut, routes
 - Plan: Resolve Breaker Paint  `PLAN_00921E5B` — fields: routes
 
@@ -1475,9 +1476,9 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +0 / -0 / ~288
+## `plan_master.json`  ·  +0 / -0 / ~286
 
-**Changed (288)**
+**Changed (286)**
 - Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images, source_tag
 - Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images, source_tag
 - MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images, source_tag
@@ -1518,7 +1519,7 @@ _Couldn't key this file to records; contents differ._
 - Recipe: Grape Mentats  `PLAN_002B8BBE` — fields: retired_routes
 - Recipe: Healing Salve (Forest)  `PLAN_002B8BC1` — fields: retired_routes
 - Recipe: Mentats  `PLAN_002B8BC6` — fields: retired_routes
-- …and 248 more
+- …and 246 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1629,7 +1630,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +18 / -1 / ~55
+## `titles_player.json`  ·  +18 / -1 / ~56
 
 **Added (18)**
 - ATX_PlayerTitles_Prefix_Apex  `ATX_PlayerTitles_Prefix_Apex`
@@ -1654,7 +1655,7 @@ _Couldn't key this file to records; contents differ._
 **Removed (1)**
 - zzz_Fishing_PlayerTitles_Prefix_Gillded  `zzz_Fishing_PlayerTitles_Prefix_Gillded`
 
-**Changed (55)**
+**Changed (56)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear, source
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel, source
 - ATX_PlayerTitles_Prefix_Gleaming  `ATX_PlayerTitles_Prefix_Gleaming` — fields: source
@@ -1692,10 +1693,10 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl, images
+- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 - WorldPets_PlayerTitles_Prefix_Cat01  `WorldPets_PlayerTitles_Prefix_Cat01` — fields: conditions, debug, unlockType
 - WorldPets_PlayerTitles_Prefix_Cat02  `WorldPets_PlayerTitles_Prefix_Cat02` — fields: conditions, debug, unlockType
-- WorldPets_PlayerTitles_Prefix_Deathclaw01  `WorldPets_PlayerTitles_Prefix_Deathclaw01` — fields: conditions, debug, unlockType
-- …and 15 more
+- …and 16 more
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
