@@ -313,6 +313,7 @@
     "missing_plans_pc.json",
     "missing_plans_playstation.json",
     "missing_plans_xbox.json",
+    "missing_plans_xbox_facebook.json",
     "mule-defaults.json",
     "mule-master-items.json",
     "not-available.json",
@@ -1534,6 +1535,9 @@
     "calculators/build_inspiration.json": {
       "structural_change": true
     },
+    "calculators/healing_calculator.json": {
+      "structural_change": true
+    },
     "calculators/outfit_inspiration.json": {
       "key": "edid",
       "added": [],
@@ -1579,6 +1583,21 @@
       "structural_change": true
     },
     "calculators/upcoming_rewards_s4.json": {
+      "structural_change": true
+    },
+    "calculators/weak_spot_multipliers.json": {
+      "structural_change": true
+    },
+    "camp.json": {
+      "key": "edid",
+      "added": [],
+      "removed": [],
+      "changed": []
+    },
+    "chainsaws.json": {
+      "structural_change": true
+    },
+    "chainsaws/chainsaw.json": {
       "structural_change": true
     },
     "chal_previous.json": {
@@ -22126,7 +22145,13 @@
     "cobj-recipes.json": {
       "structural_change": true
     },
+    "collectable_spawns_notes.json": {
+      "structural_change": true
+    },
     "collectable_spawns_pint-sized-phantom-graves.json": {
+      "structural_change": true
+    },
+    "collectable_spawns_pint-sized-slasher-masks.json": {
       "structural_change": true
     },
     "collectable_spawns_treasure-maps-locations.json": {
@@ -33255,6 +33280,15 @@
         }
       ]
     },
+    "community/plan_check_mule_pc.json": {
+      "structural_change": true
+    },
+    "community/plan_check_mule_playstation.json": {
+      "structural_change": true
+    },
+    "community/plan_check_mule_xbox.json": {
+      "structural_change": true
+    },
     "costume_keywords.json": {
       "key": "name",
       "added": [
@@ -33268,7 +33302,13 @@
     "cryptids.json": {
       "structural_change": true
     },
+    "cryptids/aliens.json": {
+      "structural_change": true
+    },
     "cryptids/angler.json": {
+      "structural_change": true
+    },
+    "cryptids/bigfoot.json": {
       "structural_change": true
     },
     "cryptids/blue-devil.json": {
@@ -33278,6 +33318,9 @@
       "structural_change": true
     },
     "cryptids/grafton-monster.json": {
+      "structural_change": true
+    },
+    "cryptids/jersey-lesser-devils.json": {
       "structural_change": true
     },
     "cryptids/megasloth.json": {
@@ -33325,16 +33368,112 @@
     "farming_spawns/blood-sac_spawns.json": {
       "structural_change": true
     },
+    "farming_spawns/canned-coffee_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-addictol_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-adrenal-reaction-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-antibiotics_spawns.json": {
+      "structural_change": true
+    },
     "farming_spawns/chems-berry-mentats_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-bird-bones-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-blood-pack_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-buffout_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/chems-bufftats_spawns.json": {
       "structural_change": true
     },
+    "farming_spawns/chems-calmex_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-carnivore-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-chameleon-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-daddy-o_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-day-tripper_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-disease-cure_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-eagle-eyes-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-egg-head-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-electrically-charged-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-empath-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-fury_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-glowing-blood-pack_spawns.json": {
+      "structural_change": true
+    },
     "farming_spawns/chems-grape-mentats_spawns.json": {
       "structural_change": true
     },
+    "farming_spawns/chems-grounded-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-healing-factor-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-healing-salve_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-herbivore-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-herd-mentality-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-high-radiation-fluids_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-insect-repellent_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-marsupial-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-med-x_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-mentats_spawns.json": {
+      "structural_change": true
+    },
     "farming_spawns/chems-orange-mentats_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-overdrive_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-plague-walker-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-psycho_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/chems-psychobuff_spawns.json": {
@@ -33346,7 +33485,28 @@
     "farming_spawns/chems-rad-x-diluted_spawns.json": {
       "structural_change": true
     },
+    "farming_spawns/chems-rad-x_spawns.json": {
+      "structural_change": true
+    },
     "farming_spawns/chems-radaway-diluted_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-radaway_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-scaly-skin-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-speed-demon-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-stealth-boy-mark-iii_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-stealth-boy_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-stimpak-diluted_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/chems-stimpak-super_spawns.json": {
@@ -33355,16 +33515,67 @@
     "farming_spawns/chems-stimpak_spawns.json": {
       "structural_change": true
     },
+    "farming_spawns/chems-talons-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-twisted-muscles-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-unstable-isotope-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-x-cell_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/cream_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/deathclaw-egg_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/frog-egg_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/glowing-blood_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/honey_spawns.json": {
+      "structural_change": true
+    },
     "farming_spawns/honeycomb_spawns.json": {
       "structural_change": true
     },
+    "farming_spawns/hotdog_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/mirelurk-egg_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/mothman-egg_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/perfect-bubblegum_spawns.json": {
+      "structural_change": true
+    },
     "farming_spawns/purified-water_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/radscorpion-egg_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/radtoad-egg_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/royal-jelly_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/salt-pepper-spices-sugar_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/sugar-bombs_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/tick-blood_spawns.json": {
       "structural_change": true
     },
     "fishing.json": {
@@ -34760,6 +34971,9 @@
         }
       ]
     },
+    "legendary_mod_drop_chances.json": {
+      "structural_change": true
+    },
     "legendary_mods.json": {
       "structural_change": true
     },
@@ -34770,7 +34984,19 @@
       "key": "id",
       "added": [],
       "removed": [],
-      "changed": []
+      "changed": [
+        {
+          "key": "PLAN_00614395",
+          "label": "Plan: Gold Scavenge Bot",
+          "fields": [
+            "cut",
+            "routes"
+          ]
+        }
+      ]
+    },
+    "meat.json": {
+      "structural_change": true
     },
     "meat/angler.json": {
       "structural_change": true
@@ -34778,10 +35004,16 @@
     "meat/brahmin.json": {
       "structural_change": true
     },
+    "meat/cat.json": {
+      "structural_change": true
+    },
     "meat/chicken.json": {
       "structural_change": true
     },
     "meat/deathclaw.json": {
+      "structural_change": true
+    },
+    "meat/fox.json": {
       "structural_change": true
     },
     "meat/frog.json": {
@@ -34796,7 +35028,13 @@
     "meat/hermit-crab.json": {
       "structural_change": true
     },
+    "meat/iguana.json": {
+      "structural_change": true
+    },
     "meat/megasloth.json": {
+      "structural_change": true
+    },
+    "meat/mirelurk-queen.json": {
       "structural_change": true
     },
     "meat/mirelurk.json": {
@@ -34805,10 +35043,37 @@
     "meat/mole-rat.json": {
       "structural_change": true
     },
+    "meat/mongrel-dog.json": {
+      "structural_change": true
+    },
+    "meat/mutant-hound.json": {
+      "structural_change": true
+    },
+    "meat/opossum.json": {
+      "structural_change": true
+    },
+    "meat/owlet.json": {
+      "structural_change": true
+    },
+    "meat/pheasant.json": {
+      "structural_change": true
+    },
+    "meat/rabbit.json": {
+      "structural_change": true
+    },
     "meat/radhog.json": {
       "structural_change": true
     },
+    "meat/radrat.json": {
+      "structural_change": true
+    },
     "meat/radstag.json": {
+      "structural_change": true
+    },
+    "meat/radtoad.json": {
+      "structural_change": true
+    },
+    "meat/radturkey.json": {
       "structural_change": true
     },
     "meat/scorchbeast.json": {
@@ -34817,16 +35082,64 @@
     "meat/sheepsquatch.json": {
       "structural_change": true
     },
+    "meat/squirrel.json": {
+      "structural_change": true
+    },
+    "meat/wolf.json": {
+      "structural_change": true
+    },
     "meat/yao-guai.json": {
       "structural_change": true
     },
     "menu-items.json": {
       "structural_change": true
     },
+    "murmrgh_legendary_mods.json": {
+      "structural_change": true
+    },
     "mutated_events/mutated_events_all_rewards.json": {
       "structural_change": true
     },
     "new_plans.json": {
+      "structural_change": true
+    },
+    "npc_spawns.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_cherry.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_cranberry.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_dark.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_grape.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_nuka-cola.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_nukashine.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_orange.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_quantum.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_sunset-sarsaparilla.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_twist.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_vaccinated.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_wild.json": {
       "structural_change": true
     },
     "pennants.json": {
@@ -34953,7 +35266,8 @@
           "label": "Mr. Handy Player Icon",
           "fields": [
             "image_source",
-            "images"
+            "images",
+            "source_tag"
           ]
         },
         {
@@ -34961,7 +35275,8 @@
           "label": "Pocket Watch Player Icon",
           "fields": [
             "image_source",
-            "images"
+            "images",
+            "source_tag"
           ]
         },
         {
@@ -34969,7 +35284,8 @@
           "label": "MegaSloth Player Icon",
           "fields": [
             "image_source",
-            "images"
+            "images",
+            "source_tag"
           ]
         },
         {
@@ -34977,7 +35293,8 @@
           "label": "Vault 51 Player Icon",
           "fields": [
             "image_source",
-            "images"
+            "images",
+            "source_tag"
           ]
         },
         {
@@ -34985,7 +35302,8 @@
           "label": "Bad Hair Female Player Icon",
           "fields": [
             "image_source",
-            "images"
+            "images",
+            "source_tag"
           ]
         },
         {
@@ -34993,7 +35311,8 @@
           "label": "Bad Hair Male Player Icon",
           "fields": [
             "image_source",
-            "images"
+            "images",
+            "source_tag"
           ]
         },
         {
@@ -35001,7 +35320,8 @@
           "label": "Vault Boy with Camera Player Icon",
           "fields": [
             "image_source",
-            "images"
+            "images",
+            "source_tag"
           ]
         },
         {
@@ -35009,7 +35329,8 @@
           "label": "Small Crate Player Icon",
           "fields": [
             "image_source",
-            "images"
+            "images",
+            "source_tag"
           ]
         },
         {
@@ -35017,7 +35338,8 @@
           "label": "Medium Crate Player Icon",
           "fields": [
             "image_source",
-            "images"
+            "images",
+            "source_tag"
           ]
         },
         {
@@ -35025,7 +35347,8 @@
           "label": "Epic Crate Player Icon",
           "fields": [
             "image_source",
-            "images"
+            "images",
+            "source_tag"
           ]
         },
         {
@@ -35033,7 +35356,8 @@
           "label": "Skeleton Player Icon",
           "fields": [
             "image_source",
-            "images"
+            "images",
+            "source_tag"
           ]
         },
         {
@@ -35041,7 +35365,8 @@
           "label": "Nuke Skull Player Icon",
           "fields": [
             "image_source",
-            "images"
+            "images",
+            "source_tag"
           ]
         },
         {
@@ -35049,7 +35374,8 @@
           "label": "Nuke Goggles Man Player Icon",
           "fields": [
             "image_source",
-            "images"
+            "images",
+            "source_tag"
           ]
         },
         {
@@ -35057,7 +35383,8 @@
           "label": "Nuke Goggles Woman Player Icon",
           "fields": [
             "image_source",
-            "images"
+            "images",
+            "source_tag"
           ]
         },
         {
@@ -35065,12 +35392,849 @@
           "label": "Power Armor Player Icon",
           "fields": [
             "image_source",
-            "images"
+            "images",
+            "source_tag"
           ]
         },
         {
-          "key": "PLAN_00436FF9",
-          "label": "Plan: Mole Miner Gauntlet",
+          "key": "NWREWARD_00417788",
+          "label": "Bronze Nuclear Winter Statue",
+          "fields": [
+            "source_tag"
+          ]
+        },
+        {
+          "key": "NWREWARD_00417789",
+          "label": "Copper Nuclear Winter Statue",
+          "fields": [
+            "source_tag"
+          ]
+        },
+        {
+          "key": "NWREWARD_0041778A",
+          "label": "Marble Nuclear Winter Statue",
+          "fields": [
+            "source_tag"
+          ]
+        },
+        {
+          "key": "NWREWARD_0041778B",
+          "label": "Bronze Nuclear Winter Trophy",
+          "fields": [
+            "source_tag"
+          ]
+        },
+        {
+          "key": "NWREWARD_0041778C",
+          "label": "Gold Nuclear Winter Trophy",
+          "fields": [
+            "source_tag"
+          ]
+        },
+        {
+          "key": "NWREWARD_0041778D",
+          "label": "Silver Nuclear Winter Trophy",
+          "fields": [
+            "source_tag"
+          ]
+        },
+        {
+          "key": "NWREWARD_0041778E",
+          "label": "Overseer Chair",
+          "fields": [
+            "source_tag"
+          ]
+        },
+        {
+          "key": "NWREWARD_00417792",
+          "label": "Four of a Kind Frame",
+          "fields": [
+            "source_tag"
+          ]
+        },
+        {
+          "key": "NWREWARD_00417793",
+          "label": "Best Friends Frame",
+          "fields": [
+            "source_tag"
+          ]
+        },
+        {
+          "key": "NWREWARD_00417794",
+          "label": "Platinum Frame",
+          "fields": [
+            "source_tag"
+          ]
+        },
+        {
+          "key": "NWREWARD_00417795",
+          "label": "Overseer Promotion Frame",
+          "fields": [
+            "source_tag"
+          ]
+        },
+        {
+          "key": "NWREWARD_00417796",
+          "label": "Ring of Fire Frame",
+          "fields": [
+            "source_tag"
+          ]
+        },
+        {
+          "key": "NWREWARD_00417797",
+          "label": "Squad Goals Frame",
+          "fields": [
+            "source_tag"
+          ]
+        },
+        {
+          "key": "NWREWARD_00417798",
+          "label": "Vault 51 Frame",
+          "fields": [
+            "source_tag"
+          ]
+        },
+        {
+          "key": "NWREWARD_00417799",
+          "label": "Veteran Frame",
+          "fields": [
+            "source_tag"
+          ]
+        },
+        {
+          "key": "NWREWARD_0041779A",
+          "label": "Fiery Welcome Frame",
+          "fields": [
+            "source_tag"
+          ]
+        },
+        {
+          "key": "NWREWARD_0053E84F",
+          "label": "Nuka Cherry Armor Paint",
+          "fields": [
+            "source_tag"
+          ]
+        },
+        {
+          "key": "NWREWARD_00569B7A",
+          "label": "Vault-Tec University Steamer Trunk",
+          "fields": [
+            "source_tag"
+          ]
+        },
+        {
+          "key": "PLAN_002B8BBA",
+          "label": "Recipe: Berry Mentats",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_002B8BBB",
+          "label": "Recipe: Brain Bombs",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_002B8BBC",
+          "label": "Recipe: Bufftats",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_002B8BBD",
+          "label": "Recipe: Fury",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_002B8BBE",
+          "label": "Recipe: Grape Mentats",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_002B8BC1",
+          "label": "Recipe: Healing Salve (Forest)",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_002B8BC6",
+          "label": "Recipe: Mentats",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_002B8BC7",
+          "label": "Recipe: Orange Mentats",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_002B8BC8",
+          "label": "Recipe: Overdrive",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_002B8BCA",
+          "label": "Recipe: Psychobuff",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_002B8BCD",
+          "label": "Recipe: Skeeto Spit",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_002B9FD1",
+          "label": "Plan: Sturdy Raider Arms",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_002B9FD3",
+          "label": "Plan: Sturdy Raider Legs",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_002B9FD5",
+          "label": "Plan: Sturdy Raider Torso",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00313494",
+          "label": "Plan: Vault Tec University Jumpsuit",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0031352A",
+          "label": "Plan: Vault 76 Jumpsuit",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003B7F2D",
+          "label": "Recipe: Diluted RadAway",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003B7F2E",
+          "label": "Recipe: Diluted Rad-X",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003C7BF5",
+          "label": "Plan: Pool Table",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003CC136",
+          "label": "Recipe: Sweet Roll",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003D5F2E",
+          "label": "Recipe: Cranberry Meatball Grinder",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003D5F3A",
+          "label": "Recipe: Seared Venison With Berries",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003D5F40",
+          "label": "Recipe: Blackberry Honey Crisp",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003D6546",
+          "label": "Plan: Protective Lining BoS Underarmor",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003D6547",
+          "label": "Plan: Shielded Lining BoS Underarmor",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003D6548",
+          "label": "Plan: Protective Lining Casual Underarmor",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003D6549",
+          "label": "Plan: Shielded Lining Casual Underarmor",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003D654D",
+          "label": "Plan: Shielded Lining Raider Underarmor",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003D654E",
+          "label": "Plan: Tesla Arc Trap",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003D6550",
+          "label": "Plan: Flamethrower Trap",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003F4600",
+          "label": "Plan: Fermenting Station",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003F5E9C",
+          "label": "Recipe: Stimpak Diffuser",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0040DF43",
+          "label": "Plan: Mounted Gorilla Head",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0040DF45",
+          "label": "Plan: Deer Skull",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00435856",
+          "label": "Plan: Mounted Antlers",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00435857",
+          "label": "Plan: Mounted Deer Head",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00435859",
+          "label": "Plan: Mounted Fox",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0043585A",
+          "label": "Plan: Mounted Honey Beast",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0043585B",
+          "label": "Plan: Mounted Mega Sloth",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0043585C",
+          "label": "Plan: Mounted Mothman",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0043585D",
+          "label": "Plan: Mounted Opossum",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0043585F",
+          "label": "Plan: Mounted Beaver",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00435860",
+          "label": "Plan: Mounted Frog",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00435861",
+          "label": "Plan: Mounted Squirrel",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00435862",
+          "label": "Plan: Mounted Radtoad",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00435863",
+          "label": "Plan: Mounted Scorchbeast",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00435865",
+          "label": "Plan: Mounted Snallygaster",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00437008",
+          "label": "Plan: Laser Gun",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0046A36F",
+          "label": "Plan: Brewing Station",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004E84F1",
+          "label": "Plan: Plasma Mine",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004E84F2",
+          "label": "Plan: Plasma Grenade",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004E9FD4",
+          "label": "Plan: Mounted Dog Head",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004E9FDB",
+          "label": "Plan: Mounted Mirelurk King Head",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004E9FDF",
+          "label": "Plan: Mounted Mongrel Head",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004E9FE3",
+          "label": "Plan: Mounted Radscorpion",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004E9FE9",
+          "label": "Plan: Mounted Cat Head",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004E9FEB",
+          "label": "Plan: Mounted Molerat Head",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004E9FF1",
+          "label": "Plan: Mounted Brahmin Heads",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004E9FF3",
+          "label": "Plan: Mounted Feral Ghoul Head",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004E9FF5",
+          "label": "Plan: Mounted Mutant Hound Head",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004E9FF7",
+          "label": "Plan: Mounted Glowing One Head",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004E9FF9",
+          "label": "Plan: Mounted Mirelurk Hunter Head",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004E9FFB",
+          "label": "Plan: Mounted Deathclaw Head",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004E9FFD",
+          "label": "Plan: Mounted Mirelurk Claw",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F4769",
+          "label": "Plan: Pump-Action Shotgun",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F476A",
+          "label": "Plan: 10mm Submachine Gun",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F478E",
+          "label": "Plan: Missile Launcher",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F5709",
+          "label": "Plan: Light Metal Torso",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F570C",
+          "label": "Plan: Light Metal Legs",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F570D",
+          "label": "Plan: Light Metal Arms",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F570F",
+          "label": "Plan: Light Combat Arms",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F5710",
+          "label": "Plan: Light Combat Legs",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F5711",
+          "label": "Plan: Light Combat Torso",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F5718",
+          "label": "Plan: Trapper Arms",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F5719",
+          "label": "Plan: Trapper Legs",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F571A",
+          "label": "Plan: Trapper Torso",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00501892",
+          "label": "Plan: T-45 Right Arm",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00501931",
+          "label": "Plan: T-60 BOS Elder Paint",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00501933",
+          "label": "Plan: T-60 BOS Knight Paint",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00501934",
+          "label": "Plan: T-60 BOS Knight CPT Paint",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00501935",
+          "label": "Plan: T-60 BOS Knight SGT Paint",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00501936",
+          "label": "Plan: T-60 BOS Officer Paint",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00501937",
+          "label": "Plan: T-60 BOS Paladin Paint",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0050DCBB",
+          "label": "Recipe: Steeped Ash Rose Tea",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0050DCBC",
+          "label": "Recipe: Steeped Aster Tea",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0050DCBD",
+          "label": "Recipe: Sweet Blackberry Tea",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0050DCBF",
+          "label": "Recipe: Steeped Carrot Flower Tea",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0050DCC0",
+          "label": "Recipe: Steeped Fern Flower Tea",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0050DCC1",
+          "label": "Recipe: Steeped Fever Blossom Tea",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0050DCC2",
+          "label": "Recipe: Steeped Gourd Blossom Tea",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0050DCC3",
+          "label": "Recipe: Steeped Melon Bloom Tea",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0050DCC4",
+          "label": "Recipe: Steeped Melon Blossom Chai",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0050DCC5",
+          "label": "Recipe: Steeped Strangler Bloom Tea",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0050DCC6",
+          "label": "Recipe: Steeped Strangler Pod Tea",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0050DCC7",
+          "label": "Recipe: Steeped Tato Flower Tea",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0050DCC8",
+          "label": "Recipe: Steeped Thistle Tea",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0052E485",
+          "label": "Plan: 10mm Pistol",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0052FDF6",
+          "label": "Recipe: Infused Blood Leaf Tea",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0052FE01",
+          "label": "Recipe: Tasty Mutant Hound Stew",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0052FE04",
+          "label": "Recipe: Infused Soot Flower Tea",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0052FE08",
+          "label": "Recipe: Radstag Stew",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0052FE09",
+          "label": "Recipe: Silt Bean Puree",
           "fields": [
             "obtain_ledger",
             "obtain_routes"
@@ -35085,6 +36249,20 @@
           ]
         },
         {
+          "key": "PLAN_005AD986",
+          "label": "Plan: Standing Gorilla",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_005AFDEE",
+          "label": "Plan: Sitting Gorilla",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
           "key": "PLAN_00608AEB",
           "label": "Plan: Solomon Hardy",
           "fields": [
@@ -35096,6 +36274,17 @@
           "label": "Plan: Yasmin Chowdhury",
           "fields": [
             "images"
+          ]
+        },
+        {
+          "key": "PLAN_00614395",
+          "label": "Plan: Gold Scavenge Bot",
+          "fields": [
+            "cut",
+            "cut_reason",
+            "obtain",
+            "obtain_ledger",
+            "obtain_unlocks"
           ]
         },
         {
@@ -35158,6 +36347,20 @@
           ]
         },
         {
+          "key": "PLAN_0065DD0A",
+          "label": "Plan: Cupid Cappy Sign",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00675279",
+          "label": "Plan: Nuka-Cola Balloons",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
           "key": "PLAN_0067AED1",
           "label": "Plan: Outhouse",
           "fields": [
@@ -35166,11 +36369,165 @@
           ]
         },
         {
+          "key": "PLAN_0067F169",
+          "label": "Plan: Tunnel of Love Snow Globe",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0067F172",
+          "label": "Plan: Cappy Smasher Super Sledge Paint",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00682116",
+          "label": "Plan: Nuka-Cola Ad Barrier",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00682117",
+          "label": "Plan: Nuka-Cola Crate Stalls",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00682118",
+          "label": "Plan: Tunnel of Love Poster",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0068211C",
+          "label": "Plan: Nuka-Cade Poster",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0068211D",
+          "label": "Plan: Nuka Cola Bottle Kiosk",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006828E5",
+          "label": "Plan: Cappy Clapper",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006828E6",
+          "label": "Plan: Bottle and Cappy Painting Statue",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006828E8",
+          "label": "Plan: Bottle and Cappy Balloon Statue",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006828E9",
+          "label": "Plan: Bottle and Cappy Hoop Jump Statue",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006828EA",
+          "label": "Plan: Bottle and Cappy Walking Globe Statue",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006828EC",
+          "label": "Plan: Bottle Bot",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
           "key": "PLAN_0068ADED",
           "label": "Plan: Cowboy Hat",
           "fields": [
             "image_source",
             "images"
+          ]
+        },
+        {
+          "key": "PLAN_0068B8EB",
+          "label": "Recipe: Nuka-Dog",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0068B8EC",
+          "label": "Recipe: Yao Guai Pastry",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0068B8ED",
+          "label": "Recipe: Gulper Stuffed Foot",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0068B8EE",
+          "label": "Recipe: Fried Radroach On A Stick",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0068B8EF",
+          "label": "Recipe: Fried Scorpion On A Stick",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0068B8F0",
+          "label": "Recipe: Brahmin Burgers",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0068B8F1",
+          "label": "Recipe: Caramel Mutfruit",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0068B8F2",
+          "label": "Recipe: Carnival Pie",
+          "fields": [
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0068B8F3",
+          "label": "Recipe: Radscorpion Kebab",
+          "fields": [
+            "retired_routes"
           ]
         },
         {
@@ -35186,8 +36543,18 @@
           "fields": [
             "images"
           ]
+        },
+        {
+          "key": "PLAN_008F20F0",
+          "label": "Plan: Love Tap Paint",
+          "fields": [
+            "retired_routes"
+          ]
         }
       ]
+    },
+    "plan_master_unresolved.json": {
+      "structural_change": true
     },
     "player_icons.json": {
       "structural_change": true
@@ -35995,34 +37362,6 @@
       "removed": [],
       "changed": [
         {
-          "key": "ATX_CAMPTitles_Prefix_CrimeScene",
-          "label": "ATX_CAMPTitles_Prefix_CrimeScene",
-          "fields": [
-            "title"
-          ]
-        },
-        {
-          "key": "ATX_CAMPTitles_Suffix_AlienSupporter",
-          "label": "ATX_CAMPTitles_Suffix_AlienSupporter",
-          "fields": [
-            "title"
-          ]
-        },
-        {
-          "key": "ATX_CAMPTitles_Suffix_DaringSupporter",
-          "label": "ATX_CAMPTitles_Suffix_DaringSupporter",
-          "fields": [
-            "title"
-          ]
-        },
-        {
-          "key": "ATX_CAMPTitles_Suffix_Protector",
-          "label": "ATX_CAMPTitles_Suffix_Protector",
-          "fields": [
-            "title"
-          ]
-        },
-        {
           "key": "CAMPTitles_Lifetime_Suffix_Hideout",
           "label": "CAMPTitles_Lifetime_Suffix_Hideout",
           "fields": [
@@ -36033,84 +37372,96 @@
           "key": "SCORE_MiniSeason_2026_SockHop_CAMPTitles_Prefix_Varnished",
           "label": "SCORE_MiniSeason_2026_SockHop_CAMPTitles_Prefix_Varnished",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_MiniSeason_2026_SockHop_CAMPTitles_Suffix_Gym",
           "label": "SCORE_MiniSeason_2026_SockHop_CAMPTitles_Suffix_Gym",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_MiniSeason_2026_WeaponsExpert_CAMPTitles_Prefix_Sharpshooters",
           "label": "SCORE_MiniSeason_2026_WeaponsExpert_CAMPTitles_Prefix_Sharpshooters",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_MiniSeason_2026_WeaponsExpert_CAMPTitles_Suffix_Arsenal",
           "label": "SCORE_MiniSeason_2026_WeaponsExpert_CAMPTitles_Suffix_Arsenal",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S24_CAMPTitles_Prefix_Alien",
           "label": "SCORE_S24_CAMPTitles_Prefix_Alien",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S24_CAMPTitles_Prefix_Bigfoots",
           "label": "SCORE_S24_CAMPTitles_Prefix_Bigfoots",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S24_CAMPTitles_Prefix_RipDarings",
           "label": "SCORE_S24_CAMPTitles_Prefix_RipDarings",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S24_CAMPTitles_Suffix_Retreat",
           "label": "SCORE_S24_CAMPTitles_Suffix_Retreat",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S25_CAMPTitles_Prefix_Fortified",
           "label": "SCORE_S25_CAMPTitles_Prefix_Fortified",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S25_CAMPTitles_Prefix_Safeguarded",
           "label": "SCORE_S25_CAMPTitles_Prefix_Safeguarded",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S25_CAMPTitles_Suffix_Bunker",
           "label": "SCORE_S25_CAMPTitles_Suffix_Bunker",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S25_CAMPTitles_Suffix_LastStand",
           "label": "SCORE_S25_CAMPTitles_Suffix_LastStand",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
@@ -36158,7 +37509,8 @@
           "fields": [
             "releaseDate",
             "releaseLabel",
-            "releaseYear"
+            "releaseYear",
+            "source"
           ]
         },
         {
@@ -36166,7 +37518,15 @@
           "label": "ATX_PlayerTitles_Prefix_Contessa",
           "fields": [
             "releaseDate",
-            "releaseLabel"
+            "releaseLabel",
+            "source"
+          ]
+        },
+        {
+          "key": "ATX_PlayerTitles_Prefix_Gleaming",
+          "label": "ATX_PlayerTitles_Prefix_Gleaming",
+          "fields": [
+            "source"
           ]
         },
         {
@@ -36175,7 +37535,8 @@
           "fields": [
             "releaseDate",
             "releaseLabel",
-            "releaseYear"
+            "releaseYear",
+            "source"
           ]
         },
         {
@@ -36183,16 +37544,15 @@
           "label": "ATX_PlayerTitles_Suffix_Buoy",
           "fields": [
             "releaseDate",
-            "releaseLabel"
+            "releaseLabel",
+            "source"
           ]
         },
         {
-          "key": "ATX_PlayerTitles_Suffix_Sprinkles",
-          "label": "ATX_PlayerTitles_Suffix_Sprinkles",
+          "key": "ATX_PlayerTitles_Suffix_Technician",
+          "label": "ATX_PlayerTitles_Suffix_Technician",
           "fields": [
-            "title",
-            "titleFemale",
-            "titleMale"
+            "source"
           ]
         },
         {
@@ -36207,210 +37567,247 @@
           "key": "SCORE_MiniSeason_2025_AppalachianOutlaws_PlayerTitles_Suffix_Outlaw",
           "label": "SCORE_MiniSeason_2025_AppalachianOutlaws_PlayerTitles_Suffix_Outlaw",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_MiniSeason_2025_MMMFE_PlayerTitles_Prefix_Salty",
           "label": "SCORE_MiniSeason_2025_MMMFE_PlayerTitles_Prefix_Salty",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_MiniSeason_2025_MMMFE_PlayerTitles_Suffix_MarshalMalow",
           "label": "SCORE_MiniSeason_2025_MMMFE_PlayerTitles_Suffix_MarshalMalow",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_MiniSeason_2025_NightAtTheMorgue_PlayerTitles_Prefix_Putrid",
           "label": "SCORE_MiniSeason_2025_NightAtTheMorgue_PlayerTitles_Prefix_Putrid",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_MiniSeason_2025_NightAtTheMorgue_PlayerTitles_Suffix_Cadaver",
           "label": "SCORE_MiniSeason_2025_NightAtTheMorgue_PlayerTitles_Suffix_Cadaver",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Prefix_Sassy",
           "label": "SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Prefix_Sassy",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Prefix_Sunset",
           "label": "SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Prefix_Sunset",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Suffix_Courier",
           "label": "SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Suffix_Courier",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Suffix_Stranger",
           "label": "SCORE_MiniSeason_2025_SunsetStranger_PlayerTitles_Suffix_Stranger",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_MiniSeason_2026_SockHop_PlayerTitles_Prefix_SockHop",
           "label": "SCORE_MiniSeason_2026_SockHop_PlayerTitles_Prefix_SockHop",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_MiniSeason_2026_SockHop_PlayerTitles_Prefix_Suffix_Enjoyer",
           "label": "SCORE_MiniSeason_2026_SockHop_PlayerTitles_Prefix_Suffix_Enjoyer",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_MiniSeason_2026_WeaponsExpert_PlayerTitles_Prefix_Merciless",
           "label": "SCORE_MiniSeason_2026_WeaponsExpert_PlayerTitles_Prefix_Merciless",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_MiniSeason_2026_WeaponsExpert_PlayerTitles_Prefix_Ripped",
           "label": "SCORE_MiniSeason_2026_WeaponsExpert_PlayerTitles_Prefix_Ripped",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_MiniSeason_2026_WeaponsExpert_PlayerTitles_Suffix_WeaponMaster",
           "label": "SCORE_MiniSeason_2026_WeaponsExpert_PlayerTitles_Suffix_WeaponMaster",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_MiniSeason_LoveHurts_PlayerTitles_Prefix_Gruesome",
           "label": "SCORE_MiniSeason_LoveHurts_PlayerTitles_Prefix_Gruesome",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_MiniSeason_LoveHurts_PlayerTitles_Prefix_Infatuated",
           "label": "SCORE_MiniSeason_LoveHurts_PlayerTitles_Prefix_Infatuated",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_MiniSeason_LoveHurts_PlayerTitles_Suffix_Masochist",
           "label": "SCORE_MiniSeason_LoveHurts_PlayerTitles_Suffix_Masochist",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S24_PlayerTitles_Both_Bigfoot",
           "label": "SCORE_S24_PlayerTitles_Both_Bigfoot",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S24_PlayerTitles_Both_CryptidHunter",
           "label": "SCORE_S24_PlayerTitles_Both_CryptidHunter",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S24_PlayerTitles_Prefix_Armed",
           "label": "SCORE_S24_PlayerTitles_Prefix_Armed",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S24_PlayerTitles_Prefix_Guinevere",
           "label": "SCORE_S24_PlayerTitles_Prefix_Guinevere",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S24_PlayerTitles_Prefix_Interstellar",
           "label": "SCORE_S24_PlayerTitles_Prefix_Interstellar",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S24_PlayerTitles_Prefix_Rip",
           "label": "SCORE_S24_PlayerTitles_Prefix_Rip",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S24_PlayerTitles_Prefix_Space",
           "label": "SCORE_S24_PlayerTitles_Prefix_Space",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S24_PlayerTitles_Suffix_Extraterrestrial",
           "label": "SCORE_S24_PlayerTitles_Suffix_Extraterrestrial",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S24_PlayerTitles_Suffix_Terrestrial",
           "label": "SCORE_S24_PlayerTitles_Suffix_Terrestrial",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S25_PlayerTitles_Prefix_Infested",
           "label": "SCORE_S25_PlayerTitles_Prefix_Infested",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S25_PlayerTitles_Prefix_Outdoor",
           "label": "SCORE_S25_PlayerTitles_Prefix_Outdoor",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S25_PlayerTitles_Suffix_Globetrotter",
           "label": "SCORE_S25_PlayerTitles_Suffix_Globetrotter",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
           ]
         },
         {
           "key": "SCORE_S25_PlayerTitles_Suffix_Pioneer",
           "label": "SCORE_S25_PlayerTitles_Suffix_Pioneer",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "images"
+          ]
+        },
+        {
+          "key": "SFS09_PlayerTitles_Suffix_Manager",
+          "label": "SFS09_PlayerTitles_Suffix_Manager",
+          "fields": [
+            "debug"
           ]
         },
         {
@@ -36587,6 +37984,9 @@
       "added": [],
       "removed": [],
       "changed": []
+    },
+    "vendors.json": {
+      "structural_change": true
     },
     "wallpapers.json": {
       "structural_change": true

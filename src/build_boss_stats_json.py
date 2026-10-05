@@ -27,6 +27,8 @@ and PTS build without a code change:
   FLST_Export_*_Entries.tsv mutation pools, faction lists, Daily Ops enemy families
   SPEL_Export_*_HEADER.tsv  mutation names + one-line descriptions
   KYWD_Export_*.tsv         Daily Ops enemy-family names
+  BPTD_Export_*.tsv         body part data per race: limb health %, damage
+                            multiplier (weak spot), cripple actor value
   dist/bounty-hunting/head_hunt_bosses.json   Head Hunt groups, weapons, abilities
                                               (built by build_head_hunt_bosses_json.py)
 
@@ -188,6 +190,16 @@ class Game:
         self.spel = {r["SPEL_EDID"]: r for r in read_rows(pick("SPEL_HEADER", "SPEL_Export_*_HEADER.tsv"))}
         self.kywd = {r.get("EDID", ""): r for r in read_rows(
             pick("KYWD", "KYWD_Export_*.tsv", exclude="Refs", required=False))}
+        # Body part data, keyed by every race that uses it (RefBy_RACE_EDIDs is
+        # " | "-joined: HumanBodyPartData serves HumanRace, GhoulRace, ...).
+        self.bptd: dict[str, list] = {}
+        for r in read_rows(pick("BPTD", "BPTD_Export_*.tsv", required=False)):
+            for race in (r.get("RefBy_RACE_EDIDs") or "").split("|"):
+                race = race.strip()
+                if race:
+                    self.bptd.setdefault(race, []).append(r)
+        for k in self.bptd:
+            self.bptd[k].sort(key=lambda e: int(fnum(e.get("PartIndex"), 0)))
         print(f"  NPC {len(self.npc)} · PRPS {len(self.prps)} · curves {len(self.curves)} · "
               f"WEAP {len(self.weap)} · FLST {len(self.flst)} · SPEL {len(self.spel)}")
 
@@ -373,6 +385,111 @@ class Game:
             "damageCurve": curve,
         }
 
+    # ── body parts (weak spot + limb health) ──────────────────────────────
+    def race_of(self, edid: str) -> str:
+        """RNAM of the actor, else the first record up its TPLT chain that has one."""
+        seen, cur = set(), edid
+        while cur and cur not in seen and cur in self.npc:
+            seen.add(cur)
+            race = (self.npc[cur].get("RNAM_EDID") or "").strip()
+            if race:
+                return clean_edid(race)
+            cur = self.npc[cur].get("TPLT_EDID", "")
+        return ""
+
+    def body_parts(self, edid: str, hp_lo, hp_hi):
+        """Limb table + weak spot from the race's BPTD.
+
+        Limb health = BPND Health Percent x the actor's max health. Parts are
+        grouped by the condition actor value they damage (a foot hit counts
+        toward that leg), and the limb's share is the largest part in the group.
+        The weak spot is whichever limb takes the highest damage multiplier above
+        x1 -- if none does, the boss has no weak spot."""
+        race = self.race_of(edid)
+        rows = self.bptd.get(race) or []
+        if not rows:
+            return None
+        groups: dict[str, dict] = {}
+        for r in rows:
+            av = (r.get("ActorValue_EDID") or "").strip()
+            pct = fnum(r.get("HealthPercent"))
+            if not av or pct <= 0:
+                continue
+            av_full = (r.get("ActorValue_FULL") or "").strip()
+            part = part_name(r.get("BPTN_PartName") or "")
+            label = av_full if av_full in LIMB_ORDER else part
+            g = groups.setdefault(av, {"label": label, "parts": []})
+            g["parts"].append({"part": part, "pct": pct, "mult": fnum(r.get("DamageMult"), 1.0),
+                               "severable": "Severable" in (r.get("Flags") or "")})
+        limbs = []
+        for av, g in groups.items():
+            main = max(g["parts"], key=lambda x: (x["pct"], x["part"] == g["label"]))
+            pct = main["pct"]
+            limbs.append({
+                "name": g["label"],
+                "pct": round(pct, 2),
+                "mult": round(main["mult"], 3),
+                "hpMin": round(hp_lo * pct / 100) if hp_lo else None,
+                "hpMax": round(hp_hi * pct / 100) if hp_hi else None,
+                "severable": any(x["severable"] for x in g["parts"]),
+                "alsoHitVia": sorted({x["part"] for x in g["parts"]} - {main["part"], g["label"]}),
+            })
+        limbs.sort(key=lambda l: (LIMB_ORDER.index(l["name"]) if l["name"] in LIMB_ORDER else 99, l["name"]))
+        limbs = merge_limb_pairs(limbs)
+        best = max((l["mult"] for l in limbs), default=1.0)
+        if best > 1:
+            weak = [l for l in limbs if l["mult"] == best]
+            weak_text = " / ".join(l["name"].replace(" (each)", "") for l in weak) + f" — takes {best:g}× damage"
+        else:
+            weak_text = "None — no body part takes bonus damage"
+        for l in limbs:
+            l["weakSpot"] = best > 1 and l["mult"] == best
+        return {"race": race, "bodyPartData": rows[0].get("BPTD_EDID", ""),
+                "weakSpot": weak_text, "limbs": limbs}
+
+
+def part_name(raw: str) -> str:
+    """'RaiderLeftFoot' / 'LeftFoot' -> 'Left Foot'."""
+    s = re.sub(r"^Raider", "", raw.strip())
+    s = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", s)
+    return re.sub(r"\s+", " ", s).strip()
+
+
+LIMB_ORDER = ["Head", "Torso", "Left Arm", "Right Arm", "Left Leg", "Right Leg"]
+
+
+def merge_limb_pairs(limbs: list[dict]) -> list[dict]:
+    """'Left Leg' + 'Right Leg' with identical numbers -> one 'Legs (each)' row."""
+    by = {l["name"]: l for l in limbs}
+    out, used = [], set()
+    for l in limbs:
+        if l["name"] in used:
+            continue
+        side = l["name"].split(" ", 1)
+        if len(side) == 2 and side[0] in ("Left", "Right"):
+            other = by.get(("Right " if side[0] == "Left" else "Left ") + side[1])
+            if other and all(other[k] == l[k] for k in ("pct", "mult", "hpMin", "hpMax")):
+                used.update({l["name"], other["name"]})
+                via = sorted(set(l["alsoHitVia"]) | set(other["alsoHitVia"]))
+                if via == ["Left Foot", "Right Foot"]:
+                    via = ["Feet"]
+                out.append(dict(l, name=f"{side[1]}s (each)", alsoHitVia=via))
+                continue
+        used.add(l["name"])
+        out.append(l)
+    return out
+
+
+def add_body_parts(game: Game, bosses: list[dict]):
+    """Weak spot + limb health on every boss card, all three pages."""
+    for b in bosses:
+        bp = game.body_parts(b.get("edid", ""), b.get("hpMin"), b.get("hpMax"))
+        if not bp:
+            continue
+        b["weakSpot"] = bp["weakSpot"]
+        b["limbs"] = bp["limbs"]
+        b["bodyPartData"] = bp["bodyPartData"]
+
 
 def humanise(edid: str) -> str:
     s = re.sub(r"^(HTO_|POST_|SDOW_|Burn_|DailyOps_)", "", edid)
@@ -515,21 +632,16 @@ MUTATION_DETAIL = {
 # Carried over from the hand-researched Infestations guide (Sept 2026). Words
 # only — every stat on the card still comes from the exports.
 HTO_BOSS_NOTES = {
-    "Robot": {"weakSpot": "None — head and torso are armoured. Aim for the limbs.",
-              "specials": [("Arm-mounted weapons", "Uses hard-wired creature weapons rather than a leveled weapon list, and fires the left and right arm weapons at the same time."),
+    "Robot": {"specials": [("Arm-mounted weapons", "Uses hard-wired creature weapons rather than a leveled weapon list, and fires the left and right arm weapons at the same time."),
                            ("Head Laser", "Constant-effect enchantment on the head laser."),
                            ("Lightning Strike", "Camera shake and stagger enchantments on hit.")]},
-    "BloodEagle": {"weakSpot": "Head"},
-    "PRCGhoul": {"weakSpot": "Head",
-                 "specials": [("Communist T-60 Power Armor", "The only Infestation boss that wears Power Armor — a full five-piece Communist T-60 set.")]},
-    "Cultist": {"weakSpot": "Head",
-                "specials": [("Tesla Cannon", "Carries the BigStagger keyword and has a reload delay.")]},
-    "MoleMiner": {"weakSpot": "Head"},
-    "Scorched": {"weakSpot": "Head",
-                 "specials": [("V63 Laser Carbine (Meltdown)", "Unique weapon — non-tradable, non-droppable."),
+    "BloodEagle": {},
+    "PRCGhoul": {"specials": [("Communist T-60 Power Armor", "The only Infestation boss that wears Power Armor — a full five-piece Communist T-60 set.")]},
+    "Cultist": {"specials": [("Tesla Cannon", "Carries the BigStagger keyword and has a reload delay.")]},
+    "MoleMiner": {},
+    "Scorched": {"specials": [("V63 Laser Carbine (Meltdown)", "Unique weapon — non-tradable, non-droppable."),
                               ("Holiday outfits", "Festive (Santa hat and beard) and Spooky (pumpkin head) variants, picked from a leveled outfit list.")]},
-    "SuperMutant": {"weakSpot": "Head",
-                    "specials": [("Cremator", "Unique fire weapon with a fire hit-effect enchantment and a faster reload."),
+    "SuperMutant": {"specials": [("Cremator", "Unique fire weapon with a fire hit-effect enchantment and a faster reload."),
                                  ("Broadsider", "Single-shot cannonball launcher.")]},
 }
 
@@ -696,8 +808,6 @@ def build_infestations(game: Game):
         b["factionKey"] = tok
         b["tierRecords"] = len(tier_edids)
         notes = HTO_BOSS_NOTES.get(tok) or {}
-        if notes.get("weakSpot"):
-            b["weakSpot"] = notes["weakSpot"]
         if notes.get("specials"):
             b["specials"] = [{"name": n, "text": t} for n, t in notes["specials"]]
         variants = sorted({game.npc[e]["FULL"] for e in game.npc
@@ -1103,6 +1213,8 @@ def main():
         if not d["bosses"]:
             print(f"[Boss Stats] FATAL: {name} resolved 0 bosses — refusing to write.")
             sys.exit(1)
+    for d in (hto, do, hh):
+        add_body_parts(game, d["bosses"])
     write("infestations", hto)
     write("daily_ops", do)
     write("head_hunts", hh)

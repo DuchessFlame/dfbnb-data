@@ -1,18 +1,19 @@
 {
- "generated": "2026-09-16T10:36:54+00:00",
+ "generated": "2026-10-04T04:51:06+00:00",
  "channel": "live",
  "isPts": false,
  "sources": {
-  "CURV_POINTS": "tsv/CURV_Export_July_2026_POINTS.tsv",
-  "FLST_Entries": "tsv/FLST_Export_July_2026_Entries.tsv",
-  "GLOB": "tsv/GLOB_Export_July_2026.tsv",
-  "KYWD": "tsv/KYWD_Export_July_2026.tsv",
-  "LVLI_Entries": "tsv/LVLI_Export_July_2026_LVLI_Entries.tsv",
-  "NPC": "tsv/NPC_Export_September_2026.tsv",
-  "NPC_PRPS": "tsv/NPC_Export_September_2026_PRPS.tsv",
-  "NPC_Refs": "tsv/NPC_Export_September_2026_Refs.tsv",
-  "SPEL_HEADER": "tsv/SPEL_Export_September_2026_HEADER.tsv",
-  "WEAP_DNAM": "tsv/WEAP_Export_September_2026_DNAM.tsv",
+  "BPTD": "tsv/BPTD_Export_October_2026.tsv",
+  "CURV_POINTS": "tsv/CURV_Export_October_2026_POINTS.tsv",
+  "FLST_Entries": "tsv/FLST_Export_October_2026_Entries.tsv",
+  "GLOB": "tsv/GLOB_Export_October_2026.tsv",
+  "KYWD": "tsv/KYWD_Export_October_2026.tsv",
+  "LVLI_Entries": "tsv/LVLI_Export_October_2026_LVLI_Entries.tsv",
+  "NPC": "tsv/NPC_Export_October_2026.tsv",
+  "NPC_PRPS": "tsv/NPC_Export_October_2026_PRPS.tsv",
+  "NPC_Refs": "tsv/NPC_Export_October_2026_Refs.tsv",
+  "SPEL_HEADER": "tsv/SPEL_Export_October_2026_HEADER.tsv",
+  "WEAP_DNAM": "tsv/WEAP_Export_October_2026_DNAM.tsv",
   "head_hunt_bosses": "dist/bounty-hunting/head_hunt_bosses.json"
  },
  "page": "daily_ops",
@@ -105,7 +106,51 @@
      "damageMax": null,
      "damageCurve": ""
     }
-   ]
+   ],
+   "weakSpot": "Head — takes 1.25× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.25,
+     "hpMin": 2451,
+     "hpMax": 6466,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 0.9,
+     "hpMin": 9192,
+     "hpMax": 24246,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 30.0,
+     "mult": 1.0,
+     "hpMin": 3677,
+     "hpMax": 9698,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 4290,
+     "hpMax": 11315,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "SuperMutantBodyPartData"
   },
   {
    "edid": "POST_EncSupermutantMissileBoss_DailyOps",
@@ -142,7 +187,51 @@
      "damageMax": 5,
      "damageCurve": ""
     }
-   ]
+   ],
+   "weakSpot": "Head — takes 1.25× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.25,
+     "hpMin": 13630,
+     "hpMax": 34981,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 0.9,
+     "hpMin": 51114,
+     "hpMax": 131178,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 30.0,
+     "mult": 1.0,
+     "hpMin": 20446,
+     "hpMax": 52471,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 23853,
+     "hpMax": 61216,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "SuperMutantBodyPartData"
   },
   {
    "edid": "POST_EncSupermutantRifleBoss_DailyOps",
@@ -179,7 +268,51 @@
      "damageMax": 80,
      "damageCurve": "CT_Weapon_HuntingRifle_BaseDMG"
     }
-   ]
+   ],
+   "weakSpot": "Head — takes 1.25× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.25,
+     "hpMin": 13630,
+     "hpMax": 34981,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 0.9,
+     "hpMin": 51114,
+     "hpMax": 131178,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 30.0,
+     "mult": 1.0,
+     "hpMin": 20446,
+     "hpMax": 52471,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 23853,
+     "hpMax": 61216,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "SuperMutantBodyPartData"
   },
   {
    "edid": "POST_EncSupermutantMinigunBoss_DailyOps",
@@ -216,7 +349,51 @@
      "damageMax": 8,
      "damageCurve": "CT_Weapon_MiniGunDMG_BaseDMG"
     }
-   ]
+   ],
+   "weakSpot": "Head — takes 1.25× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.25,
+     "hpMin": 13630,
+     "hpMax": 34981,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 0.9,
+     "hpMin": 51114,
+     "hpMax": 131178,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 30.0,
+     "mult": 1.0,
+     "hpMin": 20446,
+     "hpMax": 52471,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 23853,
+     "hpMax": 61216,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "SuperMutantBodyPartData"
   },
   {
    "edid": "LvlBloodEagleBoss_DailyOps",
@@ -253,7 +430,53 @@
      "damageMax": 114,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier31"
     }
-   ]
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 1041,
+     "hpMax": 2792,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 3904,
+     "hpMax": 10468,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 1302,
+     "hpMax": 3490,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1822,
+     "hpMax": 4885,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
   },
   {
    "edid": "POST_EncBloodEagleCultistBladeBoss_DailyOps",
@@ -290,7 +513,53 @@
      "damageMax": 11,
      "damageCurve": "CT_Weapon_CultistBladeDMG"
     }
-   ]
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 13630,
+     "hpMax": 34981,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 51114,
+     "hpMax": 131178,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 17038,
+     "hpMax": 43726,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 23853,
+     "hpMax": 61216,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
   },
   {
    "edid": "POST_EncBloodEagleShotgunBoss_DailyOps",
@@ -327,7 +596,53 @@
      "damageMax": 50,
      "damageCurve": "CT_Weapon_CombatShotgun_BaseDMG"
     }
-   ]
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 13630,
+     "hpMax": 34981,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 51114,
+     "hpMax": 131178,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 17038,
+     "hpMax": 43726,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 23853,
+     "hpMax": 61216,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
   },
   {
    "edid": "POST_EncBloodEagleRevolverBoss_DailyOps",
@@ -364,7 +679,53 @@
      "damageMax": 60,
      "damageCurve": "CT_Weapon_DLC04_RevolverDMG"
     }
-   ]
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 13630,
+     "hpMax": 34981,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 51114,
+     "hpMax": 131178,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 17038,
+     "hpMax": 43726,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 23853,
+     "hpMax": 61216,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
   },
   {
    "edid": "LvlRobotBoss_DailyOps",
@@ -411,7 +772,63 @@
      "damageMax": null,
      "damageCurve": ""
     }
-   ]
+   ],
+   "weakSpot": "None — no body part takes bonus damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 0.5,
+     "hpMin": 1466,
+     "hpMax": 3905,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Torso",
+     "pct": 80.0,
+     "mult": 0.85,
+     "hpMin": 5864,
+     "hpMax": 15618,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 2566,
+     "hpMax": 6833,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 40.0,
+     "mult": 1.0,
+     "hpMin": 2932,
+     "hpMax": 7809,
+     "severable": false,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    },
+    {
+     "name": "Combat Inhibitor",
+     "pct": 10.0,
+     "mult": 0.25,
+     "hpMin": 733,
+     "hpMax": 1952,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "AssaultronBodyPartData"
   },
   {
    "edid": "POST_EncRobotCannonBoss_DailyOps",
@@ -437,7 +854,63 @@
    "factionKey": "Robot",
    "variant": true,
    "records": 1,
-   "weapons": []
+   "weapons": [],
+   "weakSpot": "None — no body part takes bonus damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 0.5,
+     "hpMin": 623,
+     "hpMax": 1690,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Torso",
+     "pct": 80.0,
+     "mult": 0.85,
+     "hpMin": 2493,
+     "hpMax": 6758,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1091,
+     "hpMax": 2957,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 40.0,
+     "mult": 1.0,
+     "hpMin": 1246,
+     "hpMax": 3379,
+     "severable": false,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    },
+    {
+     "name": "Combat Inhibitor",
+     "pct": 10.0,
+     "mult": 0.25,
+     "hpMin": 312,
+     "hpMax": 845,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "AssaultronBodyPartData"
   },
   {
    "edid": "POST_EncRobotLightningBoss_DailyOps",
@@ -463,7 +936,63 @@
    "factionKey": "Robot",
    "variant": true,
    "records": 1,
-   "weapons": []
+   "weapons": [],
+   "weakSpot": "None — no body part takes bonus damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 0.5,
+     "hpMin": 623,
+     "hpMax": 1690,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Torso",
+     "pct": 80.0,
+     "mult": 0.85,
+     "hpMin": 2493,
+     "hpMax": 6758,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1091,
+     "hpMax": 2957,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 40.0,
+     "mult": 1.0,
+     "hpMin": 1246,
+     "hpMax": 3379,
+     "severable": false,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    },
+    {
+     "name": "Combat Inhibitor",
+     "pct": 10.0,
+     "mult": 0.25,
+     "hpMin": 312,
+     "hpMax": 845,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "AssaultronBodyPartData"
   },
   {
    "edid": "POST_EncRobotFlamerBoss_DailyOps",
@@ -489,7 +1018,63 @@
    "factionKey": "Robot",
    "variant": true,
    "records": 1,
-   "weapons": []
+   "weapons": [],
+   "weakSpot": "None — no body part takes bonus damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 0.5,
+     "hpMin": 623,
+     "hpMax": 1690,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Torso",
+     "pct": 80.0,
+     "mult": 0.85,
+     "hpMin": 2493,
+     "hpMax": 6758,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1091,
+     "hpMax": 2957,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 40.0,
+     "mult": 1.0,
+     "hpMin": 1246,
+     "hpMax": 3379,
+     "severable": false,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    },
+    {
+     "name": "Combat Inhibitor",
+     "pct": 10.0,
+     "mult": 0.25,
+     "hpMin": 312,
+     "hpMax": 845,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "AssaultronBodyPartData"
   },
   {
    "edid": "LvlScorchedBoss_DailyOps",
@@ -526,7 +1111,53 @@
      "damageMax": 40,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier20"
     }
-   ]
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 1235,
+     "hpMax": 3301,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 4633,
+     "hpMax": 12380,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 1544,
+     "hpMax": 4126,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 2162,
+     "hpMax": 5777,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "ScorchedBodyPartData"
   },
   {
    "edid": "LvlMoleMinerBoss_DailyOps",
@@ -563,7 +1194,53 @@
      "damageMax": 104,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier30"
     }
-   ]
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 25.0,
+     "mult": 1.5,
+     "hpMin": 3064,
+     "hpMax": 8082,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 9192,
+     "hpMax": 24246,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 3064,
+     "hpMax": 8082,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 4290,
+     "hpMax": 11315,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "MoleMinerBodyPartData"
   },
   {
    "edid": "LvlCultistBoss_DailyOps",
@@ -600,7 +1277,53 @@
      "damageMax": 224,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier38"
     }
-   ]
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 1235,
+     "hpMax": 3301,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 4633,
+     "hpMax": 12380,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 1544,
+     "hpMax": 4126,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 2162,
+     "hpMax": 5777,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
   },
   {
    "edid": "LvlPRCGhoulBoss_DailyOps",
@@ -637,7 +1360,53 @@
      "damageMax": 104,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier30"
     }
-   ]
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 1041,
+     "hpMax": 2792,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 3904,
+     "hpMax": 10468,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 1302,
+     "hpMax": 3490,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1822,
+     "hpMax": 4885,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
   },
   {
    "edid": "LvlZetanAlienBoss_DailyOps",
@@ -663,7 +1432,41 @@
    "factionKey": "Zetan",
    "variant": false,
    "records": 1,
-   "weapons": []
+   "weapons": [],
+   "weakSpot": "Head — takes 1.25× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 35.0,
+     "mult": 1.25,
+     "hpMin": 1822,
+     "hpMax": 4885,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 80.0,
+     "mult": 0.9,
+     "hpMin": 4165,
+     "hpMax": 11166,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1822,
+     "hpMax": 4885,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "FlatwoodsMonsterBodyPartData"
   },
   {
    "edid": "LvlFanaticPowerArmorHeavyBoss_XPD_DailyOps",
@@ -700,7 +1503,53 @@
      "damageMax": 64,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier25"
     }
-   ]
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 116,
+     "hpMax": 2361,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 436,
+     "hpMax": 8853,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 146,
+     "hpMax": 2951,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 204,
+     "hpMax": 4131,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
   },
   {
    "edid": "LvlOvergrownBoss_XPD_DailyOps",
@@ -737,7 +1586,53 @@
      "damageMax": 64,
      "damageCurve": "CT_Creatures_Damage_Universal_Tier25"
     }
-   ]
+   ],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 35.0,
+     "mult": 1.5,
+     "hpMin": 397,
+     "hpMax": 4885,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 850,
+     "hpMax": 10468,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 397,
+     "hpMax": 4885,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 397,
+     "hpMax": 4885,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "OvergrownBodyPartData"
   }
  ],
  "mutations": {

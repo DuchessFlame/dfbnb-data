@@ -1684,6 +1684,125 @@ def _prettify_camel(tok: str) -> str:
     return spaced.strip()
 
 
+def own_entitlement_title(edid: str, conds: List[str]) -> str:
+    """
+    The display name of the title's OWN entitlement: the HasEntitlement
+    condition whose ENTM EDID carries the same affix token as the title EDID
+    (ATX_CAMPTitles_Suffix_AlienSupporter <-> ATX_ENTM_CAMPTitles_Suffix_AlienSupporter).
+    Season titles that unlock off a gameboard / wall-art entitlement never
+    match, so this returns "" for them. Name = first quoted phrase in the
+    entitlement FULL ("Alien Supporter" from '"Alien Supporter" C.A.M.P. Title Suffix').
+    """
+    edid_tok = _edid_affix_token(edid)
+    if not edid_tok:
+        return ""
+    for c in conds or []:
+        if "HasEntitlement" not in c:
+            continue
+        m_ed = re.search(r"HasEntitlement\(\s*([A-Za-z0-9_\-]+)", c, flags=re.IGNORECASE)
+        if not m_ed:
+            continue
+        ent_edid = m_ed.group(1)
+        if "title" not in ent_edid.lower():
+            continue
+        ent_tok = _edid_affix_token(ent_edid)
+        if not ent_tok or ent_tok.lower() != edid_tok.lower():
+            continue
+        m = re.search(r'"""([^"]+?)""', c)
+        if m:
+            return m.group(1).strip()
+    return ""
+
+
+def tidy_how_to_obtain(how: str) -> str:
+    """
+    Wording fixes on the connecting text only. Event / quest / season / bundle
+    NAMES are never touched.
+      - "claimed the The Big Score"   -> "claimed The Big Score"
+        (season names that start with "The" doubled the article)
+      - "Unlocked by Default"         -> "Unlocked by default"
+      - "Party Crasher Creatures."    -> "Party Crasher creatures."
+    """
+    h = how or ""
+    h = re.sub(r"\bclaimed the (The )", r"claimed \1", h)
+    h = h.replace("Unlocked by Default", "Unlocked by default")
+    h = h.replace("Drops from Party Crasher Creatures.", "Drops from Party Crasher creatures.")
+    return h
+
+
+def title_source(how: str, unlock_type: str, cut: bool, is_ltb: bool = False) -> str:
+    """
+    One short label for WHERE a title comes from -- the row's source pill and
+    the poster / spreadsheet Source column. Read from the finished howToObtain
+    sentence (unlockType is only a fallback: e.g. the Festive title is tagged
+    "atx" but actually drops from Holiday Scorched gifts). Order matters:
+    challenges and quests are checked before drop sources, so "Complete the
+    Lifetime Challenge: Complete an Infestation" is a Challenge.
+
+    Bundles: a title that ships in a Limited Time Bundle (its entitlement is in
+    atom_shop.json "ltb") is "Limited Time Bundle"; any other bundle is
+    "Atom Shop". Pet level-up titles count as Challenges.
+    """
+    if cut:
+        return "Cut"
+    h = (how or "").lower()
+    ut = (unlock_type or "").lower()
+    if is_ltb:
+        return "Limited Time Bundle"
+    if ("lifetime challenge" in h or "following challenges" in h or ut == "challenge"
+            or "level up your pet" in h):
+        return "Challenge"
+    if "complete the quest" in h or "following quests" in h or ut == "quest":
+        return "Quest"
+    if "atom shop" in h or "bundle" in h:
+        return "Atom Shop"
+    if "mini season" in h or ut == "miniseason":
+        return "Mini Season"
+    if "scoreboard" in h or "unlocked if you have claimed" in h or ut == "season_score":
+        return "Scoreboard"
+    if "daily ops" in h:
+        return "Ops"
+    if "infestation" in h:
+        return "Infestation"
+    if re.search(r"\bcaps\b|purveyor|vendor", h):
+        return "Caps"
+    if ("seasonal" in h or "crafted holiday" in h or "spooky treat" in h
+            or "mole miner pail" in h):
+        return "Seasonal Event"
+    if "complete the activity" in h:
+        return "Activity"
+    if "complete the event" in h or "party crasher" in h:
+        return "Event"
+    if "by default" in h or ut == "default":
+        return "Default"
+    if ut == "community" or "community event" in h:
+        return "Community"
+    if ut == "pts" or re.search(r"\bpts\b", h):
+        return "PTS"
+    if ut == "atx":
+        return "Atom Shop"
+    return "Other"
+
+
+def fix_copied_title(edid: str, title: str, conds: List[str], title_counts: Dict[str, int]) -> str:
+    """
+    Bethesda sometimes clones a title record and never renames its ANAM, e.g.
+    ATX_CAMPTitles_Suffix_AlienSupporter / _DaringSupporter / _Protector all
+    carry ANAM "Diner", and ATX_PlayerTitles_Suffix_Sprinkles carries "Glazed".
+    Their own entitlement still has the right name. Rule: only when the ANAM
+    text is shared with another record (title_counts > 1) AND the title's own
+    entitlement names it differently, use the entitlement name. The original
+    record (Diner's own entitlement IS "Diner") is left alone.
+    """
+    if not title or title_counts.get(title.strip().casefold(), 0) < 2:
+        return title
+    own = own_entitlement_title(edid, conds)
+    if own and own.casefold() != title.strip().casefold():
+        print(f"[titles] copied ANAM fixed: {edid} {title!r} -> {own!r}", file=sys.stderr)
+        return own
+    return title
+
+
 def derive_title_from_conditions(edid: str, conds: List[str]) -> str:
     # When ANAM (camp) / male+female ANAM/BNAM (player) are empty in the TSV,
     # extract a display title from the entitlement FULL string baked into the
@@ -3038,6 +3157,79 @@ def build_patchlog(prev: Optional[dict], curr: dict) -> dict:
         "changed": sorted(changed)[:500],
     }
 
+# LVLI entry condition that removes a title BOOK from the pool once learnt:
+#   Subject.HasLearnedRecipe(00 00 00, 00 00, <proxy> [COBJ:xxxxxxxx], ...) 10000000 0.000000
+# The 8-char field is xEdit's condition-type bits: char 1 = "Equal to" (1) or
+# "Not equal to" (0), char 4 = OR. So the not-yet-learnt gate is written two
+# ways in the files — "10000000 0.000000" (== 0) and "00000000 1.000000"
+# (!= 1, e.g. The Big Bloom's Gardener). "10000000 1.000000" (== 1) is a
+# PREREQUISITE ("must already know the flower crown plans"), not a gate.
+# i.e. "only roll this entry while HasLearnedRecipe(<proxy COBJ>) is 0". That
+# condition IS the game's "stops dropping once learnt" flag — the BOOK record
+# itself carries nothing (DNAM_Flags is the same on titles that do and don't).
+_HLR_ENTRY_RE = re.compile(
+    r"HasLearnedRecipe\([^)]*\[COBJ:([0-9A-Fa-f]{8})\][^)]*\)\s*([01]{8})\s+(-?[\d.]+)",
+    re.IGNORECASE)
+_COND_COBJ_RE = re.compile(r"HasLearnedRecipe\([^)]*\[COBJ:([0-9A-Fa-f]{8})\]", re.IGNORECASE)
+
+
+def book_stops_dropping_map(lvli_entry_rows, book_rows=None) -> Dict[str, bool]:
+    """BOOK FormID AND proxy-COBJ FormID -> stops dropping once learnt.
+
+    Same rule as the plan checklists (build_plan_obtain_json.resolve_stops_dropping):
+      True  -> at least one leveled-list entry for the BOOK is gated on
+               HasLearnedRecipe(<COBJ>) == 0, so it leaves the pool once learnt
+      False -> the BOOK sits in leveled lists but no entry gates on it
+      (absent -> in no leveled list: bought / quest / scoreboard, so the page
+       shows "Drop: N/A" instead)
+
+    Keyed by the proxy COBJ as well as the BOOK so a title can be looked up from
+    its own PLYT/CMPT condition. That matters for titles with TWO unlock
+    conditions (Festive: HasLearnedRecipe OR HasEntitlement), which the
+    resolver files as "atx" and never attaches a cobjGNAM to.
+    """
+    out: Dict[str, bool] = {}
+    for r in lvli_entry_rows:
+        ref = (r.get("LVLO_Reference") or "").strip()
+        if ":BOOK" not in ref.upper():
+            continue
+        book = ref.split(":")[0].strip().upper()
+        conds = " ".join((r.get(f"Cond{i}") or "") for i in range(1, 11))
+        gated = False
+        for m in _HLR_ENTRY_RE.finditer(conds):
+            try:
+                equal = m.group(2)[0] == "1"
+                val = float(m.group(3))
+                if (equal and val == 0.0) or (not equal and val == 1.0):
+                    gated = True
+                    cobj = m.group(1).upper()
+                    out[cobj] = True
+            except ValueError:
+                pass
+        out[book] = out.get(book, False) or gated
+    # BOOK refs list its proxy COBJ: carry False (in lists, never gated) onto
+    # the COBJ key too, so a condition-only lookup can still answer "No".
+    for r in book_rows or []:
+        book = (r.get("FormID") or "").strip().upper()
+        if book not in out:
+            continue
+        for k, v in r.items():
+            if k and k.startswith("Ref") and v and ":COBJ" in v.upper():
+                cobj = v.split(":")[0].strip().upper()
+                out.setdefault(cobj, out[book])
+    return out
+
+
+def title_stops_dropping(stops_map: Dict[str, bool], conds, extra) -> Optional[bool]:
+    """Look a title up by the proxy COBJ in its own conditions, then by its BOOK."""
+    for c in conds or []:
+        for m in _COND_COBJ_RE.finditer(c or ""):
+            v = stops_map.get(m.group(1).upper())
+            if v is not None:
+                return v
+    return stops_map.get(((extra or {}).get("cobjGNAM_FormID") or "").strip().upper())
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
 
@@ -3252,6 +3444,7 @@ def main() -> int:
 
     # build lookup maps AFTER all TSVs are loaded
     tradeable_by_book = book_tradeable_map(book_rows)
+    stops_by_book = book_stops_dropping_map(lvli_entry_rows, book_rows)
     gmrw_by_token = gmrw_parentquest_map(gmrw_rows)
     gmrw_by_formid = gmrw_parentquest_by_any_ref_formid_map(gmrw_rows)
     gmrw_by_ref_formid = gmrw_by_formid
@@ -3263,6 +3456,18 @@ def main() -> int:
         fid = (r.get("FormID") or "").strip().upper()
         if fid:
             cndf_by_id[fid] = r
+
+    # ANAM text -> how many records carry it (feeds fix_copied_title)
+    camp_title_counts: Dict[str, int] = {}
+    for _r in cmpt_rows:
+        _t = (_r.get("ANAM - Title") or _r.get("ANAM") or "").strip().casefold()
+        if _t:
+            camp_title_counts[_t] = camp_title_counts.get(_t, 0) + 1
+    player_title_counts: Dict[str, int] = {}
+    for _r in plyt_rows:
+        _t = ((_r.get("ANAM - Male Title") or "").strip() or (_r.get("BNAM - Female Title") or "").strip()).casefold()
+        if _t:
+            player_title_counts[_t] = player_title_counts.get(_t, 0) + 1
 
     # CAMP
     camp_items: List[Dict[str, Any]] = []
@@ -3291,6 +3496,8 @@ def main() -> int:
         # entitlement FULL embedded in the conditions (or, last resort, EDID).
         if not title:
             title = derive_title_from_conditions(edid, conds)
+        else:
+            title = fix_copied_title(edid, title, conds, camp_title_counts)
 
         how, dr, sn, unlock_type, extra = compute_unlock_and_rates(
             kind="camp",
@@ -3386,13 +3593,17 @@ def main() -> int:
             ),
             "conditions": conds,
             "condCount": len(conds),
-            "howToObtain": cut_obtain(how, starts_cut(edid)),
+            "howToObtain": tidy_how_to_obtain(cut_obtain(how, starts_cut(edid))),
+            "source": title_source(tidy_how_to_obtain(cut_obtain(how, starts_cut(edid))), unlock_type, starts_cut(edid),
+                                   any((e or "").lower() in ltb_title_dates for e in (extra.get("entitlementEdids") or []))),
+            "images": [image_url] if image_url else [],
             "dropRate": dr,
             "releaseDate": release_date,
             "releaseYear": release_year,
             "releaseLabel": release_label,
             "isNew": (release_date >= new_cutoff_str),
             "tradeable": tradeable,
+            "stopsDropping": title_stops_dropping(stops_by_book, conds, extra),
             "unlockType": unlock_type,
             "seasonNumber": sn,
             "cutContent": starts_cut(edid),
@@ -3429,6 +3640,12 @@ def main() -> int:
                 title_m = title_display
             if not title_f:
                 title_f = title_display
+        else:
+            _fixed = fix_copied_title(edid, title_display, conds, player_title_counts)
+            if _fixed != title_display:
+                if title_m == title_display: title_m = _fixed
+                if title_f == title_display: title_f = _fixed
+                title_display = _fixed
 
         how, dr, sn, unlock_type, extra = compute_unlock_and_rates(
             kind="player",
@@ -3520,13 +3737,17 @@ def main() -> int:
             ),
             "conditions": conds,
             "condCount": len(conds),
-            "howToObtain": cut_obtain(how, starts_cut(edid)),
+            "howToObtain": tidy_how_to_obtain(cut_obtain(how, starts_cut(edid))),
+            "source": title_source(tidy_how_to_obtain(cut_obtain(how, starts_cut(edid))), unlock_type, starts_cut(edid),
+                                   any((e or "").lower() in ltb_title_dates for e in (extra.get("entitlementEdids") or []))),
+            "images": [image_url] if image_url else [],
             "dropRate": dr,
             "releaseDate": release_date,
             "releaseYear": release_year,
             "releaseLabel": release_label,
             "isNew": (release_date >= new_cutoff_str),
             "tradeable": tradeable,
+            "stopsDropping": title_stops_dropping(stops_by_book, conds, extra),
             "unlockType": unlock_type,
             "seasonNumber": sn,
             "cutContent": starts_cut(edid),
