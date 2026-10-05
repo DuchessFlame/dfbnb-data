@@ -1,0 +1,80 @@
+name: Build Crafting Materials Calculator
+
+# Builds the Buffs n Brew Crafting Materials Calculator data
+# (/bnb/calculators/crafting-materials-calculator/) for BOTH channels:
+#   live -> dist/calculators/crafting_materials_calculator.json      (reads tsv/)
+#   PTS  -> dist/pts/calculators/crafting_materials_calculator.json  (reads tsv/pts/)
+# Consumed by df-bnb-crafting-materials-calculator.js. The full patch / PTS
+# builds (dfbnb-patch-build.yml / dfbnb-pts-build.yml) also run this script.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'tsv/COBJ_*.tsv'
+      - 'tsv/OMOD_*.tsv'
+      - 'tsv/ARMO_*.tsv'
+      - 'tsv/WEAP_*.tsv'
+      - 'tsv/CURV_*.tsv'
+      - 'tsv/CMPO_*.tsv'
+      - 'tsv/MISC_*.tsv'
+      - 'tsv/ALCH_*.tsv'
+      - 'tsv/FLST_*.tsv'
+      - 'tsv/KYWD_*.tsv'
+      - 'tsv/pts/COBJ_*.tsv'
+      - 'tsv/pts/OMOD_*.tsv'
+      - 'tsv/pts/ARMO_*.tsv'
+      - 'tsv/pts/WEAP_*.tsv'
+      - 'tsv/pts/CURV_*.tsv'
+      - 'src/build_crafting_materials_calculator_json.py'
+      - 'src/tsv_source.py'
+      - '.github/workflows/build-crafting-materials-calculator.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-crafting-materials-calculator
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Build live JSON
+        run: python src/build_crafting_materials_calculator_json.py
+
+      - name: Build PTS JSON
+        run: |
+          if ls tsv/pts/COBJ_Export_*.tsv >/dev/null 2>&1; then
+            python src/build_crafting_materials_calculator_json.py --pts
+          else
+            echo "No PTS COBJ export in tsv/pts/ — skipping PTS build (live is served as the PTS fallback)."
+          fi
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/calculators/crafting_materials_calculator.json
+          [ -f dist/pts/calculators/crafting_materials_calculator.json ] && git add dist/pts/calculators/crafting_materials_calculator.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Build Crafting Materials Calculator data"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin main && exit 0
+            sleep 5
+          done
+          exit 1
