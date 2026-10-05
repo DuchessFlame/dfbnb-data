@@ -508,6 +508,9 @@
     "activities/by_page/heart-of-the-swamp-all-rewards.json": {
       "structural_change": true
     },
+    "activities/by_page/infestations-all-rewards.json": {
+      "structural_change": true
+    },
     "activities/by_page/invaders-from-beyond-all-rewards.json": {
       "structural_change": true
     },
@@ -641,6 +644,13 @@
           "label": "ATX_COMP_Ghoul_XerxoFurniture_CampObject",
           "fields": [
             "imageUrl"
+          ]
+        },
+        {
+          "key": "ATX_Furniture_LiteAllyTheInitiate_Lawson",
+          "label": "ATX_Furniture_LiteAllyTheInitiate_Lawson",
+          "fields": [
+            "inventory"
           ]
         },
         {
@@ -1541,7 +1551,8 @@
           "key": "WaterBoiled",
           "label": "Boiled Water",
           "fields": [
-            "obtainRoutes"
+            "obtainRoutes",
+            "technical"
           ]
         },
         {
@@ -1615,7 +1626,83 @@
     },
     "bugged_plans.json": {
       "key": "id",
-      "added": [],
+      "added": [
+        "0091665F",
+        "00916660",
+        "00916661",
+        "00916662",
+        "00916663",
+        "00916664",
+        "00916665",
+        "00916666",
+        "0094673A",
+        "0094673B",
+        "0094673C",
+        "0094673D",
+        "0094673E",
+        "0094673F",
+        "00946740",
+        "00946741",
+        "00946742",
+        "00947F29",
+        "00947F2A",
+        "00947F2B",
+        "00947F2C",
+        "00947F2D",
+        "00947F2E",
+        "00947F2F",
+        "00947F30",
+        "00947F31",
+        "00947F32",
+        "00947F33",
+        "00947F34",
+        "00947F35",
+        "00947F36",
+        "00947F37",
+        "00947F38",
+        "00947F39",
+        "00947F3A",
+        "00947F3B",
+        "00947F3C",
+        "00947F3D",
+        "00947F3E",
+        "00948262",
+        "00948263",
+        "00948264",
+        "00948265",
+        "00948266",
+        "00948267",
+        "00948268",
+        "00948269",
+        "0094826A",
+        "0094826B",
+        "0094826C",
+        "00948FF2",
+        "00948FF3",
+        "00948FF4",
+        "00948FF6",
+        "00948FF7",
+        "0094CE36",
+        "0094CE37",
+        "0094CE38",
+        "0094CE39",
+        "0094CE3A",
+        "0094CE3B",
+        "0094CE3C",
+        "0094CE3D",
+        "0094CE3E",
+        "0094CE3F",
+        "0094CE40",
+        "0094F152",
+        "0094F153",
+        "0094F154",
+        "0094F155",
+        "0094F156",
+        "0094F157",
+        "0094F158",
+        "0094F159",
+        "0094F15A"
+      ],
       "removed": [
         "0040DF43",
         "0040DF45",
@@ -1647,6 +1734,7 @@
         "004E9FFD",
         "005AD986",
         "005AFDEE",
+        "007FFEF0",
         "00921E5B"
       ],
       "changed": [
@@ -1735,13 +1823,6 @@
           ]
         },
         {
-          "key": "007FFEF0",
-          "label": "Plan: Secret Settler Helmet",
-          "fields": [
-            "first_seen"
-          ]
-        },
-        {
           "key": "008F20F0",
           "label": "Plan: Love Tap Paint",
           "fields": [
@@ -1771,7 +1852,17 @@
     "calculators/outfit_inspiration.json": {
       "key": "edid",
       "added": [],
-      "removed": [],
+      "removed": [
+        "ATX_ARMO_Outfit_EnclaveScientist",
+        "WorldPets_ARMO_Headwear_CatTamer",
+        "WorldPets_ARMO_Headwear_DCTamer",
+        "WorldPets_ARMO_Headwear_DogTamer",
+        "WorldPets_ARMO_Headwear_RadhogTamer",
+        "WorldPets_Clothes_ARMO_Outfit_CatTamer",
+        "WorldPets_Clothes_ARMO_Outfit_DCTamer",
+        "WorldPets_Clothes_ARMO_Outfit_DogTamer",
+        "WorldPets_Clothes_ARMO_Outfit_RadhogTamer"
+      ],
       "changed": []
     },
     "calculators/upcoming_rewards_s27.json": {
@@ -1830,7 +1921,7 @@
     "chainsaws/chainsaw.json": {
       "structural_change": true
     },
-    "chal_previous.json": {
+    "chal_latest.json": {
       "key": "FormID",
       "added": [
         "008AF712",
@@ -21094,6 +21185,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21104,6 +21196,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21114,6 +21207,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21123,6 +21217,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21132,6 +21227,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21142,7 +21238,15 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
+          ]
+        },
+        {
+          "key": "008B1F22",
+          "label": "zzz_WorldPets_PetLevelling_Cat_CUR_Atoms02",
+          "fields": [
+            "ANAM"
           ]
         },
         {
@@ -21158,6 +21262,8 @@
           "key": "008B1F24",
           "label": "zzz_WorldPets_PetLevelling_Cat_CUR_Caps02",
           "fields": [
+            "Cond1",
+            "CondCount",
             "MNAM",
             "RNAM"
           ]
@@ -21166,6 +21272,8 @@
           "key": "008B1F25",
           "label": "zzz_WorldPets_PetLevelling_Cat_CUR_Caps03",
           "fields": [
+            "Cond1",
+            "CondCount",
             "MNAM",
             "RNAM"
           ]
@@ -21176,6 +21284,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21185,6 +21294,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21194,6 +21304,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21203,6 +21314,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21213,6 +21325,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21222,6 +21335,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21232,6 +21346,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21242,6 +21357,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21252,6 +21368,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21262,6 +21379,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21271,6 +21389,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21281,6 +21400,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21291,6 +21411,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21301,6 +21422,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21310,6 +21432,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21320,6 +21443,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21330,6 +21454,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21340,6 +21465,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21350,6 +21476,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21360,6 +21487,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21370,6 +21498,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21379,6 +21508,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21389,6 +21519,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21398,6 +21529,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21408,6 +21540,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21417,6 +21550,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21426,6 +21560,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21436,6 +21571,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21446,6 +21582,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21456,6 +21593,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21466,6 +21604,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21476,6 +21615,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21486,6 +21626,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21496,6 +21637,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21506,6 +21648,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21516,6 +21659,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21526,6 +21670,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21536,6 +21681,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21546,6 +21692,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21556,6 +21703,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21566,6 +21714,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21576,6 +21725,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21586,6 +21736,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21595,6 +21746,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21604,6 +21756,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21613,6 +21766,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21622,6 +21776,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21632,6 +21787,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21641,6 +21797,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21650,6 +21807,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21660,6 +21818,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21670,6 +21829,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21680,6 +21840,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21690,6 +21851,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21700,6 +21862,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21710,6 +21873,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21720,6 +21884,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21730,6 +21895,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21740,6 +21906,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21750,6 +21917,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21760,6 +21928,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21770,6 +21939,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21780,6 +21950,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21797,6 +21968,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21806,6 +21978,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21815,6 +21988,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21824,6 +21998,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -21831,6 +22006,8 @@
           "key": "008B3A9D",
           "label": "zzz_WorldPets_PetLevelling_Cat_COS_BackpackFlair03",
           "fields": [
+            "Cond1",
+            "CondCount",
             "MNAM",
             "RNAM",
             "TNAM"
@@ -21842,6 +22019,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21852,6 +22030,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21862,6 +22041,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21872,6 +22052,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21882,6 +22063,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21892,6 +22074,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21902,6 +22085,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21912,6 +22096,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21981,6 +22166,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -21991,6 +22177,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -22001,6 +22188,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22010,6 +22198,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22019,6 +22208,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22028,6 +22218,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -22038,6 +22229,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22047,6 +22239,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22056,6 +22249,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -22066,8 +22260,23 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
+          ]
+        },
+        {
+          "key": "008C909E",
+          "label": "zzz_WorldPets_PetLevelling_Deathclaw_CUR_Atoms01",
+          "fields": [
+            "ANAM"
+          ]
+        },
+        {
+          "key": "008C909F",
+          "label": "zzz_WorldPets_PetLevelling_Deathclaw_CUR_Atoms02",
+          "fields": [
+            "ANAM"
           ]
         },
         {
@@ -22076,6 +22285,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -22086,6 +22296,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22095,6 +22306,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22104,6 +22316,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -22114,6 +22327,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22123,6 +22337,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22132,6 +22347,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22141,6 +22357,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22150,6 +22367,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22159,6 +22377,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22168,6 +22387,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -22178,6 +22398,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -22188,6 +22409,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -22198,6 +22420,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -22208,6 +22431,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -22218,6 +22442,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -22228,6 +22453,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID",
             "TNAM"
           ]
@@ -22236,6 +22462,8 @@
           "key": "008C90FC",
           "label": "zzz_WorldPets_PetLevelling_Deathclaw_COS_BackpackFlair03",
           "fields": [
+            "Cond1",
+            "CondCount",
             "MNAM",
             "RNAM",
             "TNAM"
@@ -22245,6 +22473,7 @@
           "key": "008C90FD",
           "label": "zzz_WorldPets_PetLevelling_Deathclaw_CUR_Caps02",
           "fields": [
+            "ANAM",
             "MNAM",
             "RNAM"
           ]
@@ -22255,6 +22484,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22264,6 +22494,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22273,6 +22504,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22282,6 +22514,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22291,6 +22524,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22300,6 +22534,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22309,6 +22544,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22318,6 +22554,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22334,6 +22571,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22343,6 +22581,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22352,6 +22591,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         },
@@ -22361,6 +22601,7 @@
           "fields": [
             "ANAM",
             "Cond1",
+            "CondCount",
             "EDID"
           ]
         }
@@ -22413,13 +22654,45 @@
     },
     "collectables_magazines.json": {
       "key": "edid",
-      "added": [],
-      "removed": [],
+      "added": [
+        "W05_recipe_mod_GaussShotgun_Magazine_Ammo_GoldVendor",
+        "recipe_mod_50CalMachineGun_Magazine_Ammo-ArmorPen",
+        "recipe_mod_50CalMachineGun_Magazine_Ammo-Reload",
+        "recipe_mod_50CalMachineGun_Magazine_Reload-ArmorPen",
+        "recipe_mod_BoSPistol_Magazine_Ammo-ArmorPen",
+        "recipe_mod_BoSPistol_Magazine_Ammo-Reload",
+        "recipe_mod_BoSPistol_Magazine_Reload-ArmorPen",
+        "recipe_mod_GaussPistol_Magazine_Ammo-ArmorPen",
+        "recipe_mod_GaussPistol_Magazine_Ammo-Reload",
+        "recipe_mod_GaussPistol_Magazine_Reload-ArmorPen",
+        "recipe_mod_GaussShotgun_Magazine_Ammo-ArmorPen",
+        "recipe_mod_GaussShotgun_Magazine_Ammo-Reload",
+        "recipe_mod_GaussShotgun_Magazine_Reload-ArmorPen",
+        "recipe_mod_MG42_Magazine_Ammo-ArmorPen",
+        "recipe_mod_MG42_Magazine_Ammo-Reload",
+        "recipe_mod_MG42_Magazine_Reload-ArmorPen"
+      ],
+      "removed": [
+        "W05_recipe_mod_GaussShotgun_Magazine_Extended_GoldVendor"
+      ],
       "changed": []
     },
     "collectables_notes.json": {
       "key": "edid",
-      "added": [],
+      "added": [
+        "HIDE01_ForeverFarm_Note_Clean",
+        "HIDE01_ForeverFarm_Note_Confession",
+        "HIDE01_ForeverFarm_Note_DontEatTheCorn",
+        "HIDE01_ForeverFarm_Note_ForeignMaterial",
+        "HIDE01_ForeverFarm_Note_WaterWaterEverywhere",
+        "HIDE04_SkylineCaverns_Note_BellProcedure",
+        "HIDE04_SkylineCaverns_Note_Contamination",
+        "HIDE04_SkylineCaverns_Note_FieldTrip",
+        "HIDE04_SkylineCaverns_Note_FrequencyNotes",
+        "RTSLV_FarewellFriend_Note",
+        "RTSV_Note_IggyFinalWords",
+        "Storm_GoodbyePickles_note"
+      ],
       "removed": [],
       "changed": [
         {
@@ -22657,6 +22930,7 @@
           "key": "ADV012SkeletonsNote",
           "label": "Drain Corpse Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -22671,6 +22945,7 @@
           "key": "AMSHQ_CBLore_Note01",
           "label": "Subject 43",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -22678,6 +22953,7 @@
           "key": "AMSHQ_CBLore_Note02",
           "label": "Subject 67",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -23091,6 +23367,7 @@
           "key": "AmmoDump_Note01",
           "label": "Carol's Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -23336,7 +23613,8 @@
           "key": "BS00_Dorsey_Note_07",
           "label": "Back in a Bit",
           "fields": [
-            "isPtsNew"
+            "isPtsNew",
+            "location"
           ]
         },
         {
@@ -23924,6 +24202,7 @@
           "key": "BoS02GovernmentIDCard",
           "label": "Military ID Card",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -23959,6 +24238,7 @@
           "key": "BoS02_DMV_Number_01",
           "label": "Ticket Number C42",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -23966,6 +24246,7 @@
           "key": "BoS02_DMV_Number_02",
           "label": "Ticket Number A3",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -23973,6 +24254,7 @@
           "key": "BoS02_JunkMail",
           "label": "Junk Mail",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -23994,6 +24276,7 @@
           "key": "BoS_Defiance_IAmKnightNote",
           "label": "I am a Knight",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24008,6 +24291,7 @@
           "key": "BoS_Defiance_NoSatellitesNotes",
           "label": "No More Satellites",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24015,6 +24299,7 @@
           "key": "BoS_Defiance_NoWayOutNote",
           "label": "No Way Out",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24036,6 +24321,7 @@
           "key": "BoS_GraftonDam_FinalOrdersNote",
           "label": "Final Orders for Grafton Dam",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24050,6 +24336,7 @@
           "key": "BoS_SpruceKnob_TaggerdyJournal01Note",
           "label": "Taggerdy's Journal: OCT 21 2077",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24057,6 +24344,7 @@
           "key": "BoS_SpruceKnob_TaggerdyJournal02Note",
           "label": "Taggerdy's Journal: NOV 04 2077",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24064,6 +24352,7 @@
           "key": "BoS_SpruceKnob_WarGamesNote",
           "label": "War Game Orders",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24078,6 +24367,7 @@
           "key": "BoS_Venture_DeSilvaEulogyNote",
           "label": "Maxson's Eulogy for De Silva",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24239,6 +24529,7 @@
           "key": "Burn_Cornhenge_Note_Discipline",
           "label": "Discipline for Nature's Bandits",
           "fields": [
+            "contents",
             "isPtsNew"
           ]
         },
@@ -24799,6 +25090,7 @@
           "key": "Burn_SQ04_ScrambledIntel",
           "label": "Scrambled Note",
           "fields": [
+            "contents",
             "isPtsNew"
           ]
         },
@@ -24834,6 +25126,7 @@
           "key": "CB04_LetterFromJennica",
           "label": "Letter from Jennica",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24841,6 +25134,7 @@
           "key": "CB04_LetterToJennica",
           "label": "Letter to Jennica",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24848,6 +25142,7 @@
           "key": "CB04_LetterToMayor",
           "label": "Letter to Mayor",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24855,6 +25150,7 @@
           "key": "CB04_LetterToMom",
           "label": "Letter to Mom",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24869,6 +25165,7 @@
           "key": "CB04_Manifesto",
           "label": "Free Watoga!",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24932,6 +25229,7 @@
           "key": "CP_Booklist_Note",
           "label": "Reading List",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24939,6 +25237,7 @@
           "key": "CampMcClintock_LoreNote01",
           "label": "Sgt. Elk's Journal",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24953,6 +25252,7 @@
           "key": "Charleston_LoreNote_BombedHouse01",
           "label": "The View",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24960,6 +25260,7 @@
           "key": "Charleston_LoreNote_BombedHouse02",
           "label": "The House",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24967,6 +25268,7 @@
           "key": "Charleston_LoreNote_Church",
           "label": "The End",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24974,6 +25276,7 @@
           "key": "Charleston_LoreNote_DoctorOffice01",
           "label": "The Doctors",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24981,6 +25284,7 @@
           "key": "Charleston_LoreNote_DoctorOffice02",
           "label": "The Drop",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24988,6 +25292,7 @@
           "key": "Charleston_LoreNote_RiverfrontHouse",
           "label": "The Owner",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -24995,6 +25300,7 @@
           "key": "Charleston_LoreNote_Safe",
           "label": "The Safe",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25002,6 +25308,7 @@
           "key": "Charleston_LoreNote_Slocums",
           "label": "The Coffee",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25009,6 +25316,7 @@
           "key": "Charleston_LoreNote_Summersville01",
           "label": "Cursed",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25016,6 +25324,7 @@
           "key": "Charleston_LoreNote_Summersville02",
           "label": "Charleston is Ours",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25023,6 +25332,7 @@
           "key": "Charleston_LoreNote_Summersville03",
           "label": "The Evil Men",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25030,6 +25340,7 @@
           "key": "Charleston_LoreNote_Summersville04",
           "label": "The Power Plant",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25037,6 +25348,7 @@
           "key": "Charleston_LoreNote_TattooParlor",
           "label": "Tattoo Parlor",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25044,6 +25356,7 @@
           "key": "Charleston_LoreNote_TherapyOffice",
           "label": "The Shrink",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25051,6 +25364,7 @@
           "key": "Charleston_LoreNote_Trainyard01",
           "label": "Bicycle",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25058,6 +25372,7 @@
           "key": "Charleston_LoreNote_Trainyard02",
           "label": "Letter of Resignation — Charleston Lore Note Trainyard02",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25065,6 +25380,7 @@
           "key": "Charleston_Lore_KatelynReplyLetter",
           "label": "Together Soon",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25079,6 +25395,7 @@
           "key": "Charleston_Lore_ResponderRecruitingFlyer",
           "label": "Join the Responders!",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25086,6 +25403,7 @@
           "key": "Charleston_Lore_ResponderThankYouNote",
           "label": "Thank You Responders",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25093,6 +25411,7 @@
           "key": "CultistCave_LoreNote01",
           "label": "He Agrees",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25100,6 +25419,7 @@
           "key": "CultistCave_LoreNote02",
           "label": "His Birth",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25107,6 +25427,7 @@
           "key": "CultistCave_LoreNote03",
           "label": "His Blood",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25114,6 +25435,7 @@
           "key": "CultistCave_LoreNote04",
           "label": "His Home",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25121,6 +25443,7 @@
           "key": "CultistCave_LoreNote05",
           "label": "His Springs",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25128,6 +25451,7 @@
           "key": "CultistCave_LoreNote06",
           "label": "His Priestess",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25163,6 +25487,7 @@
           "key": "DarlingSisters_LoreNote01",
           "label": "Gnarla's List",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25170,6 +25495,7 @@
           "key": "DarlingSisters_LoreNote02",
           "label": "Karla's Plan",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25366,6 +25692,7 @@
           "key": "EN01_BackOffSam",
           "label": "Back Off Sam",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25415,6 +25742,7 @@
           "key": "EN01_LowOnFood",
           "label": "Low on Food?",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25429,6 +25757,7 @@
           "key": "EN01_OutsideChecklist",
           "label": "Going Outside?",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25464,6 +25793,7 @@
           "key": "EN01_WeSupportQuinnCarter",
           "label": "THE HERALD SUPPORTS QUINN CARTER",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25492,6 +25822,7 @@
           "key": "EN05_Patriotism_JimmyPassword",
           "label": "Jimmy's Terminal Password",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25499,6 +25830,7 @@
           "key": "EN05_Patriotism_TophersDiary",
           "label": "Topher's Diary - June 9th",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25506,6 +25838,7 @@
           "key": "EN05_UniformVoucherPage01",
           "label": "Uniform Disbursement Log",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25513,6 +25846,7 @@
           "key": "EN07_AccessCodeAlpha",
           "label": "Silo Alpha Access Code",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25520,6 +25854,7 @@
           "key": "EN07_AccessCodeBeta",
           "label": "Silo Bravo Silo Access Code",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25527,6 +25862,7 @@
           "key": "EN07_AccessCodeGamma",
           "label": "Silo Charlie Silo Access Code",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25534,6 +25870,7 @@
           "key": "EN07_LaunchCodeAlpha01",
           "label": "Silo Alpha Launch Code",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25541,6 +25878,7 @@
           "key": "EN07_LaunchCodeBeta01",
           "label": "Silo Bravo Launch Code",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25548,6 +25886,7 @@
           "key": "EN07_LaunchCodeGamma01",
           "label": "Silo Charlie Launch Code",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -25716,6 +26055,7 @@
           "key": "FS_Abbie_ReturnScenarios",
           "label": "Scenarios: Returning from Raleigh's",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26066,6 +26406,7 @@
           "key": "Helvetia_LoreNote_Blackpowder",
           "label": "Old Guns",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26073,6 +26414,7 @@
           "key": "Helvetia_LoreNote_BookStore",
           "label": "German Books",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26080,6 +26422,7 @@
           "key": "Helvetia_LoreNote_ChseeseHaus",
           "label": "Fasnacht Robots",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26129,6 +26472,7 @@
           "key": "LC001_ExplodingLabsNote",
           "label": "Exploding Labs",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26227,6 +26571,7 @@
           "key": "LC007_HopewellCave_ReggiesNote",
           "label": "Reggie's Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26248,6 +26593,7 @@
           "key": "LC011_BerkeleySprings_AppalachianAssassinNewspaper",
           "label": "Charleston Herald - Assassin Strikes Again",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26353,6 +26699,7 @@
           "key": "LC019_BrandonNote",
           "label": "Best Plan Ever",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26360,6 +26707,7 @@
           "key": "LC020_PleasantValleySkiResort_ChaunceyNote",
           "label": "Chauncy's Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26367,6 +26715,7 @@
           "key": "LC020_PleasantValleySkiResort_PhyllisNote",
           "label": "Phyllis's Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26374,6 +26723,7 @@
           "key": "LC020_PleasantValleySkiResort_StanleyNote",
           "label": "Stanley's Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26458,6 +26808,7 @@
           "key": "LC030_HavenChurch_PamelasNote",
           "label": "Pamela's Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26479,6 +26830,7 @@
           "key": "LC039_KarringtonNote",
           "label": "Almost Done",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26500,6 +26852,7 @@
           "key": "LC042_FreyjasHausNote01",
           "label": "Checklist",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26507,6 +26860,7 @@
           "key": "LC042_HotelNote_01",
           "label": "Airplane Crash",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26528,6 +26882,7 @@
           "key": "LC044_CookingLessonsNote01",
           "label": "Free Cooking Lessons!",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26549,6 +26904,7 @@
           "key": "LC044_TavernOrderNote01",
           "label": "Guest Check #023",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26556,6 +26912,7 @@
           "key": "LC044_TavernOrderNote02",
           "label": "Guest Check #024",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26563,6 +26920,7 @@
           "key": "LC044_TavernOrderNote03",
           "label": "Guest Check #025",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26570,6 +26928,7 @@
           "key": "LC044_TavernOrderNote04",
           "label": "Guest Check #022",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26577,6 +26936,7 @@
           "key": "LC046_KeyNote",
           "label": "Stop taking the key!",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26647,6 +27007,7 @@
           "key": "LC058_EvacuationNote",
           "label": "EMERGENCY ORDER A19 — 058 Evacuation Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26654,6 +27015,7 @@
           "key": "LC058_EvacuationNote02",
           "label": "EMERGENCY ORDER A19 — 058 Evacuation Note02",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26661,6 +27023,7 @@
           "key": "LC060_WhitespringGolfCourseArchitectNote",
           "label": "Letter of Resignation — 060 Whitespring Golf Course Architect Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26668,6 +27031,7 @@
           "key": "LC060_WhitespringTerminationNotice",
           "label": "Termination Notice",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26689,6 +27053,7 @@
           "key": "LC062_HarpersFerry_LeonardsJournal",
           "label": "Leonard's Journal Entry",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26731,6 +27096,7 @@
           "key": "LC075_LewisburgRaidersNote",
           "label": "Easy Pickins",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26738,6 +27104,7 @@
           "key": "LC075_LewisburgVisitorsCenterNote",
           "label": "Note to Lorri",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26766,6 +27133,7 @@
           "key": "LC091_MonongahPowerPlant_HallseyNote",
           "label": "Hallsey's Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26773,6 +27141,7 @@
           "key": "LC093_MonongahTownship_MarthaNote",
           "label": "Martha's Letter",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26780,6 +27149,7 @@
           "key": "LC095_ApartmentRenterNote",
           "label": "Grocery List",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26787,6 +27157,7 @@
           "key": "LC095_BarbershopOwnerNote",
           "label": "Business is Bad",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26822,6 +27193,7 @@
           "key": "LC095_RoofClimberNote01",
           "label": "Roof Climber's Poem",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26836,6 +27208,7 @@
           "key": "LC095_StreetGangNote01",
           "label": "Tear It All Down — 095 Street Gang Note01",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26843,6 +27216,7 @@
           "key": "LC095_StudentBookCoverNote01",
           "label": "PSY101 Notebook Cover",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26864,6 +27238,7 @@
           "key": "LC095_VTUPostcardNote01",
           "label": "Postcard from Home",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26871,6 +27246,7 @@
           "key": "LC095_VTUPostcardNote02",
           "label": "Postcard from Mom & Dad",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26878,6 +27254,7 @@
           "key": "LC095_VTUPostcardNote03",
           "label": "Postcard from Elizabeth",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26885,6 +27262,7 @@
           "key": "LC095_VTUPostcardNote04",
           "label": "Postcard from Maddy",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26899,6 +27277,7 @@
           "key": "LC095_VTUPostcardNote06",
           "label": "Unfinished Postcard",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26913,6 +27292,7 @@
           "key": "LC095_VTUPostcardNote08",
           "label": "Postcard from Grandma",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26941,6 +27321,7 @@
           "key": "LC096_GardenNote",
           "label": "Gardening Test",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26948,6 +27329,7 @@
           "key": "LC096_MiguelBRBNote",
           "label": "DO NOT TOUCH",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26955,6 +27337,7 @@
           "key": "LC096_OHolyNightNote",
           "label": "O Holy Night",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26962,6 +27345,7 @@
           "key": "LC098_ElliotLetter",
           "label": "Dear Spence",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -26983,6 +27367,7 @@
           "key": "LC103_NACentralTrainyard_BankNote",
           "label": "Employee Notice",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27004,6 +27389,7 @@
           "key": "LC110_ChildsNote",
           "label": "Child's Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27025,6 +27411,7 @@
           "key": "LC117_BathroomKeyNote",
           "label": "Wilson's Bros. Garage",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27123,6 +27510,7 @@
           "key": "LC144_SunnytopSkiLanes_DirectorMemo",
           "label": "Sunnytop Staff Memo",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27130,6 +27518,7 @@
           "key": "LC144_SunnytopSkiLanes_MaintenanceMemo",
           "label": "Sunnytop Maintenance Memo",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27137,6 +27526,7 @@
           "key": "LC144_SunnytopSkiLanes_MarketingMemo",
           "label": "Sunnytop Marketing Memo",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27151,6 +27541,7 @@
           "key": "LC145_CampVenture_ShelleysLetter",
           "label": "Shelley's Letter",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27158,6 +27549,7 @@
           "key": "LC145_LoreNote_Quartermaster",
           "label": "Quartermaster's Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27214,6 +27606,7 @@
           "key": "LC149_Jesse_White_Set_List",
           "label": "Jesse White - Honkytonk Set List",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27242,6 +27635,7 @@
           "key": "LC150_TOTW_DreamboatYachts_OwnersNote",
           "label": "Dreamboat Owner's Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27249,6 +27643,7 @@
           "key": "LC150_TOTW_IceSculptureArtGallery_HenryNote",
           "label": "Henry's Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27256,6 +27651,7 @@
           "key": "LC150_TOTW_IceSculptureArtGallery_LouisNote",
           "label": "Louis's Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27263,6 +27659,7 @@
           "key": "LC150_TOTW_MatterhornChophouse_StaffMemo",
           "label": "Matterhorn Chophouse Memo",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27291,6 +27688,7 @@
           "key": "LC161_ValleyGalleria_LucysNote",
           "label": "Lucy Harwick's Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27319,6 +27717,7 @@
           "key": "LC172_MaintenanceRequestNote_CBLore_Note",
           "label": "Maintenance Request Form",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27354,6 +27753,7 @@
           "key": "LC175_MunicipalCenter_Note",
           "label": "Fly Free",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27361,6 +27761,7 @@
           "key": "LC177_LoreNote_Groves",
           "label": "North Star",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27375,6 +27776,7 @@
           "key": "LC178_WatogaPlaza_CBLore_Note01",
           "label": "Men's Suits",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27389,6 +27791,7 @@
           "key": "LC182_WendigoCave_EdieNote",
           "label": "Edie's Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27396,6 +27799,7 @@
           "key": "LC182_WendigoCave_RaiderNote",
           "label": "Raider's Note — 182 Wendigo Cave Raider Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27403,6 +27807,7 @@
           "key": "LC188_WadeAirport_GuardNote",
           "label": "Guard Note — 188 Wade Airport Guard Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27410,6 +27815,7 @@
           "key": "LC188_WadeAirport_LandonsNote",
           "label": "Landon's Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27417,6 +27823,7 @@
           "key": "LC191_MessagesNote",
           "label": "Waste Problem",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27431,6 +27838,7 @@
           "key": "LC193_ConvertedMunitionsFactory_HoraceNote",
           "label": "Horace's Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27494,6 +27902,7 @@
           "key": "LookoutTower05Letter_01",
           "label": "Department Notice — Lookout Tower05Letter 01",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27501,6 +27910,7 @@
           "key": "LookoutTower05Letter_02",
           "label": "Department Notice — Lookout Tower05Letter 02",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27515,6 +27925,7 @@
           "key": "LookoutTower06Note",
           "label": "Gerald's Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27802,6 +28213,7 @@
           "key": "MoM01RaiderNote",
           "label": "Kerry's Orders",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27809,6 +28221,7 @@
           "key": "MoM02ARaiderNote",
           "label": "Jake's Letter",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27816,6 +28229,7 @@
           "key": "MoM03ClueNote01",
           "label": "Tony's Orders",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27823,6 +28237,7 @@
           "key": "MoM03ClueNote02",
           "label": "Harvey's Deal",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27830,6 +28245,7 @@
           "key": "MoM03ClueNote03",
           "label": "The Assassins",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27837,6 +28253,7 @@
           "key": "MoM03ClueNote04",
           "label": "Jake's Note",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27844,6 +28261,7 @@
           "key": "MoM03ClueNote05",
           "label": "Lewisburg Ambush",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27851,6 +28269,7 @@
           "key": "MoM03RaiderSysadminNote",
           "label": "Pleasant Valley Intranet Memo",
           "fields": [
+            "btof",
             "isPtsNew"
           ]
         },
@@ -27921,7 +28340,8 @@
           "key": "NPE_ComradesInArms_Note",
           "label": "Comrades in Arms",
           "fields": [
-            "isPtsNew"
+            "isPtsNew",
+            "location"
           ]
         },
         {
@@ -30201,9 +30621,10 @@
         },
         {
           "key": "Storm_FinalWords_Camp",
-          "label": "Final Words",
+          "label": "Final Words — Final Words Camp",
           "fields": [
-            "isPtsNew"
+            "isPtsNew",
+            "name"
           ]
         },
         {
@@ -30525,7 +30946,8 @@
           "key": "Storm_Ransom",
           "label": "Note from Jim",
           "fields": [
-            "isPtsNew"
+            "isPtsNew",
+            "location"
           ]
         },
         {
@@ -30665,7 +31087,8 @@
           "key": "Storm_SteelJackNote_06",
           "label": "Bee's Diary Page 6",
           "fields": [
-            "isPtsNew"
+            "isPtsNew",
+            "region"
           ]
         },
         {
@@ -33435,41 +33858,53 @@
           "key": "SCORE_S11_ENTM_CAMP_Utility_Collectron_NukaQuantum",
           "label": "SCORE_S11_ENTM_CAMP_Utility_Collectron_NukaQuantum",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
           "key": "SCORE_S14_ENTM_CAMP_Utility_Collectron_AutoMiner",
           "label": "SCORE_S14_ENTM_CAMP_Utility_Collectron_AutoMiner",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
           "key": "SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster",
           "label": "SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
           "key": "SCORE_S22_ENTM_CAMP_Utility_Collectron_RoboButler",
           "label": "SCORE_S22_ENTM_CAMP_Utility_Collectron_RoboButler",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
           "key": "SCORE_S23_ENTM_CAMP_Utility_Collectron_Cornbot",
           "label": "SCORE_S23_ENTM_CAMP_Utility_Collectron_Cornbot",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
           "key": "SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand",
           "label": "SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand",
           "fields": [
+            "howToObtain",
+            "obtainRoutes",
             "releaseDate"
           ]
         },
@@ -33484,7 +33919,9 @@
           "key": "SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola",
           "label": "SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
@@ -33505,6 +33942,7 @@
           "key": "zzzATX_ENTM_CAMP_Utility_Collectron_SilverBot",
           "label": "zzzATX_ENTM_CAMP_Utility_Collectron_SilverBot",
           "fields": [
+            "howToObtain",
             "releaseDate"
           ]
         }
@@ -33569,6 +34007,9 @@
       "structural_change": true
     },
     "cryptids/wendigo.json": {
+      "structural_change": true
+    },
+    "currency.json": {
       "structural_change": true
     },
     "curves/index.json": {
@@ -33640,6 +34081,9 @@
     "events/by_page/distinguished-guests-all-rewards.json": {
       "structural_change": true
     },
+    "events/by_page/dogwood-die-off-all-rewards.json": {
+      "structural_change": true
+    },
     "events/by_page/dropped-connection-all-rewards.json": {
       "structural_change": true
     },
@@ -33677,6 +34121,9 @@
       "structural_change": true
     },
     "events/by_page/heart-of-the-swamp-all-rewards.json": {
+      "structural_change": true
+    },
+    "events/by_page/infestations-all-rewards.json": {
       "structural_change": true
     },
     "events/by_page/invaders-from-beyond-all-rewards.json": {
@@ -33722,6 +34169,9 @@
       "structural_change": true
     },
     "events/by_page/patrol-duty-all-rewards.json": {
+      "structural_change": true
+    },
+    "events/by_page/powering-up-power-station-all-rewards.json": {
       "structural_change": true
     },
     "events/by_page/project-beanstalk-all-rewards.json": {
@@ -35407,14 +35857,223 @@
     },
     "make_plan_checklist.json": {
       "key": "id",
-      "added": [],
+      "added": [
+        "PLAN_008AC859",
+        "PLAN_008D2AB9",
+        "PLAN_008D2ABA",
+        "PLAN_0090FBD2",
+        "PLAN_0091665F",
+        "PLAN_00916660",
+        "PLAN_00916661",
+        "PLAN_00916662",
+        "PLAN_00916663",
+        "PLAN_00916664",
+        "PLAN_00916665",
+        "PLAN_00916666",
+        "PLAN_0092748C",
+        "PLAN_0092748D",
+        "PLAN_0092748E",
+        "PLAN_0092748F",
+        "PLAN_00927490",
+        "PLAN_00927491",
+        "PLAN_00934704",
+        "PLAN_0094673A",
+        "PLAN_0094673B",
+        "PLAN_0094673C",
+        "PLAN_0094673D",
+        "PLAN_0094673E",
+        "PLAN_0094673F",
+        "PLAN_00946740",
+        "PLAN_00946741",
+        "PLAN_00946742",
+        "PLAN_00947F29",
+        "PLAN_00947F2A",
+        "PLAN_00947F2B",
+        "PLAN_00947F2C",
+        "PLAN_00947F2D",
+        "PLAN_00947F2E",
+        "PLAN_00947F2F",
+        "PLAN_00947F30",
+        "PLAN_00947F31",
+        "PLAN_00947F32",
+        "PLAN_00947F33",
+        "PLAN_00947F34",
+        "PLAN_00947F35",
+        "PLAN_00947F36",
+        "PLAN_00947F37",
+        "PLAN_00947F38",
+        "PLAN_00947F39",
+        "PLAN_00947F3A",
+        "PLAN_00947F3B",
+        "PLAN_00947F3C",
+        "PLAN_00947F3D",
+        "PLAN_00947F3E",
+        "PLAN_00948262",
+        "PLAN_00948263",
+        "PLAN_00948264",
+        "PLAN_00948265",
+        "PLAN_00948266",
+        "PLAN_00948267",
+        "PLAN_00948268",
+        "PLAN_00948269",
+        "PLAN_0094826A",
+        "PLAN_0094826B",
+        "PLAN_0094826C",
+        "PLAN_00948FF2",
+        "PLAN_00948FF3",
+        "PLAN_00948FF4",
+        "PLAN_00948FF5",
+        "PLAN_00948FF6",
+        "PLAN_00948FF7",
+        "PLAN_00948FF8",
+        "PLAN_00948FF9",
+        "PLAN_00948FFA",
+        "PLAN_00948FFB",
+        "PLAN_00948FFC",
+        "PLAN_0094A782",
+        "PLAN_0094A783",
+        "PLAN_0094A784",
+        "PLAN_0094A785",
+        "PLAN_0094A786",
+        "PLAN_0094A787",
+        "PLAN_0094A788",
+        "PLAN_0094A789",
+        "PLAN_0094A78A",
+        "PLAN_0094A78B",
+        "PLAN_0094A78C",
+        "PLAN_0094A78D",
+        "PLAN_0094CE36",
+        "PLAN_0094CE37",
+        "PLAN_0094CE38",
+        "PLAN_0094CE39",
+        "PLAN_0094CE3A",
+        "PLAN_0094CE3B",
+        "PLAN_0094CE3C",
+        "PLAN_0094CE3D",
+        "PLAN_0094CE3E",
+        "PLAN_0094CE3F",
+        "PLAN_0094CE40",
+        "PLAN_0094CF2A",
+        "PLAN_0094CF2B",
+        "PLAN_0094CF2C",
+        "PLAN_0094CF2D",
+        "PLAN_0094CF2E",
+        "PLAN_0094CF2F",
+        "PLAN_0094CF30",
+        "PLAN_0094CF31",
+        "PLAN_0094CF32",
+        "PLAN_0094CF33",
+        "PLAN_0094CF34",
+        "PLAN_0094CF35",
+        "PLAN_0094CF36",
+        "PLAN_0094CF37",
+        "PLAN_0094CF38",
+        "PLAN_0094CF39",
+        "PLAN_0094CF3A",
+        "PLAN_0094CF3B",
+        "PLAN_0094CF3C",
+        "PLAN_0094CF3D",
+        "PLAN_0094CF3E",
+        "PLAN_0094CF3F",
+        "PLAN_0094CF40",
+        "PLAN_0094CF41",
+        "PLAN_0094CF42",
+        "PLAN_0094CF43",
+        "PLAN_0094CF44",
+        "PLAN_0094CF45",
+        "PLAN_0094CF46",
+        "PLAN_0094CF47",
+        "PLAN_0094CF48",
+        "PLAN_0094CF49",
+        "PLAN_0094CF4A",
+        "PLAN_0094CF4B",
+        "PLAN_0094CF4C",
+        "PLAN_0094CF4D",
+        "PLAN_0094CF4E",
+        "PLAN_0094CF4F",
+        "PLAN_0094CF50",
+        "PLAN_0094CF51",
+        "PLAN_0094CF52",
+        "PLAN_0094CF53",
+        "PLAN_0094CF54",
+        "PLAN_0094CF55",
+        "PLAN_0094CF56",
+        "PLAN_0094CF57",
+        "PLAN_0094CF58",
+        "PLAN_0094CF59",
+        "PLAN_0094CF5A",
+        "PLAN_0094CF5B",
+        "PLAN_0094CF5C",
+        "PLAN_0094CF5D",
+        "PLAN_0094CF5E",
+        "PLAN_0094CF5F",
+        "PLAN_0094F152",
+        "PLAN_0094F153",
+        "PLAN_0094F154",
+        "PLAN_0094F155",
+        "PLAN_0094F156",
+        "PLAN_0094F157",
+        "PLAN_0094F158",
+        "PLAN_0094F159",
+        "PLAN_0094F15A",
+        "PLAN_0094F7E2",
+        "PLAN_0094F7E3",
+        "PLAN_0094F7E4",
+        "PLAN_0094F7E5",
+        "PLAN_0094F7E6",
+        "PLAN_0094F7E7",
+        "PLAN_00951601",
+        "PLAN_00951602",
+        "PLAN_00951603",
+        "PLAN_00951604",
+        "PLAN_00951605",
+        "PLAN_00951606",
+        "PLAN_009559D1",
+        "PLAN_009559D2",
+        "PLAN_009559D3"
+      ],
       "removed": [],
       "changed": [
         {
-          "key": "PLAN_00436FF9",
-          "label": "Plan: Mole Miner Gauntlet",
+          "key": "PLAN_0052A699",
+          "label": "Plan: Single-Action Revolver Forceful Grip",
           "fields": [
-            "routes"
+            "name"
+          ]
+        },
+        {
+          "key": "PLAN_0059560D",
+          "label": "Plan: Gauss Shotgun Long Barrel",
+          "fields": [
+            "name"
+          ]
+        },
+        {
+          "key": "PLAN_005E65FA",
+          "label": "Plan: Crusader Pistol Fusion Chamber",
+          "fields": [
+            "name"
+          ]
+        },
+        {
+          "key": "PLAN_005E65FB",
+          "label": "Plan: Crusader Pistol Pyro Chamber",
+          "fields": [
+            "name"
+          ]
+        },
+        {
+          "key": "PLAN_005E65FC",
+          "label": "Plan: Crusader Pistol Cryo Chamber",
+          "fields": [
+            "name"
+          ]
+        },
+        {
+          "key": "PLAN_005E65FD",
+          "label": "Plan: Crusader Pistol 5.56 Chamber",
+          "fields": [
+            "name"
           ]
         },
         {
@@ -35423,6 +36082,30 @@
           "fields": [
             "cut",
             "routes"
+          ]
+        },
+        {
+          "key": "PLAN_008D5AA7",
+          "label": "Plan: LMG Calibrated .308 Receiver",
+          "fields": [
+            "cut",
+            "name"
+          ]
+        },
+        {
+          "key": "PLAN_008D5AA8",
+          "label": "Plan: LMG Calibrated .45 Receiver",
+          "fields": [
+            "cut",
+            "name"
+          ]
+        },
+        {
+          "key": "PLAN_008D5AAE",
+          "label": "Plan: LMG Compensator",
+          "fields": [
+            "cut",
+            "name"
           ]
         },
         {
@@ -35531,6 +36214,9 @@
       "structural_change": true
     },
     "menu-items.json": {
+      "structural_change": true
+    },
+    "minerva/minerva_plans.json": {
       "structural_change": true
     },
     "murmrgh_legendary_mods.json": {
@@ -35697,7 +36383,181 @@
     },
     "plan_master.json": {
       "key": "id",
-      "added": [],
+      "added": [
+        "PLAN_008AC859",
+        "PLAN_008D2AB9",
+        "PLAN_008D2ABA",
+        "PLAN_0090FBD2",
+        "PLAN_0091665F",
+        "PLAN_00916660",
+        "PLAN_00916661",
+        "PLAN_00916662",
+        "PLAN_00916663",
+        "PLAN_00916664",
+        "PLAN_00916665",
+        "PLAN_00916666",
+        "PLAN_0092748C",
+        "PLAN_0092748D",
+        "PLAN_0092748E",
+        "PLAN_0092748F",
+        "PLAN_00927490",
+        "PLAN_00927491",
+        "PLAN_00934704",
+        "PLAN_0094673A",
+        "PLAN_0094673B",
+        "PLAN_0094673C",
+        "PLAN_0094673D",
+        "PLAN_0094673E",
+        "PLAN_0094673F",
+        "PLAN_00946740",
+        "PLAN_00946741",
+        "PLAN_00946742",
+        "PLAN_00947F29",
+        "PLAN_00947F2A",
+        "PLAN_00947F2B",
+        "PLAN_00947F2C",
+        "PLAN_00947F2D",
+        "PLAN_00947F2E",
+        "PLAN_00947F2F",
+        "PLAN_00947F30",
+        "PLAN_00947F31",
+        "PLAN_00947F32",
+        "PLAN_00947F33",
+        "PLAN_00947F34",
+        "PLAN_00947F35",
+        "PLAN_00947F36",
+        "PLAN_00947F37",
+        "PLAN_00947F38",
+        "PLAN_00947F39",
+        "PLAN_00947F3A",
+        "PLAN_00947F3B",
+        "PLAN_00947F3C",
+        "PLAN_00947F3D",
+        "PLAN_00947F3E",
+        "PLAN_00948262",
+        "PLAN_00948263",
+        "PLAN_00948264",
+        "PLAN_00948265",
+        "PLAN_00948266",
+        "PLAN_00948267",
+        "PLAN_00948268",
+        "PLAN_00948269",
+        "PLAN_0094826A",
+        "PLAN_0094826B",
+        "PLAN_0094826C",
+        "PLAN_00948FF2",
+        "PLAN_00948FF3",
+        "PLAN_00948FF4",
+        "PLAN_00948FF5",
+        "PLAN_00948FF6",
+        "PLAN_00948FF7",
+        "PLAN_00948FF8",
+        "PLAN_00948FF9",
+        "PLAN_00948FFA",
+        "PLAN_00948FFB",
+        "PLAN_00948FFC",
+        "PLAN_0094A782",
+        "PLAN_0094A783",
+        "PLAN_0094A784",
+        "PLAN_0094A785",
+        "PLAN_0094A786",
+        "PLAN_0094A787",
+        "PLAN_0094A788",
+        "PLAN_0094A789",
+        "PLAN_0094A78A",
+        "PLAN_0094A78B",
+        "PLAN_0094A78C",
+        "PLAN_0094A78D",
+        "PLAN_0094CE36",
+        "PLAN_0094CE37",
+        "PLAN_0094CE38",
+        "PLAN_0094CE39",
+        "PLAN_0094CE3A",
+        "PLAN_0094CE3B",
+        "PLAN_0094CE3C",
+        "PLAN_0094CE3D",
+        "PLAN_0094CE3E",
+        "PLAN_0094CE3F",
+        "PLAN_0094CE40",
+        "PLAN_0094CF2A",
+        "PLAN_0094CF2B",
+        "PLAN_0094CF2C",
+        "PLAN_0094CF2D",
+        "PLAN_0094CF2E",
+        "PLAN_0094CF2F",
+        "PLAN_0094CF30",
+        "PLAN_0094CF31",
+        "PLAN_0094CF32",
+        "PLAN_0094CF33",
+        "PLAN_0094CF34",
+        "PLAN_0094CF35",
+        "PLAN_0094CF36",
+        "PLAN_0094CF37",
+        "PLAN_0094CF38",
+        "PLAN_0094CF39",
+        "PLAN_0094CF3A",
+        "PLAN_0094CF3B",
+        "PLAN_0094CF3C",
+        "PLAN_0094CF3D",
+        "PLAN_0094CF3E",
+        "PLAN_0094CF3F",
+        "PLAN_0094CF40",
+        "PLAN_0094CF41",
+        "PLAN_0094CF42",
+        "PLAN_0094CF43",
+        "PLAN_0094CF44",
+        "PLAN_0094CF45",
+        "PLAN_0094CF46",
+        "PLAN_0094CF47",
+        "PLAN_0094CF48",
+        "PLAN_0094CF49",
+        "PLAN_0094CF4A",
+        "PLAN_0094CF4B",
+        "PLAN_0094CF4C",
+        "PLAN_0094CF4D",
+        "PLAN_0094CF4E",
+        "PLAN_0094CF4F",
+        "PLAN_0094CF50",
+        "PLAN_0094CF51",
+        "PLAN_0094CF52",
+        "PLAN_0094CF53",
+        "PLAN_0094CF54",
+        "PLAN_0094CF55",
+        "PLAN_0094CF56",
+        "PLAN_0094CF57",
+        "PLAN_0094CF58",
+        "PLAN_0094CF59",
+        "PLAN_0094CF5A",
+        "PLAN_0094CF5B",
+        "PLAN_0094CF5C",
+        "PLAN_0094CF5D",
+        "PLAN_0094CF5E",
+        "PLAN_0094CF5F",
+        "PLAN_0094F152",
+        "PLAN_0094F153",
+        "PLAN_0094F154",
+        "PLAN_0094F155",
+        "PLAN_0094F156",
+        "PLAN_0094F157",
+        "PLAN_0094F158",
+        "PLAN_0094F159",
+        "PLAN_0094F15A",
+        "PLAN_0094F7E2",
+        "PLAN_0094F7E3",
+        "PLAN_0094F7E4",
+        "PLAN_0094F7E5",
+        "PLAN_0094F7E6",
+        "PLAN_0094F7E7",
+        "PLAN_00951601",
+        "PLAN_00951602",
+        "PLAN_00951603",
+        "PLAN_00951604",
+        "PLAN_00951605",
+        "PLAN_00951606",
+        "PLAN_009559D1",
+        "PLAN_009559D2",
+        "PLAN_009559D3"
+      ],
       "removed": [],
       "changed": [
         {
@@ -35959,6 +36819,13 @@
           "label": "Vault-Tec University Steamer Trunk",
           "fields": [
             "source_tag"
+          ]
+        },
+        {
+          "key": "PLAN_002B42AC",
+          "label": "Plan: Machete Sacrificial Blade",
+          "fields": [
+            "weapon_group_solo"
           ]
         },
         {
@@ -36345,6 +37212,13 @@
           ]
         },
         {
+          "key": "PLAN_0046ECB4",
+          "label": "Recipe: Tasty Mutton Meat Pie",
+          "fields": [
+            "consumable_type"
+          ]
+        },
+        {
           "key": "PLAN_004E84F1",
           "label": "Plan: Plasma Mine",
           "fields": [
@@ -36473,6 +37347,27 @@
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004EB73D",
+          "label": "Plan: Cultist Blade",
+          "fields": [
+            "weapon_group_solo"
+          ]
+        },
+        {
+          "key": "PLAN_004EB73E",
+          "label": "Plan: Cultist Dagger",
+          "fields": [
+            "weapon_group_solo"
+          ]
+        },
+        {
+          "key": "PLAN_004EB740",
+          "label": "Plan: Pickaxe",
+          "fields": [
+            "weapon_group_solo"
           ]
         },
         {
@@ -36700,6 +37595,14 @@
           ]
         },
         {
+          "key": "PLAN_0052A699",
+          "label": "Plan: Single-Action Revolver Forceful Grip",
+          "fields": [
+            "name",
+            "plan_item"
+          ]
+        },
+        {
           "key": "PLAN_0052E485",
           "label": "Plan: 10mm Pistol",
           "fields": [
@@ -36711,6 +37614,13 @@
           "label": "Recipe: Infused Blood Leaf Tea",
           "fields": [
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0052FDFF",
+          "label": "Recipe: Mirelurk Softshell Cake",
+          "fields": [
+            "consumable_type"
           ]
         },
         {
@@ -36749,6 +37659,21 @@
           "fields": [
             "image_source",
             "images"
+          ]
+        },
+        {
+          "key": "PLAN_0059560D",
+          "label": "Plan: Gauss Shotgun Long Barrel",
+          "fields": [
+            "name",
+            "plan_item"
+          ]
+        },
+        {
+          "key": "PLAN_00595616",
+          "label": "Plan: Gauss Shotgun Extended Magazine",
+          "fields": [
+            "plan_item"
           ]
         },
         {
@@ -36907,6 +37832,38 @@
           "label": "Plan: Molerat Wind Chime",
           "fields": [
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_005E65FA",
+          "label": "Plan: Crusader Pistol Fusion Chamber",
+          "fields": [
+            "name",
+            "plan_item"
+          ]
+        },
+        {
+          "key": "PLAN_005E65FB",
+          "label": "Plan: Crusader Pistol Pyro Chamber",
+          "fields": [
+            "name",
+            "plan_item"
+          ]
+        },
+        {
+          "key": "PLAN_005E65FC",
+          "label": "Plan: Crusader Pistol Cryo Chamber",
+          "fields": [
+            "name",
+            "plan_item"
+          ]
+        },
+        {
+          "key": "PLAN_005E65FD",
+          "label": "Plan: Crusader Pistol 5.56 Chamber",
+          "fields": [
+            "name",
+            "plan_item"
           ]
         },
         {
@@ -37690,6 +38647,88 @@
           ]
         },
         {
+          "key": "PLAN_007FFEEF",
+          "label": "Plan: Secret Settler Left Leg",
+          "fields": [
+            "armour_group",
+            "armour_group_key",
+            "plan_item"
+          ]
+        },
+        {
+          "key": "PLAN_007FFEF0",
+          "label": "Plan: Secret Settler Helmet",
+          "fields": [
+            "armour_group",
+            "armour_group_key",
+            "plan_item"
+          ]
+        },
+        {
+          "key": "PLAN_007FFEF1",
+          "label": "Plan: Secret Settler Right Leg",
+          "fields": [
+            "armour_group",
+            "armour_group_key",
+            "plan_item"
+          ]
+        },
+        {
+          "key": "PLAN_007FFEF2",
+          "label": "Plan: Secret Settler Left Arm",
+          "fields": [
+            "armour_group",
+            "armour_group_key",
+            "plan_item"
+          ]
+        },
+        {
+          "key": "PLAN_007FFEF3",
+          "label": "Plan: Secret Settler Right Arm",
+          "fields": [
+            "armour_group",
+            "armour_group_key",
+            "plan_item"
+          ]
+        },
+        {
+          "key": "PLAN_007FFEF4",
+          "label": "Plan: Secret Settler Chest Piece",
+          "fields": [
+            "armour_group",
+            "armour_group_key",
+            "plan_item"
+          ]
+        },
+        {
+          "key": "PLAN_007FFFDA",
+          "label": "Plan: Crackler Grenade",
+          "fields": [
+            "plan_item"
+          ]
+        },
+        {
+          "key": "PLAN_00802192",
+          "label": "Plan: Tempest",
+          "fields": [
+            "plan_item"
+          ]
+        },
+        {
+          "key": "PLAN_00802193",
+          "label": "Plan: Chaos Engine",
+          "fields": [
+            "plan_item"
+          ]
+        },
+        {
+          "key": "PLAN_00802194",
+          "label": "Plan: Splinter",
+          "fields": [
+            "plan_item"
+          ]
+        },
+        {
           "key": "PLAN_0084813C",
           "label": "Plan: Spice Rack",
           "fields": [
@@ -37708,6 +38747,57 @@
           "label": "Plan: Rip Daring's Survival Cache",
           "fields": [
             "images"
+          ]
+        },
+        {
+          "key": "PLAN_008D5AA7",
+          "label": "Plan: LMG Calibrated .308 Receiver",
+          "fields": [
+            "category_label",
+            "cnam",
+            "cobj",
+            "cut",
+            "cut_reason",
+            "name",
+            "obtain",
+            "plan_item"
+          ]
+        },
+        {
+          "key": "PLAN_008D5AA8",
+          "label": "Plan: LMG Calibrated .45 Receiver",
+          "fields": [
+            "category_label",
+            "cnam",
+            "cobj",
+            "cut",
+            "cut_reason",
+            "name",
+            "obtain",
+            "plan_item"
+          ]
+        },
+        {
+          "key": "PLAN_008D5AAE",
+          "label": "Plan: LMG Compensator",
+          "fields": [
+            "category_label",
+            "cnam",
+            "cobj",
+            "cut",
+            "cut_reason",
+            "image_dir",
+            "image_source",
+            "images",
+            "name",
+            "obtain",
+            "plan_item",
+            "plan_page",
+            "plan_page_group",
+            "weapon_group",
+            "weapon_group_key",
+            "weapon_group_solo",
+            "weapon_role"
           ]
         },
         {
@@ -37774,6 +38864,13 @@
           ]
         },
         {
+          "key": "PLAN_0090ECFD",
+          "label": "Plan: Gold Shovel Paint",
+          "fields": [
+            "weapon_group_solo"
+          ]
+        },
+        {
           "key": "PLAN_00919FDD",
           "label": "Plan: Gatling Laser Valkyrie Paint",
           "fields": [
@@ -37809,6 +38906,76 @@
             "obtain_ledger",
             "obtain_routes",
             "source_tag"
+          ]
+        },
+        {
+          "key": "RECIPE_008B507F",
+          "label": "Deathclaw Leveling Backpack Flair",
+          "fields": [
+            "obtain_unlocks"
+          ]
+        },
+        {
+          "key": "RECIPE_008B5082",
+          "label": "Dog Leveling Backpack Flair",
+          "fields": [
+            "obtain_unlocks"
+          ]
+        },
+        {
+          "key": "RECIPE_008B5084",
+          "label": "Radhog Leveling Backpack Flair",
+          "fields": [
+            "obtain_unlocks"
+          ]
+        },
+        {
+          "key": "RECIPE_008B6A26",
+          "label": "Dog Leveling Backpack",
+          "fields": [
+            "obtain_unlocks"
+          ]
+        },
+        {
+          "key": "RECIPE_008B6A28",
+          "label": "Radhog Leveling Backpack",
+          "fields": [
+            "obtain_unlocks"
+          ]
+        },
+        {
+          "key": "RECIPE_008B6A29",
+          "label": "Deathclaw Leveling Backpack",
+          "fields": [
+            "obtain_unlocks"
+          ]
+        },
+        {
+          "key": "RECIPE_008D4C4F",
+          "label": "Bandana Plaid",
+          "fields": [
+            "obtain_unlocks"
+          ]
+        },
+        {
+          "key": "RECIPE_008D4C50",
+          "label": "Badge Bandana",
+          "fields": [
+            "obtain_unlocks"
+          ]
+        },
+        {
+          "key": "RECIPE_008D667D",
+          "label": "Patina Nose Ring (Radhog)",
+          "fields": [
+            "obtain_unlocks"
+          ]
+        },
+        {
+          "key": "RECIPE_008D667E",
+          "label": "Gold Nose Ring (Radhog)",
+          "fields": [
+            "obtain_unlocks"
           ]
         }
       ]
@@ -37954,6 +39121,8 @@
           "key": "ATX_ENTM_CAMP_Collector_PumpkinPie",
           "label": "ATX_ENTM_CAMP_Collector_PumpkinPie",
           "fields": [
+            "howToObtain",
+            "obtainRoutes",
             "releaseDate"
           ]
         },
@@ -37975,6 +39144,7 @@
           "key": "ATX_ENTM_CAMP_Collector_Shredder",
           "label": "ATX_ENTM_CAMP_Collector_Shredder",
           "fields": [
+            "production",
             "releaseDate"
           ]
         },
@@ -38462,7 +39632,9 @@
           "key": "SCORE_S17_ENTM_CAMP_Collector_Pemmican",
           "label": "SCORE_S17_ENTM_CAMP_Collector_Pemmican",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
@@ -38504,7 +39676,9 @@
           "key": "SCORE_S23_ENTM_CAMP_Collector_CrashedCargoBot",
           "label": "SCORE_S23_ENTM_CAMP_Collector_CrashedCargoBot",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
@@ -38518,7 +39692,9 @@
           "key": "SCORE_S24_ENTM_CAMP_Collector_SurvivalCache",
           "label": "SCORE_S24_ENTM_CAMP_Collector_SurvivalCache",
           "fields": [
-            "imageUrl"
+            "howToObtain",
+            "imageUrl",
+            "obtainRoutes"
           ]
         },
         {
@@ -38540,6 +39716,7 @@
           "key": "SSE_Resource_CarnalWeeper",
           "label": "SSE_Resource_CarnalWeeper",
           "fields": [
+            "howToObtain",
             "releaseDate"
           ]
         },
@@ -38547,6 +39724,7 @@
           "key": "SSE_Resource_CrystalCup",
           "label": "SSE_Resource_CrystalCup",
           "fields": [
+            "howToObtain",
             "releaseDate"
           ]
         },
@@ -38554,6 +39732,7 @@
           "key": "SSE_Resource_Radlily",
           "label": "SSE_Resource_Radlily",
           "fields": [
+            "howToObtain",
             "releaseDate"
           ]
         },
@@ -38728,8 +39907,7 @@
           "key": "WorldPets_CampTitles_Prefix_LifetimeChallenge_Dog01",
           "label": "WorldPets_CampTitles_Prefix_LifetimeChallenge_Dog01",
           "fields": [
-            "debug",
-            "howToObtain"
+            "debug"
           ]
         }
       ]
@@ -38822,8 +40000,7 @@
           "key": "Fishing_PlayerTitles_Suffix_OfTheMonth",
           "label": "Fishing_PlayerTitles_Suffix_OfTheMonth",
           "fields": [
-            "debug",
-            "howToObtain"
+            "debug"
           ]
         },
         {
