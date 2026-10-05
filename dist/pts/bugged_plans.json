@@ -1,6 +1,6 @@
 {
  "_generated_by": "src/build_bugged_plans_json.py",
- "generated": "2026-10-04",
+ "generated": "2026-10-05",
  "channel": "pts",
  "exports": {
   "WEAP": "WEAP_Export_October_2026_Base.tsv",
@@ -17,10 +17,10 @@
  },
  "stats": {
   "lists_total": 10963,
+  "dead_entries_shadowed_switch": 6,
   "dead_entries_never_rolls": 60,
-  "dead_entries_shadowed_switch": 26,
-  "dead_entries_shadowed": 17,
-  "lists_live": 8809,
+  "dead_entries_shadowed": 6,
+  "lists_live": 8810,
   "plans_scanned": 2963,
   "plans_cut": 307,
   "plans_via_unreferenced_gmrw": 27,
@@ -31,15 +31,14 @@
   "titles_checked": 52
  },
  "counts": {
-  "total": 51,
-  "unobtainable": 47,
-  "route_broken": 1,
+  "total": 20,
+  "unobtainable": 17,
   "broken_item": 3,
-  "conf_strong": 15,
-  "conf_check": 36,
+  "conf_strong": 13,
+  "conf_check": 7,
   "confirmed": 0,
   "titles": 0,
-  "plans": 51
+  "plans": 20
  },
  "items": [
   {
@@ -255,66 +254,6 @@
    "is_new": false
   },
   {
-   "id": "0040DF45",
-   "name": "Plan: Deer Skull",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CAD2",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "0040DF45",
-     "edid": "Recipe_Workshop_WallDecor_Taxidermy_MountedDeerSkull",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0050CBE0",
-      "edid": "workshop_co_CondProxy_Taxidermy_DeerSkull",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
    "id": "0068B8EE",
    "name": "Recipe: Fried Radroach On A Stick",
    "kind": "plan",
@@ -524,1566 +463,6 @@
    "confidence": "strong",
    "confirmed": false,
    "first_seen": "2026-10-02",
-   "is_new": false
-  },
-  {
-   "id": "00435856",
-   "name": "Plan: Mounted Antlers",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CACF",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "00435856",
-     "edid": "Recipe_Workshop_WallDecor_Taxidermy_MountedAntlers",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0050CBDF",
-      "edid": "workshop_co_CondProxy_Taxidermy_Antlers",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "0043585F",
-   "name": "Plan: Mounted Beaver",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CACF",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "0043585F",
-     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_RadBeaver",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0050CBC3",
-      "edid": "workshop_co_CondProxy_Taxidermy_RadBeaver",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "004E9FF1",
-   "name": "Plan: Mounted Brahmin Heads",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CACF",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "004E9FF1",
-     "edid": "Recipe_Workshop_WallDecor_Taxidermy_Brahmin",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0007856A",
-      "edid": "workshop_co_CondProxy_Taxidermy_Brahmin01",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "004E9FE9",
-   "name": "Plan: Mounted Cat Head",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CACF",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "004E9FE9",
-     "edid": "Recipe_Workshop_WallDecor_Taxidermy_Cat",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0010FF1C",
-      "edid": "workshop_co_CondProxy_Taxidermy_Cat01",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "004E9FFB",
-   "name": "Plan: Mounted Deathclaw Head",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CAD2",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "004E9FFB",
-     "edid": "Recipe_Workshop_WallDecor_Taxidermy_Deathclaw",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0010FF1D",
-      "edid": "workshop_co_CondProxy_Taxidermy_Deathclaw01",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "00435857",
-   "name": "Plan: Mounted Deer Head",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CACF",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "00435857",
-     "edid": "Recipe_Workshop_WallDecor_Taxidermy_MountedDeerHead",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0040DF46",
-      "edid": "workshop_co_CondProxy_Taxidermy_DeerHead",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "004E9FD4",
-   "name": "Plan: Mounted Dog Head",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CACF",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "004E9FD4",
-     "edid": "Recipe_Workshop_WallDecor_Taxidermy_Dog",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0010FF35",
-      "edid": "workshop_co_CondProxy_Taxidermy_Dog01",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "004E9FF3",
-   "name": "Plan: Mounted Feral Ghoul Head",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CAD2",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "004E9FF3",
-     "edid": "Recipe_Workshop_WallDecor_Taxidermy_FeralGhoul",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0010FF1F",
-      "edid": "workshop_co_CondProxy_Taxidermy_FeralGhoul01",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "00435859",
-   "name": "Plan: Mounted Fox",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CACF",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "00435859",
-     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_Fox",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0050CBBE",
-      "edid": "workshop_co_CondProxy_Taxidermy_Fox",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "00435860",
-   "name": "Plan: Mounted Frog",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CAD2",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "00435860",
-     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_RadFrogBlue",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0050CBC4",
-      "edid": "workshop_co_CondProxy_Taxidermy_RadFrogBlue",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "004E9FF7",
-   "name": "Plan: Mounted Glowing One Head",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CAD2",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "004E9FF7",
-     "edid": "Recipe_Workshop_WallDecor_Taxidermy_FeralGlowingOne",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0010FF20",
-      "edid": "workshop_co_CondProxy_Taxidermy_FeralGlowingone01",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "0040DF43",
-   "name": "Plan: Mounted Gorilla Head",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CAD2",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "0040DF43",
-     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_Gorilla",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0040DF44",
-      "edid": "workshop_co_CondProxy_Taxidermy_Gorilla_Head",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "0043585A",
-   "name": "Plan: Mounted Honey Beast",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CAD2",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "0043585A",
-     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_HoneyBeast",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0050CBBF",
-      "edid": "workshop_co_CondProxy_Taxidermy_HoneyBeast",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "004E9FFD",
-   "name": "Plan: Mounted Mirelurk Claw",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CAD2",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "004E9FFD",
-     "edid": "Recipe_Workshop_WallDecor_Taxidermy_Mirelurk",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0007856C",
-      "edid": "workshop_co_CondProxy_Taxidermy_Mirelurk01",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "004E9FF9",
-   "name": "Plan: Mounted Mirelurk Hunter Head",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CAD2",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "004E9FF9",
-     "edid": "Recipe_Workshop_WallDecor_Taxidermy_MirelurkHunter",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0010FF21",
-      "edid": "workshop_co_CondProxy_Taxidermy_MirelurkHunter01",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "004E9FDB",
-   "name": "Plan: Mounted Mirelurk King Head",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CAD2",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "004E9FDB",
-     "edid": "Recipe_Workshop_WallDecor_Taxidermy_MirelurkKing",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0010FF22",
-      "edid": "workshop_co_CondProxy_Taxidermy_MirelurkKing01",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "004E9FEB",
-   "name": "Plan: Mounted Molerat Head",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CACF",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "004E9FEB",
-     "edid": "Recipe_Workshop_WallDecor_Taxidermy_Molerat",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0007856E",
-      "edid": "workshop_co_CondProxy_Taxidermy_Molerat01",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "004E9FDF",
-   "name": "Plan: Mounted Mongrel Head",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CACF",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "004E9FDF",
-     "edid": "Recipe_Workshop_WallDecor_Taxidermy_Raddog",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0010FF24",
-      "edid": "workshop_co_CondProxy_Taxidermy_Raddog01",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "0043585C",
-   "name": "Plan: Mounted Mothman",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CAD2",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "0043585C",
-     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_Mothman",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0050CBC1",
-      "edid": "workshop_co_CondProxy_Taxidermy_Mothman",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "004E9FF5",
-   "name": "Plan: Mounted Mutant Hound Head",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CAD2",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "004E9FF5",
-     "edid": "Recipe_Workshop_WallDecor_Taxidermy_FEVHound",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0010FF1E",
-      "edid": "workshop_co_CondProxy_Taxidermy_FEVHound01",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "0043585D",
-   "name": "Plan: Mounted Opossum",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CACF",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "0043585D",
-     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_Opossum",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0050CBC2",
-      "edid": "workshop_co_CondProxy_Taxidermy_Opossum",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "004E9FE3",
-   "name": "Plan: Mounted Radscorpion",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CAD2",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "004E9FE3",
-     "edid": "Recipe_Workshop_WallDecor_Taxidermy_Radscorpion",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0010FF26",
-      "edid": "workshop_co_CondProxy_Taxidermy_Radscorpion01",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "00435862",
-   "name": "Plan: Mounted Radtoad",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CAD2",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "00435862",
-     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_RadToad",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0050CBC6",
-      "edid": "workshop_co_CondProxy_Taxidermy_RadToad",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "00435863",
-   "name": "Plan: Mounted Scorchbeast",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CAD2",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "00435863",
-     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_ScorchedBeast",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0050CBC7",
-      "edid": "workshop_co_CondProxy_Taxidermy_ScorchedBeast",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "00435865",
-   "name": "Plan: Mounted Snallygaster",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CAD2",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "00435865",
-     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_Snallygaster",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0050CBC9",
-      "edid": "workshop_co_CondProxy_Taxidermy_Snallygaster",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "00435861",
-   "name": "Plan: Mounted Squirrel",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CACF",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Common",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Common reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Common) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Common."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "00435861",
-     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_RadSquirrel",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0050CBC5",
-      "edid": "workshop_co_CondProxy_Taxidermy_RadSquirrel",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
    "is_new": false
   },
   {
@@ -2395,173 +774,6 @@
    "is_new": false
   },
   {
-   "id": "00921E5B",
-   "name": "Plan: Resolve Breaker Paint",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "0079661D",
-       "edid": "RD01_LLS_Raids_Rewards_Enc03_Weapons_ResolveBreaker",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Raids - Weapons Resolve Breaker: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In RD01_LLS_Raids_Rewards_Enc03_Weapons_ResolveBreaker, entry 2 (this plan) needs GetRandomPercent <= 5, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (RD01_Recipe_Weapon_Ranged_ResolveBreaker, GetRandomPercent <= 5), entry 1 (RD01_LL_Weapon_Ranged_ResolveBreaker, GetRandomPercent <= 10). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "00921E5B",
-     "edid": "RD01_Recipe_Weapon_Ranged_ResolveBreakerPaint",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "007AD490",
-      "edid": "RD01_co_Mod_AutoGrenadeLauncher_Weapon_Paint_ResolveBreaker",
-      "type": "COBJ"
-     }
-    ],
-    "creates": [
-     {
-      "form_id": "007934FD",
-      "edid": "RD01_Mod_Custom_ResolveBreaker_Appearance",
-      "type": "OMOD"
-     }
-    ]
-   },
-   "confidence": "strong",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "005AFDEE",
-   "name": "Plan: Sitting Gorilla",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CAD2",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "005AFDEE",
-     "edid": "Recipe_Workshop_FloorDecor_Taxidermy_Gorilla_Sitting",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "005AFDEF",
-      "edid": "workshop_co_CondProxy_FloorDecor_Taxidermy_Gorilla_Sitting",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "005AD986",
-   "name": "Plan: Standing Gorilla",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0059CAD2",
-       "edid": "LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Systemic Taxidermy Rare reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Systemic_Rewards_Taxidermy_Rare_RESTRICTED) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Systemic Taxidermy Rare."
-    },
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "005AD986",
-     "edid": "Recipe_Workshop_FloorDecor_Taxidermy_Gorilla_Standing",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "005AD987",
-      "edid": "workshop_co_CondProxy_FloorDecor_Taxidermy_Gorilla_Standing",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
    "id": "00682118",
    "name": "Plan: Tunnel of Love Poster",
    "kind": "plan",
@@ -2706,54 +918,6 @@
    "confidence": "strong",
    "confirmed": false,
    "first_seen": "2026-10-02",
-   "is_new": false
-  },
-  {
-   "id": "0043585B",
-   "name": "Plan: Mounted Mega Sloth",
-   "kind": "plan",
-   "severity": "route_broken",
-   "bugs": [
-    {
-     "kind": "shadowed",
-     "title": "Can never win its roll",
-     "records": [
-      {
-       "form_id": "005DCA8B",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "00792614",
-       "edid": "LLS_Festive_Rewards_Holiday_Rare_Taxidermy",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "Festive Holiday Rare: another reward always wins the roll before this plan gets its turn, so it never drops.",
-     "detail": "In LLS_Festive_Rewards_Holiday_Rare, entry 1 (the list holding this plan (LLS_Festive_Rewards_Holiday_Rare_Taxidermy)) needs GetRandomPercent <= 20, but the list is First Match and the entries above it already claim every roll it needs — entry 0 (LLS_Festive_Rewards_Holiday_Rare_Chase, GetRandomPercent <= 40). It can never be picked."
-    }
-   ],
-   "still_from": [
-    "Event: Fasnacht Day"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0043585B",
-     "edid": "Recipe_Workshop_WallDecor_76Taxidermy_Megasloth",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0050CBC0",
-      "edid": "workshop_co_CondProxy_Taxidermy_Megasloth",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "strong",
-   "confirmed": false,
-   "first_seen": "2026-09-23",
    "is_new": false
   },
   {
@@ -2910,6 +1074,161 @@
   }
  ],
  "fixed": [
+  {
+   "id": "0040DF45",
+   "name": "Plan: Deer Skull",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "00435856",
+   "name": "Plan: Mounted Antlers",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "0043585F",
+   "name": "Plan: Mounted Beaver",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "004E9FF1",
+   "name": "Plan: Mounted Brahmin Heads",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "004E9FE9",
+   "name": "Plan: Mounted Cat Head",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "004E9FFB",
+   "name": "Plan: Mounted Deathclaw Head",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "00435857",
+   "name": "Plan: Mounted Deer Head",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "004E9FD4",
+   "name": "Plan: Mounted Dog Head",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "004E9FF3",
+   "name": "Plan: Mounted Feral Ghoul Head",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "00435859",
+   "name": "Plan: Mounted Fox",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "00435860",
+   "name": "Plan: Mounted Frog",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "004E9FF7",
+   "name": "Plan: Mounted Glowing One Head",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "0040DF43",
+   "name": "Plan: Mounted Gorilla Head",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "0043585A",
+   "name": "Plan: Mounted Honey Beast",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "004E9FFD",
+   "name": "Plan: Mounted Mirelurk Claw",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "004E9FF9",
+   "name": "Plan: Mounted Mirelurk Hunter Head",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "004E9FDB",
+   "name": "Plan: Mounted Mirelurk King Head",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "004E9FEB",
+   "name": "Plan: Mounted Molerat Head",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "004E9FDF",
+   "name": "Plan: Mounted Mongrel Head",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "0043585C",
+   "name": "Plan: Mounted Mothman",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "004E9FF5",
+   "name": "Plan: Mounted Mutant Hound Head",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "0043585D",
+   "name": "Plan: Mounted Opossum",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "004E9FE3",
+   "name": "Plan: Mounted Radscorpion",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "00435862",
+   "name": "Plan: Mounted Radtoad",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "00435863",
+   "name": "Plan: Mounted Scorchbeast",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "00435865",
+   "name": "Plan: Mounted Snallygaster",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "00435861",
+   "name": "Plan: Mounted Squirrel",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "00921E5B",
+   "name": "Plan: Resolve Breaker Paint",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "005AFDEE",
+   "name": "Plan: Sitting Gorilla",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "005AD986",
+   "name": "Plan: Standing Gorilla",
+   "fixed_on": "2026-10-05"
+  },
+  {
+   "id": "0043585B",
+   "name": "Plan: Mounted Mega Sloth",
+   "fixed_on": "2026-10-05"
+  },
   {
    "id": "00948263",
    "name": "Plan: 50 Cal Machine Gun Aligned Grip",
