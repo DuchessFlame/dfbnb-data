@@ -65,7 +65,12 @@ LEAK = re.compile(
     # A label that IS a bare content code ("MN2", "MTNS") never resolved to a
     # name; QuestNames resolves a code shared by one event and only non-story
     # scaffolding to that event.
-    r"|^(?:MN\d|MTNS|FF\d\d)$")
+    r"|^(?:MN\d|MTNS|FF\d\d)$"
+    # Shared reward pools read as data-miner shorthand until pool_label()
+    # names them ("Schematic Weapon Burning Springs Melee", "Regions Grab Bag",
+    # "Mods Regions GRP", "MILE Mystery Crate Ash Heap Roll" — Oct 2026).
+    r"|\bGRP\b|\bGrab Bag\b|\bMainRoll\b|\bMystery Crate \w+(?: \w+)? Roll\b"
+    r"|^Schematic\b")
 
 
 # Quest titles are written by humans, so they are linted for editor scaffolding

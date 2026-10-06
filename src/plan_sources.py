@@ -888,6 +888,162 @@ CURATED_LABELS = {
 }
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# Shared reward POOLS — named for the player, not the data-miner
+# ─────────────────────────────────────────────────────────────────────────────
+# A handful of list families are pools many sources draw from. Read off the
+# EditorID they came out as "Schematic Weapon Burning Springs Melee", "Regions
+# Grab Bag", "Mods Regions GRP" or "MILE Mystery Crate Ash Heap Roll", which
+# means nothing to someone who doesn't datamine (Duchess, Oct 2026). The
+# family is a fixed Bethesda convention, so the shape is matched and the words
+# a player would use are put back. Only the region, size or item type is taken
+# from the EditorID; nothing is per-plan.
+REGION_WORDS = {
+    "ashheap": "Ash Heap", "burningsprings": "Burning Springs",
+    "cranberrybog": "Cranberry Bog", "forest": "The Forest", "mire": "The Mire",
+    "savagedivide": "Savage Divide", "skylinevalley": "Skyline Valley",
+    "toxicvalley": "Toxic Valley",
+}
+_POOL_KIND = {"weapon": "weapon", "weapons": "weapon", "armor": "armour", "cooking": "recipe",
+              "aid": "aid", "mods": "mod", "mod": "mod", "powerarmor": "power armour",
+              "workshop": "workshop", "all": "", "any": ""}
+_RX_REGIONS = "|".join(REGION_WORDS)
+_POOL_RULES = [
+    # QuestReward_LLS_BurningSprings_All / _Any -> "Burning Springs quest rewards"
+    (re.compile(rf"^QuestReward_LLS_(?P<r>{_RX_REGIONS})_(?:All|Any)$", re.I),
+     lambda m: f"{REGION_WORDS[m['r'].lower()]} quest rewards"),
+    (re.compile(r"^QuestReward_LLS_AllRegions_(?:All|Any)$", re.I),
+     lambda m: "Quest rewards (any region)"),
+    # ..._GrabBag: the extra random roll quests, events and encounters hand out
+    (re.compile(rf"^QuestReward_LLS_(?P<r>{_RX_REGIONS})_GrabBag$", re.I),
+     lambda m: f"{REGION_WORDS[m['r'].lower()]} bonus rewards"),
+    (re.compile(r"^QuestReward_LLS_AllRegions_GrabBag$", re.I),
+     lambda m: "Bonus rewards (any region)"),
+    # QuestReward_LLS_Schematic_Weapon_BurningSprings_Melee and friends
+    (re.compile(rf"^QuestReward_LLS_Schematic(?:_(?P<k>Weapon|Armor|Aid|Cooking|All))?"
+                rf"(?:_(?P<r>{_RX_REGIONS}))(?:_(?P<x>Melee|Ranged))?(?:_All)?$", re.I),
+     lambda m: f"{REGION_WORDS[m['r'].lower()]} quest rewards - "
+               f"{(((m['x'] or '').lower() + ' ') if m['x'] else '')}"
+               f"{_POOL_KIND.get((m['k'] or 'all').lower(), '') or 'any'} plans".replace("any plans", "plans").replace("recipe plans", "recipes")),
+    # MILE_LL_MysteryCrate_AshHeap_MainRoll -> "Mole Miner Mystery Crate (Ash Heap)"
+    (re.compile(rf"^MILE_LL_MysteryCrate_(?P<r>{_RX_REGIONS}|Basic)_(?:Main|Sub)Roll$", re.I),
+     lambda m: "Mole Miner Mystery Crate" + ("" if m["r"].lower() == "basic"
+                                            else f" ({REGION_WORDS[m['r'].lower()]})")),
+    # LPI_Recipes_Mods_Weapons_AllRegions_GRP / LPI_Recipes_Weapons_Any_RegionMire_GRP:
+    # the plans placed loose in the world, rolled per spot
+    (re.compile(rf"^LPI_(?:Recipes_)?(?P<k>[A-Za-z_]+?)_(?:Any_)?(?:AllRegions|Region(?P<r>{_RX_REGIONS}))_GRP$", re.I),
+     lambda m: "Plans lying in the world" + (f" ({REGION_WORDS[m['r'].lower()]})" if m["r"] else "")),
+    # LLE_Creature_Boss_Small(_Dynamic) -> boss enemies, by loot size
+    (re.compile(r"^LLE_Creature_Boss_(?P<s>Small|Medium|Large)(?:_Dynamic)?$", re.I),
+     lambda m: f"Boss enemies ({m['s'].lower()} loot)"),
+    # RA_LL_Rewards_(Enclave)Activities: every Activity: quest pays from these
+    (re.compile(r"^RA_LL_Rewards_Activities$", re.I), lambda m: "Activity rewards"),
+    (re.compile(r"^RA_LL_Rewards_EnclaveActivities$", re.I), lambda m: "Enclave activity rewards"),
+    (re.compile(r"^QuestReward_LLS_Schematic_Armor_Raider$", re.I),
+     lambda m: "Raider quest rewards - armour plans"),
+    # Treasure map mounds
+    (re.compile(r"^LL_TreasureMap_Reward$", re.I), lambda m: "Treasure Map dig spots"),
+]
+
+
+_RX_SCHEMATIC_ANY = re.compile(r"^QuestReward_LLS_Schematic_(?P<rest>.+)$", re.I)
+
+
+def pool_label(edid, quests=None):
+    """Player-facing name for a shared reward pool, or None."""
+    e = (edid or "").strip()
+    for rx, fn in _POOL_RULES:
+        m = rx.match(e)
+        if m:
+            return re.sub(r"\s+", " ", fn(m)).strip()
+    # Any other schematic pool belongs to one quest or event: name that, and
+    # say it pays plans. QuestReward_LLS_Schematic_CB15_Special -> CB15 is
+    # Scorched Earth in the QUEST export.
+    m = _RX_SCHEMATIC_ANY.match(e)
+    if m:
+        rest = re.sub(r"_(?:Special|All|Any)$", "", m["rest"], flags=re.I)
+        head = source_label(rest, quests)
+        if head and not head.lower().startswith("schematic"):
+            return f"{head} - plans"
+    return None
+
+
+# Leftover editor wording in a finished label: a bare content code ("CB04",
+# "GQ10", "MILE") or a pool word. Only used to decide whether the quest that
+# pays the list out would name it better — never to drop a route.
+_RX_WIRING_WORDS = re.compile(
+    r"\b(?:Schematic|GRP|Grab Bag|MainRoll|Roll|Priority|Regions)\b"
+    r"|(?<![\w.])[A-Z]{2,5}\d{0,3}[A-Z]?\d*(?![\w.])"
+    r"|(?<![\w.])[A-Z][A-Za-z]{0,3}\d{2,3}(?![\w.])")
+_WIRING_OK = {"ATLAS", "NWOT", "ENB", "BOS", "PA", "XP", "AI", "UFO", "TV", "OK"}
+
+
+def looks_like_wiring(label):
+    """True when a label still reads like an EditorID to a player."""
+    for m in _RX_WIRING_WORDS.finditer(label or ""):
+        if m.group(0).upper() not in _WIRING_OK:
+            return True
+    return False
+
+
+def direct_quest_label(entries, gmrw_quests, quest_titles):
+    """The quest(s) whose reward records roll this list directly, or None.
+
+    `entries` are the list's own non-list holders. Up to three titles are
+    named; more than that is a shared pool and the pool's own name is kept.
+    """
+    names = []
+    for rf, _redid, rsig in entries or ():
+        rf = (rf or "").upper()
+        t = gmrw_quests.get(rf) if rsig == "GMRW" else (
+            quest_titles.get(rf) if rsig == "QUST" else None)
+        if t and usable_quest_name(t):
+            t = re.sub(r"^\(?Repeatable\)?:?\s+", "", t).strip()
+            if t and t not in names:
+                names.append(t)
+    if not names or len(names) > 3:
+        return None
+    return ", ".join(sorted(names))
+
+
+_RX_TIER_TOKEN = re.compile(r"^(?:Lvl|Level|Tier|Tranche|Alt)0*(\d+)$", re.I)
+
+
+def tier_suffixes(rows_lists, parent_edid):
+    """Tell apart rows that share a label but pay at different rates.
+
+    `rows_lists` is one list of LVLI FormIDs per row. Returns one suffix per
+    row ("" when nothing tells it apart). Radiation Rumble pays from three
+    lists, ..._RewardList_Lvl2/3/4, at three rates; all three named
+    "Event: Radiation Rumble", so the page printed the event twice at 2.5% and
+    1.25% with nothing to say which was which. The token that differs between
+    the lists is the difference, so it is what gets said.
+    """
+    toks = []
+    for lists in rows_lists:
+        t = set()
+        for L in lists:
+            t |= {p for p in re.split(r"[_\-]", parent_edid.get(L, "") or "") if p}
+        toks.append(t)
+    common = set.intersection(*toks) if toks else set()
+    out = []
+    for t in toks:
+        own = sorted(t - common)
+        word = ""
+        for p in own:
+            m = _RX_TIER_TOKEN.match(p)
+            if m:
+                word = f"tier {int(m.group(1))}"
+                break
+        if not word and len(own) == 1 and own[0].isalpha() and own[0].lower() not in PLUMBING:
+            word = " ".join(_split_camel(own[0])).lower()
+        out.append(word)
+    # Only useful if it actually separates the rows.
+    if len(set(out)) < len(out) or not all(out):
+        return [""] * len(out)
+    return out
+
+
 def source_label(edid, quests=None):
     """Readable name for a leveled list, or None if it is not a real source.
 
@@ -900,6 +1056,9 @@ def source_label(edid, quests=None):
         return CURATED_LABELS[raw]
     if not raw:
         return None
+    pooled = pool_label(raw, quests)
+    if pooled:
+        return pooled
 
     parts = [p for p in _RX_LIST_PFX.sub("", raw).replace("-", "_").split("_") if p]
     if not parts:

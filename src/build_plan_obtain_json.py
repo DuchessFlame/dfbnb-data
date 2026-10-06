@@ -620,6 +620,12 @@ def plan_classify(sig, edid, via_edid):
     if sig == "NPC_" or "creature" in e or "lle_" in e or "_npc_" in e: return "creature"
     if sig == "REFR": return "fixed"
     if sig == "CONT": return "container"
+    # The record's own type, when no word in the EditorIDs said anything. A
+    # quest or quest-reward record rolling a list is a quest/event payout
+    # (MILE_MoleMiner_MysteryCrate is a QUST and its EditorID never says so);
+    # an activator is a placed thing you interact with (Abraxo caches).
+    if sig in ("QUST", "GMRW"): return "event-quest"
+    if sig == "ACTI": return "fixed"
     return "loot-list"
 
 BUCKET_LABEL = {"container":"container","vendor":"vendor","creature":"creature",
@@ -639,6 +645,9 @@ QUEST_NAMES = plan_sources.QuestNames()
 # GMRW FormID -> quest title; set in main() from UnlockIndex. Used to name
 # "Side Quests" routes after the actual quest (plan_sources.quest_route_label).
 GMRW_QUESTS = {}
+# QUST FormID -> quest title; set in main() from UnlockIndex (for lists a quest
+# record rolls directly, e.g. CB04_RewardContainerList <- "Mayor for a Day").
+QUEST_TITLES = {}
 
 AREA_CODE  = plan_sources.AREA_CODE          # re-exported: other builders read these
 _DEV_CODES = plan_sources.DEV_CODES
@@ -690,6 +699,111 @@ def holder_bucket(via, holders):
     return best
 
 
+def entry_holders(holders):
+    """The records that roll this list THEMSELVES — anything but another list.
+
+    A leveled list held only by other leveled lists is a step inside someone
+    else's roll, not a place a player can go. Its rng76 appearance is the
+    chance ONCE YOU ARE ALREADY INSIDE IT, so publishing it as a route printed
+    a conditional rate next to the real one:
+
+        Plan: Nuka-Cola Balloons
+          NWOT                        7.14%   <- NWOT_LL_QuestReward_Generic_Recipe
+          Event: Spin The Wheel       3.57%   <- E09B_Wheel_LL_QuestReward
+
+    The 7.14% is the 1-in-14 pick inside the generic recipe pool, which Spin
+    The Wheel only reaches half the time — the real chance is the 3.57% the
+    event row already shows. 3,730 rows across 1,602 plans were this (Oct
+    2026 live), and it is what made the same event print twice at two rates
+    (Radiation Rumble 2.5% / 1.25% on the Gamma Gun).
+
+    Editor-only holders (DEPRECATED_ effects, BabylonExcludeList) are not
+    entries either: nothing a player does reaches them.
+    """
+    return [(rf, redid, rsig) for rf, redid, rsig in holders
+            if rsig != "LVLI" and not plan_sources.is_dev_record(redid)
+            and not plan_sources._RX_DEV_RECORD.search(redid or "")]
+
+
+# MGEF FormID -> what the player opens to fire it ("Holiday Gift", "Ornate
+# Mole Miner Pail", "Spooky Treat Bag"). Loaded lazily from the ALCH export,
+# so build_no_plan_apparel_json.py (which calls resolve_routes directly) gets
+# it too without having to know about it.
+OPENABLE_NAMES = None
+_RX_TIER = re.compile(r"Tier_?0*(\d+)", re.I)
+
+
+def load_openable_names():
+    """MGEF FormID -> readable name of the consumable that carries it.
+
+    Gifts, pails, treat bags and reward boxes give their loot through a magic
+    effect: ALCH (the thing you open) -> MGEF (its effect) -> LVLI (the loot).
+    The LVLI's only holder is the MGEF, whose name ("Holiday Present Tier 02
+    Effect") is not what the player sees, so the route used to drop out as
+    "plumbing" and only the inner lists — at their conditional rates — were
+    left on the page. The ALCH FULL is the name on the item in the Pip-Boy.
+    Same-named tiers ("Holiday Gift" x3) are told apart by the Tier number
+    in the ALCH EditorID, so three rates never sit under one name.
+    """
+    out = {}
+    eff = newest("ALCH_Export_*_Effects.tsv")
+    base = newest("ALCH_Export_*.tsv")       # tsv_source ranks the base file first
+    if not eff or not base or base.endswith("_Effects.tsv"):
+        return out
+    full = {}
+    for r in read_rows(base):
+        fid = (r.get("ALCH_FormID") or r.get("FormID") or "").strip().upper()
+        nm = (r.get("FULL") or "").strip()
+        if fid and nm:
+            full[fid] = nm
+    rows = []
+    mgefs_by_name = collections.defaultdict(set)
+    for r in read_rows(eff):
+        afid = (r.get("ALCH_FormID") or "").strip().upper()
+        aedid = (r.get("ALCH_EDID") or "").strip()
+        mfid = (r.get("MGEF_FormID") or "").strip().upper()
+        nm = full.get(afid)
+        if not (mfid and nm) or plan_sources.is_dev_record(aedid):
+            continue
+        if plan_sources._RX_DEV_RECORD.search(aedid) or not plan_sources.usable_quest_name(nm):
+            continue
+        rows.append((mfid, aedid, nm))
+        mgefs_by_name[nm].add(mfid)
+    seen = {}
+    for mfid, aedid, nm in rows:
+        # Only where one name covers several effects (three "Holiday Gift"
+        # tiers) does the tier need saying; "Ornate Mole Miner Pail" already
+        # says which pail it is.
+        m = _RX_TIER.search(aedid)
+        if m and len(mgefs_by_name[nm]) > 1 and not re.search(r"\btier\b", nm, re.I):
+            nm = f"{nm} (Tier {int(m.group(1))})"
+        lst = seen.setdefault(mfid, [])
+        if nm not in lst:
+            lst.append(nm)
+    for mfid, names in seen.items():
+        names.sort(key=lambda n: (len(n), n))
+        out[mfid] = " / ".join(names[:2])
+    return out
+
+
+def openable_name(entries):
+    """Readable name of the item(s) whose effect rolls this list, or None."""
+    global OPENABLE_NAMES
+    if OPENABLE_NAMES is None:
+        try:
+            OPENABLE_NAMES = load_openable_names()
+        except Exception as exc:                      # noqa: BLE001 - never fatal
+            print(f"  WARNING: openable names unavailable: {exc}", file=sys.stderr)
+            OPENABLE_NAMES = {}
+    names = []
+    for rf, redid, rsig in entries:
+        if rsig == "MGEF":
+            nm = OPENABLE_NAMES.get((rf or "").upper())
+            if nm and nm not in names:
+                names.append(nm)
+    return " / ".join(names[:2]) if names else None
+
+
 def collapse_routes(routes):
     """Merge rows that are the same source wearing two hats.
 
@@ -733,8 +847,11 @@ def collapse_routes(routes):
             order.append(k)
         else:
             cur = best[k]["route"]
+            merged = set(best[k].get("_lvli") or ()) | set(r.get("_lvli") or ())
             if (len(r["route"]), r["route"]) < (len(cur), cur):
                 best[k] = r
+            if merged:
+                best[k]["_lvli"] = merged
     return [best[k] for k in order]
 
 
@@ -786,10 +903,34 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
     #    (bucket, family, rate) so identical-rate variants dedupe.
     seen_c = set((r["source_type"], r["route"], round(r["rate"], 4)) for r in routes)  # containers
     seen_n = {}  # (bucket, family, rate4) -> route dict (collapse variants)
+    seen_v = {}  # (vendor, name, rate4) -> route dict
     quest_named = set()  # labels taken from a GMRW quest title (quest_route_label)
+    c2p = tables.get("c2p") or {}
     for L in closure:
         via = parent_edid.get(L, "")
         holders = lvli_refs.get(L) or lvli_refs.get(str(L).upper()) or ()
+        entries = entry_holders(holders)
+        # A list only other lists hold is a step inside a bigger roll, and its
+        # rate is conditional on that roll — see entry_holders(). The list that
+        # holds it gets its own route at the real rate. Lists with no parent
+        # AND no holder (orphans) keep the old path; prune_dead_routes judges them.
+        if not entries and any(p in closure for p in c2p.get(str(L).upper(), ())):
+            continue
+        # Gifts, pails, treat bags: the loot hangs off the item's magic effect.
+        # Named after the item, filed as loot you open (Containers).
+        opened = openable_name(entries)
+        if opened:
+            rate = 0.0 if names_only else app(L)
+            if not names_only and (not rate or rate <= 0):
+                continue
+            by_name.setdefault(opened, []).append(L)
+            k = ("container", opened.lower(), round(rate, 4))
+            if k not in seen_n:
+                seen_n[k] = {"route": opened, "source_type": "container",
+                             "rate": round(rate, 6), "rate_display": bfu._fmt_rate(rate),
+                             "_lvli": set()}
+            seen_n[k]["_lvli"].add(L)
+            continue
         bucket = holder_bucket(via, holders)
         if bucket in ("container", "loot-list"):
             continue  # containers handled above; loot-list = internal plumbing, not a world source
@@ -829,8 +970,12 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
             key = ("vendor", name, round(rate, 4))
             if key not in seen_c:
                 seen_c.add(key)
-                routes.append({"route": name, "source_type": "vendor",
-                               "rate": round(rate, 6), "rate_display": bfu._fmt_rate(rate)})
+                seen_v[key] = {"route": name, "source_type": "vendor",
+                               "rate": round(rate, 6), "rate_display": bfu._fmt_rate(rate),
+                               "_lvli": set()}
+                routes.append(seen_v[key])
+            if key in seen_v:
+                seen_v[key]["_lvli"].add(L)
             continue
         # source_label reads the raw EditorID (not humanize()'d) because it needs
         # the underscore boundaries to find the area code. None = editor-only
@@ -844,6 +989,10 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
             # names the real quest.
             qfam = plan_sources.quest_route_label(fam, str(L).upper(), lvli_refs,
                                                   GMRW_QUESTS)
+            # Still reads like an EditorID ("Schematic Armor Raider", "CB04")?
+            # The quest record that rolls this list names it for a player.
+            if not qfam and plan_sources.looks_like_wiring(fam):
+                qfam = plan_sources.direct_quest_label(entries, GMRW_QUESTS, QUEST_TITLES)
             if qfam:
                 fam = qfam
                 quest_named.add(qfam)
@@ -851,16 +1000,39 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
         k = (bucket, fam.lower(), round(rate, 4))
         if k not in seen_n:
             seen_n[k] = {"route": fam, "source_type": bucket,
-                         "rate": round(rate, 6), "rate_display": bfu._fmt_rate(rate)}
+                         "rate": round(rate, 6), "rate_display": bfu._fmt_rate(rate),
+                         "_lvli": set()}
+        seen_n[k]["_lvli"].add(L)
     routes.extend(seen_n.values())
     if names_only:
         return by_name
     routes = collapse_routes(routes)
 
+    # Same name, different rates: say what differs (tier 2 / tier 3 ...).
+    groups = collections.defaultdict(list)
+    for r in routes:
+        if r.get("_lvli"):
+            groups[r["route"]].append(r)
+    for label, rows in groups.items():
+        if len(rows) < 2:
+            continue
+        sfx = plan_sources.tier_suffixes([sorted(r["_lvli"]) for r in rows], parent_edid)
+        for r, sx in zip(rows, sfx):
+            if sx:
+                r["route"] = f"{label} ({sx})"
+                if label in quest_named:
+                    quest_named.add(r["route"])
+                by_name.setdefault(r["route"], []).extend(r["_lvli"])
+
     routes.sort(key=lambda r: (-(r["rate"] or 0), r["source_type"], r["route"].lower()))
     routes = routes[:12]
     for r in routes:
-        r["lvli"] = sorted(set(by_name.get(r["route"], ())))
+        # The lists behind THIS row (this name at this rate). Was looked up by
+        # name alone, so two rows sharing a name — Radiation Rumble at 2.5% and
+        # 1.25% — both listed every list either rate came from, and the drop
+        # conditions / dead-route checks read the wrong ones.
+        own = r.pop("_lvli", None)
+        r["lvli"] = sorted(set(own) if own else set(by_name.get(r["route"], ())))
         if r["route"] in quest_named:
             # Named after the quest that pays it out -- lets New Plans file it
             # under Quests now the label no longer says "Side Quests".
@@ -927,6 +1099,7 @@ def main(argv=None):
         unlock_idx = plan_sources.UnlockIndex(TSV, lambda pat, root: newest(pat, root))
         QUEST_NAMES = unlock_idx.quest_names
         GMRW_QUESTS.clear(); GMRW_QUESTS.update(unlock_idx.gmrw_quests)
+        QUEST_TITLES.clear(); QUEST_TITLES.update(getattr(unlock_idx, "_quests_by_fid", {}))
         print(f"[plan-obtain] quest names: {sum(1 for v in QUEST_NAMES.exact.values() if v)} "
               f"unambiguous prefixes, {len(QUEST_NAMES.family)} families")
     # What kind of place each route is (quest / event / enemy / corpse), read

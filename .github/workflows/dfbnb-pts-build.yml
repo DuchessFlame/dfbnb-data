@@ -1058,6 +1058,17 @@ jobs:
       - name: Build Unique Weapons Armour JSON
         run: python src/build_unique_weapons_armour_json.py --channel live
 
+      # --- APPAREL WITHOUT PLANS (PTS channel) ---
+      # tsv/ is already PTS-normalized here, so this IS the PTS build; the
+      # relocate step moves dist/no_plan_apparel.json -> dist/pts/. Keep in step
+      # with the same step in dfbnb-patch-build.yml.
+      - name: Build Apparel Without Plans JSON
+        run: |
+          python src/build_no_plan_apparel_json.py \
+            --data-dir tsv \
+            --outdir dist \
+            --report dist/no_plan_apparel_unresolved.json
+
       # --- PENNANTS (Pennants checklist page) ---
       # Outputs dist/pennants.json, served via raw.githubusercontent to
       # df-bnb-plan-checklists.js. Previously had no workflow and went stale.
