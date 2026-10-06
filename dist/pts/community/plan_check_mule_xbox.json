@@ -2082,7 +2082,38 @@
      "image_dir": "weapons",
      "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
      "category_label": "Weapon Mod / Paint",
-     "obtain_routes": [],
+     "obtain_routes": [
+      {
+       "route": "Event: Tunnel Of Love",
+       "source_type": "event-quest",
+       "rate": 0.016667,
+       "rate_display": "1.67%",
+       "lvli": [
+        "006772EB",
+        "006772EC",
+        "0068B8E9"
+       ],
+       "kind": "event",
+       "conditions": [
+        "Stops dropping once you learn it"
+       ]
+      },
+      {
+       "route": "Event: Tunnel Of Love",
+       "source_type": "event-quest",
+       "rate": 0.008333,
+       "rate_display": "0.83%",
+       "lvli": [
+        "006772EB",
+        "006772EC",
+        "0068B8E9"
+       ],
+       "kind": "event",
+       "conditions": [
+        "Stops dropping once you learn it"
+       ]
+      }
+     ],
      "obtain_unlocks": [],
      "plan_item": {
       "formid": "008F20F0",
@@ -2102,43 +2133,16 @@
      "effects": null,
      "cut": false,
      "cut_reason": null,
-     "obtain_ledger": [],
-     "retired_routes": [
+     "obtain_ledger": [
       {
-       "route": "Event: Tunnel Of Love",
-       "source_type": "event-quest",
-       "rate": 0.016667,
-       "rate_display": "1.67%",
-       "lvli": [
-        "006772EC",
-        "0068B8E9"
-       ],
-       "kind": "event",
-       "conditions": [
-        "Stops dropping once you learn it"
-       ],
-       "retired_because": [
-        "reward pool not hooked up"
-       ]
-      },
-      {
-       "route": "Event: Tunnel Of Love",
-       "source_type": "event-quest",
-       "rate": 0.008333,
-       "rate_display": "0.83%",
-       "lvli": [
-        "006772EC",
-        "0068B8E9"
-       ],
-       "kind": "event",
-       "conditions": [
-        "Stops dropping once you learn it"
-       ],
-       "retired_because": [
-        "reward pool not hooked up"
+       "label": "Events & Activities",
+       "routes": [
+        0,
+        1
        ]
       }
      ],
+     "source_tag": "Events",
      "images": [],
      "image_source": "",
      "plan_page": "weapon",
@@ -2654,7 +2658,7 @@
   }
  ],
  "_meta": {
-  "built": "2026-10-06T05:25:07Z",
+  "built": "2026-10-06T07:45:38Z",
   "master": "plan_master.json"
  }
 }

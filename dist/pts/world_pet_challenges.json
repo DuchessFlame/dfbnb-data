@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-06T04:58:40.671603Z",
+  "generated": "2026-10-06T07:17:59.206487Z",
   "source": "CHAL/CNDF TSV exports (build_world_pet_challenges_json.py)",
   "total": 20,
   "groups": [
@@ -18,7 +18,7 @@
           "required": 1,
           "counter": "World Pet Activated",
           "desc": "Activate a World Pet from your Pip-Boy. Only one pet can be active at a time.",
-          "reward": "10 Caps",
+          "reward": "50 Caps",
           "conditions_display": [
             ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
           ]
@@ -35,7 +35,7 @@
           "required": 3,
           "counter": "World Pet Commanded",
           "desc": "Issue a command to your active pet from the Pet Command Wheel (Follow, Stay, Attack or Protect).",
-          "reward": "10 Caps",
+          "reward": "50 Caps",
           "conditions_display": [
             ".IsTrueForConditionForm(WorldPets_PetChallenge_CheckPetActive_Condition_IsPet [CNDF:008B53A3]) = 1"
           ]
@@ -162,7 +162,7 @@
           "required": 25,
           "counter": "Fish Caught",
           "desc": "Catch fish while a Pet Cat is your active World Pet.",
-          "reward": "100 Caps",
+          "reward": "300 Caps",
           "conditions_display": [
             ".HasKeyword(Cat [KYWD:0079AF1D]) = 1"
           ]
@@ -218,11 +218,11 @@
           "required": 3,
           "counter": "Quests Completed",
           "desc": "Complete Grunt Hunts or Head Hunts while a Pet Dog is active.",
-          "reward": "100 Caps",
+          "reward": "300 Caps",
           "conditions_display": [
             ".HasKeyword(Dog [KYWD:0079AF1C]) = 1",
             "Target.IsInList(Burn Bounty Completed Head Hunts [FLST:00843165]) = 1",
-            "Target.IsInList(Burn Bounty Completed Grunt Hunts [FLST:0084315F]) = 1"
+            "Target.IsInList(Completed Grunt Hunts [FLST:0084315F]) = 1"
           ]
         },
         {
@@ -241,7 +241,7 @@
           "conditions_display": [
             ".HasKeyword(Dog [KYWD:0079AF1C]) = 1",
             "Target.IsInList(Burn Bounty Completed Head Hunts [FLST:00843165]) = 1",
-            "Target.IsInList(Burn Bounty Completed Grunt Hunts [FLST:0084315F]) = 1"
+            "Target.IsInList(Completed Grunt Hunts [FLST:0084315F]) = 1"
           ]
         },
         {
@@ -260,7 +260,7 @@
           "conditions_display": [
             ".HasKeyword(Dog [KYWD:0079AF1C]) = 1",
             "Target.IsInList(Burn Bounty Completed Head Hunts [FLST:00843165]) = 1",
-            "Target.IsInList(Burn Bounty Completed Grunt Hunts [FLST:0084315F]) = 1"
+            "Target.IsInList(Completed Grunt Hunts [FLST:0084315F]) = 1"
           ]
         }
       ]
@@ -280,7 +280,7 @@
           "required": 25,
           "counter": "Plants Harvested",
           "desc": "Collect Flux while a Pet Radhog is active.",
-          "reward": "100 Caps",
+          "reward": "300 Caps",
           "conditions_display": [
             ".HasKeyword(Radhog [KYWD:0084FB8C]) = 1",
             "Target.HasKeyword(PlantTypeFluxYellow [KYWD:004713D0]) = 1",
@@ -351,7 +351,7 @@
           "required": 20,
           "counter": "Total Enemies Killed",
           "desc": "Kill Infestation enemies while a Pet Deathclaw is active.",
-          "reward": "100 Caps",
+          "reward": "300 Caps",
           "conditions_display": [
             ".HasKeyword(Deathclaw [KYWD:008A52BB]) = 1",
             ".PlayerHasQuest(Infestation [QUST:00865FA8]) = 1"

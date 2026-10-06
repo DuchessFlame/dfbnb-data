@@ -8,9 +8,57 @@
     "current_game_version": "1.7.26.22",
     "current_patch_date": "2026-10-01",
     "patches_behind": 1,
-    "current": 6800
+    "current": 6802
   },
   "entries": [
+    {
+      "ts": "2026-10-05",
+      "source": "NPC_Export_PTS_2026-10-05_2203.tsv",
+      "game_version": "1.7.26.22",
+      "patch_name": "The Slasher",
+      "current": 6802,
+      "added": [
+        {
+          "name": "Armored Deathclaw",
+          "id": "00954354"
+        },
+        {
+          "name": "Rusted Deathclaw",
+          "id": "00954353"
+        }
+      ],
+      "removed": [],
+      "changed": [
+        {
+          "name": "Dr. Regina Marcs",
+          "id": "008D5C81",
+          "changes": [
+            {
+              "field": "Race",
+              "from": "GhoulRace",
+              "to": "GHL_PlayerGhoulRace"
+            }
+          ]
+        },
+        {
+          "name": "HIDE_RustRaiderWildcard",
+          "id": "008F4EC4",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Rust Guard Veteran",
+              "to": ""
+            },
+            {
+              "field": "Race",
+              "from": "HumanRace",
+              "to": "DeathclawRace"
+            }
+          ]
+        }
+      ],
+      "notes": []
+    },
     {
       "ts": "2026-09-21",
       "source": "NPC_Export_PTS_2026-09-21_1214.tsv",

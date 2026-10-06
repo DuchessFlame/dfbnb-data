@@ -431,6 +431,9 @@
     "activities/by_page/always-vigilant-all-rewards.json": {
       "structural_change": true
     },
+    "activities/by_page/atlantic-city-expos-all-rewards.json": {
+      "structural_change": true
+    },
     "activities/by_page/awol-armaments-all-rewards.json": {
       "structural_change": true
     },
@@ -456,6 +459,9 @@
       "structural_change": true
     },
     "activities/by_page/collision-course-all-rewards.json": {
+      "structural_change": true
+    },
+    "activities/by_page/daily-ops-all-rewards.json": {
       "structural_change": true
     },
     "activities/by_page/dangerous-pastimes-all-rewards.json": {
@@ -616,13 +622,16 @@
     },
     "allies.json": {
       "key": "edid",
-      "added": [],
+      "added": [
+        "SCORE_S27_CAMP_MrMoore_Pod_FURN"
+      ],
       "removed": [],
       "changed": [
         {
           "key": "",
           "label": "",
           "fields": [
+            "dialog",
             "imageUrl"
           ]
         },
@@ -630,6 +639,7 @@
           "key": "ATX_CAMP_Astronomer_KatherineFurniture_CampObject",
           "label": "ATX_CAMP_Astronomer_KatherineFurniture_CampObject",
           "fields": [
+            "dialog",
             "imageUrl"
           ]
         },
@@ -637,6 +647,7 @@
           "key": "ATX_COMP_Furniture_Weapons_Mechanic_Sam",
           "label": "ATX_COMP_Furniture_Weapons_Mechanic_Sam",
           "fields": [
+            "dialog",
             "imageUrl"
           ]
         },
@@ -644,6 +655,7 @@
           "key": "ATX_COMP_Ghoul_XerxoFurniture_CampObject",
           "label": "ATX_COMP_Ghoul_XerxoFurniture_CampObject",
           "fields": [
+            "dialog",
             "imageUrl"
           ]
         },
@@ -651,6 +663,7 @@
           "key": "ATX_Furniture_LiteAllyTheInitiate_Lawson",
           "label": "ATX_Furniture_LiteAllyTheInitiate_Lawson",
           "fields": [
+            "dialog",
             "inventory"
           ]
         },
@@ -658,6 +671,7 @@
           "key": "BS01_COMP_Cooking_YasminFurniture_CampObject",
           "label": "BS01_COMP_Cooking_YasminFurniture_CampObject",
           "fields": [
+            "dialog",
             "imageUrl"
           ]
         },
@@ -665,7 +679,57 @@
           "key": "BS01_COMP_Medic_Furniture_CampObject",
           "label": "BS01_COMP_Medic_Furniture_CampObject",
           "fields": [
+            "dialog",
             "imageUrl"
+          ]
+        },
+        {
+          "key": "COMP_Furniture_CampObject_Beckett_Bar",
+          "label": "COMP_Furniture_CampObject_Beckett_Bar",
+          "fields": [
+            "dialog"
+          ]
+        },
+        {
+          "key": "COMP_Furniture_CampObject_Cambot_Console",
+          "label": "COMP_Furniture_CampObject_Cambot_Console",
+          "fields": [
+            "dialog"
+          ]
+        },
+        {
+          "key": "COMP_Furniture_CampObject_Wanderer_Guitar",
+          "label": "COMP_Furniture_CampObject_Wanderer_Guitar",
+          "fields": [
+            "dialog"
+          ]
+        },
+        {
+          "key": "SCORE_S11_CAMP_LeoPetrov_Nukaagent_FURN",
+          "label": "SCORE_S11_CAMP_LeoPetrov_Nukaagent_FURN",
+          "fields": [
+            "inventory"
+          ]
+        },
+        {
+          "key": "SCORE_S12_CAMP_Scarberry_Shrine_FURN",
+          "label": "SCORE_S12_CAMP_Scarberry_Shrine_FURN",
+          "fields": [
+            "dialog"
+          ]
+        },
+        {
+          "key": "SCORE_S13_CAMP_JoeyBello_Stage_FURN",
+          "label": "SCORE_S13_CAMP_JoeyBello_Stage_FURN",
+          "fields": [
+            "dialog"
+          ]
+        },
+        {
+          "key": "SCORE_S16_CAMP_Adelaide_Table_FURN",
+          "label": "SCORE_S16_CAMP_Adelaide_Table_FURN",
+          "fields": [
+            "dialog"
           ]
         },
         {
@@ -703,9 +767,20 @@
     },
     "buff-stations.json": {
       "key": "edid",
-      "added": [],
+      "added": [
+        "ATX_CAMP_FloorDecor_ExerciseEquipment_EnclaveEnduranceTrainer",
+        "ATX_Structure_Furniture_AssaultronAssemblyPlatform_AssaultronPlatform",
+        "ATX_Structure_Furniture_VatofFEV_FEVVat"
+      ],
       "removed": [],
       "changed": [
+        {
+          "key": "ATX_CAMP_FloorDecor_ExerciseEquipment_Speed_Bag_RaiderSpeedBag",
+          "label": "ATX_CAMP_FloorDecor_ExerciseEquipment_Speed_Bag_RaiderSpeedBag",
+          "fields": [
+            "buildInfo"
+          ]
+        },
         {
           "key": "ATX_Fortune_Telling_Machine",
           "label": "ATX_Fortune_Telling_Machine",
@@ -721,6 +796,13 @@
           ]
         },
         {
+          "key": "BedTypeComfy",
+          "label": "BedTypeComfy",
+          "fields": [
+            "technicalNotes"
+          ]
+        },
+        {
           "key": "SCORE_S22_ChryslusCarRacingGame",
           "label": "SCORE_S22_ChryslusCarRacingGame",
           "fields": [
@@ -732,6 +814,27 @@
           "label": "SCORE_S24_HealingArch",
           "fields": [
             "imageUrl"
+          ]
+        },
+        {
+          "key": "SCORE_S2_Furniture_Weightbench",
+          "label": "SCORE_S2_Furniture_Weightbench",
+          "fields": [
+            "buildInfo"
+          ]
+        },
+        {
+          "key": "SCORE_S3_Antique_Speed_Bag",
+          "label": "SCORE_S3_Antique_Speed_Bag",
+          "fields": [
+            "buildInfo"
+          ]
+        },
+        {
+          "key": "SCORE_S8_Furniture_ExerciseBike",
+          "label": "SCORE_S8_Furniture_ExerciseBike",
+          "fields": [
+            "buildInfo"
           ]
         },
         {
@@ -1286,7 +1389,10 @@
     },
     "buffs/food.json": {
       "key": "edid",
-      "added": [],
+      "added": [
+        "SeasonalFish_Meal_WinterFishKabomb",
+        "SeasonalFish_Meal_WinterFishSauce"
+      ],
       "removed": [],
       "changed": [
         {
@@ -1628,14 +1734,9 @@
     "bugged_plans.json": {
       "key": "id",
       "added": [
-        "0091665F",
-        "00916660",
-        "00916661",
-        "00916662",
-        "00916663",
-        "00916664",
-        "00916665",
-        "00916666",
+        "008D5AA7",
+        "008D5AA8",
+        "008D5AAE",
         "0094673A",
         "0094673B",
         "0094673C",
@@ -1681,8 +1782,14 @@
         "00948FF2",
         "00948FF3",
         "00948FF4",
+        "00948FF5",
         "00948FF6",
         "00948FF7",
+        "00948FF8",
+        "00948FF9",
+        "00948FFA",
+        "00948FFB",
+        "00948FFC",
         "0094CE36",
         "0094CE37",
         "0094CE38",
@@ -1695,7 +1802,6 @@
         "0094CE3F",
         "0094CE40",
         "0094F152",
-        "0094F153",
         "0094F154",
         "0094F155",
         "0094F156",
@@ -1735,102 +1841,23 @@
         "004E9FFD",
         "005AD986",
         "005AFDEE",
+        "0065DD0A",
+        "0067F169",
+        "00682118",
+        "0068B8EB",
+        "0068B8EC",
+        "0068B8ED",
+        "0068B8EE",
+        "0068B8EF",
+        "0068B8F0",
+        "0068B8F1",
+        "0068B8F2",
+        "0068B8F3",
         "007FFEF0",
+        "008F20F0",
         "00921E5B"
       ],
-      "changed": [
-        {
-          "key": "0065DD0A",
-          "label": "Plan: Cupid Cappy Sign",
-          "fields": [
-            "first_seen"
-          ]
-        },
-        {
-          "key": "0067F169",
-          "label": "Plan: Tunnel of Love Snow Globe",
-          "fields": [
-            "first_seen"
-          ]
-        },
-        {
-          "key": "00682118",
-          "label": "Plan: Tunnel of Love Poster",
-          "fields": [
-            "first_seen"
-          ]
-        },
-        {
-          "key": "0068B8EB",
-          "label": "Recipe: Nuka-Dog",
-          "fields": [
-            "first_seen"
-          ]
-        },
-        {
-          "key": "0068B8EC",
-          "label": "Recipe: Yao Guai Pastry",
-          "fields": [
-            "first_seen"
-          ]
-        },
-        {
-          "key": "0068B8ED",
-          "label": "Recipe: Gulper Stuffed Foot",
-          "fields": [
-            "first_seen"
-          ]
-        },
-        {
-          "key": "0068B8EE",
-          "label": "Recipe: Fried Radroach On A Stick",
-          "fields": [
-            "first_seen"
-          ]
-        },
-        {
-          "key": "0068B8EF",
-          "label": "Recipe: Fried Scorpion On A Stick",
-          "fields": [
-            "first_seen"
-          ]
-        },
-        {
-          "key": "0068B8F0",
-          "label": "Recipe: Brahmin Burgers",
-          "fields": [
-            "first_seen"
-          ]
-        },
-        {
-          "key": "0068B8F1",
-          "label": "Recipe: Caramel Mutfruit",
-          "fields": [
-            "first_seen"
-          ]
-        },
-        {
-          "key": "0068B8F2",
-          "label": "Recipe: Carnival Pie",
-          "fields": [
-            "first_seen"
-          ]
-        },
-        {
-          "key": "0068B8F3",
-          "label": "Recipe: Radscorpion Kebab",
-          "fields": [
-            "first_seen"
-          ]
-        },
-        {
-          "key": "008F20F0",
-          "label": "Plan: Love Tap Paint",
-          "fields": [
-            "first_seen"
-          ]
-        }
-      ]
+      "changed": []
     },
     "bundles.json": {
       "key": "name",
@@ -1852,7 +1879,34 @@
     },
     "calculators/outfit_inspiration.json": {
       "key": "edid",
-      "added": [],
+      "added": [
+        "ATX_ARMO_Headwear_Mask_HarvestMask",
+        "ATX_ARMO_Headwear_PoseidonOutfit",
+        "ATX_Clothes_ARMO_Outfit_PoseidonOutfit",
+        "RTSV_LightningHitHelmet",
+        "RTSV_LightningHitOutfit",
+        "SCORE_S27_ARMO_Headwear_AshWalker_Hat",
+        "SCORE_S27_ARMO_Outfit_AshWalker",
+        "SCORE_S27_Clothes_Outfit_VaultTecSecurity_Alt",
+        "SCORE_S27_Headwear_Clothes_VaultTecSecurityHelmet_Alt",
+        "SCORE_S27_Headwear_Clothes_VaultTecSecurityHelmet_Vintage",
+        "SCORE_S27_co_BackPack_VTMedal_Bronze_Flair1",
+        "SCORE_S27_co_BackPack_VTMedal_Bronze_Flair2",
+        "SCORE_S27_co_BackPack_VTMedal_Gold_Flair1",
+        "SCORE_S27_co_BackPack_VTMedal_Gold_Flair2",
+        "SCORE_S27_co_BackPack_VTMedal_Silver_Flair1",
+        "SCORE_S27_co_BackPack_VTMedal_Silver_Flair2",
+        "WorldPets_ARMO_Clothes_Headwear_CatTamer",
+        "WorldPets_ARMO_Clothes_Headwear_DCTamer",
+        "WorldPets_ARMO_Clothes_Headwear_DogTamer",
+        "WorldPets_ARMO_Clothes_Headwear_RadhogTamer",
+        "WorldPets_ARMO_Clothes_Outfit_CatTamer",
+        "WorldPets_ARMO_Clothes_Outfit_DCTamer",
+        "WorldPets_ARMO_Clothes_Outfit_DogTamer",
+        "WorldPets_ARMO_Clothes_Outfit_RadhogTamer",
+        "WorldPets_Clothes_RadHog_Headwear_NoseRing_Gold",
+        "WorldPets_Clothes_RadHog_Headwear_NoseRing_Patina"
+      ],
       "removed": [
         "ATX_ARMO_Outfit_EnclaveScientist",
         "WorldPets_ARMO_Headwear_CatTamer",
@@ -1864,13 +1918,191 @@
         "WorldPets_Clothes_ARMO_Outfit_DogTamer",
         "WorldPets_Clothes_ARMO_Outfit_RadhogTamer"
       ],
+      "changed": [
+        {
+          "key": "WorldPets_Clothes_Dog_Neckwear_BandanaPlaid",
+          "label": "WorldPets_Clothes_Dog_Neckwear_BandanaPlaid",
+          "fields": [
+            "full"
+          ]
+        },
+        {
+          "key": "WorldPets_Clothes_Dog_Neckwear_BandanaVT",
+          "label": "WorldPets_Clothes_Dog_Neckwear_BandanaVT",
+          "fields": [
+            "full"
+          ]
+        }
+      ]
+    },
+    "calculators/season_tickets_s27.json": {
+      "key": "id",
+      "added": [
+        "S27_P10_camp_floordecor_golddeskfan",
+        "S27_P10_camp_floordecor_stein_trophy",
+        "S27_P10_camp_floordecor_vtstandingflag",
+        "S27_P10_camp_walldecor_participationcertificate",
+        "S27_P10_camp_walldecor_youarespecial_endofseasonart",
+        "S27_P11_camp_aidbox_vaultaid",
+        "S27_P11_camp_camppets_radhog_bloodhog",
+        "S27_P11_camp_defense_turret_vaultturret",
+        "S27_P11_camp_displaycase_overseeraquarium",
+        "S27_P11_camp_wall_overseerwindow",
+        "S27_P11_skin_backpack_vtmedal_bronze_flair",
+        "S27_P11_skin_backpack_vtmedal_gold_flair",
+        "S27_P11_skin_backpack_vtmedal_silver_flair",
+        "S27_P12_camp_ally_mrmoore",
+        "S27_P12_camp_camppets_cat_vt_robopaw",
+        "S27_P12_camp_camppets_dog_vt_robopaw",
+        "S27_P12_camp_display_bobblehead_chess",
+        "S27_P12_camp_lights_illuminatedvaultsigns_2",
+        "S27_P12_displaycase_beersteins_trophycasesteindisplay",
+        "S27_P12_skin_armorskin_jetpack_vaulttecjp",
+        "S27_P12_skin_weaponmodel_bow_vaulttec",
+        "S27_P13_photomode_frame_seasonmarquee",
+        "S27_P1_playericon_cartwheel",
+        "S27_P1_playericon_cram",
+        "S27_P1_playericon_lawnflamingo",
+        "S27_P1_playericon_robopawcat",
+        "S27_P1_playericon_trophy",
+        "S27_P2_playericon_security",
+        "S27_P2_playertitles_prefix_competitive",
+        "S27_P2_playertitles_prefix_peak",
+        "S27_P2_playertitles_prefix_special",
+        "S27_P2_playertitles_suffix_athlete",
+        "S27_P2_playertitles_suffix_competitor",
+        "S27_P3_camptitles_suffix_arena",
+        "S27_P3_camptitles_suffix_coliseum",
+        "S27_P3_emotes_applause",
+        "S27_P3_emotes_grenadetoss",
+        "S27_P4_apparel_headwear_ashwalker_hat",
+        "S27_P4_apparel_headwear_vaulttecsecurityhelmet_alt",
+        "S27_P4_apparel_headwear_vaulttecsecurityhelmet_vintage",
+        "S27_P4_apparel_outfit_ashwalker",
+        "S27_P4_apparel_outfit_vaulttecsecurity_alt",
+        "S27_P5_skin_powerarmor_model_adjudicator",
+        "S27_P5_skin_powerarmor_paint_excavator_vaulttec",
+        "S27_P5_skin_powerarmor_paint_hellcat_vaulttec",
+        "S27_P5_skin_powerarmor_paint_t65_vaulttec",
+        "S27_P5_skin_powerarmor_paint_union_vaulttec",
+        "S27_P6_skin_weaponskin_cremator_vaulttec",
+        "S27_P6_skin_weaponskin_gatlingplasma_vaulttec",
+        "S27_P6_skin_weaponskin_railwayrifle_raider",
+        "S27_P6_skin_weaponskin_teslarifle_vaulttec",
+        "S27_P7_weapons_baton_grip_mods_bundle1",
+        "S27_P7_weapons_baton_grip_mods_bundle2",
+        "S27_P7_weapons_baton_grip_mods_bundle3",
+        "S27_P7_weapons_baton_rod_mods_bundle",
+        "S27_P7_weapons_baton_rod_mods_bundle1",
+        "S27_P7_weapons_baton_rod_mods_ignited",
+        "S27_P7_weapons_paint_baton_vaulttec",
+        "S27_P8_camp_machinery_workbench_cannery_vaultteccannery",
+        "S27_P8_camp_machinery_workbench_cooking_vaultteccook",
+        "S27_P8_camp_machinery_workbench_powerarmor_vaulttecpacraft",
+        "S27_P8_camp_machinery_workbench_tinkers_vaulttectinker",
+        "S27_P8_camp_workbench_chemistry_vaulttecchem",
+        "S27_P9_camp_bed_hideaway",
+        "S27_P9_camp_collector_vtrollerdogs",
+        "S27_P9_camp_furniture_chair_wheelchair_vaulttec",
+        "S27_P9_camp_utility_plasmacorerecharger_vaultplasma"
+      ],
+      "removed": [
+        "S27_P1_skin_weaponskin_railwayrifle_raider"
+      ],
+      "changed": []
+    },
+    "calculators/season_tickets_s28.json": {
+      "key": "id",
+      "added": [
+        "S28_P1_camp_floordecor_cutout_vaultboy_s28cartwheelvaultboy"
+      ],
+      "removed": [],
       "changed": []
     },
     "calculators/upcoming_rewards_s27.json": {
       "key": "edid",
-      "added": [],
+      "added": [
+        "SCORE_S27_ENTM_CAMPTitles_Suffix_Arena",
+        "SCORE_S27_ENTM_CAMPTitles_Suffix_Coliseum",
+        "SCORE_S27_ENTM_Photomode_Frame_SeasonMarquee",
+        "SCORE_S27_ENTM_PlayerIcon_Cartwheel",
+        "SCORE_S27_ENTM_PlayerIcon_Cram",
+        "SCORE_S27_ENTM_PlayerIcon_LawnFlamingo",
+        "SCORE_S27_ENTM_PlayerIcon_RoboPawCat",
+        "SCORE_S27_ENTM_PlayerIcon_Security",
+        "SCORE_S27_ENTM_PlayerIcon_Trophy",
+        "SCORE_S27_ENTM_PlayerTitles_Prefix_Competitive",
+        "SCORE_S27_ENTM_PlayerTitles_Prefix_Peak",
+        "SCORE_S27_ENTM_PlayerTitles_Prefix_SPECIAL",
+        "SCORE_S27_ENTM_PlayerTitles_Suffix_Athlete",
+        "SCORE_S27_ENTM_PlayerTitles_Suffix_Competitor"
+      ],
       "removed": [],
       "changed": [
+        {
+          "key": "SCORE_S27_ENTM_Apparel_Headwear_VaultTecSecurityHelmet_Alt",
+          "label": "Vault-Tec Security Mask",
+          "fields": [
+            "name"
+          ]
+        },
+        {
+          "key": "SCORE_S27_ENTM_Apparel_Headwear_VaultTecSecurityHelmet_Vintage",
+          "label": "Weathered Vault-Tec Security Helmet",
+          "fields": [
+            "description",
+            "name"
+          ]
+        },
+        {
+          "key": "SCORE_S27_ENTM_CAMP_Collector_VTRollerDogs",
+          "label": "Vault-Tec Roller Dog Machine",
+          "fields": [
+            "description"
+          ]
+        },
+        {
+          "key": "SCORE_S27_ENTM_CAMP_FloorDecor_GoldDeskfan",
+          "label": "Gold Desk Fan",
+          "fields": [
+            "description"
+          ]
+        },
+        {
+          "key": "SCORE_S27_ENTM_CAMP_Machinery_Workbench_Cannery_VaultTecCannery",
+          "label": "Vault-Tec Cannery",
+          "fields": [
+            "description"
+          ]
+        },
+        {
+          "key": "SCORE_S27_ENTM_CAMP_Wall_OverseerWindow",
+          "label": "Overseer's Window Wall",
+          "fields": [
+            "description"
+          ]
+        },
+        {
+          "key": "SCORE_S27_ENTM_Skin_Backpack_VTMedal_Bronze_Flair",
+          "label": "Vault-Tec Bronze Medal Backpack Flair",
+          "fields": [
+            "description"
+          ]
+        },
+        {
+          "key": "SCORE_S27_ENTM_Skin_Backpack_VTMedal_Gold_Flair",
+          "label": "Vault-Tec Gold Medal Backpack Flair",
+          "fields": [
+            "description"
+          ]
+        },
+        {
+          "key": "SCORE_S27_ENTM_Skin_Backpack_VTMedal_Silver_Flair",
+          "label": "Vault-Tec Silver Medal Backpack Flair",
+          "fields": [
+            "description"
+          ]
+        },
         {
           "key": "SCORE_S27_ENTM_Skin_WeaponSkin_RailwayRifle_Raider",
           "label": "Raider Paint (Railway Rifle)",
@@ -1912,7 +2144,23 @@
     },
     "camp.json": {
       "key": "edid",
-      "added": [],
+      "added": [
+        "ATX_ENTM_Apparel_CAMPPets_Cat_Neckwear_BraidedCatCollar",
+        "ATX_ENTM_Apparel_CAMPPets_Dog_Neckwear_BraidedDogCollar",
+        "ATX_ENTM_Apparel_CAMPPets_Dog_Neckwear_TrackerCollar",
+        "ATX_ENTM_Apparel_CAMPPets_Radhog_Headwear_StarNoseRing",
+        "ATX_ENTM_CAMP_CAMPPets_Cat_Siamese",
+        "ATX_ENTM_CAMP_CAMPPets_Dog_HuntingDog",
+        "ATX_ENTM_CAMP_CAMPPets_Dog_PlottHound",
+        "ATX_ENTM_CAMP_CAMPPets_IdleFurniture_Cat_CatBirdBath",
+        "ATX_ENTM_CAMP_CAMPPets_IdleFurniture_Dog_DogBath",
+        "ATX_ENTM_CAMP_CAMPPets_IdleFurniture_Radhog_MudBath",
+        "ATX_ENTM_CAMP_CAMPPets_Radhog_Hampshire",
+        "ATX_ENTM_CAMP_Utility_WeatherStation_Wildfire",
+        "SCORE_S27_ENTM_CAMP_CAMPPets_Cat_VT_RoboPaw",
+        "SCORE_S27_ENTM_CAMP_CAMPPets_Dog_VT_RoboPaw",
+        "SCORE_S27_ENTM_CAMP_CAMPPets_Radhog_Bloodhog"
+      ],
       "removed": [],
       "changed": []
     },
@@ -22650,7 +22898,9 @@
     "collectables_keys.json": {
       "key": "edid",
       "added": [],
-      "removed": [],
+      "removed": [
+        "P62_TheDrifter_Keycard"
+      ],
       "changed": []
     },
     "collectables_magazines.json": {
@@ -33721,7 +33971,9 @@
     },
     "collectables_plushies.json": {
       "key": "edid",
-      "added": [],
+      "added": [
+        "ATX_Plushie_CornDolly_Misc"
+      ],
       "removed": [],
       "changed": []
     },
@@ -33749,6 +34001,7 @@
           "label": "ATX_ENTM_CAMP_Utility_Collectron_Communist",
           "fields": [
             "imageUrl",
+            "production",
             "releaseDate"
           ]
         },
@@ -33764,6 +34017,7 @@
           "label": "ATX_ENTM_CAMP_Utility_Collectron_Fasnacht",
           "fields": [
             "imageUrl",
+            "production",
             "releaseDate"
           ]
         },
@@ -33786,6 +34040,7 @@
           "label": "ATX_ENTM_CAMP_Utility_Collectron_JunkyardDog",
           "fields": [
             "imageUrl",
+            "production",
             "releaseDate"
           ]
         },
@@ -33823,6 +34078,7 @@
           "label": "ATX_ENTM_CAMP_Utility_Collectron_Santa",
           "fields": [
             "imageUrl",
+            "production",
             "releaseDate"
           ]
         },
@@ -33838,6 +34094,7 @@
           "key": "ATX_ENTM_CAMP_Utility_Collectron_SirLoin",
           "label": "ATX_ENTM_CAMP_Utility_Collectron_SirLoin",
           "fields": [
+            "production",
             "releaseDate"
           ]
         },
@@ -33897,7 +34154,8 @@
           "fields": [
             "howToObtain",
             "imageUrl",
-            "obtainRoutes"
+            "obtainRoutes",
+            "production"
           ]
         },
         {
@@ -33936,7 +34194,8 @@
           "key": "SCORE_S6_ENTM_CAMP_Utility_Collectron_FETCH",
           "label": "SCORE_S6_ENTM_CAMP_Utility_Collectron_FETCH",
           "fields": [
-            "imageUrl"
+            "imageUrl",
+            "production"
           ]
         },
         {
@@ -33961,7 +34220,6 @@
     "costume_keywords.json": {
       "key": "name",
       "added": [
-        "Ash Walker Outfit",
         "Thunderstruck Armor Outfit",
         "Thunderstruck Helmet"
       ],
@@ -34013,14 +34271,55 @@
     "currency.json": {
       "structural_change": true
     },
+    "curves/chunks/other/other.2.json": {
+      "structural_change": true
+    },
+    "curves/chunks/other/other.3.json": {
+      "structural_change": true
+    },
+    "curves/chunks/other/other.4.json": {
+      "structural_change": true
+    },
+    "curves/chunks/other/other.5.json": {
+      "structural_change": true
+    },
+    "curves/chunks/other/other.6.json": {
+      "structural_change": true
+    },
+    "curves/chunks/other/other.7.json": {
+      "structural_change": true
+    },
+    "curves/chunks/other/other.8.json": {
+      "structural_change": true
+    },
     "curves/index.json": {
       "structural_change": true
     },
     "curves/meta.json": {
       "structural_change": true
     },
+    "curves/perk_cards.pts.json": {
+      "structural_change": true
+    },
     "daily_ops/daily_ops_all_rewards.json": {
       "structural_change": true
+    },
+    "daily_ops/daily_ops_reward_checklist.json": {
+      "structural_change": true
+    },
+    "dispensers.json": {
+      "key": "edid",
+      "added": [],
+      "removed": [],
+      "changed": [
+        {
+          "key": "DE2024_Halloween_ENTM_CAMP_Utility_CraniaCandyBowl",
+          "label": "DE2024_Halloween_ENTM_CAMP_Utility_CraniaCandyBowl",
+          "fields": [
+            "description"
+          ]
+        }
+      ]
     },
     "displays.json": {
       "structural_change": true
@@ -34041,6 +34340,9 @@
       "structural_change": true
     },
     "events/by_page/always-vigilant-all-rewards.json": {
+      "structural_change": true
+    },
+    "events/by_page/atlantic-city-expos-all-rewards.json": {
       "structural_change": true
     },
     "events/by_page/awol-armaments-all-rewards.json": {
@@ -34068,6 +34370,9 @@
       "structural_change": true
     },
     "events/by_page/collision-course-all-rewards.json": {
+      "structural_change": true
+    },
+    "events/by_page/daily-ops-all-rewards.json": {
       "structural_change": true
     },
     "events/by_page/dangerous-pastimes-all-rewards.json": {
@@ -34172,6 +34477,9 @@
     "events/by_page/patrol-duty-all-rewards.json": {
       "structural_change": true
     },
+    "events/by_page/pitt-expos-all-rewards.json": {
+      "structural_change": true
+    },
     "events/by_page/powering-up-power-station-all-rewards.json": {
       "structural_change": true
     },
@@ -34233,6 +34541,9 @@
       "structural_change": true
     },
     "events/events_rewards_by_page.json": {
+      "structural_change": true
+    },
+    "expos/expos_rewards.json": {
       "structural_change": true
     },
     "farming_guides.json": {
@@ -34468,52 +34779,9 @@
     },
     "help_menu.json": {
       "key": "edid",
-      "added": [
-        "HelpWorldPets",
-        "HelpWorldPetsBuffs",
-        "HelpWorldPetsControls_PC",
-        "HelpWorldPetsControls_Xbox",
-        "HelpWorldPetsLeveling"
-      ],
+      "added": [],
       "removed": [],
-      "changed": [
-        {
-          "key": "HelpBountyHunting",
-          "label": "Bounty Hunting",
-          "fields": [
-            "desc"
-          ]
-        },
-        {
-          "key": "HelpCampTitles",
-          "label": "C.A.M.P. Titles",
-          "fields": [
-            "desc"
-          ]
-        },
-        {
-          "key": "HelpDirtyLaundry",
-          "label": "Collectibles",
-          "fields": [
-            "desc",
-            "name"
-          ]
-        },
-        {
-          "key": "HelpPingSystem_Console",
-          "label": "Ping System",
-          "fields": [
-            "desc"
-          ]
-        },
-        {
-          "key": "HelpPingSystem_PC",
-          "label": "Ping System",
-          "fields": [
-            "desc"
-          ]
-        }
-      ]
+      "changed": []
     },
     "home-events.json": {
       "structural_change": true
@@ -34524,357 +34792,307 @@
     "legendary_crafting_planner.json": {
       "key": "edid",
       "added": [
-        "P62_co_LegendaryShard_Brutalists",
-        "P62_co_LegendaryShard_Crusaders",
-        "P62_co_LegendaryShard_Metabolic",
-        "P62_co_LegendaryShard_OverLoaders",
-        "P62_co_LegendaryShard_Rebounders",
-        "P62_co_LegendaryShard_Ruiners",
-        "P62_co_LegendaryShard_Satiated",
-        "P62_co_LegendaryShard_SightSeers",
-        "P62_co_LegendaryShard_StaggerProof",
-        "P62_co_LegendaryShard_Voltaic",
-        "SDOW_co_LegendaryShard_Severing"
+        "SDOW_co_LegendaryShard_Severing",
+        "co_LegendaryShard_Retaliators"
       ],
       "removed": [],
       "changed": [
         {
           "key": "BOUNTY_co_LegendaryShard_Active",
-          "label": "¬¬¬ Active",
+          "label": "Active",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "BOUNTY_co_LegendaryShard_Adrenal",
-          "label": "¬ Adrenal",
+          "label": "Adrenal",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "BOUNTY_co_LegendaryShard_Barbarian",
-          "label": "¬¬¬ Barbarian",
+          "label": "Barbarian",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "BOUNTY_co_LegendaryShard_Elementalist",
-          "label": "¬¬ Elementalist",
+          "label": "Elementalist",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "BOUNTY_co_LegendaryShard_Fierce",
-          "label": "¬¬ Fierce",
+          "label": "Fierce",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "BOUNTY_co_LegendaryShard_Glowing",
-          "label": "¬¬¬ Glowing",
+          "label": "Glowing",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "BOUNTY_co_LegendaryShard_Healthy",
-          "label": "¬¬¬ Healthy",
+          "label": "Healthy",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "BOUNTY_co_LegendaryShard_IncreaseFeral",
-          "label": "¬ Feral's",
+          "label": "Feral's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "BOUNTY_co_LegendaryShard_Lucid",
-          "label": "¬ Lucid",
+          "label": "Lucid",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "BOUNTY_co_LegendaryShard_PainKiller",
-          "label": "¬¬ Pain Killer",
+          "label": "Pain Killer",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "BOUNTY_co_LegendaryShard_PickPocketers",
-          "label": "¬¬ Pick Pocketer's",
+          "label": "Pick Pocketer's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "BOUNTY_co_LegendaryShard_Reflex",
-          "label": "¬¬¬ Reflex",
+          "label": "Reflex",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "BOUNTY_co_LegendaryShard_Rushing",
-          "label": "¬¬ Rushing",
+          "label": "Rushing",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "BOUNTY_co_LegendaryShard_Sniper",
-          "label": "¬ Sniper's",
+          "label": "Sniper's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "HTO_co_LegendaryShard_Haulers",
-          "label": "¬¬¬¬ Hauler's",
+          "label": "Hauler's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "HTO_co_LegendaryShard_Raging",
-          "label": "¬¬¬¬ Raging",
+          "label": "Raging",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "HTO_co_LegendaryShard_Satiated",
-          "label": "¬¬¬¬ Satiated",
+          "label": "Satiated",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "HTO_co_LegendaryShard_Tarnished",
-          "label": "¬¬¬¬ Tarnished",
+          "label": "Tarnished",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "HTO_co_LegendaryShard_Vector",
-          "label": "¬¬¬¬ Vector",
+          "label": "Vector",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "RA_co_LegendaryShard_ThrillSeeker",
-          "label": "¬¬¬¬ Thrill-Seeker's",
+          "label": "Thrill-Seeker's",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_APRegen",
-          "label": "¬¬ Powered",
+          "label": "Powered",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_APViaKill",
-          "label": "¬¬ Inertial",
+          "label": "Inertial",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_AccuracyNotInCombat",
-          "label": "¬ Stalker's",
+          "label": "Stalker's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Aegis",
-          "label": "¬¬¬¬ Aegis",
+          "label": "Aegis",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_AmmoCapacity4x",
-          "label": "¬ Quad",
+          "label": "Quad",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_AntiArmor",
-          "label": "¬ Anti-armor",
+          "label": "Anti-armor",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_AutoRevive",
-          "label": "¬ Life Saving",
+          "label": "Life Saving",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Bashing",
-          "label": "¬¬ Basher's",
+          "label": "Basher's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_BattleLoaders",
-          "label": "¬¬¬¬ Battle-Loader's",
+          "label": "Battle-Loader's",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_BlockReflects",
-          "label": "¬¬ Riposting",
+          "label": "Riposting",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Bruiser",
-          "label": "¬¬¬¬ Bruiser's",
+          "label": "Bruiser's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Bully",
-          "label": "¬¬¬¬ Bully's",
+          "label": "Bully's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Burning",
-          "label": "¬¬¬ Burning",
+          "label": "Burning",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Chameleon",
-          "label": "¬ Chameleon",
+          "label": "Chameleon",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_Charged",
-          "label": "¬¬¬¬ Charged",
+          "label": "Charged",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_ChooChoo",
-          "label": "¬¬¬¬ Choo-Choo's",
+          "label": "Choo-Choo's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_CloakOnHit",
-          "label": "¬¬¬ Ghost's",
+          "label": "Ghost's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_CloakOnMelee",
-          "label": "¬ Cloaking",
+          "label": "Cloaking",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_ComboBreaker",
-          "label": "¬¬¬¬ Combo-Breaker's",
+          "label": "Combo-Breaker's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Conductors",
-          "label": "¬¬¬¬ Conductor's",
+          "label": "Conductor's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_CritSpeed",
-          "label": "¬¬¬ Lucky Hit",
+          "label": "Lucky Hit",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_CryoResistance",
-          "label": "¬¬ Cryologist's",
+          "label": "Cryologist's",
           "fields": [
             "category",
             "name"
@@ -34882,229 +35100,202 @@
         },
         {
           "key": "co_LegendaryShard_DMGAnimals",
-          "label": "¬ Hunter's",
+          "label": "Hunter's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_DMGBugs",
-          "label": "¬ Exterminator's",
+          "label": "Exterminator's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_DMGGhouls",
-          "label": "¬ Ghoul Slayer's",
+          "label": "Ghoul Slayer's",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_DMGPlayers",
-          "label": "¬ Assassin's",
+          "label": "Assassin's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_DMGRobots",
-          "label": "¬ Troubleshooter's",
+          "label": "Troubleshooter's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_DMGScorched",
-          "label": "¬ Zealot's",
+          "label": "Zealot's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_DMGSuperMutants",
-          "label": "¬ Mutant Slayer's",
+          "label": "Mutant Slayer's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_DamageAddiction",
-          "label": "¬ Junkie's",
+          "label": "Junkie's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_DamageFirstBlood",
-          "label": "¬ Instigating",
+          "label": "Instigating",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_DamageInverseHealth",
-          "label": "¬ Bloodied",
+          "label": "Bloodied",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_DamagePowerAttack",
-          "label": "¬¬ Heavy Hitter's",
+          "label": "Heavy Hitter's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_DamageUnarmored",
-          "label": "¬ Berserker's",
+          "label": "Berserker's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_DamageViaHealth",
-          "label": "¬ Juggernaut's",
+          "label": "Juggernaut's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_DebuffDamage",
-          "label": "¬ Suppressor's",
+          "label": "Suppressor's",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_Defenders",
-          "label": "¬¬¬ Defender's",
+          "label": "Defender's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_DiseaseResistance",
-          "label": "¬¬ Antiseptic",
+          "label": "Antiseptic",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_DmgConsecutiveHits",
-          "label": "¬ Furious",
+          "label": "Furious",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_DmgCrits",
-          "label": "¬¬ Vital",
+          "label": "Vital",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_DmgLimbs",
-          "label": "¬¬ Crippling",
+          "label": "Crippling",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_DmgSights",
-          "label": "¬¬ Hitman's",
+          "label": "Hitman's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Durability",
-          "label": "¬¬¬ Durability",
+          "label": "Durability",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Electricians",
-          "label": "¬¬¬¬ Electrician's",
+          "label": "Electrician's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Electrified",
-          "label": "¬¬¬ Electrified",
+          "label": "Electrified",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_Encirclers",
-          "label": "¬¬¬¬ Encircler's",
+          "label": "Encircler's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Execute",
-          "label": "¬ Executioner's",
+          "label": "Executioner's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_ExplosiveBullets",
-          "label": "¬¬ Explosive",
+          "label": "Explosive",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_Fencers",
-          "label": "¬¬¬¬ Fencer's",
+          "label": "Fencer's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Fireproof",
-          "label": "¬¬ Pyro-Technician's",
+          "label": "Pyro-Technician's",
           "fields": [
             "category",
             "name"
@@ -35112,641 +35303,563 @@
         },
         {
           "key": "co_LegendaryShard_Fracturers",
-          "label": "¬¬¬¬ Fracturer's",
+          "label": "Fracturer's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Frozen",
-          "label": "¬¬¬ Frozen",
+          "label": "Frozen",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Glutton",
-          "label": "¬¬ Glutton",
+          "label": "Glutton",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Gourmand",
-          "label": "¬ Gourmand's",
+          "label": "Gourmand's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_HealthRegen",
-          "label": "¬ Regenerating",
+          "label": "Regenerating",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_Heavyweight",
-          "label": "¬ Heavyweight",
+          "label": "Heavyweight",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_Icemens",
-          "label": "¬¬¬¬ Icemen's",
+          "label": "Icemen's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_IncreaseHealing",
-          "label": "¬¬¬ Doctor's",
+          "label": "Doctor's",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_LastShot",
-          "label": "¬¬ Last Shot",
+          "label": "Last Shot",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_LessDamageSprinting",
-          "label": "¬¬¬ Cavalier's",
+          "label": "Cavalier's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_LessDamageStandStill",
-          "label": "¬¬¬ Sentinel's",
+          "label": "Sentinel's",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_LessFallDamage",
-          "label": "¬¬¬ Acrobat's",
+          "label": "Acrobat's",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_Lightweight",
-          "label": "¬¬¬ Lightweight",
+          "label": "Lightweight",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_LimitBreak",
-          "label": "¬¬¬¬ Limit-Breaking",
+          "label": "Limit-Breaking",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_LockPick",
-          "label": "¬¬¬ Safecracker's",
+          "label": "Safecracker's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_LowHealthIncreasesStats",
-          "label": "¬ Unyielding",
+          "label": "Unyielding",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_LowHealthTriggersStimpak",
-          "label": "¬ Auto Stim",
+          "label": "Auto Stim",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Medic",
-          "label": "¬ Medic's",
+          "label": "Medic's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Melee_LessDamageBlock",
-          "label": "¬¬¬ Blocker",
+          "label": "Blocker",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Miasma",
-          "label": "¬¬¬¬ Miasma's",
+          "label": "Miasma's",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_MoveSpeedSights",
-          "label": "¬¬¬ Nimble",
+          "label": "Nimble",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Mutation",
-          "label": "¬ Mutant's",
+          "label": "Mutant's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Night",
-          "label": "¬ Nocturnal",
+          "label": "Nocturnal",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Overeater",
-          "label": "¬ Overeater's",
+          "label": "Overeater's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_PinPointers",
-          "label": "¬¬¬¬ Pin-Pointer's",
+          "label": "Pin-Pointer's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_PoisonResistance",
-          "label": "¬¬ Poisoner's",
+          "label": "Poisoner's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Polished",
-          "label": "¬¬¬¬ Polished",
+          "label": "Polished",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_Pounders",
-          "label": "¬¬¬¬ Pounder's",
+          "label": "Pounder's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Propelling",
-          "label": "¬¬¬¬ Propelling",
+          "label": "Propelling",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_ProportionalCaps",
-          "label": "¬ Aristocrat's",
+          "label": "Aristocrat's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Pyromaniac",
-          "label": "¬¬¬¬ Pyromaniac's",
+          "label": "Pyromaniac's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_RadResistance",
-          "label": "¬¬ HazMat",
+          "label": "HazMat",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_RadioactivePowered",
-          "label": "¬¬¬¬ Radioactive-Powered",
+          "label": "Radioactive-Powered",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_RadsRegen",
-          "label": "¬¬¬ Dissipating",
+          "label": "Dissipating",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Ranger",
-          "label": "¬¬¬¬ Ranger's",
+          "label": "Ranger's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_ReduceExploisionDamage",
-          "label": "¬¬ Hardy",
+          "label": "Hardy",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_ReducedLimbDamage",
-          "label": "¬¬¬ Adamantium",
+          "label": "Adamantium",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_Reflective",
-          "label": "¬¬¬¬ Reflective",
+          "label": "Reflective",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Rejuvenators",
-          "label": "¬¬¬¬ Rejuvenator's",
+          "label": "Rejuvenator's",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_ReloadSpeed",
-          "label": "¬¬¬ Swift",
+          "label": "Swift",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_ResistReload",
-          "label": "¬¬¬ Resilient",
+          "label": "Resilient",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_ResistSights",
-          "label": "¬¬¬ Steadfast",
+          "label": "Steadfast",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_ResistancesInverseHealth",
-          "label": "¬ Bolstering",
+          "label": "Bolstering",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_ResistancesProportionalHealth",
-          "label": "¬ Vanguard's",
+          "label": "Vanguard's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Runner",
-          "label": "¬¬¬¬ Runner's",
+          "label": "Runner's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Sawbones",
-          "label": "¬¬¬¬ Sawbones",
+          "label": "Sawbones",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_Scanners",
-          "label": "¬¬¬¬ Scanner's",
+          "label": "Scanner's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Sneak",
-          "label": "¬¬¬ Secret Agent's",
+          "label": "Secret Agent's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Speed",
-          "label": "¬¬ Rapid",
+          "label": "Rapid",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_Stabilizers",
-          "label": "¬¬¬¬ Stabilizer's",
+          "label": "Stabilizer's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Stalwarts",
-          "label": "¬¬¬¬ Stalwart's",
+          "label": "Stalwart's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_StatAgility",
-          "label": "¬¬ Agility",
+          "label": "Agility",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_StatAgility2",
-          "label": "¬¬¬ Agility",
+          "label": "Agility",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_StatCharisma",
-          "label": "¬¬ Charisma",
+          "label": "Charisma",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_StatCharisma2",
-          "label": "¬¬¬ Charisma",
+          "label": "Charisma",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_StatEndurance",
-          "label": "¬¬ Endurance",
+          "label": "Endurance",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_StatEndurance2",
-          "label": "¬¬¬ Endurance",
+          "label": "Endurance",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_StatIntelligence",
-          "label": "¬¬ Intelligence",
+          "label": "Intelligence",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_StatIntelligence2",
-          "label": "¬¬¬ Intelligence",
+          "label": "Intelligence",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_StatLuck",
-          "label": "¬¬ Luck",
+          "label": "Luck",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_StatLuck2",
-          "label": "¬¬¬ Luck",
+          "label": "Luck",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_StatPerception",
-          "label": "¬¬ Perception",
+          "label": "Perception",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_StatPerception2",
-          "label": "¬¬¬ Perception",
+          "label": "Perception",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_StatStrength",
-          "label": "¬¬ Strength",
+          "label": "Strength",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_StatStrength2",
-          "label": "¬¬¬ Strength",
+          "label": "Strength",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Steady",
-          "label": "¬¬ Steady",
+          "label": "Steady",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Tanky",
-          "label": "¬¬¬¬ Tanky's",
+          "label": "Tanky's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Toxic",
-          "label": "¬¬¬ Toxic",
+          "label": "Toxic",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_TwoShot",
-          "label": "¬ Two Shot",
+          "label": "Two Shot",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_VATSAccuracy",
-          "label": "¬¬ V.A.T.S. Enhanced",
+          "label": "V.A.T.S. Enhanced",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_VATSCostAP",
-          "label": "¬¬¬ V.A.T.S. Optimized",
+          "label": "V.A.T.S. Optimized",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Vampire",
-          "label": "¬ Vampire's",
+          "label": "Vampire's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Vipers",
-          "label": "¬¬¬¬ Viper's",
+          "label": "Viper's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_Waterbreathing",
-          "label": "¬¬¬ Diver's",
+          "label": "Diver's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_WeightAmmo",
-          "label": "¬¬¬ Belted",
+          "label": "Belted",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_WeightFoodDrinkChems",
-          "label": "¬¬¬ Thru-hiker's",
+          "label": "Thru-hiker's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
           "key": "co_LegendaryShard_WeightJunk",
-          "label": "¬¬¬ Pack Rat's",
+          "label": "Pack Rat's",
           "fields": [
             "category",
-            "ingredients",
-            "name"
+            "ingredients"
           ]
         },
         {
           "key": "co_LegendaryShard_WeightWeapons",
-          "label": "¬¬¬ Arms Keeper's",
+          "label": "Arms Keeper's",
           "fields": [
-            "category",
-            "name"
+            "category"
           ]
         },
         {
@@ -36031,15 +36144,228 @@
         "PLAN_00951606",
         "PLAN_009559D1",
         "PLAN_009559D2",
-        "PLAN_009559D3"
+        "PLAN_009559D3",
+        "RECIPE_00569416",
+        "RECIPE_00573749",
+        "RECIPE_0057374B",
+        "RECIPE_0057374F",
+        "RECIPE_00573752",
+        "RECIPE_00573757",
+        "RECIPE_0057375C",
+        "RECIPE_008B08BB",
+        "RECIPE_008B08BD",
+        "RECIPE_008B08C3",
+        "RECIPE_008B08C5",
+        "RECIPE_008B08C7",
+        "RECIPE_008B2730",
+        "RECIPE_008D5AB1",
+        "RECIPE_008D5AB2",
+        "RECIPE_008D5AB4",
+        "RECIPE_008D5AB6",
+        "RECIPE_008EC313",
+        "RECIPE_0090E770",
+        "RECIPE_0090F5E5",
+        "RECIPE_00943AA3",
+        "RECIPE_00946743",
+        "RECIPE_00946748",
+        "RECIPE_0094674C",
+        "RECIPE_0094674D",
+        "RECIPE_0094674F",
+        "RECIPE_00946751",
+        "RECIPE_00946752",
+        "RECIPE_00946753",
+        "RECIPE_00947F42",
+        "RECIPE_00947F4B",
+        "RECIPE_00947F4E",
+        "RECIPE_00947F4F",
+        "RECIPE_00947F51",
+        "RECIPE_00947F52",
+        "RECIPE_00947F54",
+        "RECIPE_00947F55",
+        "RECIPE_0094826E",
+        "RECIPE_00948270",
+        "RECIPE_00948273",
+        "RECIPE_00948274",
+        "RECIPE_00948276",
+        "RECIPE_00948279",
+        "RECIPE_0094827A",
+        "RECIPE_0094827B",
+        "RECIPE_0094827D",
+        "RECIPE_0094827E",
+        "RECIPE_00948281",
+        "RECIPE_00948284",
+        "RECIPE_00948286",
+        "RECIPE_00948FFD",
+        "RECIPE_00949001",
+        "RECIPE_00949002",
+        "RECIPE_00949004",
+        "RECIPE_00949005",
+        "RECIPE_00949007",
+        "RECIPE_00949008",
+        "RECIPE_0094918B",
+        "RECIPE_0094918C",
+        "RECIPE_0094918D",
+        "RECIPE_0094918E",
+        "RECIPE_0094CE41",
+        "RECIPE_0094CE42",
+        "RECIPE_0094CE45",
+        "RECIPE_0094CE46",
+        "RECIPE_0094CE4B",
+        "RECIPE_0094CE50",
+        "RECIPE_0094CE51",
+        "RECIPE_0094CE52",
+        "RECIPE_0094CE53",
+        "RECIPE_0094CE54",
+        "RECIPE_0094CE57",
+        "RECIPE_0094CE59",
+        "RECIPE_0094CF61",
+        "RECIPE_0094CF63",
+        "RECIPE_0094CF65",
+        "RECIPE_0094CF67",
+        "RECIPE_0094CF68",
+        "RECIPE_0094CF6E",
+        "RECIPE_0094CF6F",
+        "RECIPE_0094CF70",
+        "RECIPE_0094CF71",
+        "RECIPE_0094CF76",
+        "RECIPE_0094CF77",
+        "RECIPE_0094CF7C",
+        "RECIPE_0094CF82",
+        "RECIPE_0094CF83",
+        "RECIPE_0094CF84",
+        "RECIPE_0094CF85",
+        "RECIPE_0094CF8A",
+        "RECIPE_0094CF8C",
+        "RECIPE_0094CF8D",
+        "RECIPE_0094CF8F",
+        "RECIPE_0094CF93",
+        "RECIPE_0094CF94",
+        "RECIPE_0094CF9B",
+        "RECIPE_0094CF9C",
+        "RECIPE_0094CF9E",
+        "RECIPE_0094CFA0",
+        "RECIPE_0094CFA3",
+        "RECIPE_0094CFA5",
+        "RECIPE_0094CFA7",
+        "RECIPE_0094CFA8",
+        "RECIPE_0094CFAA",
+        "RECIPE_0094CFAC",
+        "RECIPE_0094CFAE",
+        "RECIPE_0094CFB0",
+        "RECIPE_0094CFB6",
+        "RECIPE_0094F15B",
+        "RECIPE_0094F15C",
+        "RECIPE_0094F15E",
+        "RECIPE_0094F15F",
+        "RECIPE_0094F160",
+        "RECIPE_0094F165",
+        "RECIPE_0094F7EE",
+        "RECIPE_0094F7F0",
+        "RECIPE_0094F7F2",
+        "RECIPE_00951607",
+        "RECIPE_00951608",
+        "RECIPE_0095160B",
+        "RECIPE_0095160D",
+        "RECIPE_0095160F",
+        "RECIPE_00951611",
+        "RECIPE_00951612",
+        "RECIPE_00951614"
       ],
-      "removed": [],
+      "removed": [
+        "RECIPE_00399FB4",
+        "RECIPE_008B507F",
+        "RECIPE_008B5081",
+        "RECIPE_008B5082",
+        "RECIPE_008B5084",
+        "RECIPE_008B6A26",
+        "RECIPE_008B6A27",
+        "RECIPE_008B6A28",
+        "RECIPE_008B6A29",
+        "RECIPE_008C910D",
+        "RECIPE_008CCFA4",
+        "RECIPE_008D4739",
+        "RECIPE_008D473A",
+        "RECIPE_008D4C4F",
+        "RECIPE_008D4C50",
+        "RECIPE_008D667D",
+        "RECIPE_008D667E",
+        "RECIPE_00900A8C",
+        "RECIPE_00900A8D",
+        "RECIPE_00900A8E",
+        "RECIPE_00900A90",
+        "RECIPE_00900A91",
+        "RECIPE_00900A92",
+        "RECIPE_00900A93"
+      ],
       "changed": [
+        {
+          "key": "PLAN_00436FF5",
+          "label": "Plan: Golf Club",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00436FF9",
+          "label": "Plan: Mole Miner Gauntlet",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00437000",
+          "label": "Plan: Super Sledge",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00437003",
+          "label": "Plan: War Drum",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00437014",
+          "label": "Plan: Minigun",
+          "fields": [
+            "routes"
+          ]
+        },
         {
           "key": "PLAN_0052A699",
           "label": "Plan: Single-Action Revolver Forceful Grip",
           "fields": [
             "name"
+          ]
+        },
+        {
+          "key": "PLAN_00591903",
+          "label": "Plan: Auto Axe Burning Mod",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00591904",
+          "label": "Plan: Auto Axe Electrified Mod",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00591905",
+          "label": "Plan: Auto Axe Poisoned Mod",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00591906",
+          "label": "Plan: Auto Axe Turbo Mod",
+          "fields": [
+            "routes"
           ]
         },
         {
@@ -36086,6 +36412,650 @@
           ]
         },
         {
+          "key": "PLAN_006366FF",
+          "label": "Plan: Vault-Tec University Diploma",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00636706",
+          "label": "Plan: Vault-Tec University Pennant",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0063670C",
+          "label": "Plan: Vault-Tec University Poster",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00646E69",
+          "label": "Plan: Union Hunting Rifle Skin",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00648D28",
+          "label": "Plan: Fanatics Pump-Action Shotgun Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B927",
+          "label": "Plan: Union Rusty Knuckles",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B929",
+          "label": "Plan: Union Emergency Protocols",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B92A",
+          "label": "Plan: Union Kinetic Servos",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B92B",
+          "label": "Plan: Union Internal Database",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B92C",
+          "label": "Plan: Union Hydraulic Bracers",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B92D",
+          "label": "Plan: Union Tesla Coils",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B92F",
+          "label": "Plan: Union Optimized Bracers",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B931",
+          "label": "Plan: Union Recon Sensors",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B933",
+          "label": "Plan: Union Calibrated Shocks",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B935",
+          "label": "Plan: Union Optimized Servos",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B936",
+          "label": "Plan: Union VATS Matrix Overlay",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B937",
+          "label": "Plan: Union Core Assembly",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B938",
+          "label": "Plan: Union Medic Pump",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B939",
+          "label": "Plan: Union Tesla Bracers",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B93A",
+          "label": "Plan: Union Overdrive Servos",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B93C",
+          "label": "Plan: Union Kinetic Dynamo",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B93E",
+          "label": "Plan: Union Reactive Plates",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B93F",
+          "label": "Plan: Union Motion-Assist Servos",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B940",
+          "label": "Plan: Union Sensor Array",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B941",
+          "label": "Plan: Union Stealth Boy",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B942",
+          "label": "Plan: Union Cooling Vent",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B943",
+          "label": "Plan: Union Targeting HUD",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B944",
+          "label": "Plan: Union Blood Cleanser",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0065DD0A",
+          "label": "Plan: Cupid Cappy Sign",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0067F169",
+          "label": "Plan: Tunnel of Love Snow Globe",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00682118",
+          "label": "Plan: Tunnel of Love Poster",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0068B8EB",
+          "label": "Recipe: Nuka-Dog",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0068B8EC",
+          "label": "Recipe: Yao Guai Pastry",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0068B8ED",
+          "label": "Recipe: Gulper Stuffed Foot",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0068B8EE",
+          "label": "Recipe: Fried Radroach On A Stick",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0068B8EF",
+          "label": "Recipe: Fried Scorpion On A Stick",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0068B8F0",
+          "label": "Recipe: Brahmin Burgers",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0068B8F1",
+          "label": "Recipe: Caramel Mutfruit",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0068B8F2",
+          "label": "Recipe: Carnival Pie",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0068B8F3",
+          "label": "Recipe: Radscorpion Kebab",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006C503C",
+          "label": "Plan: Union Headlamp Blue",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006C503D",
+          "label": "Plan: Union Headlamp Bright",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006C503E",
+          "label": "Plan: Union Headlamp Purple",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006C503F",
+          "label": "Plan: Union Headlamp Red Tactical",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006C5040",
+          "label": "Plan: Union Headlamp Vault Boy",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006E5CE0",
+          "label": "Plan: Roulette .44 Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006E6F1E",
+          "label": "Plan: Showstopper Shotgun Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006E7356",
+          "label": "Plan: Civil Engineer Underarmor",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F2845",
+          "label": "Plan: Overgrown Missile Launcher Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F2846",
+          "label": "Plan: Overgrown Assault Rifle Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F2847",
+          "label": "Plan: Overgrown Deathclaw Gauntlet Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D7F",
+          "label": "Plan: Civil Engineer Welded Armor Arms",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D80",
+          "label": "Plan: Civil Engineer Tempered Armor Arms",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D81",
+          "label": "Plan: Civil Engineer Hardened Armor Arms",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D82",
+          "label": "Plan: Civil Engineer Buttressed Armor Arms",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D86",
+          "label": "Plan: Civil Engineer Welded Armor Legs",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D87",
+          "label": "Plan: Civil Engineer Tempered Armor Legs",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D88",
+          "label": "Plan: Civil Engineer Hardened Armor Legs",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D89",
+          "label": "Plan: Civil Engineer Buttressed Armor Legs",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D8D",
+          "label": "Plan: Civil Engineer Welded Armor Torso",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D8E",
+          "label": "Plan: Civil Engineer Tempered Armor Torso",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D8F",
+          "label": "Plan: Civil Engineer Hardened Armor Torso",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D90",
+          "label": "Plan: Civil Engineer Buttressed Armor Torso",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D91",
+          "label": "Plan: Civil Engineer Pocketed Armor Limbs",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D93",
+          "label": "Plan: Civil Engineer Lighter Build Armor Limbs",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D94",
+          "label": "Plan: Civil Engineer Ultra-Light Build Armor Limbs",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D95",
+          "label": "Plan: Civil Engineer Strengthened Armor Limbs",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D97",
+          "label": "Plan: Civil Engineer Braced Armor Arms",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D99",
+          "label": "Plan: Civil Engineer Weighted Armor Arms",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D9A",
+          "label": "Plan: Civil Engineer Aerodynamic Armor Arms",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DA0",
+          "label": "Plan: Civil Engineer Dense Armor Torso",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DA1",
+          "label": "Plan: Civil Engineer Asbestos Lined Armor Torso",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DA2",
+          "label": "Plan: Civil Engineer Pocketed Armor Torso",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DA3",
+          "label": "Plan: Civil Engineer Deep Pocketed Armor Torso",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DA4",
+          "label": "Plan: Civil Engineer Pneumatic Armor Torso",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DA5",
+          "label": "Plan: Civil Engineer Lighter Build Armor Torso",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DA7",
+          "label": "Plan: Civil Engineer BioCommMesh Armor Torso",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DA9",
+          "label": "Plan: Civil Engineer Jet Pack Armor",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DAA",
+          "label": "Plan: Treated Lining Civil Engineer Underarmor",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DAB",
+          "label": "Plan: Resistant Lining Civil Engineer Underarmor",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DAC",
+          "label": "Plan: Protective Lining Civil Engineer Underarmor",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DAD",
+          "label": "Plan: Shielded Lining Civil Engineer Underarmor",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_007FFEEF",
+          "label": "Plan: Secret Settler Left Leg",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_007FFEF0",
+          "label": "Plan: Secret Settler Helmet",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_007FFEF1",
+          "label": "Plan: Secret Settler Right Leg",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_007FFEF2",
+          "label": "Plan: Secret Settler Left Arm",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_007FFEF3",
+          "label": "Plan: Secret Settler Right Arm",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_007FFEF4",
+          "label": "Plan: Secret Settler Chest Piece",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_007FFFDA",
+          "label": "Plan: Crackler Grenade",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00802192",
+          "label": "Plan: Tempest",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00802193",
+          "label": "Plan: Chaos Engine",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00802194",
+          "label": "Plan: Splinter",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
           "key": "PLAN_008D5AA7",
           "label": "Plan: LMG Calibrated .308 Receiver",
           "fields": [
@@ -36110,10 +37080,80 @@
           ]
         },
         {
+          "key": "PLAN_008F20F0",
+          "label": "Plan: Love Tap Paint",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00918211",
+          "label": "Plan: Cryolator Polar Lobber Mod",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00918213",
+          "label": "Plan: Cryolator Hypothermic Muzzle Mod",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00918214",
+          "label": "Plan: Cryolator Cold Surge Muzzle",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00918215",
+          "label": "Plan: Cryolator Magazine Mods",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
           "key": "PLAN_00921E5B",
           "label": "Plan: Resolve Breaker Paint",
           "fields": [
             "routes"
+          ]
+        },
+        {
+          "key": "RECIPE_00185D23",
+          "label": "Electrified Rod",
+          "fields": [
+            "name"
+          ]
+        },
+        {
+          "key": "RECIPE_0031BFE0",
+          "label": "Aligned Stub Barrel",
+          "fields": [
+            "name"
+          ]
+        },
+        {
+          "key": "RECIPE_0032E212",
+          "label": "Standard Short Barrel",
+          "fields": [
+            "name"
+          ]
+        },
+        {
+          "key": "RECIPE_00527AC4",
+          "label": "True Stock",
+          "fields": [
+            "name"
+          ]
+        },
+        {
+          "key": "RECIPE_008D5AB7",
+          "label": "True Stock",
+          "fields": [
+            "name"
           ]
         }
       ]
@@ -36220,6 +37260,9 @@
     "minerva/minerva_plans.json": {
       "structural_change": true
     },
+    "mini_seasons/mini_seasons.json": {
+      "structural_change": true
+    },
     "murmrgh_legendary_mods.json": {
       "structural_change": true
     },
@@ -36279,7 +37322,12 @@
     },
     "pet-apparel.json": {
       "key": "edid",
-      "added": [],
+      "added": [
+        "ATX_ENTM_Apparel_CAMPPets_Cat_Neckwear_BraidedCatCollar",
+        "ATX_ENTM_Apparel_CAMPPets_Dog_Neckwear_BraidedDogCollar",
+        "ATX_ENTM_Apparel_CAMPPets_Dog_Neckwear_TrackerCollar",
+        "ATX_ENTM_Apparel_CAMPPets_Radhog_Headwear_StarNoseRing"
+      ],
       "removed": [],
       "changed": [
         {
@@ -36300,7 +37348,11 @@
     },
     "pet-furniture.json": {
       "key": "edid",
-      "added": [],
+      "added": [
+        "ATX_ENTM_CAMP_CAMPPets_IdleFurniture_Cat_CatBirdBath",
+        "ATX_ENTM_CAMP_CAMPPets_IdleFurniture_Dog_DogBath",
+        "ATX_ENTM_CAMP_CAMPPets_IdleFurniture_Radhog_MudBath"
+      ],
       "removed": [],
       "changed": [
         {
@@ -36557,9 +37609,159 @@
         "PLAN_00951606",
         "PLAN_009559D1",
         "PLAN_009559D2",
-        "PLAN_009559D3"
+        "PLAN_009559D3",
+        "RECIPE_00569416",
+        "RECIPE_00573749",
+        "RECIPE_0057374B",
+        "RECIPE_0057374F",
+        "RECIPE_00573752",
+        "RECIPE_00573757",
+        "RECIPE_0057375C",
+        "RECIPE_008B08BB",
+        "RECIPE_008B08BD",
+        "RECIPE_008B08C3",
+        "RECIPE_008B08C5",
+        "RECIPE_008B08C7",
+        "RECIPE_008B2730",
+        "RECIPE_008D5AB1",
+        "RECIPE_008D5AB2",
+        "RECIPE_008D5AB4",
+        "RECIPE_008D5AB6",
+        "RECIPE_008EC313",
+        "RECIPE_0090E770",
+        "RECIPE_0090F5E5",
+        "RECIPE_00943AA3",
+        "RECIPE_00946743",
+        "RECIPE_00946748",
+        "RECIPE_0094674C",
+        "RECIPE_0094674D",
+        "RECIPE_0094674F",
+        "RECIPE_00946751",
+        "RECIPE_00946752",
+        "RECIPE_00946753",
+        "RECIPE_00947F42",
+        "RECIPE_00947F4B",
+        "RECIPE_00947F4E",
+        "RECIPE_00947F4F",
+        "RECIPE_00947F51",
+        "RECIPE_00947F52",
+        "RECIPE_00947F54",
+        "RECIPE_00947F55",
+        "RECIPE_0094826E",
+        "RECIPE_00948270",
+        "RECIPE_00948273",
+        "RECIPE_00948274",
+        "RECIPE_00948276",
+        "RECIPE_00948279",
+        "RECIPE_0094827A",
+        "RECIPE_0094827B",
+        "RECIPE_0094827D",
+        "RECIPE_0094827E",
+        "RECIPE_00948281",
+        "RECIPE_00948284",
+        "RECIPE_00948286",
+        "RECIPE_00948FFD",
+        "RECIPE_00949001",
+        "RECIPE_00949002",
+        "RECIPE_00949004",
+        "RECIPE_00949005",
+        "RECIPE_00949007",
+        "RECIPE_00949008",
+        "RECIPE_0094918B",
+        "RECIPE_0094918C",
+        "RECIPE_0094918D",
+        "RECIPE_0094918E",
+        "RECIPE_0094CE41",
+        "RECIPE_0094CE42",
+        "RECIPE_0094CE45",
+        "RECIPE_0094CE46",
+        "RECIPE_0094CE4B",
+        "RECIPE_0094CE50",
+        "RECIPE_0094CE51",
+        "RECIPE_0094CE52",
+        "RECIPE_0094CE53",
+        "RECIPE_0094CE54",
+        "RECIPE_0094CE57",
+        "RECIPE_0094CE59",
+        "RECIPE_0094CF61",
+        "RECIPE_0094CF63",
+        "RECIPE_0094CF65",
+        "RECIPE_0094CF67",
+        "RECIPE_0094CF68",
+        "RECIPE_0094CF6E",
+        "RECIPE_0094CF6F",
+        "RECIPE_0094CF70",
+        "RECIPE_0094CF71",
+        "RECIPE_0094CF76",
+        "RECIPE_0094CF77",
+        "RECIPE_0094CF7C",
+        "RECIPE_0094CF82",
+        "RECIPE_0094CF83",
+        "RECIPE_0094CF84",
+        "RECIPE_0094CF85",
+        "RECIPE_0094CF8A",
+        "RECIPE_0094CF8C",
+        "RECIPE_0094CF8D",
+        "RECIPE_0094CF8F",
+        "RECIPE_0094CF93",
+        "RECIPE_0094CF94",
+        "RECIPE_0094CF9B",
+        "RECIPE_0094CF9C",
+        "RECIPE_0094CF9E",
+        "RECIPE_0094CFA0",
+        "RECIPE_0094CFA3",
+        "RECIPE_0094CFA5",
+        "RECIPE_0094CFA7",
+        "RECIPE_0094CFA8",
+        "RECIPE_0094CFAA",
+        "RECIPE_0094CFAC",
+        "RECIPE_0094CFAE",
+        "RECIPE_0094CFB0",
+        "RECIPE_0094CFB6",
+        "RECIPE_0094F15B",
+        "RECIPE_0094F15C",
+        "RECIPE_0094F15E",
+        "RECIPE_0094F15F",
+        "RECIPE_0094F160",
+        "RECIPE_0094F165",
+        "RECIPE_0094F7EE",
+        "RECIPE_0094F7F0",
+        "RECIPE_0094F7F2",
+        "RECIPE_00951607",
+        "RECIPE_00951608",
+        "RECIPE_0095160B",
+        "RECIPE_0095160D",
+        "RECIPE_0095160F",
+        "RECIPE_00951611",
+        "RECIPE_00951612",
+        "RECIPE_00951614"
       ],
-      "removed": [],
+      "removed": [
+        "RECIPE_00399FB4",
+        "RECIPE_008B507F",
+        "RECIPE_008B5081",
+        "RECIPE_008B5082",
+        "RECIPE_008B5084",
+        "RECIPE_008B6A26",
+        "RECIPE_008B6A27",
+        "RECIPE_008B6A28",
+        "RECIPE_008B6A29",
+        "RECIPE_008C910D",
+        "RECIPE_008CCFA4",
+        "RECIPE_008D4739",
+        "RECIPE_008D473A",
+        "RECIPE_008D4C4F",
+        "RECIPE_008D4C50",
+        "RECIPE_008D667D",
+        "RECIPE_008D667E",
+        "RECIPE_00900A8C",
+        "RECIPE_00900A8D",
+        "RECIPE_00900A8E",
+        "RECIPE_00900A90",
+        "RECIPE_00900A91",
+        "RECIPE_00900A92",
+        "RECIPE_00900A93"
+      ],
       "changed": [
         {
           "key": "NWREWARD_003FBB46",
@@ -36823,13 +38025,6 @@
           ]
         },
         {
-          "key": "PLAN_002B42AC",
-          "label": "Plan: Machete Sacrificial Blade",
-          "fields": [
-            "weapon_group_solo"
-          ]
-        },
-        {
           "key": "PLAN_002B8BBA",
           "label": "Recipe: Berry Mentats",
           "fields": [
@@ -36989,6 +38184,30 @@
           "key": "PLAN_003D5F40",
           "label": "Recipe: Blackberry Honey Crisp",
           "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003D6519",
+          "label": "Plan: Vault Locker",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003D651A",
+          "label": "Plan: Vault Dresser",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003D651B",
+          "label": "Plan: Vault Desk",
+          "fields": [
+            "obtain_ledger",
             "obtain_routes"
           ]
         },
@@ -37191,10 +38410,57 @@
           ]
         },
         {
+          "key": "PLAN_00436FF5",
+          "label": "Plan: Golf Club",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00436FF9",
+          "label": "Plan: Mole Miner Gauntlet",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00436FFF",
+          "label": "Plan: Sledge Hammer",
+          "fields": [
+            "cnam"
+          ]
+        },
+        {
+          "key": "PLAN_00437000",
+          "label": "Plan: Super Sledge",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00437003",
+          "label": "Plan: War Drum",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
           "key": "PLAN_00437008",
           "label": "Plan: Laser Gun",
           "fields": [
             "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00437014",
+          "label": "Plan: Minigun",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
           ]
         },
         {
@@ -37209,6 +38475,22 @@
           "label": "Recipe: Tasty Mutton Meat Pie",
           "fields": [
             "consumable_type"
+          ]
+        },
+        {
+          "key": "PLAN_004E4856",
+          "label": "Plan: Simple Bed",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004E4858",
+          "label": "Plan: Simple Made Bed",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
           ]
         },
         {
@@ -37343,24 +38625,10 @@
           ]
         },
         {
-          "key": "PLAN_004EB73D",
-          "label": "Plan: Cultist Blade",
-          "fields": [
-            "weapon_group_solo"
-          ]
-        },
-        {
-          "key": "PLAN_004EB73E",
-          "label": "Plan: Cultist Dagger",
-          "fields": [
-            "weapon_group_solo"
-          ]
-        },
-        {
           "key": "PLAN_004EB740",
           "label": "Plan: Pickaxe",
           "fields": [
-            "weapon_group_solo"
+            "cnam"
           ]
         },
         {
@@ -37375,6 +38643,21 @@
           "label": "Plan: 10mm Submachine Gun",
           "fields": [
             "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F476D",
+          "label": "Plan: Laser Gun Medium Scope",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F4780",
+          "label": "Plan: Crossbow",
+          "fields": [
+            "cnam"
           ]
         },
         {
@@ -37591,6 +38874,8 @@
           "key": "PLAN_0052A699",
           "label": "Plan: Single-Action Revolver Forceful Grip",
           "fields": [
+            "cnam",
+            "cobj",
             "name",
             "plan_item"
           ]
@@ -37655,9 +38940,57 @@
           ]
         },
         {
+          "key": "PLAN_00591421",
+          "label": "Plan: Gauss Pistol Drum Magazine",
+          "fields": [
+            "effects"
+          ]
+        },
+        {
+          "key": "PLAN_00591422",
+          "label": "Plan: Gauss Pistol Suppressed Barrel",
+          "fields": [
+            "cnam"
+          ]
+        },
+        {
+          "key": "PLAN_00591903",
+          "label": "Plan: Auto Axe Burning Mod",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00591904",
+          "label": "Plan: Auto Axe Electrified Mod",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00591905",
+          "label": "Plan: Auto Axe Poisoned Mod",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00591906",
+          "label": "Plan: Auto Axe Turbo Mod",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
           "key": "PLAN_0059560D",
           "label": "Plan: Gauss Shotgun Long Barrel",
           "fields": [
+            "cnam",
+            "cobj",
             "name",
             "plan_item"
           ]
@@ -37666,6 +38999,8 @@
           "key": "PLAN_00595616",
           "label": "Plan: Gauss Shotgun Extended Magazine",
           "fields": [
+            "cnam",
+            "cobj",
             "plan_item"
           ]
         },
@@ -37751,6 +39086,13 @@
           ]
         },
         {
+          "key": "PLAN_005D0F05",
+          "label": "Plan: War Glaive",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
           "key": "PLAN_005D0F06",
           "label": "Plan: Whistle in the Dark",
           "fields": [
@@ -37821,6 +39163,55 @@
           ]
         },
         {
+          "key": "PLAN_005DF029",
+          "label": "Plan: Brotherhood Recon Left Arm",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_005DF02A",
+          "label": "Plan: Brotherhood Recon Right Arm",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_005DF02B",
+          "label": "Plan: Brotherhood Recon Helmet",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_005DF02C",
+          "label": "Plan: Brotherhood Recon Left Leg",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_005DF02D",
+          "label": "Plan: Brotherhood Recon Right Leg",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_005DF02E",
+          "label": "Plan: Brotherhood Recon Chest Piece",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_005E47CC",
+          "label": "Plan: Hellstorm Missile Launcher",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
           "key": "PLAN_005E48A4",
           "label": "Plan: Molerat Wind Chime",
           "fields": [
@@ -37828,35 +39219,99 @@
           ]
         },
         {
+          "key": "PLAN_005E65F5",
+          "label": "Plan: Crusader Pistol",
+          "fields": [
+            "obtain_routes",
+            "weapon_group_solo"
+          ]
+        },
+        {
+          "key": "PLAN_005E65F6",
+          "label": "Plan: Crusader Pistol Suppressor",
+          "fields": [
+            "weapon_group",
+            "weapon_group_key"
+          ]
+        },
+        {
+          "key": "PLAN_005E65F7",
+          "label": "Plan: Crusader Pistol Reflex Sight",
+          "fields": [
+            "weapon_group",
+            "weapon_group_key"
+          ]
+        },
+        {
+          "key": "PLAN_005E65F8",
+          "label": "Plan: Crusader Pistol Short Scope",
+          "fields": [
+            "weapon_group",
+            "weapon_group_key"
+          ]
+        },
+        {
+          "key": "PLAN_005E65F9",
+          "label": "Plan: Crusader Pistol Long Barrel",
+          "fields": [
+            "weapon_group",
+            "weapon_group_key"
+          ]
+        },
+        {
           "key": "PLAN_005E65FA",
           "label": "Plan: Crusader Pistol Fusion Chamber",
           "fields": [
+            "cnam",
+            "cobj",
             "name",
-            "plan_item"
+            "plan_item",
+            "weapon_group",
+            "weapon_group_key"
           ]
         },
         {
           "key": "PLAN_005E65FB",
           "label": "Plan: Crusader Pistol Pyro Chamber",
           "fields": [
+            "cnam",
+            "cobj",
             "name",
-            "plan_item"
+            "plan_item",
+            "weapon_group",
+            "weapon_group_key"
           ]
         },
         {
           "key": "PLAN_005E65FC",
           "label": "Plan: Crusader Pistol Cryo Chamber",
           "fields": [
+            "cnam",
+            "cobj",
             "name",
-            "plan_item"
+            "plan_item",
+            "weapon_group",
+            "weapon_group_key"
           ]
         },
         {
           "key": "PLAN_005E65FD",
           "label": "Plan: Crusader Pistol 5.56 Chamber",
           "fields": [
+            "cnam",
+            "cobj",
             "name",
-            "plan_item"
+            "plan_item",
+            "weapon_group",
+            "weapon_group_key"
+          ]
+        },
+        {
+          "key": "PLAN_005E65FE",
+          "label": "Plan: Crusader Pistol Extended Magazine",
+          "fields": [
+            "weapon_group",
+            "weapon_group_key"
           ]
         },
         {
@@ -37876,6 +39331,13 @@
         {
           "key": "PLAN_005E90FA",
           "label": "Plan: Red Truck Ceiling Light",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_005ECB83",
+          "label": "Plan: Plasma Cutter",
           "fields": [
             "obtain_routes"
           ]
@@ -37965,6 +39427,48 @@
           ]
         },
         {
+          "key": "PLAN_005FC9AC",
+          "label": "Plan: Covert Scout Armor Chest Piece",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_005FC9AD",
+          "label": "Plan: Covert Scout Armor Mask",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_005FC9AE",
+          "label": "Plan: Covert Scout Armor Left Leg",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_005FC9AF",
+          "label": "Plan: Covert Scout Armor Right Leg",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_005FC9B0",
+          "label": "Plan: Covert Scout Armor Right Arm",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_005FC9B1",
+          "label": "Plan: Covert Scout Armor Left Arm",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
           "key": "PLAN_005FD08D",
           "label": "Plan: Science Chalkboards",
           "fields": [
@@ -38000,6 +39504,13 @@
           ]
         },
         {
+          "key": "PLAN_0060A29A",
+          "label": "Plan: Face Breaker",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
           "key": "PLAN_00613845",
           "label": "Plan: Mechanic's Best Friend",
           "fields": [
@@ -38027,6 +39538,48 @@
         {
           "key": "PLAN_0061D923",
           "label": "Plan: Mirelurk King Tube",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0061E1E6",
+          "label": "Plan: Arctic Marine Armor Helmet",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0061E1E7",
+          "label": "Plan: Arctic Marine Torso",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0061E1E8",
+          "label": "Plan: Arctic Marine Left Leg",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0061E1E9",
+          "label": "Plan: Arctic Marine Left Arm",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0061E1EA",
+          "label": "Plan: Arctic Marine Right Leg",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0061E1EB",
+          "label": "Plan: Arctic Marine Right Arm",
           "fields": [
             "obtain_routes"
           ]
@@ -38174,11 +39727,38 @@
           ]
         },
         {
+          "key": "PLAN_006366FF",
+          "label": "Plan: Vault-Tec University Diploma",
+          "fields": [
+            "not_obtainable",
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
+          ]
+        },
+        {
+          "key": "PLAN_00636706",
+          "label": "Plan: Vault-Tec University Pennant",
+          "fields": [
+            "not_obtainable",
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
+          ]
+        },
+        {
           "key": "PLAN_0063670C",
           "label": "Plan: Vault-Tec University Poster",
           "fields": [
             "image_source",
-            "images"
+            "images",
+            "not_obtainable",
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
@@ -38203,16 +39783,221 @@
           ]
         },
         {
+          "key": "PLAN_00646E69",
+          "label": "Plan: Hunting Rifle Skin - Union",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00648D28",
+          "label": "Plan: Fanatics Pump-Action Shotgun Paint",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B927",
+          "label": "Plan: Union Rusty Knuckles",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B929",
+          "label": "Plan: Union Emergency Protocols",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B92A",
+          "label": "Plan: Union Kinetic Servos",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B92B",
+          "label": "Plan: Union Internal Database",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B92C",
+          "label": "Plan: Union Hydraulic Bracers",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B92D",
+          "label": "Plan: Union Tesla Coils",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B92F",
+          "label": "Plan: Union Optimized Bracers",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B931",
+          "label": "Plan: Union Recon Sensors",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B933",
+          "label": "Plan: Union Calibrated Shocks",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B935",
+          "label": "Plan: Union Optimized Servos",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B936",
+          "label": "Plan: Union VATS Matrix Overlay",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B937",
+          "label": "Plan: Union Core Assembly",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B938",
+          "label": "Plan: Union Medic Pump",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B939",
+          "label": "Plan: Union Tesla Bracers",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B93A",
+          "label": "Plan: Union Overdrive Servos",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B93C",
+          "label": "Plan: Union Kinetic Dynamo",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B93E",
+          "label": "Plan: Union Reactive Plates",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B93F",
+          "label": "Plan: Union Motion-Assist Servos",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B940",
+          "label": "Plan: Union Sensor Array",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B941",
+          "label": "Plan: Union Stealth Boy",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B942",
+          "label": "Plan: Union Cooling Vent",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B943",
+          "label": "Plan: Union Targeting HUD",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0064B944",
+          "label": "Plan: Union Blood Cleanser",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
           "key": "PLAN_0065DD0A",
           "label": "Plan: Cupid Cappy Sign",
           "fields": [
-            "retired_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_00675279",
           "label": "Plan: Nuka-Cola Balloons",
           "fields": [
+            "obtain_ledger",
+            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -38228,13 +40013,18 @@
           "key": "PLAN_0067F169",
           "label": "Plan: Tunnel of Love Snow Globe",
           "fields": [
-            "retired_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_0067F172",
           "label": "Plan: Cappy Smasher Super Sledge Paint",
           "fields": [
+            "obtain_ledger",
+            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -38242,6 +40032,8 @@
           "key": "PLAN_00682116",
           "label": "Plan: Nuka-Cola Ad Barrier",
           "fields": [
+            "obtain_ledger",
+            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -38249,6 +40041,8 @@
           "key": "PLAN_00682117",
           "label": "Plan: Nuka-Cola Crate Stalls",
           "fields": [
+            "obtain_ledger",
+            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -38256,13 +40050,18 @@
           "key": "PLAN_00682118",
           "label": "Plan: Tunnel of Love Poster",
           "fields": [
-            "retired_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_0068211C",
           "label": "Plan: Nuka-Cade Poster",
           "fields": [
+            "obtain_ledger",
+            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -38270,6 +40069,8 @@
           "key": "PLAN_0068211D",
           "label": "Plan: Nuka Cola Bottle Kiosk",
           "fields": [
+            "obtain_ledger",
+            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -38277,6 +40078,8 @@
           "key": "PLAN_006828E5",
           "label": "Plan: Cappy Clapper",
           "fields": [
+            "obtain_ledger",
+            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -38284,6 +40087,8 @@
           "key": "PLAN_006828E6",
           "label": "Plan: Bottle and Cappy Painting Statue",
           "fields": [
+            "obtain_ledger",
+            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -38291,6 +40096,8 @@
           "key": "PLAN_006828E8",
           "label": "Plan: Bottle and Cappy Balloon Statue",
           "fields": [
+            "obtain_ledger",
+            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -38298,6 +40105,8 @@
           "key": "PLAN_006828E9",
           "label": "Plan: Bottle and Cappy Hoop Jump Statue",
           "fields": [
+            "obtain_ledger",
+            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -38305,6 +40114,8 @@
           "key": "PLAN_006828EA",
           "label": "Plan: Bottle and Cappy Walking Globe Statue",
           "fields": [
+            "obtain_ledger",
+            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -38312,6 +40123,8 @@
           "key": "PLAN_006828EC",
           "label": "Plan: Bottle Bot",
           "fields": [
+            "obtain_ledger",
+            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -38342,63 +40155,90 @@
           "key": "PLAN_0068B8EB",
           "label": "Recipe: Nuka-Dog",
           "fields": [
-            "retired_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_0068B8EC",
           "label": "Recipe: Yao Guai Pastry",
           "fields": [
-            "retired_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_0068B8ED",
           "label": "Recipe: Gulper Stuffed Foot",
           "fields": [
-            "retired_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_0068B8EE",
           "label": "Recipe: Fried Radroach On A Stick",
           "fields": [
-            "retired_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_0068B8EF",
           "label": "Recipe: Fried Scorpion On A Stick",
           "fields": [
-            "retired_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_0068B8F0",
           "label": "Recipe: Brahmin Burgers",
           "fields": [
-            "retired_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_0068B8F1",
           "label": "Recipe: Caramel Mutfruit",
           "fields": [
-            "retired_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_0068B8F2",
           "label": "Recipe: Carnival Pie",
           "fields": [
-            "retired_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_0068B8F3",
           "label": "Recipe: Radscorpion Kebab",
           "fields": [
-            "retired_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
@@ -38430,9 +40270,504 @@
           ]
         },
         {
+          "key": "PLAN_00696247",
+          "label": "Plan: Flatwoods Monster Tube",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0069624A",
+          "label": "Plan: Hot Rod Flames Handmade Skin",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0069624B",
+          "label": "Plan: Floater Tubes",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0069624C",
+          "label": "Plan: Deep-Space Alien Power Armor Helmet Paint",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0069624E",
+          "label": "Plan: Deep-Space Alien Power Armor Torso Paint",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0069624F",
+          "label": "Plan: Deep-Space Alien Power Armor Arms Paint",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00696252",
+          "label": "Plan: Intergalactic Handmade Skin",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00696253",
+          "label": "Plan: Deep-Space Alien Power Armor Jetpack Skins",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00696254",
+          "label": "Plan: Deep-Space Alien Power Armor Legs Paint",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
           "key": "PLAN_0069687D",
           "label": "Plan: Gorilla Chair",
           "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006C503C",
+          "label": "Plan: Union Headlamp Blue",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006C503D",
+          "label": "Plan: Union Headlamp Bright",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006C503E",
+          "label": "Plan: Union Headlamp Purple",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006C503F",
+          "label": "Plan: Union Headlamp Red Tactical",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006C5040",
+          "label": "Plan: Union Headlamp Vault Boy",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006E5CE0",
+          "label": "Plan: .44 Roulette Paint",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006E6F1E",
+          "label": "Plan: Showstopper Shotgun Paint",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006E7356",
+          "label": "Plan: Civil Engineer Underarmor",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006E9225",
+          "label": "Plan: Vault-Tec Weapon Loadout Paints",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F2845",
+          "label": "Plan: Overgrown Missile Launcher Paint",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F2846",
+          "label": "Plan: Overgrown Assault Rifle Paint",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F2847",
+          "label": "Plan: Overgrown Deathclaw Gauntlet Paint",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D7F",
+          "label": "Plan: Civil Engineer Welded Armor Arms",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D80",
+          "label": "Plan: Civil Engineer Tempered Armor Arms",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D81",
+          "label": "Plan: Civil Engineer Hardened Armor Arms",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D82",
+          "label": "Plan: Civil Engineer Buttressed Armor Arms",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D86",
+          "label": "Plan: Civil Engineer Welded Armor Legs",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D87",
+          "label": "Plan: Civil Engineer Tempered Armor Legs",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D88",
+          "label": "Plan: Civil Engineer Hardened Armor Legs",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D89",
+          "label": "Plan: Civil Engineer Buttressed Armor Legs",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D8D",
+          "label": "Plan: Civil Engineer Welded Armor Torso",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D8E",
+          "label": "Plan: Civil Engineer Tempered Armor Torso",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D8F",
+          "label": "Plan: Civil Engineer Hardened Armor Torso",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D90",
+          "label": "Plan: Civil Engineer Buttressed Armor Torso",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D91",
+          "label": "Plan: Civil Engineer Pocketed Armor Limbs",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D92",
+          "label": "Plan: Civil Engineer Deep Pocketed Armor Limbs",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D93",
+          "label": "Plan: Civil Engineer Lighter Build Armor Limbs",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D94",
+          "label": "Plan: Civil Engineer Ultra-Light Build Armor Limbs",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D95",
+          "label": "Plan: Civil Engineer Strengthened Armor Limbs",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D96",
+          "label": "Plan: Civil Engineer Lead Lined Armor Limbs",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D97",
+          "label": "Plan: Civil Engineer Braced Armor Arms",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D98",
+          "label": "Plan: Civil Engineer Brawling Armor Arms",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D99",
+          "label": "Plan: Civil Engineer Weighted Armor Arms",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D9A",
+          "label": "Plan: Civil Engineer Aerodynamic Armor Arms",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D9B",
+          "label": "Plan: Civil Engineer Stabilized Armor Arms",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D9C",
+          "label": "Plan: Civil Engineer Cushioned Armor Legs",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D9D",
+          "label": "Plan: Civil Engineer Custom Fitted Armor Legs",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D9E",
+          "label": "Plan: Civil Engineer Sleek Armor Legs",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4D9F",
+          "label": "Plan: Civil Engineer Padded Armor Torso",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DA0",
+          "label": "Plan: Civil Engineer Dense Armor Torso",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DA1",
+          "label": "Plan: Civil Engineer Asbestos Lined Armor Torso",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DA2",
+          "label": "Plan: Civil Engineer Pocketed Armor Torso",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DA3",
+          "label": "Plan: Civil Engineer Deep Pocketed Armor Torso",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DA4",
+          "label": "Plan: Civil Engineer Pneumatic Armor Torso",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DA5",
+          "label": "Plan: Civil Engineer Lighter Build Armor Torso",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DA6",
+          "label": "Plan: Civil Engineer Ultra-Light Build Armor Torso",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DA7",
+          "label": "Plan: Civil Engineer BioCommMesh Armor Torso",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DA8",
+          "label": "Plan: Civil Engineer Lead Lined Armor Torso",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DA9",
+          "label": "Plan: Civil Engineer Jet Pack Armor",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DAA",
+          "label": "Plan: Treated Lining Civil Engineer Underarmor",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DAB",
+          "label": "Plan: Resistant Lining Civil Engineer Underarmor",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DAC",
+          "label": "Plan: Protective Lining Civil Engineer Underarmor",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4DAD",
+          "label": "Plan: Shielded Lining Civil Engineer Underarmor",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006F4EB7",
+          "label": "Plan: Civil Engineer Muffled Limbs",
+          "fields": [
+            "obtain_ledger",
             "obtain_routes"
           ]
         },
@@ -38645,7 +40980,11 @@
           "fields": [
             "armour_group",
             "armour_group_key",
-            "plan_item"
+            "cobj",
+            "obtain_ledger",
+            "obtain_routes",
+            "plan_item",
+            "source_tag"
           ]
         },
         {
@@ -38654,7 +40993,11 @@
           "fields": [
             "armour_group",
             "armour_group_key",
-            "plan_item"
+            "cobj",
+            "obtain_ledger",
+            "obtain_routes",
+            "plan_item",
+            "source_tag"
           ]
         },
         {
@@ -38663,7 +41006,11 @@
           "fields": [
             "armour_group",
             "armour_group_key",
-            "plan_item"
+            "cobj",
+            "obtain_ledger",
+            "obtain_routes",
+            "plan_item",
+            "source_tag"
           ]
         },
         {
@@ -38672,7 +41019,11 @@
           "fields": [
             "armour_group",
             "armour_group_key",
-            "plan_item"
+            "cobj",
+            "obtain_ledger",
+            "obtain_routes",
+            "plan_item",
+            "source_tag"
           ]
         },
         {
@@ -38681,7 +41032,11 @@
           "fields": [
             "armour_group",
             "armour_group_key",
-            "plan_item"
+            "cobj",
+            "obtain_ledger",
+            "obtain_routes",
+            "plan_item",
+            "source_tag"
           ]
         },
         {
@@ -38690,35 +41045,56 @@
           "fields": [
             "armour_group",
             "armour_group_key",
-            "plan_item"
+            "cobj",
+            "obtain_ledger",
+            "obtain_routes",
+            "plan_item",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_007FFFDA",
           "label": "Plan: Crackler Grenade",
           "fields": [
-            "plan_item"
+            "cnam",
+            "cobj",
+            "obtain_ledger",
+            "obtain_routes",
+            "plan_item",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_00802192",
           "label": "Plan: Tempest",
           "fields": [
-            "plan_item"
+            "cobj",
+            "obtain_ledger",
+            "obtain_routes",
+            "plan_item",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_00802193",
           "label": "Plan: Chaos Engine",
           "fields": [
-            "plan_item"
+            "cobj",
+            "obtain_ledger",
+            "obtain_routes",
+            "plan_item",
+            "source_tag"
           ]
         },
         {
           "key": "PLAN_00802194",
           "label": "Plan: Splinter",
           "fields": [
-            "plan_item"
+            "cobj",
+            "obtain_ledger",
+            "obtain_routes",
+            "plan_item",
+            "source_tag"
           ]
         },
         {
@@ -38753,7 +41129,8 @@
             "cut_reason",
             "name",
             "obtain",
-            "plan_item"
+            "plan_item",
+            "stops_dropping"
           ]
         },
         {
@@ -38767,7 +41144,8 @@
             "cut_reason",
             "name",
             "obtain",
-            "plan_item"
+            "plan_item",
+            "stops_dropping"
           ]
         },
         {
@@ -38787,6 +41165,7 @@
             "plan_item",
             "plan_page",
             "plan_page_group",
+            "stops_dropping",
             "weapon_group",
             "weapon_group_key",
             "weapon_group_solo",
@@ -38797,7 +41176,10 @@
           "key": "PLAN_008F20F0",
           "label": "Plan: Love Tap Paint",
           "fields": [
-            "retired_routes"
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
@@ -38857,10 +41239,51 @@
           ]
         },
         {
-          "key": "PLAN_0090ECFD",
-          "label": "Plan: Gold Shovel Paint",
+          "key": "PLAN_00918211",
+          "label": "Plan: Cryolator Polar Lobber Mod",
           "fields": [
-            "weapon_group_solo"
+            "obtain",
+            "obtain_ledger",
+            "obtain_routes",
+            "obtain_unlocks",
+            "source_tag",
+            "stops_dropping"
+          ]
+        },
+        {
+          "key": "PLAN_00918213",
+          "label": "Plan: Cryolator Hypothermic Muzzle Mod",
+          "fields": [
+            "obtain",
+            "obtain_ledger",
+            "obtain_routes",
+            "obtain_unlocks",
+            "source_tag",
+            "stops_dropping"
+          ]
+        },
+        {
+          "key": "PLAN_00918214",
+          "label": "Plan: Cryolator Cold Surge Muzzle",
+          "fields": [
+            "obtain",
+            "obtain_ledger",
+            "obtain_routes",
+            "obtain_unlocks",
+            "source_tag",
+            "stops_dropping"
+          ]
+        },
+        {
+          "key": "PLAN_00918215",
+          "label": "Plan: Cryolator Magazine Mods",
+          "fields": [
+            "obtain",
+            "obtain_ledger",
+            "obtain_routes",
+            "obtain_unlocks",
+            "source_tag",
+            "stops_dropping"
           ]
         },
         {
@@ -38902,73 +41325,50 @@
           ]
         },
         {
-          "key": "RECIPE_008B507F",
-          "label": "Deathclaw Leveling Backpack Flair",
+          "key": "RECIPE_00185D23",
+          "label": "Electrified Rod",
           "fields": [
-            "obtain_unlocks"
+            "name"
           ]
         },
         {
-          "key": "RECIPE_008B5082",
-          "label": "Dog Leveling Backpack Flair",
+          "key": "RECIPE_0031BFE0",
+          "label": "Aligned Stub Barrel",
           "fields": [
-            "obtain_unlocks"
+            "name"
           ]
         },
         {
-          "key": "RECIPE_008B5084",
-          "label": "Radhog Leveling Backpack Flair",
+          "key": "RECIPE_0032E212",
+          "label": "Standard Short Barrel",
           "fields": [
-            "obtain_unlocks"
+            "cnam",
+            "cobj",
+            "name"
           ]
         },
         {
-          "key": "RECIPE_008B6A26",
-          "label": "Dog Leveling Backpack",
+          "key": "RECIPE_00527AC4",
+          "label": "True Stock",
           "fields": [
-            "obtain_unlocks"
+            "cnam",
+            "cobj",
+            "name"
           ]
         },
         {
-          "key": "RECIPE_008B6A28",
-          "label": "Radhog Leveling Backpack",
+          "key": "RECIPE_008D5AB7",
+          "label": "True Stock",
           "fields": [
-            "obtain_unlocks"
+            "name"
           ]
         },
         {
-          "key": "RECIPE_008B6A29",
-          "label": "Deathclaw Leveling Backpack",
+          "key": "RECIPE_008D5AB9",
+          "label": "Stub Barrel",
           "fields": [
-            "obtain_unlocks"
-          ]
-        },
-        {
-          "key": "RECIPE_008D4C4F",
-          "label": "Bandana Plaid",
-          "fields": [
-            "obtain_unlocks"
-          ]
-        },
-        {
-          "key": "RECIPE_008D4C50",
-          "label": "Badge Bandana",
-          "fields": [
-            "obtain_unlocks"
-          ]
-        },
-        {
-          "key": "RECIPE_008D667D",
-          "label": "Patina Nose Ring (Radhog)",
-          "fields": [
-            "obtain_unlocks"
-          ]
-        },
-        {
-          "key": "RECIPE_008D667E",
-          "label": "Gold Nose Ring (Radhog)",
-          "fields": [
-            "obtain_unlocks"
+            "cnam",
+            "cobj"
           ]
         }
       ]
@@ -39002,7 +41402,12 @@
     },
     "resource_producers.json": {
       "key": "edid",
-      "added": [],
+      "added": [
+        "ATX_ENTM_CAMP_Collector_AbandonedNest",
+        "ATX_ENTM_CAMP_Collector_FeastSideTable",
+        "ATX_ENTM_CAMP_Collector_TreeOfSpoils",
+        "SCORE_S27_ENTM_CAMP_Collector_VTRollerDogs"
+      ],
       "removed": [],
       "changed": [
         {
@@ -39778,6 +42183,15 @@
     "spin_wheel/spin_wheel.json": {
       "structural_change": true
     },
+    "stamps.json": {
+      "key": "formid",
+      "added": [
+        "00916665",
+        "00916666"
+      ],
+      "removed": [],
+      "changed": []
+    },
     "survival_tent_interiors.json": {
       "structural_change": true
     },
@@ -39789,17 +42203,13 @@
         "ATX_CAMPTitles_Prefix_Shocking",
         "ATX_CAMPTitles_Suffix_Prison",
         "ATX_CAMPTitles_Suffix_Zoo",
-        "CAMPTitles_Lifetime_Prefix_Fireside"
+        "CAMPTitles_Lifetime_Prefix_Fireside",
+        "SCORE_S10_CAMPTitles_Prefix_Responders",
+        "SCORE_S27_CAMPTitles_Suffix_Arena",
+        "SCORE_S27_CAMPTitles_Suffix_Coliseum"
       ],
       "removed": [],
       "changed": [
-        {
-          "key": "CAMPTitles_Lifetime_Suffix_Hideout",
-          "label": "CAMPTitles_Lifetime_Suffix_Hideout",
-          "fields": [
-            "debug"
-          ]
-        },
         {
           "key": "SCORE_MiniSeason_2026_SockHop_CAMPTitles_Prefix_Varnished",
           "label": "SCORE_MiniSeason_2026_SockHop_CAMPTitles_Prefix_Varnished",
@@ -39895,13 +42305,6 @@
             "imageUrl",
             "images"
           ]
-        },
-        {
-          "key": "WorldPets_CampTitles_Prefix_LifetimeChallenge_Dog01",
-          "label": "WorldPets_CampTitles_Prefix_LifetimeChallenge_Dog01",
-          "fields": [
-            "debug"
-          ]
         }
       ]
     },
@@ -39921,7 +42324,6 @@
         "ATX_PlayerTitles_Suffix_Handler",
         "ATX_PlayerTitles_Suffix_Isotope",
         "ATX_PlayerTitles_Suffix_Krampus",
-        "Fishing_PlayerTitles_Prefix_Gillded",
         "Fishing_PlayerTitles_Prefix_Icy",
         "HIDE_PlayerTitles_Both_Commando",
         "HIDE_PlayerTitles_Both_Endurer",
@@ -39931,11 +42333,16 @@
         "RTSV_PlayerTitles_Prefix_Marshal",
         "RTSV_PlayerTitles_Suffix_Collector",
         "RTSV_PlayerTitles_Suffix_Rancher",
-        "RTSV_PlayerTitles_Suffix_Ranger"
+        "RTSV_PlayerTitles_Suffix_Ranger",
+        "SCORE_S10_PlayerTitles_Prefix_Pitt-iful",
+        "SCORE_S10_PlayerTitles_Suffix_Trog",
+        "SCORE_S27_PlayerTitles_Prefix_Competitive",
+        "SCORE_S27_PlayerTitles_Prefix_Peak",
+        "SCORE_S27_PlayerTitles_Prefix_SPECIAL",
+        "SCORE_S27_PlayerTitles_Suffix_Athlete",
+        "SCORE_S27_PlayerTitles_Suffix_Competitor"
       ],
-      "removed": [
-        "zzz_Fishing_PlayerTitles_Prefix_Gillded"
-      ],
+      "removed": [],
       "changed": [
         {
           "key": "ATX_PlayerTitles_Prefix_AdVictoriam",
@@ -39987,13 +42394,6 @@
           "label": "ATX_PlayerTitles_Suffix_Technician",
           "fields": [
             "source"
-          ]
-        },
-        {
-          "key": "Fishing_PlayerTitles_Suffix_OfTheMonth",
-          "label": "Fishing_PlayerTitles_Suffix_OfTheMonth",
-          "fields": [
-            "debug"
           ]
         },
         {
@@ -40235,164 +42635,6 @@
             "imageUrl",
             "images"
           ]
-        },
-        {
-          "key": "WorldPets_PlayerTitles_Prefix_Cat01",
-          "label": "WorldPets_PlayerTitles_Prefix_Cat01",
-          "fields": [
-            "conditions",
-            "debug",
-            "unlockType"
-          ]
-        },
-        {
-          "key": "WorldPets_PlayerTitles_Prefix_Cat02",
-          "label": "WorldPets_PlayerTitles_Prefix_Cat02",
-          "fields": [
-            "conditions",
-            "debug",
-            "unlockType"
-          ]
-        },
-        {
-          "key": "WorldPets_PlayerTitles_Prefix_Deathclaw01",
-          "label": "WorldPets_PlayerTitles_Prefix_Deathclaw01",
-          "fields": [
-            "conditions",
-            "debug",
-            "unlockType"
-          ]
-        },
-        {
-          "key": "WorldPets_PlayerTitles_Prefix_Deathclaw02",
-          "label": "WorldPets_PlayerTitles_Prefix_Deathclaw02",
-          "fields": [
-            "conditions",
-            "debug",
-            "unlockType"
-          ]
-        },
-        {
-          "key": "WorldPets_PlayerTitles_Prefix_Dog01",
-          "label": "WorldPets_PlayerTitles_Prefix_Dog01",
-          "fields": [
-            "conditions",
-            "debug",
-            "unlockType"
-          ]
-        },
-        {
-          "key": "WorldPets_PlayerTitles_Prefix_Dog02",
-          "label": "WorldPets_PlayerTitles_Prefix_Dog02",
-          "fields": [
-            "conditions",
-            "debug",
-            "unlockType"
-          ]
-        },
-        {
-          "key": "WorldPets_PlayerTitles_Prefix_Radhog01",
-          "label": "WorldPets_PlayerTitles_Prefix_Radhog01",
-          "fields": [
-            "conditions",
-            "debug",
-            "unlockType"
-          ]
-        },
-        {
-          "key": "WorldPets_PlayerTitles_Prefix_Radhog02",
-          "label": "WorldPets_PlayerTitles_Prefix_Radhog02",
-          "fields": [
-            "conditions",
-            "debug",
-            "unlockType"
-          ]
-        },
-        {
-          "key": "WorldPets_PlayerTitles_Suffix_Cat01",
-          "label": "WorldPets_PlayerTitles_Suffix_Cat01",
-          "fields": [
-            "conditions",
-            "debug",
-            "unlockType"
-          ]
-        },
-        {
-          "key": "WorldPets_PlayerTitles_Suffix_Cat02",
-          "label": "WorldPets_PlayerTitles_Suffix_Cat02",
-          "fields": [
-            "conditions",
-            "debug",
-            "unlockType"
-          ]
-        },
-        {
-          "key": "WorldPets_PlayerTitles_Suffix_Deathclaw01",
-          "label": "WorldPets_PlayerTitles_Suffix_Deathclaw01",
-          "fields": [
-            "conditions",
-            "debug",
-            "unlockType"
-          ]
-        },
-        {
-          "key": "WorldPets_PlayerTitles_Suffix_Deathclaw02",
-          "label": "WorldPets_PlayerTitles_Suffix_Deathclaw02",
-          "fields": [
-            "conditions",
-            "debug",
-            "unlockType"
-          ]
-        },
-        {
-          "key": "WorldPets_PlayerTitles_Suffix_Dog01",
-          "label": "WorldPets_PlayerTitles_Suffix_Dog01",
-          "fields": [
-            "conditions",
-            "debug",
-            "unlockType"
-          ]
-        },
-        {
-          "key": "WorldPets_PlayerTitles_Suffix_Dog02",
-          "label": "WorldPets_PlayerTitles_Suffix_Dog02",
-          "fields": [
-            "conditions",
-            "debug",
-            "unlockType"
-          ]
-        },
-        {
-          "key": "WorldPets_PlayerTitles_Suffix_Radhog01",
-          "label": "WorldPets_PlayerTitles_Suffix_Radhog01",
-          "fields": [
-            "conditions",
-            "debug",
-            "unlockType"
-          ]
-        },
-        {
-          "key": "WorldPets_PlayerTitles_Suffix_Radhog02",
-          "label": "WorldPets_PlayerTitles_Suffix_Radhog02",
-          "fields": [
-            "conditions",
-            "debug",
-            "unlockType"
-          ]
-        },
-        {
-          "key": "zzzBurnBounty_PlayerTitles_Prefix_Notorious",
-          "label": "zzzBurnBounty_PlayerTitles_Prefix_Notorious",
-          "fields": [
-            "conditions"
-          ]
-        },
-        {
-          "key": "zzzBurnBounty_PlayerTitles_Prefix_Predator",
-          "label": "zzzBurnBounty_PlayerTitles_Prefix_Predator",
-          "fields": [
-            "conditions"
-          ]
         }
       ]
     },
@@ -40410,9 +42652,105 @@
     },
     "unique_weapons_armour/unique_weapons_armour.json": {
       "key": "id",
-      "added": [],
+      "added": [
+        "mod-custom-corpsestacker",
+        "mod-custom-crybaby",
+        "mod-custom-deepbreath",
+        "mod-custom-mrlacerator",
+        "mod-custom-thebasilisk",
+        "rd01-ultraciteterrorsword-2"
+      ],
       "removed": [],
-      "changed": []
+      "changed": [
+        {
+          "key": "10mmsmg-4",
+          "label": "Splinter",
+          "fields": [
+            "uniqueMods"
+          ]
+        },
+        {
+          "key": "50calmachinegun",
+          "label": "Final Word",
+          "fields": [
+            "uniqueMods"
+          ]
+        },
+        {
+          "key": "50calmachinegun-2",
+          "label": "The Action Hero",
+          "fields": [
+            "uniqueMods"
+          ]
+        },
+        {
+          "key": "baton",
+          "label": "Disorderly Conduct",
+          "fields": [
+            "uniqueMods"
+          ]
+        },
+        {
+          "key": "dlc01-assaultronblade-2",
+          "label": "Tempest",
+          "fields": [
+            "uniqueMods"
+          ]
+        },
+        {
+          "key": "m79",
+          "label": "Crushing Blow",
+          "fields": [
+            "uniqueMods"
+          ]
+        },
+        {
+          "key": "m79-2",
+          "label": "Chaos Engine",
+          "fields": [
+            "uniqueMods"
+          ]
+        },
+        {
+          "key": "pickaxe",
+          "label": "Cultist Piercer",
+          "fields": [
+            "edid"
+          ]
+        },
+        {
+          "key": "pickaxe-2",
+          "label": "Head Hunter",
+          "fields": [
+            "edid"
+          ]
+        },
+        {
+          "key": "plasmagun-4",
+          "label": "Slug Buster",
+          "fields": [
+            "starEffects"
+          ]
+        },
+        {
+          "key": "rd01-ultraciteterrorsword",
+          "label": "Ultracite Terror Sword",
+          "fields": [
+            "starEffects",
+            "uniqueMods"
+          ]
+        },
+        {
+          "key": "stormcutter",
+          "label": "V63-Z Custom",
+          "fields": [
+            "name",
+            "obtainRoutes",
+            "recordIds",
+            "starEffects"
+          ]
+        }
+      ]
     },
     "vendors.json": {
       "structural_change": true
@@ -40425,7 +42763,9 @@
     },
     "weather_stations.json": {
       "key": "edid",
-      "added": [],
+      "added": [
+        "ATX_ENTM_CAMP_Utility_WeatherStation_Wildfire"
+      ],
       "removed": [],
       "changed": [
         {
@@ -40462,7 +42802,13 @@
         }
       ]
     },
+    "well-rested-buffs.json": {
+      "structural_change": true
+    },
     "world_pet_challenges.json": {
+      "structural_change": true
+    },
+    "world_pet_types.json": {
       "structural_change": true
     }
   }

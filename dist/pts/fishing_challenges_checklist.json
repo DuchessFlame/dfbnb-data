@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated": "2026-10-06T05:25:01.786305+00:00",
+  "generated": "2026-10-06T07:45:33.096783+00:00",
   "isPts": false,
   "source": {
     "base": "dist/challenges/challenges.json",
@@ -1697,12 +1697,12 @@
           "counter": "Fish Caught",
           "type_label": "Lifetime",
           "group_key": "lifetime",
-          "reward": "",
-          "reward_source": "none",
+          "reward": "Title: Fireside",
+          "reward_source": "cobj",
           "reward_desc": "",
           "image_url": "",
           "conditions_display": [
-            "Target List.IsTrueForConditionForm(Challenge_Fishing_SeasonalFish_Winter_Any_Condition [CNDF:00943060]) = 1"
+            "Target.HasKeyword(Fishing_FishType_Seasonal_Winter [KYWD:008B3D61]) = 1"
           ],
           "is_meta": false,
           "is_sub": false,
@@ -1723,12 +1723,12 @@
           "counter": "Fish Caught",
           "type_label": "Lifetime",
           "group_key": "lifetime",
-          "reward": "",
-          "reward_source": "none",
+          "reward": "Plan: Fish Sauce",
+          "reward_source": "cobj",
           "reward_desc": "",
           "image_url": "",
           "conditions_display": [
-            "Target List.IsTrueForConditionForm(Challenge_Fishing_SeasonalFish_Winter_LocalLegend_Condition [CNDF:00943061]) = 1"
+            "Target.GetIsID(Fastenfisch [ALCH:00921E4B]) = 1"
           ],
           "is_meta": false,
           "is_sub": false,
@@ -1753,12 +1753,12 @@
           "counter": "Fish Caught",
           "type_label": "Lifetime",
           "group_key": "lifetime",
-          "reward": "",
-          "reward_source": "none",
+          "reward": "Title: Icy",
+          "reward_source": "cobj",
           "reward_desc": "",
           "image_url": "",
           "conditions_display": [
-            "Target List.IsTrueForConditionForm(Challenge_Fishing_SeasonalFish_Winter_Any_02_Condition [CNDF:0094305F]) = 1"
+            "Target.HasKeyword(Fishing_FishType_Seasonal_Winter [KYWD:008B3D61]) = 1"
           ],
           "is_meta": false,
           "is_sub": false,
