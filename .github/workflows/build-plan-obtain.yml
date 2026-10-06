@@ -105,8 +105,10 @@ jobs:
           python - <<'PY'
           import json
           d = json.load(open("dist/new_plans.json"))
-          total = sum(len(g.get("items", [])) for g in d.get("groups", []))
-          assert total == d.get("count"), f"count {d.get('count')} != {total} rows in groups"
+          # A plan is listed under every source it comes from (Daily Ops AND
+          # Events, say), so count distinct ids across groups, not rows.
+          total = len({it.get("id") for g in d.get("groups", []) for it in g.get("items", [])})
+          assert total == d.get("count"), f"count {d.get('count')} != {total} distinct plans in groups"
           print(f"new_plans.json: {total} new plan(s) "
                 f"[{d['baseline']['newest']} vs {d['baseline']['previous']}]")
           PY

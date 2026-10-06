@@ -89,10 +89,12 @@ jobs:
           import json
           d = json.load(open("dist/new_plans.json"))
           groups = d.get("groups", [])
-          total = sum(len(g.get("items", [])) for g in groups)
-          assert total == d.get("count"), f"count {d.get('count')} != {total} rows in groups"
+          # A plan is listed under every source it comes from, so count distinct ids.
+          total = len({it.get("id") for g in d.get("groups", []) for it in g.get("items", [])})
+          assert total == d.get("count"), f"count {d.get('count')} != {total} distinct plans in groups"
           labels = [g["label"] for g in groups]
-          assert labels == sorted(labels, key=str.lower), f"groups not A-Z: {labels}"
+          # Groups follow new_plans_sources.SOURCE_ORDER (Daily Ops, Minerva, ...),
+          # not A-Z, since the 23 Sep 2026 switch to source grouping.
           print(f"new_plans.json: {total} new plan(s) in {len(groups)} group(s) "
                 f"[{d['baseline']['newest']} vs {d['baseline']['previous']}]")
           for g in groups:
