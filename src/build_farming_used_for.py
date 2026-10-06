@@ -2253,7 +2253,10 @@ def _inject_region_links(slug, cfg, dist_dir):
                 "url": base + _region_slug(r.get("region")) + "/"}
                for r in sorted(doc.get("regions", []), key=lambda r: r.get("region") or "")]
     regions = [r for r in regions if r["count"]]
-    doc["fixed_spawn_index"] = {"base": base, "style": "links", "regions": regions}
+    # No "base" here: the links-style renderer only uses each region's url, and
+    # Sugar Bombs has no /location-guide/ hub page, so emitting the bare base
+    # was a dead link that failed check_guide_links and blocked the Patch Build.
+    doc["fixed_spawn_index"] = {"style": "links", "regions": regions}
     json.dump(doc, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print(f"  {os.path.basename(path):<34} region links: {len(regions)}")
 
