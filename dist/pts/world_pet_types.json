@@ -233,9 +233,9 @@
       "fortifyCarryWeight": {
         "name": "Pet Carrier",
         "ranks": [
-          5,
           10,
-          15
+          20,
+          30
         ],
         "levels": [
           null,
@@ -251,10 +251,10 @@
           null
         ],
         "damage": [
-          200,
-          350,
-          550,
-          800
+          2,
+          3.5,
+          5.5,
+          8
         ],
         "damageMult": [
           2,
@@ -280,7 +280,10 @@
       "dog": [],
       "radhog": []
     },
-    "unusedAltCaps": []
+    "unusedAltCaps": [
+      250,
+      800
+    ]
   },
   "levelling": {
     "totalXp": 303770,
@@ -454,13 +457,46 @@
         3200
       ]
     ],
-    "tickSeconds": null,
-    "rested": null,
+    "tickSeconds": 60,
+    "rested": {
+      "name": "Pet Rested",
+      "desc": "10x Pet XP Bonus",
+      "multiplier": 10,
+      "durationSec": 14400,
+      "durationHours": 4.0,
+      "resets": "daily challenge reset"
+    },
     "help": {
-      "overview": [],
-      "leveling": [],
-      "buffs": [],
-      "controls": []
+      "overview": [
+        "Pets can follow you in the Appalachian. More than that, they can be issued commands, do combat, earn experience points and rewards!",
+        "You may acquire Pets in the Atomic Shop. Luckily, there is one available for free!",
+        "Pip-Boy  You can manage your Pet in the PETS section of the Pip-Boy, where is displayed the list of Pets you own, their name, their XP Level and their current health.",
+        "Use the Pip-Boy to activate any of your Pets. They will appear right next to you. Only 1 Pet can be active at a time. Pets can follow you pretty much everywhere. If your Pet cannot path to you, no worries. They will automatically find a way to regroup when allowed.",
+        "Command Wheel  You can interact with your Pet directly (or through the player emote wheel) to bring up the Pet Command Wheel and give your Pet Commands. This is also where you find the option to rename or customize your Pet."
+      ],
+      "leveling": [
+        "XP and Leveling  Pets gain experience points, level-up and earn rewards. Your active Pet banks XP every second (max 1 minute) and collects the banked XP every time you earn XP. Collecting Pet XP from a kill earns your Pet an extra 10 percent Pet XP.",
+        "Pets earn Bonus XP for the first few hours of every day. Players must have a Pet active and the Pet XP Bonus resets at the same time as daily challenges.",
+        "When your Pet has earned enough XP, they will gain Levels. At major level milestones, it unlocks rewards. You can review the list of milestones and then claim the rewards in the Pet Progression Menu accessible via the Pip-Boy PETS section.",
+        "Rewards  Pets earn many different rewards. The list or rewards for each Pet species are: 2 unique passive buffs, 4 damage+health upgrades, 3 weight reductions, 4 player titles, 6 currencies/consumables and 7 cosmetics/customizations.",
+        "Buffs, upgrades and weight reductions stats are displayed in the Pip-Boy under STATS/EFFECTS.",
+        "Passive buffs (which are unique for each species), damage+health upgrades and weight reductions have tiers and can be improved multiple times."
+      ],
+      "buffs": [
+        "The list of unique passive buffs per species are:",
+        "Dog  Find Stimpak. Get additional Legendary Item when completing a Grunt Hunt.",
+        "Cat  Find Improved Baits. Get Fish Bits when catching a fish.",
+        "Radhog  Find Toxic-Goo. Get High-Radiation Fluid in nuke zones.",
+        "Deathclaw  Find Black Titanium. Get additional Legendary Item when completing an Infestation."
+      ],
+      "controls": [
+        "Using the Pet Command Wheel, Pets can FOLLOW, STAY, ATTACK and PROTECT.",
+        "During FOLLOW and STAY, they won't engage enemies and enemies will ignore them.",
+        "In ATTACK they will automatically attack when in combat range. PROTECT means they will wait for the player to take damage before automatically engaging in combat. They are always neutral to other human Players.",
+        "PROTECT is the Pet default stance.",
+        "Pet can sustain damage and ultimately fall wounded but they will never die. Use a Stimpak on your injured or wounded Pet to instantly bring them back to full health. They also get up after combats ends with minimum health.",
+        "In combat, your Pet will target the last Ping enemy."
+      ]
     }
   },
   "stats": {
@@ -614,8 +650,8 @@
     ]
   },
   "playerGift": {
-    "interval": 7000,
-    "intervalMin": 117,
+    "interval": 1801,
+    "intervalMin": 30,
     "note": "The finder buff delivers its item on this timer while the pet is active."
   },
   "species": [
@@ -627,36 +663,104 @@
       "sig1": "Bait Finder",
       "sig2": "Mega Bits",
       "sig1Mag": [
-        null,
-        null,
-        null
+        2,
+        3,
+        4
       ],
       "sig2Mag": [
-        null,
-        null,
-        null
+        1,
+        2,
+        3
       ],
       "activity": "Catch Fish with an active Pet Cat",
       "treasure": {
-        "item": "",
+        "item": "Bait - Improved",
         "isList": false,
-        "qtyByRank": []
+        "qtyByRank": [
+          2,
+          3,
+          4
+        ]
       },
       "buffs": {
         "sig1": {
           "name": "Bait Finder",
           "spell": "WorldPets_CatBuff_Buff01",
-          "descs": [],
-          "intervalMin": 117,
-          "ranks": []
+          "descs": [
+            "Cat finds <MAG> Improved Baits every 30 min",
+            "Cat finds <MAG> Improved Baits every 30 min",
+            "Cat finds <MAG> Improved Baits every 30 min"
+          ],
+          "intervalMin": 30,
+          "ranks": [
+            {
+              "rank": 1,
+              "item": "Bait - Improved",
+              "itemEdid": "Fishing_Bait_Improved",
+              "qty": 2,
+              "qtyStatic": 2,
+              "entitlement": "",
+              "entitlementMissing": false
+            },
+            {
+              "rank": 2,
+              "item": "Bait - Improved",
+              "itemEdid": "Fishing_Bait_Improved",
+              "qty": 3,
+              "qtyStatic": 3,
+              "entitlement": "",
+              "entitlementMissing": false
+            },
+            {
+              "rank": 3,
+              "item": "Bait - Improved",
+              "itemEdid": "Fishing_Bait_Improved",
+              "qty": 4,
+              "qtyStatic": 4,
+              "entitlement": "",
+              "entitlementMissing": false
+            }
+          ]
         },
         "sig2": {
           "name": "Mega Bits",
           "spell": "WorldPets_CatBuff_Buff02",
-          "descs": [],
+          "descs": [
+            "<MAG> Fish Bits when catching a fish with a Cat",
+            "<MAG> Fish Bits when catching a fish with a Cat",
+            "<MAG> Fish Bits when catching a fish with a Cat"
+          ],
           "trigger": "catch",
           "intervalMin": null,
-          "ranks": []
+          "ranks": [
+            {
+              "rank": 1,
+              "item": "Fish Bits",
+              "itemEdid": "Fish_Fishbits",
+              "qty": 1,
+              "qtyStatic": 2,
+              "entitlement": "",
+              "entitlementMissing": false
+            },
+            {
+              "rank": 2,
+              "item": "Fish Bits",
+              "itemEdid": "Fish_Fishbits",
+              "qty": 2,
+              "qtyStatic": 3,
+              "entitlement": "",
+              "entitlementMissing": false
+            },
+            {
+              "rank": 3,
+              "item": "Fish Bits",
+              "itemEdid": "Fish_Fishbits",
+              "qty": 3,
+              "qtyStatic": 4,
+              "entitlement": "",
+              "entitlementMissing": false
+            }
+          ]
         }
       },
       "foodTypes": [
@@ -1343,6 +1447,81 @@
           ]
         },
         {
+          "name": "Siamese Cat",
+          "formId": "0090ABCB",
+          "edid": "ATX_CAMPPets_Actor_Cat_Siamese",
+          "obtainSource": "Atom Shop",
+          "tradeable": false,
+          "description": "A great furry friend to go on adventures with you or just sleep at your C.A.M.P.",
+          "obtainRoutes": [
+            {
+              "route": "Caps",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Stamps",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Scoreboard",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Gold Bullion",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Atom Shop",
+              "populated": true,
+              "lines": [
+                "Purchased from the Atomic Shop — sold individually or as part of a bundle."
+              ],
+              "tradeable": false,
+              "dropRate": "N/A"
+            },
+            {
+              "route": "Limited Time Bundle",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Events & Activities",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Quests",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Challenges",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            }
+          ]
+        },
+        {
           "name": "Sphynx Cat",
           "formId": "007AE523",
           "edid": "ATX_CAMPPets_Actor_Cat_Sphynx",
@@ -1416,6 +1595,82 @@
               "dropRate": null
             }
           ]
+        },
+        {
+          "name": "Vault-Tec RoboPaw Steel Cat",
+          "formId": "0092804B",
+          "edid": "SCORE_S27_CAMPPets_Actor_Cat_VT_RoboPaw",
+          "obtainSource": "Scoreboard",
+          "tradeable": false,
+          "description": "Meet your new companion, the Vault-Tec way. Independent, observant, and engineered for optimal companionship.",
+          "obtainRoutes": [
+            {
+              "route": "Caps",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Stamps",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Scoreboard",
+              "populated": true,
+              "lines": [
+                "Purchase with tickets from the Season 27 Scoreboard."
+              ],
+              "tradeable": false,
+              "dropRate": "N/A"
+            },
+            {
+              "route": "Gold Bullion",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Atom Shop",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Limited Time Bundle",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Events & Activities",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Quests",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Challenges",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            }
+          ],
+          "seasonNumber": 27
         },
         {
           "name": "Wild Cat",
@@ -1498,10 +1753,10 @@
         "weapEdid": "crUnarmedWorldPet_Cat",
         "attackType": "Scratch",
         "speed": 1,
-        "reach": 0.5,
-        "minRange": 100,
+        "reach": 1,
+        "minRange": 50,
         "maxRange": 2000,
-        "attackDelay": 0.2,
+        "attackDelay": 0,
         "animAttackSec": 2,
         "critDmgMult": 2,
         "outOfRangeMult": 1,
@@ -1516,64 +1771,76 @@
       "sig1": "Dark Titan",
       "sig2": "Fun-Festation",
       "sig1Mag": [
-        null,
-        null,
-        null
-      ],
-      "sig2Mag": [
         1,
         2,
         3
       ],
+      "sig2Mag": [
+        null,
+        null,
+        null
+      ],
       "activity": "Kill Infestation enemies with an active Pet Deathclaw",
       "treasure": {
-        "item": "",
+        "item": "Black Titanium Ore",
         "isList": false,
-        "qtyByRank": []
+        "qtyByRank": [
+          1,
+          2,
+          3
+        ]
       },
       "buffs": {
         "sig1": {
           "name": "Dark Titan",
           "spell": "WorldPets_DeathclawBuff_Buff01",
-          "descs": [],
-          "intervalMin": 117,
-          "ranks": []
-        },
-        "sig2": {
-          "name": "Fun-Festation",
-          "spell": "WorldPets_DeathclawBuff_Buff02",
-          "descs": [],
-          "trigger": "infestation",
-          "intervalMin": null,
+          "descs": [
+            "Deathclaw finds <MAG> Black Titanium every 30 min",
+            "Deathclaw finds <MAG> Black Titanium every 30 min",
+            "Deathclaw finds <MAG> Black Titanium every 30 min"
+          ],
+          "intervalMin": 30,
           "ranks": [
             {
               "rank": 1,
-              "item": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
-              "itemEdid": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
+              "item": "Black Titanium Ore",
+              "itemEdid": "Chem_Smelting_Ore_BlackTitanium",
               "qty": 1,
-              "qtyStatic": 1,
+              "qtyStatic": 2,
               "entitlement": "",
               "entitlementMissing": false
             },
             {
               "rank": 2,
-              "item": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
-              "itemEdid": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
+              "item": "Black Titanium Ore",
+              "itemEdid": "Chem_Smelting_Ore_BlackTitanium",
               "qty": 2,
-              "qtyStatic": 1,
+              "qtyStatic": 3,
               "entitlement": "",
               "entitlementMissing": false
             },
             {
               "rank": 3,
-              "item": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
-              "itemEdid": "HTO_crLLS_Rewards_Legendary_Boss_Funfestation",
+              "item": "Black Titanium Ore",
+              "itemEdid": "Chem_Smelting_Ore_BlackTitanium",
               "qty": 3,
-              "qtyStatic": 1,
+              "qtyStatic": 4,
               "entitlement": "",
               "entitlementMissing": false
             }
           ]
+        },
+        "sig2": {
+          "name": "Fun-Festation",
+          "spell": "WorldPets_DeathclawBuff_Buff02",
+          "descs": [
+            "+<MAG> Legendary item (�) when completing an Infestation with a Deathclaw",
+            "+<MAG> Legendary item (��) when completing an Infestation with a Deathclaw",
+            "+<MAG> Legendary item (���) when completing an Infestation with a Deathclaw"
+          ],
+          "trigger": "infestation",
+          "intervalMin": null,
+          "ranks": []
         }
       },
       "foodTypes": [
@@ -1753,9 +2020,9 @@
       "sig1": "Stimpak Fetcher",
       "sig2": "Bounty Sniffer",
       "sig1Mag": [
-        null,
-        null,
-        null
+        2,
+        2,
+        2
       ],
       "sig2Mag": [
         null,
@@ -1764,22 +2031,62 @@
       ],
       "activity": "Complete Grunt Hunts with an active Pet Dog",
       "treasure": {
-        "item": "",
+        "item": "Stimpak: Diluted",
         "isList": false,
-        "qtyByRank": []
+        "qtyByRank": [
+          2,
+          2,
+          2
+        ]
       },
       "buffs": {
         "sig1": {
           "name": "Stimpak Fetcher",
           "spell": "WorldPets_DogBuff_Buff01",
-          "descs": [],
-          "intervalMin": 117,
-          "ranks": []
+          "descs": [
+            "Dog finds <MAG> Diluted Stimpaks every 30 min",
+            "Dog finds <MAG> Stimpaks every 30 min",
+            "Dog finds <MAG> Super Stimpaks every 30 min"
+          ],
+          "intervalMin": 30,
+          "ranks": [
+            {
+              "rank": 1,
+              "item": "Stimpak: Diluted",
+              "itemEdid": "StimpakDiluted",
+              "qty": 2,
+              "qtyStatic": 2,
+              "entitlement": "",
+              "entitlementMissing": false
+            },
+            {
+              "rank": 2,
+              "item": "Stimpak",
+              "itemEdid": "Stimpak",
+              "qty": 2,
+              "qtyStatic": 3,
+              "entitlement": "",
+              "entitlementMissing": false
+            },
+            {
+              "rank": 3,
+              "item": "Stimpak: Super",
+              "itemEdid": "SuperStimpak",
+              "qty": 2,
+              "qtyStatic": 4,
+              "entitlement": "",
+              "entitlementMissing": false
+            }
+          ]
         },
         "sig2": {
           "name": "Bounty Sniffer",
           "spell": "WorldPets_DogBuff_Buff02",
-          "descs": [],
+          "descs": [
+            "+<MAG> Legendary item (�) when completing a Grunt Hunt with a Dog",
+            "+<MAG> Legendary item (��) when completing a Grunt Hunt with a Dog",
+            "+<MAG> Legendary item (���) when completing a Grunt Hunt with a Dog"
+          ],
           "trigger": "grunt-hunt",
           "intervalMin": null,
           "ranks": []
@@ -2166,12 +2473,162 @@
           ]
         },
         {
+          "name": "Hunting Dog",
+          "formId": "008F4E10",
+          "edid": "ATX_CAMPPets_Actor_Dog_HuntingDog",
+          "obtainSource": "Atom Shop",
+          "tradeable": false,
+          "description": "Lean, rugged and always ready to play!",
+          "obtainRoutes": [
+            {
+              "route": "Caps",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Stamps",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Scoreboard",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Gold Bullion",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Atom Shop",
+              "populated": true,
+              "lines": [
+                "Purchased from the Atomic Shop — sold individually or as part of a bundle."
+              ],
+              "tradeable": false,
+              "dropRate": "N/A"
+            },
+            {
+              "route": "Limited Time Bundle",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Events & Activities",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Quests",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Challenges",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            }
+          ]
+        },
+        {
           "name": "Mongrel",
           "formId": "0084132D",
           "edid": "ATX_CAMPPets_Actor_Dog_Mongrel",
           "obtainSource": "Atom Shop",
           "tradeable": false,
           "description": "A vicious companion for a true wanderer of The Wasteland.",
+          "obtainRoutes": [
+            {
+              "route": "Caps",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Stamps",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Scoreboard",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Gold Bullion",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Atom Shop",
+              "populated": true,
+              "lines": [
+                "Purchased from the Atomic Shop — sold individually or as part of a bundle."
+              ],
+              "tradeable": false,
+              "dropRate": "N/A"
+            },
+            {
+              "route": "Limited Time Bundle",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Events & Activities",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Quests",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Challenges",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            }
+          ]
+        },
+        {
+          "name": "Plott Hound",
+          "formId": "0090ABCC",
+          "edid": "ATX_CAMPPets_Actor_Dog_PlottHound",
+          "obtainSource": "Atom Shop",
+          "tradeable": false,
+          "description": "A loyal hunting hound for anyone venturing into the Wasteland.",
           "obtainRoutes": [
             {
               "route": "Caps",
@@ -2542,6 +2999,82 @@
           "seasonNumber": 22
         },
         {
+          "name": "Vault-Tec RoboPaw Steel Dog",
+          "formId": "0092804A",
+          "edid": "SCORE_S27_CAMPPets_Actor_Dog_VT_RoboPaw",
+          "obtainSource": "Scoreboard",
+          "tradeable": false,
+          "description": "Meet your new best friend, the Vault-Tec way. Loyal, reliable, and engineered for optimal companionship.",
+          "obtainRoutes": [
+            {
+              "route": "Caps",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Stamps",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Scoreboard",
+              "populated": true,
+              "lines": [
+                "Purchase with tickets from the Season 27 Scoreboard."
+              ],
+              "tradeable": false,
+              "dropRate": "N/A"
+            },
+            {
+              "route": "Gold Bullion",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Atom Shop",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Limited Time Bundle",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Events & Activities",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Quests",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Challenges",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            }
+          ],
+          "seasonNumber": 27
+        },
+        {
           "name": "White Shepherd",
           "formId": "007A19B8",
           "edid": "SCORE_S19_CAMPPets_Actor_Dog_WhiteGermanShepherd",
@@ -2641,36 +3174,104 @@
       "sig1": "Goo-Getter",
       "sig2": "Rad-Dration",
       "sig1Mag": [
-        null,
-        null,
-        null
+        1,
+        2,
+        3
       ],
       "sig2Mag": [
-        null,
-        null,
-        null
+        1,
+        2,
+        3
       ],
       "activity": "Collect Flux with an active Pet Radhog",
       "treasure": {
-        "item": "",
+        "item": "Toxic Goo",
         "isList": false,
-        "qtyByRank": []
+        "qtyByRank": [
+          1,
+          2,
+          3
+        ]
       },
       "buffs": {
         "sig1": {
           "name": "Goo-Getter",
           "spell": "WorldPets_RadhogBuff_Buff01",
-          "descs": [],
-          "intervalMin": 117,
-          "ranks": []
+          "descs": [
+            "Radhog finds <MAG> Toxic Goo every 30 min",
+            "Radhog finds <MAG> Toxic Goo every 30 min",
+            "Radhog finds <MAG> Toxic Goo every 30 min"
+          ],
+          "intervalMin": 30,
+          "ranks": [
+            {
+              "rank": 1,
+              "item": "Toxic Goo",
+              "itemEdid": "WaterToxicGoo",
+              "qty": 1,
+              "qtyStatic": 2,
+              "entitlement": "",
+              "entitlementMissing": false
+            },
+            {
+              "rank": 2,
+              "item": "Toxic Goo",
+              "itemEdid": "WaterToxicGoo",
+              "qty": 2,
+              "qtyStatic": 3,
+              "entitlement": "",
+              "entitlementMissing": false
+            },
+            {
+              "rank": 3,
+              "item": "Toxic Goo",
+              "itemEdid": "WaterToxicGoo",
+              "qty": 3,
+              "qtyStatic": 4,
+              "entitlement": "",
+              "entitlementMissing": false
+            }
+          ]
         },
         "sig2": {
           "name": "Rad-Dration",
           "spell": "WorldPets_RadhogBuff_Buff02",
-          "descs": [],
+          "descs": [
+            "+<MAG>High-Radiation Fluids every 30 min in a Nuke zone with a Radhog",
+            "+<MAG>High-Radiation Fluids every 30 min in a Nuke zone with a Radhog",
+            "+<MAG>High-Radiation Fluids every 30 min in a Nuke zone with a Radhog"
+          ],
           "trigger": "nuke-zone",
-          "intervalMin": null,
-          "ranks": []
+          "intervalMin": 30,
+          "ranks": [
+            {
+              "rank": 1,
+              "item": "High-Radiation Fluids",
+              "itemEdid": "EN07_HighRadiationFluids",
+              "qty": 1,
+              "qtyStatic": 2,
+              "entitlement": "",
+              "entitlementMissing": false
+            },
+            {
+              "rank": 2,
+              "item": "High-Radiation Fluids",
+              "itemEdid": "EN07_HighRadiationFluids",
+              "qty": 2,
+              "qtyStatic": 3,
+              "entitlement": "",
+              "entitlementMissing": false
+            },
+            {
+              "rank": 3,
+              "item": "High-Radiation Fluids",
+              "itemEdid": "EN07_HighRadiationFluids",
+              "qty": 3,
+              "qtyStatic": 4,
+              "entitlement": "",
+              "entitlementMissing": false
+            }
+          ]
         }
       },
       "foodTypes": [
@@ -2678,6 +3279,82 @@
         "Plant"
       ],
       "skins": [
+        {
+          "name": "Blood Eagle Radhog",
+          "formId": "00924DCF",
+          "edid": "SCORE_S27_CAMPPets_Actor_Radhog_Bloodhog",
+          "obtainSource": "Scoreboard",
+          "tradeable": false,
+          "description": "That's one bloody pig!",
+          "obtainRoutes": [
+            {
+              "route": "Caps",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Stamps",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Scoreboard",
+              "populated": true,
+              "lines": [
+                "Purchase with tickets from the Season 27 Scoreboard."
+              ],
+              "tradeable": false,
+              "dropRate": "N/A"
+            },
+            {
+              "route": "Gold Bullion",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Atom Shop",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Limited Time Bundle",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Events & Activities",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Quests",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Challenges",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            }
+          ],
+          "seasonNumber": 27
+        },
         {
           "name": "Glowing Radhog",
           "formId": "008B1F0D",
@@ -2761,6 +3438,81 @@
           "obtainSource": "Atom Shop",
           "tradeable": false,
           "description": "Aged in the Wastleand, pungent and powerful Gruyere melts hearts and breaks bones.",
+          "obtainRoutes": [
+            {
+              "route": "Caps",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Stamps",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Scoreboard",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Gold Bullion",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Atom Shop",
+              "populated": true,
+              "lines": [
+                "Purchased from the Atomic Shop — sold individually or as part of a bundle."
+              ],
+              "tradeable": false,
+              "dropRate": "N/A"
+            },
+            {
+              "route": "Limited Time Bundle",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Events & Activities",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Quests",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            },
+            {
+              "route": "Challenges",
+              "populated": false,
+              "lines": [],
+              "tradeable": null,
+              "dropRate": null
+            }
+          ]
+        },
+        {
+          "name": "Hampshire Radhog",
+          "formId": "0090ABCD",
+          "edid": "ATX_CAMPPets_Actor_Radhog_Hampshire",
+          "obtainSource": "Atom Shop",
+          "tradeable": false,
+          "description": "Everyone could use a great Radhog buddy.",
           "obtainRoutes": [
             {
               "route": "Caps",

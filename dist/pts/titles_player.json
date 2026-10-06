@@ -1,5 +1,5 @@
 {
-  "generatedAt":"2026-10-06T03:34:33+00:00",
+  "generatedAt":"2026-10-06T05:55:44+00:00",
   "type":"player_titles",
   "items":[
     {
@@ -315,10 +315,10 @@
         "/wp-content/uploads/guide-images/titles/titles-player/atx_playertitles_prefix_apex.avif"
       ],
       "dropRate":"N/A",
-      "releaseDate":"2026-09-01",
+      "releaseDate":"2026-10-01",
       "releaseYear":2026,
-      "releaseLabel":"September 2026",
-      "isNew":false,
+      "releaseLabel":"October 2026",
+      "isNew":true,
       "tradeable":false,
       "stopsDropping":null,
       "unlockType":"atx",
@@ -476,6 +476,44 @@
         "imageEntitlementEdid":"SCORE_S24_ENTM_PlayerTitles_Prefix_Armed",
         "seasonNumber":24,
         "seasonName":"RIP Darling & The Cryptids from Beyond the Cosmos"
+      }
+    },
+    {
+      "formId":"00951E8D",
+      "edid":"SCORE_S27_PlayerTitles_Suffix_Athlete",
+      "titleMale":"Athlete",
+      "imageUrl":"/wp-content/uploads/guide-images/titles/titles-player/score_s27_playertitles_suffix_athlete.avif",
+      "titleFemale":"Athlete",
+      "title":"Athlete",
+      "isPrefix":false,
+      "isSuffix":true,
+      "affixType":"Suffix",
+      "conditions":[
+        "Top:Subject.HasEntitlement(SCORE_S27_ENTM_PlayerTitles_Suffix_Athlete \"\"\"Athlete\"\" Player Title Suffix\" [ENTM:00951E83]) = 1.000000"
+      ],
+      "condCount":1,
+      "howToObtain":"Purchase with tickets from the Season 27 Scoreboard (Season 27)",
+      "source":"Scoreboard",
+      "images":[
+        "/wp-content/uploads/guide-images/titles/titles-player/score_s27_playertitles_suffix_athlete.avif"
+      ],
+      "dropRate":"N/A",
+      "releaseDate":"2026-10-01",
+      "releaseYear":2026,
+      "releaseLabel":"October 2026",
+      "isNew":true,
+      "tradeable":false,
+      "stopsDropping":null,
+      "unlockType":"season_score",
+      "seasonNumber":27,
+      "cutContent":false,
+      "debug":{
+        "entitlementEdids":[
+          "SCORE_S27_ENTM_PlayerTitles_Suffix_Athlete"
+        ],
+        "imageEntitlementEdid":"SCORE_S27_ENTM_PlayerTitles_Suffix_Athlete",
+        "seasonNumber":27,
+        "seasonName":"Season 27"
       }
     },
     {
@@ -730,7 +768,7 @@
       "isSuffix":false,
       "affixType":"Prefix",
       "conditions":[
-        "Top:Subject.HasEntitlement(WorldPets_ENTM_Radhog_TITL_Prefix01_Boarish \"Player Title Prefix Boarish\" [ENTM:00921CB9]) = 1.000000"
+        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Prefix_Radhog01 [COBJ:008B1FEE]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Radhog to Level 10",
@@ -743,14 +781,23 @@
       "isNew":false,
       "tradeable":false,
       "stopsDropping":null,
-      "unlockType":"entitlement",
+      "unlockType":"event_activity",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "entitlementEdids":[
-          "WorldPets_ENTM_Radhog_TITL_Prefix01_Boarish"
-        ],
-        "imageEntitlementEdid":""
+        "cobjToken":"008B1FEE",
+        "cobjFormId":"008B1FEE",
+        "bookLvliGmrwViaEntries":{
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[]
+        },
+        "bookLvliGmrw":{},
+        "cobjLvliCandidatesAll":[],
+        "cobjLvliCandidatesFiltered":[],
+        "cobjReferencedByLvli":null,
+        "cobjGNAM_EDID":"WorldPets_PetLevelling_Radhog_COS_PlayerTitlePrefix01",
+        "cobjGNAM_FULL":"Radhog - Reach Level 10",
+        "cobjGNAM_FormID":"008B1F74"
       }
     },
     {
@@ -1087,7 +1134,7 @@
       "isSuffix":true,
       "affixType":"Suffix",
       "conditions":[
-        "Top:Subject.HasEntitlement(WorldPets_ENTM_Deathclaw_TITL_Suffix02_Brute \"Player Title Suffix Brute\" [ENTM:00921C99]) = 1.000000"
+        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Suffix_Deathclaw02 [COBJ:008C90D2]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Deathclaw to Level 130",
@@ -1100,14 +1147,23 @@
       "isNew":false,
       "tradeable":false,
       "stopsDropping":null,
-      "unlockType":"entitlement",
+      "unlockType":"event_activity",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "entitlementEdids":[
-          "WorldPets_ENTM_Deathclaw_TITL_Suffix02_Brute"
-        ],
-        "imageEntitlementEdid":""
+        "cobjToken":"008C90D2",
+        "cobjFormId":"008C90D2",
+        "bookLvliGmrwViaEntries":{
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[]
+        },
+        "bookLvliGmrw":{},
+        "cobjLvliCandidatesAll":[],
+        "cobjLvliCandidatesFiltered":[],
+        "cobjReferencedByLvli":null,
+        "cobjGNAM_EDID":"WorldPets_PetLevelling_Deathclaw_COS_PlayerTitleSuffix02",
+        "cobjGNAM_FULL":"Deathclaw - Reach Level 130",
+        "cobjGNAM_FormID":"008C909D"
       }
     },
     {
@@ -1340,7 +1396,7 @@
       "isSuffix":false,
       "affixType":"Prefix",
       "conditions":[
-        "Top:Subject.HasEntitlement(WorldPets_ENTM_Dog_TITL_Prefix01_Canine \"Player Title Prefix Canine\" [ENTM:00921C92]) = 1.000000"
+        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Prefix_Dog01 [COBJ:008B1FEC]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Dog to Level 10",
@@ -1353,14 +1409,23 @@
       "isNew":false,
       "tradeable":false,
       "stopsDropping":null,
-      "unlockType":"entitlement",
+      "unlockType":"event_activity",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "entitlementEdids":[
-          "WorldPets_ENTM_Dog_TITL_Prefix01_Canine"
-        ],
-        "imageEntitlementEdid":""
+        "cobjToken":"008B1FEC",
+        "cobjFormId":"008B1FEC",
+        "bookLvliGmrwViaEntries":{
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[]
+        },
+        "bookLvliGmrw":{},
+        "cobjLvliCandidatesAll":[],
+        "cobjLvliCandidatesFiltered":[],
+        "cobjReferencedByLvli":null,
+        "cobjGNAM_EDID":"WorldPets_PetLevelling_Dog_COS_PlayerTitlePrefix01",
+        "cobjGNAM_FULL":"Dog - Reach Level 10",
+        "cobjGNAM_FormID":"008B1F3A"
       }
     },
     {
@@ -1805,7 +1870,7 @@
       "isSuffix":false,
       "affixType":"Prefix",
       "conditions":[
-        "Top:Subject.HasEntitlement(WorldPets_ENTM_Deathclaw_TITL_Prefix02_ColdBlooded \"Player Title Prefix Cold Blooded\" [ENTM:00921CB4]) = 1.000000"
+        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Prefix_Deathclaw02 [COBJ:008C90D0]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Deathclaw to Level 90",
@@ -1818,14 +1883,23 @@
       "isNew":false,
       "tradeable":false,
       "stopsDropping":null,
-      "unlockType":"entitlement",
+      "unlockType":"event_activity",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "entitlementEdids":[
-          "WorldPets_ENTM_Deathclaw_TITL_Prefix02_ColdBlooded"
-        ],
-        "imageEntitlementEdid":""
+        "cobjToken":"008C90D0",
+        "cobjFormId":"008C90D0",
+        "bookLvliGmrwViaEntries":{
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[]
+        },
+        "bookLvliGmrw":{},
+        "cobjLvliCandidatesAll":[],
+        "cobjLvliCandidatesFiltered":[],
+        "cobjReferencedByLvli":null,
+        "cobjGNAM_EDID":"WorldPets_PetLevelling_Deathclaw_COS_PlayerTitlePrefix02",
+        "cobjGNAM_FULL":"Deathclaw - Reach Level 90",
+        "cobjGNAM_FormID":"008C909B"
       }
     },
     {
@@ -1846,10 +1920,10 @@
       "source":"Challenge",
       "images":[],
       "dropRate":"N/A",
-      "releaseDate":"2026-09-01",
+      "releaseDate":"2026-10-01",
       "releaseYear":2026,
-      "releaseLabel":"September 2026",
-      "isNew":false,
+      "releaseLabel":"October 2026",
+      "isNew":true,
       "tradeable":false,
       "stopsDropping":null,
       "unlockType":"challenge",
@@ -1880,10 +1954,10 @@
       "source":"Challenge",
       "images":[],
       "dropRate":"N/A",
-      "releaseDate":"2026-09-01",
+      "releaseDate":"2026-10-01",
       "releaseYear":2026,
-      "releaseLabel":"September 2026",
-      "isNew":false,
+      "releaseLabel":"October 2026",
+      "isNew":true,
       "tradeable":false,
       "stopsDropping":null,
       "unlockType":"challenge",
@@ -1934,6 +2008,82 @@
       "seasonNumber":null,
       "cutContent":false,
       "debug":{}
+    },
+    {
+      "formId":"00951E90",
+      "edid":"SCORE_S27_PlayerTitles_Prefix_Competitive",
+      "titleMale":"Competitive",
+      "imageUrl":"/wp-content/uploads/guide-images/titles/titles-player/score_s27_playertitles_prefix_competitive.avif",
+      "titleFemale":"Competitive",
+      "title":"Competitive",
+      "isPrefix":true,
+      "isSuffix":false,
+      "affixType":"Prefix",
+      "conditions":[
+        "Top:Subject.HasEntitlement(SCORE_S27_ENTM_PlayerTitles_Prefix_Competitive \"\"\"Competitive\"\" Player Title Prefix\" [ENTM:00951E86]) = 1.000000"
+      ],
+      "condCount":1,
+      "howToObtain":"Purchase with tickets from the Season 27 Scoreboard (Season 27)",
+      "source":"Scoreboard",
+      "images":[
+        "/wp-content/uploads/guide-images/titles/titles-player/score_s27_playertitles_prefix_competitive.avif"
+      ],
+      "dropRate":"N/A",
+      "releaseDate":"2026-10-01",
+      "releaseYear":2026,
+      "releaseLabel":"October 2026",
+      "isNew":true,
+      "tradeable":false,
+      "stopsDropping":null,
+      "unlockType":"season_score",
+      "seasonNumber":27,
+      "cutContent":false,
+      "debug":{
+        "entitlementEdids":[
+          "SCORE_S27_ENTM_PlayerTitles_Prefix_Competitive"
+        ],
+        "imageEntitlementEdid":"SCORE_S27_ENTM_PlayerTitles_Prefix_Competitive",
+        "seasonNumber":27,
+        "seasonName":"Season 27"
+      }
+    },
+    {
+      "formId":"00951E92",
+      "edid":"SCORE_S27_PlayerTitles_Suffix_Competitor",
+      "titleMale":"Competitor",
+      "imageUrl":"/wp-content/uploads/guide-images/titles/titles-player/score_s27_playertitles_suffix_competitor.avif",
+      "titleFemale":"Competitor",
+      "title":"Competitor",
+      "isPrefix":false,
+      "isSuffix":true,
+      "affixType":"Suffix",
+      "conditions":[
+        "Top:Subject.HasEntitlement(SCORE_S27_ENTM_PlayerTitles_Suffix_Competitor \"\"\"Competitor\"\" Player Title Suffix\" [ENTM:00951E88]) = 1.000000"
+      ],
+      "condCount":1,
+      "howToObtain":"Purchase with tickets from the Season 27 Scoreboard (Season 27)",
+      "source":"Scoreboard",
+      "images":[
+        "/wp-content/uploads/guide-images/titles/titles-player/score_s27_playertitles_suffix_competitor.avif"
+      ],
+      "dropRate":"N/A",
+      "releaseDate":"2026-10-01",
+      "releaseYear":2026,
+      "releaseLabel":"October 2026",
+      "isNew":true,
+      "tradeable":false,
+      "stopsDropping":null,
+      "unlockType":"season_score",
+      "seasonNumber":27,
+      "cutContent":false,
+      "debug":{
+        "entitlementEdids":[
+          "SCORE_S27_ENTM_PlayerTitles_Suffix_Competitor"
+        ],
+        "imageEntitlementEdid":"SCORE_S27_ENTM_PlayerTitles_Suffix_Competitor",
+        "seasonNumber":27,
+        "seasonName":"Season 27"
+      }
     },
     {
       "formId":"00836C48",
@@ -3243,10 +3393,10 @@
       "source":"Challenge",
       "images":[],
       "dropRate":"N/A",
-      "releaseDate":"2026-09-01",
+      "releaseDate":"2026-10-01",
       "releaseYear":2026,
-      "releaseLabel":"September 2026",
-      "isNew":false,
+      "releaseLabel":"October 2026",
+      "isNew":true,
       "tradeable":false,
       "stopsDropping":null,
       "unlockType":"challenge",
@@ -3596,10 +3746,10 @@
         "/wp-content/uploads/guide-images/titles/titles-player/atx_playertitles_prefix_favorite.avif"
       ],
       "dropRate":"N/A",
-      "releaseDate":"2026-09-01",
+      "releaseDate":"2026-10-01",
       "releaseYear":2026,
-      "releaseLabel":"September 2026",
-      "isNew":false,
+      "releaseLabel":"October 2026",
+      "isNew":true,
       "tradeable":false,
       "stopsDropping":null,
       "unlockType":"atx",
@@ -3623,7 +3773,7 @@
       "isSuffix":false,
       "affixType":"Prefix",
       "conditions":[
-        "Top:Subject.HasEntitlement(WorldPets_ENTM_Deathclaw_TITL_Prefix01_Fearsome \"Player Title Prefix Fearsome\" [ENTM:00921CA6]) = 1.000000"
+        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Prefix_Deathclaw01 [COBJ:008C90CF]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Deathclaw to Level 10",
@@ -3636,14 +3786,23 @@
       "isNew":false,
       "tradeable":false,
       "stopsDropping":null,
-      "unlockType":"entitlement",
+      "unlockType":"event_activity",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "entitlementEdids":[
-          "WorldPets_ENTM_Deathclaw_TITL_Prefix01_Fearsome"
-        ],
-        "imageEntitlementEdid":""
+        "cobjToken":"008C90CF",
+        "cobjFormId":"008C90CF",
+        "bookLvliGmrwViaEntries":{
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[]
+        },
+        "bookLvliGmrw":{},
+        "cobjLvliCandidatesAll":[],
+        "cobjLvliCandidatesFiltered":[],
+        "cobjReferencedByLvli":null,
+        "cobjGNAM_EDID":"WorldPets_PetLevelling_Deathclaw_COS_PlayerTitlePrefix01",
+        "cobjGNAM_FULL":"Deathclaw - Reach Level 10",
+        "cobjGNAM_FormID":"008C909A"
       }
     },
     {
@@ -3657,7 +3816,7 @@
       "isSuffix":false,
       "affixType":"Prefix",
       "conditions":[
-        "Top:Subject.HasEntitlement(WorldPets_ENTM_Cat_TITL_Prefix01_Feline \"Player Title Prefix Feline\" [ENTM:0091C636]) = 1.000000"
+        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Prefix_Cat01 [COBJ:008B1FEA]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Cat to Level 10",
@@ -3670,14 +3829,23 @@
       "isNew":false,
       "tradeable":false,
       "stopsDropping":null,
-      "unlockType":"entitlement",
+      "unlockType":"event_activity",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "entitlementEdids":[
-          "WorldPets_ENTM_Cat_TITL_Prefix01_Feline"
-        ],
-        "imageEntitlementEdid":""
+        "cobjToken":"008B1FEA",
+        "cobjFormId":"008B1FEA",
+        "bookLvliGmrwViaEntries":{
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[]
+        },
+        "bookLvliGmrw":{},
+        "cobjLvliCandidatesAll":[],
+        "cobjLvliCandidatesFiltered":[],
+        "cobjReferencedByLvli":null,
+        "cobjGNAM_EDID":"WorldPets_PetLevelling_Cat_COS_PlayerTitlePrefix01",
+        "cobjGNAM_FULL":"Cat - Reach Level 10",
+        "cobjGNAM_FormID":"008B1F1E"
       }
     },
     {
@@ -4390,49 +4558,6 @@
       }
     },
     {
-      "formId":"00914F67",
-      "edid":"Fishing_PlayerTitles_Prefix_Gillded",
-      "titleMale":"Gillded",
-      "imageUrl":null,
-      "titleFemale":"Gillded",
-      "title":"Gillded",
-      "isPrefix":true,
-      "isSuffix":false,
-      "affixType":"Prefix",
-      "conditions":[
-        "Top:Subject.HasLearnedRecipe(PlayerTitle_co_CondProxy_Prefix_Gillded [COBJ:00914F66]) = 1.000000"
-      ],
-      "condCount":1,
-      "howToObtain":"Complete the Event/Activity: (unknown)",
-      "source":"Event",
-      "images":[],
-      "dropRate":"N/A",
-      "releaseDate":"2026-09-01",
-      "releaseYear":2026,
-      "releaseLabel":"September 2026",
-      "isNew":false,
-      "tradeable":false,
-      "stopsDropping":null,
-      "unlockType":"event_activity",
-      "seasonNumber":null,
-      "cutContent":false,
-      "debug":{
-        "cobjToken":"00914F66",
-        "cobjFormId":"00914F66",
-        "bookLvliGmrwViaEntries":{
-          "candidateLvliFormIdsAll":[],
-          "candidateLvliFormIdsFiltered":[]
-        },
-        "bookLvliGmrw":{},
-        "cobjLvliCandidatesAll":[],
-        "cobjLvliCandidatesFiltered":[],
-        "cobjReferencedByLvli":null,
-        "cobjGNAM_EDID":"Fishing_Fish_Meal_Small_Raw_Axolotl_Gold",
-        "cobjGNAM_FULL":"Gold Axolotl",
-        "cobjGNAM_FormID":"00913919"
-      }
-    },
-    {
       "formId":"007A8CE5",
       "edid":"ATX_PlayerTitles_Prefix_Gleaming",
       "titleMale":"Gleaming",
@@ -4695,7 +4820,7 @@
       "isSuffix":true,
       "affixType":"Suffix",
       "conditions":[
-        "Top:Subject.HasEntitlement(WorldPets_ENTM_Radhog_TITL_Suffix01_Glutton \"Player Title Suffix Glutton\" [ENTM:00921CAB]) = 1.000000"
+        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Suffix_Radhog01 [COBJ:008B1FF4]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Radhog to Level 55",
@@ -4708,14 +4833,23 @@
       "isNew":false,
       "tradeable":false,
       "stopsDropping":null,
-      "unlockType":"entitlement",
+      "unlockType":"event_activity",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "entitlementEdids":[
-          "WorldPets_ENTM_Radhog_TITL_Suffix01_Glutton"
-        ],
-        "imageEntitlementEdid":""
+        "cobjToken":"008B1FF4",
+        "cobjFormId":"008B1FF4",
+        "bookLvliGmrwViaEntries":{
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[]
+        },
+        "bookLvliGmrw":{},
+        "cobjLvliCandidatesAll":[],
+        "cobjLvliCandidatesFiltered":[],
+        "cobjReferencedByLvli":null,
+        "cobjGNAM_EDID":"WorldPets_PetLevelling_Radhog_COS_PlayerTitleSuffix01",
+        "cobjGNAM_FULL":"Radhog - Reach Level 55",
+        "cobjGNAM_FormID":"008B1F76"
       }
     },
     {
@@ -5296,10 +5430,10 @@
         "/wp-content/uploads/guide-images/titles/titles-player/atx_playertitles_suffix_handler.avif"
       ],
       "dropRate":"N/A",
-      "releaseDate":"2026-09-01",
+      "releaseDate":"2026-10-01",
       "releaseYear":2026,
-      "releaseLabel":"September 2026",
-      "isNew":false,
+      "releaseLabel":"October 2026",
+      "isNew":true,
       "tradeable":false,
       "stopsDropping":null,
       "unlockType":"atx",
@@ -5744,7 +5878,7 @@
       "isSuffix":true,
       "affixType":"Suffix",
       "conditions":[
-        "Top:Subject.HasEntitlement(WorldPets_ENTM_Dog_TITL_Suffix01_Hound \"Player Title Suffix Hound\" [ENTM:00921CBA]) = 1.000000"
+        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Suffix_Dog01 [COBJ:008B1FF2]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Dog to Level 55",
@@ -5757,14 +5891,23 @@
       "isNew":false,
       "tradeable":false,
       "stopsDropping":null,
-      "unlockType":"entitlement",
+      "unlockType":"event_activity",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "entitlementEdids":[
-          "WorldPets_ENTM_Dog_TITL_Suffix01_Hound"
-        ],
-        "imageEntitlementEdid":""
+        "cobjToken":"008B1FF2",
+        "cobjFormId":"008B1FF2",
+        "bookLvliGmrwViaEntries":{
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[]
+        },
+        "bookLvliGmrw":{},
+        "cobjLvliCandidatesAll":[],
+        "cobjLvliCandidatesFiltered":[],
+        "cobjReferencedByLvli":null,
+        "cobjGNAM_EDID":"WorldPets_PetLevelling_Dog_COS_PlayerTitleSuffix01",
+        "cobjGNAM_FULL":"Dog - Reach Level 55",
+        "cobjGNAM_FormID":"008B1F3C"
       }
     },
     {
@@ -5998,10 +6141,10 @@
       "source":"Challenge",
       "images":[],
       "dropRate":"N/A",
-      "releaseDate":"2026-09-01",
+      "releaseDate":"2026-10-01",
       "releaseYear":2026,
-      "releaseLabel":"September 2026",
-      "isNew":false,
+      "releaseLabel":"October 2026",
+      "isNew":true,
       "tradeable":false,
       "stopsDropping":null,
       "unlockType":"challenge",
@@ -6245,10 +6388,10 @@
         "/wp-content/uploads/guide-images/titles/titles-player/atx_playertitles_suffix_isotope.avif"
       ],
       "dropRate":"N/A",
-      "releaseDate":"2026-09-01",
+      "releaseDate":"2026-10-01",
       "releaseYear":2026,
-      "releaseLabel":"September 2026",
-      "isNew":false,
+      "releaseLabel":"October 2026",
+      "isNew":true,
       "tradeable":false,
       "stopsDropping":null,
       "unlockType":"atx",
@@ -6474,10 +6617,10 @@
         "/wp-content/uploads/guide-images/titles/titles-player/atx_playertitles_suffix_krampus.avif"
       ],
       "dropRate":"N/A",
-      "releaseDate":"2026-09-01",
+      "releaseDate":"2026-10-01",
       "releaseYear":2026,
-      "releaseLabel":"September 2026",
-      "isNew":false,
+      "releaseLabel":"October 2026",
+      "isNew":true,
       "tradeable":false,
       "stopsDropping":null,
       "unlockType":"atx",
@@ -6761,7 +6904,7 @@
       "isSuffix":true,
       "affixType":"Suffix",
       "conditions":[
-        "Top:Subject.HasEntitlement(WorldPets_ENTM_Dog_TITL_Suffix02_Loyal \"Player Title Suffix Loyal\" [ENTM:00921C8D]) = 1.000000"
+        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Suffix_Dog02 [COBJ:008B1FF3]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Dog to Level 130",
@@ -6774,14 +6917,23 @@
       "isNew":false,
       "tradeable":false,
       "stopsDropping":null,
-      "unlockType":"entitlement",
+      "unlockType":"event_activity",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "entitlementEdids":[
-          "WorldPets_ENTM_Dog_TITL_Suffix02_Loyal"
-        ],
-        "imageEntitlementEdid":""
+        "cobjToken":"008B1FF3",
+        "cobjFormId":"008B1FF3",
+        "bookLvliGmrwViaEntries":{
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[]
+        },
+        "bookLvliGmrw":{},
+        "cobjLvliCandidatesAll":[],
+        "cobjLvliCandidatesFiltered":[],
+        "cobjReferencedByLvli":null,
+        "cobjGNAM_EDID":"WorldPets_PetLevelling_Dog_COS_PlayerTitleSuffix02",
+        "cobjGNAM_FULL":"Dog - Reach Level 130",
+        "cobjGNAM_FormID":"008B1F3D"
       }
     },
     {
@@ -7124,10 +7276,10 @@
       "source":"Challenge",
       "images":[],
       "dropRate":"N/A",
-      "releaseDate":"2026-09-01",
+      "releaseDate":"2026-10-01",
       "releaseYear":2026,
-      "releaseLabel":"September 2026",
-      "isNew":false,
+      "releaseLabel":"October 2026",
+      "isNew":true,
       "tradeable":false,
       "stopsDropping":null,
       "unlockType":"challenge",
@@ -7276,7 +7428,7 @@
       "isSuffix":true,
       "affixType":"Suffix",
       "conditions":[
-        "Top:Subject.HasEntitlement(WorldPets_ENTM_Cat_TITL_Suffix02_Meow \"Player Title Suffix Meow\" [ENTM:0091C63C]) = 1.000000"
+        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Suffix_Cat02 [COBJ:008B1FF1]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Cat to Level 130",
@@ -7289,14 +7441,23 @@
       "isNew":false,
       "tradeable":false,
       "stopsDropping":null,
-      "unlockType":"entitlement",
+      "unlockType":"event_activity",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "entitlementEdids":[
-          "WorldPets_ENTM_Cat_TITL_Suffix02_Meow"
-        ],
-        "imageEntitlementEdid":""
+        "cobjToken":"008B1FF1",
+        "cobjFormId":"008B1FF1",
+        "bookLvliGmrwViaEntries":{
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[]
+        },
+        "bookLvliGmrw":{},
+        "cobjLvliCandidatesAll":[],
+        "cobjLvliCandidatesFiltered":[],
+        "cobjReferencedByLvli":null,
+        "cobjGNAM_EDID":"WorldPets_PetLevelling_Cat_COS_PlayerTitleSuffix02",
+        "cobjGNAM_FULL":"Cat - Reach Level 130",
+        "cobjGNAM_FormID":"008B1F21"
       }
     },
     {
@@ -7686,7 +7847,7 @@
         "cobjLvliCandidatesFiltered":[],
         "cobjReferencedByLvli":null,
         "cobjGNAM_EDID":"Challenge_Lifetime_Fishing_Axolotls_META",
-        "cobjGNAM_FULL":"Catch All Monthly Axolotls",
+        "cobjGNAM_FULL":"Catch All Axolotls",
         "cobjGNAM_FormID":"008006DD",
         "chalEdid":"Challenge_Lifetime_Fishing_Axolotls_META",
         "chalCNAM":"Lifetime",
@@ -8061,6 +8222,44 @@
       }
     },
     {
+      "formId":"00951E8C",
+      "edid":"SCORE_S27_PlayerTitles_Prefix_Peak",
+      "titleMale":"Peak",
+      "imageUrl":"/wp-content/uploads/guide-images/titles/titles-player/score_s27_playertitles_prefix_peak.avif",
+      "titleFemale":"Peak",
+      "title":"Peak",
+      "isPrefix":true,
+      "isSuffix":false,
+      "affixType":"Prefix",
+      "conditions":[
+        "Top:Subject.HasEntitlement(SCORE_S27_ENTM_PlayerTitles_Prefix_Peak \"\"\"Peak\"\" Player Title Prefix\" [ENTM:00951E82]) = 1.000000"
+      ],
+      "condCount":1,
+      "howToObtain":"Purchase with tickets from the Season 27 Scoreboard (Season 27)",
+      "source":"Scoreboard",
+      "images":[
+        "/wp-content/uploads/guide-images/titles/titles-player/score_s27_playertitles_prefix_peak.avif"
+      ],
+      "dropRate":"N/A",
+      "releaseDate":"2026-10-01",
+      "releaseYear":2026,
+      "releaseLabel":"October 2026",
+      "isNew":true,
+      "tradeable":false,
+      "stopsDropping":null,
+      "unlockType":"season_score",
+      "seasonNumber":27,
+      "cutContent":false,
+      "debug":{
+        "entitlementEdids":[
+          "SCORE_S27_ENTM_PlayerTitles_Prefix_Peak"
+        ],
+        "imageEntitlementEdid":"SCORE_S27_ENTM_PlayerTitles_Prefix_Peak",
+        "seasonNumber":27,
+        "seasonName":"Season 27"
+      }
+    },
+    {
       "formId":"008E077C",
       "edid":"SDOW_PlayerTitles_Prefix_PintSized",
       "titleMale":"Pint-Sized",
@@ -8153,6 +8352,44 @@
       }
     },
     {
+      "formId":"00951E8E",
+      "edid":"SCORE_S10_PlayerTitles_Prefix_Pitt-iful",
+      "titleMale":"Pitt-iful",
+      "imageUrl":"/wp-content/uploads/guide-images/titles/titles-player/score_s10_playertitles_prefix_pitt-iful.avif",
+      "titleFemale":"Pitt-iful",
+      "title":"Pitt-iful",
+      "isPrefix":true,
+      "isSuffix":false,
+      "affixType":"Prefix",
+      "conditions":[
+        "Top:Subject.HasEntitlement(SCORE_S10_ENTM_PlayerTitles_Prefix_Pitt-iful \"\"\"Pitt-iful\"\" Player Title Prefix\" [ENTM:00951E84]) = 1.000000"
+      ],
+      "condCount":1,
+      "howToObtain":"Purchase with tickets from the Red Rocket 'Across America' Presents: The City of Steel Scoreboard (Season 10)",
+      "source":"Scoreboard",
+      "images":[
+        "/wp-content/uploads/guide-images/titles/titles-player/score_s10_playertitles_prefix_pitt-iful.avif"
+      ],
+      "dropRate":"N/A",
+      "releaseDate":"2022-09-13",
+      "releaseYear":2022,
+      "releaseLabel":"September 2022",
+      "isNew":false,
+      "tradeable":false,
+      "stopsDropping":null,
+      "unlockType":"season_score",
+      "seasonNumber":10,
+      "cutContent":false,
+      "debug":{
+        "entitlementEdids":[
+          "SCORE_S10_ENTM_PlayerTitles_Prefix_Pitt-iful"
+        ],
+        "imageEntitlementEdid":"SCORE_S10_ENTM_PlayerTitles_Prefix_Pitt-iful",
+        "seasonNumber":10,
+        "seasonName":"Red Rocket 'Across America' Presents: The City of Steel"
+      }
+    },
+    {
       "formId":"007F55EF",
       "edid":"ATX_PlayerTitles_Prefix_Polluted",
       "titleMale":"Polluted",
@@ -8199,7 +8436,7 @@
       "isSuffix":false,
       "affixType":"Prefix",
       "conditions":[
-        "Top:Subject.HasEntitlement(WorldPets_ENTM_Radhog_TITL_Prefix02_Porcine \"Player Title Prefix Porcine\" [ENTM:00921CA1]) = 1.000000"
+        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Prefix_Radhog02 [COBJ:008B1FEF]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Radhog to Level 90",
@@ -8212,14 +8449,23 @@
       "isNew":false,
       "tradeable":false,
       "stopsDropping":null,
-      "unlockType":"entitlement",
+      "unlockType":"event_activity",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "entitlementEdids":[
-          "WorldPets_ENTM_Radhog_TITL_Prefix02_Porcine"
-        ],
-        "imageEntitlementEdid":""
+        "cobjToken":"008B1FEF",
+        "cobjFormId":"008B1FEF",
+        "bookLvliGmrwViaEntries":{
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[]
+        },
+        "bookLvliGmrw":{},
+        "cobjLvliCandidatesAll":[],
+        "cobjLvliCandidatesFiltered":[],
+        "cobjReferencedByLvli":null,
+        "cobjGNAM_EDID":"WorldPets_PetLevelling_Radhog_COS_PlayerTitlePrefix02",
+        "cobjGNAM_FULL":"Radhog - Reach Level 90",
+        "cobjGNAM_FormID":"008B1F75"
       }
     },
     {
@@ -8387,10 +8633,10 @@
       "source":"Challenge",
       "images":[],
       "dropRate":"N/A",
-      "releaseDate":"2026-09-01",
+      "releaseDate":"2026-10-01",
       "releaseYear":2026,
-      "releaseLabel":"September 2026",
-      "isNew":false,
+      "releaseLabel":"October 2026",
+      "isNew":true,
       "tradeable":false,
       "stopsDropping":null,
       "unlockType":"challenge",
@@ -8532,7 +8778,7 @@
       "isSuffix":false,
       "affixType":"Prefix",
       "conditions":[
-        "Top:Subject.HasEntitlement(WorldPets_ENTM_Cat_TITL_Prefix02_Prowling \"Player Title Prefix Prowling\" [ENTM:0091C645]) = 1.000000"
+        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Prefix_Cat02 [COBJ:008B1FEB]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Cat to Level 90",
@@ -8545,14 +8791,23 @@
       "isNew":false,
       "tradeable":false,
       "stopsDropping":null,
-      "unlockType":"entitlement",
+      "unlockType":"event_activity",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "entitlementEdids":[
-          "WorldPets_ENTM_Cat_TITL_Prefix02_Prowling"
-        ],
-        "imageEntitlementEdid":""
+        "cobjToken":"008B1FEB",
+        "cobjFormId":"008B1FEB",
+        "bookLvliGmrwViaEntries":{
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[]
+        },
+        "bookLvliGmrw":{},
+        "cobjLvliCandidatesAll":[],
+        "cobjLvliCandidatesFiltered":[],
+        "cobjReferencedByLvli":null,
+        "cobjGNAM_EDID":"WorldPets_PetLevelling_Cat_COS_PlayerTitlePrefix02",
+        "cobjGNAM_FULL":"Cat - Reach Level 90",
+        "cobjGNAM_FormID":"008B1F1F"
       }
     },
     {
@@ -8640,7 +8895,7 @@
       "isSuffix":false,
       "affixType":"Prefix",
       "conditions":[
-        "Top:Subject.HasEntitlement(WorldPets_ENTM_Dog_TITL_Prefix02_Pup \"Player Title Prefix Pup\" [ENTM:00921CA0]) = 1.000000"
+        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Prefix_Dog02 [COBJ:008B1FED]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Dog to Level 90",
@@ -8653,14 +8908,23 @@
       "isNew":false,
       "tradeable":false,
       "stopsDropping":null,
-      "unlockType":"entitlement",
+      "unlockType":"event_activity",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "entitlementEdids":[
-          "WorldPets_ENTM_Dog_TITL_Prefix02_Pup"
-        ],
-        "imageEntitlementEdid":""
+        "cobjToken":"008B1FED",
+        "cobjFormId":"008B1FED",
+        "bookLvliGmrwViaEntries":{
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[]
+        },
+        "bookLvliGmrw":{},
+        "cobjLvliCandidatesAll":[],
+        "cobjLvliCandidatesFiltered":[],
+        "cobjReferencedByLvli":null,
+        "cobjGNAM_EDID":"WorldPets_PetLevelling_Dog_COS_PlayerTitlePrefix02",
+        "cobjGNAM_FULL":"Dog - Reach Level 90",
+        "cobjGNAM_FormID":"008B1F3B"
       }
     },
     {
@@ -8960,10 +9224,10 @@
       "source":"Challenge",
       "images":[],
       "dropRate":"N/A",
-      "releaseDate":"2026-09-01",
+      "releaseDate":"2026-10-01",
       "releaseYear":2026,
-      "releaseLabel":"September 2026",
-      "isNew":false,
+      "releaseLabel":"October 2026",
+      "isNew":true,
       "tradeable":false,
       "stopsDropping":null,
       "unlockType":"challenge",
@@ -8994,10 +9258,10 @@
       "source":"Challenge",
       "images":[],
       "dropRate":"N/A",
-      "releaseDate":"2026-09-01",
+      "releaseDate":"2026-10-01",
       "releaseYear":2026,
-      "releaseLabel":"September 2026",
-      "isNew":false,
+      "releaseLabel":"October 2026",
+      "isNew":true,
       "tradeable":false,
       "stopsDropping":null,
       "unlockType":"challenge",
@@ -9270,7 +9534,7 @@
       "isSuffix":true,
       "affixType":"Suffix",
       "conditions":[
-        "Top:Subject.HasEntitlement(WorldPets_ENTM_Deathclaw_TITL_Suffix01_Reptilian \"Player Title Suffix Reptilian\" [ENTM:00921C88]) = 1.000000"
+        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Suffix_Deathclaw01 [COBJ:008C90D1]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Deathclaw to Level 55",
@@ -9283,14 +9547,23 @@
       "isNew":false,
       "tradeable":false,
       "stopsDropping":null,
-      "unlockType":"entitlement",
+      "unlockType":"event_activity",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "entitlementEdids":[
-          "WorldPets_ENTM_Deathclaw_TITL_Suffix01_Reptilian"
-        ],
-        "imageEntitlementEdid":""
+        "cobjToken":"008C90D1",
+        "cobjFormId":"008C90D1",
+        "bookLvliGmrwViaEntries":{
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[]
+        },
+        "bookLvliGmrw":{},
+        "cobjLvliCandidatesAll":[],
+        "cobjLvliCandidatesFiltered":[],
+        "cobjReferencedByLvli":null,
+        "cobjGNAM_EDID":"WorldPets_PetLevelling_Deathclaw_COS_PlayerTitleSuffix01",
+        "cobjGNAM_FULL":"Deathclaw - Reach Level 55",
+        "cobjGNAM_FormID":"008C909C"
       }
     },
     {
@@ -9391,10 +9664,10 @@
       "source":"Challenge",
       "images":[],
       "dropRate":"N/A",
-      "releaseDate":"2026-09-01",
+      "releaseDate":"2026-10-01",
       "releaseYear":2026,
-      "releaseLabel":"September 2026",
-      "isNew":false,
+      "releaseLabel":"October 2026",
+      "isNew":true,
       "tradeable":false,
       "stopsDropping":null,
       "unlockType":"challenge",
@@ -9664,10 +9937,10 @@
         "/wp-content/uploads/guide-images/titles/titles-player/atx_playertitles_prefix_rugged.avif"
       ],
       "dropRate":"N/A",
-      "releaseDate":"2026-09-01",
+      "releaseDate":"2026-10-01",
       "releaseYear":2026,
-      "releaseLabel":"September 2026",
-      "isNew":false,
+      "releaseLabel":"October 2026",
+      "isNew":true,
       "tradeable":false,
       "stopsDropping":null,
       "unlockType":"atx",
@@ -9795,6 +10068,44 @@
           "ATX_ENTM_PlayerTitles_Prefix_Rusty"
         ],
         "imageEntitlementEdid":"ATX_ENTM_PlayerTitles_Prefix_Rusty"
+      }
+    },
+    {
+      "formId":"00951E91",
+      "edid":"SCORE_S27_PlayerTitles_Prefix_SPECIAL",
+      "titleMale":"S.P.E.C.I.A.L.",
+      "imageUrl":"/wp-content/uploads/guide-images/titles/titles-player/score_s27_playertitles_prefix_special.avif",
+      "titleFemale":"S.P.E.C.I.A.L.",
+      "title":"S.P.E.C.I.A.L.",
+      "isPrefix":true,
+      "isSuffix":false,
+      "affixType":"Prefix",
+      "conditions":[
+        "Top:Subject.HasEntitlement(SCORE_S27_ENTM_PlayerTitles_Prefix_SPECIAL \"\"\"S.P.E.C.I.A.L.\"\" Player Title Prefix\" [ENTM:00951E87]) = 1.000000"
+      ],
+      "condCount":1,
+      "howToObtain":"Purchase with tickets from the Season 27 Scoreboard (Season 27)",
+      "source":"Scoreboard",
+      "images":[
+        "/wp-content/uploads/guide-images/titles/titles-player/score_s27_playertitles_prefix_special.avif"
+      ],
+      "dropRate":"N/A",
+      "releaseDate":"2026-10-01",
+      "releaseYear":2026,
+      "releaseLabel":"October 2026",
+      "isNew":true,
+      "tradeable":false,
+      "stopsDropping":null,
+      "unlockType":"season_score",
+      "seasonNumber":27,
+      "cutContent":false,
+      "debug":{
+        "entitlementEdids":[
+          "SCORE_S27_ENTM_PlayerTitles_Prefix_SPECIAL"
+        ],
+        "imageEntitlementEdid":"SCORE_S27_ENTM_PlayerTitles_Prefix_SPECIAL",
+        "seasonNumber":27,
+        "seasonName":"Season 27"
       }
     },
     {
@@ -11409,10 +11720,10 @@
         "/wp-content/uploads/guide-images/titles/titles-player/atx_playertitles_prefix_sudsy.avif"
       ],
       "dropRate":"N/A",
-      "releaseDate":"2026-09-01",
+      "releaseDate":"2026-10-01",
       "releaseYear":2026,
-      "releaseLabel":"September 2026",
-      "isNew":false,
+      "releaseLabel":"October 2026",
+      "isNew":true,
       "tradeable":false,
       "stopsDropping":null,
       "unlockType":"atx",
@@ -11725,7 +12036,7 @@
       "isSuffix":true,
       "affixType":"Suffix",
       "conditions":[
-        "Top:Subject.HasEntitlement(WorldPets_ENTM_Radhog_TITL_Suffix02_Swine \"Player Title Suffix Swine\" [ENTM:00921C91]) = 1.000000"
+        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Suffix_Radhog02 [COBJ:008B1FF5]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Radhog to Level 130",
@@ -11738,14 +12049,23 @@
       "isNew":false,
       "tradeable":false,
       "stopsDropping":null,
-      "unlockType":"entitlement",
+      "unlockType":"event_activity",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "entitlementEdids":[
-          "WorldPets_ENTM_Radhog_TITL_Suffix02_Swine"
-        ],
-        "imageEntitlementEdid":""
+        "cobjToken":"008B1FF5",
+        "cobjFormId":"008B1FF5",
+        "bookLvliGmrwViaEntries":{
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[]
+        },
+        "bookLvliGmrw":{},
+        "cobjLvliCandidatesAll":[],
+        "cobjLvliCandidatesFiltered":[],
+        "cobjReferencedByLvli":null,
+        "cobjGNAM_EDID":"WorldPets_PetLevelling_Radhog_COS_PlayerTitleSuffix02",
+        "cobjGNAM_FULL":"Radhog - Reach Level 130",
+        "cobjGNAM_FormID":"008B1F77"
       }
     },
     {
@@ -12406,6 +12726,44 @@
           "ATX_ENTM_PlayerTitles_Prefix_Suffix_Tribune"
         ],
         "imageEntitlementEdid":"ATX_ENTM_PlayerTitles_Prefix_Suffix_Tribune"
+      }
+    },
+    {
+      "formId":"00951E8F",
+      "edid":"SCORE_S10_PlayerTitles_Suffix_Trog",
+      "titleMale":"Trog",
+      "imageUrl":"/wp-content/uploads/guide-images/titles/titles-player/score_s10_playertitles_suffix_trog.avif",
+      "titleFemale":"Trog",
+      "title":"Trog",
+      "isPrefix":false,
+      "isSuffix":true,
+      "affixType":"Suffix",
+      "conditions":[
+        "Top:Subject.HasEntitlement(SCORE_S10_ENTM_PlayerTitles_Suffix_Trog \"\"\"Trog\"\" Player Title Suffix\" [ENTM:00951E85]) = 1.000000"
+      ],
+      "condCount":1,
+      "howToObtain":"Purchase with tickets from the Red Rocket 'Across America' Presents: The City of Steel Scoreboard (Season 10)",
+      "source":"Scoreboard",
+      "images":[
+        "/wp-content/uploads/guide-images/titles/titles-player/score_s10_playertitles_suffix_trog.avif"
+      ],
+      "dropRate":"N/A",
+      "releaseDate":"2022-09-13",
+      "releaseYear":2022,
+      "releaseLabel":"September 2022",
+      "isNew":false,
+      "tradeable":false,
+      "stopsDropping":null,
+      "unlockType":"season_score",
+      "seasonNumber":10,
+      "cutContent":false,
+      "debug":{
+        "entitlementEdids":[
+          "SCORE_S10_ENTM_PlayerTitles_Suffix_Trog"
+        ],
+        "imageEntitlementEdid":"SCORE_S10_ENTM_PlayerTitles_Suffix_Trog",
+        "seasonNumber":10,
+        "seasonName":"Red Rocket 'Across America' Presents: The City of Steel"
       }
     },
     {
@@ -13081,7 +13439,7 @@
       "isSuffix":true,
       "affixType":"Suffix",
       "conditions":[
-        "Top:Subject.HasEntitlement(WorldPets_ENTM_Cat_TITL_Suffix01_Whiskers \"Player Title Suffix Whiskers\" [ENTM:0091C646]) = 1.000000"
+        "Top:Subject.HasLearnedRecipe(WorldPets_PlayerTitle_co_CondProxy_Suffix_Cat01 [COBJ:008B1FF0]) = 1.000000"
       ],
       "condCount":1,
       "howToObtain":"Level up your Pet Cat to Level 55",
@@ -13094,14 +13452,23 @@
       "isNew":false,
       "tradeable":false,
       "stopsDropping":null,
-      "unlockType":"entitlement",
+      "unlockType":"event_activity",
       "seasonNumber":null,
       "cutContent":false,
       "debug":{
-        "entitlementEdids":[
-          "WorldPets_ENTM_Cat_TITL_Suffix01_Whiskers"
-        ],
-        "imageEntitlementEdid":""
+        "cobjToken":"008B1FF0",
+        "cobjFormId":"008B1FF0",
+        "bookLvliGmrwViaEntries":{
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[]
+        },
+        "bookLvliGmrw":{},
+        "cobjLvliCandidatesAll":[],
+        "cobjLvliCandidatesFiltered":[],
+        "cobjReferencedByLvli":null,
+        "cobjGNAM_EDID":"WorldPets_PetLevelling_Cat_COS_PlayerTitleSuffix01",
+        "cobjGNAM_FULL":"Cat - Reach Level 55",
+        "cobjGNAM_FormID":"008B1F20"
       }
     },
     {
@@ -14232,6 +14599,49 @@
       "debug":{}
     },
     {
+      "formId":"00914F67",
+      "edid":"zzz_Fishing_PlayerTitles_Prefix_Gillded",
+      "titleMale":"Gillded",
+      "imageUrl":null,
+      "titleFemale":"Gillded",
+      "title":"Gillded",
+      "isPrefix":true,
+      "isSuffix":false,
+      "affixType":"Prefix",
+      "conditions":[
+        "Top:Subject.HasLearnedRecipe(zzz_PlayerTitle_co_CondProxy_Prefix_Gillded [COBJ:00914F66]) = 1.000000"
+      ],
+      "condCount":1,
+      "howToObtain":"Cut content – not obtainable.",
+      "source":"Cut",
+      "images":[],
+      "dropRate":"N/A",
+      "releaseDate":"2026-09-01",
+      "releaseYear":2026,
+      "releaseLabel":"September 2026",
+      "isNew":false,
+      "tradeable":false,
+      "stopsDropping":null,
+      "unlockType":"event_activity",
+      "seasonNumber":null,
+      "cutContent":true,
+      "debug":{
+        "cobjToken":"00914F66",
+        "cobjFormId":"00914F66",
+        "bookLvliGmrwViaEntries":{
+          "candidateLvliFormIdsAll":[],
+          "candidateLvliFormIdsFiltered":[]
+        },
+        "bookLvliGmrw":{},
+        "cobjLvliCandidatesAll":[],
+        "cobjLvliCandidatesFiltered":[],
+        "cobjReferencedByLvli":null,
+        "cobjGNAM_EDID":"recipe_Dummy_Uncraftable_Item_NOCRAFT",
+        "cobjGNAM_FULL":"",
+        "cobjGNAM_FormID":"00054A1F"
+      }
+    },
+    {
       "formId":"008E41AE",
       "edid":"zzzATX_PlayerTitles_Prefix_Glazed",
       "titleMale":"Glazed",
@@ -14414,7 +14824,7 @@
       "affixType":"Prefix",
       "conditions":[
         "Top:Subject.HasCompletedChallenge(Challenge_Lifetime_BurnBounty_CompleteHeadGroups_All_META \"Complete All Head Hunt Groups\" [CHAL:0084312F]) = 1.000000",
-        "Top:Subject.GetGlobalValue(BountyHunt_TempDisable [GLOB:0080E7E5]) = 1.000000"
+        "Top:Subject.GetGlobalValue(Burn_BountyHunt_TempDisable [GLOB:0080E7E5]) = 1.000000"
       ],
       "condCount":2,
       "howToObtain":"Cut content – not obtainable.",
@@ -14449,7 +14859,7 @@
       "affixType":"Prefix",
       "conditions":[
         "Top:Subject.HasCompletedChallenge(Challenge_Lifetime_BurnBounty_CompletedHuntLocation_META \"Complete Bounty Hunts at these Locations\" [CHAL:00843106]) = 1.000000",
-        "Top:Subject.GetGlobalValue(BountyHunt_TempDisable [GLOB:0080E7E5]) = 1.000000"
+        "Top:Subject.GetGlobalValue(Burn_BountyHunt_TempDisable [GLOB:0080E7E5]) = 1.000000"
       ],
       "condCount":2,
       "howToObtain":"Cut content – not obtainable.",

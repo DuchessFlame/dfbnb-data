@@ -16,516 +16,3200 @@
   "CMPT": "CMPT_Export_October_2026.tsv"
  },
  "stats": {
-  "lists_total": 10963,
+  "lists_total": 11305,
   "dead_entries_shadowed_switch": 6,
-  "dead_entries_never_rolls": 60,
+  "dead_entries_never_rolls": 24,
   "dead_entries_shadowed": 6,
-  "lists_live": 8810,
+  "lists_live": 9110,
   "plans_scanned": 3136,
   "plans_cut": 314,
   "plans_via_unreferenced_gmrw": 27,
-  "scrap_scanned": 863,
-  "titles_scanned": 488,
-  "titles_entitlement_or_default": 255,
-  "titles_skipped_cut_or_atom": 145,
+  "scrap_scanned": 979,
+  "titles_scanned": 521,
+  "titles_entitlement_or_default": 287,
+  "titles_skipped_cut_or_atom": 156,
   "titles_checked": 52
  },
  "counts": {
-  "total": 94,
-  "unobtainable": 17,
-  "broken_item": 77,
-  "conf_strong": 13,
+  "total": 81,
+  "unobtainable": 79,
+  "broken_item": 2,
   "conf_check": 81,
   "confirmed": 0,
   "titles": 0,
-  "plans": 94
+  "plans": 81
  },
  "items": [
   {
-   "id": "0068B8F0",
-   "name": "Recipe: Brahmin Burgers",
+   "id": "00948263",
+   "name": "Plan: 50 Cal Machine Gun Aligned Grip",
    "kind": "plan",
    "severity": "unobtainable",
    "bugs": [
     {
      "kind": "orphan",
-     "strong": true,
+     "strong": false,
      "title": "Reward list isn't connected to anything",
      "records": [
       {
-       "form_id": "006772EC",
-       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "0068B8FE",
-       "edid": "NWOT_LL_Food_Recipes",
+       "form_id": "00948287",
+       "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
+     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
     }
    ],
    "still_from": [],
    "technical": {
     "plan": {
-     "form_id": "0068B8F0",
-     "edid": "NWOT_Recipe_Food_BrahminBurgers",
+     "form_id": "00948263",
+     "edid": "recipe_mod_50CalMachineGun_Grip_Recoil-HipAccuracy",
      "type": "BOOK"
     },
     "recipes": [
      {
-      "form_id": "0068B8FA",
-      "edid": "co_meal_NWOT_BrahminBurgers",
+      "form_id": "00948271",
+      "edid": "co_mod_50CalMachineGun_Grip_Recoil-HipAccuracy",
       "type": "COBJ"
      }
     ],
     "creates": [
      {
-      "form_id": "00669392",
-      "edid": "NWOT_BrahminBurgers",
-      "type": ""
-     }
-    ]
-   },
-   "confidence": "strong",
-   "confirmed": false,
-   "first_seen": "2026-10-02",
-   "is_new": false
-  },
-  {
-   "id": "0068B8F1",
-   "name": "Recipe: Caramel Mutfruit",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": true,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "006772EC",
-       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "0068B8FE",
-       "edid": "NWOT_LL_Food_Recipes",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "0068B8F1",
-     "edid": "NWOT_Recipe_Food_CaramelMutfruit",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0068B8F7",
-      "edid": "co_meal_NWOT_CaramelMutfruit",
-      "type": "COBJ"
-     }
-    ],
-    "creates": [
-     {
-      "form_id": "00669393",
-      "edid": "NWOT_CaramelMutfruit",
-      "type": ""
-     }
-    ]
-   },
-   "confidence": "strong",
-   "confirmed": false,
-   "first_seen": "2026-10-02",
-   "is_new": false
-  },
-  {
-   "id": "0068B8F2",
-   "name": "Recipe: Carnival Pie",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": true,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "006772EC",
-       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "0068B8FE",
-       "edid": "NWOT_LL_Food_Recipes",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "0068B8F2",
-     "edid": "NWOT_Recipe_Food_CarnivalPie",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0068B8F6",
-      "edid": "co_meal_NWOT_CarnivalPie",
-      "type": "COBJ"
-     }
-    ],
-    "creates": [
-     {
-      "form_id": "0066D3F2",
-      "edid": "NWOT_CarnivalPie",
-      "type": ""
-     }
-    ]
-   },
-   "confidence": "strong",
-   "confirmed": false,
-   "first_seen": "2026-10-02",
-   "is_new": false
-  },
-  {
-   "id": "0065DD0A",
-   "name": "Plan: Cupid Cappy Sign",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": true,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "006772EC",
-       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "0068B8E9",
-       "edid": "E09C_LoveTunnel_Recipes",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "0065DD0A",
-     "edid": "E09C_Recipe_Workshop_CupidCappy",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0065DD0B",
-      "edid": "E09C_workshop_co_WallDecor_CupidCappy",
-      "type": "COBJ"
-     }
-    ],
-    "creates": [
-     {
-      "form_id": "006772F1",
-      "edid": "workshop_NWOT_CappieLove02",
-      "type": ""
-     }
-    ]
-   },
-   "confidence": "strong",
-   "confirmed": false,
-   "first_seen": "2026-10-02",
-   "is_new": false
-  },
-  {
-   "id": "0068B8EE",
-   "name": "Recipe: Fried Radroach On A Stick",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": true,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "006772EC",
-       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "0068B8FE",
-       "edid": "NWOT_LL_Food_Recipes",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "0068B8EE",
-     "edid": "NWOT_Recipe_Food_RadroachSkewer2",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0068B8FC",
-      "edid": "co_meal_NWOT_RadroachSkewer2",
-      "type": "COBJ"
-     }
-    ],
-    "creates": [
-     {
-      "form_id": "0066D3F5",
-      "edid": "NWOT_RadroachSkewer2",
-      "type": ""
-     }
-    ]
-   },
-   "confidence": "strong",
-   "confirmed": false,
-   "first_seen": "2026-10-02",
-   "is_new": false
-  },
-  {
-   "id": "0068B8EF",
-   "name": "Recipe: Fried Scorpion On A Stick",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": true,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "006772EC",
-       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "0068B8FE",
-       "edid": "NWOT_LL_Food_Recipes",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "0068B8EF",
-     "edid": "NWOT_Recipe_Food_RadscorpionSkewer",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0068B8F8",
-      "edid": "co_meal_NWOT_RadscorpionSkewer",
-      "type": "COBJ"
-     }
-    ],
-    "creates": [
-     {
-      "form_id": "0066D3F0",
-      "edid": "NWOT_RadscorpionSkewer",
-      "type": ""
-     }
-    ]
-   },
-   "confidence": "strong",
-   "confirmed": false,
-   "first_seen": "2026-10-02",
-   "is_new": false
-  },
-  {
-   "id": "0068B8ED",
-   "name": "Recipe: Gulper Stuffed Foot",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": true,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "006772EC",
-       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "0068B8FE",
-       "edid": "NWOT_LL_Food_Recipes",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "0068B8ED",
-     "edid": "NWOT_Recipe_Food_GulperStuffedFoot",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0068B8F5",
-      "edid": "co_meal_NWOT_GulperStuffedFoot",
-      "type": "COBJ"
-     }
-    ],
-    "creates": [
-     {
-      "form_id": "00669394",
-      "edid": "NWOT_GulperStuffedFoot",
-      "type": ""
-     }
-    ]
-   },
-   "confidence": "strong",
-   "confirmed": false,
-   "first_seen": "2026-10-02",
-   "is_new": false
-  },
-  {
-   "id": "008F20F0",
-   "name": "Plan: Love Tap Paint",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": true,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "006772EC",
-       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "0068B8E9",
-       "edid": "E09C_LoveTunnel_Recipes",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "008F20F0",
-     "edid": "Recipe_mod_SubmachineGun_Paint_LoveTap",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "00685D4A",
-      "edid": "E09C_co_SubmachineGun_Paint_LoveTap",
-      "type": "COBJ"
-     }
-    ],
-    "creates": [
-     {
-      "form_id": "00685D56",
-      "edid": "E09C_mod_SubmachineGun_Paint_LoveTap",
+      "form_id": "009482A3",
+      "edid": "mod_50CalMachineGun_Grip_Recoil-HipAccuracy",
       "type": "OMOD"
      }
     ]
    },
-   "confidence": "strong",
+   "confidence": "check",
    "confirmed": false,
-   "first_seen": "2026-10-02",
+   "first_seen": "2026-10-05",
    "is_new": false
   },
   {
-   "id": "0068B8EB",
-   "name": "Recipe: Nuka-Dog",
+   "id": "00948268",
+   "name": "Plan: 50 Cal Machine Gun Aligned Long Barrel",
    "kind": "plan",
    "severity": "unobtainable",
    "bugs": [
     {
      "kind": "orphan",
-     "strong": true,
+     "strong": false,
      "title": "Reward list isn't connected to anything",
      "records": [
       {
-       "form_id": "006772EC",
-       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "0068B8FE",
-       "edid": "NWOT_LL_Food_Recipes",
+       "form_id": "00948287",
+       "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
+     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
     }
    ],
    "still_from": [],
    "technical": {
     "plan": {
-     "form_id": "0068B8EB",
-     "edid": "NWOT_Recipe_Food_NukaDog",
+     "form_id": "00948268",
+     "edid": "recipe_mod_50CalMachineGun_Barrel_Long_Recoil-HipAccuracy",
      "type": "BOOK"
     },
     "recipes": [
      {
-      "form_id": "0068B8FD",
-      "edid": "co_meal_NWOT_NukaDog",
-      "type": "COBJ"
-     },
-     {
-      "form_id": "0068B8F4",
-      "edid": "co_meal_NWOT_NukaBottleDog",
+      "form_id": "0094827C",
+      "edid": "co_mod_50CalMachineGun_Barrel_Long_Recoil-HipAccuracy",
       "type": "COBJ"
      }
     ],
     "creates": [
      {
-      "form_id": "0066D3F3",
-      "edid": "NWOT_NukaDog",
-      "type": ""
+      "form_id": "009482AE",
+      "edid": "mod_50CalMachineGun_Barrel_Long_Recoil-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00948269",
+   "name": "Plan: 50 Cal Machine Gun Aligned Short Barrel",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00948287",
+       "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00948269",
+     "edid": "recipe_mod_50CalMachineGun_Barrel_Short_Recoil-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094827F",
+      "edid": "co_mod_50CalMachineGun_Barrel_Short_Recoil-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "009482B1",
+      "edid": "mod_50CalMachineGun_Barrel_Short_Recoil-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00948264",
+   "name": "Plan: 50 Cal Machine Gun Forceful Grip",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00948287",
+       "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00948264",
+     "edid": "recipe_mod_50CalMachineGun_Grip_Recoil-SecondaryDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00948282",
+      "edid": "co_mod_50CalMachineGun_Magazine_Ammo-ArmorPen",
+      "type": "COBJ"
      },
      {
-      "form_id": "0066D3F4",
-      "edid": "NWOT_NukaBottleDog",
+      "form_id": "00948272",
+      "edid": "co_mod_50CalMachineGun_Grip_Recoil-SecondaryDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "009482B3",
+      "edid": "mod_50CalMachineGun_Magazine_Ammo-ArmorPen",
+      "type": "OMOD"
+     },
+     {
+      "form_id": "009482A4",
+      "edid": "mod_50CalMachineGun_Grip_Recoil-SecondaryDMG",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094826C",
+   "name": "Plan: 50 Cal Machine Gun Piercing Magazine",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00948287",
+       "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094826C",
+     "edid": "recipe_mod_50CalMachineGun_Magazine_Reload-ArmorPen",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00948285",
+      "edid": "co_mod_50CalMachineGun_Magazine_Reload-ArmorPen",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "009482B6",
+      "edid": "mod_50CalMachineGun_Magazine_Reload-ArmorPen",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00948262",
+   "name": "Plan: 50 Cal Machine Gun Precise Grip",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00948287",
+       "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00948262",
+     "edid": "recipe_mod_50CalMachineGun_Grip_HipAccuracy-SecondaryDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094826F",
+      "edid": "co_mod_50CalMachineGun_Grip_HipAccuracy-SecondaryDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "009482A1",
+      "edid": "mod_50CalMachineGun_Grip_HipAccuracy-SecondaryDMG",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00948267",
+   "name": "Plan: 50 Cal Machine Gun Refined Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00948287",
+       "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00948267",
+     "edid": "recipe_mod_50CalMachineGun_Receiver_Damage-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00948278",
+      "edid": "co_mod_50CalMachineGun_Receiver_Damage-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "009482AA",
+      "edid": "mod_50CalMachineGun_Receiver_Damage-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00948266",
+   "name": "Plan: 50 Cal Machine Gun Severe Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00948287",
+       "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00948266",
+     "edid": "recipe_mod_50CalMachineGun_Receiver_Damage-CritDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00948277",
+      "edid": "co_mod_50CalMachineGun_Receiver_Damage-CritDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "009482A9",
+      "edid": "mod_50CalMachineGun_Receiver_Damage-CritDMG",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094826A",
+   "name": "Plan: 50 Cal Machine Gun Stinging Magazine",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00948287",
+       "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094826A",
+     "edid": "recipe_mod_50CalMachineGun_Magazine_Ammo-ArmorPen",
+     "type": "BOOK"
+    },
+    "recipes": [],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094826B",
+   "name": "Plan: 50 Cal Machine Gun Swift Magazine",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00948287",
+       "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094826B",
+     "edid": "recipe_mod_50CalMachineGun_Magazine_Ammo-Reload",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00948283",
+      "edid": "co_mod_50CalMachineGun_Magazine_Ammo-Reload",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "009482B4",
+      "edid": "mod_50CalMachineGun_Magazine_Ammo-Reload",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00948265",
+   "name": "Plan: 50 Cal Machine Gun Vicious Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00948287",
+       "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00948265",
+     "edid": "recipe_mod_50CalMachineGun_Receiver_CritDMG-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00948275",
+      "edid": "co_mod_50CalMachineGun_Receiver_CritDMG-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "009482A7",
+      "edid": "mod_50CalMachineGun_Receiver_CritDMG-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094CE36",
+   "name": "Plan: Crusader Pistol Aligned Long Barrel",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16C",
+       "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094CE36",
+     "edid": "recipe_mod_BoSPistol_Barrel_Long_Recoil-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094CE4D",
+      "edid": "co_mod_BoSPistol_Barrel_Long_Recoil-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094CE8B",
+      "edid": "mod_BoSPistol_Barrel_Long_Recoil-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094CE3C",
+   "name": "Plan: Crusader Pistol Aligned Short Barrel",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16C",
+       "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094CE3C",
+     "edid": "recipe_mod_BoSPistol_Barrel_Short_Recoil-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094CE4A",
+      "edid": "co_mod_BoSPistol_Barrel_Short_Recoil-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094CE8C",
+      "edid": "mod_BoSPistol_Barrel_Short_Recoil-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094CE38",
+   "name": "Plan: Crusader Pistol Comfort Grip",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16C",
+       "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094CE38",
+     "edid": "recipe_mod_BoSPistol_Grip_HipAccuracy-Recoil",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094CE58",
+      "edid": "co_mod_BoSPistol_Grip_HipAccuracy-Recoil",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094CE8A",
+      "edid": "mod_BoSPistol_Grip_Recoil-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094CE37",
+   "name": "Plan: Crusader Pistol Forceful Grip",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16C",
+       "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094CE37",
+     "edid": "recipe_mod_BoSPistol_Grip_Recoil-SecondaryDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094CE56",
+      "edid": "co_mod_BoSPistol_Grip_Recoil-SecondaryDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094CE7A",
+      "edid": "mod_BoSPistol_Grip_Recoil-SecondaryDMG",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094CE3D",
+   "name": "Plan: Crusader Pistol Piercing Magazine",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16C",
+       "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094CE3D",
+     "edid": "recipe_mod_BoSPistol_Magazine_Reload-ArmorPen",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094CE4E",
+      "edid": "co_mod_BoSPistol_Magazine_Reload-ArmorPen",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094CE74",
+      "edid": "mod_BoSPistol_Magazine_Reload-ArmorPen",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094CE3E",
+   "name": "Plan: Crusader Pistol Precise Grip",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16C",
+       "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094CE3E",
+     "edid": "recipe_mod_BoSPistol_Grip_HipAccuracy-SecondaryDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094CE43",
+      "edid": "co_mod_BoSPistol_Grip_HipAccuracy-SecondaryDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094CE7C",
+      "edid": "mod_BoSPistol_Grip_HipAccuracy-SecondaryDMG",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094CE3F",
+   "name": "Plan: Crusader Pistol Stinging Magazine",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16C",
+       "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094CE3F",
+     "edid": "recipe_mod_BoSPistol_Magazine_Ammo-ArmorPen",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094CE48",
+      "edid": "co_mod_BoSPistol_Magazine_Ammo-ArmorPen",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094CE79",
+      "edid": "mod_BoSPistol_Magazine_Ammo-ArmorPen",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094CE3A",
+   "name": "Plan: Crusader Pistol Swift Magazine",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16C",
+       "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094CE3A",
+     "edid": "recipe_mod_BoSPistol_Magazine_Ammo-Reload",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094CE47",
+      "edid": "co_mod_BoSPistol_Magazine_Ammo-Reload",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094CE7B",
+      "edid": "mod_BoSPistol_Magazine_Ammo-Reload",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094CE39",
+   "name": "Plan: Crusader Pistol Vicious Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16C",
+       "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094CE39",
+     "edid": "recipe_mod_BoSPistol_Receiver_Damage-CritDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094CE55",
+      "edid": "co_mod_BoSPistol_Receiver_Damage-CritDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094CE80",
+      "edid": "mod_BoSPistol_Receiver_Damage-CritDMG",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094CE40",
+   "name": "Plan: Crusader Pistol Vicious Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16C",
+       "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094CE40",
+     "edid": "recipe_mod_BoSPistol_Receiver_CritDMG-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094CE44",
+      "edid": "co_mod_BoSPistol_Receiver_CritDMG-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094CE82",
+      "edid": "mod_BoSPistol_Receiver_CritDMG-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094CE3B",
+   "name": "Plan: Crusader Pistol Vicious Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16C",
+       "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094CE3B",
+     "edid": "recipe_mod_BoSPistol_Receiver_Damage-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094CE4F",
+      "edid": "co_mod_BoSPistol_Receiver_Damage-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094CE87",
+      "edid": "mod_BoSPistol_Receiver_Damage-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00948FF5",
+   "name": "Plan: Gauss Shotgun Aligned Long Barrel",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094900A",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00948FF5",
+     "edid": "recipe_mod_GaussShotgun_Barrel_Long_Recoil-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0057375A",
+      "edid": "co_mod_GaussShotgun_Receiver_FastTrigger-HipAccuracy",
+      "type": "COBJ"
+     },
+     {
+      "form_id": "00949003",
+      "edid": "co_mod_GaussShotgun_Barrel_Long_Recoil-HipAccuracy",
+      "type": "COBJ"
+     },
+     {
+      "form_id": "00949009",
+      "edid": "co_mod_GaussShotgun_Barrel_Shielded_Recoil-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00573744",
+      "edid": "mod_GaussShotgun_Receiver_FastTrigger-HipAccuracy",
+      "type": "OMOD"
+     },
+     {
+      "form_id": "00949029",
+      "edid": "mod_GaussShotgun_Barrel_Long_Recoil-HipAccuracy",
+      "type": "OMOD"
+     },
+     {
+      "form_id": "0094902F",
+      "edid": "mod_GaussShotgun_Barrel_Shielded_Recoil-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-06",
+   "is_new": true
+  },
+  {
+   "id": "00948FF7",
+   "name": "Plan: Gauss Shotgun Aligned Shielded Barrel",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094900A",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00948FF7",
+     "edid": "recipe_mod_GaussShotgun_Barrel_Shielded_Recoil-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00948FF6",
+   "name": "Plan: Gauss Shotgun Aligned Short Barrel",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094900A",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00948FF6",
+     "edid": "recipe_mod_GaussShotgun_Barrel_Short_Recoil-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00949006",
+      "edid": "co_mod_GaussShotgun_Barrel_Short_Recoil-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094902C",
+      "edid": "mod_GaussShotgun_Barrel_Short_Recoil-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00948FF9",
+   "name": "Plan: Gauss Shotgun Fierce Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094900A",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00948FF9",
+     "edid": "recipe_mod_GaussShotgun_Receiver_FastTrigger-CritDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00573758",
+      "edid": "co_mod_GaussShotgun_Receiver_FastTrigger-CritDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00573742",
+      "edid": "mod_GaussShotgun_Receiver_FastTrigger-CritDMG",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-06",
+   "is_new": true
+  },
+  {
+   "id": "00948FF4",
+   "name": "Plan: Gauss Shotgun Piercing Magazine",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094900A",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00948FF4",
+     "edid": "recipe_mod_GaussShotgun_Magazine_Reload-ArmorPen",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00949000",
+      "edid": "co_mod_GaussShotgun_Magazine_Reload-ArmorPen",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00949026",
+      "edid": "mod_GaussShotgun_Magazine_Reload-ArmorPen",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00948FFC",
+   "name": "Plan: Gauss Shotgun Scorched Killer's Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094900A",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00948FFC",
+     "edid": "recipe_mod_GaussShotgun_Receiver_ScorchedKiller",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0057375D",
+      "edid": "co_mod_GaussShotgun_Receiver_ScorchedKiller",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00573747",
+      "edid": "mod_GaussShotgun_Receiver_ScorchedKiller",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-06",
+   "is_new": true
+  },
+  {
+   "id": "00948FF8",
+   "name": "Plan: Gauss Shotgun Severe Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094900A",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00948FF8",
+     "edid": "recipe_mod_GaussShotgun_Receiver_Damage-CritDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00573755",
+      "edid": "co_mod_GaussShotgun_Receiver_Damage-CritDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0057373F",
+      "edid": "mod_GaussShotgun_Receiver_Damage-CritDMG",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-06",
+   "is_new": true
+  },
+  {
+   "id": "00948FFB",
+   "name": "Plan: Gauss Shotgun Steadfast Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094900A",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00948FFB",
+     "edid": "recipe_mod_GaussShotgun_Receiver_FastTrigger-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-06",
+   "is_new": true
+  },
+  {
+   "id": "00948FF2",
+   "name": "Plan: Gauss Shotgun Stinging Magazine",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094900A",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00948FF2",
+     "edid": "recipe_mod_GaussShotgun_Magazine_Ammo-ArmorPen",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00948FFE",
+      "edid": "co_mod_GaussShotgun_Magazine_Ammo-ArmorPen",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00949024",
+      "edid": "mod_GaussShotgun_Magazine_Ammo-ArmorPen",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00948FF3",
+   "name": "Plan: Gauss Shotgun Swift Magazine",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094900A",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00948FF3",
+     "edid": "recipe_mod_GaussShotgun_Magazine_Ammo-Reload",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00948FFF",
+      "edid": "co_mod_GaussShotgun_Magazine_Ammo-Reload",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00949025",
+      "edid": "mod_GaussShotgun_Magazine_Ammo-Reload",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00948FFA",
+   "name": "Plan: Gauss Shotgun Vigorous Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094900A",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00948FFA",
+     "edid": "recipe_mod_GaussShotgun_Receiver_FastTrigger-Damage",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00573759",
+      "edid": "co_mod_GaussShotgun_Receiver_FastTrigger-Damage",
+      "type": "COBJ"
+     },
+     {
+      "form_id": "0095160A",
+      "edid": "co_mod_GaussPistol_Receiver_FastTrigger-Damage",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00573743",
+      "edid": "mod_GaussShotgun_Receiver_FastTrigger-Damage",
+      "type": "OMOD"
+     },
+     {
+      "form_id": "00951619",
+      "edid": "miscmod_mod_GaussPistol_Receiver_FastTrigger-Damage",
       "type": ""
      }
     ]
    },
-   "confidence": "strong",
+   "confidence": "check",
    "confirmed": false,
-   "first_seen": "2026-10-02",
+   "first_seen": "2026-10-06",
+   "is_new": true
+  },
+  {
+   "id": "00947F36",
+   "name": "Plan: LMG Aligned Long Barrel",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F36",
+     "edid": "recipe_mod_MG42_Barrel_Long_Recoil-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F50",
+      "edid": "co_mod_MG42_Barrel_Long_Recoil-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F8F",
+      "edid": "mod_MG42_Barrel_Long_Recoil-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00947F37",
+   "name": "Plan: LMG Aligned Standard Barrel",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F37",
+     "edid": "recipe_mod_MG42_Barrel_Standard_Recoil-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F53",
+      "edid": "co_mod_MG42_Barrel_Standard_Recoil-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F92",
+      "edid": "mod_MG42_Barrel_Standard_Recoil-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00947F3A",
+   "name": "Plan: LMG Aligned Stock",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F3A",
+     "edid": "recipe_mod_MG42_Grip_Recoil-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F58",
+      "edid": "co_mod_MG42_Grip_Recoil-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F97",
+      "edid": "mod_MG42_Grip_Recoil-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00947F38",
+   "name": "Plan: LMG Aligned Stub Barrel",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F38",
+     "edid": "recipe_mod_MG42_Barrel_VeryShort_Recoil-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F56",
+      "edid": "co_mod_MG42_Barrel_VeryShort_Recoil-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F95",
+      "edid": "mod_MG42_Barrel_VeryShort_Recoil-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "008D5AA7",
+   "name": "Plan: LMG Calibrated .308 Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "008D5AA7",
+     "edid": "recipe_mod_MG42_Receiver_CritDMG-AmmoConv308",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "008D5AAF",
+      "edid": "co_mod_MG42_Receiver_CritDMG-AmmoConv308",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "008D5AC6",
+      "edid": "mod_MG42_Receiver_CritDMG-AmmoConv308",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-06",
+   "is_new": true
+  },
+  {
+   "id": "008D5AA8",
+   "name": "Plan: LMG Calibrated .45 Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "008D5AA8",
+     "edid": "recipe_mod_MG42_Receiver_CritDMG-AmmoConv45",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "008D5AB0",
+      "edid": "co_mod_MG42_Receiver_CritDMG-AmmoConv45",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "008D5AC7",
+      "edid": "mod_MG42_Receiver_CritDMG-AmmoConv45",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-06",
+   "is_new": true
+  },
+  {
+   "id": "008D5AAE",
+   "name": "Plan: LMG Compensator",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "008D5AAE",
+     "edid": "recipe_mod_MG42_Muzzle_Compensator",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "008D5ABB",
+      "edid": "co_mod_MG42_Muzzle_Compensator",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "008D5AD2",
+      "edid": "mod_MG42_Muzzle_Compensator",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-06",
+   "is_new": true
+  },
+  {
+   "id": "00947F3B",
+   "name": "Plan: LMG Forceful Stock",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F3B",
+     "edid": "recipe_mod_MG42_Grip_Recoil-SecondaryDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F59",
+      "edid": "co_mod_MG42_Grip_Recoil-SecondaryDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F98",
+      "edid": "mod_MG42_Grip_Recoil-SecondaryDMG",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00947F2D",
+   "name": "Plan: LMG Hardened .308 Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F2D",
+     "edid": "recipe_mod_MG42_Receiver_Damage-AmmoConv308",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F44",
+      "edid": "co_mod_MG42_Receiver_Damage-AmmoConv308",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F83",
+      "edid": "mod_MG42_Receiver_Damage-AmmoConv308",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00947F2C",
+   "name": "Plan: LMG Hardened .45 Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F2C",
+     "edid": "recipe_mod_MG42_Receiver_Damage-AmmoConv45",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F43",
+      "edid": "co_mod_MG42_Receiver_Damage-AmmoConv45",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F82",
+      "edid": "mod_MG42_Receiver_Damage-AmmoConv45",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00947F3E",
+   "name": "Plan: LMG Piercing Magazine",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F3E",
+     "edid": "recipe_mod_MG42_Magazine_Reload-ArmorPen",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F5C",
+      "edid": "co_mod_MG42_Magazine_Reload-ArmorPen",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F9B",
+      "edid": "mod_MG42_Magazine_Reload-ArmorPen",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00947F39",
+   "name": "Plan: LMG Precise Stock",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F39",
+     "edid": "recipe_mod_MG42_Grip_HipAccuracy-SecondaryDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F57",
+      "edid": "co_mod_MG42_Grip_HipAccuracy-SecondaryDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F96",
+      "edid": "mod_MG42_Grip_HipAccuracy-SecondaryDMG",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00947F32",
+   "name": "Plan: LMG Refined .308 Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F32",
+     "edid": "recipe_mod_MG42_Receiver_Damage-HipAccuracy-AmmoConv308",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F49",
+      "edid": "co_mod_MG42_Receiver_Damage-HipAccuracy-AmmoConv308",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F88",
+      "edid": "mod_MG42_Receiver_Damage-HipAccuracy-AmmoConv308",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00947F33",
+   "name": "Plan: LMG Refined .45 Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F33",
+     "edid": "recipe_mod_MG42_Receiver_Damage-HipAccuracy-AmmoConv45",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F4A",
+      "edid": "co_mod_MG42_Receiver_Damage-HipAccuracy-AmmoConv45",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F89",
+      "edid": "mod_MG42_Receiver_Damage-HipAccuracy-AmmoConv45",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00947F31",
+   "name": "Plan: LMG Refined Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F31",
+     "edid": "recipe_mod_MG42_Receiver_Damage-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F48",
+      "edid": "co_mod_MG42_Receiver_Damage-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F87",
+      "edid": "mod_MG42_Receiver_Damage-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00947F2F",
+   "name": "Plan: LMG Severe .308 Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F2F",
+     "edid": "recipe_mod_MG42_Receiver_Damage-CritDMG-AmmoConv308",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F46",
+      "edid": "co_mod_MG42_Receiver_Damage-CritDMG-AmmoConv308",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F85",
+      "edid": "mod_MG42_Receiver_Damage-CritDMG-AmmoConv308",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00947F30",
+   "name": "Plan: LMG Severe .45 Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F30",
+     "edid": "recipe_mod_MG42_Receiver_Damage-CritDMG-AmmoConv45",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F47",
+      "edid": "co_mod_MG42_Receiver_Damage-CritDMG-AmmoConv45",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F86",
+      "edid": "mod_MG42_Receiver_Damage-CritDMG-AmmoConv45",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00947F2E",
+   "name": "Plan: LMG Severe Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F2E",
+     "edid": "recipe_mod_MG42_Receiver_Damage-CritDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F45",
+      "edid": "co_mod_MG42_Receiver_Damage-CritDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F84",
+      "edid": "mod_MG42_Receiver_Damage-CritDMG",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00947F3C",
+   "name": "Plan: LMG Stinging Magazine",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F3C",
+     "edid": "recipe_mod_MG42_Magazine_Ammo-ArmorPen",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F5A",
+      "edid": "co_mod_MG42_Magazine_Ammo-ArmorPen",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F99",
+      "edid": "mod_MG42_Magazine_Ammo-ArmorPen",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00947F3D",
+   "name": "Plan: LMG Swift Magazine",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F3D",
+     "edid": "recipe_mod_MG42_Magazine_Ammo-Reload",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F5B",
+      "edid": "co_mod_MG42_Magazine_Ammo-Reload",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F9A",
+      "edid": "mod_MG42_Magazine_Ammo-Reload",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00947F35",
+   "name": "Plan: LMG True .308 Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F35",
+     "edid": "recipe_mod_MG42_Receiver_HipAccuracy-AmmoConv308",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F4D",
+      "edid": "co_mod_MG42_Receiver_HipAccuracy-AmmoConv308",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F8C",
+      "edid": "mod_MG42_Receiver_HipAccuracy-AmmoConv308",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00947F34",
+   "name": "Plan: LMG True .45 Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F34",
+     "edid": "recipe_mod_MG42_Receiver_HipAccuracy-AmmoConv45",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F4C",
+      "edid": "co_mod_MG42_Receiver_HipAccuracy-AmmoConv45",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F8B",
+      "edid": "mod_MG42_Receiver_HipAccuracy-AmmoConv45",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00947F2B",
+   "name": "Plan: LMG Vicious .308 Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F2B",
+     "edid": "recipe_mod_MG42_Receiver_CritDMG-HipAccuracy-AmmoConv308",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F41",
+      "edid": "co_mod_MG42_Receiver_CritDMG-HipAccuracy-AmmoConv308",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F7E",
+      "edid": "mod_MG42_Receiver_CritDMG-HipAccuracy-AmmoConv308",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00947F2A",
+   "name": "Plan: LMG Vicious .45 Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F2A",
+     "edid": "recipe_mod_MG42_Receiver_CritDMG-HipAccuracy-AmmoConv45",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F40",
+      "edid": "co_mod_MG42_Receiver_CritDMG-HipAccuracy-AmmoConv45",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F7D",
+      "edid": "mod_MG42_Receiver_CritDMG-HipAccuracy-AmmoConv45",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "00947F29",
+   "name": "Plan: LMG Vicious Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00947F5D",
+       "edid": "LLS_Mods_Weapons_Ranged_MG42",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00947F29",
+     "edid": "recipe_mod_MG42_Receiver_CritDMG-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00947F3F",
+      "edid": "co_mod_MG42_Receiver_CritDMG-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00947F7C",
+      "edid": "mod_MG42_Receiver_CritDMG-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094F155",
+   "name": "Plan: M79 Aligned Grip",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16D",
+       "edid": "LLS_Mods_Weapons_Ranged_M79",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged M79 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_M79) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged M79."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094F155",
+     "edid": "recipe_mod_M79_FullStock_HipAccuracy-Recoil",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094F167",
+      "edid": "co_mod_M79_StockFull_HipAccuracy-Recoil",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094F182",
+      "edid": "mod_M79_StockFull_Recoil-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094F156",
+   "name": "Plan: M79 Aligned Short Barrel",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16D",
+       "edid": "LLS_Mods_Weapons_Ranged_M79",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged M79 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_M79) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged M79."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094F156",
+     "edid": "recipe_mod_M79_Barrel_HipAccuracy-Recoil",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094F16B",
+      "edid": "co_mod_M79_Barrel_Short_Recoil-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094F187",
+      "edid": "mod_M79_Barrel_Short_Recoil-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094F152",
+   "name": "Plan: M79 Forceful Grip",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16D",
+       "edid": "LLS_Mods_Weapons_Ranged_M79",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged M79 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_M79) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged M79."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094F152",
+     "edid": "recipe_mod_M79_FullStock_Recoil-SecondaryDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094F161",
+      "edid": "co_mod_M79_StockFull_Recoil-SecondaryDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094F189",
+      "edid": "mod_M79_StockFull_Recoil-SecondaryDMG",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094F154",
+   "name": "Plan: M79 Precise Grip",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16D",
+       "edid": "LLS_Mods_Weapons_Ranged_M79",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged M79 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_M79) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged M79."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094F154",
+     "edid": "recipe_mod_M79_FullStock_HipAccuracy-SecondaryDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094F168",
+      "edid": "co_mod_M79_StockFull_HipAccuracy-SecondaryDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094F18C",
+      "edid": "mod_M79_StockFull_HipAccuracy-SecondaryDMG",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094F158",
+   "name": "Plan: M79 Precise Grip",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16D",
+       "edid": "LLS_Mods_Weapons_Ranged_M79",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged M79 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_M79) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged M79."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094F158",
+     "edid": "recipe_mod_M79_Stock_HipAccuracy-SecondaryDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094F16A",
+      "edid": "co_mod_M79_Stock_HipAccuracy-SecondaryDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094F184",
+      "edid": "mod_M79_Stock_HipAccuracy-SecondaryDMG",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094F157",
+   "name": "Plan: M79 Refined Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16D",
+       "edid": "LLS_Mods_Weapons_Ranged_M79",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged M79 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_M79) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged M79."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094F157",
+     "edid": "recipe_mod_M79_Receiver_Damage-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094F166",
+      "edid": "co_mod_M79_Receiver_Damage-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094F185",
+      "edid": "mod_M79_Receiver_Damage-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094F159",
+   "name": "Plan: M79 Severe Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16D",
+       "edid": "LLS_Mods_Weapons_Ranged_M79",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged M79 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_M79) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged M79."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094F159",
+     "edid": "recipe_mod_M79_Receiver_Damage-CritDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094F163",
+      "edid": "co_mod_M79_Receiver_Damage-CritDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094F183",
+      "edid": "mod_M79_Receiver_Damage-CritDMG",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094F15A",
+   "name": "Plan: M79 Vicious Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16D",
+       "edid": "LLS_Mods_Weapons_Ranged_M79",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged M79 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_M79) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged M79."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094F15A",
+     "edid": "recipe_mod_M79_Receiver_CritDMG-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094F162",
+      "edid": "co_mod_M79_Receiver_CritDMG-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094F17F",
+      "edid": "mod_M79_Receiver_CritDMG-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
    "is_new": false
   },
   {
@@ -721,229 +3405,143 @@
    "is_new": false
   },
   {
-   "id": "0068B8F3",
-   "name": "Recipe: Radscorpion Kebab",
+   "id": "0094673D",
+   "name": "Plan: Single Action Revolver Fierce Receiver",
    "kind": "plan",
    "severity": "unobtainable",
    "bugs": [
     {
      "kind": "orphan",
-     "strong": true,
+     "strong": false,
      "title": "Reward list isn't connected to anything",
      "records": [
       {
-       "form_id": "006772EC",
-       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "0068B8FE",
-       "edid": "NWOT_LL_Food_Recipes",
+       "form_id": "00946755",
+       "edid": "LLS_Mods_Weapons_Ranged_SingleActionRevolver",
        "type": "LVLI"
       }
      ],
-     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
+     "summary": "The Mods Weapons Ranged Single Action Revolver reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_SingleActionRevolver) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Single Action Revolver."
     }
    ],
    "still_from": [],
    "technical": {
     "plan": {
-     "form_id": "0068B8F3",
-     "edid": "NWOT_Recipe_Food_RadscorpionKebab",
+     "form_id": "0094673D",
+     "edid": "recipe_mod_SingleActionRevolver_Receiver_FastTrigger-CritDMG",
      "type": "BOOK"
     },
     "recipes": [
      {
-      "form_id": "0068B8F9",
-      "edid": "co_meal_NWOT_RadscorpionKebab",
+      "form_id": "00946749",
+      "edid": "co_mod_SingleActionRevolver_Receiver_FastTrigger-CritDMG",
       "type": "COBJ"
      }
     ],
     "creates": [
      {
-      "form_id": "0066DFC2",
-      "edid": "NWOT_RadscorpionKebab",
-      "type": ""
+      "form_id": "00946776",
+      "edid": "mod_SingleActionRevolver_Receiver_FastTrigger-CritDMG",
+      "type": "OMOD"
      }
     ]
    },
-   "confidence": "strong",
+   "confidence": "check",
    "confirmed": false,
-   "first_seen": "2026-10-02",
+   "first_seen": "2026-10-05",
    "is_new": false
   },
   {
-   "id": "00682118",
-   "name": "Plan: Tunnel of Love Poster",
+   "id": "0094673C",
+   "name": "Plan: Single Action Revolver Refined Receiver",
    "kind": "plan",
    "severity": "unobtainable",
    "bugs": [
     {
      "kind": "orphan",
-     "strong": true,
+     "strong": false,
      "title": "Reward list isn't connected to anything",
      "records": [
       {
-       "form_id": "006772EC",
-       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "0068B8E9",
-       "edid": "E09C_LoveTunnel_Recipes",
+       "form_id": "00946755",
+       "edid": "LLS_Mods_Weapons_Ranged_SingleActionRevolver",
        "type": "LVLI"
       }
      ],
-     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
+     "summary": "The Mods Weapons Ranged Single Action Revolver reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_SingleActionRevolver) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Single Action Revolver."
     }
    ],
    "still_from": [],
    "technical": {
     "plan": {
-     "form_id": "00682118",
-     "edid": "E09C_Recipe_Workshop_StandalonePoster",
+     "form_id": "0094673C",
+     "edid": "recipe_mod_SingleActionRevolver_Receiver_Damage-HipAccuracy",
      "type": "BOOK"
     },
     "recipes": [
      {
-      "form_id": "00682126",
-      "edid": "workshop_co_CondProxy_WallDecor_Posters_E09CPosters",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "strong",
-   "confirmed": false,
-   "first_seen": "2026-10-02",
-   "is_new": false
-  },
-  {
-   "id": "0067F169",
-   "name": "Plan: Tunnel of Love Snow Globe",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": true,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "006772EC",
-       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "0068B8E9",
-       "edid": "E09C_LoveTunnel_Recipes",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "0067F169",
-     "edid": "E09C_Recipe_Workshop_FloorDecor_Snowglobe_ToL",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0067F17C",
-      "edid": "workshop_co_CondProxy_FloorDecor_NWOT_Snowglobe_TOL",
-      "type": "COBJ"
-     }
-    ],
-    "creates": []
-   },
-   "confidence": "strong",
-   "confirmed": false,
-   "first_seen": "2026-10-02",
-   "is_new": false
-  },
-  {
-   "id": "0068B8EC",
-   "name": "Recipe: Yao Guai Pastry",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": true,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "006772EC",
-       "edid": "E09C_LL_LoveTunnel_QuestReward_Recipes",
-       "type": "LVLI"
-      },
-      {
-       "form_id": "0068B8FE",
-       "edid": "NWOT_LL_Food_Recipes",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Event: Tunnel Of Love reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (E09C_LL_LoveTunnel_QuestReward_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Event: Tunnel Of Love."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "0068B8EC",
-     "edid": "NWOT_Recipe_Food_YaoGuaiPastry",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0068B8FB",
-      "edid": "co_meal_NWOT_YaoGuaiPastry",
+      "form_id": "00946747",
+      "edid": "co_mod_SingleActionRevolver_Receiver_Damage-HipAccuracy",
       "type": "COBJ"
      }
     ],
     "creates": [
      {
-      "form_id": "0066D3F1",
-      "edid": "NWOT_YaoGuaiPastry",
-      "type": ""
+      "form_id": "00946774",
+      "edid": "mod_SingleActionRevolver_Receiver_Damage-HipAccuracy",
+      "type": "OMOD"
      }
     ]
    },
-   "confidence": "strong",
+   "confidence": "check",
    "confirmed": false,
-   "first_seen": "2026-10-02",
+   "first_seen": "2026-10-05",
    "is_new": false
   },
   {
-   "id": "00948263",
-   "name": "Plan: 50 Cal Machine Gun Aligned Grip",
+   "id": "0094673B",
+   "name": "Plan: Single Action Revolver Severe Receiver",
    "kind": "plan",
-   "severity": "broken_item",
+   "severity": "unobtainable",
    "bugs": [
     {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00946755",
+       "edid": "LLS_Mods_Weapons_Ranged_SingleActionRevolver",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Single Action Revolver reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_SingleActionRevolver) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Single Action Revolver."
     }
    ],
-   "still_from": [
-    "Mods Weapons Ranged Cal Machine Gun"
-   ],
+   "still_from": [],
    "technical": {
     "plan": {
-     "form_id": "00948263",
-     "edid": "recipe_mod_50CalMachineGun_Grip_Recoil-HipAccuracy",
+     "form_id": "0094673B",
+     "edid": "recipe_mod_SingleActionRevolver_Receiver_Damage-CritDMG",
      "type": "BOOK"
     },
-    "recipes": [],
-    "creates": []
+    "recipes": [
+     {
+      "form_id": "00946746",
+      "edid": "co_mod_SingleActionRevolver_Receiver_Damage-CritDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00946773",
+      "edid": "mod_SingleActionRevolver_Receiver_Damage-CritDMG",
+      "type": "OMOD"
+     }
+    ]
    },
    "confidence": "check",
    "confirmed": false,
@@ -951,29 +3549,47 @@
    "is_new": false
   },
   {
-   "id": "00948268",
-   "name": "Plan: 50 Cal Machine Gun Aligned Long Barrel",
+   "id": "0094673F",
+   "name": "Plan: Single Action Revolver Steadfast Receiver",
    "kind": "plan",
-   "severity": "broken_item",
+   "severity": "unobtainable",
    "bugs": [
     {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00946755",
+       "edid": "LLS_Mods_Weapons_Ranged_SingleActionRevolver",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Single Action Revolver reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_SingleActionRevolver) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Single Action Revolver."
     }
    ],
-   "still_from": [
-    "Mods Weapons Ranged Cal Machine Gun"
-   ],
+   "still_from": [],
    "technical": {
     "plan": {
-     "form_id": "00948268",
-     "edid": "recipe_mod_50CalMachineGun_Barrel_Long_Recoil-HipAccuracy",
+     "form_id": "0094673F",
+     "edid": "recipe_mod_SingleActionRevolver_Receiver_FastTrigger-HipAccuracy",
      "type": "BOOK"
     },
-    "recipes": [],
-    "creates": []
+    "recipes": [
+     {
+      "form_id": "0094674B",
+      "edid": "co_mod_SingleActionRevolver_Receiver_FastTrigger-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00946778",
+      "edid": "mod_SingleActionRevolver_Receiver_FastTrigger-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
    },
    "confidence": "check",
    "confirmed": false,
@@ -981,29 +3597,47 @@
    "is_new": false
   },
   {
-   "id": "00948269",
-   "name": "Plan: 50 Cal Machine Gun Aligned Short Barrel",
+   "id": "0094673A",
+   "name": "Plan: Single Action Revolver Vicious Receiver",
    "kind": "plan",
-   "severity": "broken_item",
+   "severity": "unobtainable",
    "bugs": [
     {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00946755",
+       "edid": "LLS_Mods_Weapons_Ranged_SingleActionRevolver",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Single Action Revolver reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_SingleActionRevolver) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Single Action Revolver."
     }
    ],
-   "still_from": [
-    "Mods Weapons Ranged Cal Machine Gun"
-   ],
+   "still_from": [],
    "technical": {
     "plan": {
-     "form_id": "00948269",
-     "edid": "recipe_mod_50CalMachineGun_Barrel_Short_Recoil-HipAccuracy",
+     "form_id": "0094673A",
+     "edid": "recipe_mod_SingleActionRevolver_Receiver_CritDMG-HipAccuracy",
      "type": "BOOK"
     },
-    "recipes": [],
-    "creates": []
+    "recipes": [
+     {
+      "form_id": "00946744",
+      "edid": "co_mod_SingleActionRevolver_Receiver_CritDMG-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00946771",
+      "edid": "mod_SingleActionRevolver_Receiver_CritDMG-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
    },
    "confidence": "check",
    "confirmed": false,
@@ -1011,29 +3645,47 @@
    "is_new": false
   },
   {
-   "id": "00948264",
-   "name": "Plan: 50 Cal Machine Gun Forceful Grip",
+   "id": "0094673E",
+   "name": "Plan: Single Action Revolver Vigorous Receiver",
    "kind": "plan",
-   "severity": "broken_item",
+   "severity": "unobtainable",
    "bugs": [
     {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00946755",
+       "edid": "LLS_Mods_Weapons_Ranged_SingleActionRevolver",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Single Action Revolver reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_SingleActionRevolver) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Single Action Revolver."
     }
    ],
-   "still_from": [
-    "Mods Weapons Ranged Cal Machine Gun"
-   ],
+   "still_from": [],
    "technical": {
     "plan": {
-     "form_id": "00948264",
-     "edid": "recipe_mod_50CalMachineGun_Grip_Recoil-SecondaryDMG",
+     "form_id": "0094673E",
+     "edid": "recipe_mod_SingleActionRevolver_Receiver_FastTrigger-Damage",
      "type": "BOOK"
     },
-    "recipes": [],
-    "creates": []
+    "recipes": [
+     {
+      "form_id": "0094674A",
+      "edid": "co_mod_SingleActionRevolver_Receiver_FastTrigger-Damage",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00946777",
+      "edid": "mod_SingleActionRevolver_Receiver_FastTrigger-Damage",
+      "type": "OMOD"
+     }
+    ]
    },
    "confidence": "check",
    "confirmed": false,
@@ -1041,29 +3693,47 @@
    "is_new": false
   },
   {
-   "id": "0094826C",
-   "name": "Plan: 50 Cal Machine Gun Piercing Magazine",
+   "id": "00946741",
+   "name": "Plan: Single-Action Revolver Aligned Grip",
    "kind": "plan",
-   "severity": "broken_item",
+   "severity": "unobtainable",
    "bugs": [
     {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00946755",
+       "edid": "LLS_Mods_Weapons_Ranged_SingleActionRevolver",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Single Action Revolver reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_SingleActionRevolver) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Single Action Revolver."
     }
    ],
-   "still_from": [
-    "Mods Weapons Ranged Cal Machine Gun"
-   ],
+   "still_from": [],
    "technical": {
     "plan": {
-     "form_id": "0094826C",
-     "edid": "recipe_mod_50CalMachineGun_Magazine_Reload-ArmorPen",
+     "form_id": "00946741",
+     "edid": "recipe_mod_SingleActionRevolver_Grip_Recoil-HipAccuracy",
      "type": "BOOK"
     },
-    "recipes": [],
-    "creates": []
+    "recipes": [
+     {
+      "form_id": "00946750",
+      "edid": "co_SingleActionRevolver_Grip_Recoil-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094676E",
+      "edid": "mod_SingleActionRevolver_Grip_Recoil-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
    },
    "confidence": "check",
    "confirmed": false,
@@ -1071,29 +3741,47 @@
    "is_new": false
   },
   {
-   "id": "00948262",
-   "name": "Plan: 50 Cal Machine Gun Precise Grip",
+   "id": "00946742",
+   "name": "Plan: Single-Action Revolver Aligned Long Barrel",
    "kind": "plan",
-   "severity": "broken_item",
+   "severity": "unobtainable",
    "bugs": [
     {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00946755",
+       "edid": "LLS_Mods_Weapons_Ranged_SingleActionRevolver",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Single Action Revolver reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_SingleActionRevolver) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Single Action Revolver."
     }
    ],
-   "still_from": [
-    "Mods Weapons Ranged Cal Machine Gun"
-   ],
+   "still_from": [],
    "technical": {
     "plan": {
-     "form_id": "00948262",
-     "edid": "recipe_mod_50CalMachineGun_Grip_HipAccuracy-SecondaryDMG",
+     "form_id": "00946742",
+     "edid": "recipe_mod_SingleActionRevolver_Barrel_Long_Recoil-HipAccuracy",
      "type": "BOOK"
     },
-    "recipes": [],
-    "creates": []
+    "recipes": [
+     {
+      "form_id": "00946754",
+      "edid": "co_mod_SingleActionRevolver_Barrel_Long_Recoil-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094676A",
+      "edid": "mod_SingleActionRevolver_Barrel_Long_Recoil-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
    },
    "confidence": "check",
    "confirmed": false,
@@ -1101,663 +3789,47 @@
    "is_new": false
   },
   {
-   "id": "00948267",
-   "name": "Plan: 50 Cal Machine Gun Refined Receiver",
+   "id": "00946740",
+   "name": "Plan: Single-Action Revolver Precise Grip",
    "kind": "plan",
-   "severity": "broken_item",
+   "severity": "unobtainable",
    "bugs": [
     {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "00946755",
+       "edid": "LLS_Mods_Weapons_Ranged_SingleActionRevolver",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged Single Action Revolver reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_SingleActionRevolver) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Single Action Revolver."
     }
    ],
-   "still_from": [
-    "Mods Weapons Ranged Cal Machine Gun"
-   ],
+   "still_from": [],
    "technical": {
     "plan": {
-     "form_id": "00948267",
-     "edid": "recipe_mod_50CalMachineGun_Receiver_Damage-HipAccuracy",
+     "form_id": "00946740",
+     "edid": "recipe_mod_SingleActionRevolver_Grip_HipAccuracy-SecondaryDMG",
      "type": "BOOK"
     },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00948266",
-   "name": "Plan: 50 Cal Machine Gun Severe Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Cal Machine Gun"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00948266",
-     "edid": "recipe_mod_50CalMachineGun_Receiver_Damage-CritDMG",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094826A",
-   "name": "Plan: 50 Cal Machine Gun Stinging Magazine",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Cal Machine Gun"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094826A",
-     "edid": "recipe_mod_50CalMachineGun_Magazine_Ammo-ArmorPen",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094826B",
-   "name": "Plan: 50 Cal Machine Gun Swift Magazine",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Cal Machine Gun"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094826B",
-     "edid": "recipe_mod_50CalMachineGun_Magazine_Ammo-Reload",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00948265",
-   "name": "Plan: 50 Cal Machine Gun Vicious Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Cal Machine Gun"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00948265",
-     "edid": "recipe_mod_50CalMachineGun_Receiver_CritDMG-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00916662",
-   "name": "Plan: Brotherhood Recon Spring Assisted Armor Limb",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Daily Ops - High Chase Rare Untradable",
-    "Minerva (Gold Bullion vendor)"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00916662",
-     "edid": "Recipe_mod_armor_BOSInfantry_Lining_Limb_ThrownDamage",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00916661",
-   "name": "Plan: Brotherhood Recon Tattered Armor Torso",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Daily Ops - High Chase Rare Untradable",
-    "Minerva (Gold Bullion vendor)"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00916661",
-     "edid": "Recipe_mod_armor_BOSInfantry_Lining_Torso_RadResReduce",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00916666",
-   "name": "Plan: Civil Engineer Spring Assisted Armor Limb",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Atlantic City Expedition - Mission",
-    "Expeditions - Giuseppe vendor"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00916666",
-     "edid": "Recipe_XPD_AC_mod_armor_Muni_Lining_Torso_ThrownDamage",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00916665",
-   "name": "Plan: Civil Engineer Tattered Armor Torso",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Atlantic City Expedition - Mission",
-    "Expeditions - Giuseppe vendor"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00916665",
-     "edid": "Recipe_XPD_AC_mod_armor_Muni_Lining_Torso_RadResReduced",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00916664",
-   "name": "Plan: Covert Scout Spring Assisted Armor Limb",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Nz01 Above"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00916664",
-     "edid": "Recipe_mod_armor_EnclaveScoutUniform_Lining_Limb_ThrownDamage",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00916663",
-   "name": "Plan: Covert Scout Tattered Armor Torso",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Nz01 Above"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00916663",
-     "edid": "Recipe_mod_armor_EnclaveScoutUniform_Lining_Torso_RadResReduced",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094CE36",
-   "name": "Plan: Crusader Pistol Aligned Long Barrel",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Brotherhood of Steel Pistol"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094CE36",
-     "edid": "recipe_mod_BoSPistol_Barrel_Long_Recoil-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094CE3C",
-   "name": "Plan: Crusader Pistol Aligned Short Barrel",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Brotherhood of Steel Pistol"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094CE3C",
-     "edid": "recipe_mod_BoSPistol_Barrel_Short_Recoil-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094CE38",
-   "name": "Plan: Crusader Pistol Comfort Grip",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Brotherhood of Steel Pistol"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094CE38",
-     "edid": "recipe_mod_BoSPistol_Grip_HipAccuracy-Recoil",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094CE37",
-   "name": "Plan: Crusader Pistol Forceful Grip",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Brotherhood of Steel Pistol"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094CE37",
-     "edid": "recipe_mod_BoSPistol_Grip_Recoil-SecondaryDMG",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094CE3D",
-   "name": "Plan: Crusader Pistol Piercing Magazine",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Brotherhood of Steel Pistol"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094CE3D",
-     "edid": "recipe_mod_BoSPistol_Magazine_Reload-ArmorPen",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094CE3E",
-   "name": "Plan: Crusader Pistol Precise Grip",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Brotherhood of Steel Pistol"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094CE3E",
-     "edid": "recipe_mod_BoSPistol_Grip_HipAccuracy-SecondaryDMG",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094CE3F",
-   "name": "Plan: Crusader Pistol Stinging Magazine",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Brotherhood of Steel Pistol"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094CE3F",
-     "edid": "recipe_mod_BoSPistol_Magazine_Ammo-ArmorPen",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094CE3A",
-   "name": "Plan: Crusader Pistol Swift Magazine",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Brotherhood of Steel Pistol"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094CE3A",
-     "edid": "recipe_mod_BoSPistol_Magazine_Ammo-Reload",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094CE39",
-   "name": "Plan: Crusader Pistol Vicious Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Brotherhood of Steel Pistol"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094CE39",
-     "edid": "recipe_mod_BoSPistol_Receiver_Damage-CritDMG",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094CE40",
-   "name": "Plan: Crusader Pistol Vicious Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Brotherhood of Steel Pistol"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094CE40",
-     "edid": "recipe_mod_BoSPistol_Receiver_CritDMG-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094CE3B",
-   "name": "Plan: Crusader Pistol Vicious Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Brotherhood of Steel Pistol"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094CE3B",
-     "edid": "recipe_mod_BoSPistol_Receiver_Damage-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
+    "recipes": [
+     {
+      "form_id": "0094674E",
+      "edid": "co_mod_SingleActionRevolver_Grip_HipAccuracy-SecondaryDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094676C",
+      "edid": "mod_SingleActionRevolver_Grip_HipAccuracy-SecondaryDMG",
+      "type": "OMOD"
+     }
+    ]
    },
    "confidence": "check",
    "confirmed": false,
@@ -1792,1416 +3864,6 @@
    "confidence": "check",
    "confirmed": false,
    "first_seen": "2026-09-23",
-   "is_new": false
-  },
-  {
-   "id": "00948FF7",
-   "name": "Plan: Gauss Shotgun Aligned Shielded Barrel",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Gauss Shotgun"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00948FF7",
-     "edid": "recipe_mod_GaussShotgun_Barrel_Shielded_Recoil-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00948FF6",
-   "name": "Plan: Gauss Shotgun Aligned Short Barrel",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Gauss Shotgun"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00948FF6",
-     "edid": "recipe_mod_GaussShotgun_Barrel_Short_Recoil-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00948FF4",
-   "name": "Plan: Gauss Shotgun Piercing Magazine",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Gauss Shotgun"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00948FF4",
-     "edid": "recipe_mod_GaussShotgun_Magazine_Reload-ArmorPen",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00948FF2",
-   "name": "Plan: Gauss Shotgun Stinging Magazine",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Gauss Shotgun"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00948FF2",
-     "edid": "recipe_mod_GaussShotgun_Magazine_Ammo-ArmorPen",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00948FF3",
-   "name": "Plan: Gauss Shotgun Swift Magazine",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Gauss Shotgun"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00948FF3",
-     "edid": "recipe_mod_GaussShotgun_Magazine_Ammo-Reload",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F36",
-   "name": "Plan: LMG Aligned Long Barrel",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F36",
-     "edid": "recipe_mod_MG42_Barrel_Long_Recoil-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F37",
-   "name": "Plan: LMG Aligned Standard Barrel",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F37",
-     "edid": "recipe_mod_MG42_Barrel_Standard_Recoil-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F3A",
-   "name": "Plan: LMG Aligned Stock",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F3A",
-     "edid": "recipe_mod_MG42_Grip_Recoil-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F38",
-   "name": "Plan: LMG Aligned Stub Barrel",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F38",
-     "edid": "recipe_mod_MG42_Barrel_VeryShort_Recoil-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F3B",
-   "name": "Plan: LMG Forceful Stock",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F3B",
-     "edid": "recipe_mod_MG42_Grip_Recoil-SecondaryDMG",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F2D",
-   "name": "Plan: LMG Hardened .308 Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F2D",
-     "edid": "recipe_mod_MG42_Receiver_Damage-AmmoConv308",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F2C",
-   "name": "Plan: LMG Hardened .45 Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F2C",
-     "edid": "recipe_mod_MG42_Receiver_Damage-AmmoConv45",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F3E",
-   "name": "Plan: LMG Piercing Magazine",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F3E",
-     "edid": "recipe_mod_MG42_Magazine_Reload-ArmorPen",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F39",
-   "name": "Plan: LMG Precise Stock",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F39",
-     "edid": "recipe_mod_MG42_Grip_HipAccuracy-SecondaryDMG",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F32",
-   "name": "Plan: LMG Refined .308 Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F32",
-     "edid": "recipe_mod_MG42_Receiver_Damage-HipAccuracy-AmmoConv308",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F33",
-   "name": "Plan: LMG Refined .45 Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F33",
-     "edid": "recipe_mod_MG42_Receiver_Damage-HipAccuracy-AmmoConv45",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F31",
-   "name": "Plan: LMG Refined Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F31",
-     "edid": "recipe_mod_MG42_Receiver_Damage-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F2F",
-   "name": "Plan: LMG Severe .308 Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F2F",
-     "edid": "recipe_mod_MG42_Receiver_Damage-CritDMG-AmmoConv308",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F30",
-   "name": "Plan: LMG Severe .45 Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F30",
-     "edid": "recipe_mod_MG42_Receiver_Damage-CritDMG-AmmoConv45",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F2E",
-   "name": "Plan: LMG Severe Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F2E",
-     "edid": "recipe_mod_MG42_Receiver_Damage-CritDMG",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F3C",
-   "name": "Plan: LMG Stinging Magazine",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F3C",
-     "edid": "recipe_mod_MG42_Magazine_Ammo-ArmorPen",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F3D",
-   "name": "Plan: LMG Swift Magazine",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F3D",
-     "edid": "recipe_mod_MG42_Magazine_Ammo-Reload",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F35",
-   "name": "Plan: LMG True .308 Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F35",
-     "edid": "recipe_mod_MG42_Receiver_HipAccuracy-AmmoConv308",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F34",
-   "name": "Plan: LMG True .45 Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F34",
-     "edid": "recipe_mod_MG42_Receiver_HipAccuracy-AmmoConv45",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F2B",
-   "name": "Plan: LMG Vicious .308 Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F2B",
-     "edid": "recipe_mod_MG42_Receiver_CritDMG-HipAccuracy-AmmoConv308",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F2A",
-   "name": "Plan: LMG Vicious .45 Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F2A",
-     "edid": "recipe_mod_MG42_Receiver_CritDMG-HipAccuracy-AmmoConv45",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00947F29",
-   "name": "Plan: LMG Vicious Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged MG42"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00947F29",
-     "edid": "recipe_mod_MG42_Receiver_CritDMG-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094F155",
-   "name": "Plan: M79 Aligned Grip",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged M79"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094F155",
-     "edid": "recipe_mod_M79_FullStock_HipAccuracy-Recoil",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094F153",
-   "name": "Plan: M79 Aligned Long Barrel",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged M79"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094F153",
-     "edid": "recipe_mod_M79_LongBarrel_HipAccuracy-Recoil",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094F156",
-   "name": "Plan: M79 Aligned Short Barrel",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged M79"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094F156",
-     "edid": "recipe_mod_M79_Barrel_HipAccuracy-Recoil",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094F152",
-   "name": "Plan: M79 Forceful Grip",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged M79"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094F152",
-     "edid": "recipe_mod_M79_FullStock_Recoil-SecondaryDMG",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094F154",
-   "name": "Plan: M79 Precise Grip",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged M79"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094F154",
-     "edid": "recipe_mod_M79_FullStock_HipAccuracy-SecondaryDMG",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094F158",
-   "name": "Plan: M79 Precise Grip",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged M79"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094F158",
-     "edid": "recipe_mod_M79_Stock_HipAccuracy-SecondaryDMG",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094F157",
-   "name": "Plan: M79 Refined Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged M79"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094F157",
-     "edid": "recipe_mod_M79_Receiver_Damage-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094F159",
-   "name": "Plan: M79 Severe Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged M79"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094F159",
-     "edid": "recipe_mod_M79_Receiver_Damage-CritDMG",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094F15A",
-   "name": "Plan: M79 Vicious Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged M79"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094F15A",
-     "edid": "recipe_mod_M79_Receiver_CritDMG-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0091665F",
-   "name": "Plan: Secret Service Spring Assisted Armor Limb",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Wastelanders - Reginald (Secret Service Gold Bullion vendor)"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0091665F",
-     "edid": "Recipe_mod_armor_SecretService_Lining_Limb_ThrownDamage",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00916660",
-   "name": "Plan: Secret Service Tattered Armor Torso",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Wastelanders - Reginald (Secret Service Gold Bullion vendor)"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00916660",
-     "edid": "Recipe_mod_armor_SecretService_Lining_Torso_RadResReduced",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094673D",
-   "name": "Plan: Single Action Revolver Fierce Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Single Action Revolver"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094673D",
-     "edid": "recipe_mod_SingleActionRevolver_Receiver_FastTrigger-CritDMG",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094673C",
-   "name": "Plan: Single Action Revolver Refined Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Single Action Revolver"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094673C",
-     "edid": "recipe_mod_SingleActionRevolver_Receiver_Damage-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094673B",
-   "name": "Plan: Single Action Revolver Severe Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Single Action Revolver"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094673B",
-     "edid": "recipe_mod_SingleActionRevolver_Receiver_Damage-CritDMG",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094673F",
-   "name": "Plan: Single Action Revolver Steadfast Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Single Action Revolver"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094673F",
-     "edid": "recipe_mod_SingleActionRevolver_Receiver_FastTrigger-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094673A",
-   "name": "Plan: Single Action Revolver Vicious Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Single Action Revolver"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094673A",
-     "edid": "recipe_mod_SingleActionRevolver_Receiver_CritDMG-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094673E",
-   "name": "Plan: Single Action Revolver Vigorous Receiver",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Single Action Revolver"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "0094673E",
-     "edid": "recipe_mod_SingleActionRevolver_Receiver_FastTrigger-Damage",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00946741",
-   "name": "Plan: Single-Action Revolver Aligned Grip",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Single Action Revolver"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00946741",
-     "edid": "recipe_mod_SingleActionRevolver_Grip_Recoil-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00946742",
-   "name": "Plan: Single-Action Revolver Aligned Long Barrel",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Single Action Revolver"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00946742",
-     "edid": "recipe_mod_SingleActionRevolver_Barrel_Long_Recoil-HipAccuracy",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "00946740",
-   "name": "Plan: Single-Action Revolver Precise Grip",
-   "kind": "plan",
-   "severity": "broken_item",
-   "bugs": [
-    {
-     "kind": "no_recipe",
-     "title": "Teaches nothing",
-     "summary": "Reading this plan doesn't unlock anything — no craftable recipe is linked to it.",
-     "detail": "No recipe in the game files is linked to this plan, so reading it doesn't unlock anything."
-    }
-   ],
-   "still_from": [
-    "Mods Weapons Ranged Single Action Revolver"
-   ],
-   "technical": {
-    "plan": {
-     "form_id": "00946740",
-     "edid": "recipe_mod_SingleActionRevolver_Grip_HipAccuracy-SecondaryDMG",
-     "type": "BOOK"
-    },
-    "recipes": [],
-    "creates": []
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
    "is_new": false
   },
   {
@@ -3295,6 +3957,116 @@
   }
  ],
  "fixed": [
+  {
+   "id": "0068B8F0",
+   "name": "Recipe: Brahmin Burgers",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "0068B8F1",
+   "name": "Recipe: Caramel Mutfruit",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "0068B8F2",
+   "name": "Recipe: Carnival Pie",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "0065DD0A",
+   "name": "Plan: Cupid Cappy Sign",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "0068B8EE",
+   "name": "Recipe: Fried Radroach On A Stick",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "0068B8EF",
+   "name": "Recipe: Fried Scorpion On A Stick",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "0068B8ED",
+   "name": "Recipe: Gulper Stuffed Foot",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "008F20F0",
+   "name": "Plan: Love Tap Paint",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "0068B8EB",
+   "name": "Recipe: Nuka-Dog",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "0068B8F3",
+   "name": "Recipe: Radscorpion Kebab",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "00682118",
+   "name": "Plan: Tunnel of Love Poster",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "0067F169",
+   "name": "Plan: Tunnel of Love Snow Globe",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "0068B8EC",
+   "name": "Recipe: Yao Guai Pastry",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "00916662",
+   "name": "Plan: Brotherhood Recon Spring Assisted Armor Limb",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "00916661",
+   "name": "Plan: Brotherhood Recon Tattered Armor Torso",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "00916666",
+   "name": "Plan: Civil Engineer Spring Assisted Armor Limb",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "00916665",
+   "name": "Plan: Civil Engineer Tattered Armor Torso",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "00916664",
+   "name": "Plan: Covert Scout Spring Assisted Armor Limb",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "00916663",
+   "name": "Plan: Covert Scout Tattered Armor Torso",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "0094F153",
+   "name": "Plan: M79 Aligned Long Barrel",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "0091665F",
+   "name": "Plan: Secret Service Spring Assisted Armor Limb",
+   "fixed_on": "2026-10-06"
+  },
+  {
+   "id": "00916660",
+   "name": "Plan: Secret Service Tattered Armor Torso",
+   "fixed_on": "2026-10-06"
+  },
   {
    "id": "007FFEF0",
    "name": "Plan: Secret Settler Helmet",
@@ -3454,51 +4226,6 @@
    "id": "0043585B",
    "name": "Plan: Mounted Mega Sloth",
    "fixed_on": "2026-10-05"
-  },
-  {
-   "id": "00948FF5",
-   "name": "Plan: Gauss Shotgun Aligned Long Barrel",
-   "fixed_on": "2026-10-02"
-  },
-  {
-   "id": "00948FF9",
-   "name": "Plan: Gauss Shotgun Fierce Receiver",
-   "fixed_on": "2026-10-02"
-  },
-  {
-   "id": "00948FFC",
-   "name": "Plan: Gauss Shotgun Scorched Killer's Receiver",
-   "fixed_on": "2026-10-02"
-  },
-  {
-   "id": "00948FF8",
-   "name": "Plan: Gauss Shotgun Severe Receiver",
-   "fixed_on": "2026-10-02"
-  },
-  {
-   "id": "00948FFB",
-   "name": "Plan: Gauss Shotgun Steadfast Receiver",
-   "fixed_on": "2026-10-02"
-  },
-  {
-   "id": "00948FFA",
-   "name": "Plan: Gauss Shotgun Vigorous Receiver",
-   "fixed_on": "2026-10-02"
-  },
-  {
-   "id": "008D5AA7",
-   "name": "Plan: LMG Calibrated .308 Receiver",
-   "fixed_on": "2026-10-02"
-  },
-  {
-   "id": "008D5AA8",
-   "name": "Plan: LMG Calibrated .45 Receiver",
-   "fixed_on": "2026-10-02"
-  },
-  {
-   "id": "008D5AAE",
-   "name": "Plan: LMG Compensator",
-   "fixed_on": "2026-10-02"
   }
  ],
  "held_back": [],
