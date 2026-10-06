@@ -319,6 +319,14 @@ jobs:
       - name: Build Infestations (HTO) Locations JSON
         run: python src/build_hto_locations_json.py --generative
 
+      # --- APPAREL vs ARMOUR (ARMO keyword split) ---
+      # Read by every reward renderer to file outfits/hats/masks under
+      # "Apparel Rewards" instead of "Armour Rewards".
+      - name: Build Apparel FormIDs JSON
+        run: |
+          python src/build_apparel_formids_json.py
+          python -c "import json;d=json.load(open('dist/apparel_formids.json'));assert len(d['formids'])>100,d['_meta'];print('apparel ok',len(d['formids']))"
+
       # --- SEASONAL EVENTS REWARDS ---
       - name: Build Seasonal Events Rewards JSON
         run: python src/build_seasonal_events_json.py
@@ -343,14 +351,23 @@ jobs:
       - name: Build Expos Rewards JSON
         run: python src/build_expos_json.py
 
-      - name: Build Daily Ops JSON
-        run: python src/build_daily_ops_json.py
-
-      # Activities-shaped Daily Ops rewards page. Imports
-      # build_events_rewards_json for the shared LVLI tree walker, so it MUST
-      # run after "Build Events Rewards JSON" above.
-      - name: Build Daily Ops All Rewards JSON
+      # The one Daily Ops rewards builder. Writes one JSON per page
+      # (daily_ops_all_rewards.json + daily_ops_reward_checklist.json) straight
+      # from the xEdit exports - it no longer reads events_rewards.json.
+      # continue-on-error: a Daily Ops failure must not stop every other page
+      # from building and committing. The last good Daily Ops JSONs stay live and
+      # the step still shows red in the run log.
+      - name: Build Daily Ops Rewards JSONs
+        continue-on-error: true
         run: python src/build_daily_ops_rewards_json.py
+
+      # --- MUTATED EVENTS (one JSON for the All Rewards page) ---
+      # Reads the xEdit exports directly through rng76 - no dependency on any
+      # other build. continue-on-error: a failure here must not stop the rest
+      # of the build; the last good JSON stays live and the step shows red.
+      - name: Build Mutated Events JSON
+        continue-on-error: true
+        run: python src/build_mutated_events_json.py
 
       # --- BOUNTY HUNTING CHALLENGES (reads CHAL TSV directly) ---
       - name: Build Bounty Hunting Challenges JSON
@@ -466,6 +483,12 @@ jobs:
         # runs straight after it — the two must never disagree about what
         # counts as a player weapon.
         run: python src/build_weapon_keywords_json.py --pts
+
+      - name: Build Costume Keyword Index JSON (PTS)
+        # /df/score-challenges/costume-keyword-index/ — every wearable carrying
+        # ClothingTypeCostume and the challenges that ask for it. Uses the
+        # spin wheel builder's cut rule, so it sits beside the weapon index.
+        run: python src/build_costume_keywords_json.py --pts
 
       # --- DF SCOREBOARDS (placeholder patchlog) ---
       - name: Stage scoreboards patchlog feed (placeholder)
@@ -658,20 +681,25 @@ jobs:
           COBJ_TSV:      ${{ env.COBJ_TSV }}
 
       # --- PLAN MASTER + PLAN CHECKLISTS (How to Obtain) ---
-      # Rebuilds the whole roster from THIS run's PTS tsvs; the relocate step at
+      # The node step only copies the checked-in (LIVE) copy-source
+      # src/plan-system/plan_master.json into dist/, so on the PTS channel it is
+      # a fallback and nothing more. The Python builder below rebuilds the whole
+      # roster from THIS run's PTS tsvs and overwrites it; the relocate step at
       # the end of the job then moves dist/ -> dist/pts/.
       #
-      # A node "copy-source fallback" step used to run ahead of this one, copying
-      # the checked-in LIVE roster (src/plan-system/plan_master.json) into dist/.
-      # On this channel that was never anything but a hazard: for a long time it
-      # ran ~140 lines AFTER the Python build, so every PTS build published the
-      # LIVE plan roster to dist/pts/plan_master.json. Reordering it was the
-      # patch; deleting it is the fix. The staging copy and the .mjs are gone —
-      # dist/ is committed, so the checkout guarantees the file exists, and the
-      # Python builder only writes plan_master, never reads one.
-      - name: Build Plan Checklists (How to Obtain) JSON
+      # These used to be the other way round: plan-obtain ran early (right after
+      # Camp Items) and the node copy ran ~140 lines later, so every PTS build
+      # published the LIVE plan roster to dist/pts/plan_master.json. The order
+      # here is the fix — do not move the Python step back above the node step.
+      # Nothing writes back to src/plan-system/plan_master.json on this channel:
+      # that file is the live copy-source and PTS must never touch it.
+      - name: Build Plan Master JSON (copy-source fallback)
         run: |
           mkdir -p dist
+          node src/plan-system/build-plan-master.mjs
+
+      - name: Build Plan Checklists (How to Obtain) JSON
+        run: |
           python src/build_plan_obtain_json.py \
             --data-dir tsv \
             --outdir dist \
@@ -726,8 +754,10 @@ jobs:
           assert "PTS" in b["newest"], f"newest is not a PTS export: {b['newest']}"
           assert b["previous"] and "PTS" not in b["previous"], \
               f"baseline should be a LIVE export, got: {b['previous']}"
-          total = sum(len(g.get("items", [])) for g in d.get("groups", []))
-          assert total == d.get("count"), f"count {d.get('count')} != {total} rows in groups"
+          # Grouped by source: a plan with two sources sits in two groups,
+          # so compare unique plans, not rows.
+          total = len({i.get("id") for g in d.get("groups", []) for i in g.get("items", [])})
+          assert total == d.get("count"), f"count {d.get('count')} != {total} unique plans in groups"
           print(f"new_plans.json (PTS): {total} plan(s) not yet live "
                 f"[{b['newest']} vs {b['previous']}]")
           PYCHK
@@ -784,9 +814,47 @@ jobs:
                 f"{groups['style']['count']} styles), {d['new_pill']['count']} NEW")
           PYCHK
 
+      # --- CURRENT BUGGED PLANS (PTS) ---
+      # Same builder as the live patch build, run on this job's PTS tsv/ and the
+      # PTS plan_master built above (so it MUST stay after the plan-obtain step).
+      # The relocate step moves dist/bugged_plans.json -> dist/pts/, and the
+      # site-wide PTS switch (df-bnb-pts.js) then serves it to the bugged page
+      # and to the New Plans red rows. dist/ was cleared at the start of this
+      # job, so NEW/fixed history comes from the last committed PTS file.
+      - name: Fetch previous PTS bugged plans (for NEW / fixed history)
+        run: git show HEAD:dist/pts/bugged_plans.json > /tmp/prev_bugged_pts.json 2>/dev/null || echo '{}' > /tmp/prev_bugged_pts.json
+
+      - name: Build Current Bugged Plans JSON (PTS)
+        run: python src/build_bugged_plans_json.py --channel pts --previous /tmp/prev_bugged_pts.json
+
+      - name: Sanity check bugged_plans.json (PTS)
+        run: |
+          python - <<'PYCHK'
+          import json
+          d = json.load(open("dist/bugged_plans.json"))
+          st = d["stats"]
+          assert d["channel"] == "pts", f"channel {d['channel']!r}, expected pts"
+          assert st.get("plans_scanned", 0) > 2000, f"only {st.get('plans_scanned')} plans scanned - export missing?"
+          assert d["checklist_dead_routes"] is not None, "plan_master.json not read - gate did not run"
+          print(f"bugged_plans.json (PTS): {d['counts']['total']} bugged, "
+                f"{len(d['held_back'])} held back by gate, {len(d['fixed'])} fixed")
+          PYCHK
+
       # --- AXOLOTL ---
       - name: Build Axolotl Rotations JSON
         run: node tools/build-axolotl-rotations-json.mjs
+
+      # --- ALL LOCATIONS (Data Mining - Fallout 76 List of All Locations) ---
+      # Every Appalachia map marker by region + the challenges / quests tied to
+      # it. Markers come from the committed Mappalachia cache
+      # (data/locations/mappalachia_markers.json — refreshed by any local run
+      # that can see the DB). Reads dist/challenges + dist/activities + dist/events,
+      # so it runs after those builders. Reads the normalized
+      # PTS tsv/ tree and writes dist/ - the relocate step moves it to dist/pts/.
+      - name: Build All Locations JSON
+        run: |
+          python src/build_locations_json.py
+          python -c "import json;d=json.load(open('dist/locations/all_locations.json'));assert d['count']>=400,d['count'];print('all_locations ok',d['count'],[(r['name'],r['count']) for r in d['regions']])"
 
       # --- SEASONAL FISH ---
       # Reads the latest FISH + LVLI_Entries TSVs and emits dist/seasonal-fish.json
@@ -1016,6 +1084,18 @@ jobs:
       - name: Build Displays JSON
         run: python src/build_displays_json.py --tsv-root tsv --outdir dist
 
+      # --- BEER STEINS (Beer Stein Checklist page) ---
+      # Outputs dist/beer_steins.json for df-bnb-plan-checklists.js. In this
+      # workflow tsv/ is already PTS-normalized, so this IS PTS data, and the
+      # "Relocate build output into dist/pts" step moves it to
+      # dist/pts/beer_steins.json like every other builder. Do NOT pass --pts
+      # here — that writes straight into dist/pts/ and collides with the relocate
+      # mv (same trap as unique_weapons --channel both). Membership is generative
+      # from the MISC export's BeerSteinsKeyword; SCORE_S<n> steins reuse the
+      # season pages' hosted artwork.
+      - name: Build Beer Steins JSON
+        run: python src/build_beer_steins_json.py
+
       # --- WORLD PET CHALLENGES (World Pet Challenges page) ---
       # Outputs dist/world_pet_challenges.json for df-bnb-world-pets.js.
       - name: Build World Pet Challenges JSON
@@ -1040,6 +1120,11 @@ jobs:
       # Outputs dist/calculators/healing_calculator.json for df-bnb-bnb-calculators.js.
       - name: Build Healing Calculator JSON
         run: python src/build_healing_calculator_json.py
+
+      # --- CRAFTING MATERIALS CALCULATOR (BnB calculators) ---
+      # Outputs dist/calculators/crafting_materials_calculator.json for df-bnb-crafting-materials-calculator.js.
+      - name: Build Crafting Materials Calculator JSON
+        run: python src/build_crafting_materials_calculator_json.py
 
       # --- DROP CHANCES DATA (Drop Chances page) ---
       # Outputs dist/drop_chances_data.json for df-bnb-drop-chances.js.
@@ -1220,6 +1305,26 @@ jobs:
       - name: Build Farming Spawns "Used For" JSON
         run: python src/build_farming_used_for.py --all
 
+      # --- COMBINED PLANT PAGES (Strangler Pod, Strangler Bloom & Swamp Plant) ---
+      # Several plant items that grow from ONE node, on one page drawn by the
+      # farming (Deathclaw Egg) renderer: shared fixed/chance spawns from
+      # dist/plants/, and per-item Used For / Farming Tips / Vendors / Containers /
+      # Events / Treasure Maps / Collectrons from the shared farming functions.
+      # Writes dist/farming_spawns/plant-<page>_spawns.json. Must run AFTER
+      # build_farming_used_for.py (reads recipe_guide / vendors / treasure maps)
+      # and BEFORE the map-link stamp below.
+      - name: Build combined plant guide pages
+        run: python src/build_plant_combo_guides.py
+
+      # --- SPAWN MAP DOWNLOAD LINKS (map_base + full_map) ---
+      # Stamps every farming/meat/plants/insects/drinks spawn doc with its map
+      # folder and 4K full-map path. The pages HEAD-check each map and only show
+      # the "Download the ... map here" line once the file is on the server, so
+      # this is safe before any upload. Runs AFTER every spawn build + Used For,
+      # so a rebuild can never strip the links again.
+      - name: Stamp spawn map download links
+        run: python src/add_spawn_map_base.py
+
       # --- FISHING ---
       # Reads FISH/GLOB/LVLI TSVs directly and emits dist/fishing.json with
       # fish metadata, spawn rate tables per bait type, axolotl monthly
@@ -1357,6 +1462,19 @@ jobs:
       - name: Build Player Icons JSON
         run: python src/build_player_icons_json.py
 
+      # --- WALLPAPER ---
+      # Mirrors the same step in dfbnb-patch-build.yml (no --pts flag, same
+      # reason as Player Icons above).
+      - name: Build Wallpapers JSON
+        run: python src/build_wallpapers_json.py
+
+      # --- COMMUNITY: Plan Check Mule missing plans lists ---
+      # Re-reads every plan on Brewmaster's lists from the plan_master this
+      # run just built, so images / routes / rates are never the bot's stale
+      # snapshot. Runs after plan_master and every image source it uses.
+      - name: Build Plan Check Mule pages JSON (PTS)
+        run: python src/build_plan_check_mule_json.py --pts --master dist/plan_master.json --out-dir dist/community
+
       # --- SANITY CHECK ---
       - name: Sanity check dist outputs
         run: |
@@ -1385,6 +1503,7 @@ jobs:
           test -f dist/pet-apparel.json            && echo "OK pet-apparel.json"            || (echo "MISSING pet-apparel.json" && exit 1)
           test -f dist/cryos.json                  && echo "OK cryos.json"                  || (echo "MISSING cryos.json" && exit 1)
           test -f dist/fridges.json                && echo "OK fridges.json"                || (echo "MISSING fridges.json" && exit 1)
+          test -f dist/dispensers.json             && echo "OK dispensers.json"             || (echo "MISSING dispensers.json" && exit 1)
           test -f dist/repair-bots.json            && echo "OK repair-bots.json"            || (echo "MISSING repair-bots.json" && exit 1)
           test -f dist/buff-stations.json          && echo "OK buff-stations.json"          || (echo "MISSING buff-stations.json" && exit 1)
           test -f dist/collectables_bobbleheads.json && echo "OK collectables_bobbleheads.json" || (echo "MISSING collectables_bobbleheads.json" && exit 1)
@@ -1417,16 +1536,20 @@ jobs:
           test -f dist/seasonal_events/seasonal_events_rewards_by_page.json && echo "OK seasonal_events_rewards_by_page.json" || (echo "MISSING seasonal_events_rewards_by_page.json" && exit 1)
           test -f dist/raids/raids_rewards.json && echo "OK raids/raids_rewards.json" || (echo "MISSING raids/raids_rewards.json" && exit 1)
           test -f dist/expos/expos_rewards.json && echo "OK expos/expos_rewards.json" || (echo "MISSING expos/expos_rewards.json" && exit 1)
-          test -f dist/daily_ops/daily_ops_rewards.json && echo "OK daily_ops/daily_ops_rewards.json" || (echo "MISSING daily_ops/daily_ops_rewards.json" && exit 1)
           test -f dist/daily_ops/daily_ops_all_rewards.json && echo "OK daily_ops/daily_ops_all_rewards.json" || (echo "MISSING daily_ops/daily_ops_all_rewards.json" && exit 1)
+          test -f dist/daily_ops/daily_ops_reward_checklist.json && echo "OK daily_ops/daily_ops_reward_checklist.json" || (echo "MISSING daily_ops/daily_ops_reward_checklist.json" && exit 1)
+          test -f dist/mutated_events/mutated_events_all_rewards.json && echo "OK mutated_events/mutated_events_all_rewards.json" || echo "WARN mutated_events/mutated_events_all_rewards.json missing (build step is continue-on-error)"
           test -f dist/minerva/minerva_plans.json      && echo "OK minerva/minerva_plans.json"       || (echo "MISSING minerva/minerva_plans.json" && exit 1)
           test -f dist/mule-defaults.json            && echo "OK mule-defaults.json (static seed)" || echo "WARN missing mule-defaults.json (static seed, not built by patch)"
           test -f dist/pennants.json                 && echo "OK pennants.json"                 || (echo "MISSING pennants.json" && exit 1)
           test -f dist/displays.json                 && echo "OK displays.json"                 || (echo "MISSING displays.json" && exit 1)
+          test -f dist/beer_steins.json              && echo "OK beer_steins.json"              || (echo "MISSING beer_steins.json" && exit 1)
+          test -f dist/bugged_plans.json             && echo "OK bugged_plans.json"             || (echo "MISSING bugged_plans.json" && exit 1)
           test -f dist/world_pet_challenges.json     && echo "OK world_pet_challenges.json"     || (echo "MISSING world_pet_challenges.json" && exit 1)
           test -f dist/world_pet_types.json          && echo "OK world_pet_types.json"          || (echo "MISSING world_pet_types.json" && exit 1)
           test -f dist/calculators/weak_spot_multipliers.json && echo "OK weak_spot_multipliers.json" || (echo "MISSING weak_spot_multipliers.json" && exit 1)
           test -f dist/calculators/healing_calculator.json && echo "OK healing_calculator.json" || (echo "MISSING healing_calculator.json" && exit 1)
+          test -f dist/calculators/crafting_materials_calculator.json && echo "OK crafting_materials_calculator.json" || (echo "MISSING crafting_materials_calculator.json" && exit 1)
           test -f dist/drop_chances_data.json        && echo "OK drop_chances_data.json"        || (echo "MISSING drop_chances_data.json" && exit 1)
           test -f dist/legendary_mod_drop_chances.json && echo "OK legendary_mod_drop_chances.json" || (echo "MISSING legendary_mod_drop_chances.json" && exit 1)
           test -f dist/npc_spawns.json               && echo "OK npc_spawns.json"               || (echo "MISSING npc_spawns.json" && exit 1)
