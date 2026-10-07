@@ -181,6 +181,19 @@ CONFIRMED_CUT_SOURCES = (
     ("MILE_LL_MysteryCrate_",       "the Mole Miner Mystery Crate is cut content"),
 )
 
+# Pattern rules for whole families Duchess has confirmed cut, so a new record
+# of the same family is caught on the next build without editing this file.
+# Mole Miner Mystery Crate (Duchess, 7 Oct 2026: "flag any other mole miner
+# crate as well even if it pops up again"): any EditorID that pairs MoleMiner
+# with MysteryCrate, or any MILE* record that is a MysteryCrate — new regions
+# (MILE_LL_MysteryCrate_<Region>_*), a renamed quest (MILE02_MoleMiner_...),
+# or a stand-alone crate list.
+# (regex, display name of the source, reason)
+CONFIRMED_CUT_SOURCE_PATTERNS = (
+    (re.compile(r"mole_?miner.*mystery_?crate|mystery_?crate.*mole_?miner|^mile\w*?_.*mystery_?crate", re.I),
+     "the Mole Miner Mystery Crate", "the Mole Miner Mystery Crate is cut content"),
+)
+
 
 def cut_source(edid):
     """Reason string when this EditorID is a confirmed-cut source, else None."""
@@ -190,7 +203,19 @@ def cut_source(edid):
     for prefix, why in CONFIRMED_CUT_SOURCES:
         if e.startswith(prefix.lower()):
             return why
+    for rx, _name, why in CONFIRMED_CUT_SOURCE_PATTERNS:
+        if rx.search(e):
+            return why
     return None
+
+
+def cut_source_name(edid):
+    """Player-facing name of a confirmed-cut source ("the Mole Miner Mystery
+    Crate"), else None. Used for the bugged-plans wording."""
+    why = cut_source(edid)
+    if not why:
+        return None
+    return why[:-len(" is cut content")] if why.endswith(" is cut content") else why
 
 
 def meaningful_refs(refs):

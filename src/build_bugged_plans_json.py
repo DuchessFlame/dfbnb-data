@@ -14,6 +14,8 @@ WHAT COUNTS AS BUGGED
 Every check is a structural fact read from the exports, never a guess from a
 name. Each one is the generalised form of a bug already confirmed by hand:
 
+  cut_source  The plan's only source is a confirmed-cut source
+              (plan_sources.cut_source — e.g. any Mole Miner Mystery Crate).
   orphan      A leveled list holding the plan is connected to nothing — no
               quest reward, NPC, container, vendor or world placement ever rolls
               it, directly or through a parent list.
@@ -415,8 +417,16 @@ class Scan:
             else:
                 out.extend(self.why_unreached(pf, seen, depth + 1))
         if not real_parents:
-            out.append({"kind": "orphan", "list": fid,
-                        "dev_refs": [e for _, e, s in L["refs"] if e]})
+            # held only by a confirmed-cut source (any Mole Miner Mystery Crate
+            # list or quest): say so, rather than "connected to nothing"
+            cut = [(f, e) for f, e, s in L["refs"] if e and plan_sources.cut_source(e)]
+            if cut:
+                out.append({"kind": "cut_source", "list": fid, "via": cut[0][0],
+                            "via_edid": cut[0][1],
+                            "source": plan_sources.cut_source_name(cut[0][1])})
+            else:
+                out.append({"kind": "orphan", "list": fid,
+                            "dev_refs": [e for _, e, s in L["refs"] if e]})
         return out
 
     # ------------------------------------------------------------- naming
@@ -512,6 +522,11 @@ class Scan:
         live_routes, dead_routes, switch = [], [], False
         for f, e, s in b["refs"]:
             if s == "LVLI" and f in self.lvli:
+                if plan_sources.cut_source(e):
+                    dead_routes.append({"holder": f, "reasons": [
+                        {"kind": "cut_source", "list": f, "via": f, "via_edid": e,
+                         "source": plan_sources.cut_source_name(e)}]})
+                    continue
                 if is_dev(e):
                     continue
                 if f in self.live:
@@ -578,7 +593,7 @@ class Scan:
                 if obtainable:
                     # an orphaned list next to a working route is legacy wiring, not a
                     # player-facing bug; only real roll defects are worth listing
-                    found = [x for x in found if x["kind"] != "orphan"]
+                    found = [x for x in found if x["kind"] not in ("orphan", "cut_source")]
                 bugs.extend(found)
                 if not found:
                     severity = None
@@ -642,6 +657,26 @@ class Scan:
             for r in dr["reasons"]:
                 if r["kind"] == "orphan" and RX_PARKED.search(self.lvli[r["list"]]["edid"]):
                     self.parked[r["list"]].add(b["fid"])
+                    continue
+                if r["kind"] == "cut_source":
+                    key = ("cut_source", r["source"])
+                    if key in seen:
+                        continue
+                    seen.add(key)
+                    top = self.lvli[r["list"]]
+                    recs = [self.rec(top["fid"], top["edid"], "LVLI")]
+                    if r["via"] != top["fid"]:
+                        recs.append(self.rec(r["via"], r["via_edid"], self.sig.get(r["via"], "") or
+                                             ("LVLI" if r["via"] in self.lvli else "")))
+                    if holder["fid"] != top["fid"]:
+                        recs.append(self.rec(holder["fid"], holder["edid"], "LVLI"))
+                    bugs.append({
+                        "kind": "cut_source", "strong": True, "source": r["source"],
+                        "title": "Only source is cut content",
+                        "text": (f"Its only source is {r['source']}, which is cut content. The leveled list "
+                                 f"that holds this {noun} ({top['edid']}) is only used by {r['via_edid']}, "
+                                 f"so nothing live in the game ever rolls it."),
+                        "records": recs})
                     continue
                 if r["kind"] == "orphan":
                     top = self.lvli[r["list"]]
@@ -712,6 +747,8 @@ class Scan:
                         if src else "Another reward always wins the roll before this title gets its turn, so it never drops.")
             if k == "never_rolls":
                 return "The entry that should give out this title can never drop."
+            if k == "cut_source":
+                return f"Its only source is {bug['source']}, which is cut content."
             return bug.get("text", "")
         if k == "orphan":
             return (f"The {src} reward pool that holds this plan isn't hooked up to anything, so it never drops."
@@ -721,6 +758,8 @@ class Scan:
                     if src else "Another reward always wins the roll before this plan gets its turn, so it never drops.")
         if k == "never_rolls":
             return "The entry that should give out this plan can never drop."
+        if k == "cut_source":
+            return f"Its only source is {bug['source']}, which is cut content."
         if k == "no_recipe":
             return "Reading this plan doesn't unlock anything \u2014 no craftable recipe is linked to it."
         if k == "wrong_tier":
@@ -795,7 +834,7 @@ class Scan:
             if dead_routes:
                 found = self.describe_dead({"fid": roll_id}, dead_routes, noun=noun)
                 if live_any:
-                    found = [x for x in found if x["kind"] != "orphan"]
+                    found = [x for x in found if x["kind"] not in ("orphan", "cut_source")]
                 bugs.extend(found)
             if not bugs:
                 continue
@@ -881,6 +920,8 @@ def route_dead_reasons(scan, fids):
         for rr in scan.why_unreached(f):
             if rr["kind"] == "dead_edge":
                 why.add("entry can never roll")
+            elif rr["kind"] == "cut_source":
+                why.add("cut source")
             elif rr["kind"] == "orphan":
                 e = scan.lvli[rr["list"]]["edid"]
                 if is_dev(e):
@@ -915,6 +956,8 @@ def checklist_dead_routes(scan, master_path):
                 for rr in scan.why_unreached(f):
                     if rr["kind"] == "dead_edge":
                         why.add("entry can never roll")
+                    elif rr["kind"] == "cut_source":
+                        why.add("cut source")
                     elif rr["kind"] == "orphan":
                         e = scan.lvli[rr["list"]]["edid"]
                         if is_dev(e):
