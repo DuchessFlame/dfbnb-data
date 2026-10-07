@@ -391,7 +391,8 @@ class Resolver:
         # club, but the game stores each variant as its own WEAP record).
         label = item.get("category_label") or ""
         if cnam.get("sig") == "WEAP" and (label == "Weapon (physical plan)"
-                                          or item.get("known_by_default")):
+                                          or item.get("known_by_default")
+                                          or item.get("quest_learned")):
             role = "base"
         elif SKIN_WORDS.search(plan_edid or "") or SKIN_WORDS.search(omod_edid or "") \
                 or SKIN_WORDS.search(cobj_edid or "") or attach in SKIN_ATTACH:

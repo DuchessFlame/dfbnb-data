@@ -183,10 +183,43 @@ _RX_DEFAULT_COBJ = re.compile(r"^co_Weapon_(Ranged|Melee|Thrown)_", re.I)
 _RX_DEFAULT_SKIP = re.compile(r"nocraft|repaironly|copy|test|questreward", re.I)
 DEFAULT_OBTAIN = ("Known by default — there is no plan to find. Every character "
                   "can craft this at a weapons workbench from the start.")
+QUEST_OBTAIN = ("There is no plan to find — you learn this automatically when you "
+                "complete the quest below.")
+# Recipes that are not "known by default" in spirit even when the COBJ2 file is
+# missing (it only exists from the Oct 2026 COBJ export on).
+_RX_ANY_WEAPON_COBJ_SKIP = re.compile(r"nocraft|repaironly|^zzz|^del_|^cut_|test|"
+                                      r"copy|questreward|^survival_|^atx_|^score_",
+                                      re.I)
+
+
+def _cobj2(tsv_dir):
+    """COBJ FormID -> learn method / conditions row, from COBJ2_Export_*.tsv.
+
+    Written by the same xEdit run as the main COBJ file (ExportCOBJToTSV.pas,
+    Oct 2026). Empty when no COBJ2 export exists yet — callers then fall back
+    to the GNAM-only test.
+    """
+    path = bpo.newest("COBJ2_Export_*.tsv", tsv_dir)
+    out = {}
+    if not path:
+        return out
+    for r in bpo.read_rows(path):
+        fid = (r.get("COBJ_FormID") or "").strip().upper()
+        if fid:
+            out[fid] = r
+    return out
 
 
 def _build_default_weapons(items, cobj_idx, unlocks, stats):
+    """Known-by-default weapons, and weapons a quest teaches automatically.
+
+    With a COBJ2 export (LRNM + Conditions) a recipe is only "known by
+    default" when it carries NO conditions. A GetQuestCompleted condition
+    makes it a quest-learned weapon instead (V63 Zweihaender: The Eye of the
+    Storm), which gets its own row and a Quests ledger line.
+    """
     ordnance = plan_images.load_ordnance(bpo.TSV)
+    cond = _cobj2(bpo.TSV)
     covered_co, covered_weap = set(), set()
     for it in items:
         if it.get("cut") or it.get("recipe_only"):
@@ -203,14 +236,27 @@ def _build_default_weapons(items, cobj_idx, unlocks, stats):
     for co_fid in sorted(cobj_idx):
         c = cobj_idx[co_fid]
         edid, cnam = c.get("edid") or "", (c.get("cnam_fid") or "").upper()
-        if not _RX_DEFAULT_COBJ.match(edid) or _RX_DEFAULT_SKIP.search(edid):
+        if _RX_ANY_WEAPON_COBJ_SKIP.search(edid):
             continue
         if bpo.SIG_INDEX.get(cnam) != "WEAP" or cnam in ordnance:
             continue
         if (c.get("bnam_edid") or "") != "Workbench_Crafting_Weapon":
             continue
-        if unlocks.unlock_for(co_fid):
-            continue
+        cr = cond.get(co_fid) or {}
+        quest = (cr.get("Quest_FULL") or cr.get("Quest_EDID") or "").strip()
+        n_cond = int((cr.get("CondCount") or "0").strip() or 0) if cr else 0
+        unlock = unlocks.unlock_for(co_fid)
+        if quest:
+            # Quest-taught: a GNAM, if any, is only the "learned via script"
+            # placeholder (Blade of Bastet / Voice of Set).
+            if unlock and unlock.get("kind") not in (plan_unlocks.SCRIPT,):
+                continue
+        else:
+            if not _RX_DEFAULT_COBJ.match(edid) or _RX_DEFAULT_SKIP.search(edid):
+                continue
+            if unlock or n_cond:
+                stats["default_has_conditions"] += bool(n_cond)
+                continue
         if co_fid in covered_co or cnam in covered_weap or cnam in seen:
             stats["default_covered_by_a_plan"] += 1
             continue
@@ -218,6 +264,30 @@ def _build_default_weapons(items, cobj_idx, unlocks, stats):
         if not full:
             continue
         seen.add(cnam)
+        if quest:
+            sentence = f"Learned automatically when you complete the quest: {quest}."
+            row = {
+                "kind": "plan", "recipe_only": True, "quest_learned": True,
+                "brand": "df", "type": "weapon",
+                "id": f"RECIPE_{co_fid}", "name": DEFAULT_NAMES.get(full, full),
+                "has_image_box": True, "image_dir": "",
+                "obtain": QUEST_OBTAIN,
+                "category_label": "Weapon (quest reward recipe)",
+                "obtain_routes": [], "obtain_unlocks": [sentence],
+                "plan_item": None,
+                "cobj": {"formid": co_fid, "edid": edid},
+                "cnam": {"formid": cnam, "edid": c.get("cnam_edid") or "", "sig": "WEAP"},
+                "tradeable": None, "stops_dropping": None, "effects": None,
+                "cut": False, "cut_reason": None,
+                "changes": [], "source_tag": "Quest",
+                "learn_quest": {"formid": cr.get("Quest_FormID") or "",
+                                "edid": cr.get("Quest_EDID") or "", "name": quest},
+            }
+            row["image_dir"] = plan_images.page_folder(row) or "weapons"
+            row["obtain_ledger"] = plan_sources.obtain_ledger(row)
+            rows.append(row)
+            stats["quest_learned_emitted"] += 1
+            continue
         row = {
             "kind": "plan", "recipe_only": True, "known_by_default": True,
             "brand": "df", "type": "weapon",
