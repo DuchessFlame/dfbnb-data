@@ -158,7 +158,87 @@ def build(items, tsv_dir="tsv", stats=None):
         stats["by_type_" + (cat or "none")] += 1
 
     rows += _build_scrap(items, cobj_idx, unlocks, covered_fids, stats)
+    rows += _build_default_weapons(items, cobj_idx, unlocks, stats)
     return rows, stats
+
+
+# ── weapons every character already knows ───────────────────────────────────
+# Duchess, 7 Oct 2026: the Pipe guns, Syringer, Machete, Hatchet, Board, Combat
+# Knife and Throwing Knife belong on the Weapon page even though there is no
+# plan for them — a reader looking for "Pipe Revolver" should find it and be
+# told it is known by default, not find nothing.
+#
+# The game's own test, nothing by name:
+#   * a base-game weapon recipe (co_Weapon_…) at the weapons workbench that
+#     creates a WEAP — content-drop recipes (Storm_, W05_, MoM_ …) and the
+#     NOCRAFT / REPAIRONLY / zzz copies are not "known by default"
+#   * no GNAM: nothing in the files gates the recipe, so it is known from the
+#     start (a gated one is a challenge / scrap / script / item unlock instead)
+#   * not ordnance (grenades and mines have their own page)
+#   * no plan already makes it. A scoreboard plan that only BORROWED the weapon
+#     from this recipe (bpo.vendor_twin — the Cosmic Knife plan makes "Knife")
+#     does not count, or the plain Combat Knife would vanish behind it.
+DEFAULT_NAMES = {"Pipe": "Pipe Gun"}          # the WEAP FULL is just "Pipe"
+_RX_DEFAULT_COBJ = re.compile(r"^co_Weapon_(Ranged|Melee|Thrown)_", re.I)
+_RX_DEFAULT_SKIP = re.compile(r"nocraft|repaironly|copy|test|questreward", re.I)
+DEFAULT_OBTAIN = ("Known by default — there is no plan to find. Every character "
+                  "can craft this at a weapons workbench from the start.")
+
+
+def _build_default_weapons(items, cobj_idx, unlocks, stats):
+    ordnance = plan_images.load_ordnance(bpo.TSV)
+    covered_co, covered_weap = set(), set()
+    for it in items:
+        if it.get("cut") or it.get("recipe_only"):
+            continue
+        co = ((it.get("cobj") or {}).get("formid") or "").upper()
+        covered_co.add(co)
+        own = cobj_idx.get(co) or {}
+        twin = bpo.vendor_twin(own, cobj_idx) if own else None
+        if twin:
+            covered_co.add(next((f for f, c in cobj_idx.items() if c is twin), ""))
+        elif own.get("cnam_fid"):
+            covered_weap.add(own["cnam_fid"].upper())
+    rows, seen = [], set()
+    for co_fid in sorted(cobj_idx):
+        c = cobj_idx[co_fid]
+        edid, cnam = c.get("edid") or "", (c.get("cnam_fid") or "").upper()
+        if not _RX_DEFAULT_COBJ.match(edid) or _RX_DEFAULT_SKIP.search(edid):
+            continue
+        if bpo.SIG_INDEX.get(cnam) != "WEAP" or cnam in ordnance:
+            continue
+        if (c.get("bnam_edid") or "") != "Workbench_Crafting_Weapon":
+            continue
+        if unlocks.unlock_for(co_fid):
+            continue
+        if co_fid in covered_co or cnam in covered_weap or cnam in seen:
+            stats["default_covered_by_a_plan"] += 1
+            continue
+        full = (c.get("cnam_full") or "").strip()
+        if not full:
+            continue
+        seen.add(cnam)
+        row = {
+            "kind": "plan", "recipe_only": True, "known_by_default": True,
+            "brand": "df", "type": "weapon",
+            "id": f"RECIPE_{co_fid}", "name": DEFAULT_NAMES.get(full, full),
+            "has_image_box": True, "image_dir": "",
+            "obtain": DEFAULT_OBTAIN,
+            "category_label": "Weapon (known by default)",
+            "obtain_routes": [], "obtain_unlocks": [],
+            "plan_item": None,
+            "cobj": {"formid": co_fid, "edid": edid},
+            "cnam": {"formid": cnam, "edid": c.get("cnam_edid") or "", "sig": "WEAP"},
+            # There is no plan, so there is nothing to trade: no pill at all.
+            "tradeable": None, "stops_dropping": None, "effects": None,
+            "cut": False, "cut_reason": None,
+            "changes": [], "source_tag": "Default",
+        }
+        row["image_dir"] = plan_images.page_folder(row) or "weapons"
+        row["obtain_ledger"] = []
+        rows.append(row)
+        stats["default_emitted"] += 1
+    return rows
 
 
 # Structural mod EDID tokens the family resolver protects — see add_weapon_groups

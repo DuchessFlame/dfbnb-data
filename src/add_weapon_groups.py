@@ -201,6 +201,7 @@ ALIASES = {
     "BOSRocketLauncher": "Hellstorm Missile Launcher", "bospistol": "Crusader Pistol",
     "CombatRifle": "Combat Rifle", "CombatRifle_Fixer": "The Fixer", "TheFixer": "The Fixer",
     "Shishkebab": "Shishkebab", "Knife": "Combat Knife", "BowieKnife": "Bowie Knife",
+    "Throwing_Knife": "Throwing Knife", "ThrowingKnife": "Throwing Knife",
     "WoodCuttingAxe": "Wood Axe", "FireAxe": "Fire Axe", "GrognakAxe": "Grognak's Axe",
     "AutoAxe": "Auto Axe", "Hatchet": "Hatchet", "Pickaxe": "Pickaxe", "PickAxe": "Pickaxe",
     "FishingRod": "Fishing Rod", "PipeGun": "Pipe Gun", "GulperSmacker": "Gulper Smacker",
@@ -389,7 +390,8 @@ class Resolver:
         # weapons behave (Barbed Sheepsquatch Club is a mod you craft onto the
         # club, but the game stores each variant as its own WEAP record).
         label = item.get("category_label") or ""
-        if cnam.get("sig") == "WEAP" and label == "Weapon (physical plan)":
+        if cnam.get("sig") == "WEAP" and (label == "Weapon (physical plan)"
+                                          or item.get("known_by_default")):
             role = "base"
         elif SKIN_WORDS.search(plan_edid or "") or SKIN_WORDS.search(omod_edid or "") \
                 or SKIN_WORDS.search(cobj_edid or "") or attach in SKIN_ATTACH:
