@@ -741,6 +741,9 @@
     "apparel_formids.json": {
       "structural_change": true
     },
+    "armour.json": {
+      "structural_change": true
+    },
     "axolotl-rotations.json": {
       "structural_change": true
     },
@@ -1820,7 +1823,36 @@
         "007FFEF0",
         "008F20F0"
       ],
-      "changed": []
+      "changed": [
+        {
+          "key": "003FC7E2",
+          "label": "Plan: Pioneer Scout Banner: Squirrel",
+          "fields": [
+            "is_new"
+          ]
+        },
+        {
+          "key": "0042E728",
+          "label": "Plan: Pioneer Scout Poster",
+          "fields": [
+            "is_new"
+          ]
+        },
+        {
+          "key": "006369BD",
+          "label": "Plan: BOS Leather Armor Paint",
+          "fields": [
+            "is_new"
+          ]
+        },
+        {
+          "key": "006369C3",
+          "label": "Plan: BOS Combat Armor Paint",
+          "fields": [
+            "is_new"
+          ]
+        }
+      ]
     },
     "bundles.json": {
       "key": "name",
@@ -1835,6 +1867,9 @@
       "structural_change": true
     },
     "calculators/crafting_materials_calculator.json": {
+      "structural_change": true
+    },
+    "calculators/healing_calculator.json": {
       "structural_change": true
     },
     "calculators/outfit_inspiration.json": {
@@ -22763,6 +22798,9 @@
     "collectable_spawns_pint-sized-phantom-graves.json": {
       "structural_change": true
     },
+    "collectable_spawns_pint-sized-slasher-masks.json": {
+      "structural_change": true
+    },
     "collectable_spawns_treasure-maps-locations.json": {
       "structural_change": true
     },
@@ -34109,6 +34147,9 @@
     "cryptids/angler.json": {
       "structural_change": true
     },
+    "cryptids/bigfoot.json": {
+      "structural_change": true
+    },
     "cryptids/blue-devil.json": {
       "structural_change": true
     },
@@ -34116,6 +34157,9 @@
       "structural_change": true
     },
     "cryptids/grafton-monster.json": {
+      "structural_change": true
+    },
+    "cryptids/jersey-lesser-devils.json": {
       "structural_change": true
     },
     "cryptids/megasloth.json": {
@@ -34414,10 +34458,16 @@
     "farming_spawns/blood-sac_spawns.json": {
       "structural_change": true
     },
+    "farming_spawns/canned-coffee_spawns.json": {
+      "structural_change": true
+    },
     "farming_spawns/chems-addictol_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/chems-adrenal-reaction-serum_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-antibiotics_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/chems-berry-mentats_spawns.json": {
@@ -34564,7 +34614,13 @@
     "farming_spawns/deathclaw-egg_spawns.json": {
       "structural_change": true
     },
+    "farming_spawns/frog-egg_spawns.json": {
+      "structural_change": true
+    },
     "farming_spawns/glowing-blood_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/honey_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/honeycomb_spawns.json": {
@@ -34576,6 +34632,9 @@
     "farming_spawns/mirelurk-egg_spawns.json": {
       "structural_change": true
     },
+    "farming_spawns/mothman-egg_spawns.json": {
+      "structural_change": true
+    },
     "farming_spawns/perfect-bubblegum_spawns.json": {
       "structural_change": true
     },
@@ -34585,6 +34644,9 @@
     "farming_spawns/radscorpion-egg_spawns.json": {
       "structural_change": true
     },
+    "farming_spawns/radtoad-egg_spawns.json": {
+      "structural_change": true
+    },
     "farming_spawns/royal-jelly_spawns.json": {
       "structural_change": true
     },
@@ -34592,6 +34654,9 @@
       "structural_change": true
     },
     "farming_spawns/sugar-bombs_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/tick-blood_spawns.json": {
       "structural_change": true
     },
     "fishing.json": {
@@ -34605,6 +34670,12 @@
     },
     "fishing_equipment.json": {
       "structural_change": true
+    },
+    "help_menu.json": {
+      "key": "edid",
+      "added": [],
+      "removed": [],
+      "changed": []
     },
     "home-events.json": {
       "structural_change": true
@@ -35783,7 +35854,13 @@
         }
       ]
     },
+    "legendary_mod_drop_chances.json": {
+      "structural_change": true
+    },
     "legendary_mods.json": {
+      "structural_change": true
+    },
+    "load_screens.json": {
       "structural_change": true
     },
     "make_plan_checklist.json": {
@@ -36116,8 +36193,57 @@
       ],
       "changed": [
         {
+          "key": "PLAN_00436FF0",
+          "label": "Plan: Bowie Knife",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
           "key": "PLAN_00436FF2",
           "label": "Plan: Deathclaw Gauntlet",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00436FF5",
+          "label": "Plan: Golf Club",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00436FFA",
+          "label": "Plan: Pipe Wrench",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00436FFC",
+          "label": "Plan: Rolling Pin",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00436FFD",
+          "label": "Plan: Sickle",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00436FFF",
+          "label": "Plan: Sledge Hammer",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00437000",
+          "label": "Plan: Super Sledge",
           "fields": [
             "routes"
           ]
@@ -36130,8 +36256,43 @@
           ]
         },
         {
+          "key": "PLAN_00437002",
+          "label": "Plan: Tire Iron",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00437003",
+          "label": "Plan: War Drum",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00437007",
+          "label": "Plan: .44 Revolver",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
           "key": "PLAN_0043700A",
           "label": "Plan: Plasma Gun",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_0043700B",
+          "label": "Plan: Submachine Gun",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_00437014",
+          "label": "Plan: Minigun",
           "fields": [
             "routes"
           ]
@@ -36144,8 +36305,15 @@
           ]
         },
         {
-          "key": "PLAN_004EAEEC",
-          "label": "Plan: Meat Hook",
+          "key": "PLAN_004EAEED",
+          "label": "Plan: Spear",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_004EB73C",
+          "label": "Plan: Chinese Officer Sword",
           "fields": [
             "routes"
           ]
@@ -36158,8 +36326,22 @@
           ]
         },
         {
-          "key": "PLAN_004F42E4",
-          "label": "Plan: Shishkebab",
+          "key": "PLAN_004F42E3",
+          "label": "Plan: Ripper",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F4789",
+          "label": "Plan: Gatling Plasma",
+          "fields": [
+            "routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F478C",
+          "label": "Plan: M79 Grenade Launcher",
           "fields": [
             "routes"
           ]
@@ -36983,10 +37165,16 @@
     "meat/brahmin.json": {
       "structural_change": true
     },
+    "meat/cat.json": {
+      "structural_change": true
+    },
     "meat/chicken.json": {
       "structural_change": true
     },
     "meat/deathclaw.json": {
+      "structural_change": true
+    },
+    "meat/fox.json": {
       "structural_change": true
     },
     "meat/frog.json": {
@@ -37001,6 +37189,9 @@
     "meat/hermit-crab.json": {
       "structural_change": true
     },
+    "meat/iguana.json": {
+      "structural_change": true
+    },
     "meat/megasloth.json": {
       "structural_change": true
     },
@@ -37013,13 +37204,34 @@
     "meat/mole-rat.json": {
       "structural_change": true
     },
+    "meat/mongrel-dog.json": {
+      "structural_change": true
+    },
     "meat/mutant-hound.json": {
+      "structural_change": true
+    },
+    "meat/opossum.json": {
+      "structural_change": true
+    },
+    "meat/owlet.json": {
+      "structural_change": true
+    },
+    "meat/pheasant.json": {
+      "structural_change": true
+    },
+    "meat/rabbit.json": {
       "structural_change": true
     },
     "meat/radhog.json": {
       "structural_change": true
     },
+    "meat/radrat.json": {
+      "structural_change": true
+    },
     "meat/radstag.json": {
+      "structural_change": true
+    },
+    "meat/radtoad.json": {
       "structural_change": true
     },
     "meat/radturkey.json": {
@@ -37029,6 +37241,9 @@
       "structural_change": true
     },
     "meat/sheepsquatch.json": {
+      "structural_change": true
+    },
+    "meat/squirrel.json": {
       "structural_change": true
     },
     "meat/wolf.json": {
@@ -37067,10 +37282,37 @@
     "nuka_cola_spawns_cherry.json": {
       "structural_change": true
     },
+    "nuka_cola_spawns_cranberry.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_dark.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_grape.json": {
+      "structural_change": true
+    },
     "nuka_cola_spawns_nuka-cola.json": {
       "structural_change": true
     },
     "nuka_cola_spawns_nukashine.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_orange.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_quantum.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_sunset-sarsaparilla.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_twist.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_vaccinated.json": {
+      "structural_change": true
+    },
+    "nuka_cola_spawns_wild.json": {
       "structural_change": true
     },
     "pennants.json": {
@@ -37526,126 +37768,6 @@
       ],
       "changed": [
         {
-          "key": "NWREWARD_003FBB46",
-          "label": "Mr. Handy Player Icon",
-          "fields": [
-            "image_source",
-            "images"
-          ]
-        },
-        {
-          "key": "NWREWARD_003FBB49",
-          "label": "Pocket Watch Player Icon",
-          "fields": [
-            "image_source",
-            "images"
-          ]
-        },
-        {
-          "key": "NWREWARD_003FBB4B",
-          "label": "MegaSloth Player Icon",
-          "fields": [
-            "image_source",
-            "images"
-          ]
-        },
-        {
-          "key": "NWREWARD_003FBB4F",
-          "label": "Vault 51 Player Icon",
-          "fields": [
-            "image_source",
-            "images"
-          ]
-        },
-        {
-          "key": "NWREWARD_003FBB50",
-          "label": "Bad Hair Female Player Icon",
-          "fields": [
-            "image_source",
-            "images"
-          ]
-        },
-        {
-          "key": "NWREWARD_003FBB51",
-          "label": "Bad Hair Male Player Icon",
-          "fields": [
-            "image_source",
-            "images"
-          ]
-        },
-        {
-          "key": "NWREWARD_003FBB52",
-          "label": "Vault Boy with Camera Player Icon",
-          "fields": [
-            "image_source",
-            "images"
-          ]
-        },
-        {
-          "key": "NWREWARD_003FBB60",
-          "label": "Small Crate Player Icon",
-          "fields": [
-            "image_source",
-            "images"
-          ]
-        },
-        {
-          "key": "NWREWARD_003FBB61",
-          "label": "Medium Crate Player Icon",
-          "fields": [
-            "image_source",
-            "images"
-          ]
-        },
-        {
-          "key": "NWREWARD_003FBB62",
-          "label": "Epic Crate Player Icon",
-          "fields": [
-            "image_source",
-            "images"
-          ]
-        },
-        {
-          "key": "NWREWARD_00416629",
-          "label": "Skeleton Player Icon",
-          "fields": [
-            "image_source",
-            "images"
-          ]
-        },
-        {
-          "key": "NWREWARD_0041662A",
-          "label": "Nuke Skull Player Icon",
-          "fields": [
-            "image_source",
-            "images"
-          ]
-        },
-        {
-          "key": "NWREWARD_0041662B",
-          "label": "Nuke Goggles Man Player Icon",
-          "fields": [
-            "image_source",
-            "images"
-          ]
-        },
-        {
-          "key": "NWREWARD_0041662C",
-          "label": "Nuke Goggles Woman Player Icon",
-          "fields": [
-            "image_source",
-            "images"
-          ]
-        },
-        {
-          "key": "NWREWARD_0041662D",
-          "label": "Power Armor Player Icon",
-          "fields": [
-            "image_source",
-            "images"
-          ]
-        },
-        {
           "key": "PLAN_0018331B",
           "label": "Plan: Boxing Glove Lead Lining",
           "fields": [
@@ -37658,8 +37780,7 @@
           "label": "Plan: Spiked Walking Cane",
           "fields": [
             "obtain_ledger",
-            "obtain_routes",
-            "source_tag"
+            "obtain_routes"
           ]
         },
         {
@@ -37667,8 +37788,7 @@
           "label": "Plan: Barbed Walking Cane",
           "fields": [
             "obtain_ledger",
-            "obtain_routes",
-            "source_tag"
+            "obtain_routes"
           ]
         },
         {
@@ -37676,8 +37796,7 @@
           "label": "Plan: Machete Sacrificial Blade",
           "fields": [
             "obtain_ledger",
-            "obtain_routes",
-            "source_tag"
+            "obtain_routes"
           ]
         },
         {
@@ -37685,8 +37804,7 @@
           "label": "Plan: Pitchfork Flamer",
           "fields": [
             "obtain_ledger",
-            "obtain_routes",
-            "source_tag"
+            "obtain_routes"
           ]
         },
         {
@@ -37694,8 +37812,7 @@
           "label": "Plan: Hatchet Electro Fusion",
           "fields": [
             "obtain_ledger",
-            "obtain_routes",
-            "source_tag"
+            "obtain_routes"
           ]
         },
         {
@@ -37744,6 +37861,36 @@
           "label": "Plan: Vault Desk",
           "fields": [
             "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003D6533",
+          "label": "Plan: Wind Instruments",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_003D6534",
+          "label": "Plan: Acoustic Instruments",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_003D74A5",
+          "label": "Recipe: Fried Radtoad Legs",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003D74AC",
+          "label": "Recipe: Fried Deerskins",
+          "fields": [
             "obtain_routes"
           ]
         },
@@ -37861,6 +38008,39 @@
           ]
         },
         {
+          "key": "PLAN_00436FEE",
+          "label": "Plan: Baseball Bat",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00436FEF",
+          "label": "Plan: Baton",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00436FF0",
+          "label": "Plan: Bowie Knife",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00436FF1",
+          "label": "Plan: Boxing Glove",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
           "key": "PLAN_00436FF2",
           "label": "Plan: Deathclaw Gauntlet",
           "fields": [
@@ -37881,12 +38061,21 @@
           "label": "Plan: Golf Club",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
           "key": "PLAN_00436FF6",
           "label": "Plan: Guitar Sword",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00436FF7",
+          "label": "Plan: Knuckles",
           "fields": [
             "obtain_ledger",
             "obtain_routes"
@@ -37901,12 +38090,47 @@
           ]
         },
         {
+          "key": "PLAN_00436FFA",
+          "label": "Plan: Pipe Wrench",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00436FFB",
+          "label": "Plan: Pitchfork",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00436FFC",
+          "label": "Plan: Rolling Pin",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00436FFD",
+          "label": "Plan: Sickle",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
           "key": "PLAN_00436FFF",
           "label": "Plan: Sledge Hammer",
           "fields": [
             "cnam",
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -37914,7 +38138,8 @@
           "label": "Plan: Super Sledge",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -37926,8 +38151,34 @@
           ]
         },
         {
+          "key": "PLAN_00437002",
+          "label": "Plan: Tire Iron",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
+          ]
+        },
+        {
           "key": "PLAN_00437003",
           "label": "Plan: War Drum",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00437004",
+          "label": "Plan: Pool Cue",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00437005",
+          "label": "Plan: Hunting Rifle",
           "fields": [
             "obtain_ledger",
             "obtain_routes"
@@ -37936,6 +38187,14 @@
         {
           "key": "PLAN_00437006",
           "label": "Plan: Tomahawk",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00437007",
+          "label": "Plan: .44 Revolver",
           "fields": [
             "obtain_ledger",
             "obtain_routes"
@@ -37958,6 +38217,15 @@
           ]
         },
         {
+          "key": "PLAN_0043700B",
+          "label": "Plan: Submachine Gun",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
+          ]
+        },
+        {
           "key": "PLAN_0043700D",
           "label": "Plan: Combat Rifle",
           "fields": [
@@ -37968,6 +38236,55 @@
         {
           "key": "PLAN_00437014",
           "label": "Plan: Minigun",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00438606",
+          "label": "Plan: Heavy Leather Arms",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00438607",
+          "label": "Plan: Heavy Leather Legs",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00438608",
+          "label": "Plan: Heavy Leather Torso",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0043860F",
+          "label": "Plan: Sturdy Leather Arms",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00438610",
+          "label": "Plan: Sturdy Leather Legs",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00438611",
+          "label": "Plan: Sturdy Leather Torso",
           "fields": [
             "obtain_ledger",
             "obtain_routes"
@@ -37994,6 +38311,14 @@
           "fields": [
             "obtain_ledger",
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004E8549",
+          "label": "Plan: Vault Girl",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -38108,7 +38433,9 @@
           "label": "Plan: Spear",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes",
+            "source_tag"
           ]
         },
         {
@@ -38116,7 +38443,8 @@
           "label": "Plan: Chinese Officer Sword",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -38131,7 +38459,9 @@
           "key": "PLAN_004EB740",
           "label": "Plan: Pickaxe",
           "fields": [
-            "cnam"
+            "cnam",
+            "obtain_ledger",
+            "obtain_routes"
           ]
         },
         {
@@ -38155,7 +38485,8 @@
           "label": "Plan: Ripper",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -38169,6 +38500,22 @@
         {
           "key": "PLAN_004F4769",
           "label": "Plan: Pump-Action Shotgun",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F476A",
+          "label": "Plan: 10mm Submachine Gun",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F476C",
+          "label": "Plan: Single-Action Revolver",
           "fields": [
             "obtain_ledger",
             "obtain_routes"
@@ -38198,10 +38545,57 @@
           ]
         },
         {
+          "key": "PLAN_004F4782",
+          "label": "Plan: Lever Gun",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
           "key": "PLAN_004F4789",
           "label": "Plan: Gatling Plasma",
           "fields": [
             "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F478C",
+          "label": "Plan: M79 Grenade Launcher",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F478D",
+          "label": "Plan: MG42 Light Machine Gun",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0050DCBF",
+          "label": "Recipe: Steeped Carrot Flower Tea",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0050DCC4",
+          "label": "Recipe: Steeped Melon Blossom Chai",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0050DCC7",
+          "label": "Recipe: Steeped Tato Flower Tea",
+          "fields": [
             "obtain_routes"
           ]
         },
@@ -38213,6 +38607,14 @@
             "cobj",
             "name",
             "plan_item"
+          ]
+        },
+        {
+          "key": "PLAN_0052E485",
+          "label": "Plan: 10mm Pistol",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
           ]
         },
         {
@@ -38241,11 +38643,140 @@
           ]
         },
         {
-          "key": "PLAN_005772C7",
-          "label": "Plan: Evil Jack O'Lantern",
+          "key": "PLAN_0052FE03",
+          "label": "Recipe: Squirrel On A Stick",
           "fields": [
-            "image_source",
-            "images"
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_005527DB",
+          "label": "Plan: Thorn Armor Left Arm",
+          "fields": [
+            "armour_group",
+            "armour_group_key",
+            "armour_group_solo",
+            "armour_role",
+            "image_dir",
+            "plan_page",
+            "reclassified_from"
+          ]
+        },
+        {
+          "key": "PLAN_005527DC",
+          "label": "Plan: Solar Armor Left Arm",
+          "fields": [
+            "armour_group",
+            "armour_group_key",
+            "armour_group_solo",
+            "armour_role",
+            "image_dir",
+            "plan_page",
+            "reclassified_from"
+          ]
+        },
+        {
+          "key": "PLAN_005527DD",
+          "label": "Plan: Thorn Armor Left Leg",
+          "fields": [
+            "armour_group",
+            "armour_group_key",
+            "armour_group_solo",
+            "armour_role",
+            "image_dir",
+            "plan_page",
+            "reclassified_from"
+          ]
+        },
+        {
+          "key": "PLAN_005527DE",
+          "label": "Plan: Solar Armor Left Leg",
+          "fields": [
+            "armour_group",
+            "armour_group_key",
+            "armour_group_solo",
+            "armour_role",
+            "image_dir",
+            "plan_page",
+            "reclassified_from"
+          ]
+        },
+        {
+          "key": "PLAN_005527DF",
+          "label": "Plan: Thorn Armor Chest Piece",
+          "fields": [
+            "armour_group",
+            "armour_group_key",
+            "armour_group_solo",
+            "armour_role",
+            "image_dir",
+            "plan_page",
+            "reclassified_from"
+          ]
+        },
+        {
+          "key": "PLAN_005527E0",
+          "label": "Plan: Solar Armor Chest Piece",
+          "fields": [
+            "armour_group",
+            "armour_group_key",
+            "armour_group_solo",
+            "armour_role",
+            "image_dir",
+            "plan_page",
+            "reclassified_from"
+          ]
+        },
+        {
+          "key": "PLAN_00554651",
+          "label": "Plan: Thorn Armor Right Arm",
+          "fields": [
+            "armour_group",
+            "armour_group_key",
+            "armour_group_solo",
+            "armour_role",
+            "image_dir",
+            "plan_page",
+            "reclassified_from"
+          ]
+        },
+        {
+          "key": "PLAN_00554652",
+          "label": "Plan: Solar Armor Right Arm",
+          "fields": [
+            "armour_group",
+            "armour_group_key",
+            "armour_group_solo",
+            "armour_role",
+            "image_dir",
+            "plan_page",
+            "reclassified_from"
+          ]
+        },
+        {
+          "key": "PLAN_00554653",
+          "label": "Plan: Thorn Armor Right Leg",
+          "fields": [
+            "armour_group",
+            "armour_group_key",
+            "armour_group_solo",
+            "armour_role",
+            "image_dir",
+            "plan_page",
+            "reclassified_from"
+          ]
+        },
+        {
+          "key": "PLAN_00554654",
+          "label": "Plan: Solar Armor Right Leg",
+          "fields": [
+            "armour_group",
+            "armour_group_key",
+            "armour_group_solo",
+            "armour_role",
+            "image_dir",
+            "plan_page",
+            "reclassified_from"
           ]
         },
         {
@@ -38328,6 +38859,13 @@
           ]
         },
         {
+          "key": "PLAN_005A3329",
+          "label": "Plan: Vault 94 Scout Armor Mask",
+          "fields": [
+            "armour_group_solo"
+          ]
+        },
+        {
           "key": "PLAN_005AD986",
           "label": "Plan: Standing Gorilla",
           "fields": [
@@ -38346,6 +38884,14 @@
           "label": "Plan: War Glaive",
           "fields": [
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_005D0F0C",
+          "label": "Plan: Sympto-Matic",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -38546,48 +39092,91 @@
           "key": "PLAN_005FC9AC",
           "label": "Plan: Covert Scout Armor Chest Piece",
           "fields": [
-            "obtain_routes"
+            "armour_group",
+            "armour_group_key",
+            "armour_group_solo",
+            "armour_role",
+            "image_dir",
+            "obtain_routes",
+            "plan_page",
+            "reclassified_from"
           ]
         },
         {
           "key": "PLAN_005FC9AD",
           "label": "Plan: Covert Scout Armor Mask",
           "fields": [
-            "obtain_routes"
+            "armour_group",
+            "armour_group_key",
+            "armour_group_solo",
+            "armour_role",
+            "image_dir",
+            "obtain_routes",
+            "plan_page",
+            "reclassified_from"
           ]
         },
         {
           "key": "PLAN_005FC9AE",
           "label": "Plan: Covert Scout Armor Left Leg",
           "fields": [
-            "obtain_routes"
+            "armour_group",
+            "armour_group_key",
+            "armour_group_solo",
+            "armour_role",
+            "image_dir",
+            "obtain_routes",
+            "plan_page",
+            "reclassified_from"
           ]
         },
         {
           "key": "PLAN_005FC9AF",
           "label": "Plan: Covert Scout Armor Right Leg",
           "fields": [
-            "obtain_routes"
+            "armour_group",
+            "armour_group_key",
+            "armour_group_solo",
+            "armour_role",
+            "image_dir",
+            "obtain_routes",
+            "plan_page",
+            "reclassified_from"
           ]
         },
         {
           "key": "PLAN_005FC9B0",
           "label": "Plan: Covert Scout Armor Right Arm",
           "fields": [
-            "obtain_routes"
+            "armour_group",
+            "armour_group_key",
+            "armour_group_solo",
+            "armour_role",
+            "image_dir",
+            "obtain_routes",
+            "plan_page",
+            "reclassified_from"
           ]
         },
         {
           "key": "PLAN_005FC9B1",
           "label": "Plan: Covert Scout Armor Left Arm",
           "fields": [
-            "obtain_routes"
+            "armour_group",
+            "armour_group_key",
+            "armour_group_solo",
+            "armour_role",
+            "image_dir",
+            "obtain_routes",
+            "plan_page",
+            "reclassified_from"
           ]
         },
         {
           "key": "PLAN_00608AEB",
           "label": "Plan: Solomon Hardy",
           "fields": [
+            "image_source",
             "images"
           ]
         },
@@ -38595,6 +39184,15 @@
           "key": "PLAN_00608AEC",
           "label": "Plan: Yasmin Chowdhury",
           "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00609E06",
+          "label": "Plan: Speed Bag",
+          "fields": [
+            "image_source",
             "images"
           ]
         },
@@ -38669,14 +39267,6 @@
           ]
         },
         {
-          "key": "PLAN_006209C7",
-          "label": "Plan: Slocum Joe's Power Armor Paint",
-          "fields": [
-            "image_source",
-            "images"
-          ]
-        },
-        {
           "key": "PLAN_00623C3C",
           "label": "Plan: Nuka Girl Area Rug",
           "fields": [
@@ -38687,6 +39277,7 @@
           "key": "PLAN_00631F38",
           "label": "Plan: Maul",
           "fields": [
+            "image_source",
             "images"
           ]
         },
@@ -38694,6 +39285,7 @@
           "key": "PLAN_00631F3A",
           "label": "Plan: Daphne",
           "fields": [
+            "image_source",
             "images"
           ]
         },
@@ -38757,8 +39349,6 @@
           "key": "PLAN_006366FD",
           "label": "Plan: Holiday Tree",
           "fields": [
-            "image_source",
-            "images",
             "obtain_routes"
           ]
         },
@@ -38816,8 +39406,6 @@
           "key": "PLAN_0063670C",
           "label": "Plan: Vault-Tec University Poster",
           "fields": [
-            "image_source",
-            "images",
             "not_obtainable",
             "obtain_ledger",
             "obtain_routes",
@@ -38829,6 +39417,7 @@
           "key": "PLAN_00646983",
           "label": "Plan: Katherine Swan",
           "fields": [
+            "image_source",
             "images"
           ]
         },
@@ -38836,6 +39425,7 @@
           "key": "PLAN_00646985",
           "label": "Plan: Xerxo",
           "fields": [
+            "image_source",
             "images"
           ]
         },
@@ -38843,6 +39433,7 @@
           "key": "PLAN_00646A2D",
           "label": "Plan: Sam Nguyen",
           "fields": [
+            "image_source",
             "images"
           ]
         },
@@ -39057,20 +39648,36 @@
           ]
         },
         {
+          "key": "PLAN_00668995",
+          "label": "Plan: Popcorn Machine",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_006692B7",
+          "label": "Plan: Weaponized Nuka-Cola Schematics",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0066E510",
+          "label": "Plan: Nuka-lele",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_00675279",
           "label": "Plan: Nuka-Cola Balloons",
           "fields": [
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
-          ]
-        },
-        {
-          "key": "PLAN_0067AED1",
-          "label": "Plan: Outhouse",
-          "fields": [
-            "image_source",
-            "images"
           ]
         },
         {
@@ -39193,14 +39800,6 @@
           ]
         },
         {
-          "key": "PLAN_0068ADED",
-          "label": "Plan: Cowboy Hat",
-          "fields": [
-            "image_source",
-            "images"
-          ]
-        },
-        {
           "key": "PLAN_0068B8EB",
           "label": "Recipe: Nuka-Dog",
           "fields": [
@@ -39291,6 +39890,14 @@
           ]
         },
         {
+          "key": "PLAN_00691C04",
+          "label": "Plan: Leo Petrov",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_00696247",
           "label": "Plan: Flatwoods Monster Tube",
           "fields": [
@@ -39354,6 +39961,14 @@
           ]
         },
         {
+          "key": "PLAN_006BE8D6",
+          "label": "Plan: Steven Scarberry",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_006C503C",
           "label": "Plan: Union Headlamp Blue",
           "fields": [
@@ -39391,6 +40006,22 @@
           "fields": [
             "obtain_ledger",
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006D8720",
+          "label": "Plan: Joey Bello",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_006E31FE",
+          "label": "Plan: Stargazer's Telescope",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -39877,6 +40508,38 @@
           ]
         },
         {
+          "key": "PLAN_00732A8F",
+          "label": "Plan: Grandma Junko",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0073E93D",
+          "label": "Plan: Adelaide",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00755EAF",
+          "label": "Plan: Sacred Mothman Tome",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0075FC04",
+          "label": "Plan: Cosmic Capture",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_0076F3E7",
           "label": "Plan: Jitterbug Judy Outfit",
           "fields": [
@@ -39902,6 +40565,14 @@
           "label": "Plan: Giant Red Brontosaurus",
           "fields": [
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0077E96A",
+          "label": "Plan: Cauldron Hot Tub",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -39944,6 +40615,14 @@
           "label": "Plan: Camp Liberty Snow Globe",
           "fields": [
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0078C78C",
+          "label": "Plan: Rusty Saxophone",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -40007,6 +40686,14 @@
           "label": "Plan: Plastiform Star - Blue",
           "fields": [
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_007FDC15",
+          "label": "Plan: Dottie",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -40136,6 +40823,7 @@
           "key": "PLAN_0084813C",
           "label": "Plan: Spice Rack",
           "fields": [
+            "image_source",
             "images"
           ]
         },
@@ -40143,6 +40831,7 @@
           "key": "PLAN_008A706B",
           "label": "Plan: Rip Daring's Survival Cache",
           "fields": [
+            "image_source",
             "images"
           ]
         },
@@ -40266,6 +40955,14 @@
           ]
         },
         {
+          "key": "RECIPE_00188A0A",
+          "label": "Shredder",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "RECIPE_0031BFE0",
           "label": "Aligned Stub Barrel",
           "fields": [
@@ -40351,7 +41048,8 @@
           "label": "ATX_ENTM_CAMP_Collector_AbandonedNest",
           "fields": [
             "bucket",
-            "production"
+            "production",
+            "releaseDate"
           ]
         },
         {
@@ -40422,7 +41120,8 @@
           "label": "ATX_ENTM_CAMP_Collector_FeastSideTable",
           "fields": [
             "bucket",
-            "production"
+            "production",
+            "releaseDate"
           ]
         },
         {
@@ -40499,6 +41198,13 @@
         {
           "key": "ATX_ENTM_CAMP_Collector_TeaWizard",
           "label": "ATX_ENTM_CAMP_Collector_TeaWizard",
+          "fields": [
+            "releaseDate"
+          ]
+        },
+        {
+          "key": "ATX_ENTM_CAMP_Collector_TreeOfSpoils",
+          "label": "ATX_ENTM_CAMP_Collector_TreeOfSpoils",
           "fields": [
             "releaseDate"
           ]
@@ -41045,7 +41751,8 @@
           "label": "SCORE_S27_ENTM_CAMP_Collector_VTRollerDogs",
           "fields": [
             "bucket",
-            "production"
+            "production",
+            "releaseDate"
           ]
         },
         {
@@ -41576,13 +42283,6 @@
           "fields": [
             "imageUrl",
             "images"
-          ]
-        },
-        {
-          "key": "SFS09_PlayerTitles_Suffix_Manager",
-          "label": "SFS09_PlayerTitles_Suffix_Manager",
-          "fields": [
-            "debug"
           ]
         }
       ]
