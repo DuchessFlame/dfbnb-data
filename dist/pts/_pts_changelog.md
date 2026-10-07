@@ -1453,9 +1453,9 @@ _Couldn't key this file to records; contents differ._
 ## `legendary_mods.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `make_plan_checklist.json`  ·  +307 / -24 / ~147
+## `make_plan_checklist.json`  ·  +607 / -24 / ~137
 
-**Added (307)**
+**Added (607)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
 - Plan:  Lightning Hit Outfit  `PLAN_008D2AB9`
 - Plan: Lightning Hit Helmet  `PLAN_008D2ABA`
@@ -1496,7 +1496,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: LMG Refined .308 Receiver  `PLAN_00947F32`
 - Plan: LMG Refined .45 Receiver  `PLAN_00947F33`
 - Plan: LMG True .45 Receiver  `PLAN_00947F34`
-- …and 267 more
+- …and 567 more
 
 **Removed (24)**
 - Aligned Long Barrel  `RECIPE_00399FB4`
@@ -1524,7 +1524,7 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (147)**
+**Changed (137)**
 - Plan: Bowie Knife  `PLAN_00436FF0` — fields: routes
 - Plan: Deathclaw Gauntlet  `PLAN_00436FF2` — fields: routes
 - Plan: Golf Club  `PLAN_00436FF5` — fields: routes
@@ -1565,7 +1565,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Union Rusty Knuckles  `PLAN_0064B927` — fields: routes
 - Plan: Union Emergency Protocols  `PLAN_0064B929` — fields: routes
 - Plan: Union Kinetic Servos  `PLAN_0064B92A` — fields: routes
-- …and 107 more
+- …and 97 more
 
 ## `meat.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1710,9 +1710,9 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +298 / -24 / ~385
+## `plan_master.json`  ·  +304 / -24 / ~426
 
-**Added (298)**
+**Added (304)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
 - Plan:  Lightning Hit Outfit  `PLAN_008D2AB9`
 - Plan: Lightning Hit Helmet  `PLAN_008D2ABA`
@@ -1753,7 +1753,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: LMG Refined .308 Receiver  `PLAN_00947F32`
 - Plan: LMG Refined .45 Receiver  `PLAN_00947F33`
 - Plan: LMG True .45 Receiver  `PLAN_00947F34`
-- …and 258 more
+- …and 264 more
 
 **Removed (24)**
 - Aligned Long Barrel  `RECIPE_00399FB4`
@@ -1781,7 +1781,7 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (385)**
+**Changed (426)**
 - Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images
 - Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images
 - MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images
@@ -1800,9 +1800,9 @@ _Couldn't key this file to records; contents differ._
 - Plan: Boxing Glove Lead Lining  `PLAN_0018331B` — fields: obtain_ledger, obtain_routes
 - Plan: Spiked Walking Cane  `PLAN_002B42A2` — fields: obtain_ledger, obtain_routes
 - Plan: Barbed Walking Cane  `PLAN_002B42A3` — fields: obtain_ledger, obtain_routes
-- Plan: Machete Sacrificial Blade  `PLAN_002B42AC` — fields: obtain_ledger, obtain_routes, weapon_group_solo
+- Plan: Machete Sacrificial Blade  `PLAN_002B42AC` — fields: obtain_ledger, obtain_routes
 - Plan: Pitchfork Flamer  `PLAN_002B42AD` — fields: obtain_ledger, obtain_routes
-- Plan: Hatchet Electro Fusion  `PLAN_002B42BA` — fields: obtain_ledger, obtain_routes, weapon_group_solo
+- Plan: Hatchet Electro Fusion  `PLAN_002B42BA` — fields: obtain_ledger, obtain_routes
 - Recipe: Healing Salve (Forest)  `PLAN_002B8BC1` — fields: obtain_ledger, obtain_routes
 - Recipe: Psycho  `PLAN_002B8BC9` — fields: obtain_ledger, obtain_routes
 - Recipe: Firecap Souffle  `PLAN_003787C6` — fields: obtain_ledger, obtain_routes, retired_routes
@@ -1822,7 +1822,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Mounted Mothman  `PLAN_0043585C` — fields: obtain_routes
 - Plan: Mounted Opossum  `PLAN_0043585D` — fields: obtain_routes
 - Plan: Mounted Beaver  `PLAN_0043585F` — fields: obtain_routes
-- …and 345 more
+- …and 386 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1940,7 +1940,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +24 / -0 / ~37
+## `titles_player.json`  ·  +24 / -0 / ~36
 
 **Added (24)**
 - ATX_PlayerTitles_Prefix_Apex  `ATX_PlayerTitles_Prefix_Apex`
@@ -1968,7 +1968,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S27_PlayerTitles_Suffix_Athlete  `SCORE_S27_PlayerTitles_Suffix_Athlete`
 - SCORE_S27_PlayerTitles_Suffix_Competitor  `SCORE_S27_PlayerTitles_Suffix_Competitor`
 
-**Changed (37)**
+**Changed (36)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear, source
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel, source
 - ATX_PlayerTitles_Prefix_Gleaming  `ATX_PlayerTitles_Prefix_Gleaming` — fields: source
@@ -2005,7 +2005,6 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl, images
-- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
