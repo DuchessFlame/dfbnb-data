@@ -151,6 +151,81 @@ def build_cobj_index():
             }
     return out
 
+# ── scoreboard vendor plans: the weapon they teach ───────────────────────────
+# A scoreboard weapon's plan (Plan: Nuka-Launcher, Plan: Cold Shoulder, Plan:
+# Cremator ...) is sold by the Stamp / Gold vendor and teaches its own copy of
+# the recipe — SCORE_S11_co_Weapon_NukaLauncher_GoldVendor — and that copy has
+# NO CNAM. With nothing created, classify_plan() filed every one of them in the
+# recipe bucket and plan_images routed them to the CAMP page, so the Weapon page
+# never showed the Nuka-Launcher, Cold Shoulder, Circuit Breaker, Cremator,
+# Tesla Cannon, Ice Breaker, Cosmic Knife, Dom Pedro or Piercing Love at all
+# (found Oct 2026).
+#
+# The real crafting recipe sits beside it (SCORE_S11_co_NukaLauncher creates the
+# AutoGrenadeLauncher WEAP), so the created weapon is borrowed from that twin:
+# strip the vendor suffix and the SCORE_/co_/Weapon_ prefixes, then take the one
+# COBJ whose EditorID ends in what is left AND whose CNAM is a WEAP. Two
+# candidates is no answer — the row is left alone rather than guessed. Weapons
+# only: a vendor MOD recipe ("…_Nitro_Grip_StampVendor") already lands on the
+# weapon page by name, and has several mod twins, so it is never matched here.
+_VENDOR_SUFFIX = re.compile(r"_(StampVendor|GoldVendor)(_Copy\d+|_\d+)?$", re.I)
+_VENDOR_PREFIX = re.compile(r"^(zzz_?)?SCORE_(S\d+|MiniSeason_[A-Za-z0-9]+)_", re.I)
+_WEAPON_NOUN   = re.compile(r"^(scythe|sword|axe|knife|rifle|pistol|gun|launcher|hammer|"
+                           r"club|bow|blade|spear|shotgun|cannon)$", re.I)
+_TWIN_SKIP     = re.compile(r"vendor|nocraft|repaironly|condproxy|^zzz|^del_|^cut_", re.I)
+
+
+def vendor_twin(cobj, cobj_idx):
+    """The crafting COBJ a CNAM-less vendor recipe stands in for, or None."""
+    edid = (cobj or {}).get("edid") or ""
+    if not edid or (cobj or {}).get("cnam_fid") or not _VENDOR_SUFFIX.search(edid):
+        return None
+    key = _VENDOR_PREFIX.sub("", _VENDOR_SUFFIX.sub("", edid))
+    key = re.sub(r"^co_", "", key, flags=re.I)
+    key = re.sub(r"^Weapon_(Ranged_|Melee_)?", "", key, flags=re.I)
+    # Full key first; then, when the last word is only a weapon noun, the key
+    # without it — the twin is sometimes named for the reward alone
+    # (HeadhunterScythe -> co_Weapon_Melee_PickAxe_HeadHunter). Never any other
+    # word: "Cremator_Napalmer" minus "Napalmer" is the Cremator, and a MOD
+    # plan must not be mistaken for the weapon's own plan.
+    words = re.findall(r"[A-Z]?[a-z0-9]+|[A-Z]+(?![a-z])", key)
+    keys = [key]
+    if len(words) > 1 and _WEAPON_NOUN.match(words[-1]):
+        keys.append("".join(words[:-1]))
+    for k in keys:
+        k = re.sub(r"[^a-z0-9]", "", k.lower())
+        if len(k) < 5:
+            continue
+        hits = []
+        for c in cobj_idx.values():
+            ce = c.get("edid") or ""
+            if not c.get("cnam_fid") or _TWIN_SKIP.search(ce):
+                continue
+            if SIG_INDEX.get(c["cnam_fid"]) != "WEAP":
+                continue
+            if re.sub(r"[^a-z0-9]", "", ce.lower()).endswith(k):
+                hits.append(c)
+        if len(hits) == 1:
+            return hits[0]
+        if hits:
+            return None          # ambiguous: never guess
+    return None
+
+
+def borrow_twin_cnam(cobj, co_fid, cobj_idx):
+    """`cobj` with the twin's created record filled in, or `cobj` unchanged.
+
+    The plan's own recipe stays the one Technical names (it IS the recipe the
+    plan teaches); only the created record is borrowed.
+    """
+    twin = vendor_twin(cobj, cobj_idx)
+    if not twin:
+        return cobj
+    out = dict(cobj or {"formid": co_fid, "edid": ""})
+    out["cnam_fid"], out["cnam_edid"] = twin["cnam_fid"], twin["cnam_edid"]
+    out["cnam_full"] = twin.get("cnam_full", "")
+    return out
+
 # ── LVLI entries: BOOK -> [entry dicts]; + a global list of entries per list ──
 _HLR = re.compile(r"HasLearnedRecipe\([^)]*\[COBJ:([0-9A-Fa-f]{8})\]", re.I)
 def build_book_entry_index():
@@ -1559,6 +1634,8 @@ def main(argv=None):
                 co_fid, cobj = linked, cobj_idx.get(linked) or cobj
                 unresolved.setdefault("cobj_linked", []).append(f"{name} [{how}]")
 
+        # A scoreboard vendor plan: borrow the weapon from its twin recipe.
+        cobj = borrow_twin_cnam(cobj, co_fid, cobj_idx)
         # Still no created object? Recover it from the BOOK's own EDID.
         if not (cobj or {}).get("cnam_fid"):
             om = omod_from_book_edid(edid, omod_by_edid)

@@ -141,6 +141,13 @@ def attach(items, tsv_dir="tsv", effects=True, stats=None):
                     if c.get("cnam_fid") and stem in ce and "condproxy" not in ce:
                         co_fid, cobj = cfid, c
                         break
+        # Scoreboard vendor plans teach a CNAM-less copy of the recipe; the
+        # weapon comes from its twin (bpo.vendor_twin).
+        before = (cobj or {}).get("cnam_fid")
+        cobj = bpo.borrow_twin_cnam(cobj, co_fid, cobj_idx)
+        twin = bool(not before and (cobj or {}).get("cnam_fid"))
+        if twin:
+            bump("linked_vendor_twin")
         if not (cobj or {}).get("cnam_fid"):
             om = bpo.omod_from_book_edid(edid, omod_by_edid)
             if om:
@@ -185,8 +192,12 @@ def attach(items, tsv_dir="tsv", effects=True, stats=None):
         if item.get("has_image_box") != has_img:
             item["has_image_box"] = has_img
             bump("image_box_changed")
-        label = bpo.category_label(item.get("type"), has_img, cnam_sig,
-                                   physical=bool(item.get("plan_item")))
+        # A vendor-twin row's bucket is stale by construction (the builder
+        # could not see the weapon), so its label follows what it now makes:
+        # "Weapon (physical plan)", which is also what add_weapon_groups reads
+        # to call it the weapon's own plan rather than a mod.
+        label = bpo.category_label(cat if twin else item.get("type"), has_img,
+                                   cnam_sig, physical=bool(item.get("plan_item")))
         if label and label != item.get("category_label"):
             item["category_label"] = label
             bump("category_label_changed")
