@@ -221,7 +221,11 @@ SUBPAGES = {
         "title": "Backpack Mod",
         "folder": "backpack",
         "groups": None,
-        "skip": [],
+        # Mods only (Duchess, 7 Oct 2026). A backpack mod is a Backpack_Effect
+        # recipe; the backpacks themselves (Small, Standard, Scuba Tank, the
+        # pet levelling backpacks) and the flairs are not on this page.
+        "skip": [[r"^(?!.*back_?pack_effect)",
+                  "a backpack skin or flair, not a backpack mod — not on the Backpack Mod page"]],
     },
 
     "mines-and-grenades": {
