@@ -96,6 +96,12 @@ const master = DATA["plan_master.json"];
 const live = master.items.filter(i => !i.cut);
 const perPage = {};
 for (const i of live) if (i.plan_page) perPage[i.plan_page] = (perPage[i.plan_page] || 0) + 1;
+// also_pages: Legacy NW weapon paints also render under the Weapon page's In
+// Game Skins (add_weapon_groups.py). They are the only rows on two pages.
+const alsoIds = new Set();
+for (const i of live) for (const p of (i.also_pages || [])) {
+  perPage[p] = (perPage[p] || 0) + 1; alsoIds.add(String(i.id));
+}
 
 async function run() {
   console.log(`\n=== ${CHANNEL} channel — ${live.length} live plans ===`);
@@ -123,7 +129,7 @@ async function run() {
     // No plan may appear on two pages.
     for (const r of doc.querySelectorAll(".reward")) {
       const id = r.getAttribute("data-id") || r.id || "";
-      if (!id) continue;
+      if (!id || alsoIds.has(id)) continue;
       if (seenIds.has(id)) { fails++; console.log(`   FAIL  ${id} also rendered on ${seenIds.get(id)}`); }
       else seenIds.set(id, name);
     }
@@ -132,7 +138,10 @@ async function run() {
     let badPill = 0;
     for (const g of doc.querySelectorAll(".rewardGroup")) {
       const pill = (g.querySelector(".pillCount") || {}).textContent || "";
-      const want2 = g.querySelectorAll(".reward").length;
+      // Skin rows (In Game Skins, Atom Shop & Scoreboard Skins) are shown but
+      // never counted, so the pill counts every row except those.
+      const want2 = [...g.querySelectorAll(".reward")]
+        .filter(r => !r.querySelector("input.check.check--skin")).length;
       const got = Number((pill.split("/")[1] || "").trim());
       if (got !== want2) badPill++;
     }

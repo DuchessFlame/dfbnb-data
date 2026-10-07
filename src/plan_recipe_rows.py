@@ -444,6 +444,9 @@ def attach(items, tsv_dir="tsv", stats=None):
     stats["replaced"] = before - len(items)
     rows, stats = build(items, tsv_dir, stats)
     items.extend(rows)
+    # Atom Shop / Scoreboard weapon skins (Weapon page, greyed, uncounted).
+    import weapon_shop_skins
+    weapon_shop_skins.attach(items, tsv_dir, stats)
     # Route-decided tradeability (scrap-to-learn, challenge rewards), applied to
     # every row here because attach() is the one place all three builders
     # (build_plan_obtain_json, merge_parts, add_recipe_unlocks) pass through.

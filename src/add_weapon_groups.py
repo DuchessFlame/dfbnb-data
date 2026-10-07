@@ -202,6 +202,11 @@ ALIASES = {
     "CombatRifle": "Combat Rifle", "CombatRifle_Fixer": "The Fixer", "TheFixer": "The Fixer",
     "Shishkebab": "Shishkebab", "Knife": "Combat Knife", "BowieKnife": "Bowie Knife",
     "Throwing_Knife": "Throwing Knife", "ThrowingKnife": "Throwing Knife",
+    # Atom Shop / Scoreboard skin EditorIDs (weapon_shop_skins.py) spell some
+    # weapons their own way.
+    "HMAR": "Handmade Rifle", "TeslaRifle": "Tesla Rifle",
+    "LeverActionRifle": "Lever Gun", "Cauterizer": "Chainsaw",
+    "BlackPowder_Dragon": "Black Powder Rifle",
     "WoodCuttingAxe": "Wood Axe", "FireAxe": "Fire Axe", "GrognakAxe": "Grognak's Axe",
     "AutoAxe": "Auto Axe", "Hatchet": "Hatchet", "Pickaxe": "Pickaxe", "PickAxe": "Pickaxe",
     "FishingRod": "Fishing Rod", "PipeGun": "Pipe Gun", "GulperSmacker": "Gulper Smacker",
@@ -382,7 +387,8 @@ class Resolver:
         # this bucket) leaves the weapon page for its own. plan_subpages runs
         # first in the build, so the tag is already on the row — asking it is
         # what keeps the two pages from ever disagreeing about a plan.
-        if item.get("plan_page") not in (None, "weapon"):
+        if item.get("plan_page") not in (None, "weapon") \
+                and "weapon" not in (item.get("also_pages") or []):
             return "carved-out", None
 
         # A plan whose recipe creates a WEAP makes the weapon itself — unless
@@ -390,7 +396,11 @@ class Resolver:
         # weapons behave (Barbed Sheepsquatch Club is a mod you craft onto the
         # club, but the game stores each variant as its own WEAP record).
         label = item.get("category_label") or ""
-        if cnam.get("sig") == "WEAP" and (label == "Weapon (physical plan)"
+        if item.get("shop_skin"):
+            role = "shop-skin"
+        elif "weapon" in (item.get("also_pages") or []):
+            role = "skin"          # a Legacy NW paint shown under its weapon
+        elif cnam.get("sig") == "WEAP" and (label == "Weapon (physical plan)"
                                           or item.get("known_by_default")
                                           or item.get("quest_learned")
                                           or item.get("pickup_learned")):
@@ -413,7 +423,9 @@ class Resolver:
                 if family:
                     break
         else:
-            for source in (omod_edid, cobj_edid, plan_edid):
+            ent_edid = ((item.get("nw_entitlement") or {}).get("edid")
+                        or (item.get("entitlement") or {}).get("edid") or "")
+            for source in (omod_edid, cobj_edid, plan_edid, ent_edid):
                 family = self.find(source)
                 if family:
                     break
@@ -425,7 +437,20 @@ class Resolver:
                     if key in self.families:
                         family = key
                         break
+        if not family and item.get("shop_skin"):
+            # The store name usually says the weapon: "Veinsplitter Paint
+            # (Pickaxe)". Failing that, a Sword_ModelSwap skin targets only
+            # ma_1hMelee — the files never name the sword — so it gets a
+            # group of its own rather than a group named after itself.
+            m = re.search(r"\(([^)]+)\)\s*$", item.get("name") or "")
+            if m:
+                family = self.find(m.group(1).replace(" ", "_"))
+            if not family and re.search(r"(^|_)Sword(_|$)", omod_edid or ""):
+                return role, "Sword (one-handed)"
         return role, (self.families[family] if family else None)
+
+
+_RX_WEAPON_SKIN_ENT = re.compile(r"skin_?weapon(skin|model)|_weaponskin_|^babylon_entm_weaponskin", re.I)
 
 
 def attach(items):
@@ -444,13 +469,24 @@ def attach(items):
     # plan_subpages.attach() runs before this and has already written the page
     # each row belongs to, so asking it is both correct and the thing that keeps
     # the Weapon page and the carve-out pages from ever disagreeing about a row.
-    weapons = [i for i in items if i.get("plan_page") == "weapon"]
+    # Legacy Nuclear Winter weapon paints also show under their weapon's In
+    # Game Skins (Duchess, 7 Oct 2026). They stay on the Legacy NW page too —
+    # skins are off the Weapon page's progress bar, so nothing counts twice.
+    for i in items:
+        ent = ((i.get("nw_entitlement") or {}).get("edid") or "")
+        if i.get("legacy_nw") and not i.get("cut") and _RX_WEAPON_SKIN_ENT.search(ent):
+            i["also_pages"] = ["weapon"]
+        else:
+            i.pop("also_pages", None)
+    on_page = lambda i: (i.get("plan_page") == "weapon"
+                         or "weapon" in (i.get("also_pages") or []))
+    weapons = [i for i in items if on_page(i)]
     # Anything NOT on the weapon page must not keep weapon_* fields from an
     # earlier run. These enrichers are re-run in place over a finished
     # plan_master, so a row that has since moved pages would otherwise carry a
     # stale group forever — data that is not pruned is data that lies.
     for i in items:
-        if i.get("plan_page") != "weapon":
+        if not on_page(i):
             for f in ("weapon_role", "weapon_group", "weapon_group_key", "weapon_group_solo"):
                 i.pop(f, None)
     if not weapons:

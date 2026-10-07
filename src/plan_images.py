@@ -760,6 +760,8 @@ _RX_COSMETIC = re.compile(r"(?<![a-z])(paints?|skins?|camo|wrap)(?![a-z])|models
 
 def generic_kind(item):
     """The class of plan this row belongs to, for GENERIC_ART, or ""."""
+    if item.get("shop_skin"):
+        return ""            # a store skin is a paint, never the mod picture
     cnam = item.get("cnam") or {}
     name = item.get("name") or ""
     edid = (cnam.get("edid") or "") + " " + name
@@ -783,6 +785,11 @@ def generic_kind(item):
 
 # ── candidate stems for the hand-staged folders ─────────────────────────────
 
+def _entitlement_textures(item):
+    tex = ((item.get("entitlement") or {}).get("texture") or "").strip().lower()
+    return [tex + "_l", tex] if tex else []
+
+
 def candidate_stems(item):
     """Filenames this plan's art could reasonably be saved under.
 
@@ -800,6 +807,9 @@ def candidate_stems(item):
     # the game's own texture name, so this is the likeliest spelling of all.
     for s in ((item.get("art_stems") or {}).get("main") or []):
         out.append(str(s).strip().lower())
+    # Atom Shop / Scoreboard skins (weapon_shop_skins.py): the storefront
+    # texture name, which is also how the wiki and the season uploads name it.
+    out += _entitlement_textures(item)
     # Every record this plan touches, strongest link first: the thing it makes,
     # the recipe that makes it, then the plan book itself. A file dropped in by
     # hand is usually named after the record it is a PICTURE of, which is the
@@ -910,10 +920,12 @@ def attach(items, idx, staged, folder_override="", stats=None, overrides=None):
         if not url:
             # Same hosted-first rule, the season-upload manifests this time:
             # the entitlement a Legacy NW plan replaces and its texture names.
-            ent = (item.get("nw_entitlement") or {}).get("edid") or ""
+            ent = ((item.get("nw_entitlement") or {}).get("edid")
+                   or (item.get("entitlement") or {}).get("edid") or "")
             url, source = hosted_url(
                 idx, edids=[ent] if ent else [],
-                textures=(item.get("art_stems") or {}).get("main") or [])
+                textures=((item.get("art_stems") or {}).get("main")
+                          or _entitlement_textures(item)))
         if url:
             item["images"] = [url]
             item["image_source"] = source
