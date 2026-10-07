@@ -1107,8 +1107,58 @@ def collapse_routes(routes):
     return [best[k] for k in order]
 
 
+# ── worn outfits are not loot ───────────────────────────────────────────────
+# An OTFT is what an NPC spawns WEARING. Killing it does not hand you the
+# clothes, so a leveled list that only an OTFT holds is not a drop — but its
+# EditorID ("CreatureOutfit_Festive_ScorchedOutfit") says "creature", so it was
+# published as an Enemy route. 7 Oct 2026, Apparel Without Plans: Mr. Claus'
+# Suit, Executioner Outfit, Dog Armor, every Super Mutant armour piece and the
+# "...Scorched" jumpsuits all rested on these. Same for:
+#   * "Outfit" lists nothing references at all (CreatureOutfit_Scorched_Uncommon,
+#     CreatureOutfit_Spooky_Holiday_BatMask_Outfit) - nothing rolls them;
+#   * an outfit list a QUST holds directly (TW002_TrailerOutfit_MutantHeavy):
+#     that is a quest alias being dressed, not a reward. Reward lists are GMRW.
+_RX_OUTFIT_LIST = re.compile(r"outfit|(^|_)LLO_", re.I)
+
+
+def worn_only(lists, lvli_refs, c2p, parent_edid):
+    """True when every way into `lists` ends at an NPC outfit or at nothing.
+
+    Walks UP from each list. Any holder that is not a list, not an OTFT, not a
+    quest dressing an alias in an outfit list, and not an editor-only record
+    is a real way in -> False. At least one outfit signal (an OTFT holder or an
+    outfit-named list on the way up) is required, so a plain orphan list is
+    still left to prune_dead_routes exactly as before.
+    """
+    seen, stack, outfit = set(), [str(L).upper() for L in lists or ()], False
+    if not stack:
+        return False
+    while stack:
+        L = stack.pop()
+        if L in seen:
+            continue
+        seen.add(L)
+        edid = parent_edid.get(L, "")
+        if _RX_OUTFIT_LIST.search(edid):
+            outfit = True
+        for rf, redid, rsig in (lvli_refs.get(L) or ()):
+            if rsig == "LVLI":
+                stack.append((rf or "").upper())
+            elif rsig == "OTFT":
+                outfit = True
+            elif rsig == "QUST" and _RX_OUTFIT_LIST.search(edid):
+                outfit = True
+            elif plan_sources.is_dev_record(redid):
+                continue
+            else:
+                return False
+        for p in c2p.get(L, ()):
+            stack.append(p)
+    return outfit
+
+
 def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
-                   names_only=False):
+                   names_only=False, skip_worn=False):
     """Routes for one plan, highest rate first.
 
     `names_only` returns {route name -> [LVLI FormIDs]} instead, with no rng76
@@ -1116,6 +1166,11 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
     an already-built document in minutes instead of re-running the 80-minute
     build: the names come from THIS function, so the two can never disagree
     about which list is called what.
+
+    `skip_worn` drops rows whose lists are only ever an NPC's worn outfit (see
+    worn_only). Off by default - plans never sit in outfit lists, so the plan
+    pages do not need it; build_no_plan_apparel_json.py turns it on. It runs
+    BEFORE the 12-row cap so outfit rows cannot push real sources off.
     """
     npc_names = npc_names or {}
     target = {target_fid}
@@ -1336,6 +1391,10 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
                     quest_named.add(r["route"])
                 by_name.setdefault(r["route"], []).extend(r["_lvli"])
 
+    if skip_worn:
+        routes = [r for r in routes
+                  if not worn_only(r.get("_lvli") or by_name.get(r["route"], ()),
+                                   lvli_refs, c2p, parent_edid)]
     routes = group_vendor_rows(routes)
     routes.sort(key=lambda r: (-(r["rate"] or 0), r["source_type"], r["route"].lower()))
     routes = routes[:12]

@@ -27,6 +27,10 @@ The roster is read off the game files, never a hand list:
   4. something in the game files actually gives it out. Creature outfits,
      mannequin copies and NPC-only clothing resolve no route and drop off by
      themselves; nothing is excluded by name.
+     resolve_routes(skip_worn=True) is what makes that true: a list that only
+     an OTFT holds is what an NPC spawns WEARING, not loot (7 Oct 2026 — Mr.
+     Claus' Suit, Executioner Outfit, Dog Armor, Super Mutant armour pieces
+     were all published off "Outfit ..." rows). See bpo.worn_only.
 
 Records sharing one in-game name are ONE row (a re-issued copy of the same
 hat is still the same hat to a reader); every record is listed in Technical.
@@ -126,7 +130,9 @@ def load_cobj_created():
 
 
 def load_armo_keywords():
-    """ARMO FormID -> [keyword EDIDs], off the KYWD ReferencedBy export."""
+    """ARMO FormID -> [(keyword EDID, keyword FormID)], off the KYWD
+    ReferencedBy export. The FormID is kept for the Technical "Keywords"
+    section, which prints them the way xEdit does: EDID [KYWD:FormID]."""
     out = collections.defaultdict(list)
     f = bpo.newest("KYWD_Export_*_Refs.tsv")
     if not f:
@@ -136,8 +142,9 @@ def load_armo_keywords():
             continue
         fid = _q(r.get("RefFormID")).upper()
         kw = _q(r.get("KeywordEDID"))
-        if fid and kw:
-            out[fid].append(kw)
+        kfid = _q(r.get("KeywordFormID")).upper()
+        if fid and kw and (kw, kfid) not in out[fid]:
+            out[fid].append((kw, kfid))
     return out
 
 
@@ -258,7 +265,8 @@ def main(argv=None):
     for i, (name, recs) in enumerate(names.items()):
         routes, unlocks = [], []
         for rec in recs:
-            rr = bpo.resolve_routes(rec["formid"], tables, rates, cont_names, npc_names)
+            rr = bpo.resolve_routes(rec["formid"], tables, rates, cont_names, npc_names,
+                                    skip_worn=True)
             if rr and route_kinds is not None:
                 rr = plan_route_kinds.apply_to_routes(rr, route_kinds)
             for r in rr:
@@ -280,7 +288,7 @@ def main(argv=None):
             continue
 
         main_rec = recs[0]
-        kws = sorted({k for r in recs for k in kw_by_fid.get(r["formid"], [])})
+        kws = sorted({k for r in recs for k, _f in kw_by_fid.get(r["formid"], [])})
         item = {
             "kind": "apparel", "brand": "df", "type": PAGE_SLUG,
             "id": f"NPA_{main_rec['formid']}",
@@ -296,8 +304,14 @@ def main(argv=None):
             # The record the page is a picture of. plan_images reads `cnam`
             # for hosted art and staged stems, exactly as on the plan pages.
             "cnam": {"formid": main_rec["formid"], "edid": main_rec["edid"], "sig": "ARMO"},
+            # Each record's own keywords (KYWD export order), shown in
+            # Technical > Keywords. Kept per record: a merged row's copies can
+            # differ (one Tradeable, one not), and that is what to look at.
             "records": [{"formid": r["formid"], "edid": r["edid"],
-                         "slots": slots.get(r["formid"], "")} for r in recs],
+                         "slots": slots.get(r["formid"], ""),
+                         "keywords": [{"edid": k, "formid": f}
+                                      for k, f in kw_by_fid.get(r["formid"], [])]}
+                        for r in recs],
             "keywords": kws,
             "slots": slots.get(main_rec["formid"], ""),
             "tradeable": _tradeable(kws, unlocks),
