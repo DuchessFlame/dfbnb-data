@@ -1500,9 +1500,6 @@ _Couldn't key this file to records; contents differ._
 ## `legendary_mods.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `load_screens.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
 ## `make_plan_checklist.json`  ·  +298 / -24 / ~137
 
 **Added (298)**
@@ -1820,7 +1817,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +298 / -24 / ~387
+## `plan_master.json`  ·  +298 / -24 / ~386
 
 **Added (298)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1891,7 +1888,22 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (387)**
+**Changed (386)**
+- Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images
+- Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images
+- MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images
+- Vault 51 Player Icon  `NWREWARD_003FBB4F` — fields: image_source, images
+- Bad Hair Female Player Icon  `NWREWARD_003FBB50` — fields: image_source, images
+- Bad Hair Male Player Icon  `NWREWARD_003FBB51` — fields: image_source, images
+- Vault Boy with Camera Player Icon  `NWREWARD_003FBB52` — fields: image_source, images
+- Small Crate Player Icon  `NWREWARD_003FBB60` — fields: image_source, images
+- Medium Crate Player Icon  `NWREWARD_003FBB61` — fields: image_source, images
+- Epic Crate Player Icon  `NWREWARD_003FBB62` — fields: image_source, images
+- Skeleton Player Icon  `NWREWARD_00416629` — fields: image_source, images
+- Nuke Skull Player Icon  `NWREWARD_0041662A` — fields: image_source, images
+- Nuke Goggles Man Player Icon  `NWREWARD_0041662B` — fields: image_source, images
+- Nuke Goggles Woman Player Icon  `NWREWARD_0041662C` — fields: image_source, images
+- Power Armor Player Icon  `NWREWARD_0041662D` — fields: image_source, images
 - Plan: Boxing Glove Lead Lining  `PLAN_0018331B` — fields: obtain_ledger, obtain_routes
 - Plan: Spiked Walking Cane  `PLAN_002B42A2` — fields: obtain_ledger, obtain_routes
 - Plan: Barbed Walking Cane  `PLAN_002B42A3` — fields: obtain_ledger, obtain_routes
@@ -1904,8 +1916,6 @@ _Couldn't key this file to records; contents differ._
 - Plan: Vault Locker  `PLAN_003D6519` — fields: obtain_ledger, obtain_routes
 - Plan: Vault Dresser  `PLAN_003D651A` — fields: obtain_ledger, obtain_routes
 - Plan: Vault Desk  `PLAN_003D651B` — fields: obtain_ledger, obtain_routes
-- Plan: Wind Instruments  `PLAN_003D6533` — fields: image_source, images
-- Plan: Acoustic Instruments  `PLAN_003D6534` — fields: image_source, images
 - Recipe: Fried Radtoad Legs  `PLAN_003D74A5` — fields: obtain_routes
 - Recipe: Fried Deerskins  `PLAN_003D74AC` — fields: obtain_routes
 - Recipe: Pumpkin Pie  `PLAN_003E3CBD` — fields: obtain_ledger, obtain_routes
@@ -1919,20 +1929,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Mounted Mothman  `PLAN_0043585C` — fields: obtain_routes
 - Plan: Mounted Opossum  `PLAN_0043585D` — fields: obtain_routes
 - Plan: Mounted Beaver  `PLAN_0043585F` — fields: obtain_routes
-- Plan: Mounted Frog  `PLAN_00435860` — fields: obtain_routes
-- Plan: Mounted Squirrel  `PLAN_00435861` — fields: obtain_routes
-- Plan: Mounted Radtoad  `PLAN_00435862` — fields: obtain_routes
-- Plan: Mounted Scorchbeast  `PLAN_00435863` — fields: obtain_routes
-- Plan: Mounted Snallygaster  `PLAN_00435865` — fields: obtain_routes
-- Plan: Baseball Bat  `PLAN_00436FEE` — fields: obtain_ledger, obtain_routes
-- Plan: Baton  `PLAN_00436FEF` — fields: obtain_ledger, obtain_routes
-- Plan: Bowie Knife  `PLAN_00436FF0` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Boxing Glove  `PLAN_00436FF1` — fields: obtain_ledger, obtain_routes
-- Plan: Deathclaw Gauntlet  `PLAN_00436FF2` — fields: obtain_ledger, obtain_routes
-- Plan: Pole Hook  `PLAN_00436FF4` — fields: obtain_ledger, obtain_routes
-- Plan: Golf Club  `PLAN_00436FF5` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Guitar Sword  `PLAN_00436FF6` — fields: obtain_ledger, obtain_routes
-- …and 347 more
+- …and 346 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
