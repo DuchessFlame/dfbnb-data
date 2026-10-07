@@ -804,6 +804,258 @@ def openable_name(entries):
     return " / ".join(names[:2]) if names else None
 
 
+def real_entries(holders, nested_in_tree):
+    """entry_holders(), minus dialogue. A list whose only non-list holders are
+    INFO records AND that sits inside another list of this plan's tree is that
+    list's stock being read out in dialogue (Grahm's barter topic holds
+    LLV_Vendor_Recipes_Base_RandomEncounters, which his chest list also
+    holds) — not a separate place to get the plan."""
+    ent = entry_holders(holders)
+    if nested_in_tree and ent and all(rs == "INFO" for _rf, _re, rs in ent):
+        return []
+    return ent
+
+
+def nested_route_plan(closure, lvli_refs, parent_edid, c2p, cont_names):
+    """{nested list -> [top lists]} for the nested lists that must keep a route.
+
+    entry_holders() drops a list that only other lists hold, on the promise that
+    "the list that holds it gets its own route". This checks the promise. A
+    nested list is COVERED when some list above it in this plan's closure will
+    itself publish a row (a named vendor / creature / event / quest list, an
+    openable item, or a searchable container). A nested list that is NOT
+    covered keeps its route, and the value here is the topmost lists above it
+    (the ones something outside the list tree rolls) whose rng76 rate the row
+    carries. Structural only — no rate is computed here.
+
+    6 Oct 2026 audit: 39 rows lost a real source this way, e.g. Plan: Resort
+    Sign / Gilded Wall Clock / Resort Lamps lost Mischief Night (White Springs)
+    because the parent zzz_E03A_SpookyScorched_LL_RewardList has no usable name
+    although a live GMRW pays it out. Lists whose only parents are DEPRECATED_
+    keep a route here too and prune_dead_routes then retires it as a cut list,
+    so the source is recorded rather than silently gone.
+    """
+    from spawns_engine.classify import farming_classify as _fc
+    cl = set(closure)
+    def holders_of(A):
+        return lvli_refs.get(A) or lvli_refs.get(str(A).upper()) or ()
+    def parents(A):
+        return [p for p in c2p.get(str(A).upper(), ()) if p in cl]
+    def is_nested(A):
+        return bool(parents(A)) and not real_entries(holders_of(A), True)
+    def labelled(A):
+        return bool(source_label(parent_edid.get(A) or str(A)))
+    def publishes(A):                      # a non-nested list that makes a row
+        h = holders_of(A); via = parent_edid.get(A, "")
+        if openable_name(entry_holders(h)):
+            return True
+        for rf, red, rs in h:
+            if (rs == "CONT" and _fc("CONT", red, via) == "container"
+                    and cont_names.get((rf or "").upper())
+                    and not bfu._is_camp_storage(red)):
+                return True
+        b = holder_bucket(via, h)
+        if b in ("container", "loot-list"):
+            return False
+        if b in ("vendor", "creature"):
+            return True
+        return labelled(A)
+    memo_cov, memo_pub = {}, {}
+    def covered(A, stack=()):
+        if A in memo_cov:
+            return memo_cov[A]
+        res = False
+        for p in parents(A):
+            if p in stack:
+                continue
+            if makes_row(p, stack + (A,)) or (is_nested(p) and covered(p, stack + (A,))):
+                res = True
+                break
+        memo_cov[A] = res
+        return res
+    def makes_row(A, stack=()):
+        if A not in memo_pub:
+            memo_pub[A] = ((not covered(A, stack) and labelled(A)) if is_nested(A)
+                           else publishes(A))
+        return memo_pub[A]
+    def tops(A, seen):
+        out = []
+        for p in parents(A):
+            if p in seen:
+                continue
+            seen.add(p)
+            if is_nested(p):
+                out.extend(tops(p, seen))
+            elif real_entries(holders_of(p), bool(parents(p))):
+                # Only a list something outside the tree really rolls. An orphan
+                # top (nothing holds it, or only DEPRECATED_/editor records do —
+                # the Systemic Taxidermy pools) is not a way in.
+                out.append(p)
+        return out
+    plan = {}
+    for L in closure:
+        if is_nested(L) and not covered(L):
+            t = sorted(set(tops(L, {L})))
+            if t:
+                plan[L] = t
+    return plan
+
+
+def better_vendor_label(chest, stock):
+    """Name a vendor from its chest's EditorID, or its stock list's when that
+    says the same thing and more. "GQ_10_VendorChest_Travelling_Workshops"
+    splits to "GQ Travelling Workshops vendor" (the 10 is lost at the
+    underscore); its stock list Vendor_GQ10_Travelling_Workshops reads "GQ10
+    Travelling Workshops vendor" — every word of the chest's name plus the code.
+    A station chest ("Rand Station (Raiders vendor)") is MORE specific than its
+    faction stock ("Raiders vendor"), so the chest keeps it."""
+    if not chest:
+        return stock
+    if stock:
+        cw = set(plan_sources.route_key(chest).split())
+        sw = set(plan_sources.route_key(stock).split())
+        if cw and cw < sw | {w.rstrip("0123456789") for w in sw}:
+            return stock
+    return chest
+
+
+_RX_VENDOR_ROW = re.compile(r"^(?P<head>.*?)\s*\((?:(?P<place>[^(),]+),\s*)?(?P<qual>[^(),]*\bvendor)\)$")
+
+
+def group_vendor_rows(routes):
+    """One row per faction's station network, not one per station.
+
+    The Responders, Raiders, Free States, Brotherhood and Neutral vendors stand
+    at a dozen stations each and every station sells from the same faction
+    stock, so a plan they carry got twelve rows at one identical rate — and the
+    twelve-row cap then hid every other source (Short Pew lost Carver
+    Timmerman; on the 6 Oct 2026 audit 1,042 rows fell off this way once the
+    "Locker" chests stopped merging). Rows that share the faction qualifier
+    ("Responders vendor") and the same rate, three or more of them, become one:
+
+        "Responders vendors (Camden Park, Charleston, Flatwoods, ...)"
+
+    Named traders (Minerva, Regs, Grahm) never share a qualifier and rate with
+    two others, so they are untouched. No rate is changed: the rows already
+    agree to four places. Works on rows with `_lvli` sets (inside
+    resolve_routes) and on finished rows with `lvli` lists alike.
+    """
+    groups = collections.OrderedDict()
+    keep = []
+    for r in routes:
+        m = _RX_VENDOR_ROW.match(r.get("route") or "") if r.get("source_type") == "vendor" else None
+        if not m:
+            keep.append(r)
+            continue
+        qual = m.group("qual").strip()
+        if not re.search(r"\(", qual) and qual.lower() != "vendor":
+            groups.setdefault((qual.lower(), round(r.get("rate") or 0, 4)), []).append((r, m))
+        else:
+            keep.append(r)
+    for (qlow, _rate), rows in groups.items():
+        if len(rows) < 3:
+            keep.extend(r for r, _m in rows)
+            continue
+        places = []
+        for r, m in rows:
+            pl = (m.group("place") or m.group("head") or "").strip()
+            if pl and pl not in places:
+                places.append(pl)
+        qual = rows[0][1].group("qual").strip()
+        base = dict(rows[0][0])
+        base["route"] = f"{qual}s ({', '.join(sorted(places))})"
+        if any("_lvli" in r for r, _m in rows):
+            base["_lvli"] = set().union(*[set(r.get("_lvli") or ()) for r, _m in rows])
+        if any("lvli" in r for r, _m in rows):
+            base["lvli"] = sorted(set().union(*[set(r.get("lvli") or ()) for r, _m in rows]))
+        keep.append(base)
+    return keep
+
+
+_AREA_NAMES = {v for v in plan_sources.AREA_CODE.values() if isinstance(v, str)}
+
+
+_VENDOR_NAMES = None
+
+
+def vendor_names():
+    """plan_sources.VendorNames for this run's export root (lazy, so
+    build_no_plan_apparel_json.py, which calls resolve_routes directly, gets it
+    without knowing about it)."""
+    global _VENDOR_NAMES
+    if _VENDOR_NAMES is None or getattr(_VENDOR_NAMES, "_root", None) != TSV:
+        try:
+            _VENDOR_NAMES = plan_sources.VendorNames(TSV, lambda pat, root: newest(pat, root))
+        except Exception as exc:                      # noqa: BLE001 - never fatal
+            print(f"  WARNING: vendor NPC names unavailable: {exc}", file=sys.stderr)
+            _VENDOR_NAMES = plan_sources.VendorNames(None)
+        _VENDOR_NAMES._root = TSV
+    return _VENDOR_NAMES
+
+
+def vendor_chest_for_list(fid, lvli_refs, depth=0, seen=None):
+    """The vendor chest (with a named NPC) whose stock this list is part of."""
+    seen = seen if seen is not None else set()
+    fid = (fid or "").upper()
+    if depth > 4 or fid in seen:
+        return None
+    seen.add(fid)
+    hs = lvli_refs.get(fid) or ()
+    for rf, _re, rs in hs:
+        if rs == "CONT" and vendor_names().name(rf):
+            return (rf or "").upper()
+    for rf, _re, rs in hs:
+        if rs == "LVLI":
+            c = vendor_chest_for_list(rf, lvli_refs, depth + 1, seen)
+            if c:
+                return c
+    return None
+
+
+_CHEST_EDIDS = None
+
+
+def chest_edids():
+    """CONT FormID -> EditorID for this run's export (vendor chest matching)."""
+    global _CHEST_EDIDS
+    if _CHEST_EDIDS is None or _CHEST_EDIDS[0] != TSV:
+        m = {}
+        p = newest("CONT_Export_*.tsv")
+        if p:
+            for r in read_rows(p):
+                m[(r.get("FormID") or "").strip().upper()] = (r.get("EDID") or "").strip()
+        _CHEST_EDIDS = (TSV, m)
+    return _CHEST_EDIDS[1]
+
+
+_GENERIC_FULLS = {}
+
+
+def vendor_chest_full(cont_names, fid):
+    """A vendor chest's FULL, only when it names THIS vendor.
+
+    Vendor chests are hidden containers and most carry no name, but 40 of them
+    (the Travelling Workshops, the Wastelanders C.A.M.P. merchants, every
+    workshop vendor, Milepost Zero, Fishing, NWOT ...) are named "Locker" — the
+    FULL of the base locker they were copied from. Taking the FULL first
+    published 481 vendor routes as "Locker" on the 6 Oct 2026 live build and
+    merged them into one row per rate (Plan: Simple Bed: "Locker 8.03%" was the
+    Travelling Workshops vendor). A FULL shared by more than one CONT record is
+    the base object's name, not a vendor's, so the EditorID names it instead
+    ("Workshop Armor vendor", "Wastelanders - C.A.M.P. AF09 Weapon vendor").
+    Counted from the export each build: nothing is hardcoded.
+    """
+    key = id(cont_names)
+    if key not in _GENERIC_FULLS:
+        _GENERIC_FULLS.clear()
+        counts = collections.Counter(v for v in cont_names.values() if v)
+        _GENERIC_FULLS[key] = {v for v, n in counts.items() if n > 1}
+    full = cont_names.get((fid or "").upper())
+    if not full or full in _GENERIC_FULLS[key]:
+        return None
+    return full
+
+
 def collapse_routes(routes):
     """Merge rows that are the same source wearing two hats.
 
@@ -906,16 +1158,28 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
     seen_v = {}  # (vendor, name, rate4) -> route dict
     quest_named = set()  # labels taken from a GMRW quest title (quest_route_label)
     c2p = tables.get("c2p") or {}
+    nested_rate = nested_route_plan(closure, lvli_refs, parent_edid, c2p, cont_names)
     for L in closure:
         via = parent_edid.get(L, "")
         holders = lvli_refs.get(L) or lvli_refs.get(str(L).upper()) or ()
-        entries = entry_holders(holders)
+        in_tree = any(p in closure for p in c2p.get(str(L).upper(), ()))
+        entries = real_entries(holders, in_tree)
         # A list only other lists hold is a step inside a bigger roll, and its
         # rate is conditional on that roll — see entry_holders(). The list that
         # holds it gets its own route at the real rate. Lists with no parent
         # AND no holder (orphans) keep the old path; prune_dead_routes judges them.
-        if not entries and any(p in closure for p in c2p.get(str(L).upper(), ())):
-            continue
+        #
+        # ...UNLESS no list above it can publish a route (6 Oct 2026 audit): a
+        # parent that is unnamed (zzz_E03A_SpookyScorched_LL_RewardList, paid by
+        # the live Mischief Night GMRW) or internal plumbing would otherwise take
+        # the whole source with it. Then the nested list keeps its OWN name but
+        # carries the real rate — the rate of the topmost list that something
+        # outside the list tree rolls — never the conditional one.
+        top_lists = None
+        if not entries and in_tree:
+            top_lists = nested_rate.get(L)
+            if not top_lists:
+                continue
         # Gifts, pails, treat bags: the loot hangs off the item's magic effect.
         # Named after the item, filed as loot you open (Containers).
         opened = openable_name(entries)
@@ -932,9 +1196,30 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
             seen_n[k]["_lvli"].add(L)
             continue
         bucket = holder_bucket(via, holders)
+        # A list a vendor's stock list ALSO holds is already on the page as
+        # that vendor's row (the stock list publishes it at the real rate).
+        # When the list's own way in is a quest reward, that is what it is:
+        # LL_Recipes_Cooking_Tasty is paid out by a GMRW and printed as a
+        # second "Whitespring Gourmet vendor" row at its inside-the-roll rate.
+        own = [h for h in holders if not (h[2] == "LVLI" and h[0] in closure)]
+        if (bucket == "vendor" and own
+                and any(rs in ("GMRW", "QUST") for _rf, _re, rs in own)):
+            kb = holder_bucket(via, own)
+            if kb != "vendor":
+                bucket = kb
+                holders = own
+        if top_lists:
+            # Judge the kind of source by what rolls the top of the tree too:
+            # the nested list's own holders are only lists.
+            for T in top_lists:
+                tb = holder_bucket(parent_edid.get(T, ""),
+                                   lvli_refs.get(T) or lvli_refs.get(str(T).upper()) or ())
+                if _BUCKET_RANK.index(tb) < _BUCKET_RANK.index(bucket):
+                    bucket = tb
         if bucket in ("container", "loot-list"):
             continue  # containers handled above; loot-list = internal plumbing, not a world source
-        rate = 0.0 if names_only else app(L)   # only now do the rng76 resolve
+        rate = 0.0 if names_only else (
+            max(app(T) for T in top_lists) if top_lists else app(L))   # only now do the rng76 resolve
         if not names_only and (not rate or rate <= 0):
             continue
         # name: a vendor keeps its CONT/holder name; a creature keeps the name of
@@ -955,8 +1240,16 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
                 continue
             b = plan_classify(rsig, redid, via)
             if b == "vendor" and not vend_name:
-                vend_name = (cont_names.get((rf or "").upper())
-                             or source_label(redid) or humanize(redid))
+                vend_name = (vendor_chest_full(cont_names, rf)
+                             or better_vendor_label(source_label(redid), source_label(via))
+                             or humanize(redid))
+                # The NPC who owns this chest, by the name players see
+                # (plan_sources.VendorNames; NPC2_Vendors export). A stock list
+                # held by another list is named after the chest that list sits in.
+                chest = rf if rsig == "CONT" else (
+                    vendor_chest_for_list(rf, lvli_refs) if rsig == "LVLI" else None)
+                if chest:
+                    vend_name = vendor_names().label(chest, vend_name)
             elif b == "creature" and not creature_name:
                 # An NPC's FULL name beats anything derivable from its EditorID:
                 # "Pint-Sized Slasher" rather than "SDOW Burn Bounty BIG Slasher".
@@ -982,6 +1275,13 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
         # list or wiring end to end, so it is not a route a player can take.
         fam = (creature_name if bucket == "creature" and creature_name
                else source_label(via or str(L)))
+        if bucket == "vendor" and fam and not holders:
+            # A vendor stock list nothing references (the export can't see the
+            # faction that sells it): name it after its chest's NPC when the
+            # EditorIDs agree, so it merges with that vendor's row.
+            ch = vendor_names().orphan_chest(via, chest_edids())
+            if ch:
+                fam = vendor_names().label(ch, fam)
         if not fam:
             continue
         if bucket == "event-quest":
@@ -993,6 +1293,18 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
             # The quest record that rolls this list names it for a player.
             if not qfam and plan_sources.looks_like_wiring(fam):
                 qfam = plan_sources.direct_quest_label(entries, GMRW_QUESTS, QUEST_TITLES)
+            # A bare loot word ("Power Armor", "Chems", "SPOTLIGHT Workshop")
+            # says what is in the pool, not where it comes from; the quest or
+            # event whose reward record rolls the list does (6 Oct 2026).
+            # Not for the system names (AREA_CODE: "Raids", "Daily Ops",
+            # "Expeditions" ...) — those ARE the player-facing name, and the
+            # quest behind them is a stage ("Enclave Squad Module" is a Raid).
+            if (not qfam and ":" not in fam and " - " not in fam
+                    and fam not in _AREA_NAMES):
+                dq = plan_sources.direct_quest_label(entries, GMRW_QUESTS, QUEST_TITLES)
+                if dq and not (set(plan_sources.route_key(dq).split())
+                               & set(plan_sources.route_key(fam).split())):
+                    qfam = dq
             if qfam:
                 fam = qfam
                 quest_named.add(qfam)
@@ -1024,6 +1336,7 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
                     quest_named.add(r["route"])
                 by_name.setdefault(r["route"], []).extend(r["_lvli"])
 
+    routes = group_vendor_rows(routes)
     routes.sort(key=lambda r: (-(r["rate"] or 0), r["source_type"], r["route"].lower()))
     routes = routes[:12]
     for r in routes:

@@ -1157,12 +1157,9 @@ TICK_BLOOD = {
         # Morbid Well Collector cards in automatically from
         # dist/resource_producers.json (_patch_camp_producers). The note keeps
         # only what no station card covers.
-        "resource_generators": {
-            "note": (
-                "Mystery Crate (Mire) has a ~3.85% chance per crate "
-                "(2 of 52 entries in LL_InsectParts, pick-one)."
-            ),
-        },
+        # (The Mire Mole Miner Mystery Crate note was removed 6 Oct 2026: the
+        # crate is cut content — plan_sources.CONFIRMED_CUT_SOURCES.)
+        "resource_generators": {},
     },
     # ── Farming Tips (TSV-derived, Aug 2026) ───────────────────────────
     # ALCH 003D7494: Weight 0.75, ObjectTypeDrink, MealTypeRaw,
@@ -1301,10 +1298,8 @@ BLOOD_SAC = {
         "resource_generators": {
             "note": (
                 "The Season 26 Cultist Well generator has a matching blood pool. "
-                "Blood Sac also appears in the Mire Mystery Crate at ~3.85% per "
-                "crate (2 of 52 in LL_InsectParts, pick-one), in the Milepost Zero "
-                "scavenger rare-junk pool, and in Burning Springs bounty-hunt "
-                "junk rewards."
+                "Blood Sac also appears in the Milepost Zero scavenger "
+                "rare-junk pool and in Burning Springs bounty-hunt junk rewards."
             ),
         },
     },

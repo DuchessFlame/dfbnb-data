@@ -87,19 +87,24 @@ def _load_child_to_parents(entries_path):
 
 def _load_lvli_refs(refs_path):
     """LVLI FormID -> list of (ref_formid, ref_edid, ref_sig)."""
+    # csv.reader, not DictReader: the Refs export is thousands of columns wide
+    # and building a dict per row was ~17 s of every build's start-up. Same
+    # columns, same order, same "skip empty cell" rule (6 Oct 2026).
     out = {}
     with open(refs_path, encoding="utf-8", errors="replace") as f:
-        rd = csv.DictReader(f, delimiter="\t")
-        refcols = [c for c in rd.fieldnames if re.fullmatch(r"Ref\d+", c or "")]
-        for r in rd:
-            lv = (r.get("LVLI_FormID") or "").strip().upper()
+        rd = csv.reader(f, delimiter="\t")
+        head = next(rd, None) or []
+        refix = [i for i, c in enumerate(head) if re.fullmatch(r"Ref\d+", c or "")]
+        try:
+            fix = head.index("LVLI_FormID")
+        except ValueError:
+            return out
+        for row in rd:
+            lv = (row[fix] if fix < len(row) else "").strip().upper()
             if not lv:
                 continue
-            refs = []
-            for c in refcols:
-                tok = r.get(c)
-                if tok:
-                    refs.append(_fid(tok))
+            n = len(row)
+            refs = [_fid(row[i]) for i in refix if i < n and row[i]]
             if refs:
                 out[lv] = refs
     return out

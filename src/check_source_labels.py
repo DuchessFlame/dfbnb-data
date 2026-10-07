@@ -284,6 +284,33 @@ def main(argv=None):
             leaks[f"(slasher route) {g!r}, expected {w!r}"] += 1
     print("[labels] slasher route naming checked")
 
+    # Vendor NPC names (plan_sources.VendorNames): every chest that gets an NPC
+    # name is labelled here from its own EditorID label, exactly as the route
+    # resolver does, and the result linted like any other published name.
+    vn = plan_sources.VendorNames(args.data_dir)
+    cont_path = tsv_source.newest(os.path.join(args.data_dir, "CONT_Export_*.tsv"), required=False)
+    chest_edid = {}
+    if cont_path:
+        with open(cont_path, encoding="utf-8", errors="replace") as f:
+            for row in csv.DictReader(f, delimiter="\t"):
+                chest_edid[(row.get("FormID") or "").strip().upper()] = (row.get("EDID") or "").strip()
+    for chest in vn.by_chest:
+        base = plan_sources.source_label(chest_edid.get(chest, ""), quests) or "vendor"
+        lab = vn.label(chest, base)
+        if LEAK.search(lab) or plan_sources.looks_like_wiring(lab):
+            leaks[f"(vendor NPC) {lab}"] += 1
+    print(f"[labels] {len(vn.by_chest)} vendor chest(s) named after their NPC")
+
+    # Confirmed-cut sources (plan_sources.CONFIRMED_CUT_SOURCES) are matched by
+    # EditorID prefix. If a patch renames them the prefix silently stops
+    # matching and the cut source goes back on the pages as a live route, so
+    # every entry must still match at least one record in this export.
+    for prefix, _why in plan_sources.CONFIRMED_CUT_SOURCES:
+        n = sum(1 for e in records if e.lower().startswith(prefix.lower()))
+        if not n and prefix.upper().startswith("MILE_LL_"):
+            leaks[f"(cut source) prefix {prefix!r} matches no record — renamed in this export?"] += 1
+        print(f"[labels] cut source {prefix!r}: {n} record(s)")
+
     if leaks:
         print(f"[labels] FAIL — {sum(leaks.values())} leaked name(s):")
         for l, n in leaks.most_common():

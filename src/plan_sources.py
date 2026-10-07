@@ -160,6 +160,39 @@ def is_dev_record(edid):
     return any(p.lower() in HARD_DEV_CODES for p in parts)
 
 
+# Sources that ARE wired up in the game files but never shipped to players.
+# The data cannot prove these cut: the Mole Miner Mystery Crate quest
+# (MILE_MoleMiner_MysteryCrate, titled only "[Quest for MoleMiner Mystery
+# Crate]") holds the eight MILE_LL_MysteryCrate_*_MainRoll lists, has dialogue
+# INFOs, cost GLOBs and an ACHR, so the reachability scan calls every list
+# live and the route resolver names it "Mole Miner Mystery Crate (...)". It is
+# cut content (Duchess, 6 Oct 2026; already excluded from the spawn guides in
+# spawns_engine/events.py since Sep 2026). A bracketed title alone is NOT a
+# usable signal — 366 live-export quests have one, RE_ObjectTS06 among them.
+#
+# Matched as EditorID prefixes, case-insensitive. Value = the reason shown on
+# the retired route and on any plan left with nothing else. Keep this list
+# SHORT and every entry confirmed by a person — a wrong entry buries a live
+# source. prune_dead_routes / build_bugged_plans_json read it through
+# cut_source(); naming is unaffected, so the route still resolves and is moved
+# to `retired_routes`, not silently dropped.
+CONFIRMED_CUT_SOURCES = (
+    ("MILE_MoleMiner_MysteryCrate", "the Mole Miner Mystery Crate is cut content"),
+    ("MILE_LL_MysteryCrate_",       "the Mole Miner Mystery Crate is cut content"),
+)
+
+
+def cut_source(edid):
+    """Reason string when this EditorID is a confirmed-cut source, else None."""
+    e = (edid or "").strip().lower()
+    if not e:
+        return None
+    for prefix, why in CONFIRMED_CUT_SOURCES:
+        if e.startswith(prefix.lower()):
+            return why
+    return None
+
+
 def meaningful_refs(refs):
     """The references that would actually show a plan is still obtainable.
 
@@ -933,6 +966,11 @@ _POOL_RULES = [
     # the plans placed loose in the world, rolled per spot
     (re.compile(rf"^LPI_(?:Recipes_)?(?P<k>[A-Za-z_]+?)_(?:Any_)?(?:AllRegions|Region(?P<r>{_RX_REGIONS}))_GRP$", re.I),
      lambda m: "Plans lying in the world" + (f" ({REGION_WORDS[m['r'].lower()]})" if m["r"] else "")),
+    # Any other plan spot placed in the world (LPI = a placed loot spot):
+    # LPI_Recipes_Cooking_Tasty, LPI_Recipes_SURV_DiseaseCures,
+    # Bunker_LPI_Recipes_Mod_Weapon_AlienBlaster_AmmoConv ...
+    (re.compile(r"^(?:[A-Za-z0-9]+_)?LPI_Recipes_.+$", re.I),
+     lambda m: "Plans lying in the world"),
     # LLE_Creature_Boss_Small(_Dynamic) -> boss enemies, by loot size
     (re.compile(r"^LLE_Creature_Boss_(?P<s>Small|Medium|Large)(?:_Dynamic)?$", re.I),
      lambda m: f"Boss enemies ({m['s'].lower()} loot)"),
@@ -986,6 +1024,22 @@ def looks_like_wiring(label):
     return False
 
 
+_RX_ALIAS_TAIL = re.compile(r"\s*[-:,]?\s*<Alias=[^>]*>\s*$")
+
+
+def strip_alias_suffix(title):
+    """'Enclave Activity: Dropped Connection - <Alias=ParentLocation>' ->
+    'Enclave Activity: Dropped Connection'. Only a TRAILING alias (the place
+    the game fills in at runtime) is cut; an alias mid-title still fails
+    usable_quest_name(), because the sentence around it would not read."""
+    t = (title or "").strip()
+    while True:
+        u = _RX_ALIAS_TAIL.sub("", t).strip()
+        if u == t:
+            return u
+        t = u
+
+
 def direct_quest_label(entries, gmrw_quests, quest_titles):
     """The quest(s) whose reward records roll this list directly, or None.
 
@@ -997,6 +1051,7 @@ def direct_quest_label(entries, gmrw_quests, quest_titles):
         rf = (rf or "").upper()
         t = gmrw_quests.get(rf) if rsig == "GMRW" else (
             quest_titles.get(rf) if rsig == "QUST" else None)
+        t = strip_alias_suffix(t)
         if t and usable_quest_name(t):
             t = re.sub(r"^\(?Repeatable\)?:?\s+", "", t).strip()
             if t and t not in names:
@@ -1363,6 +1418,147 @@ def usable_challenge_name(name):
         return ""
     return "" if _RX_CHAL_SCAFFOLD.search(n) else n
 _RX_QUEST_REWARD = re.compile(r"QuestReward", re.I)
+
+
+# Update/expansion names the EditorID-derived labels lead with ("Wastelanders -
+# Molly"). They say when a trader shipped, not who or where they are, so they go
+# once the trader is named after the NPC (Duchess, 23 Sep 2026, on Minerva).
+_UPDATE_HEADS = ("Wastelanders", "Steel Dawn", "Steel Reign")
+_STOPWORDS = {"the", "of", "and", "a", "an", "in"}
+_RX_GENERIC_VENDOR_FULL = re.compile(r"\bvendor(?: bot)?$", re.I)
+
+
+class VendorNames:
+    """Vendor chest (CONT) FormID -> the vendor NPC's in-game name.
+
+    Read from the NPC2_Vendors export, which joins each vendor NPC to its
+    merchant faction's chest (MerchantContainerBase). Before this, vendor routes
+    were named from EditorIDs: "E05 Caravan Carver vendor" for Carver
+    Timmerman, "GQ10 Travelling Workshops vendor" for Grahm, and Watoga's
+    Vendor Bot Phoenix as "Location based PA System in Watago - Watoga
+    (Brotherhood of Steel vendor)" (Duchess, 6 Oct 2026: use the names players
+    see).
+
+    A chest is named after its NPC only when the export gives exactly ONE
+    usable name for it. A name is not usable when it is blank, when it ends in
+    "Vendor"/"Vendor Bot" ("Raiders Vendor", "Watoga Vendor Bot" — a
+    description, not a name), or when several different NPC records carry it
+    ("Vendor Bot Responder" stands at six stations). Those chests keep their
+    place-and-faction label, which already says more than the NPC would.
+    """
+
+    def __init__(self, tsv_root=None, newest=None):
+        self.by_chest = {}
+        path = None
+        if tsv_root:
+            if newest:
+                path = newest("NPC2_Vendors_*.tsv", tsv_root)
+            else:
+                cands = sorted(glob.glob(os.path.join(tsv_root, "NPC2_Vendors_*.tsv")))
+                cands = [c for c in cands if not c.endswith("_Placements.tsv")]
+                path = cands[-1] if cands else None
+        if not path or path.endswith("_Placements.tsv") or not os.path.exists(path):
+            return
+        rows = []
+        with open(path, encoding="utf-8", errors="replace") as f:
+            for r in csv.DictReader(f, delimiter="\t"):
+                chest = (r.get("MerchantContainerBase_FormID") or "").strip().upper()
+                full = (r.get("NPC_FULL") or "").strip()
+                nedid = (r.get("NPC_EDID") or "").strip()
+                if chest and full and not is_dev_record(nedid):
+                    rows.append((chest, full, nedid))
+        npcs_per_full = collections.defaultdict(set)
+        for chest, full, nedid in rows:
+            npcs_per_full[full].add(nedid)
+        names = collections.defaultdict(set)
+        for chest, full, nedid in rows:
+            if _RX_GENERIC_VENDOR_FULL.search(full) or len(npcs_per_full[full]) > 1:
+                names[chest].add(None)
+            elif usable_quest_name(full):
+                names[chest].add(full)
+        for chest, s in names.items():
+            if len(s) == 1 and None not in s:
+                self.by_chest[chest] = next(iter(s))
+
+    def name(self, chest_fid):
+        return self.by_chest.get((chest_fid or "").strip().upper())
+
+    _GENERIC_TOKENS = {"vendor", "vendors", "ll", "llv", "lls", "chest", "vendorchest",
+                       "master", "recipes", "recipe", "merchant", "the", "of", "hq"}
+
+    @staticmethod
+    def _tokens(text):
+        out = set()
+        for part in re.split(r"[_\s\-]+", text or ""):
+            for t in re.findall(r"[A-Z]+(?![a-z])|[A-Z]?[a-z]+|\d+", part):
+                out.add(t.lower())
+        return out
+
+    def orphan_chest(self, list_edid, chest_edid_of):
+        """The chest a vendor stock list with NO references belongs to, by its
+        EditorID: Vendor_MILE_CryptidHunter -> MILE_HQ_CryptidHunter_VendorChest
+        (Windy), NWOT_LL_Vendor_Chloe -> NWOT_Clown_VendorChest (Chloe the
+        Clown). Needs one clear winner sharing two words, or a word of the
+        NPC's own name; otherwise None and the list keeps its EditorID label."""
+        lt = self._tokens(list_edid) - self._GENERIC_TOKENS
+        if not lt:
+            return None
+        scored = []
+        for chest, npc in self.by_chest.items():
+            ct = self._tokens(chest_edid_of.get(chest, "")) - self._GENERIC_TOKENS
+            nt = self._tokens(npc) - self._GENERIC_TOKENS
+            hit = lt & (ct | nt)
+            ok = len(hit) >= 2 or bool(lt & nt)
+            if ok:
+                scored.append((len(hit), chest))
+        if not scored:
+            return None
+        scored.sort(reverse=True)
+        if len(scored) > 1 and scored[0][0] == scored[1][0]:
+            return None
+        return scored[0][1]
+
+    def label(self, chest_fid, base):
+        """'{NPC} ({what the old label said, minus the NPC and the codes})'.
+
+        "Camden Park (Responders vendor)"  -> "Vendor Bot Chad (Camden Park, Responders vendor)"
+        "Wastelanders - Molly (Raiders vendor)" -> "Molly (Raiders vendor)"
+        "GQ10 Travelling Workshops vendor" -> "Grahm (Travelling Workshops vendor)"
+        Returns `base` unchanged when the chest has no usable NPC name.
+        """
+        npc = self.name(chest_fid)
+        if not npc or not base:
+            return base
+        m = re.match(r"^(.*?)\s*\(([^()]*)\)\s*$", base)
+        head, qual = (m.group(1), m.group(2)) if m else (re.sub(r"\s*\bvendor\s*$", "", base, flags=re.I), "vendor")
+        for u in _UPDATE_HEADS:
+            head = re.sub(r"^" + re.escape(u) + r"\s*-\s*", "", head)
+        # A heading segment that reads as a sentence is a quest's working title
+        # borrowed by QuestNames ("Location based PA System in Watago - Watoga"
+        # for LC170), not a place: keep the short segments only.
+        segs = head.split(" - ")
+        head = " - ".join([g for g in segs[:-1] if len(g.split()) <= 3] + segs[-1:])
+        npc_words = {w.lower() for w in re.findall(r"[A-Za-z0-9'.]+", npc)}
+        keep = []
+        for w in re.split(r"\s+", head.replace(" - ", " ")):
+            if not w or w == "-" or w.lower() in npc_words or looks_like_wiring(w):
+                continue
+            # the EditorID's spelling of the same person ("Reginald" for Regs)
+            lw = w.lower()
+            if len(lw) >= 3 and any(len(n) >= 4 and (lw.startswith(n[:-1]) or n.startswith(lw[:-1]))
+                                    for n in npc_words):
+                continue
+            keep.append(w)
+        while keep and keep[0].lower() in _STOPWORDS:
+            keep.pop(0)
+        while keep and keep[-1].lower() in _STOPWORDS:
+            keep.pop()
+        place = " ".join(keep).strip(" ,-")
+        if qual.lower() == "vendor":
+            inner = f"{place} vendor" if place else "vendor"
+        else:
+            inner = f"{place}, {qual}" if place else qual
+        return f"{npc} ({inner})"
 
 
 class UnlockIndex:

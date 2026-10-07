@@ -43,33 +43,6 @@
      "category_label": "Weapon (physical plan)",
      "obtain_routes": [
       {
-       "route": "Liberator",
-       "source_type": "creature",
-       "rate": 0.03,
-       "rate_display": "3%",
-       "lvli": [
-        "00109F98",
-        "00377D06"
-       ],
-       "kind": "enemy",
-       "conditions": [
-        "Stops dropping once you learn it"
-       ]
-      },
-      {
-       "route": "Daily Ops - High Chase Rare",
-       "source_type": "event-quest",
-       "rate": 0.02439,
-       "rate_display": "2.44%",
-       "lvli": [
-        "005D080E"
-       ],
-       "kind": "event",
-       "conditions": [
-        "Level 50 and above"
-       ]
-      },
-      {
        "route": "Daily Ops - Chase",
        "source_type": "event-quest",
        "rate": 0.011585,
@@ -90,21 +63,7 @@
        "rate": 0.006,
        "rate_display": "0.6%",
        "lvli": [
-        "00109F98",
-        "00377D06"
-       ],
-       "kind": "enemy",
-       "conditions": [
-        "Stops dropping once you learn it"
-       ]
-      },
-      {
-       "route": "Robot Liberator",
-       "source_type": "creature",
-       "rate": 0.006,
-       "rate_display": "0.6%",
-       "lvli": [
-        "0038232C"
+        "00109F98"
        ],
        "kind": "enemy",
        "conditions": [
@@ -135,20 +94,16 @@
       {
        "label": "Enemies",
        "routes": [
-        0,
-        3,
-        4
+        1
        ]
       },
       {
        "label": "Events & Activities",
        "routes": [
-        1,
-        2
+        0
        ]
       }
      ],
-     "source_tag": "Enemy",
      "images": [],
      "image_source": "",
      "plan_page": "weapon",
@@ -156,7 +111,8 @@
      "weapon_role": "base",
      "weapon_group": "Commie Whacker",
      "weapon_group_key": "commie-whacker",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Ops"
     },
     {
      "kind": "plan",
@@ -169,19 +125,6 @@
      "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
      "category_label": "Weapon Mod / Paint",
      "obtain_routes": [
-      {
-       "route": "Daily Ops - High Chase Rare",
-       "source_type": "event-quest",
-       "rate": 0.02439,
-       "rate_display": "2.44%",
-       "lvli": [
-        "005D080E"
-       ],
-       "kind": "event",
-       "conditions": [
-        "Level 50 and above"
-       ]
-      },
       {
        "route": "Daily Ops - Chase",
        "source_type": "event-quest",
@@ -221,12 +164,10 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1
+        0
        ]
       }
      ],
-     "source_tag": "Ops",
      "images": [],
      "image_source": "",
      "plan_page": "weapon",
@@ -234,7 +175,8 @@
      "weapon_role": "skin",
      "weapon_group": "Single Action Revolver",
      "weapon_group_key": "single-action-revolver",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Ops"
     },
     {
      "kind": "plan",
@@ -253,7 +195,7 @@
        "rate": 0.05,
        "rate_display": "5%",
        "lvli": [
-        "008F6AC2"
+        "0062038E"
        ],
        "kind": "enemy",
        "conditions": [
@@ -284,6 +226,12 @@
        ]
       }
      ],
+     "images": [
+      "babylon_apparel_outfit_ghilliesuit_survivors2020_l"
+     ],
+     "image_source": "staged",
+     "plan_page": "legacy-nuclear-winter-plans",
+     "plan_page_group": null,
      "retired_routes": [
       {
        "route": "Minerva (Gold Bullion vendor)",
@@ -321,13 +269,7 @@
        "babylon_apparel_outfit_ghilliesuit_survivors2020"
       ],
       "extra": []
-     },
-     "images": [
-      "babylon_apparel_outfit_ghilliesuit_survivors2020_l"
-     ],
-     "image_source": "staged",
-     "plan_page": "legacy-nuclear-winter-plans",
-     "plan_page_group": null
+     }
     },
     {
      "kind": "plan",
@@ -346,7 +288,7 @@
        "rate": 0.05,
        "rate_display": "5%",
        "lvli": [
-        "008F6AC2"
+        "0062038E"
        ],
        "kind": "enemy",
        "conditions": [
@@ -377,6 +319,12 @@
        ]
       }
      ],
+     "images": [
+      "babylon_apparel_headwear_ghilliesuit_helmet_survivors2020_l"
+     ],
+     "image_source": "staged",
+     "plan_page": "legacy-nuclear-winter-plans",
+     "plan_page_group": null,
      "retired_routes": [
       {
        "route": "Minerva (Gold Bullion vendor)",
@@ -414,13 +362,7 @@
        "babylon_apparel_headwear_ghilliesuit_helmet_survivors2020"
       ],
       "extra": []
-     },
-     "images": [
-      "babylon_apparel_headwear_ghilliesuit_helmet_survivors2020_l"
-     ],
-     "image_source": "staged",
-     "plan_page": "legacy-nuclear-winter-plans",
-     "plan_page_group": null
+     }
     },
     {
      "kind": "plan",
@@ -436,25 +378,10 @@
       {
        "route": "Event: Seismic Activity",
        "source_type": "event-quest",
-       "rate": 0.1,
-       "rate_display": "10%",
-       "lvli": [
-        "00665762",
-        "0067F3BB",
-        "0068B8E7"
-       ],
-       "kind": "event",
-       "conditions": []
-      },
-      {
-       "route": "Event: Seismic Activity",
-       "source_type": "event-quest",
        "rate": 0.05,
        "rate_display": "5%",
        "lvli": [
-        "00665762",
-        "0067F3BB",
-        "0068B8E7"
+        "00665762"
        ],
        "kind": "event",
        "conditions": []
@@ -483,12 +410,10 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1
+        0
        ]
       }
      ],
-     "source_tag": "Events",
      "images": [],
      "image_source": "",
      "plan_page": "weapon",
@@ -496,7 +421,8 @@
      "weapon_role": "skin",
      "weapon_group": "Broadsider",
      "weapon_group_key": "broadsider",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Events"
     },
     {
      "kind": "plan",
@@ -512,23 +438,12 @@
       {
        "route": "Event: Most Wanted",
        "source_type": "event-quest",
-       "rate": 0.055556,
-       "rate_display": "5.56%",
-       "lvli": [
-        "0068B8EA"
-       ],
-       "kind": "event",
-       "conditions": []
-      },
-      {
-       "route": "Event: Most Wanted - GWWS",
-       "source_type": "event-quest",
        "rate": 0.027778,
        "rate_display": "2.78%",
        "lvli": [
-        "0065E293",
-        "00660860"
+        "0065E293"
        ],
+       "quest_reward": true,
        "kind": "event",
        "conditions": []
       }
@@ -556,12 +471,10 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1
+        0
        ]
       }
      ],
-     "source_tag": "Events",
      "images": [],
      "image_source": "",
      "plan_page": "weapon",
@@ -569,7 +482,8 @@
      "weapon_role": "skin",
      "weapon_group": "Single Action Revolver",
      "weapon_group_key": "single-action-revolver",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Events"
     },
     {
      "kind": "plan",
@@ -582,19 +496,6 @@
      "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
      "category_label": "Weapon Mod / Paint",
      "obtain_routes": [
-      {
-       "route": "Daily Ops - High Chase Rare",
-       "source_type": "event-quest",
-       "rate": 0.02439,
-       "rate_display": "2.44%",
-       "lvli": [
-        "005D080E"
-       ],
-       "kind": "event",
-       "conditions": [
-        "Level 50 and above"
-       ]
-      },
       {
        "route": "Daily Ops - Chase",
        "source_type": "event-quest",
@@ -634,12 +535,10 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1
+        0
        ]
       }
      ],
-     "source_tag": "Ops",
      "images": [],
      "image_source": "",
      "plan_page": "weapon",
@@ -647,7 +546,8 @@
      "weapon_role": "skin",
      "weapon_group": ".44 Revolver",
      "weapon_group_key": "44-revolver",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Ops"
     },
     {
      "kind": "plan",
@@ -663,25 +563,10 @@
       {
        "route": "Event: Seismic Activity",
        "source_type": "event-quest",
-       "rate": 0.1,
-       "rate_display": "10%",
-       "lvli": [
-        "00665762",
-        "0067F3BB",
-        "0068B8E7"
-       ],
-       "kind": "event",
-       "conditions": []
-      },
-      {
-       "route": "Event: Seismic Activity",
-       "source_type": "event-quest",
        "rate": 0.05,
        "rate_display": "5%",
        "lvli": [
-        "00665762",
-        "0067F3BB",
-        "0068B8E7"
+        "00665762"
        ],
        "kind": "event",
        "conditions": []
@@ -710,16 +595,15 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1
+        0
        ]
       }
      ],
-     "source_tag": "Events",
      "images": [],
      "image_source": "",
      "plan_page": "camp",
-     "plan_page_group": "Needs Sorting"
+     "plan_page_group": "Needs Sorting",
+     "source_tag": "Events"
     },
     {
      "kind": "plan",
@@ -738,7 +622,7 @@
        "rate": 0.05,
        "rate_display": "5%",
        "lvli": [
-        "008F6AC2"
+        "0062038E"
        ],
        "kind": "enemy",
        "conditions": [
@@ -769,6 +653,12 @@
        ]
       }
      ],
+     "images": [
+      "babylon_apparel_underarmor_letterjacket_nw_l"
+     ],
+     "image_source": "staged",
+     "plan_page": "legacy-nuclear-winter-plans",
+     "plan_page_group": null,
      "retired_routes": [
       {
        "route": "Minerva (Gold Bullion vendor)",
@@ -806,13 +696,7 @@
        "babylon_apparel_underarmor_letterjacket_nw"
       ],
       "extra": []
-     },
-     "images": [
-      "babylon_apparel_underarmor_letterjacket_nw_l"
-     ],
-     "image_source": "staged",
-     "plan_page": "legacy-nuclear-winter-plans",
-     "plan_page_group": null
+     }
     },
     {
      "kind": "plan",
@@ -826,20 +710,6 @@
      "category_label": "CAMP / Recipe (physical plan)",
      "obtain_routes": [
       {
-       "route": "The Slasher - Infestations Rare",
-       "source_type": "event-quest",
-       "rate": 0.333333,
-       "rate_display": "33.33%",
-       "lvli": [
-        "008FCEA6"
-       ],
-       "kind": "event",
-       "conditions": [
-        "Only from HTO Encounter Boss Keyword",
-        "Only from SDOW Actor Type Slasher Fan"
-       ]
-      },
-      {
        "route": "Blood Eagle Destroyer (Slasher Seasonal)",
        "source_type": "creature",
        "rate": 0.083333,
@@ -851,34 +721,6 @@
        "conditions": [
         "Only from SDOW Actor Type Slasher Fan",
         "Only from HTO Encounter Boss Keyword"
-       ]
-      },
-      {
-       "route": "Infestations - Events (Slasher Seasonal)",
-       "source_type": "event-quest",
-       "rate": 0.083333,
-       "rate_display": "8.33%",
-       "lvli": [
-        "008F2B69"
-       ],
-       "kind": "event",
-       "conditions": [
-        "Only from SDOW Actor Type Slasher Fan",
-        "Only from HTO Encounter Boss Keyword"
-       ]
-      },
-      {
-       "route": "Infestations - Events The Slasher",
-       "source_type": "event-quest",
-       "rate": 0.083333,
-       "rate_display": "8.33%",
-       "lvli": [
-        "008F2B67"
-       ],
-       "kind": "event",
-       "conditions": [
-        "Only from HTO Encounter Boss Keyword",
-        "Only from SDOW Actor Type Slasher Fan"
        ]
       }
      ],
@@ -901,25 +743,17 @@
       {
        "label": "Enemies",
        "routes": [
-        1
-       ]
-      },
-      {
-       "label": "Events & Activities",
-       "routes": [
-        0,
-        2,
-        3
+        0
        ]
       }
      ],
-     "source_tag": "Activities",
      "images": [
       "sdow_recipe_workshop_floordecor_slasherdoll"
      ],
      "image_source": "staged",
      "plan_page": "camp",
-     "plan_page_group": "C.A.M.P. Plans"
+     "plan_page_group": "C.A.M.P. Plans",
+     "source_tag": "Enemy"
     },
     {
      "kind": "plan",
@@ -932,43 +766,6 @@
      "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
      "category_label": "Weapon Mod / Paint",
      "obtain_routes": [
-      {
-       "route": "Weapons Common",
-       "source_type": "event-quest",
-       "rate": 0.017241,
-       "rate_display": "1.72%",
-       "lvli": [
-        "005D9CC2"
-       ],
-       "kind": "event",
-       "conditions": []
-      },
-      {
-       "route": "Daily Ops - Low Chase Rare",
-       "source_type": "event-quest",
-       "rate": 0.008621,
-       "rate_display": "0.86%",
-       "lvli": [
-        "005D9CBC"
-       ],
-       "kind": "event",
-       "conditions": [
-        "Level 49 and below"
-       ]
-      },
-      {
-       "route": "Daily Ops - Rare",
-       "source_type": "event-quest",
-       "rate": 0.008621,
-       "rate_display": "0.86%",
-       "lvli": [
-        "005D9CBF"
-       ],
-       "kind": "event",
-       "conditions": [
-        "Level 49 and below"
-       ]
-      },
       {
        "route": "Daily Ops - Chase",
        "source_type": "event-quest",
@@ -1008,14 +805,10 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1,
-        2,
-        3
+        0
        ]
       }
      ],
-     "source_tag": "Activities",
      "images": [
       "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
      ],
@@ -1025,7 +818,8 @@
      "weapon_role": "mod",
      "weapon_group": "Railway Rifle",
      "weapon_group_key": "railway-rifle",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Ops"
     },
     {
      "kind": "plan",
@@ -1038,19 +832,6 @@
      "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
      "category_label": "Weapon Mod / Paint",
      "obtain_routes": [
-      {
-       "route": "Daily Ops - High Chase Rare",
-       "source_type": "event-quest",
-       "rate": 0.02439,
-       "rate_display": "2.44%",
-       "lvli": [
-        "005D080E"
-       ],
-       "kind": "event",
-       "conditions": [
-        "Level 50 and above"
-       ]
-      },
       {
        "route": "Daily Ops - Chase",
        "source_type": "event-quest",
@@ -1090,12 +871,10 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1
+        0
        ]
       }
      ],
-     "source_tag": "Ops",
      "images": [],
      "image_source": "",
      "plan_page": "weapon",
@@ -1103,7 +882,8 @@
      "weapon_role": "skin",
      "weapon_group": "Lever Gun",
      "weapon_group_key": "lever-gun",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Ops"
     },
     {
      "kind": "plan",
@@ -1117,47 +897,23 @@
      "category_label": "Armour Mod / Paint",
      "obtain_routes": [
       {
-       "route": "Mutated Public Events - Ultra Rare Plans",
-       "source_type": "event-quest",
-       "rate": 0.018182,
-       "rate_display": "1.82%",
-       "lvli": [
-        "00690651"
-       ],
-       "kind": "event",
-       "conditions": []
-      },
-      {
-       "route": "Mutated Public Events - Chase Items",
-       "source_type": "event-quest",
-       "rate": 0.001818,
-       "rate_display": "0.18%",
-       "lvli": [
-        "0069157A"
-       ],
-       "kind": "event",
-       "conditions": []
-      },
-      {
-       "route": "Mutated Public Events - Single Mutation Fallout1st",
-       "source_type": "event-quest",
+       "route": "Mutated Party Pack",
+       "source_type": "container",
        "rate": 0.000909,
        "rate_display": "0.09%",
        "lvli": [
         "00698825"
        ],
-       "kind": "event",
        "conditions": []
       },
       {
-       "route": "Mutated Public Events - Single Mutation",
-       "source_type": "event-quest",
+       "route": "Mutated Package",
+       "source_type": "container",
        "rate": 0.000455,
        "rate_display": "0.05%",
        "lvli": [
         "0067F378"
        ],
-       "kind": "event",
        "conditions": []
       }
      ],
@@ -1182,16 +938,13 @@
      "cut_reason": null,
      "obtain_ledger": [
       {
-       "label": "Events & Activities",
+       "label": "Containers",
        "routes": [
         0,
-        1,
-        2,
-        3
+        1
        ]
       }
      ],
-     "source_tag": "Events",
      "images": [
       "t-51b-headlamp"
      ],
@@ -1201,7 +954,8 @@
      "armour_role": "mod",
      "armour_group": "T-51b",
      "armour_group_key": "t-51b",
-     "armour_group_solo": false
+     "armour_group_solo": false,
+     "source_tag": "Loot"
     },
     {
      "kind": "plan",
@@ -1215,47 +969,23 @@
      "category_label": "Armour Mod / Paint",
      "obtain_routes": [
       {
-       "route": "Mutated Public Events - Ultra Rare Plans",
-       "source_type": "event-quest",
-       "rate": 0.018182,
-       "rate_display": "1.82%",
-       "lvli": [
-        "00690651"
-       ],
-       "kind": "event",
-       "conditions": []
-      },
-      {
-       "route": "Mutated Public Events - Chase Items",
-       "source_type": "event-quest",
-       "rate": 0.001818,
-       "rate_display": "0.18%",
-       "lvli": [
-        "0069157A"
-       ],
-       "kind": "event",
-       "conditions": []
-      },
-      {
-       "route": "Mutated Public Events - Single Mutation Fallout1st",
-       "source_type": "event-quest",
+       "route": "Mutated Party Pack",
+       "source_type": "container",
        "rate": 0.000909,
        "rate_display": "0.09%",
        "lvli": [
         "00698825"
        ],
-       "kind": "event",
        "conditions": []
       },
       {
-       "route": "Mutated Public Events - Single Mutation",
-       "source_type": "event-quest",
+       "route": "Mutated Package",
+       "source_type": "container",
        "rate": 0.000455,
        "rate_display": "0.05%",
        "lvli": [
         "0067F378"
        ],
-       "kind": "event",
        "conditions": []
       }
      ],
@@ -1280,16 +1010,13 @@
      "cut_reason": null,
      "obtain_ledger": [
       {
-       "label": "Events & Activities",
+       "label": "Containers",
        "routes": [
         0,
-        1,
-        2,
-        3
+        1
        ]
       }
      ],
-     "source_tag": "Events",
      "images": [
       "t-60-headlamp"
      ],
@@ -1299,7 +1026,8 @@
      "armour_role": "mod",
      "armour_group": "T-60",
      "armour_group_key": "t-60",
-     "armour_group_solo": false
+     "armour_group_solo": false,
+     "source_tag": "Loot"
     },
     {
      "kind": "plan",
@@ -1313,47 +1041,23 @@
      "category_label": "Armour Mod / Paint",
      "obtain_routes": [
       {
-       "route": "Mutated Public Events - Ultra Rare Plans",
-       "source_type": "event-quest",
-       "rate": 0.018182,
-       "rate_display": "1.82%",
-       "lvli": [
-        "00690651"
-       ],
-       "kind": "event",
-       "conditions": []
-      },
-      {
-       "route": "Mutated Public Events - Chase Items",
-       "source_type": "event-quest",
-       "rate": 0.001818,
-       "rate_display": "0.18%",
-       "lvli": [
-        "0069157A"
-       ],
-       "kind": "event",
-       "conditions": []
-      },
-      {
-       "route": "Mutated Public Events - Single Mutation Fallout1st",
-       "source_type": "event-quest",
+       "route": "Mutated Party Pack",
+       "source_type": "container",
        "rate": 0.000909,
        "rate_display": "0.09%",
        "lvli": [
         "00698825"
        ],
-       "kind": "event",
        "conditions": []
       },
       {
-       "route": "Mutated Public Events - Single Mutation",
-       "source_type": "event-quest",
+       "route": "Mutated Package",
+       "source_type": "container",
        "rate": 0.000455,
        "rate_display": "0.05%",
        "lvli": [
         "0067F378"
        ],
-       "kind": "event",
        "conditions": []
       }
      ],
@@ -1378,16 +1082,13 @@
      "cut_reason": null,
      "obtain_ledger": [
       {
-       "label": "Events & Activities",
+       "label": "Containers",
        "routes": [
         0,
-        1,
-        2,
-        3
+        1
        ]
       }
      ],
-     "source_tag": "Events",
      "images": [
       "t-60-headlamp"
      ],
@@ -1397,7 +1098,8 @@
      "armour_role": "mod",
      "armour_group": "T-60",
      "armour_group_key": "t-60",
-     "armour_group_solo": false
+     "armour_group_solo": false,
+     "source_tag": "Loot"
     },
     {
      "kind": "plan",
@@ -1411,47 +1113,23 @@
      "category_label": "Weapon Mod / Paint",
      "obtain_routes": [
       {
-       "route": "Mutated Public Events - Chase Items",
-       "source_type": "event-quest",
-       "rate": 0.012821,
-       "rate_display": "1.28%",
-       "lvli": [
-        "0069157A"
-       ],
-       "kind": "event",
-       "conditions": []
-      },
-      {
-       "route": "Mutated Public Events - Rare Plans",
-       "source_type": "event-quest",
-       "rate": 0.012821,
-       "rate_display": "1.28%",
-       "lvli": [
-        "00690653"
-       ],
-       "kind": "event",
-       "conditions": []
-      },
-      {
-       "route": "Mutated Public Events - Single Mutation Fallout1st",
-       "source_type": "event-quest",
+       "route": "Mutated Party Pack",
+       "source_type": "container",
        "rate": 0.00641,
        "rate_display": "0.64%",
        "lvli": [
         "00698825"
        ],
-       "kind": "event",
        "conditions": []
       },
       {
-       "route": "Mutated Public Events - Single Mutation",
-       "source_type": "event-quest",
+       "route": "Mutated Package",
+       "source_type": "container",
        "rate": 0.003205,
        "rate_display": "0.32%",
        "lvli": [
         "0067F378"
        ],
-       "kind": "event",
        "conditions": []
       }
      ],
@@ -1476,17 +1154,13 @@
      "cut_reason": null,
      "obtain_ledger": [
       {
-       "label": "Events & Activities",
+       "label": "Containers",
        "routes": [
         0,
-        1,
-        2,
-        3
+        1
        ]
       }
      ],
-     "source_tag": "Events",
-     "display_name": "Plan: The Fixer Combat Rifle Paint",
      "images": [
       "combat-rifle-the-fixer-paint"
      ],
@@ -1496,7 +1170,9 @@
      "weapon_role": "skin",
      "weapon_group": "Combat Rifle",
      "weapon_group_key": "combat-rifle",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Loot",
+     "display_name": "Plan: The Fixer Combat Rifle Paint"
     },
     {
      "kind": "plan",
@@ -1509,19 +1185,6 @@
      "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
      "category_label": "Weapon Mod / Paint",
      "obtain_routes": [
-      {
-       "route": "Daily Ops - High Chase Rare",
-       "source_type": "event-quest",
-       "rate": 0.02439,
-       "rate_display": "2.44%",
-       "lvli": [
-        "005D080E"
-       ],
-       "kind": "event",
-       "conditions": [
-        "Level 50 and above"
-       ]
-      },
       {
        "route": "Daily Ops - Chase",
        "source_type": "event-quest",
@@ -1561,12 +1224,10 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1
+        0
        ]
       }
      ],
-     "source_tag": "Ops",
      "images": [],
      "image_source": "",
      "plan_page": "weapon",
@@ -1574,7 +1235,8 @@
      "weapon_role": "skin",
      "weapon_group": "Deathclaw Gauntlet",
      "weapon_group_key": "deathclaw-gauntlet",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Ops"
     },
     {
      "kind": "plan",
@@ -1626,8 +1288,6 @@
        ]
       }
      ],
-     "source_tag": "Events",
-     "display_name": "Plan: V63-BERTHA Laser Gun Paint",
      "images": [
       "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
      ],
@@ -1637,7 +1297,9 @@
      "weapon_role": "skin",
      "weapon_group": "Laser Gun V63-BERTHA",
      "weapon_group_key": "laser-gun-v63-bertha",
-     "weapon_group_solo": true
+     "weapon_group_solo": true,
+     "source_tag": "Events",
+     "display_name": "Plan: V63-BERTHA Laser Gun Paint"
     },
     {
      "kind": "plan",
@@ -1689,8 +1351,6 @@
        ]
       }
      ],
-     "source_tag": "Events",
-     "display_name": "Plan: V63-OLGA Laser Gun Paint",
      "images": [],
      "image_source": "",
      "plan_page": "weapon",
@@ -1698,7 +1358,9 @@
      "weapon_role": "skin",
      "weapon_group": "Laser Gun",
      "weapon_group_key": "laser-gun",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Events",
+     "display_name": "Plan: V63-OLGA Laser Gun Paint"
     },
     {
      "kind": "plan",
@@ -1711,19 +1373,6 @@
      "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
      "category_label": "Weapon Mod / Paint",
      "obtain_routes": [
-      {
-       "route": "Daily Ops - High Chase Rare",
-       "source_type": "event-quest",
-       "rate": 0.02439,
-       "rate_display": "2.44%",
-       "lvli": [
-        "005D080E"
-       ],
-       "kind": "event",
-       "conditions": [
-        "Level 50 and above"
-       ]
-      },
       {
        "route": "Daily Ops - Chase",
        "source_type": "event-quest",
@@ -1763,12 +1412,10 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1
+        0
        ]
       }
      ],
-     "source_tag": "Ops",
      "images": [],
      "image_source": "",
      "plan_page": "weapon",
@@ -1776,7 +1423,8 @@
      "weapon_role": "skin",
      "weapon_group": "Assault Rifle",
      "weapon_group_key": "assault-rifle",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Ops"
     }
    ]
   },
@@ -1806,33 +1454,6 @@
      "category_label": "Weapon (physical plan)",
      "obtain_routes": [
       {
-       "route": "Liberator",
-       "source_type": "creature",
-       "rate": 0.03,
-       "rate_display": "3%",
-       "lvli": [
-        "00109F98",
-        "00377D06"
-       ],
-       "kind": "enemy",
-       "conditions": [
-        "Stops dropping once you learn it"
-       ]
-      },
-      {
-       "route": "Daily Ops - High Chase Rare",
-       "source_type": "event-quest",
-       "rate": 0.02439,
-       "rate_display": "2.44%",
-       "lvli": [
-        "005D080E"
-       ],
-       "kind": "event",
-       "conditions": [
-        "Level 50 and above"
-       ]
-      },
-      {
        "route": "Daily Ops - Chase",
        "source_type": "event-quest",
        "rate": 0.011585,
@@ -1853,21 +1474,7 @@
        "rate": 0.006,
        "rate_display": "0.6%",
        "lvli": [
-        "00109F98",
-        "00377D06"
-       ],
-       "kind": "enemy",
-       "conditions": [
-        "Stops dropping once you learn it"
-       ]
-      },
-      {
-       "route": "Robot Liberator",
-       "source_type": "creature",
-       "rate": 0.006,
-       "rate_display": "0.6%",
-       "lvli": [
-        "0038232C"
+        "00109F98"
        ],
        "kind": "enemy",
        "conditions": [
@@ -1898,20 +1505,16 @@
       {
        "label": "Enemies",
        "routes": [
-        0,
-        3,
-        4
+        1
        ]
       },
       {
        "label": "Events & Activities",
        "routes": [
-        1,
-        2
+        0
        ]
       }
      ],
-     "source_tag": "Enemy",
      "images": [],
      "image_source": "",
      "plan_page": "weapon",
@@ -1919,7 +1522,8 @@
      "weapon_role": "base",
      "weapon_group": "Commie Whacker",
      "weapon_group_key": "commie-whacker",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Ops"
     },
     {
      "kind": "plan",
@@ -1932,19 +1536,6 @@
      "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
      "category_label": "Weapon Mod / Paint",
      "obtain_routes": [
-      {
-       "route": "Daily Ops - High Chase Rare",
-       "source_type": "event-quest",
-       "rate": 0.02439,
-       "rate_display": "2.44%",
-       "lvli": [
-        "005D080E"
-       ],
-       "kind": "event",
-       "conditions": [
-        "Level 50 and above"
-       ]
-      },
       {
        "route": "Daily Ops - Chase",
        "source_type": "event-quest",
@@ -1984,12 +1575,10 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1
+        0
        ]
       }
      ],
-     "source_tag": "Ops",
      "images": [],
      "image_source": "",
      "plan_page": "weapon",
@@ -1997,7 +1586,8 @@
      "weapon_role": "skin",
      "weapon_group": "Power Fist",
      "weapon_group_key": "power-fist",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Ops"
     },
     {
      "kind": "plan",
@@ -2013,23 +1603,12 @@
       {
        "route": "Event: Most Wanted",
        "source_type": "event-quest",
-       "rate": 0.055556,
-       "rate_display": "5.56%",
-       "lvli": [
-        "0068B8EA"
-       ],
-       "kind": "event",
-       "conditions": []
-      },
-      {
-       "route": "Event: Most Wanted - GWWS",
-       "source_type": "event-quest",
        "rate": 0.027778,
        "rate_display": "2.78%",
        "lvli": [
-        "0065E293",
-        "00660860"
+        "0065E293"
        ],
+       "quest_reward": true,
        "kind": "event",
        "conditions": []
       }
@@ -2057,12 +1636,10 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1
+        0
        ]
       }
      ],
-     "source_tag": "Events",
      "images": [],
      "image_source": "",
      "plan_page": "weapon",
@@ -2070,7 +1647,8 @@
      "weapon_role": "skin",
      "weapon_group": "Single Action Revolver",
      "weapon_group_key": "single-action-revolver",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Events"
     },
     {
      "kind": "plan",
@@ -2086,27 +1664,10 @@
       {
        "route": "Event: Tunnel Of Love",
        "source_type": "event-quest",
-       "rate": 0.016667,
-       "rate_display": "1.67%",
-       "lvli": [
-        "006772EB",
-        "006772EC",
-        "0068B8E9"
-       ],
-       "kind": "event",
-       "conditions": [
-        "Stops dropping once you learn it"
-       ]
-      },
-      {
-       "route": "Event: Tunnel Of Love",
-       "source_type": "event-quest",
        "rate": 0.008333,
        "rate_display": "0.83%",
        "lvli": [
-        "006772EB",
-        "006772EC",
-        "0068B8E9"
+        "006772EB"
        ],
        "kind": "event",
        "conditions": [
@@ -2137,12 +1698,10 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1
+        0
        ]
       }
      ],
-     "source_tag": "Events",
      "images": [],
      "image_source": "",
      "plan_page": "weapon",
@@ -2150,7 +1709,8 @@
      "weapon_role": "skin",
      "weapon_group": "Submachine Gun",
      "weapon_group_key": "submachine-gun",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Events"
     },
     {
      "kind": "plan",
@@ -2166,23 +1726,12 @@
       {
        "route": "Event: Most Wanted",
        "source_type": "event-quest",
-       "rate": 0.055556,
-       "rate_display": "5.56%",
-       "lvli": [
-        "0068B8EA"
-       ],
-       "kind": "event",
-       "conditions": []
-      },
-      {
-       "route": "Event: Most Wanted - GWWS",
-       "source_type": "event-quest",
        "rate": 0.027778,
        "rate_display": "2.78%",
        "lvli": [
-        "0065E293",
-        "00660860"
+        "0065E293"
        ],
+       "quest_reward": true,
        "kind": "event",
        "conditions": []
       }
@@ -2206,16 +1755,15 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1
+        0
        ]
       }
      ],
-     "source_tag": "Events",
      "images": [],
      "image_source": "",
      "plan_page": "snow-globes",
-     "plan_page_group": null
+     "plan_page_group": null,
+     "source_tag": "Events"
     },
     {
      "kind": "plan",
@@ -2228,43 +1776,6 @@
      "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
      "category_label": "Weapon Mod / Paint",
      "obtain_routes": [
-      {
-       "route": "Weapons Common",
-       "source_type": "event-quest",
-       "rate": 0.017241,
-       "rate_display": "1.72%",
-       "lvli": [
-        "005D9CC2"
-       ],
-       "kind": "event",
-       "conditions": []
-      },
-      {
-       "route": "Daily Ops - Low Chase Rare",
-       "source_type": "event-quest",
-       "rate": 0.008621,
-       "rate_display": "0.86%",
-       "lvli": [
-        "005D9CBC"
-       ],
-       "kind": "event",
-       "conditions": [
-        "Level 49 and below"
-       ]
-      },
-      {
-       "route": "Daily Ops - Rare",
-       "source_type": "event-quest",
-       "rate": 0.008621,
-       "rate_display": "0.86%",
-       "lvli": [
-        "005D9CBF"
-       ],
-       "kind": "event",
-       "conditions": [
-        "Level 49 and below"
-       ]
-      },
       {
        "route": "Daily Ops - Chase",
        "source_type": "event-quest",
@@ -2304,14 +1815,10 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1,
-        2,
-        3
+        0
        ]
       }
      ],
-     "source_tag": "Activities",
      "images": [
       "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
      ],
@@ -2321,7 +1828,8 @@
      "weapon_role": "mod",
      "weapon_group": "Railway Rifle",
      "weapon_group_key": "railway-rifle",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Ops"
     },
     {
      "kind": "plan",
@@ -2373,7 +1881,6 @@
        ]
       }
      ],
-     "source_tag": "Events",
      "images": [],
      "image_source": "",
      "plan_page": "weapon",
@@ -2381,7 +1888,8 @@
      "weapon_role": "skin",
      "weapon_group": "Baton",
      "weapon_group_key": "baton",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Events"
     },
     {
      "kind": "plan",
@@ -2433,8 +1941,6 @@
        ]
       }
      ],
-     "source_tag": "Events",
-     "display_name": "Plan: V63-HELGA Gatling Laser Paint",
      "images": [],
      "image_source": "",
      "plan_page": "weapon",
@@ -2442,7 +1948,9 @@
      "weapon_role": "skin",
      "weapon_group": "Gatling Laser",
      "weapon_group_key": "gatling-laser",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Events",
+     "display_name": "Plan: V63-HELGA Gatling Laser Paint"
     },
     {
      "kind": "plan",
@@ -2494,8 +2002,6 @@
        ]
       }
      ],
-     "source_tag": "Events",
-     "display_name": "Plan: V63-OLGA Laser Gun Paint",
      "images": [],
      "image_source": "",
      "plan_page": "weapon",
@@ -2503,7 +2009,9 @@
      "weapon_role": "skin",
      "weapon_group": "Laser Gun",
      "weapon_group_key": "laser-gun",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Events",
+     "display_name": "Plan: V63-OLGA Laser Gun Paint"
     },
     {
      "kind": "plan",
@@ -2519,23 +2027,12 @@
       {
        "route": "Event: Most Wanted",
        "source_type": "event-quest",
-       "rate": 0.055556,
-       "rate_display": "5.56%",
-       "lvli": [
-        "0068B8EA"
-       ],
-       "kind": "event",
-       "conditions": []
-      },
-      {
-       "route": "Event: Most Wanted - GWWS",
-       "source_type": "event-quest",
        "rate": 0.027778,
        "rate_display": "2.78%",
        "lvli": [
-        "0065E293",
-        "00660860"
+        "0065E293"
        ],
+       "quest_reward": true,
        "kind": "event",
        "conditions": []
       }
@@ -2563,12 +2060,10 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1
+        0
        ]
       }
      ],
-     "source_tag": "Events",
      "images": [],
      "image_source": "",
      "plan_page": "weapon",
@@ -2576,7 +2071,8 @@
      "weapon_role": "skin",
      "weapon_group": "Lever Gun",
      "weapon_group_key": "lever-gun",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Events"
     },
     {
      "kind": "plan",
@@ -2592,25 +2088,10 @@
       {
        "route": "Event: Spin The Wheel",
        "source_type": "event-quest",
-       "rate": 0.071429,
-       "rate_display": "7.14%",
-       "lvli": [
-        "00647B22",
-        "00647B23",
-        "0068B8E8"
-       ],
-       "kind": "event",
-       "conditions": []
-      },
-      {
-       "route": "Event: Spin The Wheel",
-       "source_type": "event-quest",
        "rate": 0.035714,
        "rate_display": "3.57%",
        "lvli": [
-        "00647B22",
-        "00647B23",
-        "0068B8E8"
+        "00647B22"
        ],
        "kind": "event",
        "conditions": []
@@ -2639,12 +2120,10 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1
+        0
        ]
       }
      ],
-     "source_tag": "Events",
      "images": [],
      "image_source": "",
      "plan_page": "weapon",
@@ -2652,13 +2131,14 @@
      "weapon_role": "skin",
      "weapon_group": "Super Sledge",
      "weapon_group_key": "super-sledge",
-     "weapon_group_solo": false
+     "weapon_group_solo": false,
+     "source_tag": "Events"
     }
    ]
   }
  ],
  "_meta": {
-  "built": "2026-10-06T07:45:38Z",
+  "built": "2026-10-06T18:53:19Z",
   "master": "plan_master.json"
  }
 }

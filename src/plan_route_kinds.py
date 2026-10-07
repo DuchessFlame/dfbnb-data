@@ -108,12 +108,17 @@ class Ctx:
                 rd = csv.reader(f, delimiter="\t", quoting=csv.QUOTE_NONE)
                 head = next(rd)
                 ix = [i for i, h in enumerate(head) if re.match(r"^Ref_?\d+$", h)]
+                # The Ref columns are one contiguous run (Ref1..RefN, thousands
+                # wide); slicing the row is the same answer as walking every
+                # index for every row, without the 22-second load (6 Oct 2026).
+                run = bool(ix) and ix == list(range(ix[0], ix[0] + len(ix)))
                 for row in rd:
                     if not row:
                         continue
                     fid = row[0].strip().upper()
-                    self.parents[fid] = [_split_ref(row[i]) for i in ix
-                                         if i < len(row) and row[i].strip()]
+                    cells = (row[ix[0]:ix[0] + len(ix)] if run
+                             else [row[i] for i in ix if i < len(row)])
+                    self.parents[fid] = [_split_ref(c) for c in cells if c.strip()]
         p = _newest(root, "GMRW_Export_*.tsv")
         if p:
             with open(p, encoding="utf-8", errors="replace", newline="") as f:

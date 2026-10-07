@@ -1,6 +1,6 @@
 {
  "_generated_by": "src/build_bugged_plans_json.py",
- "generated": "2026-10-06",
+ "generated": "2026-10-07",
  "channel": "live",
  "exports": {
   "WEAP": "WEAP_Export_October_2026_Base.tsv",
@@ -20,7 +20,7 @@
   "dead_entries_shadowed_switch": 6,
   "dead_entries_never_rolls": 60,
   "dead_entries_shadowed": 6,
-  "lists_live": 8810,
+  "lists_live": 8723,
   "plans_scanned": 2963,
   "plans_cut": 307,
   "plans_via_unreferenced_gmrw": 27,
@@ -31,16 +31,100 @@
   "titles_checked": 52
  },
  "counts": {
-  "total": 20,
-  "unobtainable": 17,
+  "total": 24,
+  "unobtainable": 21,
   "broken_item": 3,
+  "conf_check": 11,
   "conf_strong": 13,
-  "conf_check": 7,
   "confirmed": 0,
   "titles": 0,
-  "plans": 20
+  "plans": 24
  },
  "items": [
+  {
+   "id": "006369C3",
+   "name": "Plan: BOS Combat Armor Paint",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "007AC78E",
+       "edid": "LL_BoS_Recipes",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Brotherhood of Steel reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LL_BoS_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Brotherhood of Steel."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "006369C3",
+     "edid": "Recipe_mod_armor_Combat_Material_Paint_BOS_NW",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "006369C9",
+      "edid": "co_CondProxy_mod_Armor_Combat_Material_Paint_BOS",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-07",
+   "is_new": true
+  },
+  {
+   "id": "006369BD",
+   "name": "Plan: BOS Leather Armor Paint",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "007AC78E",
+       "edid": "LL_BoS_Recipes",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Brotherhood of Steel reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LL_BoS_Recipes) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Brotherhood of Steel."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "006369BD",
+     "edid": "Recipe_mod_armor_Leather_Material_Paint_BOS_NW",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "006369D8",
+      "edid": "co_CondProxy_mod_Armor_Leather_Material_Paint_BOS",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-07",
+   "is_new": true
+  },
   {
    "id": "0068B8F0",
    "name": "Recipe: Brahmin Burgers",
@@ -527,6 +611,90 @@
    "confirmed": false,
    "first_seen": "2026-09-23",
    "is_new": false
+  },
+  {
+   "id": "003FC7E2",
+   "name": "Plan: Pioneer Scout Banner: Squirrel",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "007AC79C",
+       "edid": "LL_Recipes_PioneerScout",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Pioneer Scout reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LL_Recipes_PioneerScout) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Pioneer Scout."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "003FC7E2",
+     "edid": "P01C_Tadpole_Recipe_Workshop_FloorDecor_Misc_PioneerScout_Squirrel",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00428A4B",
+      "edid": "workshop_co_CondProxy_FloorDecor_TadpoleRankBanner_Squirrel_01",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-07",
+   "is_new": true
+  },
+  {
+   "id": "0042E728",
+   "name": "Plan: Pioneer Scout Poster",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "007AC79C",
+       "edid": "LL_Recipes_PioneerScout",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Pioneer Scout reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LL_Recipes_PioneerScout) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Pioneer Scout."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0042E728",
+     "edid": "P01C_Tadpole_Recipe_Workshop_WallDecor_Posters_PioneerScout",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0042B032",
+      "edid": "workshop_co_CondProxy_WallDecor_Posters_PioneerScouts",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-07",
+   "is_new": true
   },
   {
    "id": "0086DBE5",

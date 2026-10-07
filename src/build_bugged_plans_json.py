@@ -138,7 +138,14 @@ def split_ref(ref):
 
 def is_dev(edid):
     e = (edid or "").strip()
-    return bool(e) and (plan_sources.is_dev_record(e) or bool(RX_DEV.search(e)))
+    return bool(e) and (plan_sources.is_dev_record(e) or bool(RX_DEV.search(e))
+                        or bool(plan_sources.cut_source(e)))
+
+
+def _cut_why(edid):
+    """'cut source' for a confirmed-cut source (plan_sources.CONFIRMED_CUT_SOURCES,
+    e.g. the Mole Miner Mystery Crate), else the generic 'cut list'."""
+    return "cut source" if plan_sources.cut_source(edid) else "cut list"
 
 
 def fnum(s):
@@ -870,14 +877,14 @@ def route_dead_reasons(scan, fids):
     why = set()
     for f in known:
         if is_dev(scan.lvli[f]["edid"]):
-            why.add("cut list")
+            why.add(_cut_why(scan.lvli[f]["edid"]))
         for rr in scan.why_unreached(f):
             if rr["kind"] == "dead_edge":
                 why.add("entry can never roll")
             elif rr["kind"] == "orphan":
                 e = scan.lvli[rr["list"]]["edid"]
                 if is_dev(e):
-                    why.add("cut list")
+                    why.add(_cut_why(e))
                 elif RX_PARKED.search(e):
                     why.add("parked list (cut, not marked)")
                 elif scan.orphan_is_strong(e):
@@ -904,14 +911,14 @@ def checklist_dead_routes(scan, master_path):
             why = set()
             for f in known:
                 if is_dev(scan.lvli[f]["edid"]):
-                    why.add("cut list")
+                    why.add(_cut_why(scan.lvli[f]["edid"]))
                 for rr in scan.why_unreached(f):
                     if rr["kind"] == "dead_edge":
                         why.add("entry can never roll")
                     elif rr["kind"] == "orphan":
                         e = scan.lvli[rr["list"]]["edid"]
                         if is_dev(e):
-                            why.add("cut list")
+                            why.add(_cut_why(e))
                         elif RX_PARKED.search(e):
                             why.add("parked list (cut, not marked)")
                         elif scan.orphan_is_strong(e):

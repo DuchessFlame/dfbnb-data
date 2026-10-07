@@ -67,7 +67,10 @@ SEASONAL_ALIASES = ["spooky", "halloween", "holiday", "festive", "fasnacht",
 #     Mutation, each with a Fallout 1st variant); the lists are opened by the
 #     MutatedEvents_Package_* effects, not rolled by the event itself.
 #   Bounty Hunting — Head Hunts and Grunt Hunts.
-_RX_MUTATED = re.compile(r"mutated public events?|mutatedevents", re.I)
+# Since the 6 Oct 2026 route fix the packs route under the item the player
+# opens ("Mutated Party Pack", "Double Mutated Package") instead of the inner
+# "Mutated Public Events - ..." lists, so both spellings file here.
+_RX_MUTATED = re.compile(r"mutated public events?|mutatedevents|mutated (?:party pack|package)", re.I)
 _RX_INFEST = re.compile(r"infestation", re.I)
 _RX_CRASHER = re.compile(r"party crasher", re.I)
 _RX_BOUNTY = re.compile(r"head hunt|grunt hunt|bounty", re.I)

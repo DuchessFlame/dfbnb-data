@@ -64,6 +64,12 @@ def scan_for(tsv_dir):
     return _SCAN[key]
 
 
+def cut_source_reason(scan, lvli_fid):
+    """plan_sources.cut_source() reason for a list FormID, via its EditorID."""
+    rec = scan.lvli.get(str(lvli_fid).upper())
+    return plan_sources.cut_source(rec["edid"]) if rec else None
+
+
 def attach(items, tsv_dir):
     scan = scan_for(tsv_dir)
     stats = collections.Counter()
@@ -88,6 +94,21 @@ def attach(items, tsv_dir):
         stats["routes"] += len(gone)
         if not keep and not (it.get("obtain_unlocks") or []):
             stats["rows_left_with_nothing"] += 1
+            # Every source this plan had is a CONFIRMED cut source (Mole Miner
+            # Mystery Crate — plan_sources.CONFIRMED_CUT_SOURCES): the plan is
+            # cut content, so it moves under the Cut filter and out of the
+            # progress total, same as a cut_reason() plan. Only when ALL its
+            # retired routes are cut sources — one other dead reason and the
+            # plan stays live (red, on Bugged Plans) for a person to look at.
+            if not it.get("cut") and all(
+                    set(g["retired_because"]) == {"cut source"}
+                    for g in it["retired_routes"]):
+                lists = [l for g in it["retired_routes"] for l in (g.get("lvli") or [])]
+                why = sorted({w for w in (cut_source_reason(scan, l) for l in lists) if w})
+                it["cut"] = True
+                it["cut_reason"] = ("its only source in the game files is cut — "
+                                    + "; ".join(why or ["cut source"]))
+                stats["rows_made_cut"] += 1
         for g in gone:
             for w in g["retired_because"]:
                 stats["why: " + w] += 1
@@ -101,7 +122,8 @@ def report(stats, stream=None):
     stream = stream or sys.stdout
     ex = stats.pop("_examples", [])
     print(f"  retired {stats.get('routes', 0)} dead route(s) on {stats.get('rows', 0)} plan(s); "
-          f"{stats.get('rows_left_with_nothing', 0)} now have no source at all", file=stream)
+          f"{stats.get('rows_left_with_nothing', 0)} now have no source at all "
+          f"({stats.get('rows_made_cut', 0)} marked cut: only a confirmed-cut source)", file=stream)
     for k in sorted(k for k in stats if k.startswith("why: ")):
         print(f"    {k[5:]:32s} {stats[k]}", file=stream)
     for e in ex:
