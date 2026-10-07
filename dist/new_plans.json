@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated": "2026-10-07T06:36:26.151633+00:00",
+  "generated": "2026-10-07T14:08:22.354939+00:00",
   "mode": "vs-season",
   "season": {
     "key": "SCORE_S26",
@@ -7931,13 +7931,13 @@
         {
           "kind": "plan",
           "brand": "df",
-          "type": "recipe",
+          "type": "weapon",
           "id": "PLAN_00930841",
           "name": "Plan: Piercing Love",
-          "has_image_box": false,
-          "image_dir": "recipes",
+          "has_image_box": true,
+          "image_dir": "weapons",
           "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-          "category_label": "CAMP / Recipe (mod/recipe)",
+          "category_label": "Weapon (physical plan)",
           "obtain_routes": [
             {
               "route": "Mortimer (Raiders Gold Bullion vendor)",
@@ -7959,7 +7959,11 @@
             "formid": "00930843",
             "edid": "SCORE_MiniSeason_LoveHurts_co_Weapon_CompoundBow_PiercingLove_GoldVendor"
           },
-          "cnam": null,
+          "cnam": {
+            "formid": "00013CE9",
+            "edid": "CompoundBow",
+            "sig": "WEAP"
+          },
           "tradeable": false,
           "stops_dropping": false,
           "effects": null,
@@ -7975,11 +7979,15 @@
           ],
           "source_tag": "Gold",
           "images": [
-            "/wp-content/uploads/guide-images/plan-checklist/weapons/piercing-love.avif"
+            "piercing-love"
           ],
-          "image_source": "staged-elsewhere",
-          "plan_page": "camp",
-          "plan_page_group": "Needs Sorting",
+          "image_source": "staged",
+          "plan_page": "weapon",
+          "plan_page_group": null,
+          "weapon_role": "base",
+          "weapon_group": "Compound Bow",
+          "weapon_group_key": "compound-bow",
+          "weapon_group_solo": false,
           "group": "gold",
           "is_new": true,
           "source_group": "gold",
