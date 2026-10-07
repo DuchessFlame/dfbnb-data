@@ -38,7 +38,7 @@ import re
 
 # Order matters twice over: it is the tie-break when two routes share the best
 # rate, and it is the order the label tests run in.
-TAG_ORDER = ["Default", "Ops", "Expos", "Raids", "Events", "Activities",
+TAG_ORDER = ["Default", "Pickup", "Ops", "Expos", "Raids", "Events", "Activities",
              "CHAL", "Quest", "Workshop", "Scrap",
              "Gold", "Atom", "Vendor", "Loot", "Enemy", "Fixed"]
 _RANK = {t: i for i, t in enumerate(TAG_ORDER)}
@@ -103,6 +103,8 @@ def source_tag(item):
     # Known-by-default weapons (plan_recipe_rows) have no source at all.
     if item.get("known_by_default"):
         return "Default"
+    if item.get("pickup_learned"):
+        return "Pickup"
     best = None      # (rate, -rank, tag)
     for r in item.get("obtain_routes") or []:
         tag = tag_for_route(r)

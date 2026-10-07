@@ -183,6 +183,8 @@ _RX_DEFAULT_COBJ = re.compile(r"^co_Weapon_(Ranged|Melee|Thrown)_", re.I)
 _RX_DEFAULT_SKIP = re.compile(r"nocraft|repaironly|copy|test|questreward", re.I)
 DEFAULT_OBTAIN = ("Known by default — there is no plan to find. Every character "
                   "can craft this at a weapons workbench from the start.")
+PICKUP_OBTAIN = ("There is no plan to find — you learn to craft this the first time "
+                 "you pick one up.")
 QUEST_OBTAIN = ("There is no plan to find — you learn this automatically when you "
                 "complete the quest below.")
 # Recipes that are not "known by default" in spirit even when the COBJ2 file is
@@ -246,7 +248,15 @@ def _build_default_weapons(items, cobj_idx, unlocks, stats):
         quest = (cr.get("Quest_FULL") or cr.get("Quest_EDID") or "").strip()
         n_cond = int((cr.get("CondCount") or "0").strip() or 0) if cr else 0
         unlock = unlocks.unlock_for(co_fid)
-        if quest:
+        lrnm = (cr.get("LRNM_LearnMethod") or "").strip().lower()
+        pickup = (not quest) and lrnm.startswith("learned when picked up")
+        if pickup:
+            # Blade of Bastet / Voice of Set: LRNM "Learned when picked up or by
+            # script" — you know the recipe once you have held one. Their only
+            # condition (GetItemHealthPercent) is about the item, not the player.
+            if unlock and unlock.get("kind") not in (plan_unlocks.SCRIPT,):
+                continue
+        elif quest:
             # Quest-taught: a GNAM, if any, is only the "learned via script"
             # placeholder (Blade of Bastet / Voice of Set).
             if unlock and unlock.get("kind") not in (plan_unlocks.SCRIPT,):
@@ -264,6 +274,27 @@ def _build_default_weapons(items, cobj_idx, unlocks, stats):
         if not full:
             continue
         seen.add(cnam)
+        if pickup:
+            row = {
+                "kind": "plan", "recipe_only": True, "pickup_learned": True,
+                "brand": "df", "type": "weapon",
+                "id": f"RECIPE_{co_fid}", "name": DEFAULT_NAMES.get(full, full),
+                "has_image_box": True, "image_dir": "",
+                "obtain": PICKUP_OBTAIN,
+                "category_label": "Weapon (learned on pick-up)",
+                "obtain_routes": [], "obtain_unlocks": [],
+                "plan_item": None,
+                "cobj": {"formid": co_fid, "edid": edid},
+                "cnam": {"formid": cnam, "edid": c.get("cnam_edid") or "", "sig": "WEAP"},
+                "tradeable": None, "stops_dropping": None, "effects": None,
+                "cut": False, "cut_reason": None,
+                "changes": [], "source_tag": "Pickup",
+            }
+            row["image_dir"] = plan_images.page_folder(row) or "weapons"
+            row["obtain_ledger"] = []
+            rows.append(row)
+            stats["pickup_learned_emitted"] += 1
+            continue
         if quest:
             sentence = f"Learned automatically when you complete the quest: {quest}."
             row = {
@@ -277,7 +308,9 @@ def _build_default_weapons(items, cobj_idx, unlocks, stats):
                 "plan_item": None,
                 "cobj": {"formid": co_fid, "edid": edid},
                 "cnam": {"formid": cnam, "edid": c.get("cnam_edid") or "", "sig": "WEAP"},
-                "tradeable": None, "stops_dropping": None, "effects": None,
+                # No plan item exists, so nothing can change hands (same call
+                # as scrap-to-learn rows) — False, not an "Unknown" pill.
+                "tradeable": False, "stops_dropping": None, "effects": None,
                 "cut": False, "cut_reason": None,
                 "changes": [], "source_tag": "Quest",
                 "learn_quest": {"formid": cr.get("Quest_FormID") or "",
