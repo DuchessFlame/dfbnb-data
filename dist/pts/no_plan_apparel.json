@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-10-08T07:09:23.164597+00:00",
+ "generated": "2026-10-08T09:41:00.645357+00:00",
  "title": "Apparel Without Plans",
  "h1": "Collectables - Apparel Without Plans Checklist",
  "sub": "Outfits, hats, masks and bandanas that have no plan — you can only get them from drops, containers, vendors, quests and events. Track which ones you have found.",
@@ -364,17 +364,6 @@
        "quest_reward": true,
        "kind": "quest",
        "conditions": []
-      },
-      {
-       "route": "Brotherhood of Steel Vernon Dodge",
-       "source_type": "event-quest",
-       "rate": 0.042857,
-       "rate_display": "4.29%",
-       "lvli": [
-        "005D9D97"
-       ],
-       "kind": "event",
-       "conditions": []
       }
      ],
      "obtain_unlocks": [],
@@ -421,12 +410,6 @@
      "stops_dropping": null,
      "cut": false,
      "obtain_ledger": [
-      {
-       "label": "Events & Activities",
-       "routes": [
-        1
-       ]
-      },
       {
        "label": "Quests",
        "routes": [
@@ -496,6 +479,21 @@
        ]
       },
       {
+       "route": "Brotherhood of Steel Vernon Dodge",
+       "source_type": "event-quest",
+       "rate": 0.042857,
+       "rate_display": "4.29%",
+       "lvli": [
+        "005D9D97"
+       ],
+       "kind": "event",
+       "_target": "00023431",
+       "conditions": [],
+       "retired_because": [
+        "nothing references this list"
+       ]
+      },
+      {
        "route": "Free State Event",
        "source_type": "event-quest",
        "rate": 0.042857,
@@ -556,7 +554,7 @@
        ]
       }
      ],
-     "source_tag": "Activities",
+     "source_tag": "Quest",
      "image_dir": "apparel-without-plans",
      "images": [],
      "image_source": ""
@@ -4961,7 +4959,7 @@
        ]
       },
       {
-       "route": "Gulper Newt",
+       "route": "Gulper",
        "source_type": "creature",
        "rate": 0.024022,
        "rate_display": "2.4%",
@@ -6410,7 +6408,7 @@
        ]
       },
       {
-       "route": "Gulper Newt",
+       "route": "Gulper",
        "source_type": "creature",
        "rate": 0.117253,
        "rate_display": "11.73%",
@@ -6738,13 +6736,14 @@
        "conditions": []
       },
       {
-       "route": "Cap'n (Clothes Whitespring Childrens Toy Shop vendor)",
-       "source_type": "vendor",
+       "route": "Random Encounter: Archaeologist - Archaeologist corpse",
+       "source_type": "creature",
        "rate": 0.333333,
        "rate_display": "33.33%",
        "lvli": [
         "0019CCC4"
        ],
+       "kind": "corpse",
        "conditions": []
       },
       {
@@ -6885,7 +6884,6 @@
       {
        "label": "Caps",
        "routes": [
-        2,
         4,
         5,
         6,
@@ -6900,6 +6898,7 @@
        "routes": [
         1,
         0,
+        2,
         3,
         10
        ]
@@ -7345,17 +7344,6 @@
        "quest_reward": true,
        "kind": "quest",
        "conditions": []
-      },
-      {
-       "route": "Brotherhood of Steel Vernon Dodge",
-       "source_type": "event-quest",
-       "rate": 0.042857,
-       "rate_display": "4.29%",
-       "lvli": [
-        "005D9D97"
-       ],
-       "kind": "event",
-       "conditions": []
       }
      ],
      "obtain_unlocks": [],
@@ -7387,12 +7375,6 @@
      "stops_dropping": null,
      "cut": false,
      "obtain_ledger": [
-      {
-       "label": "Events & Activities",
-       "routes": [
-        1
-       ]
-      },
       {
        "label": "Quests",
        "routes": [
@@ -7459,6 +7441,21 @@
        "conditions": [],
        "retired_because": [
         "cut list"
+       ]
+      },
+      {
+       "route": "Brotherhood of Steel Vernon Dodge",
+       "source_type": "event-quest",
+       "rate": 0.042857,
+       "rate_display": "4.29%",
+       "lvli": [
+        "005D9D97"
+       ],
+       "kind": "event",
+       "_target": "000E1AF6",
+       "conditions": [],
+       "retired_because": [
+        "nothing references this list"
        ]
       },
       {
@@ -7537,7 +7534,7 @@
        ]
       }
      ],
-     "source_tag": "Activities",
+     "source_tag": "Quest",
      "image_dir": "apparel-without-plans",
      "images": [],
      "image_source": ""
@@ -7864,16 +7861,6 @@
         "006820FE"
        ],
        "conditions": []
-      },
-      {
-       "route": "Betty Hill (NWOT vendor)",
-       "source_type": "vendor",
-       "rate": 1.0,
-       "rate_display": "100%",
-       "lvli": [
-        "006820FC"
-       ],
-       "conditions": []
       }
      ],
      "obtain_unlocks": [],
@@ -7913,8 +7900,23 @@
       {
        "label": "Caps",
        "routes": [
-        0,
-        1
+        0
+       ]
+      }
+     ],
+     "retired_routes": [
+      {
+       "route": "Betty Hill (NWOT vendor)",
+       "source_type": "vendor",
+       "rate": 1.0,
+       "rate_display": "100%",
+       "lvli": [
+        "006820FC"
+       ],
+       "_target": "0066937D",
+       "conditions": [],
+       "retired_because": [
+        "nothing references this list"
        ]
       }
      ],
@@ -8853,17 +8855,6 @@
        "quest_reward": true,
        "kind": "quest",
        "conditions": []
-      },
-      {
-       "route": "Brotherhood of Steel Vernon Dodge",
-       "source_type": "event-quest",
-       "rate": 0.042857,
-       "rate_display": "4.29%",
-       "lvli": [
-        "005D9D97"
-       ],
-       "kind": "event",
-       "conditions": []
       }
      ],
      "obtain_unlocks": [
@@ -8915,8 +8906,7 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        2
+        0
        ]
       },
       {
@@ -9003,6 +8993,21 @@
        "conditions": [],
        "retired_because": [
         "cut list"
+       ]
+      },
+      {
+       "route": "Brotherhood of Steel Vernon Dodge",
+       "source_type": "event-quest",
+       "rate": 0.042857,
+       "rate_display": "4.29%",
+       "lvli": [
+        "005D9D97"
+       ],
+       "kind": "event",
+       "_target": "00169523",
+       "conditions": [],
+       "retired_because": [
+        "nothing references this list"
        ]
       },
       {
@@ -9501,23 +9506,23 @@
        "conditions": []
       },
       {
-       "route": "Communist Sympathizer",
-       "source_type": "creature",
-       "rate": 0.03,
-       "rate_display": "3%",
-       "lvli": [
-        "003A0BFF"
-       ],
-       "kind": "enemy",
-       "conditions": []
-      },
-      {
        "route": "Communist Trooper",
        "source_type": "creature",
        "rate": 0.03,
        "rate_display": "3%",
        "lvli": [
         "003A0BFE"
+       ],
+       "kind": "enemy",
+       "conditions": []
+      },
+      {
+       "route": "Gold Varmint",
+       "source_type": "creature",
+       "rate": 0.03,
+       "rate_display": "3%",
+       "lvli": [
+        "003A0BFF"
        ],
        "kind": "enemy",
        "conditions": []
@@ -10311,7 +10316,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -12730,16 +12735,6 @@
        "conditions": []
       },
       {
-       "route": "Armor vendor",
-       "source_type": "vendor",
-       "rate": 0.25,
-       "rate_display": "25%",
-       "lvli": [
-        "003C24EC"
-       ],
-       "conditions": []
-      },
-      {
        "route": "Cunningham (Whitespring Armor Hunting Supplies vendor)",
        "source_type": "vendor",
        "rate": 0.25,
@@ -12831,20 +12826,33 @@
        "routes": [
         0,
         1,
-        2,
-        5,
-        6
+        4,
+        5
        ]
       },
       {
        "label": "Containers",
        "routes": [
-        3,
-        4
+        2,
+        3
        ]
       }
      ],
      "retired_routes": [
+      {
+       "route": "Armor vendor",
+       "source_type": "vendor",
+       "rate": 0.25,
+       "rate_display": "25%",
+       "lvli": [
+        "003C24EC"
+       ],
+       "_target": "000B2D8D",
+       "conditions": [],
+       "retired_because": [
+        "nothing references this list"
+       ]
+      },
       {
        "route": "Mole Miner Mystery Crate",
        "source_type": "event-quest",
@@ -12877,17 +12885,6 @@
      "obtain": "There is no plan for this apparel — it cannot be crafted. You get it ready-made from the sources below. Each drop source shows its resolved chance.",
      "category_label": "Apparel",
      "obtain_routes": [
-      {
-       "route": "EN05",
-       "source_type": "event-quest",
-       "rate": 1.0,
-       "rate_display": "100%",
-       "lvli": [
-        "0034AE15"
-       ],
-       "kind": "event",
-       "conditions": []
-      },
       {
        "route": "Officer on Deck",
        "source_type": "event-quest",
@@ -12958,23 +12955,34 @@
       {
        "label": "Caps",
        "routes": [
-        2
-       ]
-      },
-      {
-       "label": "Events & Activities",
-       "routes": [
-        0
+        1
        ]
       },
       {
        "label": "Quests",
        "routes": [
-        1
+        0
        ]
       }
      ],
-     "source_tag": "Activities",
+     "retired_routes": [
+      {
+       "route": "EN05",
+       "source_type": "event-quest",
+       "rate": 1.0,
+       "rate_display": "100%",
+       "lvli": [
+        "0034AE15"
+       ],
+       "kind": "event",
+       "_target": "002566EC",
+       "conditions": [],
+       "retired_because": [
+        "nothing references this list"
+       ]
+      }
+     ],
+     "source_tag": "Quest",
      "image_dir": "apparel-without-plans",
      "images": [],
      "image_source": ""
@@ -12990,17 +12998,6 @@
      "obtain": "There is no plan for this apparel — it cannot be crafted. You get it ready-made from the sources below. Each drop source shows its resolved chance.",
      "category_label": "Apparel",
      "obtain_routes": [
-      {
-       "route": "EN05",
-       "source_type": "event-quest",
-       "rate": 1.0,
-       "rate_display": "100%",
-       "lvli": [
-        "0034AE15"
-       ],
-       "kind": "event",
-       "conditions": []
-      },
       {
        "route": "Officer on Deck",
        "source_type": "event-quest",
@@ -13071,23 +13068,34 @@
       {
        "label": "Caps",
        "routes": [
-        2
-       ]
-      },
-      {
-       "label": "Events & Activities",
-       "routes": [
-        0
+        1
        ]
       },
       {
        "label": "Quests",
        "routes": [
-        1
+        0
        ]
       }
      ],
-     "source_tag": "Activities",
+     "retired_routes": [
+      {
+       "route": "EN05",
+       "source_type": "event-quest",
+       "rate": 1.0,
+       "rate_display": "100%",
+       "lvli": [
+        "0034AE15"
+       ],
+       "kind": "event",
+       "_target": "002566EA",
+       "conditions": [],
+       "retired_because": [
+        "nothing references this list"
+       ]
+      }
+     ],
+     "source_tag": "Quest",
      "image_dir": "apparel-without-plans",
      "images": [],
      "image_source": ""
@@ -13113,17 +13121,6 @@
        ],
        "quest_reward": true,
        "kind": "quest",
-       "conditions": []
-      },
-      {
-       "route": "Brotherhood of Steel Vernon Dodge",
-       "source_type": "event-quest",
-       "rate": 0.042857,
-       "rate_display": "4.29%",
-       "lvli": [
-        "005D9D97"
-       ],
-       "kind": "event",
        "conditions": []
       }
      ],
@@ -13161,12 +13158,6 @@
      "stops_dropping": null,
      "cut": false,
      "obtain_ledger": [
-      {
-       "label": "Events & Activities",
-       "routes": [
-        1
-       ]
-      },
       {
        "label": "Quests",
        "routes": [
@@ -13236,6 +13227,21 @@
        ]
       },
       {
+       "route": "Brotherhood of Steel Vernon Dodge",
+       "source_type": "event-quest",
+       "rate": 0.042857,
+       "rate_display": "4.29%",
+       "lvli": [
+        "005D9D97"
+       ],
+       "kind": "event",
+       "_target": "000DEDE7",
+       "conditions": [],
+       "retired_because": [
+        "nothing references this list"
+       ]
+      },
+      {
        "route": "Free State Event",
        "source_type": "event-quest",
        "rate": 0.042857,
@@ -13296,7 +13302,7 @@
        ]
       }
      ],
-     "source_tag": "Activities",
+     "source_tag": "Quest",
      "image_dir": "apparel-without-plans",
      "images": [],
      "image_source": ""
@@ -13312,16 +13318,6 @@
      "obtain": "There is no plan for this apparel — it cannot be crafted. You get it ready-made from the sources below. Each drop source shows its resolved chance.",
      "category_label": "Apparel",
      "obtain_routes": [
-      {
-       "route": "Armor vendor",
-       "source_type": "vendor",
-       "rate": 0.25,
-       "rate_display": "25%",
-       "lvli": [
-        "003C24EC"
-       ],
-       "conditions": []
-      },
       {
        "route": "Cunningham (Whitespring Armor Hunting Supplies vendor)",
        "source_type": "vendor",
@@ -13392,15 +13388,30 @@
       {
        "label": "Caps",
        "routes": [
-        0,
-        1
+        0
        ]
       },
       {
        "label": "Containers",
        "routes": [
-        2,
-        3
+        1,
+        2
+       ]
+      }
+     ],
+     "retired_routes": [
+      {
+       "route": "Armor vendor",
+       "source_type": "vendor",
+       "rate": 0.25,
+       "rate_display": "25%",
+       "lvli": [
+        "003C24EC"
+       ],
+       "_target": "000732AC",
+       "conditions": [],
+       "retired_because": [
+        "nothing references this list"
        ]
       }
      ],
@@ -13512,7 +13523,7 @@
        ]
       },
       {
-       "route": "Gulper Newt",
+       "route": "Gulper",
        "source_type": "creature",
        "rate": 0.117253,
        "rate_display": "11.73%",
@@ -15889,7 +15900,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -16019,7 +16030,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -16144,7 +16155,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -16274,7 +16285,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -16404,7 +16415,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -16544,7 +16555,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -16674,7 +16685,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -16809,7 +16820,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -16939,7 +16950,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -17069,7 +17080,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -17199,7 +17210,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -17324,7 +17335,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -17454,7 +17465,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -17579,7 +17590,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -17820,7 +17831,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -17945,7 +17956,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -18075,7 +18086,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -18205,7 +18216,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -18335,7 +18346,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -18465,7 +18476,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -18590,7 +18601,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -18715,7 +18726,7 @@
        "conditions": []
       },
       {
-       "route": "Zetan vs Super Mutants - Alien",
+       "route": "Alien",
        "source_type": "creature",
        "rate": 0.002083,
        "rate_display": "0.21%",
@@ -21463,17 +21474,6 @@
        "quest_reward": true,
        "kind": "quest",
        "conditions": []
-      },
-      {
-       "route": "Brotherhood of Steel Vernon Dodge",
-       "source_type": "event-quest",
-       "rate": 0.042857,
-       "rate_display": "4.29%",
-       "lvli": [
-        "005D9D97"
-       ],
-       "kind": "event",
-       "conditions": []
       }
      ],
      "obtain_unlocks": [],
@@ -21510,12 +21510,6 @@
      "stops_dropping": null,
      "cut": false,
      "obtain_ledger": [
-      {
-       "label": "Events & Activities",
-       "routes": [
-        2
-       ]
-      },
       {
        "label": "Quests",
        "routes": [
@@ -21598,6 +21592,21 @@
        "conditions": [],
        "retired_because": [
         "cut list"
+       ]
+      },
+      {
+       "route": "Brotherhood of Steel Vernon Dodge",
+       "source_type": "event-quest",
+       "rate": 0.042857,
+       "rate_display": "4.29%",
+       "lvli": [
+        "005D9D97"
+       ],
+       "kind": "event",
+       "_target": "000E370E",
+       "conditions": [],
+       "retired_because": [
+        "nothing references this list"
        ]
       },
       {
@@ -23594,13 +23603,14 @@
      "category_label": "Apparel",
      "obtain_routes": [
       {
-       "route": "Cap'n (Clothes Whitespring Childrens Toy Shop vendor)",
-       "source_type": "vendor",
+       "route": "Random Encounter: Archaeologist - Archaeologist corpse",
+       "source_type": "creature",
        "rate": 0.333333,
        "rate_display": "33.33%",
        "lvli": [
         "0019CCC4"
        ],
+       "kind": "corpse",
        "conditions": []
       },
       {
@@ -23759,7 +23769,6 @@
       {
        "label": "Caps",
        "routes": [
-        0,
         2,
         3,
         7,
@@ -23771,6 +23780,7 @@
       {
        "label": "Containers",
        "routes": [
+        0,
         1,
         4,
         5,
@@ -23779,7 +23789,7 @@
        ]
       }
      ],
-     "source_tag": "Vendor",
+     "source_tag": "Loot",
      "image_dir": "apparel-without-plans",
      "images": [],
      "image_source": ""
@@ -24652,7 +24662,7 @@
        ]
       },
       {
-       "route": "Gulper Newt",
+       "route": "Gulper",
        "source_type": "creature",
        "rate": 0.331057,
        "rate_display": "33.11%",
@@ -27753,16 +27763,6 @@
         "006820FE"
        ],
        "conditions": []
-      },
-      {
-       "route": "Betty Hill (NWOT vendor)",
-       "source_type": "vendor",
-       "rate": 1.0,
-       "rate_display": "100%",
-       "lvli": [
-        "006820FC"
-       ],
-       "conditions": []
       }
      ],
      "obtain_unlocks": [],
@@ -27802,8 +27802,23 @@
       {
        "label": "Caps",
        "routes": [
-        0,
-        1
+        0
+       ]
+      }
+     ],
+     "retired_routes": [
+      {
+       "route": "Betty Hill (NWOT vendor)",
+       "source_type": "vendor",
+       "rate": 1.0,
+       "rate_display": "100%",
+       "lvli": [
+        "006820FC"
+       ],
+       "_target": "0066937C",
+       "conditions": [],
+       "retired_because": [
+        "nothing references this list"
        ]
       }
      ],
@@ -27968,16 +27983,6 @@
         "006820FE"
        ],
        "conditions": []
-      },
-      {
-       "route": "Betty Hill (NWOT vendor)",
-       "source_type": "vendor",
-       "rate": 1.0,
-       "rate_display": "100%",
-       "lvli": [
-        "006820FC"
-       ],
-       "conditions": []
       }
      ],
      "obtain_unlocks": [],
@@ -28032,8 +28037,23 @@
       {
        "label": "Caps",
        "routes": [
-        0,
-        1
+        0
+       ]
+      }
+     ],
+     "retired_routes": [
+      {
+       "route": "Betty Hill (NWOT vendor)",
+       "source_type": "vendor",
+       "rate": 1.0,
+       "rate_display": "100%",
+       "lvli": [
+        "006820FC"
+       ],
+       "_target": "0066937A",
+       "conditions": [],
+       "retired_because": [
+        "nothing references this list"
        ]
       }
      ],
@@ -29286,7 +29306,7 @@
      "category_label": "Apparel",
      "obtain_routes": [
       {
-       "route": "P01 Vending Machine Pioneer Scout Possum vendor",
+       "route": "Pioneer Scout vending machine (Possum Badges)",
        "source_type": "vendor",
        "rate": 1.0,
        "rate_display": "100%",
@@ -29361,7 +29381,7 @@
      "cut": false,
      "obtain_ledger": [
       {
-       "label": "Caps",
+       "label": "Badges",
        "routes": [
         0
        ]
@@ -29384,7 +29404,7 @@
      "category_label": "Apparel",
      "obtain_routes": [
       {
-       "route": "P01 Vending Machine Pioneer Scout Tadpole vendor",
+       "route": "Pioneer Scout vending machine (Tadpole Badges)",
        "source_type": "vendor",
        "rate": 1.0,
        "rate_display": "100%",
@@ -29459,7 +29479,7 @@
      "cut": false,
      "obtain_ledger": [
       {
-       "label": "Caps",
+       "label": "Badges",
        "routes": [
         0
        ]
@@ -29482,7 +29502,7 @@
      "category_label": "Apparel",
      "obtain_routes": [
       {
-       "route": "P01 Vending Machine Pioneer Scout Possum vendor",
+       "route": "Pioneer Scout vending machine (Possum Badges)",
        "source_type": "vendor",
        "rate": 1.0,
        "rate_display": "100%",
@@ -29557,7 +29577,7 @@
      "cut": false,
      "obtain_ledger": [
       {
-       "label": "Caps",
+       "label": "Badges",
        "routes": [
         0
        ]
@@ -29580,7 +29600,7 @@
      "category_label": "Apparel",
      "obtain_routes": [
       {
-       "route": "P01 Vending Machine Pioneer Scout Possum vendor",
+       "route": "Pioneer Scout vending machine (Possum Badges)",
        "source_type": "vendor",
        "rate": 1.0,
        "rate_display": "100%",
@@ -29660,7 +29680,7 @@
      "cut": false,
      "obtain_ledger": [
       {
-       "label": "Caps",
+       "label": "Badges",
        "routes": [
         0
        ]
@@ -29683,7 +29703,7 @@
      "category_label": "Apparel",
      "obtain_routes": [
       {
-       "route": "P01 Vending Machine Pioneer Scout Tadpole vendor",
+       "route": "Pioneer Scout vending machine (Tadpole Badges)",
        "source_type": "vendor",
        "rate": 1.0,
        "rate_display": "100%",
@@ -29758,7 +29778,7 @@
      "cut": false,
      "obtain_ledger": [
       {
-       "label": "Caps",
+       "label": "Badges",
        "routes": [
         0
        ]
@@ -29781,7 +29801,7 @@
      "category_label": "Apparel",
      "obtain_routes": [
       {
-       "route": "P01 Vending Machine Pioneer Scout Tadpole vendor",
+       "route": "Pioneer Scout vending machine (Tadpole Badges)",
        "source_type": "vendor",
        "rate": 1.0,
        "rate_display": "100%",
@@ -29861,7 +29881,7 @@
      "cut": false,
      "obtain_ledger": [
       {
-       "label": "Caps",
+       "label": "Badges",
        "routes": [
         0
        ]
@@ -30941,16 +30961,6 @@
      "category_label": "Apparel",
      "obtain_routes": [
       {
-       "route": "Armor vendor",
-       "source_type": "vendor",
-       "rate": 0.25,
-       "rate_display": "25%",
-       "lvli": [
-        "003C24EC"
-       ],
-       "conditions": []
-      },
-      {
        "route": "Cunningham (Whitespring Armor Hunting Supplies vendor)",
        "source_type": "vendor",
        "rate": 0.25,
@@ -31025,15 +31035,30 @@
       {
        "label": "Caps",
        "routes": [
-        0,
-        1
+        0
        ]
       },
       {
        "label": "Containers",
        "routes": [
-        2,
-        3
+        1,
+        2
+       ]
+      }
+     ],
+     "retired_routes": [
+      {
+       "route": "Armor vendor",
+       "source_type": "vendor",
+       "rate": 0.25,
+       "rate_display": "25%",
+       "lvli": [
+        "003C24EC"
+       ],
+       "_target": "00034595",
+       "conditions": [],
+       "retired_because": [
+        "nothing references this list"
        ]
       }
      ],
@@ -31830,13 +31855,14 @@
        "conditions": []
       },
       {
-       "route": "Cap'n (Clothes Whitespring Childrens Toy Shop vendor)",
-       "source_type": "vendor",
+       "route": "Random Encounter: Archaeologist - Archaeologist corpse",
+       "source_type": "creature",
        "rate": 0.333333,
        "rate_display": "33.33%",
        "lvli": [
         "0019CCC4"
        ],
+       "kind": "corpse",
        "conditions": []
       },
       {
@@ -31987,7 +32013,6 @@
       {
        "label": "Caps",
        "routes": [
-        1,
         3,
         4,
         5,
@@ -32002,6 +32027,7 @@
        "label": "Containers",
        "routes": [
         0,
+        1,
         2,
         9
        ]
@@ -33607,16 +33633,6 @@
      "category_label": "Apparel",
      "obtain_routes": [
       {
-       "route": "Armor vendor",
-       "source_type": "vendor",
-       "rate": 0.25,
-       "rate_display": "25%",
-       "lvli": [
-        "003C24EC"
-       ],
-       "conditions": []
-      },
-      {
        "route": "Cunningham (Whitespring Armor Hunting Supplies vendor)",
        "source_type": "vendor",
        "rate": 0.25,
@@ -33686,15 +33702,30 @@
       {
        "label": "Caps",
        "routes": [
-        0,
-        1
+        0
        ]
       },
       {
        "label": "Containers",
        "routes": [
-        2,
-        3
+        1,
+        2
+       ]
+      }
+     ],
+     "retired_routes": [
+      {
+       "route": "Armor vendor",
+       "source_type": "vendor",
+       "rate": 0.25,
+       "rate_display": "25%",
+       "lvli": [
+        "003C24EC"
+       ],
+       "_target": "000732AE",
+       "conditions": [],
+       "retired_because": [
+        "nothing references this list"
        ]
       }
      ],
@@ -33724,17 +33755,6 @@
        ],
        "quest_reward": true,
        "kind": "quest",
-       "conditions": []
-      },
-      {
-       "route": "Brotherhood of Steel Vernon Dodge",
-       "source_type": "event-quest",
-       "rate": 0.042857,
-       "rate_display": "4.29%",
-       "lvli": [
-        "005D9D97"
-       ],
-       "kind": "event",
        "conditions": []
       }
      ],
@@ -33772,12 +33792,6 @@
      "stops_dropping": null,
      "cut": false,
      "obtain_ledger": [
-      {
-       "label": "Events & Activities",
-       "routes": [
-        1
-       ]
-      },
       {
        "label": "Quests",
        "routes": [
@@ -33847,6 +33861,21 @@
        ]
       },
       {
+       "route": "Brotherhood of Steel Vernon Dodge",
+       "source_type": "event-quest",
+       "rate": 0.042857,
+       "rate_display": "4.29%",
+       "lvli": [
+        "005D9D97"
+       ],
+       "kind": "event",
+       "_target": "000E44FF",
+       "conditions": [],
+       "retired_because": [
+        "nothing references this list"
+       ]
+      },
+      {
        "route": "Free State Event",
        "source_type": "event-quest",
        "rate": 0.042857,
@@ -33907,7 +33936,7 @@
        ]
       }
      ],
-     "source_tag": "Activities",
+     "source_tag": "Quest",
      "image_dir": "apparel-without-plans",
      "images": [],
      "image_source": ""
@@ -36400,7 +36429,7 @@
        ]
       },
       {
-       "route": "Gulper Newt",
+       "route": "Gulper",
        "source_type": "creature",
        "rate": 0.117253,
        "rate_display": "11.73%",
@@ -40224,16 +40253,6 @@
        "conditions": []
       },
       {
-       "route": "Betty Hill (NWOT vendor)",
-       "source_type": "vendor",
-       "rate": 1.0,
-       "rate_display": "100%",
-       "lvli": [
-        "006820FC"
-       ],
-       "conditions": []
-      },
-      {
        "route": "Key To the Past - Claim Ticket",
        "source_type": "event-quest",
        "rate": 0.111111,
@@ -40387,28 +40406,43 @@
       {
        "label": "Caps",
        "routes": [
-        0,
-        1
+        0
        ]
       },
       {
        "label": "Events & Activities",
        "routes": [
+        2,
         3,
         4,
-        5,
-        7
+        6
        ]
       },
       {
        "label": "Quests",
        "routes": [
-        2,
-        6,
+        1,
+        5,
+        7,
         8,
         9,
-        10,
-        11
+        10
+       ]
+      }
+     ],
+     "retired_routes": [
+      {
+       "route": "Betty Hill (NWOT vendor)",
+       "source_type": "vendor",
+       "rate": 1.0,
+       "rate_display": "100%",
+       "lvli": [
+        "006820FC"
+       ],
+       "_target": "001135E0",
+       "conditions": [],
+       "retired_because": [
+        "nothing references this list"
        ]
       }
      ],
@@ -40435,16 +40469,6 @@
        "rate_display": "100%",
        "lvli": [
         "006820FE"
-       ],
-       "conditions": []
-      },
-      {
-       "route": "Betty Hill (NWOT vendor)",
-       "source_type": "vendor",
-       "rate": 1.0,
-       "rate_display": "100%",
-       "lvli": [
-        "006820FC"
        ],
        "conditions": []
       },
@@ -40602,28 +40626,43 @@
       {
        "label": "Caps",
        "routes": [
-        0,
-        1
+        0
        ]
       },
       {
        "label": "Events & Activities",
        "routes": [
+        2,
         3,
         4,
-        5,
-        7
+        6
        ]
       },
       {
        "label": "Quests",
        "routes": [
-        2,
-        6,
+        1,
+        5,
+        7,
         8,
         9,
-        10,
-        11
+        10
+       ]
+      }
+     ],
+     "retired_routes": [
+      {
+       "route": "Betty Hill (NWOT vendor)",
+       "source_type": "vendor",
+       "rate": 1.0,
+       "rate_display": "100%",
+       "lvli": [
+        "006820FC"
+       ],
+       "_target": "001135E1",
+       "conditions": [],
+       "retired_because": [
+        "nothing references this list"
        ]
       }
      ],
