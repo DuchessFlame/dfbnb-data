@@ -74,9 +74,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #
 #  intro     paragraphs at the top of the intro card
 #  about     the "What's a plan mule?" panel in the intro card
-#  donate    "How to donate" panel. On a one-mule page it sits in the intro
-#            card; on Xbox each mule carries its own, shown at the top of that
-#            mule's root expand.
+#  donate    "How to donate" panel, in the intro card on every page. A mule
+#            can also carry its own (shown at the top of its root expand), but
+#            none do now so all three pages look the same.
 #  thanks    closing line of the intro card
 #
 #  A donate entry is { "via", "url", "link", "text" }: `link` is the words the
@@ -121,20 +121,17 @@ PAGES = {
         "title": "XBOX Plan Check Mule Missing Plans List",
         "intro": [
             "The Plan Check Mules are still missing the plans below. If you have "
-            "a spare copy of any of them, a donation would be very welcome. Each "
-            "mule has its own list and its own way to donate, so open the one "
-            "you'd like to help.",
+            "a spare copy of any of them, a donation would be very welcome.",
         ],
         "about": ABOUT,
-        "donate": [],
+        # Same How to donate panel as PlayStation and PC, in the intro card.
+        "donate": [discord_donate(),
+                   facebook_donate("https://www.facebook.com/groups/theduchessflame", chefs=False)],
         "thanks": THANKS,
-        # One root expand per mule, in this order. Their plans are sub-expands,
-        # and each mule shows its own How to donate panel.
+        # One root expand per mule, in this order. Their plans are sub-expands.
         "mules": [
-            ("facebook", "XBOX - Facebook Plan Check Mule",
-             [facebook_donate("https://www.facebook.com/groups/theduchessflame", chefs=False)]),
-            ("discord",  "XBOX - Discord Plan Check Mule",
-             [discord_donate()]),
+            ("facebook", "XBOX - Facebook Plan Check Mule", []),
+            ("discord",  "XBOX - Discord Plan Check Mule",  []),
         ],
     },
     "playstation": {
