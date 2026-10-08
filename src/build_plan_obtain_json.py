@@ -689,6 +689,14 @@ def humanize(edid):
 
 def plan_classify(sig, edid, via_edid):
     e = (edid or "").lower() + " " + (via_edid or "").lower()
+    # An NPC that holds a list carries it and drops it: a vendor's stock lives
+    # in their merchant CONT, never on the NPC. Testing the words first filed
+    # LLD_Creature_Robot_Assaultron as "Whitespring Spa Aloe vendor" (the Spa
+    # robot is an Assaultron called LC060_WhitespringVendor_Spa_Aloe) and
+    # LLD_Creature_MoleMiner as a "Mole Miner" vendor (zzzEncMoleMiner_
+    # LegendaryVendor) - Assaultron Blade/Head and Mole Miner Gauntlet were
+    # printed as shop stock at 41.67% / 31.43% (Oct 2026 audit).
+    if sig == "NPC_": return "creature"
     if "vendorchest" in e or "vendor" in e or "vend" in e: return "vendor"
     if "questreward" in e or "quest_reward" in e or "_reward" in e or "gmrw" in e \
        or "systemic" in e or "quest" in e: return "event-quest"
@@ -765,7 +773,11 @@ def holder_bucket(via, holders):
     answer is still computed as the floor, so a list with no holders behaves
     exactly as before.
     """
-    holder_blob = " ".join((redid or "") for rf, redid, rsig in holders if rsig != "CONT")
+    # NPC EditorIDs stay out of the word blob for the same reason they are
+    # classified by signature: a vendor robot's name is not a shop.
+    holder_blob = " ".join((redid or "") for rf, redid, rsig in holders
+                           if rsig not in ("CONT", "NPC_")
+                           and not plan_sources.is_dev_record(redid))
     best = plan_classify("", (via or "") + " " + holder_blob, via)
     for rf, redid, rsig in holders:
         b = plan_classify(rsig, redid, via)
@@ -870,13 +882,20 @@ def openable_name(entries):
         except Exception as exc:                      # noqa: BLE001 - never fatal
             print(f"  WARNING: openable names unavailable: {exc}", file=sys.stderr)
             OPENABLE_NAMES = {}
-    names = []
+    names, notes = [], []
     for rf, redid, rsig in entries:
         if rsig == "MGEF":
             nm = OPENABLE_NAMES.get((rf or "").upper())
             if nm and nm not in names:
                 names.append(nm)
-    return " / ".join(names[:2]) if names else None
+                note = plan_sources.LIMITED_TIME_NOTES.get(redid or "")
+                if note and note not in notes:
+                    notes.append(note)
+    if not names:
+        return None
+    label = " / ".join(names[:2])
+    # "ATLAS Donor's Provisions (Fortifying ATLAS event, Aug-Sep 2020 only)"
+    return f"{label} ({'; '.join(notes)})" if notes else label
 
 
 def real_entries(holders, nested_in_tree):
@@ -1232,6 +1251,63 @@ def worn_only(lists, lvli_refs, c2p, parent_edid):
     return outfit
 
 
+def _name_all_vendors(label, chests):
+    """`label` names the first trader; add any other named trader whose chest
+    stocks the same list. "The Fisherman (Fishing vendor)" ->
+    "The Fisherman & Captain Raymond Clark (Fishing vendor)"."""
+    names = []
+    for c in chests:
+        n = vendor_names().name(c)
+        if n and n not in names:
+            names.append(n)
+    if len(names) < 2 or not label.startswith(names[0]):
+        return label
+    return " & ".join(names) + label[len(names[0]):]
+
+
+def _creature_majority(names, first):
+    """The creature a list's NPCs are variants of, by in-game name.
+
+    `names` is the FULL of every NPC record holding the list (template NPCs
+    with no FULL are already left out). Each distinct name scores the number
+    of records whose name contains all of its words ("Deathclaw" is inside
+    "Glowing Deathclaw" and "Deathclaw Matriarch"); the best, shortest one
+    wins when it covers at least a third of the records. Otherwise a single
+    word carried by most records names it ("Liberator Mk I".."Mk V" ->
+    "Liberator"). Otherwise None: the NPCs share nothing (ten unrelated
+    Infestation bosses) and the caller names the row after the list.
+
+    Before this the first NPC the export listed named the row, so
+    LLD_Creature_Deathclaw read "Wendigo" (its first holder is the
+    AudioTemplateWendigo NPC) and HTO_crLLD_Boss read "Blood Eagle
+    Destroyer" (Oct 2026 audit)."""
+    every = [n.strip() for n in names if n and n.strip()]
+    distinct = sorted(set(every))
+    if not distinct:
+        return first
+    if len(distinct) == 1:
+        return distinct[0]
+    words = {n: set(re.findall(r"[a-z0-9]+", n.lower())) for n in distinct}
+    def support(c):                       # NPC records, not distinct names
+        return sum(1 for d in every if words[c] <= words[d])
+    best = max(distinct, key=lambda c: (support(c), -len(words[c]), -len(c)))
+    if support(best) * 3 >= len(every):
+        return best
+    # Words most records carry, kept in the game's own spelling and order,
+    # minus mark/tier tokens: "Hermit Crab", "Liberator" (not "Liberator Mk").
+    wc = collections.Counter(w for d in every for w in words[d])
+    common = {w for w, c in wc.items() if c * 2 > len(every) and len(w) > 2
+              and not w.isdigit()}
+    if common:
+        for d in sorted(distinct, key=len):
+            if common <= words[d]:
+                kept = [t for t in re.findall(r"[A-Za-z0-9.'-]+", d)
+                        if re.sub(r"[^a-z0-9]", "", t.lower()) in common]
+                if kept:
+                    return " ".join(kept)
+    return None
+
+
 def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
                    names_only=False, skip_worn=False):
     """Routes for one plan, highest rate first.
@@ -1325,6 +1401,15 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
                              "_lvli": set()}
             seen_n[k]["_lvli"].add(L)
             continue
+        # A list that sits inside a bigger roll AND is rolled directly by
+        # something else gets its own row for the direct roll only — the lists
+        # above it publish their own rows. So that row is judged and named by
+        # the direct holders, not by the parent lists: LLS_Loot_Recipes_Armor_All
+        # is paid out by the Retirement Plan daily's GMRW, but its parent
+        # LLC_Creature_Armor_Boss_Cond made the row a creature drop called
+        # "LLC Armor Boss Cond" on 58 armour-mod plans (Oct 2026 audit).
+        if in_tree and entries:
+            holders = [h for h in holders if not (h[2] == "LVLI" and h[0] in closure)]
         bucket = holder_bucket(via, holders)
         # A list a vendor's stock list ALSO holds is already on the page as
         # that vendor's row (the stock list publishes it at the real rate).
@@ -1360,6 +1445,9 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
         # it is what produced "Minerva LLV Gold Vendor" next to "Minerva Gold
         # Vendor Chest" in the first place.
         vend_name = creature_name = None
+        vend_chests = []          # every named merchant chest that stocks it
+        npc_fulls = []            # every NPC that carries it, by in-game name
+        curated_creature = False  # a hand-checked / bounty name always wins
         for rf, redid, rsig in holders:
             # An editor-only holder is not a place a player can go, and must not
             # be prettified into one. humanize() is a last-resort fallback that
@@ -1370,7 +1458,8 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
                 continue
             b = plan_classify(rsig, redid, via)
             if b == "vendor" and not vend_name:
-                vend_name = (vendor_chest_full(cont_names, rf)
+                vend_name = (plan_sources.CURATED_LABELS.get(redid)
+                             or vendor_chest_full(cont_names, rf)
                              or better_vendor_label(source_label(redid), source_label(via))
                              or humanize(redid))
                 # The NPC who owns this chest, by the name players see
@@ -1380,13 +1469,33 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
                     vendor_chest_for_list(rf, lvli_refs) if rsig == "LVLI" else None)
                 if chest:
                     vend_name = vendor_names().label(chest, vend_name)
-            elif b == "creature" and not creature_name:
+            if b == "vendor" and rsig == "CONT" and vendor_names().name(rf):
+                vend_chests.append(rf)
+            if rsig == "NPC_" and npc_names.get((rf or "").upper()):
+                npc_fulls.append(npc_names[(rf or "").upper()])
+            if b == "creature" and not creature_name:
+                curated_creature = bool(plan_sources.CURATED_LABELS.get(redid)
+                                        or plan_sources.bounty_npc_label(
+                                            redid, npc_names.get((rf or "").upper())))
                 # An NPC's FULL name beats anything derivable from its EditorID:
                 # "Pint-Sized Slasher" rather than "SDOW Burn Bounty BIG Slasher".
                 creature_name = (plan_sources.CURATED_LABELS.get(redid)
                                  or plan_sources.bounty_npc_label(redid, npc_names.get((rf or "").upper()))
                                  or npc_names.get((rf or "").upper())
                                  or source_label(redid) or humanize(redid))
+        # One stock list on two traders' shelves: name both, not whichever
+        # chest the export happened to list first (Fishing_LL_Vendor_
+        # FishermansRest is The Fisherman's AND Captain Raymond Clark's).
+        if bucket == "vendor" and vend_name:
+            vend_name = _name_all_vendors(vend_name, vend_chests)
+        # A creature list is named after the creature its NPCs are variants
+        # of, not whichever NPC the export listed first: LLD_Creature_Deathclaw's
+        # first holder is AudioTemplateWendigo, so Deathclaw drops were printed
+        # as "Wendigo". Bosses that share nothing name the list instead:
+        # HTO_crLLD_Boss rolls for ten different Infestation bosses and read
+        # "Blood Eagle Destroyer" (Oct 2026 audit).
+        if creature_name and not curated_creature:
+            creature_name = _creature_majority(npc_fulls, creature_name)
         if bucket == "vendor" and vend_name:
             name = vend_name
             by_name.setdefault(name, []).append(L)

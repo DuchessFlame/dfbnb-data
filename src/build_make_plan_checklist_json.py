@@ -68,7 +68,7 @@ SCHEMA = 1
 # and pills read in the same order everywhere. The renderer only shows chips
 # for routes that actually occur, but the ORDER is anchored here.
 LEDGER_ROWS = [
-    "Caps", "Stamps", "Scoreboard", "Gold Bullion", "Atom Shop",
+    "Caps", "Stamps", "Scoreboard", "Gold Bullion", "Badges", "Atom Shop",
     "Limited Time Bundle", "Containers", "Enemies", "Scrap to Learn",
     "Events & Activities", "Quests", "Challenges",
 ]

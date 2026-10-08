@@ -136,8 +136,10 @@ CUT_SUFFIXES = ("_COPY01",)
 # function report "Plan: Mattress — still referenced by 1 record" when that one
 # record was BabylonExcludeList, i.e. the game data agreeing it is dead.
 _EMPTY_REF_SIGS = {"COBJ", "FLST"}
+# "\d*qa": 76QAVendor_VendorChest_Weapons is a QA-cell test vendor; without it
+# LLV_Vendor_Weapons was named "Vin (Weapons vendor)" off that test chest.
 _RX_DEV_RECORD = re.compile(
-    r"^(babylon|zw|zz|test|qa|debug|cut|del|deleted|post|template)"
+    r"^(babylon|zw|zz|test|\d*qa|debug|cut|del|deleted|post|template)"
     r"|(test|debug|_qa_|excludelist)", re.I)
 
 
@@ -867,6 +869,18 @@ def bounty_npc_label(npc_edid, full):
     return f"Bounty Hunting: {kind} - {full}"
 
 
+# Openable loot that only ever came from a limited-time event, keyed by the
+# MGEF EditorID that rolls it. The note rides in the route label, in brackets,
+# so every reader of plan_master.json (the site AND Brewmaster on Discord)
+# shows it without a code change of its own. Dates are the event's run, not
+# the export's. Fortifying ATLAS: Project Alpha 4-18 Aug 2020, Project Bravo
+# 27 Aug - 10 Sep 2020 - one crate per donation (fallout.fandom.com/wiki/
+# Fortifying_ATLAS; Duchess, 8 Oct 2026).
+LIMITED_TIME_NOTES = {
+    "BS00_ContributionRewardBox_Effect": "Fortifying ATLAS event, Aug\u2013Sep 2020 only",
+}
+
+
 # EditorID fragment -> the loot bag its list is the contents of.
 LOOT_BAG_SUFFIX = {"treasurehunt": "Mole Miner Pail"}
 
@@ -940,6 +954,11 @@ def _shape_vendor(head, words):
 # Fan Party Crasher" (Duchess, 23 Sep 2026). The NPC override is read by
 # build_plan_obtain_json before the NPC's own FULL name.
 CURATED_LABELS = {
+    # Camp Venture's vending machines sell for badges, and the chest EditorID
+    # only says "P01 Vending Machine" (Oct 2026). The bracket names the badge,
+    # and the ledger files both under one Badges row.
+    "P01C_VendingMachine_PioneerScout_Possum_VendorChest":  "Pioneer Scout vending machine (Possum Badges)",
+    "P01C_VendingMachine_PioneerScout_Tadpole_VendorChest": "Pioneer Scout vending machine (Tadpole Badges)",
     "SDOW_LLD_Creature_SlasherFan_PartyCrasher":             "Mischief Night - Party Crasher",
     "SDOW_MischiefPartyCrasherRewards_Rare":                 "Mischief Night - Party Crasher",
     "SDOW_LvlSlasherFanBossPowerArmorHeavyAuto_PartyCrasher": "Mischief Night - Uninvited Pint-Sized Phantom",
@@ -1882,9 +1901,12 @@ world loot out of a container, and folding that into "Events & Activities" would
 have told the reader to go and do an event for something that sits in a locker.
 """
 
-LEDGER_ROWS = ["Caps", "Stamps", "Scoreboard", "Gold Bullion", "Atom Shop",
+LEDGER_ROWS = ["Caps", "Stamps", "Scoreboard", "Gold Bullion", "Badges", "Atom Shop",
                "Limited Time Bundle", "Containers", "Enemies", "Scrap to Learn",
                "Events & Activities", "Quests", "Challenges"]
+# "Badges" (Oct 2026): the Pioneer Scout vending machines at Camp Venture take
+# Possum or Tadpole badges, not caps - one row for both, the route label says
+# which badge.
 # "Enemies" (Oct 2026): creature drops used to fall through to Events &
 # Activities, so a plan that drops off a Deathclaw read as an event. Keep this
 # list and OBTAIN_LEDGER_ROWS in df-bnb-plan-checklists.js in the same order.
@@ -1908,6 +1930,7 @@ _RX_LED_GOLD  = re.compile(r"gold[\s-]*bullion|bullion", re.I)
 # label is what is tested and his label says bullion.
 _RX_LED_STAMP = re.compile(r"\bstamps?\b|stamp[\s-]*vendor|\bgiuseppe\b", re.I)
 _RX_LED_SHOP  = re.compile(r"vendor|trader|merchant|shop", re.I)
+_RX_LED_BADGE = re.compile(r"\b(possum|tadpole)\s+badges?\b", re.I)
 
 
 def _ledger_route_bucket(route):
@@ -1922,6 +1945,8 @@ def _ledger_route_bucket(route):
             return "Gold Bullion"
         if _RX_LED_STAMP.search(label):
             return "Stamps"
+        if _RX_LED_BADGE.search(label):
+            return "Badges"
         # "Atom Shop - Ally Lawson vendor" is a CAPS route: the ALLY was bought
         # from the Atom Shop, the plan on their shelf is bought with caps. It
         # stays out of the Atom Shop row on purpose.

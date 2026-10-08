@@ -26,8 +26,14 @@ disagree:
                                    and hands out items without it (Tunnel of Love)
     entry can never roll           reached only through a First Match entry that
                                    can never win, or a literal 100% ChanceNone
-A list with 0 links and nothing else is KEPT: the export can't see Papyrus, and
-Wastelanders gold vendors, A Grand Reopening etc. pay out that way.
+    nothing references this list   the list (or the list at the top of its
+                                   chain) has 0 references: no vendor chest,
+                                   quest reward, NPC or container rolls it
+Until Oct 2026 a plain 0-link list was KEPT on the theory that Papyrus stocks
+it. Checked against the live files it never did — LLV_GoldVendor_AlienRifle_Mods
+put four Alien Disintegrator receivers on a Gold Bullion vendor that does not
+exist, and every Wastelanders gold list's plans were already on Regs / Samuel /
+Mortimer / Minerva's real stock. See build_bugged_plans_json.route_dead_reasons.
 
 WHAT IT DOES TO A ROW
 ---------------------

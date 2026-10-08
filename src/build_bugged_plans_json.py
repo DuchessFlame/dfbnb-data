@@ -105,6 +105,10 @@ RX_COND_ENTM = re.compile(r"HasEntitlement\(.*?\[ENTM:([0-9A-Fa-f]{8})\]")
 # at least July 2026). Those are reported in their own "cut but not zzz'd" section,
 # never as a plan bug — the plan was retired, not broken.
 RX_PARKED = re.compile(r"backlog|(^|_)temp(_|$)|unused|placeholder", re.I)
+# A route whose lists top out at a list with no references at all: no vendor
+# chest, quest reward, NPC, container or placed object rolls it (see
+# route_dead_reasons for the Oct 2026 cases that settled this).
+ORPHAN_WHY = "nothing references this list"
 
 
 # ── io ───────────────────────────────────────────────────────────────────────
@@ -906,10 +910,26 @@ def _load_json(path, default):
 
 def route_dead_reasons(scan, fids):
     """Why a route through these leveled lists can never pay out, or an empty
-    set when it might. Only PROVEN reasons count: 0 links on its own is not
-    proof (scripts hand out plenty of 0-link lists), so a plain orphan without
-    its quest's reward record to compare against returns nothing.
-    Shared by the checklist cross-check here and src/prune_dead_routes.py."""
+    set when it might. Shared by the checklist cross-check here and
+    src/prune_dead_routes.py.
+
+    A route whose every list tops out at a list NOTHING references is dead
+    ("nothing references this list", Oct 2026). This used to be kept on the
+    theory that Papyrus stocks 0-link lists, but every published case checked
+    against the Oct 2026 live files said otherwise:
+      * LLV_GoldVendor_AlienRifle_Mods / _ElectroEnforcer_Mods: 0 refs, no
+        vendor chest, no faction - the Alien Disintegrator receivers were
+        printed as Gold Bullion purchases that do not exist.
+      * W05_LLV_GoldVendor_Recipes_* (46 + 33 + 19 + 13 plans): every plan in
+        them is ALSO in Regs / Samuel / Mortimer / Minerva's referenced stock,
+        so the orphan row only ever added a vendor nobody can find.
+      * AC_SQ04_LL_Rewards ("A Grand Reopening", 73 plans): the quest's own
+        reward record QuestReward_XPD_AC_SQ04_Reopening IS in the files and
+        pays XP and caps only; SQ01/SQ03/SQ05 each roll their list from GMRW.
+      * RSVP02 safe, Vernon Dodge, CBZ03, CB06, Enclave final: each quest's
+        GMRW is visible and rolls different lists.
+    A list is only judged when NONE of the route's lists is live, so a row
+    that merges an orphan with a live list (Ineke's two stock lists) stays."""
     known = [str(f).upper() for f in fids if str(f).upper() in scan.lvli]
     if not known or any(f in scan.live for f in known):
         return set()
@@ -930,6 +950,8 @@ def route_dead_reasons(scan, fids):
                     why.add("parked list (cut, not marked)")
                 elif scan.orphan_is_strong(e):
                     why.add("reward pool not hooked up")
+                else:
+                    why.add(ORPHAN_WHY)
     return why
 
 
@@ -946,9 +968,9 @@ def checklist_dead_routes(scan, master_path):
             known = [f for f in fids if f in scan.lvli]
             if not known or any(f in scan.live for f in known):
                 continue
-            # 0 links alone is NOT proof (scripts hand out plenty of 0-link
-            # lists). Only report a route the data shows is dead: a cut-named
-            # list, a parked holding pen, a proven orphan, or a dead entry.
+            # Same rules as route_dead_reasons(): a cut-named list, a parked
+            # holding pen, a quest pool its reward record skips, a list
+            # nothing references at all, or a dead entry.
             why = set()
             for f in known:
                 if is_dev(scan.lvli[f]["edid"]):
@@ -966,6 +988,8 @@ def checklist_dead_routes(scan, master_path):
                             why.add("parked list (cut, not marked)")
                         elif scan.orphan_is_strong(e):
                             why.add("reward pool not hooked up")
+                        else:
+                            why.add(ORPHAN_WHY)
             pid = ((it.get("plan_item") or {}).get("formid") or "").upper()
             if why == {"reward pool not hooked up"} and any(
                     f == pid for g, items in scan.gmrw_items.items() if g not in scan.gmrw_dead

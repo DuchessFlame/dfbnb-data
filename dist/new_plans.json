@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "generated": "2026-10-07T23:48:35.871226+00:00",
+  "generated": "2026-10-08T06:50:40.516899+00:00",
   "mode": "vs-season",
   "season": {
     "key": "SCORE_S26",
@@ -19,8 +19,8 @@
     "recipes_newest": "COBJ_Export_October_2026.tsv",
     "recipes_previous": "COBJ_Export_July_2026.tsv"
   },
-  "count": 114,
-  "count_new": 107,
+  "count": 115,
+  "count_new": 108,
   "count_changed": 7,
   "skipped_not_in_master": [],
   "grouping": "source",
@@ -2189,7 +2189,7 @@
               ]
             },
             {
-              "route": "ATLAS Donor's Provisions",
+              "route": "ATLAS Donor's Provisions (Fortifying ATLAS event, Aug–Sep 2020 only)",
               "source_type": "container",
               "rate": 0.001453,
               "rate_display": "0.15%",
@@ -2388,7 +2388,7 @@
               ]
             },
             {
-              "route": "ATLAS Donor's Provisions",
+              "route": "ATLAS Donor's Provisions (Fortifying ATLAS event, Aug–Sep 2020 only)",
               "source_type": "container",
               "rate": 0.001453,
               "rate_display": "0.15%",
@@ -2587,7 +2587,7 @@
               ]
             },
             {
-              "route": "ATLAS Donor's Provisions",
+              "route": "ATLAS Donor's Provisions (Fortifying ATLAS event, Aug–Sep 2020 only)",
               "source_type": "container",
               "rate": 0.001453,
               "rate_display": "0.15%",
@@ -3421,7 +3421,7 @@
               ]
             },
             {
-              "route": "ATLAS Donor's Provisions",
+              "route": "ATLAS Donor's Provisions (Fortifying ATLAS event, Aug–Sep 2020 only)",
               "source_type": "container",
               "rate": 0.001453,
               "rate_display": "0.15%",
@@ -3620,7 +3620,7 @@
               ]
             },
             {
-              "route": "ATLAS Donor's Provisions",
+              "route": "ATLAS Donor's Provisions (Fortifying ATLAS event, Aug–Sep 2020 only)",
               "source_type": "container",
               "rate": 0.001453,
               "rate_display": "0.15%",
@@ -3819,7 +3819,7 @@
               ]
             },
             {
-              "route": "ATLAS Donor's Provisions",
+              "route": "ATLAS Donor's Provisions (Fortifying ATLAS event, Aug–Sep 2020 only)",
               "source_type": "container",
               "rate": 0.001453,
               "rate_display": "0.15%",
@@ -5480,8 +5480,77 @@
     {
       "key": "infestations",
       "label": "Infestations",
-      "count": 1,
+      "count": 3,
       "items": [
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_008E0690",
+          "name": "Plan: Pint-Sized Slasher Balloon",
+          "has_image_box": true,
+          "image_dir": "workshop",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (physical plan)",
+          "obtain_routes": [
+            {
+              "route": "Infestations - Boss (Slasher Seasonal)",
+              "source_type": "creature",
+              "rate": 0.083333,
+              "rate_display": "8.33%",
+              "lvli": [
+                "00863220"
+              ],
+              "kind": "enemy",
+              "conditions": [
+                "Only from SDOW Actor Type Slasher Fan",
+                "Only from HTO Encounter Boss Keyword"
+              ]
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008E0690",
+            "edid": "SDOW_Recipe_Workshop_FloorDecor_SlasherBalloons"
+          },
+          "cobj": {
+            "formid": "008F513B",
+            "edid": "SDOW_workshop_co_FloorDecor_SlasherBalloons"
+          },
+          "cnam": {
+            "formid": "0091C66C",
+            "edid": "SDOW_Workshop_SlasherBalloon",
+            "sig": "ACTI"
+          },
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Enemies",
+              "routes": [
+                0
+              ]
+            }
+          ],
+          "source_tag": "Enemy",
+          "images": [
+            "sdow_workshop_slasherballoon"
+          ],
+          "image_source": "staged",
+          "plan_page": "camp",
+          "plan_page_group": "C.A.M.P. Plans",
+          "group": "infestations",
+          "is_new": true,
+          "source_group": "infestations",
+          "source_groups": [
+            "infestations"
+          ],
+          "type_label": "CAMP",
+          "type_group": "camp"
+        },
         {
           "kind": "plan",
           "brand": "df",
@@ -5535,6 +5604,71 @@
           "image_source": "staged",
           "plan_page": "camp",
           "plan_page_group": "Needs Sorting",
+          "group": "infestations",
+          "is_new": true,
+          "source_group": "infestations",
+          "source_groups": [
+            "infestations"
+          ],
+          "type_label": "CAMP",
+          "type_group": "camp"
+        },
+        {
+          "kind": "plan",
+          "brand": "df",
+          "type": "recipe",
+          "id": "PLAN_008E0694",
+          "name": "Plan: Pint-Sized Slasher Plushie",
+          "has_image_box": true,
+          "image_dir": "workshop",
+          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+          "category_label": "CAMP / Recipe (physical plan)",
+          "obtain_routes": [
+            {
+              "route": "Infestations - Boss (Slasher Seasonal)",
+              "source_type": "creature",
+              "rate": 0.083333,
+              "rate_display": "8.33%",
+              "lvli": [
+                "00863220"
+              ],
+              "kind": "enemy",
+              "conditions": [
+                "Only from SDOW Actor Type Slasher Fan",
+                "Only from HTO Encounter Boss Keyword"
+              ]
+            }
+          ],
+          "obtain_unlocks": [],
+          "plan_item": {
+            "formid": "008E0694",
+            "edid": "SDOW_Recipe_Workshop_FloorDecor_SlasherDoll"
+          },
+          "cobj": {
+            "formid": "008E0735",
+            "edid": "SDOW_workshop_co_CondProxy_FloorDecor_Plushie_SlasherDoll"
+          },
+          "cnam": null,
+          "tradeable": true,
+          "stops_dropping": false,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "obtain_ledger": [
+            {
+              "label": "Enemies",
+              "routes": [
+                0
+              ]
+            }
+          ],
+          "source_tag": "Enemy",
+          "images": [
+            "sdow_recipe_workshop_floordecor_slasherdoll"
+          ],
+          "image_source": "staged",
+          "plan_page": "camp",
+          "plan_page_group": "C.A.M.P. Plans",
           "group": "infestations",
           "is_new": true,
           "source_group": "infestations",
@@ -8411,7 +8545,7 @@
     {
       "key": "enemies",
       "label": "Enemies",
-      "count": 6,
+      "count": 4,
       "items": [
         {
           "kind": "plan",
@@ -8510,140 +8644,6 @@
         {
           "kind": "plan",
           "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_008E0690",
-          "name": "Plan: Pint-Sized Slasher Balloon",
-          "has_image_box": true,
-          "image_dir": "workshop",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-          "category_label": "CAMP / Recipe (physical plan)",
-          "obtain_routes": [
-            {
-              "route": "Blood Eagle Destroyer (Slasher Seasonal)",
-              "source_type": "creature",
-              "rate": 0.083333,
-              "rate_display": "8.33%",
-              "lvli": [
-                "00863220"
-              ],
-              "kind": "enemy",
-              "conditions": [
-                "Only from SDOW Actor Type Slasher Fan",
-                "Only from HTO Encounter Boss Keyword"
-              ]
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008E0690",
-            "edid": "SDOW_Recipe_Workshop_FloorDecor_SlasherBalloons"
-          },
-          "cobj": {
-            "formid": "008F513B",
-            "edid": "SDOW_workshop_co_FloorDecor_SlasherBalloons"
-          },
-          "cnam": {
-            "formid": "0091C66C",
-            "edid": "SDOW_Workshop_SlasherBalloon",
-            "sig": "ACTI"
-          },
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Enemies",
-              "routes": [
-                0
-              ]
-            }
-          ],
-          "source_tag": "Enemy",
-          "images": [
-            "sdow_workshop_slasherballoon"
-          ],
-          "image_source": "staged",
-          "plan_page": "camp",
-          "plan_page_group": "C.A.M.P. Plans",
-          "group": "enemies",
-          "is_new": true,
-          "source_group": "enemies",
-          "source_groups": [
-            "enemies"
-          ],
-          "type_label": "CAMP",
-          "type_group": "camp"
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
-          "type": "recipe",
-          "id": "PLAN_008E0694",
-          "name": "Plan: Pint-Sized Slasher Plushie",
-          "has_image_box": true,
-          "image_dir": "workshop",
-          "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-          "category_label": "CAMP / Recipe (physical plan)",
-          "obtain_routes": [
-            {
-              "route": "Blood Eagle Destroyer (Slasher Seasonal)",
-              "source_type": "creature",
-              "rate": 0.083333,
-              "rate_display": "8.33%",
-              "lvli": [
-                "00863220"
-              ],
-              "kind": "enemy",
-              "conditions": [
-                "Only from SDOW Actor Type Slasher Fan",
-                "Only from HTO Encounter Boss Keyword"
-              ]
-            }
-          ],
-          "obtain_unlocks": [],
-          "plan_item": {
-            "formid": "008E0694",
-            "edid": "SDOW_Recipe_Workshop_FloorDecor_SlasherDoll"
-          },
-          "cobj": {
-            "formid": "008E0735",
-            "edid": "SDOW_workshop_co_CondProxy_FloorDecor_Plushie_SlasherDoll"
-          },
-          "cnam": null,
-          "tradeable": true,
-          "stops_dropping": false,
-          "effects": null,
-          "cut": false,
-          "cut_reason": null,
-          "obtain_ledger": [
-            {
-              "label": "Enemies",
-              "routes": [
-                0
-              ]
-            }
-          ],
-          "source_tag": "Enemy",
-          "images": [
-            "sdow_recipe_workshop_floordecor_slasherdoll"
-          ],
-          "image_source": "staged",
-          "plan_page": "camp",
-          "plan_page_group": "C.A.M.P. Plans",
-          "group": "enemies",
-          "is_new": true,
-          "source_group": "enemies",
-          "source_groups": [
-            "enemies"
-          ],
-          "type_label": "CAMP",
-          "type_group": "camp"
-        },
-        {
-          "kind": "plan",
-          "brand": "df",
           "type": "weapon",
           "id": "PLAN_0091A1ED",
           "name": "Plan: Prime Combat Shotgun Automatic Receiver",
@@ -8699,7 +8699,7 @@
               ]
             },
             {
-              "route": "ATLAS Donor's Provisions",
+              "route": "ATLAS Donor's Provisions (Fortifying ATLAS event, Aug–Sep 2020 only)",
               "source_type": "container",
               "rate": 0.001453,
               "rate_display": "0.15%",
@@ -8898,7 +8898,7 @@
               ]
             },
             {
-              "route": "ATLAS Donor's Provisions",
+              "route": "ATLAS Donor's Provisions (Fortifying ATLAS event, Aug–Sep 2020 only)",
               "source_type": "container",
               "rate": 0.001453,
               "rate_display": "0.15%",
@@ -9097,7 +9097,7 @@
               ]
             },
             {
-              "route": "ATLAS Donor's Provisions",
+              "route": "ATLAS Donor's Provisions (Fortifying ATLAS event, Aug–Sep 2020 only)",
               "source_type": "container",
               "rate": 0.001453,
               "rate_display": "0.15%",
@@ -9760,7 +9760,7 @@
               ]
             },
             {
-              "route": "ATLAS Donor's Provisions",
+              "route": "ATLAS Donor's Provisions (Fortifying ATLAS event, Aug–Sep 2020 only)",
               "source_type": "container",
               "rate": 0.001453,
               "rate_display": "0.15%",
@@ -9959,7 +9959,7 @@
               ]
             },
             {
-              "route": "ATLAS Donor's Provisions",
+              "route": "ATLAS Donor's Provisions (Fortifying ATLAS event, Aug–Sep 2020 only)",
               "source_type": "container",
               "rate": 0.001453,
               "rate_display": "0.15%",
@@ -10158,7 +10158,7 @@
               ]
             },
             {
-              "route": "ATLAS Donor's Provisions",
+              "route": "ATLAS Donor's Provisions (Fortifying ATLAS event, Aug–Sep 2020 only)",
               "source_type": "container",
               "rate": 0.001453,
               "rate_display": "0.15%",
@@ -10298,6 +10298,62 @@
           ],
           "type_label": "Weapon Mod",
           "type_group": "weapon-mod"
+        }
+      ]
+    },
+    {
+      "key": "other",
+      "label": "No Source Found Yet",
+      "count": 1,
+      "items": [
+        {
+          "kind": "plan",
+          "recipe_only": true,
+          "pickup_learned": true,
+          "brand": "df",
+          "type": "recipe",
+          "id": "RECIPE_008EFCB1",
+          "name": "River Salad",
+          "has_image_box": true,
+          "image_dir": "recipes",
+          "obtain": "There is no plan to find — you learn to craft this the first time you pick up Fall Sour Eelgrass.",
+          "category_label": "Recipe (cooking station)",
+          "workbench": "Cooking station",
+          "obtain_routes": [],
+          "obtain_unlocks": [],
+          "plan_item": null,
+          "cobj": {
+            "formid": "008EFCB1",
+            "edid": "co_meal_Fishing_FallSalad"
+          },
+          "cnam": {
+            "formid": "008EFCA7",
+            "edid": "SeasonalFish_Meal_FallSalad",
+            "sig": "ALCH"
+          },
+          "tradeable": null,
+          "stops_dropping": null,
+          "effects": null,
+          "cut": false,
+          "cut_reason": null,
+          "changes": [],
+          "source_tag": "Pickup",
+          "learn_item": "Fall Sour Eelgrass",
+          "obtain_ledger": [],
+          "images": [],
+          "image_source": "",
+          "plan_page": "recipe",
+          "plan_page_group": null,
+          "consumable_group": "Food",
+          "consumable_type": "Cooked Meals",
+          "group": "other",
+          "is_new": true,
+          "source_group": "other",
+          "source_groups": [
+            "other"
+          ],
+          "type_label": "Recipes",
+          "type_group": "recipe"
         }
       ]
     },
