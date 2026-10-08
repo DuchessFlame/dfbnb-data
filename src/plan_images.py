@@ -268,9 +268,14 @@ def page_folder(item):
         return "apparel"
     if kind in ("apparel", "armour") or sig == "ARMO":
         return "body-armour" if kind == "armour" else "apparel"
+    # A consumable is a consumable whatever its name says — "Blight Soup",
+    # "Starlight Berry Cobbler" and "Light Mutton Chops" all read as CAMP lights
+    # to _RX_CAMP. ALCH is the game's own word for it, so it is tested first.
+    if sig == "ALCH":
+        return "recipes"
     if sig in _CAMP_SIGS or _RX_CAMP.search(blob):
         return "workshop"
-    if sig == "ALCH" or _RX_FOOD.search(blob):
+    if _RX_FOOD.search(blob):
         return "recipes"
     return PAGE_FOLDER.get(kind, "")
 

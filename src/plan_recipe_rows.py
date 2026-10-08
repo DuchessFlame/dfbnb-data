@@ -159,6 +159,7 @@ def build(items, tsv_dir="tsv", stats=None):
 
     rows += _build_scrap(items, cobj_idx, unlocks, covered_fids, stats)
     rows += _build_default_weapons(items, cobj_idx, unlocks, stats)
+    rows += _build_consumables(items, cobj_idx, stats)
     return rows, stats
 
 
@@ -349,6 +350,187 @@ def _build_default_weapons(items, cobj_idx, unlocks, stats):
 # a skin, not a functional mod, but both still nest under the same weapon, so the
 # distinction is left to add_weapon_groups.classify() (which reads the OMOD attach
 # point) rather than second-guessed here.
+# ── food, drink and chem recipes with no plan ──────────────────────────────
+# Duchess, 8 Oct 2026: the Recipe page must list every consumable recipe a
+# player can know, not only the ones taught by a plan book. The game states the
+# route itself in COBJ2 (LRNM learn method + conditions), so nothing here is
+# decided by name:
+#
+#   * "Learned when picked up or by script" with a GNAM: picking up the GNAM
+#     item teaches it (Radstag Meat -> Grilled Radstag). "Learned when
+#     ingested": eating one teaches it.
+#   * "Known by default" with no conditions (or only a world GLOB toggle that is
+#     not a quest switch): every character knows it — the Brewing Station basics,
+#     boiled/purified water, and the Cannery versions of meals.
+#   * Cannery recipes gated on HasLearnedRecipe(<bundle plan>): learned from that
+#     plan (Plan: Cannery Recipe Bundle #1/#2).
+#   * Plan-taught, challenge-taught and quest-only recipes are left alone — the
+#     plan rows and the GNAM-unlock rows above already own those.
+#
+# A "Canned …" row carries `canned: true` and `sort_name` = its base recipe's
+# row title, so the page lists Canned Brain Bombs straight under Brain Bombs
+# instead of under C (Duchess: break A–Z for these).
+_CONS_BENCH = {
+    "Workbench_Crafting_Cooking": "cooking station",
+    "Workbench_Crafting_Chemlab": "chemistry station",
+    "Workbench_Crafting_Brewing": "Brewing Station",
+    "Workbench_Crafting_Cannery": "Cannery",
+}
+_RX_CONS_SKIP = re.compile(r"^zzz|^cut_|^del_|^post_|test|nocraft|copy|condproxy", re.I)
+_RX_CANNERY_TAIL = re.compile(r"_Cannery(_G\d+)?$", re.I)
+_RX_SCORE_HEAD = re.compile(r"^(zzz_?)?SCORE_S?\d+_", re.I)
+_RX_COND_RECIPE = re.compile(r"HasLearnedRecipe\|[^|]*\|[^|]*\|([A-Za-z0-9_]+) \[COBJ:([0-9A-F]{8})\]")
+_RX_COND_FUNC = re.compile(r"\|(?:[0-9.]+)\|([A-Za-z]+)\|")
+_RX_COND_GLOB = re.compile(r"GetGlobalValue\|[^|]*\|[^|]*\|([A-Za-z0-9_]+) \[GLOB")
+
+
+def _cons_display_name(full):
+    return re.sub(r"^Fermentable\s+", "", full or "").strip()
+
+
+def _build_consumables(items, cobj_idx, stats):
+    cond = _cobj2(bpo.TSV)
+    if not cond:
+        stats["consumables_no_cobj2"] += 1
+        return []
+    path = bpo.newest("COBJ_Export_*.tsv", bpo.TSV)
+    gnam = {}
+    for r in bpo.read_rows(path):
+        fid = (r.get("COBJ_FormID") or "").strip().upper()
+        gnam[fid] = ((r.get("GNAM_FormID") or "").strip().upper(),
+                     (r.get("GNAM_FULL") or "").strip(),
+                     (r.get("GNAM_EDID") or "").strip())
+
+    covered_fid = {((it.get("cobj") or {}).get("formid") or "").upper() for it in items}
+    covered_cnam = {((it.get("cnam") or {}).get("formid") or "").upper()
+                    for it in items if not it.get("cut")}
+    covered_name = set()
+    bundle_name = {}
+    for it in items:
+        nm = re.sub(r"^(?:Plan|Recipe)\s*:\s*", "", it.get("name") or "")
+        covered_name.add(_norm(nm))
+        covered_name.add(_norm(re.sub(r"\s*\([^)]*\)\s*$", "", nm)))
+        co = (it.get("cobj") or {}).get("formid") or ""
+        if co:
+            bundle_name[co.upper()] = it.get("name") or ""
+    covered_name.discard("")
+
+    rows, seen = [], set()
+    for co_fid in sorted(cobj_idx):
+        c = cobj_idx[co_fid]
+        edid = c.get("edid") or ""
+        cnam = (c.get("cnam_fid") or "").upper()
+        if bpo.SIG_INDEX.get(cnam) != "ALCH" or _RX_CONS_SKIP.search(edid):
+            continue
+        bench = _CONS_BENCH.get(c.get("bnam_edid") or "")
+        if not bench:
+            continue
+        cr = cond.get(co_fid) or {}
+        lrnm = (cr.get("LRNM_LearnMethod") or "").strip().lower()
+        n_cond = int((cr.get("CondCount") or "0").strip() or 0)
+        conds = cr.get("Conditions") or ""
+        g_fid, g_full, _g_edid = gnam.get(co_fid, ("", "", ""))
+
+        flags, obtain, unlocks_txt, learn_item = {}, "", [], ""
+        if lrnm.startswith("learned when picked up"):
+            if n_cond:
+                stats["consumable_pickup_conditioned"] += 1
+                continue
+            flags["pickup_learned"] = True
+            learn_item = g_full
+            obtain = ("There is no plan to find — you learn to craft this the first "
+                      f"time you pick up {g_full}." if g_full else PICKUP_OBTAIN)
+            tag = "Pickup"
+        elif lrnm.startswith("learned when ingested"):
+            flags["pickup_learned"] = True
+            obtain = ("There is no plan to find — you learn to craft this the first "
+                      "time you eat one.")
+            tag = "Pickup"
+        elif lrnm.startswith("known by default"):
+            if g_fid:
+                continue                         # gated: the GNAM rows own it
+            funcs = set(_RX_COND_FUNC.findall(conds))
+            bundle = _RX_COND_RECIPE.search(conds)
+            globs = _RX_COND_GLOB.findall(conds)
+            if n_cond and bundle and bench == "Cannery":
+                bname = bundle_name.get(bundle.group(2).upper()) or bundle.group(1)
+                flags["recipe_bundle"] = True
+                obtain = (f"Learned from {bname}. You also need a Cannery in your "
+                          "C.A.M.P. to make it.")
+                unlocks_txt = [obtain]
+                tag = "Plan"
+            elif n_cond and (funcs - {"GetGlobalValue"}
+                             or any("quest" in g.lower() for g in globs)):
+                stats["consumable_default_conditioned"] += 1
+                continue                         # pets, quest items, entitlements
+            else:
+                flags["known_by_default"] = True
+                obtain = ("Known by default — there is no plan to find. Anyone with a "
+                          "Cannery in their C.A.M.P. can make this."
+                          if bench == "Cannery" else
+                          "Known by default — there is no plan to find. Every "
+                          f"character can make this at a {bench} from the start.")
+                tag = "Default"
+        else:
+            continue                             # plan / challenge / quest taught
+
+        full = _cons_display_name(c.get("cnam_full") or "")
+        key = _norm(full)
+        if not full or key in seen:
+            continue
+        if co_fid in covered_fid or (cnam in covered_cnam and bench != "Cannery") \
+                or key in covered_name:
+            stats["consumable_covered_by_a_plan"] += 1
+            continue
+        seen.add(key)
+        row = {
+            "kind": "plan", "recipe_only": True, **flags,
+            "brand": "df", "type": "recipe",
+            "id": f"RECIPE_{co_fid}", "name": full,
+            "has_image_box": True, "image_dir": "",
+            "obtain": obtain,
+            "category_label": f"Recipe ({bench})",
+            "workbench": bench[0].upper() + bench[1:],
+            "obtain_routes": [], "obtain_unlocks": unlocks_txt,
+            "plan_item": None,
+            "cobj": {"formid": co_fid, "edid": edid},
+            "cnam": {"formid": cnam, "edid": c.get("cnam_edid") or "", "sig": "ALCH"},
+            "tradeable": None, "stops_dropping": None, "effects": None,
+            "cut": False, "cut_reason": None,
+            "changes": [], "source_tag": tag,
+        }
+        if learn_item:
+            row["learn_item"] = learn_item
+        if bench == "Cannery":
+            row["canned"] = True
+        row["image_dir"] = plan_images.page_folder(row) or "recipes"
+        row["obtain_ledger"] = []
+        rows.append(row)
+        stats["consumable_" + tag.lower()] += 1
+
+    # Canned rows file under their base recipe. The base is the recipe whose
+    # COBJ EditorID is the cannery one minus its _Cannery tail and season head
+    # (SCORE_25_co_meal_BrainBombsGourmet_Cannery_G1 -> co_meal_BrainBombsGourmet).
+    by_co = {}
+    for it in list(items) + rows:
+        e = ((it.get("cobj") or {}).get("edid") or "").lower()
+        if e and not it.get("canned") and not it.get("cut"):
+            by_co.setdefault(e, it)
+    for row in rows:
+        if not row.get("canned"):
+            continue
+        stem = _RX_SCORE_HEAD.sub("", _RX_CANNERY_TAIL.sub("", row["cobj"]["edid"])).lower()
+        base = by_co.get(stem) or next((v for k, v in by_co.items() if k.endswith(stem)), None)
+        if base:
+            row["sort_name"] = re.sub(r"^(?:Plan|Recipe)\s*:\s*", "",
+                                      base.get("display_name") or base.get("name") or "")
+            row["canned_of"] = base.get("id")
+        else:
+            row["sort_name"] = re.sub(r"^Canned\s+", "", row["name"])
+            stats["consumable_canned_no_base"] += 1
+    return rows
+
+
 def _build_scrap(items, cobj_idx, unlocks, covered_fids, stats):
     """Recipe-only rows for mods learned by SCRAPPING a weapon or armour.
 
