@@ -1,84 +1,14 @@
 {
  "version": 1,
- "generated": "2026-10-02T19:00:04.375Z",
+ "generated": "2026-10-08T04:55:09.233Z",
  "platform": "xbox",
  "label": "Xbox",
  "source": "discord",
- "synced_at": "2026-10-02T19:00:04.374Z",
- "updated_at": "2026-10-01T21:47:15.533Z",
- "count": 11,
+ "synced_at": "2026-10-08T04:55:09.233Z",
+ "updated_at": "2026-10-08T04:54:09.206Z",
+ "count": 10,
  "grouping": "plan-page",
  "groups": [
-  {
-   "key": "snow-globes",
-   "label": "Snow Globes",
-   "items": [
-    {
-     "kind": "plan",
-     "brand": "df",
-     "type": "recipe",
-     "id": "PLAN_0067F16A",
-     "name": "Plan: Most Wanted Snow Globe",
-     "has_image_box": true,
-     "image_dir": "snowglobe",
-     "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
-     "category_label": "CAMP / Recipe (physical plan)",
-     "obtain_routes": [
-      {
-       "route": "Event: Most Wanted",
-       "source_type": "event-quest",
-       "rate": 0.055556,
-       "rate_display": "5.56%",
-       "lvli": [
-        "0068B8EA"
-       ],
-       "conditions": []
-      },
-      {
-       "route": "Event: Most Wanted - GWWS",
-       "source_type": "event-quest",
-       "rate": 0.027778,
-       "rate_display": "2.78%",
-       "lvli": [
-        "0065E293",
-        "00660860"
-       ],
-       "conditions": []
-      }
-     ],
-     "obtain_unlocks": [],
-     "plan_item": {
-      "formid": "0067F16A",
-      "edid": "E09D_Recipe_Workshop_FloorDecor_Snowglobe_MostWanted"
-     },
-     "cobj": {
-      "formid": "0067F174",
-      "edid": "workshop_co_CondProxy_FloorDecor_NWOT_Snowglobe_MostWanted"
-     },
-     "cnam": null,
-     "tradeable": true,
-     "stops_dropping": false,
-     "effects": null,
-     "cut": false,
-     "cut_reason": null,
-     "obtain_ledger": [
-      {
-       "label": "Events & Activities",
-       "routes": [
-        0,
-        1
-       ]
-      }
-     ],
-     "source_tag": "Events",
-     "images": [],
-     "image_source": "",
-     "plan_page": "snow-globes",
-     "plan_page_group": null
-    }
-   ],
-   "count": 1
-  },
   {
    "key": "weapon",
    "label": "Weapon",
@@ -95,40 +25,16 @@
      "category_label": "Weapon (physical plan)",
      "obtain_routes": [
       {
-       "route": "Liberator",
-       "source_type": "creature",
-       "rate": 0.03,
-       "rate_display": "3%",
-       "lvli": [
-        "00109F98",
-        "00377D06"
-       ],
-       "conditions": [
-        "Stops dropping once you learn it"
-       ]
-      },
-      {
-       "route": "Daily Ops - High Chase Rare",
-       "source_type": "event-quest",
-       "rate": 0.02439,
-       "rate_display": "2.44%",
-       "lvli": [
-        "005D080E"
-       ],
-       "conditions": [
-        "Level 50 and above"
-       ]
-      },
-      {
        "route": "Daily Ops - Chase",
        "source_type": "event-quest",
-       "rate": 0.010976,
-       "rate_display": "1.1%",
+       "rate": 0.011585,
+       "rate_display": "1.16%",
        "lvli": [
         "005CB9FF",
         "005DBD0D",
         "005DBD0F"
        ],
+       "kind": "event",
        "conditions": [
         "Level 50 and above"
        ]
@@ -139,21 +45,9 @@
        "rate": 0.006,
        "rate_display": "0.6%",
        "lvli": [
-        "00109F98",
-        "00377D06"
+        "00109F98"
        ],
-       "conditions": [
-        "Stops dropping once you learn it"
-       ]
-      },
-      {
-       "route": "Robot Liberator",
-       "source_type": "creature",
-       "rate": 0.006,
-       "rate_display": "0.6%",
-       "lvli": [
-        "0038232C"
-       ],
+       "kind": "enemy",
        "conditions": [
         "Stops dropping once you learn it"
        ]
@@ -180,19 +74,23 @@
      "cut_reason": null,
      "obtain_ledger": [
       {
+       "label": "Enemies",
+       "routes": [
+        1
+       ]
+      },
+      {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1,
-        2,
-        3,
-        4
+        0
        ]
       }
      ],
-     "source_tag": "Enemy",
-     "images": [],
-     "image_source": "",
+     "source_tag": "Ops",
+     "images": [
+      "commie-whacker"
+     ],
+     "image_source": "staged",
      "plan_page": "weapon",
      "plan_page_group": null,
      "weapon_role": "base",
@@ -212,27 +110,16 @@
      "category_label": "Weapon Mod / Paint",
      "obtain_routes": [
       {
-       "route": "Daily Ops - High Chase Rare",
-       "source_type": "event-quest",
-       "rate": 0.02439,
-       "rate_display": "2.44%",
-       "lvli": [
-        "005D080E"
-       ],
-       "conditions": [
-        "Level 50 and above"
-       ]
-      },
-      {
        "route": "Daily Ops - Chase",
        "source_type": "event-quest",
-       "rate": 0.010976,
-       "rate_display": "1.1%",
+       "rate": 0.011585,
+       "rate_display": "1.16%",
        "lvli": [
         "005CB9FF",
         "005DBD0D",
         "005DBD0F"
        ],
+       "kind": "event",
        "conditions": [
         "Level 50 and above"
        ]
@@ -261,14 +148,15 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1
+        0
        ]
       }
      ],
      "source_tag": "Ops",
-     "images": [],
-     "image_source": "",
+     "images": [
+      "face-breaker"
+     ],
+     "image_source": "override",
      "plan_page": "weapon",
      "plan_page_group": null,
      "weapon_role": "skin",
@@ -295,6 +183,7 @@
        "lvli": [
         "0076EA4B"
        ],
+       "kind": "event",
        "conditions": []
       }
      ],
@@ -327,8 +216,10 @@
      ],
      "source_tag": "Events",
      "display_name": "Plan: V63-HELGA Gatling Laser Paint",
-     "images": [],
-     "image_source": "",
+     "images": [
+      "gatling-laser-v63-helga-paint"
+     ],
+     "image_source": "staged",
      "plan_page": "weapon",
      "plan_page_group": null,
      "weapon_role": "skin",
@@ -350,22 +241,13 @@
       {
        "route": "Event: Most Wanted",
        "source_type": "event-quest",
-       "rate": 0.055556,
-       "rate_display": "5.56%",
-       "lvli": [
-        "0068B8EA"
-       ],
-       "conditions": []
-      },
-      {
-       "route": "Event: Most Wanted - GWWS",
-       "source_type": "event-quest",
        "rate": 0.027778,
        "rate_display": "2.78%",
        "lvli": [
-        "0065E293",
-        "00660860"
+        "0065E293"
        ],
+       "quest_reward": true,
+       "kind": "event",
        "conditions": []
       }
      ],
@@ -392,14 +274,15 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1
+        0
        ]
       }
      ],
      "source_tag": "Events",
-     "images": [],
-     "image_source": "",
+     "images": [
+      "gunther-s-paint"
+     ],
+     "image_source": "staged",
      "plan_page": "weapon",
      "plan_page_group": null,
      "weapon_role": "skin",
@@ -426,6 +309,7 @@
        "lvli": [
         "0076EA4B"
        ],
+       "kind": "event",
        "conditions": []
       }
      ],
@@ -458,8 +342,10 @@
      ],
      "source_tag": "Events",
      "display_name": "Plan: V63-OLGA Laser Gun Paint",
-     "images": [],
-     "image_source": "",
+     "images": [
+      "laser-gun-v63-olga-paint"
+     ],
+     "image_source": "staged",
      "plan_page": "weapon",
      "plan_page_group": null,
      "weapon_role": "skin",
@@ -502,28 +388,12 @@
       {
        "route": "Event: Tunnel Of Love",
        "source_type": "event-quest",
-       "rate": 0.016667,
-       "rate_display": "1.67%",
-       "lvli": [
-        "006772EC",
-        "0068B8E9"
-       ],
-       "conditions": [
-        "Stops dropping once you learn it"
-       ],
-       "retired_because": [
-        "reward pool not hooked up"
-       ]
-      },
-      {
-       "route": "Event: Tunnel Of Love",
-       "source_type": "event-quest",
        "rate": 0.008333,
        "rate_display": "0.83%",
        "lvli": [
-        "006772EC",
-        "0068B8E9"
+        "006772EC"
        ],
+       "kind": "event",
        "conditions": [
         "Stops dropping once you learn it"
        ],
@@ -532,8 +402,10 @@
        ]
       }
      ],
-     "images": [],
-     "image_source": "",
+     "images": [
+      "love-tap-paint"
+     ],
+     "image_source": "staged",
      "plan_page": "weapon",
      "plan_page_group": null,
      "weapon_role": "skin",
@@ -553,40 +425,6 @@
      "category_label": "Weapon Mod / Paint",
      "obtain_routes": [
       {
-       "route": "Weapons Common",
-       "source_type": "event-quest",
-       "rate": 0.017241,
-       "rate_display": "1.72%",
-       "lvli": [
-        "005D9CC2"
-       ],
-       "conditions": []
-      },
-      {
-       "route": "Daily Ops - Low Chase Rare",
-       "source_type": "event-quest",
-       "rate": 0.008621,
-       "rate_display": "0.86%",
-       "lvli": [
-        "005D9CBC"
-       ],
-       "conditions": [
-        "Level 49 and below"
-       ]
-      },
-      {
-       "route": "Daily Ops - Rare",
-       "source_type": "event-quest",
-       "rate": 0.008621,
-       "rate_display": "0.86%",
-       "lvli": [
-        "005D9CBF"
-       ],
-       "conditions": [
-        "Level 49 and below"
-       ]
-      },
-      {
        "route": "Daily Ops - Chase",
        "source_type": "event-quest",
        "rate": 0.00431,
@@ -596,6 +434,7 @@
         "005DBD0D",
         "005DBD0F"
        ],
+       "kind": "event",
        "conditions": [
         "Level 49 and below"
        ]
@@ -624,14 +463,11 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1,
-        2,
-        3
+        0
        ]
       }
      ],
-     "source_tag": "Activities",
+     "source_tag": "Ops",
      "images": [
       "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
      ],
@@ -662,6 +498,7 @@
        "lvli": [
         "0076EA4B"
        ],
+       "kind": "event",
        "conditions": []
       }
      ],
@@ -693,8 +530,10 @@
       }
      ],
      "source_tag": "Events",
-     "images": [],
-     "image_source": "",
+     "images": [
+      "shock-baton-paint"
+     ],
+     "image_source": "staged",
      "plan_page": "weapon",
      "plan_page_group": null,
      "weapon_role": "skin",
@@ -716,22 +555,13 @@
       {
        "route": "Event: Most Wanted",
        "source_type": "event-quest",
-       "rate": 0.055556,
-       "rate_display": "5.56%",
-       "lvli": [
-        "0068B8EA"
-       ],
-       "conditions": []
-      },
-      {
-       "route": "Event: Most Wanted - GWWS",
-       "source_type": "event-quest",
        "rate": 0.027778,
        "rate_display": "2.78%",
        "lvli": [
-        "0065E293",
-        "00660860"
+        "0065E293"
        ],
+       "quest_reward": true,
+       "kind": "event",
        "conditions": []
       }
      ],
@@ -758,14 +588,15 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1
+        0
        ]
       }
      ],
      "source_tag": "Events",
-     "images": [],
-     "image_source": "",
+     "images": [
+      "western-spirit-paint"
+     ],
+     "image_source": "staged",
      "plan_page": "weapon",
      "plan_page_group": null,
      "weapon_role": "skin",
@@ -787,25 +618,12 @@
       {
        "route": "Event: Spin The Wheel",
        "source_type": "event-quest",
-       "rate": 0.071429,
-       "rate_display": "7.14%",
-       "lvli": [
-        "00647B22",
-        "00647B23",
-        "0068B8E8"
-       ],
-       "conditions": []
-      },
-      {
-       "route": "Event: Spin The Wheel",
-       "source_type": "event-quest",
        "rate": 0.035714,
        "rate_display": "3.57%",
        "lvli": [
-        "00647B22",
-        "00647B23",
-        "0068B8E8"
+        "00647B22"
        ],
+       "kind": "event",
        "conditions": []
       }
      ],
@@ -832,14 +650,15 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1
+        0
        ]
       }
      ],
      "source_tag": "Events",
-     "images": [],
-     "image_source": "",
+     "images": [
+      "whacker-smacker-paint"
+     ],
+     "image_source": "staged",
      "plan_page": "weapon",
      "plan_page_group": null,
      "weapon_role": "skin",
