@@ -1,14 +1,129 @@
 {
  "version": 1,
- "generated": "2026-09-30T21:37:40.998Z",
+ "generated": "2026-10-08T06:23:37.536Z",
  "platform": "playstation",
  "label": "PlayStation",
  "source": "discord",
- "synced_at": "2026-09-30T21:37:40.998Z",
- "updated_at": "2026-09-30T21:36:40.985Z",
- "count": 4,
+ "synced_at": "2026-10-08T06:23:37.536Z",
+ "updated_at": "2026-10-08T06:22:37.532Z",
+ "count": 6,
  "grouping": "plan-page",
  "groups": [
+  {
+   "key": "camp",
+   "label": "CAMP Plans",
+   "items": [
+    {
+     "kind": "plan",
+     "brand": "df",
+     "type": "recipe",
+     "id": "PLAN_008E0699",
+     "name": "Plan: Pint-Sized Slasher Wanted Poster 1",
+     "has_image_box": true,
+     "image_dir": "workshop",
+     "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+     "category_label": "CAMP / Recipe (physical plan)",
+     "obtain_routes": [
+      {
+       "route": "Mischief Night - Uninvited Pint-Sized Phantom",
+       "source_type": "creature",
+       "rate": 0.083333,
+       "rate_display": "8.33%",
+       "lvli": [
+        "008E06FB"
+       ],
+       "kind": "enemy",
+       "conditions": []
+      }
+     ],
+     "obtain_unlocks": [],
+     "plan_item": {
+      "formid": "008E0699",
+      "edid": "SDOW_Recipe_Workshop_WallDecor_SlasherScaryPoster01"
+     },
+     "cobj": {
+      "formid": "008E0753",
+      "edid": "SDOW_workshop_co_CondProxy_WallDecor_Posters_SlasherScaryPoster01"
+     },
+     "cnam": null,
+     "tradeable": true,
+     "stops_dropping": false,
+     "effects": null,
+     "cut": false,
+     "cut_reason": null,
+     "obtain_ledger": [
+      {
+       "label": "Enemies",
+       "routes": [
+        0
+       ]
+      }
+     ],
+     "source_tag": "Enemy",
+     "images": [
+      "sdow_recipe_workshop_walldecor_slasherscaryposter01"
+     ],
+     "image_source": "staged",
+     "plan_page": "camp",
+     "plan_page_group": "C.A.M.P. Plans"
+    },
+    {
+     "kind": "plan",
+     "brand": "df",
+     "type": "recipe",
+     "id": "PLAN_00904CD5",
+     "name": "Plan: Pint-Sized Slasher Wanted Poster 2",
+     "has_image_box": true,
+     "image_dir": "workshop",
+     "obtain": "This is a physical plan — there is a plan item to find and learn. It drops from the sources below, each with its resolved chance.",
+     "category_label": "CAMP / Recipe (physical plan)",
+     "obtain_routes": [
+      {
+       "route": "Mischief Night - Uninvited Pint-Sized Phantom",
+       "source_type": "creature",
+       "rate": 0.083333,
+       "rate_display": "8.33%",
+       "lvli": [
+        "008E06FB"
+       ],
+       "kind": "enemy",
+       "conditions": []
+      }
+     ],
+     "obtain_unlocks": [],
+     "plan_item": {
+      "formid": "00904CD5",
+      "edid": "SDOW_Recipe_Workshop_WallDecor_SlasherScaryPoster02"
+     },
+     "cobj": {
+      "formid": "00904CD8",
+      "edid": "SDOW_workshop_co_CondProxy_WallDecor_Posters_SlasherScaryPoster02"
+     },
+     "cnam": null,
+     "tradeable": true,
+     "stops_dropping": false,
+     "effects": null,
+     "cut": false,
+     "cut_reason": null,
+     "obtain_ledger": [
+      {
+       "label": "Enemies",
+       "routes": [
+        0
+       ]
+      }
+     ],
+     "source_tag": "Enemy",
+     "images": [
+      "sdow_recipe_workshop_walldecor_slasherscaryposter02"
+     ],
+     "image_source": "staged",
+     "plan_page": "camp",
+     "plan_page_group": "C.A.M.P. Plans"
+    }
+   ],
+   "count": 2
+  },
   {
    "key": "power-armour",
    "label": "Power Armour",
@@ -25,48 +140,8 @@
      "category_label": "Armour Mod / Paint",
      "obtain_routes": [
       {
-       "route": "Mutated Public Events - Ultra Rare Plans",
-       "source_type": "event-quest",
-       "rate": 0.018182,
-       "rate_display": "1.82%",
-       "lvli": [
-        "00690651"
-       ],
-       "conditions": []
-      },
-      {
-       "route": "Mutated Public Events - Chase Items",
-       "source_type": "event-quest",
-       "rate": 0.001818,
-       "rate_display": "0.18%",
-       "lvli": [
-        "0069157A"
-       ],
-       "conditions": []
-      },
-      {
-       "route": "Mutated Public Events - Double Mutation Fallout1st",
-       "source_type": "event-quest",
-       "rate": 0.001364,
-       "rate_display": "0.14%",
-       "lvli": [
-        "00699719"
-       ],
-       "conditions": []
-      },
-      {
-       "route": "Mutated Public Events - Double Mutation",
-       "source_type": "event-quest",
-       "rate": 0.000909,
-       "rate_display": "0.09%",
-       "lvli": [
-        "0067F382"
-       ],
-       "conditions": []
-      },
-      {
-       "route": "Mutated Public Events - Single Mutation Fallout1st",
-       "source_type": "event-quest",
+       "route": "Mutated Party Pack",
+       "source_type": "container",
        "rate": 0.000909,
        "rate_display": "0.09%",
        "lvli": [
@@ -75,8 +150,8 @@
        "conditions": []
       },
       {
-       "route": "Mutated Public Events - Single Mutation",
-       "source_type": "event-quest",
+       "route": "Mutated Package",
+       "source_type": "container",
        "rate": 0.000455,
        "rate_display": "0.05%",
        "lvli": [
@@ -106,20 +181,18 @@
      "cut_reason": null,
      "obtain_ledger": [
       {
-       "label": "Events & Activities",
+       "label": "Containers",
        "routes": [
         0,
-        1,
-        2,
-        3,
-        4,
-        5
+        1
        ]
       }
      ],
-     "source_tag": "Events",
-     "images": [],
-     "image_source": "",
+     "source_tag": "Loot",
+     "images": [
+      "t-60-headlamp"
+     ],
+     "image_source": "staged",
      "plan_page": "power-armour",
      "plan_page_group": null,
      "armour_role": "mod",
@@ -139,48 +212,8 @@
      "category_label": "Armour Mod / Paint",
      "obtain_routes": [
       {
-       "route": "Mutated Public Events - Ultra Rare Plans",
-       "source_type": "event-quest",
-       "rate": 0.018182,
-       "rate_display": "1.82%",
-       "lvli": [
-        "00690651"
-       ],
-       "conditions": []
-      },
-      {
-       "route": "Mutated Public Events - Chase Items",
-       "source_type": "event-quest",
-       "rate": 0.001818,
-       "rate_display": "0.18%",
-       "lvli": [
-        "0069157A"
-       ],
-       "conditions": []
-      },
-      {
-       "route": "Mutated Public Events - Double Mutation Fallout1st",
-       "source_type": "event-quest",
-       "rate": 0.001364,
-       "rate_display": "0.14%",
-       "lvli": [
-        "00699719"
-       ],
-       "conditions": []
-      },
-      {
-       "route": "Mutated Public Events - Double Mutation",
-       "source_type": "event-quest",
-       "rate": 0.000909,
-       "rate_display": "0.09%",
-       "lvli": [
-        "0067F382"
-       ],
-       "conditions": []
-      },
-      {
-       "route": "Mutated Public Events - Single Mutation Fallout1st",
-       "source_type": "event-quest",
+       "route": "Mutated Party Pack",
+       "source_type": "container",
        "rate": 0.000909,
        "rate_display": "0.09%",
        "lvli": [
@@ -189,8 +222,8 @@
        "conditions": []
       },
       {
-       "route": "Mutated Public Events - Single Mutation",
-       "source_type": "event-quest",
+       "route": "Mutated Package",
+       "source_type": "container",
        "rate": 0.000455,
        "rate_display": "0.05%",
        "lvli": [
@@ -220,20 +253,18 @@
      "cut_reason": null,
      "obtain_ledger": [
       {
-       "label": "Events & Activities",
+       "label": "Containers",
        "routes": [
         0,
-        1,
-        2,
-        3,
-        4,
-        5
+        1
        ]
       }
      ],
-     "source_tag": "Events",
-     "images": [],
-     "image_source": "",
+     "source_tag": "Loot",
+     "images": [
+      "t-60-headlamp"
+     ],
+     "image_source": "staged",
      "plan_page": "power-armour",
      "plan_page_group": null,
      "armour_role": "mod",
@@ -260,48 +291,8 @@
      "category_label": "Weapon Mod / Paint",
      "obtain_routes": [
       {
-       "route": "Mutated Public Events - Chase Items",
-       "source_type": "event-quest",
-       "rate": 0.012821,
-       "rate_display": "1.28%",
-       "lvli": [
-        "0069157A"
-       ],
-       "conditions": []
-      },
-      {
-       "route": "Mutated Public Events - Rare Plans",
-       "source_type": "event-quest",
-       "rate": 0.012821,
-       "rate_display": "1.28%",
-       "lvli": [
-        "00690653"
-       ],
-       "conditions": []
-      },
-      {
-       "route": "Mutated Public Events - Double Mutation Fallout1st",
-       "source_type": "event-quest",
-       "rate": 0.009615,
-       "rate_display": "0.96%",
-       "lvli": [
-        "00699719"
-       ],
-       "conditions": []
-      },
-      {
-       "route": "Mutated Public Events - Double Mutation",
-       "source_type": "event-quest",
-       "rate": 0.00641,
-       "rate_display": "0.64%",
-       "lvli": [
-        "0067F382"
-       ],
-       "conditions": []
-      },
-      {
-       "route": "Mutated Public Events - Single Mutation Fallout1st",
-       "source_type": "event-quest",
+       "route": "Mutated Party Pack",
+       "source_type": "container",
        "rate": 0.00641,
        "rate_display": "0.64%",
        "lvli": [
@@ -310,8 +301,8 @@
        "conditions": []
       },
       {
-       "route": "Mutated Public Events - Single Mutation",
-       "source_type": "event-quest",
+       "route": "Mutated Package",
+       "source_type": "container",
        "rate": 0.003205,
        "rate_display": "0.32%",
        "lvli": [
@@ -341,21 +332,19 @@
      "cut_reason": null,
      "obtain_ledger": [
       {
-       "label": "Events & Activities",
+       "label": "Containers",
        "routes": [
         0,
-        1,
-        2,
-        3,
-        4,
-        5
+        1
        ]
       }
      ],
-     "source_tag": "Events",
+     "source_tag": "Loot",
      "display_name": "Plan: The Fixer Combat Rifle Paint",
-     "images": [],
-     "image_source": "",
+     "images": [
+      "combat-rifle-the-fixer-paint"
+     ],
+     "image_source": "staged",
      "plan_page": "weapon",
      "plan_page_group": null,
      "weapon_role": "skin",
@@ -375,40 +364,6 @@
      "category_label": "Weapon Mod / Paint",
      "obtain_routes": [
       {
-       "route": "Weapons Common",
-       "source_type": "event-quest",
-       "rate": 0.017241,
-       "rate_display": "1.72%",
-       "lvli": [
-        "005D9CC2"
-       ],
-       "conditions": []
-      },
-      {
-       "route": "Daily Ops - Low Chase Rare",
-       "source_type": "event-quest",
-       "rate": 0.008621,
-       "rate_display": "0.86%",
-       "lvli": [
-        "005D9CBC"
-       ],
-       "conditions": [
-        "Level 49 and below"
-       ]
-      },
-      {
-       "route": "Daily Ops - Rare",
-       "source_type": "event-quest",
-       "rate": 0.008621,
-       "rate_display": "0.86%",
-       "lvli": [
-        "005D9CBF"
-       ],
-       "conditions": [
-        "Level 49 and below"
-       ]
-      },
-      {
        "route": "Daily Ops - Chase",
        "source_type": "event-quest",
        "rate": 0.00431,
@@ -418,6 +373,7 @@
         "005DBD0D",
         "005DBD0F"
        ],
+       "kind": "event",
        "conditions": [
         "Level 49 and below"
        ]
@@ -446,14 +402,11 @@
       {
        "label": "Events & Activities",
        "routes": [
-        0,
-        1,
-        2,
-        3
+        0
        ]
       }
      ],
-     "source_tag": "Activities",
+     "source_tag": "Ops",
      "images": [
       "/wp-content/uploads/guide-images/plan-checklist/weapons/weapon_mod.avif"
      ],
