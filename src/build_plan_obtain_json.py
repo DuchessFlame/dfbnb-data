@@ -1251,6 +1251,21 @@ def worn_only(lists, lvli_refs, c2p, parent_edid):
     return outfit
 
 
+_RX_GOLD_WORDS = re.compile(r"\s*\bGold(?:\s+Bullion)?\b", re.I)
+
+
+def _currency_from_chest(label, chest_edid):
+    """The chest decides the currency, not the stock list's name. Molly's
+    W05_LLV_GoldVendor_Raider_Molly_5_Neighborly sits in her CAPS chest
+    (W05_Raiders_VendorChest_Molly), so "Molly (Neighborly, Raiders Gold
+    Bullion vendor)" filed Recipe: Pepperoni Roll under Gold Bullion - she
+    sells it for caps (Duchess, in game, 8 Oct 2026). Every real gold trader's
+    chest says so: ..._GoldVendorChest_Reginald / _Mortimer / Samuel / Minerva."""
+    if not chest_edid or re.search(r"gold", chest_edid, re.I):
+        return label
+    return _RX_GOLD_WORDS.sub("", label) if re.search(r"gold", label or "", re.I) else label
+
+
 def _name_all_vendors(label, chests):
     """`label` names the first trader; add any other named trader whose chest
     stocks the same list. "The Fisherman (Fishing vendor)" ->
@@ -1469,6 +1484,7 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
                     vendor_chest_for_list(rf, lvli_refs) if rsig == "LVLI" else None)
                 if chest:
                     vend_name = vendor_names().label(chest, vend_name)
+                    vend_name = _currency_from_chest(vend_name, chest_edids().get((chest or "").upper(), ""))
             if b == "vendor" and rsig == "CONT" and vendor_names().name(rf):
                 vend_chests.append(rf)
             if rsig == "NPC_" and npc_names.get((rf or "").upper()):
