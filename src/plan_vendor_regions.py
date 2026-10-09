@@ -34,11 +34,13 @@ condition IS the game's location check:
   2. Exterior with no Location: the exterior grid cell (X,Y / 4096) -> the
      locations that own refs there (LCSR) -> their regions. Used only when
      that gives exactly ONE region.
-  3. Still no region: Mappalachia. Exterior -> the region outline the point
-     sits in; interior -> the region of its outside door (geo_cache.json).
-     Marked `via: mappalachia` in the report: the game's own chain did not
-     reach a region, so whether its check passes in game is less certain
-     (The Whitespring is the case: Mall -> The Whitespring -> Appalachia).
+  3. Exterior and still no region: the Mappalachia region outline the point
+     sits in. Marked `via: mappalachia` in the report.
+  4. Interior whose chain never reaches a region: it HAS NO REGION, and fails
+     every region check. Mappalachia's door lookup is not used to fill it.
+     The Whitespring is the case (Mall -> The Whitespring -> Appalachia):
+     checked in game 9 Oct 2026, its mall bots stock none of the regional
+     armour mod plans. The door lookup is still read as a cross-check.
 
 When steps 1/2 and the Mappalachia outline disagree, the game's answer is used
 and the disagreement is reported (Duncan & Duncan Robotics: chain says The
@@ -176,6 +178,8 @@ class Locations:
         return None
 
     def name(self, fid):
+        if not fid:
+            return "no region"
         return self.full.get(fid) or self.edid.get(fid) or fid
 
 
@@ -322,8 +326,15 @@ class VendorRegions:
             self.warnings.append(
                 f"region disagrees for {npc} ({cell or 'exterior'}): game data "
                 f"{self.loc.name(reg)}, Mappalachia {self.loc.name(m_reg)} — using game data")
-        if not reg and m_reg:
+        # Mappalachia fills a region for EXTERIOR spots only. An interior whose
+        # own location chain stops short of a region (The Whitespring: Mall ->
+        # The Whitespring -> Appalachia) fails every region check in game:
+        # checked 9 Oct 2026, the Whitespring mall bots stock none of the
+        # regional armour mod plans, only the unconditioned stock.
+        if not reg and m_reg and ext:
             reg, via = m_reg, "mappalachia"
+        if not reg and chain:
+            return PLACED, chain, None, "location (no region)", cell or "exterior"
         if not reg:
             return UNKNOWN, chain, None, "no region", cell or "exterior"
         if reg not in chain:
@@ -632,7 +643,7 @@ def main(argv=None):
     report(stats)
     if a.write:
         with open(a.plan_master, "w", encoding="utf-8") as fh:
-            json.dump(doc, fh, ensure_ascii=False, indent=1)
+            json.dump(doc, fh, ensure_ascii=False, indent=2)
     return 0
 
 
