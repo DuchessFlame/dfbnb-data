@@ -929,13 +929,6 @@ EVENTS = {
             ],
         },
     },
-    "night-of-the-radtoads-all-rewards": {
-        "name": "Night of the Radtoads",
-        "eventSlug": "night-of-the-radtoads",
-        "description": "Survive the Night of the Radtoads and earn unique rewards.",
-        "isContainerLoot": False,
-        "questFormIDs": [],
-    },
     # The Slasher (Fall 2026 / "Psychophants of Appalachia"). A ~1-month
     # seasonal event with four weekly activities driven by the umbrella quest
     # "(Seasonal) The Slasher" (SDOW_SQ00_UmbrellaQuest). Every weekly reward

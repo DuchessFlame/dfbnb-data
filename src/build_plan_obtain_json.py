@@ -77,6 +77,7 @@ import plan_sources         # cut detection, readable source names, unlock route
 import plan_unlocks         # COBJ.GNAM — what the game says unlocks each recipe
 import plan_source_pill     # the one-word source tag on each row
 import prune_dead_routes    # retire routes nothing in the game rolls (see module)
+import plan_vendor_regions  # a vendor only sells the regional plans of where it stands
 import plan_conditions      # drop conditions per source (LVLI entry CTDAs)
 import plan_display_names   # row titles: model-first weapon paint names
 import plan_recipe_rows     # rows for recipes that have no plan book at all
@@ -1887,6 +1888,16 @@ def main(argv=None):
     if not args.no_routes and not args.offset and not args.limit and not args.only:
         print("[plan-obtain] dead routes:")
         prune_dead_routes.report(prune_dead_routes.attach(items, TSV))
+
+    # Regional vendor stock: a faction vendor only sells the regional plans of
+    # the region it stands in (LL_..._AllRegions_Vendor picks one region list by
+    # GetInCurrentLocation). Vendors that can never meet a route's location
+    # condition come off it; a route none can meet is retired. Where every
+    # vendor stands is worked out from this run's placements export each build
+    # (plan_vendor_regions.py). Pure join, no rate touched. Before source tags.
+    if not args.no_routes and not args.offset and not args.limit and not args.only:
+        print("[plan-obtain] vendor regions:")
+        plan_vendor_regions.report(plan_vendor_regions.attach(items, TSV))
 
     # The one-word "where does this come from" tag on each row and in the
     # export poster's SOURCE column. Pure string work over the routes that were
