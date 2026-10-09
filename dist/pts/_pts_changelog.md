@@ -1710,7 +1710,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +305 / -24 / ~496
+## `plan_master.json`  ·  +305 / -24 / ~434
 
 **Added (305)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1781,48 +1781,48 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (496)**
-- Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images
-- Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images
-- MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images
-- Vault 51 Player Icon  `NWREWARD_003FBB4F` — fields: image_source, images
-- Bad Hair Female Player Icon  `NWREWARD_003FBB50` — fields: image_source, images
-- Bad Hair Male Player Icon  `NWREWARD_003FBB51` — fields: image_source, images
-- Vault Boy with Camera Player Icon  `NWREWARD_003FBB52` — fields: image_source, images
-- Small Crate Player Icon  `NWREWARD_003FBB60` — fields: image_source, images
-- Medium Crate Player Icon  `NWREWARD_003FBB61` — fields: image_source, images
-- Epic Crate Player Icon  `NWREWARD_003FBB62` — fields: image_source, images
-- Skeleton Player Icon  `NWREWARD_00416629` — fields: image_source, images
-- Nuke Skull Player Icon  `NWREWARD_0041662A` — fields: image_source, images
-- Nuke Goggles Man Player Icon  `NWREWARD_0041662B` — fields: image_source, images
-- Nuke Goggles Woman Player Icon  `NWREWARD_0041662C` — fields: image_source, images
-- Power Armor Player Icon  `NWREWARD_0041662D` — fields: image_source, images
-- Plan: Ultra-Light Build Robot Armor Chest  `PLAN_0001BF30` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: BioCommMesh Robot Armor Lining  `PLAN_0001BF31` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Shadowed Robot Armor Chest  `PLAN_0001BF32` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Strengthened Robot Armor Limbs  `PLAN_0001BF34` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Cushioned Robot Armor Legs  `PLAN_0001BF35` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Deep Pocketed Robot Armor Chest  `PLAN_0001BF36` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Shadowed Robot Armor Legs  `PLAN_0001BF48` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Deep Pocketed Robot Armor Limbs  `PLAN_0001BF49` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Ultra-Light Build Robot Armor Limbs  `PLAN_0001BF4A` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Ultra-Light Build Marine Armor Chest  `PLAN_000218B3` — fields: obtain_routes
-- Plan: Lead Lined Marine Armor Chest  `PLAN_000218B4` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Shadowed Robot Armor Arms  `PLAN_000218B5` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Strengthened Marine Armor Limbs  `PLAN_000218C4` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Cushioned Marine Armor Legs  `PLAN_000218C5` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Deep Pocketed Marine Armor Chest  `PLAN_000218C6` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Shadowed Combat Armor Chest  `PLAN_0002190F` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Deep Pocketed Marine Armor Limbs  `PLAN_00021910` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Ultra-Light Build Marine Armor Limbs  `PLAN_00021911` — fields: obtain_routes
-- Plan: BioCommMesh Combat Armor Lining  `PLAN_000224FB` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Lead Lined Combat Armor Chest  `PLAN_000224FC` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: BoS Combat Armor Chest Piece  `PLAN_000224FD` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Cushioned Combat Armor Legs  `PLAN_00022E98` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Pocketed Combat Armor Chest  `PLAN_00022E99` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Deep Pocketed Combat Armor Chest  `PLAN_00022E9A` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Deep Pocketed Combat Armor Limbs  `PLAN_0002321D` — fields: obtain_ledger, obtain_routes, retired_routes
-- …and 456 more
+**Changed (434)**
+- Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images, source_tag
+- Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images, source_tag
+- MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images, source_tag
+- Vault 51 Player Icon  `NWREWARD_003FBB4F` — fields: image_source, images, source_tag
+- Bad Hair Female Player Icon  `NWREWARD_003FBB50` — fields: image_source, images, source_tag
+- Bad Hair Male Player Icon  `NWREWARD_003FBB51` — fields: image_source, images, source_tag
+- Vault Boy with Camera Player Icon  `NWREWARD_003FBB52` — fields: image_source, images, source_tag
+- Small Crate Player Icon  `NWREWARD_003FBB60` — fields: image_source, images, source_tag
+- Medium Crate Player Icon  `NWREWARD_003FBB61` — fields: image_source, images, source_tag
+- Epic Crate Player Icon  `NWREWARD_003FBB62` — fields: image_source, images, source_tag
+- Skeleton Player Icon  `NWREWARD_00416629` — fields: image_source, images, source_tag
+- Nuke Skull Player Icon  `NWREWARD_0041662A` — fields: image_source, images, source_tag
+- Nuke Goggles Man Player Icon  `NWREWARD_0041662B` — fields: image_source, images, source_tag
+- Nuke Goggles Woman Player Icon  `NWREWARD_0041662C` — fields: image_source, images, source_tag
+- Power Armor Player Icon  `NWREWARD_0041662D` — fields: image_source, images, source_tag
+- Bronze Nuclear Winter Statue  `NWREWARD_00417788` — fields: source_tag
+- Copper Nuclear Winter Statue  `NWREWARD_00417789` — fields: source_tag
+- Marble Nuclear Winter Statue  `NWREWARD_0041778A` — fields: source_tag
+- Bronze Nuclear Winter Trophy  `NWREWARD_0041778B` — fields: source_tag
+- Gold Nuclear Winter Trophy  `NWREWARD_0041778C` — fields: source_tag
+- Silver Nuclear Winter Trophy  `NWREWARD_0041778D` — fields: source_tag
+- Overseer Chair  `NWREWARD_0041778E` — fields: source_tag
+- Four of a Kind Frame  `NWREWARD_00417792` — fields: source_tag
+- Best Friends Frame  `NWREWARD_00417793` — fields: source_tag
+- Platinum Frame  `NWREWARD_00417794` — fields: source_tag
+- Overseer Promotion Frame  `NWREWARD_00417795` — fields: source_tag
+- Ring of Fire Frame  `NWREWARD_00417796` — fields: source_tag
+- Squad Goals Frame  `NWREWARD_00417797` — fields: source_tag
+- Vault 51 Frame  `NWREWARD_00417798` — fields: source_tag
+- Veteran Frame  `NWREWARD_00417799` — fields: source_tag
+- Fiery Welcome Frame  `NWREWARD_0041779A` — fields: source_tag
+- Nuka Cherry Armor Paint  `NWREWARD_0053E84F` — fields: source_tag
+- Vault-Tec University Steamer Trunk  `NWREWARD_00569B7A` — fields: source_tag
+- Plan: Boxing Glove Lead Lining  `PLAN_0018331B` — fields: obtain_ledger, obtain_routes
+- Plan: Spiked Walking Cane  `PLAN_002B42A2` — fields: obtain_ledger, obtain_routes
+- Plan: Barbed Walking Cane  `PLAN_002B42A3` — fields: obtain_ledger, obtain_routes
+- Plan: Machete Sacrificial Blade  `PLAN_002B42AC` — fields: obtain_ledger, obtain_routes
+- Plan: Pitchfork Flamer  `PLAN_002B42AD` — fields: obtain_ledger, obtain_routes
+- Plan: Hatchet Electro Fusion  `PLAN_002B42BA` — fields: obtain_ledger, obtain_routes
+- Recipe: Healing Salve (Forest)  `PLAN_002B8BC1` — fields: obtain_ledger, obtain_routes
+- …and 394 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
