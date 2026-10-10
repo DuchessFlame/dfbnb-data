@@ -1141,6 +1141,18 @@ jobs:
       - name: Build combined plant guide pages
         run: python src/build_plant_combo_guides.py
 
+      # --- PRE-WAR FOOD LOCATION GUIDE (/bnb/farming/non-perishable/pre-war-food-location-guide/) ---
+      # Every food the "Eat Pre-war Food" challenges count (the CHAL "Pre-war Food"
+      # keyword) on one page: one Fixed Spawn sub-expand + map set per food, the
+      # mixed pre-war food lists as Chance to Spawn, per-food Used For / Tips /
+      # Containers / Creatures / Vendors / Events / Treasure Maps. Foods with their
+      # own guide link to it. Reads the committed geo cache
+      # (data/farming_spawns/geo_cache_pre_war_food.json — reseed locally with the
+      # Mappalachia DB). Writes dist/farming_spawns/pre-war-food_spawns.json.
+      # Must run AFTER build_farming_used_for.py. Slow (~40 foods through rng76).
+      - name: Build Pre-War Food guide
+        run: python src/build_pre_war_food_guide.py
+
       # --- SPAWN MAP DOWNLOAD LINKS (map_base + full_map) ---
       # Stamps every farming/meat/plants/insects/drinks spawn doc with its map
       # folder and 4K full-map path. The pages HEAD-check each map and only show

@@ -210,6 +210,11 @@ def main():
 
             if family == "farming_spawns" and slug.startswith("npc-"):
                 continue
+            # Multi-item pages with one map set per item (Pre-War Food) carry their
+            # own map_base / full_map per item in fixed_items[] — a page-level
+            # full_map would point at a map that is never drawn.
+            if doc.get("fixed_items"):
+                continue
             if family == "farming_spawns" and slug.startswith("plant-") and slug not in overrides:
                 base = f"{ebuild.UPLOADS}farming-plants/{slug[len('plant-'):]}/"
             elif family == "farming_spawns" and slug.startswith("meat-") and slug not in overrides:

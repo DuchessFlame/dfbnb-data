@@ -1315,6 +1315,13 @@ jobs:
       - name: Build combined plant guide pages
         run: python src/build_plant_combo_guides.py
 
+      # --- PRE-WAR FOOD LOCATION GUIDE ---
+      # Same as the patch build. No --pts flag here: this workflow has already
+      # swapped the PTS exports into tsv/, and the relocate step moves dist/ ->
+      # dist/pts/ afterwards. Must run AFTER build_farming_used_for.py.
+      - name: Build Pre-War Food guide
+        run: python src/build_pre_war_food_guide.py
+
       # --- SPAWN MAP DOWNLOAD LINKS (map_base + full_map) ---
       # Stamps every farming/meat/plants/insects/drinks spawn doc with its map
       # folder and 4K full-map path. The pages HEAD-check each map and only show

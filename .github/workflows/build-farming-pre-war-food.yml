@@ -1,0 +1,63 @@
+name: Build Farming - Pre-War Food Guide
+
+# /bnb/farming/non-perishable/pre-war-food-location-guide/
+# Rebuilds dist/farming_spawns/pre-war-food_spawns.json (live) and
+# dist/pts/farming_spawns/pre-war-food_spawns.json (PTS) on their own, without a
+# full patch build. The patch and PTS builds also run this step every time.
+#
+# Placements come from the committed geo cache
+# (data/farming_spawns/geo_cache_pre_war_food.json). After a game patch that moves
+# spawns, reseed it locally with the Mappalachia DB first:
+#   set MAPPALACHIA_DB=D:\Mappalachia\data\mappalachia.db
+#   python src/build_pre_war_food_guide.py --state pwf_state.json --budget-seconds 120
+# and commit the cache.
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'src/build_pre_war_food_guide.py'
+      - 'data/farming_spawns/geo_cache_pre_war_food.json'
+
+concurrency:
+  group: dfbnb-pre-war-food
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Build Pre-War Food guide (live)
+        run: python src/build_pre_war_food_guide.py
+
+      - name: Build Pre-War Food guide (PTS)
+        run: |
+          if [ -d tsv/pts ]; then
+            python src/build_pre_war_food_guide.py --pts
+          else
+            echo "No tsv/pts — PTS doc left as it is."
+          fi
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add dist/farming_spawns/pre-war-food_spawns.json
+          git add dist/pts/farming_spawns/pre-war-food_spawns.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Build Farming - Pre-War Food guide"
+            git pull --rebase
+            git push
+          fi

@@ -403,6 +403,14 @@ def main(argv=None):
         meat_docs = [n for n in os.listdir(os.path.normpath(dist_dir))
                      if n.startswith("meat-") and n.endswith("_spawns.json")] \
             if os.path.isdir(os.path.normpath(dist_dir)) else []
+        # Same for the docs other builders write into this folder: the combined plant
+        # pages (build_plant_combo_guides.py) and the Pre-War Food page
+        # (build_pre_war_food_guide.py). Those builders read their previous doc back to
+        # keep hand-authored photos/directions, so deleting it here would lose them.
+        if os.path.isdir(os.path.normpath(dist_dir)):
+            meat_docs += [n for n in os.listdir(os.path.normpath(dist_dir))
+                          if n.endswith("_spawns.json")
+                          and (n.startswith("plant-") or n == "pre-war-food_spawns.json")]
         prune_outputs(os.path.normpath(dist_dir),
                       [c["slug"] + "_spawns" for c in ALL_SETS],
                       tag="[farming_spawns]", also_keep=tuple(meat_docs))
