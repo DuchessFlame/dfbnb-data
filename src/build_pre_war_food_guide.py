@@ -86,6 +86,8 @@ MAP_BASE = "/wp-content/uploads/guide-images/farming-non-perishable/pre-war-food
 # Fallback only — used if the CHAL export carries no "Pre-war Food" keyword test.
 FALLBACK_KEYWORD = "MealTypePackaged"
 FIXED_TYPES = ("direct", "static")
+# Bump when item_doc() changes, so a saved --state file is not reused.
+STATE_VERSION = 2
 RAD_EFFECT = "DamageRadiationEating"
 
 
@@ -267,6 +269,12 @@ def item_doc(item, ctx, has_fixed):
     ])
     recs = [{"formid": f, "sig": "ALCH"} for f in fids]
     closure = esources.get_sources(recs, ctx["tables"], ctx["classify"])["lvli_closure"]
+    # LL_Perk_CanDo / LL_Perk_CanDo_Items are the EXTRA roll a container makes only
+    # when you have the Can Do! perk (HasPerk CanDo01 + Luck bands on every entry).
+    # Every food in it is pre-war, so left in it reads as "Cooler 100%" for the whole
+    # page. It is a perk bonus, not the container's loot — Farming Tips covers it.
+    closure = {L for L in closure
+               if not ctx["tables"]["parent_edid"].get(L, "").lower().startswith("ll_perk_cando")}
 
     doc = collections.OrderedDict()
     doc["name"] = item["name"]
@@ -284,7 +292,9 @@ def item_doc(item, ctx, has_fixed):
     cont = doc["drop_rates"].get("containers")
     if isinstance(cont, dict) and isinstance(cont.get("types"), list):
         cont["types"] = [t for t in cont["types"]
-                         if not re.match(r"(?i)^(test|qa|debug)\b", t.get("name") or "")]
+                         if not re.match(r"(?i)^(test|qa|debug)\b", t.get("name") or "")
+                         # FlipCardSignManager's hidden counter box — not lootable
+                         and not re.search(r"(?i)\bcounts items\b", t.get("name") or "")]
     B._patch_creatures(doc, {"creatures_per_type": True}, closure, targets,
                        ctx["rates"], ctx["tables"], ctx["tsv"])
     doc["vendor_list"] = B.build_vendor_list(
@@ -439,6 +449,93 @@ def chance_spawns(items, ctx, page_urls):
     return out
 
 
+# ── Merged page-level sections (Oct 2026) ───────────────────────────────────
+# One sub-expand per food in Used For / Farming Tips was 41 near-identical blocks.
+# The data says why: apart from weight and Can Do!, every food's tips are the same,
+# and most foods have no recipe and no challenge of their own. So the page gets ONE
+# Farming Tips block (weights grouped by base weight) and ONE Used For (an effects
+# table, the shared "Pre-war Food" challenges, the food-specific ones, and every
+# recipe that uses a pre-war food).
+def _weight_row(w, foods):
+    return collections.OrderedDict([
+        ("base", w), ("foods", foods),
+        ("thru_hiker", [r2(w * 0.55), r2(w * 0.10)]),
+        ("grocers", r2(w * 0.10)),
+        ("armour", [r2(w * 0.80), r2(w * 0.60), r2(w * 0.40), r2(w * 0.20), r2(w * 0.10)]),
+    ])
+
+
+def merged_sections(items, subs, ctx, page_urls):
+    kws = prewar_keywords(ctx["tsv"])
+    shared, shared_keys = [], set()
+    for fid in kws.values():
+        for c in (B.build_challenges(fid, ctx["dist"]) if fid else []):
+            k = c.get("edid") or c.get("name")
+            if k not in shared_keys:
+                shared_keys.add(k)
+                shared.append(c)
+
+    rows, food_chal, recipes, rec_keys = [], [], [], set()
+    by_weight = collections.OrderedDict()
+    can_do = []
+    for it, s in zip(items, subs):
+        uf = s.get("used_for") or {}
+        url = s.get("page_url") or ""
+        cons = uf.get("consumption") or B.build_consumption(it["form_ids"][0], ctx["tsv"], it["full"])
+        if uf:
+            chal = uf.get("challenges") or []
+            recs = uf.get("recipes") or []
+        else:                                   # food with its own guide — still list it here
+            chal = [c for f in it["form_ids"] for c in B.build_challenges(f, ctx["dist"])]
+            recs = B.build_recipes(it["full"], ctx["recipe_guide"], ctx["bench_cat"],
+                                   ctx["tsv"], ctx["guide_urls"])
+        row = collections.OrderedDict([("name", it["name"])])
+        if url:
+            row["page_url"] = url
+        row["effects"] = [{"display": e.get("display"), "duration": e.get("duration")}
+                          for e in (cons or {}).get("effects") or [] if e.get("display")]
+        row["weight"] = (cons or {}).get("weight", it["weight"])
+        row["value"] = (cons or {}).get("value")
+        rows.append(row)
+        seen = set()
+        for c in chal:
+            k = c.get("edid") or c.get("name")
+            if k in shared_keys or k in seen:
+                continue
+            seen.add(k)
+            food_chal.append(collections.OrderedDict([
+                ("food", it["name"]), ("type", c.get("type")), ("name", c.get("name")),
+                ("required", c.get("required"))]))
+        for r in recs:
+            k = (r.get("name"), r.get("workbench"))
+            if k not in rec_keys:
+                rec_keys.add(k)
+                recipes.append(r)
+        w = row["weight"] if row["weight"] is not None else 0
+        by_weight.setdefault(w, []).append(it["name"])
+        if set(it["form_ids"]) & ctx["can_do"]:
+            can_do.append(it["name"])
+
+    recipes.sort(key=lambda r: (r.get("name") or "").lower())
+    food_chal.sort(key=lambda c: (c["food"].lower(), c.get("type") or "", c.get("name") or ""))
+    tips = collections.OrderedDict([
+        ("merged", True),
+        ("spoils", False),
+        ("object_type", "Food"),
+        ("perk_cards", perk_ranks.cards(["thru_hiker", "can_do"], ctx["channel"])),
+        ("can_do_foods", can_do),
+        ("weights", [_weight_row(w, by_weight[w]) for w in sorted(by_weight)]),
+    ])
+    used_for = collections.OrderedDict([
+        ("consumption_table", rows),
+        ("challenges", shared),
+        ("food_challenges", food_chal),
+        ("recipes", recipes),
+        ("modifiers", ctx["modifiers"]),
+    ])
+    return tips, used_for
+
+
 # ── The page ────────────────────────────────────────────────────────────────
 def _load_state(path):
     try:
@@ -478,7 +575,7 @@ def build(ctx, state_path=None, budget=None):
             subs.append(collections.OrderedDict([
                 ("name", it["name"]), ("form_ids", it["form_ids"]), ("page_url", url)]))
         else:
-            sig = ",".join(it["form_ids"]) + f"|{bool(n)}"
+            sig = ",".join(it["form_ids"]) + f"|{bool(n)}|{STATE_VERSION}"
             hit = state.get(it["key"])
             if hit and hit.get("sig") == sig:
                 subs.append(hit["doc"])
@@ -495,12 +592,49 @@ def build(ctx, state_path=None, budget=None):
                         json.dump(state, fh, ensure_ascii=False)
         print(f"  {it['name']:<34} fixed:{n:>4}" + (f"  -> {url}" if url else ""))
 
+    # Every pre-war food at once: the chance a container / vendor / event / creature /
+    # treasure map gives ANY pre-war food, and one collectron / generator card per
+    # station listing every food it makes. This is the main list in each of those
+    # sections; the per-food detail sits under it in one "By food" sub-expand.
+    all_item = {"name": "Pre-war food", "full": "Pre-war food", "key": "__all__",
+                "form_ids": [f for it in items for f in it["form_ids"]],
+                "edids": [e for it in items for e in it["edids"]], "weight": None, "kw": ""}
+    sig = ",".join(sorted(all_item["form_ids"])) + f"|{STATE_VERSION}"
+    hit = state.get("__all__")
+    if hit and hit.get("sig") == sig:
+        combined = hit["doc"]
+    else:
+        if budget and time.time() - t0 > budget:
+            print(f"[{SLUG}] time budget reached — run again to carry on.")
+            return None
+        combined = item_doc(all_item, ctx, True)
+        if state_path:
+            state["__all__"] = {"sig": sig, "doc": combined}
+            with open(state_path, "w", encoding="utf-8") as fh:
+                json.dump(state, fh, ensure_ascii=False)
+    combined = collections.OrderedDict((k, v) for k, v in combined.items()
+                                       if k not in ("used_for", "farming_tips", "form_ids"))
+    combined["name"] = "Pre-war food"
+    subs_and_all = subs + [combined]
+
     # The treasure-map `sources` audit trail is never rendered, and across ~40 foods
     # it was the biggest thing in the file. Drop it here (after the state cache, so
     # a cached food is trimmed too).
-    for s in subs:
+    for s in subs_and_all:
         for m in (s.get("treasure_maps") or {}).get("maps") or []:
             m.pop("sources", None)
+        # same container filter as item_doc(), applied here too so a food read
+        # back from a --state file made before the filter is cleaned as well
+        cont = (s.get("drop_rates") or {}).get("containers")
+        if isinstance(cont, dict) and isinstance(cont.get("types"), list):
+            cont["types"] = [t for t in cont["types"]
+                             if not re.search(r"(?i)\bcounts items\b", t.get("name") or "")]
+
+    farming_tips_page, used_for_page = merged_sections(items, subs, ctx, page_urls)
+    # The per-food Used For / Farming Tips now live in the merged page blocks.
+    for s in subs:
+        s.pop("used_for", None)
+        s.pop("farming_tips", None)
 
     doc = collections.OrderedDict()
     doc["_meta"] = {"generated": datetime.date.today().isoformat(),
@@ -514,6 +648,12 @@ def build(ctx, state_path=None, budget=None):
                     "does, and where else you can get it.")
     doc["map_base"] = MAP_BASE
     doc["map_ext"] = ".jpg"
+    # Renderer: one shared Used For + Farming Tips, and the other sections group
+    # foods whose content is identical into one sub-expand.
+    doc["merge_sections"] = True
+    doc["farming_tips"] = farming_tips_page
+    doc["used_for"] = used_for_page
+    doc["combined"] = combined
     doc["items"] = [collections.OrderedDict(
         [("name", it["name"]), ("form_ids", it["form_ids"])]
         + ([("page_url", s["page_url"])] if s.get("page_url") else []))
