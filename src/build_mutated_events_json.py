@@ -1148,6 +1148,14 @@ def main():
         "legendaryEffects": build_legendary_effects(packs),
         "imageBase": IMAGE_BASE,
     }
+    # Shared image library (src/image_index.py): the candidate list above is
+    # cut down to the files the server really has, library art first, and a
+    # title with no art gets the blank name tag for its own affix.
+    try:
+        import image_index
+        image_index.report("build_mutated_events", image_index.mutated_page(page, PAGE_SLUG)[0])
+    except Exception as e:  # images are never fatal
+        print("  [WARN] image index skipped: {}".format(e))
     out = {
         "version": 1,
         "generated": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),

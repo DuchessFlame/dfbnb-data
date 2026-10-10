@@ -1206,6 +1206,124 @@ def group_reso_by_station(reso_rows, avif_edid_to_cont):
         groups.setdefault(gk, []).append(reso_row)
     return groups
 
+
+# --- Public-workshop built-ins (Oct 2026) ---
+# is_camp_resource() accepts any RESO with "Resource" in its EDID, which let a
+# public workshop's BUILT-IN collectors onto the CAMP page: the Sunshine Meadows
+# Food Packaging collectors (shown as "Food Packaged"), the Munitions Factory
+# AmmoResource* records ("Ammo Resource45caliber"), the Fusion Core Processor,
+# Ore Extractor and so on. A player can't build those in a C.A.M.P.
+#
+# The test is generative, three facts from the exports:
+#   1. no Atom Shop entitlement (ENTM)
+#   2. placed by a public-workshop REFR (a *WorkshopRef in the RESO's refs)
+#   3. NOT player-buildable: no live, non-repair COBJ builds an object that
+#      carries the RESO's resource actor value (COBJ CNAM -> through LVLI entries
+#      -> ACTI / FURN / CONT Prop_N_AV), builds its container, or builds an object
+#      of the same name (Ashforge's COBJ builds a pack-in). A *_REPAIR COBJ only
+#      repairs the native machine, so it does not count.
+# Extractors and water purifiers have real build recipes and stay on the page.
+# The built-ins go to dist/workshop_producers.json instead (same shape, NOT read
+# by the CAMP page) so the farming guides can still show "claim the workshop" as
+# a source, with the workshop named from LCTN.
+_NOT_A_BUILD_RECIPE = re.compile(r"(?i)_repair$|^(zzz|cut_|del_|deprecated_)|test")
+
+
+def _prop_av_tokens(row):
+    out = set()
+    for k, v in row.items():
+        if k and re.fullmatch(r"Prop_\d+_AV", k) and v:
+            v = v.strip()
+            m = re.search(r"\[AVIF:([0-9A-Fa-f]{8})\]", v)
+            if m:
+                out.add(m.group(1).upper())
+            out.add(v.split(":")[0].split(" ")[0].upper())
+    return out
+
+
+def build_buildable_index(cobj_rows, lvli_entry_rows, object_tables):
+    obj_av = {}
+    for rows, key in object_tables:
+        for r in rows:
+            fid = (r.get(key) or "").strip().upper()
+            if fid:
+                obj_av.setdefault(fid, set()).update(_prop_av_tokens(r))
+    kids = {}
+    for r in lvli_entry_rows:
+        ref = (r.get("LVLO_Reference") or "").split(":")
+        if ref and ref[0].strip():
+            kids.setdefault((r.get("LVLI_FormID") or "").strip().upper(), []).append(ref[0].strip().upper())
+
+    def expand(fid, depth=0, seen=None):
+        seen = seen if seen is not None else set()
+        if fid in seen or depth > 5:
+            return seen
+        seen.add(fid)
+        for c in kids.get(fid, ()):
+            expand(c, depth + 1, seen)
+        return seen
+
+    objs, avs, names = set(), set(), set()
+    for r in cobj_rows:
+        if _NOT_A_BUILD_RECIPE.search((r.get("COBJ_EDID") or "").strip()):
+            continue
+        c = (r.get("CNAM_FormID") or "").strip().upper()
+        if not c:
+            continue
+        nm = (r.get("CNAM_FULL") or "").strip().lower()
+        if nm:
+            names.add(nm)
+        for o in expand(c):
+            objs.add(o)
+            avs |= obj_av.get(o, set())
+    return {"objects": objs, "avs": avs, "names": names}
+
+
+def _reso_refs(reso_row):
+    return [v.strip() for k, v in reso_row.items()
+            if k and re.fullmatch(r"Ref\d+", k) and v and v.strip()]
+
+
+def _workshop_placed(grp):
+    return any("WorkshopRef" in x and x.endswith(":REFR") for r in grp for x in _reso_refs(r))
+
+
+def _player_buildable(grp, cont_row, display_name, idx):
+    if cont_row and (cont_row.get("FormID") or "").strip().upper() in idx["objects"]:
+        return True
+    if (display_name or "").strip().lower() in idx["names"]:
+        return True
+    for r in grp:
+        av = clean_str(r.get("NAM1_ActorValue") or "")
+        m = re.search(r"\[AVIF:([0-9A-Fa-f]{8})\]", av)
+        if (m and m.group(1).upper() in idx["avs"]) or av.split(" ")[0].upper() in idx["avs"]:
+            return True
+    return False
+
+
+def build_workshop_names(lcsr_rows, lctn_rows):
+    """Workshop REFR FormID -> its location's FULL name (LCSR WorkshopRefType row)."""
+    loc = {(r.get("LCTN_FormID") or "").strip().upper(): (r.get("LCTN_FULL") or "").strip()
+           for r in lctn_rows}
+    out = {}
+    for r in lcsr_rows:
+        if (r.get("LocRefType_EDID") or "").strip() == "WorkshopRefType":
+            nm = loc.get((r.get("LCTN_FormID") or "").strip().upper())
+            if nm:
+                out[(r.get("Ref_FormID") or "").strip().upper()] = nm
+    return out
+
+
+def _workshop_names(grp, names_by_ref):
+    out = set()
+    for r in grp:
+        for x in _reso_refs(r):
+            if x.endswith(":REFR"):
+                nm = names_by_ref.get(x.split(":")[0].upper())
+                if nm:
+                    out.add(nm)
+    return sorted(out)
+
 # --- Core builder ---
 def build_station_item(reso_rows, cont_row, entm_row, cobj_row, book_row,
     glob_index, glob_edid_index, entries_index, list_index, is_collectron, subfolder, prev_release_dates, today):
@@ -1348,6 +1466,12 @@ def main():
     glob_rows = load_latest_tsv(root, args.glob, "**/GLOB_Export_*.tsv",
                                 columns=("FormID", "EDID", "FLTV"))
     avif_rows = load_latest_tsv(root, args.avif, "**/AVIF_Export_*.tsv")
+    # For the public-workshop built-in test (build_buildable_index). Optional:
+    # without them nothing is moved off the CAMP page.
+    acti_rows = load_latest_tsv(root, None, "**/ACTI_Export_*_ACTI.tsv")
+    furn_rows = load_latest_tsv(root, None, "**/FURN_Export_*_FURN.tsv")
+    lcsr_rows = load_latest_tsv(root, None, "**/LCTN_Export_*_LCSR.tsv")
+    lctn_rows = load_latest_tsv(root, None, "**/LCTN_Export_*_LCTN.tsv")
     # AVIF FULL is the produced-resource label shown on the item head pill.
     global _AVIF_FULL_BY_EDID
     _AVIF_FULL_BY_EDID = {}
@@ -1410,10 +1534,15 @@ def main():
     init_cobj_lvli_index(cobj_rows)
     book_idx = build_index(book_rows, "FormID")
     cont_idx = build_index(cont_rows, "FormID")
+    buildable_idx = build_buildable_index(
+        cobj_rows, lvli_entry_rows,
+        [(acti_rows, "ACTI_FormID"), (furn_rows, "FURN_FormID"), (cont_rows, "FormID")])
+    workshop_names = build_workshop_names(lcsr_rows, lctn_rows)
+    can_test_workshop = bool(acti_rows and furn_rows)
     print("Grouping RESO...", file=sys.stderr)
     station_groups = group_reso_by_station(reso_rows, avif_to_cont)
     print("  {} groups, {} RESOs".format(len(station_groups), sum(len(v) for v in station_groups.values())), file=sys.stderr)
-    col_items, res_items, seen = [], [], set()
+    col_items, res_items, ws_items, seen = [], [], [], set()
     for cont_key, grp in station_groups.items():
         primary_edid = clean_str(grp[0].get("EDID") or "")
         cont_row = cont_idx.get(cont_key) if not cont_key.startswith("BASE_") else None
@@ -1486,6 +1615,11 @@ def main():
         fid = item["formId"]
         if fid in seen: continue
         seen.add(fid)
+        if (can_test_workshop and not is_col and not entm_row and _workshop_placed(grp)
+                and not _player_buildable(grp, cont_row, item.get("displayName"), buildable_idx)):
+            item["workshops"] = _workshop_names(grp, workshop_names)
+            ws_items.append(item)      # public-workshop built-in, not a CAMP item
+            continue
         (col_items if is_col else res_items).append(item)
     # Entitlement-only collectrons (no RESO): cut or unreleased, appended so the
     # page is a complete list rather than only what the RESO grouping found.
@@ -1512,8 +1646,14 @@ def main():
         _gv.apply_to_items(_items, _label)
         _gv.report_unstocked(_items, _label)
 
+    ws_items.sort(key=lambda x: (x.get("displayName") or "").lower())
+    if ws_items:
+        print("  public-workshop built-ins kept off the CAMP page ({}): {}".format(
+            len(ws_items), ", ".join(sorted({i.get("displayName") or "" for i in ws_items}))),
+            file=sys.stderr)
     for fname, typ, items in [("collectrons.json", "collectrons", col_items),
-                               ("resource_producers.json", "resource_producers", res_items)]:
+                               ("resource_producers.json", "resource_producers", res_items),
+                               ("workshop_producers.json", "workshop_producers", ws_items)]:
         out = {"generatedAt": now_iso(), "type": typ, "count": len(items), "items": items}
         with open(os.path.join(args.outdir, fname), "w", encoding="utf-8") as f:
             json.dump(out, f, ensure_ascii=False, indent=2)

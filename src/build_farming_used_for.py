@@ -679,6 +679,45 @@ _OBTAIN_HINTS: List[Tuple[re.Pattern, str]] = [
 # "Plan: ..."). When GNAM points at anything else (or is empty) the recipe is
 # known by default. NEVER hand-write these strings.
 _PLAN_CACHE: Dict[str, Dict[str, str]] = {}
+_PLAN_GNAM: Dict[str, Dict[str, str]] = {}      # data_dir -> {COBJ EDID: plan BOOK FormID}
+_PLAN_OBTAIN: Dict[str, Dict[str, Any]] = {}
+
+
+def _load_plan_obtain(data_dir: str) -> Dict[str, Any]:
+    """plan BOOK FormID -> {routes, unlocks} — HOW to get the recipe/plan.
+
+    Read from the plan pipeline's dist/plan_master.json (build_plan_obtain_json.py),
+    so the quest / event / vendor / container routes and their resolved chances are
+    the same ones the plan checklists show — nothing typed here. PTS data reads
+    dist/pts/plan_master.json when it exists."""
+    if data_dir in _PLAN_OBTAIN:
+        return _PLAN_OBTAIN[data_dir]
+    pts = os.path.basename(os.path.normpath(data_dir or "")).lower() == "pts"
+    cands = ([os.path.join(REPO, "dist", "pts", "plan_master.json")] if pts else []) \
+        + [os.path.join(REPO, "dist", "plan_master.json")]
+    out: Dict[str, Any] = {}
+    for path in cands:
+        if not os.path.exists(path):
+            continue
+        try:
+            items = json.load(open(path, encoding="utf-8")).get("items") or []
+        except Exception:
+            continue
+        if isinstance(items, dict):
+            items = list(items.values())
+        for p in items:
+            fid = ((p.get("plan_item") or {}).get("formid") or "").upper()
+            if not fid:
+                continue
+            routes = [{"route": r.get("route"), "rate_display": r.get("rate_display"),
+                       "kind": r.get("kind") or r.get("source_type")}
+                      for r in (p.get("obtain_routes") or []) if r.get("route")]
+            unlocks = [u for u in (p.get("obtain_unlocks") or []) if u]
+            if routes or unlocks:
+                out[fid] = {"routes": routes, "unlocks": unlocks}
+        break
+    _PLAN_OBTAIN[data_dir] = out
+    return out
 
 
 def _load_recipe_plans(data_dir: str) -> Dict[str, str]:
@@ -686,7 +725,11 @@ def _load_recipe_plans(data_dir: str) -> Dict[str, str]:
     if data_dir in _PLAN_CACHE:
         return _PLAN_CACHE[data_dir]
     out: Dict[str, str] = {}
-    book_path = _newest_export(data_dir, "BOOK_Export_*.tsv")
+    # exclude="_Locations": BOOK_Export_<month>_Locations.tsv shares the month and is
+    # written after the main export, so the newest-file pick landed on it. It has no
+    # FULL column, so NO plan ever matched and every recipe fell through to a typed
+    # hint or "Known by default." (found Oct 2026 on the Pre-War Food page).
+    book_path = _newest_export(data_dir, "BOOK_Export_*.tsv", exclude="_Locations")
     cobj_path = _newest_export(data_dir, "COBJ_Export_*.tsv")
     books: Dict[str, str] = {}
     if book_path:
@@ -701,6 +744,8 @@ def _load_recipe_plans(data_dir: str) -> Dict[str, str]:
             if not edid:
                 continue
             gnam = (r.get("GNAM_FormID") or "").strip().upper()
+            if gnam:
+                _PLAN_GNAM.setdefault(data_dir, {})[edid] = gnam
             if gnam in books:
                 out[edid] = books[gnam]
                 continue
@@ -710,6 +755,23 @@ def _load_recipe_plans(data_dir: str) -> Dict[str, str]:
             if g_full and "challenge" in g_edid.lower():
                 out[edid] = f"Unlocked by the challenge: {g_full}"
     _PLAN_CACHE[data_dir] = out
+    return out
+
+
+def _plan_routes(cobj_edid: str, data_dir: Optional[str]) -> Dict[str, Any]:
+    """{"plan_routes": [...], "plan_unlocks": [...]} for a recipe's plan, or {}.
+    Needs _load_recipe_plans(data_dir) to have run first (it fills _PLAN_GNAM)."""
+    if not data_dir or not cobj_edid:
+        return {}
+    gnam = (_PLAN_GNAM.get(data_dir) or {}).get(cobj_edid)
+    hit = _load_plan_obtain(data_dir).get(gnam or "")
+    if not hit:
+        return {}
+    out: Dict[str, Any] = {}
+    if hit["routes"]:
+        out["plan_routes"] = hit["routes"]
+    if hit["unlocks"]:
+        out["plan_unlocks"] = hit["unlocks"]
     return out
 
 
@@ -787,6 +849,7 @@ def build_recipes(item_name: str, recipe_guide: Dict[str, Any],
             "ingredients": _link_ings(ings, guide_urls, item_name),
             "effects": effects,
             "how_to_obtain": _obtain_text(rec, plans),
+            **_plan_routes(rec.get("recipe_edid") or "", data_dir),
         })
     recipes.sort(key=lambda r: (r.get("name") or "").lower())
     return recipes
@@ -965,6 +1028,7 @@ def build_obtain(item_name: str, formid: str, is_quest: bool, item_edid: str,
             "ingredients": _link_ings(rec.get("ingredients") or [], guide_urls, None),
             "effects": effects,
             "how_to_obtain": _obtain_text(rec, plans),
+            **_plan_routes(rec.get("recipe_edid") or "", data_dir),
         })
     recipes.sort(key=lambda r: (r.get("name") or "").lower())
     note = None
@@ -1412,6 +1476,16 @@ def _load_camp_producers(dist_dir: str) -> Dict[str, List[Dict[str, Any]]]:
         except (OSError, ValueError):
             out[key] = []
             print(f"  [warn] {fname} not built — {key} cards skipped")
+    # Workshop collectors are split off the CAMP page into their own file; they
+    # still produce food, so they join the generator cards flagged as workshop.
+    try:
+        ws = json.load(open(os.path.join(dist_dir, "workshop_producers.json"),
+                            encoding="utf-8")).get("items", []) or []
+    except (OSError, ValueError):
+        ws = []
+    for it in ws:
+        it = dict(it); it["workshop"] = True
+        out.setdefault("resource_generators", []).append(it)
     return out
 
 
@@ -1444,8 +1518,107 @@ def _station_drops(st: Dict[str, Any], list_edid: Optional[Dict[str, str]] = Non
     return list(best.values()) or (prod.get("drops") or [])
 
 
+
+# ── Producer cards: event toggles + public-workshop collectors (Oct 2026) ─────
+# 1. TOGGLES. A station's production list can gate an entry on an event global —
+#    the Fasnacht Collectron's Fasnacht Donut / Sausage rows carry
+#    GetGlobalValue(Update01_Quest_Fasnacht) == 1. The % is the chance WHILE that
+#    event runs; outside it the entry can't roll. Walk each mode's root list down to
+#    the item and, if EVERY path to it passes such a condition, note the event.
+#    The event name comes from the data: the global's EDID minus its generic parts
+#    (Update01_Quest_), matched to a named QUEST ("Event: Fasnacht Day").
+# 2. WORKSHOPS. Some RESO records with "Resource" in the EDID are not CAMP items:
+#    they are a public workshop's built-in collectors (FoodPackagedResource00-04
+#    are placed only by SunshineMeadowsWorkshopRef). Name the card after the
+#    workshop's location (LCTN FULL via the LCSR WorkshopRefType row), mark it, and
+#    merge that workshop's collectors into one card.
+_GLOB_TOKEN_RE = re.compile(r"GetGlobalValue\([^)]*?(\w+)\s*\[GLOB:([0-9A-Fa-f]{8})\]")
+_GENERIC_GLOB = re.compile(r"(?i)^(update\d*|quest|toggle|enabled|active|global|event|atx|score|s\d+|is|on|lc\d*)$")
+_TOGGLE_NAME_CACHE: Dict[str, Optional[str]] = {}
+
+
+def _toggle_event_name(glob_edid: str, quests: List[Tuple[str, str]]) -> str:
+    if glob_edid in _TOGGLE_NAME_CACHE:
+        return _TOGGLE_NAME_CACHE[glob_edid] or ""
+    words = [w for w in re.split(r"_+|(?<=[a-z])(?=[A-Z])", glob_edid or "") if w]
+    key = [w for w in words if not _GENERIC_GLOB.match(w)]
+    name = ""
+    if key:
+        k = " ".join(key).lower()
+        hits = [f for e, f in quests
+                if k in f.lower() and not f.startswith("[") and not e.lower().startswith(("cut_", "zzz"))]
+        hits.sort(key=lambda f: (0 if f.lower().startswith("event:") else 1, len(f)))
+        name = re.sub(r"(?i)^event:\s*", "", hits[0]) if hits else " ".join(key)
+    _TOGGLE_NAME_CACHE[glob_edid] = name
+    return name
+
+
+def _toggle_globals_to(root: str, target: str, entries_by_list: Dict[str, Any],
+                       depth: int = 0, seen: Optional[set] = None) -> Optional[set]:
+    """GLOB EDIDs that EVERY path root -> target must pass (set()), or None when the
+    target is not reachable. A path with no toggle returns set(), which wins."""
+    seen = set(seen or ())
+    if root in seen or depth > 8:
+        return None
+    seen.add(root)
+    best: Optional[set] = None
+    for e in entries_by_list.get(root, []) or []:
+        ref = (e.get("LVLO_Reference") or "").split(":")
+        fid, sig = (ref[0].upper() if ref else ""), (ref[-1] if len(ref) > 1 else "")
+        globs = set()
+        for i in range(1, 11):
+            for m in _GLOB_TOKEN_RE.finditer(e.get(f"Cond{i}") or ""):
+                globs.add(m.group(1))
+        if fid == target:
+            sub: Optional[set] = set()
+        elif sig == "LVLI":
+            sub = _toggle_globals_to(fid, target, entries_by_list, depth + 1, seen)
+        else:
+            sub = None
+        if sub is None:
+            continue
+        path = globs | sub
+        best = path if best is None else (best & path)
+        if best == set():
+            return best
+    return best
+
+
+_WORKSHOP_RESO: Dict[str, Dict[str, str]] = {}
+
+
+def _load_workshop_resos(data_dir: str) -> Dict[str, str]:
+    """RESO FormID -> public workshop name, for RESOs placed only by workshop REFRs."""
+    if data_dir in _WORKSHOP_RESO:
+        return _WORKSHOP_RESO[data_dir]
+    out: Dict[str, str] = {}
+    reso = _newest_export(data_dir, "RESO_Export_*.tsv")
+    lcsr = _newest_export(data_dir, "LCTN_Export_*_LCSR.tsv")
+    lctn = _newest_export(data_dir, "LCTN_Export_*_LCTN.tsv")
+    loc_name: Dict[str, str] = {}
+    for r in (_read_tsv(lctn) if lctn else []):
+        loc_name[(r.get("LCTN_FormID") or "").upper()] = (r.get("LCTN_FULL") or "").strip()
+    ws_loc: Dict[str, str] = {}
+    for r in (_read_tsv(lcsr) if lcsr else []):
+        if (r.get("LocRefType_EDID") or "") == "WorkshopRefType":
+            nm = loc_name.get((r.get("LCTN_FormID") or "").upper())
+            if nm:
+                ws_loc[(r.get("Ref_FormID") or "").upper()] = nm
+    for r in (_read_tsv(reso) if reso else []):
+        refs = [v for k, v in r.items() if k and re.fullmatch(r"Ref\d+", k) and v]
+        sigs = {x.rsplit(":", 1)[-1] for x in refs}
+        names = {ws_loc.get(x.split(":")[0].upper()) for x in refs if x.endswith(":REFR")}
+        names.discard(None)
+        if refs and sigs == {"REFR"} and len(names) == 1:
+            out[(r.get("FormID") or "").upper()] = names.pop()
+    _WORKSHOP_RESO[data_dir] = out
+    return out
+
 def _producer_entries(items: List[Dict[str, Any]], targets: set,
-                      list_edid: Optional[Dict[str, str]] = None) -> List[Dict[str, Any]]:
+                      list_edid: Optional[Dict[str, str]] = None,
+                      entries_by_list: Optional[Dict[str, Any]] = None,
+                      quests: Optional[List[Tuple[str, str]]] = None,
+                      workshops: Optional[Dict[str, str]] = None) -> List[Dict[str, Any]]:
     """Cards for every station whose production drops include any target FormID."""
     entries: List[Dict[str, Any]] = []
     for st in items:
@@ -1461,29 +1634,68 @@ def _producer_entries(items: List[Dict[str, Any]], targets: set,
             # rarer pools) means the item can never roll. Show 0%, flag the
             # source, and explain it in the node's `note` — never hide the card
             # and never substitute a hand-figure.
-            rows.append({
+            row = {
                 "name": d.get("name") or d.get("item") or "",
                 "form_id": (d.get("formId") or "").upper(),
                 "rate": round(pct / 100.0, 6),
                 "rate_display": _fmt_rate(pct / 100.0) if pct > 0 else "0%",
                 "rate_source": "computed" if pct > 0 else "computed_zero",
-            })
+            }
+            note = _producer_toggle_note(st, row["form_id"], list_edid, entries_by_list, quests)
+            if note:
+                row["note"] = note
+            rows.append(row)
         if not rows:
             continue
         rows.sort(key=lambda r: (-(r["rate"] or 0.0), r["name"].lower()))
-        entries.append({
-            "name": st.get("displayName") or st.get("edid") or "",
+        ws = (workshops or {}).get((st.get("formId") or "").upper())
+        if not ws and st.get("workshop"):
+            ws = " / ".join(st.get("workshops") or []) or "Public workshop"
+        entry = {
+            "name": ws or st.get("displayName") or st.get("edid") or "",
             "edid": st.get("edid") or "",
-            "obtain": ((st.get("howToObtain") or {}).get("display") or "").strip(),
+            "obtain": ("Claim the public workshop" if ws
+                       else ((st.get("howToObtain") or {}).get("display") or "").strip()),
             "interval": ((st.get("production") or {}).get("intervalDisplay") or "").strip(),
             "items": rows,
-        })
+        }
+        if ws:
+            entry["workshop"] = True
+            same = next((e for e in entries if e.get("workshop") and e["name"] == ws), None)
+            if same:                       # one card per workshop
+                have = {r["form_id"] for r in same["items"]}
+                same["items"] += [r for r in rows if r["form_id"] not in have]
+                same["items"].sort(key=lambda r: (-(r["rate"] or 0.0), r["name"].lower()))
+                continue
+        entries.append(entry)
     entries.sort(key=lambda e: (-(e["items"][0]["rate"] or 0.0), e["name"].lower()))
     return entries
 
 
+def _producer_toggle_note(st: Dict[str, Any], fid: str, list_edid, entries_by_list,
+                          quests) -> str:
+    """'only during Fasnacht Day' when every live mode only reaches the item
+    through an event-global condition; '' otherwise (see the block above)."""
+    if not entries_by_list or not fid:
+        return ""
+    common: Optional[set] = None
+    for m in ((st.get("production") or {}).get("modes") or []):
+        lf = (m.get("lvliFormId") or "").upper()
+        if not lf or (list_edid and _CUT_LIST_RE.search(list_edid.get(lf, "") or "")):
+            continue
+        g = _toggle_globals_to(lf, fid, entries_by_list)
+        if g is None:
+            continue
+        common = g if common is None else (common & g)
+    if not common:
+        return ""
+    names = sorted({_toggle_event_name(gl, quests or []) for gl in common} - {""})
+    return ("only during " + " / ".join(names)) if names else ""
+
+
 def _patch_camp_producers(doc: Dict[str, Any], targets: set, dist_dir: str,
-                          rates: Optional["VendorRates"] = None) -> None:
+                          rates: Optional["VendorRates"] = None,
+                          data_dir: Optional[str] = None) -> None:
     """Fill drop_rates.collectrons / .resource_generators with joined station cards.
 
     Any hand-written `note` on those nodes is PRESERVED (it renders under the
@@ -1494,8 +1706,13 @@ def _patch_camp_producers(doc: Dict[str, Any], targets: set, dist_dir: str,
         return
     producers = _load_camp_producers(dist_dir)
     list_edid = {k.upper(): v for k, v in (rates.lvli.edid_by_formid.items() if rates else [])}
+    tsv_dir = data_dir or os.path.join(REPO, "tsv")
+    ebl = rates.lvli.entries_by_list if rates else None
+    quests = _event_quests(tsv_dir)
+    workshops = _load_workshop_resos(tsv_dir)
     for key in ("collectrons", "resource_generators"):
-        entries = _producer_entries(producers.get(key) or [], targets, list_edid)
+        entries = _producer_entries(producers.get(key) or [], targets, list_edid,
+                                    ebl, quests, workshops)
         if not entries:
             continue
         node = dr.get(key)

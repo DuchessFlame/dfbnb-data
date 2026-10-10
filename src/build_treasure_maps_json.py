@@ -2554,6 +2554,14 @@ def main():
     if phantoms:
         output["pint_sized_phantoms"] = phantoms
 
+    # Shared image library (src/image_index.py): imageUrl on the plan and
+    # apparel rewards - library first, then guide-images/treasure-maps/.
+    try:
+        import image_index
+        image_index.report("build_treasure_maps", image_index.treasure_maps_page(output)[0])
+    except Exception as e:  # images are never fatal
+        print("  [WARN] image index skipped: {}".format(e))
+
     os.makedirs(str(DIST_DIR), exist_ok=True)
     out_path = DIST_DIR / "treasure_maps.json"
     with open(out_path, "w", encoding="utf-8") as f:

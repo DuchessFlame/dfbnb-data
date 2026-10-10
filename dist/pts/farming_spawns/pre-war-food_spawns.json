@@ -203,6 +203,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.25,
     "value": 8
    },
@@ -218,6 +220,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.25,
     "value": 12
    },
@@ -237,6 +241,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.25,
     "value": 5
    },
@@ -256,6 +262,8 @@
       "duration": null
      }
     ],
+    "herbivore": true,
+    "carnivore": false,
     "weight": 0.5,
     "value": 14
    },
@@ -276,6 +284,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.5,
     "value": 14
    },
@@ -295,6 +305,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": true,
     "weight": 0.5,
     "value": 6
    },
@@ -323,6 +335,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": true,
     "weight": 1.0,
     "value": 22
    },
@@ -338,6 +352,8 @@
       "duration": "2 min"
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.1,
     "value": 5
    },
@@ -361,6 +377,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.5,
     "value": 7
    },
@@ -380,6 +398,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": true,
     "weight": 0.5,
     "value": 15
    },
@@ -399,6 +419,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.5,
     "value": 7
    },
@@ -418,6 +440,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.25,
     "value": 12
    },
@@ -433,6 +457,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.25,
     "value": 12
    },
@@ -452,6 +478,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.1,
     "value": 6
    },
@@ -471,6 +499,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.25,
     "value": 12
    },
@@ -486,6 +516,8 @@
       "duration": "2 min"
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.1,
     "value": 5
    },
@@ -509,6 +541,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.25,
     "value": 5
    },
@@ -528,6 +562,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.01,
     "value": 0
    },
@@ -547,6 +583,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": true,
     "weight": 0.5,
     "value": 14
    },
@@ -566,18 +604,50 @@
       "duration": null
      }
     ],
+    "herbivore": true,
+    "carnivore": false,
     "weight": 0.5,
     "value": 9
    },
    {
     "name": "Mystery Candy",
-    "effects": [
+    "effects": [],
+    "herbivore": false,
+    "carnivore": false,
+    "weight": 0.25,
+    "random_buffs": [
      {
-      "display": "Mystery Treat",
-      "duration": null
+      "name": "Mystery Treat Surprise",
+      "effects": [
+       "Nukashine Blackout"
+      ]
+     },
+     {
+      "name": "Sugar Rush",
+      "effects": [
+       "+2 Agility (10 min)",
+       "-1 Intelligence (10 min)"
+      ]
+     },
+     {
+      "name": "Lucky Break",
+      "effects": [
+       "+1 Luck (10 min)"
+      ]
+     },
+     {
+      "name": "Sugar Strength",
+      "effects": [
+       "+1 Strength (10 min)"
+      ]
+     },
+     {
+      "name": "Sugar Vision",
+      "effects": [
+       "+1 Perception (10 min)"
+      ]
      }
     ],
-    "weight": 0.25,
     "value": 50
    },
    {
@@ -600,6 +670,8 @@
       "duration": null
      }
     ],
+    "herbivore": true,
+    "carnivore": false,
     "weight": 1.0,
     "value": 10
    },
@@ -623,6 +695,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.25,
     "value": 7
    },
@@ -638,15 +712,40 @@
       "duration": "25s"
      },
      {
-      "display": "Nuka-Cola Candy",
-      "duration": null
-     },
-     {
       "display": "Satisfies hunger (480/8 min)",
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.25,
+    "random_buffs": [
+     {
+      "name": "Lucky Break",
+      "effects": [
+       "+2 Luck (5 min)"
+      ]
+     },
+     {
+      "name": "Sugar Strength",
+      "effects": [
+       "+1 Strength (10 min)"
+      ]
+     },
+     {
+      "name": "Sugar Vision",
+      "effects": [
+       "+2 Perception (10 min)"
+      ]
+     },
+     {
+      "name": "Sugar Rush",
+      "effects": [
+       "+3 Agility (10 min)",
+       "-1 Intelligence (10 min)"
+      ]
+     }
+    ],
     "value": 7
    },
    {
@@ -669,6 +768,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.25,
     "value": 7
    },
@@ -693,6 +794,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.1,
     "value": 75
    },
@@ -712,6 +815,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.5,
     "value": 9
    },
@@ -727,6 +832,8 @@
       "duration": "25s"
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.1,
     "value": 5
    },
@@ -750,6 +857,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.5,
     "value": 7
    },
@@ -769,6 +878,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": true,
     "weight": 0.5,
     "value": 8
    },
@@ -788,6 +899,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.25,
     "value": 7
    },
@@ -803,6 +916,8 @@
       "duration": null
      }
     ],
+    "herbivore": true,
+    "carnivore": false,
     "weight": 0.5,
     "value": 13
    },
@@ -834,6 +949,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": true,
     "weight": 1.0,
     "value": 22
    },
@@ -853,6 +970,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": true,
     "weight": 0.5,
     "value": 13
    },
@@ -868,6 +987,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": true,
     "weight": 0.5,
     "value": 13
    },
@@ -883,6 +1004,8 @@
       "duration": "2 min"
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.1,
     "value": 5
    },
@@ -907,6 +1030,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.5,
     "value": 8
    },
@@ -926,6 +1051,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.5,
     "value": 9
    },
@@ -945,6 +1072,8 @@
       "duration": null
      }
     ],
+    "herbivore": true,
+    "carnivore": false,
     "weight": 0.5,
     "value": 14
    },
@@ -960,6 +1089,8 @@
       "duration": "2 min"
      }
     ],
+    "herbivore": false,
+    "carnivore": false,
     "weight": 0.1,
     "value": 5
    },
@@ -979,6 +1110,8 @@
       "duration": null
      }
     ],
+    "herbivore": false,
+    "carnivore": true,
     "weight": 0.5,
     "value": 13
    }
@@ -1328,7 +1461,59 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Brain Bombs"
+    "how_to_obtain": "Recipe: Brain Bombs",
+    "plan_routes": [
+     {
+      "route": "Antoine (Whitespring Gourmet vendor)",
+      "rate_display": "70.86%",
+      "kind": "vendor"
+     },
+     {
+      "route": "Event: Distinguished Guests",
+      "rate_display": "14.29%",
+      "kind": "event"
+     },
+     {
+      "route": "Molly (Raiders vendor)",
+      "rate_display": "14.29%",
+      "kind": "vendor"
+     },
+     {
+      "route": "Wastelanders - Wayward Anchor Farm",
+      "rate_display": "2.86%",
+      "kind": "event"
+     },
+     {
+      "route": "Grandma Junko (Atom Shop Ally vendor)",
+      "rate_display": "2.86%",
+      "kind": "vendor"
+     },
+     {
+      "route": "Yasmin Chowdhury (Ally Chef vendor)",
+      "rate_display": "2.86%",
+      "kind": "vendor"
+     },
+     {
+      "route": "The Mire quest rewards - plans",
+      "rate_display": "2.27%",
+      "kind": "quest"
+     },
+     {
+      "route": "Camp - Food Vendor - Merchant",
+      "rate_display": "1.43%",
+      "kind": "vendor"
+     },
+     {
+      "route": "Refrigerator",
+      "rate_display": "1.4%",
+      "kind": "container"
+     },
+     {
+      "route": "The Mire quest rewards",
+      "rate_display": "0.45%",
+      "kind": "quest"
+     }
+    ]
    },
    {
     "name": "Cramburger",
@@ -1411,7 +1596,10 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Delbert's Bunless Cramburger"
+    "how_to_obtain": "Recipe: Delbert's Bunless Cramburger",
+    "plan_unlocks": [
+     "Found at a fixed spawn point: Generals Steakhouse"
+    ]
    },
    {
     "name": "Granny's Tea",
@@ -1495,7 +1683,10 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Delbert's Granny's Sweet Tea"
+    "how_to_obtain": "Recipe: Delbert's Granny's Sweet Tea",
+    "plan_unlocks": [
+     "Found at a fixed spawn point: Macs Farm"
+    ]
    },
    {
     "name": "Gulper Stuffed Foot",
@@ -1573,7 +1764,14 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Gulper Stuffed Foot"
+    "how_to_obtain": "Recipe: Gulper Stuffed Foot",
+    "plan_routes": [
+     {
+      "route": "Event: Tunnel Of Love",
+      "rate_display": "1.85%",
+      "kind": "event"
+     }
+    ]
    },
    {
     "name": "Pothole Potpie",
@@ -1661,7 +1859,10 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Delbert's Pothole Potpie"
+    "how_to_obtain": "Recipe: Delbert's Pothole Potpie",
+    "plan_unlocks": [
+     "Found at a fixed spawn point: Treehouse Village"
+    ]
    },
    {
     "name": "Sunshine Oil",
@@ -1730,7 +1931,10 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Delbert's Sunshine Oil"
+    "how_to_obtain": "Recipe: Delbert's Sunshine Oil",
+    "plan_unlocks": [
+     "Found at a fixed spawn point: Welch"
+    ]
    },
    {
     "name": "Sweet Roll",
@@ -1826,7 +2030,59 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Recipe: Sweet Roll"
+    "how_to_obtain": "Recipe: Sweet Roll",
+    "plan_routes": [
+     {
+      "route": "Antoine (Whitespring Gourmet vendor)",
+      "rate_display": "70.86%",
+      "kind": "vendor"
+     },
+     {
+      "route": "Event: Distinguished Guests",
+      "rate_display": "14.29%",
+      "kind": "event"
+     },
+     {
+      "route": "Molly (Raiders vendor)",
+      "rate_display": "14.29%",
+      "kind": "vendor"
+     },
+     {
+      "route": "Wastelanders - Wayward Anchor Farm",
+      "rate_display": "2.86%",
+      "kind": "event"
+     },
+     {
+      "route": "Grandma Junko (Atom Shop Ally vendor)",
+      "rate_display": "2.86%",
+      "kind": "vendor"
+     },
+     {
+      "route": "Yasmin Chowdhury (Ally Chef vendor)",
+      "rate_display": "2.86%",
+      "kind": "vendor"
+     },
+     {
+      "route": "Camp - Food Vendor - Merchant",
+      "rate_display": "1.43%",
+      "kind": "vendor"
+     },
+     {
+      "route": "Refrigerator",
+      "rate_display": "1.4%",
+      "kind": "container"
+     },
+     {
+      "route": "Cooler",
+      "rate_display": "0.21%",
+      "kind": "container"
+     },
+     {
+      "route": "Lunch Pail",
+      "rate_display": "0.21%",
+      "kind": "container"
+     }
+    ]
    },
    {
     "name": "White Russian",
@@ -1921,7 +2177,14 @@
       "sign": false
      }
     ],
-    "how_to_obtain": "Recipe: White Russian"
+    "how_to_obtain": "Recipe: White Russian",
+    "plan_routes": [
+     {
+      "route": "Repeatable: Tipsy Taste-Test - Event",
+      "rate_display": "10%",
+      "kind": "quest"
+     }
+    ]
    }
   ],
   "modifiers": {
@@ -2166,7 +2429,7 @@
       "interval": "10 min 12 sec",
       "items": [
        {
-        "name": "Blamco Brand Mac and Cheese",
+        "name": "Blamco Brand Mac and Cheese (no rads)",
         "form_id": "000E3768",
         "rate": 0.160512,
         "rate_display": "16.05%",
@@ -2201,14 +2464,14 @@
         "rate_source": "computed"
        },
        {
-        "name": "Salisbury Steak",
+        "name": "Salisbury Steak (no rads)",
         "form_id": "000E3780",
         "rate": 0.024392,
         "rate_display": "2.44%",
         "rate_source": "computed"
        },
        {
-        "name": "Sugar Bombs",
+        "name": "Sugar Bombs (no rads)",
         "form_id": "000E3782",
         "rate": 0.00306,
         "rate_display": "0.31%",
@@ -2291,7 +2554,8 @@
         "form_id": "00478DE9",
         "rate": 0.1,
         "rate_display": "10%",
-        "rate_source": "computed"
+        "rate_source": "computed",
+        "note": "only during Fasnacht Day"
        },
        {
         "name": "Bubblegum",
@@ -2400,81 +2664,6 @@
    "resource_generators": {
     "entries": [
      {
-      "name": "Food Packaged",
-      "edid": "FoodPackagedResource03",
-      "obtain": "Available in the base game.",
-      "interval": "3 min",
-      "items": [
-       {
-        "name": "Salisbury Steak",
-        "form_id": "000E3780",
-        "rate": 1.0,
-        "rate_display": "100%",
-        "rate_source": "computed"
-       }
-      ]
-     },
-     {
-      "name": "Food Packaged",
-      "edid": "FoodPackagedResource01",
-      "obtain": "Available in the base game.",
-      "interval": "3 min",
-      "items": [
-       {
-        "name": "Fancy Lads Snack Cakes",
-        "form_id": "000E3778",
-        "rate": 1.0,
-        "rate_display": "100%",
-        "rate_source": "computed"
-       }
-      ]
-     },
-     {
-      "name": "Food Packaged",
-      "edid": "FoodPackagedResource04",
-      "obtain": "Available in the base game.",
-      "interval": "3 min",
-      "items": [
-       {
-        "name": "Sugar Bombs",
-        "form_id": "000E3782",
-        "rate": 1.0,
-        "rate_display": "100%",
-        "rate_source": "computed"
-       }
-      ]
-     },
-     {
-      "name": "Food Packaged",
-      "edid": "FoodPackagedResource02",
-      "obtain": "Available in the base game.",
-      "interval": "3 min",
-      "items": [
-       {
-        "name": "Preserved InstaMash",
-        "form_id": "000E377A",
-        "rate": 1.0,
-        "rate_display": "100%",
-        "rate_source": "computed"
-       }
-      ]
-     },
-     {
-      "name": "Food Packaging Factory",
-      "edid": "FoodPackagedResource00",
-      "obtain": "Available in the base game.",
-      "interval": "3 min",
-      "items": [
-       {
-        "name": "Blamco Brand Mac and Cheese",
-        "form_id": "000E3768",
-        "rate": 1.0,
-        "rate_display": "100%",
-        "rate_source": "computed"
-       }
-      ]
-     },
-     {
       "name": "Nuka Victory Couch",
       "edid": "ATX_ENTM_CAMP_Furniture_Couch_NukaVictory",
       "obtain": "Purchase from the Atom Shop.",
@@ -2518,6 +2707,50 @@
         "rate_source": "computed"
        }
       ]
+     },
+     {
+      "name": "Sunshine Meadows Industrial Farm",
+      "edid": "FoodPackagedResource03",
+      "obtain": "Claim the public workshop",
+      "interval": "3 min",
+      "items": [
+       {
+        "name": "Blamco Brand Mac and Cheese (no rads)",
+        "form_id": "000E3768",
+        "rate": 1.0,
+        "rate_display": "100%",
+        "rate_source": "computed"
+       },
+       {
+        "name": "Fancy Lads Snack Cakes (no rads)",
+        "form_id": "000E3778",
+        "rate": 1.0,
+        "rate_display": "100%",
+        "rate_source": "computed"
+       },
+       {
+        "name": "Preserved InstaMash",
+        "form_id": "000E377A",
+        "rate": 1.0,
+        "rate_display": "100%",
+        "rate_source": "computed"
+       },
+       {
+        "name": "Salisbury Steak (no rads)",
+        "form_id": "000E3780",
+        "rate": 1.0,
+        "rate_display": "100%",
+        "rate_source": "computed"
+       },
+       {
+        "name": "Sugar Bombs (no rads)",
+        "form_id": "000E3782",
+        "rate": 1.0,
+        "rate_display": "100%",
+        "rate_source": "computed"
+       }
+      ],
+      "workshop": true
      },
      {
       "name": "Weenie Wagon",
@@ -5779,11 +6012,6 @@
        "rate_display": "38.75%"
       },
       {
-       "name": "Safe",
-       "rate": 0.3875371231874023,
-       "rate_display": "38.75%"
-      },
-      {
        "name": "Security Office Safe",
        "rate": 0.3875371231874023,
        "rate_display": "38.75%"
@@ -5796,6 +6024,11 @@
       {
        "name": "Underdweller Dropbox",
        "rate": 0.3875371231874023,
+       "rate_display": "38.75%"
+      },
+      {
+       "name": "Safe",
+       "rate": 0.3875371231874022,
        "rate_display": "38.75%"
       },
       {
@@ -6194,11 +6427,6 @@
        "rate_display": "0%"
       },
       {
-       "name": "Tent",
-       "rate": 4.4196428571424695e-05,
-       "rate_display": "0%"
-      },
-      {
        "name": "Hunter Corpse",
        "rate": 3.535714285713975e-05,
        "rate_display": "0%"
@@ -6221,6 +6449,11 @@
       {
        "name": "Weak Feral Ghoul Corpse",
        "rate": 3.1909821428532936e-05,
+       "rate_display": "0%"
+      },
+      {
+       "name": "Tent",
+       "rate": 2.6517857142854822e-05,
        "rate_display": "0%"
       },
       {
@@ -7616,7 +7849,7 @@
        "interval": "10 min 12 sec",
        "items": [
         {
-         "name": "Blamco Brand Mac and Cheese",
+         "name": "Blamco Brand Mac and Cheese (no rads)",
          "form_id": "000E3768",
          "rate": 0.160512,
          "rate_display": "16.05%",
@@ -7629,19 +7862,20 @@
     "resource_generators": {
      "entries": [
       {
-       "name": "Food Packaging Factory",
+       "name": "Sunshine Meadows Industrial Farm",
        "edid": "FoodPackagedResource00",
-       "obtain": "Available in the base game.",
+       "obtain": "Claim the public workshop",
        "interval": "3 min",
        "items": [
         {
-         "name": "Blamco Brand Mac and Cheese",
+         "name": "Blamco Brand Mac and Cheese (no rads)",
          "form_id": "000E3768",
          "rate": 1.0,
          "rate_display": "100%",
          "rate_source": "computed"
         }
-       ]
+       ],
+       "workshop": true
       }
      ]
     },
@@ -7748,11 +7982,6 @@
        "rate_display": "0.4%"
       },
       {
-       "name": "Ash Pile",
-       "rate": 0.0020000000000000018,
-       "rate_display": "0.2%"
-      },
-      {
        "name": "Brotherhood Corpse",
        "rate": 0.0020000000000000018,
        "rate_display": "0.2%"
@@ -7835,6 +8064,11 @@
       {
        "name": "Super Mutant Corpse",
        "rate": 0.0020000000000000018,
+       "rate_display": "0.2%"
+      },
+      {
+       "name": "Ash Pile",
+       "rate": 0.002,
        "rate_display": "0.2%"
       },
       {
@@ -7941,11 +8175,6 @@
        "name": "Metal Box",
        "rate": 0.0002940093590940718,
        "rate_display": "0.03%"
-      },
-      {
-       "name": "Footlocker",
-       "rate": 0.00023758941492002528,
-       "rate_display": "0.02%"
       },
       {
        "name": "Hamper",
@@ -8055,6 +8284,11 @@
       {
        "name": "Wooden Crate",
        "rate": 0.00019305000000002792,
+       "rate_display": "0.02%"
+      },
+      {
+       "name": "Footlocker",
+       "rate": 0.00017820000000001723,
        "rate_display": "0.02%"
       },
       {
@@ -9380,13 +9614,13 @@
        "rate_display": "0.13%"
       },
       {
-       "name": "Brotherhood Corpse",
+       "name": "Ash Pile",
        "rate": 0.0011904761904761901,
        "rate_display": "0.12%"
       },
       {
-       "name": "Ash Pile",
-       "rate": 0.0011904761904761862,
+       "name": "Brotherhood Corpse",
+       "rate": 0.0011904761904761901,
        "rate_display": "0.12%"
       },
       {
@@ -12957,13 +13191,13 @@
        "rate_display": "0.24%"
       },
       {
-       "name": "Brotherhood Corpse",
+       "name": "Ash Pile",
        "rate": 0.0011904761904761901,
        "rate_display": "0.12%"
       },
       {
-       "name": "Ash Pile",
-       "rate": 0.0011904761904761862,
+       "name": "Brotherhood Corpse",
+       "rate": 0.0011904761904761901,
        "rate_display": "0.12%"
       },
       {
@@ -13147,11 +13381,6 @@
        "rate_display": "0.02%"
       },
       {
-       "name": "Footlocker",
-       "rate": 0.00014142482104595455,
-       "rate_display": "0.01%"
-      },
-      {
        "name": "Hamper",
        "rate": 0.00014142482104595455,
        "rate_display": "0.01%"
@@ -13262,6 +13491,11 @@
        "rate_display": "0.01%"
       },
       {
+       "name": "Footlocker",
+       "rate": 0.00010607142857144147,
+       "rate_display": "0.01%"
+      },
+      {
        "name": "News Stand",
        "rate": 7.469196428566693e-05,
        "rate_display": "0.01%"
@@ -13269,11 +13503,6 @@
       {
        "name": "Brahmin Corpse",
        "rate": 4.419642857145245e-05,
-       "rate_display": "0%"
-      },
-      {
-       "name": "Tent",
-       "rate": 4.4196428571424695e-05,
        "rate_display": "0%"
       },
       {
@@ -13299,6 +13528,11 @@
       {
        "name": "Weak Feral Ghoul Corpse",
        "rate": 3.1909821428532936e-05,
+       "rate_display": "0%"
+      },
+      {
+       "name": "Tent",
+       "rate": 2.6517857142854822e-05,
        "rate_display": "0%"
       },
       {
@@ -14308,13 +14542,13 @@
        "rate_display": "0.15%"
       },
       {
-       "name": "Brotherhood Corpse",
+       "name": "Ash Pile",
        "rate": 0.0011904761904761901,
        "rate_display": "0.12%"
       },
       {
-       "name": "Ash Pile",
-       "rate": 0.0011904761904761862,
+       "name": "Brotherhood Corpse",
+       "rate": 0.0011904761904761901,
        "rate_display": "0.12%"
       },
       {
@@ -14433,6 +14667,11 @@
        "rate_display": "0.02%"
       },
       {
+       "name": "Locker",
+       "rate": 0.0002275102739028867,
+       "rate_display": "0.02%"
+      },
+      {
        "name": "Pre-War Locker",
        "rate": 0.0002275102739028867,
        "rate_display": "0.02%"
@@ -14449,11 +14688,6 @@
       },
       {
        "name": "Crashed Vertibot",
-       "rate": 0.00018246626931694987,
-       "rate_display": "0.02%"
-      },
-      {
-       "name": "Locker",
        "rate": 0.00018246626931694987,
        "rate_display": "0.02%"
       },
@@ -16250,13 +16484,13 @@
        "rate_display": "0.15%"
       },
       {
-       "name": "Brotherhood Corpse",
+       "name": "Ash Pile",
        "rate": 0.0011904761904761901,
        "rate_display": "0.12%"
       },
       {
-       "name": "Ash Pile",
-       "rate": 0.0011904761904761862,
+       "name": "Brotherhood Corpse",
+       "rate": 0.0011904761904761901,
        "rate_display": "0.12%"
       },
       {
@@ -16375,6 +16609,11 @@
        "rate_display": "0.02%"
       },
       {
+       "name": "Locker",
+       "rate": 0.0002275102739028867,
+       "rate_display": "0.02%"
+      },
+      {
        "name": "Pre-War Locker",
        "rate": 0.0002275102739028867,
        "rate_display": "0.02%"
@@ -16391,11 +16630,6 @@
       },
       {
        "name": "Crashed Vertibot",
-       "rate": 0.00018246626931694987,
-       "rate_display": "0.02%"
-      },
-      {
-       "name": "Locker",
        "rate": 0.00018246626931694987,
        "rate_display": "0.02%"
       },
@@ -18201,13 +18435,13 @@
        "rate_display": "0.15%"
       },
       {
-       "name": "Brotherhood Corpse",
+       "name": "Ash Pile",
        "rate": 0.0011904761904761901,
        "rate_display": "0.12%"
       },
       {
-       "name": "Ash Pile",
-       "rate": 0.0011904761904761862,
+       "name": "Brotherhood Corpse",
+       "rate": 0.0011904761904761901,
        "rate_display": "0.12%"
       },
       {
@@ -18326,6 +18560,11 @@
        "rate_display": "0.02%"
       },
       {
+       "name": "Locker",
+       "rate": 0.0002275102739028867,
+       "rate_display": "0.02%"
+      },
+      {
        "name": "Pre-War Locker",
        "rate": 0.0002275102739028867,
        "rate_display": "0.02%"
@@ -18342,11 +18581,6 @@
       },
       {
        "name": "Crashed Vertibot",
-       "rate": 0.00018246626931694987,
-       "rate_display": "0.02%"
-      },
-      {
-       "name": "Locker",
        "rate": 0.00018246626931694987,
        "rate_display": "0.02%"
       },
@@ -19945,19 +20179,20 @@
     "resource_generators": {
      "entries": [
       {
-       "name": "Food Packaged",
+       "name": "Sunshine Meadows Industrial Farm",
        "edid": "FoodPackagedResource01",
-       "obtain": "Available in the base game.",
+       "obtain": "Claim the public workshop",
        "interval": "3 min",
        "items": [
         {
-         "name": "Fancy Lads Snack Cakes",
+         "name": "Fancy Lads Snack Cakes (no rads)",
          "form_id": "000E3778",
          "rate": 1.0,
          "rate_display": "100%",
          "rate_source": "computed"
         }
-       ]
+       ],
+       "workshop": true
       }
      ]
     },
@@ -20064,11 +20299,6 @@
        "rate_display": "0.4%"
       },
       {
-       "name": "Ash Pile",
-       "rate": 0.0020000000000000018,
-       "rate_display": "0.2%"
-      },
-      {
        "name": "Brotherhood Corpse",
        "rate": 0.0020000000000000018,
        "rate_display": "0.2%"
@@ -20151,6 +20381,11 @@
       {
        "name": "Super Mutant Corpse",
        "rate": 0.0020000000000000018,
+       "rate_display": "0.2%"
+      },
+      {
+       "name": "Ash Pile",
+       "rate": 0.002,
        "rate_display": "0.2%"
       },
       {
@@ -21056,7 +21291,8 @@
          "form_id": "00478DE9",
          "rate": 0.1,
          "rate_display": "10%",
-         "rate_source": "computed"
+         "rate_source": "computed",
+         "note": "only during Fasnacht Day"
         }
        ]
       }
@@ -21348,13 +21584,13 @@
        "rate_display": "0.24%"
       },
       {
-       "name": "Brotherhood Corpse",
+       "name": "Ash Pile",
        "rate": 0.0011904761904761901,
        "rate_display": "0.12%"
       },
       {
-       "name": "Ash Pile",
-       "rate": 0.0011904761904761862,
+       "name": "Brotherhood Corpse",
+       "rate": 0.0011904761904761901,
        "rate_display": "0.12%"
       },
       {
@@ -21473,6 +21709,11 @@
        "rate_display": "0.02%"
       },
       {
+       "name": "Locker",
+       "rate": 0.0002275102739028867,
+       "rate_display": "0.02%"
+      },
+      {
        "name": "Pre-War Locker",
        "rate": 0.0002275102739028867,
        "rate_display": "0.02%"
@@ -21489,11 +21730,6 @@
       },
       {
        "name": "Crashed Vertibot",
-       "rate": 0.00018246626931694987,
-       "rate_display": "0.02%"
-      },
-      {
-       "name": "Locker",
        "rate": 0.00018246626931694987,
        "rate_display": "0.02%"
       },
@@ -23570,13 +23806,13 @@
        "rate_display": "0.15%"
       },
       {
-       "name": "Brotherhood Corpse",
+       "name": "Ash Pile",
        "rate": 0.0011904761904761901,
        "rate_display": "0.12%"
       },
       {
-       "name": "Ash Pile",
-       "rate": 0.0011904761904761862,
+       "name": "Brotherhood Corpse",
+       "rate": 0.0011904761904761901,
        "rate_display": "0.12%"
       },
       {
@@ -23695,6 +23931,11 @@
        "rate_display": "0.02%"
       },
       {
+       "name": "Locker",
+       "rate": 0.0002275102739028867,
+       "rate_display": "0.02%"
+      },
+      {
        "name": "Pre-War Locker",
        "rate": 0.0002275102739028867,
        "rate_display": "0.02%"
@@ -23711,11 +23952,6 @@
       },
       {
        "name": "Crashed Vertibot",
-       "rate": 0.00018246626931694987,
-       "rate_display": "0.02%"
-      },
-      {
-       "name": "Locker",
        "rate": 0.00018246626931694987,
        "rate_display": "0.02%"
       },
@@ -23885,6 +24121,11 @@
        "rate_display": "0%"
       },
       {
+       "name": "Tent",
+       "rate": 4.4196428571424695e-05,
+       "rate_display": "0%"
+      },
+      {
        "name": "Hunter Corpse",
        "rate": 3.535714285713975e-05,
        "rate_display": "0%"
@@ -23907,11 +24148,6 @@
       {
        "name": "Weak Feral Ghoul Corpse",
        "rate": 3.1909821428532936e-05,
-       "rate_display": "0%"
-      },
-      {
-       "name": "Tent",
-       "rate": 2.6517857142854822e-05,
        "rate_display": "0%"
       },
       {
@@ -25988,6 +26224,11 @@
        "rate_display": "0.02%"
       },
       {
+       "name": "Locker",
+       "rate": 0.0002275102739028867,
+       "rate_display": "0.02%"
+      },
+      {
        "name": "Pre-War Locker",
        "rate": 0.0002275102739028867,
        "rate_display": "0.02%"
@@ -26004,11 +26245,6 @@
       },
       {
        "name": "Crashed Vertibot",
-       "rate": 0.00018246626931694987,
-       "rate_display": "0.02%"
-      },
-      {
-       "name": "Locker",
        "rate": 0.00018246626931694987,
        "rate_display": "0.02%"
       },
@@ -26178,6 +26414,11 @@
        "rate_display": "0%"
       },
       {
+       "name": "Tent",
+       "rate": 4.4196428571424695e-05,
+       "rate_display": "0%"
+      },
+      {
        "name": "Hunter Corpse",
        "rate": 3.535714285713975e-05,
        "rate_display": "0%"
@@ -26200,11 +26441,6 @@
       {
        "name": "Weak Feral Ghoul Corpse",
        "rate": 3.1909821428532936e-05,
-       "rate_display": "0%"
-      },
-      {
-       "name": "Tent",
-       "rate": 2.6517857142854822e-05,
        "rate_display": "0%"
       },
       {
@@ -27271,6 +27507,11 @@
        "rate_display": "38.75%"
       },
       {
+       "name": "Safe",
+       "rate": 0.3875371231874023,
+       "rate_display": "38.75%"
+      },
+      {
        "name": "Security Office Safe",
        "rate": 0.3875371231874023,
        "rate_display": "38.75%"
@@ -27283,11 +27524,6 @@
       {
        "name": "Underdweller Dropbox",
        "rate": 0.3875371231874023,
-       "rate_display": "38.75%"
-      },
-      {
-       "name": "Safe",
-       "rate": 0.3875371231874022,
        "rate_display": "38.75%"
       },
       {
@@ -27466,6 +27702,11 @@
        "rate_display": "0.02%"
       },
       {
+       "name": "Locker",
+       "rate": 0.0002275102739028867,
+       "rate_display": "0.02%"
+      },
+      {
        "name": "Pre-War Locker",
        "rate": 0.0002275102739028867,
        "rate_display": "0.02%"
@@ -27482,11 +27723,6 @@
       },
       {
        "name": "Crashed Vertibot",
-       "rate": 0.00018246626931694987,
-       "rate_display": "0.02%"
-      },
-      {
-       "name": "Locker",
        "rate": 0.00018246626931694987,
        "rate_display": "0.02%"
       },
@@ -27656,6 +27892,11 @@
        "rate_display": "0%"
       },
       {
+       "name": "Tent",
+       "rate": 4.4196428571424695e-05,
+       "rate_display": "0%"
+      },
+      {
        "name": "Hunter Corpse",
        "rate": 3.535714285713975e-05,
        "rate_display": "0%"
@@ -27678,11 +27919,6 @@
       {
        "name": "Weak Feral Ghoul Corpse",
        "rate": 3.1909821428532936e-05,
-       "rate_display": "0%"
-      },
-      {
-       "name": "Tent",
-       "rate": 2.6517857142854822e-05,
        "rate_display": "0%"
       },
       {
@@ -29948,9 +30184,9 @@
     "resource_generators": {
      "entries": [
       {
-       "name": "Food Packaged",
+       "name": "Sunshine Meadows Industrial Farm",
        "edid": "FoodPackagedResource02",
-       "obtain": "Available in the base game.",
+       "obtain": "Claim the public workshop",
        "interval": "3 min",
        "items": [
         {
@@ -29960,7 +30196,8 @@
          "rate_display": "100%",
          "rate_source": "computed"
         }
-       ]
+       ],
+       "workshop": true
       }
      ]
     },
@@ -31708,6 +31945,11 @@
        "rate_display": "0%"
       },
       {
+       "name": "Tent",
+       "rate": 4.4196428571424695e-05,
+       "rate_display": "0%"
+      },
+      {
        "name": "Hunter Corpse",
        "rate": 3.535714285713975e-05,
        "rate_display": "0%"
@@ -31730,11 +31972,6 @@
       {
        "name": "Weak Feral Ghoul Corpse",
        "rate": 3.1909821428532936e-05,
-       "rate_display": "0%"
-      },
-      {
-       "name": "Tent",
-       "rate": 2.6517857142854822e-05,
        "rate_display": "0%"
       },
       {
@@ -33178,7 +33415,7 @@
        "interval": "10 min 12 sec",
        "items": [
         {
-         "name": "Salisbury Steak",
+         "name": "Salisbury Steak (no rads)",
          "form_id": "000E3780",
          "rate": 0.024392,
          "rate_display": "2.44%",
@@ -33191,19 +33428,20 @@
     "resource_generators": {
      "entries": [
       {
-       "name": "Food Packaged",
+       "name": "Sunshine Meadows Industrial Farm",
        "edid": "FoodPackagedResource03",
-       "obtain": "Available in the base game.",
+       "obtain": "Claim the public workshop",
        "interval": "3 min",
        "items": [
         {
-         "name": "Salisbury Steak",
+         "name": "Salisbury Steak (no rads)",
          "form_id": "000E3780",
          "rate": 1.0,
          "rate_display": "100%",
          "rate_source": "computed"
         }
-       ]
+       ],
+       "workshop": true
       }
      ]
     },
@@ -33310,6 +33548,11 @@
        "rate_display": "0.4%"
       },
       {
+       "name": "Ash Pile",
+       "rate": 0.0020000000000000018,
+       "rate_display": "0.2%"
+      },
+      {
        "name": "Brotherhood Corpse",
        "rate": 0.0020000000000000018,
        "rate_display": "0.2%"
@@ -33392,11 +33635,6 @@
       {
        "name": "Super Mutant Corpse",
        "rate": 0.0020000000000000018,
-       "rate_display": "0.2%"
-      },
-      {
-       "name": "Ash Pile",
-       "rate": 0.002,
        "rate_display": "0.2%"
       },
       {
@@ -33503,11 +33741,6 @@
        "name": "Metal Box",
        "rate": 0.0002940093590940718,
        "rate_display": "0.03%"
-      },
-      {
-       "name": "Footlocker",
-       "rate": 0.00023758941492002528,
-       "rate_display": "0.02%"
       },
       {
        "name": "Hamper",
@@ -33617,6 +33850,11 @@
       {
        "name": "Wooden Crate",
        "rate": 0.00019305000000002792,
+       "rate_display": "0.02%"
+      },
+      {
+       "name": "Footlocker",
+       "rate": 0.00017820000000001723,
        "rate_display": "0.02%"
       },
       {
@@ -34527,7 +34765,7 @@
        "interval": "10 min 12 sec",
        "items": [
         {
-         "name": "Sugar Bombs",
+         "name": "Sugar Bombs (no rads)",
          "form_id": "000E3782",
          "rate": 0.00306,
          "rate_display": "0.31%",
@@ -34540,19 +34778,20 @@
     "resource_generators": {
      "entries": [
       {
-       "name": "Food Packaged",
+       "name": "Sunshine Meadows Industrial Farm",
        "edid": "FoodPackagedResource04",
-       "obtain": "Available in the base game.",
+       "obtain": "Claim the public workshop",
        "interval": "3 min",
        "items": [
         {
-         "name": "Sugar Bombs",
+         "name": "Sugar Bombs (no rads)",
          "form_id": "000E3782",
          "rate": 1.0,
          "rate_display": "100%",
          "rate_source": "computed"
         }
-       ]
+       ],
+       "workshop": true
       }
      ]
     },
@@ -34659,6 +34898,11 @@
        "rate_display": "0.4%"
       },
       {
+       "name": "Ash Pile",
+       "rate": 0.0020000000000000018,
+       "rate_display": "0.2%"
+      },
+      {
        "name": "Brotherhood Corpse",
        "rate": 0.0020000000000000018,
        "rate_display": "0.2%"
@@ -34741,11 +34985,6 @@
       {
        "name": "Super Mutant Corpse",
        "rate": 0.0020000000000000018,
-       "rate_display": "0.2%"
-      },
-      {
-       "name": "Ash Pile",
-       "rate": 0.002,
        "rate_display": "0.2%"
       },
       {
@@ -34852,11 +35091,6 @@
        "name": "Metal Box",
        "rate": 0.0002940093590940718,
        "rate_display": "0.03%"
-      },
-      {
-       "name": "Footlocker",
-       "rate": 0.00023758941492002528,
-       "rate_display": "0.02%"
       },
       {
        "name": "Hamper",
@@ -34966,6 +35200,11 @@
       {
        "name": "Wooden Crate",
        "rate": 0.00019305000000002792,
+       "rate_display": "0.02%"
+      },
+      {
+       "name": "Footlocker",
+       "rate": 0.00017820000000001723,
        "rate_display": "0.02%"
       },
       {
@@ -36153,11 +36392,6 @@
        "rate_display": "0.02%"
       },
       {
-       "name": "Locker",
-       "rate": 0.0002275102739028867,
-       "rate_display": "0.02%"
-      },
-      {
        "name": "Pre-War Locker",
        "rate": 0.0002275102739028867,
        "rate_display": "0.02%"
@@ -36174,6 +36408,11 @@
       },
       {
        "name": "Crashed Vertibot",
+       "rate": 0.00018246626931694987,
+       "rate_display": "0.02%"
+      },
+      {
+       "name": "Locker",
        "rate": 0.00018246626931694987,
        "rate_display": "0.02%"
       },
@@ -36216,11 +36455,6 @@
        "name": "Metal Box",
        "rate": 0.00017501054389679194,
        "rate_display": "0.02%"
-      },
-      {
-       "name": "Footlocker",
-       "rate": 0.00014142482104595455,
-       "rate_display": "0.01%"
       },
       {
        "name": "Hamper",
@@ -36333,6 +36567,11 @@
        "rate_display": "0.01%"
       },
       {
+       "name": "Footlocker",
+       "rate": 0.00010607142857144147,
+       "rate_display": "0.01%"
+      },
+      {
        "name": "News Stand",
        "rate": 7.469196428566693e-05,
        "rate_display": "0.01%"
@@ -36340,6 +36579,11 @@
       {
        "name": "Brahmin Corpse",
        "rate": 4.419642857145245e-05,
+       "rate_display": "0%"
+      },
+      {
+       "name": "Tent",
+       "rate": 4.4196428571424695e-05,
        "rate_display": "0%"
       },
       {
@@ -36365,11 +36609,6 @@
       {
        "name": "Weak Feral Ghoul Corpse",
        "rate": 3.1909821428532936e-05,
-       "rate_display": "0%"
-      },
-      {
-       "name": "Tent",
-       "rate": 2.6517857142854822e-05,
        "rate_display": "0%"
       },
       {

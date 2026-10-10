@@ -285,7 +285,7 @@ def item_doc(item, ctx, has_fixed):
         doc["farming_tips"] = tips
     doc["drop_rates"] = collections.OrderedDict([
         ("creatures", None), ("collectrons", None), ("resource_generators", None)])
-    B._patch_camp_producers(doc, targets, ctx["dist"], ctx["rates"])
+    B._patch_camp_producers(doc, targets, ctx["dist"], ctx["rates"], data_dir=ctx["tsv"])
     B._patch_containers(doc, closure, targets, ctx["rates"], ctx["cont_names"], ctx["tables"],
                         placed_bases=ctx["cont_bases"], corpse_bodies=True,
                         npc_dir=ctx["tsv"])
@@ -449,6 +449,84 @@ def chance_spawns(items, ctx, page_urls):
     return out
 
 
+
+# ── Script effects that cast a random spell (Mystery Candy) ─────────────────
+# Spooky_MysteryTreat's only effect is HalloweenCandyRandomEffect ("Mystery Treat"),
+# a SCRIPT effect: its Papyrus script casts one of several SPELs. Which spells is a
+# script property, so it is read from the MGEF export's VMAD_Scripts column
+# (!!!Wordpress - ExportMGEFToTSV.pas, Oct 2026). Until the MGEF export is re-run
+# with that column, fall back to the spells named after the effect
+# (HalloweenCandyRandomEffect -> HalloweenCandy_*). The pick is made in the script,
+# so the game files carry no odds — the page lists the outcomes, no percentages.
+_REF_RE = re.compile(r"([0-9A-Fa-f]{8}):([^:|#]*):SPEL")
+
+
+def _spell_tables(tsv):
+    head = tsv_source.newest(os.path.join(tsv, "SPEL_Export_*_HEADER.tsv"), required=False)
+    eff = tsv_source.newest(os.path.join(tsv, "SPEL_Export_*_EFFECTS.tsv"), required=False)
+    spells = collections.OrderedDict()
+    for r in (B._read_tsv(head) if head else []):
+        spells[(r.get("SPEL_FormID") or "").upper()] = {
+            "edid": r.get("SPEL_EDID") or "", "name": (r.get("SPEL_FULL") or "").strip(),
+            "effects": []}
+    for r in (B._read_tsv(eff) if eff else []):
+        sp = spells.get((r.get("SPEL_FormID") or "").upper())
+        if sp is not None:
+            sp["effects"].append((r.get("EFID_MGEF_EDID") or "", (r.get("EFID_MGEF_FULL") or "").strip(),
+                                  B._safe_num(r.get("EFIT_Magnitude")) or 0,
+                                  B._safe_num(r.get("EFIT_Duration")) or 0))
+    return spells
+
+
+def _mgef_vmad(tsv):
+    path = tsv_source.newest(os.path.join(tsv, "MGEF_Export_*.tsv"), required=False)
+    out = {}
+    for r in (B._read_tsv(path) if path else []):
+        v = r.get("VMAD_Scripts")
+        if v is None:
+            return None                    # export predates the VMAD column
+        out[(r.get("EDID") or "")] = v
+    return out
+
+
+def _effect_text(full, mag, dur):
+    label = re.sub(r"^(Fortify|Restore)\s+", "", full)
+    label = re.sub(r"\s+Food$", "", label)
+    m = re.match(r"^(Reduce|Damage)\s+(.+)$", label)
+    txt = label
+    if mag:
+        txt = (f"-{mag:g} {m.group(2)}" if m else f"+{mag:g} {label}")
+    t = B._fmt_minutes(dur) if dur and dur >= 60 else (f"{dur:g}s" if dur and mag else None)
+    return txt + (f" ({t})" if t else "")
+
+
+def random_spell_buffs(mgef_edids, tsv, cache={}):
+    """[{name, effects:[text]}] for a food whose effect casts a random spell."""
+    if "spells" not in cache:
+        cache["spells"] = _spell_tables(tsv)
+        cache["vmad"] = _mgef_vmad(tsv)
+    spells, vmad = cache["spells"], cache["vmad"]
+    picked = []
+    for ed in mgef_edids:
+        if vmad is not None and vmad.get(ed):
+            fids = [m.group(1).upper() for m in _REF_RE.finditer(vmad[ed])]
+            picked += [spells[f] for f in fids if f in spells]
+        elif vmad is None and ed.endswith("RandomEffect"):
+            stem = ed[:-len("RandomEffect")].lower() + "_"
+            picked += [sp for sp in spells.values() if sp["edid"].lower().startswith(stem)]
+    out, seen = [], set()
+    for sp in picked:
+        # a spell made only of a "Duration" helper (the blackout timer) is not an outcome
+        if not sp["effects"] or all("duration" in e[0].lower() for e in sp["effects"]):
+            continue
+        if sp["edid"] in seen:
+            continue
+        seen.add(sp["edid"])
+        out.append(collections.OrderedDict([
+            ("name", sp["name"]),
+            ("effects", [_effect_text(e[1], e[2], e[3]) for e in sp["effects"]])]))
+    return out
+
 # ── Merged page-level sections (Oct 2026) ───────────────────────────────────
 # One sub-expand per food in Used For / Farming Tips was 41 near-identical blocks.
 # The data says why: apart from weight and Can Do!, every food's tips are the same,
@@ -484,17 +562,29 @@ def merged_sections(items, subs, ctx, page_urls):
         cons = uf.get("consumption") or B.build_consumption(it["form_ids"][0], ctx["tsv"], it["full"])
         if uf:
             chal = uf.get("challenges") or []
-            recs = uf.get("recipes") or []
         else:                                   # food with its own guide — still list it here
             chal = [c for f in it["form_ids"] for c in B.build_challenges(f, ctx["dist"])]
-            recs = B.build_recipes(it["full"], ctx["recipe_guide"], ctx["bench_cat"],
-                                   ctx["tsv"], ctx["guide_urls"])
+        # Always fresh (cheap): a --state file holds recipes from an older build,
+        # before the plan name + "how to get the recipe" join existed.
+        recs = B.build_recipes(it["full"], ctx["recipe_guide"], ctx["bench_cat"],
+                               ctx["tsv"], ctx["guide_urls"])
         row = collections.OrderedDict([("name", it["name"])])
         if url:
             row["page_url"] = url
         row["effects"] = [{"display": e.get("display"), "duration": e.get("duration")}
                           for e in (cons or {}).get("effects") or [] if e.get("display")]
+        # Diet flags, same as every farming page (build_consumption reads them off the
+        # ALCH keywords: IngredientTypeMeat -> Carnivore, vegetable/fruit/herb -> Herbivore)
+        row["herbivore"] = bool((cons or {}).get("herbivore"))
+        row["carnivore"] = bool((cons or {}).get("carnivore"))
         row["weight"] = (cons or {}).get("weight", it["weight"])
+        effs = ctx.setdefault("_alch_effects", _effects(ctx["tsv"]))
+        rb = random_spell_buffs([e[0] for e in effs.get(it["form_ids"][0], [])], ctx["tsv"])
+        if rb:
+            row["random_buffs"] = rb
+            # the script effect's own line is just its name ("Mystery Treat") — the
+            # outcomes replace it
+            row["effects"] = [e for e in row["effects"] if re.search(r"\d", e["display"] or "")]
         row["value"] = (cons or {}).get("value")
         rows.append(row)
         seen = set()
@@ -616,6 +706,25 @@ def build(ctx, state_path=None, budget=None):
                                        if k not in ("used_for", "farming_tips", "form_ids"))
     combined["name"] = "Pre-war food"
     subs_and_all = subs + [combined]
+    page_name = {f: it["name"] for it in items for f in it["form_ids"]}
+
+    # Collectron / generator cards are cheap to join, so they are re-joined every
+    # build instead of read back from a --state file (toggle notes and workshop
+    # names were added after some state files were written).
+    for s, fids in [(x, x.get("form_ids")) for x in subs] + [(combined, all_item["form_ids"])]:
+        if not fids or not isinstance(s.get("drop_rates"), dict):
+            continue
+        for k in ("collectrons", "resource_generators"):
+            node = s["drop_rates"].get(k)
+            if isinstance(node, dict):
+                node.pop("entries", None)
+        B._patch_camp_producers(s, set(fids), ctx["dist"], ctx["rates"], data_dir=ctx["tsv"])
+        # card rows use the in-game FULL name; use the page's name so a rad-free
+        # copy reads "Salisbury Steak (no rads)", matching the rest of the page
+        for k in ("collectrons", "resource_generators"):
+            for e in ((s["drop_rates"].get(k) or {}).get("entries") or []):
+                for row in e.get("items") or []:
+                    row["name"] = page_name.get(row.get("form_id"), row.get("name"))
 
     # The treasure-map `sources` audit trail is never rendered, and across ~40 foods
     # it was the biggest thing in the file. Drop it here (after the state cache, so

@@ -61,6 +61,7 @@ from rng76 import (
     prettify_lvli_label,
 )
 import tsv_source          # one resolver for every export selection
+import image_index         # the shared image library (dist/image_index.json)
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -5262,6 +5263,14 @@ def main():
         caps_summary = "{} caps".format(page_data["caps"]["value"]) if page_data["caps"] else "no caps"
         print("  -> {} tree nodes, {} flat rewards, {}, {}".format(
             tree_len, rewards_len, xp_summary, caps_summary))
+
+        # Shared image library (src/image_index.py): library -> this event's own
+        # folder -> another page -> placeholder, and only files the server has.
+        try:
+            image_index.report("build_seasonal_events", image_index.seasonal_page(
+                page_data, slug, image_dir=event_def.get("imageDir") or ev_slug)[0])
+        except Exception as e:  # images are never fatal
+            print("  [WARN] image index skipped: {}".format(e))
 
         output["byPage"][slug] = page_data
         url_path = "/df/seasonal-events/" + ev_slug + "/" + slug + "/"

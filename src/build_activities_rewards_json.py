@@ -5321,6 +5321,19 @@ for key, pages in sorted(reward_pages_by_key.items()):
 # Write output
 # --------------------------------------------------
 
+# Shared image library (src/image_index.py): imageUrl on each page's Unique
+# Rewards items - library first, then guide-images/activities/<slug>/.
+try:
+    import image_index
+    _img_stats = {}
+    for _slug, _page in by_page.items():
+        for _k, _v in image_index.unique_rewards_page(
+                _page, _slug.strip("/").rsplit("/", 1)[-1], "activities")[0].items():
+            _img_stats[_k] = _img_stats.get(_k, 0) + _v
+    image_index.report("build_activities_rewards", _img_stats)
+except Exception as _e:  # images are never fatal
+    print("  [WARN] image index skipped: {}".format(_e))
+
 DIST_DIR.mkdir(parents=True, exist_ok=True)
 PATCHLOG_DIR.mkdir(parents=True, exist_ok=True)
 

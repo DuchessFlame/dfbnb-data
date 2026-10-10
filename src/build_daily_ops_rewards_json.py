@@ -1504,6 +1504,12 @@ if __name__ == "__main__":
 
     try:
         tree, slots = build_all_rewards(rows, quest_ids, identical, timer_tiers)
+        # Shared image library (src/image_index.py) on the checklist rows.
+        try:
+            import image_index
+            image_index.report("build_daily_ops", image_index.daily_ops_page(tree)[0])
+        except Exception as e:  # images are never fatal
+            print("  [WARN] image index skipped: {}".format(e))
         write_json_atomic(OUT_DIR / ALL_REWARDS_FILE, tree)
         print("GMRW reward slots")
         for s in slots:

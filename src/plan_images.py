@@ -54,6 +54,10 @@ try:
     import reusable_images                         # season-upload manifests (titles' rule)
 except ImportError:                                # pragma: no cover
     reusable_images = None
+try:
+    import image_index                             # the shared image library (dist/image_index.json)
+except ImportError:                                # pragma: no cover
+    image_index = None
 
 
 def _route(url):
@@ -577,8 +581,24 @@ def hosted_first(own, hosted):
 # ── staged stems ────────────────────────────────────────────────────────────
 
 def read_staged(config_path=CONFIG, verbose=True):
-    """folder -> {stem, …} from the committed config."""
+    """folder -> {stem, …}: what is uploaded in each plan-checklist folder.
+
+    The server listing (data/server_listing.tsv, tools/list_server_images.py)
+    is the truth when it has been committed - it is what the server actually
+    holds. The local staging scan in data/plan_images.json is only the fallback
+    for a checkout with no listing.
+    """
     out = {f: set() for f in FOLDERS}
+    if image_index is not None:
+        # Every page folder on the server, including ones outside FOLDERS
+        # (apparel-without-plans is the No-Plan Apparel page's own folder).
+        folders = set(FOLDERS) | set(image_index.listing_subfolders("guide-images/plan-checklist/") or ())
+        listed = {f: image_index.listing_stems("guide-images/plan-checklist/" + f) for f in folders}
+        if all(v is not None for v in listed.values()):
+            if verbose:
+                print("  staged stems from the server listing: {}".format(
+                    sum(len(v) for v in listed.values())), file=sys.stderr)
+            return listed
     if not os.path.exists(config_path):
         if verbose:
             print(f"  WARNING: {config_path} missing — no staged art will be "
@@ -886,17 +906,20 @@ def attach(items, idx, staged, folder_override="", stats=None, overrides=None):
     Resolution order, first hit wins (the hosted-first rule — see hosted_url):
 
       1. an override      — the manual map, always the last word
-      2. published art    — a picture another page already serves, then the
+      2. the shared image library (dist/image_index.json) by FormID
+      3. published art    — a picture another page already serves, then the
                             verified season-upload manifests
-      3. staged, another page's folder, when the stem is unambiguous
-      4. staged, own folder
-      5. the generic class picture (weapon mods only)
+      4. staged, another page's folder, when the stem is unambiguous
+      5. staged, own folder
+      6. the same item in another page's event folder (reused)
+      7. the generic class picture (weapon mods only)
 
     """
     stats = stats if stats is not None else {}
     overrides = read_overrides() if overrides is None else overrides
     xfolder = {}
     legacy = getattr(idx, "legacy", None)
+    lib = image_index.load(verbose=False) if image_index is not None else None
     for item in items:
         if legacy:
             legacy.tag(item)
@@ -921,7 +944,21 @@ def attach(items, idx, staged, folder_override="", stats=None, overrides=None):
             print(f"  WARNING: override for {item.get('id') or item.get('name')}"
                   f" -> {ov!r} is not staged; falling through", file=sys.stderr)
 
+        # 2. The shared image library (dist/image_index.json, built from the
+        #    server listing) by FormID - the thing the plan builds first, then
+        #    the plan itself. A Nuclear Winter plan always lands on the legacy
+        #    Nuclear Winter folder here. Event-folder copies are NOT taken at
+        #    this step; they are the reuse fallback after this page's own folder.
+        hit = _library_entry(lib, item)
+        if hit and hit.get("tier") in ("nw", "library"):
+            item["images"] = [hit["url"]] + list(hit.get("extras") or [])[:MAX_EXTRAS]
+            item["image_source"] = "library"
+            _bump(stats, folder, "library")
+            continue
+
         url, source = idx.lookup(item)
+        if lib is not None and lib.have_listing and url and not lib.exists(url):
+            url, source = "", ""          # a page claims it, the server does not have it
         if not url:
             # Same hosted-first rule, the season-upload manifests this time:
             # the entitlement a Legacy NW plan replaces and its texture names.
@@ -931,6 +968,8 @@ def attach(items, idx, staged, folder_override="", stats=None, overrides=None):
                 idx, edids=[ent] if ent else [],
                 textures=((item.get("art_stems") or {}).get("main")
                           or _entitlement_textures(item)))
+            if lib is not None and lib.have_listing and url and not lib.exists(url):
+                url, source = "", ""      # manifest row never uploaded
         if url:
             item["images"] = [url]
             item["image_source"] = source
@@ -965,6 +1004,14 @@ def attach(items, idx, staged, folder_override="", stats=None, overrides=None):
             _bump(stats, folder, "staged")
             continue
 
+        # 5. The same item already uploaded to another page's event folder -
+        #    reused rather than uploaded again.
+        if hit:
+            item["images"] = [hit["url"]] + list(hit.get("extras") or [])[:MAX_EXTRAS]
+            item["image_source"] = "reused"
+            _bump(stats, folder, "reused")
+            continue
+
         # Last resort: the one picture that stands for this whole class of plan.
         # Only on the page it was drawn for — a bobber or a backpack mod is an
         # OMOD too, and a picture of a weapon receiver on the fishing page is
@@ -978,6 +1025,19 @@ def attach(items, idx, staged, folder_override="", stats=None, overrides=None):
 
 
 MAX_EXTRAS = 3
+
+
+def _library_entry(lib, item):
+    """The shared-library entry for a plan row, or None."""
+    if lib is None or not lib.by_fid:
+        return None
+    cnam = item.get("cnam") or {}
+    plan = item.get("plan_item") or {}
+    for fid, edid in ((cnam.get("formid"), cnam.get("edid")), (plan.get("formid"), plan.get("edid"))):
+        e = lib.entry(fid or "", edid or "")
+        if e:
+            return e
+    return None
 
 
 def staged_extras(item, hit, pool):

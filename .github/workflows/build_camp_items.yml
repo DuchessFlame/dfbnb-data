@@ -56,7 +56,7 @@ jobs:
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add dist/collectrons.json dist/resource_producers.json dist/patchlog_latest_bnb_camp_items.json
+          git add dist/collectrons.json dist/resource_producers.json dist/workshop_producers.json dist/patchlog_latest_bnb_camp_items.json
           git diff --cached --quiet && echo "No changes to commit" || \
             git commit -m "chore: rebuild camp items JSON [skip ci]"
 
