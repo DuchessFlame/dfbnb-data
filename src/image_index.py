@@ -60,6 +60,52 @@ UPLOADS = "/wp-content/uploads/"
 PLAN_IMG_BASE = UPLOADS + "guide-images/plan-checklist/"
 IMAGE_EXT = (".avif", ".webp", ".png", ".jpg", ".jpeg", ".gif")
 
+# ══════════════════════════════════════════════════════════════════════════
+# THE FOLDER RULES
+#
+# Every item has ONE home folder. When the same item has a picture in more
+# than one shared folder, the home wins, then the order below. Builders never
+# decide this themselves - build_image_index.py applies it once for the whole
+# site, so every page shows the same picture for the same item.
+#
+#   1. Nuclear Winter / Babylon items   guide-images/plan-checklist/legacy-nuclear-winter/
+#                                        always, never an event copy
+#   2. Player and CAMP titles           guide-images/titles/titles-player/ | titles-camp/
+#                                        (blank name tags in guide-images/titles/)
+#   3. Scoreboard rewards               season_images/season-N/   (and season_images/utility/)
+#   4. Plans and what they build        guide-images/plan-checklist/<type>/
+#      (apparel, weapons, armour, mods, recipes, CAMP decor, masks ...)
+#   5. Atom Shop                        guide-images/atom-shop/<sub>/
+#      (store items, bundles, player icons, emotes, wallpaper, tents)
+#   6. CAMP machines                    guide-images/camp-items/<sub>/
+#      (buff stations, collectrons, allies, pets, producers ...)
+#   then  7. the page's own event folder, 8. another page's event folder,
+#         9. the placeholder (blank title tag / weapon mod box / none).
+#
+# Event folders (guide-images/<category>/<event>/) hold only that event's own
+# art - cover, gallery, maps, guide images and photos, reward checklists - and
+# an odd reward that has no home above.
+# ══════════════════════════════════════════════════════════════════════════
+FOLDER_ORDER = (
+    ("guide-images/plan-checklist/legacy-nuclear-winter/", "Nuclear Winter"),
+    ("guide-images/titles/", "Titles"),
+    ("season_images/", "Scoreboard"),
+    ("guide-images/plan-checklist/", "Plan Checklists"),
+    ("guide-images/atom-shop/", "Atom Shop"),
+    ("guide-images/camp-items/", "CAMP Items"),
+)
+
+
+def folder_rank(rel):
+    """Lower wins. The titles folder only ever holds title art, so for a title
+    it outranks the scoreboard copy, exactly as rule 2 says."""
+    low = rel.lower()
+    for i, (prefix, _label) in enumerate(FOLDER_ORDER):
+        if low.startswith(prefix):
+            return i
+    return len(FOLDER_ORDER) + (0 if tier_of(rel) == "event" else 1)
+
+
 # ── folder classes ─────────────────────────────────────────────────────────
 NW_PREFIX = "guide-images/plan-checklist/legacy-nuclear-winter/"
 LIBRARY_PREFIXES = (
@@ -80,8 +126,8 @@ EVENT_CATEGORIES = {
 # maps, gallery shots, checklists, the cover. Never treated as a reward picture,
 # never offered to another page, never listed as a duplicate to delete.
 _EVENT_OWN_ART = re.compile(
-    r"(^|/)(gallery|maps?|guide[-_ ]?images|guide[-_ ]?photos|reward[-_ ]?checklists|"
-    r"locations|covers?)(/|$)|(^|/)cover\.[a-z0-9]+$", re.I)
+    r"(^|/)(gallery|maps?|guides?|guide[-_ ]?images|guide[-_ ]?photos|reward[-_ ]?checklists|"
+    r"[a-z0-9-]*locations|covers?)(/|$)|(^|/)cover\.[a-z0-9]+$", re.I)
 
 # Pictures that stand in for missing art. A builder may still propose one (the
 # mod box, a blank name tag, the old Invaders title tag); it is never treated as
@@ -162,9 +208,9 @@ def tier_of(rel):
 
 
 def is_event_own_art(rel):
-    """True for gallery / map / guide / cover files inside an event folder."""
+    """True for gallery / map / guide / location / cover files in an event folder."""
     parts = rel.split("/")
-    return bool(_EVENT_OWN_ART.search("/".join(parts[3:]) if len(parts) > 3 else parts[-1]))
+    return bool(_EVENT_OWN_ART.search("/".join(parts[2:]) if len(parts) > 2 else parts[-1]))
 
 
 def is_image(rel):

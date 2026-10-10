@@ -20,8 +20,8 @@ HOW TO RUN (PowerShell, from the dfbnb-data folder)
 --filezilla reads the host, port, protocol and user name of a saved FileZilla
 site (Site Manager) from %APPDATA%\FileZilla\sitemanager.xml. It never reads the
 saved password: you are asked for it, it is used for this one connection, and
-it is not written anywhere. Run with --filezilla "" to list the saved site
-names.
+it is not written anywhere. Run with just --filezilla (no name) to list the
+saved site names.
 
 Or give the connection by hand:
     python tools\list_server_images.py --host example.sftp.wpengine.com --port 2222 --user myuser
@@ -198,7 +198,10 @@ def walk(w, root, only, years):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--filezilla", metavar="SITE", help='saved FileZilla site name ("" lists them)')
+    # nargs="?": PowerShell drops an empty "" argument, so a bare --filezilla
+    # (no name) is how the saved site names are listed.
+    ap.add_argument("--filezilla", metavar="SITE", nargs="?", const="",
+                    help="saved FileZilla site name (on its own: list the saved names)")
     ap.add_argument("--host")
     ap.add_argument("--port", type=int)
     ap.add_argument("--user")
@@ -223,7 +226,7 @@ def main():
         hits = [s for s in sites if s["name"].lower() == want] or \
                [s for s in sites if want in s["name"].lower()]
         if len(hits) != 1:
-            sys.exit("Site '{}' matched {} saved sites - run with --filezilla \"\" to see the names."
+            sys.exit("Site '{}' matched {} saved sites - run with just --filezilla to see the names."
                      .format(args.filezilla, len(hits)))
         s = hits[0]
         host = host or s["host"]

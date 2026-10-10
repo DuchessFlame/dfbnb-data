@@ -147,6 +147,7 @@ class Builder:
         self.by_edid = {}
         self.used = set()                                    # rels some FormID points at
         self.ambiguous = {}                                  # stem -> [rels]
+        self.redundant = {}                                  # lower-ranked copy -> winner
         self.via_counts = defaultdict(int)
 
     # ---- helpers ----------------------------------------------------------
@@ -172,9 +173,27 @@ class Builder:
         return out[:3]
 
     def put(self, fid, rel, via, extras=None):
+        """Give fid the picture at rel, unless it already has one from a folder
+        that ranks higher under the folder rules (image_index.FOLDER_ORDER).
+        A lower-ranked library copy of the same item is remembered for the
+        cleanup audit."""
         fid = (fid or "").strip().upper()
-        if not ii.FID_RE.match(fid) or fid in self.by_fid or not rel:
+        if not ii.FID_RE.match(fid) or not rel:
             return False
+        cur = self.by_fid.get(fid)
+        if cur:
+            cur_rel = ii.norm_rel(cur["url"])
+            if cur_rel.lower() == rel.lower():
+                return False
+            libs = len(ii.FOLDER_ORDER)
+            new_rank, cur_rank = ii.folder_rank(rel), ii.folder_rank(cur_rel)
+            if new_rank >= cur_rank:
+                if new_rank < libs and cur_rank < libs:
+                    self.redundant.setdefault(rel, cur_rel)
+                return False
+            if cur_rank < libs:
+                self.redundant.setdefault(cur_rel, rel)
+            self.via_counts[cur["via"]] -= 1
         ex = extras if extras is not None else self.extras_for(rel)
         e = {"url": ii.to_url(rel), "tier": ii.tier_of(rel), "via": via}
         if ex:
@@ -367,6 +386,7 @@ def main():
 
     # titles: affix + type for the blank name-tag placeholder, and their art
     titles = {}
+    title_edid = {}                                     # title FormID -> (type, EditorID)
     for kind, fname in (("player", "titles_player.json"), ("camp", "titles_camp.json")):
         try:
             with open(os.path.join(args.dist, fname), encoding="utf-8") as f:
@@ -377,6 +397,8 @@ def main():
             aff = (t.get("affixType") or "").lower()
             affix = aff if aff in ("prefix", "suffix") else "both"
             info = {"type": kind, "affix": affix}
+            if t.get("formId") and t.get("edid"):
+                title_edid[str(t["formId"]).upper()] = (kind, str(t["edid"]))
             if t.get("formId"):
                 titles[str(t["formId"]).upper()] = info
             if t.get("edid"):
@@ -395,8 +417,6 @@ def main():
     recs, entm = read_records(args.tsv)
     rec_names = {fid: full for _sig, fid, _edid, full in recs if full}
     for sig, fid, edid, full in recs:
-        if fid in b.by_fid:
-            continue
         for kind, stems in (("edid", edid_stems(edid)),
                             ("name", [] if fid in weapon_mod else name_stems(full))):
             rel = next((r for r in (b.stem_hit("nw", st) or b.stem_hit("library", st)
@@ -511,6 +531,15 @@ def main():
         ", ".join("{} {}".format(v, k) for k, v in sorted(b.via_counts.items()))))
 
     write_audit(args.audit, b, event_fids, listing_when)
+    pm_dir = {}
+    for it in pm_items:
+        if it.get("image_dir"):
+            for f in pm_fids(it):
+                pm_dir.setdefault(f.upper(), it["image_dir"])
+    recmap = {fid: (sig, edid, full) for sig, fid, edid, full in recs}
+    write_moves(os.path.join(os.path.dirname(args.audit), "image_moves.md"), b, event_fids,
+                recmap, pm_dir, titles, title_edid, args.dist, listing_when,
+                plan_images if plan_images is not None else None)
 
 
 def _words(name):
@@ -555,6 +584,154 @@ def link_aliases(b, plan_groups, entm, weapon_mod=frozenset(), names=None):
                 e["via"] = "alias:" + hit["via"].split(":")[-1]
                 b.by_fid[x] = e
                 b.via_counts["alias"] += 1
+
+
+# Pages whose images go through the index - a moved file is re-pointed on them
+# automatically by REFRESH-IMAGES.bat. Any OTHER dist file that names a file is
+# reported, because that page would keep pointing at the old place.
+_WIRED = {"seasonal_events_rewards_by_page.json", "mutated_events_all_rewards.json",
+          "daily_ops_all_rewards.json", "activities_rewards_by_page.json",
+          "events_rewards_by_page.json", "treasure_maps.json", "image_index.json",
+          "missing_images.json", "plan_master.json", "new_plans.json", "underarmour.json",
+          "no_plan_apparel.json"}
+
+
+def _other_users(dist_dir):
+    """rel (lower) -> [dist files that name it], for dist files NOT wired to the index."""
+    import glob
+    out = defaultdict(set)
+    rx = re.compile(r"(?:wp-content/uploads/)?((?:guide-images|season_images)/[^\"'\s)]+?\.(?:avif|webp|png|jpe?g|gif))",
+                    re.I)
+    for path in glob.glob(os.path.join(dist_dir, "**", "*.json"), recursive=True):
+        rp = os.path.relpath(path, dist_dir).replace("\\", "/")
+        base = os.path.basename(path)
+        if (base in _WIRED or rp.startswith("pts/") or "/by_page/" in "/" + rp
+                or "WorkHorse" in base or "BACKUP" in base or os.path.getsize(path) > 40e6):
+            continue
+        try:
+            with open(path, encoding="utf-8", errors="replace") as f:
+                text = f.read()
+        except OSError:
+            continue
+        for m in rx.finditer(text):
+            out[ii.norm_rel(m.group(1)).lower()].add(rp)
+    return out
+
+
+def write_moves(path, b, event_fids, recmap, pm_dir, titles, title_edid, dist_dir, listing_when,
+                plan_images=None):
+    """audits/image_moves.md - event-folder pictures that belong in a shared folder.
+
+    For every reward picture in an event folder (cover / gallery / maps / guide
+    images / location folders are never touched):
+      * already in a shared folder        -> not listed here; it is a copy (see image_cleanup.md)
+      * a title                           -> move to the titles folder, renamed the titles way
+      * a plan or what a plan builds,
+        apparel, a weapon, armour, a mod  -> move to plan-checklist/<type>/, same name
+      * anything else                     -> stays: an odd reward with no other home
+    """
+    users = _other_users(dist_dir)
+    moves = defaultdict(list)              # (from folder, to folder) -> [(name, new name, note)]
+    stays = []
+    for rel, fids in sorted(event_fids.items()):
+        fids = sorted(fids)
+        if any(f in b.by_fid and b.by_fid[f]["tier"] in ("nw", "library") for f in fids):
+            continue                           # a copy - the cleanup audit lists it
+        folder, _, name = rel.rpartition("/")
+        dest, new_name = "", name
+        # a title?
+        for f in fids:
+            t = title_edid.get(f)
+            if not t:
+                sig, edid, _full = recmap.get(f, ("", "", ""))
+                for cand in ii.title_edids(edid):
+                    hit = next(((k, e) for k, e in title_edid.values() if e.lower() == cand.lower()), None)
+                    if hit:
+                        t = hit
+                        break
+            if t:
+                dest = "guide-images/titles/titles-{}".format(t[0])
+                new_name = t[1].lower() + os.path.splitext(name)[1].lower()
+                break
+        # a plan-checklist item?
+        if not dest:
+            home = next((pm_dir[f] for f in fids if pm_dir.get(f)), "")
+            if not home and plan_images is not None:
+                for f in fids:
+                    sig, edid, full = recmap.get(f, ("", "", ""))
+                    if sig in ("ARMO", "WEAP", "OMOD") or (sig == "BOOK" and re.match(
+                            r"^\s*(plan|recipe)\s*:", full or "", re.I)):
+                        try:
+                            home = plan_images.page_folder({
+                                "name": full, "type": {"ARMO": "apparel", "WEAP": "weapon"}.get(sig, ""),
+                                "cnam": {"sig": sig if sig != "BOOK" else "", "edid": edid}})
+                        except Exception:              # noqa: BLE001
+                            home = ""
+                        if home:
+                            break
+            if home:
+                dest = "guide-images/plan-checklist/" + home
+        if not dest:
+            names = ", ".join(sorted({(recmap.get(f) or ("", "", ""))[2] for f in fids} - {""}))
+            stays.append((rel, names))
+            continue
+        note = ""
+        target = (dest + "/" + new_name).lower()
+        clash = b.ci.get(target)
+        if clash:
+            if b.size.get(clash) == b.size.get(rel):
+                note = "same file already there - just delete this copy"
+            else:
+                main = next((f for f in fids if (recmap.get(f) or ("",))[0] != "BOOK"), fids[0])
+                new_name = main + os.path.splitext(name)[1].lower()
+                note = "a different picture already uses that name - rename to the FormID"
+        others = sorted(users.get(rel.lower(), ()))
+        if others:
+            note = (note + "; " if note else "") + "also named by " + ", ".join(others) + \
+                " - that page will need its path updated"
+        moves[(folder, dest)].append((name, new_name, note))
+        # Its carousel views travel with it (the outfit's mannequin "-2", "_c1" ...).
+        stem, ext = os.path.splitext(name)
+        new_stem = os.path.splitext(new_name)[0]
+        for extra in b.extras_for(rel):
+            ename = extra.rsplit("/", 1)[-1]
+            estem, eext = os.path.splitext(ename)
+            suffix = estem[len(stem):] if estem.lower().startswith(stem.lower()) else ""
+            if suffix:
+                moves[(folder, dest)].append((ename, new_stem + suffix + eext.lower(),
+                                              "extra view of " + name))
+
+    n = sum(len(v) for v in moves.values())
+    L = ["# Image moves", "",
+         "Built from the server listing of {}. Pictures sitting in event folders that belong in a "
+         "shared folder under the folder rules (docs/image-library.md).".format(listing_when or "(unknown)"),
+         "", "**{} files to move.** In FileZilla drag each file from the first folder into the second "
+         "(rename it if a new name is shown). Then run the listing and REFRESH-IMAGES.bat and "
+         "commit + push straight away - the reward pages are re-pointed to the new place "
+         "automatically, but only once the new JSON is on GitHub.".format(n), "",
+         "Event-folder copies of pictures a shared folder already has are not moves - they are "
+         "deletes, listed in `audits/image_cleanup.md`. Cover, gallery, maps, guide images and "
+         "location folders are never listed.", ""]
+    for (src, dst) in sorted(moves):
+        rows = moves[(src, dst)]
+        L.append("## `{}/` -> `{}/` ({})".format(src, dst, len(rows)))
+        L.append("")
+        for name, new_name, note in sorted(rows):
+            ren = "" if new_name == name else "  -> rename to `{}`".format(new_name)
+            L.append("- `{}`{}{}".format(name, ren, "  *({})*".format(note) if note else ""))
+        L.append("")
+    L.append("## Staying in their event folder ({})".format(len(stays)))
+    L.append("")
+    L.append("Rewards with no shared home (event currencies, event-only items, buffs ...). "
+             "They stay where they are.")
+    L.append("")
+    for rel, names in stays:
+        L.append("- `{}`{}".format(rel, " - " + names if names else ""))
+    L.append("")
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
+        f.write("\n".join(L))
+    log("wrote {}: {} files to move, {} staying in their event folder".format(
+        os.path.relpath(path, REPO), n, len(stays)))
 
 
 def asset_route(url):
@@ -622,6 +799,11 @@ def write_audit(path, b, event_fids, listing_when):
     section("Same picture uploaded to two library folders",
             "Same name and size. Keep the first, delete the rest.",
             dupes, lambda rs: "- " + " | ".join("`{}`".format(r) for r in rs))
+    section("Lower-ranked library copies of the same item",
+            "The same item has a picture in two shared folders. Pages use the higher folder "
+            "under the folder rules (right). Check they are the same picture, then delete the "
+            "lower copy (left) - unless another page that is not wired to the index still uses it.",
+            sorted(b.redundant.items()), lambda kv: "- `{}` -> `{}`".format(kv[0], kv[1]))
     section("Different pictures sharing one name",
             "These names could not be tied to an item because two different files use them. "
             "Rename them to the item's FormID.",

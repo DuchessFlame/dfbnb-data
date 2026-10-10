@@ -1,0 +1,1090 @@
+# Image library cleanup
+
+Written by `src/build_image_index.py` from the server listing of 2026-10-10T12:50:27Z. Nothing here is deleted automatically; tick these off in FileZilla.
+
+Guide walkthrough images, maps, gallery shots, reward checklists and covers are never listed.
+
+## Originals left beside their AVIF (0)
+
+AVIF is the only copy. Delete these.
+
+
+## Nuclear Winter art copied into an event folder (0)
+
+Babylon / Nuclear Winter art lives in the legacy Nuclear Winter folder only. Delete the event copy (left); pages already use the legacy file (right).
+
+
+## Event-folder copies of shared-library art (17)
+
+The shared library already has this item, and every page now uses the library copy. Check it is the same picture, then delete the event copy (left).
+
+- `guide-images/seasonal-events/Fasnacht/atom-shop-only/fasnacht-blissful-buffoon-mask.avif` -> `guide-images/atom-shop/request-item-images/atx_apparel_headwear_fasnacht_buffoon.avif`
+- `guide-images/seasonal-events/Fasnacht/atom-shop-only/fasnacht-blue-jester-mask.avif` -> `guide-images/atom-shop/request-item-images/atx_apparel_headwear_fasnacht_jester_blue.avif`
+- `guide-images/seasonal-events/Fasnacht/atom-shop-only/fasnacht-blue-owl-mask.avif` -> `guide-images/atom-shop/request-item-images/atx_apparel_headwear_fasnacht_owl_blue.avif`
+- `guide-images/seasonal-events/Fasnacht/atom-shop-only/fasnacht-bucking-brahmin-mask.avif` -> `guide-images/atom-shop/request-item-images/ATX_Apparel_Headwear_Fasnacht_Brahmin.avif`
+- `guide-images/seasonal-events/Fasnacht/atom-shop-only/fasnacht-green-toothy-man-mask.avif` -> `guide-images/atom-shop/request-item-images/atx_apparel_headwear_fasnacht_toothyman_green.avif`
+- `guide-images/seasonal-events/Fasnacht/atom-shop-only/fasnacht-red-goblin-mask.avif` -> `guide-images/atom-shop/request-item-images/atx_apparel_headwear_fasnacht_goblin_red.avif`
+- `guide-images/seasonal-events/invaders-from-beyond/reward-images/alien-blaster.avif` -> `guide-images/plan-checklist/weapons/alien-blaster.avif`
+- `guide-images/seasonal-events/invaders-from-beyond/reward-images/alien-disintegrator.avif` -> `guide-images/plan-checklist/weapons/alien-disintegrator.avif`
+- `guide-images/seasonal-events/invaders-from-beyond/reward-images/electro-enforcer.avif` -> `guide-images/plan-checklist/weapons/electro-enforcer.avif`
+- `guide-images/seasonal-events/invaders-from-beyond/reward-images/zenith-alien-blaster-paint.avif` -> `guide-images/plan-checklist/weapons/zenith-alien-blaster-paint.avif`
+- `guide-images/seasonal-events/meat-week/meat-cook/rewards/flamer.avif` -> `guide-images/plan-checklist/weapons/flamer.avif`
+- `guide-images/seasonal-events/meat-week/meat-cook/rewards/hog-splitter.avif` -> `guide-images/plan-checklist/weapons/hog-splitter.avif`
+- `guide-images/seasonal-events/meat-week/meat-cook/rewards/meat-cleaver.avif` -> `guide-images/plan-checklist/weapons/meat-cleaver.avif`
+- `guide-images/seasonal-events/meat-week/meat-cook/rewards/pepper-shaker.avif` -> `guide-images/plan-checklist/weapons/pepper-shaker.avif`
+- `guide-images/seasonal-events/meat-week/meat-cook/rewards/shishkebab.avif` -> `guide-images/plan-checklist/weapons/shishkebab.avif`
+- `guide-images/seasonal-events/the-big-bloom/garden-trowel-knife.avif` -> `guide-images/plan-checklist/weapons/garden-trowel-knife.avif`
+- `guide-images/seasonal-events/treasure-hunters/radstag-hunting-knife.avif` -> `guide-images/plan-checklist/weapons/radstag-hunting-knife.avif`
+
+## Same picture uploaded to two library folders (1)
+
+Same name and size. Keep the first, delete the rest.
+
+- `season_images/season-5/score_s5_skin_backpackflair_t51_helmet.avif` | `season_images/season-6/score_s5_skin_backpackflair_t51_helmet.avif`
+
+## Lower-ranked library copies of the same item (49)
+
+The same item has a picture in two shared folders. Pages use the higher folder under the folder rules (right). Check they are the same picture, then delete the lower copy (left) - unless another page that is not wired to the index still uses it.
+
+- `guide-images/atom-shop/player-icons/score_s25_playericon_glowingdog.avif` -> `guide-images/atom-shop/player-icons/atx_playericon_s25_glowingdog.avif`
+- `guide-images/atom-shop/player-icons/score_s25_playericon_mrfuzzytongueout.avif` -> `guide-images/atom-shop/player-icons/atx_playericon_s25_mrfuzzytongueout.avif`
+- `guide-images/atom-shop/player-icons/score_s25_playericon_vaultboyholdingfish.avif` -> `guide-images/atom-shop/player-icons/atx_playericon_s25_vaultboyholdingfish.avif`
+- `guide-images/atom-shop/player-icons/score_s25_playericon_vaultgirlholdingfish.avif` -> `guide-images/atom-shop/player-icons/atx_playericon_s25_vaultgirlholdingfish.avif`
+- `guide-images/atom-shop/request-item-images/ATX_CAMP_Displaycase_BobbleHead_SecretService.avif` -> `guide-images/plan-checklist/display/atx_camp_displaycase_bobblehead_secretservice_l.avif`
+- `guide-images/atom-shop/request-item-images/ATX_CAMP_Displaycase_HubrisComics.avif` -> `guide-images/plan-checklist/display/atx_camp_displaycase_hubriscomics_l.avif`
+- `guide-images/atom-shop/request-item-images/ATX_CAMP_Displaycase_RobotBeerSteins.avif` -> `guide-images/plan-checklist/display/atx_camp_displaycase_robotbeersteins_l.avif`
+- `guide-images/atom-shop/request-item-images/ATX_CAMP_Displaycase_Thanksgiving.avif` -> `guide-images/plan-checklist/display/atx_camp_displaycase_thanksgiving_l.avif`
+- `guide-images/atom-shop/request-item-images/ATX_CAMP_FloorDecor_FortuneTellerMachine.avif` -> `season_images/season-5/score_s5_camp_floordecor_fortunetellermachine.avif`
+- `guide-images/atom-shop/request-item-images/ATX_CAMP_Utility_Sink_Clean.avif` -> `season_images/season-1/score_s1_camp_utility_sink_clean.avif`
+- `guide-images/atom-shop/request-item-images/ATX_CAMP_Utility_Toilet_Clean.avif` -> `season_images/season-3/score_s3_camp_floordecor_toilet_clean.avif`
+- `guide-images/atom-shop/request-item-images/ATX_CAMP_WallDeco_Display_FaschnachtMask.avif` -> `guide-images/plan-checklist/display/atx_camp_walldeco_display_faschnachtmask_l.avif`
+- `guide-images/atom-shop/request-item-images/ATX_CAMP_WallDeco_Display_HighPoweredWeaponRacks.avif` -> `guide-images/plan-checklist/display/atx_camp_walldeco_display_highpoweredweaponracks_l.avif`
+- `guide-images/atom-shop/request-item-images/ATX_Camp_Display_Mannequin_Male_Clean.avif` -> `guide-images/plan-checklist/display/atx_camp_display_mannequin_male_clean_l.avif`
+- `guide-images/atom-shop/request-item-images/ATX_Skin_PowerArmor_Paint_Excavator_BasicYellow.avif` -> `season_images/season-8/score_s8_skin_powerarmor_paint_excavator_basicyellow.avif`
+- `guide-images/atom-shop/request-item-images/Babylon_CAMP_ChristmasTree_Christmas2019.avif` -> `guide-images/plan-checklist/legacy-nuclear-winter/babylon_camp_christmastree_christmas2019_l.avif`
+- `guide-images/atom-shop/request-item-images/SCORE_S1_Camp_Utility_Planter_MetalTub.avif` -> `season_images/season-2/score_s2_utility_planter_metaltub.avif`
+- `guide-images/atom-shop/request-item-images/SCORE_S1_Skin_PowerArmor_Paint_CaptainCosmos.avif` -> `season_images/season-1/score_s1_skin_powerarmor_model_captaincosmos.avif`
+- `guide-images/atom-shop/request-item-images/SCORE_S2_CAMP_Kit_GreenhouseSet.avif` -> `season_images/season-2/score_s2_camp_kit_greenhouse.avif`
+- `guide-images/atom-shop/request-item-images/SCORE_S2_Skin_PowerArmor_Paint_AceFullAssault.avif` -> `season_images/season-2/score_s2_skin_powerarmor_model_acefullassault.avif`
+- `guide-images/atom-shop/request-item-images/atx_camp_display_mannequin_female_clean.avif` -> `guide-images/plan-checklist/display/atx_camp_display_mannequin_female_clean_l.avif`
+- `guide-images/atom-shop/request-item-images/atx_camp_walldeco_display_gunracks_c1.avif` -> `guide-images/plan-checklist/display/atx_camp_walldeco_display_gunracks_l.avif`
+- `guide-images/atom-shop/request-item-images/atx_skin_powerarmor_paint_excavator_black.avif` -> `guide-images/atom-shop/request-item-images/ATX_Skin_PowerArmor_Paint_Excavator_BasicYellow.avif`
+- `guide-images/atom-shop/request-item-images/babylon_camp_walldeco_poster_vtu01.avif` -> `guide-images/plan-checklist/legacy-nuclear-winter/babylon_camp_walldeco_poster_vtu01.avif`
+- `guide-images/atom-shop/request-item-images/babylon_skin_powerarmor_paint_slocumsjoe.avif` -> `guide-images/plan-checklist/legacy-nuclear-winter/babylon_skin_powerarmor_paint_slocumsjoe_l.avif`
+- `guide-images/atom-shop/request-item-images/score_s1_skin_weaponmodel_gatlinggun_blunderbuss.avif` -> `season_images/season-1/score_s1_skin_weaponmodel_gatlinggun_thunderpipe.avif`
+- `guide-images/camp-items/weather-stations/score_s15_camp_utility_weatherstation_xpdacboardwalk_l.avif` -> `season_images/season-15/score_s15_camp_utility_weatherstation_xpdacboardwalk.avif`
+- `guide-images/camp-items/weather-stations/score_s19_camp_utility_weatherstation_nukezone_l.avif` -> `season_images/season-19/score_s19_camp_utility_weatherstation_nukezone.avif`
+- `guide-images/camp-items/weather-stations/score_s24_camp_utility_weatherstation_invasion_l.avif` -> `season_images/season-24/score_s24_camp_utility_weatherstation_invasion.avif`
+- `guide-images/camp-items/weather-stations/score_s26_camp_utility_weatherstation_bloodmoon_l.avif` -> `season_images/season-26/score_s26_camp_utility_weatherstation_bloodmoon.avif`
+- `guide-images/plan-checklist/weapons/44-medical-malpractice.avif` -> `guide-images/plan-checklist/weapons/44-revolver.avif`
+- `guide-images/plan-checklist/weapons/assaultron-blade.avif` -> `guide-images/plan-checklist/weapons/electrified-assaultron-blade.avif`
+- `guide-images/plan-checklist/weapons/boiling-point.avif` -> `guide-images/plan-checklist/weapons/flamer.avif`
+- `guide-images/plan-checklist/weapons/combat-knife.avif` -> `season_images/season-22/score_s22_weapons_cosmicknife.avif`
+- `guide-images/plan-checklist/weapons/drill-fist.avif` -> `guide-images/plan-checklist/weapons/gauntlet.avif`
+- `guide-images/plan-checklist/weapons/face-breaker.avif` -> `guide-images/plan-checklist/weapons/power-fist.avif`
+- `guide-images/plan-checklist/weapons/flatliner.avif` -> `guide-images/plan-checklist/weapons/gauss-rifle.avif`
+- `guide-images/plan-checklist/weapons/lickety-split.avif` -> `guide-images/plan-checklist/weapons/railway-rifle.avif`
+- `guide-images/plan-checklist/weapons/mechanics-best-friend.avif` -> `guide-images/plan-checklist/weapons/pipe-wrench.avif`
+- `guide-images/plan-checklist/weapons/nuka-launcher.avif` -> `guide-images/plan-checklist/weapons/auto-grenade-launcher.avif`
+- `guide-images/plan-checklist/weapons/piercing-love.avif` -> `guide-images/plan-checklist/weapons/compound-bow.avif`
+- `guide-images/plan-checklist/weapons/pole-hook.avif` -> `guide-images/plan-checklist/weapons/puncturing-pole-hook.avif`
+- `guide-images/plan-checklist/weapons/resolve-breaker.avif` -> `guide-images/plan-checklist/weapons/auto-grenade-launcher.avif`
+- `guide-images/plan-checklist/weapons/sole-survivor.avif` -> `guide-images/plan-checklist/weapons/lever-gun.avif`
+- `guide-images/plan-checklist/weapons/unstoppable-monster.avif` -> `guide-images/plan-checklist/weapons/deathclaw-gauntlet.avif`
+- `guide-images/plan-checklist/weapons/valkyrie.avif` -> `guide-images/plan-checklist/weapons/gatling-laser.avif`
+- `guide-images/plan-checklist/weapons/whistle-in-the-dark.avif` -> `guide-images/plan-checklist/weapons/assault-rifle.avif`
+- `season_images/season-1/score_s1_photomode_frame_wastelander.avif` -> `season_images/season-3/score_s3_photomode_frame_wastelander.avif`
+- `season_images/season-7/score_s7_photomode_pose_zorbo_magic.avif` -> `season_images/season-8/score_s8_photomode_pose_notscienceguy.avif`
+
+## Different pictures sharing one name (81)
+
+These names could not be tied to an item because two different files use them. Rename them to the item's FormID.
+
+- `atx_camp_decoration_vaulttecspa`: `guide-images/atom-shop/request-item-images/ATX_CAMP_Decoration_VaultTecSpa.avif` | `guide-images/camp-items/buff-stations/atx_camp_decoration_vaulttecspa.avif`
+- `atx_camp_furniture_instrument_orgatronic`: `guide-images/atom-shop/request-item-images/atx_camp_furniture_instrument_orgatronic.avif` | `guide-images/camp-items/buff-stations/atx_camp_furniture_instrument_orgatronic.avif`
+- `atx_camp_furniture_instrument_pipe_organ`: `guide-images/atom-shop/request-item-images/ATX_CAMP_Furniture_Instrument_Pipe_Organ.avif` | `guide-images/camp-items/buff-stations/atx_camp_furniture_instrument_pipe_organ.avif`
+- `atx_camp_furniture_instrument_theremin`: `guide-images/atom-shop/request-item-images/ATX_CAMP_Furniture_Instrument_Theremin.avif` | `guide-images/camp-items/buff-stations/atx_camp_furniture_instrument_theremin.avif`
+- `atx_camp_structure_communal_firepit`: `guide-images/atom-shop/request-item-images/ATX_CAMP_Structure_Communal_Firepit.avif` | `guide-images/camp-items/buff-stations/atx_camp_structure_communal_firepit.avif`
+- `atx_camp_utility_nukacolavendingmachine_clean`: `guide-images/atom-shop/request-item-images/ATX_CAMP_Utility_NukaColaVendingMachine_Clean.avif` | `guide-images/camp-items/dispensers/atx_camp_utility_nukacolavendingmachine_clean.avif`
+- `atx_camp_utility_punchbowl`: `guide-images/atom-shop/request-item-images/ATX_Camp_Utility_PunchBowl.avif` | `guide-images/camp-items/dispensers/atx_camp_utility_punchbowl.avif`
+- `atx_camp_utility_repairbot_enclave`: `guide-images/atom-shop/bundle-images/ATX_CAMP_Utility_RepairBot_Enclave.avif` | `guide-images/camp-items/repair-bots/atx_camp_utility_repairbot_enclave.avif`
+- `atx_playericon_communist_star`: `guide-images/atom-shop/player-icons/atx_playericon_communist_star.avif` | `guide-images/atom-shop/request-item-images/atx_playericon_communist_star.avif`
+- `atx_playericon_creature_02`: `guide-images/atom-shop/player-icons/atx_playericon_creature_02.avif` | `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Creature_02.avif`
+- `atx_playericon_creature_03`: `guide-images/atom-shop/player-icons/atx_playericon_creature_03.avif` | `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Creature_03.avif`
+- `atx_playericon_creature_07`: `guide-images/atom-shop/player-icons/atx_playericon_creature_07.avif` | `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Creature_07.avif`
+- `atx_playericon_creepy_mothman`: `guide-images/atom-shop/player-icons/atx_playericon_creepy_mothman.avif` | `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Creepy_Mothman.avif`
+- `atx_playericon_flyboy_01`: `guide-images/atom-shop/player-icons/atx_playericon_flyboy_01.avif` | `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Flyboy_01.avif`
+- `atx_playericon_freestates_01`: `guide-images/atom-shop/player-icons/atx_playericon_freestates_01.avif` | `guide-images/atom-shop/request-item-images/atx_playericon_freestates_01.avif`
+- `atx_playericon_freestates_02`: `guide-images/atom-shop/player-icons/atx_playericon_freestates_02.avif` | `guide-images/atom-shop/request-item-images/atx_playericon_freestates_02.avif`
+- `atx_playericon_holiday_03`: `guide-images/atom-shop/player-icons/atx_playericon_holiday_03.avif` | `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Holiday_03.avif`
+- `atx_playericon_holiday_09`: `guide-images/atom-shop/player-icons/atx_playericon_holiday_09.avif` | `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Holiday_09.avif`
+- `atx_playericon_holiday_12`: `guide-images/atom-shop/player-icons/atx_playericon_holiday_12.avif` | `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Holiday_12.avif`
+- `atx_playericon_holiday_15`: `guide-images/atom-shop/player-icons/atx_playericon_holiday_15.avif` | `guide-images/atom-shop/request-item-images/atx_playericon_holiday_15.avif`
+- `atx_playericon_holiday_16`: `guide-images/atom-shop/player-icons/atx_playericon_holiday_16.avif` | `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Holiday_16.avif`
+- `atx_playericon_mothmancultist01`: `guide-images/atom-shop/player-icons/atx_playericon_mothmancultist01.avif` | `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_MothmanCultist01.avif`
+- `atx_playericon_object_13`: `guide-images/atom-shop/player-icons/atx_playericon_object_13.avif` | `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Object_13.avif`
+- `atx_playericon_perks_04`: `guide-images/atom-shop/player-icons/atx_playericon_perks_04.avif` | `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Perks_04.avif`
+- `atx_playericon_responders_red`: `guide-images/atom-shop/player-icons/atx_playericon_responders_red.avif` | `guide-images/atom-shop/request-item-images/atx_playericon_responders_red.avif`
+- `atx_playericon_s24_cryptidpatchmothman`: `guide-images/atom-shop/player-icons/atx_playericon_s24_cryptidpatchmothman.avif` | `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_S24_CryptidPatchMothman.avif`
+- `atx_playericon_score_33`: `guide-images/atom-shop/player-icons/atx_playericon_score_33.avif` | `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_SCORE_33.avif`
+- `atx_playericon_shelter_01`: `guide-images/atom-shop/player-icons/atx_playericon_shelter_01.avif` | `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Shelter_01.avif`
+- `atx_playericon_shelter_02`: `guide-images/atom-shop/player-icons/atx_playericon_shelter_02.avif` | `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Shelter_02.avif`
+- `atx_playericon_vaultboy_10`: `guide-images/atom-shop/player-icons/atx_playericon_vaultboy_10.avif` | `guide-images/atom-shop/request-item-images/atx_playericon_vaultboy_10.avif`
+- `atx_playericon_vaultgirl_02`: `guide-images/atom-shop/player-icons/atx_playericon_vaultgirl_02.avif` | `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_VaultGirl_02.avif`
+- `atx_playericon_vaultgirl_03`: `guide-images/atom-shop/player-icons/atx_playericon_vaultgirl_03.avif` | `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_VaultGirl_03.avif`
+- `atx_playertitles_prefix_advictoriam`: `guide-images/atom-shop/bundle-images/ATX_PlayerTitles_Prefix_AdVictoriam.avif` | `guide-images/titles/titles-player/atx_playertitles_prefix_advictoriam.avif`
+- `atx_playertitles_prefix_contessa`: `guide-images/atom-shop/bundle-images/ATX_PlayerTitles_Prefix_Contessa.avif` | `guide-images/titles/titles-player/atx_playertitles_prefix_contessa.avif`
+- `atx_playertitles_prefix_gleaming`: `guide-images/atom-shop/bundle-images/ATX_PlayerTitles_Prefix_Gleaming.avif` | `guide-images/titles/titles-player/atx_playertitles_prefix_gleaming.avif`
+- `atx_playertitles_prefix_suffix_tribune`: `guide-images/atom-shop/bundle-images/ATX_PlayerTitles_Prefix_Suffix_Tribune.avif` | `guide-images/titles/titles-player/atx_playertitles_prefix_suffix_tribune.avif`
+- `atx_playertitles_suffix_buoy`: `guide-images/atom-shop/bundle-images/ATX_PlayerTitles_Suffix_Buoy.avif` | `guide-images/titles/titles-player/atx_playertitles_suffix_buoy.avif`
+- `atx_playertitles_suffix_technician`: `guide-images/atom-shop/bundle-images/ATX_PlayerTitles_Suffix_Technician.avif` | `guide-images/titles/titles-player/atx_playertitles_suffix_technician.avif`
+- `score_s10_camp_wallpaper_catacombs`: `guide-images/atom-shop/wallpaper/score_s10_camp_wallpaper_catacombs.avif` | `season_images/season-10/score_s10_camp_wallpaper_catacombs.avif`
+- `score_s11_camp_wallpaper_walnutpanel`: `guide-images/atom-shop/wallpaper/score_s11_camp_wallpaper_walnutpanel.avif` | `season_images/season-11/score_s11_camp_wallpaper_walnutpanel.avif`
+- `score_s12_camp_lights_stonefireplace`: `guide-images/atom-shop/request-item-images/SCORE_S12_CAMP_Lights_StoneFireplace.avif` | `season_images/season-12/score_s12_camp_lights_stonefireplace.avif`
+- `score_s12_camp_structure_hunterslodge`: `guide-images/atom-shop/request-item-images/SCORE_S12_CAMP_Structure_HuntersLodge.avif` | `season_images/season-12/score_s12_camp_structure_hunterslodge.avif`
+- `score_s12_camp_wallpaper_cryptidhunt`: `guide-images/atom-shop/wallpaper/score_s12_camp_wallpaper_cryptidhunt.avif` | `season_images/season-12/score_s12_camp_wallpaper_cryptidhunt.avif`
+- `score_s13_camp_walldecor_movieposter_devilmoon`: `guide-images/atom-shop/request-item-images/SCORE_S13_CAMP_WallDecor_MoviePoster_DevilMoon.avif` | `season_images/season-13/score_s13_camp_walldecor_movieposter_devilmoon.avif`
+- `score_s13_camp_walldecor_movieposter_honkhonkstabstab`: `guide-images/atom-shop/request-item-images/SCORE_S13_CAMP_WallDecor_MoviePoster_HonkHonkStabStab.avif` | `season_images/season-13/score_s13_camp_walldecor_movieposter_honkhonkstabstab.avif`
+- `score_s13_camp_walldecor_movieposter_massattraction`: `guide-images/atom-shop/request-item-images/SCORE_S13_CAMP_WallDecor_MoviePoster_MassAttraction.avif` | `season_images/season-13/score_s13_camp_walldecor_movieposter_massattraction.avif`
+- `score_s13_camp_walldecor_movieposter_spheksophobia`: `guide-images/atom-shop/request-item-images/SCORE_S13_CAMP_WallDecor_MoviePoster_Spheksophobia.avif` | `season_images/season-13/score_s13_camp_walldecor_movieposter_spheksophobia.avif`
+- `score_s13_camp_walldecor_movieposter_theegg`: `guide-images/atom-shop/request-item-images/SCORE_S13_CAMP_WallDecor_MoviePoster_TheEgg.avif` | `season_images/season-13/score_s13_camp_walldecor_movieposter_theegg.avif`
+- `score_s13_camp_wallpaper_artdecotheater`: `guide-images/atom-shop/wallpaper/score_s13_camp_wallpaper_artdecotheater.avif` | `season_images/season-13/score_s13_camp_wallpaper_artdecotheater.avif`
+- `score_s14_camp_wallpaper_ovaloffice`: `guide-images/atom-shop/wallpaper/score_s14_camp_wallpaper_ovaloffice.avif` | `season_images/season-14/score_s14_camp_wallpaper_ovaloffice.avif`
+- `score_s15_camp_wallpaper_ganghideoutwallpaper`: `guide-images/atom-shop/wallpaper/score_s15_camp_wallpaper_ganghideoutwallpaper.avif` | `season_images/season-15/score_s15_camp_wallpaper_ganghideoutwallpaper.avif`
+- `score_s16_camp_wallpaper_cryptidhunt`: `guide-images/atom-shop/wallpaper/score_s16_camp_wallpaper_cryptidhunt.avif` | `season_images/season-16/score_s16_camp_wallpaper_cryptidhunt.avif`
+- `score_s16_camp_wallpaper_pinebarrens`: `guide-images/atom-shop/wallpaper/score_s16_camp_wallpaper_pinebarrens.avif` | `season_images/season-16/score_s16_camp_wallpaper_pinebarrens.avif`
+- `score_s16_skin_pipboyskin_pipboyspringcleaning`: `guide-images/atom-shop/request-item-images/score_s16_skin_pipboyskin_pipboyspringcleaning.avif` | `season_images/season-16/score_s16_skin_pipboyskin_pipboyspringcleaning.avif`
+- `score_s18_camp_floordecor_cactus`: `guide-images/atom-shop/request-item-images/SCORE_S18_CAMP_FloorDecor_Cactus.avif` | `season_images/season-18/score_s18_camp_floordecor_cactus.avif`
+- `score_s1_camp_deployable_futuretec`: `guide-images/atom-shop/request-item-images/score_s1_camp_deployable_futuretec.avif` | `season_images/season-1/score_s1_camp_deployable_futuretec.avif`
+- `score_s1_camp_wallpaper_glowinthedark_stars`: `guide-images/atom-shop/wallpaper/score_s1_camp_wallpaper_glowinthedark_stars.avif` | `season_images/season-1/score_s1_camp_wallpaper_glowinthedark_stars.avif`
+- `score_s1_camp_wallpaper_glowinthedark_starsandplanets`: `guide-images/atom-shop/wallpaper/score_s1_camp_wallpaper_glowinthedark_starsandplanets.avif` | `season_images/season-1/score_s1_camp_wallpaper_glowinthedark_starsandplanets.avif`
+- `score_s1_skin_armorskin_combat_ghillie`: `guide-images/atom-shop/request-item-images/score_s1_skin_armorskin_combat_ghillie.avif` | `season_images/season-1/score_s1_skin_armorskin_combat_ghillie.avif`
+- `score_s1_skin_armorskin_leather_ghillie`: `guide-images/atom-shop/request-item-images/score_s1_skin_armorskin_leather_ghillie.avif` | `season_images/season-1/score_s1_skin_armorskin_leather_ghillie.avif`
+- `score_s1_skin_armorskin_marine_ghillie`: `guide-images/atom-shop/request-item-images/score_s1_skin_armorskin_marine_ghillie.avif` | `season_images/season-1/score_s1_skin_armorskin_marine_ghillie.avif`
+- `score_s1_skin_armorskin_metal_ghillie`: `guide-images/atom-shop/request-item-images/score_s1_skin_armorskin_metal_ghillie.avif` | `season_images/season-1/score_s1_skin_armorskin_metal_ghillie.avif`
+- `score_s1_skin_armorskin_robot_ghillie`: `guide-images/atom-shop/request-item-images/score_s1_skin_armorskin_robot_ghillie.avif` | `season_images/season-1/score_s1_skin_armorskin_robot_ghillie.avif`
+- `score_s1_skin_armorskin_scout_ghillie`: `guide-images/atom-shop/request-item-images/score_s1_skin_armorskin_scout_ghillie.avif` | `season_images/season-1/score_s1_skin_armorskin_scout_ghillie.avif`
+- `score_s1_skin_armorskin_secretservice_ghillie`: `guide-images/atom-shop/request-item-images/score_s1_skin_armorskin_secretservice_ghillie.avif` | `season_images/season-1/score_s1_skin_armorskin_secretservice_ghillie.avif`
+- `score_s1_skin_armorskin_wood_ghillie`: `guide-images/atom-shop/request-item-images/score_s1_skin_armorskin_wood_ghillie.avif` | `season_images/season-1/score_s1_skin_armorskin_wood_ghillie.avif`
+- `score_s1_skin_backpack_ghillie`: `guide-images/atom-shop/request-item-images/score_s1_skin_backpack_ghillie.avif` | `season_images/season-1/score_s1_skin_backpack_ghillie.avif`
+- `score_s1_skin_powerarmor_jetpack_captaincosmos`: `guide-images/atom-shop/request-item-images/score_s1_skin_powerarmor_jetpack_captaincosmos.avif` | `season_images/season-1/score_s1_skin_powerarmor_jetpack_captaincosmos.avif`
+- `score_s1_skin_weaponskin_combatrifle_black`: `guide-images/atom-shop/request-item-images/SCORE_S1_Skin_WeaponSkin_CombatRifle_Black.avif` | `season_images/season-1/score_s1_skin_weaponskin_combatrifle_black.avif`
+- `score_s1_skin_weaponskin_huntingrifle_ghillie`: `guide-images/atom-shop/request-item-images/score_s1_skin_weaponskin_huntingrifle_ghillie.avif` | `season_images/season-1/score_s1_skin_weaponskin_huntingrifle_ghillie.avif`
+- `score_s22_camp_displaycase_bowlingballrack_nukacola`: `guide-images/atom-shop/request-item-images/score_s22_camp_displaycase_bowlingballrack_nukacola.avif` | `season_images/season-22/score_s22_camp_displaycase_bowlingballrack_nukacola.avif`
+- `score_s2_apparel_headwear_gasmaskraider_officercap_commie`: `guide-images/atom-shop/request-item-images/SCORE_S2_Apparel_Headwear_GasMaskRaider_OfficerCap_Commie.avif` | `season_images/season-2/score_s2_apparel_headwear_gasmaskraider_officercap_commie.avif`
+- `score_s2_camp_wallpaper_armorace`: `guide-images/atom-shop/wallpaper/score_s2_camp_wallpaper_armorace.avif` | `season_images/season-2/score_s2_camp_wallpaper_armorace.avif`
+- `score_s3_camp_wallpaper_shelters`: `guide-images/atom-shop/wallpaper/score_s3_camp_wallpaper_shelters.avif` | `season_images/season-3/score_s3_camp_wallpaper_shelters.avif`
+- `score_s3_skin_weaponmodel_handmadegun_screamingeagle_wood`: `guide-images/atom-shop/request-item-images/SCORE_S3_Skin_WeaponModel_HandmadeGun_ScreamingEagle_Wood.avif` | `season_images/season-3/score_s3_skin_weaponmodel_handmadegun_screamingeagle_wood.avif`
+- `score_s4_camp_wallpaper_coldsteel`: `guide-images/atom-shop/wallpaper/score_s4_camp_wallpaper_coldsteel.avif` | `season_images/season-4/score_s4_camp_wallpaper_coldsteel.avif`
+- `score_s6_camp_utility_collectron_fetch`: `guide-images/atom-shop/request-item-images/SCORE_S6_CAMP_Utility_Collectron_FETCH.avif` | `season_images/season-6/score_s6_camp_utility_collectron_fetch.avif`
+- `score_s6_camp_wallpaper_grognak`: `guide-images/atom-shop/wallpaper/score_s6_camp_wallpaper_grognak.avif` | `season_images/season-6/score_s6_camp_wallpaper_grognak.avif`
+- `score_s7_camp_wallpaper_starscape`: `guide-images/atom-shop/wallpaper/score_s7_camp_wallpaper_starscape.avif` | `season_images/season-7/score_s7_camp_wallpaper_starscape.avif`
+- `score_s9_camp_wallpaper_rustedbrick`: `guide-images/atom-shop/wallpaper/score_s9_camp_wallpaper_rustedbrick.avif` | `season_images/season-9/score_s9_camp_wallpaper_rustedbrick.avif`
+- `score_s9_camp_wallpaper_rustedbrick_red`: `guide-images/atom-shop/wallpaper/score_s9_camp_wallpaper_rustedbrick_red.avif` | `season_images/season-9/score_s9_camp_wallpaper_rustedbrick_red.avif`
+
+## Library files no item points at (902)
+
+Not matched to any FormID, editor ID, texture or name. Either the item was renamed (rename the file to its FormID) or the file is no longer used.
+
+- `guide-images/atom-shop/bundle-images/ATX_CAMP_Display_ChassisDisplayFrame_V63.avif`
+- `guide-images/atom-shop/bundle-images/ATX_CAMP_Utility_RepairBot_Enclave.avif`
+- `guide-images/atom-shop/bundle-images/ATX_CAMP_Utility_WeatherStation_Storm_SkylineValley.avif`
+- `guide-images/atom-shop/bundle-images/ATX_PlayerTitles_Prefix_AdVictoriam.avif`
+- `guide-images/atom-shop/bundle-images/ATX_PlayerTitles_Prefix_Contessa.avif`
+- `guide-images/atom-shop/bundle-images/ATX_PlayerTitles_Prefix_Gleaming.avif`
+- `guide-images/atom-shop/bundle-images/ATX_PlayerTitles_Prefix_Suffix_Tribune.avif`
+- `guide-images/atom-shop/bundle-images/ATX_PlayerTitles_Suffix_Buoy.avif`
+- `guide-images/atom-shop/bundle-images/ATX_PlayerTitles_Suffix_Technician.avif`
+- `guide-images/atom-shop/emotes/A Show Of Force.webp`
+- `guide-images/atom-shop/emotes/Alien Flag.webp`
+- `guide-images/atom-shop/emotes/Angry Fist Shake.webp`
+- `guide-images/atom-shop/emotes/Big Bow.webp`
+- `guide-images/atom-shop/emotes/Brotherhood Salute.webp`
+- `guide-images/atom-shop/emotes/Bye Now.webp`
+- `guide-images/atom-shop/emotes/C.A.M.P..webp`
+- `guide-images/atom-shop/emotes/Chef's Kiss.webp`
+- `guide-images/atom-shop/emotes/Coin Flip.webp`
+- `guide-images/atom-shop/emotes/Communist Salute.webp`
+- `guide-images/atom-shop/emotes/Confused.webp`
+- `guide-images/atom-shop/emotes/Cupid's Arrow.webp`
+- `guide-images/atom-shop/emotes/Dig It.webp`
+- `guide-images/atom-shop/emotes/Dying of Thirst.webp`
+- `guide-images/atom-shop/emotes/Fan The Hammer.webp`
+- `guide-images/atom-shop/emotes/Festively Angry.webp`
+- `guide-images/atom-shop/emotes/Finger Guns.webp`
+- `guide-images/atom-shop/emotes/Flyboy Salute.webp`
+- `guide-images/atom-shop/emotes/Follow.webp`
+- `guide-images/atom-shop/emotes/Free States Salute.webp`
+- `guide-images/atom-shop/emotes/Frown.webp`
+- `guide-images/atom-shop/emotes/Fuming Mad.webp`
+- `guide-images/atom-shop/emotes/Funky Mothman.webp`
+- `guide-images/atom-shop/emotes/Ghoul Dance.webp`
+- `guide-images/atom-shop/emotes/Give Gift.webp`
+- `guide-images/atom-shop/emotes/Gone Fishing.webp`
+- `guide-images/atom-shop/emotes/Grelok's Yell.webp`
+- `guide-images/atom-shop/emotes/Grognak Battlecry.webp`
+- `guide-images/atom-shop/emotes/Happy Holidays.webp`
+- `guide-images/atom-shop/emotes/Happy to See You.webp`
+- `guide-images/atom-shop/emotes/Ho Ho No.webp`
+- `guide-images/atom-shop/emotes/Hold.webp`
+- `guide-images/atom-shop/emotes/Holiday Party.webp`
+- `guide-images/atom-shop/emotes/Into the Shadows.webp`
+- `guide-images/atom-shop/emotes/Join My Public Team.webp`
+- `guide-images/atom-shop/emotes/Join My Team.webp`
+- `guide-images/atom-shop/emotes/Juggling.webp`
+- `guide-images/atom-shop/emotes/Laughing.webp`
+- `guide-images/atom-shop/emotes/Let's Cook.webp`
+- `guide-images/atom-shop/emotes/Let's Hunt.webp`
+- `guide-images/atom-shop/emotes/Let's Jam.webp`
+- `guide-images/atom-shop/emotes/Let's Nuke.webp`
+- `guide-images/atom-shop/emotes/Let's Party.webp`
+- `guide-images/atom-shop/emotes/Looking to Buy.webp`
+- `guide-images/atom-shop/emotes/Lost.webp`
+- `guide-images/atom-shop/emotes/Love You.webp`
+- `guide-images/atom-shop/emotes/Lucky Dice.webp`
+- `guide-images/atom-shop/emotes/Marching Band.webp`
+- `guide-images/atom-shop/emotes/Medic.webp`
+- `guide-images/atom-shop/emotes/Need Sleep.webp`
+- `guide-images/atom-shop/emotes/Nice Camp.webp`
+- `guide-images/atom-shop/emotes/Nice List.webp`
+- `guide-images/atom-shop/emotes/No Mic.webp`
+- `guide-images/atom-shop/emotes/No Thank You.webp`
+- `guide-images/atom-shop/emotes/No Way.webp`
+- `guide-images/atom-shop/emotes/Opening a Lunchbox.webp`
+- `guide-images/atom-shop/emotes/Patriotic Salute.webp`
+- `guide-images/atom-shop/emotes/Player vs. Player.webp`
+- `guide-images/atom-shop/emotes/Player vs. Players.webp`
+- `guide-images/atom-shop/emotes/Protectron Shuffle.webp`
+- `guide-images/atom-shop/emotes/Radiated.webp`
+- `guide-images/atom-shop/emotes/Raider Salute.webp`
+- `guide-images/atom-shop/emotes/Repairs.webp`
+- `guide-images/atom-shop/emotes/Requesting Backup.webp`
+- `guide-images/atom-shop/emotes/Reveille Wake Up.webp`
+- `guide-images/atom-shop/emotes/Rifle Drill.webp`
+- `guide-images/atom-shop/emotes/Shaken.webp`
+- `guide-images/atom-shop/emotes/Share the Holidays.webp`
+- `guide-images/atom-shop/emotes/Snow Confused.webp`
+- `guide-images/atom-shop/emotes/Snowball Fight.webp`
+- `guide-images/atom-shop/emotes/So Hungry.webp`
+- `guide-images/atom-shop/emotes/So Sorry.webp`
+- `guide-images/atom-shop/emotes/Space Walk.webp`
+- `guide-images/atom-shop/emotes/Startled.webp`
+- `guide-images/atom-shop/emotes/Super Angry.webp`
+- `guide-images/atom-shop/emotes/Take a Break.webp`
+- `guide-images/atom-shop/emotes/Taking a Picture.webp`
+- `guide-images/atom-shop/emotes/Test Your Metal.webp`
+- `guide-images/atom-shop/emotes/The Madison.webp`
+- `guide-images/atom-shop/emotes/The Vengeful Mothman.webp`
+- `guide-images/atom-shop/emotes/This Way to Joy.webp`
+- `guide-images/atom-shop/emotes/This Way.webp`
+- `guide-images/atom-shop/emotes/Thumbs Down.webp`
+- `guide-images/atom-shop/emotes/Thumbs Up.webp`
+- `guide-images/atom-shop/emotes/Vault 94.webp`
+- `guide-images/atom-shop/emotes/Wave.webp`
+- `guide-images/atom-shop/emotes/What a Drag.webp`
+- `guide-images/atom-shop/emotes/Wolf Howl.webp`
+- `guide-images/atom-shop/emotes/Worship.webp`
+- `guide-images/atom-shop/emotes/Wreck the Halls.webp`
+- `guide-images/atom-shop/player-icons/atx_playericon_bottle.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_cappy.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_chaos.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_creature_15.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_creature_16.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_factionfanatic01.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_factionunion01.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_fo1st_01.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_graphic_18.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_holiday_24.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_icon4.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_icon4_c1.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_icon4_c2.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_icon5.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_icon5_c1.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_icon5_c2.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_icon6.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_icon6_c1.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_icon6_c2.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_object_16.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_object_17.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_object_18.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_personacommunist1a.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_personacommunist2.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_powerpatrol.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s12_graftonmonster.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s12_graftonmonsterfoggy.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s12_graftonmonsterhand.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s12_guinevere.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s12_guineverebubblegum.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s12_guineveresmoking.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s12_mothman.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s12_ripdaring.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s12_ripdaringshotgun.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s12_ripdaringthrone.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s12_snallygastercompass.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s12_werewolf.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s13_manzilloid_vs_roborilla.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s14_anchoragepa.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s14_bday_cake.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s14_cannon.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s16_guineverecucumbereyes.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s16_jerseydevilvaultboy.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s16_peepers.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s16_ripdaringvacation.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s17_bundle.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s21_glowingboglurker.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s21_glowingkanawhapiranha.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s21_noxioussawgill.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s21_timbersawgill.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s21miniseason1_marshalmallowfishing.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s22_queencorn_zoom.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_s22_queencorn_zoomsuper.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_secretservice_02.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_vaultboy_15.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_vaultboy_18.avif`
+- `guide-images/atom-shop/player-icons/atx_playericon_vaultgirl_05.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_baseballglove.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_camera.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_cat_01.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_cat_02.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_cat_03.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_cat_04.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_cat_05.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_01.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_02.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_03.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_04.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_05.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_06.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_07.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_08.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_09.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_10.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_12.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_13.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_14.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_15.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_16.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_17.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_18.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_19.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_20.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_21.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_22.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_23.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_25.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_26.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_27.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_28.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_31.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_32.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_33.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_34.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_35.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_36.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_37.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_38.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_39.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_41.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_42.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_43.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_44.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_45.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_46.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_47.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_48.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_49.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_50.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_51.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_52.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_53.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_54.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_55.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_56.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_57.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_58.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_59.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_60.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_61.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_62.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_63.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_64.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_65.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_66.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_67.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_68.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_69.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_70.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_comic_71.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_doctorbaby.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_dog_01.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_dog_02.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_dog_03.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_dog_04.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_globe.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_microscope.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_molerat.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_parrot_01.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_parrot_02.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_powerhelmet.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_01.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_02.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_03.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_04.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_05.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_06.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_07.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_08.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_09.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_10.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_11.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_12.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_13.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_14.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_15.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_16.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_17.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_18.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_19.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_20.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_21.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_22.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_23.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_24.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_25.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_26.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_27.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_28.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_29.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_30.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_31.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_32.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_retro_33.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_teddybear.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_toycar.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_trifoldflag.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_vaultboy_creamy.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_vaultboy_grumpy.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_vaultboy_guns.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_vaultboy_lasers.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_vaultboy_loot.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_vaultboy_mechanic.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_vaultboy_sleeve.avif`
+- `guide-images/atom-shop/player-icons/babylon_playericon_zaxlogo.avif`
+- `guide-images/atom-shop/player-icons/score_s25_playericon_cypruscat.avif`
+- `guide-images/atom-shop/player-icons/score_s25_playericon_glowingdog.avif`
+- `guide-images/atom-shop/player-icons/score_s25_playericon_mrfuzzytongueout.avif`
+- `guide-images/atom-shop/player-icons/score_s25_playericon_sillyfacemrfuzzy.avif`
+- `guide-images/atom-shop/player-icons/score_s25_playericon_vaultboyholdingfish.avif`
+- `guide-images/atom-shop/player-icons/score_s25_playericon_vaultgirlholdingfish.avif`
+- `guide-images/atom-shop/request-item-images/ATX_CAMP_FloorDecor_FortuneTellerMachine.avif`
+- `guide-images/atom-shop/request-item-images/ATX_CAMP_WallDeco_Display_GunRacks.avif`
+- `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Creature_02.avif`
+- `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Creature_03.avif`
+- `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Creature_07.avif`
+- `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Creepy_Mothman.avif`
+- `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Flyboy_01.avif`
+- `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Holiday_03.avif`
+- `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Holiday_09.avif`
+- `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Holiday_12.avif`
+- `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Holiday_16.avif`
+- `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_MothmanCultist01.avif`
+- `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Object_13.avif`
+- `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Perks_04.avif`
+- `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_S24_CryptidPatchMothman.avif`
+- `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_SCORE_33.avif`
+- `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Shelter_01.avif`
+- `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_Shelter_02.avif`
+- `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_SuperMutant_01.avif`
+- `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_VaultGirl_02.avif`
+- `guide-images/atom-shop/request-item-images/ATX_PlayerIcon_VaultGirl_03.avif`
+- `guide-images/atom-shop/request-item-images/SCORE_S12_CAMP_Lights_StoneFireplace.avif`
+- `guide-images/atom-shop/request-item-images/SCORE_S12_CAMP_Structure_HuntersLodge.avif`
+- `guide-images/atom-shop/request-item-images/SCORE_S13_CAMP_WallDecor_MoviePoster_DevilMoon.avif`
+- `guide-images/atom-shop/request-item-images/SCORE_S13_CAMP_WallDecor_MoviePoster_HonkHonkStabStab.avif`
+- `guide-images/atom-shop/request-item-images/SCORE_S13_CAMP_WallDecor_MoviePoster_MassAttraction.avif`
+- `guide-images/atom-shop/request-item-images/SCORE_S13_CAMP_WallDecor_MoviePoster_Spheksophobia.avif`
+- `guide-images/atom-shop/request-item-images/SCORE_S13_CAMP_WallDecor_MoviePoster_TheEgg.avif`
+- `guide-images/atom-shop/request-item-images/SCORE_S18_CAMP_FloorDecor_Cactus.avif`
+- `guide-images/atom-shop/request-item-images/SCORE_S1_Camp_Utility_Planter_MetalTub.avif`
+- `guide-images/atom-shop/request-item-images/SCORE_S1_Skin_PowerArmor_Paint_CaptainCosmos.avif`
+- `guide-images/atom-shop/request-item-images/SCORE_S1_Skin_WeaponSkin_CombatRifle_Black.avif`
+- `guide-images/atom-shop/request-item-images/SCORE_S2_Apparel_Headwear_GasMaskRaider_OfficerCap_Commie.avif`
+- `guide-images/atom-shop/request-item-images/SCORE_S2_CAMP_Kit_GreenhouseSet.avif`
+- `guide-images/atom-shop/request-item-images/SCORE_S2_Skin_PowerArmor_Paint_AceFullAssault.avif`
+- `guide-images/atom-shop/request-item-images/SCORE_S6_CAMP_Utility_Collectron_FETCH.avif`
+- `guide-images/atom-shop/request-item-images/atx_camp_walldeco_display_gunracks_c2.avif`
+- `guide-images/atom-shop/request-item-images/atx_camp_walldeco_display_gunracks_c3.avif`
+- `guide-images/atom-shop/request-item-images/atx_playericon_communist_star.avif`
+- `guide-images/atom-shop/request-item-images/atx_playericon_freestates_01.avif`
+- `guide-images/atom-shop/request-item-images/atx_playericon_freestates_02.avif`
+- `guide-images/atom-shop/request-item-images/atx_playericon_holiday_15.avif`
+- `guide-images/atom-shop/request-item-images/atx_playericon_responders_red.avif`
+- `guide-images/atom-shop/request-item-images/atx_playericon_vaultboy_10.avif`
+- `guide-images/atom-shop/request-item-images/atx_skin_powerarmor_paint_excavator_black.avif`
+- `guide-images/atom-shop/request-item-images/score_s16_skin_pipboyskin_pipboyspringcleaning.avif`
+- `guide-images/atom-shop/request-item-images/score_s1_camp_deployable_futuretec.avif`
+- `guide-images/atom-shop/request-item-images/score_s1_skin_armorskin_combat_ghillie.avif`
+- `guide-images/atom-shop/request-item-images/score_s1_skin_armorskin_leather_ghillie.avif`
+- `guide-images/atom-shop/request-item-images/score_s1_skin_armorskin_marine_ghillie.avif`
+- `guide-images/atom-shop/request-item-images/score_s1_skin_armorskin_metal_ghillie.avif`
+- `guide-images/atom-shop/request-item-images/score_s1_skin_armorskin_robot_ghillie.avif`
+- `guide-images/atom-shop/request-item-images/score_s1_skin_armorskin_scout_ghillie.avif`
+- `guide-images/atom-shop/request-item-images/score_s1_skin_armorskin_secretservice_ghillie.avif`
+- `guide-images/atom-shop/request-item-images/score_s1_skin_armorskin_wood_ghillie.avif`
+- `guide-images/atom-shop/request-item-images/score_s1_skin_backpack_ghillie.avif`
+- `guide-images/atom-shop/request-item-images/score_s1_skin_powerarmor_jetpack_captaincosmos.avif`
+- `guide-images/atom-shop/request-item-images/score_s1_skin_weaponmodel_gatlinggun_blunderbuss.avif`
+- `guide-images/atom-shop/request-item-images/score_s1_skin_weaponskin_huntingrifle_ghillie.avif`
+- `guide-images/atom-shop/request-item-images/score_s22_camp_displaycase_bowlingballrack_nukacola.avif`
+- `guide-images/atom-shop/step-1-2-bethesda-support-home.avif`
+- `guide-images/atom-shop/step-3-billing-purchase-code.avif`
+- `guide-images/atom-shop/step-4-select-platform.avif`
+- `guide-images/atom-shop/step-5-atomic-shop-help.avif`
+- `guide-images/atom-shop/step-6-gifting-or-obtaining.avif`
+- `guide-images/atom-shop/step-7-purchase-for-myself.avif`
+- `guide-images/atom-shop/step-8-10-submit-form.avif`
+- `guide-images/atom-shop/survival-tents/APC Survival Tent.avif`
+- `guide-images/atom-shop/survival-tents/Abandoned Shack Survival Tent.avif`
+- `guide-images/atom-shop/survival-tents/Enclave Mobile Relay Survival Tent.avif`
+- `guide-images/atom-shop/survival-tents/Flatbed Truck Tent.avif`
+- `guide-images/atom-shop/survival-tents/Gazebo Survival Tent.avif`
+- `guide-images/atom-shop/survival-tents/Holiday Survival Tent.avif`
+- `guide-images/atom-shop/survival-tents/Houseboat Survival Tent.avif`
+- `guide-images/atom-shop/survival-tents/Hunter's Blind Survival Tent.avif`
+- `guide-images/atom-shop/survival-tents/Lean-to Survival Tent.avif`
+- `guide-images/atom-shop/survival-tents/Nuka-Cola Sheet Survival Tent.avif`
+- `guide-images/atom-shop/survival-tents/Raider Survival Tent.avif`
+- `guide-images/atom-shop/survival-tents/Responders Medical Tent.avif`
+- `guide-images/atom-shop/survival-tents/Rusted APC Survival Tent.avif`
+- `guide-images/atom-shop/survival-tents/Settler Survival Tent.avif`
+- `guide-images/atom-shop/survival-tents/Vault-Tec Preeminent Survival Tent.avif`
+- `guide-images/atom-shop/survival-tents/Vintage Camper Survival Tent.avif`
+- `guide-images/atom-shop/wallpaper/atx_camp_wallpaper_sunsetwallpaper.avif`
+- `guide-images/camp-items/buff-stations/buffstation_gallery_1.avif`
+- `guide-images/camp-items/buff-stations/buffstation_gallery_10.avif`
+- `guide-images/camp-items/buff-stations/buffstation_gallery_11.avif`
+- `guide-images/camp-items/buff-stations/buffstation_gallery_12.avif`
+- `guide-images/camp-items/buff-stations/buffstation_gallery_13.avif`
+- `guide-images/camp-items/buff-stations/buffstation_gallery_14.avif`
+- `guide-images/camp-items/buff-stations/buffstation_gallery_15.avif`
+- `guide-images/camp-items/buff-stations/buffstation_gallery_16.avif`
+- `guide-images/camp-items/buff-stations/buffstation_gallery_17.avif`
+- `guide-images/camp-items/buff-stations/buffstation_gallery_18.avif`
+- `guide-images/camp-items/buff-stations/buffstation_gallery_2.avif`
+- `guide-images/camp-items/buff-stations/buffstation_gallery_3.avif`
+- `guide-images/camp-items/buff-stations/buffstation_gallery_4.avif`
+- `guide-images/camp-items/buff-stations/buffstation_gallery_5.avif`
+- `guide-images/camp-items/buff-stations/buffstation_gallery_6.avif`
+- `guide-images/camp-items/buff-stations/buffstation_gallery_7.avif`
+- `guide-images/camp-items/buff-stations/buffstation_gallery_8.avif`
+- `guide-images/camp-items/buff-stations/buffstation_gallery_9.avif`
+- `guide-images/camp-items/dispensers/atx_camp_utility_beerkeg_nukashine.avif`
+- `guide-images/camp-items/dispensers/atx_camp_utility_nukacolavendingmachine_clean.avif`
+- `guide-images/camp-items/dispensers/atx_camp_utility_punchbowl.avif`
+- `guide-images/camp-items/repair-bots/repairbot_gallery_1.avif`
+- `guide-images/camp-items/weather-stations/atx_camp_utility_weatherstation_p56.avif`
+- `guide-images/camp-items/weather-stations/atx_camp_utility_weatherstation_p56_c1.avif`
+- `guide-images/camp-items/weather-stations/atx_camp_utility_weatherstation_p56_c2.avif`
+- `guide-images/camp-items/weather-stations/atx_camp_utility_weatherstation_xpdacboardwalk_l.avif`
+- `guide-images/camp-items/weather-stations/score_s15_camp_utility_weatherstation_xpdacboardwalk_c1.avif`
+- `guide-images/camp-items/weather-stations/score_s15_camp_utility_weatherstation_xpdacboardwalk_c2.avif`
+- `guide-images/camp-items/weather-stations/score_s15_camp_utility_weatherstation_xpdacboardwalk_c3.avif`
+- `guide-images/camp-items/weather-stations/score_s15_camp_utility_weatherstation_xpdacboardwalk_l.avif`
+- `guide-images/camp-items/weather-stations/score_s19_camp_utility_weatherstation_nukezone_c1.avif`
+- `guide-images/camp-items/weather-stations/score_s19_camp_utility_weatherstation_nukezone_c2.avif`
+- `guide-images/camp-items/weather-stations/score_s19_camp_utility_weatherstation_nukezone_l.avif`
+- `guide-images/camp-items/weather-stations/score_s24_camp_utility_weatherstation_invasion_c1.avif`
+- `guide-images/camp-items/weather-stations/score_s24_camp_utility_weatherstation_invasion_c2.avif`
+- `guide-images/camp-items/weather-stations/score_s24_camp_utility_weatherstation_invasion_l.avif`
+- `guide-images/camp-items/weather-stations/score_s26_camp_utility_weatherstation_bloodmoon_c1.avif`
+- `guide-images/camp-items/weather-stations/score_s26_camp_utility_weatherstation_bloodmoon_c2.avif`
+- `guide-images/camp-items/weather-stations/score_s26_camp_utility_weatherstation_bloodmoon_l.avif`
+- `guide-images/camp-items/weather-stations/weatherstation_gallery_1.avif`
+- `guide-images/camp-items/weather-stations/weatherstation_gallery_2.avif`
+- `guide-images/camp-items/weather-stations/weatherstation_gallery_3.avif`
+- `guide-images/camp-items/weather-stations/weatherstation_gallery_4.avif`
+- `guide-images/camp-items/weather-stations/weatherstation_gallery_5.avif`
+- `guide-images/plan-checklist/display/atx_camp_display_powerarmordisplay_l.avif`
+- `guide-images/plan-checklist/display/atx_camp_displaycase_bowlingballrack1.avif`
+- `guide-images/plan-checklist/display/atx_entm_camp_display_armordisplayframe_red.avif`
+- `guide-images/plan-checklist/legacy-nuclear-winter/babylon_apparel_outfit_springequinoxdress_apr2020_l.avif`
+- `guide-images/plan-checklist/legacy-nuclear-winter/babylon_armorskin_blooming_hazmatsuit_apr2020.avif`
+- `guide-images/plan-checklist/legacy-nuclear-winter/babylon_armorskin_greenman_wood_april2020.avif`
+- `guide-images/plan-checklist/legacy-nuclear-winter/babylon_camp_decoration_deathclaw_easter_eggsnw_april2020_l.avif`
+- `guide-images/plan-checklist/legacy-nuclear-winter/babylon_skin_powerarmor_paint_hellfire03_l.avif`
+- `guide-images/plan-checklist/legacy-nuclear-winter/babylon_weaponskin_floralmachete_apr2020.avif`
+- `guide-images/plan-checklist/plan-item-image.avif`
+- `guide-images/plan-checklist/pts-pennants/atx_camp_walldeco_pennant_pts_p44__l.avif`
+- `guide-images/plan-checklist/pts-pennants/atx_pts_pennant_p68_d.avif`
+- `guide-images/plan-checklist/pts-pennants/p64_caravansshutdown_pennant_d.avif`
+- `guide-images/plan-checklist/recipe-item-image.avif`
+- `guide-images/plan-checklist/weapons/assaultron-blade.avif`
+- `guide-images/plan-checklist/weapons/boiling-point.avif`
+- `guide-images/plan-checklist/weapons/drill-fist.avif`
+- `guide-images/plan-checklist/weapons/piercing-love.avif`
+- `guide-images/plan-checklist/weapons/weapon_mod.avif`
+- `guide-images/titles/Player Title Prefix Blank.avif`
+- `guide-images/titles/Player Title Prefix-Suffix Blank.avif`
+- `guide-images/titles/Player Title Suffix Blank.avif`
+- `season_images/legacy-seasons-guide/legacy-seasons-available-seasons.avif`
+- `season_images/season-1/s1_calendar.avif`
+- `season_images/season-1/s1_cover.avif`
+- `season_images/season-1/score_s1_camp_wallpaper_glowinthedark_stars.avif`
+- `season_images/season-1/score_s1_camp_wallpaper_glowinthedark_starsandplanets.avif`
+- `season_images/season-10/s10_cover.avif`
+- `season_images/season-10/s10_page_1.avif`
+- `season_images/season-10/s10_page_10.avif`
+- `season_images/season-10/s10_page_11.avif`
+- `season_images/season-10/s10_page_2.avif`
+- `season_images/season-10/s10_page_3.avif`
+- `season_images/season-10/s10_page_4.avif`
+- `season_images/season-10/s10_page_5.avif`
+- `season_images/season-10/s10_page_6.avif`
+- `season_images/season-10/s10_page_7.avif`
+- `season_images/season-10/s10_page_8.avif`
+- `season_images/season-10/s10_page_9.avif`
+- `season_images/season-10/score_s10_camp_wallpaper_catacombs.avif`
+- `season_images/season-11/s11_calendar.avif`
+- `season_images/season-11/s11_cover.avif`
+- `season_images/season-11/s11_page_1.avif`
+- `season_images/season-11/s11_page_10.avif`
+- `season_images/season-11/s11_page_11.avif`
+- `season_images/season-11/s11_page_2.avif`
+- `season_images/season-11/s11_page_3.avif`
+- `season_images/season-11/s11_page_4.avif`
+- `season_images/season-11/s11_page_5.avif`
+- `season_images/season-11/s11_page_6.avif`
+- `season_images/season-11/s11_page_7.avif`
+- `season_images/season-11/s11_page_8.avif`
+- `season_images/season-11/s11_page_9.avif`
+- `season_images/season-11/score_s11_camp_ally_leopetrov_c4.avif`
+- `season_images/season-11/score_s11_camp_wallpaper_walnutpanel.avif`
+- `season_images/season-12/s12_calendar_q1.avif`
+- `season_images/season-12/s12_calendar_q2.avif`
+- `season_images/season-12/s12_cover.avif`
+- `season_images/season-12/s12_page_1.avif`
+- `season_images/season-12/s12_page_10.avif`
+- `season_images/season-12/s12_page_11.avif`
+- `season_images/season-12/s12_page_2.avif`
+- `season_images/season-12/s12_page_3.avif`
+- `season_images/season-12/s12_page_4.avif`
+- `season_images/season-12/s12_page_5.avif`
+- `season_images/season-12/s12_page_6.avif`
+- `season_images/season-12/s12_page_7.avif`
+- `season_images/season-12/s12_page_8.avif`
+- `season_images/season-12/s12_page_9.avif`
+- `season_images/season-12/score_s12_camp_ally_scarberry_c4.avif`
+- `season_images/season-12/score_s12_camp_wallpaper_cryptidhunt.avif`
+- `season_images/season-13/s13_calendar.avif`
+- `season_images/season-13/s13_cover.avif`
+- `season_images/season-13/s13_page_1.avif`
+- `season_images/season-13/s13_page_10.avif`
+- `season_images/season-13/s13_page_11.avif`
+- `season_images/season-13/s13_page_2.avif`
+- `season_images/season-13/s13_page_3.avif`
+- `season_images/season-13/s13_page_4.avif`
+- `season_images/season-13/s13_page_5.avif`
+- `season_images/season-13/s13_page_6.avif`
+- `season_images/season-13/s13_page_7.avif`
+- `season_images/season-13/s13_page_8.avif`
+- `season_images/season-13/s13_page_9.avif`
+- `season_images/season-13/score_s13_camp_ally_joeybello_c4.avif`
+- `season_images/season-13/score_s13_camp_wallpaper_artdecotheater.avif`
+- `season_images/season-14/s14_calendar.avif`
+- `season_images/season-14/s14_cover.avif`
+- `season_images/season-14/s14_page_1.avif`
+- `season_images/season-14/s14_page_10.avif`
+- `season_images/season-14/s14_page_11.avif`
+- `season_images/season-14/s14_page_2.avif`
+- `season_images/season-14/s14_page_3.avif`
+- `season_images/season-14/s14_page_4.avif`
+- `season_images/season-14/s14_page_5.avif`
+- `season_images/season-14/s14_page_6.avif`
+- `season_images/season-14/s14_page_7.avif`
+- `season_images/season-14/s14_page_8.avif`
+- `season_images/season-14/s14_page_9.avif`
+- `season_images/season-14/score_s14_camp_wallpaper_ovaloffice.avif`
+- `season_images/season-15/s15_calendar.avif`
+- `season_images/season-15/s15_cover.avif`
+- `season_images/season-15/s15_page_1.avif`
+- `season_images/season-15/s15_page_10.avif`
+- `season_images/season-15/s15_page_11.avif`
+- `season_images/season-15/s15_page_2.avif`
+- `season_images/season-15/s15_page_3.avif`
+- `season_images/season-15/s15_page_4.avif`
+- `season_images/season-15/s15_page_5.avif`
+- `season_images/season-15/s15_page_6.avif`
+- `season_images/season-15/s15_page_7.avif`
+- `season_images/season-15/s15_page_8.avif`
+- `season_images/season-15/s15_page_9.avif`
+- `season_images/season-15/score_s15_camp_wallpaper_ganghideoutwallpaper.avif`
+- `season_images/season-16/s16_calendar.avif`
+- `season_images/season-16/s16_cover.avif`
+- `season_images/season-16/s16_keyart.avif`
+- `season_images/season-16/s16_keyart_2.avif`
+- `season_images/season-16/s16_page_1.avif`
+- `season_images/season-16/s16_page_10.avif`
+- `season_images/season-16/s16_page_11.avif`
+- `season_images/season-16/s16_page_12.avif`
+- `season_images/season-16/s16_page_13.avif`
+- `season_images/season-16/s16_page_2.avif`
+- `season_images/season-16/s16_page_3.avif`
+- `season_images/season-16/s16_page_4.avif`
+- `season_images/season-16/s16_page_5.avif`
+- `season_images/season-16/s16_page_6.avif`
+- `season_images/season-16/s16_page_7.avif`
+- `season_images/season-16/s16_page_8.avif`
+- `season_images/season-16/s16_page_9.avif`
+- `season_images/season-16/s16_page_b1.avif`
+- `season_images/season-16/s16_page_b2.avif`
+- `season_images/season-16/score_s16_camp_wallpaper_cryptidhunt.avif`
+- `season_images/season-16/score_s16_camp_wallpaper_pinebarrens.avif`
+- `season_images/season-17/s17_calendar_q2.avif`
+- `season_images/season-17/s17_calendar_q3.avif`
+- `season_images/season-17/s17_cover.avif`
+- `season_images/season-17/s17_page_1.avif`
+- `season_images/season-17/s17_page_10.avif`
+- `season_images/season-17/s17_page_11.avif`
+- `season_images/season-17/s17_page_12.avif`
+- `season_images/season-17/s17_page_13.avif`
+- `season_images/season-17/s17_page_14.avif`
+- `season_images/season-17/s17_page_2.avif`
+- `season_images/season-17/s17_page_3.avif`
+- `season_images/season-17/s17_page_4.avif`
+- `season_images/season-17/s17_page_5.avif`
+- `season_images/season-17/s17_page_6.avif`
+- `season_images/season-17/s17_page_7.avif`
+- `season_images/season-17/s17_page_8.avif`
+- `season_images/season-17/s17_page_9.avif`
+- `season_images/season-17/s17_page_b1.avif`
+- `season_images/season-17/s17_page_b2.avif`
+- `season_images/season-18/s18_calendar.avif`
+- `season_images/season-18/s18_cover.avif`
+- `season_images/season-18/s18_keyart.avif`
+- `season_images/season-18/s18_keyart_2.avif`
+- `season_images/season-18/s18_page_1.avif`
+- `season_images/season-18/s18_page_10.avif`
+- `season_images/season-18/s18_page_11.avif`
+- `season_images/season-18/s18_page_12.avif`
+- `season_images/season-18/s18_page_13.avif`
+- `season_images/season-18/s18_page_14.avif`
+- `season_images/season-18/s18_page_15.avif`
+- `season_images/season-18/s18_page_16.avif`
+- `season_images/season-18/s18_page_2.avif`
+- `season_images/season-18/s18_page_3.avif`
+- `season_images/season-18/s18_page_4.avif`
+- `season_images/season-18/s18_page_5.avif`
+- `season_images/season-18/s18_page_6.avif`
+- `season_images/season-18/s18_page_7.avif`
+- `season_images/season-18/s18_page_8.avif`
+- `season_images/season-18/s18_page_9.avif`
+- `season_images/season-18/s18_page_b1.avif`
+- `season_images/season-18/s18_page_b2.avif`
+- `season_images/season-19/s19_calendar.avif`
+- `season_images/season-19/s19_cover.avif`
+- `season_images/season-19/s19_keyart.avif`
+- `season_images/season-19/s19_keyart_2.avif`
+- `season_images/season-19/s19_page_1.avif`
+- `season_images/season-19/s19_page_10.avif`
+- `season_images/season-19/s19_page_11.avif`
+- `season_images/season-19/s19_page_12.avif`
+- `season_images/season-19/s19_page_13.avif`
+- `season_images/season-19/s19_page_14.avif`
+- `season_images/season-19/s19_page_15.avif`
+- `season_images/season-19/s19_page_2.avif`
+- `season_images/season-19/s19_page_3.avif`
+- `season_images/season-19/s19_page_4.avif`
+- `season_images/season-19/s19_page_5.avif`
+- `season_images/season-19/s19_page_6.avif`
+- `season_images/season-19/s19_page_7.avif`
+- `season_images/season-19/s19_page_8.avif`
+- `season_images/season-19/s19_page_9.avif`
+- `season_images/season-19/s19_page_b1.avif`
+- `season_images/season-19/s19_page_b2.avif`
+- `season_images/season-2/s2_calendar.avif`
+- `season_images/season-2/s2_cover.avif`
+- `season_images/season-2/score_s2_camp_machinery_workbench_powerarmor_armorace.avif`
+- `season_images/season-2/score_s2_camp_wallpaper_armorace.avif`
+- `season_images/season-20/s20_calendar_q1.avif`
+- `season_images/season-20/s20_calendar_q2.avif`
+- `season_images/season-20/s20_cover.avif`
+- `season_images/season-20/s20_keyart.avif`
+- `season_images/season-20/s20_page_1.avif`
+- `season_images/season-20/s20_page_10.avif`
+- `season_images/season-20/s20_page_11.avif`
+- `season_images/season-20/s20_page_12.avif`
+- `season_images/season-20/s20_page_13.avif`
+- `season_images/season-20/s20_page_14.avif`
+- `season_images/season-20/s20_page_15.avif`
+- `season_images/season-20/s20_page_16.avif`
+- `season_images/season-20/s20_page_17.avif`
+- `season_images/season-20/s20_page_18.avif`
+- `season_images/season-20/s20_page_2.avif`
+- `season_images/season-20/s20_page_3.avif`
+- `season_images/season-20/s20_page_4.avif`
+- `season_images/season-20/s20_page_5.avif`
+- `season_images/season-20/s20_page_6.avif`
+- `season_images/season-20/s20_page_7.avif`
+- `season_images/season-20/s20_page_8.avif`
+- `season_images/season-20/s20_page_9.avif`
+- `season_images/season-20/s20_page_b1.avif`
+- `season_images/season-20/s20_page_b2.avif`
+- `season_images/season-21/s21_calendar.avif`
+- `season_images/season-21/s21_cover.avif`
+- `season_images/season-21/s21_page_1.avif`
+- `season_images/season-21/s21_page_10.avif`
+- `season_images/season-21/s21_page_11.avif`
+- `season_images/season-21/s21_page_12.avif`
+- `season_images/season-21/s21_page_13.avif`
+- `season_images/season-21/s21_page_14.avif`
+- `season_images/season-21/s21_page_15.avif`
+- `season_images/season-21/s21_page_16.avif`
+- `season_images/season-21/s21_page_17.avif`
+- `season_images/season-21/s21_page_2.avif`
+- `season_images/season-21/s21_page_3.avif`
+- `season_images/season-21/s21_page_4.avif`
+- `season_images/season-21/s21_page_5.avif`
+- `season_images/season-21/s21_page_6.avif`
+- `season_images/season-21/s21_page_7.avif`
+- `season_images/season-21/s21_page_8.avif`
+- `season_images/season-21/s21_page_9.avif`
+- `season_images/season-21/s21_page_b1.avif`
+- `season_images/season-21/s21_page_b2.avif`
+- `season_images/season-22/s22_calendar.avif`
+- `season_images/season-22/s22_cover.avif`
+- `season_images/season-22/s22_page_1.avif`
+- `season_images/season-22/s22_page_10.avif`
+- `season_images/season-22/s22_page_11.avif`
+- `season_images/season-22/s22_page_12.avif`
+- `season_images/season-22/s22_page_13.avif`
+- `season_images/season-22/s22_page_14.avif`
+- `season_images/season-22/s22_page_15.avif`
+- `season_images/season-22/s22_page_16.avif`
+- `season_images/season-22/s22_page_2.avif`
+- `season_images/season-22/s22_page_3.avif`
+- `season_images/season-22/s22_page_4.avif`
+- `season_images/season-22/s22_page_5.avif`
+- `season_images/season-22/s22_page_6.avif`
+- `season_images/season-22/s22_page_7.avif`
+- `season_images/season-22/s22_page_8.avif`
+- `season_images/season-22/s22_page_9.avif`
+- `season_images/season-22/s22_page_b1.avif`
+- `season_images/season-22/s22_page_b2.avif`
+- `season_images/season-23/s23_calendar.avif`
+- `season_images/season-23/s23_cover.avif`
+- `season_images/season-23/s23_keyart.avif`
+- `season_images/season-23/s23_page_1.avif`
+- `season_images/season-23/s23_page_10.avif`
+- `season_images/season-23/s23_page_11.avif`
+- `season_images/season-23/s23_page_2.avif`
+- `season_images/season-23/s23_page_3.avif`
+- `season_images/season-23/s23_page_4.avif`
+- `season_images/season-23/s23_page_5.avif`
+- `season_images/season-23/s23_page_6.avif`
+- `season_images/season-23/s23_page_7.avif`
+- `season_images/season-23/s23_page_8.avif`
+- `season_images/season-23/s23_page_9.avif`
+- `season_images/season-23/s23_page_b1.avif`
+- `season_images/season-23/s23_page_b2.avif`
+- `season_images/season-24/s24_calendar.avif`
+- `season_images/season-24/s24_cover.avif`
+- `season_images/season-24/s24_page_1.avif`
+- `season_images/season-24/s24_page_10.avif`
+- `season_images/season-24/s24_page_2.avif`
+- `season_images/season-24/s24_page_3.avif`
+- `season_images/season-24/s24_page_4.avif`
+- `season_images/season-24/s24_page_5.avif`
+- `season_images/season-24/s24_page_6.avif`
+- `season_images/season-24/s24_page_7.avif`
+- `season_images/season-24/s24_page_8.avif`
+- `season_images/season-24/s24_page_9.avif`
+- `season_images/season-24/s24_page_b1.avif`
+- `season_images/season-24/s24_page_b2.avif`
+- `season_images/season-24/score_s24_photomode_vanitylight_filmnoir.avif`
+- `season_images/season-25/s25_calendar.avif`
+- `season_images/season-25/s25_cover.avif`
+- `season_images/season-25/s25_page_1.avif`
+- `season_images/season-25/s25_page_2.avif`
+- `season_images/season-25/s25_page_3.avif`
+- `season_images/season-25/s25_page_4.avif`
+- `season_images/season-25/s25_page_5.avif`
+- `season_images/season-25/s25_page_6.avif`
+- `season_images/season-25/s25_page_7.avif`
+- `season_images/season-25/s25_page_8.avif`
+- `season_images/season-25/s25_page_9.avif`
+- `season_images/season-25/s25_page_b1.avif`
+- `season_images/season-25/s25_page_b2.avif`
+- `season_images/season-25/score_s25_apparel_headwear_fishnhole.avif`
+- `season_images/season-25/score_s25_apparel_underarmor_responders_civilengineer.avif`
+- `season_images/season-25/score_s25_apparel_underarmor_responders_secretservice.avif`
+- `season_images/season-25/score_s25_armor_paint_responders_combat.avif`
+- `season_images/season-25/score_s25_armor_paint_responders_leather.avif`
+- `season_images/season-25/score_s25_armor_paint_responders_metal.avif`
+- `season_images/season-25/score_s25_armor_paint_responders_recon.avif`
+- `season_images/season-25/score_s25_armor_paint_responders_secretservice.avif`
+- `season_images/season-25/score_s25_armor_responders_civilengineer.avif`
+- `season_images/season-25/score_s25_camp_camdenparktrashbin.avif`
+- `season_images/season-25/score_s25_camp_deathclawskullweaponrack.avif`
+- `season_images/season-25/score_s25_camp_destroyedcoolingtower.avif`
+- `season_images/season-25/score_s25_camp_glowingdog.avif`
+- `season_images/season-25/score_s25_camp_glowningradhog.avif`
+- `season_images/season-25/score_s25_camp_hangingbackpackdisplay.avif`
+- `season_images/season-25/score_s25_camp_huntersblindsurvivaltent.avif`
+- `season_images/season-25/score_s25_camp_mamadolcescannery.avif`
+- `season_images/season-25/score_s25_camp_mrfarmhandcollectron.avif`
+- `season_images/season-25/score_s25_camp_nuclearbombride.avif`
+- `season_images/season-25/score_s25_camp_taxidermy_ogua.avif`
+- `season_images/season-25/score_s25_camp_tealbathroomurinal.avif`
+- `season_images/season-25/score_s25_camp_tealbathtub.avif`
+- `season_images/season-25/score_s25_camp_tealsink.avif`
+- `season_images/season-25/score_s25_camp_tealtoilet.avif`
+- `season_images/season-25/score_s25_camp_vaulttecsnowmachine.avif`
+- `season_images/season-25/score_s25_camp_walldecor_fishofappalachia_mire.avif`
+- `season_images/season-25/score_s25_camp_walldecor_framedappalachiaundersiege.avif`
+- `season_images/season-25/score_s25_camp_wastelandfarm.avif`
+- `season_images/season-25/score_s25_camp_weatherstation_rainbow.avif`
+- `season_images/season-25/score_s25_camp_woodenoutdoorshower.avif`
+- `season_images/season-25/score_s25_displaycase_beersteins_coffeepotstein.avif`
+- `season_images/season-25/score_s25_utility_canneryrecipebundle3.avif`
+- `season_images/season-25/score_s25_utility_canneryrecipebundle_bonus.avif`
+- `season_images/season-26/s26_calendar.avif`
+- `season_images/season-26/s26_cover.avif`
+- `season_images/season-26/s26_page_1.avif`
+- `season_images/season-26/s26_page_2.avif`
+- `season_images/season-26/s26_page_3.avif`
+- `season_images/season-26/s26_page_4.avif`
+- `season_images/season-26/s26_page_5.avif`
+- `season_images/season-26/s26_page_6.avif`
+- `season_images/season-26/s26_page_7.avif`
+- `season_images/season-26/s26_page_8.avif`
+- `season_images/season-26/s26_page_9.avif`
+- `season_images/season-26/s26_page_b1.avif`
+- `season_images/season-26/s26_page_b2.avif`
+- `season_images/season-26/score_s26_apparel_outfit_bosscriberobes.avif`
+- `season_images/season-26/score_s26_camp_camppets_dog_cyber.avif`
+- `season_images/season-26/score_s26_camp_floordecor_servicetruck.avif`
+- `season_images/season-26/score_s26_camp_lights_ceiling_antiquechandelier.avif`
+- `season_images/season-3/s3_calendar.avif`
+- `season_images/season-3/s3_cover.avif`
+- `season_images/season-3/score_s3_apparel_headwear_tank_helmet_armorace.avif`
+- `season_images/season-3/score_s3_camp_floor_woodherringbone.avif`
+- `season_images/season-3/score_s3_camp_walldeco_industrialfan_clean.avif`
+- `season_images/season-3/score_s3_camp_wallpaper_shelters.avif`
+- `season_images/season-3/score_s3_photomode_frame_bos.avif`
+- `season_images/season-3/score_s3_skin_powerarmor_paint_t65_clandestine.avif`
+- `season_images/season-4/s4_calendar.avif`
+- `season_images/season-4/s4_cover.avif`
+- `season_images/season-4/s4_legacy_season.avif`
+- `season_images/season-4/s4_page_1.avif`
+- `season_images/season-4/s4_page_10.avif`
+- `season_images/season-4/s4_page_11.avif`
+- `season_images/season-4/s4_page_12.avif`
+- `season_images/season-4/s4_page_13.avif`
+- `season_images/season-4/s4_page_14.avif`
+- `season_images/season-4/s4_page_15.avif`
+- `season_images/season-4/s4_page_16.avif`
+- `season_images/season-4/s4_page_2.avif`
+- `season_images/season-4/s4_page_3.avif`
+- `season_images/season-4/s4_page_4.avif`
+- `season_images/season-4/s4_page_5.avif`
+- `season_images/season-4/s4_page_6.avif`
+- `season_images/season-4/s4_page_7.avif`
+- `season_images/season-4/s4_page_8.avif`
+- `season_images/season-4/s4_page_9.avif`
+- `season_images/season-4/score_s4_camp_floor_dungeon.avif`
+- `season_images/season-4/score_s4_camp_wallpaper_coldsteel.avif`
+- `season_images/season-4/score_s4_camp_wallpaper_dungeon.avif`
+- `season_images/season-4/score_s4_skin_powerarmor_paint_parkranger_atomicranger.avif`
+- `season_images/season-5/s5_board.avif`
+- `season_images/season-5/s5_calendar.avif`
+- `season_images/season-5/s5_cover.avif`
+- `season_images/season-5/score_s5_camp_kit_bos.avif`
+- `season_images/season-6/s6_board.avif`
+- `season_images/season-6/s6_calendar_2.avif`
+- `season_images/season-6/s6_calendar_revised.avif`
+- `season_images/season-6/s6_cover.avif`
+- `season_images/season-6/score_s5_skin_backpackflair_t51_helmet.avif`
+- `season_images/season-6/score_s6_camp_floor_carpetgreen01.avif`
+- `season_images/season-6/score_s6_camp_wallpaper_grognak.avif`
+- `season_images/season-7/s7_board.avif`
+- `season_images/season-7/s7_calendar.avif`
+- `season_images/season-7/s7_cover.avif`
+- `season_images/season-7/score_s7_camp_floordecor_plushie_jackalope.avif`
+- `season_images/season-7/score_s7_camp_walldeco_poster_promo_pleasantvalley.avif`
+- `season_images/season-7/score_s7_camp_wallpaper_starscape.avif`
+- `season_images/season-8/atx_camp_utility_scavengestation_silver_c1.avif`
+- `season_images/season-8/atx_camp_utility_scavengestation_silver_c2.avif`
+- `season_images/season-8/atx_camp_utility_scavengestation_silver_l.avif`
+- `season_images/season-8/s8_calendar_q1.avif`
+- `season_images/season-8/s8_calendar_q2.avif`
+- `season_images/season-8/s8_cover.avif`
+- `season_images/season-8/s8_page_1.avif`
+- `season_images/season-8/s8_page_2.avif`
+- `season_images/season-8/s8_page_3.avif`
+- `season_images/season-8/score_s8_camp_door_wood_woodcleanyellow01.avif`
+- `season_images/season-8/score_s8_camp_floordecor_rug_rothko01.avif`
+- `season_images/season-8/score_s8_camp_lights_50sdiner.avif`
+- `season_images/season-8/score_s8_camp_statue_heropatinabronze.avif`
+- `season_images/season-8/score_s8_camp_utility_mailbox_bass.avif`
+- `season_images/season-9/s9_board.avif`
+- `season_images/season-9/s9_calendar.avif`
+- `season_images/season-9/s9_cover.avif`
+- `season_images/season-9/s9_page_1.avif`
+- `season_images/season-9/s9_page_10.avif`
+- `season_images/season-9/s9_page_11.avif`
+- `season_images/season-9/s9_page_2.avif`
+- `season_images/season-9/s9_page_3.avif`
+- `season_images/season-9/s9_page_4.avif`
+- `season_images/season-9/s9_page_5.avif`
+- `season_images/season-9/s9_page_6.avif`
+- `season_images/season-9/s9_page_7.avif`
+- `season_images/season-9/s9_page_8.avif`
+- `season_images/season-9/s9_page_9.avif`
+- `season_images/season-9/score_s9_apparel_headwear_jackgourdon_black.avif`
+- `season_images/season-9/score_s9_apparel_outfit_jackgourdon_black.avif`
+- `season_images/season-9/score_s9_camp_wallpaper_rustedbrick.avif`
+- `season_images/season-9/score_s9_camp_wallpaper_rustedbrick_red.avif`
+- `season_images/utility/atx_store_lunchbox001.avif`
+- `season_images/utility/atx_utility_repairkit_basic.avif`
+- `season_images/utility/atx_utility_repairkit_scraptostash.avif`
+- `season_images/utility/atx_utility_scrapkit_basic.avif`
+- `season_images/utility/score_account_scoreboost.avif`
+- `season_images/utility/score_coen_utility_banner.avif`
+- `season_images/utility/score_currency_atoms.avif`
+- `season_images/utility/score_currency_bullion.avif`
+- `season_images/utility/score_currency_caps.avif`
+- `season_images/utility/score_currency_perkcoin.avif`
+- `season_images/utility/score_currency_scrip.avif`
+- `season_images/utility/score_currency_stamps.avif`
+- `season_images/utility/score_currency_tadpolebadge.avif`
+- `season_images/utility/score_game_ammo_gamma.avif`
+- `season_images/utility/score_game_ghostboy.avif`
+- `season_images/utility/score_game_legendary_core.avif`
+- `season_images/utility/score_game_legendary_particles.avif`
+- `season_images/utility/score_game_legendarymodule.avif`
+- `season_images/utility/score_item_6pack_nuka-cola.avif`
+- `season_images/utility/score_item_6pack_nuka-twist.avif`
+- `season_images/utility/score_item_6pack_nukavariety.avif`
+- `season_images/utility/score_item_nukashine_sugarfree.avif`
+- `season_images/utility/score_item_perkcardpack.avif`
+- `season_images/utility/score_item_preservedpie.avif`
+- `season_images/utility/score_item_turbofertgrenade.avif`
+- `season_images/utility/score_s15_consumable_ultracitescrapsupply.avif`
+- `season_images/utility/score_utility_bubblegumperfect.avif`
+- `season_images/utility/score_utility_carryweight.avif`
+- `season_images/utility/score_utility_fireworks_crackle.avif`
+- `season_images/utility/score_utility_healthkit.avif`
+- `season_images/utility/score_utility_improvedbait.avif`
+- `season_images/utility/score_utility_luckydice.avif`
+- `season_images/utility/score_utility_luckydice3pack.avif`
+- `season_images/utility/score_utility_magazinebookbox.avif`
+- `season_images/utility/score_utility_mysterybobblehead.avif`
+- `season_images/utility/score_utility_nuclearkeycard.avif`
+- `season_images/utility/score_utility_radkit.avif`
+- `season_images/utility/score_utility_reroller.avif`
+- `season_images/utility/score_utility_scorebooster.avif`
+- `season_images/utility/score_utility_scoutsbanner.avif`
+- `season_images/utility/score_utility_scrapball_large.avif`
+- `season_images/utility/score_utility_scrapball_medium.avif`
+- `season_images/utility/score_utility_scrapball_small.avif`
+- `season_images/utility/score_utility_superbait.avif`
