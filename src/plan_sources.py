@@ -1979,6 +1979,10 @@ def _ledger_unlock_bucket(sentence):
     # the word "plan" in the sentence cannot pull it into Quests.
     if s.startswith("scrap ") or "to learn this plan" in s:
         return "Scrap to Learn"
+    # Unique weapons on the Weapon page (weapon_unique_versions.py) bought
+    # for caps — tested before "quest" so "Beckett (companion quest)" stays Caps.
+    if s.startswith("sold for caps"):
+        return "Caps"
     if "challenge" in s:
         return "Challenges"
     if "quest" in s:

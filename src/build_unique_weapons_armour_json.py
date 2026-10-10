@@ -326,6 +326,11 @@ SUPP_OBTAIN = {
     "ChaosEngine": "Quest: Skyline Valley (Vault 63)",
     "Tempest": "Quest: Skyline Valley (Vault 63)",
     "Splinter": "Quest: Skyline Valley (Vault 63)",
+    # The files hold no drop record for The Pipe (only its instantiation
+    # filter). Without this line the base-weapon formid lookup hands it the
+    # first reward pool that gives out ANY Pipe Gun (Monster Mash), which is
+    # wrong. Source per Duchess (Oct 2026): a random encounter.
+    "ThePipe": "Event: Random encounter",
 }
 
 
@@ -673,6 +678,28 @@ def build_channel(channel, dist_dir):
     omod_by_fid, omod_by_edid, omod_props, cn_weapon = load_current_omods(channel)
     weap_base, weap_dnam, weap_combos, weap_host = load_weap_tables(channel)
     omod_fids_present = set(omod_by_fid.keys())
+
+    # Second discovery path (Oct 2026). Some uniques carry no CustomItemName_
+    # keyword at all - "The Pipe" (Pipe Gun, random encounter) is a perk-only
+    # custom mod - so the keyword pass above never saw them. The game still
+    # names them: the mod is a mod_Custom_* that sits in a WEAP ObjectTemplate
+    # combination carrying the SAME name ("The Pipe" combo on PipeGun). Both
+    # tests together are narrow - on the Oct 2026 export they add only
+    # The Pipe and Camden Whacker (already listed, so it just merges).
+    for _fid, _row in omod_by_fid.items():
+        if _fid in cn_weapon:
+            continue
+        _ed = strip_q(_row.get("OMOD_EDID", ""))
+        _full = strip_q(_row.get("FULL", ""))
+        if not _full or not re.search(r"(^|_)mod_Custom_", _ed, re.I):
+            continue
+        if strip_q(_row.get("FormType", "")) != "Weapon":
+            continue
+        for _wf, _ci in weap_host.get(_fid, []):
+            _cf = weap_combos[_wf][_ci]["full"]
+            if _cf and norm_name(_cf) == norm_name(_full):
+                cn_weapon.add(_fid)
+                break
 
     reuse_path = REPO_ROOT / "dist" / "unique_weapons" / "unique_weapons.json"
     reuse = json.load(open(reuse_path, encoding="utf-8"))

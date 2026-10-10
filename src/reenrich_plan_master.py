@@ -112,7 +112,7 @@ CHANNELS = {
 SCHEMA_KEYS = ("apparel_class_schema",
                "plan_subpages_schema", "plan_subpages",
                "consumables_schema", "consumable_groups",
-               "weapon_groups_schema", "weapon_groups_sources",
+               "weapon_groups_schema", "weapon_groups_sources", "weapon_group_images",
                "armour_groups_schema", "armour_groups_sources")
 
 
@@ -234,6 +234,7 @@ def enrich_file(path, dist_dir, tsv_dir, report_only=False):
     if wstats:
         doc["weapon_groups_schema"] = add_weapon_groups.SCHEMA
         doc["weapon_groups_sources"] = wstats["sources"]
+        doc["weapon_group_images"] = wstats.get("group_images") or {}
 
     # 5. Body / Power Armour page grouping
     astats = add_armour_groups.attach(items)
