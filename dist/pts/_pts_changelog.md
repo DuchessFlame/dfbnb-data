@@ -1977,7 +1977,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +24 / -0 / ~36
+## `titles_player.json`  ·  +24 / -0 / ~37
 
 **Added (24)**
 - ATX_PlayerTitles_Prefix_Apex  `ATX_PlayerTitles_Prefix_Apex`
@@ -2005,7 +2005,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S27_PlayerTitles_Suffix_Athlete  `SCORE_S27_PlayerTitles_Suffix_Athlete`
 - SCORE_S27_PlayerTitles_Suffix_Competitor  `SCORE_S27_PlayerTitles_Suffix_Competitor`
 
-**Changed (36)**
+**Changed (37)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear, source
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel, source
 - ATX_PlayerTitles_Prefix_Gleaming  `ATX_PlayerTitles_Prefix_Gleaming` — fields: source
@@ -2042,6 +2042,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl, images
+- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -2102,30 +2103,7 @@ _Couldn't key this file to records; contents differ._
 ## `well-rested-buffs.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `workshop_producers.json`  ·  +0 / -0 / ~21
-
-**Changed (21)**
-- AmmoResource10mm  `AmmoResource10mm` — fields: releaseDate
-- AmmoResource308caliber  `AmmoResource308caliber` — fields: releaseDate
-- AmmoResource38caliber  `AmmoResource38caliber` — fields: releaseDate
-- AmmoResource44caliber  `AmmoResource44caliber` — fields: releaseDate
-- AmmoResource45caliber  `AmmoResource45caliber` — fields: releaseDate
-- AmmoResource50caliber  `AmmoResource50caliber` — fields: releaseDate
-- AmmoResource556  `AmmoResource556` — fields: releaseDate
-- AmmoResource5mm  `AmmoResource5mm` — fields: releaseDate
-- AmmoResourceFusionCell  `AmmoResourceFusionCell` — fields: releaseDate
-- AmmoResourceGammaCell  `AmmoResourceGammaCell` — fields: releaseDate
-- AmmoResourcePlasmaCartridge  `AmmoResourcePlasmaCartridge` — fields: releaseDate
-- AmmoResourceShotgunShell  `AmmoResourceShotgunShell` — fields: releaseDate
-- FertilizerBrahminResource  `FertilizerBrahminResource` — fields: releaseDate
-- FoodPackagedResource00  `FoodPackagedResource00` — fields: releaseDate
-- FoodPackagedResource01  `FoodPackagedResource01` — fields: releaseDate
-- FoodPackagedResource02  `FoodPackagedResource02` — fields: releaseDate
-- FoodPackagedResource03  `FoodPackagedResource03` — fields: releaseDate
-- FoodPackagedResource04  `FoodPackagedResource04` — fields: releaseDate
-- FoodResource  `FoodResource` — fields: releaseDate
-- FusionCoreResource  `FusionCoreResource` — fields: releaseDate
-- OreMountBlairResource  `OreMountBlairResource` — fields: releaseDate
+## `workshop_producers.json`  ·  +0 / -0 / ~0
 
 ## `world_pet_challenges.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
