@@ -215,6 +215,11 @@ def main():
             # full_map would point at a map that is never drawn.
             if doc.get("fixed_items"):
                 continue
+            # The Pre-War Food pages set their own map_base / full_map / chance
+            # map_base in the builder (their chance maps are shared, in the
+            # pre-war-food folder, and Rule 1 would latch onto that path).
+            if doc.get("own_map_renderer"):
+                continue
             if family == "farming_spawns" and slug.startswith("plant-") and slug not in overrides:
                 base = f"{ebuild.UPLOADS}farming-plants/{slug[len('plant-'):]}/"
             elif family == "farming_spawns" and slug.startswith("meat-") and slug not in overrides:

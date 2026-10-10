@@ -1,0 +1,8984 @@
+{
+ "_meta": {
+  "generated": "2026-10-10",
+  "source": "CHAL 'Pre-war Food' keyword -> ALCH; LVLI + Mappalachia Position (cached for CI) — src/build_pre_war_food_guide.py"
+ },
+ "set": "instamash",
+ "slug": "instamash",
+ "name": "InstaMash",
+ "page_title": "InstaMash Location Guide",
+ "blurb": "Every InstaMash spawn in Fallout 76: where it spawns, what it does, and where else you can get it.",
+ "food_key": "instamash",
+ "form_ids": [
+  "000366B9"
+ ],
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.5,
+   "value": 9,
+   "addiction": null,
+   "herbivore": true,
+   "carnivore": false,
+   "note": "InstaMash is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Restore Health",
+     "display": "Restores 20 Health",
+     "duration": "25s",
+     "label": "Restores Health",
+     "value": 20.0,
+     "unit": "health",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (1080/18 min)",
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 1080.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Rads",
+     "display": "+2 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 2.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
+    }
+   ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
+  },
+  "challenges": [
+   {
+    "name": "Collect Pre-war Food",
+    "edid": "SCORE_Challenge_Daily_Collect_Food_Prewar",
+    "page": "daily",
+    "type": "Daily",
+    "required": 5
+   },
+   {
+    "name": "Eat Pre-war Food",
+    "edid": "SCORE_Challenge_Daily_Consume_Food_Prewar",
+    "page": "daily",
+    "type": "Daily",
+    "required": 5
+   },
+   {
+    "name": "Epic - Collect Pre-war Food",
+    "edid": "SCORE_Challenge_Weekly_Collect_Food_Prewar_Epic",
+    "page": "weekly",
+    "type": "Weekly",
+    "required": 30
+   },
+   {
+    "name": "Collect Pre-war Food",
+    "edid": "SCORE_Challenge_Weekly_Collect_Food_Prewar",
+    "page": "weekly",
+    "type": "Weekly",
+    "required": 20
+   },
+   {
+    "name": "Eat Pre-war Food",
+    "edid": "SCORE_Challenge_Weekly_Consume_Food_Prewar",
+    "page": "weekly",
+    "type": "Weekly",
+    "required": 25
+   },
+   {
+    "name": "Eat Pre-war Food with the Sunset Sarsaparilla Deputy Hat Equipped",
+    "edid": "ATX_DE2025_SunsetStranger_Week1_Challenge_Consume_Food_Prewar",
+    "page": "season:sunset-stranger-week1",
+    "type": "Mini Season",
+    "required": 25
+   },
+   {
+    "name": "Collect a box of InstaMash",
+    "edid": "SCORE_Challenge_Daily_Collect_MealTypePackaged_InstaMash",
+    "page": "daily",
+    "type": "Daily",
+    "required": 1
+   },
+   {
+    "name": "Eat a box of InstaMash",
+    "edid": "SCORE_Challenge_Daily_Consume_MealTypePackaged_InstaMash",
+    "page": "daily",
+    "type": "Daily",
+    "required": 1
+   }
+  ],
+  "recipes": []
+ },
+ "farming_tips": {
+  "spoils": false,
+  "spoil_duration_hours": null,
+  "base_weight": 0.5,
+  "object_type": "Food",
+  "yield_perk": null,
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.28
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.05
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.05,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.3
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.1
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.05
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": false,
+  "perk_cards": {
+   "thru_hiker": {
+    "name": "Thru-Hiker",
+    "special": "Endurance",
+    "min_level": 7,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "Food and drink weights are reduced by 45%.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "desc": "Food and drink weights are reduced by 90%.",
+      "percent": "90%"
+     }
+    ]
+   }
+  }
+ },
+ "drop_rates": {
+  "creatures": {
+   "note": "",
+   "items": [
+    {
+     "name": "Super Mutant",
+     "rate": 0.002974,
+     "rate_display": "0.3%",
+     "note": ""
+    },
+    {
+     "name": "Brotherhood Soldier Initiate",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": ""
+    },
+    {
+     "name": "Assaultron Intimidator",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": "only during Infestation"
+    },
+    {
+     "name": "Protectron",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": "only during Infestation"
+    },
+    {
+     "name": "Scorched",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": ""
+    },
+    {
+     "name": "Spooky Scorched",
+     "rate": 0.00119,
+     "rate_display": "0.12%",
+     "note": ""
+    },
+    {
+     "name": "Mole Rat Brood Mother",
+     "rate": 0.00112,
+     "rate_display": "0.11%",
+     "note": ""
+    },
+    {
+     "name": "Super Mutant Suicider",
+     "rate": 0.001095,
+     "rate_display": "0.11%",
+     "note": ""
+    },
+    {
+     "name": "Civilian",
+     "rate": 0.000893,
+     "rate_display": "0.09%",
+     "note": ""
+    },
+    {
+     "name": "Civilian Competitor",
+     "rate": 0.000893,
+     "rate_display": "0.09%",
+     "note": ""
+    },
+    {
+     "name": "Clown",
+     "rate": 0.000893,
+     "rate_display": "0.09%",
+     "note": ""
+    },
+    {
+     "name": "Doorman",
+     "rate": 0.000893,
+     "rate_display": "0.09%",
+     "note": ""
+    },
+    {
+     "name": "Mob Collector",
+     "rate": 0.000893,
+     "rate_display": "0.09%",
+     "note": ""
+    },
+    {
+     "name": "Municipal Auditor Punisher",
+     "rate": 0.000893,
+     "rate_display": "0.09%",
+     "note": ""
+    },
+    {
+     "name": "Patron",
+     "rate": 0.000893,
+     "rate_display": "0.09%",
+     "note": ""
+    },
+    {
+     "name": "Showman",
+     "rate": 0.000893,
+     "rate_display": "0.09%",
+     "note": ""
+    },
+    {
+     "name": "Acidic Gulper",
+     "rate": 0.000256,
+     "rate_display": "0.03%",
+     "note": "only during Moonshine Jamboree"
+    },
+    {
+     "name": "Glowing Toxic Acidic Gulper",
+     "rate": 0.000256,
+     "rate_display": "0.03%",
+     "note": "only during Moonshine Jamboree"
+    },
+    {
+     "name": "Gulper",
+     "rate": 0.000256,
+     "rate_display": "0.03%",
+     "note": ""
+    },
+    {
+     "name": "Radtoad",
+     "rate": 0.000256,
+     "rate_display": "0.03%",
+     "note": ""
+    },
+    {
+     "name": "Thrasher",
+     "rate": 0.000256,
+     "rate_display": "0.03%",
+     "note": ""
+    },
+    {
+     "name": "Behemoth",
+     "rate": 0.000212,
+     "rate_display": "0.02%",
+     "note": ""
+    },
+    {
+     "name": "Bigfoot",
+     "rate": 0.000212,
+     "rate_display": "0.02%",
+     "note": ""
+    },
+    {
+     "name": "Overgrown Tank",
+     "rate": 0.000177,
+     "rate_display": "0.02%",
+     "note": "only during The Big Bloom"
+    },
+    {
+     "name": "Brahmin",
+     "rate": 4.4e-05,
+     "rate_display": "0%",
+     "note": ""
+    },
+    {
+     "name": "Feral Ghoul",
+     "rate": 3.2e-05,
+     "rate_display": "0%",
+     "note": ""
+    },
+    {
+     "name": "Feral Ghoul Reaver",
+     "rate": 3.2e-05,
+     "rate_display": "0%",
+     "note": ""
+    },
+    {
+     "name": "Angler",
+     "rate": 2.8e-05,
+     "rate_display": "0%",
+     "note": ""
+    }
+   ]
+  },
+  "collectrons": null,
+  "resource_generators": null,
+  "containers": {
+   "types": [
+    {
+     "name": "Safe",
+     "rate": 0.38760208799969276,
+     "rate_display": "38.76%"
+    },
+    {
+     "name": "Cooler",
+     "rate": 0.3875371231874023,
+     "rate_display": "38.75%"
+    },
+    {
+     "name": "Mayor's Safe",
+     "rate": 0.3875371231874023,
+     "rate_display": "38.75%"
+    },
+    {
+     "name": "Pre-War Safe",
+     "rate": 0.3875371231874023,
+     "rate_display": "38.75%"
+    },
+    {
+     "name": "Security Office Safe",
+     "rate": 0.3875371231874023,
+     "rate_display": "38.75%"
+    },
+    {
+     "name": "Super Duper Mart Safe",
+     "rate": 0.3875371231874023,
+     "rate_display": "38.75%"
+    },
+    {
+     "name": "Underdweller Dropbox",
+     "rate": 0.3875371231874023,
+     "rate_display": "38.75%"
+    },
+    {
+     "name": "Safe",
+     "rate": 0.3875371231874022,
+     "rate_display": "38.75%"
+    },
+    {
+     "name": "Safe",
+     "rate": 0.29020287115357346,
+     "rate_display": "29.02%"
+    },
+    {
+     "name": "Vault Trunk",
+     "rate": 0.29020287115357346,
+     "rate_display": "29.02%"
+    },
+    {
+     "name": "Overseer's Cache",
+     "rate": 0.058123347603380005,
+     "rate_display": "5.81%"
+    },
+    {
+     "name": "Metal Box",
+     "rate": 0.03523881015356545,
+     "rate_display": "3.52%"
+    },
+    {
+     "name": "Cooler",
+     "rate": 0.029774999999999996,
+     "rate_display": "2.98%"
+    },
+    {
+     "name": "Lunch Pail",
+     "rate": 0.029774999999999996,
+     "rate_display": "2.98%"
+    },
+    {
+     "name": "Sunny's Lunch Pail",
+     "rate": 0.029774999999999996,
+     "rate_display": "2.98%"
+    },
+    {
+     "name": "Chem Cooler",
+     "rate": 0.015000000000000013,
+     "rate_display": "1.5%"
+    },
+    {
+     "name": "Cooler",
+     "rate": 0.015000000000000013,
+     "rate_display": "1.5%"
+    },
+    {
+     "name": "Duffle Bag",
+     "rate": 0.015000000000000013,
+     "rate_display": "1.5%"
+    },
+    {
+     "name": "Duffle Bag",
+     "rate": 0.011904761904761904,
+     "rate_display": "1.19%"
+    },
+    {
+     "name": "Lunch Pail",
+     "rate": 0.011904761904761904,
+     "rate_display": "1.19%"
+    },
+    {
+     "name": "Government Aid Drop",
+     "rate": 0.008928571428571397,
+     "rate_display": "0.89%"
+    },
+    {
+     "name": "Refrigerator",
+     "rate": 0.0029166666666666785,
+     "rate_display": "0.29%"
+    },
+    {
+     "name": "Government Aid Drop",
+     "rate": 0.0023809523809523725,
+     "rate_display": "0.24%"
+    },
+    {
+     "name": "U.S.S.A. Supply Crate",
+     "rate": 0.0023809523809523725,
+     "rate_display": "0.24%"
+    },
+    {
+     "name": "Refrigerator",
+     "rate": 0.0014999999999999458,
+     "rate_display": "0.15%"
+    },
+    {
+     "name": "Ash Pile",
+     "rate": 0.0011904761904761901,
+     "rate_display": "0.12%"
+    },
+    {
+     "name": "Brotherhood Corpse",
+     "rate": 0.0011904761904761901,
+     "rate_display": "0.12%"
+    },
+    {
+     "name": "Civilian Corpse",
+     "rate": 0.0011904761904761862,
+     "rate_display": "0.12%"
+    },
+    {
+     "name": "Competitor Corpse",
+     "rate": 0.0011904761904761862,
+     "rate_display": "0.12%"
+    },
+    {
+     "name": "Ella Ames Corpse",
+     "rate": 0.0011904761904761862,
+     "rate_display": "0.12%"
+    },
+    {
+     "name": "Enclave Corpse",
+     "rate": 0.0011904761904761862,
+     "rate_display": "0.12%"
+    },
+    {
+     "name": "Miner Corpse",
+     "rate": 0.0011904761904761862,
+     "rate_display": "0.12%"
+    },
+    {
+     "name": "Mob Corpse",
+     "rate": 0.0011904761904761862,
+     "rate_display": "0.12%"
+    },
+    {
+     "name": "Municipal Auditor Corpse",
+     "rate": 0.0011904761904761862,
+     "rate_display": "0.12%"
+    },
+    {
+     "name": "Municipal Worker Corpse",
+     "rate": 0.0011904761904761862,
+     "rate_display": "0.12%"
+    },
+    {
+     "name": "Older Woman Corpse",
+     "rate": 0.0011904761904761862,
+     "rate_display": "0.12%"
+    },
+    {
+     "name": "Raider Corpse",
+     "rate": 0.0011904761904761862,
+     "rate_display": "0.12%"
+    },
+    {
+     "name": "Responder Corpse",
+     "rate": 0.0011904761904761862,
+     "rate_display": "0.12%"
+    },
+    {
+     "name": "Scorched Corpse",
+     "rate": 0.0011904761904761862,
+     "rate_display": "0.12%"
+    },
+    {
+     "name": "Secret Service Agent Corpse",
+     "rate": 0.0011904761904761862,
+     "rate_display": "0.12%"
+    },
+    {
+     "name": "Showman Corpse",
+     "rate": 0.0011904761904761862,
+     "rate_display": "0.12%"
+    },
+    {
+     "name": "Soldier Corpse",
+     "rate": 0.0011904761904761862,
+     "rate_display": "0.12%"
+    },
+    {
+     "name": "Super Mutant Corpse",
+     "rate": 0.0011904761904761862,
+     "rate_display": "0.12%"
+    },
+    {
+     "name": "Mole Rat Brood Mother Corpse",
+     "rate": 0.0011201190476189948,
+     "rate_display": "0.11%"
+    },
+    {
+     "name": "Tent",
+     "rate": 0.0007738095238095655,
+     "rate_display": "0.08%"
+    },
+    {
+     "name": "Gulper Corpse",
+     "rate": 0.0002563229719745319,
+     "rate_display": "0.03%"
+    },
+    {
+     "name": "Asylum Desk",
+     "rate": 0.0002275102739028867,
+     "rate_display": "0.02%"
+    },
+    {
+     "name": "Desk",
+     "rate": 0.0002275102739028867,
+     "rate_display": "0.02%"
+    },
+    {
+     "name": "Dresser",
+     "rate": 0.0002275102739028867,
+     "rate_display": "0.02%"
+    },
+    {
+     "name": "File Cabinet",
+     "rate": 0.0002275102739028867,
+     "rate_display": "0.02%"
+    },
+    {
+     "name": "Locker",
+     "rate": 0.0002275102739028867,
+     "rate_display": "0.02%"
+    },
+    {
+     "name": "Pre-War Locker",
+     "rate": 0.0002275102739028867,
+     "rate_display": "0.02%"
+    },
+    {
+     "name": "Primitive End Table",
+     "rate": 0.0002275102739028867,
+     "rate_display": "0.02%"
+    },
+    {
+     "name": "Table",
+     "rate": 0.0002275102739028867,
+     "rate_display": "0.02%"
+    },
+    {
+     "name": "Crashed Vertibot",
+     "rate": 0.00018246626931694987,
+     "rate_display": "0.02%"
+    },
+    {
+     "name": "Vault Locker",
+     "rate": 0.00018246626931694987,
+     "rate_display": "0.02%"
+    },
+    {
+     "name": "Agent Corpse",
+     "rate": 0.00017678571428569878,
+     "rate_display": "0.02%"
+    },
+    {
+     "name": "Loot Cache",
+     "rate": 0.00017678571428569878,
+     "rate_display": "0.02%"
+    },
+    {
+     "name": "Steamer Trunk",
+     "rate": 0.00017678571428569878,
+     "rate_display": "0.02%"
+    },
+    {
+     "name": "Suitcase",
+     "rate": 0.00017678571428569878,
+     "rate_display": "0.02%"
+    },
+    {
+     "name": "Wooden Box",
+     "rate": 0.00017678571428569878,
+     "rate_display": "0.02%"
+    },
+    {
+     "name": "Wooden Crate",
+     "rate": 0.00017678571428569878,
+     "rate_display": "0.02%"
+    },
+    {
+     "name": "Metal Box",
+     "rate": 0.00017501054389679194,
+     "rate_display": "0.02%"
+    },
+    {
+     "name": "Hamper",
+     "rate": 0.00014142482104595455,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Private Footlocker",
+     "rate": 0.00014142482104595455,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Steamer Trunk",
+     "rate": 0.00014142482104595455,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Console",
+     "rate": 0.00012640046526712911,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Curio",
+     "rate": 0.00012640046526712911,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Vault Desk",
+     "rate": 0.00012640046526712911,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Bear-Proof Trash Can",
+     "rate": 0.00011491071428570976,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Bureau",
+     "rate": 0.00011491071428570976,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Cabinet",
+     "rate": 0.00011491071428570976,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Desk",
+     "rate": 0.00011491071428570976,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Dinosaur Egg Bin",
+     "rate": 0.00011491071428570976,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Dresser",
+     "rate": 0.00011491071428570976,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Dryer",
+     "rate": 0.00011491071428570976,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Ice Cooler",
+     "rate": 0.00011491071428570976,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Mailbox",
+     "rate": 0.00011491071428570976,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Office Desk",
+     "rate": 0.00011491071428570976,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Pre-War Trash Can",
+     "rate": 0.00011491071428570976,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Trash Can",
+     "rate": 0.00011491071428570976,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Vanity",
+     "rate": 0.00011491071428570976,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Washer",
+     "rate": 0.00011491071428570976,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Whitesprings Trash Can",
+     "rate": 0.00011491071428570976,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Wooden Crate",
+     "rate": 0.00011491071428570976,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Footlocker",
+     "rate": 0.00010607142857144147,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "News Stand",
+     "rate": 7.469196428566693e-05,
+     "rate_display": "0.01%"
+    },
+    {
+     "name": "Brahmin Corpse",
+     "rate": 4.419642857145245e-05,
+     "rate_display": "0%"
+    },
+    {
+     "name": "Tent",
+     "rate": 4.4196428571424695e-05,
+     "rate_display": "0%"
+    },
+    {
+     "name": "Hunter Corpse",
+     "rate": 3.535714285713975e-05,
+     "rate_display": "0%"
+    },
+    {
+     "name": "Corpse Pile",
+     "rate": 3.1909821428532936e-05,
+     "rate_display": "0%"
+    },
+    {
+     "name": "Feral Ghoul Corpse",
+     "rate": 3.1909821428532936e-05,
+     "rate_display": "0%"
+    },
+    {
+     "name": "Feral Ghoul Reaver Corpse",
+     "rate": 3.1909821428532936e-05,
+     "rate_display": "0%"
+    },
+    {
+     "name": "Weak Feral Ghoul Corpse",
+     "rate": 3.1909821428532936e-05,
+     "rate_display": "0%"
+    },
+    {
+     "name": "Dumpster",
+     "rate": 1.8385635058959515e-05,
+     "rate_display": "0%"
+    },
+    {
+     "name": "Metal Box",
+     "rate": 1.8385635058959515e-05,
+     "rate_display": "0%"
+    },
+    {
+     "name": "Trash Can",
+     "rate": 1.8385635058959515e-05,
+     "rate_display": "0%"
+    }
+   ]
+  }
+ },
+ "vendor_list": [
+  {
+   "name": "Rudy Fernandez",
+   "marker": "Big Bend Tunnel East",
+   "region": "Cranberry Bog",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "72.09%"
+   ],
+   "rate_display": "72.09%",
+   "rate_value": 0.720918,
+   "count": 1
+  },
+  {
+   "name": "Leo Petrov",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "19.93%"
+   ],
+   "rate_display": "19.93%",
+   "rate_value": 0.199344,
+   "count": 1
+  },
+  {
+   "name": "Marie",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.65%"
+   ],
+   "rate_display": "15.65%",
+   "rate_value": 0.156536,
+   "count": 1
+  },
+  {
+   "name": "The Whitespring Station Vendor",
+   "marker": "Whitespring Station",
+   "region": "Savage Divide",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "15.65%",
+    "4.08%"
+   ],
+   "rate_display": "15.65% / 4.08%",
+   "rate_value": 0.156536,
+   "count": 1
+  },
+  {
+   "name": "Duchess",
+   "marker": "The Wayward",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "5.99%"
+   ],
+   "rate_display": "5.99%",
+   "rate_value": 0.059932,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Chad",
+   "marker": "Camden Park",
+   "region": "Ash Heap",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Lewisburg Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Welch Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Carmen",
+   "marker": "Atlantic City",
+   "region": "Atlantic City",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Fast Nicky",
+   "marker": "Atlantic City",
+   "region": "Atlantic City",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Pete Rutledge",
+   "marker": "Atlantic City",
+   "region": "Atlantic City",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "May",
+   "marker": "Highway Town Interior",
+   "region": "Burning Springs",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Hocking Hills Vendor Bot",
+   "marker": "Hocking Hills Train Station",
+   "region": "Burning Springs",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Phoenix",
+   "marker": "Watoga Shopping Plaza",
+   "region": "Cranberry Bog",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%",
+    "0.6%"
+   ],
+   "rate_display": "4.08% / 0.6%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Watoga Vendor Bot",
+   "marker": "Watoga Station",
+   "region": "Cranberry Bog",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Mack",
+   "marker": "Charleston Fire Department",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Charleston Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Bob",
+   "marker": "Flatwoods",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Responder Vendor",
+   "marker": "Morgantown High School",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Morgantown Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "Sutton Station",
+   "region": "Forest",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Sunny",
+   "marker": "Foundation",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Resin",
+   "marker": "Pleasant Valley Ski Resort",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "Pleasant Valley Station",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "R&G Station",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "Sunnytop Station",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Brotherhood Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%",
+    "0.6%"
+   ],
+   "rate_display": "4.08% / 0.6%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Free States Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%",
+    "0.89%"
+   ],
+   "rate_display": "4.08% / 0.89%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Raiders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Responders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Shopping Mall Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Murry",
+   "marker": "",
+   "region": "Skyline Valley",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Wallace",
+   "marker": "Berkeley Springs Station",
+   "region": "The Mire",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%",
+    "0.89%"
+   ],
+   "rate_display": "4.08% / 0.89%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Beckham",
+   "marker": "Raleigh Clay's Bunker",
+   "region": "The Mire",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Greg",
+   "marker": "Grafton",
+   "region": "Toxic Valley",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Grafton Station",
+   "region": "Toxic Valley",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Molly",
+   "marker": "The Crater",
+   "region": "Toxic Valley",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "A.T.H.E.N.A.",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Astronaut Emerson Vendor",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Beckett",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Daphne",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 2
+  },
+  {
+   "name": "Grahm",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Hunter",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Sam Nguyen",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Scavenger Trader",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 6
+  },
+  {
+   "name": "Trader",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Traveling Merchant",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Xerxo",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Del Lawson",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "1.19%"
+   ],
+   "rate_display": "1.19%",
+   "rate_value": 0.011905,
+   "count": 1
+  }
+ ],
+ "events_activities": [
+  {
+   "list_id": "003FB9B0",
+   "edid": "CB04_RewardContainerList",
+   "name": "CB04 Reward Container List",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the CB04 Reward Container List reward pool per event/activity payout.",
+   "rate_value": 0.387537,
+   "rate_display": "38.75%",
+   "rate_lines": [
+    "38.75%"
+   ]
+  },
+  {
+   "list_id": "0061F6FD",
+   "edid": "SCORE_S5_COMP_Inspector_LL_Food_Packaged_Regular",
+   "name": "SCORE S5 COMP Inspector Food Packaged Regular",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the SCORE S5 COMP Inspector Food Packaged Regular reward pool per event/activity payout.",
+   "rate_value": 0.047619,
+   "rate_display": "4.76%",
+   "rate_lines": [
+    "4.76%"
+   ]
+  },
+  {
+   "list_id": "003716E1",
+   "edid": "ENz01_LL_QuestReward_OrbitalDrop",
+   "name": "ENz01 Quest Reward Orbital Drop",
+   "type": "Quest Reward",
+   "note": "Chance the item is in the ENz01 Quest Reward Orbital Drop reward pool per event/activity payout.",
+   "rate_value": 0.023668,
+   "rate_display": "2.37%",
+   "rate_lines": [
+    "2.37%"
+   ]
+  },
+  {
+   "list_id": "005FF9CA",
+   "edid": "BS02_MQ01_Penance_LL_Quest_Rewards",
+   "name": "A Knight's Penance",
+   "type": "Primary",
+   "note": "Chance the item is in the A Knight's Penance reward pool per event/activity payout.",
+   "rate_value": 0.015,
+   "rate_display": "1.5%",
+   "rate_lines": [
+    "1.5%"
+   ]
+  },
+  {
+   "list_id": "00893F6F",
+   "edid": "HTO_crLLS_Rewards_Bespoke_Boss",
+   "name": "HTO cr LLS Rewards Bespoke Boss",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the HTO cr LLS Rewards Bespoke Boss reward pool per event/activity payout.",
+   "rate_value": 0.00119,
+   "rate_display": "0.12%",
+   "rate_lines": [
+    "0.12%"
+   ]
+  },
+  {
+   "list_id": "00893F72",
+   "edid": "HTO_crLLS_Rewards_Bespoke_Mob",
+   "name": "HTO cr LLS Rewards Bespoke Mob",
+   "type": "Event / Activity",
+   "note": "Chance the item is in the HTO cr LLS Rewards Bespoke Mob reward pool per event/activity payout.",
+   "rate_value": 0.00119,
+   "rate_display": "0.12%",
+   "rate_lines": [
+    "0.12%"
+   ]
+  },
+  {
+   "list_id": "0035D0C7",
+   "edid": "FF12_LL_QuestReward_Event_Basic",
+   "name": "The Bell Tolls",
+   "type": "Quest Reward",
+   "note": "Chance the item is in the The Bell Tolls reward pool per event/activity payout.",
+   "rate_value": 4.4e-05,
+   "rate_display": "<0.01%",
+   "rate_lines": [
+    "<0.01%"
+   ]
+  }
+ ],
+ "treasure_maps": {
+  "maps": [
+   {
+    "group": "Treasure Maps",
+    "name": "Toxic Valley Treasure Map #01",
+    "region": "Toxic Valley",
+    "form_id": "0051B8B1",
+    "edid": "TreasureMap10",
+    "rate": 0.011905,
+    "rate_display": "1.19%"
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Toxic Valley Treasure Map #02",
+    "region": "Toxic Valley",
+    "form_id": "0051B8B8",
+    "edid": "TreasureMap13",
+    "rate": 0.011905,
+    "rate_display": "1.19%"
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Toxic Valley Treasure Map #03",
+    "region": "Toxic Valley",
+    "form_id": "0051B8BC",
+    "edid": "TreasureMap16",
+    "rate": 0.011905,
+    "rate_display": "1.19%"
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Toxic Valley Treasure Map #04",
+    "region": "Toxic Valley",
+    "form_id": "0051B8C1",
+    "edid": "TreasureMap18",
+    "rate": 0.011905,
+    "rate_display": "1.19%"
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Ash Heap Treasure Map #01",
+    "region": "Ash Heap",
+    "form_id": "0051B8A8",
+    "edid": "TreasureMap04",
+    "rate": 0.003968,
+    "rate_display": "0.4%"
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Ash Heap Treasure Map #02",
+    "region": "Ash Heap",
+    "form_id": "0051B8AC",
+    "edid": "TreasureMap07",
+    "rate": 0.003968,
+    "rate_display": "0.4%"
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Forest Treasure Map #01",
+    "region": "Forest",
+    "form_id": "0051B7A2",
+    "edid": "TreasureMap01",
+    "rate": 0.003968,
+    "rate_display": "0.4%"
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Forest Treasure Map #02",
+    "region": "Forest",
+    "form_id": "0051B8A6",
+    "edid": "TreasureMap02",
+    "rate": 0.003968,
+    "rate_display": "0.4%"
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Forest Treasure Map #03",
+    "region": "Forest",
+    "form_id": "0051B8A7",
+    "edid": "TreasureMap03",
+    "rate": 0.003968,
+    "rate_display": "0.4%"
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Forest Treasure Map #04",
+    "region": "Forest",
+    "form_id": "0051B8A9",
+    "edid": "TreasureMap05",
+    "rate": 0.003968,
+    "rate_display": "0.4%"
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Forest Treasure Map #05",
+    "region": "Forest",
+    "form_id": "0051B8AA",
+    "edid": "TreasureMap06",
+    "rate": 0.003968,
+    "rate_display": "0.4%"
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Forest Treasure Map #06",
+    "region": "Forest",
+    "form_id": "0051B8AE",
+    "edid": "TreasureMap08",
+    "rate": 0.003968,
+    "rate_display": "0.4%"
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Forest Treasure Map #07",
+    "region": "Forest",
+    "form_id": "0051B8B0",
+    "edid": "TreasureMap09",
+    "rate": 0.003968,
+    "rate_display": "0.4%"
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Forest Treasure Map #08",
+    "region": "Forest",
+    "form_id": "0051B8B2",
+    "edid": "TreasureMap11",
+    "rate": 0.003968,
+    "rate_display": "0.4%"
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Forest Treasure Map #09",
+    "region": "Forest",
+    "form_id": "0051B8B6",
+    "edid": "TreasureMap12",
+    "rate": 0.003968,
+    "rate_display": "0.4%"
+   },
+   {
+    "group": "Treasure Maps",
+    "name": "Forest Treasure Map #10",
+    "region": "Forest",
+    "form_id": "0051B8B9",
+    "edid": "TreasureMap14",
+    "rate": 0.003968,
+    "rate_display": "0.4%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Ash Heap Treasure Map #01 Teammate Reward",
+    "region": "Ash Heap",
+    "form_id": "0051B8A8",
+    "edid": "TreasureMap04",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Ash Heap Treasure Map #02 Teammate Reward",
+    "region": "Ash Heap",
+    "form_id": "0051B8AC",
+    "edid": "TreasureMap07",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Cranberry Bog Treasure Map #01 Teammate Reward",
+    "region": "Cranberry Bog",
+    "form_id": "0051B8CD",
+    "edid": "TreasureMap26",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Cranberry Bog Treasure Map #02 Teammate Reward",
+    "region": "Cranberry Bog",
+    "form_id": "0051B8D6",
+    "edid": "TreasureMap30",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Cranberry Bog Treasure Map #03 Teammate Reward",
+    "region": "Cranberry Bog",
+    "form_id": "0051B8D9",
+    "edid": "TreasureMap33",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Cranberry Bog Treasure Map #04 Teammate Reward",
+    "region": "Cranberry Bog",
+    "form_id": "0051B8DE",
+    "edid": "TreasureMap35",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #01 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B7A2",
+    "edid": "TreasureMap01",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #02 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8A6",
+    "edid": "TreasureMap02",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #03 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8A7",
+    "edid": "TreasureMap03",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #04 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8A9",
+    "edid": "TreasureMap05",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #05 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8AA",
+    "edid": "TreasureMap06",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #06 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8AE",
+    "edid": "TreasureMap08",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #07 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8B0",
+    "edid": "TreasureMap09",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #08 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8B2",
+    "edid": "TreasureMap11",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #09 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8B6",
+    "edid": "TreasureMap12",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Forest Treasure Map #10 Teammate Reward",
+    "region": "Forest",
+    "form_id": "0051B8B9",
+    "edid": "TreasureMap14",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Mire Treasure Map #01 Teammate Reward",
+    "region": "The Mire",
+    "form_id": "0051B8CE",
+    "edid": "TreasureMap27",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Mire Treasure Map #02 Teammate Reward",
+    "region": "The Mire",
+    "form_id": "0051B8D2",
+    "edid": "TreasureMap28",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Mire Treasure Map #03 Teammate Reward",
+    "region": "The Mire",
+    "form_id": "0051B8D7",
+    "edid": "TreasureMap31",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Mire Treasure Map #04 Teammate Reward",
+    "region": "The Mire",
+    "form_id": "0051B8D8",
+    "edid": "TreasureMap32",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Mire Treasure Map #05 Teammate Reward",
+    "region": "The Mire",
+    "form_id": "0051B8DB",
+    "edid": "TreasureMap34",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #01 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8BA",
+    "edid": "TreasureMap15",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #02 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8C0",
+    "edid": "TreasureMap17",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #03 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8C2",
+    "edid": "TreasureMap19",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #04 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8C4",
+    "edid": "TreasureMap20",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #05 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8C6",
+    "edid": "TreasureMap21",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #06 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8C7",
+    "edid": "TreasureMap22",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #07 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8C8",
+    "edid": "TreasureMap23",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #08 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8CA",
+    "edid": "TreasureMap24",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #09 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8CC",
+    "edid": "TreasureMap25",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Savage Divide Treasure Map #10 Teammate Reward",
+    "region": "Savage Divide",
+    "form_id": "0051B8D4",
+    "edid": "TreasureMap29",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Toxic Valley Treasure Map #01 Teammate Reward",
+    "region": "Toxic Valley",
+    "form_id": "0051B8B1",
+    "edid": "TreasureMap10",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Toxic Valley Treasure Map #02 Teammate Reward",
+    "region": "Toxic Valley",
+    "form_id": "0051B8B8",
+    "edid": "TreasureMap13",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Toxic Valley Treasure Map #03 Teammate Reward",
+    "region": "Toxic Valley",
+    "form_id": "0051B8BC",
+    "edid": "TreasureMap16",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   },
+   {
+    "group": "Teammate Reward",
+    "name": "Toxic Valley Treasure Map #04 Teammate Reward",
+    "region": "Toxic Valley",
+    "form_id": "0051B8C1",
+    "edid": "TreasureMap18",
+    "rate": 0.006577,
+    "rate_display": "0.66%"
+   }
+  ]
+ },
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": [
+    {
+     "marker": "Camden Park",
+     "count": 3,
+     "sources": {
+      "direct": 1,
+      "static": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "355C97",
+      "3EA142",
+      "3EA143"
+     ],
+     "coords": [
+      -176445.6,
+      -84613.9
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash #1",
+       "ref": "355C97",
+       "source_type": "direct",
+       "coords": [
+        -178407.4,
+        -81812.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #2",
+       "ref": "3EA142",
+       "source_type": "static",
+       "coords": [
+        -176445.6,
+        -84613.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #3",
+       "ref": "3EA143",
+       "source_type": "static",
+       "coords": [
+        -176443.5,
+        -84614.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 3,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Hornwright Testing Site #04",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "4F78CD"
+     ],
+     "coords": [
+      -146544.9,
+      -95261.9
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "4F78CD",
+       "source_type": "direct",
+       "coords": [
+        -146544.9,
+        -95261.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Pylon Ambush Site",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "312071"
+     ],
+     "coords": [
+      -83560.0,
+      -93373.4
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "312071",
+       "source_type": "direct",
+       "coords": [
+        -83560.0,
+        -93373.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Rollins Labor Camp",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "58B489"
+     ],
+     "coords": [
+      -98587.7,
+      -115761.2
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "58B489",
+       "source_type": "direct",
+       "coords": [
+        -98587.7,
+        -115761.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Welch",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "30EA51"
+     ],
+     "coords": [
+      -153645.3,
+      -134093.2
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "30EA51",
+       "source_type": "direct",
+       "coords": [
+        -153645.3,
+        -134093.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Forest",
+   "locations": [
+    {
+     "marker": "Aaronholt Homestead",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "30BEA7"
+     ],
+     "coords": [
+      -122243.4,
+      177965.5
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "30BEA7",
+       "source_type": "direct",
+       "coords": [
+        -122243.4,
+        177965.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Arktos Pharma Biome Lab",
+     "count": 5,
+     "sources": {
+      "direct": 5
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3F4B37",
+      "3FCA65",
+      "403301",
+      "61BA6E",
+      "61BCD6"
+     ],
+     "coords": [
+      -2113.8,
+      -2491.7
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash #1",
+       "ref": "3F4B37",
+       "source_type": "direct",
+       "coords": [
+        -4232.5,
+        -675.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #2",
+       "ref": "3FCA65",
+       "source_type": "direct",
+       "coords": [
+        -901.4,
+        -1513.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #3",
+       "ref": "403301",
+       "source_type": "direct",
+       "coords": [
+        -2113.8,
+        -2491.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #4",
+       "ref": "61BA6E",
+       "source_type": "direct",
+       "coords": [
+        -4232.5,
+        -675.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #5",
+       "ref": "61BCD6",
+       "source_type": "direct",
+       "coords": [
+        -901.4,
+        -1513.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 5,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Big Al's Tattoo Parlor",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3C0E8F"
+     ],
+     "coords": [
+      -3946.4,
+      72231.2
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "3C0E8F",
+       "source_type": "direct",
+       "coords": [
+        -3946.4,
+        72231.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Gauley Mine",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "56E6C0"
+     ],
+     "coords": [
+      5325.7,
+      2026.7
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "56E6C0",
+       "source_type": "direct",
+       "coords": [
+        5325.7,
+        2026.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Greg's Mine Supply",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "32AD2E"
+     ],
+     "coords": [
+      -23229.0,
+      50348.7
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "32AD2E",
+       "source_type": "direct",
+       "coords": [
+        -23229.0,
+        50348.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Morgantown",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "32B385"
+     ],
+     "coords": [
+      -4229.7,
+      93446.6
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "32B385",
+       "source_type": "direct",
+       "coords": [
+        -4229.7,
+        93446.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Morgantown High School",
+     "count": 5,
+     "sources": {
+      "direct": 5
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2C3DA2",
+      "2C3DA3",
+      "30B115",
+      "677095",
+      "677096"
+     ],
+     "coords": [
+      -1568.4,
+      100845.2
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash #1",
+       "ref": "2C3DA2",
+       "source_type": "direct",
+       "coords": [
+        3058.2,
+        -982.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #2",
+       "ref": "2C3DA3",
+       "source_type": "direct",
+       "coords": [
+        3361.4,
+        -908.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #3",
+       "ref": "30B115",
+       "source_type": "direct",
+       "coords": [
+        -1568.4,
+        100845.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #4",
+       "ref": "677095",
+       "source_type": "direct",
+       "coords": [
+        3361.4,
+        -908.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #5",
+       "ref": "677096",
+       "source_type": "direct",
+       "coords": [
+        3058.2,
+        -982.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 5,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Overlook Cabin",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "59A3B7"
+     ],
+     "coords": [
+      -44150.7,
+      -44540.7
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "59A3B7",
+       "source_type": "direct",
+       "coords": [
+        -44150.7,
+        -44540.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Shelters Claim Center",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5EE538"
+     ],
+     "coords": [
+      -5266.6,
+      615.8
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "5EE538",
+       "source_type": "static",
+       "coords": [
+        -5266.6,
+        615.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Coop",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2E878A"
+     ],
+     "coords": [
+      -147580.3,
+      111382.0
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "2E878A",
+       "source_type": "direct",
+       "coords": [
+        -147580.3,
+        111382.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Giant Teapot",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "35D09E",
+      "35DB58"
+     ],
+     "coords": [
+      -129796.4,
+      -31638.7
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash #1",
+       "ref": "35D09E",
+       "source_type": "direct",
+       "coords": [
+        -132445.6,
+        -29827.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #2",
+       "ref": "35DB58",
+       "source_type": "direct",
+       "coords": [
+        -129796.4,
+        -31638.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Twin Pine Cabins",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "553CFC"
+     ],
+     "coords": [
+      -75432.1,
+      114252.8
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "553CFC",
+       "source_type": "direct",
+       "coords": [
+        -75432.1,
+        114252.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "WV Lumber Co. Office",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "53B73C"
+     ],
+     "coords": [
+      3728.1,
+      -2499.2
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "53B73C",
+       "source_type": "direct",
+       "coords": [
+        3728.1,
+        -2499.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": [
+    {
+     "marker": "Black Bear Lodge",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "29BADE",
+      "3A796A"
+     ],
+     "coords": [
+      15258.3,
+      185511.1
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash #1",
+       "ref": "29BADE",
+       "source_type": "direct",
+       "coords": [
+        2232.3,
+        183693.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #2",
+       "ref": "3A796A",
+       "source_type": "direct",
+       "coords": [
+        15258.3,
+        185511.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Clarksburg",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "52B568"
+     ],
+     "coords": [
+      -24023.8,
+      167544.4
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "52B568",
+       "source_type": "direct",
+       "coords": [
+        -24023.8,
+        167544.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Grafton",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2AF4A5"
+     ],
+     "coords": [
+      -49841.9,
+      157683.7
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "2AF4A5",
+       "source_type": "direct",
+       "coords": [
+        -49841.9,
+        157683.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Savage Divide",
+   "locations": [
+    {
+     "marker": "Big Fred's BBQ Shack",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "361DE5"
+     ],
+     "coords": [
+      60323.7,
+      -18111.5
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "361DE5",
+       "source_type": "direct",
+       "coords": [
+        60323.7,
+        -18111.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Blue Ridge Office",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5A7B72"
+     ],
+     "coords": [
+      207.0,
+      319.3
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "5A7B72",
+       "source_type": "direct",
+       "coords": [
+        207.0,
+        319.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Devil's Backbone",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "52E780"
+     ],
+     "coords": [
+      89339.6,
+      -81028.4
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "52E780",
+       "source_type": "direct",
+       "coords": [
+        89339.6,
+        -81028.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Foundation Outpost",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "6528F4"
+     ],
+     "coords": [
+      68609.2,
+      -106465.5
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "6528F4",
+       "source_type": "direct",
+       "coords": [
+        68609.2,
+        -106465.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Hornwright Estate",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "35B3D3"
+     ],
+     "coords": [
+      -56223.6,
+      -147813.3
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "35B3D3",
+       "source_type": "direct",
+       "coords": [
+        -56223.6,
+        -147813.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Metal Dome",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "52DA34",
+      "6431FC"
+     ],
+     "coords": [
+      79214.3,
+      112154.7
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash #1",
+       "ref": "52DA34",
+       "source_type": "direct",
+       "coords": [
+        79214.3,
+        112154.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #2",
+       "ref": "6431FC",
+       "source_type": "direct",
+       "coords": [
+        71587.3,
+        101296.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Pumpkin House",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "342E7C",
+      "3AA02F"
+     ],
+     "coords": [
+      121865.0,
+      127809.4
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash #1",
+       "ref": "342E7C",
+       "source_type": "direct",
+       "coords": [
+        126705.2,
+        133322.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #2",
+       "ref": "3AA02F",
+       "source_type": "direct",
+       "coords": [
+        121865.0,
+        127809.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Seneca Rocks Visitor Center",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "339C22"
+     ],
+     "coords": [
+      52607.2,
+      53574.8
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "339C22",
+       "source_type": "direct",
+       "coords": [
+        52607.2,
+        53574.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Sugar Grove",
+     "count": 4,
+     "sources": {
+      "direct": 4
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "203CDB",
+      "203CDC",
+      "34FDB7",
+      "35001F"
+     ],
+     "coords": [
+      -651.8,
+      5444.0
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash #1",
+       "ref": "203CDB",
+       "source_type": "direct",
+       "coords": [
+        125083.4,
+        -29161.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #2",
+       "ref": "203CDC",
+       "source_type": "direct",
+       "coords": [
+        125085.1,
+        -29163.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #3",
+       "ref": "34FDB7",
+       "source_type": "direct",
+       "coords": [
+        2510.5,
+        5165.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #4",
+       "ref": "35001F",
+       "source_type": "direct",
+       "coords": [
+        -651.8,
+        5444.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 4,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Bounty",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "552781"
+     ],
+     "coords": [
+      64692.9,
+      -145973.1
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "552781",
+       "source_type": "direct",
+       "coords": [
+        64692.9,
+        -145973.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Sludge Hole",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "30E724"
+     ],
+     "coords": [
+      77020.3,
+      42518.1
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "30E724",
+       "source_type": "direct",
+       "coords": [
+        77020.3,
+        42518.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Vault 79",
+     "count": 6,
+     "sources": {
+      "direct": 6
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5404AF",
+      "5404B0",
+      "589CA9",
+      "589CC2",
+      "589CC3",
+      "589CC6"
+     ],
+     "coords": [
+      -577.7,
+      1175.3
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash #1",
+       "ref": "5404AF",
+       "source_type": "direct",
+       "coords": [
+        -6337.1,
+        4130.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #2",
+       "ref": "5404B0",
+       "source_type": "direct",
+       "coords": [
+        -6350.8,
+        4133.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #3",
+       "ref": "589CA9",
+       "source_type": "direct",
+       "coords": [
+        -577.7,
+        1175.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #4",
+       "ref": "589CC2",
+       "source_type": "direct",
+       "coords": [
+        -1555.6,
+        1436.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #5",
+       "ref": "589CC3",
+       "source_type": "direct",
+       "coords": [
+        -1540.6,
+        1444.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #6",
+       "ref": "589CC6",
+       "source_type": "direct",
+       "coords": [
+        -1526.8,
+        1414.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 6,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": [
+    {
+     "marker": "Atrium Upper Level",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "762DBC"
+     ],
+     "coords": [
+      5154.3,
+      -9904.6
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "762DBC",
+       "source_type": "direct",
+       "coords": [
+        5154.3,
+        -9904.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Hemlock Springs Dump",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "76FF46"
+     ],
+     "coords": [
+      71349.9,
+      -196422.5
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "76FF46",
+       "source_type": "direct",
+       "coords": [
+        71349.9,
+        -196422.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "High Knob Lookout",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "734C0C"
+     ],
+     "coords": [
+      -20987.0,
+      -215983.8
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "734C0C",
+       "source_type": "direct",
+       "coords": [
+        -20987.0,
+        -215983.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Naked Creek",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "745582"
+     ],
+     "coords": [
+      -31572.9,
+      -235290.9
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "745582",
+       "source_type": "static",
+       "coords": [
+        -31572.9,
+        -235290.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Old Rag Lookout",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "735790"
+     ],
+     "coords": [
+      20644.1,
+      -230803.7
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "735790",
+       "source_type": "direct",
+       "coords": [
+        20644.1,
+        -230803.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Slumber Mill Motel",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "6F9B76"
+     ],
+     "coords": [
+      22103.9,
+      -242824.3
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "6F9B76",
+       "source_type": "direct",
+       "coords": [
+        22103.9,
+        -242824.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": [
+    {
+     "marker": "Crimson Prospect",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "42C136",
+      "53771F"
+     ],
+     "coords": [
+      142901.6,
+      -100483.3
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash #1",
+       "ref": "42C136",
+       "source_type": "direct",
+       "coords": [
+        142028.6,
+        -102216.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #2",
+       "ref": "53771F",
+       "source_type": "direct",
+       "coords": [
+        142901.6,
+        -100483.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Fort Defiance",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2847A2",
+      "2847A3"
+     ],
+     "coords": [
+      -4272.6,
+      773.0
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash #1",
+       "ref": "2847A2",
+       "source_type": "direct",
+       "coords": [
+        -4272.6,
+        773.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #2",
+       "ref": "2847A3",
+       "source_type": "direct",
+       "coords": [
+        -4181.1,
+        1159.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Forward Station Delta",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3710F1"
+     ],
+     "coords": [
+      202409.9,
+      -169764.0
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "3710F1",
+       "source_type": "direct",
+       "coords": [
+        202409.9,
+        -169764.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Pylon V-13",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3C43BB"
+     ],
+     "coords": [
+      194395.7,
+      -86592.3
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "3C43BB",
+       "source_type": "direct",
+       "coords": [
+        194395.7,
+        -86592.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Sunrise Field",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "42C25E"
+     ],
+     "coords": [
+      140856.8,
+      -160372.3
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "42C25E",
+       "source_type": "direct",
+       "coords": [
+        140856.8,
+        -160372.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "The General's Steakhouse",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "286035"
+     ],
+     "coords": [
+      181749.6,
+      -60584.4
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "286035",
+       "source_type": "direct",
+       "coords": [
+        181749.6,
+        -60584.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Valley Galleria",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "31AED7"
+     ],
+     "coords": [
+      1362.0,
+      4372.7
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "31AED7",
+       "source_type": "direct",
+       "coords": [
+        1362.0,
+        4372.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Watoga Underground",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5887A5"
+     ],
+     "coords": [
+      -6351.2,
+      7266.2
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "5887A5",
+       "source_type": "static",
+       "coords": [
+        -6351.2,
+        7266.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Mire",
+   "locations": [
+    {
+     "marker": "Blakes Offering",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5678FF"
+     ],
+     "coords": [
+      199212.1,
+      -35781.5
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "5678FF",
+       "source_type": "static",
+       "coords": [
+        199212.1,
+        -35781.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Bloody Frank's",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "55FEC8"
+     ],
+     "coords": [
+      129961.5,
+      35402.0
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "55FEC8",
+       "source_type": "direct",
+       "coords": [
+        129961.5,
+        35402.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Dagger's Den",
+     "count": 3,
+     "sources": {
+      "direct": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5C2CBE",
+      "5C2DE3",
+      "5C6208"
+     ],
+     "coords": [
+      119913.9,
+      6317.9
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash #1",
+       "ref": "5C2CBE",
+       "source_type": "direct",
+       "coords": [
+        6183.4,
+        757.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #2",
+       "ref": "5C2DE3",
+       "source_type": "direct",
+       "coords": [
+        117512.5,
+        6040.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #3",
+       "ref": "5C6208",
+       "source_type": "direct",
+       "coords": [
+        119913.9,
+        6317.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 3,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Fisherman's Rest",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "7AE40E"
+     ],
+     "coords": [
+      215157.6,
+      -16459.5
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "7AE40E",
+       "source_type": "direct",
+       "coords": [
+        215157.6,
+        -16459.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Mosstown",
+     "count": 5,
+     "sources": {
+      "direct": 5
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "11209B",
+      "1120D3",
+      "125B53",
+      "125B54",
+      "16F000"
+     ],
+     "coords": [
+      132968.7,
+      71619.5
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash #1",
+       "ref": "11209B",
+       "source_type": "direct",
+       "coords": [
+        133654.8,
+        72050.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #2",
+       "ref": "1120D3",
+       "source_type": "direct",
+       "coords": [
+        133692.4,
+        71987.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #3",
+       "ref": "125B53",
+       "source_type": "direct",
+       "coords": [
+        133678.5,
+        71991.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #4",
+       "ref": "125B54",
+       "source_type": "direct",
+       "coords": [
+        133674.3,
+        71975.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #5",
+       "ref": "16F000",
+       "source_type": "direct",
+       "coords": [
+        132968.7,
+        71619.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 5,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Sunday Brothers' Cabin",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "0E57E2"
+     ],
+     "coords": [
+      137745.8,
+      2520.7
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "0E57E2",
+       "source_type": "direct",
+       "coords": [
+        137745.8,
+        2520.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Burrows",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "40F9B4"
+     ],
+     "coords": [
+      852.7,
+      487.3
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "40F9B4",
+       "source_type": "direct",
+       "coords": [
+        852.7,
+        487.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Vault 94",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5C0146"
+     ],
+     "coords": [
+      -12587.1,
+      -619.5
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "5C0146",
+       "source_type": "direct",
+       "coords": [
+        -12587.1,
+        -619.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Burning Springs",
+   "locations": [
+    {
+     "marker": "Diner Basement",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "82DCC7"
+     ],
+     "coords": [
+      -918.7,
+      1359.6
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "82DCC7",
+       "source_type": "direct",
+       "coords": [
+        -918.7,
+        1359.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Executive's Apartment",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "825A12",
+      "850D12"
+     ],
+     "coords": [
+      608.0,
+      1896.1
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash #1",
+       "ref": "825A12",
+       "source_type": "direct",
+       "coords": [
+        608.0,
+        1896.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #2",
+       "ref": "850D12",
+       "source_type": "direct",
+       "coords": [
+        410.9,
+        1876.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Fort Steuben",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "81C5CB"
+     ],
+     "coords": [
+      -219031.4,
+      34208.7
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "81C5CB",
+       "source_type": "direct",
+       "coords": [
+        -219031.4,
+        34208.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Highway Town",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "847411"
+     ],
+     "coords": [
+      -235337.8,
+      100081.3
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "847411",
+       "source_type": "direct",
+       "coords": [
+        -235337.8,
+        100081.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Maintenance Closet",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "82192A"
+     ],
+     "coords": [
+      1356.4,
+      2589.3
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "82192A",
+       "source_type": "direct",
+       "coords": [
+        1356.4,
+        2589.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Moose's House",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "82178E"
+     ],
+     "coords": [
+      1397.9,
+      2499.4
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "82178E",
+       "source_type": "direct",
+       "coords": [
+        1397.9,
+        2499.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Railroad Service Yard",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "858E17"
+     ],
+     "coords": [
+      -230244.3,
+      28658.4
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "858E17",
+       "source_type": "direct",
+       "coords": [
+        -230244.3,
+        28658.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Starlight Drive-in",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "851D30"
+     ],
+     "coords": [
+      -195774.6,
+      114009.7
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "851D30",
+       "source_type": "static",
+       "coords": [
+        -195774.6,
+        114009.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Super Duper Mart",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "82DF57",
+      "82DF58"
+     ],
+     "coords": [
+      -227272.2,
+      125231.6
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash #1",
+       "ref": "82DF57",
+       "source_type": "direct",
+       "coords": [
+        -227272.2,
+        125231.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #2",
+       "ref": "82DF58",
+       "source_type": "direct",
+       "coords": [
+        -227280.8,
+        125250.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Train Carriage",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "838F06"
+     ],
+     "coords": [
+      2153.0,
+      2375.2
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "838F06",
+       "source_type": "direct",
+       "coords": [
+        2153.0,
+        2375.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Tycoon Lake",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "83AEC2"
+     ],
+     "coords": [
+      -195639.7,
+      7791.9
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash",
+       "ref": "83AEC2",
+       "source_type": "direct",
+       "coords": [
+        -195639.7,
+        7791.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "The Pitt",
+   "locations": [
+    {
+     "marker": "The Foundry",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "655CBF",
+      "738687"
+     ],
+     "coords": [
+      3631.0,
+      4124.5
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash #1",
+       "ref": "655CBF",
+       "source_type": "direct",
+       "coords": [
+        3631.0,
+        4124.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #2",
+       "ref": "738687",
+       "source_type": "direct",
+       "coords": [
+        3631.0,
+        4124.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Pitt - Industrial",
+     "count": 3,
+     "sources": {
+      "direct": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "65EB45",
+      "66278B",
+      "66540F"
+     ],
+     "coords": [
+      -3725.9,
+      -1645.4
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash #1",
+       "ref": "65EB45",
+       "source_type": "direct",
+       "coords": [
+        -1499.3,
+        -1939.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #2",
+       "ref": "66278B",
+       "source_type": "direct",
+       "coords": [
+        -3936.2,
+        -1400.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #3",
+       "ref": "66540F",
+       "source_type": "direct",
+       "coords": [
+        -3725.9,
+        -1645.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 3,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Pitt - Trench",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "662AE8",
+      "664FE0"
+     ],
+     "coords": [
+      -16282.7,
+      -10435.8
+     ],
+     "spawns": [
+      {
+       "label": "InstaMash #1",
+       "ref": "662AE8",
+       "source_type": "direct",
+       "coords": [
+        -12049.1,
+        1359.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "InstaMash #2",
+       "ref": "664FE0",
+       "source_type": "direct",
+       "coords": [
+        -16282.7,
+        -10435.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "InstaMash",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "total": 105,
+ "map_base": "/wp-content/uploads/guide-images/farming-non-perishable/instamash/",
+ "map_ext": ".jpg",
+ "full_map": "/wp-content/uploads/guide-images/farming-non-perishable/instamash/instamash.jpg",
+ "own_map_renderer": "render_pre_war_food_maps.py",
+ "chance_spawns": {
+  "pools": [
+   {
+    "name": "Mixed pre-war food spawn",
+    "list_id": "00067396",
+    "total_markers": 328,
+    "total": 1666,
+    "contents": [
+     {
+      "name": "InstaMash",
+      "rate": 0.002976,
+      "rate_display": "0.3%"
+     }
+    ]
+   }
+  ],
+  "regions": [
+   {
+    "region": "Ash Heap",
+    "markers": [
+     {
+      "name": "Abandoned Mine Shaft 1",
+      "placements": 1,
+      "refs": [
+       "3E8EEB"
+      ]
+     },
+     {
+      "name": "Abandoned Mine Shaft 3",
+      "placements": 2,
+      "refs": [
+       "3E7FFD",
+       "3E8039"
+      ]
+     },
+     {
+      "name": "Abandoned Mine Shaft 4",
+      "placements": 4,
+      "refs": [
+       "33D336",
+       "342AED",
+       "3E80E8",
+       "3E81F2"
+      ]
+     },
+     {
+      "name": "Abandoned Mine Shaft 6",
+      "placements": 4,
+      "refs": [
+       "35A859",
+       "35A85A",
+       "39F2D7",
+       "3E8EB6"
+      ]
+     },
+     {
+      "name": "AVR Medical Center",
+      "placements": 6,
+      "refs": [
+       "522CBC",
+       "522CBF",
+       "526D96",
+       "631641",
+       "631642",
+       "631643"
+      ]
+     },
+     {
+      "name": "Beckley",
+      "placements": 4,
+      "refs": [
+       "3C67CD",
+       "3C67CF",
+       "3C67D1",
+       "3CABF0"
+      ]
+     },
+     {
+      "name": "Beckley Mine Exhibit",
+      "placements": 1,
+      "refs": [
+       "343268"
+      ]
+     },
+     {
+      "name": "Big Bend Tunnel West",
+      "placements": 1,
+      "refs": [
+       "3432E4"
+      ]
+     },
+     {
+      "name": "Brim Quarry",
+      "placements": 2,
+      "refs": [
+       "14EB14",
+       "387D6F"
+      ]
+     },
+     {
+      "name": "Camden Park",
+      "placements": 5,
+      "refs": [
+       "188DE3",
+       "188DE5",
+       "188E2D",
+       "188E30",
+       "188E32"
+      ]
+     },
+     {
+      "name": "Garrahan Estate",
+      "placements": 5,
+      "refs": [
+       "1C206B",
+       "1C9FE0",
+       "1CA0DF",
+       "1CA90B",
+       "1CA917"
+      ]
+     },
+     {
+      "name": "Garrahan Mining HQ",
+      "placements": 13,
+      "refs": [
+       "342381",
+       "342386",
+       "342387",
+       "342388",
+       "34238A",
+       "34238C",
+       "34238F",
+       "66FCB8",
+       "66FCB9",
+       "66FCBB",
+       "66FCBD",
+       "66FCBE",
+       "66FCC0"
+      ]
+     },
+     {
+      "name": "Gleaming Depths",
+      "placements": 3,
+      "refs": [
+       "7B2326",
+       "7B2327",
+       "7B73D1"
+      ]
+     },
+     {
+      "name": "Hornwright Air Purifier Site #01",
+      "placements": 3,
+      "refs": [
+       "3ABE7F",
+       "3ABE80",
+       "42F7BE"
+      ]
+     },
+     {
+      "name": "Hornwright Air Purifier Site #03",
+      "placements": 1,
+      "refs": [
+       "342992"
+      ]
+     },
+     {
+      "name": "Hornwright Testing Site #02",
+      "placements": 3,
+      "refs": [
+       "3A077B",
+       "3A6C25",
+       "3A6C27"
+      ]
+     },
+     {
+      "name": "Lewisburg",
+      "placements": 4,
+      "refs": [
+       "34401C",
+       "38F484",
+       "38F486",
+       "3E236A"
+      ]
+     },
+     {
+      "name": "Lewisburg Station",
+      "placements": 2,
+      "refs": [
+       "66C53D",
+       "66C563"
+      ]
+     },
+     {
+      "name": "Mount Blair",
+      "placements": 4,
+      "refs": [
+       "35A86A",
+       "35A86B",
+       "522A24",
+       "522A26"
+      ]
+     },
+     {
+      "name": "Mount Blair Trainyard",
+      "placements": 4,
+      "refs": [
+       "341A77",
+       "341A7F",
+       "52B244",
+       "52B90D"
+      ]
+     },
+     {
+      "name": "Pylon Ambush Site",
+      "placements": 1,
+      "refs": [
+       "34CEDA"
+      ]
+     },
+     {
+      "name": "Relay Tower HG-B7-09",
+      "placements": 2,
+      "refs": [
+       "3E25BD",
+       "3E25BE"
+      ]
+     },
+     {
+      "name": "Rollins Labor Camp",
+      "placements": 4,
+      "refs": [
+       "340242",
+       "340243",
+       "58B5EF",
+       "58B644"
+      ]
+     },
+     {
+      "name": "Sal's Grinders",
+      "placements": 5,
+      "refs": [
+       "343245",
+       "343246",
+       "343256",
+       "3C5C99",
+       "3C5C9B"
+      ]
+     },
+     {
+      "name": "Striker Row",
+      "placements": 5,
+      "refs": [
+       "39159F",
+       "45335F",
+       "45336B",
+       "4533C4",
+       "50D60A"
+      ]
+     },
+     {
+      "name": "The Rusty Pick",
+      "placements": 1,
+      "refs": [
+       "3B0E34"
+      ]
+     },
+     {
+      "name": "The Sludge Works",
+      "placements": 1,
+      "refs": [
+       "5910C5"
+      ]
+     },
+     {
+      "name": "Welch",
+      "placements": 12,
+      "refs": [
+       "3295BE",
+       "3295BF",
+       "3295C0",
+       "3295C1",
+       "3295C2",
+       "3295C6",
+       "3295C9",
+       "3295CF",
+       "3295D0",
+       "3295D1",
+       "3295D4",
+       "3295D5"
+      ]
+     },
+     {
+      "name": "Widow's Perch",
+      "placements": 2,
+      "refs": [
+       "34969F",
+       "3496A7"
+      ]
+     }
+    ],
+    "placements": 105
+   },
+   {
+    "region": "Atlantic City",
+    "markers": [
+     {
+      "name": "Aquarium of the Atlantic",
+      "placements": 4,
+      "refs": [
+       "6EC61F",
+       "6EC620",
+       "741AC5",
+       "741AC6"
+      ]
+     },
+     {
+      "name": "Casino Quarter",
+      "placements": 1,
+      "refs": [
+       "6FACB5"
+      ]
+     },
+     {
+      "name": "Community Center",
+      "placements": 14,
+      "refs": [
+       "755F92",
+       "755F93",
+       "755F94",
+       "755F9A",
+       "755FA7",
+       "755FA8",
+       "755FB0",
+       "77C68C",
+       "77C691",
+       "77C692",
+       "77C69E",
+       "77C6A3",
+       "77C6A4",
+       "77C6A5"
+      ]
+     },
+     {
+      "name": "Flooded City Center",
+      "placements": 22,
+      "refs": [
+       "75F0FE",
+       "75F0FF",
+       "75F100",
+       "75F101",
+       "75FBAB",
+       "75FBAC",
+       "75FBAD",
+       "75FBAE",
+       "75FBAF",
+       "75FBB0",
+       "75FBC3",
+       "75FBC7",
+       "75FBC8",
+       "75FBC9",
+       "75FBCA",
+       "75FBCC",
+       "75FBCD",
+       "75FBCE",
+       "75FBCF",
+       "76D0FC",
+       "76D0FF",
+       "76D100"
+      ]
+     },
+     {
+      "name": "Quentino's Night Club",
+      "placements": 1,
+      "refs": [
+       "6E2B7E"
+      ]
+     },
+     {
+      "name": "The Boardwalk",
+      "placements": 13,
+      "refs": [
+       "6DEE32",
+       "6DEE33",
+       "6DEE34",
+       "6DEE35",
+       "6DEE62",
+       "6E3CF3",
+       "6E3CF4",
+       "6E3CF5",
+       "6E3CF6",
+       "6E842E",
+       "6E842F",
+       "6E8430",
+       "6E8431"
+      ]
+     },
+     {
+      "name": "The Neapolitan Casino",
+      "placements": 8,
+      "refs": [
+       "6E85FE",
+       "6EAB8B",
+       "6EAB8C",
+       "6EAB94",
+       "6EAB95",
+       "6EAB96",
+       "6EAB97",
+       "73C3E9"
+      ]
+     }
+    ],
+    "placements": 63
+   },
+   {
+    "region": "Burning Springs",
+    "markers": [
+     {
+      "name": "Abraxodyne Office",
+      "placements": 3,
+      "refs": [
+       "823E98",
+       "823E99",
+       "823E9A"
+      ]
+     },
+     {
+      "name": "Albany",
+      "placements": 4,
+      "refs": [
+       "827C7D",
+       "827C7E",
+       "83B0EC",
+       "859338"
+      ]
+     },
+     {
+      "name": "Ash Cave",
+      "placements": 8,
+      "refs": [
+       "80E012",
+       "80E013",
+       "81A9EB",
+       "8398F6",
+       "83C34E",
+       "83E94A",
+       "83FDB7",
+       "8432A0"
+      ]
+     },
+     {
+      "name": "Athens",
+      "placements": 67,
+      "refs": [
+       "81ED71",
+       "81ED72",
+       "81ED73",
+       "81F288",
+       "839A70",
+       "839A71",
+       "839F70",
+       "839F84",
+       "839FA6",
+       "839FA7",
+       "839FA8",
+       "839FA9",
+       "839FAA",
+       "839FAB",
+       "839FC2",
+       "839FC3",
+       "839FCB",
+       "839FEE",
+       "83A009",
+       "83A00A",
+       "83A00B",
+       "83B130",
+       "83FEB3",
+       "83FEC1",
+       "83FEC2",
+       "83FEC3",
+       "83FECB",
+       "83FECC",
+       "83FECD",
+       "840599",
+       "84059D",
+       "8405C5",
+       "8405C6",
+       "8405C7",
+       "8405E7",
+       "8405E8",
+       "840757",
+       "840758",
+       "8428E5",
+       "8428E6",
+       "8428E9",
+       "8428EA",
+       "8428EC",
+       "8428ED",
+       "8428EE",
+       "8428F3",
+       "8428FE",
+       "8428FF",
+       "842904",
+       "842906",
+       "842907",
+       "84290A",
+       "84290B",
+       "84290C",
+       "84290D",
+       "84290E",
+       "84290F",
+       "842910",
+       "842911",
+       "842918",
+       "842919",
+       "84291A",
+       "84291D",
+       "84291E",
+       "84291F",
+       "87D182",
+       "87D183"
+      ]
+     },
+     {
+      "name": "Fort Steuben",
+      "placements": 2,
+      "refs": [
+       "82B4EC",
+       "84C20F"
+      ]
+     },
+     {
+      "name": "Highway Town",
+      "placements": 5,
+      "refs": [
+       "8311FB",
+       "8313A2",
+       "847423",
+       "84C313",
+       "84C407"
+      ]
+     },
+     {
+      "name": "Highway Town Interior",
+      "placements": 1,
+      "refs": [
+       "83112F"
+      ]
+     },
+     {
+      "name": "Honey Well Apiary",
+      "placements": 1,
+      "refs": [
+       "836B47"
+      ]
+     },
+     {
+      "name": "Jackson Junkyard",
+      "placements": 2,
+      "refs": [
+       "82B05D",
+       "82B060"
+      ]
+     },
+     {
+      "name": "Prospect Hill",
+      "placements": 1,
+      "refs": [
+       "81C6A0"
+      ]
+     },
+     {
+      "name": "Railroad Service Yard",
+      "placements": 3,
+      "refs": [
+       "831A1D",
+       "85145E",
+       "858E16"
+      ]
+     },
+     {
+      "name": "Sandy's Sock Hop",
+      "placements": 2,
+      "refs": [
+       "81616B",
+       "850714"
+      ]
+     },
+     {
+      "name": "Shade Hill Church",
+      "placements": 1,
+      "refs": [
+       "846450"
+      ]
+     },
+     {
+      "name": "Starlight Drive-in",
+      "placements": 3,
+      "refs": [
+       "7F124E",
+       "818B7F",
+       "81C211"
+      ]
+     },
+     {
+      "name": "Super Duper Mart",
+      "placements": 7,
+      "refs": [
+       "82DF2F",
+       "82DF30",
+       "832E7F",
+       "832E80",
+       "867EF9",
+       "867EFA",
+       "867EFB"
+      ]
+     },
+     {
+      "name": "The Rust Kingdom",
+      "placements": 11,
+      "refs": [
+       "84E398",
+       "84E399",
+       "84E3A8",
+       "84E3B6",
+       "84F11C",
+       "84F11E",
+       "84F120",
+       "84F146",
+       "84F150",
+       "84F151",
+       "85257C"
+      ]
+     },
+     {
+      "name": "Tycoon Lake",
+      "placements": 2,
+      "refs": [
+       "83E082",
+       "83E0A4"
+      ]
+     },
+     {
+      "name": "World of Corn",
+      "placements": 3,
+      "refs": [
+       "82E3D1",
+       "858EE2",
+       "858EE3"
+      ]
+     }
+    ],
+    "placements": 126
+   },
+   {
+    "region": "Cranberry Bog",
+    "markers": [
+     {
+      "name": "Abandoned Bog Town",
+      "placements": 47,
+      "refs": [
+       "314618",
+       "314619",
+       "31461A",
+       "31461C",
+       "31461D",
+       "31461E",
+       "314620",
+       "314623",
+       "314624",
+       "314627",
+       "314634",
+       "3199EF",
+       "3199F1",
+       "3199F2",
+       "3199F4",
+       "3199F5",
+       "3199F7",
+       "3199F8",
+       "3199FA",
+       "3199FB",
+       "319A09",
+       "319A0B",
+       "319A0C",
+       "319A10",
+       "319A11",
+       "319A12",
+       "319A13",
+       "319A14",
+       "319A15",
+       "319A17",
+       "319A18",
+       "319A19",
+       "319A1A",
+       "319A1B",
+       "319A1C",
+       "319A1D",
+       "319A1E",
+       "319A1F",
+       "319A20",
+       "319A21",
+       "31B9D3",
+       "31BAB8",
+       "31BABA",
+       "4F6980",
+       "4F6982",
+       "50D4E6",
+       "50D4F4"
+      ]
+     },
+     {
+      "name": "AMS Corporate Headquarters",
+      "placements": 2,
+      "refs": [
+       "3459D9",
+       "51DB5D"
+      ]
+     },
+     {
+      "name": "Appalachian Antiques",
+      "placements": 3,
+      "refs": [
+       "36A0A2",
+       "36A0A5",
+       "3BB280"
+      ]
+     },
+     {
+      "name": "Big Bend Tunnels",
+      "placements": 5,
+      "refs": [
+       "3BA755",
+       "8A4532",
+       "8A4533",
+       "8A4534",
+       "8A4535"
+      ]
+     },
+     {
+      "name": "Bootlegger's Shack",
+      "placements": 4,
+      "refs": [
+       "36B469",
+       "36B46F",
+       "36B478",
+       "36B484"
+      ]
+     },
+     {
+      "name": "Crimson Prospect",
+      "placements": 3,
+      "refs": [
+       "42C133",
+       "55F3B9",
+       "55F4DD"
+      ]
+     },
+     {
+      "name": "Firebase Hancock",
+      "placements": 2,
+      "refs": [
+       "36D095",
+       "36D096"
+      ]
+     },
+     {
+      "name": "Firebase LT",
+      "placements": 1,
+      "refs": [
+       "36C2D0"
+      ]
+     },
+     {
+      "name": "Firebase Major",
+      "placements": 2,
+      "refs": [
+       "36C296",
+       "36C297"
+      ]
+     },
+     {
+      "name": "Flooded Trainyard",
+      "placements": 17,
+      "refs": [
+       "315B68",
+       "315B7C",
+       "315B87",
+       "315B9E",
+       "315BA0",
+       "315BC5",
+       "315BC6",
+       "315BCA",
+       "4DDB39",
+       "4DDBB8",
+       "4DDC19",
+       "4DDC1A",
+       "4DDC6A",
+       "4DDC7D",
+       "4EAD60",
+       "4EAE15",
+       "4F87CE"
+      ]
+     },
+     {
+      "name": "Fort Defiance",
+      "placements": 18,
+      "refs": [
+       "19683B",
+       "196B48",
+       "196B49",
+       "1977F0",
+       "343216",
+       "343217",
+       "343223",
+       "343224",
+       "343225",
+       "34322F",
+       "3E9ECA",
+       "3E9ECB",
+       "3E9F16",
+       "3E9F17",
+       "4E2C2E",
+       "4E2C30",
+       "4E2C31",
+       "4E2C32"
+      ]
+     },
+     {
+      "name": "Kerwood Mine",
+      "placements": 8,
+      "refs": [
+       "32F837",
+       "32F84A",
+       "32F84E",
+       "32F850",
+       "38F20C",
+       "38F210",
+       "38F211",
+       "4EA8DD"
+      ]
+     },
+     {
+      "name": "Missile Silo Charlie",
+      "placements": 11,
+      "refs": [
+       "443104",
+       "443105",
+       "443197",
+       "4432C7",
+       "443E35",
+       "444258",
+       "44479A",
+       "444B9D",
+       "445D78",
+       "445D79",
+       "445D7A"
+      ]
+     },
+     {
+      "name": "Old Mold Quarry",
+      "placements": 1,
+      "refs": [
+       "365BA9"
+      ]
+     },
+     {
+      "name": "Pylon V-13",
+      "placements": 4,
+      "refs": [
+       "3A4042",
+       "3A4045",
+       "3A4046",
+       "3A4048"
+      ]
+     },
+     {
+      "name": "Quarry X3",
+      "placements": 1,
+      "refs": [
+       "380C1B"
+      ]
+     },
+     {
+      "name": "RobCo Research Center",
+      "placements": 1,
+      "refs": [
+       "34733E"
+      ]
+     },
+     {
+      "name": "Sunrise Field",
+      "placements": 4,
+      "refs": [
+       "360F5E",
+       "360F5F",
+       "360F61",
+       "360F63"
+      ]
+     },
+     {
+      "name": "Superior Sunset Farm",
+      "placements": 2,
+      "refs": [
+       "378F22",
+       "378F24"
+      ]
+     },
+     {
+      "name": "The General's Steakhouse",
+      "placements": 2,
+      "refs": [
+       "341A61",
+       "5951D3"
+      ]
+     },
+     {
+      "name": "Valley Galleria",
+      "placements": 8,
+      "refs": [
+       "342C5D",
+       "342C5E",
+       "39F320",
+       "39F322",
+       "3BE4C8",
+       "3BE4C9",
+       "3BE4CD",
+       "3BE51E"
+      ]
+     },
+     {
+      "name": "Veiled Sundew Grove",
+      "placements": 2,
+      "refs": [
+       "37D5DD",
+       "37D7DD"
+      ]
+     },
+     {
+      "name": "Watoga Civic Center",
+      "placements": 11,
+      "refs": [
+       "342C74",
+       "342C75",
+       "3E79AC",
+       "3E79B9",
+       "3E79BB",
+       "3E79BE",
+       "3E79BF",
+       "3E79C0",
+       "3E79C1",
+       "3E79C2",
+       "505BF4"
+      ]
+     },
+     {
+      "name": "Watoga Emergency Services",
+      "placements": 17,
+      "refs": [
+       "35A91D",
+       "35A924",
+       "35A934",
+       "35A936",
+       "35A938",
+       "35A968",
+       "35A96B",
+       "35A96D",
+       "35A973",
+       "35A974",
+       "35A97E",
+       "35A983",
+       "35A987",
+       "35A992",
+       "35A999",
+       "35A99D",
+       "37A18B"
+      ]
+     },
+     {
+      "name": "Watoga Estates",
+      "placements": 6,
+      "refs": [
+       "35A945",
+       "505BD7",
+       "505BDA",
+       "505BDB",
+       "505BE5",
+       "505BE6"
+      ]
+     },
+     {
+      "name": "Watoga High School",
+      "placements": 45,
+      "refs": [
+       "3652B2",
+       "3652BD",
+       "3652BF",
+       "3652C2",
+       "3652C6",
+       "3652C8",
+       "3652CC",
+       "3652CF",
+       "3652D2",
+       "3652D5",
+       "3652DA",
+       "3652DB",
+       "3652DD",
+       "3652DE",
+       "3652DF",
+       "366585",
+       "3665A2",
+       "3665A3",
+       "3665A8",
+       "3BE70B",
+       "3BE70C",
+       "4F535F",
+       "518A64",
+       "518A65",
+       "610F20",
+       "610F21",
+       "610F22",
+       "610F24",
+       "610F25",
+       "610F2A",
+       "610F2D",
+       "610F30",
+       "610F33",
+       "610F36",
+       "610F38",
+       "610F3B",
+       "610F3E",
+       "610F40",
+       "610F47",
+       "610F64",
+       "610F67",
+       "610F68",
+       "610F81",
+       "6111EA",
+       "6111EB"
+      ]
+     },
+     {
+      "name": "Watoga Municipal Center",
+      "placements": 5,
+      "refs": [
+       "342C7A",
+       "342C7B",
+       "3E8D42",
+       "3E8D43",
+       "3E8D46"
+      ]
+     },
+     {
+      "name": "Watoga Raider Arena",
+      "placements": 8,
+      "refs": [
+       "5CDEBB",
+       "5CDEBC",
+       "5CE07E",
+       "5CE07F",
+       "5CE080",
+       "5CE081",
+       "5CE082",
+       "5CE093"
+      ]
+     },
+     {
+      "name": "Watoga Shopping Plaza",
+      "placements": 18,
+      "refs": [
+       "3459BF",
+       "3459C0",
+       "3459E0",
+       "3459E1",
+       "3459E2",
+       "3459E3",
+       "3459E4",
+       "3459E5",
+       "3459E6",
+       "3459E9",
+       "3459EB",
+       "3459ED",
+       "509CB0",
+       "509CB1",
+       "509CB2",
+       "509CB3",
+       "509CB4",
+       "51DB26"
+      ]
+     },
+     {
+      "name": "Watoga Station",
+      "placements": 1,
+      "refs": [
+       "3DAD62"
+      ]
+     },
+     {
+      "name": "Watoga Transit Hub",
+      "placements": 9,
+      "refs": [
+       "35A93A",
+       "35A93E",
+       "35A949",
+       "35A951",
+       "35A95C",
+       "35A963",
+       "35A966",
+       "59D36D",
+       "59D36E"
+      ]
+     },
+     {
+      "name": "Watoga Underground",
+      "placements": 4,
+      "refs": [
+       "3459CB",
+       "51DB61",
+       "53BFE1",
+       "53BFE2"
+      ]
+     }
+    ],
+    "placements": 272
+   },
+   {
+    "region": "Forest",
+    "markers": [
+     {
+      "name": "Aaronholt Homestead",
+      "placements": 3,
+      "refs": [
+       "3B8170",
+       "3B817E",
+       "4EC133"
+      ]
+     },
+     {
+      "name": "Alpine River Cabins",
+      "placements": 1,
+      "refs": [
+       "522DC4"
+      ]
+     },
+     {
+      "name": "Arktos Pharma",
+      "placements": 2,
+      "refs": [
+       "34D93B",
+       "34D93D"
+      ]
+     },
+     {
+      "name": "Arktos Pharma Biome Lab",
+      "placements": 10,
+      "refs": [
+       "3F4B35",
+       "45B07A",
+       "45D356",
+       "45D357",
+       "45D35D",
+       "61A40D",
+       "61A60C",
+       "61A610",
+       "61A611",
+       "61BA70"
+      ]
+     },
+     {
+      "name": "Big Al's Tattoo Parlor",
+      "placements": 4,
+      "refs": [
+       "154AB9",
+       "154B5E",
+       "3E42C7",
+       "3E42C8"
+      ]
+     },
+     {
+      "name": "Billings Homestead",
+      "placements": 1,
+      "refs": [
+       "357B3A"
+      ]
+     },
+     {
+      "name": "Blue Ridge Bunkhouse",
+      "placements": 1,
+      "refs": [
+       "732888"
+      ]
+     },
+     {
+      "name": "Bolton Greens",
+      "placements": 3,
+      "refs": [
+       "315AFD",
+       "315AFF",
+       "3C291B"
+      ]
+     },
+     {
+      "name": "Camp Adams",
+      "placements": 1,
+      "refs": [
+       "32029D"
+      ]
+     },
+     {
+      "name": "Camp Adams Lookout",
+      "placements": 1,
+      "refs": [
+       "356B71"
+      ]
+     },
+     {
+      "name": "Camp McClintock",
+      "placements": 9,
+      "refs": [
+       "31D239",
+       "3429D8",
+       "3429D9",
+       "3429DD",
+       "3429E3",
+       "3429E4",
+       "3429EE",
+       "342A00",
+       "4FC08C"
+      ]
+     },
+     {
+      "name": "Charleston",
+      "placements": 4,
+      "refs": [
+       "52A728",
+       "52C7E1",
+       "59C693",
+       "59C694"
+      ]
+     },
+     {
+      "name": "Charleston Capitol Building",
+      "placements": 23,
+      "refs": [
+       "52A6DA",
+       "52A78A",
+       "550503",
+       "550504",
+       "55093D",
+       "55093E",
+       "550947",
+       "551C8F",
+       "551C90",
+       "551C91",
+       "551C92",
+       "551C93",
+       "551C94",
+       "551C95",
+       "551C96",
+       "551C97",
+       "551C98",
+       "551CA7",
+       "67221F",
+       "67355B",
+       "673564",
+       "673565",
+       "6740A2"
+      ]
+     },
+     {
+      "name": "Charleston Capitol Courthouse",
+      "placements": 1,
+      "refs": [
+       "54C0FD"
+      ]
+     },
+     {
+      "name": "Charleston Fire Department",
+      "placements": 7,
+      "refs": [
+       "343313",
+       "3B03B9",
+       "3B03BA",
+       "3B03BB",
+       "3B03BC",
+       "3B03BD",
+       "437BAD"
+      ]
+     },
+     {
+      "name": "Charleston Station",
+      "placements": 2,
+      "refs": [
+       "3CB2DF",
+       "3CB319"
+      ]
+     },
+     {
+      "name": "Charleston Trainyard",
+      "placements": 2,
+      "refs": [
+       "5B702F",
+       "5B7030"
+      ]
+     },
+     {
+      "name": "Clancy Manor",
+      "placements": 1,
+      "refs": [
+       "43E367"
+      ]
+     },
+     {
+      "name": "Cliffwatch",
+      "placements": 1,
+      "refs": [
+       "32E9A3"
+      ]
+     },
+     {
+      "name": "Cow Spots Creamery",
+      "placements": 2,
+      "refs": [
+       "52D26C",
+       "52D26D"
+      ]
+     },
+     {
+      "name": "Darling Sister's Lab",
+      "placements": 1,
+      "refs": [
+       "3A951A"
+      ]
+     },
+     {
+      "name": "Flatwoods",
+      "placements": 5,
+      "refs": [
+       "3AD70E",
+       "3E8530",
+       "3E8536",
+       "58EC70",
+       "58EC73"
+      ]
+     },
+     {
+      "name": "Forward Station Tango",
+      "placements": 2,
+      "refs": [
+       "6F2340",
+       "6F2341"
+      ]
+     },
+     {
+      "name": "Gilman Lumber Mill",
+      "placements": 1,
+      "refs": [
+       "6EB176"
+      ]
+     },
+     {
+      "name": "Gorge Junkyard",
+      "placements": 1,
+      "refs": [
+       "3A734D"
+      ]
+     },
+     {
+      "name": "Green Country Lodge",
+      "placements": 1,
+      "refs": [
+       "1D37CE"
+      ]
+     },
+     {
+      "name": "Greg's Mine Supply",
+      "placements": 7,
+      "refs": [
+       "344049",
+       "3BB470",
+       "3BB472",
+       "3BE02B",
+       "3BE033",
+       "3D801D",
+       "3D801E"
+      ]
+     },
+     {
+      "name": "Helvetia",
+      "placements": 25,
+      "refs": [
+       "31DAEE",
+       "31DAEF",
+       "31DAF0",
+       "31DAF3",
+       "31DAF5",
+       "31DAFA",
+       "31DAFD",
+       "31DB00",
+       "31DB02",
+       "31DB03",
+       "31DB04",
+       "31DB06",
+       "31DB07",
+       "31DB08",
+       "31DB0B",
+       "31DB0C",
+       "31DB0D",
+       "31DB0E",
+       "31DB10",
+       "31DB14",
+       "31DB16",
+       "31DB19",
+       "31DB1A",
+       "31DB1D",
+       "31DB20"
+      ]
+     },
+     {
+      "name": "Horizon's Rest",
+      "placements": 5,
+      "refs": [
+       "324C8B",
+       "324CA7",
+       "324CA8",
+       "3294BA",
+       "3294BB"
+      ]
+     },
+     {
+      "name": "Hornwright Industrial HQ",
+      "placements": 1,
+      "refs": [
+       "33C51F"
+      ]
+     },
+     {
+      "name": "Hunter's Ridge",
+      "placements": 1,
+      "refs": [
+       "4F55D2"
+      ]
+     },
+     {
+      "name": "Kanawha County Cemetery",
+      "placements": 2,
+      "refs": [
+       "4FBD57",
+       "4FBD58"
+      ]
+     },
+     {
+      "name": "Kanawha Nuka-Cola Plant",
+      "placements": 4,
+      "refs": [
+       "341A8C",
+       "3D13AB",
+       "3D13B4",
+       "3D13BB"
+      ]
+     },
+     {
+      "name": "Lady Janet's Soft Serve",
+      "placements": 2,
+      "refs": [
+       "3A94E7",
+       "3A94E8"
+      ]
+     },
+     {
+      "name": "Lakeside Cabins",
+      "placements": 4,
+      "refs": [
+       "3DF84A",
+       "3DF84B",
+       "3DF84C",
+       "3DF851"
+      ]
+     },
+     {
+      "name": "Landview Lighthouse",
+      "placements": 7,
+      "refs": [
+       "37018B",
+       "370191",
+       "370192",
+       "370194",
+       "370198",
+       "37019A",
+       "3C6631"
+      ]
+     },
+     {
+      "name": "Lewis & Sons Farming Supply",
+      "placements": 1,
+      "refs": [
+       "3DB25A"
+      ]
+     },
+     {
+      "name": "Mama Dolce's Food Processing",
+      "placements": 35,
+      "refs": [
+       "33C90D",
+       "33C912",
+       "33C913",
+       "33C917",
+       "33C91B",
+       "33C91F",
+       "33C921",
+       "33C92A",
+       "33C92B",
+       "33C92C",
+       "33C92D",
+       "33C930",
+       "33C931",
+       "33C932",
+       "33C938",
+       "33C943",
+       "33C945",
+       "33C946",
+       "33C94B",
+       "33C94E",
+       "33C95B",
+       "33C95E",
+       "33C962",
+       "33C964",
+       "33C966",
+       "33C969",
+       "33C970",
+       "33C980",
+       "33C981",
+       "3C32A6",
+       "3C32A7",
+       "530883",
+       "530884",
+       "5308C3",
+       "53095B"
+      ]
+     },
+     {
+      "name": "Marigold Pavilion",
+      "placements": 1,
+      "refs": [
+       "50E522"
+      ]
+     },
+     {
+      "name": "Moonshiner's Shack",
+      "placements": 2,
+      "refs": [
+       "3E08F5",
+       "3E133A"
+      ]
+     },
+     {
+      "name": "Morgantown",
+      "placements": 28,
+      "refs": [
+       "3BAFE0",
+       "3BAFE1",
+       "3BB02A",
+       "4531EF",
+       "4E1FAC",
+       "4E1FAD",
+       "4E1FAE",
+       "4E1FAF",
+       "4E1FF1",
+       "4E1FF2",
+       "4E1FF3",
+       "4E1FF4",
+       "4E1FF5",
+       "4E20FD",
+       "4E20FE",
+       "4E84A8",
+       "4E84A9",
+       "8A5FCF",
+       "8A5FD0",
+       "8A5FD1",
+       "8A5FD2",
+       "8A5FD3",
+       "8A5FD4",
+       "8A5FD8",
+       "8A5FED",
+       "8A5FEE",
+       "8A6010",
+       "8A6011"
+      ]
+     },
+     {
+      "name": "Morgantown Airport",
+      "placements": 22,
+      "refs": [
+       "346DC8",
+       "346DDA",
+       "346DDB",
+       "35190D",
+       "351915",
+       "35191C",
+       "557594",
+       "55759D",
+       "6D9564",
+       "6D9565",
+       "6D9566",
+       "6D956E",
+       "6D9572",
+       "6D9577",
+       "6D9579",
+       "6D957F",
+       "6D9586",
+       "6D958F",
+       "6D9596",
+       "6D9597",
+       "6D9598",
+       "6D959D"
+      ]
+     },
+     {
+      "name": "Morgantown Airport Terminal",
+      "placements": 7,
+      "refs": [
+       "41BF49",
+       "41BF4A",
+       "41C18B",
+       "41C18C",
+       "41C5D1",
+       "41C74A",
+       "41C74B"
+      ]
+     },
+     {
+      "name": "Morgantown High School",
+      "placements": 25,
+      "refs": [
+       "342C12",
+       "342C13",
+       "342C14",
+       "342C15",
+       "342C1C",
+       "3B4219",
+       "3B421D",
+       "3B4232",
+       "3B4233",
+       "3B4234",
+       "3B95B9",
+       "3C420C",
+       "529AE1",
+       "529AE2",
+       "529AE3",
+       "529AE4",
+       "676DF3",
+       "676DF4",
+       "676DF5",
+       "676E0A",
+       "676E0E",
+       "676E1C",
+       "677033",
+       "677037",
+       "677038"
+      ]
+     },
+     {
+      "name": "Morgantown Trainyard",
+      "placements": 1,
+      "refs": [
+       "3B6B85"
+      ]
+     },
+     {
+      "name": "New Gad",
+      "placements": 10,
+      "refs": [
+       "3459AF",
+       "355A56",
+       "355A65",
+       "355A6A",
+       "355A84",
+       "355A85",
+       "355A93",
+       "355A94",
+       "3B5304",
+       "3B5305"
+      ]
+     },
+     {
+      "name": "New River Gorge Bridge - East",
+      "placements": 2,
+      "refs": [
+       "452FD8",
+       "452FD9"
+      ]
+     },
+     {
+      "name": "New River Gorge Bridge - West",
+      "placements": 4,
+      "refs": [
+       "4DEADF",
+       "4DEAFA",
+       "4DEAFB",
+       "4DEAFC"
+      ]
+     },
+     {
+      "name": "New River Gorge Resort",
+      "placements": 2,
+      "refs": [
+       "4FCC47",
+       "520DD7"
+      ]
+     },
+     {
+      "name": "North Kanawha Lookout",
+      "placements": 2,
+      "refs": [
+       "387B7B",
+       "387B8F"
+      ]
+     },
+     {
+      "name": "Organ Cave",
+      "placements": 2,
+      "refs": [
+       "73DB12",
+       "73DB14"
+      ]
+     },
+     {
+      "name": "Organ Cave North",
+      "placements": 1,
+      "refs": [
+       "342B14"
+      ]
+     },
+     {
+      "name": "Orwell Bomb Shelter",
+      "placements": 3,
+      "refs": [
+       "5C8A73",
+       "5C8A74",
+       "5C8A75"
+      ]
+     },
+     {
+      "name": "Orwell Orchards",
+      "placements": 1,
+      "refs": [
+       "3E32ED"
+      ]
+     },
+     {
+      "name": "Overseer's Home",
+      "placements": 5,
+      "refs": [
+       "54F290",
+       "5524A2",
+       "5524BA",
+       "55259B",
+       "55259D"
+      ]
+     },
+     {
+      "name": "Pi House",
+      "placements": 3,
+      "refs": [
+       "47C962",
+       "47C97E",
+       "47CC4F"
+      ]
+     },
+     {
+      "name": "Point Pleasant",
+      "placements": 23,
+      "refs": [
+       "32EABD",
+       "32EABE",
+       "32EAC5",
+       "32EAC6",
+       "32EAC7",
+       "32EAC8",
+       "32EACC",
+       "32EACD",
+       "32EACE",
+       "32EACF",
+       "32EAEE",
+       "32EAF0",
+       "32EAF3",
+       "32EAF4",
+       "32EB0D",
+       "32EB0E",
+       "32EB0F",
+       "32EB13",
+       "32EB26",
+       "32EB34",
+       "32EB36",
+       "32EB37",
+       "32EB39"
+      ]
+     },
+     {
+      "name": "Portside Pub",
+      "placements": 1,
+      "refs": [
+       "14EB99"
+      ]
+     },
+     {
+      "name": "Poseidon Energy Plant Expansion",
+      "placements": 5,
+      "refs": [
+       "563C01",
+       "563C02",
+       "564047",
+       "564048",
+       "564049"
+      ]
+     },
+     {
+      "name": "Poseidon Energy Plant WV-06",
+      "placements": 9,
+      "refs": [
+       "36FF34",
+       "36FF4E",
+       "36FF5D",
+       "36FF66",
+       "36FF71",
+       "36FF8D",
+       "36FF99",
+       "36FFA3",
+       "3C0844"
+      ]
+     },
+     {
+      "name": "Poseidon Energy Plant Yard",
+      "placements": 3,
+      "refs": [
+       "36FF7B",
+       "3BABB5",
+       "3BCB71"
+      ]
+     },
+     {
+      "name": "Putnam Residence",
+      "placements": 1,
+      "refs": [
+       "5C449C"
+      ]
+     },
+     {
+      "name": "Relay Tower HG-B7-09",
+      "placements": 4,
+      "refs": [
+       "3B2E84",
+       "3B2E85",
+       "3B2E86",
+       "3B2E87"
+      ]
+     },
+     {
+      "name": "Relay Tower HN-B1-12",
+      "placements": 1,
+      "refs": [
+       "338232"
+      ]
+     },
+     {
+      "name": "Riverside Manor",
+      "placements": 6,
+      "refs": [
+       "36FE73",
+       "36FE7C",
+       "36FE84",
+       "36FFAC",
+       "36FFB4",
+       "3B8AD2"
+      ]
+     },
+     {
+      "name": "Settler's Ridge",
+      "placements": 5,
+      "refs": [
+       "6F8ADF",
+       "6F8AE0",
+       "6F8AE1",
+       "6F8B7F",
+       "6F8B80"
+      ]
+     },
+     {
+      "name": "Shadowbreeze Apartments",
+      "placements": 1,
+      "refs": [
+       "3BAFE2"
+      ]
+     },
+     {
+      "name": "Silva Homestead",
+      "placements": 2,
+      "refs": [
+       "31D147",
+       "3DC965"
+      ]
+     },
+     {
+      "name": "Summersville",
+      "placements": 12,
+      "refs": [
+       "3AB108",
+       "3AB10D",
+       "58F995",
+       "6D8A91",
+       "6D8A92",
+       "6D8A93",
+       "6D8A94",
+       "6D8A95",
+       "6D8A9A",
+       "6D8A9B",
+       "6D8A9F",
+       "6D8AA0"
+      ]
+     },
+     {
+      "name": "Summersville Dam",
+      "placements": 2,
+      "refs": [
+       "52A787",
+       "52E749"
+      ]
+     },
+     {
+      "name": "Summersville Docks",
+      "placements": 14,
+      "refs": [
+       "34387A",
+       "34387C",
+       "34388B",
+       "34388C",
+       "343895",
+       "34389B",
+       "34389C",
+       "3438AA",
+       "3438B0",
+       "3438B1",
+       "3438BA",
+       "3438BD",
+       "3438C0",
+       "3438C1"
+      ]
+     },
+     {
+      "name": "Sunshine Meadows Industrial Farm",
+      "placements": 2,
+      "refs": [
+       "452036",
+       "452037"
+      ]
+     },
+     {
+      "name": "Sutton",
+      "placements": 2,
+      "refs": [
+       "3BA6A5",
+       "3BA6D9"
+      ]
+     },
+     {
+      "name": "Sutton Station",
+      "placements": 1,
+      "refs": [
+       "3DEEFD"
+      ]
+     },
+     {
+      "name": "The Coop",
+      "placements": 2,
+      "refs": [
+       "73187D",
+       "73187E"
+      ]
+     },
+     {
+      "name": "The Crosshair",
+      "placements": 3,
+      "refs": [
+       "364772",
+       "364773",
+       "39EDD5"
+      ]
+     },
+     {
+      "name": "The Pigsty",
+      "placements": 2,
+      "refs": [
+       "3A6C30",
+       "3A6C34"
+      ]
+     },
+     {
+      "name": "Twin Pine Cabins",
+      "placements": 1,
+      "refs": [
+       "342B11"
+      ]
+     },
+     {
+      "name": "Tygart Water Treatment",
+      "placements": 2,
+      "refs": [
+       "34406F",
+       "344070"
+      ]
+     },
+     {
+      "name": "Tyler County Dirt Track",
+      "placements": 3,
+      "refs": [
+       "3578D2",
+       "3578D5",
+       "3822AF"
+      ]
+     },
+     {
+      "name": "Tyler County Fairgrounds",
+      "placements": 8,
+      "refs": [
+       "357892",
+       "357898",
+       "357899",
+       "35789A",
+       "35789B",
+       "35789D",
+       "3578AC",
+       "3578AE"
+      ]
+     },
+     {
+      "name": "Van Lowe Taxidermy",
+      "placements": 1,
+      "refs": [
+       "478CDB"
+      ]
+     },
+     {
+      "name": "Vault 51",
+      "placements": 2,
+      "refs": [
+       "61D96B",
+       "61D96C"
+      ]
+     },
+     {
+      "name": "Vault-Tec Agricultural Research Center",
+      "placements": 1,
+      "refs": [
+       "342C16"
+      ]
+     },
+     {
+      "name": "Vault-Tec University",
+      "placements": 11,
+      "refs": [
+       "26B675",
+       "26B679",
+       "26B698",
+       "26B6A7",
+       "26B6AD",
+       "26B6FE",
+       "565EDD",
+       "565EE3",
+       "565EE7",
+       "565EED",
+       "566038"
+      ]
+     },
+     {
+      "name": "Wade Airport",
+      "placements": 3,
+      "refs": [
+       "4DE1EA",
+       "4DE1EB",
+       "4FCDAD"
+      ]
+     },
+     {
+      "name": "Wilson Brother's Auto Repair",
+      "placements": 1,
+      "refs": [
+       "529AE0"
+      ]
+     },
+     {
+      "name": "WV Lumber Co.",
+      "placements": 2,
+      "refs": [
+       "42C716",
+       "42C717"
+      ]
+     },
+     {
+      "name": "WV Lumber Co. Office",
+      "placements": 3,
+      "refs": [
+       "53B73E",
+       "5624D0",
+       "5624D4"
+      ]
+     }
+    ],
+    "placements": 444
+   },
+   {
+    "region": "Savage Divide",
+    "markers": [
+     {
+      "name": "98 NAR Regional",
+      "placements": 1,
+      "refs": [
+       "34EF8C"
+      ]
+     },
+     {
+      "name": "Atlas Substructure",
+      "placements": 3,
+      "refs": [
+       "5A8FF7",
+       "5A8FFC",
+       "5E8F97"
+      ]
+     },
+     {
+      "name": "Autumn Acre Cabin",
+      "placements": 2,
+      "refs": [
+       "3B2E05",
+       "3B2E07"
+      ]
+     },
+     {
+      "name": "Beckwith Farm",
+      "placements": 2,
+      "refs": [
+       "3B2E25",
+       "3B2E29"
+      ]
+     },
+     {
+      "name": "Belching Betty",
+      "placements": 1,
+      "refs": [
+       "3B01F7"
+      ]
+     },
+     {
+      "name": "Blackwater Mine",
+      "placements": 7,
+      "refs": [
+       "2C553F",
+       "3419DA",
+       "3419DB",
+       "3419DC",
+       "3419DD",
+       "3419DE",
+       "357AFE"
+      ]
+     },
+     {
+      "name": "Cliffwatch",
+      "placements": 3,
+      "refs": [
+       "3A6C42",
+       "3A6C43",
+       "52C95F"
+      ]
+     },
+     {
+      "name": "Converted Munitions Factory",
+      "placements": 7,
+      "refs": [
+       "35681B",
+       "3A50B1",
+       "3A50B5",
+       "3A50B6",
+       "4E40B0",
+       "4E40B1",
+       "4FCC56"
+      ]
+     },
+     {
+      "name": "Dent & Sons Construction",
+      "placements": 3,
+      "refs": [
+       "3A63A9",
+       "3A63AA",
+       "3A63B2"
+      ]
+     },
+     {
+      "name": "Fort Atlas",
+      "placements": 1,
+      "refs": [
+       "51EBE7"
+      ]
+     },
+     {
+      "name": "Foundation",
+      "placements": 2,
+      "refs": [
+       "364654",
+       "364655"
+      ]
+     },
+     {
+      "name": "Grafton Steel",
+      "placements": 1,
+      "refs": [
+       "34D953"
+      ]
+     },
+     {
+      "name": "Hornwright Estate Safe Room",
+      "placements": 1,
+      "refs": [
+       "587A2D"
+      ]
+     },
+     {
+      "name": "Huntersville",
+      "placements": 1,
+      "refs": [
+       "3D42DB"
+      ]
+     },
+     {
+      "name": "Johnson's Acre",
+      "placements": 1,
+      "refs": [
+       "37918A"
+      ]
+     },
+     {
+      "name": "Lake Eloise",
+      "placements": 2,
+      "refs": [
+       "3645FA",
+       "3A45EC"
+      ]
+     },
+     {
+      "name": "Lucky Hole Mine",
+      "placements": 6,
+      "refs": [
+       "319059",
+       "31905A",
+       "319070",
+       "319073",
+       "31913D",
+       "319149"
+      ]
+     },
+     {
+      "name": "Metal Dome",
+      "placements": 5,
+      "refs": [
+       "3A875C",
+       "52261A",
+       "600204",
+       "606378",
+       "6431F9"
+      ]
+     },
+     {
+      "name": "Mezzanine Level",
+      "placements": 7,
+      "refs": [
+       "431149",
+       "43114A",
+       "43114B",
+       "43114C",
+       "43114D",
+       "43114E",
+       "43114F"
+      ]
+     },
+     {
+      "name": "Middle Mountain Pitstop",
+      "placements": 3,
+      "refs": [
+       "36B499",
+       "36B49C",
+       "36B49D"
+      ]
+     },
+     {
+      "name": "Missile Silo Alpha",
+      "placements": 11,
+      "refs": [
+       "38927B",
+       "389705",
+       "3DD093",
+       "3DD094",
+       "3DD095",
+       "50A99C",
+       "51CD13",
+       "51D17E",
+       "51D759",
+       "52DC1A",
+       "535500"
+      ]
+     },
+     {
+      "name": "Missile Silo Bravo",
+      "placements": 11,
+      "refs": [
+       "446F95",
+       "446F96",
+       "447028",
+       "447158",
+       "447CC6",
+       "4480E9",
+       "44862B",
+       "448A2E",
+       "449C09",
+       "449C0A",
+       "449C0B"
+      ]
+     },
+     {
+      "name": "Monongah",
+      "placements": 9,
+      "refs": [
+       "3C2307",
+       "3C2308",
+       "3C230E",
+       "3C2AE8",
+       "3C2BD5",
+       "3C2BD7",
+       "3C2BDA",
+       "3C2C03",
+       "3C2C04"
+      ]
+     },
+     {
+      "name": "Monongah Power Plant",
+      "placements": 1,
+      "refs": [
+       "528C30"
+      ]
+     },
+     {
+      "name": "Monongah Power Substation MZ-03",
+      "placements": 1,
+      "refs": [
+       "529AE5"
+      ]
+     },
+     {
+      "name": "Mountainside Bed & Breakfast",
+      "placements": 13,
+      "refs": [
+       "387615",
+       "387616",
+       "38763D",
+       "38763E",
+       "38763F",
+       "387640",
+       "387641",
+       "387642",
+       "3A6741",
+       "3A6742",
+       "3A6745",
+       "3A6746",
+       "3A6747"
+      ]
+     },
+     {
+      "name": "Mysterious Cave",
+      "placements": 3,
+      "refs": [
+       "39311E",
+       "393120",
+       "393122"
+      ]
+     },
+     {
+      "name": "National Isolated Radio Array",
+      "placements": 3,
+      "refs": [
+       "21062F",
+       "342C51",
+       "342C52"
+      ]
+     },
+     {
+      "name": "National Radio Astronomy Research Center",
+      "placements": 1,
+      "refs": [
+       "378730"
+      ]
+     },
+     {
+      "name": "New Appalachian Central Trainyard",
+      "placements": 1,
+      "refs": [
+       "345997"
+      ]
+     },
+     {
+      "name": "North Mountain Lookout",
+      "placements": 1,
+      "refs": [
+       "434A47"
+      ]
+     },
+     {
+      "name": "Palace of the Winding Path",
+      "placements": 1,
+      "refs": [
+       "3E0D72"
+      ]
+     },
+     {
+      "name": "Pleasant Valley Cabins",
+      "placements": 14,
+      "refs": [
+       "32C8D1",
+       "32C9A1",
+       "32C9D4",
+       "32C9D6",
+       "32C9D8",
+       "32C9D9",
+       "32C9DA",
+       "32CA02",
+       "32CA2E",
+       "32CA30",
+       "32CA40",
+       "32CA41",
+       "32CA42",
+       "32CA44"
+      ]
+     },
+     {
+      "name": "Pleasant Valley Ski Resort",
+      "placements": 9,
+      "refs": [
+       "31E273",
+       "31E274",
+       "31E276",
+       "31E277",
+       "31E278",
+       "31E279",
+       "31E284",
+       "32C91F",
+       "32C923"
+      ]
+     },
+     {
+      "name": "Pumpkin House",
+      "placements": 1,
+      "refs": [
+       "35DA56"
+      ]
+     },
+     {
+      "name": "R&G Station",
+      "placements": 1,
+      "refs": [
+       "3CC78A"
+      ]
+     },
+     {
+      "name": "Radiant Hills",
+      "placements": 2,
+      "refs": [
+       "7B2744",
+       "7B2745"
+      ]
+     },
+     {
+      "name": "Radio Astronomy Research Center",
+      "placements": 2,
+      "refs": [
+       "342C28",
+       "342C2A"
+      ]
+     },
+     {
+      "name": "Red Rocket Mega Stop",
+      "placements": 2,
+      "refs": [
+       "34272A",
+       "4E34DE"
+      ]
+     },
+     {
+      "name": "Relay Tower EL-B1-02",
+      "placements": 2,
+      "refs": [
+       "3C3F01",
+       "3C3F02"
+      ]
+     },
+     {
+      "name": "Relay Tower LW-B1-22",
+      "placements": 2,
+      "refs": [
+       "3E2481",
+       "3E2482"
+      ]
+     },
+     {
+      "name": "Ripper Alley",
+      "placements": 2,
+      "refs": [
+       "36473B",
+       "36473C"
+      ]
+     },
+     {
+      "name": "Safe 'n Clean Disposal",
+      "placements": 3,
+      "refs": [
+       "364689",
+       "36FFC3",
+       "529ADF"
+      ]
+     },
+     {
+      "name": "Scenic Overlook",
+      "placements": 3,
+      "refs": [
+       "359B20",
+       "359B21",
+       "359B22"
+      ]
+     },
+     {
+      "name": "Secluded Cave",
+      "placements": 3,
+      "refs": [
+       "4299B2",
+       "4299B4",
+       "4299B5"
+      ]
+     },
+     {
+      "name": "Seneca Rocks Visitor Center",
+      "placements": 4,
+      "refs": [
+       "2B794B",
+       "3AFE55",
+       "3AFE6B",
+       "3AFE75"
+      ]
+     },
+     {
+      "name": "Site Bravo",
+      "placements": 2,
+      "refs": [
+       "38A38E",
+       "38A403"
+      ]
+     },
+     {
+      "name": "Site Charlie",
+      "placements": 1,
+      "refs": [
+       "4F7CFE"
+      ]
+     },
+     {
+      "name": "Skullbone Vantage",
+      "placements": 2,
+      "refs": [
+       "528BB9",
+       "528BBA"
+      ]
+     },
+     {
+      "name": "Solomon's Pond",
+      "placements": 3,
+      "refs": [
+       "34E85C",
+       "34E878",
+       "34E87A"
+      ]
+     },
+     {
+      "name": "Sons of Dane Compound",
+      "placements": 13,
+      "refs": [
+       "36199C",
+       "3619AF",
+       "3619B3",
+       "3619B8",
+       "3619BF",
+       "3619C1",
+       "3619C2",
+       "3619C8",
+       "3619CA",
+       "3619D8",
+       "3619ED",
+       "3619F9",
+       "4E7878"
+      ]
+     },
+     {
+      "name": "Spruce Knob Boat Rental",
+      "placements": 2,
+      "refs": [
+       "54704D",
+       "54704F"
+      ]
+     },
+     {
+      "name": "Spruce Knob Lake",
+      "placements": 1,
+      "refs": [
+       "378770"
+      ]
+     },
+     {
+      "name": "Sugar Grove",
+      "placements": 10,
+      "refs": [
+       "312233",
+       "312234",
+       "3BB1DC",
+       "3BB1DD",
+       "3BB1DE",
+       "3BB1DF",
+       "3BB1E0",
+       "3BB1E1",
+       "3BB1E2",
+       "3D35BD"
+      ]
+     },
+     {
+      "name": "Sunnytop Ski Lanes",
+      "placements": 20,
+      "refs": [
+       "355D35",
+       "355D42",
+       "355D48",
+       "355D49",
+       "355D4D",
+       "355D50",
+       "355D5B",
+       "355D61",
+       "355D64",
+       "355D6A",
+       "355D75",
+       "355D76",
+       "355D78",
+       "355D79",
+       "355D7F",
+       "355D81",
+       "355D86",
+       "355D88",
+       "355D90",
+       "3E7F08"
+      ]
+     },
+     {
+      "name": "Sunnytop Ski Lanes Base Lodge",
+      "placements": 9,
+      "refs": [
+       "355D98",
+       "355D99",
+       "355D9B",
+       "355D9E",
+       "355DA4",
+       "355DAA",
+       "355DB1",
+       "355DB2",
+       "355DB3"
+      ]
+     },
+     {
+      "name": "Sylvie & Sons Logging Camp",
+      "placements": 4,
+      "refs": [
+       "3958B5",
+       "3958C4",
+       "3958C6",
+       "3958D0"
+      ]
+     },
+     {
+      "name": "The Bounty",
+      "placements": 2,
+      "refs": [
+       "52CAD1",
+       "52CAD2"
+      ]
+     },
+     {
+      "name": "The Rose Room",
+      "placements": 2,
+      "refs": [
+       "320409",
+       "6A2827"
+      ]
+     },
+     {
+      "name": "The Vantage",
+      "placements": 2,
+      "refs": [
+       "34967D",
+       "34968A"
+      ]
+     },
+     {
+      "name": "The Whitespring Golf Club",
+      "placements": 15,
+      "refs": [
+       "27AC3D",
+       "27ACC2",
+       "27ACC3",
+       "27BFF6",
+       "283587",
+       "2849CC",
+       "286B85",
+       "286B87",
+       "36FFD4",
+       "3D2968",
+       "3D2969",
+       "4D843D",
+       "4D8446",
+       "4D84E8",
+       "4D84F0"
+      ]
+     },
+     {
+      "name": "The Whitespring North Entrance",
+      "placements": 1,
+      "refs": [
+       "3D67E8"
+      ]
+     },
+     {
+      "name": "The Whitespring Resort",
+      "placements": 3,
+      "refs": [
+       "3D70DA",
+       "50B936",
+       "50B937"
+      ]
+     },
+     {
+      "name": "The Whitespring Service Entrance",
+      "placements": 2,
+      "refs": [
+       "277A2B",
+       "50BCAD"
+      ]
+     },
+     {
+      "name": "Uncanny Caverns",
+      "placements": 21,
+      "refs": [
+       "336BB5",
+       "336BBF",
+       "336BC4",
+       "336BCB",
+       "336BCD",
+       "336BD2",
+       "336BD3",
+       "336BDD",
+       "3647A4",
+       "3647A5",
+       "3C4DB2",
+       "3C4DB3",
+       "3C4DB5",
+       "3C4DBC",
+       "3C4DBF",
+       "42FEB7",
+       "42FEB8",
+       "615035",
+       "61503F",
+       "615085",
+       "615088"
+      ]
+     },
+     {
+      "name": "US-13C Bivouac",
+      "placements": 2,
+      "refs": [
+       "3957DF",
+       "3957E0"
+      ]
+     },
+     {
+      "name": "Vault 79",
+      "placements": 7,
+      "refs": [
+       "53BB98",
+       "5404A9",
+       "5404AA",
+       "5404AB",
+       "5404AC",
+       "5404AD",
+       "5404AE"
+      ]
+     },
+     {
+      "name": "Vault 96",
+      "placements": 5,
+      "refs": [
+       "5E0263",
+       "5E1EC1",
+       "5E1EC2",
+       "5FAB0D",
+       "5FAB16"
+      ]
+     },
+     {
+      "name": "Wendigo Cave",
+      "placements": 11,
+      "refs": [
+       "35D6E5",
+       "35D6E9",
+       "35D6F8",
+       "35D6F9",
+       "35D702",
+       "35D703",
+       "35D706",
+       "35D707",
+       "35D70B",
+       "3E0D64",
+       "4E44E2"
+      ]
+     },
+     {
+      "name": "West Tek Research Center",
+      "placements": 8,
+      "refs": [
+       "36FD76",
+       "36FD89",
+       "36FD8D",
+       "36FDA0",
+       "36FDA2",
+       "36FDA4",
+       "36FDA5",
+       "55C329"
+      ]
+     },
+     {
+      "name": "Whitespring Bunker",
+      "placements": 5,
+      "refs": [
+       "332902",
+       "332913",
+       "332914",
+       "36FE0D",
+       "36FE38"
+      ]
+     },
+     {
+      "name": "Whitespring Station",
+      "placements": 1,
+      "refs": [
+       "1A353F"
+      ]
+     },
+     {
+      "name": "Yellow Sandy's Still",
+      "placements": 1,
+      "refs": [
+       "5293FE"
+      ]
+     }
+    ],
+    "placements": 320
+   },
+   {
+    "region": "Skyline Valley",
+    "markers": [
+     {
+      "name": "Abandoned Convoy",
+      "placements": 2,
+      "refs": [
+       "74793F",
+       "747940"
+      ]
+     },
+     {
+      "name": "Atrium Lower Level",
+      "placements": 3,
+      "refs": [
+       "72DF50",
+       "72DF6A",
+       "74FFEB"
+      ]
+     },
+     {
+      "name": "Atrium Upper Level",
+      "placements": 2,
+      "refs": [
+       "762DCA",
+       "773CCC"
+      ]
+     },
+     {
+      "name": "Camp Liberty",
+      "placements": 4,
+      "refs": [
+       "745125",
+       "746714",
+       "752D5A",
+       "752D6A"
+      ]
+     },
+     {
+      "name": "Hawksbill Weather Station",
+      "placements": 5,
+      "refs": [
+       "7589D4",
+       "788418",
+       "788419",
+       "79367F",
+       "793685"
+      ]
+     },
+     {
+      "name": "High Knob Lookout",
+      "placements": 5,
+      "refs": [
+       "6D9D1F",
+       "6D9D20",
+       "6DDC2F",
+       "6DDC30",
+       "6DDC31"
+      ]
+     },
+     {
+      "name": "Makeout Point",
+      "placements": 2,
+      "refs": [
+       "6EDECB",
+       "6F7A50"
+      ]
+     },
+     {
+      "name": "Naked Creek",
+      "placements": 2,
+      "refs": [
+       "75D8CA",
+       "75D8CD"
+      ]
+     },
+     {
+      "name": "Old Rag Lookout",
+      "placements": 11,
+      "refs": [
+       "6E6788",
+       "6E6789",
+       "6E6843",
+       "6E6844",
+       "6E6845",
+       "6E69F6",
+       "6E69F7",
+       "6E69F8",
+       "735700",
+       "7475FA",
+       "7475FB"
+      ]
+     },
+     {
+      "name": "Research Site Rhineland",
+      "placements": 4,
+      "refs": [
+       "7475EB",
+       "7475EC",
+       "747F81",
+       "747F82"
+      ]
+     },
+     {
+      "name": "Shenandoah Visitor Center",
+      "placements": 6,
+      "refs": [
+       "753E62",
+       "753E63",
+       "753E64",
+       "753E68",
+       "753E69",
+       "7589C0"
+      ]
+     },
+     {
+      "name": "Shining Creek Cavern",
+      "placements": 1,
+      "refs": [
+       "727B91"
+      ]
+     },
+     {
+      "name": "Slumber Mill Motel",
+      "placements": 1,
+      "refs": [
+       "767865"
+      ]
+     },
+     {
+      "name": "South River Bridge",
+      "placements": 3,
+      "refs": [
+       "74F9B2",
+       "74F9B3",
+       "74F9B4"
+      ]
+     },
+     {
+      "name": "Stony Man Lookout",
+      "placements": 1,
+      "refs": [
+       "73DE06"
+      ]
+     },
+     {
+      "name": "The Trading Post",
+      "placements": 2,
+      "refs": [
+       "75D63A",
+       "75D63B"
+      ]
+     },
+     {
+      "name": "Three Ponds",
+      "placements": 2,
+      "refs": [
+       "7589C7",
+       "7589CA"
+      ]
+     },
+     {
+      "name": "Thunder Mountain Substation TM-03",
+      "placements": 1,
+      "refs": [
+       "743F0D"
+      ]
+     },
+     {
+      "name": "Vault 63 Organics Sector",
+      "placements": 1,
+      "refs": [
+       "72AB64"
+      ]
+     }
+    ],
+    "placements": 58
+   },
+   {
+    "region": "The Mire",
+    "markers": [
+     {
+      "name": "Berkeley Springs",
+      "placements": 6,
+      "refs": [
+       "12FA6B",
+       "133621",
+       "342BF8",
+       "342BF9",
+       "342BFE",
+       "4F6AF6"
+      ]
+     },
+     {
+      "name": "Berkeley Springs West",
+      "placements": 2,
+      "refs": [
+       "37CFD3",
+       "37CFD4"
+      ]
+     },
+     {
+      "name": "Big B's Rest Stop",
+      "placements": 3,
+      "refs": [
+       "52F9BE",
+       "52F9C1",
+       "52F9C2"
+      ]
+     },
+     {
+      "name": "Blakes Offering",
+      "placements": 2,
+      "refs": [
+       "1113E8",
+       "111459"
+      ]
+     },
+     {
+      "name": "Bloody Frank's",
+      "placements": 4,
+      "refs": [
+       "12FB4A",
+       "55FE20",
+       "55FFD9",
+       "5609C3"
+      ]
+     },
+     {
+      "name": "Camp Venture",
+      "placements": 4,
+      "refs": [
+       "164249",
+       "16424A",
+       "530D54",
+       "530D55"
+      ]
+     },
+     {
+      "name": "Cavern",
+      "placements": 1,
+      "refs": [
+       "1A6080"
+      ]
+     },
+     {
+      "name": "Dagger's Den",
+      "placements": 2,
+      "refs": [
+       "347367",
+       "5C2CC0"
+      ]
+     },
+     {
+      "name": "Delano Grange",
+      "placements": 3,
+      "refs": [
+       "38A8CB",
+       "38A8CC",
+       "53503A"
+      ]
+     },
+     {
+      "name": "Dolly Sods Campground",
+      "placements": 1,
+      "refs": [
+       "380925"
+      ]
+     },
+     {
+      "name": "Dolly Sods Lookout",
+      "placements": 2,
+      "refs": [
+       "39243B",
+       "39243C"
+      ]
+     },
+     {
+      "name": "Dolly Sods Wilderness",
+      "placements": 11,
+      "refs": [
+       "36BED6",
+       "36BEDB",
+       "36BEDC",
+       "36BEE6",
+       "36BEE7",
+       "36BEE9",
+       "36BEEA",
+       "36BEF6",
+       "36BEFF",
+       "3E2093",
+       "3E2094"
+      ]
+     },
+     {
+      "name": "Excelsior Model Home",
+      "placements": 2,
+      "refs": [
+       "38A859",
+       "38A85A"
+      ]
+     },
+     {
+      "name": "Fisherman's Rest",
+      "placements": 2,
+      "refs": [
+       "7A8BF2",
+       "7AC282"
+      ]
+     },
+     {
+      "name": "Freddy Fear's House of Scares",
+      "placements": 1,
+      "refs": [
+       "38F022"
+      ]
+     },
+     {
+      "name": "Gulper Lagoon",
+      "placements": 2,
+      "refs": [
+       "593A74",
+       "593A75"
+      ]
+     },
+     {
+      "name": "Harpers Ferry",
+      "placements": 29,
+      "refs": [
+       "33561D",
+       "33561E",
+       "33561F",
+       "335620",
+       "335624",
+       "335625",
+       "335630",
+       "335631",
+       "335632",
+       "335634",
+       "335637",
+       "33563D",
+       "33563E",
+       "33563F",
+       "335642",
+       "335643",
+       "335644",
+       "335645",
+       "335646",
+       "335647",
+       "335648",
+       "335649",
+       "33564A",
+       "33564B",
+       "33564C",
+       "33564D",
+       "335651",
+       "335652",
+       "335653"
+      ]
+     },
+     {
+      "name": "Harpers Ferry Tunnel",
+      "placements": 6,
+      "refs": [
+       "470D1F",
+       "525D9F",
+       "5FE627",
+       "5FF662",
+       "5FF663",
+       "5FF664"
+      ]
+     },
+     {
+      "name": "Haven Church",
+      "placements": 3,
+      "refs": [
+       "34402B",
+       "34402F",
+       "4F8E1F"
+      ]
+     },
+     {
+      "name": "Mire's Eye",
+      "placements": 2,
+      "refs": [
+       "5B6F2B",
+       "5B6F2C"
+      ]
+     },
+     {
+      "name": "Moth-Home",
+      "placements": 2,
+      "refs": [
+       "3A6FD2",
+       "3A6FD3"
+      ]
+     },
+     {
+      "name": "Southern Belle Motel",
+      "placements": 2,
+      "refs": [
+       "2C5FCE",
+       "2C5FD0"
+      ]
+     },
+     {
+      "name": "Southhampton Estate",
+      "placements": 3,
+      "refs": [
+       "3A4DCC",
+       "3A4DCD",
+       "3A4DCE"
+      ]
+     },
+     {
+      "name": "Sunday Brothers' Cabin",
+      "placements": 1,
+      "refs": [
+       "52C728"
+      ]
+     },
+     {
+      "name": "Tanagra Town",
+      "placements": 4,
+      "refs": [
+       "3BEA0A",
+       "3BEA4A",
+       "3E4D76",
+       "3E4DBF"
+      ]
+     },
+     {
+      "name": "The Burrows",
+      "placements": 14,
+      "refs": [
+       "3EE93C",
+       "3F6C86",
+       "3F6C88",
+       "3F6C89",
+       "3F6C8F",
+       "3F6C93",
+       "3F6C94",
+       "3F6C97",
+       "3F6C9A",
+       "3F6C9B",
+       "3F6C9D",
+       "3F6CA0",
+       "3F6CA4",
+       "3F6CA7"
+      ]
+     },
+     {
+      "name": "The Burrows North",
+      "placements": 1,
+      "refs": [
+       "33562E"
+      ]
+     },
+     {
+      "name": "The Burrows South",
+      "placements": 7,
+      "refs": [
+       "335626",
+       "335627",
+       "335628",
+       "33562A",
+       "33564E",
+       "33564F",
+       "335650"
+      ]
+     },
+     {
+      "name": "The General's Steakhouse",
+      "placements": 2,
+      "refs": [
+       "38FECA",
+       "38FECB"
+      ]
+     },
+     {
+      "name": "The Retreat",
+      "placements": 4,
+      "refs": [
+       "3E4E42",
+       "5092FB",
+       "5C76EC",
+       "5C76EE"
+      ]
+     },
+     {
+      "name": "Thunder Mountain Power",
+      "placements": 5,
+      "refs": [
+       "3517DD",
+       "3517F0",
+       "351847",
+       "351848",
+       "351886"
+      ]
+     },
+     {
+      "name": "Thunder Mountain Power Plant",
+      "placements": 2,
+      "refs": [
+       "351884",
+       "3518EF"
+      ]
+     },
+     {
+      "name": "Thunder Mt. Power Plant Yard",
+      "placements": 2,
+      "refs": [
+       "351899",
+       "35189B"
+      ]
+     },
+     {
+      "name": "Valley Galleria",
+      "placements": 2,
+      "refs": [
+       "3BE47A",
+       "3BE47B"
+      ]
+     },
+     {
+      "name": "Vault 94",
+      "placements": 2,
+      "refs": [
+       "5C036B",
+       "5C190C"
+      ]
+     }
+    ],
+    "placements": 141
+   },
+   {
+    "region": "The Pitt",
+    "markers": [
+     {
+      "name": "Sanctum",
+      "placements": 5,
+      "refs": [
+       "651DBD",
+       "651DBE",
+       "651DC0",
+       "664BEA",
+       "664BEB"
+      ]
+     },
+     {
+      "name": "The Foundry",
+      "placements": 14,
+      "refs": [
+       "655CAF",
+       "655EAB",
+       "6571E2",
+       "6571E7",
+       "6638F0",
+       "6638F2",
+       "668D61",
+       "738697",
+       "7387A2",
+       "738873",
+       "738878",
+       "738F33",
+       "738F35",
+       "7394A1"
+      ]
+     },
+     {
+      "name": "The Pitt - Industrial",
+      "placements": 8,
+      "refs": [
+       "634FFB",
+       "634FFC",
+       "65EB3A",
+       "65EB3B",
+       "6677BA",
+       "6677BB",
+       "668338",
+       "668339"
+      ]
+     },
+     {
+      "name": "The Pitt - Trench",
+      "placements": 12,
+      "refs": [
+       "65C138",
+       "65C139",
+       "65C13A",
+       "66344F",
+       "6666CE",
+       "66731A",
+       "66731B",
+       "6685ED",
+       "668611",
+       "66861F",
+       "668629",
+       "66C83D"
+      ]
+     }
+    ],
+    "placements": 39
+   },
+   {
+    "region": "Toxic Valley",
+    "markers": [
+     {
+      "name": "Becker Farm",
+      "placements": 6,
+      "refs": [
+       "342B05",
+       "35D1B8",
+       "4ED1E0",
+       "4ED227",
+       "4ED228",
+       "4ED231"
+      ]
+     },
+     {
+      "name": "Carleton Mine",
+      "placements": 3,
+      "refs": [
+       "54AE6F",
+       "54AE70",
+       "54AE74"
+      ]
+     },
+     {
+      "name": "Clarksburg",
+      "placements": 13,
+      "refs": [
+       "346B2C",
+       "346B2E",
+       "346B30",
+       "346B36",
+       "346B38",
+       "346B3A",
+       "346B3C",
+       "3BCBE6",
+       "3BCBEB",
+       "3BCBF2",
+       "3BCBF4",
+       "3BCBF6",
+       "3BCC00"
+      ]
+     },
+     {
+      "name": "Clarksburg Shooting Club",
+      "placements": 3,
+      "refs": [
+       "341973",
+       "341974",
+       "378EE9"
+      ]
+     },
+     {
+      "name": "Cobbleton Farm",
+      "placements": 1,
+      "refs": [
+       "3AD603"
+      ]
+     },
+     {
+      "name": "Crater Watchstation",
+      "placements": 3,
+      "refs": [
+       "42F003",
+       "42F004",
+       "42F009"
+      ]
+     },
+     {
+      "name": "Eastern Regional Penitentiary",
+      "placements": 10,
+      "refs": [
+       "36FEE7",
+       "36FEE8",
+       "36FEE9",
+       "36FEEE",
+       "36FEEF",
+       "36FEFD",
+       "36FEFE",
+       "36FF0E",
+       "3C2CA2",
+       "3C42E7"
+      ]
+     },
+     {
+      "name": "Grafton",
+      "placements": 13,
+      "refs": [
+       "386B8F",
+       "386BA3",
+       "3B992E",
+       "3BB0A9",
+       "3C5286",
+       "3C5287",
+       "3C52F4",
+       "3C52F9",
+       "3C52FC",
+       "439CA2",
+       "439CA3",
+       "439CA5",
+       "439CA6"
+      ]
+     },
+     {
+      "name": "Grafton Steel",
+      "placements": 3,
+      "refs": [
+       "34D967",
+       "34D995",
+       "35E47F"
+      ]
+     },
+     {
+      "name": "Grafton Steel Underground",
+      "placements": 5,
+      "refs": [
+       "58464D",
+       "5A10CB",
+       "5A1109",
+       "5A110A",
+       "5A110B"
+      ]
+     },
+     {
+      "name": "Grafton Steel Yard",
+      "placements": 2,
+      "refs": [
+       "34D969",
+       "34D96B"
+      ]
+     },
+     {
+      "name": "Graninger Farm",
+      "placements": 5,
+      "refs": [
+       "340191",
+       "3B2F20",
+       "3EAC23",
+       "3EAC43",
+       "3EAC44"
+      ]
+     },
+     {
+      "name": "Hemlock Holes",
+      "placements": 4,
+      "refs": [
+       "35D118",
+       "3C3F84",
+       "3C3F87",
+       "3C3F89"
+      ]
+     },
+     {
+      "name": "Kiddie Corner Cabins",
+      "placements": 1,
+      "refs": [
+       "33E023"
+      ]
+     },
+     {
+      "name": "Knife Edge",
+      "placements": 3,
+      "refs": [
+       "36004F",
+       "360053",
+       "3983A9"
+      ]
+     },
+     {
+      "name": "Philippi Battlefield Cemetery",
+      "placements": 2,
+      "refs": [
+       "00083F",
+       "000840"
+      ]
+     },
+     {
+      "name": "Pioneer Scout Camp",
+      "placements": 11,
+      "refs": [
+       "00084C",
+       "000DE2",
+       "2B16A4",
+       "31268B",
+       "31339F",
+       "3133A0",
+       "3133A3",
+       "3133AF",
+       "38DB14",
+       "38DB18",
+       "4F8DF9"
+      ]
+     },
+     {
+      "name": "Prickett's Fort",
+      "placements": 1,
+      "refs": [
+       "394C1A"
+      ]
+     },
+     {
+      "name": "Smith Farm",
+      "placements": 1,
+      "refs": [
+       "3B2F1B"
+      ]
+     },
+     {
+      "name": "Toxic Dried Lakebed",
+      "placements": 6,
+      "refs": [
+       "331AA4",
+       "334117",
+       "338EE8",
+       "33E01E",
+       "33E01F",
+       "33E032"
+      ]
+     },
+     {
+      "name": "Willard Corporate Housing",
+      "placements": 1,
+      "refs": [
+       "3AB440"
+      ]
+     },
+     {
+      "name": "Woods Estate",
+      "placements": 1,
+      "refs": [
+       "36125E"
+      ]
+     }
+    ],
+    "placements": 98
+   }
+  ],
+  "total_markers": 328,
+  "total": 1666,
+  "show_maps": true,
+  "map_base": "/wp-content/uploads/guide-images/farming-non-perishable/pre-war-food/",
+  "lead": "These 328 locations have mixed pre-war food spots. Each spot gives one pre-war food, or nothing. The table shows the chance per spot that it is InstaMash. The locations are listed by name only — open a region map to see where they are."
+ }
+}

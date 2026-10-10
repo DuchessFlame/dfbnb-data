@@ -1,0 +1,284 @@
+{
+ "_meta": {
+  "generated": "2026-10-10",
+  "source": "CHAL 'Pre-war Food' keyword -> ALCH; LVLI + Mappalachia Position (cached for CI) — src/build_pre_war_food_guide.py"
+ },
+ "set": "cola-perk-bubblegum",
+ "slug": "cola-perk-bubblegum",
+ "name": "Cola Perk Bubblegum",
+ "page_title": "Cola Perk Bubblegum Location Guide",
+ "blurb": "Every Cola Perk Bubblegum spawn in Fallout 76: where it spawns, what it does, and where else you can get it.",
+ "food_key": "cola-perk-bubblegum",
+ "form_ids": [
+  "0037E0C2"
+ ],
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.1,
+   "value": 5,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Cola Perk Bubblegum is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Bubblegum Slow Hunger & Thirst",
+     "display": "Quenches thirst (5/0.1 min)",
+     "duration": "2 min",
+     "label": "Quenches Thirst",
+     "value": 5.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Resist Radiation Ingestion",
+     "display": "+5 Resist Radiation Ingestion",
+     "duration": "2 min",
+     "label": "Resist Radiation Ingestion",
+     "value": 5.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
+    }
+   ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
+  },
+  "challenges": [
+   {
+    "name": "Collect Pre-war Food",
+    "edid": "SCORE_Challenge_Daily_Collect_Food_Prewar",
+    "page": "daily",
+    "type": "Daily",
+    "required": 5
+   },
+   {
+    "name": "Eat Pre-war Food",
+    "edid": "SCORE_Challenge_Daily_Consume_Food_Prewar",
+    "page": "daily",
+    "type": "Daily",
+    "required": 5
+   },
+   {
+    "name": "Epic - Collect Pre-war Food",
+    "edid": "SCORE_Challenge_Weekly_Collect_Food_Prewar_Epic",
+    "page": "weekly",
+    "type": "Weekly",
+    "required": 30
+   },
+   {
+    "name": "Collect Pre-war Food",
+    "edid": "SCORE_Challenge_Weekly_Collect_Food_Prewar",
+    "page": "weekly",
+    "type": "Weekly",
+    "required": 20
+   },
+   {
+    "name": "Eat Pre-war Food",
+    "edid": "SCORE_Challenge_Weekly_Consume_Food_Prewar",
+    "page": "weekly",
+    "type": "Weekly",
+    "required": 25
+   },
+   {
+    "name": "Eat Pre-war Food with the Sunset Sarsaparilla Deputy Hat Equipped",
+    "edid": "ATX_DE2025_SunsetStranger_Week1_Challenge_Consume_Food_Prewar",
+    "page": "season:sunset-stranger-week1",
+    "type": "Mini Season",
+    "required": 25
+   }
+  ],
+  "recipes": []
+ },
+ "farming_tips": {
+  "spawn_note": "Cola Perk Bubblegum has no fixed world spawns.",
+  "spoils": false,
+  "spoil_duration_hours": null,
+  "base_weight": 0.1,
+  "object_type": "Food",
+  "yield_perk": null,
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.06
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.01
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.01,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.08
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.06
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.04
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.02
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.01
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": false,
+  "perk_cards": {
+   "thru_hiker": {
+    "name": "Thru-Hiker",
+    "special": "Endurance",
+    "min_level": 7,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "Food and drink weights are reduced by 45%.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "desc": "Food and drink weights are reduced by 90%.",
+      "percent": "90%"
+     }
+    ]
+   }
+  }
+ },
+ "drop_rates": {
+  "creatures": null,
+  "collectrons": null,
+  "resource_generators": null,
+  "containers": {
+   "types": []
+  }
+ },
+ "vendor_list": [
+  {
+   "name": "Joey Bello",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  }
+ ],
+ "events_activities": [],
+ "treasure_maps": {
+  "maps": []
+ },
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": []
+  },
+  {
+   "region": "Forest",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": []
+  },
+  {
+   "region": "Savage Divide",
+   "locations": []
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": []
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": []
+  },
+  {
+   "region": "The Mire",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": []
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  }
+ ],
+ "total": 0,
+ "map_base": "/wp-content/uploads/guide-images/farming-non-perishable/cola-perk-bubblegum/",
+ "map_ext": ".jpg",
+ "own_map_renderer": "render_pre_war_food_maps.py",
+ "chance_spawns": {
+  "pools": [],
+  "regions": [],
+  "total_markers": 0,
+  "total": 0,
+  "show_maps": true,
+  "map_base": "/wp-content/uploads/guide-images/farming-non-perishable/pre-war-food/"
+ }
+}

@@ -1,0 +1,959 @@
+{
+ "_meta": {
+  "generated": "2026-10-10",
+  "source": "CHAL 'Pre-war Food' keyword -> ALCH; LVLI + Mappalachia Position (cached for CI) — src/build_pre_war_food_guide.py"
+ },
+ "set": "vegetarian-ham",
+ "slug": "vegetarian-ham",
+ "name": "Vegetarian Ham",
+ "page_title": "Vegetarian Ham Location Guide",
+ "blurb": "Every Vegetarian Ham spawn in Fallout 76: where it spawns, what it does, and where else you can get it.",
+ "food_key": "vegetarian-ham",
+ "form_ids": [
+  "0037E0C5"
+ ],
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.5,
+   "value": 14,
+   "addiction": null,
+   "herbivore": true,
+   "carnivore": false,
+   "note": "Vegetarian Ham is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Restore Health",
+     "display": "Restores 25 Health",
+     "duration": "25s",
+     "label": "Restores Health",
+     "value": 25.0,
+     "unit": "health",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (1440/24 min)",
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 1440.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Rads",
+     "display": "+2 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 2.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
+    }
+   ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
+  },
+  "challenges": [
+   {
+    "name": "Collect Pre-war Food",
+    "edid": "SCORE_Challenge_Daily_Collect_Food_Prewar",
+    "page": "daily",
+    "type": "Daily",
+    "required": 5
+   },
+   {
+    "name": "Eat Pre-war Food",
+    "edid": "SCORE_Challenge_Daily_Consume_Food_Prewar",
+    "page": "daily",
+    "type": "Daily",
+    "required": 5
+   },
+   {
+    "name": "Epic - Collect Pre-war Food",
+    "edid": "SCORE_Challenge_Weekly_Collect_Food_Prewar_Epic",
+    "page": "weekly",
+    "type": "Weekly",
+    "required": 30
+   },
+   {
+    "name": "Collect Pre-war Food",
+    "edid": "SCORE_Challenge_Weekly_Collect_Food_Prewar",
+    "page": "weekly",
+    "type": "Weekly",
+    "required": 20
+   },
+   {
+    "name": "Eat Pre-war Food",
+    "edid": "SCORE_Challenge_Weekly_Consume_Food_Prewar",
+    "page": "weekly",
+    "type": "Weekly",
+    "required": 25
+   },
+   {
+    "name": "Eat Pre-war Food with the Sunset Sarsaparilla Deputy Hat Equipped",
+    "edid": "ATX_DE2025_SunsetStranger_Week1_Challenge_Consume_Food_Prewar",
+    "page": "season:sunset-stranger-week1",
+    "type": "Mini Season",
+    "required": 25
+   },
+   {
+    "name": "Collect a block of Vegetarian Ham",
+    "edid": "SCORE_Challenge_Daily_Collect_MealTypePackaged_SurvivalistVegHam",
+    "page": "daily",
+    "type": "Daily",
+    "required": 2
+   },
+   {
+    "name": "Eat a block of Vegetarian Ham",
+    "edid": "SCORE_Challenge_Daily_Consume_MealTypePackaged_SurvivalistVegHam",
+    "page": "daily",
+    "type": "Daily",
+    "required": 1
+   }
+  ],
+  "recipes": []
+ },
+ "farming_tips": {
+  "spoils": false,
+  "spoil_duration_hours": null,
+  "base_weight": 0.5,
+  "object_type": "Food",
+  "yield_perk": null,
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.28
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.05
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.05,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.3
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.1
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.05
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": false,
+  "perk_cards": {
+   "thru_hiker": {
+    "name": "Thru-Hiker",
+    "special": "Endurance",
+    "min_level": 7,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "Food and drink weights are reduced by 45%.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "desc": "Food and drink weights are reduced by 90%.",
+      "percent": "90%"
+     }
+    ]
+   }
+  }
+ },
+ "drop_rates": {
+  "creatures": null,
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Scoutmaster Collectron Station",
+     "edid": "SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster",
+     "obtain": "Purchase from Samuel for 4000 Gold Bullion. Requires unlocking the Pioneer Scouts: Skyline Valley Scoreboard (Season 17).",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Vegetarian Ham",
+       "form_id": "0037E0C5",
+       "rate": 0.028104,
+       "rate_display": "2.81%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": null,
+  "containers": {
+   "types": []
+  }
+ },
+ "vendor_list": [],
+ "events_activities": [],
+ "treasure_maps": {
+  "maps": []
+ },
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": [
+    {
+     "marker": "Lake Reynolds",
+     "count": 2,
+     "sources": {
+      "static": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3C5D81",
+      "3C5D82"
+     ],
+     "coords": [
+      -64607.1,
+      -121927.4
+     ],
+     "spawns": [
+      {
+       "label": "Vegetarian Ham #1",
+       "ref": "3C5D81",
+       "source_type": "static",
+       "coords": [
+        -64607.1,
+        -121927.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Vegetarian Ham #2",
+       "ref": "3C5D82",
+       "source_type": "static",
+       "coords": [
+        -64606.2,
+        -121927.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Vegetarian Ham",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Forest",
+   "locations": [
+    {
+     "marker": "Flatwoods",
+     "count": 2,
+     "sources": {
+      "static": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3E850A",
+      "3E850B"
+     ],
+     "coords": [
+      -106700.2,
+      17726.3
+     ],
+     "spawns": [
+      {
+       "label": "Vegetarian Ham #1",
+       "ref": "3E850A",
+       "source_type": "static",
+       "coords": [
+        -106700.2,
+        17726.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Vegetarian Ham #2",
+       "ref": "3E850B",
+       "source_type": "static",
+       "coords": [
+        -106700.2,
+        17726.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Vegetarian Ham",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Organ Cave North",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3B2DB7"
+     ],
+     "coords": [
+      -100255.5,
+      101367.6
+     ],
+     "spawns": [
+      {
+       "label": "Vegetarian Ham",
+       "ref": "3B2DB7",
+       "source_type": "static",
+       "coords": [
+        -100255.5,
+        101367.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Vegetarian Ham",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": [
+    {
+     "marker": "Cobbleton Farm",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2FD00C"
+     ],
+     "coords": [
+      -92054.7,
+      161396.8
+     ],
+     "spawns": [
+      {
+       "label": "Vegetarian Ham",
+       "ref": "2FD00C",
+       "source_type": "static",
+       "coords": [
+        -92054.7,
+        161396.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Vegetarian Ham",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Grafton Steel",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3B4056"
+     ],
+     "coords": [
+      12025.1,
+      131938.8
+     ],
+     "spawns": [
+      {
+       "label": "Vegetarian Ham",
+       "ref": "3B4056",
+       "source_type": "static",
+       "coords": [
+        12025.1,
+        131938.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Vegetarian Ham",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Toxic Dried Lakebed",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3B2E6A"
+     ],
+     "coords": [
+      -18049.3,
+      173316.9
+     ],
+     "spawns": [
+      {
+       "label": "Vegetarian Ham",
+       "ref": "3B2E6A",
+       "source_type": "static",
+       "coords": [
+        -18049.3,
+        173316.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Vegetarian Ham",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Savage Divide",
+   "locations": [
+    {
+     "marker": "Missile Silo Alpha",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "51D103"
+     ],
+     "coords": [
+      -14829.7,
+      -32927.9
+     ],
+     "spawns": [
+      {
+       "label": "Vegetarian Ham",
+       "ref": "51D103",
+       "source_type": "static",
+       "coords": [
+        -14829.7,
+        -32927.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Vegetarian Ham",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Missile Silo Bravo",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "448077"
+     ],
+     "coords": [
+      -14829.7,
+      -32927.9
+     ],
+     "spawns": [
+      {
+       "label": "Vegetarian Ham",
+       "ref": "448077",
+       "source_type": "static",
+       "coords": [
+        -14829.7,
+        -32927.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Vegetarian Ham",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "South Mountain Lookout",
+     "count": 2,
+     "sources": {
+      "static": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "38E48B",
+      "3E324F"
+     ],
+     "coords": [
+      51056.8,
+      -123377.1
+     ],
+     "spawns": [
+      {
+       "label": "Vegetarian Ham #1",
+       "ref": "38E48B",
+       "source_type": "static",
+       "coords": [
+        51056.8,
+        -123377.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Vegetarian Ham #2",
+       "ref": "3E324F",
+       "source_type": "static",
+       "coords": [
+        51538.4,
+        -122838.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Vegetarian Ham",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": [
+    {
+     "marker": "Naked Creek",
+     "count": 2,
+     "sources": {
+      "static": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "758720",
+      "758721"
+     ],
+     "coords": [
+      -20575.9,
+      -242641.9
+     ],
+     "spawns": [
+      {
+       "label": "Vegetarian Ham #1",
+       "ref": "758720",
+       "source_type": "static",
+       "coords": [
+        -20575.9,
+        -242641.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Vegetarian Ham #2",
+       "ref": "758721",
+       "source_type": "static",
+       "coords": [
+        -20575.5,
+        -242642.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Vegetarian Ham",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": [
+    {
+     "marker": "Missile Silo Charlie",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "4441E6"
+     ],
+     "coords": [
+      -14829.7,
+      -32927.9
+     ],
+     "spawns": [
+      {
+       "label": "Vegetarian Ham",
+       "ref": "4441E6",
+       "source_type": "static",
+       "coords": [
+        -14829.7,
+        -32927.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Vegetarian Ham",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Mire",
+   "locations": [
+    {
+     "marker": "Mosstown",
+     "count": 2,
+     "sources": {
+      "static": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "112843",
+      "16D705"
+     ],
+     "coords": [
+      133269.9,
+      72550.5
+     ],
+     "spawns": [
+      {
+       "label": "Vegetarian Ham #1",
+       "ref": "112843",
+       "source_type": "static",
+       "coords": [
+        133269.9,
+        72550.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Vegetarian Ham #2",
+       "ref": "16D705",
+       "source_type": "static",
+       "coords": [
+        133262.0,
+        72555.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Vegetarian Ham",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Sunday Brothers' Cabin",
+     "count": 2,
+     "sources": {
+      "static": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "0C3266",
+      "0D38AE"
+     ],
+     "coords": [
+      137724.8,
+      2396.3
+     ],
+     "spawns": [
+      {
+       "label": "Vegetarian Ham #1",
+       "ref": "0C3266",
+       "source_type": "static",
+       "coords": [
+        137724.8,
+        2396.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Vegetarian Ham #2",
+       "ref": "0D38AE",
+       "source_type": "static",
+       "coords": [
+        137739.8,
+        2401.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Vegetarian Ham",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Burning Springs",
+   "locations": [
+    {
+     "marker": "Highway Town Interior",
+     "count": 2,
+     "sources": {
+      "static": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "81CF27",
+      "81CF28"
+     ],
+     "coords": [
+      -2758.2,
+      14150.9
+     ],
+     "spawns": [
+      {
+       "label": "Vegetarian Ham #1",
+       "ref": "81CF27",
+       "source_type": "static",
+       "coords": [
+        -2758.2,
+        14150.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Vegetarian Ham #2",
+       "ref": "81CF28",
+       "source_type": "static",
+       "coords": [
+        -2758.1,
+        14151.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Vegetarian Ham",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  }
+ ],
+ "total": 21,
+ "map_base": "/wp-content/uploads/guide-images/farming-non-perishable/vegetarian-ham/",
+ "map_ext": ".jpg",
+ "full_map": "/wp-content/uploads/guide-images/farming-non-perishable/vegetarian-ham/vegetarian-ham.jpg",
+ "own_map_renderer": "render_pre_war_food_maps.py",
+ "chance_spawns": {
+  "pools": [],
+  "regions": [],
+  "total_markers": 0,
+  "total": 0,
+  "show_maps": true,
+  "map_base": "/wp-content/uploads/guide-images/farming-non-perishable/pre-war-food/"
+ }
+}

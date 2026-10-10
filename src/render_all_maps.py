@@ -124,6 +124,11 @@ def discover():
         except Exception as e:
             print(f"  !! {path}: {e}", file=sys.stderr)
             return
+        # Pages drawn by their own map script (the Pre-War Food pages:
+        # render_pre_war_food_maps.py) — that script knows their folders and
+        # shares ONE set of chance maps between them.
+        if doc.get("own_map_renderer"):
+            return
         regions = R.doc_regions(doc)
         placements = sum(len(l.get("spawns") or []) or l.get("count", 0)
                          for r in regions for l in (r.get("locations") or []))

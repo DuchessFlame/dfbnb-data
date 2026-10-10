@@ -1,0 +1,1290 @@
+{
+ "_meta": {
+  "generated": "2026-10-10",
+  "source": "CHAL 'Pre-war Food' keyword -> ALCH; LVLI + Mappalachia Position (cached for CI) — src/build_pre_war_food_guide.py"
+ },
+ "set": "imitation-seafood",
+ "slug": "imitation-seafood",
+ "name": "Imitation Seafood",
+ "page_title": "Imitation Seafood Location Guide",
+ "blurb": "Every Imitation Seafood spawn in Fallout 76: where it spawns, what it does, and where else you can get it.",
+ "food_key": "imitation-seafood",
+ "form_ids": [
+  "0037E0C3"
+ ],
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.5,
+   "value": 14,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": true,
+   "note": "Imitation Seafood is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Restore Health",
+     "display": "Restores 20 Health",
+     "duration": "25s",
+     "label": "Restores Health",
+     "value": 20.0,
+     "unit": "health",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (1080/18 min)",
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 1080.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Rads",
+     "display": "+2 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 2.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
+    }
+   ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
+  },
+  "challenges": [
+   {
+    "name": "Collect Pre-war Food",
+    "edid": "SCORE_Challenge_Daily_Collect_Food_Prewar",
+    "page": "daily",
+    "type": "Daily",
+    "required": 5
+   },
+   {
+    "name": "Eat Pre-war Food",
+    "edid": "SCORE_Challenge_Daily_Consume_Food_Prewar",
+    "page": "daily",
+    "type": "Daily",
+    "required": 5
+   },
+   {
+    "name": "Epic - Collect Pre-war Food",
+    "edid": "SCORE_Challenge_Weekly_Collect_Food_Prewar_Epic",
+    "page": "weekly",
+    "type": "Weekly",
+    "required": 30
+   },
+   {
+    "name": "Collect Pre-war Food",
+    "edid": "SCORE_Challenge_Weekly_Collect_Food_Prewar",
+    "page": "weekly",
+    "type": "Weekly",
+    "required": 20
+   },
+   {
+    "name": "Eat Pre-war Food",
+    "edid": "SCORE_Challenge_Weekly_Consume_Food_Prewar",
+    "page": "weekly",
+    "type": "Weekly",
+    "required": 25
+   },
+   {
+    "name": "Eat Pre-war Food with the Sunset Sarsaparilla Deputy Hat Equipped",
+    "edid": "ATX_DE2025_SunsetStranger_Week1_Challenge_Consume_Food_Prewar",
+    "page": "season:sunset-stranger-week1",
+    "type": "Mini Season",
+    "required": 25
+   },
+   {
+    "name": "Collect a tin of Imitation Seafood",
+    "edid": "SCORE_Challenge_Daily_Collect_MealTypePackaged_SurvivalistSeafood",
+    "page": "daily",
+    "type": "Daily",
+    "required": 2
+   },
+   {
+    "name": "Eat a tin of Imitation Seafood",
+    "edid": "SCORE_Challenge_Daily_Consume_MealTypePackaged_SurvivalistSeafood",
+    "page": "daily",
+    "type": "Daily",
+    "required": 1
+   }
+  ],
+  "recipes": []
+ },
+ "farming_tips": {
+  "spoils": false,
+  "spoil_duration_hours": null,
+  "base_weight": 0.5,
+  "object_type": "Food",
+  "yield_perk": "can_do",
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.28
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.05
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.05,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.3
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.1
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.05
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": false,
+  "perk_cards": {
+   "thru_hiker": {
+    "name": "Thru-Hiker",
+    "special": "Endurance",
+    "min_level": 7,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "Food and drink weights are reduced by 45%.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "desc": "Food and drink weights are reduced by 90%.",
+      "percent": "90%"
+     }
+    ]
+   },
+   "can_do": {
+    "name": "Can Do!",
+    "special": "Luck",
+    "min_level": 7,
+    "rank_count": 1,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "Find more canned goods based on your LCK."
+     }
+    ]
+   }
+  }
+ },
+ "drop_rates": {
+  "creatures": null,
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Scoutmaster Collectron Station",
+     "edid": "SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster",
+     "obtain": "Purchase from Samuel for 4000 Gold Bullion. Requires unlocking the Pioneer Scouts: Skyline Valley Scoreboard (Season 17).",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Imitation Seafood",
+       "form_id": "0037E0C3",
+       "rate": 0.016862,
+       "rate_display": "1.69%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": null,
+  "containers": {
+   "types": []
+  }
+ },
+ "vendor_list": [
+  {
+   "name": "Sunny",
+   "marker": "Foundation",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "14.29%",
+    "12.14%",
+    "8.57%",
+    "5.71%",
+    "2.86%"
+   ],
+   "rate_display": "14.29% / 12.14% / 8.57% / 5.71% / 2.86%",
+   "rate_value": 0.142857,
+   "count": 1
+  },
+  {
+   "name": "Marie",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "14.29%",
+    "12.14%",
+    "8.57%",
+    "5.71%",
+    "2.86%"
+   ],
+   "rate_display": "14.29% / 12.14% / 8.57% / 5.71% / 2.86%",
+   "rate_value": 0.142857,
+   "count": 1
+  }
+ ],
+ "events_activities": [],
+ "treasure_maps": {
+  "maps": []
+ },
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": [
+    {
+     "marker": "Lake Reynolds",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3C5D7C"
+     ],
+     "coords": [
+      -66286.7,
+      -121792.0
+     ],
+     "spawns": [
+      {
+       "label": "Imitation Seafood",
+       "ref": "3C5D7C",
+       "source_type": "static",
+       "coords": [
+        -66286.7,
+        -121792.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Imitation Seafood",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Welch Station",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3DAEE4"
+     ],
+     "coords": [
+      -149127.0,
+      -132359.0
+     ],
+     "spawns": [
+      {
+       "label": "Imitation Seafood",
+       "ref": "3DAEE4",
+       "source_type": "static",
+       "coords": [
+        -149127.0,
+        -132359.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Imitation Seafood",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Forest",
+   "locations": [
+    {
+     "marker": "Charleston Station",
+     "count": 2,
+     "sources": {
+      "static": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3E13F2",
+      "3E1421"
+     ],
+     "coords": [
+      -114503.4,
+      -33905.1
+     ],
+     "spawns": [
+      {
+       "label": "Imitation Seafood #1",
+       "ref": "3E13F2",
+       "source_type": "static",
+       "coords": [
+        -114503.4,
+        -33905.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Imitation Seafood #2",
+       "ref": "3E1421",
+       "source_type": "static",
+       "coords": [
+        -112174.9,
+        -37153.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Imitation Seafood",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Flatwoods",
+     "count": 3,
+     "sources": {
+      "static": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3E8508",
+      "3E850D",
+      "3E850E"
+     ],
+     "coords": [
+      -106697.9,
+      17740.7
+     ],
+     "spawns": [
+      {
+       "label": "Imitation Seafood #1",
+       "ref": "3E8508",
+       "source_type": "static",
+       "coords": [
+        -106697.9,
+        17740.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Imitation Seafood #2",
+       "ref": "3E850D",
+       "source_type": "static",
+       "coords": [
+        -106682.9,
+        17721.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Imitation Seafood #3",
+       "ref": "3E850E",
+       "source_type": "static",
+       "coords": [
+        -106669.8,
+        17717.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Imitation Seafood",
+       "count": 3,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Helvetia",
+     "count": 3,
+     "sources": {
+      "static": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3B60D5",
+      "3B60D6",
+      "3B60D7"
+     ],
+     "coords": [
+      -35181.2,
+      35999.6
+     ],
+     "spawns": [
+      {
+       "label": "Imitation Seafood #1",
+       "ref": "3B60D5",
+       "source_type": "static",
+       "coords": [
+        -35181.2,
+        35999.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Imitation Seafood #2",
+       "ref": "3B60D6",
+       "source_type": "static",
+       "coords": [
+        -35179.1,
+        35986.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Imitation Seafood #3",
+       "ref": "3B60D7",
+       "source_type": "static",
+       "coords": [
+        -35179.2,
+        35973.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Imitation Seafood",
+       "count": 3,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Morgantown Station",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3B83CE"
+     ],
+     "coords": [
+      -29302.3,
+      102029.4
+     ],
+     "spawns": [
+      {
+       "label": "Imitation Seafood",
+       "ref": "3B83CE",
+       "source_type": "static",
+       "coords": [
+        -29302.3,
+        102029.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Imitation Seafood",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Morgantown Trainyard",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3B6B71"
+     ],
+     "coords": [
+      -31176.4,
+      88642.8
+     ],
+     "spawns": [
+      {
+       "label": "Imitation Seafood",
+       "ref": "3B6B71",
+       "source_type": "static",
+       "coords": [
+        -31176.4,
+        88642.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Imitation Seafood",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Organ Cave North",
+     "count": 2,
+     "sources": {
+      "static": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3B2DB6",
+      "3B2E4E"
+     ],
+     "coords": [
+      -100240.2,
+      101382.5
+     ],
+     "spawns": [
+      {
+       "label": "Imitation Seafood #1",
+       "ref": "3B2DB6",
+       "source_type": "static",
+       "coords": [
+        -100240.2,
+        101382.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Imitation Seafood #2",
+       "ref": "3B2E4E",
+       "source_type": "static",
+       "coords": [
+        -100124.2,
+        101182.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Imitation Seafood",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Sutton Station",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3DABD6"
+     ],
+     "coords": [
+      -60977.7,
+      11752.3
+     ],
+     "spawns": [
+      {
+       "label": "Imitation Seafood",
+       "ref": "3DABD6",
+       "source_type": "static",
+       "coords": [
+        -60977.7,
+        11752.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Imitation Seafood",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": [
+    {
+     "marker": "Grafton Steel",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3B4054"
+     ],
+     "coords": [
+      11816.9,
+      131892.5
+     ],
+     "spawns": [
+      {
+       "label": "Imitation Seafood",
+       "ref": "3B4054",
+       "source_type": "static",
+       "coords": [
+        11816.9,
+        131892.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Imitation Seafood",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Graninger Farm",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3B401E"
+     ],
+     "coords": [
+      1794.2,
+      171086.1
+     ],
+     "spawns": [
+      {
+       "label": "Imitation Seafood",
+       "ref": "3B401E",
+       "source_type": "static",
+       "coords": [
+        1794.2,
+        171086.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Imitation Seafood",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Toxic Dried Lakebed",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3B2E65"
+     ],
+     "coords": [
+      -18113.7,
+      173241.4
+     ],
+     "spawns": [
+      {
+       "label": "Imitation Seafood",
+       "ref": "3B2E65",
+       "source_type": "static",
+       "coords": [
+        -18113.7,
+        173241.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Imitation Seafood",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Savage Divide",
+   "locations": [
+    {
+     "marker": "Monongah Power Plant",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3AECDE"
+     ],
+     "coords": [
+      -860.8,
+      -75.2
+     ],
+     "spawns": [
+      {
+       "label": "Imitation Seafood",
+       "ref": "3AECDE",
+       "source_type": "static",
+       "coords": [
+        -860.8,
+        -75.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Imitation Seafood",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "South Mountain Lookout",
+     "count": 2,
+     "sources": {
+      "static": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "38E486",
+      "3E3247"
+     ],
+     "coords": [
+      51052.0,
+      -123427.8
+     ],
+     "spawns": [
+      {
+       "label": "Imitation Seafood #1",
+       "ref": "38E486",
+       "source_type": "static",
+       "coords": [
+        51052.0,
+        -123427.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Imitation Seafood #2",
+       "ref": "3E3247",
+       "source_type": "static",
+       "coords": [
+        51533.6,
+        -122888.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Imitation Seafood",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": [
+    {
+     "marker": "Naked Creek",
+     "count": 3,
+     "sources": {
+      "static": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "75871F",
+      "758722",
+      "758726"
+     ],
+     "coords": [
+      -20565.2,
+      -242632.1
+     ],
+     "spawns": [
+      {
+       "label": "Imitation Seafood #1",
+       "ref": "75871F",
+       "source_type": "static",
+       "coords": [
+        -20565.2,
+        -242632.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Imitation Seafood #2",
+       "ref": "758722",
+       "source_type": "static",
+       "coords": [
+        -20565.4,
+        -242656.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Imitation Seafood #3",
+       "ref": "758726",
+       "source_type": "static",
+       "coords": [
+        -20561.8,
+        -242677.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Imitation Seafood",
+       "count": 3,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": [
+    {
+     "marker": "Watoga Station",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3DAD0F"
+     ],
+     "coords": [
+      151556.2,
+      -149874.1
+     ],
+     "spawns": [
+      {
+       "label": "Imitation Seafood",
+       "ref": "3DAD0F",
+       "source_type": "static",
+       "coords": [
+        151556.2,
+        -149874.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Imitation Seafood",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Mire",
+   "locations": [
+    {
+     "marker": "Bloody Frank's",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "55FFDF"
+     ],
+     "coords": [
+      128624.0,
+      36278.8
+     ],
+     "spawns": [
+      {
+       "label": "Imitation Seafood",
+       "ref": "55FFDF",
+       "source_type": "static",
+       "coords": [
+        128624.0,
+        36278.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Imitation Seafood",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Sunday Brothers' Cabin",
+     "count": 2,
+     "sources": {
+      "static": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "0C2824",
+      "0C282C"
+     ],
+     "coords": [
+      137719.1,
+      2421.6
+     ],
+     "spawns": [
+      {
+       "label": "Imitation Seafood #1",
+       "ref": "0C2824",
+       "source_type": "static",
+       "coords": [
+        137719.1,
+        2421.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Imitation Seafood #2",
+       "ref": "0C282C",
+       "source_type": "static",
+       "coords": [
+        137726.6,
+        2417.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Imitation Seafood",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Burning Springs",
+   "locations": [
+    {
+     "marker": "Highway Town Interior",
+     "count": 2,
+     "sources": {
+      "static": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "81CF26",
+      "81CF29"
+     ],
+     "coords": [
+      -2760.9,
+      14133.8
+     ],
+     "spawns": [
+      {
+       "label": "Imitation Seafood #1",
+       "ref": "81CF26",
+       "source_type": "static",
+       "coords": [
+        -2760.9,
+        14133.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Imitation Seafood #2",
+       "ref": "81CF29",
+       "source_type": "static",
+       "coords": [
+        -2743.6,
+        14150.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Imitation Seafood",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Prospect Hill",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "81C6A3"
+     ],
+     "coords": [
+      -210260.8,
+      108337.9
+     ],
+     "spawns": [
+      {
+       "label": "Imitation Seafood",
+       "ref": "81C6A3",
+       "source_type": "static",
+       "coords": [
+        -210260.8,
+        108337.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Imitation Seafood",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  }
+ ],
+ "total": 31,
+ "map_base": "/wp-content/uploads/guide-images/farming-non-perishable/imitation-seafood/",
+ "map_ext": ".jpg",
+ "full_map": "/wp-content/uploads/guide-images/farming-non-perishable/imitation-seafood/imitation-seafood.jpg",
+ "own_map_renderer": "render_pre_war_food_maps.py",
+ "chance_spawns": {
+  "pools": [],
+  "regions": [],
+  "total_markers": 0,
+  "total": 0,
+  "show_maps": true,
+  "map_base": "/wp-content/uploads/guide-images/farming-non-perishable/pre-war-food/"
+ }
+}
