@@ -768,9 +768,32 @@ EVENTS = {
         "eventSlug": "halloween-scorched",
         "description": "Take down Spooky Scorched to earn Spooky Treat Bags filled with Halloween-themed rewards.",
         "isContainerLoot": True,
+        # Merged page (Oct 2026): the Spooky Treat Bag and the inventory of the
+        # Slasher-masked Spooky Scorched are one root expand each, with one
+        # shared unique-rewards checklist. Rewards that only come from the
+        # masked Scorched are tagged Slasher on the page (switchable, keyed to
+        # the "the-slasher" row in the events calendar).
         "containers": [
             {"title": "Spooky Treat Bag", "lvliFormID": "0062038D"},
+            {"title": "Slasher Masked Spooky Scorched", "lvliFormID": "008F6AC2", "slasher": True},
         ],
+        "keepTiers": True,
+        "seasonCalendarPrefix": "the-slasher",
+        "splitByCategory": {
+            "rootLabels": True,
+            "categories": [
+                {"key": "ammo",     "label": "Contextual Ammo", "isUnique": False, "subLvliFormIDs": ["006A2511"]},
+                {"key": "goodies",  "label": "Goodies",         "isUnique": False, "subLvliFormIDs": ["0059CACE"]},
+                {"key": "treats",   "label": "Treats",          "isUnique": False, "subLvliFormIDs": ["00565BFD"]},
+                {"key": "aid",      "label": "Aid",             "isUnique": False, "itemFormIDs": ["008E06F0"]},
+                {"key": "titles",   "label": "Titles",          "isUnique": True,  "subLvliFormIDs": ["007B2465"]},
+                {"key": "good",     "label": "Good Rewards",    "isUnique": True,  "subLvliFormIDs": ["00577BC0"]},
+                {"key": "rare",     "label": "Rare Rewards",    "isUnique": True,  "subLvliFormIDs": ["0058755C"]},
+                {"key": "pumpkins", "label": "Pumpkins",        "isUnique": True,  "subLvliFormIDs": ["005772BD"]},
+                {"key": "sl-rare",  "label": "Slasher Rare Rewards",       "isUnique": True, "subLvliFormIDs": ["00904CDE"]},
+                {"key": "sl-ultra", "label": "Slasher Ultra Rare Rewards", "isUnique": True, "subLvliFormIDs": ["00904CDF"]},
+            ],
+        },
     },
     # Slasher Masked Spooky Scorched (SDOW season content). Renamed 2 Oct 2026
     # (Duchess) from "Spooky Scorched — Slasher Loot" / "Slasher Loot Bag": there
@@ -809,6 +832,19 @@ EVENTS = {
             {"title": "Medium Holiday Gift (Crafted)", "lvliFormID": "005DCA87"},
             {"title": "Small Holiday Gift (Crafted)",  "lvliFormID": "005DCA86"},
         ],
+        # One root expand per gift (same layout as the Treasure Hunter pails).
+        "keepTiers": True,
+        "splitByCategory": {
+            "rootLabels": True,
+            "categories": [
+                {"key": "titles",   "label": "Titles",                 "isUnique": True,  "subLvliFormIDs": ["007B2463"]},
+                {"key": "rare",     "label": "Holiday Rare Rewards",   "isUnique": True,  "subLvliFormIDs": ["005DCA8B"]},
+                {"key": "common",   "label": "Holiday Common Rewards", "isUnique": True,  "subLvliFormIDs": ["0059CACD"]},
+                {"key": "ammo",     "label": "Contextual Ammo",        "isUnique": False, "subLvliFormIDs": ["006A2511"]},
+                {"key": "goodies",  "label": "Goodies",                "isUnique": False, "subLvliFormIDs": ["0059CACE"]},
+                {"key": "currency", "label": "Currency",               "isUnique": False, "subLvliFormIDs": ["005DCA8C", "0075062E"]},
+            ],
+        },
     },
     "invaders-from-beyond-all-rewards": {
         "name": "Invaders from Beyond",
@@ -1054,17 +1090,106 @@ def _humanize_slasher_party_crasher_name(raw):
     return edid if edid else "Slasher Party Crasher"
 
 
-def _detect_event_flags(quest_fids, quest_index, globs):
-    """Detect party crashers and invaders flag from QUEST TSV data.
+MUTATED_REWARDS_EDID = "LL_MutatedEvents_Rewards"
+
+
+# ALCH keywords that make an item a plain consumable (not a unique reward):
+# food, drink (incl. alcohol and water), and chems (ObjectTypeChem or any
+# ChemType*, which also catches Ghost Boy). Magazines and reward packages
+# (Mutated Package) carry none of these and stay on the checklist.
+_CONSUMABLE_KW = re.compile(r"\b(ObjectTypeFood|ObjectTypeDrink|ObjectTypeChem|ChemType\w*)\b")
+
+
+def _load_alch_consumables(tsv_root):
+    """{ALCH FormID} that are food / drink / chems, from the ALCH export."""
+    out = set()
+    for r in _th_rows("ALCH_Export_*.tsv", tsv_root):
+        fid = (pick(r, "ALCH_FormID", "FormID") or "").strip().upper()
+        if fid and _CONSUMABLE_KW.search(r.get("Keywords_Flat") or ""):
+            out.add(fid)
+    return out
+
+
+def _tag_consumables(tree, alch_kinds):
+    def visit(node):
+        if isinstance(node, dict):
+            fid = str(node.get("formid") or "").upper()
+            if fid and fid in alch_kinds and str(node.get("sig") or "").upper() == "ALCH":
+                node["consumable"] = True
+            for v in node.values():
+                if isinstance(v, (dict, list)):
+                    visit(v)
+        elif isinstance(node, list):
+            for v in node:
+                visit(v)
+    visit(tree)
+
+
+class _GlobView:
+    """dict-style .get(FormID) over the rng76 GLOB table."""
+    def __init__(self, globs):
+        self._g = globs
+
+    def get(self, fid, default=None):
+        try:
+            v = self._g.value(str(fid).upper())
+        except Exception:
+            v = None
+        return default if v is None else v
+
+
+def _load_npc_names(tsv_root):
+    """{NPC FormID: in-game FULL name} from the newest NPC export, so party
+    crashers read as the game names them ("Uninvited Pint-Sized Phantom")
+    instead of a split-up EDID. NPCs with no FULL (Bigfoot) fall back to the
+    EDID humaniser."""
+    out = {}
+    for r in _th_rows("NPC_Export_*.tsv", tsv_root):
+        fid = (pick(r, "FormID", "NPC_FormID") or "").strip().upper()
+        full = (pick(r, "FULL", "NPC_FULL") or "").strip()
+        if fid and full:
+            out[fid] = full
+    return out
+
+
+def _crasher_line(name, glob_raw, spawn_pct):
+    """One Party Crasher sentence. LCP_ globals are live content parameters:
+    Bethesda sets them on the server, so the 0 in the game files is not the
+    real chance and must not be printed as "0.0%"."""
+    glob_edid = str(glob_raw).split(":")[1] if ":" in str(glob_raw) else ""
+    if glob_edid.upper().startswith("LCP_") and not spawn_pct:
+        return ("{} can spawn at the end of the event while Bethesda has it switched on. "
+                "The spawn chance is set live, so it isn't in the game files.".format(name))
+    if spawn_pct is None:
+        return "{} can spawn at the end of the event.".format(name)
+    pct_val = round(max(0.0, spawn_pct) * 100, 6)
+    return "{} \u2014 {}% chance to spawn at the end of the event.".format(name, pct_val)
+
+
+def _detect_event_flags(quest_fids, quest_index, globs, npc_names=None, gmrw_rows=None):
+    """Detect party crashers, invaders and mutated flags from the game files.
+
+    Party Crashers / Invaders come from the QUEST export columns; Mutated is
+    "Yes." when one of the page's quests has a GMRW row that awards
+    LL_MutatedEvents_Rewards (the list every mutated public event pays out).
 
     Returns dict with keys:
       partyCrashers        - str or None  (Bigfoot / generic party crashers)
       slasherPartyCrasher  - str or None  (pint-sized slasher / phantom variants)
       invadersEvent        - str or None
+      mutatedEvent         - str or None
     """
-    result = {"partyCrashers": None, "slasherPartyCrasher": None, "invadersEvent": None}
+    result = {"partyCrashers": None, "slasherPartyCrasher": None,
+              "invadersEvent": None, "mutatedEvent": None}
     if not quest_fids:
         return result
+    npc_names = npc_names or {}
+    qset = {str(f).upper() for f in quest_fids}
+    for r in (gmrw_rows or []):
+        parent = (pick(r, "ParentQuestLink", default="") or "").split(":")[0].strip().upper()
+        if parent in qset and MUTATED_REWARDS_EDID in (r.get("RewardedItem") or ""):
+            result["mutatedEvent"] = "Yes."
+            break
 
     pc_lines = []
     slasher_lines = []
@@ -1088,24 +1213,15 @@ def _detect_event_flags(quest_fids, quest_index, globs):
                 continue
             glob_fid = glob_raw.split(":")[0] if ":" in str(glob_raw) else str(glob_raw)
             spawn_pct = globs.value(glob_fid)
+            npc_fid = str(npc_raw).split(":")[0].strip().upper()
 
             # Separate slasher / phantom party crashers from regular ones
             if _is_slasher_party_crasher(npc_raw):
-                name = _humanize_slasher_party_crasher_name(npc_raw)
-                if spawn_pct is not None:
-                    pct_val = round(max(0.0, spawn_pct) * 100, 6)
-                    slasher_lines.append("{} \u2014 {}% chance to spawn at the end of the event.".format(
-                        name, pct_val))
-                else:
-                    slasher_lines.append("{} can spawn at the end of the event.".format(name))
+                name = npc_names.get(npc_fid) or _humanize_slasher_party_crasher_name(npc_raw)
+                slasher_lines.append(_crasher_line(name, glob_raw, spawn_pct))
             else:
-                name = _humanize_party_crasher_name(npc_raw)
-                if spawn_pct is not None:
-                    pct_val = round(max(0.0, spawn_pct) * 100, 6)
-                    pc_lines.append("{} \u2014 {}% chance to spawn at the end of the event.".format(
-                        name, pct_val))
-                else:
-                    pc_lines.append("{} can spawn at the end of the event.".format(name))
+                name = npc_names.get(npc_fid) or _humanize_party_crasher_name(npc_raw)
+                pc_lines.append(_crasher_line(name, glob_raw, spawn_pct))
 
     if pc_lines:
         result["partyCrashers"] = " ".join(pc_lines)
@@ -2244,6 +2360,9 @@ def _fo1_condition_text(s, globs=None):
         v = float(m.group(2)) if m.group(2) is not None else (globs or {}).get((m.group(3) or "").upper())
         if "Active Players" in s and v is not None:
             n = int(round(float(v)))
+            if n == 1 and op in (3, 4):
+                return ("Only when at least one player taking part has Fallout 1st" if op == 3
+                        else "Only when nobody taking part has Fallout 1st")
             return {3: f"Only when {n} or more players taking part have Fallout 1st",
                     2: f"Only when more than {n} players taking part have Fallout 1st",
                     4: f"Only when fewer than {n} players taking part have Fallout 1st",
@@ -2252,6 +2371,76 @@ def _fo1_condition_text(s, globs=None):
             member = (float(v) != 0) if op == 1 else (float(v) == 0)
             return "Requires Fallout 1st membership" if member else "Only for players without Fallout 1st"
     return "Requires Fallout 1st membership"
+
+
+# CTDA type bit strings as these exports write them for value comparisons.
+# The first three characters carry the operator. "10000000" is == and
+# "00000000" is != here (same reading as the HasLearnedRecipe handler below,
+# and the only reading that makes LTT_Bratsnacht_Toggle (default 0) leave the
+# normal Fasnacht masks in and Brat Boy out); the others follow rng76.
+_CTDA_OPS = {"100": "==", "000": "!=", "010": ">", "110": ">=", "101": "<=", "001": "<"}
+
+
+def _ctda_true(op, lhs, rhs):
+    return {"==": lhs == rhs, "!=": lhs != rhs, ">": lhs > rhs, ">=": lhs >= rhs,
+            "<=": lhs <= rhs, "<": lhs < rhs}.get(op, False)
+
+
+# LTT switches that gate the SAME list both ways (Fasnacht's rare list is
+# entered once with the Increased Glowing Mask Drop switch on and once with it
+# off). Items under it drop either way, and the resolver keeps only one side's
+# condition, so no switch text is shown for these. Filled in main().
+_LTT_BOTH_WAYS = set()
+
+
+def _ltt_parse(s):
+    """(toggle EDID, True if it passes when on / False when off / None) or None."""
+    m = re.search(r'(LTT_\w+?)\s*\[GLOB:[0-9A-Fa-f]{8}\].*?\s([01]{8})\s+(-?\d+(?:\.\d+)?)\s*$', s or "")
+    if not m:
+        return None
+    op = _CTDA_OPS.get(m.group(2)[:3])
+    if not op:
+        return None
+    rhs = float(m.group(3))
+    on, off = _ctda_true(op, 1.0, rhs), _ctda_true(op, 0.0, rhs)
+    return (m.group(1), None if on == off else on)
+
+
+def _find_ltt_both_ways(lvli):
+    seen = defaultdict(set)   # (toggle, referenced FormID) -> {True, False}
+    for entries in lvli.entries_by_list.values():
+        for e in entries:
+            ref = str(e.get("LVLO_Reference") or "").split(":")[0].upper()
+            for k, v in e.items():
+                if not str(k).startswith("Cond") or k == "CondCount" or not v:
+                    continue
+                r = _ltt_parse(v)
+                if r and r[1] is not None:
+                    seen[(r[0], ref)].add(r[1])
+    return {tog for (tog, _ref), sides in seen.items() if len(sides) == 2}
+
+
+def _ltt_toggle_text(s):
+    """GetGlobalValue(LTT_<Name>_Toggle) <op> <value> -> when it drops.
+    The toggle is 1 while Bethesda has it on and 0 otherwise."""
+    r = _ltt_parse(s)
+    if not r or r[1] is None or r[0] in _LTT_BOTH_WAYS:
+        return ""
+    m = re.search(r'(LTT_\w+?)\s*\[GLOB:[0-9A-Fa-f]{8}\].*?\s([01]{8})\s+(-?\d+(?:\.\d+)?)\s*$', s)
+    if not m:
+        return ""
+    op = _CTDA_OPS.get(m.group(2)[:3])
+    if not op:
+        return ""
+    rhs = float(m.group(3))
+    on, off = _ctda_true(op, 1.0, rhs), _ctda_true(op, 0.0, rhs)
+    if on == off:
+        return ""
+    name = re.sub(r"^LTT_", "", m.group(1))
+    name = re.sub(r"_?Toggle$", "", name).replace("_", " ")
+    name = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", name).strip()
+    return ("Only drops while Bethesda has {} switched on" if on
+            else "Doesn't drop while Bethesda has {} switched on").format(name)
 
 
 def _simplify_condition_basic(cond_str):
@@ -2340,6 +2529,17 @@ def _simplify_condition_basic(cond_str):
             return "Region: {}".format(m.group(1))
         return ""
 
+    # Fallout 1st gates (e.g. Mutated Package vs Mutated Party Pack)
+    if "IsPlayerFO1Member" in s:
+        return _fo1_condition_text(s, globals().get("glob_vals"))
+
+    # Bethesda limited-time switches (LTT_*_Toggle globals) — say when the
+    # reward drops instead of hiding the gate.
+    if "GetGlobalValue" in s and "LTT_" in s:
+        txt = _ltt_toggle_text(s)
+        if txt:
+            return txt
+
     # Hide internal-only conditions
     HIDE_PREFIXES = (
         "GetRandomPercent", "HasEntitlement", "IsActivePlayer",
@@ -2365,6 +2565,12 @@ def _simplify_conditions(conditions):
             simplified = _simplify_condition_basic(sc)
             if simplified and simplified not in out:
                 out.append(simplified)
+    # An item reachable on both sides of one switch drops either way.
+    for c in list(out):
+        if c.startswith("Only drops while Bethesda has "):
+            twin = "Doesn't drop while Bethesda has " + c[len("Only drops while Bethesda has "):]
+            if twin in out:
+                out = [x for x in out if x not in (c, twin)]
     return out
 
 
@@ -2810,6 +3016,10 @@ def _build_lvli_node(title, lvli_fid, lvli_edid, resolver, ev_slug,
     return node
 
 
+# Seasonal pages rendered as one root expand per reward tier.
+TIER_ROOT_SLUGS = {"grahms-meat-cook-all-rewards", "mothman-equinox-all-rewards"}
+
+
 def _merge_tier_nodes(nodes_per_tier):
     """Merge nodes-per-tier into a single node where items repeated across
     tiers get a stacked tier-row breakdown."""
@@ -3233,10 +3443,10 @@ def _process_quest_event(event_def, slug, resolver, data, gmrw_rows):
                     merged["group"] = group_key
                 if is_unique:
                     merged["isUniqueReward"] = True
-                # Grahm's Meat-Cook keeps every item's per-tier rates so the
-                # renderer can show true Best/Good/Bad odds as table columns —
-                # don't collapse identical/single tiers into one row here.
-                if not (slug == "grahms-meat-cook-all-rewards" and is_unique):
+                # Pages with one root expand per tier (Meat Cook, Mothman) keep
+                # every item's per-tier rows — a reward that is in only one
+                # tier (Mothman's Cultist title: Tier 3 only) must say so.
+                if not (slug in TIER_ROOT_SLUGS and is_unique):
                     _collapse_redundant_tiers(merged)
                 tree.append(merged)
 
@@ -3303,7 +3513,8 @@ def _process_container_event(event_def, slug, resolver, data):
         # that category's sub-LVLIs. Items in non-unique categories will be
         # rendered as collapsible expands; isUniqueReward category items go
         # in the Unique Event Rewards checklist.
-        for cat_node in _split_categories(merged, split_config, resolver):
+        for cat_node in _split_categories(merged, split_config, resolver,
+                                          keep_tiers=bool(event_def.get("keepTiers"))):
             tree.append(cat_node)
     elif merged:
         merged["label"] = event_def["name"] + " Rewards"
@@ -3325,7 +3536,7 @@ def _process_container_event(event_def, slug, resolver, data):
     }
 
 
-def _split_categories(merged_node, split_config, resolver):
+def _split_categories(merged_node, split_config, resolver, keep_tiers=False):
     """
     Split a merged container node's items into per-category sub-nodes.
 
@@ -3343,6 +3554,10 @@ def _split_categories(merged_node, split_config, resolver):
     fid_to_cat = {}
     for cat in categories:
         cat_key = cat.get("key", "")
+        # Items the container holds directly (not through a sub-list), e.g.
+        # the Ghost Boy chem on the Slasher-masked Spooky Scorched.
+        for item_fid in cat.get("itemFormIDs") or []:
+            fid_to_cat.setdefault(item_fid.lower(), cat_key)
         for sub_fid in cat.get("subLvliFormIDs") or []:
             try:
                 sub_items = resolver.resolve_deep(sub_fid)
@@ -3404,10 +3619,16 @@ def _split_categories(merged_node, split_config, resolver):
         }
         if cat.get("isUnique"):
             node["isUniqueReward"] = True
+        # The page's root expands group by these list labels (not by item
+        # type), so each list shows its own roll chance.
+        if split_config.get("rootLabels"):
+            node["rootLabel"] = True
         # Per-item tier collapse — drop the tiers array when every tier
         # has identical qty + rate so the table shows a single row instead
-        # of 6 redundant tier rows.
-        _collapse_redundant_tiers(node)
+        # of 6 redundant tier rows. Pages with one root per container keep
+        # them: an item in only one container must stay in only that root.
+        if not keep_tiers:
+            _collapse_redundant_tiers(node)
         out_nodes.append(node)
 
     return out_nodes
@@ -4745,12 +4966,16 @@ def _build_meat_week_guide(tsv_root):
 # ---------------------------------------------------------------------------
 # During Bratsnacht the in-game global LTT_Bratsnacht_Toggle [008B460A] swaps the
 # Fasnacht headwear pools:
-#   - Common list  003E6557: the 12 base masks (entries 0-11) are removed and the
-#     Brat Boy / "Red Hot" mask (008B3E67, entry 12) takes the whole common tier.
-#   - Uncommon list 005A6492: the Brat Boy Glow / "Glowing Red Hot" mask
-#     (008B3E68, entry 24) is added alongside the 24 base uncommon masks.
-# The headwear reward list 005A648F is a waterfall (Rare 52.5% / Uncommon 35.625%
-# / Common 11.875%), so we resolve it twice — once with each pool filtered to the
+#   - Common list  003E6557: the 12 common rewards (entries 0-11: 11 masks and
+#     the Fasnacht Beret, each gated Toggle == 0) are removed and the Fasnacht
+#     Brat Boy Mask (008B3E67, entry 12, gated Toggle == 1) takes the whole
+#     common tier.
+#   - Uncommon list 005A6492: the Fasnacht Glowing Red Hot Mask (008B3E68,
+#     entry 24, gated Toggle == 1) is added alongside the 24 base uncommon masks.
+#   The conditions export as "10000000 <value>"; for these GetGlobalValue rows
+#   that is ==, confirmed by the toggle's default of 0 (normal Fasnacht).
+# The headwear reward list 005A648F is a UseAll / max-1 waterfall, so we
+# resolve it twice — once with each pool filtered to the
 # OFF (normal Fasnacht) shape and once to the ON (Bratsnacht) shape — and tag the
 # affected mask leaves with rateOn / rateOff so the page JS can switch live.
 BRATSNACHT_TOGGLE_GLOB   = "008B460A"
@@ -4798,7 +5023,14 @@ def _bratsnacht_rate_maps(resolver, data):
     return on_map, off_map
 
 
-def _bratsnacht_windows_from_calendar():
+def _season_windows_from_calendar(prefix):
+    """Same as the Bratsnacht reader, for any calendar Id prefix (e.g.
+    "the-slasher" for the Slasher season window)."""
+    out = _bratsnacht_windows_from_calendar(prefix)
+    return out
+
+
+def _bratsnacht_windows_from_calendar(prefix="bratsnacht"):
     """Read src/home/events.tsv and return the Bratsnacht window(s) (any row whose
     Id starts with 'bratsnacht') as UTC ISO instants the page JS can compare to
     `Date.now()`. Returns {"windows": [...], "activeAtBuild": bool, "note": str}."""
@@ -4838,7 +5070,7 @@ def _bratsnacht_windows_from_calendar():
     note = ""
     for r in rows:
         rid = (pick(r, "Id", "id") or "").strip().lower()
-        if not rid.startswith("bratsnacht"):
+        if not rid.startswith(prefix):
             continue
         start = _to_utc_iso(pick(r, "StartDate"), pick(r, "StartTime"))
         end   = _to_utc_iso(pick(r, "EndDate"),   pick(r, "EndTime"))
@@ -4904,6 +5136,12 @@ def main():
     print("[build_seasonal_events] Loading rng76 engine...")
     data = Rng76Data.from_tsv_root(TSV_ROOT)
     resolver = data.resolver
+    # Condition text (player level / Fallout 1st thresholds) reads GLOB values
+    # through this module-level view.
+    globals()["glob_vals"] = _GlobView(data.globs)
+    _LTT_BOTH_WAYS.update(_find_ltt_both_ways(data.lvli))
+    print("[build_seasonal_events] LTT switches gating a list both ways: {}".format(
+        sorted(_LTT_BOTH_WAYS) or "none"))
 
     gmrw_path = newest(str(_REPO_ROOT / "tsv" / "GMRW_Export_*.tsv"))
     gmrw_rows = read_tsv(gmrw_path)
@@ -4912,6 +5150,8 @@ def main():
 
     # Load QUEST TSV for party-crasher / invaders detection
     quest_index = _load_quest_index(TSV_ROOT)
+    npc_names = _load_npc_names(TSV_ROOT)
+    alch_kinds = _load_alch_consumables(TSV_ROOT)
 
     # Load region/location lookup (shared with the activities build) so pages
     # rendered in the activity layout can show Region/Location header lines.
@@ -4931,7 +5171,8 @@ def main():
 
         # Detect party-crasher / invaders flags from QUEST TSV
         quest_fids = event_def.get("questFormIDs") or []
-        event_flags = _detect_event_flags(quest_fids, quest_index, data.globs)
+        event_flags = _detect_event_flags(quest_fids, quest_index, data.globs,
+                                          npc_names=npc_names, gmrw_rows=gmrw_rows)
 
         page_data = {
             "name":            ev_name,
@@ -4954,6 +5195,14 @@ def main():
             page_data["slasherPartyCrasher"] = event_flags["slasherPartyCrasher"]
         if event_flags["invadersEvent"]:
             page_data["invadersEvent"] = event_flags["invadersEvent"]
+        if event_flags["mutatedEvent"]:
+            page_data["mutatedEvent"] = event_flags["mutatedEvent"]
+        # Season switch window (Halloween Scorched: the Slasher season), read
+        # from the events calendar so the page's switch follows the dates.
+        if event_def.get("seasonCalendarPrefix"):
+            page_data["seasonWindow"] = _season_windows_from_calendar(event_def["seasonCalendarPrefix"])
+            # Container titles flagged as season-only (the masked Scorched).
+            page_data["seasonTiers"] = [c["title"] for c in event_def.get("containers", []) if c.get("slasher")]
         if slug == "primal-cuts-all-rewards":
             _pmb = _build_prime_meat_buff(TSV_ROOT)
             if _pmb:
@@ -5002,6 +5251,10 @@ def main():
             )
             for off, node in enumerate(extra_nodes):
                 tree.insert(insert_at + off, node)
+
+        # Tag consumables (food, drink, alcohol, chems) so the page keeps them
+        # out of the unique-rewards checklist. Read from the ALCH keywords.
+        _tag_consumables(page_data["eventRewardTree"], alch_kinds)
 
         tree_len = len(page_data["eventRewardTree"])
         rewards_len = len(page_data["rewards"])

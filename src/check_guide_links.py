@@ -58,6 +58,9 @@ GUIDE_INDEX = os.path.join(REPO, "tsv", "guide_index.tsv")
 DIST = os.path.join(REPO, "dist")
 BASELINE = os.path.join(HERE, "check_guide_links_baseline.txt")
 
+# Build diagnostics, not page content - never scanned for links.
+REPORT_FILES = {"guide-index-report.json"}
+
 URL_COL = 13
 # A page path, not an asset or an anchor. Deliberately strict: anything with a
 # file extension or a non-path character is not a page link.
@@ -87,6 +90,11 @@ def scan_dist(dist=DIST):
 
     dist/pts/ is skipped: it is a preview mirror built from PTS exports and is
     expected to reference pages that do not exist on the live site yet.
+
+    Diagnostic reports (REPORT_FILES) are skipped too: they list URLs that were
+    in guide_index.tsv when the report was last built (e.g. login-only pages),
+    not links any page renders. When a row is dropped from the TSV the report
+    still names it until the next rebuild, which used to fail this check.
     """
     found = collections.defaultdict(set)
 
@@ -105,7 +113,7 @@ def scan_dist(dist=DIST):
     for dirpath, dirnames, filenames in os.walk(dist):
         dirnames[:] = [d for d in dirnames if d != "pts"]
         for fn in filenames:
-            if not fn.endswith(".json"):
+            if not fn.endswith(".json") or fn in REPORT_FILES:
                 continue
             full = os.path.join(dirpath, fn)
             try:
