@@ -296,6 +296,7 @@
     "fortune_teller.json",
     "guide-index-report.json",
     "guide-index.json",
+    "image_index.json",
     "insects.json",
     "insects/bloatfly.json",
     "insects/bloodbug.json",
@@ -310,6 +311,7 @@
     "locations/all_locations.json",
     "lunchbox_spawns/lunchbox_spawns.json",
     "magazine_spawns/magazines_spawns.json",
+    "missing_images.json",
     "missing_plans_pc.json",
     "missing_plans_playstation.json",
     "missing_plans_xbox.json",
@@ -587,6 +589,9 @@
       "structural_change": true
     },
     "activities/by_page/seismic-activity-all-rewards.json": {
+      "structural_change": true
+    },
+    "activities/by_page/sinkhole-solutions-all-rewards.json": {
       "structural_change": true
     },
     "activities/by_page/spin-the-wheel-all-rewards.json": {
@@ -2057,6 +2062,9 @@
       ],
       "removed": [],
       "changed": []
+    },
+    "chainsaws.json": {
+      "structural_change": true
     },
     "chainsaws/chainsaw.json": {
       "structural_change": true
@@ -34371,6 +34379,9 @@
     "events/by_page/seismic-activity-all-rewards.json": {
       "structural_change": true
     },
+    "events/by_page/sinkhole-solutions-all-rewards.json": {
+      "structural_change": true
+    },
     "events/by_page/spin-the-wheel-all-rewards.json": {
       "structural_change": true
     },
@@ -34534,6 +34545,9 @@
       "structural_change": true
     },
     "farming_spawns/chems-stealth-boy-mark-iii_spawns.json": {
+      "structural_change": true
+    },
+    "farming_spawns/chems-stealth-boy_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/chems-stimpak-diluted_spawns.json": {
@@ -37795,6 +37809,14 @@
           ]
         },
         {
+          "key": "PLAN_002B42B9",
+          "label": "Plan: Puncturing Pole Hook",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_002B42BA",
           "label": "Plan: Hatchet Electro Fusion",
           "fields": [
@@ -37803,11 +37825,69 @@
           ]
         },
         {
+          "key": "PLAN_002B42C6",
+          "label": "Plan: Deathclaw Gauntlet Extra Claw",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_002B42C7",
+          "label": "Plan: Electrified Assaultron Blade",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_002B8BBF",
+          "label": "Recipe: Healing Salve (Ash Heap)",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_002B8BC0",
+          "label": "Recipe: Healing Salve (Cranberry Bog)",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_002B8BC1",
           "label": "Recipe: Healing Salve (Forest)",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_002B8BC2",
+          "label": "Recipe: Healing Salve (Mire)",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_002B8BC3",
+          "label": "Recipe: Healing Salve (Savage Divide)",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_002B8BC4",
+          "label": "Recipe: Healing Salve (Toxic Valley)",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -37819,12 +37899,60 @@
           ]
         },
         {
+          "key": "PLAN_002B8BCD",
+          "label": "Recipe: Skeeto Spit",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_003787C6",
           "label": "Recipe: Firecap Souffle",
           "fields": [
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003A177F",
+          "label": "Plan: Civil War Era Dress",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_003A1780",
+          "label": "Plan: Civil War Era Suit",
+          "fields": [
+            "image_dir",
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_003A1783",
+          "label": "Plan: Union Uniform",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_003A1788",
+          "label": "Plan: Witch Costume",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_003A1789",
+          "label": "Plan: Skeleton Costume",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -37847,8 +37975,23 @@
           "key": "PLAN_003D651B",
           "label": "Plan: Vault Desk",
           "fields": [
+            "image_source",
             "obtain_ledger",
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_003D6533",
+          "label": "Plan: Wind Instruments",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_003D6534",
+          "label": "Plan: Acoustic Instruments",
+          "fields": [
+            "image_source"
           ]
         },
         {
@@ -37874,6 +38017,22 @@
           ]
         },
         {
+          "key": "PLAN_003FBB9D",
+          "label": "Plan: Pioneer Scout Bowie Knife Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_003FFAE0",
+          "label": "Plan: Bear Arm",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_0040DF43",
           "label": "Plan: Mounted Gorilla Head",
           "fields": [
@@ -37885,6 +38044,14 @@
           "label": "Plan: Deer Skull",
           "fields": [
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0042101C",
+          "label": "Plan: Sheepsquatch Shard",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -37982,6 +38149,8 @@
           "key": "PLAN_00436FEE",
           "label": "Plan: Baseball Bat",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
           ]
@@ -37990,6 +38159,8 @@
           "key": "PLAN_00436FEF",
           "label": "Plan: Baton",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
           ]
@@ -37998,6 +38169,8 @@
           "key": "PLAN_00436FF0",
           "label": "Plan: Bowie Knife",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
@@ -38007,6 +38180,8 @@
           "key": "PLAN_00436FF1",
           "label": "Plan: Boxing Glove",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
           ]
@@ -38015,14 +38190,26 @@
           "key": "PLAN_00436FF2",
           "label": "Plan: Deathclaw Gauntlet",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00436FF3",
+          "label": "Plan: Assaultron Blade",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
           "key": "PLAN_00436FF4",
           "label": "Plan: Pole Hook",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
@@ -38032,6 +38219,8 @@
           "key": "PLAN_00436FF5",
           "label": "Plan: Golf Club",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
@@ -38041,6 +38230,8 @@
           "key": "PLAN_00436FF6",
           "label": "Plan: Guitar Sword",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
           ]
@@ -38049,6 +38240,8 @@
           "key": "PLAN_00436FF7",
           "label": "Plan: Knuckles",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
@@ -38058,14 +38251,26 @@
           "key": "PLAN_00436FF8",
           "label": "Plan: Lead Pipe",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00436FF9",
+          "label": "Plan: Mole Miner Gauntlet",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
           "key": "PLAN_00436FFA",
           "label": "Plan: Pipe Wrench",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
@@ -38075,6 +38280,8 @@
           "key": "PLAN_00436FFB",
           "label": "Plan: Pitchfork",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
@@ -38084,6 +38291,8 @@
           "key": "PLAN_00436FFC",
           "label": "Plan: Rolling Pin",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
@@ -38093,9 +38302,19 @@
           "key": "PLAN_00436FFD",
           "label": "Plan: Sickle",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00436FFE",
+          "label": "Plan: Ski Sword",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -38103,6 +38322,8 @@
           "label": "Plan: Sledge Hammer",
           "fields": [
             "cnam",
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
@@ -38112,6 +38333,8 @@
           "key": "PLAN_00437000",
           "label": "Plan: Super Sledge",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
@@ -38121,6 +38344,8 @@
           "key": "PLAN_00437001",
           "label": "Plan: Switchblade",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
           ]
@@ -38129,6 +38354,8 @@
           "key": "PLAN_00437002",
           "label": "Plan: Tire Iron",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
@@ -38138,6 +38365,8 @@
           "key": "PLAN_00437003",
           "label": "Plan: War Drum",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
@@ -38147,6 +38376,8 @@
           "key": "PLAN_00437004",
           "label": "Plan: Pool Cue",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
@@ -38156,6 +38387,8 @@
           "key": "PLAN_00437005",
           "label": "Plan: Hunting Rifle",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
           ]
@@ -38164,6 +38397,8 @@
           "key": "PLAN_00437006",
           "label": "Plan: Tomahawk",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
           ]
@@ -38172,6 +38407,8 @@
           "key": "PLAN_00437007",
           "label": "Plan: .44 Revolver",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
           ]
@@ -38180,14 +38417,26 @@
           "key": "PLAN_00437008",
           "label": "Plan: Laser Gun",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00437009",
+          "label": "Plan: Gamma Gun",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
           "key": "PLAN_0043700A",
           "label": "Plan: Plasma Gun",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
           ]
@@ -38196,26 +38445,96 @@
           "key": "PLAN_0043700B",
           "label": "Plan: Submachine Gun",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0043700C",
+          "label": "Plan: Alien Blaster",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
           "key": "PLAN_0043700D",
           "label": "Plan: Combat Rifle",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0043700E",
+          "label": "Plan: .50 Cal Machine Gun",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0043700F",
+          "label": "Plan: Broadsider",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00437010",
+          "label": "Plan: Assaultron Head",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00437011",
+          "label": "Plan: Fatman",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00437012",
+          "label": "Plan: Harpoon Gun",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00437013",
+          "label": "Plan: Railway Rifle",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
           "key": "PLAN_00437014",
           "label": "Plan: Minigun",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00437015",
+          "label": "Plan: Tesla Rifle",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -38267,10 +38586,186 @@
           ]
         },
         {
+          "key": "PLAN_0044D404",
+          "label": "Plan: Vault-Tec Jumpsuit",
+          "fields": [
+            "image_dir",
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_0045EC3E",
+          "label": "Plan: Shepherd's Crook",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0045EC51",
+          "label": "Plan: Barbed Sheepsquatch Staff",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0045EC52",
+          "label": "Plan: Burning Sheepsquatch Staff",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0045EC53",
+          "label": "Plan: Burning Barbed Sheepsquatch Staff",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0045EC54",
+          "label": "Plan: Heavy Sheepsquatch Staff",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0045EC55",
+          "label": "Plan: Poisoned Sheepsquatch Staff",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0045EC56",
+          "label": "Plan: Electrified Sheepsquatch Staff",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0045EC57",
+          "label": "Plan: Barbed Sheepsquatch Club",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0045EC58",
+          "label": "Plan: Burning Sheepsquatch Club",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0045EC59",
+          "label": "Plan: Burning Barbed Sheepsquatch Club",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0045EC5A",
+          "label": "Plan: Heavy Sheepsquatch Club",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0045EC5B",
+          "label": "Plan: Poisoned Sheepsquatch Club",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0045EC5C",
+          "label": "Plan: Electrified Sheepsquatch Club",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0045EC5D",
+          "label": "Plan: Sheepsquatch Club",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0045EC5E",
+          "label": "Plan: Sheepsquatch Staff",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0046D299",
+          "label": "Plan: The Fixer",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_0046ECB4",
           "label": "Recipe: Tasty Mutton Meat Pie",
           "fields": [
             "consumable_type"
+          ]
+        },
+        {
+          "key": "PLAN_00485035",
+          "label": "Recipe: Disease Cure (Ash Heap)",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00485036",
+          "label": "Recipe: Disease Cure (Cranberry Bog)",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00485038",
+          "label": "Recipe: Disease Cure (Savage Divide)",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00485039",
+          "label": "Recipe: Disease Cure (The Mire)",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0048503A",
+          "label": "Recipe: Disease Cure (Toxic Valley)",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -38287,6 +38782,14 @@
           "fields": [
             "obtain_ledger",
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004E8549",
+          "label": "Plan: Vault Girl",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -38384,6 +38887,8 @@
           "key": "PLAN_004EAEEB",
           "label": "Plan: Walking Cane",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
           ]
@@ -38392,6 +38897,8 @@
           "key": "PLAN_004EAEEC",
           "label": "Plan: Meat Hook",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
           ]
@@ -38400,6 +38907,8 @@
           "key": "PLAN_004EAEED",
           "label": "Plan: Spear",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes",
@@ -38407,18 +38916,46 @@
           ]
         },
         {
+          "key": "PLAN_004EAEEE",
+          "label": "Plan: Wood Axe",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_004EB73C",
           "label": "Plan: Chinese Officer Sword",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
         },
         {
+          "key": "PLAN_004EB73D",
+          "label": "Plan: Cultist Blade",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_004EB73E",
+          "label": "Plan: Cultist Dagger",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_004EB73F",
           "label": "Plan: Fire Axe",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
           ]
@@ -38428,6 +38965,8 @@
           "label": "Plan: Pickaxe",
           "fields": [
             "cnam",
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
           ]
@@ -38436,15 +38975,35 @@
           "key": "PLAN_004EB741",
           "label": "Plan: Revolutionary War Sword",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
         },
         {
+          "key": "PLAN_004F42E0",
+          "label": "Plan: Death Tambo",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_004F42E1",
+          "label": "Plan: Replica Grognak's Axe",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_004F42E2",
           "label": "Plan: Power Fist",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
           ]
@@ -38453,6 +39012,8 @@
           "key": "PLAN_004F42E3",
           "label": "Plan: Ripper",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
@@ -38462,15 +39023,35 @@
           "key": "PLAN_004F42E4",
           "label": "Plan: Shishkebab",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
         },
         {
+          "key": "PLAN_004F42E5",
+          "label": "Plan: Mr. Handy Buzz Blade",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_004F4768",
+          "label": "Plan: Flare Gun",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_004F4769",
           "label": "Plan: Pump-Action Shotgun",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
           ]
@@ -38479,6 +39060,8 @@
           "key": "PLAN_004F476A",
           "label": "Plan: 10mm Submachine Gun",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
@@ -38488,6 +39071,8 @@
           "key": "PLAN_004F476C",
           "label": "Plan: Single-Action Revolver",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
@@ -38510,33 +39095,129 @@
           ]
         },
         {
+          "key": "PLAN_004F4770",
+          "label": "Plan: Assault Rifle",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_004F477E",
+          "label": "Plan: Auto Grenade Launcher",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_004F477F",
+          "label": "Plan: Combat Shotgun",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_004F4780",
           "label": "Plan: Crossbow",
           "fields": [
-            "cnam"
+            "cnam",
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_004F4781",
+          "label": "Plan: Cryolator",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
           "key": "PLAN_004F4782",
           "label": "Plan: Lever Gun",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F4783",
+          "label": "Plan: Radium Rifle",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_004F4784",
+          "label": "Plan: Handmade Gun",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_004F4785",
+          "label": "Plan: Revolver",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_004F4786",
+          "label": "Plan: Double Barrel Shotgun",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_004F4787",
+          "label": "Plan: Flamer",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_004F4788",
+          "label": "Plan: Gatling Laser",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
           "key": "PLAN_004F4789",
           "label": "Plan: Gatling Plasma",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
         },
         {
+          "key": "PLAN_004F478A",
+          "label": "Plan: Gauss Rifle",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_004F478C",
           "label": "Plan: M79 Grenade Launcher",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
@@ -38546,9 +39227,43 @@
           "key": "PLAN_004F478D",
           "label": "Plan: MG42 Light Machine Gun",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_004F478E",
+          "label": "Plan: Missile Launcher",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_004F478F",
+          "label": "Plan: Gatling Gun",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_004F4790",
+          "label": "Plan: Ultracite Laser Gun",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_004F4791",
+          "label": "Plan: Ultracite Gatling Laser",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -38573,6 +39288,30 @@
           ]
         },
         {
+          "key": "PLAN_0050E3EF",
+          "label": "Plan: Civil War Era Top Hat",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0050E3F0",
+          "label": "Plan: Confederate Hat",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00510B77",
+          "label": "Recipe: Cutting Fluid",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_0052A699",
           "label": "Plan: Single-Action Revolver Forceful Grip",
           "fields": [
@@ -38586,6 +39325,8 @@
           "key": "PLAN_0052E485",
           "label": "Plan: 10mm Pistol",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
           ]
@@ -38623,8 +39364,158 @@
           ]
         },
         {
+          "key": "PLAN_005527DB",
+          "label": "Plan: Thorn Armor Left Arm",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_005527DC",
+          "label": "Plan: Solar Armor Left Arm",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_005527DD",
+          "label": "Plan: Thorn Armor Left Leg",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_005527DE",
+          "label": "Plan: Solar Armor Left Leg",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_005527DF",
+          "label": "Plan: Thorn Armor Chest Piece",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_005527E0",
+          "label": "Plan: Solar Armor Chest Piece",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_005532B1",
+          "label": "Plan: Meat Cleaver",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00554651",
+          "label": "Plan: Thorn Armor Right Arm",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_00554652",
+          "label": "Plan: Solar Armor Right Arm",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_00554653",
+          "label": "Plan: Thorn Armor Right Leg",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_00554654",
+          "label": "Plan: Solar Armor Right Leg",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
           "key": "PLAN_005772C7",
           "label": "Plan: Evil Jack O'Lantern",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0058935C",
+          "label": "Plan: Auto Axe",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0058935D",
+          "label": "Plan: Compound Bow",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0058935E",
+          "label": "Plan: Gauss Minigun",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0058935F",
+          "label": "Plan: Gauss Pistol",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00589360",
+          "label": "Plan: Gauss Shotgun",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00589361",
+          "label": "Plan: Plasma Caster",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00589362",
+          "label": "Plan: Bow",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00589621",
+          "label": "Plan: Cattle Prod",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00589623",
+          "label": "Plan: Gauntlet",
           "fields": [
             "image_source",
             "images"
@@ -38696,6 +39587,13 @@
           ]
         },
         {
+          "key": "PLAN_00596E9A",
+          "label": "Recipe: Liquid Courage",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
           "key": "PLAN_0059CAF1",
           "label": "Plan: Winter Icicle Lights",
           "fields": [
@@ -38707,6 +39605,13 @@
           "label": "Plan: Santa Crash",
           "fields": [
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_005A3329",
+          "label": "Plan: Vault 94 Scout Armor Mask",
+          "fields": [
+            "image_dir"
           ]
         },
         {
@@ -38724,10 +39629,50 @@
           ]
         },
         {
+          "key": "PLAN_005B2540",
+          "label": "Plan: Radstag Hunting Knife",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_005D0F04",
+          "label": "Plan: The Gutter",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_005D0F05",
           "label": "Plan: War Glaive",
           "fields": [
+            "image_source",
+            "images",
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_005D0F06",
+          "label": "Plan: Whistle in the Dark",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_005D0F0C",
+          "label": "Plan: Sympto-Matic",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_005DCA4E",
+          "label": "Plan: Chicken Coop",
+          "fields": [
+            "image_source"
           ]
         },
         {
@@ -38790,6 +39735,8 @@
           "key": "PLAN_005E47CC",
           "label": "Plan: Hellstorm Missile Launcher",
           "fields": [
+            "image_source",
+            "images",
             "obtain_routes"
           ]
         },
@@ -38804,6 +39751,8 @@
           "key": "PLAN_005E65F5",
           "label": "Plan: Crusader Pistol",
           "fields": [
+            "image_source",
+            "images",
             "obtain_routes",
             "weapon_group_solo"
           ]
@@ -38921,13 +39870,23 @@
           "key": "PLAN_005ECB83",
           "label": "Plan: Plasma Cutter",
           "fields": [
+            "image_source",
+            "images",
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_005F56C8",
+          "label": "Plan: Weight Bench",
+          "fields": [
+            "image_source"
           ]
         },
         {
           "key": "PLAN_005FC9AC",
           "label": "Plan: Covert Scout Armor Chest Piece",
           "fields": [
+            "image_dir",
             "obtain_routes"
           ]
         },
@@ -38935,6 +39894,7 @@
           "key": "PLAN_005FC9AD",
           "label": "Plan: Covert Scout Armor Mask",
           "fields": [
+            "image_dir",
             "obtain_routes"
           ]
         },
@@ -38942,6 +39902,7 @@
           "key": "PLAN_005FC9AE",
           "label": "Plan: Covert Scout Armor Left Leg",
           "fields": [
+            "image_dir",
             "obtain_routes"
           ]
         },
@@ -38949,6 +39910,7 @@
           "key": "PLAN_005FC9AF",
           "label": "Plan: Covert Scout Armor Right Leg",
           "fields": [
+            "image_dir",
             "obtain_routes"
           ]
         },
@@ -38956,6 +39918,7 @@
           "key": "PLAN_005FC9B0",
           "label": "Plan: Covert Scout Armor Right Arm",
           "fields": [
+            "image_dir",
             "obtain_routes"
           ]
         },
@@ -38963,13 +39926,38 @@
           "key": "PLAN_005FC9B1",
           "label": "Plan: Covert Scout Armor Left Arm",
           "fields": [
+            "image_dir",
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_005FD186",
+          "label": "Plan: Unstoppable Monster",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_005FE493",
+          "label": "Plan: .44 Medical Malpractice",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00606C94",
+          "label": "Plan: Brotherhood Civvies",
+          "fields": [
+            "image_dir"
           ]
         },
         {
           "key": "PLAN_00608AEB",
           "label": "Plan: Solomon Hardy",
           "fields": [
+            "image_source",
             "images"
           ]
         },
@@ -38977,14 +39965,47 @@
           "key": "PLAN_00608AEC",
           "label": "Plan: Yasmin Chowdhury",
           "fields": [
+            "image_source",
             "images"
+          ]
+        },
+        {
+          "key": "PLAN_00609E06",
+          "label": "Plan: Speed Bag",
+          "fields": [
+            "image_source"
           ]
         },
         {
           "key": "PLAN_0060A29A",
           "label": "Plan: Face Breaker",
           "fields": [
+            "image_source",
+            "images",
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00611A5E",
+          "label": "Plan: Pepper Shaker",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00613846",
+          "label": "Plan: Sole Survivor",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00614393",
+          "label": "Plan: Beehive",
+          "fields": [
+            "image_source"
           ]
         },
         {
@@ -39033,21 +40054,171 @@
           "key": "PLAN_0062042A",
           "label": "Plan: Vault 51 Jumpsuit",
           "fields": [
+            "image_source",
+            "images",
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0062042B",
+          "label": "Plan: Centurion Helmet",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0062042C",
+          "label": "Plan: Gladiator Mask",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0062042D",
+          "label": "Plan: Makeshift Ronin Helmet",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
           "key": "PLAN_0062042E",
           "label": "Plan: Blue Camo Power Armor Paints",
           "fields": [
+            "image_source",
+            "images",
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0062042F",
+          "label": "Plan: Inferno Mark 1 Power Armor Paints",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00620430",
+          "label": "Plan: Inferno Mark 2 Power Armor Paints",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00620431",
+          "label": "Plan: Inferno Mark 3 Power Armor Paints",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00620432",
+          "label": "Plan: Outcast Power Armor Paints",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00620433",
+          "label": "Plan: Pink Sprinkles Power Armor Paints",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00620434",
+          "label": "Plan: 10mm Hot Rod Shark Paint",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
           "key": "PLAN_00620435",
           "label": "Plan: .44 Blue Camo Paint",
           "fields": [
+            "image_source",
+            "images",
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00620436",
+          "label": "Plan: Laser Gun Blue Camo Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00620437",
+          "label": "Plan: Laser Gun Hot Rod Flames Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00620438",
+          "label": "Plan: Minigun Hot Rod Shark Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00620439",
+          "label": "Plan: Minigun Vault-Tec Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0062043A",
+          "label": "Plan: Missile Launcher Atom Cats Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0062043B",
+          "label": "Plan: Missile Launcher Shi Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0062043C",
+          "label": "Plan: Large Supply Crate",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0062043D",
+          "label": "Plan: Small Supply Crate",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_006209C6",
+          "label": "Plan: Hellfire Prototype Power Armor Paint",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -39059,6 +40230,53 @@
           ]
         },
         {
+          "key": "PLAN_006209C9",
+          "label": "Plan: Medium Nuclear Winter Stash Box",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00620A51",
+          "label": "Plan: Hellfire Prototype Power Armor Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00620A53",
+          "label": "Plan: Brotherhood of Steel Minigun Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00620A54",
+          "label": "Plan: Medium Supply Crate",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_006214DB",
+          "label": "Plan: Auto Grenade Launcher Blood Eagle Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_006216C2",
+          "label": "Plan: Fortune Teller Machine",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
           "key": "PLAN_00623C3C",
           "label": "Plan: Nuka Girl Area Rug",
           "fields": [
@@ -39066,9 +40284,33 @@
           ]
         },
         {
+          "key": "PLAN_0062FE7E",
+          "label": "Plan: Alien Disintegrator",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00630C6B",
+          "label": "Plan: Electro Enforcer",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00631D13",
+          "label": "Plan: Flatwoods Monster Plushie",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
           "key": "PLAN_00631F38",
           "label": "Plan: Maul",
           "fields": [
+            "image_source",
             "images"
           ]
         },
@@ -39076,6 +40318,7 @@
           "key": "PLAN_00631F3A",
           "label": "Plan: Daphne",
           "fields": [
+            "image_source",
             "images"
           ]
         },
@@ -39132,6 +40375,8 @@
           "key": "PLAN_006366FC",
           "label": "Plan: Wrapped Presents",
           "fields": [
+            "image_source",
+            "images",
             "obtain_routes"
           ]
         },
@@ -39145,9 +40390,19 @@
           ]
         },
         {
+          "key": "PLAN_006366FE",
+          "label": "Plan: Combat Rifle Jack O' Lantern Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_006366FF",
           "label": "Plan: Vault-Tec University Diploma",
           "fields": [
+            "image_source",
+            "images",
             "not_obtainable",
             "obtain_ledger",
             "obtain_routes",
@@ -39159,20 +40414,42 @@
           "key": "PLAN_00636700",
           "label": "Plan: Metal Armor Snowflakes Paint",
           "fields": [
+            "image_source",
+            "images",
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00636701",
+          "label": "Plan: Assault Rifle Bat Paint",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
           "key": "PLAN_00636702",
           "label": "Plan: Holiday Wreath",
           "fields": [
+            "image_source",
+            "images",
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00636703",
+          "label": "Plan: Combat Armor Jack O' Lantern Paint",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
           "key": "PLAN_00636704",
           "label": "Plan: Hunting Rifle Wrapping Paper Paint",
           "fields": [
+            "image_source",
+            "images",
             "obtain_routes"
           ]
         },
@@ -39180,6 +40457,8 @@
           "key": "PLAN_00636705",
           "label": "Plan: Nuclear Winter Beanie",
           "fields": [
+            "image_source",
+            "images",
             "obtain_routes"
           ]
         },
@@ -39187,11 +40466,52 @@
           "key": "PLAN_00636706",
           "label": "Plan: Vault-Tec University Pennant",
           "fields": [
+            "image_source",
             "not_obtainable",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes",
             "source_tag"
+          ]
+        },
+        {
+          "key": "PLAN_00636707",
+          "label": "Plan: Minigun Bats Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00636708",
+          "label": "Plan: Glowing Skeleton Hood",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00636709",
+          "label": "Plan: Glowing Skeleton Costume",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0063670A",
+          "label": "Plan: 10mm Halloween Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0063670B",
+          "label": "Plan: Fur-lined Jacket and Jeans",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -39208,16 +40528,129 @@
           ]
         },
         {
+          "key": "PLAN_006369B6",
+          "label": "Plan: Ghillie Suit Hood",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_006369B7",
+          "label": "Plan: Nuclear Winter Tracksuit",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_006369B9",
+          "label": "Plan: Nuclear Winter Letterman Jacket",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_006369BB",
+          "label": "Plan: Camouflage Gauss Shotgun Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_006369BC",
+          "label": "Plan: Survivor's Cattle Prod Skin",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_006369BF",
+          "label": "Plan: Ring of Fire Pit",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_006369C0",
+          "label": "Plan: Ghillie Suit",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_006369C1",
+          "label": "Plan: Survivors Denim Underarmor",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_006369C2",
+          "label": "Plan: Hot Rod Flames Gatling Laser Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_006369C4",
+          "label": "Plan: Survivor's Bow Skin",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_006369C6",
+          "label": "Plan: Wasteland Loveseat",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_006369C7",
+          "label": "Plan: Antler Chandelier",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0063E378",
+          "label": "Plan: Gulper Smacker",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_00646983",
           "label": "Plan: Katherine Swan",
           "fields": [
+            "image_source",
             "images"
+          ]
+        },
+        {
+          "key": "PLAN_00646984",
+          "label": "Plan: West Virginia Slot Machine",
+          "fields": [
+            "image_source"
           ]
         },
         {
           "key": "PLAN_00646985",
           "label": "Plan: Xerxo",
           "fields": [
+            "image_source",
             "images"
           ]
         },
@@ -39225,13 +40658,23 @@
           "key": "PLAN_00646A2D",
           "label": "Plan: Sam Nguyen",
           "fields": [
+            "image_source",
             "images"
+          ]
+        },
+        {
+          "key": "PLAN_00646A2E",
+          "label": "Plan: Exercise Bike",
+          "fields": [
+            "image_source"
           ]
         },
         {
           "key": "PLAN_00646E69",
           "label": "Plan: Hunting Rifle Skin - Union",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
           ]
@@ -39240,6 +40683,8 @@
           "key": "PLAN_00648D28",
           "label": "Plan: Fanatics Pump-Action Shotgun Paint",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
           ]
@@ -39439,6 +40884,56 @@
           ]
         },
         {
+          "key": "PLAN_0066528F",
+          "label": "Plan: Radiation Glove Box",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_00668992",
+          "label": "Plan: Arm Wrestle Machine",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_00668993",
+          "label": "Plan: Chuckwagon Cooking Station",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_00668994",
+          "label": "Plan: Mechanical Derby Game",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_00668995",
+          "label": "Plan: Popcorn Machine",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_006692B7",
+          "label": "Plan: Weaponized Nuka-Cola Schematics",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_0066E510",
+          "label": "Plan: Nuka-lele",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
           "key": "PLAN_00675279",
           "label": "Plan: Nuka-Cola Balloons",
           "fields": [
@@ -39466,12 +40961,27 @@
           ]
         },
         {
+          "key": "PLAN_0067F171",
+          "label": "Plan: Nuka-World Cowboy Chaps",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
           "key": "PLAN_0067F172",
           "label": "Plan: Cappy Smasher Super Sledge Paint",
           "fields": [
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00682041",
+          "label": "Plan: Nuka-Launcher",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -39575,6 +41085,20 @@
           ]
         },
         {
+          "key": "PLAN_0068ADEB",
+          "label": "Plan: Cowboy Duster",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_0068ADEC",
+          "label": "Plan: Cowboy Chaps",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
           "key": "PLAN_0068ADED",
           "label": "Plan: Cowboy Hat",
           "fields": [
@@ -39673,6 +41197,34 @@
           ]
         },
         {
+          "key": "PLAN_00691C04",
+          "label": "Plan: Leo Petrov",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_00691C05",
+          "label": "Plan: Nuka-Cola Mystery Machine",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_00691D05",
+          "label": "Plan: Blue Ridge Scout Helmet",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_00691D5B",
+          "label": "Plan: Blue Ridge Trucker Cap",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
           "key": "PLAN_00696247",
           "label": "Plan: Flatwoods Monster Tube",
           "fields": [
@@ -39683,6 +41235,8 @@
           "key": "PLAN_0069624A",
           "label": "Plan: Hot Rod Flames Handmade Skin",
           "fields": [
+            "image_source",
+            "images",
             "obtain_routes"
           ]
         },
@@ -39718,6 +41272,8 @@
           "key": "PLAN_00696252",
           "label": "Plan: Intergalactic Handmade Skin",
           "fields": [
+            "image_source",
+            "images",
             "obtain_routes"
           ]
         },
@@ -39733,6 +41289,70 @@
           "label": "Plan: Deep-Space Alien Power Armor Legs Paint",
           "fields": [
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_006B2E78",
+          "label": "Plan: Blue Devil Poster",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_006B2E79",
+          "label": "Plan: Beast of Beckley Poster",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_006B2E7C",
+          "label": "Plan: Jersey Devil Poster",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_006B2E7D",
+          "label": "Plan: Mothman Poster",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_006B2E7E",
+          "label": "Plan: Ogua Poster",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_006BE8D4",
+          "label": "Plan: Firewood Pile",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_006BE8D5",
+          "label": "Plan: Radstag Field Dressing Station",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_006BE8D6",
+          "label": "Plan: Steven Scarberry",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_006BE8D7",
+          "label": "Plan: Cold Shoulder",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -39776,9 +41396,68 @@
           ]
         },
         {
+          "key": "PLAN_006CA795",
+          "label": "Plan: Hollywood Vanity",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_006D7467",
+          "label": "Plan: Ogua Hunter Hood",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_006D8720",
+          "label": "Plan: Joey Bello",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_006D8721",
+          "label": "Plan: Cryptid Cards Wall Display",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_006D8722",
+          "label": "Plan: Jewelry Stand Flair Display",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_006E177D",
+          "label": "Plan: Blue Devil Pelt Hood",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_006E227A",
+          "label": "Plan: Blue Ridge Scout Outfit",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_006E31FE",
+          "label": "Plan: Stargazer's Telescope",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
           "key": "PLAN_006E5CE0",
           "label": "Plan: .44 Roulette Paint",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
@@ -39788,6 +41467,8 @@
           "key": "PLAN_006E6F1E",
           "label": "Plan: Showstopper Shotgun Paint",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
@@ -39803,9 +41484,27 @@
           ]
         },
         {
+          "key": "PLAN_006E9223",
+          "label": "Plan: Rusted Weapon Loadout Paints",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_006E9224",
+          "label": "Plan: Gunmetal Weapon Loadout Paints",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "PLAN_006E9225",
           "label": "Plan: Vault-Tec Weapon Loadout Paints",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes"
           ]
@@ -39814,6 +41513,8 @@
           "key": "PLAN_006F2845",
           "label": "Plan: Overgrown Missile Launcher Paint",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes"
@@ -40216,6 +41917,35 @@
           ]
         },
         {
+          "key": "PLAN_00728181",
+          "label": "Plan: Rad Skull Rider Helmet",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_00728186",
+          "label": "Plan: Assault Rifle Wraith's Wrath Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00728187",
+          "label": "Plan: Flaming Skull Rider Helmet",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_0072818A",
+          "label": "Plan: Skull Rider Helmet",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
           "key": "PLAN_0072E36D",
           "label": "Plan: Plastiform Candle",
           "fields": [
@@ -40307,6 +42037,193 @@
           ]
         },
         {
+          "key": "PLAN_00732A8F",
+          "label": "Plan: Grandma Junko",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_00732A91",
+          "label": "Plan: Military Cryo-Freezer",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_0073E93D",
+          "label": "Plan: Adelaide",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_00748758",
+          "label": "Plan: Vault 63 Recon Outfit",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00748759",
+          "label": "Plan: Vault 63 Riot Control Helmet",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_0074875A",
+          "label": "Plan: Vault 63 Security Helmet",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_0074875B",
+          "label": "Plan: Vault 63 Recon Helmet",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_0074875C",
+          "label": "Plan: Burnt Vault Lab Coat",
+          "fields": [
+            "image_dir",
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_0074875D",
+          "label": "Plan: Burnt Vault Chemist Coat",
+          "fields": [
+            "image_dir",
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_0074875E",
+          "label": "Plan: Head Mirror",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_0074875F",
+          "label": "Plan: Vault 63 Burnt Jumpsuit",
+          "fields": [
+            "image_dir",
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_00755EAF",
+          "label": "Plan: Sacred Mothman Tome",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_0075F0C1",
+          "label": "Plan: Cultist Neophyte Robes",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_0075F0C2",
+          "label": "Plan: Cultist Eventide Hood",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_0075F0C3",
+          "label": "Plan: Cultist Neophyte Hood",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_0075F0C4",
+          "label": "Plan: Cultist Adept Robes",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_0075F0C5",
+          "label": "Plan: Cultist Incarnate Helmet",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_0075F0C6",
+          "label": "Plan: Cultist Enlightened Hood",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_0075F0C7",
+          "label": "Plan: Cultist Adept Hood",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_0075F0C8",
+          "label": "Plan: Cultist Eventide Robes",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_0075F0C9",
+          "label": "Plan: Cultist Enlightened Robes",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_0075FC0A",
+          "label": "Plan: Zenith Alien Blaster Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0075FF93",
+          "label": "Plan: Company Tea Machine",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_0075FF94",
+          "label": "Plan: Circuit Breaker",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_0075FF95",
+          "label": "Plan: Weather Control Station (Atlantic City Fog)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_0076AB30",
+          "label": "Plan: Shenandoah T-Shirt and Jeans",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
           "key": "PLAN_0076F3E7",
           "label": "Plan: Jitterbug Judy Outfit",
           "fields": [
@@ -40332,6 +42249,79 @@
           "label": "Plan: Giant Red Brontosaurus",
           "fields": [
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_00770810",
+          "label": "Plan: Vault 63 Security Helmet Burnt",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_00770811",
+          "label": "Plan: Vault 63 Security Outfit Burnt",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00770812",
+          "label": "Plan: Vault 63 Riot Control Helmet Burnt",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_00770815",
+          "label": "Plan: Vault 63 Recon Outfit Burnt",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00770817",
+          "label": "Plan: Vault 63 Recon Helmet Burnt",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_00770818",
+          "label": "Plan: Vault 63 Riot Control Outfit Burnt",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00772998",
+          "label": "Plan: Thrasher Egg",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_00772999",
+          "label": "Plan: Steel Jack Statue Ghoul",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_007734F1",
+          "label": "Plan: Gulper Skin Hood",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_0077E96A",
+          "label": "Plan: Cauldron Hot Tub",
+          "fields": [
+            "image_source"
           ]
         },
         {
@@ -40374,6 +42364,92 @@
           "label": "Plan: Camp Liberty Snow Globe",
           "fields": [
             "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0078C78C",
+          "label": "Plan: Rusty Saxophone",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00790FCE",
+          "label": "Plan: Water Boiler",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_00790FCF",
+          "label": "Plan: Cremator",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_00792EAD",
+          "label": "Plan: Ultracite Terror Sword",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00793014",
+          "label": "Plan: Boiling Point",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00793438",
+          "label": "Plan: Valkyrie",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00793502",
+          "label": "Plan: Resolve Breaker",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00793515",
+          "label": "Plan: Flatliner",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00793811",
+          "label": "Plan: Lickety-Split",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00793859",
+          "label": "Plan: Cauterizer",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00793A43",
+          "label": "Plan: Drill Fist",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -40440,10 +42516,274 @@
           ]
         },
         {
+          "key": "PLAN_007A8775",
+          "label": "Plan: Pemmican Collector",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
           "key": "PLAN_007A8859",
           "label": "Plan: Head Hunter Scythe",
           "fields": [
-            "cnam"
+            "cnam",
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_007ACE93",
+          "label": "Plan: Flower Crown - Carnal Weeper",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_007ACE94",
+          "label": "Plan: Flower Crown - Radlily",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_007ACE95",
+          "label": "Plan: Flower Crown - Crystalcup",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_007ACE96",
+          "label": "Plan: Flower Crown - Embergold",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_007ACE97",
+          "label": "Plan: Flower Crown - Starlace",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_007ACE98",
+          "label": "Plan: Flower Crown - Green Invader",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_007ACE99",
+          "label": "Plan: Flower Crown - Glorybell",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_007ACE9A",
+          "label": "Plan: Flower Crown - Seesprout",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_007ACE9B",
+          "label": "Plan: Flower Crown - Candykill",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_007ACE9C",
+          "label": "Plan: Flower Crown - Gigablossom",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_007ACE9D",
+          "label": "Plan: Wasteland Florist Sunhat",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_007AD459",
+          "label": "Plan: Flower Suit",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_007AD4B2",
+          "label": "Plan: Wasteland Florist Apron",
+          "fields": [
+            "image_dir"
+          ]
+        },
+        {
+          "key": "PLAN_007AE102",
+          "label": "Plan: Seaweed Stash Box",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_007B314D",
+          "label": "Plan: V63 Laser Carbine",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_007B3F12",
+          "label": "Plan: Tesla Cannon Barrel Mods",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_007B3F13",
+          "label": "Plan: Tesla Cannon Magazine Mods",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_007B3F14",
+          "label": "Plan: Tesla Cannon Receiver Mods",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_007B3F15",
+          "label": "Plan: Tesla Cannon",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_007B3F16",
+          "label": "Plan: Tesla Cannon Sight Mods",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_007B3F40",
+          "label": "Plan: Tesla Cannon Barrel Mods",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_007B3F42",
+          "label": "Plan: Tesla Cannon Magazine Mods",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_007B3F44",
+          "label": "Plan: Tesla Cannon Sight Mods",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_007B3F45",
+          "label": "Plan: Tesla Cannon",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_007B704B",
+          "label": "Plan: Drowned Chaise Lounge",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_007BCF55",
+          "label": "Plan: Beehive (Black & Yellow)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_007BCF56",
+          "label": "Plan: Skyline Valley Snow Globe Display Case",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_007BCF58",
+          "label": "Plan: Brewing Vat",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_007D6606",
+          "label": "Plan: Garden Trowel Knife",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_007F543F",
+          "label": "Plan: Dino Peak Bogey Shirt",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_007F5AF2",
+          "label": "Plan: Dino Golf Info Board",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_007F5AF4",
+          "label": "Plan: Dino Peaks Entrance Sign",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_007F7939",
+          "label": "Plan: Shattered Grounds Handmade Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_007FDC15",
+          "label": "Plan: Dottie",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_007FDC36",
+          "label": "Plan: Starlight Drive-In Marquee",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_007FDC37",
+          "label": "Plan: Drive-In UFO Sculpture",
+          "fields": [
+            "image_source"
           ]
         },
         {
@@ -40541,6 +42881,8 @@
           "label": "Plan: Tempest",
           "fields": [
             "cobj",
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "plan_item",
@@ -40552,6 +42894,8 @@
           "label": "Plan: Chaos Engine",
           "fields": [
             "cobj",
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "plan_item",
@@ -40563,6 +42907,8 @@
           "label": "Plan: Splinter",
           "fields": [
             "cobj",
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "plan_item",
@@ -40570,17 +42916,126 @@
           ]
         },
         {
+          "key": "PLAN_0082BCBC",
+          "label": "Plan: Slime Cake",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_0082BCBD",
+          "label": "Plan: Critter Cooker",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
           "key": "PLAN_0084813C",
           "label": "Plan: Spice Rack",
           "fields": [
+            "image_source",
             "images"
+          ]
+        },
+        {
+          "key": "PLAN_00852810",
+          "label": "Plan: Ice Breaker",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00852811",
+          "label": "Plan: Dirty Pond",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_00852812",
+          "label": "Plan: Cannery",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_0085D820",
+          "label": "Plan: Crashed Cargo Bot",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_008682BE",
+          "label": "Plan: Cosmic Knife",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_008682BF",
+          "label": "Plan: SoulSoup Server",
+          "fields": [
+            "image_source"
           ]
         },
         {
           "key": "PLAN_008A706B",
           "label": "Plan: Rip Daring's Survival Cache",
           "fields": [
+            "image_source",
             "images"
+          ]
+        },
+        {
+          "key": "PLAN_008B3A10",
+          "label": "Plan: Hog Splitter",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008BA7E3",
+          "label": "Plan: Dom Pedro Explosive Mods",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_008BA7E4",
+          "label": "Plan: Dom Pedro Grip Mods",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_008BA7E5",
+          "label": "Plan: Dom Pedro Magazine Mods",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_008BA7E6",
+          "label": "Plan: Dom Pedro Receiver Mods",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_008BA7E8",
+          "label": "Plan: Dom Pedro",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_008C0223",
+          "label": "Plan: Chem Mystery Machine",
+          "fields": [
+            "image_source"
           ]
         },
         {
@@ -40638,13 +43093,307 @@
           ]
         },
         {
+          "key": "PLAN_008DE080",
+          "label": "Plan: Pint-Sized Slasher Power Armor Helmet Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008DE087",
+          "label": "Plan: Pint-Sized Slasher Power Armor Legs Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008DE088",
+          "label": "Plan: Pint-Sized Slasher Power Armor Jetpack Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008DE089",
+          "label": "Plan: Pint-Sized Slasher Power Armor Arms Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008DE08B",
+          "label": "Plan: Pint-Sized Slasher Power Armor Torso Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008E068D",
+          "label": "Plan: Pint-Sized Slasher Bobber",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008E068E",
+          "label": "Plan: Pint-Sized Slasher Radio",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008E068F",
+          "label": "Plan: Pint-Sized Slasher Hat - Red",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008E0690",
+          "label": "Plan: Pint-Sized Slasher Balloon",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008E0691",
+          "label": "Plan: Pint-Sized Phantom Outfit",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008E0692",
+          "label": "Plan: Pint-Sized Slasher Hat - Green",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008E0694",
+          "label": "Plan: Pint-Sized Slasher Plushie",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008E0696",
+          "label": "Plan: Pint-Sized Slasher Ad Poster 1",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008E0697",
+          "label": "Plan: Pint-Sized Slasher Gravestone",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008E0698",
+          "label": "Plan: Pint-Sized Slasher Hat - Blue",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008E0699",
+          "label": "Plan: Pint-Sized Slasher Wanted Poster 1",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008E069A",
+          "label": "Plan: Pint-Sized Auto Axe Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008E069B",
+          "label": "Plan: Pint-Sized Slasher Hat - Orange",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008EE1AF",
+          "label": "Plan: Phoropter",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_008EE1B0",
+          "label": "Plan: Healing Arch",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
           "key": "PLAN_008F20F0",
           "label": "Plan: Love Tap Paint",
           "fields": [
+            "image_source",
+            "images",
             "obtain_ledger",
             "obtain_routes",
             "retired_routes",
             "source_tag"
+          ]
+        },
+        {
+          "key": "PLAN_008F20F1",
+          "label": "Plan: Crowd Control Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008F20F2",
+          "label": "Plan: Foundation's Vengeance Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008F20F3",
+          "label": "Plan: The Debilitator Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008F20F4",
+          "label": "Plan: Tone Death Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008F2A43",
+          "label": "Plan: Grand Finale Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008F2A44",
+          "label": "Plan: Western Spirit Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008F2A45",
+          "label": "Plan: Gunther's Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008F2A46",
+          "label": "Plan: Whacker Smacker Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008F3624",
+          "label": "Plan: Fancy Pump Action Shotgun Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008F3625",
+          "label": "Plan: Fancy Single Action Revlover Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_008F5215",
+          "label": "Plan: Pint-Sized Slasher Photo Frame",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00904CD5",
+          "label": "Plan: Pint-Sized Slasher Wanted Poster 2",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00904CD6",
+          "label": "Plan: Pint-Sized Slasher Ad Poster 2",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00904CD7",
+          "label": "Plan: Pint-Sized Slasher Ad Poster 3",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0090ECFD",
+          "label": "Plan: Gold Shovel Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00915481",
+          "label": "Plan: Cannery Recipe Bundle #1",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "PLAN_00915482",
+          "label": "Plan: Cannery Recipe Bundle #2",
+          "fields": [
+            "image_source"
           ]
         },
         {
@@ -40687,6 +43436,7 @@
           "key": "PLAN_00918215",
           "label": "Plan: Cryolator Magazine Mods",
           "fields": [
+            "image_source",
             "obtain",
             "obtain_ledger",
             "obtain_routes",
@@ -40696,10 +43446,162 @@
           ]
         },
         {
+          "key": "PLAN_00918E2E",
+          "label": "Plan: Gatling Laser V63-HELGA Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00918E2F",
+          "label": "Plan: Laser Gun V63-OLGA Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00919FCD",
+          "label": "Plan: Laser Gun V63-BERTHA",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0091B687",
+          "label": "Plan: Combat Rifle The Fixer Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0091C631",
+          "label": "Plan: Commie Whacker",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0091C667",
+          "label": "Plan: Spear Super Stimpike Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0091C669",
+          "label": "Plan: Compound Bow Burning Love Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0091C66A",
+          "label": "Plan: Shock Baton Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0092A09B",
+          "label": "Plan: MG42 Red Terror Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0092A09C",
+          "label": "Plan: MG42 Green Terror Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_0092A09D",
+          "label": "Plan: Ticket to Revenge Paint",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "PLAN_00930841",
+          "label": "Plan: Piercing Love",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "RECIPE_0000417C",
+          "label": "Syringer",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "RECIPE_0002C9D5",
+          "label": "Pipe Revolver",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "RECIPE_0005A2F5",
+          "label": "Board",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
           "key": "RECIPE_00185D23",
           "label": "Electrified Rod",
           "fields": [
             "name"
+          ]
+        },
+        {
+          "key": "RECIPE_00188A0A",
+          "label": "Shredder",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "RECIPE_0025B359",
+          "label": "Hatchet",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "RECIPE_0027E09D",
+          "label": "Combat Knife",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "RECIPE_0027E0A0",
+          "label": "Machete",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -40716,6 +43618,30 @@
             "cnam",
             "cobj",
             "name"
+          ]
+        },
+        {
+          "key": "RECIPE_003BD59E",
+          "label": "Throwing Knife",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "RECIPE_00521927",
+          "label": "Blade of Bastet",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "RECIPE_00521928",
+          "label": "Voice of Set",
+          "fields": [
+            "image_source",
+            "images"
           ]
         },
         {
@@ -40974,6 +43900,90 @@
           ]
         },
         {
+          "key": "SKIN_005AD5BF_005B2E96",
+          "label": "Settler's Special Paint (10mm)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_005AD5C1_005BB446",
+          "label": "Flatwoods Fletcher Skin (Bow)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_005AD5C9_005BF2D2",
+          "label": "Ghillie Hunting Rifle Paint",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_005AD5CA_005B79F9",
+          "label": "Sportsman Paint (Pump Action Shotgun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_005AD5CC_005C2895",
+          "label": "Dark Matter Combat Rifle Paint",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_005AD5CD_005B72A2",
+          "label": "Blood Eagle Paint (Super Sledge)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_005AD5CE_005B766D",
+          "label": "Appalachian Thunder Pipe (Gatling Gun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_005AD5CF_005B7104",
+          "label": "Blood Eagle Paint (Handmade Rifle)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_005AD5D0_005C28B5",
+          "label": "Special Issue Gauss Pistol Paint",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_005B710C_005B7105",
+          "label": "Hunting Lever Action Rifle Paint",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_005C494D_005C494A",
+          "label": "Tropic Lightning Camo Skin (Handmade Rifle)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_005C494E_005C494B",
+          "label": "Screaming Eagle Wood Skin (Handmade Rifle)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
           "key": "SKIN_005C494F_005C494C",
           "label": "Screaming Eagle Skin (Handmade Rifle)",
           "fields": [
@@ -40987,6 +43997,41 @@
           "fields": [
             "image_source",
             "images"
+          ]
+        },
+        {
+          "key": "SKIN_005D820D_005DC295",
+          "label": "Brickhouse's Armor Ace Paint (Pump Action Shotgun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_005D821B_005DC296",
+          "label": "Rust Bucket Hammer (Super Sledge)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_005D8222_0060648E",
+          "label": "Red Viper Paint (Handmade Rifle)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_005DB90A_005DB909",
+          "label": "Armor Ace Paint (Handmade Rifle)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_005E4AB7_005E4AB6",
+          "label": "Flatwoods Fletcher Skin (Compound Bow)",
+          "fields": [
+            "image_source"
           ]
         },
         {
@@ -41006,11 +44051,46 @@
           ]
         },
         {
+          "key": "SKIN_005EE7FF_005EFCCC",
+          "label": "Presidential Paint (Gauss Rifle)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_005EE810_005F014F",
+          "label": "K.D. Inkwell's Quill Paint (Baton)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
           "key": "SKIN_005FA49F_005FA491",
           "label": "Copperhead Paint (Gatling Plasma)",
           "fields": [
             "image_source",
             "images"
+          ]
+        },
+        {
+          "key": "SKIN_005FD9C8_00602236",
+          "label": "Icebreaker (Power Fist)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_005FD9C9_0060220A",
+          "label": "Death's Breath Skin (Flamer)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_005FD9CA_00602138",
+          "label": "Armor Ace Paint (Gatling Plasma)",
+          "fields": [
+            "image_source"
           ]
         },
         {
@@ -41022,11 +44102,74 @@
           ]
         },
         {
+          "key": "SKIN_00609E61_006137F1",
+          "label": "M.I.N.D. Paint (Laser Gatling)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00609E61_006137F3",
+          "label": "M.I.N.D. Paint (Laser Gatling)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00609E7C_00618467",
+          "label": "Valorous Alistair Paint (Sword)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00609E8B_00612361",
+          "label": "Valorous Alistair Paint (Gatling Plasma)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00609E8E_0060E6C0",
+          "label": "Blood Eagle Paint (The Fixer)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
           "key": "SKIN_0060DC6A_0060DC69",
           "label": "Red Steel Crusader Pistol Paint",
           "fields": [
             "weapon_group",
             "weapon_group_key"
+          ]
+        },
+        {
+          "key": "SKIN_0061F8F3_0062201E",
+          "label": "Grognak's Other Axe (Grognak's Axe)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_0061F902_00621339",
+          "label": "Judgement of Set Paint (The Fixer)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_0061F91F_00621A88",
+          "label": "Silver Shroud Paint (Tesla Rifle)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_0062F435_00632227",
+          "label": "Samurai Sword Paint (Sword)",
+          "fields": [
+            "image_source"
           ]
         },
         {
@@ -41038,11 +44181,74 @@
           ]
         },
         {
+          "key": "SKIN_0063C6E2_006453AC",
+          "label": "Vault-Tec Machine Gun Paint",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00640039_00640038",
+          "label": "Locomotive Railway Rifle Paint",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_0064011B_0062EEEE",
+          "label": "Dastardly Duo Paint (Shotgun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_0064E0B5_0064FBA2",
+          "label": "Bone Bow Skin (Bow)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_0064E0C3_0064FBA1",
+          "label": "Raider Super Sledge Paint",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
           "key": "SKIN_006540D1_006540D0",
           "label": "Halberd (War Glaive Paint)",
           "fields": [
             "image_source",
             "images"
+          ]
+        },
+        {
+          "key": "SKIN_00661F41_00664054",
+          "label": "Union Double Barrel Shotgun Paint",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00661F4A_006648DD",
+          "label": "Red Reaper Flamer Skin",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00661F5A_006648DB",
+          "label": "Industrial Plasma Caster Paint",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00661F68_006648DC",
+          "label": "Fanatic Auto Axe Paint",
+          "fields": [
+            "image_source"
           ]
         },
         {
@@ -41054,11 +44260,642 @@
           ]
         },
         {
+          "key": "SKIN_006779D4_00677B35",
+          "label": "Nuka-Cola Classic Hunting Rifle Paint",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00677B7A_00677B40",
+          "label": "Nuka-Twist Paint (Minigun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00677B81_00677B48",
+          "label": "Nuka-Twist Handmade Rifle Paint",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00677B86_00677B4D",
+          "label": "Jackhammer Drill (Chainsaw)",
+          "fields": [
+            "image_source",
+            "images"
+          ]
+        },
+        {
+          "key": "SKIN_00684ED6_00684ECE",
+          "label": "Smoked Bear Arm Paint",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006916B2_00692C5F",
+          "label": "Gold Paint (Cold Shoulder)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
           "key": "SKIN_00692D38_00692D37",
           "label": "Free States (Combat Knife Skin)",
           "fields": [
             "image_source",
             "images"
+          ]
+        },
+        {
+          "key": "SKIN_00698438_00698400",
+          "label": "The Bada-Boom (Super Sledge)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00699ABF_00699ABA",
+          "label": "Gilded Paint (Railway Rifle)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00699AC0_00699ABB",
+          "label": "Gilded Paint (10mm)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00699AC1_00699ABC",
+          "label": "Gilded Paint (.44 Pistol)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006C318D_006C318C",
+          "label": "Ceremonial Mace",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006C318D_006D2FA5",
+          "label": "Ceremonial Mace",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006C318D_006F89BB",
+          "label": "Ceremonial Mace",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006C318D_006F89BC",
+          "label": "Ceremonial Mace",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006C318D_006F89BD",
+          "label": "Ceremonial Mace",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006C3E78_006C3E77",
+          "label": "Gilded Paint (Gatling Gun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006CA226_006CA223",
+          "label": "Presidential Paint (Tesla Rifle)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006CA227_006CA224",
+          "label": "Presidential Paint (.50 Cal Machine Gun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006CA228_006CA225",
+          "label": "Presidential Paint (Light Machine Gun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006F54C0_006F54BC",
+          "label": "Trident",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006F54C0_006F54BD",
+          "label": "Trident",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006F54C0_006F54BE",
+          "label": "Trident",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006F650E_006F6506",
+          "label": "Poker Paint (Chainsaw)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006F6511_006F6507",
+          "label": "Poker Paint (Gatling Plasma)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006F6514_006F6508",
+          "label": "Poker Paint (Combat Shotgun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006F6515_006F6509",
+          "label": "Poker Paint (Combat Rifle + The Fixer)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006F7E52_006F7E4E",
+          "label": "Poker Paint (Auto Grenade Launcher)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006F7E53_006F7E4F",
+          "label": "Poker Paint (Gatling Laser + Ultracite Gatling Laser)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006F7E53_006FD20D",
+          "label": "Poker Paint (Gatling Laser + Ultracite Gatling Laser)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006F7E54_006F7E50",
+          "label": "Poker Paint (Gauss Minigun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006F7E55_006F7E51",
+          "label": "Poker Paint (Plasma Gun + Enclave Plasma Gun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_006F7E55_006FD20C",
+          "label": "Poker Paint (Plasma Gun + Enclave Plasma Gun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00727EA2_00727E9D",
+          "label": "Poker Paint (Circuit Breaker)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00727EA3_00727E9F",
+          "label": "Diamond Paint (Circuit Breaker)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00729BD0_00729BB5",
+          "label": "Rip Daring Paint (Cremator)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00729BD1_00729BB3",
+          "label": "Peepers Paint (Cremator)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_0072F42E_0072F42D",
+          "label": "Blackout Paint (Circuit Breaker)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00746CA9_00746CA7",
+          "label": "Peepers Paint (Double-Barrel Shotgun & Cold Shoulder)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00746CF1_00746CED",
+          "label": "Peepers Paint (Auto Axe)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00746CF2_00746CEE",
+          "label": "Peepers Paint (Gauss Rifle)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00746CF3_00746CEF",
+          "label": "Peepers Paint (Plasma Caster)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00746CF4_00746CF0",
+          "label": "Peepers Paint (Lever Action Rifle)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_0074723C_0074723B",
+          "label": "Peepers Paint (Pump Action Shotgun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00767E72_00767E71",
+          "label": "Peepers Paint (Combat Rifle + The Fixer)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00784C04_00784C00",
+          "label": "Rusted Paint (Handmade Rifle)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00784C05_00784C01",
+          "label": "Rusted Paint (Hunting Rifle)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00784C06_00784C02",
+          "label": "Rusted Paint (Minigun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00784C07_00784C03",
+          "label": "Rusted Paint (Tesla Rifle)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007852D5_007852D1",
+          "label": "Blue Ridge Paint (.44)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007852D6_007852D2",
+          "label": "Blue Ridge Paint (Gatling Gun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007852D7_007852D3",
+          "label": "Blue Ridge Paint (Laser Rifle)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_0078C33F_0078C33B",
+          "label": "Stop Sign Paint",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_0078C33F_0078C33C",
+          "label": "Stop Sign Paint",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_0078C33F_0078C33D",
+          "label": "Stop Sign Paint",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007952E1_007952DE",
+          "label": "Graffiti Stop Sign Paint",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007952E1_007952DF",
+          "label": "Graffiti Stop Sign Paint",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007952E1_007952E0",
+          "label": "Graffiti Stop Sign Paint",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007A3029_007A3024",
+          "label": "Sigma Squad Paint (Gauss Shotgun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007A302A_007A3023",
+          "label": "Sigma Squad Paint (Plasma Cutter)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007A302B_007A3025",
+          "label": "Sigma Squad Paint (Tesla Cannon)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007A302C_007A3026",
+          "label": "Sigma Squad Paint (Cremator)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007A302D_007A3027",
+          "label": "Sigma Squad Paint (Gauss Minigun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007A302E_007A3028",
+          "label": "Sigma Squad Paint (Gatling Plasma)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007AD3F7_007AD3F0",
+          "label": "Irradiated Paint (Railway Rifle)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007AD3F8_007AD3F1",
+          "label": "Irradiated Paint (Flamer)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007AD3F9_007AD3F2",
+          "label": "Irradiated Paint (.50 Cal Machine Gun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007AD3FA_007AD3F3",
+          "label": "Irradiated Paint (Fat Man)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007AD3FB_007AD3F4",
+          "label": "Irradiated Paint (Auto Axe)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007AD3FC_007AD3F5",
+          "label": "Irradiated Paint (Western Revolver)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007AD3FD_007AD3F6",
+          "label": "Irradiated Paint (V63 Laser Carbine)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007AE538_007AE532",
+          "label": "Irradiated Paint (Gatling Gun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007F625A_007F6256",
+          "label": "Spitfire Paint (Auto Grenade Launcher)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007F625B_007F6257",
+          "label": "Spitfire Paint (Tesla Cannon)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007F625C_007F6254",
+          "label": "Spitfire Paint (Pepper Shaker)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007F625D_007F6255",
+          "label": "Spitfire Paint (Chainsaw)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007F625E_007F6258",
+          "label": "Spitfire Paint (Gatling Gun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007FA248_007FA246",
+          "label": "Spitfire Paint (Ripper)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_007FA249_007FA247",
+          "label": "Spitfire Paint (Combat Shotgun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_0082E15F_0082E158",
+          "label": "Saturnite Fist Paint",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_00853B6D_00853B6B",
+          "label": "Rebar Club (Super Sledge)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_008B3D67_008B3D64",
+          "label": "Woodland Camo Paint (Minigun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_008B3D68_008B3D65",
+          "label": "Woodland Camo Paint (Auto Axe)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_008B3D69_008B3D66",
+          "label": "Woodland Camo Paint (Compound Bow)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_008B412F_008B412D",
+          "label": "Woodland Camo Paint (Submachine Gun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_008B4130_008B412E",
+          "label": "Woodland Camo Paint (10mm Submachine Gun)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_008DE094_008DE08F",
+          "label": "Bloody Mess Paint (Ripper)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_008DE095_008DE090",
+          "label": "Bloody Mess Paint (Chainsaw)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_008DE096_008DE091",
+          "label": "Bloody Mess Paint (Mole Miner Gauntlet)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_008DE097_008DE092",
+          "label": "Bloody Mess Paint (Auto Axe)",
+          "fields": [
+            "image_source"
+          ]
+        },
+        {
+          "key": "SKIN_008DE098_008DE093",
+          "label": "Bloody Mess Paint (Super Sledge)",
+          "fields": [
+            "image_source"
           ]
         }
       ]
