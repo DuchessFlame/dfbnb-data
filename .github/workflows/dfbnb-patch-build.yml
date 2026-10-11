@@ -592,6 +592,12 @@ jobs:
           node src/plan-system/build-plan-master.mjs
 
       - name: Build Plan Checklists (How to Obtain) JSON
+        # rng76_fast: skips loot-list branches that cannot hold the plan.
+        # Proven bit-identical to the old engine on every plan (11 Oct 2026:
+        # 2,892 plans, 239,879 checks, 0 differences, ~28x faster). Delete
+        # this env block to go back to the old walk.
+        env:
+          DFBNB_FAST_RATES: "1"
         run: |
           python src/build_plan_obtain_json.py \
             --data-dir tsv \

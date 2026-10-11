@@ -76,6 +76,7 @@ sys.path.insert(0, str(SRC_DIR))
 import tsv_source
 import uwa_mods
 import uwa_obtain
+import uwa_discover
 from patchlog_utils import write_empty_patchlog_feed
 
 import build_unique_weapons_json as buw
@@ -881,8 +882,9 @@ def fill_sources(items, channel, weap_combos=None):
         if not weak:
             continue
         key = norm_name(it.get("name"))
-        # 1. the unique's own leveled list, walked up to the event that gives it
-        own = own_lists.get(key) or OWN_LIST_ALIAS.get(key)
+        # 1. the unique's own leveled list, walked up to the event that gives it.
+        #    Bethesda's roster pairing (WeaponsUniqueNamedList) comes first.
+        own = it.get("_rosterList") or own_lists.get(key) or OWN_LIST_ALIAS.get(key)
         evs = find_events(own) if own else []
         if evs:
             it["howToObtain"] = "Event: " + " / ".join(evs)
@@ -903,7 +905,7 @@ def fill_sources(items, channel, weap_combos=None):
             if it.get("tradeable") is None and trade is not None:
                 it["tradeable"] = bool(trade)
             continue
-        if _VAGUE_SCORE.match(how):
+        if not how or "unconfirmed" in how.lower() or _VAGUE_SCORE.match(how):
             where = seasons.get(key) or next(
                 (w for k, w in seasons.items() if k.startswith(key) and len(key) >= 6), None)
             if where:
@@ -972,7 +974,7 @@ def attach_conditions(items, channel):
     stats = {"routes": 0, "with": 0, "unchecked": 0}
     for it in items:
         key = norm_name(it.get("name"))
-        own = own_lists.get(key) or OWN_LIST_ALIAS.get(key)
+        own = it.get("_rosterList") or own_lists.get(key) or OWN_LIST_ALIAS.get(key)
         ways = find_events.tops(own) if own else []
         own_fid = ed2fid.get(own or "", "")
         for r in it.get("obtainRoutes") or []:
@@ -1022,6 +1024,117 @@ def attach_conditions(items, channel):
             stats["unchecked"] += not checked
     print(f"  Drop conditions: {stats['routes']} live route(s), {stats['with']} with "
           f"conditions, {stats['unchecked']} with nothing in the files to check")
+
+
+def discover_and_add(all_items, channel, omod_by_fid, cn_weapon, weap_base, weap_dnam,
+                     weap_combos, weap_host, pool_name, pool_fid):
+    """Run uwa_discover, add uniques the page lacks, report the rest.
+    Returns the set of keys Bethesda's own rosters confirm."""
+    import add_weapon_groups as _awg
+    words = set(_awg.ALIASES) | {v.replace(" ", "") for v in _awg.ALIASES.values()}
+    acc, possible = uwa_discover.discover(
+        lambda p, exclude=None: pick(p, channel, exclude=exclude),
+        read_tsv, strip_q, norm_formid, omod_by_fid, cn_weapon,
+        weap_base, weap_combos, weap_host, words)
+    official = {k for k, e in acc.items() if "official" in e["src"]}
+
+    def mods_of(it):
+        return {m.get("formId") for m in it.get("uniqueMods") or []} | set(it.get("_cmod_fids") or [])
+
+    # Paint / cut records are dropped from the page later, so they must not
+    # count as "already there" (Nuka-Launcher matched its own paint record).
+    real = [i for i in all_items if not i.get("cosmeticOnly") and not i.get("isCut")]
+    page_keys = {uwa_discover.key(i["name"]): i for i in real}
+    page_mods = set().union(*[mods_of(i) for i in real]) if real else set()
+    unconfirmed = []
+    for it in all_items:
+        if it.get("cosmeticOnly") or it.get("isCut"):
+            continue                      # dropped later anyway
+        k = uwa_discover.key(it["name"])
+        hit = uwa_discover.match(k, acc)
+        if hit and acc[hit]["lists"] and not it.get("_rosterList"):
+            it["_rosterList"] = sorted(acc[hit]["lists"])[0]
+            it["_rosterLists"] = sorted(acc[hit]["lists"])
+        if not hit and not any(mods_of(it) & e["omods"] for e in acc.values()):
+            unconfirmed.append(it["name"])
+            it["confirmedByGameFiles"] = False
+
+    # leaf WEAP / ARMO of a roster leveled list (for items with no custom mod)
+    leaf = {}
+    lv = pick("LVLI_Export_*_LVLI_Entries.tsv", channel)
+    for r in (read_tsv(lv) if lv else []):
+        ref = strip_q(r.get("LVLO_Reference", "")).split(":")
+        if len(ref) >= 3 and ref[2] in ("WEAP", "ARMO"):
+            leaf.setdefault(strip_q(r.get("LVLI_EDID", "")), (norm_formid(ref[0]), ref[1], ref[2]))
+
+    # A page item already tied to a roster list (OWN_LIST_ALIAS: Anchorage Ace
+    # is LL_Weapon_Ranged_Silenced10mmSMG) is that list's unique.
+    aliased_lists = set(OWN_LIST_ALIAS.values())
+    added, unbuildable = [], []
+    for k, e in sorted(acc.items()):
+        # Linked by name, or by a shared custom mod. A shared mod is NOT
+        # enough for an item on Bethesda's own lists: the old hand-built list
+        # pinned the Nuka-Launcher's mod onto Peace Maker, which hid the
+        # Nuka-Launcher entirely.
+        if uwa_discover.match(k, page_keys) or (e["lists"] & aliased_lists):
+            continue
+        if (e["omods"] & page_mods) and "official" not in e["src"]:
+            continue
+        it = None
+        hosted = [f for f in sorted(e["omods"]) if weap_host.get(f)]
+        if hosted:
+            it = build_fresh_weapon(hosted[0], omod_by_fid.get(hosted[0], {}), weap_host,
+                                    weap_combos, weap_base, weap_dnam, omod_by_fid,
+                                    pool_name, pool_fid)
+            it["name"] = e["name"] or it["name"]
+            # build_fresh_weapon looks sources up by the BASE weapon's formid,
+            # which hands Nuka-Launcher Peace Maker's quest. Start it blank;
+            # fill_sources reads its own roster list / entitlement instead.
+            it.update({"howToObtain": "", "sourceType": "Unknown", "sourceRef": ""})
+        else:
+            wf, wed, sig = "", "", ""
+            if e["weap"]:
+                wf = e["weap"]; wed = strip_q(weap_base.get(wf, {}).get("WEAP_EDID", "")); sig = "WEAP"
+            else:
+                for lst in sorted(e["lists"]):
+                    if lst in leaf:
+                        wf, wed, sig = leaf[lst]
+                        break
+            if sig != "WEAP" or not wf:
+                unbuildable.append(e["name"])
+                continue
+            it = blank_item()
+            base_row, dnam_row = weap_base.get(wf, {}), weap_dnam.get(wf, {})
+            lst = sorted(e["lists"])[0] if e["lists"] else wed
+            it.update({"kind": "Weapon", "name": e["name"], "formId": wf, "edid": lst,
+                       "base": resolve_base_weapon_name(wed, strip_q(base_row.get("WEAP_FULL", ""))),
+                       "subType": classify_weapon_type(dnam_row, strip_q(base_row.get("Keywords", ""))),
+                       "stats": weap_stats_from_dnam(base_row, dnam_row),
+                       "isCut": is_cut(lst) or is_cut(wed)})
+            # Left blank on purpose: fill_sources walks Bethesda's own roster
+            # list up to its event (the Cursed weapons are A Colossal Problem /
+            # Daily Ops) — a name lookup guessed other events for them.
+            it.update({"howToObtain": "", "sourceType": "Unknown", "sourceRef": ""})
+        it["discoveredBy"] = sorted(e["src"])
+        if e["lists"]:
+            it["_rosterList"] = sorted(e["lists"])[0]
+            it["_rosterLists"] = sorted(e["lists"])
+        if not it.get("id"):
+            it["id"] = unique_slug(it["name"])
+        all_items.append(it)
+        added.append(it["name"])
+        page_keys[k] = it
+
+    print(f"  Discovery (game files): {len(acc)} uniques confirmed, "
+          f"{len(official)} in Bethesda's own lists")
+    print(f"    added (on the game's lists, missing from the page): {len(added)} {added}")
+    if unconfirmed:
+        print(f"    on the page but NOT confirmed by any game-file source — check: {unconfirmed}")
+    if unbuildable:
+        print(f"    in Bethesda's lists but no weapon record to build from: {unbuildable}")
+    if possible:
+        print(f"    possible (one weak signal only, not published): {len(possible)}")
+    return official
 
 
 def build_channel(channel, dist_dir):
@@ -1145,6 +1258,16 @@ def build_channel(channel, dist_dir):
         _merged[key] = keep
     all_items = [_merged[k] for k in _order]
 
+    # ---- Generative discovery (uwa_discover.py, Oct 2026) -----------------
+    # What counts as a unique is read from the game files every build:
+    # Bethesda's own rosters, the CustomItemName_ keywords, custom mods that
+    # sit on a real weapon, and named build-table combinations. Uniques found
+    # there and not yet on the page are ADDED; page items no game-file signal
+    # confirms are printed for a human (kept, flagged). See uwa_discover.
+    disc_official = discover_and_add(all_items, channel, omod_by_fid, cn_weapon,
+                                     weap_base, weap_dnam, weap_combos, weap_host,
+                                     pool_name, pool_fid)
+
     # Drop paints / skins / name plates. Done after the dedupe so a cosmetic
     # record that merged into a real item can't take the real item with it.
     if not INCLUDE_COSMETICS:
@@ -1196,21 +1319,66 @@ def build_channel(channel, dist_dir):
             if r.get("populated"):
                 r["lines"].append("Note: " + note)
                 break
+    # The roster list's OWN name ties a unique to a second event the routes
+    # do not show (Cursed Broadsider: E06_Colossus_... = A Colossal Problem,
+    # while the routes only found the Treasure Hunter pool). Duchess confirmed
+    # in game that the Cursed weapons drop from BOTH, so the second event is a
+    # real second "Source:" line in the same route, not a side note — the How
+    # to Obtain box then lists two entries.
+    for it in all_items:
+        shown = " ".join(l for r in it.get("obtainRoutes") or [] if r.get("populated")
+                         for l in r.get("lines") or []).lower()
+        for lst in it.get("_rosterLists") or []:
+            origin = obtain_idx._quest_name(lst)
+            named = bool(origin)
+            if not origin and re.search(r"(^|_)DailyOps(_|$)", lst):
+                origin = "Daily Ops"
+            origin = re.sub(r"^\s*Event:\s*", "", origin or "").strip()
+            if not origin or origin.lower() in shown:
+                continue
+            for r in it.get("obtainRoutes") or []:
+                if not r.get("populated"):
+                    continue
+                lines = r["lines"]
+                # Promote to a second Source only when it is the same kind of
+                # thing: a NAMED event (from the list's quest, not a guessed
+                # "Daily Ops" from the list name) on a live Events route.
+                # Anything else (retired items, quest or vendor routes) keeps
+                # the neutral note — the list name alone is not proof.
+                live = not any("no longer obtainable" in l.lower() or "retired" in l.lower()
+                               for l in lines)
+                if not (named and live and r.get("route") == "Events & Activities"):
+                    lines.append(f"Note: Also tied to {origin} in the game files.")
+                    shown += " " + origin.lower()
+                    break
+                at = max((i for i, l in enumerate(lines)
+                          if l.lower().startswith("source:")), default=len(lines) - 1)
+                lines.insert(at + 1, f"Source: {origin}")
+                if it.get("sourceRef") and origin not in it["sourceRef"]:
+                    it["sourceRef"] = f"{it['sourceRef']} / {origin}"
+                if it.get("howToObtain") and origin not in it["howToObtain"]:
+                    it["howToObtain"] = f"{it['howToObtain']} / {origin}"
+                shown += " " + origin.lower()
+                break
     attach_conditions(all_items, channel)
 
     # Items Bethesda's own WeaponsUniqueNamedList has never heard of AND that
     # the override table names as mod records rather than weapons. Dropping
     # them here rather than in the discovery pass keeps the reasoning in one
     # place, in data/, where the next one can be added without a code change.
-    dropped = [i["name"] for i in all_items if i["name"] in obtain_idx.excluded]
+    # Bethesda's own rosters beat the hand "excluded" table: Minty Breather
+    # sat in it as "a mod record" while WeaponsUniqueNamedList lists it.
+    _excl = {n for n in obtain_idx.excluded if uwa_discover.key(n) not in disc_official}
+    dropped = [i["name"] for i in all_items if i["name"] in _excl]
     if dropped:
-        all_items[:] = [i for i in all_items
-                        if i["name"] not in obtain_idx.excluded]
+        all_items[:] = [i for i in all_items if i["name"] not in _excl]
         print(f"  excluded {len(dropped)} non-item record(s): "
               f"{', '.join(sorted(dropped))}")
 
     for it in all_items:
         it.pop("_cmod_fids", None)
+        it.pop("_rosterList", None)
+        it.pop("_rosterLists", None)
         it["id"] = unique_slug(it.get("edid") or it.get("name") or "item")
 
     all_items.sort(key=lambda x: x["name"].lower())

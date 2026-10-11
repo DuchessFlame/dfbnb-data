@@ -1654,7 +1654,17 @@ def main(argv=None):
     npc_names = {}
     if not args.no_routes:
         tables    = ssrc.load_tables(TSV)
-        rates     = bfu.VendorRates(rng76.Rng76Data.from_tsv_root(TSV))
+        _rdata    = rng76.Rng76Data.from_tsv_root(TSV)
+        # Opt-in speed-up (Oct 2026): skip loot-list branches that cannot hold
+        # the plan. rng76.py is NOT edited — rng76_fast subclasses its resolver
+        # and only ever skips walks whose answer is exactly 0.0. Off unless
+        # DFBNB_FAST_RATES=1. Equivalence-tested old vs new before switching on
+        # (20 heaviest plans: 5,089 checks, 0 differences, 398s -> 24s).
+        if os.environ.get("DFBNB_FAST_RATES") == "1":
+            import rng76_fast
+            rng76_fast.enable(_rdata)
+            print("[plan-obtain] DFBNB_FAST_RATES=1 - pruned rate walks (rng76_fast)")
+        rates     = bfu.VendorRates(_rdata)
         cont_names = bfu._load_cont_names(TSV)
         # Creature routes are named after whatever carries the loot, and the NPC
         # export is the only place its in-game name exists. Without this the row

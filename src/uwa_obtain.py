@@ -322,6 +322,14 @@ class ObtainIndex:
             for ed, full in self.quest_name.items():
                 if ed.startswith(stem):
                     return full
+        # A bare content code (MTNS05) names a quest only when exactly ONE
+        # quest carries it: MTNS05_LL_PipeSyringer_Vox_QuestItem is the
+        # "Someone To Talk To" daily. "E09A" matches many, so it stays unnamed.
+        if parts and re.match(r"^[A-Za-z]{1,4}\d{2,3}[A-Za-z]?$", parts[0]):
+            hits = {full for ed, full in self.quest_name.items()
+                    if ed.split("_")[0] == parts[0]}
+            if len(hits) == 1:
+                return hits.pop()
         return ""
 
     # -- classification --------------------------------------------------

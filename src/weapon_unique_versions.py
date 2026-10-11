@@ -99,11 +99,11 @@ def image_for(name, files, extra=()):
 
 
 def _sentence(route, lines):
-    src = ""
-    for l in lines:
-        if l.lower().startswith("source:"):
-            src = l.split(":", 1)[1].strip()
-            break
+    # Every "Source:" line counts — a unique can drop from two events
+    # (Cursed weapons: Hunt for the Treasure Hunter and A Colossal Problem).
+    srcs = [l.split(":", 1)[1].strip() for l in lines
+            if l.lower().startswith("source:") and l.split(":", 1)[1].strip()]
+    src = ", ".join(dict.fromkeys(srcs))
     gone = any("no longer obtainable" in l.lower() for l in lines)
     if gone:
         return f"No longer obtainable: {src or 'retired'}. Player trading only.", True
