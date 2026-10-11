@@ -1616,7 +1616,12 @@ jobs:
           for item in dist/!(pts); do
             mv "$item" dist/pts/
           done
-          echo "dist/pts now contains:"; ls -1 dist/pts | head -50
+          # Print a preview without `| head`: Actions bash runs with -o pipefail,
+          # so head closing the pipe early makes ls die with "Broken pipe"
+          # (exit 2) and fails the step once dist/pts has more than 50 entries.
+          # sed reads all of its input, so ls never gets SIGPIPE.
+          echo "dist/pts now contains $(ls -1 dist/pts | wc -l) entries; first 50:"
+          ls -1 dist/pts | sed -n '1,50p'
 
       - name: Generate PTS vs Live changelog
         shell: bash
