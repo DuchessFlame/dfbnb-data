@@ -104,7 +104,9 @@ def _sentence(route, lines):
     srcs = [l.split(":", 1)[1].strip() for l in lines
             if l.lower().startswith("source:") and l.split(":", 1)[1].strip()]
     src = ", ".join(dict.fromkeys(srcs))
-    gone = any("no longer obtainable" in l.lower() for l in lines)
+    # A "Legacy:" line is about the retired copy, not this route.
+    gone = any("no longer obtainable" in l.lower() for l in lines
+               if not l.lower().startswith("legacy:"))
     if gone:
         return f"No longer obtainable: {src or 'retired'}. Player trading only.", True
     if route == "Quests":
@@ -171,6 +173,9 @@ def build(items, tsv_dir="tsv"):
             for l in r.get("lines") or []:
                 if l.lower().startswith("note:") and "player trading only" not in s.lower():
                     s += " " + l.split(":", 1)[1].strip()
+                # Retired copy beside the live re-issue (uwa_obtain: Legacy).
+                elif l.lower().startswith("legacy:"):
+                    s += " Legacy: " + l.split(":", 1)[1].strip() + "."
             unlocks.append(s)
             retired = retired or gone
             tag = tag or ROUTE_TAG.get(r.get("route"))

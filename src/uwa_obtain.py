@@ -92,6 +92,29 @@ _SRC_SUFFIX = re.compile(
     r"(_?(LL|LLI|LVLI|GMRW|NPC_|WEAP)|_Quest_?Rewards?|_QuestReward(s)?"
     r"|_Rewards?|_Weapons?|_Stage\d+(_\d+)?)+$", re.I)
 
+# Bethesda's unique rosters — catalogues for data validation, not sources.
+ROSTER_LIST = re.compile(r"^LL_(Weapon|Armor)_Unique_All$", re.I)
+
+NPC_COPY = re.compile(r"^(cr[A-Z0-9]|DEL_|XPD_|MTR)|_cr[A-Z]")
+
+# Leading EditorID token of a retired copy -> the mode it belonged to.
+LEGACY_MODES = {"survival": "Survival mode", "nw": "Nuclear Winter",
+                "nuclearwinter": "Nuclear Winter"}
+
+
+def is_legacy_record(edid):
+    """A retired copy: a known retired mode's prefix, or DEPRECATED_. A bare
+    repair-only record is NOT enough — Grand Finale's E09A_ record is just
+    the copy its bounty target carries."""
+    return bool(legacy_mode(edid)) or bool(re.match(r"DEPRECATED_", edid or "", re.I))
+
+
+def legacy_mode(edid):
+    """'Survival_AssaultRifle_WhistleInTheDark' -> 'Survival mode'."""
+    head = re.split(r"[_]", edid or "", 1)[0].lower()
+    return LEGACY_MODES.get(head, "")
+
+
 DEAD_REWARD = re.compile(r"(^|_)(CUT|DONOTUSE|zzz)", re.I)
 
 # What an owning leveled list / reward record says about where it sits.
@@ -115,6 +138,11 @@ LIST_ROUTES = [
      "Challenges", ""),
     (re.compile(r"Quest|_MQ\d|COMP_|QDL|Lesson", re.I),
      "Quests", ""),
+    # Pint-Sized Phantoms infestations (HTO = Hostile Takeover; the quest
+    # export calls the activity "Infestation"). Without this the parent list
+    # leaked as "HTO cr LLS Rewards Special Events SDOW".
+    (re.compile(r"(^|_)HTO_|Infestation", re.I),
+     "Events & Activities", "Infestations"),
     (re.compile(r"Event", re.I),
      "Events & Activities", ""),
 ]
@@ -187,20 +215,33 @@ class ObtainIndex:
         # the re-issue is usually the one with a live source, so both are
         # walked rather than picking one.
         self.rec_by_name = defaultdict(set)
-        for path, fid_col, full_col in (
-                (self._pick("WEAP_Export_*_Base.tsv"), "WEAP_FormID", "WEAP_FULL"),
-                (self._pick("ARMO_Export_*_ARMOUR.tsv"), "ARMO_FormID", "ARMO_FULL")):
+        self.rec_edid = {}
+        for path, fid_col, full_col, edid_col in (
+                (self._pick("WEAP_Export_*_Base.tsv"), "WEAP_FormID", "WEAP_FULL", "WEAP_EDID"),
+                (self._pick("ARMO_Export_*_ARMOUR.tsv"), "ARMO_FormID", "ARMO_FULL", "ARMO_EDID")):
             for r in _rows(path):
                 nm = _norm(r.get(full_col))
                 if nm:
                     self.rec_by_name[nm].add(_fid(r.get(fid_col)))
+                    self.rec_edid[_fid(r.get(fid_col))] = _q(r.get(edid_col))
 
         # COBJ: made item -> its plan BOOK. NOCRAFT recipes are recorded as
         # "exists but repair only" so the builder can clear the inherited plan.
         self.plan_of = {}
         self.repair_only = set()
+        # A re-issued unique is often crafted from a plan whose recipe makes
+        # the BASE weapon (co_Weapon_Ranged_AssaultRifle_WhistleInTheDark ->
+        # AssaultRifle, "Plan: Whistle in the Dark"), so the record lookup
+        # above never finds it. The plan's own name does.
+        self.plan_by_name = {}
         for r in _rows(self._pick("COBJ_Export_*.tsv")):
             cnam = _fid(r.get("CNAM_FormID"))
+            gfull = _q(r.get("GNAM_FULL"))
+            if _q(r.get("GNAM_EDID")).lower().startswith("recipe_") \
+                    and re.match(r"^\s*plan\s*:", gfull, flags=re.I):
+                nm = re.sub(r"^\s*plan\s*:\s*", "", gfull, flags=re.I)
+                self.plan_by_name.setdefault(_norm(nm), {
+                    "fid": _fid(r.get("GNAM_FormID")), "name": nm})
             if not cnam:
                 continue
             if _q(r.get("GNAM_EDID")) == NOCRAFT:
@@ -215,13 +256,16 @@ class ObtainIndex:
         # LVLI: what contains what, and what contains that.
         self.owners = defaultdict(set)      # entry fid -> {(list fid, edid)}
         edid_of = {}
+        self.list_fid = {}                  # list edid -> fid
         for r in _rows(self._pick("LVLI_Export_*_LVLI_Entries.tsv")):
             lf, le = _fid(r.get("LVLI_FormID")), _q(r.get("LVLI_EDID"))
             edid_of[lf] = le
+            self.list_fid[le] = lf
             ref = _fid(r.get("LVLO_Reference"))
             if ref:
                 self.owners[ref].add((lf, le))
 
+        self.list_edid = edid_of
         self.parents = defaultdict(set)     # list fid -> {referencing edid}
         for r in _rows(self._pick("LVLI_Export_*_LVLI_Refs.tsv")):
             lf = _fid(r.get("LVLI_FormID"))
@@ -375,6 +419,9 @@ class ObtainIndex:
             return "", "", list_edid
         return route, label, list_edid
 
+    def _edid_of_list(self, list_fid):
+        return self.list_edid.get(list_fid, "")
+
     def _drop_lines(self, fid, what):
         """Every populated route a FormID's leveled lists imply.
 
@@ -420,6 +467,8 @@ class ObtainIndex:
             if fid in self.plan_of:
                 plan = self.plan_of[fid]
                 break
+        if not plan:
+            plan = self.plan_by_name.get(key)
         if plan:
             meta.update(planFormId=plan["fid"], planName=plan["name"],
                         craftable=True)
@@ -433,6 +482,27 @@ class ObtainIndex:
         if plan:
             hits += self._drop_lines(plan["fid"], "plan")
             hits += self._reward_lines(plan["fid"], "plan")
+        # The unique's OWN leveled list (Bethesda's roster pairs it with the
+        # item: DailyOps_LL_Weapon_Ranged_WhistleInTheDark holds a plain
+        # AssaultRifle). Its record walk above finds nothing, because the list
+        # holds the base gun, not the named record. The roster itself
+        # (LL_Weapon_Unique_All) is a catalogue, not a source.
+        # ONLY for an item that would otherwise read "retired" or have no
+        # source at all: many own lists are shared pools (Treasure Hunter,
+        # Dangerous Pastimes), and walking up from them names AN event, not
+        # THE event — doing it for every item renamed ~60 good sources.
+        how = _q(item.get("howToObtain")).lower()
+        # A retired copy beside the record (Survival_LeverGun_SoleSurvivor)
+        # means the item was re-issued, and the re-issue lives in the own list.
+        reissued = any(is_legacy_record(self.rec_edid.get(f, "")) for f in recs)
+        stale = (not how or "legacy" in how or "retired" in how
+                 or "unconfirmed" in how or reissued)
+        has_weapon = any(h[2] == "weapon" for h in hits)
+        for le in (item.get("_rosterLists") or []) if (stale and not has_weapon) else []:
+            lf = self.list_fid.get(le)
+            if lf:
+                hits += [h for h in self._drop_lines(lf, "weapon")
+                         if not ROSTER_LIST.search(self._edid_of_list(h[3]))]
 
         # Group by route so "weapon and plan" reads as one entry rather than
         # the same source printed twice.
@@ -464,6 +534,37 @@ class ObtainIndex:
                 _put(routes, "Gold Bullion",
                      ["Drops: Plan only"] + gold,
                      tradeable=item.get("tradeable"), drop="N/A")
+
+        # A legacy copy next to a live re-issue (Survival_AssaultRifle_
+        # WhistleInTheDark beside the Daily Ops version): repair-only, nothing
+        # hands it out. Said in the box beside the live sources, because both
+        # versions are still out there in players' hands.
+        live = [r for r in routes if r["populated"]]
+        if live:
+            # NPC copies (crE09A_Broadsider_GrandFinale) are the enemy's
+            # weapon, not a version a player ever owned.
+            legacy = [f for f in recs if f in self.repair_only
+                      and not self.owners.get(f) and not self.rewards.get(f)
+                      and is_legacy_record(self.rec_edid.get(f, ""))]
+            modes = [legacy_mode(self.rec_edid.get(f, "")) for f in legacy]
+            # No separate record, but the old summary said the item was a
+            # retired mode's reward (Old Guard: Nuclear Winter) and the files
+            # now hand it out again — the old version is still the legacy one.
+            if not legacy and stale and ("legacy" in how or "retired" in how):
+                old = re.sub(r"\s*\((legacy|retired)\)|\s*[—-]\s*retired", "",
+                             _q(item.get("howToObtain")), flags=re.I)
+                old = re.sub(r"^\s*[^:]*:\s*", "", old).strip()
+                modes = [old.replace(" reward", "") or ""]
+            # Beside the live source lines, not on a vendor row.
+            home = next((r for r in live if any(l.startswith("Source:") for l in r["lines"])),
+                        live[0])
+            for mode in modes:
+                line = (f"Legacy: {mode} version — no longer obtainable, player trading only"
+                        if mode else
+                        "Legacy: an older version — no longer obtainable, player trading only")
+                if line not in home["lines"]:
+                    home["lines"].append(line)
+            meta["legacyRecords"] = legacy
 
         if not any(r["populated"] for r in routes):
             # A cut reward record proves it; the old summary saying "legacy"
