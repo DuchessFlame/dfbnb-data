@@ -1,6 +1,6 @@
 {
  "_meta": {
-  "generated": "2026-10-10",
+  "generated": "2026-10-11",
   "source": "dist/meat/gulper.json + farming pipeline (src/build_meat_guide_docs.py)"
  },
  "set": "meat",
@@ -389,7 +389,8 @@
      },
      {
       "name": "Cotton Candy Bites",
-      "qty": 2
+      "qty": 2,
+      "url": "/bnb/farming/non-perishable/cotton-candy-bites/"
      },
      {
       "name": "Sugar",
@@ -443,7 +444,7 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Known by default."
+    "how_to_obtain": "Recipe: Gulper Stuffed Foot"
    },
    {
     "name": "Pepperoni Roll",
@@ -526,7 +527,14 @@
       "sign": true
      }
     ],
-    "how_to_obtain": "Known by default."
+    "how_to_obtain": "Recipe: Pepperoni Roll",
+    "plan_routes": [
+     {
+      "route": "Molly (Neighborly, Raiders vendor)",
+      "rate_display": "100%",
+      "kind": "vendor"
+     }
+    ]
    }
   ]
  },
@@ -1197,8 +1205,7 @@
   "total_markers": 57,
   "total": 216,
   "no_maps": true,
-  "lead": "Gulpers can spawn at 57 locations that share a spawn pool with other creatures, so a Gulper is not guaranteed there. They are listed by name only.",
-  "map_base": "/wp-content/uploads/guide-images/farming-meat/gulper/"
+  "lead": "Gulpers can spawn at 57 locations that share a spawn pool with other creatures, so a Gulper is not guaranteed there. They are listed by name only."
  },
  "breakdown_lead": "Spawns here:",
  "treasure_maps": {
