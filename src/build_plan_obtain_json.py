@@ -1997,6 +1997,7 @@ def main(argv=None):
         if stats:
             out["weapon_groups_schema"] = add_weapon_groups.SCHEMA
             out["weapon_groups_sources"] = stats["sources"]
+            out["weapon_group_images"] = stats.get("group_images") or {}
     except Exception as exc:                      # noqa: BLE001 - never fatal
         print(f"  WARNING: weapon grouping skipped: {exc}", file=sys.stderr)
 

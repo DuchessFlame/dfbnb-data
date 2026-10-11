@@ -326,6 +326,11 @@ SUPP_OBTAIN = {
     "ChaosEngine": "Quest: Skyline Valley (Vault 63)",
     "Tempest": "Quest: Skyline Valley (Vault 63)",
     "Splinter": "Quest: Skyline Valley (Vault 63)",
+    # The files hold no drop record for The Pipe (only its instantiation
+    # filter). Without this line the base-weapon formid lookup hands it the
+    # first reward pool that gives out ANY Pipe Gun (Monster Mash), which is
+    # wrong. Source per Duchess (Oct 2026): a random encounter.
+    "ThePipe": "Event: Random encounter",
 }
 
 
@@ -663,6 +668,102 @@ def load_gmrw_quest(channel):
     return out
 
 
+_VAGUE_SCORE = re.compile(r"^\s*score season reward\s*$", re.I)
+_SCORE_WEAP_ENTM = re.compile(
+    r"^SCORE_(?:S(\d+)|MiniSeason_(?:\d{4}_)?([A-Za-z]+?))_(?:ENTM_)?Weapons?_(?:.*_)?([A-Za-z0-9]+)$", re.I)
+
+
+def _seasonal_drops():
+    """{normalised weapon name: (event name, tradeable)} from the seasonal event
+    reward pages (dist/seasonal_events/seasonal_events_rewards_by_page.json).
+    A unique there carries its own name or its customModName."""
+    out = {}
+    path = REPO_ROOT / "dist" / "seasonal_events" / "seasonal_events_rewards_by_page.json"
+    try:
+        pages = json.load(open(path, encoding="utf-8")).get("byPage") or {}
+    except (OSError, ValueError):
+        return out
+
+    def walk(o, event):
+        if isinstance(o, dict):
+            if (o.get("sig") or "") == "WEAP":
+                for nm in (o.get("customModName"), o.get("name")):
+                    if nm:
+                        out.setdefault(norm_name(nm), (event, o.get("tradeable")))
+            for v in o.values():
+                walk(v, event)
+        elif isinstance(o, list):
+            for v in o:
+                walk(v, event)
+
+    for page in pages.values():
+        if isinstance(page, dict) and page.get("name"):
+            walk(page, page["name"])
+    return out
+
+
+def _score_weapon_seasons(channel):
+    """{normalised name: "Season 17" | "Love Hurts mini-season"} from the
+    SCORE_*_ENTM_Weapons_* entitlements, keyed on their last EditorID token
+    (SCORE_S17_ENTM_Weapons_HeadHunter -> "headhunter")."""
+    out = {}
+    path = pick("ENTM_Export_*.tsv", channel)
+    if not path:
+        return out
+    minis = {}
+    try:
+        ms = json.load(open(REPO_ROOT / "dist" / "mini_seasons" / "mini_seasons.json", encoding="utf-8"))
+        for key, v in ms.items():
+            if isinstance(v, dict) and (v.get("title") or v.get("name")):
+                minis[key.replace("-", "").lower()] = v.get("title") or v.get("name")
+    except (OSError, ValueError):
+        pass
+    for r in read_tsv(path):
+        m = _SCORE_WEAP_ENTM.match(strip_q(r.get("EDID", "")))
+        if not m or is_cut(strip_q(r.get("EDID", ""))):
+            continue
+        season, mini, tail = m.groups()
+        where = (f"Season {int(season)}" if season
+                 else f"{minis.get((mini or '').lower(), camelcase_to_display(mini or ''))} mini-season")
+        out.setdefault(norm_name(tail), where)
+        out.setdefault(norm_name(strip_q(r.get("FULL", ""))), where)
+    return out
+
+
+def fill_sources(items, channel):
+    """Give a source to uniques the reuse foundation left unconfirmed or vague.
+
+    * a seasonal event reward page lists the weapon -> "Event: <event>"
+      (beats a bare "Score Season reward": Relic Reaper drops from the
+      Slasher's Disturbed Graves, it is not a scoreboard item)
+    * a bare "Score Season reward" -> the season named by its own
+      SCORE_S<n>_ENTM_Weapons_* entitlement ("Scoreboard: Season 17")
+    Read from the game files and the event pages every build, never a list.
+    """
+    events = _seasonal_drops()
+    seasons = _score_weapon_seasons(channel)
+    for it in items:
+        if it.get("kind") != "Weapon":
+            continue
+        how = str(it.get("howToObtain") or "").strip()
+        weak = (not how or "unconfirmed" in how.lower() or _VAGUE_SCORE.match(how))
+        if not weak:
+            continue
+        key = norm_name(it.get("name"))
+        if key in events:
+            ev, trade = events[key]
+            it["howToObtain"], it["sourceType"], it["sourceRef"] = f"Event: {ev}", "Event", ev
+            if it.get("tradeable") is None and trade is not None:
+                it["tradeable"] = bool(trade)
+            continue
+        if _VAGUE_SCORE.match(how):
+            where = seasons.get(key) or next(
+                (w for k, w in seasons.items() if k.startswith(key) and len(key) >= 6), None)
+            if where:
+                it["howToObtain"] = f"Score: {where} Scoreboard"
+                it["sourceType"], it["sourceRef"] = "Score", where
+
+
 def build_channel(channel, dist_dir):
     global _SLUG_SEEN
     _SLUG_SEEN = {}
@@ -673,6 +774,28 @@ def build_channel(channel, dist_dir):
     omod_by_fid, omod_by_edid, omod_props, cn_weapon = load_current_omods(channel)
     weap_base, weap_dnam, weap_combos, weap_host = load_weap_tables(channel)
     omod_fids_present = set(omod_by_fid.keys())
+
+    # Second discovery path (Oct 2026). Some uniques carry no CustomItemName_
+    # keyword at all - "The Pipe" (Pipe Gun, random encounter) is a perk-only
+    # custom mod - so the keyword pass above never saw them. The game still
+    # names them: the mod is a mod_Custom_* that sits in a WEAP ObjectTemplate
+    # combination carrying the SAME name ("The Pipe" combo on PipeGun). Both
+    # tests together are narrow - on the Oct 2026 export they add only
+    # The Pipe and Camden Whacker (already listed, so it just merges).
+    for _fid, _row in omod_by_fid.items():
+        if _fid in cn_weapon:
+            continue
+        _ed = strip_q(_row.get("OMOD_EDID", ""))
+        _full = strip_q(_row.get("FULL", ""))
+        if not _full or not re.search(r"(^|_)mod_Custom_", _ed, re.I):
+            continue
+        if strip_q(_row.get("FormType", "")) != "Weapon":
+            continue
+        for _wf, _ci in weap_host.get(_fid, []):
+            _cf = weap_combos[_wf][_ci]["full"]
+            if _cf and norm_name(_cf) == norm_name(_full):
+                cn_weapon.add(_fid)
+                break
 
     reuse_path = REPO_ROOT / "dist" / "unique_weapons" / "unique_weapons.json"
     reuse = json.load(open(reuse_path, encoding="utf-8"))
@@ -792,6 +915,7 @@ def build_channel(channel, dist_dir):
     # weapon, its plan, or both — and the plan it named was inherited from the
     # BASE weapon, so every repair-only legacy item claimed to be craftable.
     # See uwa_obtain.py. howToObtain is kept as the one-line summary.
+    fill_sources(all_items, channel)
     obtain_idx = uwa_obtain.index(channel)
     obtain_idx.apply(all_items)
 

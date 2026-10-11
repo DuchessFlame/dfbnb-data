@@ -374,6 +374,12 @@ class ObtainIndex:
         """
         out = []
         for list_fid, list_edid in sorted(self.owners.get(fid, ())):
+            # A cut leveled list (zzz / CUT / DONOTUSE) is not somewhere you can
+            # go, same rule as the dead GMRW rewards. Without this Nailer showed
+            # "Optional Success Rare Rewards" off zzzMTNS04_LL_OptionalSuccess_
+            # RareRewards_QuestReward, a list nothing rolls any more.
+            if DEAD_REWARD.search(list_edid or ""):
+                continue
             route, label, shown = self._source_label(list_fid, list_edid)
             if not route:
                 continue

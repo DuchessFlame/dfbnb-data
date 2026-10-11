@@ -1,17 +1,41 @@
 #!/usr/bin/env python3
 r"""
-build_pre_war_food_guide.py — the Pre-War Food Location Guide (Oct 2026).
+build_pre_war_food_guide.py — one location guide PER pre-war food (Oct 2026).
 
-    /bnb/farming/non-perishable/pre-war-food-location-guide/
+    /bnb/farming/non-perishable/<food>/<food>-guide/
 
-One farming-guide page for EVERY pre-war food, drawn by the Deathclaw Egg
-renderer (df-bnb-farming-non-perishable-guide.js), the baseline for every
-farming page.
+Until 11 Oct 2026 every pre-war food sat on one page
+(/bnb/farming/non-perishable/pre-war-food-location-guide/). Duchess did not like
+it, so each food now gets its own page, drawn by the Deathclaw Egg renderer
+(df-bnb-farming-non-perishable-guide.js), the baseline for every farming page.
+The URL shape is the normal non-perishable one (same as Canned Coffee), so the
+renderer finds <food>_spawns.json with no special case.
 
-  out: dist/farming_spawns/pre-war-food_spawns.json        (default = live)
-       dist/pts/farming_spawns/pre-war-food_spawns.json     (--pts)
-  geo: data/farming_spawns/geo_cache_pre_war_food.json     (seeded locally with
+ONE PAGE PER FOOD — the only sharing rule
+  A rad-free copy ("<Food> (no rads)", the *_PreWar_Clean records) goes on the
+  same page as its food. Those pages use the multi-item shape (sub_items[] +
+  fixed_items[], one sub-expand per version). Every other page is a plain
+  single-item farming doc.
+  A food that already has its own guide (Canned Coffee, Sugar Bombs, ...) gets
+  no page here; nor does its "(no rads)" copy (it belongs on that page).
+
+  out: dist/farming_spawns/<food>_spawns.json            (default = live)
+       dist/pts/farming_spawns/<food>_spawns.json         (--pts)
+       dist/farming_spawns/pre_war_food_pages.json        the page list (slug,
+                                                          name, url, foods) —
+                                                          read by the map script
+  geo: data/farming_spawns/geo_cache_pre_war_food.json   (seeded locally with
        the Mappalachia DB; CI rebuilds from it with no DB)
+
+MAPS (render_pre_war_food_maps.py)
+  site:  guide-images/farming-non-perishable/<food>/            fixed-spawn maps
+         guide-images/farming-non-perishable/<food>/no-rads/    the (no rads) copy
+         guide-images/farming-non-perishable/pre-war-food/      the mixed-list
+                                                                chance maps — ONE
+                                                                set, shared by
+                                                                every page
+  Docs carry `own_map_renderer`, so add_spawn_map_base.py and render_all_maps.py
+  leave them alone.
 
 WHICH ITEMS — Bethesda's own list, nothing typed
   The "Eat Pre-war Food" / "Collect Pre-war Food" challenges (CHAL) test
@@ -23,21 +47,19 @@ WHICH ITEMS — Bethesda's own list, nothing typed
   effects (the *_PreWar_Clean copies have no radiation) are shown apart, the
   rad-free one marked "(no rads)".
 
-PAGE SHAPE (read by the renderer's multi-item path)
-  sub_items[]   one farming doc per food (Used For, Farming Tips, Collectrons,
-                Containers, Creatures, Events, Resource Generators, Treasure Maps,
-                Vendors). A food that already has its own guide carries only
-                `page_url`, and the page links to it instead of repeating it.
-  fixed_items[] one Fixed Spawn Locations sub-expand per food that has physical
-                fixed spawns: the item's own placed base, or a leveled list that
-                can ONLY hand out that food (spawn-guide 9k dedication rule).
-                Each has its own map folder (map_base / full_map).
-  chance_spawns the MIXED pre-war food lists — a world-placed leveled list whose
-                every leaf is a pre-war food but which can roll more than one of
-                them (LPI_Food_Packaged as of Oct 2026). `pools[].contents` is the
-                chance per spawn point for each food (rng76). Names only by
-                region, with a chance map per region (show_maps).
-  regions       left empty on purpose: the per-food regions live in fixed_items.
+PAGE SHAPE
+  Single food: the normal farming doc — used_for, farming_tips, drop_rates,
+                vendor_list, events_activities, treasure_maps, regions (fixed
+                spawns: the item's own placed base, or a leveled list that can
+                ONLY hand out that food — spawn-guide 9k dedication rule).
+  Food + (no rads): sub_items[] (one full farming doc per version, rendered as a
+                sub-expand in every section) and fixed_items[] (one Fixed Spawn
+                sub-expand per version, each with its own map folder).
+  chance_spawns (both shapes) the MIXED pre-war food lists — a world-placed
+                leveled list whose every leaf is a pre-war food but which can roll
+                more than one (LPI_Food_Packaged as of Oct 2026). `pools[].contents`
+                holds only THIS page's food(s), with the chance per spot (rng76).
+                Names only by region, with the shared chance maps (show_maps).
 
 Hand-authored photos / directions are kept across rebuilds by food + ref.
 
@@ -48,6 +70,8 @@ A full run resolves ~40 foods through rng76 and takes about half an hour. To do 
 local run in chunks (each chunk under a time limit):
   python src/build_pre_war_food_guide.py --state pwf_state.json --budget-seconds 120
   ...repeat until it stops exiting with code 3.
+The state file only holds the slow part (the source sections); Used For and
+Farming Tips are worked out fresh every run.
 """
 import collections
 import csv
@@ -80,14 +104,21 @@ SLUG = "pre-war-food"
 NAME = "Pre-War Food"
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db")
 GEO_CACHE = os.path.join(REPO, "data", "farming_spawns", "geo_cache_pre_war_food.json")
-# The page's guide-images folder. Each food's fixed-spawn maps sit in a sub-folder
-# (<base><food-slug>/); the mixed-list chance maps sit in the page folder itself.
-MAP_BASE = "/wp-content/uploads/guide-images/farming-non-perishable/pre-war-food/"
+UPLOADS = "/wp-content/uploads/guide-images/farming-non-perishable/"
+# Each page's fixed-spawn maps: UPLOADS<page-slug>/ (the "(no rads)" copy in
+# its no-rads/ sub-folder). The mixed-list chance maps are the same for every
+# page, so there is ONE set, in the old pre-war-food folder.
+CHANCE_MAP_BASE = UPLOADS + "pre-war-food/"
+NO_RADS = " (no rads)"
+NO_RADS_DIR = "no-rads/"
+PAGE_URL = "/bnb/farming/non-perishable/{slug}/{slug}-guide/"
+MANIFEST = "pre_war_food_pages.json"
 # Fallback only — used if the CHAL export carries no "Pre-war Food" keyword test.
 FALLBACK_KEYWORD = "MealTypePackaged"
 FIXED_TYPES = ("direct", "static")
 # Bump when item_doc() changes, so a saved --state file is not reused.
-STATE_VERSION = 2
+# 3 (11 Oct 2026): the state holds item_doc() WITHOUT used_for / farming_tips.
+STATE_VERSION = 3
 RAD_EFFECT = "DamageRadiationEating"
 
 
@@ -96,7 +127,9 @@ def r2(x):
 
 
 def slugify(s):
-    return re.sub(r"-+$", "", re.sub(r"[^a-z0-9]+", "-", str(s or "").lower()).lstrip("-"))
+    # apostrophes just go ("Rudy's" -> "rudys", not "rudy-s")
+    s = re.sub(r"['\u2019]", "", str(s or "").lower())
+    return re.sub(r"-+$", "", re.sub(r"[^a-z0-9]+", "-", s).lstrip("-"))
 
 
 # ── Items: CHAL keyword -> ALCH ──────────────────────────────────────────────
@@ -249,17 +282,40 @@ def can_do_items(tables):
 
 
 # ── One food's sections ─────────────────────────────────────────────────────
-def item_doc(item, ctx, has_fixed):
+def shared_challenges(ctx):
+    """The challenges that count EVERY pre-war food ("Eat Pre-war Food" ...),
+    matched by the keyword FormID in challenges.json."""
+    if "_shared_chal" not in ctx:
+        out, keys = [], set()
+        for fid in prewar_keywords(ctx["tsv"]).values():
+            for c in (B.build_challenges(fid, ctx["dist"]) if fid else []):
+                k = c.get("edid") or c.get("name")
+                if k not in keys:
+                    keys.add(k)
+                    out.append(c)
+        ctx["_shared_chal"] = out
+    return ctx["_shared_chal"]
+
+
+def uses_and_tips(item, ctx, has_fixed):
+    """(used_for, farming_tips) for one food. Cheap, so never cached in --state."""
     fids = item["form_ids"]
-    targets = set(fids)
     cons = B.build_consumption(fids[0], ctx["tsv"], item["full"])
+    if cons:
+        # Mystery Candy / Nuka-Cola Candy: the effect casts ONE spell at random.
+        effs = ctx.setdefault("_alch_effects", _effects(ctx["tsv"]))
+        rb = random_spell_buffs([e[0] for e in effs.get(fids[0], [])], ctx["tsv"])
+        if rb:
+            cons["random_buffs"] = rb
+            # the script effect's own line is just its name ("Mystery Treat")
+            cons["effects"] = [e for e in cons.get("effects") or []
+                               if re.search(r"\d", e.get("display") or "")]
     chal, seen = [], set()
-    for f in fids:
-        for c in B.build_challenges(f, ctx["dist"]):
-            k = c.get("edid") or c.get("name")
-            if k not in seen:
-                seen.add(k)
-                chal.append(c)
+    for c in shared_challenges(ctx) + [c for f in fids for c in B.build_challenges(f, ctx["dist"])]:
+        k = c.get("edid") or c.get("name")
+        if k not in seen:
+            seen.add(k)
+            chal.append(c)
     used_for = collections.OrderedDict([
         ("consumption", cons),
         ("modifiers", ctx["modifiers"]),
@@ -267,6 +323,16 @@ def item_doc(item, ctx, has_fixed):
         ("recipes", B.build_recipes(item["full"], ctx["recipe_guide"], ctx["bench_cat"],
                                     ctx["tsv"], ctx["guide_urls"])),
     ])
+    tips = farming_tips(item, cons, bool(set(fids) & ctx["can_do"]), has_fixed, ctx["channel"])
+    return used_for, tips
+
+
+def item_doc(item, ctx, has_fixed):
+    """The slow part of a food's doc — every source section (rng76). Used For and
+    Farming Tips are added by the caller (uses_and_tips), so a --state file can
+    hold this and still get fresh recipes / challenges."""
+    fids = item["form_ids"]
+    targets = set(fids)
     recs = [{"formid": f, "sig": "ALCH"} for f in fids]
     closure = esources.get_sources(recs, ctx["tables"], ctx["classify"])["lvli_closure"]
     # LL_Perk_CanDo / LL_Perk_CanDo_Items are the EXTRA roll a container makes only
@@ -279,10 +345,6 @@ def item_doc(item, ctx, has_fixed):
     doc = collections.OrderedDict()
     doc["name"] = item["name"]
     doc["form_ids"] = fids
-    doc["used_for"] = used_for
-    tips = farming_tips(item, cons, bool(targets & ctx["can_do"]), has_fixed, ctx["channel"])
-    if tips:
-        doc["farming_tips"] = tips
     doc["drop_rates"] = collections.OrderedDict([
         ("creatures", None), ("collectrons", None), ("resource_generators", None)])
     B._patch_camp_producers(doc, targets, ctx["dist"], ctx["rates"], data_dir=ctx["tsv"])
@@ -319,29 +381,44 @@ def item_doc(item, ctx, has_fixed):
 
 
 # ── Hand-authored slots from the previous build ─────────────────────────────
-def load_keep(path):
-    """{food key: {(region, marker): {...marker slots, 'spawns': {ref: slots}}}}"""
+def _keep_regions(regions):
+    keep = {}
+    for reg in regions or []:
+        for loc in reg.get("locations") or []:
+            sp = {}
+            for s in loc.get("spawns") or []:
+                saved = {k: s.get(k) for k in ("image_top", "directions", "image_bottom")
+                         if s.get(k)}
+                if s.get("ref") and saved:
+                    sp[s["ref"]] = saved
+            keep[(reg.get("region", ""), loc.get("marker", ""))] = {
+                "image_top": loc.get("image_top", ""),
+                "directions": loc.get("directions", ""),
+                "image_bottom": loc.get("image_bottom", ""),
+                "spawns": sp}
+    return keep
+
+
+def load_keep(paths):
+    """{food key: {(region, marker): {...marker slots, 'spawns': {ref: slots}}}}
+
+    Reads every page doc from the last build, plus the old all-in-one
+    pre-war-food_spawns.json, so photos / directions follow a food to its page.
+    A page's own doc wins over the old one."""
     out = {}
-    try:
-        old = json.load(open(path, encoding="utf-8"))
-    except Exception:
-        return out
-    for fi in old.get("fixed_items") or []:
-        keep = {}
-        for reg in fi.get("regions") or []:
-            for loc in reg.get("locations") or []:
-                sp = {}
-                for s in loc.get("spawns") or []:
-                    saved = {k: s.get(k) for k in ("image_top", "directions", "image_bottom")
-                             if s.get(k)}
-                    if s.get("ref") and saved:
-                        sp[s["ref"]] = saved
-                keep[(reg.get("region", ""), loc.get("marker", ""))] = {
-                    "image_top": loc.get("image_top", ""),
-                    "directions": loc.get("directions", ""),
-                    "image_bottom": loc.get("image_bottom", ""),
-                    "spawns": sp}
-        out[fi.get("key")] = keep
+    for path in paths:
+        try:
+            old = json.load(open(path, encoding="utf-8"))
+        except Exception:
+            continue
+        found = {}
+        for fi in old.get("fixed_items") or []:
+            found[fi.get("key")] = _keep_regions(fi.get("regions"))
+        if old.get("food_key") and not old.get("fixed_items"):
+            found[old["food_key"]] = _keep_regions(old.get("regions"))
+        for k, v in found.items():
+            if k and k not in out:          # paths come page docs first
+                out[k] = v
     return out
 
 
@@ -400,39 +477,51 @@ def mixed_lists(items, ctx):
     return out
 
 
-def chance_spawns(items, ctx, page_urls):
-    pools, seen_all = [], {}
-    lists = mixed_lists(items, ctx)
-    for i, (lv, foods) in enumerate(lists, 1):
+def mixed_data(items, ctx, page_urls):
+    """Every mixed list once: [{lv, seen, rates: {food name: (p, url)}}]."""
+    out = []
+    for lv, foods in mixed_lists(items, ctx):
         refrs = {rf: {"edid": e, "dedicated": False, "via": lv}
                  for rf, e, s in ctx["tables"]["lvli_refs"].get(lv, ()) if s == "REFR"}
         seen, _n = ebuild.resolve_placements(
             {"lvli_closure": {lv}, "placed_bases": {}, "direct_refrs": refrs},
             ctx["geo"], ctx["cur"], ctx["cache"], ctx["db_ok"])
-        seen_all.update(seen)
-        contents = []
+        rates = collections.OrderedDict()
         for it in foods:
             p = ctx["rates"].appearance([lv], set(it["form_ids"]))
-            if p <= 0:
-                continue
-            row = collections.OrderedDict([("name", it["name"]), ("rate", round(p, 6)),
-                                           ("rate_display", B._fmt_rate(p))])
-            url = next((page_urls[f] for f in it["form_ids"] if f in page_urls), "")
-            if url:
-                row["page_url"] = url
-            contents.append(row)
-        contents.sort(key=lambda r: (-r["rate"], r["name"].lower()))
-        block = ebuild.group_chance(seen, ALL_REGIONS)
+            if p > 0:
+                url = next((page_urls[f] for f in it["form_ids"] if f in page_urls), "")
+                rates[it["name"]] = (p, url)
+        out.append({"lv": lv, "seen": seen, "rates": rates})
+        print(f"    mixed list {ctx['tables']['parent_edid'].get(lv, lv)}: "
+              f"{len(seen)} points, {len(rates)} foods")
+    return out
+
+
+def chance_spawns(page_items, mixed):
+    """Chance to Spawn for ONE page: the mixed lists that can give this page's
+    food(s), with only those foods in the table. The region maps are the shared
+    set in CHANCE_MAP_BASE (as of Oct 2026 there is one mixed list, so every
+    page's chance spots are the same spots)."""
+    names = [it["name"] for it in page_items]
+    use = [m for m in mixed if any(n in m["rates"] for n in names)]
+    pools, seen_all = [], {}
+    for i, m in enumerate(use, 1):
+        seen_all.update(m["seen"])
+        block = ebuild.group_chance(m["seen"], ALL_REGIONS)
+        contents = []
+        for n in names:
+            if n in m["rates"]:
+                p, _url = m["rates"][n]
+                contents.append(collections.OrderedDict([
+                    ("name", n), ("rate", round(p, 6)), ("rate_display", B._fmt_rate(p))]))
         pools.append(collections.OrderedDict([
-            ("name", "Mixed pre-war food spawn" + (f" {i}" if len(lists) > 1 else "")),
-            ("list_id", lv),
+            ("name", "Mixed pre-war food spawn" + (f" {i}" if len(use) > 1 else "")),
+            ("list_id", m["lv"]),
             ("total_markers", block["total_markers"]),
             ("total", block["total"]),
             ("contents", contents),
         ]))
-        print(f"    mixed list {ctx['tables']['parent_edid'].get(lv, lv)}: "
-              f"{block['total']} points at {block['total_markers']} locations, "
-              f"{len(contents)} foods")
     cs = ebuild.group_chance(seen_all, ALL_REGIONS)
     out = collections.OrderedDict()
     out["pools"] = pools
@@ -440,12 +529,13 @@ def chance_spawns(items, ctx, page_urls):
     out["total_markers"] = cs["total_markers"]
     out["total"] = cs["total"]
     out["show_maps"] = True
-    out["map_base"] = MAP_BASE
+    out["map_base"] = CHANCE_MAP_BASE
     if cs["total_markers"]:
+        what = " or ".join(names)
         out["lead"] = (f"These {cs['total_markers']} locations have mixed pre-war food "
-                       f"spots. A spot can give one food from the list below, or nothing. "
-                       f"The table shows the chance per spot. The locations are listed by "
-                       f"name only — open a region map to see where they are.")
+                       f"spots. Each spot gives one pre-war food, or nothing. The table "
+                       f"shows the chance per spot that it is {what}. The locations are "
+                       f"listed by name only — open a region map to see where they are.")
     return out
 
 
@@ -527,106 +617,7 @@ def random_spell_buffs(mgef_edids, tsv, cache={}):
             ("effects", [_effect_text(e[1], e[2], e[3]) for e in sp["effects"]])]))
     return out
 
-# ── Merged page-level sections (Oct 2026) ───────────────────────────────────
-# One sub-expand per food in Used For / Farming Tips was 41 near-identical blocks.
-# The data says why: apart from weight and Can Do!, every food's tips are the same,
-# and most foods have no recipe and no challenge of their own. So the page gets ONE
-# Farming Tips block (weights grouped by base weight) and ONE Used For (an effects
-# table, the shared "Pre-war Food" challenges, the food-specific ones, and every
-# recipe that uses a pre-war food).
-def _weight_row(w, foods):
-    return collections.OrderedDict([
-        ("base", w), ("foods", foods),
-        ("thru_hiker", [r2(w * 0.55), r2(w * 0.10)]),
-        ("grocers", r2(w * 0.10)),
-        ("armour", [r2(w * 0.80), r2(w * 0.60), r2(w * 0.40), r2(w * 0.20), r2(w * 0.10)]),
-    ])
-
-
-def merged_sections(items, subs, ctx, page_urls):
-    kws = prewar_keywords(ctx["tsv"])
-    shared, shared_keys = [], set()
-    for fid in kws.values():
-        for c in (B.build_challenges(fid, ctx["dist"]) if fid else []):
-            k = c.get("edid") or c.get("name")
-            if k not in shared_keys:
-                shared_keys.add(k)
-                shared.append(c)
-
-    rows, food_chal, recipes, rec_keys = [], [], [], set()
-    by_weight = collections.OrderedDict()
-    can_do = []
-    for it, s in zip(items, subs):
-        uf = s.get("used_for") or {}
-        url = s.get("page_url") or ""
-        cons = uf.get("consumption") or B.build_consumption(it["form_ids"][0], ctx["tsv"], it["full"])
-        if uf:
-            chal = uf.get("challenges") or []
-        else:                                   # food with its own guide — still list it here
-            chal = [c for f in it["form_ids"] for c in B.build_challenges(f, ctx["dist"])]
-        # Always fresh (cheap): a --state file holds recipes from an older build,
-        # before the plan name + "how to get the recipe" join existed.
-        recs = B.build_recipes(it["full"], ctx["recipe_guide"], ctx["bench_cat"],
-                               ctx["tsv"], ctx["guide_urls"])
-        row = collections.OrderedDict([("name", it["name"])])
-        if url:
-            row["page_url"] = url
-        row["effects"] = [{"display": e.get("display"), "duration": e.get("duration")}
-                          for e in (cons or {}).get("effects") or [] if e.get("display")]
-        # Diet flags, same as every farming page (build_consumption reads them off the
-        # ALCH keywords: IngredientTypeMeat -> Carnivore, vegetable/fruit/herb -> Herbivore)
-        row["herbivore"] = bool((cons or {}).get("herbivore"))
-        row["carnivore"] = bool((cons or {}).get("carnivore"))
-        row["weight"] = (cons or {}).get("weight", it["weight"])
-        effs = ctx.setdefault("_alch_effects", _effects(ctx["tsv"]))
-        rb = random_spell_buffs([e[0] for e in effs.get(it["form_ids"][0], [])], ctx["tsv"])
-        if rb:
-            row["random_buffs"] = rb
-            # the script effect's own line is just its name ("Mystery Treat") — the
-            # outcomes replace it
-            row["effects"] = [e for e in row["effects"] if re.search(r"\d", e["display"] or "")]
-        row["value"] = (cons or {}).get("value")
-        rows.append(row)
-        seen = set()
-        for c in chal:
-            k = c.get("edid") or c.get("name")
-            if k in shared_keys or k in seen:
-                continue
-            seen.add(k)
-            food_chal.append(collections.OrderedDict([
-                ("food", it["name"]), ("type", c.get("type")), ("name", c.get("name")),
-                ("required", c.get("required"))]))
-        for r in recs:
-            k = (r.get("name"), r.get("workbench"))
-            if k not in rec_keys:
-                rec_keys.add(k)
-                recipes.append(r)
-        w = row["weight"] if row["weight"] is not None else 0
-        by_weight.setdefault(w, []).append(it["name"])
-        if set(it["form_ids"]) & ctx["can_do"]:
-            can_do.append(it["name"])
-
-    recipes.sort(key=lambda r: (r.get("name") or "").lower())
-    food_chal.sort(key=lambda c: (c["food"].lower(), c.get("type") or "", c.get("name") or ""))
-    tips = collections.OrderedDict([
-        ("merged", True),
-        ("spoils", False),
-        ("object_type", "Food"),
-        ("perk_cards", perk_ranks.cards(["thru_hiker", "can_do"], ctx["channel"])),
-        ("can_do_foods", can_do),
-        ("weights", [_weight_row(w, by_weight[w]) for w in sorted(by_weight)]),
-    ])
-    used_for = collections.OrderedDict([
-        ("consumption_table", rows),
-        ("challenges", shared),
-        ("food_challenges", food_chal),
-        ("recipes", recipes),
-        ("modifiers", ctx["modifiers"]),
-    ])
-    return tips, used_for
-
-
-# ── The page ────────────────────────────────────────────────────────────────
+# ── The pages ───────────────────────────────────────────────────────────────
 def _load_state(path):
     try:
         return json.load(open(path, encoding="utf-8"), object_pairs_hook=collections.OrderedDict)
@@ -634,151 +625,184 @@ def _load_state(path):
         return {}
 
 
+def base_name(name):
+    return name[:-len(NO_RADS)] if name.endswith(NO_RADS) else name
+
+
+def page_groups(items, page_urls):
+    """-> ([(page slug, page name, [item, ...])], [skipped item names])
+
+    One page per food. A "(no rads)" copy joins its food's page. When the food
+    (or its copy) already has its own guide, neither gets a page here."""
+    groups = collections.OrderedDict()
+    for it in items:
+        groups.setdefault(base_name(it["name"]).lower(), []).append(it)
+    pages, skipped = [], []
+    for foods in groups.values():
+        foods.sort(key=lambda it: (it["name"].endswith(NO_RADS), it["name"].lower()))
+        if any(f in page_urls for it in foods for f in it["form_ids"]):
+            skipped += [it["name"] for it in foods
+                        if not any(f in page_urls for f in it["form_ids"])]
+            continue
+        name = base_name(foods[0]["name"])
+        pages.append((slugify(name), name, foods))
+    return pages, skipped
+
+
+def _clean_sub(s):
+    """Trim a food's source sections (also for docs read back from --state)."""
+    for m in (s.get("treasure_maps") or {}).get("maps") or []:
+        m.pop("sources", None)          # audit trail, never rendered
+    cont = (s.get("drop_rates") or {}).get("containers")
+    if isinstance(cont, dict) and isinstance(cont.get("types"), list):
+        cont["types"] = [t for t in cont["types"]
+                         if not re.match(r"(?i)^(test|qa|debug)\b", t.get("name") or "")
+                         and not re.search(r"(?i)\bcounts items\b", t.get("name") or "")]
+    return s
+
+
+def _rejoin_producers(s, fids, ctx, page_name):
+    """Collectron / generator cards are cheap, so re-joined every build instead of
+    read back from a --state file (toggle notes / workshop names came later)."""
+    if not fids or not isinstance(s.get("drop_rates"), dict):
+        return
+    for k in ("collectrons", "resource_generators"):
+        node = s["drop_rates"].get(k)
+        if isinstance(node, dict):
+            node.pop("entries", None)
+    B._patch_camp_producers(s, set(fids), ctx["dist"], ctx["rates"], data_dir=ctx["tsv"])
+    # card rows use the in-game FULL name; use the page's name so a rad-free copy
+    # reads "Salisbury Steak (no rads)", matching the rest of the page
+    for k in ("collectrons", "resource_generators"):
+        for e in ((s["drop_rates"].get(k) or {}).get("entries") or []):
+            for row in e.get("items") or []:
+                row["name"] = page_name.get(row.get("form_id"), row.get("name"))
+
+
 def build(ctx, state_path=None, budget=None):
     """`state_path` + `budget` (seconds) let a slow local run be done in chunks:
-    each food's sections are saved to the state file as they finish, and a run
-    that hits the budget stops and exits 3 so it can simply be run again. CI
+    each food's source sections are saved to the state file as they finish, and a
+    run that hits the budget stops and exits 3 so it can simply be run again. CI
     passes neither and builds the lot in one go."""
     t0 = time.time()
-    out_path = os.path.join(ctx["out_dir"], f"{SLUG}_spawns.json")
-    keep_all = load_keep(out_path)
+    out_dir = ctx["out_dir"]
     items = discover_items(ctx["tsv"])
     page_urls = own_pages()
+    pages, skipped = page_groups(items, page_urls)
+    old_paths = [os.path.join(out_dir, f"{slug}_spawns.json") for slug, _n, _f in pages]
+    keep_all = load_keep(old_paths + [os.path.join(out_dir, f"{SLUG}_spawns.json")])
     state = _load_state(state_path) if state_path else {}
+    page_name = {f: it["name"] for it in items for f in it["form_ids"]}
 
-    fixed, subs = [], []
-    for it in items:
-        url = next((page_urls[f] for f in it["form_ids"] if f in page_urls), "")
-        regions, n = fixed_spawns(it, ctx, keep_all.get(it["key"], {}))
-        base = MAP_BASE + it["key"] + "/"
-        if n:
-            fi = collections.OrderedDict([
-                ("name", it["name"]), ("key", it["key"]), ("form_ids", it["form_ids"]),
-                ("total", n)])
-            if url:
-                fi["page_url"] = url
-            fi["map_base"] = base
-            fi["full_map"] = base + it["key"] + ".jpg"
-            fi["regions"] = regions
-            fixed.append(fi)
-        if url:
-            subs.append(collections.OrderedDict([
-                ("name", it["name"]), ("form_ids", it["form_ids"]), ("page_url", url)]))
-        else:
+    # Pass 1 — every food's fixed spawns and source sections (the slow part).
+    food = {}
+    for slug, _name, foods in pages:
+        for it in foods:
+            regions, n = fixed_spawns(it, ctx, keep_all.get(it["key"], {}))
             sig = ",".join(it["form_ids"]) + f"|{bool(n)}|{STATE_VERSION}"
             hit = state.get(it["key"])
             if hit and hit.get("sig") == sig:
-                subs.append(hit["doc"])
+                sub = hit["doc"]
             else:
                 if budget and time.time() - t0 > budget:
                     print(f"[{SLUG}] time budget reached — run again to carry on "
                           f"({len(state)} foods saved in {state_path}).")
                     return None
                 sub = item_doc(it, ctx, bool(n))
-                subs.append(sub)
                 if state_path:
                     state[it["key"]] = {"sig": sig, "doc": sub}
                     with open(state_path, "w", encoding="utf-8") as fh:
                         json.dump(state, fh, ensure_ascii=False)
-        print(f"  {it['name']:<34} fixed:{n:>4}" + (f"  -> {url}" if url else ""))
+            sub = _clean_sub(collections.OrderedDict(sub))
+            _rejoin_producers(sub, it["form_ids"], ctx, page_name)
+            used_for, tips = uses_and_tips(it, ctx, bool(n))
+            food[it["key"]] = (sub, used_for, tips, regions, n)
+            print(f"  {it['name']:<38} fixed:{n:>4}  -> {slug}")
 
-    # Every pre-war food at once: the chance a container / vendor / event / creature /
-    # treasure map gives ANY pre-war food, and one collectron / generator card per
-    # station listing every food it makes. This is the main list in each of those
-    # sections; the per-food detail sits under it in one "By food" sub-expand.
-    all_item = {"name": "Pre-war food", "full": "Pre-war food", "key": "__all__",
-                "form_ids": [f for it in items for f in it["form_ids"]],
-                "edids": [e for it in items for e in it["edids"]], "weight": None, "kw": ""}
-    sig = ",".join(sorted(all_item["form_ids"])) + f"|{STATE_VERSION}"
-    hit = state.get("__all__")
-    if hit and hit.get("sig") == sig:
-        combined = hit["doc"]
-    else:
-        if budget and time.time() - t0 > budget:
-            print(f"[{SLUG}] time budget reached — run again to carry on.")
-            return None
-        combined = item_doc(all_item, ctx, True)
-        if state_path:
-            state["__all__"] = {"sig": sig, "doc": combined}
-            with open(state_path, "w", encoding="utf-8") as fh:
-                json.dump(state, fh, ensure_ascii=False)
-    combined = collections.OrderedDict((k, v) for k, v in combined.items()
-                                       if k not in ("used_for", "farming_tips", "form_ids"))
-    combined["name"] = "Pre-war food"
-    subs_and_all = subs + [combined]
-    page_name = {f: it["name"] for it in items for f in it["form_ids"]}
+    mixed = mixed_data(items, ctx, page_urls)
+    os.makedirs(out_dir, exist_ok=True)
+    meta = {"generated": datetime.date.today().isoformat(),
+            "source": "CHAL 'Pre-war Food' keyword -> ALCH; LVLI + Mappalachia "
+                      "Position (cached for CI) — src/build_pre_war_food_guide.py"}
+    manifest = []
+    for slug, name, foods in pages:
+        base = UPLOADS + slug + "/"
+        doc = collections.OrderedDict()
+        doc["_meta"] = meta
+        doc["set"] = slug
+        doc["slug"] = slug
+        doc["name"] = name
+        doc["page_title"] = f"{name} Location Guide"
+        if len(foods) == 1:
+            it = foods[0]
+            sub, used_for, tips, regions, n = food[it["key"]]
+            doc["blurb"] = (f"Every {name} spawn in Fallout 76: where it spawns, what it "
+                            f"does, and where else you can get it.")
+            doc["food_key"] = it["key"]
+            doc["form_ids"] = it["form_ids"]
+            doc["used_for"] = used_for
+            if tips:
+                doc["farming_tips"] = tips
+            for k, v in sub.items():
+                if k not in ("name", "form_ids"):
+                    doc[k] = v
+            doc["regions"] = regions
+            doc["total"] = n
+        else:
+            doc["blurb"] = (f"Every {name} spawn in Fallout 76, with and without "
+                            f"radiation: where each spawns, what it does, and where "
+                            f"else you can get it.")
+            subs, fixed = [], []
+            for it in foods:
+                sub, used_for, tips, regions, n = food[it["key"]]
+                s = collections.OrderedDict([("name", it["name"]), ("form_ids", it["form_ids"]),
+                                             ("used_for", used_for)])
+                if tips:
+                    s["farming_tips"] = tips
+                for k, v in sub.items():
+                    if k not in ("name", "form_ids"):
+                        s[k] = v
+                subs.append(s)
+                if n:
+                    fbase = base + (NO_RADS_DIR if it["name"].endswith(NO_RADS) else "")
+                    fixed.append(collections.OrderedDict([
+                        ("name", it["name"]), ("key", it["key"]), ("form_ids", it["form_ids"]),
+                        ("total", n), ("map_base", fbase),
+                        ("full_map", fbase + it["key"] + ".jpg"), ("regions", regions)]))
+            doc["items"] = [collections.OrderedDict(
+                [("name", it["name"]), ("form_ids", it["form_ids"])]) for it in foods]
+            doc["sub_items"] = subs
+            doc["fixed_items"] = fixed
+            doc["regions"] = [{"region": r, "locations": []} for r in ALL_REGIONS]
+        doc["map_base"] = base
+        doc["map_ext"] = ".jpg"
+        if len(foods) == 1 and doc["total"]:
+            doc["full_map"] = base + foods[0]["key"] + ".jpg"
+        # render_pre_war_food_maps.py draws these; add_spawn_map_base.py and
+        # render_all_maps.py skip any doc that names its own renderer.
+        doc["own_map_renderer"] = "render_pre_war_food_maps.py"
+        doc["chance_spawns"] = chance_spawns(foods, mixed)
+        path = os.path.join(out_dir, f"{slug}_spawns.json")
+        with open(path, "w", encoding="utf-8") as fh:
+            json.dump(doc, fh, ensure_ascii=False, indent=1)
+        manifest.append(collections.OrderedDict([
+            ("slug", slug), ("name", name), ("url", PAGE_URL.format(slug=slug)),
+            ("foods", [collections.OrderedDict([
+                ("name", it["name"]), ("key", it["key"]), ("form_ids", it["form_ids"]),
+                ("fixed", food[it["key"]][4]),
+                ("map_base", base + (NO_RADS_DIR if len(foods) > 1
+                                     and it["name"].endswith(NO_RADS) else ""))])
+                for it in foods])]))
 
-    # Collectron / generator cards are cheap to join, so they are re-joined every
-    # build instead of read back from a --state file (toggle notes and workshop
-    # names were added after some state files were written).
-    for s, fids in [(x, x.get("form_ids")) for x in subs] + [(combined, all_item["form_ids"])]:
-        if not fids or not isinstance(s.get("drop_rates"), dict):
-            continue
-        for k in ("collectrons", "resource_generators"):
-            node = s["drop_rates"].get(k)
-            if isinstance(node, dict):
-                node.pop("entries", None)
-        B._patch_camp_producers(s, set(fids), ctx["dist"], ctx["rates"], data_dir=ctx["tsv"])
-        # card rows use the in-game FULL name; use the page's name so a rad-free
-        # copy reads "Salisbury Steak (no rads)", matching the rest of the page
-        for k in ("collectrons", "resource_generators"):
-            for e in ((s["drop_rates"].get(k) or {}).get("entries") or []):
-                for row in e.get("items") or []:
-                    row["name"] = page_name.get(row.get("form_id"), row.get("name"))
-
-    # The treasure-map `sources` audit trail is never rendered, and across ~40 foods
-    # it was the biggest thing in the file. Drop it here (after the state cache, so
-    # a cached food is trimmed too).
-    for s in subs_and_all:
-        for m in (s.get("treasure_maps") or {}).get("maps") or []:
-            m.pop("sources", None)
-        # same container filter as item_doc(), applied here too so a food read
-        # back from a --state file made before the filter is cleaned as well
-        cont = (s.get("drop_rates") or {}).get("containers")
-        if isinstance(cont, dict) and isinstance(cont.get("types"), list):
-            cont["types"] = [t for t in cont["types"]
-                             if not re.search(r"(?i)\bcounts items\b", t.get("name") or "")]
-
-    farming_tips_page, used_for_page = merged_sections(items, subs, ctx, page_urls)
-    # The per-food Used For / Farming Tips now live in the merged page blocks.
-    for s in subs:
-        s.pop("used_for", None)
-        s.pop("farming_tips", None)
-
-    doc = collections.OrderedDict()
-    doc["_meta"] = {"generated": datetime.date.today().isoformat(),
-                    "source": "CHAL 'Pre-war Food' keyword -> ALCH; LVLI + Mappalachia "
-                              "Position (cached for CI) — src/build_pre_war_food_guide.py"}
-    doc["set"] = SLUG
-    doc["slug"] = SLUG
-    doc["name"] = NAME
-    doc["page_title"] = "Pre-War Food Location Guide"
-    doc["blurb"] = ("Every pre-war food in Fallout 76: where each one spawns, what it "
-                    "does, and where else you can get it.")
-    doc["map_base"] = MAP_BASE
-    doc["map_ext"] = ".jpg"
-    # Renderer: one shared Used For + Farming Tips, and the other sections group
-    # foods whose content is identical into one sub-expand.
-    doc["merge_sections"] = True
-    doc["farming_tips"] = farming_tips_page
-    doc["used_for"] = used_for_page
-    doc["combined"] = combined
-    doc["items"] = [collections.OrderedDict(
-        [("name", it["name"]), ("form_ids", it["form_ids"])]
-        + ([("page_url", s["page_url"])] if s.get("page_url") else []))
-        for it, s in zip(items, subs)]
-    doc["sub_items"] = subs
-    doc["fixed_items"] = fixed
-    doc["regions"] = [{"region": r, "locations": []} for r in ALL_REGIONS]
-    doc["chance_spawns"] = chance_spawns(items, ctx, page_urls)
-
-    os.makedirs(ctx["out_dir"], exist_ok=True)
-    with open(out_path, "w", encoding="utf-8") as fh:
-        json.dump(doc, fh, ensure_ascii=False, indent=1)
-    total = sum(f["total"] for f in fixed)
-    print(f"[{SLUG}] {len(items)} foods, {len(fixed)} with fixed spawns ({total} points), "
-          f"{doc['chance_spawns']['total']} mixed-list points -> {os.path.relpath(out_path, REPO)}")
-    return out_path
+    with open(os.path.join(out_dir, MANIFEST), "w", encoding="utf-8") as fh:
+        json.dump({"_meta": meta, "chance_map_base": CHANCE_MAP_BASE, "pages": manifest},
+                  fh, ensure_ascii=False, indent=1)
+    if skipped:
+        print(f"  no page (their food already has its own guide): {', '.join(skipped)}")
+    print(f"[{SLUG}] {len(items)} foods -> {len(pages)} pages "
+          f"({sum(1 for p in pages if len(p[2]) > 1)} with a no-rads copy) in "
+          f"{os.path.relpath(out_dir, REPO)}")
+    return out_dir
 
 
 def load_ctx(pts):

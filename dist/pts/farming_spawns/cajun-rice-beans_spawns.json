@@ -1,0 +1,1041 @@
+{
+ "_meta": {
+  "generated": "2026-10-10",
+  "source": "CHAL 'Pre-war Food' keyword -> ALCH; LVLI + Mappalachia Position (cached for CI) — src/build_pre_war_food_guide.py"
+ },
+ "set": "cajun-rice-beans",
+ "slug": "cajun-rice-beans",
+ "name": "Cajun Rice & Beans",
+ "page_title": "Cajun Rice & Beans Location Guide",
+ "blurb": "Every Cajun Rice & Beans spawn in Fallout 76: where it spawns, what it does, and where else you can get it.",
+ "food_key": "cajun-rice-beans",
+ "form_ids": [
+  "0037E0C6"
+ ],
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.5,
+   "value": 14,
+   "addiction": null,
+   "herbivore": true,
+   "carnivore": false,
+   "note": "Cajun Rice & Beans is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Restore Health",
+     "display": "Restores 25 Health",
+     "duration": "25s",
+     "label": "Restores Health",
+     "value": 25.0,
+     "unit": "health",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (1440/24 min)",
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 1440.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Rads",
+     "display": "+2 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 2.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
+    }
+   ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
+  },
+  "challenges": [
+   {
+    "name": "Collect Pre-war Food",
+    "edid": "SCORE_Challenge_Daily_Collect_Food_Prewar",
+    "page": "daily",
+    "type": "Daily",
+    "required": 5
+   },
+   {
+    "name": "Eat Pre-war Food",
+    "edid": "SCORE_Challenge_Daily_Consume_Food_Prewar",
+    "page": "daily",
+    "type": "Daily",
+    "required": 5
+   },
+   {
+    "name": "Epic - Collect Pre-war Food",
+    "edid": "SCORE_Challenge_Weekly_Collect_Food_Prewar_Epic",
+    "page": "weekly",
+    "type": "Weekly",
+    "required": 30
+   },
+   {
+    "name": "Collect Pre-war Food",
+    "edid": "SCORE_Challenge_Weekly_Collect_Food_Prewar",
+    "page": "weekly",
+    "type": "Weekly",
+    "required": 20
+   },
+   {
+    "name": "Eat Pre-war Food",
+    "edid": "SCORE_Challenge_Weekly_Consume_Food_Prewar",
+    "page": "weekly",
+    "type": "Weekly",
+    "required": 25
+   },
+   {
+    "name": "Eat Pre-war Food with the Sunset Sarsaparilla Deputy Hat Equipped",
+    "edid": "ATX_DE2025_SunsetStranger_Week1_Challenge_Consume_Food_Prewar",
+    "page": "season:sunset-stranger-week1",
+    "type": "Mini Season",
+    "required": 25
+   },
+   {
+    "name": "Collect a can of Cajun Rice & Beans",
+    "edid": "SCORE_Challenge_Daily_Collect_MealTypePackaged_SurvivalistRiceAndBeans",
+    "page": "daily",
+    "type": "Daily",
+    "required": 2
+   },
+   {
+    "name": "Eat a can of Cajun Rice & Beans",
+    "edid": "SCORE_Challenge_Daily_Consume_MealTypePackaged_SurvivalistRiceAndBeans",
+    "page": "daily",
+    "type": "Daily",
+    "required": 2
+   }
+  ],
+  "recipes": []
+ },
+ "farming_tips": {
+  "spoils": false,
+  "spoil_duration_hours": null,
+  "base_weight": 0.5,
+  "object_type": "Food",
+  "yield_perk": "can_do",
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.28
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.05
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.05,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.4
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.3
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.1
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.05
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": false,
+  "perk_cards": {
+   "thru_hiker": {
+    "name": "Thru-Hiker",
+    "special": "Endurance",
+    "min_level": 7,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "Food and drink weights are reduced by 45%.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "desc": "Food and drink weights are reduced by 90%.",
+      "percent": "90%"
+     }
+    ]
+   },
+   "can_do": {
+    "name": "Can Do!",
+    "special": "Luck",
+    "min_level": 7,
+    "rank_count": 1,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "Find more canned goods based on your LCK."
+     }
+    ]
+   }
+  }
+ },
+ "drop_rates": {
+  "creatures": null,
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Scoutmaster Collectron Station",
+     "edid": "SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster",
+     "obtain": "Purchase from Samuel for 4000 Gold Bullion. Requires unlocking the Pioneer Scouts: Skyline Valley Scoreboard (Season 17).",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Cajun Rice & Beans",
+       "form_id": "0037E0C6",
+       "rate": 0.030111,
+       "rate_display": "3.01%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": null,
+  "containers": {
+   "types": []
+  }
+ },
+ "vendor_list": [
+  {
+   "name": "Sunny",
+   "marker": "Foundation",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "14.29%",
+    "12.14%",
+    "8.57%",
+    "5.71%",
+    "2.86%"
+   ],
+   "rate_display": "14.29% / 12.14% / 8.57% / 5.71% / 2.86%",
+   "rate_value": 0.142857,
+   "count": 1
+  },
+  {
+   "name": "Marie",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "14.29%",
+    "12.14%",
+    "8.57%",
+    "5.71%",
+    "2.86%"
+   ],
+   "rate_display": "14.29% / 12.14% / 8.57% / 5.71% / 2.86%",
+   "rate_value": 0.142857,
+   "count": 1
+  }
+ ],
+ "events_activities": [],
+ "treasure_maps": {
+  "maps": []
+ },
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": [
+    {
+     "marker": "AMS Testing Site",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "4E0F5F"
+     ],
+     "coords": [
+      -120587.9,
+      -153210.8
+     ],
+     "spawns": [
+      {
+       "label": "Cajun Rice & Beans",
+       "ref": "4E0F5F",
+       "source_type": "static",
+       "coords": [
+        -120587.9,
+        -153210.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Cajun Rice & Beans",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Pylon Ambush Site",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3F2436"
+     ],
+     "coords": [
+      -83481.5,
+      -93480.9
+     ],
+     "spawns": [
+      {
+       "label": "Cajun Rice & Beans",
+       "ref": "3F2436",
+       "source_type": "static",
+       "coords": [
+        -83481.5,
+        -93480.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Cajun Rice & Beans",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Forest",
+   "locations": [
+    {
+     "marker": "Groves Family Cabin",
+     "count": 2,
+     "sources": {
+      "static": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "37D340",
+      "37D485"
+     ],
+     "coords": [
+      -150795.2,
+      186893.1
+     ],
+     "spawns": [
+      {
+       "label": "Cajun Rice & Beans #1",
+       "ref": "37D340",
+       "source_type": "static",
+       "coords": [
+        -150795.2,
+        186893.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Cajun Rice & Beans #2",
+       "ref": "37D485",
+       "source_type": "static",
+       "coords": [
+        -150813.8,
+        186890.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Cajun Rice & Beans",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Lady Janet's Soft Serve",
+     "count": 2,
+     "sources": {
+      "static": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "38C45C",
+      "392F5C"
+     ],
+     "coords": [
+      -114938.8,
+      161949.7
+     ],
+     "spawns": [
+      {
+       "label": "Cajun Rice & Beans #1",
+       "ref": "38C45C",
+       "source_type": "static",
+       "coords": [
+        -114938.8,
+        161949.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Cajun Rice & Beans #2",
+       "ref": "392F5C",
+       "source_type": "static",
+       "coords": [
+        -102475.6,
+        147737.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Cajun Rice & Beans",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Morgantown Trainyard",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3B6B72"
+     ],
+     "coords": [
+      -31282.0,
+      88593.5
+     ],
+     "spawns": [
+      {
+       "label": "Cajun Rice & Beans",
+       "ref": "3B6B72",
+       "source_type": "static",
+       "coords": [
+        -31282.0,
+        88593.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Cajun Rice & Beans",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Organ Cave North",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3B2E4F"
+     ],
+     "coords": [
+      -100093.1,
+      101182.5
+     ],
+     "spawns": [
+      {
+       "label": "Cajun Rice & Beans",
+       "ref": "3B2E4F",
+       "source_type": "static",
+       "coords": [
+        -100093.1,
+        101182.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Cajun Rice & Beans",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": [
+    {
+     "marker": "Cobbleton Farm",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2FD00B"
+     ],
+     "coords": [
+      -92069.2,
+      161387.5
+     ],
+     "spawns": [
+      {
+       "label": "Cajun Rice & Beans",
+       "ref": "2FD00B",
+       "source_type": "static",
+       "coords": [
+        -92069.2,
+        161387.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Cajun Rice & Beans",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Grafton Steel",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3B4057"
+     ],
+     "coords": [
+      12009.9,
+      131933.2
+     ],
+     "spawns": [
+      {
+       "label": "Cajun Rice & Beans",
+       "ref": "3B4057",
+       "source_type": "static",
+       "coords": [
+        12009.9,
+        131933.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Cajun Rice & Beans",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Graninger Farm",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3B401F"
+     ],
+     "coords": [
+      1882.9,
+      171010.6
+     ],
+     "spawns": [
+      {
+       "label": "Cajun Rice & Beans",
+       "ref": "3B401F",
+       "source_type": "static",
+       "coords": [
+        1882.9,
+        171010.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Cajun Rice & Beans",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Toxic Dried Lakebed",
+     "count": 2,
+     "sources": {
+      "static": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3B2E6D",
+      "3B2E70"
+     ],
+     "coords": [
+      -18044.7,
+      173260.2
+     ],
+     "spawns": [
+      {
+       "label": "Cajun Rice & Beans #1",
+       "ref": "3B2E6D",
+       "source_type": "static",
+       "coords": [
+        -18044.7,
+        173260.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Cajun Rice & Beans #2",
+       "ref": "3B2E70",
+       "source_type": "static",
+       "coords": [
+        -18062.5,
+        173287.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Cajun Rice & Beans",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Savage Divide",
+   "locations": [
+    {
+     "marker": "South Mountain Lookout",
+     "count": 2,
+     "sources": {
+      "static": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "38E48A",
+      "3E324C"
+     ],
+     "coords": [
+      51056.0,
+      -123385.4
+     ],
+     "spawns": [
+      {
+       "label": "Cajun Rice & Beans #1",
+       "ref": "38E48A",
+       "source_type": "static",
+       "coords": [
+        51056.0,
+        -123385.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Cajun Rice & Beans #2",
+       "ref": "3E324C",
+       "source_type": "static",
+       "coords": [
+        51537.5,
+        -122846.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Cajun Rice & Beans",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": []
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": []
+  },
+  {
+   "region": "The Mire",
+   "locations": [
+    {
+     "marker": "Bloody Frank's",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "55FFE7"
+     ],
+     "coords": [
+      128735.4,
+      36244.4
+     ],
+     "spawns": [
+      {
+       "label": "Cajun Rice & Beans",
+       "ref": "55FFE7",
+       "source_type": "static",
+       "coords": [
+        128735.4,
+        36244.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Cajun Rice & Beans",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Mosstown",
+     "count": 2,
+     "sources": {
+      "static": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "112842",
+      "16D703"
+     ],
+     "coords": [
+      133255.4,
+      72541.1
+     ],
+     "spawns": [
+      {
+       "label": "Cajun Rice & Beans #1",
+       "ref": "112842",
+       "source_type": "static",
+       "coords": [
+        133255.4,
+        72541.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Cajun Rice & Beans #2",
+       "ref": "16D703",
+       "source_type": "static",
+       "coords": [
+        133313.4,
+        72463.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Cajun Rice & Beans",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Sunday Brothers' Cabin",
+     "count": 3,
+     "sources": {
+      "static": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "0D38AF",
+      "0D40B2",
+      "0D41A5"
+     ],
+     "coords": [
+      137730.6,
+      2382.3
+     ],
+     "spawns": [
+      {
+       "label": "Cajun Rice & Beans #1",
+       "ref": "0D38AF",
+       "source_type": "static",
+       "coords": [
+        137730.6,
+        2382.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Cajun Rice & Beans #2",
+       "ref": "0D40B2",
+       "source_type": "static",
+       "coords": [
+        137720.4,
+        2374.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Cajun Rice & Beans #3",
+       "ref": "0D41A5",
+       "source_type": "static",
+       "coords": [
+        137752.1,
+        2382.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Cajun Rice & Beans",
+       "count": 3,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Burning Springs",
+   "locations": [
+    {
+     "marker": "Prospect Hill",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "81C6AB"
+     ],
+     "coords": [
+      -210172.0,
+      108262.3
+     ],
+     "spawns": [
+      {
+       "label": "Cajun Rice & Beans",
+       "ref": "81C6AB",
+       "source_type": "static",
+       "coords": [
+        -210172.0,
+        108262.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Cajun Rice & Beans",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  }
+ ],
+ "total": 22,
+ "map_base": "/wp-content/uploads/guide-images/farming-non-perishable/cajun-rice-beans/",
+ "map_ext": ".jpg",
+ "full_map": "/wp-content/uploads/guide-images/farming-non-perishable/cajun-rice-beans/cajun-rice-beans.jpg",
+ "own_map_renderer": "render_pre_war_food_maps.py",
+ "chance_spawns": {
+  "pools": [],
+  "regions": [],
+  "total_markers": 0,
+  "total": 0,
+  "show_maps": true,
+  "map_base": "/wp-content/uploads/guide-images/farming-non-perishable/pre-war-food/"
+ }
+}

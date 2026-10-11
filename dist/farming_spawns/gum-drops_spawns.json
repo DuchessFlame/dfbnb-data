@@ -1,0 +1,3895 @@
+{
+ "_meta": {
+  "generated": "2026-10-10",
+  "source": "CHAL 'Pre-war Food' keyword -> ALCH; LVLI + Mappalachia Position (cached for CI) — src/build_pre_war_food_guide.py"
+ },
+ "set": "gum-drops",
+ "slug": "gum-drops",
+ "name": "Gum Drops",
+ "page_title": "Gum Drops Location Guide",
+ "blurb": "Every Gum Drops spawn in Fallout 76: where it spawns, what it does, and where else you can get it.",
+ "food_key": "gum-drops",
+ "form_ids": [
+  "0034ADA4",
+  "000330FC"
+ ],
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.25,
+   "value": 5,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": false,
+   "note": "Gum Drops is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Restore Health",
+     "display": "Restores 4 Health",
+     "duration": "25s",
+     "label": "Restores Health",
+     "value": 4.0,
+     "unit": "health",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Restore Action Points",
+     "display": "+4 Action Points",
+     "duration": "15s",
+     "label": "Restore Action Points",
+     "value": 4.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (480/8 min)",
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 480.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Rads",
+     "display": "+1 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 1.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
+    }
+   ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
+  },
+  "challenges": [
+   {
+    "name": "Collect Pre-war Food",
+    "edid": "SCORE_Challenge_Daily_Collect_Food_Prewar",
+    "page": "daily",
+    "type": "Daily",
+    "required": 5
+   },
+   {
+    "name": "Eat Pre-war Food",
+    "edid": "SCORE_Challenge_Daily_Consume_Food_Prewar",
+    "page": "daily",
+    "type": "Daily",
+    "required": 5
+   },
+   {
+    "name": "Epic - Collect Pre-war Food",
+    "edid": "SCORE_Challenge_Weekly_Collect_Food_Prewar_Epic",
+    "page": "weekly",
+    "type": "Weekly",
+    "required": 30
+   },
+   {
+    "name": "Collect Pre-war Food",
+    "edid": "SCORE_Challenge_Weekly_Collect_Food_Prewar",
+    "page": "weekly",
+    "type": "Weekly",
+    "required": 20
+   },
+   {
+    "name": "Eat Pre-war Food",
+    "edid": "SCORE_Challenge_Weekly_Consume_Food_Prewar",
+    "page": "weekly",
+    "type": "Weekly",
+    "required": 25
+   },
+   {
+    "name": "Eat Pre-war Food with the Sunset Sarsaparilla Deputy Hat Equipped",
+    "edid": "ATX_DE2025_SunsetStranger_Week1_Challenge_Consume_Food_Prewar",
+    "page": "season:sunset-stranger-week1",
+    "type": "Mini Season",
+    "required": 25
+   },
+   {
+    "name": "Eat Gumdrops",
+    "edid": "CUT_Challenge_Daily_Consume_Gumdrops_Lowest",
+    "page": "cut",
+    "type": "Daily",
+    "required": 1
+   }
+  ],
+  "recipes": []
+ },
+ "farming_tips": {
+  "spoils": false,
+  "spoil_duration_hours": null,
+  "base_weight": 0.25,
+  "object_type": "Food",
+  "yield_perk": null,
+  "weight_perk": "thru_hiker",
+  "weight_perk_ranks": [
+   {
+    "rank": 1,
+    "reduction": "45%",
+    "weight": 0.14
+   },
+   {
+    "rank": 2,
+    "reduction": "90%",
+    "weight": 0.03
+   }
+  ],
+  "backpack_mod": "grocers",
+  "backpack_weight": 0.03,
+  "armour_mod": "thru_hikers",
+  "armour_mod_per_piece": 0.2,
+  "armour_mod_weights": [
+   {
+    "pieces": 1,
+    "reduction": "20%",
+    "weight": 0.2
+   },
+   {
+    "pieces": 2,
+    "reduction": "40%",
+    "weight": 0.15
+   },
+   {
+    "pieces": 3,
+    "reduction": "60%",
+    "weight": 0.1
+   },
+   {
+    "pieces": 4,
+    "reduction": "80%",
+    "weight": 0.05
+   },
+   {
+    "pieces": 5,
+    "reduction": "90% cap",
+    "weight": 0.03
+   }
+  ],
+  "magazines_affect_yield": false,
+  "good_with_salt": false,
+  "perk_cards": {
+   "thru_hiker": {
+    "name": "Thru-Hiker",
+    "special": "Endurance",
+    "min_level": 7,
+    "rank_count": 2,
+    "ranks": [
+     {
+      "rank": 1,
+      "desc": "Food and drink weights are reduced by 45%.",
+      "percent": "45%"
+     },
+     {
+      "rank": 2,
+      "desc": "Food and drink weights are reduced by 90%.",
+      "percent": "90%"
+     }
+    ]
+   }
+  }
+ },
+ "drop_rates": {
+  "creatures": null,
+  "collectrons": {
+   "entries": [
+    {
+     "name": "Peppino the Clown Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Peppino",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "9 min",
+     "items": [
+      {
+       "name": "Gum Drops",
+       "form_id": "000330FC",
+       "rate": 0.166667,
+       "rate_display": "16.67%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Fasnacht Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Fasnacht",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "7 min 12 sec",
+     "items": [
+      {
+       "name": "Gum Drops",
+       "form_id": "000330FC",
+       "rate": 0.0625,
+       "rate_display": "6.25%",
+       "rate_source": "computed"
+      }
+     ]
+    },
+    {
+     "name": "Santatron Collectron Station",
+     "edid": "ATX_ENTM_CAMP_Utility_Collectron_Santa",
+     "obtain": "Purchase from the Atom Shop.",
+     "interval": "7 min 12 sec",
+     "items": [
+      {
+       "name": "Gum Drops",
+       "form_id": "000330FC",
+       "rate": 0.035105,
+       "rate_display": "3.51%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  },
+  "resource_generators": null,
+  "containers": {
+   "types": [
+    {
+     "name": "Cooler",
+     "rate": 0.029774999999999996,
+     "rate_display": "2.98%"
+    },
+    {
+     "name": "Lunch Pail",
+     "rate": 0.029774999999999996,
+     "rate_display": "2.98%"
+    },
+    {
+     "name": "Sunny's Lunch Pail",
+     "rate": 0.029774999999999996,
+     "rate_display": "2.98%"
+    },
+    {
+     "name": "Chem Cooler",
+     "rate": 0.015000000000000013,
+     "rate_display": "1.5%"
+    },
+    {
+     "name": "Cooler",
+     "rate": 0.015000000000000013,
+     "rate_display": "1.5%"
+    },
+    {
+     "name": "Duffle Bag",
+     "rate": 0.015000000000000013,
+     "rate_display": "1.5%"
+    },
+    {
+     "name": "Refrigerator",
+     "rate": 0.0014999999999999458,
+     "rate_display": "0.15%"
+    }
+   ]
+  }
+ },
+ "vendor_list": [
+  {
+   "name": "Wandering Doctor",
+   "marker": "Vault 76",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "100%"
+   ],
+   "rate_display": "100%",
+   "rate_value": 1.0,
+   "count": 1
+  },
+  {
+   "name": "Marie",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "15.65%"
+   ],
+   "rate_display": "15.65%",
+   "rate_value": 0.156536,
+   "count": 1
+  },
+  {
+   "name": "The Whitespring Station Vendor",
+   "marker": "Whitespring Station",
+   "region": "Savage Divide",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "15.65%",
+    "4.08%"
+   ],
+   "rate_display": "15.65% / 4.08%",
+   "rate_value": 0.156536,
+   "count": 1
+  },
+  {
+   "name": "Duchess",
+   "marker": "The Wayward",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "5.99%"
+   ],
+   "rate_display": "5.99%",
+   "rate_value": 0.059932,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Chad",
+   "marker": "Camden Park",
+   "region": "Ash Heap",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Lewisburg Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Welch Station",
+   "region": "Ash Heap",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Carmen",
+   "marker": "Atlantic City",
+   "region": "Atlantic City",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Fast Nicky",
+   "marker": "Atlantic City",
+   "region": "Atlantic City",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Pete Rutledge",
+   "marker": "Atlantic City",
+   "region": "Atlantic City",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "May",
+   "marker": "Highway Town Interior",
+   "region": "Burning Springs",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Hocking Hills Vendor Bot",
+   "marker": "Hocking Hills Train Station",
+   "region": "Burning Springs",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Phoenix",
+   "marker": "Watoga Shopping Plaza",
+   "region": "Cranberry Bog",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Watoga Vendor Bot",
+   "marker": "Watoga Station",
+   "region": "Cranberry Bog",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Mack",
+   "marker": "Charleston Fire Department",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Charleston Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Bob",
+   "marker": "Flatwoods",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Responder Vendor",
+   "marker": "Morgantown High School",
+   "region": "Forest",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Morgantown Station",
+   "region": "Forest",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "Sutton Station",
+   "region": "Forest",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Sunny",
+   "marker": "Foundation",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Resin",
+   "marker": "Pleasant Valley Ski Resort",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "Pleasant Valley Station",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "R&G Station",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Raider",
+   "marker": "Sunnytop Station",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Brotherhood Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Free States Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Raiders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Responders Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Shopping Mall Vendor",
+   "marker": "Whitespring Mall",
+   "region": "Savage Divide",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Murry",
+   "marker": "",
+   "region": "Skyline Valley",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Wallace",
+   "marker": "Berkeley Springs Station",
+   "region": "The Mire",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Beckham",
+   "marker": "Raleigh Clay's Bunker",
+   "region": "The Mire",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Greg",
+   "marker": "Grafton",
+   "region": "Toxic Valley",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "Grafton Station",
+   "region": "Toxic Valley",
+   "vendor_type": "Train station vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Molly",
+   "marker": "The Crater",
+   "region": "Toxic Valley",
+   "vendor_type": "Raider vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "A.T.H.E.N.A.",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Astronaut Emerson Vendor",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Beckett",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Daphne",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Grahm",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Hunter",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Sam Nguyen",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Scavenger Trader",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 6
+  },
+  {
+   "name": "Trader",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Traveling Merchant",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Vendor Bot Responder",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  },
+  {
+   "name": "Xerxo",
+   "marker": "",
+   "region": "",
+   "vendor_type": "Settlement vendor",
+   "rate_lines": [
+    "4.08%"
+   ],
+   "rate_display": "4.08%",
+   "rate_value": 0.040799,
+   "count": 1
+  }
+ ],
+ "events_activities": [
+  {
+   "list_id": "0062038D",
+   "edid": "LL_Spooky_TreatBag_Loot",
+   "name": "Spooky Treat Bag Loot",
+   "type": "Seasonal / Public Event",
+   "note": "Chance the item is in the Spooky Treat Bag Loot reward pool per event/activity payout.",
+   "rate_value": 0.333333,
+   "rate_display": "33.33%",
+   "rate_lines": [
+    "33.33%"
+   ]
+  },
+  {
+   "list_id": "0076DA80",
+   "edid": "MN2_LL_QuestReward",
+   "name": "Event: Mischief Night",
+   "type": "Public Event",
+   "note": "Chance the item is in the Event: Mischief Night reward pool per event/activity payout.",
+   "rate_value": 0.186963,
+   "rate_display": "18.7%",
+   "rate_lines": [
+    "18.7%"
+   ]
+  },
+  {
+   "list_id": "00210B67",
+   "edid": "LLI_LunchBoxKidsDropsRare",
+   "name": "Lunch Box Kids Drops Rare",
+   "type": "Loot Bag",
+   "note": "Chance the item is in the Lunch Box Kids Drops Rare reward pool per event/activity payout.",
+   "rate_value": 0.058333,
+   "rate_display": "5.83%",
+   "rate_lines": [
+    "5.83%"
+   ]
+  },
+  {
+   "list_id": "0033B090",
+   "edid": "LL_Snacks_RE_ScenePS02",
+   "name": "Story time with Miss Nanny",
+   "type": "Miscellaneous",
+   "note": "Chance the item is in the Story time with Miss Nanny reward pool per event/activity payout.",
+   "rate_value": 0.055556,
+   "rate_display": "5.56%",
+   "rate_lines": [
+    "5.56%"
+   ]
+  },
+  {
+   "list_id": "005FF9CA",
+   "edid": "BS02_MQ01_Penance_LL_Quest_Rewards",
+   "name": "A Knight's Penance",
+   "type": "Primary",
+   "note": "Chance the item is in the A Knight's Penance reward pool per event/activity payout.",
+   "rate_value": 0.015,
+   "rate_display": "1.5%",
+   "rate_lines": [
+    "1.5%"
+   ]
+  }
+ ],
+ "treasure_maps": {
+  "maps": []
+ },
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": [
+    {
+     "marker": "Abandoned Mine Shaft 2",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2C94AA",
+      "2C94AB"
+     ],
+     "coords": [
+      -95571.6,
+      -131602.6
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "2C94AA",
+       "source_type": "direct",
+       "coords": [
+        -95571.6,
+        -131602.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "2C94AB",
+       "source_type": "direct",
+       "coords": [
+        -95580.0,
+        -131597.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Hornwright Air Purifier Site #04",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3FBFA3",
+      "40329D"
+     ],
+     "coords": [
+      -186986.2,
+      -102500.7
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "3FBFA3",
+       "source_type": "direct",
+       "coords": [
+        -186986.6,
+        -102499.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "40329D",
+       "source_type": "direct",
+       "coords": [
+        -186986.2,
+        -102500.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Forest",
+   "locations": [
+    {
+     "marker": "Anchor Farm",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "391120"
+     ],
+     "coords": [
+      -123780.6,
+      142113.6
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "391120",
+       "source_type": "direct",
+       "coords": [
+        -123780.6,
+        142113.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Charleston Fire Department",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "37F67D"
+     ],
+     "coords": [
+      -106778.3,
+      -68563.9
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "37F67D",
+       "source_type": "direct",
+       "coords": [
+        -106778.3,
+        -68563.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Forward Station Tango",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "731DED"
+     ],
+     "coords": [
+      -119344.7,
+      77732.0
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "731DED",
+       "source_type": "direct",
+       "coords": [
+        -119344.7,
+        77732.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Gauley Mine",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "56E6BF"
+     ],
+     "coords": [
+      5314.6,
+      2041.8
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "56E6BF",
+       "source_type": "direct",
+       "coords": [
+        5314.6,
+        2041.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Green Country Lodge",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "03A36D"
+     ],
+     "coords": [
+      -102189.4,
+      27093.9
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "03A36D",
+       "source_type": "direct",
+       "coords": [
+        -102189.4,
+        27093.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "New River Gorge Resort",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "18BF6A"
+     ],
+     "coords": [
+      -82949.5,
+      12849.1
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "18BF6A",
+       "source_type": "direct",
+       "coords": [
+        -82949.5,
+        12849.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Overseer's Home",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "37F6B2"
+     ],
+     "coords": [
+      -58802.4,
+      29234.6
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "37F6B2",
+       "source_type": "direct",
+       "coords": [
+        -58802.4,
+        29234.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Summersville",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "358301"
+     ],
+     "coords": [
+      -46818.2,
+      -19131.9
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "358301",
+       "source_type": "direct",
+       "coords": [
+        -46818.2,
+        -19131.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Summersville Dam",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "52E74D"
+     ],
+     "coords": [
+      -78079.6,
+      -56069.7
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "52E74D",
+       "source_type": "direct",
+       "coords": [
+        -78079.6,
+        -56069.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Tyler County Fairgrounds",
+     "count": 6,
+     "sources": {
+      "direct": 3,
+      "static": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "319F57",
+      "319F59",
+      "319F5A",
+      "36BAA6",
+      "36BAA7",
+      "36BAA8"
+     ],
+     "coords": [
+      -153041.2,
+      145990.8
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "319F57",
+       "source_type": "direct",
+       "coords": [
+        -151729.0,
+        142981.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "319F59",
+       "source_type": "direct",
+       "coords": [
+        -151718.7,
+        143040.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #3",
+       "ref": "319F5A",
+       "source_type": "direct",
+       "coords": [
+        -151718.9,
+        143042.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #4",
+       "ref": "36BAA6",
+       "source_type": "static",
+       "coords": [
+        -153041.2,
+        145990.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #5",
+       "ref": "36BAA7",
+       "source_type": "static",
+       "coords": [
+        -153030.8,
+        145990.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #6",
+       "ref": "36BAA8",
+       "source_type": "static",
+       "coords": [
+        -153054.6,
+        145988.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 6,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": [
+    {
+     "marker": "Carleton Mine",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5563AE"
+     ],
+     "coords": [
+      -4619.9,
+      23291.4
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "5563AE",
+       "source_type": "direct",
+       "coords": [
+        -4619.9,
+        23291.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Clarksburg",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "346B81",
+      "346B82"
+     ],
+     "coords": [
+      -25643.7,
+      166994.5
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "346B81",
+       "source_type": "direct",
+       "coords": [
+        -25643.7,
+        166994.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "346B82",
+       "source_type": "direct",
+       "coords": [
+        -25649.2,
+        166982.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Grafton",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2AF4A4"
+     ],
+     "coords": [
+      -49510.7,
+      157534.0
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "2AF4A4",
+       "source_type": "direct",
+       "coords": [
+        -49510.7,
+        157534.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Grafton Dam",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "36C8C6"
+     ],
+     "coords": [
+      5330.4,
+      120496.0
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "36C8C6",
+       "source_type": "direct",
+       "coords": [
+        5330.4,
+        120496.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Grafton Steel",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "39B6CF"
+     ],
+     "coords": [
+      18263.0,
+      136825.9
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "39B6CF",
+       "source_type": "direct",
+       "coords": [
+        18263.0,
+        136825.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Grafton Steel Underground",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "599DE4"
+     ],
+     "coords": [
+      -2687.2,
+      -12044.0
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "599DE4",
+       "source_type": "direct",
+       "coords": [
+        -2687.2,
+        -12044.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Savage Divide",
+   "locations": [
+    {
+     "marker": "Hornwright Estate",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "35B3D2"
+     ],
+     "coords": [
+      -56667.1,
+      -147991.1
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "35B3D2",
+       "source_type": "direct",
+       "coords": [
+        -56667.1,
+        -147991.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Pumpkin House",
+     "count": 3,
+     "sources": {
+      "direct": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "366DCD",
+      "366EC9",
+      "509F15"
+     ],
+     "coords": [
+      126119.9,
+      133213.7
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "366DCD",
+       "source_type": "direct",
+       "coords": [
+        126834.4,
+        132866.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "366EC9",
+       "source_type": "direct",
+       "coords": [
+        126622.8,
+        133261.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #3",
+       "ref": "509F15",
+       "source_type": "direct",
+       "coords": [
+        126119.9,
+        133213.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 3,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Radiant Hills",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "798E2E"
+     ],
+     "coords": [
+      178575.9,
+      231260.5
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "798E2E",
+       "source_type": "direct",
+       "coords": [
+        178575.9,
+        231260.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Safe 'n Clean Disposal",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3E1AE8"
+     ],
+     "coords": [
+      3813.4,
+      -39154.4
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "3E1AE8",
+       "source_type": "direct",
+       "coords": [
+        3813.4,
+        -39154.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Site Alpha",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "37F6A8"
+     ],
+     "coords": [
+      81021.3,
+      -14665.5
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "37F6A8",
+       "source_type": "direct",
+       "coords": [
+        81021.3,
+        -14665.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Whitespring Golf Club",
+     "count": 3,
+     "sources": {
+      "direct": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2B8E66",
+      "3D07F4",
+      "52779E"
+     ],
+     "coords": [
+      -9684.7,
+      -55837.0
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "2B8E66",
+       "source_type": "direct",
+       "coords": [
+        -9684.7,
+        -55837.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "3D07F4",
+       "source_type": "direct",
+       "coords": [
+        -13332.2,
+        -53032.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #3",
+       "ref": "52779E",
+       "source_type": "direct",
+       "coords": [
+        -8050.0,
+        -44012.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 3,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Whitespring North Entrance",
+     "count": 3,
+     "sources": {
+      "direct": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3A1BA4",
+      "3CC1CB",
+      "3D3F6A"
+     ],
+     "coords": [
+      2550.5,
+      -47745.1
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "3A1BA4",
+       "source_type": "direct",
+       "coords": [
+        3794.7,
+        -49978.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "3CC1CB",
+       "source_type": "direct",
+       "coords": [
+        -5685.8,
+        -42176.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #3",
+       "ref": "3D3F6A",
+       "source_type": "direct",
+       "coords": [
+        2550.5,
+        -47745.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 3,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Vault 79",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5A2132"
+     ],
+     "coords": [
+      -572.6,
+      1135.0
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "5A2132",
+       "source_type": "direct",
+       "coords": [
+        -572.6,
+        1135.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Whitespring Mall",
+     "count": 6,
+     "sources": {
+      "direct": 6
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "628E5D",
+      "628E5E",
+      "628E5F",
+      "628E60",
+      "628E61",
+      "629408"
+     ],
+     "coords": [
+      -3000.4,
+      9011.2
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "628E5D",
+       "source_type": "direct",
+       "coords": [
+        -2967.2,
+        9016.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "628E5E",
+       "source_type": "direct",
+       "coords": [
+        -2957.3,
+        9013.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #3",
+       "ref": "628E5F",
+       "source_type": "direct",
+       "coords": [
+        -2959.0,
+        9013.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #4",
+       "ref": "628E60",
+       "source_type": "direct",
+       "coords": [
+        -2967.3,
+        9013.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #5",
+       "ref": "628E61",
+       "source_type": "direct",
+       "coords": [
+        -2967.5,
+        9008.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #6",
+       "ref": "629408",
+       "source_type": "direct",
+       "coords": [
+        -3000.4,
+        9011.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 6,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": [
+    {
+     "marker": "Camp Liberty",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "752DAF"
+     ],
+     "coords": [
+      66057.2,
+      -249740.2
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "752DAF",
+       "source_type": "direct",
+       "coords": [
+        66057.2,
+        -249740.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Naked Creek",
+     "count": 5,
+     "sources": {
+      "static": 5
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "7338A5",
+      "7338C8",
+      "745580",
+      "745583",
+      "745584"
+     ],
+     "coords": [
+      -26722.6,
+      -234634.0
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "7338A5",
+       "source_type": "static",
+       "coords": [
+        -26722.6,
+        -234634.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "7338C8",
+       "source_type": "static",
+       "coords": [
+        -30444.9,
+        -236430.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #3",
+       "ref": "745580",
+       "source_type": "static",
+       "coords": [
+        -31863.8,
+        -235336.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #4",
+       "ref": "745583",
+       "source_type": "static",
+       "coords": [
+        -31524.1,
+        -235266.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #5",
+       "ref": "745584",
+       "source_type": "static",
+       "coords": [
+        -31533.6,
+        -235275.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 5,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Vault 63 Meteorology Sector",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "7933A4"
+     ],
+     "coords": [
+      4059.9,
+      6137.0
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "7933A4",
+       "source_type": "direct",
+       "coords": [
+        4059.9,
+        6137.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Vault 63 Organics Sector",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "73D16E"
+     ],
+     "coords": [
+      7312.0,
+      -11663.2
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "73D16E",
+       "source_type": "direct",
+       "coords": [
+        7312.0,
+        -11663.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": [
+    {
+     "marker": "Fort Defiance",
+     "count": 4,
+     "sources": {
+      "direct": 4
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "13B70E",
+      "13CA03",
+      "28493D",
+      "37F68C"
+     ],
+     "coords": [
+      5816.4,
+      2901.6
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "13B70E",
+       "source_type": "direct",
+       "coords": [
+        6081.3,
+        3059.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "13CA03",
+       "source_type": "direct",
+       "coords": [
+        5816.4,
+        2901.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #3",
+       "ref": "28493D",
+       "source_type": "direct",
+       "coords": [
+        -2169.0,
+        310.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #4",
+       "ref": "37F68C",
+       "source_type": "direct",
+       "coords": [
+        -316.0,
+        1281.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 4,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Watoga Civic Center",
+     "count": 4,
+     "sources": {
+      "direct": 4
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "23C3DA",
+      "23C461",
+      "23DB11",
+      "59F493"
+     ],
+     "coords": [
+      3204.2,
+      2267.8
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "23C3DA",
+       "source_type": "direct",
+       "coords": [
+        3424.6,
+        2463.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "23C461",
+       "source_type": "direct",
+       "coords": [
+        3196.9,
+        2274.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #3",
+       "ref": "23DB11",
+       "source_type": "direct",
+       "coords": [
+        3204.2,
+        2267.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #4",
+       "ref": "59F493",
+       "source_type": "direct",
+       "coords": [
+        1401.9,
+        -2082.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 4,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Watoga Raider Arena",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5CC313",
+      "5CEB95"
+     ],
+     "coords": [
+      3424.6,
+      2463.2
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "5CC313",
+       "source_type": "direct",
+       "coords": [
+        3424.6,
+        2463.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "5CEB95",
+       "source_type": "direct",
+       "coords": [
+        1401.9,
+        -2082.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Mire",
+   "locations": [
+    {
+     "marker": "Berkeley Springs",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "51C03F"
+     ],
+     "coords": [
+      128309.5,
+      28675.3
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "51C03F",
+       "source_type": "direct",
+       "coords": [
+        128309.5,
+        28675.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Berkeley Springs Station",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "526DC2",
+      "526DC3"
+     ],
+     "coords": [
+      134480.5,
+      20812.1
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "526DC2",
+       "source_type": "direct",
+       "coords": [
+        134480.5,
+        20812.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "526DC3",
+       "source_type": "direct",
+       "coords": [
+        134489.1,
+        20799.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Big B's Rest Stop",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "52F858",
+      "52F859"
+     ],
+     "coords": [
+      163420.8,
+      -16928.6
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "52F858",
+       "source_type": "direct",
+       "coords": [
+        163420.8,
+        -16928.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "52F859",
+       "source_type": "direct",
+       "coords": [
+        163433.4,
+        -16920.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Freddy Fear's House of Scares",
+     "count": 4,
+     "sources": {
+      "direct": 4
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "33E27C",
+      "33E28D",
+      "36970C",
+      "36970D"
+     ],
+     "coords": [
+      161594.5,
+      151626.3
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "33E27C",
+       "source_type": "direct",
+       "coords": [
+        161667.7,
+        151285.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "33E28D",
+       "source_type": "direct",
+       "coords": [
+        161588.7,
+        151626.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #3",
+       "ref": "36970C",
+       "source_type": "direct",
+       "coords": [
+        161594.5,
+        151626.3
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #4",
+       "ref": "36970D",
+       "source_type": "direct",
+       "coords": [
+        161600.3,
+        151626.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 4,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Mire's Eye",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5B6D58"
+     ],
+     "coords": [
+      -1010.9,
+      -202.4
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "5B6D58",
+       "source_type": "direct",
+       "coords": [
+        -1010.9,
+        -202.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Mosstown",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "16F900"
+     ],
+     "coords": [
+      132979.8,
+      72106.5
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "16F900",
+       "source_type": "direct",
+       "coords": [
+        132979.8,
+        72106.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Sunday Brothers' Cabin",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "0DE95C",
+      "0DFCEE"
+     ],
+     "coords": [
+      137567.5,
+      2582.5
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "0DE95C",
+       "source_type": "direct",
+       "coords": [
+        137567.5,
+        2582.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "0DFCEE",
+       "source_type": "direct",
+       "coords": [
+        137585.2,
+        2597.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Burrows",
+     "count": 3,
+     "sources": {
+      "direct": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3F46DA",
+      "3F534A",
+      "46B9E7"
+     ],
+     "coords": [
+      -3125.4,
+      9457.6
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "3F46DA",
+       "source_type": "direct",
+       "coords": [
+        -3515.5,
+        10563.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "3F534A",
+       "source_type": "direct",
+       "coords": [
+        -3125.4,
+        9457.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #3",
+       "ref": "46B9E7",
+       "source_type": "direct",
+       "coords": [
+        -162.4,
+        -361.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 3,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Vault 94",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "5C015B"
+     ],
+     "coords": [
+      -11068.6,
+      -480.9
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "5C015B",
+       "source_type": "direct",
+       "coords": [
+        -11068.6,
+        -480.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Burning Springs",
+   "locations": [
+    {
+     "marker": "Athens",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "83FEEC",
+      "83FEEF"
+     ],
+     "coords": [
+      -250391.8,
+      154612.9
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "83FEEC",
+       "source_type": "direct",
+       "coords": [
+        -250391.8,
+        154612.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "83FEEF",
+       "source_type": "direct",
+       "coords": [
+        -251296.0,
+        155328.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Dino Peaks Mini Golf",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "8295F4"
+     ],
+     "coords": [
+      -206870.8,
+      145049.1
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "8295F4",
+       "source_type": "direct",
+       "coords": [
+        -206870.8,
+        145049.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Executive's Apartment",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "850D1C"
+     ],
+     "coords": [
+      625.2,
+      1905.6
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "850D1C",
+       "source_type": "direct",
+       "coords": [
+        625.2,
+        1905.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Hocking Hills Train Station",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "8572DD"
+     ],
+     "coords": [
+      -259785.0,
+      71987.0
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "8572DD",
+       "source_type": "direct",
+       "coords": [
+        -259785.0,
+        71987.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Loan Shark's Office",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "83EE7C"
+     ],
+     "coords": [
+      833.8,
+      2207.6
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "83EE7C",
+       "source_type": "direct",
+       "coords": [
+        833.8,
+        2207.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Starlight Drive-in",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "851CF2"
+     ],
+     "coords": [
+      -202431.5,
+      114488.1
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "851CF2",
+       "source_type": "static",
+       "coords": [
+        -202431.5,
+        114488.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Super Duper Mart",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "82DEFA"
+     ],
+     "coords": [
+      -231728.0,
+      127563.4
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "82DEFA",
+       "source_type": "direct",
+       "coords": [
+        -231728.0,
+        127563.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Chop Shop",
+     "count": 1,
+     "sources": {
+      "direct": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "832507"
+     ],
+     "coords": [
+      -215316.3,
+      76985.7
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops",
+       "ref": "832507",
+       "source_type": "direct",
+       "coords": [
+        -215316.3,
+        76985.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 1,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Train Carriage",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "83A28F",
+      "84C98A"
+     ],
+     "coords": [
+      1980.0,
+      1825.5
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "83A28F",
+       "source_type": "direct",
+       "coords": [
+        2085.9,
+        2043.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "84C98A",
+       "source_type": "direct",
+       "coords": [
+        1980.0,
+        1825.5
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Atlantic City",
+   "locations": [
+    {
+     "marker": "Aquarium of the Atlantic",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "6EF6D0",
+      "743A8A"
+     ],
+     "coords": [
+      1939.5,
+      -904.8
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "6EF6D0",
+       "source_type": "direct",
+       "coords": [
+        1939.5,
+        -904.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "743A8A",
+       "source_type": "direct",
+       "coords": [
+        1939.5,
+        -904.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "Community Center",
+     "count": 4,
+     "sources": {
+      "direct": 4
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "755F33",
+      "755F9C",
+      "77C69D",
+      "77C6E9"
+     ],
+     "coords": [
+      957.8,
+      2755.9
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "755F33",
+       "source_type": "direct",
+       "coords": [
+        957.8,
+        2755.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "755F9C",
+       "source_type": "direct",
+       "coords": [
+        2220.7,
+        4810.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #3",
+       "ref": "77C69D",
+       "source_type": "direct",
+       "coords": [
+        2220.7,
+        4810.8
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #4",
+       "ref": "77C6E9",
+       "source_type": "direct",
+       "coords": [
+        957.8,
+        2755.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 4,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Boardwalk",
+     "count": 3,
+     "sources": {
+      "direct": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "6E1B3D",
+      "6E1B3E",
+      "6E6DC9"
+     ],
+     "coords": [
+      -4941.1,
+      -12384.1
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "6E1B3D",
+       "source_type": "direct",
+       "coords": [
+        -4941.1,
+        -12384.1
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "6E1B3E",
+       "source_type": "direct",
+       "coords": [
+        -4954.0,
+        -12385.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #3",
+       "ref": "6E6DC9",
+       "source_type": "direct",
+       "coords": [
+        -2177.6,
+        -597.6
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 3,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Pitt",
+   "locations": [
+    {
+     "marker": "Sanctum",
+     "count": 3,
+     "sources": {
+      "direct": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "64FF36",
+      "64FF37",
+      "64FF38"
+     ],
+     "coords": [
+      -1567.6,
+      2666.2
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "64FF36",
+       "source_type": "direct",
+       "coords": [
+        -1567.6,
+        2666.2
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "64FF37",
+       "source_type": "direct",
+       "coords": [
+        -1567.4,
+        2671.7
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #3",
+       "ref": "64FF38",
+       "source_type": "direct",
+       "coords": [
+        -1561.9,
+        2663.4
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 3,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    },
+    {
+     "marker": "The Pitt - Industrial",
+     "count": 2,
+     "sources": {
+      "direct": 2
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "662789",
+      "66278A"
+     ],
+     "coords": [
+      -3138.8,
+      -6681.0
+     ],
+     "spawns": [
+      {
+       "label": "Gum Drops #1",
+       "ref": "662789",
+       "source_type": "direct",
+       "coords": [
+        -3138.8,
+        -6681.0
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Gum Drops #2",
+       "ref": "66278A",
+       "source_type": "direct",
+       "coords": [
+        -4623.9,
+        -4614.9
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Gum Drops",
+       "count": 2,
+       "rate_key": "static",
+       "note": ""
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "total": 106,
+ "map_base": "/wp-content/uploads/guide-images/farming-non-perishable/gum-drops/",
+ "map_ext": ".jpg",
+ "full_map": "/wp-content/uploads/guide-images/farming-non-perishable/gum-drops/gum-drops.jpg",
+ "own_map_renderer": "render_pre_war_food_maps.py",
+ "chance_spawns": {
+  "pools": [],
+  "regions": [],
+  "total_markers": 0,
+  "total": 0,
+  "show_maps": true,
+  "map_base": "/wp-content/uploads/guide-images/farming-non-perishable/pre-war-food/"
+ }
+}

@@ -144,7 +144,10 @@ def build(dist_dir=None):
         master = json.load(fh)
     src_items = master.get("items") or []
 
-    items = [compact(it) for it in src_items]
+    # Unique weapons (weapon_unique_versions.py) ride in plan_master only so the
+    # Weapon page can list them under their base weapon. They are not plans,
+    # so they stay off the make-your-own plan list.
+    items = [compact(it) for it in src_items if not it.get("unique_version")]
     # Stable, human-friendly default order: name A–Z.
     items.sort(key=lambda r: (r["name"] or "").lower())
 

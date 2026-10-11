@@ -85,8 +85,9 @@ def set_tsv_dir(path):
     return TSV
 
 import plan_subpages        # which rows have been carved onto a page of their own
+import weapon_unique_versions   # unique weapons, listed under their base weapon
 
-SCHEMA = 1  # bump when the emitted fields change shape
+SCHEMA = 2  # bump when the emitted fields change shape
 
 
 # ─── TSV pickup ──────────────────────────────────────────────────────────────
@@ -243,9 +244,27 @@ ALIASES = {
     "GuitarSword": "Guitar Sword", "HogSplitter": "Hog Splitter",
     "ShepherdsCrook": "Shepherd's Crook", "CroquetMallet": "Croquet Mallet",
     "ATX_CroquetMallet": "Croquet Mallet", "binoculars": "Binoculars",
-    "50CalMachineGun": ".50 Cal Machine Gun", "CircuitBreaker": "Circuit Breaker",
+    "50CalMachineGun": ".50 Cal Machine Gun",
+    # The Circuit Breaker is a 10mm pistol variant (WEAP 10mm_CircuitBreaker),
+    # not a weapon of its own — its Scoreboard paints belong under 10mm Pistol
+    # with it (Duchess, 11 Oct 2026).
+    "CircuitBreaker": "10mm Pistol",
     "Flamer": "Flamer",
+    # Spellings the files use in one place only, each of which left a plan in
+    # a root of its own (Duchess, 11 Oct 2026: "weird entries"). One word, so
+    # camelCase splitting never sees the two halves.
+    "Teslacannon": "Tesla Cannon",          # zzz_SCORE_S19_Recipe_Teslacannon_*
+    "Lightninggun": "Tesla Rifle",          # STORM_..._DLC1Lightninggun_..._V63-BERTHA
+    "LaserMusket": "Laser Musket",          # CUT_recipe_mod_LaserMusket_Scope_*
+    "BoSPistol": "Crusader Pistol",         # PTS Crusader Pistol mods (no plan for the gun there)
+    "UltraciteTerrorSword": "Ultracite Terror Sword",
 }
+
+# PTS only (Duchess, 11 Oct 2026): rows nothing in the PTS files ties to a
+# weapon yet — brand-new uniques and mods for a weapon that is not in the
+# exports — go in ONE root at the bottom instead of a root each. Live keeps its
+# behaviour; the PTS copy is the only one built from tsv/pts.
+UNSORTED = "No Weapon or Source Found Yet (PTS)"
 
 # A mod is a "skin" when it changes how the weapon looks and nothing else.
 SKIN_ATTACH = {"ap_gun_Appearance", "ap_melee_Appearance"}
@@ -277,6 +296,7 @@ class Resolver:
         self.kw2weap = collections.defaultdict(list)
         self.omod = {}
         self.plan2cobj = {}
+        self.plan2omods = collections.defaultdict(list)   # plan EDID -> [OMOD EDID]
         self.families = {}   # tuple(segments) -> display name
         self.sources = []
 
@@ -285,6 +305,29 @@ class Resolver:
         self._load_cobj()
         self._seed_families(items)
         self._order = sorted(self.families, key=len, reverse=True)
+        self.also_for = {}        # row id -> extra group names (multi-weapon skins)
+        self._one_hand = None
+
+    def one_hand_melee(self, attach_point="ap_melee_Appearance"):
+        """Every player weapon family carrying ma_1hMelee, A-Z.
+
+        NPC copies (cr*, crFanatic*, crMobster* ...), deleted and cut records
+        are skipped; what is left resolves to the same family names the page
+        already uses."""
+        if self._one_hand is None:
+            out = set()
+            for fid in self.kw2weap.get("ma_1hMelee", []):
+                edid = self.weap[fid]["edid"]
+                if BAD_EDID.search(edid) or re.match(r"(cr[A-Z]|DEL_|XPD_|MTR\d|SDOW_cr|P62_cr)", edid):
+                    continue
+                # The game only lets a mod onto a weapon that has its slot.
+                if attach_point not in self.weap[fid]["slots"]:
+                    continue
+                f = self.find(edid)
+                if f:
+                    out.add(self.families[f])
+            self._one_hand = sorted(out)
+        return self._one_hand
 
     # -- exports --------------------------------------------------------
     def _load_weap(self):
@@ -297,6 +340,9 @@ class Resolver:
             self.weap[fid] = {
                 "edid": (r.get("WEAP_EDID") or "").strip(),
                 "full": (r.get("WEAP_FULL") or "").strip(),
+                # attach points the weapon offers — a mod only fits a weapon
+                # that has its slot (one_hand_melee() reads this)
+                "slots": set(re.findall(r"\b(ap_[A-Za-z0-9_]+)", r.get("APPR_Slots") or "")),
             }
             for kw in re.findall(r"\b(ma_[A-Za-z0-9_]+)", r.get("Keywords") or ""):
                 self.kw2weap[kw].append(fid)
@@ -322,6 +368,9 @@ class Resolver:
             gnam = (r.get("GNAM_EDID") or "").strip()
             if gnam:
                 self.plan2cobj.setdefault(gnam, (r.get("COBJ_EDID") or "").strip())
+                cn = (r.get("CNAM_EDID") or "").strip()
+                if cn:
+                    self.plan2omods[gnam].append(cn)
 
     # -- family table ---------------------------------------------------
     def _add(self, token, display, force=False):
@@ -396,6 +445,16 @@ class Resolver:
         # weapons behave (Barbed Sheepsquatch Club is a mod you craft onto the
         # club, but the game stores each variant as its own WEAP record).
         label = item.get("category_label") or ""
+        # Unique weapons (weapon_unique_versions.py): no plan, listed under the
+        # base weapon. The unique's own WEAP EditorID names the base far more
+        # reliably than the uniques page's "base" text ("Tesla", "Blade").
+        if item.get("unique_version"):
+            for source in ((cnam.get("edid") or ""),
+                           (item.get("unique_base") or "").replace(" ", "_")):
+                family = self.find(source)
+                if family:
+                    return "unique", self.families[family]
+            return "unique", None
         if item.get("shop_skin"):
             role = "shop-skin"
         elif "weapon" in (item.get("also_pages") or []):
@@ -413,7 +472,19 @@ class Resolver:
 
         family = None
         if LOADOUT.search(plan_edid or ""):
-            return "skin", "Weapon Loadout Paints"
+            # A loadout plan teaches one paint per weapon (Gunmetal: 10mm,
+            # Western Revolver, Combat Rifle, Pump Action Shotgun, Baseball
+            # Bat). Each COBJ it unlocks names its weapon, so the plan is
+            # listed under every one of them (attach() reads the rest from
+            # self.also_for) rather than in a root called after itself.
+            fams = []
+            for om in self.plan2omods.get(plan_edid, []):
+                f = self.find(om)
+                if f and self.families[f] not in fams:
+                    fams.append(self.families[f])
+            fams.sort()
+            self.also_for[item.get("id")] = fams[1:]
+            return "skin", (fams[0] if fams else "Weapon Loadout Paints")
         if STANDALONE.search(plan_edid or ""):
             return role, None
         if cnam.get("sig") == "WEAP":
@@ -446,6 +517,14 @@ class Resolver:
             if m:
                 family = self.find(m.group(1).replace(" ", "_"))
             if not family and re.search(r"(^|_)Sword(_|$)", omod_edid or ""):
+                # The skin targets ma_1hMelee, the keyword every one-handed
+                # melee weapon carries, so in game it fits all of them. List
+                # it under each of those weapons (Duchess, 11 Oct 2026) instead
+                # of a "Sword (one-handed)" root that no weapon is called.
+                fams = self.one_hand_melee(attach or "ap_melee_Appearance")
+                if fams:
+                    self.also_for[item.get("id")] = fams[1:]
+                    return role, fams[0]
                 return role, "Sword (one-handed)"
         return role, (self.families[family] if family else None)
 
@@ -472,6 +551,12 @@ def attach(items):
     # Legacy Nuclear Winter weapon paints also show under their weapon's In
     # Game Skins (Duchess, 7 Oct 2026). They stay on the Legacy NW page too —
     # skins are off the Weapon page's progress bar, so nothing counts twice.
+    # Unique weapons as reference rows under their base weapon. Rebuilt on every
+    # run from the uniques page's own JSON, so they follow that page.
+    try:
+        ustats = weapon_unique_versions.attach(items, TSV)
+    except Exception as exc:                      # noqa: BLE001 - never fatal
+        ustats = {"error": str(exc)}
     for i in items:
         ent = ((i.get("nw_entitlement") or {}).get("edid") or "")
         if i.get("legacy_nw") and not i.get("cut") and _RX_WEAPON_SKIN_ENT.search(ent):
@@ -487,13 +572,15 @@ def attach(items):
     # stale group forever — data that is not pruned is data that lies.
     for i in items:
         if not on_page(i):
-            for f in ("weapon_role", "weapon_group", "weapon_group_key", "weapon_group_solo"):
+            for f in ("weapon_role", "weapon_group", "weapon_group_key", "weapon_group_solo",
+                      "weapon_also_groups", "weapon_unsorted"):
                 i.pop(f, None)
     if not weapons:
         return {}
 
     res = Resolver(weapons)
     tally = collections.Counter()
+    pts = os.path.basename(os.path.normpath(TSV)).lower() == "pts"
     # Pass 1: role + family for every row.
     for it in weapons:
         role, family = res.classify(it)
@@ -503,21 +590,93 @@ def attach(items):
         # A carved-out row is not on this page at all, so it gets no group:
         # giving it one made nine fishing reels each open a weapon expand of
         # their own the moment the fishing tag moved to plan_subpages.
-        if not family and not carved:
+        it.pop("weapon_unsorted", None)
+        plan_edid = (it.get("plan_item") or {}).get("edid", "")
+        # A weapon's own plan (role "base") is a root of its own on PTS as on
+        # live — only mods and uniques with nowhere to go are unsorted.
+        if (not family and not carved and pts and role != "base"
+                and not STANDALONE.search(plan_edid)):
+            family = UNSORTED
+            it["weapon_unsorted"] = True
+            tally["unsorted"] += 1
+        elif not family and not carved:
             family = re.sub(r"^Plan:\s*", "", it.get("name") or it.get("id") or "").strip()
             tally["solo"] += 1
         it["weapon_role"] = role
         it["weapon_group"] = None if carved else family
         it["weapon_group_key"] = None if carved else slug(family)
+        also = [g for g in res.also_for.get(it.get("id"), []) if g != family]
+        if also and not carved:
+            it["weapon_also_groups"] = also
+        else:
+            it.pop("weapon_also_groups", None)
         tally[role] += 1
 
     # Pass 2: a group holding exactly one plan and no mods or skins is flagged,
     # so the page can render it without pretending it has sections.
+    # A skin listed under several weapons only lands under the ones the page
+    # actually has a root for — it never creates a root of its own.
+    real = {i["weapon_group"] for i in weapons if i.get("weapon_group")
+            and not i.get("weapon_also_groups") and i.get("weapon_role") != "unique"}
+    for it in weapons:
+        if it.get("weapon_also_groups"):
+            every = [it["weapon_group"]] + it["weapon_also_groups"]
+            keep = [g for g in every if g in real] or every[:1]
+            it["weapon_group"] = keep[0]
+            it["weapon_group_key"] = slug(keep[0])
+            if keep[1:]:
+                it["weapon_also_groups"] = keep[1:]
+            else:
+                it.pop("weapon_also_groups", None)
+
     sizes = collections.Counter(i["weapon_group_key"] for i in weapons if i.get("weapon_group_key"))
+    for it in weapons:
+        for g in it.get("weapon_also_groups") or []:
+            sizes[slug(g)] += 1
     for it in weapons:
         it["weapon_group_solo"] = bool(it.get("weapon_group_key")) and sizes[it["weapon_group_key"]] == 1
 
-    return {"groups": len(sizes), "tally": dict(tally), "sources": res.sources}
+    images, missing = group_images(weapons)
+    return {"groups": len(sizes), "tally": dict(tally), "sources": res.sources,
+            "uniques": ustats, "group_images": images, "images_missing": missing}
+
+
+def group_images(weapons):
+    """{group key: image url} — the picture on each weapon's root expand.
+
+    The weapon's OWN picture, never a mod's or a skin's: the base plan row
+    named after the group first, then any base row with art, then a file on
+    the server named after the weapon (data/server_listing.tsv, so the page
+    never points at a file that is not there). Groups with none are returned
+    as `missing` so the build log lists exactly which files to upload."""
+    files = weapon_unique_versions.server_images()
+    by = collections.defaultdict(list)
+    for it in weapons:
+        if it.get("weapon_group_key"):
+            by[(it["weapon_group_key"], it["weapon_group"])].append(it)
+    out, missing = {}, []
+    for (key, label), rows in sorted(by.items()):
+        base = [r for r in rows if r.get("weapon_role") == "base" and not r.get("cut")]
+        base.sort(key=lambda r: 0 if re.sub(r"^Plan:\s*", "", r.get("name") or "") == label else 1)
+        url = None
+        for r in base:
+            imgs = r.get("images") or []
+            if imgs:
+                url = str(imgs[0])
+                # Rows mostly carry a bare stem, relative to their own image
+                # folder — the same rule the renderer's dspImgURL applies.
+                if not url.startswith("/"):
+                    url = ("/wp-content/uploads/guide-images/plan-checklist/"
+                           + (r.get("image_dir") or r.get("type") or "weapons")
+                           + "/" + url + ".avif")
+                break
+        if not url:
+            url = weapon_unique_versions.image_for(label, files)
+        if url:
+            out[key] = url
+        else:
+            missing.append(label)
+    return out, missing
 
 
 def report(stats, where=""):
@@ -528,6 +687,9 @@ def report(stats, where=""):
     print(f"[add_weapon_groups] {where}{stats['groups']} weapon groups from "
           + ", ".join(stats["sources"]))
     print("  rows: " + ", ".join(f"{k}={v}" for k, v in sorted(stats["tally"].items())))
+    print(f"  uniques: {stats.get('uniques')}")
+    print(f"  root images: {len(stats.get('group_images') or {})}, missing: "
+          + ", ".join(stats.get("images_missing") or []))
 
 
 def enrich(path, report_only=False):
@@ -540,6 +702,7 @@ def enrich(path, report_only=False):
 
     doc["weapon_groups_schema"] = SCHEMA
     doc["weapon_groups_sources"] = stats["sources"]
+    doc["weapon_group_images"] = stats["group_images"]
     if not report_only:
         with open(path, "w", encoding="utf-8") as fh:
             json.dump(doc, fh, ensure_ascii=False, indent=2)
