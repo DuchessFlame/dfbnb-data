@@ -11,11 +11,21 @@ it, so each food now gets its own page, drawn by the Deathclaw Egg renderer
 The URL shape is the normal non-perishable one (same as Canned Coffee), so the
 renderer finds <food>_spawns.json with no special case.
 
-ONE PAGE PER FOOD — the only sharing rule
-  A rad-free copy ("<Food> (no rads)", the *_PreWar_Clean records) goes on the
-  same page as its food. Those pages use the multi-item shape (sub_items[] +
-  fixed_items[], one sub-expand per version). Every other page is a plain
-  single-item farming doc.
+ONE PAGE PER FOOD — the sharing rules (all read off the game data)
+  1. A rad-free copy ("<Food> (no rads)", same name, no radiation) goes on the
+     same page as its food.
+  2. A *_PreWar_Clean copy under a DIFFERENT name goes on the page of the food
+     whose EDID it extends (InstaMash_PreWar_Clean "Preserved InstaMash" ->
+     InstaMash). Duchess, 11 Oct 2026.
+  3. Every food carrying a SHARED_PAGE_KEYWORDS keyword shares one page
+     (ObjectTypeBubblegum: Bubblegum + the five Perk Bubblegums -> /bubblegum/).
+     Duchess, 11 Oct 2026. A food that already has its own guide (Perfect
+     Bubblegum) still keeps it.
+  The page is named after the member whose name every other member contains
+  ("Bubblegum", "InstaMash"); that food comes first, the rest A-Z.
+  Shared pages use the multi-item shape (sub_items[] + fixed_items[], one
+  sub-expand per food). Every other page is a plain single-item farming doc.
+  EXCLUDED_PAGES drops a page Duchess has removed (Fasnacht Donut).
   A food that already has its own guide (Canned Coffee, Sugar Bombs, ...) gets
   no page here; nor does its "(no rads)" copy (it belongs on that page).
 
@@ -29,7 +39,9 @@ ONE PAGE PER FOOD — the only sharing rule
 
 MAPS (render_pre_war_food_maps.py)
   site:  guide-images/farming-non-perishable/<food>/            fixed-spawn maps
-         guide-images/farming-non-perishable/<food>/no-rads/    the (no rads) copy
+                                                                (one combined
+                                                                map per page —
+                                                                every food on it)
          guide-images/farming-non-perishable/pre-war-food/      the mixed-list
                                                                 chance maps — ONE
                                                                 set, shared by
@@ -105,12 +117,11 @@ NAME = "Pre-War Food"
 MAPPALACHIA_DB = os.environ.get("MAPPALACHIA_DB", r"D:\Mappalachia\data\mappalachia.db")
 GEO_CACHE = os.path.join(REPO, "data", "farming_spawns", "geo_cache_pre_war_food.json")
 UPLOADS = "/wp-content/uploads/guide-images/farming-non-perishable/"
-# Each page's fixed-spawn maps: UPLOADS<page-slug>/ (the "(no rads)" copy in
-# its no-rads/ sub-folder). The mixed-list chance maps are the same for every
+# Each page's fixed-spawn maps: UPLOADS<page-slug>/ — one combined map with
+# every food on the page. The mixed-list chance maps are the same for every
 # page, so there is ONE set, in the old pre-war-food folder.
 CHANCE_MAP_BASE = UPLOADS + "pre-war-food/"
 NO_RADS = " (no rads)"
-NO_RADS_DIR = "no-rads/"
 PAGE_URL = "/bnb/farming/non-perishable/{slug}/{slug}-guide/"
 MANIFEST = "pre_war_food_pages.json"
 # Fallback only — used if the CHAL export carries no "Pre-war Food" keyword test.
@@ -629,24 +640,86 @@ def base_name(name):
     return name[:-len(NO_RADS)] if name.endswith(NO_RADS) else name
 
 
+# Every food carrying one of these keywords shares ONE page (rule 3 above).
+SHARED_PAGE_KEYWORDS = ("ObjectTypeBubblegum",)
+# A *_PreWar_Clean record whose base EDID is another food joins that food (rule 2).
+CLEAN_SUFFIX = re.compile(r"_PreWar_Clean$", re.I)
+# Pages Duchess has taken off the site: page slug -> why. No doc is written.
+EXCLUDED_PAGES = {
+    "fasnacht-donut": "removed by Duchess, 11 Oct 2026",
+}
+
+
+def _page_key(it, by_edid):
+    """The group a food belongs to: a shared-keyword page, its base food's page,
+    or its own (rad-free twins share a name, so they land together here)."""
+    for kw in SHARED_PAGE_KEYWORDS:
+        if f"{kw}[" in (it.get("kw") or ""):
+            return "kw:" + kw
+    for e in it["edids"]:
+        base = CLEAN_SUFFIX.sub("", e or "")
+        other = by_edid.get(base.lower()) if base != e else None
+        if other is not None and other is not it:
+            return "name:" + base_name(other["name"]).lower()
+    return "name:" + base_name(it["name"]).lower()
+
+
+def _page_name(foods):
+    """The member name every other member contains, else the first A-Z."""
+    names = [base_name(it["name"]) for it in foods]
+    for n in sorted(names, key=len):
+        if all(n.lower() in m.lower() for m in names):
+            return n
+    return sorted(names, key=str.lower)[0]
+
+
 def page_groups(items, page_urls):
     """-> ([(page slug, page name, [item, ...])], [skipped item names])
 
-    One page per food. A "(no rads)" copy joins its food's page. When the food
-    (or its copy) already has its own guide, neither gets a page here."""
+    One page per food, except the sharing rules in the module docstring. A food
+    that already has its own guide keeps it and drops out of its group; a group
+    left with nothing gets no page."""
+    by_edid = {e.lower(): it for it in items for e in it["edids"] if e}
     groups = collections.OrderedDict()
     for it in items:
-        groups.setdefault(base_name(it["name"]).lower(), []).append(it)
+        groups.setdefault(_page_key(it, by_edid), []).append(it)
     pages, skipped = [], []
     for foods in groups.values():
-        foods.sort(key=lambda it: (it["name"].endswith(NO_RADS), it["name"].lower()))
-        if any(f in page_urls for it in foods for f in it["form_ids"]):
-            skipped += [it["name"] for it in foods
-                        if not any(f in page_urls for f in it["form_ids"])]
+        own = [it for it in foods if any(f in page_urls for f in it["form_ids"])]
+        rest = [it for it in foods if it not in own]
+        if own and all(base_name(it["name"]).lower() ==
+                       base_name(own[0]["name"]).lower() for it in foods):
+            # a food with its own guide takes its rad-free twin with it
+            skipped += [it["name"] for it in rest]
             continue
-        name = base_name(foods[0]["name"])
-        pages.append((slugify(name), name, foods))
+        if not rest:
+            continue
+        name = _page_name(rest)
+        rest.sort(key=lambda it: (base_name(it["name"]).lower() != name.lower(),
+                                  it["name"].endswith(NO_RADS), it["name"].lower()))
+        slug = slugify(name)
+        if slug in EXCLUDED_PAGES:
+            print(f"  no page for {name}: {EXCLUDED_PAGES[slug]}")
+            continue
+        pages.append((slug, name, rest))
     return pages, skipped
+
+
+def food_folder(base, foods, it):
+    """Site map folder for a food: always its page's folder. Every food on a
+    shared page is drawn on ONE combined map (Duchess, 11 Oct 2026) — no
+    no-rads/ or per-food sub-folders any more."""
+    return base
+
+
+def _covers_blurb(name, foods):
+    names = [it["name"] for it in foods]
+    if all(base_name(n) == name for n in names):
+        return (f"Every {name} spawn in Fallout 76, with and without radiation: where "
+                f"each spawns, what it does, and where else you can get it.")
+    listed = ", ".join(names[:-1]) + " and " + names[-1]
+    return (f"This guide covers {listed}. Each one has its own entry in every "
+            f"section: where it spawns, what it does, and where else you can get it.")
 
 
 def _clean_sub(s):
@@ -690,6 +763,14 @@ def build(ctx, state_path=None, budget=None):
     page_urls = own_pages()
     pages, skipped = page_groups(items, page_urls)
     old_paths = [os.path.join(out_dir, f"{slug}_spawns.json") for slug, _n, _f in pages]
+    # pages merged away (or removed) since the last build still hold any photos
+    # and directions for their food — read them after the live pages
+    try:
+        prev = json.load(open(os.path.join(out_dir, MANIFEST), encoding="utf-8"))["pages"]
+        old_paths += [os.path.join(out_dir, f"{p['slug']}_spawns.json") for p in prev
+                      if os.path.join(out_dir, f"{p['slug']}_spawns.json") not in old_paths]
+    except Exception:
+        pass
     keep_all = load_keep(old_paths + [os.path.join(out_dir, f"{SLUG}_spawns.json")])
     state = _load_state(state_path) if state_path else {}
     page_name = {f: it["name"] for it in items for f in it["form_ids"]}
@@ -749,9 +830,7 @@ def build(ctx, state_path=None, budget=None):
             doc["regions"] = regions
             doc["total"] = n
         else:
-            doc["blurb"] = (f"Every {name} spawn in Fallout 76, with and without "
-                            f"radiation: where each spawns, what it does, and where "
-                            f"else you can get it.")
+            doc["blurb"] = _covers_blurb(name, foods)
             subs, fixed = [], []
             for it in foods:
                 sub, used_for, tips, regions, n = food[it["key"]]
@@ -764,11 +843,11 @@ def build(ctx, state_path=None, budget=None):
                         s[k] = v
                 subs.append(s)
                 if n:
-                    fbase = base + (NO_RADS_DIR if it["name"].endswith(NO_RADS) else "")
+                    fbase = food_folder(base, foods, it)
                     fixed.append(collections.OrderedDict([
                         ("name", it["name"]), ("key", it["key"]), ("form_ids", it["form_ids"]),
                         ("total", n), ("map_base", fbase),
-                        ("full_map", fbase + it["key"] + ".jpg"), ("regions", regions)]))
+                        ("full_map", base + slug + ".jpg"), ("regions", regions)]))
             doc["items"] = [collections.OrderedDict(
                 [("name", it["name"]), ("form_ids", it["form_ids"])]) for it in foods]
             doc["sub_items"] = subs
@@ -790,8 +869,7 @@ def build(ctx, state_path=None, budget=None):
             ("foods", [collections.OrderedDict([
                 ("name", it["name"]), ("key", it["key"]), ("form_ids", it["form_ids"]),
                 ("fixed", food[it["key"]][4]),
-                ("map_base", base + (NO_RADS_DIR if len(foods) > 1
-                                     and it["name"].endswith(NO_RADS) else ""))])
+                ("map_base", food_folder(base, foods, it))])
                 for it in foods])]))
 
     with open(os.path.join(out_dir, MANIFEST), "w", encoding="utf-8") as fh:
@@ -800,7 +878,7 @@ def build(ctx, state_path=None, budget=None):
     if skipped:
         print(f"  no page (their food already has its own guide): {', '.join(skipped)}")
     print(f"[{SLUG}] {len(items)} foods -> {len(pages)} pages "
-          f"({sum(1 for p in pages if len(p[2]) > 1)} with a no-rads copy) in "
+          f"({sum(1 for p in pages if len(p[2]) > 1)} shared) in "
           f"{os.path.relpath(out_dir, REPO)}")
     return out_dir
 

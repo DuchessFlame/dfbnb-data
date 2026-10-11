@@ -2255,7 +2255,8 @@ def _fire_pct(rate):
     pct = rate * 100.0
     if abs(pct - round(pct)) < 1e-6:
         return f"{int(round(pct))}%"
-    return f"{pct:.2f}".rstrip("0").rstrip(".") + "%"
+    import rate_format
+    return rate_format.fmt_pct(pct)
 
 
 def _phantom_repeatable_pools(resolver, books):

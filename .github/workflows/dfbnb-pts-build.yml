@@ -490,6 +490,12 @@ jobs:
         # spin wheel builder's cut rule, so it sits beside the weapon index.
         run: python src/build_costume_keywords_json.py --pts
 
+      - name: Build Pre-War Food Keyword Index JSON (PTS)
+        # /df/score-challenges/pre-war-food-keyword-index/ — every consumable
+        # carrying MealTypePackaged or MealTypeDogfood and the challenges that
+        # ask for Pre-war Food. Sibling of the costume index.
+        run: python src/build_prewar_food_keywords_json.py --pts
+
       # --- DF SCOREBOARDS (placeholder patchlog) ---
       - name: Stage scoreboards patchlog feed (placeholder)
         # No dedicated builder for the scoreboards category yet — the Season
@@ -679,6 +685,12 @@ jobs:
           KYWD_REFS_TSV: ${{ env.KYWD_REFS_TSV }}
           PERK_TSV:      ${{ env.PERK_TSV }}
           COBJ_TSV:      ${{ env.COBJ_TSV }}
+
+      # --- BUILD MENU ITEMS (Services / Water / Producers objects no other
+      # CAMP builder covers). Runs AFTER every other CAMP builder: it skips
+      # anything already in their dist JSONs. ---
+      - name: Build Build Menu Items JSON
+        run: python src/build_build_menu_items_json.py
 
       # --- PLAN MASTER + PLAN CHECKLISTS (How to Obtain) ---
       # The node step only copies the checked-in (LIVE) copy-source

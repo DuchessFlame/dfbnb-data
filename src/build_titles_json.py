@@ -1370,7 +1370,7 @@ def lvli_drop_rate_from_cobj_lvli(
             return None
         if abs(pct - round(pct)) < 1e-6:
             return f"{int(round(pct))}%"
-        return f"{pct:.3f}%"
+        return __import__("rate_format").fmt_pct(pct)
 
     # Group matches by LVLI FormID (only those LVLIs that contain THIS BOOK)
     by_lvli: Dict[str, List[Dict[str, str]]] = {}
@@ -1528,7 +1528,7 @@ def lvli_drop_rate_from_cobj_lvli(
         return None
     if abs(pct - round(pct)) < 1e-6:
         return f"{int(round(pct))}%"
-    return f"{pct:.3f}%"
+    return __import__("rate_format").fmt_pct(pct)
 
 def _glob_formid_from_lvli_global_field(s: str) -> Optional[str]:
     s = (s or "").strip()
@@ -1625,7 +1625,7 @@ def _resolve_chancenone_pair_titles(
         return None
     if abs(pct - round(pct)) < 1e-6:
         return f"{int(round(pct))}%"
-    return f"{pct:.3f}%"
+    return __import__("rate_format").fmt_pct(pct)
 
 
 def glob_drop_rate_by_formid(glob_rows: List[Dict[str, str]], glob_formid: str) -> Optional[str]:
@@ -1642,7 +1642,7 @@ def glob_drop_rate_by_formid(glob_rows: List[Dict[str, str]], glob_formid: str) 
         return None
     if abs(pct - round(pct)) < 1e-6:
         return f"{int(round(pct))}%"
-    return f"{pct:.3f}%"
+    return __import__("rate_format").fmt_pct(pct)
 
 def prettify_token_words(token: str) -> str:
     s = token.replace("_", " ").strip()

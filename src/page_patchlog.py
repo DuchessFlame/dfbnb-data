@@ -69,24 +69,15 @@ MONTH_NAMES = ["January", "February", "March", "April", "May", "June", "July",
 # ===========================================================================
 
 def pct(v) -> str:
-    """Drop-rate display. 3.99994 -> '4%', 0.022321 -> '0.0223%'."""
+    """Drop-rate display, up to 4 decimals. 3.99994 -> '3.9999%', 0.022321 -> '0.0223%'."""
     if v is None or v == "":
         return ""
     try:
         f = float(v)
     except (TypeError, ValueError):
         return str(v)
-    if f >= 1:
-        s = f"{f:.2f}"
-    elif f >= 0.1:
-        s = f"{f:.3f}"
-    else:
-        s = f"{f:.2g}" if f else "0"
-        if "e" in s:
-            s = f"{f:.6f}"
-    if "." in s:
-        s = s.rstrip("0").rstrip(".")
-    return s + "%"
+    import rate_format              # up to 4 decimals site-wide
+    return rate_format.fmt_pct(f)
 
 
 def num(v) -> str:

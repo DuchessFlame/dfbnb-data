@@ -147,6 +147,32 @@ except Exception:                                    # pragma: no cover
 def _humanize(edid):
     if not edid:
         return None
+    # Location keywords read as data-miner shorthand ("Only in Loc Theme
+    # Asylum", Oct 2026). LocTheme* marks a place dressed in a theme, LocType*
+    # the kind of place it is.
+    def _words(tok):
+        area = getattr(_ps, "ACRONYMS", {}) if _ps is not None else {}
+        if isinstance(area.get(tok.lower()), str):
+            return area[tok.lower()]
+        if tok.lower() == "robco":                  # a brand, one word
+            return "RobCo"
+        if _ps is not None and hasattr(_ps, "_split_camel"):
+            try:
+                return " ".join(_ps._split_camel(tok))
+            except Exception:
+                pass
+        return re.sub(r"(?<=[a-z0-9])(?=[A-Z])", " ", tok).strip()
+    m = re.match(r"^LocTheme_?([A-Za-z0-9]+)$", str(edid))
+    if m:
+        return f"{_words(m.group(1))}-themed places"
+    m = re.match(r"^LocType_?([A-Za-z0-9]+)$", str(edid))
+    if m:
+        return f"{_words(m.group(1))} locations"
+    # A "condition proxy" recipe stands in for the item it is named after:
+    # co_CondProxy_Clothes_Headwear_GladiatorMask -> "Gladiator Mask".
+    m = re.match(r"^co_?CondProxy_(?:Clothes_|Armor_)?(?:Headwear_)?(.+)$", str(edid), re.I)
+    if m:
+        return " ".join(_words(t) for t in m.group(1).split("_") if t)
     if _ps is not None:
         if _ps.is_dev_record(edid):
             return None
@@ -740,4 +766,9 @@ def tidy(lines):
             out.append(ln)
     for side, n in levels.items():
         out[groups[side]] = f"Level {n} and {side}"
-    return out
+    # "Only in Raider-themed places, Outdoors-themed places or Fisherman-themed
+    # places" -> "Only in Raider, Outdoors or Fisherman-themed places".
+    return [_RX_THEMED_LIST.sub("", ln) for ln in out]
+
+
+_RX_THEMED_LIST = re.compile(r"-themed places(?=(?:, | or )[^,]*?-themed places)")

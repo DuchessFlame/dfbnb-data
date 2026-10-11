@@ -635,6 +635,104 @@ def resolve_effects(omod_fid, prop_idx, ench_idx, mgef_idx, perk_idx, curve_idx)
         return None
     return {"summary": " · ".join(summary), "rows": rows[:10]}
 
+# ── Backpack effect mods: what the backpack carries WITH the mod ──────────────
+# Duchess, 11 Oct 2026: show "plus this much carry weight" on the Backpack Mod
+# page, so a reader sees Chemist's gives -90% chem weight and the backpack's own
+# carry weight, nothing more - while High Capacity adds its own on top. A mod in
+# the effect slot (ap_Backpack_EffectMod) REPLACES the effect, never the tier:
+# the carry weight comes from the backpack's tier mod (ap_Backpack_TierMod:
+# mod_BackPack_Base_CarryCapacity, mod_BackPack_Small_CarryCapacity) plus
+# whatever the effect mod adds or takes away itself. Both are read off the
+# OMOD export and their curves; nothing is typed in.
+_OMOD_ATTACH = None
+
+
+def _omod_attach():
+    """OMOD FormID -> (EditorID, attach point EditorID)."""
+    global _OMOD_ATTACH
+    if _OMOD_ATTACH is None:
+        _OMOD_ATTACH = {}
+        f = newest("OMOD_Export_*.tsv")      # tsv_source ranks the base file first
+        if f and not f.endswith("_Properties.tsv"):
+            for r in read_rows(f):
+                fid = (r.get("OMOD_FormID") or "").strip().upper()
+                if fid:
+                    _OMOD_ATTACH[fid] = ((r.get("OMOD_EDID") or "").strip(),
+                                         (r.get("AttachPoint_EDID") or "").strip())
+    return _OMOD_ATTACH
+
+
+def _carry_curve(fid, prop_idx, curve_idx):
+    """[(lv, value)] for an OMOD's Carry Weight property, or None."""
+    for p in prop_idx.get((fid or "").upper()) or []:
+        if (p.get("PropertyName") or "").strip() != "Actor Values":
+            continue
+        if not re.search(r"\bCarryWeight\b", p.get("Value1") or ""):
+            continue
+        eid = (p.get("CurveTable") or "").split("[")[0].strip().lower()
+        pts = curve_idx.get(eid)
+        if pts:
+            return list(pts)
+        try:
+            v = float(p.get("Value2") or 0)
+        except ValueError:
+            v = 0.0
+        return [(1.0, v), (50.0, v)] if v else None
+    return None
+
+
+def _curve_at(pts, lv):
+    if not pts:
+        return 0.0
+    if lv <= pts[0][0]:
+        return pts[0][1]
+    for (x0, y0), (x1, y1) in zip(pts, pts[1:]):
+        if x0 <= lv <= x1:
+            return y0 if x1 == x0 else y0 + (y1 - y0) * (lv - x0) / (x1 - x0)
+    return pts[-1][1]
+
+
+def add_backpack_carry(effects, omod_fid, prop_idx, curve_idx):
+    """Append "Total carry weight" rows for a backpack effect mod."""
+    att = _omod_attach()
+    edid, ap = att.get((omod_fid or "").upper(), ("", ""))
+    if ap.lower() != "ap_backpack_effectmod":
+        return effects
+    own = _carry_curve(omod_fid, prop_idx, curve_idx)
+    tiers = []
+    for fid, (tedid, tap) in att.items():
+        if tap.lower() != "ap_backpack_tiermod" or plan_sources.is_dev_record(tedid) \
+                or re.search(r"deprecated", tedid, re.I):
+            continue
+        # The standard backpack only. Effect mods go on the full-size
+        # backpack; the small Pioneer Scout backpack is the step before it.
+        if re.search(r"small", tedid, re.I):
+            continue
+        pts = _carry_curve(fid, prop_idx, curve_idx)
+        if pts:
+            tiers.append((tedid, pts))
+    if not tiers:
+        return effects
+    rows = []
+    for tedid, base in sorted(tiers, key=lambda t: ("small" in t[0].lower(), t[0])):
+        levels = sorted({x for x, _ in base} | {x for x, _ in (own or [])})
+        levels = [lv for lv in levels if 1 <= lv <= 50] or [1.0, 50.0]
+        pts = [(lv, _curve_at(base, lv) + _curve_at(own, lv)) for lv in levels]
+        lo, hi = pts[0], pts[-1]
+        value = (_num(lo[1]) if lo[1] == hi[1]
+                 else f"{_num(lo[1])} at Lv {int(lo[0])} → {_num(hi[1])} at Lv {int(hi[0])}")
+        rows.append({"label": "Total Carry Weight", "value": value,
+                     "points": ([{"lv": int(x), "v": _num(y)} for x, y in pts]
+                                if len({y for _, y in pts}) > 1 else None),
+                     "curve": None,
+                     "note": ("the backpack's own carry weight"
+                              + (" plus this mod's" if own else " - this mod adds none"))})
+    if effects is None:
+        effects = {"summary": "", "rows": []}
+    effects["rows"] = list(effects.get("rows") or []) + rows
+    return effects
+
+
 # OMOD: EDID (lower) -> {fid, edid}. Used only as a last-resort created-object
 # resolve when a plan's COBJ is a CondProxy with no CNAM.
 def build_omod_edid_index():
@@ -698,6 +796,17 @@ def plan_classify(sig, edid, via_edid):
     # LegendaryVendor) - Assaultron Blade/Head and Mole Miner Gauntlet were
     # printed as shop stock at 41.67% / 31.43% (Oct 2026 audit).
     if sig == "NPC_": return "creature"
+    # An outfit (OTFT) is what an NPC spawns WEARING - never a drop. Its
+    # EditorID says "Creature" (CreatureOutfit_Storm_Lost_WeatherStationOutfit)
+    # and published "Outfit Skyline Valley Lost Weather Station Outfit" as an
+    # enemy you could kill for Wraparound Goggles (Oct 2026).
+    if sig == "OTFT": return "loot-list"
+    # A world loot container is a container, whatever quest its EditorID
+    # mentions: Loot_Trunk_Vault96_Midquest made "Priority Explosives Box
+    # Raider" an EVENT route next to the real Vault Trunk container row.
+    if sig == "CONT" and re.search(r"(?:^|_)Loot(?:_|Priority)", edid or "") \
+            and "vend" not in e:
+        return "container"
     if "vendorchest" in e or "vendor" in e or "vend" in e: return "vendor"
     if "questreward" in e or "quest_reward" in e or "_reward" in e or "gmrw" in e \
        or "systemic" in e or "quest" in e: return "event-quest"
@@ -732,6 +841,11 @@ GMRW_QUESTS = {}
 # QUST FormID -> quest title; set in main() from UnlockIndex (for lists a quest
 # record rolls directly, e.g. CB04_RewardContainerList <- "Mayor for a Day").
 QUEST_TITLES = {}
+# GMRW FormID -> title with runtime <Alias=...> fill-ins tidied away; set in
+# main() from UnlockIndex.gmrw_titles. Used by expand_payers() to LIST every
+# activity / quest that pays a shared reward pool out.
+GMRW_TITLES = {}
+QUEST_TITLES_TIDY = {}
 
 AREA_CODE  = plan_sources.AREA_CODE          # re-exported: other builders read these
 _DEV_CODES = plan_sources.DEV_CODES
@@ -777,7 +891,7 @@ def holder_bucket(via, holders):
     # NPC EditorIDs stay out of the word blob for the same reason they are
     # classified by signature: a vendor robot's name is not a shop.
     holder_blob = " ".join((redid or "") for rf, redid, rsig in holders
-                           if rsig not in ("CONT", "NPC_")
+                           if rsig not in ("CONT", "NPC_", "OTFT")
                            and not plan_sources.is_dev_record(redid))
     best = plan_classify("", (via or "") + " " + holder_blob, via)
     for rf, redid, rsig in holders:
@@ -810,7 +924,10 @@ def entry_holders(holders):
     """
     return [(rf, redid, rsig) for rf, redid, rsig in holders
             if rsig != "LVLI" and not plan_sources.is_dev_record(redid)
-            and not plan_sources._RX_DEV_RECORD.search(redid or "")]
+            and not plan_sources._RX_DEV_RECORD.search(redid or "")
+            # a confirmed-cut holder (Quickplay PvP, the Irrational Fear vendor)
+            # is not a way in either
+            and not plan_sources.cut_source(redid)]
 
 
 # MGEF FormID -> what the player opens to fire it ("Holiday Gift", "Ornate
@@ -1044,7 +1161,7 @@ def group_vendor_rows(routes):
             continue
         qual = m.group("qual").strip()
         if not re.search(r"\(", qual) and qual.lower() != "vendor":
-            groups.setdefault((qual.lower(), round(r.get("rate") or 0, 4)), []).append((r, m))
+            groups.setdefault((qual.lower(), round(r.get("rate") or 0, 6)), []).append((r, m))
         else:
             keep.append(r)
     for (qlow, _rate), rows in groups.items():
@@ -1188,7 +1305,7 @@ def collapse_routes(routes):
     best = {}
     order = []
     for r in routes:
-        k = (plan_sources.route_key(r["route"]), round(r.get("rate") or 0, 4))
+        k = (plan_sources.route_key(r["route"]), round(r.get("rate") or 0, 6))
         if k not in best:
             best[k] = r
             order.append(k)
@@ -1324,6 +1441,242 @@ def _creature_majority(names, first):
     return None
 
 
+_CONT_REF_SIGS = None
+
+
+def _cont_flst_only(fid):
+    """True when a CONT's only references are editor form lists."""
+    global _CONT_REF_SIGS
+    if _CONT_REF_SIGS is None:
+        _CONT_REF_SIGS = {}
+        f = newest("CONT_Export_*.tsv")
+        if f:
+            with open(f, encoding="utf-8", errors="replace", newline="") as fh:
+                rd = csv.reader(fh, delimiter="\t")
+                head = next(rd, [])
+                if "ReferencedByCount" in head:
+                    i = head.index("ReferencedByCount")
+                    for row in rd:
+                        if row:
+                            _CONT_REF_SIGS[row[0].strip().upper()] = {
+                                c.strip().rsplit(":", 1)[-1] for c in row[i + 1:] if c.strip()}
+    sigs = _CONT_REF_SIGS.get((fid or "").upper())
+    return bool(sigs) and sigs <= {"FLST"}
+
+
+_ACTI_NAMES = None
+
+
+def _acti_name(fid):
+    """In-game name of an activator (the Abraxodyne Intel Cache you open)."""
+    global _ACTI_NAMES
+    if _ACTI_NAMES is None:
+        _ACTI_NAMES = {}
+        f = newest("ACTI_Export_*_ACTI.tsv")
+        if f:
+            for r in read_rows(f):
+                a = (r.get("ACTI_FormID") or "").strip().upper()
+                n = (r.get("ACTI_FULL") or "").strip()
+                if a and n and plan_sources.usable_quest_name(n):
+                    _ACTI_NAMES[a] = n
+    return _ACTI_NAMES.get((fid or "").upper())
+
+
+def _fixed_label(fam, holders):
+    """A placed thing, named the way a player meets it.
+
+    * an activator you open names itself (ACTI FULL): "Burning Springs - Cache
+      Side Quests" was Burn_SQ04_AbraxoCache_Activator, the Abraxodyne Intel
+      Cache;
+    * an item dispenser takes the quest its placed reference belongs to
+      (AC_MQ02_Stage_ClownHatDispenser -> All the World's a Stage).
+    """
+    for rf, redid, rsig in holders:
+        if rsig == "ACTI" and not plan_sources.is_dev_record(redid):
+            n = _acti_name(rf)
+            if n:
+                return n
+    if fam == "Item dispenser":
+        for rf, redid, rsig in holders:
+            if rsig == "REFR" and redid:
+                head = source_label(redid)
+                if head and not plan_sources.looks_like_wiring(head.split(" - ")[0]):
+                    return f"{head.split(' - ')[0]} - item dispenser"
+    return None
+
+
+_RX_RE_CHEST = re.compile(r"(?:^|_)RE_[A-Za-z]*?(?:Camp|Travel)", re.I)
+_RX_VENDOR_KIND = re.compile(r"(Clothing|Armor|Weapons?|Food|Clinic|Chems|Misc|General|Ammo)",
+                             re.I)
+
+
+def _player_vendor_label(label, holders):
+    """Trader names a player recognises.
+
+    * C.A.M.P. allies sell from a _COMP_ chest; the label read "(Atom Shop Ally
+      vendor)" or "(Season Scoreboard S5 Ally Inspector Childrens Store
+      vendor)" - the ally lives in your C.A.M.P., the Atom Shop sells nothing.
+    * Random-encounter merchants ("Travel TS01 General vendor", "Camp - Clothing
+      Vendor - Merchant") are the travelling traders you meet on the road.
+    """
+    chests = [redid or "" for _rf, redid, rs in holders if rs in ("CONT", "LVLI")]
+    if any(re.search(r"(?:^|_)COMP(?:_|$)", c) for c in chests):
+        label = re.sub(r"\((?:[^()]*?\b)?Ally\b[^()]*\bvendor\)$", "(C.A.M.P. ally vendor)", label)
+    for c in chests:
+        if _RX_RE_CHEST.search(c) and (plan_sources.looks_like_wiring(label)
+                                       or re.search(r"merchant|vendor - ", label, re.I)):
+            k = _RX_VENDOR_KIND.search(c.split("VendorChest")[-1] or "") or _RX_VENDOR_KIND.search(c)
+            kind = (k.group(1).lower().replace("armor", "armour").rstrip("s") if k else "general")
+            return f"Travelling merchant (random encounter, {kind} goods)"
+    return label
+
+
+# ── where "Lying in the world" is ─────────────────────────────────────────────
+# REFRLVLI_Placements_<Month>_<Year>[_PartN].tsv comes from the xEdit script
+# "!!!Wordpress - ExportREFRPlacementsToTSV.pas" run over the Leveled Item group
+# (added 11 Oct 2026). One row per placed reference of a leveled list - every
+# LPI_ loose-item spot - with its cell, its Location and X/Y. When the export
+# is there, a "Lying in the world" row lists the places; when it is not, the
+# row simply has no place list (nothing breaks).
+_LPI_PLACES = None
+_PLACES_SHOWN = 40
+
+
+def _load_lpi_places():
+    import tsv_source as _ts
+    out = collections.defaultdict(list)
+    files = glob.glob(os.path.join(TSV, "REFRLVLI_Placements_*.tsv"))
+    if not files:
+        return out
+    newest_key = max(_ts.export_key(f) for f in files)
+    files = sorted(f for f in files if _ts.export_key(f) == newest_key)
+    geo = None
+    try:
+        from spawns_engine.geo import Geo
+        geo = Geo()
+    except Exception as exc:                          # noqa: BLE001 - never fatal
+        print(f"  WARNING: map markers unavailable for placements: {exc}", file=sys.stderr)
+    for f in files:
+        for r in read_rows(f):
+            base = (r.get("BaseFormID") or "").strip().upper()
+            if not base:
+                continue
+            wrld = (r.get("WorldspaceFormID") or "").strip()
+            cell_name = (r.get("CellName") or "").strip()
+            loc_name = (r.get("LocationName") or "").strip()
+            place = ""
+            if not wrld and cell_name:              # an interior names itself
+                place = cell_name
+            elif geo is not None and wrld:
+                try:
+                    _reg, place, _how = geo.resolve(int(wrld, 16),
+                                                    float(r.get("X") or 0), float(r.get("Y") or 0))
+                except Exception:                     # noqa: BLE001
+                    place = ""
+            place = place or loc_name or cell_name
+            if place and plan_sources.usable_quest_name(place) and place not in out[base]:
+                out[base].append(place)
+    print(f"[plan-obtain] placed leveled lists: {len(out)} list(s) from "
+          f"{', '.join(os.path.basename(f) for f in files)}")
+    return out
+
+
+def lpi_places(lists):
+    """Sorted in-game place names where these leveled lists are placed."""
+    global _LPI_PLACES
+    if _LPI_PLACES is None:
+        try:
+            _LPI_PLACES = _load_lpi_places()
+        except Exception as exc:                      # noqa: BLE001 - never fatal
+            print(f"  WARNING: placements unavailable: {exc}", file=sys.stderr)
+            _LPI_PLACES = {}
+    seen = set()
+    for L in lists or ():
+        seen.update(_LPI_PLACES.get(str(L).upper(), ()))
+    return sorted(seen, key=str.lower)
+
+
+def expand_payers(routes, lvli_refs, parent_edid, quest_named, by_name):
+    """Replace a shared reward pool's row with one row per activity / quest
+    that pays the pool out.
+
+    "Activity rewards" is RA_LL_Rewards_Activities, which 26 Activity reward
+    records (GMRW) roll — Monster Mash, Distant Thunder, Census Violence ...
+    A reader cannot do anything with "Activity rewards"; they can with a list
+    of activities. The same holds for "Bonus rewards (any region)" (Horde,
+    Hunter/Hunted, Disturbed Grave, Mistaken Identity) and "The Mire quest
+    rewards - plans" (only "One of Us" pays it out).
+
+    Read off the reward records, nothing hand-listed:
+      * only event / quest rows; only the lists' DIRECT payers (a parent list
+        already publishes its own row);
+      * one payer replaces the label only when the label is a pool name or
+        still reads like editor wiring — "Event: Test Your Metal - Best" keeps
+        its tier word;
+      * system names stay as they are ("Raids", "Daily Ops - Chase",
+        "Expeditions - Pitt Mission": the payers there are stages, not places);
+      * if something other than a nameable reward record also rolls the pool,
+        the pool row stays next to the named rows;
+      * every new row carries the pool's own rate and lists — no rate maths.
+    If the same name already has its own row at a different rate (the
+    activity's own reward list), the pool row says "shared activity rewards"
+    so the two rolls are told apart.
+    """
+    out, expanded = [], []
+    existing = collections.defaultdict(set)      # name -> rates already shown
+    for r in routes:
+        existing[(r.get("route") or "").lower()].add(round(r.get("rate") or 0, 6))
+    for r in routes:
+        lists = sorted(r.get("_lvli") or ())
+        if r.get("source_type") != "event-quest" or not lists:
+            out.append(r)
+            continue
+        label = r.get("route") or ""
+        head = label.split(" - ", 1)[0].strip()
+        if label in _AREA_NAMES or head in _AREA_NAMES:
+            out.append(r)
+            continue
+        titles, other = plan_sources.payer_titles(lists, lvli_refs, GMRW_TITLES,
+                                                  QUEST_TITLES_TIDY or QUEST_TITLES)
+        if not titles:
+            out.append(r)
+            continue
+        pool = any(plan_sources.pool_label(parent_edid.get(L, "") or "") for L in lists)
+        if len(titles) == 1:
+            t = titles[0]
+            if plan_sources.route_key(t) == plan_sources.route_key(label):
+                out.append(r)
+                continue
+            # Keep a label that already names this payer in its own words
+            # ("Event: Test Your Metal - Best", "Supplying Demands -
+            # Valuables"); replace one that shares no word with it ("Power
+            # Plant Event Full" is Activity: Powering Up; "Wastelanders - Ally
+            # C.A.M.P. Full Astronaut" is Ally: The Woman Who Fell To Earth).
+            shared = (set(plan_sources.route_key(t).split())
+                      & set(plan_sources.route_key(label).split())) - {"event", "activity", "daily", "the", "a", "of"}
+            if not (pool or plan_sources.looks_like_wiring(label) or not shared):
+                out.append(r)
+                continue
+        if other:
+            out.append(r)
+        for t in titles:
+            nr = dict(r)
+            nr["_lvli"] = set(lists)
+            nr["route"] = t
+            nr["_pool_label"] = label
+            expanded.append(nr)
+    for nr in expanded:
+        t = nr["route"]
+        rates = existing.get(t.lower())
+        if rates and round(nr.get("rate") or 0, 6) not in rates:
+            nr["route"] = f"{t} - shared {'activity ' if t.lower().startswith(('activity', 'enclave activity')) else ''}rewards"
+        nr.pop("_pool_label", None)
+        quest_named.add(nr["route"])
+        by_name.setdefault(nr["route"], []).extend(nr["_lvli"])
+        out.append(nr)
+    return collapse_routes(out)
+
+
 def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
                    names_only=False, skip_worn=False):
     """Routes for one plan, highest rate first.
@@ -1362,12 +1715,16 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
             conts = bfu.container_types(
                 closure, target,
                 lambda L, t: app(L[0] if isinstance(L, (list, tuple)) and L else L),
-                cont_names, lvli_refs, parent_edid)
+                cont_names, lvli_refs, parent_edid,
+                # Only containers the game places or spawns (the farming pages
+                # already did this): drops QA_RunOnCondition, the test chests and
+                # other editor-only CONTs that were printed as sources.
+                placed_bases=bfu.live_cont_bases(TSV))
         except Exception:
             conts = []
     for c in conts:
         routes.append({"route": c["name"], "source_type": "container",
-                       "rate": round(c["rate"], 6), "rate_display": c["rate_display"]})
+                       "rate": round(c["rate"], 10), "rate_display": c["rate_display"]})
 
     # 2) Non-container routes — resolve each closure list's rng76 appearance and
     #    name it by the list's own semantic (its leveled-list edid). This keeps
@@ -1375,7 +1732,7 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
     #    (e.g. all Deathclaw NPC variants collapse to one "Deathclaw" row).
     #    Vendors stay distinct by name; creature/event/loot collapse by
     #    (bucket, family, rate) so identical-rate variants dedupe.
-    seen_c = set((r["source_type"], r["route"], round(r["rate"], 4)) for r in routes)  # containers
+    seen_c = set((r["source_type"], r["route"], round(r["rate"], 6)) for r in routes)  # containers
     seen_n = {}  # (bucket, family, rate4) -> route dict (collapse variants)
     seen_v = {}  # (vendor, name, rate4) -> route dict
     quest_named = set()  # labels taken from a GMRW quest title (quest_route_label)
@@ -1410,10 +1767,10 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
             if not names_only and (not rate or rate <= 0):
                 continue
             by_name.setdefault(opened, []).append(L)
-            k = ("container", opened.lower(), round(rate, 4))
+            k = ("container", opened.lower(), round(rate, 6))
             if k not in seen_n:
                 seen_n[k] = {"route": opened, "source_type": "container",
-                             "rate": round(rate, 6), "rate_display": bfu._fmt_rate(rate),
+                             "rate": round(rate, 10), "rate_display": bfu._fmt_rate(rate),
                              "_lvli": set()}
             seen_n[k]["_lvli"].add(L)
             continue
@@ -1470,7 +1827,8 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
             # will name ANYTHING, so it published the cut NPC CUT_LvlSubBoss as
             # the route "CUT Lvl Sub Boss". source_label() already returns None
             # for these; this stops the fallback undoing that.
-            if plan_sources.is_dev_record(redid):
+            if plan_sources.is_dev_record(redid) or plan_sources.cut_source(redid) or (
+                    rsig != "LVLI" and plan_sources._RX_DEV_RECORD.search(redid or "")):
                 continue
             b = plan_classify(rsig, redid, via)
             if b == "vendor" and not vend_name:
@@ -1490,7 +1848,11 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
                 vend_chests.append(rf)
             if rsig == "NPC_" and npc_names.get((rf or "").upper()):
                 npc_fulls.append(npc_names[(rf or "").upper()])
-            if b == "creature" and not creature_name:
+            # Only an NPC names a creature drop. The large-boss loot pool's holder
+            # is the magic effect BossLootDropEffect_Large, which printed
+            # "Boss Drop Effect Large" as if it were an enemy (Oct 2026).
+            if b == "creature" and not creature_name and (
+                    rsig == "NPC_" or plan_sources.CURATED_LABELS.get(redid)):
                 curated_creature = bool(plan_sources.CURATED_LABELS.get(redid)
                                         or plan_sources.bounty_npc_label(
                                             redid, npc_names.get((rf or "").upper())))
@@ -1505,6 +1867,22 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
         # FishermansRest is The Fisherman's AND Captain Raymond Clark's).
         if bucket == "vendor" and vend_name:
             vend_name = _name_all_vendors(vend_name, vend_chests)
+            vend_name = _player_vendor_label(vend_name, holders)
+        _dev_h = [re_ for _rf, re_, rs in holders
+                  if rs != "LVLI" and plan_sources._RX_DEV_RECORD.search(re_ or "")]
+        if bucket == "vendor" and not vend_name and _dev_h and all(
+                rs == "LVLI" or plan_sources._RX_DEV_RECORD.search(re_ or "")
+                for _rf, re_, rs in holders):
+            # Only a script chest rolls it directly (EN05_UniformSpawnChest
+            # dresses an Enclave NPC); the vendors that stock it publish their
+            # own rows. "EN05 Uniform Spawn" was printed as a trader (Oct 2026).
+            continue
+        if bucket == "vendor" and holders and all(
+                rs == "CONT" and _cont_flst_only(rf) for rf, _re, rs in holders):
+            # A merchant chest nothing in the game places - only an editor
+            # form list holds it (WorkshopVendorChestArmor02, a Fallout 4
+            # workshop shop): "LLC Workshop Armor vendor" was not a real trader.
+            continue
         # A creature list is named after the creature its NPCs are variants
         # of, not whichever NPC the export listed first: LLD_Creature_Deathclaw's
         # first holder is AudioTemplateWendigo, so Deathclaw drops were printed
@@ -1516,11 +1894,11 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
         if bucket == "vendor" and vend_name:
             name = vend_name
             by_name.setdefault(name, []).append(L)
-            key = ("vendor", name, round(rate, 4))
+            key = ("vendor", name, round(rate, 6))
             if key not in seen_c:
                 seen_c.add(key)
                 seen_v[key] = {"route": name, "source_type": "vendor",
-                               "rate": round(rate, 6), "rate_display": bfu._fmt_rate(rate),
+                               "rate": round(rate, 10), "rate_display": bfu._fmt_rate(rate),
                                "_lvli": set()}
                 routes.append(seen_v[key])
             if key in seen_v:
@@ -1538,6 +1916,8 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
             ch = vendor_names().orphan_chest(via, chest_edids())
             if ch:
                 fam = vendor_names().label(ch, fam)
+        if bucket == "fixed":
+            fam = _fixed_label(fam, holders) or fam
         if not fam:
             continue
         if bucket == "event-quest":
@@ -1565,10 +1945,10 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
                 fam = qfam
                 quest_named.add(qfam)
         by_name.setdefault(fam, []).append(L)
-        k = (bucket, fam.lower(), round(rate, 4))
+        k = (bucket, fam.lower(), round(rate, 6))
         if k not in seen_n:
             seen_n[k] = {"route": fam, "source_type": bucket,
-                         "rate": round(rate, 6), "rate_display": bfu._fmt_rate(rate),
+                         "rate": round(rate, 10), "rate_display": bfu._fmt_rate(rate),
                          "_lvli": set()}
         seen_n[k]["_lvli"].add(L)
     routes.extend(seen_n.values())
@@ -1592,13 +1972,21 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
                     quest_named.add(r["route"])
                 by_name.setdefault(r["route"], []).extend(r["_lvli"])
 
+    # A shared pool ("Activity rewards", "Bonus rewards (any region)", "The Mire
+    # quest rewards - plans") names the pool, not where you go. List every
+    # activity / quest that pays it out instead, one row each at the pool's
+    # rate (Duchess, 11 Oct 2026: "list all the activity rewards by name").
+    routes = expand_payers(routes, lvli_refs, parent_edid, quest_named, by_name)
+
     if skip_worn:
         routes = [r for r in routes
                   if not worn_only(r.get("_lvli") or by_name.get(r["route"], ()),
                                    lvli_refs, c2p, parent_edid)]
     routes = group_vendor_rows(routes)
     routes.sort(key=lambda r: (-(r["rate"] or 0), r["source_type"], r["route"].lower()))
-    routes = routes[:12]
+    # No row cap any more (11 Oct 2026). The old 12-row cap cut sources off
+    # alphabetically: the Tattered Field Jacket's quest list stopped at "Duty
+    # Calls". Every source the game files give is listed.
     for r in routes:
         # The lists behind THIS row (this name at this rate). Was looked up by
         # name alone, so two rows sharing a name — Radiation Rumble at 2.5% and
@@ -1610,7 +1998,13 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
             # Named after the quest that pays it out -- lets New Plans file it
             # under Quests now the label no longer says "Side Quests".
             r["quest_reward"] = True
-    return routes   # cap: a plan's most-likely dozen sources, highest rate first
+        if r.get("source_type") == "fixed":
+            places = lpi_places(r["lvli"])
+            if places:
+                r["places"] = places[:_PLACES_SHOWN]
+                if len(places) > _PLACES_SHOWN:
+                    r["places_total"] = len(places)
+    return routes   # every source, highest rate first
 
 # ── main ─────────────────────────────────────────────────────────────────────
 SIG_INDEX = {}
@@ -1683,6 +2077,8 @@ def main(argv=None):
         QUEST_NAMES = unlock_idx.quest_names
         GMRW_QUESTS.clear(); GMRW_QUESTS.update(unlock_idx.gmrw_quests)
         QUEST_TITLES.clear(); QUEST_TITLES.update(getattr(unlock_idx, "_quests_by_fid", {}))
+        GMRW_TITLES.clear(); GMRW_TITLES.update(getattr(unlock_idx, "gmrw_titles", {}))
+        QUEST_TITLES_TIDY.clear(); QUEST_TITLES_TIDY.update(getattr(unlock_idx, "quest_titles_tidy", {}))
         print(f"[plan-obtain] quest names: {sum(1 for v in QUEST_NAMES.exact.values() if v)} "
               f"unambiguous prefixes, {len(QUEST_NAMES.family)} families")
     # What kind of place each route is (quest / event / enemy / corpse), read
@@ -1796,6 +2192,8 @@ def main(argv=None):
         if cnam_sig == "OMOD" and cnam_fid:
             effects = resolve_effects(cnam_fid, prop_idx, ench_idx, mgef_idx,
                                       perk_idx, curve_idx)
+            if cat == "backpack-mod":
+                effects = add_backpack_carry(effects, cnam_fid, prop_idx, curve_idx)
             if effects is None:
                 unresolved["no_effects"].append(name)
 

@@ -141,18 +141,11 @@ def _newest(pattern, exclude=None):
     return tsv_source.newest(os.path.join(TSV, pattern), exclude=exclude, required=False)
 
 
-def pct(v, places=2):
-    """Probability (0..1) -> display string. A computed 0 is a real answer -> '0%'."""
-    if v is None:
-        return ""
-    if v <= 0:
-        return "0%"
-    if v >= 0.99995:
-        return "100%"
-    if v * 100 < 0.01:
-        return "<0.01%"
-    s = f"{v * 100:.{places}f}".rstrip("0").rstrip(".")
-    return (s or "0") + "%"
+def pct(v, places=4):
+    """Probability (0..1) -> display string. A computed 0 is a real answer -> '0%'.
+    Up to 4 decimals site-wide (rate_format)."""
+    import rate_format
+    return rate_format.fmt_rate(v, places)
 
 
 def r6(v):
@@ -856,9 +849,9 @@ def label_spawns(regions_out, name):
 
 
 def _pct(w):
-    """0.0714 -> '7.1%', 1.0 -> '100%', 0.083 -> '8.3%'."""
-    s = f"{w * 100:.1f}".rstrip("0").rstrip(".")
-    return s + "%"
+    """0.0714 -> '7.14%', 1.0 -> '100%' (rate_format: up to 4 decimals)."""
+    import rate_format
+    return rate_format.fmt_rate(w)
 
 
 def tier_spawns(seen_slug, cache, slug, page_name, promote_unique=False,

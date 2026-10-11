@@ -1120,12 +1120,9 @@ def build_challenges(formid: str, dist_dir: str) -> List[Dict[str, Any]]:
 def _fmt_rate(p: float) -> str:
     """Human % for a per-roll pick rate — up to 2 decimals, trailing zeros
     trimmed (e.g. 0.3333 -> '33.33%', 0.15 -> '15%', 0.075 -> '7.5%')."""
-    if p <= 0:
-        return "0%"
-    if p >= 0.9995:
-        return "100%"
-    s = f"{p * 100.0:.2f}".rstrip("0").rstrip(".")
-    return f"{s}%"
+    # Up to 4 decimals since 11 Oct 2026 — one formatter for the whole site.
+    import rate_format
+    return rate_format.fmt_rate(p)
 
 
 class VendorRates:
@@ -2023,7 +2020,9 @@ def _is_camp_storage(edid) -> bool:
 # storage that never rolls the loot list), LVLI (workshop build lists) and FLST.
 _CONT_WORLD_SIGS = {"REFR", "ACHR", "SCOL", "DFOB", "QUST", "QMDL", "MGEF", "RACE",
                     "EXPL", "NPC_", "ACTI", "SCEN", "PACK", "SPEL", "PERK"}
-_CONT_DEV_RE = re.compile(r"^(test|debug|qa_|zz|cut_|del_|deprecated_)|_test_|debug", re.IGNORECASE)
+_CONT_DEV_RE = re.compile(r"^(test|debug|qa_|zz|cut_|del_|deprecated_)|_test_|debug"
+                          # test-server box and script helpers (Oct 2026)
+                          r"|^PTS|SignManager|CounterContainer|SpawnChest$", re.IGNORECASE)
 _LIVE_CONT_CACHE: Dict[str, set] = {}
 
 
@@ -2100,7 +2099,7 @@ def container_types(closure, targets: set, appearance, cont_names: Dict[str, str
         rate = appearance(L, targets)
         if not rate or rate <= 0:
             continue
-        key = round(rate, 4)
+        key = round(rate, 6)            # 4-decimal % granularity (rate_format)
         for nm in names:
             by_name.setdefault(nm, {})[key] = rate
     types = []
@@ -2123,11 +2122,11 @@ def _patch_containers(doc: Dict[str, Any], closure, targets: set,
                             placed_bases=placed_bases)
     if corpse_bodies:
         # Bodies already lying in the world are searched like a container.
-        seen = {(t["name"], round(t["rate"], 4)) for t in types}
+        seen = {(t["name"], round(t["rate"], 6)) for t in types}
         for r in creature_rows(closure, targets, lambda L, t: rates.appearance([L], t),
                                tables.get("lvli_refs", {}), _load_npc_names(npc_dir),
                                corpses=True):
-            k = (r["name"], round(r["rate"], 4))
+            k = (r["name"], round(r["rate"], 6))
             if k not in seen:
                 seen.add(k)
                 types.append({"name": r["name"], "rate": r["rate"], "rate_display": r["rate_display"]})

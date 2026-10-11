@@ -16,15 +16,14 @@ Output, under  <Guides and Stuff>/.Farming - Non Perishable/ :
   <Food>/04 Interior Maps/<cell>_<food-slug>.jpg           maps, 05 Gallery,
   <Food>/05 Gallery, 06 Spawn Photos                       06 Spawn Photos)
   <Food>/<food-slug>_exterior_coords.csv
-  <Food>/<Food> (no rads)/01-04 + coords csv               the rad-free copy,
-                                                           same page
+  Every food on a shared page (a "(no rads)" twin, the Perk Bubblegums, Preserved
+  InstaMash) is drawn on that page's ONE combined map — no sub-folders.
   Pre-War Food/05 Chance Maps/pre-war-food_chance.jpg      the MIXED pre-war
   Pre-War Food/05 Chance Maps/<region-slug>-chance-map.jpg food list — ONE set,
                                                            shared by every page
 
 Site folders (upload the .jpg as is — maps stay JPEG):
   <Food> maps           -> /wp-content/uploads/guide-images/farming-non-perishable/<food-slug>/
-  <Food> (no rads) maps -> /wp-content/uploads/guide-images/farming-non-perishable/<food-slug>/no-rads/
   chance maps           -> /wp-content/uploads/guide-images/farming-non-perishable/pre-war-food/
 The page only shows a map link once that file is on the server.
 
@@ -55,24 +54,20 @@ def safe_folder(name):
 
 
 def food_jobs(out_root):
-    """-> [(page name, food name, food key, folder, regions)] for every food."""
+    """-> [(page name, map title, page slug, folder, regions, page folder)] — ONE
+    job per page. Every food on a shared page (Bubblegum + the Perk Bubblegums,
+    InstaMash + Preserved InstaMash, a food + its "(no rads)" twin) goes on the
+    same combined map (Duchess, 11 Oct 2026)."""
     pages = json.load(open(MANIFEST, encoding="utf-8"))["pages"]
     jobs = []
     for pg in pages:
         doc = json.load(open(os.path.join(DIST, f"{pg['slug']}_spawns.json"), encoding="utf-8"))
         page_dir = os.path.join(out_root, safe_folder(pg["name"]))
-        regions_by_key = {}
         if doc.get("fixed_items") is not None:
-            for fi in doc["fixed_items"]:
-                regions_by_key[fi["key"]] = fi.get("regions") or []
+            regions = [r for fi in doc["fixed_items"] for r in (fi.get("regions") or [])]
         else:
-            regions_by_key[doc.get("food_key")] = doc.get("regions") or []
-        for f in pg["foods"]:
-            folder = page_dir
-            if len(pg["foods"]) > 1 and f["name"].endswith(NO_RADS):
-                folder = os.path.join(page_dir, safe_folder(f["name"]))
-            jobs.append((pg["name"], f["name"], f["key"], folder,
-                         regions_by_key.get(f["key"], []), page_dir))
+            regions = doc.get("regions") or []
+        jobs.append((pg["name"], pg["name"], pg["slug"], page_dir, regions, page_dir))
     return jobs
 
 
@@ -167,7 +162,7 @@ def main():
                     help="skip a food that is already drawn")
     ap.add_argument("--budget-seconds", type=float, default=0,
                     help="stop (exit 3) after this long; run again to carry on")
-    ap.add_argument("--only", help="one food key, e.g. cram")
+    ap.add_argument("--only", help="one page slug, e.g. cram")
     ap.add_argument("--folders-only", action="store_true",
                     help="make every page's folders, draw nothing")
     args = ap.parse_args()

@@ -254,6 +254,10 @@ def main(argv=None):
     bpo.GMRW_QUESTS.clear()
     bpo.GMRW_QUESTS.update(unlock_idx.gmrw_quests)
     bpo.QUEST_TITLES.update(getattr(unlock_idx, "_quests_by_fid", {}))
+    bpo.GMRW_TITLES.clear()
+    bpo.GMRW_TITLES.update(getattr(unlock_idx, "gmrw_titles", {}))
+    bpo.QUEST_TITLES_TIDY.clear()
+    bpo.QUEST_TITLES_TIDY.update(getattr(unlock_idx, "quest_titles_tidy", {}))
     try:
         route_kinds = plan_route_kinds.Ctx(args.data_dir)
     except Exception as exc:                       # noqa: BLE001 - never fatal
@@ -282,7 +286,6 @@ def main(argv=None):
             routes = bpo.collapse_routes(routes)
             routes.sort(key=lambda r: (-(r["rate"] or 0), r["source_type"],
                                        r["route"].lower()))
-            routes = routes[:12]
         if not routes and not unlocks:
             dropped.append(f"{name} [{', '.join(r['edid'] for r in recs)}]")
             continue

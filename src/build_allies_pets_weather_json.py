@@ -356,7 +356,16 @@ def load_tsv(path, encoding="utf-8"):
     return rows
 
 
+# CAMP page key per output file — camp_build_menu stamps buildMenu + pages.
+_CAMP_PAGE = {"weather_stations.json": "weather-stations", "repair-bots.json": "repair-bots",
+              "allies.json": "allies", "pets.json": "pets", "cryos.json": "fridges-cryos",
+              "fridges.json": "fridges-cryos", "dispensers.json": "dispensers"}
+
+
 def save_json(filename, data):
+    if filename in _CAMP_PAGE and isinstance(data, dict):
+        import camp_build_menu
+        camp_build_menu.annotate(data.get("items"), _CAMP_PAGE[filename], args.tsv_dir)
     path = OUT_DIR / filename
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)

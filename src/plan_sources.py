@@ -140,7 +140,11 @@ _EMPTY_REF_SIGS = {"COBJ", "FLST"}
 # LLV_Vendor_Weapons was named "Vin (Weapons vendor)" off that test chest.
 _RX_DEV_RECORD = re.compile(
     r"^(babylon|zw|zz|test|\d*qa|debug|cut|del|deleted|post|template)"
-    r"|(test|debug|_qa_|excludelist)", re.I)
+    r"|(test|debug|_qa_|excludelist)"
+    # Script helpers that hold a list but are never a place a player goes:
+    # EN05_UniformSpawnChest (dresses an NPC), PTSItemBox (test-server chest),
+    # FlipCardSignManager_CounterContainer (counts items for a sign).
+    r"|(spawnchest$|^ptsitembox|countercontainer|runoncondition)", re.I)
 
 
 def is_dev_record(edid):
@@ -194,6 +198,16 @@ CONFIRMED_CUT_SOURCES = (
 CONFIRMED_CUT_SOURCE_PATTERNS = (
     (re.compile(r"mole_?miner.*mystery_?crate|mystery_?crate.*mole_?miner|^mile\w*?_.*mystery_?crate", re.I),
      "the Mole Miner Mystery Crate", "the Mole Miner Mystery Crate is cut content"),
+    # Quickplay PvP - Free For All, Team Death Match and their One Life /
+    # Hunter-Hunted children (Duchess, 11 Oct 2026: cut content). Their reward
+    # lists (LL_Quickplay_*) and reward records (QuestReward_QP_PvP_*) are
+    # still wired up, so nothing else marks them.
+    (re.compile(r"(?:^|_)quickplay_|(?:^|_)qp_pvp", re.I),
+     "Quickplay PvP (Free For All / Team Death Match)", "Quickplay PvP is cut content"),
+    # The Irrational Fear activity's vendor, Beckham (SFZ08_Fear_VendorChest_*;
+    # Duchess, 11 Oct 2026: cut content).
+    (re.compile(r"^sfz08_fear_vendor", re.I),
+     "the Irrational Fear vendor", "the Irrational Fear vendor is cut content"),
 )
 
 
@@ -1015,6 +1029,26 @@ _POOL_RULES = [
     # Bunker_LPI_Recipes_Mod_Weapon_AlienBlaster_AmmoConv ...
     (re.compile(r"^(?:[A-Za-z0-9]+_)?LPI_Recipes_.+$", re.I),
      lambda m: "Plans lying in the world"),
+    # Any other loose item placed in the world (Oct 2026: "Clothes Headwear
+    # Western Hat 02a" means nothing to a reader). The EditorID only says what
+    # KIND of spot it is; the rate on the row says how often it is that item.
+    #   LPI_76CharGenONLY_Kiosk_Glasses -> only at the start of the game
+    (re.compile(r"^(?:[A-Za-z0-9]+_)?LPI_\d*CharGen", re.I),
+     lambda m: "Vault 76 (start of the game only)"),
+    #   LPI_Clothes_LocTheme, LC043_LPI_Clothes_LocTheme_Raider -> themed spots
+    #   (the Drop Conditions line says which theme)
+    (re.compile(r"^(?:[A-Za-z0-9]+_)?LPI_(?P<k>[A-Za-z_]*?)_?LocTheme", re.I),
+     lambda m: f"Lying in the world (random {_lpi_kind(m['k'], plural=True)} in themed places)"),
+    #   LPI_Clothes_Headwear_Any_Hats -> any hat spot
+    (re.compile(r"^(?:[A-Za-z0-9]+_)?LPI_(?P<k>[A-Za-z_]+?)_(?:Any|All)(?:_[A-Za-z]+)?$", re.I),
+     lambda m: f"Lying in the world (random {_lpi_kind(m['k'])} spots)"),
+    #   LPI_Clothes_Headwear_Western_Hat_02a, LPI_Armor_WeddingRing ...
+    (re.compile(r"^(?:[A-Za-z0-9]+_)?LPI_.+$", re.I),
+     lambda m: "Lying in the world"),
+    # An item dispenser placed for a quest or event (the clown dispensers in
+    # Crack the Code, the Rat Race collar dispenser).
+    (re.compile(r"^(?P<pre>[A-Za-z0-9]+_)?(?:LL_)?[A-Za-z_]*?Dispenser$", re.I),
+     lambda m: "Item dispenser"),
     # LLE_Creature_Boss_Small(_Dynamic) -> boss enemies, by loot size
     (re.compile(r"^LLE_Creature_Boss_(?P<s>Small|Medium|Large)(?:_Dynamic)?$", re.I),
      lambda m: f"Boss enemies ({m['s'].lower()} loot)"),
@@ -1023,9 +1057,32 @@ _POOL_RULES = [
     (re.compile(r"^RA_LL_Rewards_EnclaveActivities$", re.I), lambda m: "Enclave activity rewards"),
     (re.compile(r"^QuestReward_LLS_Schematic_Armor_Raider$", re.I),
      lambda m: "Raider quest rewards - armour plans"),
+    # A C.A.M.P. ally's repeatable quests. The quest titles are filled in at
+    # runtime (<Alias=QuestNameOverride>), so the list family names them:
+    # W05_COMP_RQ_Fetch_LL_Quest_Reward -> "Ally repeatable quests (fetch)".
+    (re.compile(r"^(?:[A-Za-z0-9]+_)?COMP_RQ_(?P<k>Fetch|Kill|Rescue)", re.I),
+     lambda m: f"Ally repeatable quests ({m['k'].lower()})"),
     # Treasure map mounds
     (re.compile(r"^LL_TreasureMap_Reward$", re.I), lambda m: "Treasure Map dig spots"),
 ]
+
+
+_LPI_KIND = [("headwear", "hat"), ("hats", "hat"), ("hat", "hat"), ("eyewear", "glasses"),
+             ("glasses", "glasses"), ("facemask", "mask"), ("mask", "mask"),
+             ("armor", "armour"), ("clothes", "clothing"), ("outfit", "clothing")]
+
+
+def _lpi_kind(tokens, plural=False):
+    """'Clothes_Headwear' -> 'hat'. The most specific word wins."""
+    t = (tokens or "").lower().replace("_", "")
+    word = "item"
+    for key, w in _LPI_KIND:
+        if key in t:
+            word = w
+            break
+    if plural and word in ("hat", "mask", "item"):
+        word += "s"
+    return word
 
 
 _RX_SCHEMATIC_ANY = re.compile(r"^QuestReward_LLS_Schematic_(?P<rest>.+)$", re.I)
@@ -1037,7 +1094,13 @@ def pool_label(edid, quests=None):
     for rx, fn in _POOL_RULES:
         m = rx.match(e)
         if m:
-            return re.sub(r"\s+", " ", fn(m)).strip()
+            out = re.sub(r"\s+", " ", fn(m)).strip()
+            pre = (m.groupdict().get("pre") or "").strip("_")
+            if out == "Item dispenser" and pre and pre.upper() != "LL":
+                head = source_label(pre, quests)
+                if head and head != out and not looks_like_wiring(head):
+                    out = f"{head.split(' - ')[0]} - item dispenser"
+            return out
     # Any other schematic pool belongs to one quest or event: name that, and
     # say it pays plans. QuestReward_LLS_Schematic_CB15_Special -> CB15 is
     # Scorched Earth in the QUEST export.
@@ -1054,10 +1117,10 @@ def pool_label(edid, quests=None):
 # "GQ10", "MILE") or a pool word. Only used to decide whether the quest that
 # pays the list out would name it better — never to drop a route.
 _RX_WIRING_WORDS = re.compile(
-    r"\b(?:Schematic|GRP|Grab Bag|MainRoll|Roll|Priority|Regions)\b"
+    r"\b(?:Schematic|GRP|Grab Bag|MainRoll|Roll|Priority|Regions|Clothes)\b"
     r"|(?<![\w.])[A-Z]{2,5}\d{0,3}[A-Z]?\d*(?![\w.])"
     r"|(?<![\w.])[A-Z][A-Za-z]{0,3}\d{2,3}(?![\w.])")
-_WIRING_OK = {"ATLAS", "NWOT", "ENB", "BOS", "PA", "XP", "AI", "UFO", "TV", "OK"}
+_WIRING_OK = {"ATLAS", "NWOT", "ENB", "BOS", "PA", "XP", "AI", "UFO", "TV", "OK", "AWOL"}
 
 
 def looks_like_wiring(label):
@@ -1082,6 +1145,67 @@ def strip_alias_suffix(title):
         if u == t:
             return u
         t = u
+
+
+_RX_ALIAS_ANY = re.compile(r"<[^<>]*>")
+
+
+def tidy_quest_title(title):
+    """A quest title fit to print, with the game's runtime fill-ins removed.
+
+    Some reward records are filed under titles the game finishes at runtime:
+        "Activity: Powering Up <Alias=PowerPlantTitleNameLocation>"
+        "Activity: <Alias.Race=Alpha> Horde: <Alias=Region>"
+    usable_quest_name() rightly refuses those as they stand. For LISTING which
+    activities pay a pool out the name without the fill-in is still the name
+    a player knows ("Activity: Powering Up", "Activity: Horde"). Returns ""
+    when what is left is not a usable title.
+    """
+    t = strip_alias_suffix(title)
+    # Unmarked quests are filed as "[Misc - A Perfect Getaway]" (P01B_Mini_
+    # Squatch01; Duchess, 11 Oct 2026: "this is what we call an Unmarked
+    # Quest"). The bracket is the game's marker for that, not a dev note.
+    m = re.match(r"^\s*\[\s*Misc(?:ellaneous)?\s*-\s*([^\[\]<>]+?)\s*\]\s*$", t or "", re.I)
+    if m:
+        t = "Unmarked Quest: " + m.group(1)
+    t = _RX_ALIAS_ANY.sub(" ", t or "")
+    t = re.sub(r"\s+", " ", t).strip()
+    t = re.sub(r"\s*[:,\-]+$", "", t).strip()
+    t = re.sub(r":\s*:", ":", t)
+    return usable_quest_name(t)
+
+
+def payer_titles(lists, lvli_refs, gmrw_titles, quest_titles):
+    """Who pays these leveled lists out DIRECTLY, by name.
+
+    Returns (titles, other): `titles` are the printable names of the GMRW
+    reward records / QUST records that roll the lists themselves (one level,
+    no walking up: a parent list publishes its own row), sorted and
+    de-duplicated, with the "Repeatable: " prefix turned into the site's usual
+    " (Repeatable)" suffix. `other` is True when something else also rolls the
+    lists directly (an NPC, a placed reference, a reward record whose title
+    cannot be printed) - then the pool's own row must stay as well.
+    """
+    titles, other = [], False
+    for L in lists or ():
+        for rf, redid, rsig in (lvli_refs.get(L) or lvli_refs.get(str(L).upper()) or ()):
+            if (rsig == "LVLI" or is_dev_record(redid) or _RX_DEV_RECORD.search(redid or "")
+                    or cut_source(redid)):
+                continue
+            rf = (rf or "").upper()
+            t = (gmrw_titles.get(rf) if rsig == "GMRW"
+                 else quest_titles.get(rf) if rsig == "QUST" else None)
+            if rsig in ("FLST",):
+                continue
+            if not t:
+                other = True
+                continue
+            m = re.match(r"^\(?Repeatable\)?:?\s+(.*)$", t)
+            if m:
+                t = m.group(1).strip() + " (Repeatable)"
+            if t not in titles:
+                titles.append(t)
+    return sorted(titles, key=str.lower), other
 
 
 def direct_quest_label(entries, gmrw_quests, quest_titles):
@@ -1616,6 +1740,11 @@ class UnlockIndex:
         self._quests_by_fid = {}
         self._gmrw_by_fid = {}
         self.gmrw_quests = {}   # GMRW FormID -> printable ParentQuestDisplay
+        # GMRW FormID -> printable title, runtime <Alias=...> slots tidied away
+        # ("Activity: Powering Up <Alias=...>" -> "Activity: Powering Up").
+        # Only used to LIST the quests/activities that pay a shared pool out.
+        self.gmrw_titles = {}
+        self.quest_titles_tidy = {}   # QUST FormID -> tidied FULL (same idea)
         self._gmrw_rewards = collections.defaultdict(list)
         self._names = {}          # FormID -> FULL/EDID for CONT, TERM, NPC_
         self._locations = {}
@@ -1647,6 +1776,9 @@ class UnlockIndex:
                     full = (r.get("FULL - Name") or "").strip()
                     if fid and usable_quest_name(full):
                         self._quests_by_fid[fid] = full
+                    tidy = tidy_quest_title(full)
+                    if fid and tidy:
+                        self.quest_titles_tidy[fid] = tidy
 
         gf = newest("GMRW_Export_*.tsv", tsv_root)
         if gf:
@@ -1672,6 +1804,9 @@ class UnlockIndex:
                         qname = qname or rec["quest"]
                         if usable_quest_name(qname):
                             self.gmrw_quests[fid] = qname
+                        tidy = tidy_quest_title(qname)
+                        if tidy:
+                            self.gmrw_titles[fid] = tidy
                     item = (r.get("RewardedItem") or "").strip()
                     if item:
                         self._gmrw_rewards[item.split(":")[0].strip().upper()].append(rec)

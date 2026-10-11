@@ -196,11 +196,10 @@ def world_spawn_rate():
     return None, "", None
 
 
-def pct(v, places=2):
-    if v is None:
-        return ""
-    s = f"{v * 100:.{places}f}".rstrip("0").rstrip(".")
-    return (s or "0") + "%"
+def pct(v, places=4):
+    """0..1 -> '0.0078%' (rate_format: up to 4 decimals site-wide)."""
+    import rate_format
+    return rate_format.fmt_rate(v, places)
 
 
 def r6(v):

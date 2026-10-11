@@ -779,7 +779,8 @@ _CHEM_ITEMS = {
 }
 _CANDY_ITEMS = {"sugarbombs", "fancyladsnackcakes", "dandyboyapples"}
 _DRINK_TOKENS = ("brew_", "whiskey", "bourbon", "beer", "lager", "pilsner", "ale_",
-    "nukacola", "nukavictory", "nukaquantum", "_tea", "companytea", "coffee")
+    "nukacola", "nukavictory", "nukaquantum", "_tea", "companytea", "coffee",
+    "sarsaparilla")
 
 def _item_bucket(edid):
     """Classify a single produced item EDID into one output-type bucket."""
@@ -1651,6 +1652,11 @@ def main():
         print("  public-workshop built-ins kept off the CAMP page ({}): {}".format(
             len(ws_items), ", ".join(sorted({i.get("displayName") or "" for i in ws_items}))),
             file=sys.stderr)
+    # Build Menu path + CAMP page per item (Producers / Water / Food split).
+    import camp_build_menu
+    tsv_dir = args.tsv_root or "tsv"
+    camp_build_menu.annotate(col_items, "collectrons", tsv_dir)
+    camp_build_menu.annotate(res_items, "resource-producers", tsv_dir)
     for fname, typ, items in [("collectrons.json", "collectrons", col_items),
                                ("resource_producers.json", "resource_producers", res_items),
                                ("workshop_producers.json", "workshop_producers", ws_items)]:

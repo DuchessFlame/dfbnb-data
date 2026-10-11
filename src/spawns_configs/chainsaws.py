@@ -607,7 +607,7 @@ def build_vendors(closure, targets, appearance_fn):
             "region": v.get("region", ""),
             "tier": "guaranteed" if rate and rate >= 0.999 else "chance",
             "rate": rate,
-            "rate_display": (f"{rate * 100:.2f}%".rstrip("0").rstrip(".") if rate else ""),
+            "rate_display": (__import__("rate_format").fmt_rate(rate) if rate else ""),
         })
     out.sort(key=lambda v: (v["region"], v["name"].lower()))
     return out

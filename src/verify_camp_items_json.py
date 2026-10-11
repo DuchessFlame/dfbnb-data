@@ -68,6 +68,13 @@ CONTRACT = {
         "required": ["formId", "displayName", "obtainRoutes", "buildInfo", "bucket"],
         "coverage": {"production": 0.90, "station": 0.90},
     },
+    # Every Build Menu object no other builder covers (Services / Water /
+    # Producers) — build_build_menu_items_json.py. Base-game items have no
+    # entitlement art, so the image floor is lower than the Atom Shop pages.
+    "build_menu_items.json": {
+        "required": ["formId", "displayName", "obtainRoutes", "buildInfo", "bucket", "pages"],
+        "coverage": {"imageUrl": 0.75, "craftingRequirements": 0.50},
+    },
     "repair-bots.json": {
         "required": ["formId", "displayName", "obtainRoutes", "buildInfo"],
         "coverage": {"imageUrl": 0.90, "craftingRequirements": 0.90},

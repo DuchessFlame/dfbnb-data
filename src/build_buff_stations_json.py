@@ -1474,6 +1474,10 @@ def apply_rested(it):
 for _it in items_out:
     apply_rested(_it)
 
+# Build Menu path + CAMP page (Player Buffs / Instruments / Services) per item.
+import camp_build_menu  # noqa: E402
+camp_build_menu.annotate(items_out, "buff-stations", args.tsv_dir)
+
 # ---------------------------------------------------------------- write
 data = {"groups": GROUPS, "items": items_out}
 OUT.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")

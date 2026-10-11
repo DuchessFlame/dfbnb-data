@@ -395,12 +395,8 @@ def detect(closure, parent_edid, c2p=None, tsv_root=None, registry=None):
 def _fmt_pct(p: float) -> str:
     if p is None or p <= 0:
         return "0%"
-    if p >= 0.9995:
-        return "100%"
-    if p * 100.0 < 0.01:            # positive but below display precision
-        return "<0.01%"
-    s = f"{p * 100.0:.2f}".rstrip("0").rstrip(".")
-    return f"{s}%"
+    import rate_format              # up to 4 decimals site-wide
+    return rate_format.fmt_rate(p)
 
 
 def resolve_event_rates(events, targets, appearance_fn):

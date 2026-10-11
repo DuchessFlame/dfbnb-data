@@ -31,6 +31,14 @@ Run it after dropping new TSVs and BEFORE starting a build:
     python3 src/check_source_labels.py                 # live
     python3 src/check_source_labels.py --data-dir tsv/pts
     python3 src/check_source_labels.py --list          # print every label
+    python3 src/check_source_labels.py --built dist/plan_master.json dist/no_plan_apparel.json
+
+--built lints what a build actually PUBLISHED. The EditorID sweep only sees
+source_label(); everything after it (fixed-spawn names, vendor shaping, the
+payer expansion, container names) was unchecked, and that is how "Clothes
+Headwear Western Hat 02a", "RunOnCondition", "Boss Drop Effect Large" and
+"Travel TS01 General vendor" reached the pages while this script said PASS
+(Duchess, 11 Oct 2026).
 
 Exits non-zero when it finds a leak, so CI can gate on it.
 """
@@ -73,6 +81,45 @@ LEAK = re.compile(
     r"|^Schematic\b")
 
 
+# Extra wording that only shows up AFTER the resolver has shaped a name: item
+# categories read straight off an EditorID, script containers, test boxes,
+# and a magic effect standing in for an enemy. Checked on --built output.
+BUILT_LEAK = re.compile(
+    r"\bClothes (?:Headwear|Loc|Single|Soldier|Profession|Pre War)\b|\bLoc Theme\b"
+    r"|\bLLC\b|RunOnCondition|Item condition|PTS Item Box|Flip Card Counts"
+    r"|\bDrop Effect\b|Uniform Spawn|Vendor - Merchant|^Outfit\b|CharGen|Char Gen")
+
+
+def lint_built(paths):
+    """Every route name, unlock sentence and condition line a build wrote."""
+    import json
+    leaks = collections.Counter()
+    def walk(o):
+        if isinstance(o, dict):
+            if "obtain_routes" in o:
+                yield o
+            for v in o.values():
+                yield from walk(v)
+        elif isinstance(o, list):
+            for v in o:
+                yield from walk(v)
+    n = 0
+    for p in paths:
+        with open(p, encoding="utf-8") as f:
+            doc = json.load(f)
+        for it in walk(doc):
+            for r in it.get("obtain_routes") or []:
+                n += 1
+                lab = r.get("route") or ""
+                if LEAK.search(lab) or BUILT_LEAK.search(lab) or plan_sources.looks_like_wiring(lab):
+                    leaks[f"{os.path.basename(p)}: {lab}"] += 1
+                for c in r.get("conditions") or []:
+                    if BUILT_LEAK.search(c or ""):
+                        leaks[f"{os.path.basename(p)} (condition): {c}"] += 1
+    print(f"[labels] --built: {n} published route(s) checked in {len(paths)} file(s)")
+    return leaks
+
+
 # Quest titles are written by humans, so they are linted for editor scaffolding
 # rather than for wiring tokens. See plan_sources.usable_quest_name().
 TITLE_LEAK = re.compile(
@@ -84,7 +131,19 @@ def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--data-dir", default=os.path.join(os.path.dirname(HERE), "tsv"))
     ap.add_argument("--list", action="store_true", help="print every distinct label")
+    ap.add_argument("--built", nargs="+", default=None,
+                    help="lint the route names in built JSON instead (plan_master.json, ...)")
     args = ap.parse_args(argv)
+
+    if args.built:
+        leaks = lint_built(args.built)
+        if leaks:
+            print(f"[labels] FAIL — {sum(leaks.values())} published name(s) still read like editor wiring:")
+            for l, n in leaks.most_common():
+                print(f"    {n:5}  {l}")
+            return 1
+        print("[labels] PASS — every published route name reads as a player-facing name")
+        return 0
 
     qf = tsv_source.newest(os.path.join(args.data_dir, "QUEST_Export_*.tsv"), required=False)
     quests = plan_sources.QuestNames(qf) if qf else plan_sources.QuestNames()
