@@ -135,6 +135,17 @@ def build(items, tsv_dir="tsv"):
                for it in items
                if (it.get("plan_page") == "weapon" or (it.get("type") == "weapon"))
                and not it.get("unique_version")}
+    # Unreleased uniques that already have a plan row (Chaos Engine, Tempest,
+    # Splinter) carry the pill on that row instead.
+    unrel = {_norm(u.get("name")) for u in doc.get("items") or [] if u.get("unreleased")}
+    for it in items:
+        if it.get("unique_version"):
+            continue
+        if _norm(it.get("display_name") or it.get("name")) in unrel and (
+                it.get("plan_page") == "weapon" or it.get("type") == "weapon"):
+            it["unreleased"] = True
+        else:
+            it.pop("unreleased", None)
     files = server_images()
     rows, stats, seen = [], {"emitted": 0, "has_plan_row": 0, "with_image": 0}, set()
     for u in doc.get("items") or []:
@@ -156,9 +167,18 @@ def build(items, tsv_dir="tsv"):
             if not r.get("populated"):
                 continue
             s, gone = _sentence(r.get("route"), r.get("lines") or [])
+            # History note (build_unique_weapons_armour_json: obtainNote).
+            for l in r.get("lines") or []:
+                if l.lower().startswith("note:") and "player trading only" not in s.lower():
+                    s += " " + l.split(":", 1)[1].strip()
             unlocks.append(s)
             retired = retired or gone
             tag = tag or ROUTE_TAG.get(r.get("route"))
+        # Drop Conditions per live route, as read by the uniques builder.
+        conds = [{"route": r.get("route"), "conditions": r.get("conditions") or [],
+                  "checked": r.get("conditionsChecked")}
+                 for r in u.get("obtainRoutes") or []
+                 if r.get("populated") and "conditionsChecked" in r]
         img = image_for(name, files)
         row = {
             "kind": "plan", "brand": "df", "type": "weapon",
@@ -178,6 +198,10 @@ def build(items, tsv_dir="tsv"):
             "cut": False, "cut_reason": None, "changes": [],
             "plan_page": "weapon", "plan_page_group": None,
         }
+        if conds:
+            row["drop_conditions"] = conds
+        if u.get("unreleased"):
+            row["unreleased"] = True
         if retired and len(unlocks) == 1:
             row["not_obtainable"] = True
         elif tag:

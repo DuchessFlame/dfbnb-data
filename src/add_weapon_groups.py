@@ -222,6 +222,10 @@ ALIASES = {
     "HuntingRifle": "Hunting Rifle", "AssaultRifle": "Assault Rifle",
     "SingleActionRevolver": "Single Action Revolver",
     "BlackPowder_Rifle": "Black Powder Rifle", "Blackpowder_Pistol": "Black Powder Pistol",
+    # The Blunderbuss is its own weapon (Duchess, 11 Oct 2026). Three segments,
+    # so it beats "Blackpowder_Pistol" at the same position.
+    "Blackpowder_Pistol_Blunderbuss": "Black Powder Blunderbuss",
+    "Blunderbuss": "Black Powder Blunderbuss",
     "BearArm": "Bear Arm", "WarGlaive": "War Glaive", "WarDrum": "War Drum",
     "WarShrike": "War Shrike", "PlasmaCaster": "Plasma Caster", "PlasmaSword": "Plasma Cutter",
     "TeslaCannon": "Tesla Cannon", "Cryolator": "Cryolator", "Broadsider": "Broadsider",

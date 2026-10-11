@@ -383,7 +383,7 @@ class ObtainIndex:
             route, label, shown = self._source_label(list_fid, list_edid)
             if not route:
                 continue
-            out.append((route, label or self._pretty(shown), what))
+            out.append((route, label or self._pretty(shown), what, list_fid, fid))
         return out
 
     def _reward_lines(self, fid, what):
@@ -392,7 +392,9 @@ class ObtainIndex:
             route, label = self._classify(ed)
             if not route:
                 route = "Quests"
-            out.append((route, quest or label or self._pretty(ed), what))
+            # A GMRW hands the item over directly: no leveled-list entry, so
+            # no list to read conditions from (list_fid None).
+            out.append((route, quest or label or self._pretty(ed), what, None, fid))
         return out
 
     # -- the item --------------------------------------------------------
@@ -426,12 +428,15 @@ class ObtainIndex:
 
         # Group by route so "weapon and plan" reads as one entry rather than
         # the same source printed twice.
-        grouped = defaultdict(lambda: {"sources": [], "what": set()})
-        for route, label, what in hits:
+        grouped = defaultdict(lambda: {"sources": [], "what": set(), "paths": []})
+        for route, label, what, list_fid, target in hits:
             g = grouped[route]
             if label not in g["sources"]:
                 g["sources"].append(label)
             g["what"].add(what)
+            # (list, record) pairs this route came from — read later for
+            # Drop Conditions (build_unique_weapons_armour_json).
+            g["paths"].append([list_fid, target])
 
         for route, g in grouped.items():
             lines = [_drops_line(g["what"], item.get("kind"))]
@@ -441,6 +446,9 @@ class ObtainIndex:
                 lines.append(f"Plan: {plan['name']}")
             _put(routes, route, lines,
                  tradeable=item.get("tradeable"), drop="N/A")
+            for entry in routes:
+                if entry["route"] == route:
+                    entry["paths"] = g["paths"]
 
         if plan:
             gold = self.gv.route_for_plan(plan["fid"])

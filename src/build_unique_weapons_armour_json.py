@@ -59,6 +59,15 @@ INCLUDE_COSMETICS = False
 # (legacy Survival rewards and the like) and are deliberately kept.
 INCLUDE_CUT = False
 
+# Uniques confirmed cut in game even though the files still reference them.
+# Normalised names (norm_name). Keep this short — a file-based rule wins.
+CUT_BY_HAND = {"crimsonsky"}
+
+# In the files but not released in game yet (Duchess, 11 Oct 2026). Kept on the
+# page with an "Unreleased" pill rather than hidden, so they are ready the day
+# they ship. Normalised names.
+UNRELEASED_BY_HAND = {"chaosengine", "tempest", "splinter"}
+
 SRC_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SRC_DIR.parent
 TSV_DIR = REPO_ROOT / "tsv"
@@ -668,7 +677,12 @@ def load_gmrw_quest(channel):
     return out
 
 
-_VAGUE_SCORE = re.compile(r"^\s*score season reward\s*$", re.I)
+_VAGUE_SCORE = re.compile(r"^\s*score season reward\s*(\([^)]*\))?\s*$", re.I)
+
+# Uniques whose own leveled list is named differently from the unique
+# (normalised unique name -> list EDID). Anchorage Ace's list is
+# LL_Weapon_Ranged_Silenced10mmSMG, in the Neurological Warfare reward pool.
+OWN_LIST_ALIAS = {"anchorageace": "LL_Weapon_Ranged_Silenced10mmSMG"}
 _SCORE_WEAP_ENTM = re.compile(
     r"^SCORE_(?:S(\d+)|MiniSeason_(?:\d{4}_)?([A-Za-z]+?))_(?:ENTM_)?Weapons?_(?:.*_)?([A-Za-z0-9]+)$", re.I)
 
@@ -702,6 +716,20 @@ def _seasonal_drops():
     return out
 
 
+def _former_name(it, weap_combos):
+    """A named combination on the unique's own WEAP that starts like its name
+    but is not it ("Xerxo's Gamma Ray Gun" for Xerxos) — the older name."""
+    if not weap_combos:
+        return None
+    key = norm_name(it.get("name"))
+    for combo in (weap_combos.get(norm_formid(it.get("formId") or "")) or {}).values():
+        full = (combo or {}).get("full") or ""
+        n = norm_name(full)
+        if n and n != key and len(key) >= 5 and n.startswith(key[:5]):
+            return full
+    return None
+
+
 def _score_weapon_seasons(channel):
     """{normalised name: "Season 17" | "Love Hurts mini-season"} from the
     SCORE_*_ENTM_Weapons_* entitlements, keyed on their last EditorID token
@@ -730,7 +758,102 @@ def _score_weapon_seasons(channel):
     return out
 
 
-def fill_sources(items, channel):
+_DEAD_LIST = re.compile(r"(^|_)(zzz|CUT|DONOTUSE|DEL)(_|$)|^zzz", re.I)
+_SKIP_PARENT = re.compile(r"^LL_Weapon_Unique_All$", re.I)
+
+
+def _event_lists(channel):
+    """Walk from a unique's own leveled list (LL_Weapon_Ranged_RedTerror,
+    SCORE_S7_LL_GammaGun_Xerxos ...) up to the event or quest that hands it
+    out. Returns (own_lists, find) where own_lists maps the normalised list
+    tail -> list EDID and find(edid) -> [event names].
+
+    The quest is read from the GMRW's own QUST reference, NOT its
+    ParentQuestDisplay: Dangerous Pastimes' reward row says "Neurological
+    Warfare" there (the Skyline Valley region boss it is filed under)."""
+    lv = pick("LVLI_Export_*_LVLI_Entries.tsv", channel)
+    gm = pick("GMRW_Export_*.tsv", channel)
+    qu = pick("QUST2_Export_*_Quests.tsv", channel)
+    if not (lv and gm and qu):
+        return {}, (lambda e: [])
+    qname = {}
+    for r in read_tsv(qu):
+        full = strip_q(r.get("FULL", ""))
+        if full and "<" not in full and "[" not in full:
+            qname[norm_formid(r.get("FormID", ""))] = re.sub(r"^\s*Event:\s*", "", full)
+    reward_of = defaultdict(set)              # list EDID -> quest names
+    for r in read_tsv(gm):
+        if _DEAD_LIST.search(strip_q(r.get("EDID", ""))):
+            continue
+        item = strip_q(r.get("RewardedItem", ""))
+        if not item.endswith(":LVLI"):
+            continue
+        q = None
+        for k, v in r.items():
+            v = strip_q(v or "")
+            if (k or "").startswith("Ref") and v.endswith(":QUST"):
+                q = qname.get(norm_formid(v.split(":")[0]))
+                if q:
+                    break
+        if not q:
+            link = strip_q(r.get("ParentQuestLink", ""))
+            q = qname.get(norm_formid(link.split(":")[0])) if link else None
+        if q:
+            reward_of[item.split(":")[1]].add(q)
+    parents = defaultdict(set)                # child EDID -> parent list EDIDs
+    own = {}
+    for r in read_tsv(lv):
+        vals = list(r.values())
+        par = strip_q(vals[1] if len(vals) > 1 else "")
+        child = next((strip_q(v) for v in vals if strip_q(v or "").endswith(":LVLI")), "")
+        if not par or not child:
+            continue
+        ced = child.split(":")[1]
+        parents[ced].add(par)
+        for ed in (ced, par):
+            tail = ed.rsplit("_", 1)[-1]
+            if not _DEAD_LIST.search(ed):
+                own.setdefault(norm_name(tail), ed)
+                # "TheVATSUnknown" has no space for norm_name to drop "the "
+                # from, so key it the way the unique's name normalises too.
+                own.setdefault(norm_name(re.sub(r"^The(?=[A-Z])", "", tail)), ed)
+
+    def tops(edid):
+        """[(event name, reward list EDID)] for every live way up from edid."""
+        seen, out, frontier = {edid}, [], [edid]
+        for _ in range(5):
+            nxt = []
+            for ed in frontier:
+                for q in sorted(reward_of.get(ed, ())):
+                    if (q, ed) not in out:
+                        out.append((q, ed))
+                for p in parents.get(ed, ()):
+                    if p in seen or _DEAD_LIST.search(p) or _SKIP_PARENT.match(p):
+                        continue
+                    seen.add(p)
+                    nxt.append(p)
+            frontier = nxt
+        return out
+    def find(edid):
+        seen, out, frontier = {edid}, [], [edid]
+        for _ in range(5):
+            nxt = []
+            for ed in frontier:
+                for q in sorted(reward_of.get(ed, ())):
+                    if q not in out:
+                        out.append(q)
+                for p in parents.get(ed, ()):
+                    if p in seen or _DEAD_LIST.search(p) or _SKIP_PARENT.match(p):
+                        continue
+                    seen.add(p)
+                    nxt.append(p)
+            frontier = nxt
+        return out
+    find.tops = tops
+    return own, find
+
+
+def fill_sources(items, channel, weap_combos=None):
     """Give a source to uniques the reuse foundation left unconfirmed or vague.
 
     * a seasonal event reward page lists the weapon -> "Event: <event>"
@@ -742,14 +865,38 @@ def fill_sources(items, channel):
     """
     events = _seasonal_drops()
     seasons = _score_weapon_seasons(channel)
+    own_lists, find_events = _event_lists(channel)
     for it in items:
         if it.get("kind") != "Weapon":
             continue
         how = str(it.get("howToObtain") or "").strip()
-        weak = (not how or "unconfirmed" in how.lower() or _VAGUE_SCORE.match(how))
+        # Only sources that are missing, a bare "Score Season reward", or a
+        # vague "World drop" are filled. Many uniques sit in shared unique
+        # pools that several events roll, so walking up the lists for an item
+        # that already has a checked source (Holy Fire, Gunther's Revolver,
+        # the Treasure Hunter rewards) names the wrong event — tried and
+        # reverted, 11 Oct 2026.
+        weak = (not how or "unconfirmed" in how.lower() or _VAGUE_SCORE.match(how)
+                or how.lower().startswith("world drop"))
         if not weak:
             continue
         key = norm_name(it.get("name"))
+        # 1. the unique's own leveled list, walked up to the event that gives it
+        own = own_lists.get(key) or OWN_LIST_ALIAS.get(key)
+        evs = find_events(own) if own else []
+        if evs:
+            it["howToObtain"] = "Event: " + " / ".join(evs)
+            it["sourceType"], it["sourceRef"] = "Event", evs[0]
+            note = []
+            m = re.match(r"^SCORE_S(\d+)_", own or "", re.I)
+            if m:
+                note.append(f"First released as a Season {int(m.group(1))} Scoreboard reward")
+            old = _former_name(it, weap_combos)
+            if old:
+                note.append(f"it was called {old} back then" if note else f"It used to be called {old}")
+            if note:
+                it["obtainNote"] = ", ".join(note) + "."
+            continue
         if key in events:
             ev, trade = events[key]
             it["howToObtain"], it["sourceType"], it["sourceRef"] = f"Event: {ev}", "Event", ev
@@ -762,6 +909,119 @@ def fill_sources(items, channel):
             if where:
                 it["howToObtain"] = f"Score: {where} Scoreboard"
                 it["sourceType"], it["sourceRef"] = "Score", where
+
+
+def report_source_changes(out_path, output):
+    """Print every unique whose source, tradeable flag or presence changed
+    against the file about to be replaced.
+
+    A safety net, added 11 Oct 2026 after a source rule that looked right on
+    five items quietly renamed the event on 35 others. A short list here is
+    a change you meant; a long one is a rule that reached too far — read it
+    before pushing."""
+    try:
+        old = {x["name"]: x for x in json.load(open(out_path, encoding="utf-8")).get("items") or []}
+    except (OSError, ValueError):
+        return
+    new = {x["name"]: x for x in output.get("items") or []}
+
+    def src(x):
+        return [(r.get("route"), [l for l in r.get("lines") or []
+                                  if l.startswith(("Source", "Note"))])
+                for r in x.get("obtainRoutes") or [] if r.get("populated")]
+    lines = []
+    for name in sorted(set(old) | set(new)):
+        a, b = old.get(name), new.get(name)
+        if not a or not b:
+            lines.append(f"    {'added' if b else 'REMOVED'}: {name}")
+        elif src(a) != src(b) or a.get("tradeable") != b.get("tradeable"):
+            lines.append(f"    changed: {name}: {src(a)} -> {src(b)}")
+    print(f"  Source changes vs last build: {len(lines)}")
+    for l in lines[:60]:
+        print(l)
+    if len(lines) > 15:
+        print("  WARNING: more than 15 uniques changed source — check a rule did "
+              "not reach further than meant before pushing.")
+
+
+def attach_conditions(items, channel):
+    """Drop Conditions for every unique's live How to Obtain routes.
+
+    Same reader the plan pages use (plan_conditions.ConditionIndex): level
+    gates, "only after you learn X", quest-completed gates, region and event
+    switches. Read on the exact leveled list each route came from
+    (uwa_obtain records it as route["paths"] = [[list FormID, record], ...]),
+    so a unique in a shared pool gets the conditions of the way in the route
+    names, not another event's. Duchess, 11 Oct 2026: conditions are checked
+    on every item.
+
+    Routes with no list to read (a quest handing the item over directly, or a
+    hand-written fallback line) are filled from the unique's own list walk
+    when that walk reaches the event the route names; otherwise they are
+    marked conditionsChecked False and the page says "Not checked" rather than
+    a "None" nobody verified.
+    """
+    import plan_conditions
+    tsv_dir = os.path.dirname(pick("LVLI_Export_*_LVLI_Entries.tsv", channel) or "")
+    idx = plan_conditions.ConditionIndex(tsv_dir, lambda pat, d=None: pick(pat, channel))
+    ed2fid = {}
+    for r in read_tsv(pick("LVLI_Export_*_LVLI_Entries.tsv", channel)):
+        ed2fid.setdefault(strip_q(r.get("LVLI_EDID", "")),
+                          norm_formid(r.get("LVLI_FormID", "")).upper())
+    own_lists, find_events = _event_lists(channel)
+    stats = {"routes": 0, "with": 0, "unchecked": 0}
+    for it in items:
+        key = norm_name(it.get("name"))
+        own = own_lists.get(key) or OWN_LIST_ALIAS.get(key)
+        ways = find_events.tops(own) if own else []
+        own_fid = ed2fid.get(own or "", "")
+        for r in it.get("obtainRoutes") or []:
+            paths = r.pop("paths", None) or []
+            if not r.get("populated"):
+                continue
+            stats["routes"] += 1
+            text = " ".join(r.get("lines") or []).lower()
+            if "no longer obtainable" in text:
+                r["conditions"], r["conditionsChecked"] = [], True
+                continue
+            lines, skipped, checked = [], 0, False
+            for list_fid, target in paths:
+                if not list_fid:
+                    checked = True          # handed over directly: no list gate
+                    continue
+                ln, sk = idx.for_lists([str(list_fid).upper()], str(target).upper(),
+                                       {"title": it.get("name") or ""})
+                lines += [l for l in ln if l not in lines]
+                skipped += sk
+                checked = True
+            if not checked and own_fid and ways:
+                match = [ed for ev, ed in ways if ev.lower() in text]
+                title = {"title": it.get("name") or ""}
+                if match:
+                    ln, sk = idx.for_lists([ed2fid[e] for e in match if e in ed2fid],
+                                           own_fid, title)
+                    lines, skipped, checked = ln, sk, True
+                else:
+                    # The route is a hand-written line the walk cannot tie to
+                    # one event. If EVERY live way into the unique's own list
+                    # carries exactly the same conditions, those conditions
+                    # hold whichever way the route means — so they can be
+                    # stated. If the ways disagree, nothing can be said.
+                    per_way = []
+                    for _ev, ed in ways:
+                        if ed in ed2fid:
+                            ln, sk = idx.for_lists([ed2fid[ed]], own_fid, title)
+                            per_way.append((tuple(ln), sk))
+                    if per_way and len({w[0] for w in per_way}) == 1:
+                        lines, skipped, checked = list(per_way[0][0]), per_way[0][1], True
+            if skipped and not lines:
+                lines = [plan_conditions.UNREADABLE_LINE]
+            r["conditions"] = plan_conditions.tidy(lines)
+            r["conditionsChecked"] = checked
+            stats["with"] += bool(lines)
+            stats["unchecked"] += not checked
+    print(f"  Drop conditions: {stats['routes']} live route(s), {stats['with']} with "
+          f"conditions, {stats['unchecked']} with nothing in the files to check")
 
 
 def build_channel(channel, dist_dir):
@@ -892,6 +1152,14 @@ def build_channel(channel, dist_dir):
 
     # Drop cut content — unobtainable in game, so it has no place on a list
     # of things to go and get.
+    # Cut by hand where the files still look live. Crimson Sky's list still
+    # sits in the Dangerous Pastimes unique pool, but it has no unique mod of
+    # its own and does not drop in game (Duchess, 11 Oct 2026).
+    for i in all_items:
+        if norm_name(i.get("name")) in CUT_BY_HAND:
+            i["isCut"] = True
+        if norm_name(i.get("name")) in UNRELEASED_BY_HAND:
+            i["unreleased"] = True
     if not INCLUDE_CUT:
         all_items = [i for i in all_items if not i.get("isCut")]
 
@@ -915,9 +1183,20 @@ def build_channel(channel, dist_dir):
     # weapon, its plan, or both — and the plan it named was inherited from the
     # BASE weapon, so every repair-only legacy item claimed to be craftable.
     # See uwa_obtain.py. howToObtain is kept as the one-line summary.
-    fill_sources(all_items, channel)
+    fill_sources(all_items, channel, weap_combos)
     obtain_idx = uwa_obtain.index(channel)
     obtain_idx.apply(all_items)
+    # History note under the route that is live today (Xerxos: first a
+    # Season 7 Scoreboard reward, under another name).
+    for it in all_items:
+        note = it.get("obtainNote")
+        if not note:
+            continue
+        for r in it.get("obtainRoutes") or []:
+            if r.get("populated"):
+                r["lines"].append("Note: " + note)
+                break
+    attach_conditions(all_items, channel)
 
     # Items Bethesda's own WeaponsUniqueNamedList has never heard of AND that
     # the override table names as mod records rather than weapons. Dropping
@@ -953,6 +1232,7 @@ def build_channel(channel, dist_dir):
     subdir = "unique_weapons_armour"
     out_path = dist_dir / ("pts" if channel == "pts" else "") / subdir / "unique_weapons_armour.json"
     os.makedirs(out_path.parent, exist_ok=True)
+    report_source_changes(out_path, output)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(output, f, indent=2, ensure_ascii=False)
         f.write("\n")
