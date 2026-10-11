@@ -5321,6 +5321,16 @@ for key, pages in sorted(reward_pages_by_key.items()):
 # Write output
 # --------------------------------------------------
 
+# Unique Rewards Checklist (src/activities_checklist.py): every /df/activities/
+# page gets activityData.checklist - the unique plans, titles, weapons, armour
+# and mod boxes from its own reward lists, once each, with rates + images.
+# The shared Activity Rewards list is left out (every activity gives it).
+try:
+    import activities_checklist
+    activities_checklist.add_to_pages(by_page)
+except Exception as _e:  # never fatal - the page just shows no checklist
+    print("  [WARN] activities checklist skipped: {}".format(_e))
+
 # Shared image library (src/image_index.py): imageUrl on each page's Unique
 # Rewards items - library first, then guide-images/activities/<slug>/.
 try:

@@ -39,7 +39,7 @@ def pull_by_base(cur, base_ints):
 def pull_by_instance(cur, inst_ints):
     out = []
     for chunk in _chunks(inst_ints):
-        q = ("SELECT x, y, z, instanceFormID, spaceFormID FROM Position "
+        q = ("SELECT x, y, z, instanceFormID, spaceFormID, referenceFormID FROM Position "
              "WHERE instanceFormID IN (%s)" % ",".join("?" * len(chunk)))
         out.extend(cur.execute(q, tuple(chunk)).fetchall())
     return out
@@ -116,6 +116,7 @@ def resolve_placements(src, geo, cur, cache, db_ok):
     lists_n = len(src["lvli_closure"])
 
     seen = {}
+    where = {}    # inst -> (space, object key), for the instanced-copy dedupe below
     if db_ok:
         for x, y, z, inst, space, ref in pull_by_base(cur, base_type.keys()):
             if inst in seen:
@@ -124,13 +125,16 @@ def resolve_placements(src, geo, cur, cache, db_ok):
             cache[str(inst)] = {"base": ref, "space": space, "x": round(x, 1),
                                 "y": round(y, 1), "region": region, "marker": marker}
             seen[inst] = (x, y, region, marker, base_type.get(ref, "loot-list"))
-        for x, y, z, inst, space in pull_by_instance(cur, direct_ints):
+            where[inst] = (space, ref)
+        for x, y, z, inst, space, ref in pull_by_instance(cur, direct_ints):
             if inst in seen:
                 continue
             region, marker, how = geo.resolve(space, x, y)
             cache[str(inst)] = {"base": None, "space": space, "x": round(x, 1),
-                                "y": round(y, 1), "region": region, "marker": marker}
+                                "y": round(y, 1), "region": region, "marker": marker,
+                                "ref": ref}
             seen[inst] = (x, y, region, marker, direct_type[inst])
+            where[inst] = (space, ref)
     else:
         for key, e in cache.items():
             inst = int(key)
@@ -138,11 +142,25 @@ def resolve_placements(src, geo, cur, cache, db_ok):
             if base in base_type:
                 seen[inst] = (e.get("x"), e.get("y"), e.get("region", ""),
                               e.get("marker", ""), base_type[base])
+                where[inst] = (e.get("space"), base)
         for inst in direct_ints:
             e = cache.get(str(inst))
             if e and inst not in seen:
                 seen[inst] = (e.get("x"), e.get("y"), e.get("region", ""),
                               e.get("marker", ""), direct_type[inst])
+                where[inst] = (e.get("space"), e.get("ref") or direct_type[inst])
+
+    # One place, one count: a placement inside an instanced "Dungeon" copy of an
+    # interior (Morgantown High School / MorgantownHighSchoolDungeon) is the same
+    # spawn as the one in the main cell — see spawns_engine.instances.
+    from spawns_engine.instances import twin_map, duplicate_instances
+    dupes = duplicate_instances(((i, sp, k) for i, (sp, k) in where.items()),
+                                twin_map(getattr(geo, "spaces", {})))
+    for inst in dupes:
+        seen.pop(inst, None)
+    if dupes:
+        print(f"  [instances] {len(dupes)} placement(s) in instanced Dungeon copies "
+              f"counted once with their main cell")
 
     # Region fixes Duchess has confirmed in-game. Applied last, on the DB path AND
     # the cache path, so it always wins over the polygon / interior rules.

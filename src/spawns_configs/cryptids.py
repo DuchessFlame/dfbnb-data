@@ -714,6 +714,24 @@ def _record(cache, seen, slug, inst, space, ref, x, y, region, marker, stype,
     seen[slug][inst] = (x, y, region, marker, stype)
 
 
+def _drop_instance_twins(seen, cache, geo):
+    """One place, one count — see spawns_engine.instances. Per page, a placement
+    inside an instanced "Dungeon" copy of an interior only counts beyond the main
+    cell's placements of the same object."""
+    from spawns_engine.instances import twin_map, duplicate_instances
+    twins = twin_map(getattr(geo, "spaces", {}))
+    if not twins:
+        return seen
+    for slug, pts in seen.items():
+        rows = []
+        for inst in pts:
+            e = cache.get(f"{slug}:{inst}") or {}
+            rows.append((inst, e.get("space"), (e.get("source_type"), e.get("base"))))
+        for inst in duplicate_instances(rows, twins):
+            pts.pop(inst, None)
+    return seen
+
+
 def resolve_fixed_spawns(pages, npcs_by_page, geo, cur, cache, db_ok):
     """Resolve every fixed-spawn placement to (region, marker) and return
     {slug -> seen{instanceFormID -> (x, y, region, marker, source_type)}}.
@@ -737,7 +755,7 @@ def resolve_fixed_spawns(pages, npcs_by_page, geo, cur, cache, db_ok):
                 seen[slug][int(inst)] = (e.get("x"), e.get("y"),
                                          e.get("region", ""), e.get("marker", ""),
                                          e.get("source_type", "spawn"))
-        return seen
+        return _drop_instance_twins(seen, cache, geo)
 
     # 1) ambush markers
     marker_map = sweep_ambush_markers(pages, cur)   # entityFormID -> (edid, slug)
@@ -827,7 +845,7 @@ def resolve_fixed_spawns(pages, npcs_by_page, geo, cur, cache, db_ok):
                     shared = (pool_size.get(inst, 1) or 1) > 1
                     _record(cache, seen, pg["slug"], inst, space, None, x, y,
                             region, marker, "spawn", weight=sw, shared=shared)
-    return seen
+    return _drop_instance_twins(seen, cache, geo)
 
 
 def label_spawns(regions_out, name):
