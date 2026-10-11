@@ -235,9 +235,6 @@ _Couldn't key this file to records; contents differ._
 ## `apparel_formids.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `armour.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
 ## `axolotl-rotations.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
@@ -490,9 +487,6 @@ _Couldn't key this file to records; contents differ._
 _Couldn't key this file to records; contents differ._
 
 ## `calculators/crafting_materials_calculator.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `calculators/healing_calculator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
 ## `calculators/outfit_inspiration.json`  ·  +26 / -9 / ~2
@@ -755,9 +749,6 @@ _Couldn't key this file to records; contents differ._
 ## `collectable_spawns_pint-sized-phantom-graves.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `collectable_spawns_pint-sized-slasher-masks.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
 ## `collectable_spawns_treasure-maps-locations.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
@@ -919,9 +910,6 @@ _Couldn't key this file to records; contents differ._
 ## `cryptids/angler.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `cryptids/bigfoot.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
 ## `cryptids/blue-devil.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
@@ -929,9 +917,6 @@ _Couldn't key this file to records; contents differ._
 _Couldn't key this file to records; contents differ._
 
 ## `cryptids/grafton-monster.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `cryptids/jersey-lesser-devils.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
 ## `cryptids/megasloth.json`  ·  changed (structural)
@@ -1241,9 +1226,6 @@ _Couldn't key this file to records; contents differ._
 ## `farming_spawns/chems-adrenal-reaction-serum_spawns.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `farming_spawns/chems-antibiotics_spawns.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
 ## `farming_spawns/chems-berry-mentats_spawns.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
@@ -1289,9 +1271,6 @@ _Couldn't key this file to records; contents differ._
 ## `farming_spawns/chems-empath-serum_spawns.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `farming_spawns/chems-formula-p_spawns.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
 ## `farming_spawns/chems-fury_spawns.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
@@ -1317,9 +1296,6 @@ _Couldn't key this file to records; contents differ._
 _Couldn't key this file to records; contents differ._
 
 ## `farming_spawns/chems-high-radiation-fluids_spawns.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `farming_spawns/chems-insect-repellent_spawns.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
 ## `farming_spawns/chems-marsupial-serum_spawns.json`  ·  changed (structural)
@@ -1362,9 +1338,6 @@ _Couldn't key this file to records; contents differ._
 _Couldn't key this file to records; contents differ._
 
 ## `farming_spawns/chems-scaly-skin-serum_spawns.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `farming_spawns/chems-skeeto-spit_spawns.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
 ## `farming_spawns/chems-speed-demon-serum_spawns.json`  ·  changed (structural)
@@ -1497,9 +1470,6 @@ _Couldn't key this file to records; contents differ._
 ## `farming_spawns/radscorpion-egg_spawns.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `farming_spawns/radtoad-egg_spawns.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
 ## `farming_spawns/royal-jelly_spawns.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
@@ -1537,8 +1507,6 @@ _Couldn't key this file to records; contents differ._
 
 ## `fishing_equipment.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
-
-## `help_menu.json`  ·  +0 / -0 / ~0
 
 ## `home-events.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1595,13 +1563,7 @@ _Couldn't key this file to records; contents differ._
 - Conductor's  `co_LegendaryShard_Conductors` — fields: category
 - …and 120 more
 
-## `legendary_mod_drop_chances.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
 ## `legendary_mods.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `load_screens.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
 ## `make_plan_checklist.json`  ·  +305 / -24 / ~134
@@ -1727,16 +1689,10 @@ _Couldn't key this file to records; contents differ._
 ## `meat/brahmin.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `meat/cat.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
 ## `meat/chicken.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
 ## `meat/deathclaw.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `meat/fox.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
 ## `meat/frog.json`  ·  changed (structural)
@@ -1751,9 +1707,6 @@ _Couldn't key this file to records; contents differ._
 ## `meat/hermit-crab.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `meat/iguana.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
 ## `meat/megasloth.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
@@ -1766,34 +1719,13 @@ _Couldn't key this file to records; contents differ._
 ## `meat/mole-rat.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `meat/mongrel-dog.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
 ## `meat/mutant-hound.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `meat/opossum.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `meat/owlet.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `meat/pheasant.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `meat/rabbit.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
 ## `meat/radhog.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `meat/radrat.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
 ## `meat/radstag.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `meat/radtoad.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
 ## `meat/radturkey.json`  ·  changed (structural)
@@ -1803,9 +1735,6 @@ _Couldn't key this file to records; contents differ._
 _Couldn't key this file to records; contents differ._
 
 ## `meat/sheepsquatch.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `meat/squirrel.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
 ## `meat/wolf.json`  ·  changed (structural)
@@ -1844,37 +1773,10 @@ _Couldn't key this file to records; contents differ._
 ## `nuka_cola_spawns_cherry.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `nuka_cola_spawns_cranberry.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `nuka_cola_spawns_dark.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `nuka_cola_spawns_grape.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
 ## `nuka_cola_spawns_nuka-cola.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
 ## `nuka_cola_spawns_nukashine.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `nuka_cola_spawns_orange.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `nuka_cola_spawns_quantum.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `nuka_cola_spawns_sunset-sarsaparilla.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `nuka_cola_spawns_twist.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `nuka_cola_spawns_vaccinated.json`  ·  changed (structural)
-_Couldn't key this file to records; contents differ._
-
-## `nuka_cola_spawns_wild.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
 ## `pennants.json`  ·  changed (structural)
@@ -1921,7 +1823,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +305 / -98 / ~901
+## `plan_master.json`  ·  +305 / -97 / ~900
 
 **Added (305)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1966,7 +1868,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: LMG True .45 Receiver  `PLAN_00947F34`
 - …and 265 more
 
-**Removed (98)**
+**Removed (97)**
 - Aligned Long Barrel  `RECIPE_00399FB4`
 - Deathclaw Leveling Backpack Flair  `RECIPE_008B507F`
 - Cat Leveling Backpack Flair  `RECIPE_008B5081`
@@ -2005,11 +1907,11 @@ _Couldn't key this file to records; contents differ._
 - Civil Unrest  `UNIQ_CIVIL_UNREST`
 - Commanders Charge  `UNIQ_COMMANDERS_CHARGE`
 - Cosmic Knife Super-Heated  `UNIQ_COSMIC_KNIFE_SUPER_HEATED`
-- Crimson Sky  `UNIQ_CRIMSON_SKY`
 - Crushing Blow  `UNIQ_CRUSHING_BLOW`
-- …and 58 more
+- Cryptid Jawbone Knife  `UNIQ_CRYPTID_JAWBONE_KNIFE`
+- …and 57 more
 
-**Changed (901)**
+**Changed (900)**
 - Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images
 - Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images
 - MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images
@@ -2050,7 +1952,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Skeleton Costume  `PLAN_003A1789` — fields: image_source, images
 - Plan: Vault Locker  `PLAN_003D6519` — fields: obtain_ledger, obtain_routes
 - Plan: Vault Dresser  `PLAN_003D651A` — fields: obtain_ledger, obtain_routes
-- …and 861 more
+- …and 860 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
