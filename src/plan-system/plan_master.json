@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated": "2026-10-11T01:44:36.633987+00:00",
+  "generated": "2026-10-11T07:15:21.644146+00:00",
   "count": 4241,
   "source_files": {
     "WEAP": "WEAP_Export_October_2026_Base.tsv",
@@ -24496,7 +24496,7 @@
       "weapon_role": "base",
       "weapon_group": "Black Powder Pistol",
       "weapon_group_key": "black-powder-pistol",
-      "weapon_group_solo": false
+      "weapon_group_solo": true
     },
     {
       "kind": "plan",
@@ -271530,6 +271530,7 @@
       "image_source": "library",
       "plan_page": "weapon",
       "plan_page_group": null,
+      "unreleased": true,
       "weapon_role": "base",
       "weapon_group": "M79 Grenade Launcher",
       "weapon_group_key": "m79-grenade-launcher",
@@ -271594,6 +271595,7 @@
       "image_source": "library",
       "plan_page": "weapon",
       "plan_page_group": null,
+      "unreleased": true,
       "weapon_role": "base",
       "weapon_group": "10mm Submachine Gun",
       "weapon_group_key": "10mm-submachine-gun",
@@ -271658,6 +271660,7 @@
       "image_source": "library",
       "plan_page": "weapon",
       "plan_page_group": null,
+      "unreleased": true,
       "weapon_role": "base",
       "weapon_group": "Assaultron Blade",
       "weapon_group_key": "assaultron-blade",
@@ -351373,8 +351376,8 @@
       "plan_page": "weapon",
       "plan_page_group": null,
       "weapon_role": "shop-skin",
-      "weapon_group": "Circuit Breaker",
-      "weapon_group_key": "circuit-breaker",
+      "weapon_group": "10mm Pistol",
+      "weapon_group_key": "10mm-pistol",
       "weapon_group_solo": false
     },
     {
@@ -351432,8 +351435,8 @@
       "plan_page": "weapon",
       "plan_page_group": null,
       "weapon_role": "shop-skin",
-      "weapon_group": "Circuit Breaker",
-      "weapon_group_key": "circuit-breaker",
+      "weapon_group": "10mm Pistol",
+      "weapon_group_key": "10mm-pistol",
       "weapon_group_solo": false
     },
     {
@@ -351894,8 +351897,8 @@
       "plan_page": "weapon",
       "plan_page_group": null,
       "weapon_role": "shop-skin",
-      "weapon_group": "Circuit Breaker",
-      "weapon_group_key": "circuit-breaker",
+      "weapon_group": "10mm Pistol",
+      "weapon_group_key": "10mm-pistol",
       "weapon_group_solo": false
     },
     {
@@ -359108,6 +359111,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": false
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -359158,6 +359168,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": false
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -359208,6 +359225,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "not_obtainable": true,
       "obtain_ledger": [
         {
@@ -359258,6 +359282,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -359288,7 +359319,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Scoreboard: Score Season reward (Anchorage Ace)."
+        "Drops from: Neurological Warfare."
       ],
       "plan_item": null,
       "cobj": null,
@@ -359308,10 +359339,17 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
-      "source_tag": "Score",
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
+      "source_tag": "Events",
       "obtain_ledger": [
         {
-          "label": "Scoreboard",
+          "label": "Events & Activities",
           "unlocks": [
             0
           ],
@@ -359358,6 +359396,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -359408,6 +359453,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -359458,6 +359510,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": false
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -359508,6 +359567,15 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [
+            "Only after completing One of Us"
+          ],
+          "checked": true
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -359558,6 +359626,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -359608,6 +359683,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": false
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -359658,6 +359740,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -359708,6 +359797,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "not_obtainable": true,
       "obtain_ledger": [
         {
@@ -359758,6 +359854,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": false
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -359771,45 +359874,6 @@
       "weapon_role": "unique",
       "weapon_group": "Combat Knife",
       "weapon_group_key": "combat-knife",
-      "weapon_group_solo": false
-    },
-    {
-      "kind": "plan",
-      "brand": "df",
-      "type": "weapon",
-      "unique_version": true,
-      "id": "UNIQ_CRIMSON_SKY",
-      "name": "Crimson Sky",
-      "has_image_box": true,
-      "image_dir": "weapons",
-      "images": [],
-      "image_source": "",
-      "obtain": "Not a plan — Crimson Sky is a unique version of the Tesla. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
-      "category_label": "Unique weapon (no plan)",
-      "obtain_routes": [],
-      "obtain_unlocks": [],
-      "plan_item": null,
-      "cobj": null,
-      "cnam": {
-        "formid": "0010F0EC",
-        "edid": "DLC01LightningGun",
-        "sig": "WEAP"
-      },
-      "unique_base": "Tesla",
-      "unique_effect": "",
-      "desc": "",
-      "tradeable": true,
-      "stops_dropping": null,
-      "effects": null,
-      "cut": false,
-      "cut_reason": null,
-      "changes": [],
-      "plan_page": "weapon",
-      "plan_page_group": null,
-      "obtain_ledger": [],
-      "weapon_role": "unique",
-      "weapon_group": "Tesla Rifle",
-      "weapon_group_key": "tesla-rifle",
       "weapon_group_solo": false
     },
     {
@@ -359847,6 +359911,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "not_obtainable": true,
       "obtain_ledger": [
         {
@@ -359897,6 +359968,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -359947,6 +360025,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -359997,6 +360082,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -360047,6 +360139,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "not_obtainable": true,
       "obtain_ledger": [
         {
@@ -360097,6 +360196,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -360147,6 +360253,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -360197,6 +360310,15 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Caps",
+          "conditions": [
+            "Only after completing Ally: Thicker Than Water"
+          ],
+          "checked": true
+        }
+      ],
       "source_tag": "Vendor",
       "obtain_ledger": [
         {
@@ -360247,6 +360369,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -360299,6 +360428,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -360349,6 +360485,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -360379,7 +360522,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Scoreboard: Score Season reward."
+        "Scoreboard: Season 17 Scoreboard."
       ],
       "plan_item": null,
       "cobj": null,
@@ -360399,6 +360542,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Scoreboard",
+          "conditions": [],
+          "checked": false
+        }
+      ],
       "source_tag": "Score",
       "obtain_ledger": [
         {
@@ -360449,6 +360599,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -360499,6 +360656,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "not_obtainable": true,
       "obtain_ledger": [
         {
@@ -360549,6 +360713,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": false
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -360601,6 +360772,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -360651,6 +360829,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -360701,6 +360886,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -360751,6 +360943,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": false
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -360801,6 +361000,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": false
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -360831,7 +361037,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Quest reward: Optional Success Rare Rewards."
+        "Drops from: One Violent Night."
       ],
       "plan_item": null,
       "cobj": null,
@@ -360851,10 +361057,17 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
-      "source_tag": "Quest",
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
+      "source_tag": "Events",
       "obtain_ledger": [
         {
-          "label": "Quests",
+          "label": "Events & Activities",
           "unlocks": [
             0
           ],
@@ -360901,6 +361114,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "not_obtainable": true,
       "obtain_ledger": [
         {
@@ -360951,6 +361171,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -361001,6 +361228,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -361051,6 +361285,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "not_obtainable": true,
       "obtain_ledger": [
         {
@@ -361101,6 +361342,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": false
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -361151,6 +361399,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -361201,6 +361456,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -361212,9 +361474,9 @@
         }
       ],
       "weapon_role": "unique",
-      "weapon_group": "Black Powder Pistol",
-      "weapon_group_key": "black-powder-pistol",
-      "weapon_group_solo": false
+      "weapon_group": "Black Powder Blunderbuss",
+      "weapon_group_key": "black-powder-blunderbuss",
+      "weapon_group_solo": true
     },
     {
       "kind": "plan",
@@ -361251,6 +361513,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -361301,6 +361570,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -361331,7 +361607,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Scoreboard: Score Season reward."
+        "Drops from: Dangerous Pastimes."
       ],
       "plan_item": null,
       "cobj": null,
@@ -361351,10 +361627,17 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
-      "source_tag": "Score",
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
+      "source_tag": "Events",
       "obtain_ledger": [
         {
-          "label": "Scoreboard",
+          "label": "Events & Activities",
           "unlocks": [
             0
           ],
@@ -361381,7 +361664,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Scoreboard: Score Season reward."
+        "Drops from: The Slasher."
       ],
       "plan_item": null,
       "cobj": null,
@@ -361401,10 +361684,17 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
-      "source_tag": "Score",
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": false
+        }
+      ],
+      "source_tag": "Events",
       "obtain_ledger": [
         {
-          "label": "Scoreboard",
+          "label": "Events & Activities",
           "unlocks": [
             0
           ],
@@ -361451,6 +361741,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "not_obtainable": true,
       "obtain_ledger": [
         {
@@ -361501,6 +361798,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "not_obtainable": true,
       "obtain_ledger": [
         {
@@ -361551,6 +361855,15 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [
+            "Only after completing Double-Crossed Wires"
+          ],
+          "checked": true
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -361601,6 +361914,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": false
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -361651,6 +361971,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": false
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -361701,6 +362028,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -361751,6 +362085,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": false
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -361781,7 +362122,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Scoreboard: Score Season reward."
+        "Drops from: Gearin' Up."
       ],
       "plan_item": null,
       "cobj": null,
@@ -361801,10 +362142,17 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
-      "source_tag": "Score",
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
+      "source_tag": "Events",
       "obtain_ledger": [
         {
-          "label": "Scoreboard",
+          "label": "Events & Activities",
           "unlocks": [
             0
           ],
@@ -361851,6 +362199,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "not_obtainable": true,
       "obtain_ledger": [
         {
@@ -361903,6 +362258,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -361953,6 +362315,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Caps",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Vendor",
       "obtain_ledger": [
         {
@@ -362003,6 +362372,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": false
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -362053,6 +362429,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "not_obtainable": true,
       "obtain_ledger": [
         {
@@ -362103,6 +362486,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -362153,6 +362543,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": false
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -362203,6 +362600,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "not_obtainable": true,
       "obtain_ledger": [
         {
@@ -362253,6 +362657,15 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [
+            "Only after completing Ally: Mission Out-of-Control"
+          ],
+          "checked": true
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -362303,6 +362716,15 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [
+            "Only after completing Seeking Shelter"
+          ],
+          "checked": true
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -362355,6 +362777,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -362405,6 +362834,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -362455,6 +362891,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": false
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -362505,6 +362948,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Quest",
       "obtain_ledger": [
         {
@@ -362555,6 +363005,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -362607,6 +363064,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -362659,6 +363123,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
@@ -362688,7 +363159,9 @@
       "obtain": "Not a plan — Xerxos is a unique version of the Gamma Gun. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Drops from: Invaders From Beyond. First released as a Season 7 Scoreboard reward, it was called Xerxo's Gamma Ray Gun back then."
+      ],
       "plan_item": null,
       "cobj": null,
       "cnam": {
@@ -362707,7 +363180,23 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
-      "obtain_ledger": [],
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
+      "source_tag": "Events",
+      "obtain_ledger": [
+        {
+          "label": "Scoreboard",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "weapon_role": "unique",
       "weapon_group": "Gamma Gun",
       "weapon_group_key": "gamma-gun",
@@ -362748,6 +363237,13 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": false
+        }
+      ],
       "source_tag": "Events",
       "obtain_ledger": [
         {
