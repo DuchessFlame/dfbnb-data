@@ -206,6 +206,18 @@ def classify_weapon_type(dnam_row, keywords_str):
 #  Obtain info -- hardcoded fallback map
 # ---------------------------------------------------------------------------
 
+# Removed 12 Oct 2026 — the game files contradict them (the named quest never
+# hands out the item's own leveled list) or name no quest at all:
+#   "Shadow over Appalachia" (Abraxo, MeadowBreezeSprayer, PrototypeABX03,
+#   AutoAxe, SuperSlasher) is not a quest in the files; SlugBuster,
+#   SoleSurvivor, GrandFinale, TheVATSUnknown, Ei/EldersMark, MeteoriteSword,
+#   NukaLauncher and ThePeaceMaker (Peace Maker is a mutated-events reward),
+#   BlueRidgeBrandingIron.
+# The uniques build now reads those from the items' own lists instead, and
+# uwa_source_links.py drops any line here the files contradict. Before adding
+# a line, run: python3 src/check_uwa_sources.py
+# These keys are SUBSTRING matches on the EditorID ("Abraxo" caught both
+# Plasma guns) — keep them long and specific.
 OBTAIN_FALLBACK = {
     "AllRise": "Quest: Mayor for a Day",
     "PerfectStorm": "Quest: Cold Case",
@@ -216,13 +228,10 @@ OBTAIN_FALLBACK = {
     "VoiceOfSet": "Quest: Prototypical Problems (Order of Mysteries)",
     "BladeOfBastet": "Quest: Forging a Legend (Order of Mysteries)",
     "SomersetSpecial": "Quest: The Wayward",
-    "SlugBuster": "Quest: Waste Management (Vault 79)",
-    "SoleSurvivor": "Quest: One of Us (Enclave questline)",
     "FinalWord": "Vendor: Beckett (companion quest)",
     "FactFinder": "Vendor: Beckett (companion quest)",
     "BunkerBuster": "Quest: One of Us (Enclave questline)",
     "CircuitBreaker": "Event: Invaders from Beyond",
-    "GrandFinale": "Event: Invaders from Beyond",
     "OldGuard": "Event: Nuclear Winter (legacy)",
     "NightLight": "Survival mode reward (legacy)",
     "WhistleInTheDark": "Survival mode reward (legacy)",
@@ -240,18 +249,14 @@ OBTAIN_FALLBACK = {
     "MechanicsBestFriend": "Survival mode reward (legacy)",
     "MedicalMalpractice": "Survival mode reward (legacy)",
     "FaceBreaker": "Survival mode reward (legacy)",
-    "TheVATSUnknown": "Quest: Overseer's Mission (Vault 79 raid)",
     "Oathbreaker": "Daily Ops reward",
     "BurningLove": "Treasure Hunter event reward",
     "Pyrolyzer": "Quest: Tracking Unknowns",
     "CivilUnrest": "Quest: Trade Secrets",
     "HolyFire": "Quest: Reformation (Brotherhood of Steel)",
-    "EidersMark": "Quest: The Best Defense (Brotherhood of Steel)",
     "Nailer": "World drop: Deathclaw Island / various locations",
     "TheGutter": "World drop: The Burrows / various locations",
     "CamdenWhacker": "Camden Park daily quests",
-    "MeteoriteSword": "Quest: Lode Baring",
-    "NukaLauncher": "Quest: Overseer, Overseen (Vault 79)",
     "LoveTap": "Treasure Hunter event reward",
     "CrowdControl": "Treasure Hunter event reward",
     "DoctorsOrders": "Treasure Hunter event reward",
@@ -279,7 +284,6 @@ OBTAIN_FALLBACK = {
     "Stormcutter": "Quest: Skyline Valley",
     "RelicReaper": "Score Season reward",
     "V63ShockBaton": "Quest: Skyline Valley",
-    "SuperSlasher": "Quest: Shadow over Appalachia",
     "BoilingPoint": "Treasure Hunter event reward",
     "LicketySplit": "Treasure Hunter event reward",
     "ResolveBreaker": "Treasure Hunter event reward",
@@ -288,22 +292,15 @@ OBTAIN_FALLBACK = {
     "Cauterizer": "Quest: Raids (Enclave Expeditions)",
     "DrillFist": "Quest: Raids (Enclave Expeditions)",
     "CryptidJawboneKnife": "Quest: Cryptids of Appalachia",
-    "BlueRidgeBrandingIron": "Event: Riding Shotgun",
     "CultistPiercer": "Quest: Cult of the Mothman",
     "LucasSwitchblade": "Quest: Atlantic City",
     "OguaGauntlet": "Quest: Cryptids of Appalachia",
     "UltraciteTerrorSword": "Quest: Ultracite Terror (Brotherhood)",
-    "MeadowBreezeSprayer": "Quest: Shadow over Appalachia",
-    "PrototypeABX03": "Quest: Shadow over Appalachia",
     "TheKabloom": "Quest: Raids (Enclave Expeditions)",
-    "ThePeaceMaker": "Treasure Hunter event reward",
-    "EldersMark": "Quest: The Best Defense (Brotherhood of Steel)",
     "Luca": "Quest: Atlantic City",
     "AnchorageAce": "Score Season reward (Anchorage Ace)",
     "SilencedSMG": "Score Season reward (Anchorage Ace)",
     "MutatedEvents": "Mutated public events reward",
-    "AutoAxe": "Quest: Shadow over Appalachia",
-    "Abraxo": "Quest: Shadow over Appalachia",
 }
 
 

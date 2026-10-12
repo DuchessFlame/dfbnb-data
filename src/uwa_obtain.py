@@ -124,7 +124,9 @@ LIST_ROUTES = [
      "Events & Activities", "Daily Ops"),
     (re.compile(r"MutatedEvents?", re.I),
      "Events & Activities", "Mutated public events"),
-    (re.compile(r"BountyHunt|BountyTarget", re.I),
+    # BountyDrop: what a bounty target NPC drops (SDOW_LL_BountyDrop_BIG,
+    # the Slasher's — Slasher Axe sits in it at 5%).
+    (re.compile(r"BountyHunt|BountyTarget|BountyDrop", re.I),
      "Events & Activities", "Bounty hunt target"),
     (re.compile(r"Expedition|MTNW|Atlantic|Skyline", re.I),
      "Events & Activities", "Expedition"),
@@ -255,6 +257,7 @@ class ObtainIndex:
 
         # LVLI: what contains what, and what contains that.
         self.owners = defaultdict(set)      # entry fid -> {(list fid, edid)}
+        self.list_size = {}                 # list fid -> number of entries
         edid_of = {}
         self.list_fid = {}                  # list edid -> fid
         for r in _rows(self._pick("LVLI_Export_*_LVLI_Entries.tsv")):
@@ -264,6 +267,7 @@ class ObtainIndex:
             ref = _fid(r.get("LVLO_Reference"))
             if ref:
                 self.owners[ref].add((lf, le))
+                self.list_size[lf] = self.list_size.get(lf, 0) + 1
 
         self.list_edid = edid_of
         self.parents = defaultdict(set)     # list fid -> {referencing edid}
@@ -276,6 +280,16 @@ class ObtainIndex:
         # GMRW: quest and challenge rewards, live ones only.
         self.rewards = defaultdict(list)    # item fid -> [(edid, quest)]
         self.dead_rewards = defaultdict(list)
+        # A challenge reward (Burn_ChallengeReward_..._Abraxodyne_...) has no
+        # ParentQuestDisplay; the challenge it belongs to is a CHAL in its Ref
+        # columns, and the CHAL's own FULL is what the player sees in game
+        # ("Find more Abraxodyne Intel").
+        chal_full = {}
+        for r in _rows(self._pick("CHAL_Export_*.tsv")):
+            full = _q(r.get("FULL"))
+            if full and "<" not in full and "[" not in full:
+                chal_full[_fid(r.get("FormID"))] = full
+        self.reward_chal = {}               # GMRW edid -> challenge name
         for r in _rows(self._pick("GMRW_Export_*.tsv")):
             item = _fid(r.get("RewardedItem"))
             if not item:
@@ -283,6 +297,37 @@ class ObtainIndex:
             ed = _q(r.get("EDID"))
             bucket = self.dead_rewards if DEAD_REWARD.search(ed) else self.rewards
             bucket[item].append((ed, _q(r.get("ParentQuestDisplay"))))
+            for k, v in r.items():
+                v = _q(v or "")
+                if (k or "").startswith("Ref") and v.endswith(":CHAL"):
+                    name = chal_full.get(_fid(v.split(":")[0]))
+                    if name:
+                        self.reward_chal[ed] = name
+                        break
+
+        # Vendor names as the plan pages already resolved them (the NPC who
+        # sells, not the stock list: "Splint (Burning Springs Gun, Settlers
+        # vendor)", "Windy (Cryptid Hunter vendor)"). Keyed by every list
+        # FormID the plan route came through. One naming for both pages.
+        self.vendor_label = {}
+        root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        for parts in ((("dist", "pts", "plan_master.json"),) if self.channel == "pts" else ()) \
+                + (("dist", "plan_master.json"),):
+            path = os.path.join(root, *parts)
+            if not os.path.exists(path):
+                continue
+            try:
+                pm = json.load(open(path, encoding="utf-8"))
+            except (OSError, ValueError):
+                continue
+            for row in pm.get("items") or []:
+                for ro in row.get("obtain_routes") or []:
+                    if ro.get("source_type") != "vendor" or not ro.get("route"):
+                        continue
+                    for lf in ro.get("lvli") or []:
+                        self.vendor_label.setdefault(_fid(lf), ro["route"])
+            if self.vendor_label:
+                break
 
         # Quest display names, so a route says "Penance" and not
         # BS02_MQ01_Penance_LL_Quest_Rewards. Indexed by EDID; the lookup walks
@@ -445,11 +490,70 @@ class ObtainIndex:
         out = []
         for ed, quest in self.rewards.get(fid, ()):
             route, label = self._classify(ed)
+            chal = self.reward_chal.get(ed)
+            if chal:
+                route, quest = "Challenges", quest or chal
             if not route:
                 route = "Quests"
+            # The quest's own name can say it is an event ("Event: A Feast Fit
+            # for a King", QDLBarbara_Lesson06): file it there, name it once.
+            shown = quest or label or self._pretty(ed)
+            if re.match(r"^\s*Event:\s*", shown or ""):
+                route, quest = "Events & Activities", re.sub(r"^\s*Event:\s*", "", shown)
             # A GMRW hands the item over directly: no leveled-list entry, so
             # no list to read conditions from (list_fid None).
             out.append((route, quest or label or self._pretty(ed), what, None, fid))
+        return out
+
+    def _own_list_lines(self, list_fid):
+        """Routes that hand out a unique's OWN one-item list directly.
+
+        LL_Weapon_Ranged_AbraxoGun holds one thing (a Plasma Gun built as the
+        Meadow Breeze Sprayer), so whatever rewards that list, or stocks it,
+        gives exactly this unique: the "Find more Abraxodyne Intel" challenge
+        reward and Splint's gun stock. Only ONE level is read, and only for a
+        list with a single entry. Walking further up reaches shared unique
+        pools that several events roll (the 35 wrong renames of 11 Oct 2026);
+        a pool with several entries is left to the stale-only walk below.
+        """
+        if self.list_size.get(list_fid) != 1:
+            return []
+        # Path (own list, own list): the list's OWN conditions still apply
+        # when a reward rolls it (Last Bastion's list only pays out after One
+        # of Us) — a (None, ...) path would read as "handed over, no gate".
+        out = [(r, l, w, list_fid, list_fid)
+               for r, l, w, _none, _t in self._reward_lines(list_fid, "weapon")]
+        # A quest that holds the list itself (alias / script, no GMRW):
+        # Meteorite Sword <- MTR05_Mother_Breach "Activity: Breach and Clear".
+        # Bracketed names ("[Quest for MoleMiner Mystery Crate]") are the
+        # writers' notes, not something a reader can go and do — skipped.
+        for ref in sorted(self.parents.get(list_fid, ())):
+            ed, _, sig = ref.rpartition(":")
+            if sig != "QUST" or DEAD_REWARD.search(ed):
+                continue
+            name = self.quest_name.get(ed, "")
+            if not name or "<" in name:
+                continue
+            m = re.match(r"^\s*(Event|Activity)\s*:\s*(.+)$", name)
+            route, label = ("Events & Activities", m.group(2)) if m else ("Quests", name)
+            out.append((route, label, "weapon", list_fid, list_fid))
+        for pf, pe in sorted(self.owners.get(list_fid, ())):
+            if ROSTER_LIST.search(pe) or DEAD_REWARD.search(pe):
+                continue
+            label = self.vendor_label.get(pf)
+            if not label:
+                for ped in sorted(self.parents.get(pf, ())):
+                    # Refs are "EDID:LVLI"; list_fid is keyed on the bare EDID.
+                    label = self.vendor_label.get(self.list_fid.get(ped.split(":")[0], ""))
+                    if label:
+                        break
+            if not label:
+                continue          # not a vendor the plan pages know — skip
+            low = label.lower()
+            route = ("Gold Bullion" if "gold bullion" in low
+                     else "Stamps" if "stamp" in low else "Caps")
+            out.append((route, label, "weapon", pf, list_fid))
+            out.append((route, label, "weapon", list_fid, list_fid))
         return out
 
     # -- the item --------------------------------------------------------
@@ -503,6 +607,20 @@ class ObtainIndex:
             if lf:
                 hits += [h for h in self._drop_lines(lf, "weapon")
                          if not ROSTER_LIST.search(self._edid_of_list(h[3]))]
+
+        # The unique's own one-item list, read directly and ALWAYS — also
+        # when an older hand line exists. Meadow Breeze Sprayer and
+        # Prototype ABX03 carried "Quest: Shadow over Appalachia", copied from
+        # their base Plasma Gun, because this read only ran for items with no
+        # source at all (Duchess, 12 Oct 2026).
+        own_hits = []
+        for le in item.get("_rosterLists") or []:
+            lf = self.list_fid.get(le)
+            if lf:
+                own_hits += [h for h in self._own_list_lines(lf)
+                             if (h[0], h[1]) not in {(x[0], x[1]) for x in hits + own_hits}]
+        hits += own_hits
+        meta["ownListRoutes"] = [(h[0], h[1]) for h in own_hits]
 
         # Group by route so "weapon and plan" reads as one entry rather than
         # the same source printed twice.
@@ -577,10 +695,12 @@ class ObtainIndex:
 
     def apply(self, items, verbose=True):
         filled = legacy = 0
+        self.replaced, self.base_plans_cleared, self.hand_only = [], [], []
         for it in items:
             routes, meta = self.routes_for(it)
             it["obtainRoutes"] = routes
             it["recordIds"] = meta["recordIds"]
+            self._summary_from_own_list(it, routes, meta)
             # The inherited base-weapon plan is worse than no plan: it sends a
             # reader to a workbench that will never list the unique.
             if meta["planName"]:
@@ -592,8 +712,15 @@ class ObtainIndex:
                 it["planFormId"] = ""
                 it["craftable"] = False
                 it["repairOnly"] = True
+            elif self._is_base_plan(it):
+                # "Plan: Super Sledge" on All Rise came with the base weapon's
+                # record: that plan builds a plain Super Sledge. The unique's
+                # own plan (if it had one) was looked for above and not found.
+                self.base_plans_cleared.append(it.get("name"))
+                it["planName"], it["planFormId"], it["craftable"] = "", "", False
             if not any(r["populated"] for r in routes):
-                self._fallback(it, routes)
+                if self._fallback(it, routes):
+                    self.hand_only.append((it.get("name"), _q(it.get("howToObtain"))))
             if any(r["populated"] for r in routes):
                 filled += 1
             elif meta["legacyOnly"]:
@@ -608,8 +735,69 @@ class ObtainIndex:
         if verbose:
             print(f"  obtain routes: {filled} item(s) with a live route, "
                   f"{legacy} legacy-only")
+            # Every one-line source the game files overruled. A long list here
+            # means the own-list read reached further than meant — read it.
+            print(f"  base-weapon plans cleared (not the unique's plan): "
+                  f"{len(self.base_plans_cleared)} {self.base_plans_cleared}")
+            # Sources no game-file record backs: the old hand line is all the
+            # page has. This is where an inherited or guessed source can hide
+            # (both Abraxo guns sat here as "Shadow over Appalachia").
+            print(f"  hand-written source only (no game-file route): {len(self.hand_only)}")
+            for name, how in self.hand_only:
+                print(f"    {name}: {how}")
+            print(f"  sources replaced from the item's own list: {len(self.replaced)}")
+            for name, old, new in self.replaced:
+                print(f"    {name}: {old!r} -> {new!r}")
         return filled
 
+
+    _SUMMARY_PREFIX = {"Challenges": ("Challenge", "Challenge"),
+                       "Quests": ("Quest", "Quest"),
+                       "Caps": ("Vendor", "Vendor"), "Stamps": ("Vendor", "Vendor"),
+                       "Gold Bullion": ("Vendor", "Vendor"),
+                       "Events & Activities": ("Event", "Event"),
+                       "Scoreboard": ("Score", "Score")}
+
+    @staticmethod
+    def _is_base_plan(it):
+        plan = _norm(re.sub(r"^\s*plan\s*:\s*", "", _q(it.get("planName")), flags=re.I))
+        return bool(plan) and plan == _norm(it.get("base"))
+
+    def _summary_from_own_list(self, it, routes, meta):
+        """The one-line howToObtain must agree with the routes. When the own
+        list gave routes and the old line names a source none of them shows,
+        the old line was inherited (base weapon) or guessed — rebuild it from
+        the routes and drop the base weapon's plan that came with it."""
+        own = meta.get("ownListRoutes") or []
+        how = _q(it.get("howToObtain"))
+        if not own and (not how or "unconfirmed" in how.lower()):
+            # No line left (blank, or dropped by the build as contradicted by
+            # the files): say what the generated routes say.
+            own = [(r["route"], l.split(":", 1)[1].strip()) for r in routes
+                   if r["populated"] for l in r["lines"] if l.startswith("Source:")]
+        if not own:
+            return
+        detail = (how.split(":", 1)[1] if ":" in how else how).strip().lower()
+        shown = " ".join(l for r in routes if r["populated"] for l in r["lines"]).lower()
+        if detail and all(part.strip() in shown for part in detail.split(" / ")):
+            return
+        # Own-list sources first, then whatever else the routes show
+        # (Slug Buster: Buried Treasure, and the mutated events pool).
+        own = list(own) + [(r["route"], l.split(":", 1)[1].strip()) for r in routes
+                           if r["populated"] for l in r["lines"] if l.startswith("Source:")]
+        parts, first = [], None
+        for route, label in own:
+            pre, stype = self._SUMMARY_PREFIX.get(route, ("Source", "Unknown"))
+            line = f"{pre}: {label}"
+            if line not in parts:
+                parts.append(line)
+            first = first or (stype, label, route)
+        self.replaced.append((it.get("name"), how, " / ".join(parts)))
+        it["howToObtain"] = " / ".join(parts)
+        it["sourceType"], it["sourceRef"] = first[0], first[1]
+        it["questName"] = first[1] if first[2] == "Quests" else ""
+        # The plan line came from the same base-weapon copy ("Plan: Plasma
+        # Gun"): building that plan makes a plain Plasma Gun, never this.
 
     @staticmethod
     def _fallback(item, routes):
@@ -626,7 +814,9 @@ class ObtainIndex:
         lines = [_drops_line({"weapon"}, item.get("kind")),
                  f"Source: {detail}"]
         if _q(item.get("planName")):
-            lines.append("Plan: " + _q(item.get("planName")))
+            # planName already reads "Plan: X" — no "Plan: Plan: X".
+            lines.append("Plan: " + re.sub(r"^\s*plan\s*:\s*", "", _q(item.get("planName")),
+                                           flags=re.I))
         return _put(routes, route, lines,
                     tradeable=item.get("tradeable"), drop="N/A")
 

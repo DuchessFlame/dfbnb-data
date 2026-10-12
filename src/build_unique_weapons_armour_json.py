@@ -78,6 +78,7 @@ import uwa_mods
 import uwa_images      # unique pictures, matched by name (Oct 2026)
 import uwa_obtain
 import uwa_discover
+import uwa_source_links
 from patchlog_utils import write_empty_patchlog_feed
 
 import build_unique_weapons_json as buw
@@ -137,6 +138,8 @@ def classify_source(howto):
         return "Unknown"
     if hl.startswith("quest") or "camden park daily" in hl:
         return "Quest"
+    if hl.startswith("challenge"):
+        return "Challenge"
     if hl.startswith("vendor") or "vendor:" in hl:
         return "Vendor"
     if "purveyor" in hl:
@@ -684,6 +687,7 @@ def load_gmrw_quest(channel):
     return out
 
 
+CONTRADICTED = []     # (name, old line, own list) — filled by fill_sources, printed
 _VAGUE_SCORE = re.compile(r"^\s*score season reward\s*(\([^)]*\))?\s*$", re.I)
 
 # Uniques whose own leveled list is named differently from the unique
@@ -901,10 +905,25 @@ def fill_sources(items, channel, weap_combos=None):
     events = _seasonal_drops()
     seasons = _score_weapon_seasons(channel)
     own_lists, find_events = _event_lists(channel)
+    links = uwa_source_links.SourceLinks(lambda p: pick(p, channel), read_tsv,
+                                         strip_q, norm_formid)
     for it in items:
+        key = norm_name(it.get("name"))
+        own = it.get("_rosterList") or own_lists.get(key) or OWN_LIST_ALIAS.get(key)
+        how = str(it.get("howToObtain") or "").strip()
+        # A hand line whose quest exists in the files but never hands out the
+        # unique's own list is wrong, whatever else it looks like (12 Oct
+        # 2026: both Abraxo guns, Elders Mark, Slug Buster, Peace Maker …).
+        # It is dropped here; the own-list routes (uwa_obtain) name the real
+        # source, and the build log lists every one.
+        bad = links.check(how, own)["contradicted"] if own else []
+        if bad:
+            CONTRADICTED.append((it.get("name"), how, own))
+            it["howToObtain"], it["sourceType"] = "Source unconfirmed", "Unknown"
+            it["sourceRef"] = it["questName"] = ""
+            how = "Source unconfirmed"
         if it.get("kind") != "Weapon":
             continue
-        how = str(it.get("howToObtain") or "").strip()
         # Only sources that are missing, a bare "Score Season reward", or a
         # vague "World drop" are filled. Many uniques sit in shared unique
         # pools that several events roll, so walking up the lists for an item
@@ -918,12 +937,11 @@ def fill_sources(items, channel, weap_combos=None):
                 or "raids (enclave expeditions)" in how.lower())
         if not weak:
             continue
-        key = norm_name(it.get("name"))
         # 1. the unique's own leveled list, walked up to the event that gives it.
         #    Bethesda's roster pairing (WeaponsUniqueNamedList) comes first.
-        own = it.get("_rosterList") or own_lists.get(key) or OWN_LIST_ALIAS.get(key)
         evs = find_events(own) if own else []
         if evs:
+            it["_walkSource"] = True
             it["howToObtain"] = "Event: " + " / ".join(evs)
             it["sourceType"], it["sourceRef"] = "Event", evs[0]
             note = []
@@ -1417,9 +1435,39 @@ def build_channel(channel, dist_dir):
     # weapon, its plan, or both — and the plan it named was inherited from the
     # BASE weapon, so every repair-only legacy item claimed to be craftable.
     # See uwa_obtain.py. howToObtain is kept as the one-line summary.
+    CONTRADICTED.clear()
     fill_sources(all_items, channel, weap_combos)
+    print(f"  hand sources the game files contradict (dropped): {len(CONTRADICTED)}")
+    for name, how, own in CONTRADICTED:
+        print(f"    {name}: {how!r} never reaches {own}")
     obtain_idx = uwa_obtain.index(channel)
     obtain_idx.apply(all_items)
+    # A source fill_sources found by walking the item's own list must also
+    # show in the routes, or the summary and the box
+    # disagree (Grand Finale: "Seismic Activity" above, routes only showed
+    # its bounty-target copy).
+    for it in all_items:
+        if not it.pop("_walkSource", None):
+            continue
+        how = str(it.get("howToObtain") or "")
+        if not re.match(r"^\s*Event\s*:", how):
+            continue
+        shown = " ".join(l for r in it.get("obtainRoutes") or [] if r.get("populated")
+                         for l in r.get("lines") or []).lower()
+        for ev in [e.strip() for e in how.split(":", 1)[1].split(" / ") if e.strip()]:
+            ev = re.sub(r"^\s*Event\s*:\s*", "", ev)
+            if ev.lower() in shown:
+                continue
+            r = next(x for x in it["obtainRoutes"] if x["route"] == "Events & Activities")
+            if r.get("populated"):
+                at = max((i for i, l in enumerate(r["lines"]) if l.startswith("Source:")),
+                         default=len(r["lines"]) - 1)
+                r["lines"].insert(at + 1, f"Source: {ev}")
+            else:
+                r.update({"populated": True, "dropRate": "N/A", "tradeable": it.get("tradeable"),
+                          "lines": [uwa_obtain._drops_line({"weapon"}, it.get("kind")),
+                                    f"Source: {ev}"]})
+            shown += " " + ev.lower()
     # History note under the route that is live today (Xerxos: first a
     # Season 7 Scoreboard reward, under another name).
     for it in all_items:
