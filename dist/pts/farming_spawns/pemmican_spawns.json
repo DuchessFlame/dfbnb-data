@@ -12,9 +12,29 @@
  "blurb": "Every known world spawn for Pemmican, grouped by region. Directions and photos are added by hand.",
  "drop_rates": {
   "world_spawns": null,
-  "containers": null,
+  "containers": {
+   "types": []
+  },
   "vendors": null,
-  "resource_generators": null
+  "resource_generators": {
+   "entries": [
+    {
+     "name": "Pemmican Collector",
+     "edid": "SCORE_S17_ENTM_CAMP_Collector_Pemmican",
+     "obtain": "Purchase from a Gold Bullion Vendor for 1250 Gold Bullion. Requires unlocking the Pioneer Scouts: Skyline Valley Scoreboard (Season 17).",
+     "interval": "10 min 12 sec",
+     "items": [
+      {
+       "name": "Pemmican",
+       "form_id": "003EFC23",
+       "rate": 1.0,
+       "rate_display": "100%",
+       "rate_source": "computed"
+      }
+     ]
+    }
+   ]
+  }
  },
  "farming_tips": {
   "spoils": false,
@@ -89,7 +109,113 @@
    }
   }
  },
- "used_for": null,
+ "used_for": {
+  "consumption": {
+   "object_type": "Food",
+   "weight": 0.1,
+   "value": 15,
+   "addiction": null,
+   "herbivore": false,
+   "carnivore": true,
+   "note": "Pemmican is a food consumable. It grants no timed stat buff on its own.",
+   "effects": [
+    {
+     "name": "Restore Health",
+     "display": "Restores 45 Health",
+     "duration": "25s",
+     "label": "Restores Health",
+     "value": 45.0,
+     "unit": "health",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Fortify Endurance",
+     "display": "+3 Fortify Endurance",
+     "duration": "1 hour",
+     "label": "Endurance",
+     "value": 3.0,
+     "unit": "flat",
+     "scales": true,
+     "zeroed": false,
+     "sign": true
+    },
+    {
+     "name": "Satisfy Hunger",
+     "display": "Satisfies hunger (1440/24 min)",
+     "duration": null,
+     "label": "Satisfies Hunger",
+     "value": 1440.0,
+     "unit": "seconds",
+     "scales": true,
+     "zeroed": false,
+     "sign": false
+    },
+    {
+     "name": "Rads",
+     "display": "+1 Rads",
+     "duration": null,
+     "label": "Rads",
+     "value": 1.0,
+     "unit": "rads",
+     "scales": false,
+     "zeroed": true,
+     "sign": true
+    }
+   ]
+  },
+  "modifiers": {
+   "mutation": {
+    "carnivore": {
+     "name": "Carnivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    },
+    "herbivore": {
+     "name": "Herbivore",
+     "x": 2.0,
+     "sin": 2.5,
+     "safe": true
+    }
+   },
+   "glowing_gut": [
+    {
+     "rank": "R1",
+     "name": "Glowing Gut",
+     "x": 2.0
+    },
+    {
+     "rank": "R2",
+     "name": "Glowing Gut",
+     "x": 3.0
+    },
+    {
+     "rank": "R3",
+     "name": "Glowing Gut",
+     "x": 4.0
+    }
+   ],
+   "sin_label": "Strange in Numbers",
+   "sin_abbr": "SIN"
+  },
+  "challenges": [
+   {
+    "name": "Consume Pemmican",
+    "edid": "Challenge_Lifetime_Quest_P01C_Tadpole_Badge_Possum_Backpacker_Sub_ConsumePemmican",
+    "page": "scouts-possum",
+    "type": "Lifetime",
+    "required": 3
+   }
+  ],
+  "recipes": [],
+  "obtain": {
+   "recipes": [],
+   "note": null
+  }
+ },
+ "vendor_list": [],
  "additional_expands": null,
  "info_notes": null,
  "gallery": null,
@@ -99,13 +225,25 @@
    "list_id": "003EFC24",
    "edid": "D01C_Tidy_LL_Quest_Reward",
    "name": "Repeatable: Operation Tidy",
-   "type": "Daily"
+   "type": "Daily",
+   "note": "Chance the item is in the Repeatable: Operation Tidy reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
   },
   {
    "list_id": "003FBB9F",
    "edid": "D01C_StingsAndThings_LL_Quest_Reward",
    "name": "Repeatable: Stings and Things",
-   "type": "Daily"
+   "type": "Daily",
+   "note": "Chance the item is in the Repeatable: Stings and Things reward pool per event/activity payout.",
+   "rate_value": 1.0,
+   "rate_display": "100%",
+   "rate_lines": [
+    "100%"
+   ]
   }
  ],
  "regions": [
@@ -154,5 +292,10 @@
   "regions": [],
   "total_markers": 0,
   "total": 0
- }
+ },
+ "treasure_maps": {
+  "maps": []
+ },
+ "map_base": "/wp-content/uploads/guide-images/farming-non-perishable/pemmican/",
+ "full_map": "/wp-content/uploads/guide-images/farming-non-perishable/pemmican/pemmican.jpg"
 }
