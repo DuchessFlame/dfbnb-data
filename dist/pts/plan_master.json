@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated": "2026-10-12T03:48:20.689184+00:00",
+  "generated": "2026-10-12T05:46:54.186394+00:00",
   "count": 4522,
   "source_files": {
     "WEAP": "WEAP_Export_October_2026_Base.tsv",
@@ -70924,17 +70924,6 @@
       "category_label": "Weapon (physical plan)",
       "obtain_routes": [
         {
-          "route": "Miner Corpse",
-          "source_type": "creature",
-          "rate": 1.0,
-          "rate_display": "100%",
-          "lvli": [
-            "0007074D"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
           "route": "Responders vendors (Camden Park, Charleston, Charleston Station, Flatwoods, Grafton, Grafton Station, Lewisburg Station, Morgantown Airport, Morgantown Station, Welch Station, Whitespring)",
           "source_type": "vendor",
           "rate": 1.0,
@@ -70952,6 +70941,17 @@
             "004FDEF3",
             "004FDEF4"
           ],
+          "conditions": []
+        },
+        {
+          "route": "Miner Corpse",
+          "source_type": "creature",
+          "rate": 0.1,
+          "rate_display": "10%",
+          "lvli": [
+            "0007074D"
+          ],
+          "kind": "enemy",
           "conditions": []
         },
         {
@@ -71804,7 +71804,7 @@
         {
           "label": "Caps",
           "routes": [
-            1
+            0
           ]
         },
         {
@@ -71816,7 +71816,7 @@
         {
           "label": "Enemies",
           "routes": [
-            0
+            1
           ]
         },
         {
@@ -81187,8 +81187,8 @@
         {
           "route": "Communist Trooper",
           "source_type": "creature",
-          "rate": 1.0,
-          "rate_display": "100%",
+          "rate": 0.05,
+          "rate_display": "5%",
           "lvli": [
             "003A0BFE"
           ],
@@ -81198,8 +81198,8 @@
         {
           "route": "Mr. Gutsy",
           "source_type": "creature",
-          "rate": 1.0,
-          "rate_display": "100%",
+          "rate": 0.05,
+          "rate_display": "5%",
           "lvli": [
             "0001B346"
           ],
@@ -551546,8 +551546,8 @@
         {
           "route": "Assaultron",
           "source_type": "creature",
-          "rate": 0.4166666667,
-          "rate_display": "41.6667%",
+          "rate": 0.0416666667,
+          "rate_display": "4.1667%",
           "lvli": [
             "0001B34D"
           ],
@@ -551560,8 +551560,8 @@
         {
           "route": "Communist Elite Trooper",
           "source_type": "creature",
-          "rate": 0.4166666667,
-          "rate_display": "41.6667%",
+          "rate": 0.0416666667,
+          "rate_display": "4.1667%",
           "lvli": [
             "003A0BFD"
           ],
@@ -552656,10 +552656,23 @@
           ]
         },
         {
+          "route": "Supplying Demands - Valuables",
+          "source_type": "event-quest",
+          "rate": 0.0454545455,
+          "rate_display": "4.5455%",
+          "lvli": [
+            "005E8040"
+          ],
+          "kind": "quest",
+          "conditions": [
+            "Level 30 and above"
+          ]
+        },
+        {
           "route": "Deathclaw",
           "source_type": "creature",
-          "rate": 0.0666666667,
-          "rate_display": "6.6667%",
+          "rate": 0.0066666667,
+          "rate_display": "0.6667%",
           "lvli": [
             "0002EF6C"
           ],
@@ -552672,8 +552685,8 @@
         {
           "route": "Uninvited Deathclaw Matriarch",
           "source_type": "creature",
-          "rate": 0.0666666667,
-          "rate_display": "6.6667%",
+          "rate": 0.0066666667,
+          "rate_display": "0.6667%",
           "lvli": [
             "0089740B"
           ],
@@ -552681,19 +552694,6 @@
           "conditions": [
             "Only after you learn Deathclaw Gauntlet",
             "Only until you learn Extra Claw"
-          ]
-        },
-        {
-          "route": "Supplying Demands - Valuables",
-          "source_type": "event-quest",
-          "rate": 0.0454545455,
-          "rate_display": "4.5455%",
-          "lvli": [
-            "005E8040"
-          ],
-          "kind": "quest",
-          "conditions": [
-            "Level 30 and above"
           ]
         },
         {
@@ -552777,8 +552777,8 @@
         {
           "label": "Enemies",
           "routes": [
-            1,
-            2
+            2,
+            3
           ]
         },
         {
@@ -552793,7 +552793,7 @@
           "label": "Quests",
           "routes": [
             0,
-            3
+            1
           ]
         }
       ],
@@ -556708,8 +556708,8 @@
         {
           "route": "Communist Trooper",
           "source_type": "creature",
-          "rate": 1.0,
-          "rate_display": "100%",
+          "rate": 0.03,
+          "rate_display": "3%",
           "lvli": [
             "003A0BFE"
           ],
@@ -556719,8 +556719,8 @@
         {
           "route": "Mr. Gutsy",
           "source_type": "creature",
-          "rate": 1.0,
-          "rate_display": "100%",
+          "rate": 0.03,
+          "rate_display": "3%",
           "lvli": [
             "0001B346"
           ],
@@ -644825,10 +644825,21 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
+          "route": "Scorchbeast Queen",
+          "source_type": "creature",
+          "rate": 0.035,
+          "rate_display": "3.5%",
+          "lvli": [
+            "0050D7FE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.07,
-          "rate_display": "7%",
+          "rate": 0.0021,
+          "rate_display": "0.21%",
           "lvli": [
             "0036BA96"
           ],
@@ -644838,21 +644849,10 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.07,
-          "rate_display": "7%",
+          "rate": 0.0021,
+          "rate_display": "0.21%",
           "lvli": [
             "0089740A"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Scorchbeast Queen",
-          "source_type": "creature",
-          "rate": 0.035,
-          "rate_display": "3.5%",
-          "lvli": [
-            "0050D7FE"
           ],
           "kind": "enemy",
           "conditions": []
@@ -645633,10 +645633,21 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
+          "route": "Scorchbeast Queen",
+          "source_type": "creature",
+          "rate": 0.0063,
+          "rate_display": "0.63%",
+          "lvli": [
+            "0050D7FE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.0126,
-          "rate_display": "1.26%",
+          "rate": 0.000378,
+          "rate_display": "0.0378%",
           "lvli": [
             "0036BA96"
           ],
@@ -645646,21 +645657,10 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.0126,
-          "rate_display": "1.26%",
+          "rate": 0.000378,
+          "rate_display": "0.0378%",
           "lvli": [
             "0089740A"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Scorchbeast Queen",
-          "source_type": "creature",
-          "rate": 0.0063,
-          "rate_display": "0.63%",
-          "lvli": [
-            "0050D7FE"
           ],
           "kind": "enemy",
           "conditions": []
@@ -647520,10 +647520,21 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
+          "route": "Scorchbeast Queen",
+          "source_type": "creature",
+          "rate": 0.0063,
+          "rate_display": "0.63%",
+          "lvli": [
+            "0050D7FE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.0126,
-          "rate_display": "1.26%",
+          "rate": 0.000378,
+          "rate_display": "0.0378%",
           "lvli": [
             "0036BA96"
           ],
@@ -647533,21 +647544,10 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.0126,
-          "rate_display": "1.26%",
+          "rate": 0.000378,
+          "rate_display": "0.0378%",
           "lvli": [
             "0089740A"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Scorchbeast Queen",
-          "source_type": "creature",
-          "rate": 0.0063,
-          "rate_display": "0.63%",
-          "lvli": [
-            "0050D7FE"
           ],
           "kind": "enemy",
           "conditions": []
@@ -648938,10 +648938,21 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
+          "route": "Scorchbeast Queen",
+          "source_type": "creature",
+          "rate": 0.035,
+          "rate_display": "3.5%",
+          "lvli": [
+            "0050D7FE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.07,
-          "rate_display": "7%",
+          "rate": 0.0021,
+          "rate_display": "0.21%",
           "lvli": [
             "0036BA96"
           ],
@@ -648951,21 +648962,10 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.07,
-          "rate_display": "7%",
+          "rate": 0.0021,
+          "rate_display": "0.21%",
           "lvli": [
             "0089740A"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Scorchbeast Queen",
-          "source_type": "creature",
-          "rate": 0.035,
-          "rate_display": "3.5%",
-          "lvli": [
-            "0050D7FE"
           ],
           "kind": "enemy",
           "conditions": []
@@ -651239,10 +651239,21 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
+          "route": "Scorchbeast Queen",
+          "source_type": "creature",
+          "rate": 0.00315,
+          "rate_display": "0.315%",
+          "lvli": [
+            "0050D7FE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.0063,
-          "rate_display": "0.63%",
+          "rate": 0.000189,
+          "rate_display": "0.0189%",
           "lvli": [
             "0036BA96"
           ],
@@ -651252,21 +651263,10 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.0063,
-          "rate_display": "0.63%",
+          "rate": 0.000189,
+          "rate_display": "0.0189%",
           "lvli": [
             "0089740A"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Scorchbeast Queen",
-          "source_type": "creature",
-          "rate": 0.00315,
-          "rate_display": "0.315%",
-          "lvli": [
-            "0050D7FE"
           ],
           "kind": "enemy",
           "conditions": []
@@ -651323,10 +651323,21 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
+          "route": "Scorchbeast Queen",
+          "source_type": "creature",
+          "rate": 0.00315,
+          "rate_display": "0.315%",
+          "lvli": [
+            "0050D7FE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.0063,
-          "rate_display": "0.63%",
+          "rate": 0.000189,
+          "rate_display": "0.0189%",
           "lvli": [
             "0036BA96"
           ],
@@ -651336,21 +651347,10 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.0063,
-          "rate_display": "0.63%",
+          "rate": 0.000189,
+          "rate_display": "0.0189%",
           "lvli": [
             "0089740A"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Scorchbeast Queen",
-          "source_type": "creature",
-          "rate": 0.00315,
-          "rate_display": "0.315%",
-          "lvli": [
-            "0050D7FE"
           ],
           "kind": "enemy",
           "conditions": []
@@ -653532,10 +653532,21 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
+          "route": "Scorchbeast Queen",
+          "source_type": "creature",
+          "rate": 0.00081,
+          "rate_display": "0.081%",
+          "lvli": [
+            "0050D7FE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.00162,
-          "rate_display": "0.162%",
+          "rate": 4.86e-05,
+          "rate_display": "0.0049%",
           "lvli": [
             "0036BA96"
           ],
@@ -653545,21 +653556,10 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.00162,
-          "rate_display": "0.162%",
+          "rate": 4.86e-05,
+          "rate_display": "0.0049%",
           "lvli": [
             "0089740A"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Scorchbeast Queen",
-          "source_type": "creature",
-          "rate": 0.00081,
-          "rate_display": "0.081%",
-          "lvli": [
-            "0050D7FE"
           ],
           "kind": "enemy",
           "conditions": []
@@ -655501,10 +655501,21 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
+          "route": "Scorchbeast Queen",
+          "source_type": "creature",
+          "rate": 0.00081,
+          "rate_display": "0.081%",
+          "lvli": [
+            "0050D7FE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.00162,
-          "rate_display": "0.162%",
+          "rate": 4.86e-05,
+          "rate_display": "0.0049%",
           "lvli": [
             "0036BA96"
           ],
@@ -655514,21 +655525,10 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.00162,
-          "rate_display": "0.162%",
+          "rate": 4.86e-05,
+          "rate_display": "0.0049%",
           "lvli": [
             "0089740A"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Scorchbeast Queen",
-          "source_type": "creature",
-          "rate": 0.00081,
-          "rate_display": "0.081%",
-          "lvli": [
-            "0050D7FE"
           ],
           "kind": "enemy",
           "conditions": []
@@ -655605,6 +655605,433 @@
           "conditions": []
         },
         {
+          "route": "Plans lying in the world",
+          "source_type": "fixed",
+          "rate": 0.525,
+          "rate_display": "52.5%",
+          "lvli": [
+            "00307C6C"
+          ],
+          "conditions": [
+            "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
+          ]
+        },
+        {
+          "route": "Activity: Distant Thunder",
+          "source_type": "event-quest",
+          "rate": 0.4725,
+          "rate_display": "47.25%",
+          "lvli": [
+            "004FD93A"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": [
+            "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
+          ]
+        },
+        {
+          "route": "Plans lying in the world",
+          "source_type": "fixed",
+          "rate": 0.175,
+          "rate_display": "17.5%",
+          "lvli": [
+            "001D5CBB"
+          ],
+          "conditions": [
+            "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
+          ]
+        },
+        {
+          "route": "Activity: Always Vigilant",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: AWOL Armaments",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Back on the Beat",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Battle Bots - shared activity rewards",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Breach and Clear",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Census Violence",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Collision Course",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Death Blossoms",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Distant Thunder - shared activity rewards",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Fertile Soil",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Fly Swatter",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Grafton Day",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Irrational Fear",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: It's a Trap",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Leader of the Pack",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Manhunt",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Monster Mash",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Patrol Duty",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Powering Up",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Project Beanstalk",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Protest March",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Riding Shotgun",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Surface to Air",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Enclave Activity: A Real Blast",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Enclave Activity: Bots on Parade",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Enclave Activity: Dropped Connection",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Treasure Map dig spots",
+          "source_type": "event-quest",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "001A7220"
+          ],
+          "kind": "event",
+          "conditions": [
+            "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
+          ]
+        },
+        {
+          "route": "Abraxodyne Cache",
+          "source_type": "fixed",
+          "rate": 0.118125,
+          "rate_display": "11.8125%",
+          "lvli": [
+            "00845271"
+          ],
+          "conditions": [
+            "Only in Ash Heap, Cranberry Bog, The Mire or Savage Divide"
+          ]
+        },
+        {
+          "route": "Hollow Stump",
+          "source_type": "container",
+          "rate": 0.04725,
+          "rate_display": "4.725%",
+          "lvli": [],
+          "conditions": []
+        },
+        {
+          "route": "Large Toolbox",
+          "source_type": "container",
+          "rate": 0.04725,
+          "rate_display": "4.725%",
+          "lvli": [],
+          "conditions": []
+        },
+        {
+          "route": "Tool Case",
+          "source_type": "container",
+          "rate": 0.04725,
+          "rate_display": "4.725%",
+          "lvli": [],
+          "conditions": []
+        },
+        {
+          "route": "Tool Chest",
+          "source_type": "container",
+          "rate": 0.04725,
+          "rate_display": "4.725%",
+          "lvli": [],
+          "conditions": []
+        },
+        {
+          "route": "Toolbox",
+          "source_type": "container",
+          "rate": 0.04725,
+          "rate_display": "4.725%",
+          "lvli": [],
+          "conditions": []
+        },
+        {
+          "route": "Activity: Battle Bots",
+          "source_type": "event-quest",
+          "rate": 0.04725,
+          "rate_display": "4.725%",
+          "lvli": [
+            "0021E0AC"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
           "route": "Event: Encryptid",
           "source_type": "event-quest",
           "rate": 0.0090909091,
@@ -655670,14 +656097,51 @@
         {
           "label": "Containers",
           "routes": [
-            4
+            2,
+            4,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            41
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
-            2,
-            3
+            3,
+            6,
+            5,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            38,
+            39,
+            40
           ]
         }
       ],
@@ -658158,10 +658622,21 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
+          "route": "Scorchbeast Queen",
+          "source_type": "creature",
+          "rate": 0.0063,
+          "rate_display": "0.63%",
+          "lvli": [
+            "0050D7FE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.0126,
-          "rate_display": "1.26%",
+          "rate": 0.000378,
+          "rate_display": "0.0378%",
           "lvli": [
             "0036BA96"
           ],
@@ -658171,21 +658646,10 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.0126,
-          "rate_display": "1.26%",
+          "rate": 0.000378,
+          "rate_display": "0.0378%",
           "lvli": [
             "0089740A"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Scorchbeast Queen",
-          "source_type": "creature",
-          "rate": 0.0063,
-          "rate_display": "0.63%",
-          "lvli": [
-            "0050D7FE"
           ],
           "kind": "enemy",
           "conditions": []
@@ -659166,8 +659630,8 @@
         {
           "route": "Plans lying in the world",
           "source_type": "fixed",
-          "rate": 0.38475,
-          "rate_display": "38.475%",
+          "rate": 0.115425,
+          "rate_display": "11.5425%",
           "lvli": [
             "00307C6C"
           ],
@@ -659178,8 +659642,8 @@
         {
           "route": "Activity: Distant Thunder",
           "source_type": "event-quest",
-          "rate": 0.346275,
-          "rate_display": "34.6275%",
+          "rate": 0.1038825,
+          "rate_display": "10.3883%",
           "lvli": [
             "004FD93A"
           ],
@@ -659192,8 +659656,8 @@
         {
           "route": "Plans lying in the world",
           "source_type": "fixed",
-          "rate": 0.12825,
-          "rate_display": "12.825%",
+          "rate": 0.038475,
+          "rate_display": "3.8475%",
           "lvli": [
             "001D5CBB"
           ],
@@ -659204,8 +659668,8 @@
         {
           "route": "Activity: Always Vigilant",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659216,8 +659680,8 @@
         {
           "route": "Activity: AWOL Armaments",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659228,8 +659692,8 @@
         {
           "route": "Activity: Back on the Beat",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659240,8 +659704,8 @@
         {
           "route": "Activity: Battle Bots - shared activity rewards",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659252,8 +659716,8 @@
         {
           "route": "Activity: Breach and Clear",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659264,8 +659728,8 @@
         {
           "route": "Activity: Census Violence",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659276,8 +659740,8 @@
         {
           "route": "Activity: Collision Course",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659288,8 +659752,8 @@
         {
           "route": "Activity: Death Blossoms",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659300,8 +659764,8 @@
         {
           "route": "Activity: Distant Thunder - shared activity rewards",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659312,8 +659776,8 @@
         {
           "route": "Activity: Fertile Soil",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659324,8 +659788,8 @@
         {
           "route": "Activity: Fly Swatter",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659336,8 +659800,8 @@
         {
           "route": "Activity: Grafton Day",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659348,8 +659812,8 @@
         {
           "route": "Activity: Irrational Fear",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659360,8 +659824,8 @@
         {
           "route": "Activity: It's a Trap",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659372,8 +659836,8 @@
         {
           "route": "Activity: Leader of the Pack",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659384,8 +659848,8 @@
         {
           "route": "Activity: Manhunt",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659396,8 +659860,8 @@
         {
           "route": "Activity: Monster Mash",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659408,8 +659872,8 @@
         {
           "route": "Activity: Patrol Duty",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659420,8 +659884,8 @@
         {
           "route": "Activity: Powering Up",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659432,8 +659896,8 @@
         {
           "route": "Activity: Project Beanstalk",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659444,8 +659908,8 @@
         {
           "route": "Activity: Protest March",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659456,8 +659920,8 @@
         {
           "route": "Activity: Riding Shotgun",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659468,8 +659932,8 @@
         {
           "route": "Activity: Surface to Air",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659480,8 +659944,8 @@
         {
           "route": "Enclave Activity: A Real Blast",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659492,8 +659956,8 @@
         {
           "route": "Enclave Activity: Bots on Parade",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659504,8 +659968,8 @@
         {
           "route": "Enclave Activity: Dropped Connection",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "0086A8C0"
           ],
@@ -659516,8 +659980,8 @@
         {
           "route": "Treasure Map dig spots",
           "source_type": "event-quest",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "001A7220"
           ],
@@ -659529,8 +659993,8 @@
         {
           "route": "Abraxodyne Cache",
           "source_type": "fixed",
-          "rate": 0.08656875,
-          "rate_display": "8.6569%",
+          "rate": 0.025970625,
+          "rate_display": "2.5971%",
           "lvli": [
             "00845271"
           ],
@@ -659541,48 +660005,48 @@
         {
           "route": "Hollow Stump",
           "source_type": "container",
-          "rate": 0.0346275,
-          "rate_display": "3.4628%",
+          "rate": 0.01038825,
+          "rate_display": "1.0388%",
           "lvli": [],
           "conditions": []
         },
         {
           "route": "Large Toolbox",
           "source_type": "container",
-          "rate": 0.0346275,
-          "rate_display": "3.4628%",
+          "rate": 0.01038825,
+          "rate_display": "1.0388%",
           "lvli": [],
           "conditions": []
         },
         {
           "route": "Tool Case",
           "source_type": "container",
-          "rate": 0.0346275,
-          "rate_display": "3.4628%",
+          "rate": 0.01038825,
+          "rate_display": "1.0388%",
           "lvli": [],
           "conditions": []
         },
         {
           "route": "Tool Chest",
           "source_type": "container",
-          "rate": 0.0346275,
-          "rate_display": "3.4628%",
+          "rate": 0.01038825,
+          "rate_display": "1.0388%",
           "lvli": [],
           "conditions": []
         },
         {
           "route": "Toolbox",
           "source_type": "container",
-          "rate": 0.0346275,
-          "rate_display": "3.4628%",
+          "rate": 0.01038825,
+          "rate_display": "1.0388%",
           "lvli": [],
           "conditions": []
         },
         {
           "route": "Activity: Battle Bots",
           "source_type": "event-quest",
-          "rate": 0.0346275,
-          "rate_display": "3.4628%",
+          "rate": 0.01038825,
+          "rate_display": "1.0388%",
           "lvli": [
             "0021E0AC"
           ],
@@ -660901,10 +661365,21 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
+          "route": "Scorchbeast Queen",
+          "source_type": "creature",
+          "rate": 0.00315,
+          "rate_display": "0.315%",
+          "lvli": [
+            "0050D7FE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.0063,
-          "rate_display": "0.63%",
+          "rate": 0.000189,
+          "rate_display": "0.0189%",
           "lvli": [
             "0036BA96"
           ],
@@ -660914,21 +661389,10 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.0063,
-          "rate_display": "0.63%",
+          "rate": 0.000189,
+          "rate_display": "0.0189%",
           "lvli": [
             "0089740A"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Scorchbeast Queen",
-          "source_type": "creature",
-          "rate": 0.00315,
-          "rate_display": "0.315%",
-          "lvli": [
-            "0050D7FE"
           ],
           "kind": "enemy",
           "conditions": []
@@ -663890,10 +664354,21 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
+          "route": "Scorchbeast Queen",
+          "source_type": "creature",
+          "rate": 0.07,
+          "rate_display": "7%",
+          "lvli": [
+            "0050D7FE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.14,
-          "rate_display": "14%",
+          "rate": 0.0042,
+          "rate_display": "0.42%",
           "lvli": [
             "0036BA96"
           ],
@@ -663903,21 +664378,10 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.14,
-          "rate_display": "14%",
+          "rate": 0.0042,
+          "rate_display": "0.42%",
           "lvli": [
             "0089740A"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Scorchbeast Queen",
-          "source_type": "creature",
-          "rate": 0.07,
-          "rate_display": "7%",
-          "lvli": [
-            "0050D7FE"
           ],
           "kind": "enemy",
           "conditions": []
@@ -663974,10 +664438,21 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
+          "route": "Scorchbeast Queen",
+          "source_type": "creature",
+          "rate": 0.07,
+          "rate_display": "7%",
+          "lvli": [
+            "0050D7FE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.14,
-          "rate_display": "14%",
+          "rate": 0.0042,
+          "rate_display": "0.42%",
           "lvli": [
             "0036BA96"
           ],
@@ -663987,21 +664462,10 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.14,
-          "rate_display": "14%",
+          "rate": 0.0042,
+          "rate_display": "0.42%",
           "lvli": [
             "0089740A"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Scorchbeast Queen",
-          "source_type": "creature",
-          "rate": 0.07,
-          "rate_display": "7%",
-          "lvli": [
-            "0050D7FE"
           ],
           "kind": "enemy",
           "conditions": []
@@ -666697,10 +667161,21 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
+          "route": "Scorchbeast Queen",
+          "source_type": "creature",
+          "rate": 0.00081,
+          "rate_display": "0.081%",
+          "lvli": [
+            "0050D7FE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.00162,
-          "rate_display": "0.162%",
+          "rate": 4.86e-05,
+          "rate_display": "0.0049%",
           "lvli": [
             "0036BA96"
           ],
@@ -666710,21 +667185,10 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.00162,
-          "rate_display": "0.162%",
+          "rate": 4.86e-05,
+          "rate_display": "0.0049%",
           "lvli": [
             "0089740A"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Scorchbeast Queen",
-          "source_type": "creature",
-          "rate": 0.00081,
-          "rate_display": "0.081%",
-          "lvli": [
-            "0050D7FE"
           ],
           "kind": "enemy",
           "conditions": []
@@ -666781,10 +667245,21 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
+          "route": "Scorchbeast Queen",
+          "source_type": "creature",
+          "rate": 0.00081,
+          "rate_display": "0.081%",
+          "lvli": [
+            "0050D7FE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.00162,
-          "rate_display": "0.162%",
+          "rate": 4.86e-05,
+          "rate_display": "0.0049%",
           "lvli": [
             "0036BA96"
           ],
@@ -666794,21 +667269,10 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.00162,
-          "rate_display": "0.162%",
+          "rate": 4.86e-05,
+          "rate_display": "0.0049%",
           "lvli": [
             "0089740A"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Scorchbeast Queen",
-          "source_type": "creature",
-          "rate": 0.00081,
-          "rate_display": "0.081%",
-          "lvli": [
-            "0050D7FE"
           ],
           "kind": "enemy",
           "conditions": []
@@ -667530,10 +667994,21 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
+          "route": "Scorchbeast Queen",
+          "source_type": "creature",
+          "rate": 0.035,
+          "rate_display": "3.5%",
+          "lvli": [
+            "0050D7FE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.07,
-          "rate_display": "7%",
+          "rate": 0.0021,
+          "rate_display": "0.21%",
           "lvli": [
             "0036BA96"
           ],
@@ -667543,21 +668018,10 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.07,
-          "rate_display": "7%",
+          "rate": 0.0021,
+          "rate_display": "0.21%",
           "lvli": [
             "0089740A"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Scorchbeast Queen",
-          "source_type": "creature",
-          "rate": 0.035,
-          "rate_display": "3.5%",
-          "lvli": [
-            "0050D7FE"
           ],
           "kind": "enemy",
           "conditions": []
@@ -668207,10 +668671,21 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
+          "route": "Scorchbeast Queen",
+          "source_type": "creature",
+          "rate": 0.0063,
+          "rate_display": "0.63%",
+          "lvli": [
+            "0050D7FE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.0126,
-          "rate_display": "1.26%",
+          "rate": 0.000378,
+          "rate_display": "0.0378%",
           "lvli": [
             "0036BA96"
           ],
@@ -668220,21 +668695,10 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.0126,
-          "rate_display": "1.26%",
+          "rate": 0.000378,
+          "rate_display": "0.0378%",
           "lvli": [
             "0089740A"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Scorchbeast Queen",
-          "source_type": "creature",
-          "rate": 0.0063,
-          "rate_display": "0.63%",
-          "lvli": [
-            "0050D7FE"
           ],
           "kind": "enemy",
           "conditions": []
@@ -670073,6 +670537,433 @@
           "conditions": []
         },
         {
+          "route": "Plans lying in the world",
+          "source_type": "fixed",
+          "rate": 0.7,
+          "rate_display": "70%",
+          "lvli": [
+            "00307C6C"
+          ],
+          "conditions": [
+            "Only in Ash Heap, Cranberry Bog, The Mire, Savage Divide, Toxic Valley, Skyline Valley or Burning Springs"
+          ]
+        },
+        {
+          "route": "Activity: Distant Thunder",
+          "source_type": "event-quest",
+          "rate": 0.63,
+          "rate_display": "63%",
+          "lvli": [
+            "004FD93A"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": [
+            "Only in Ash Heap, Cranberry Bog, The Mire, Savage Divide, Toxic Valley, Skyline Valley or Burning Springs"
+          ]
+        },
+        {
+          "route": "Plans lying in the world",
+          "source_type": "fixed",
+          "rate": 0.2333333333,
+          "rate_display": "23.3333%",
+          "lvli": [
+            "001D5CBB"
+          ],
+          "conditions": [
+            "Only in Ash Heap, Cranberry Bog, The Mire, Savage Divide, Toxic Valley, Skyline Valley or Burning Springs"
+          ]
+        },
+        {
+          "route": "Activity: Always Vigilant",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: AWOL Armaments",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Back on the Beat",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Battle Bots - shared activity rewards",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Breach and Clear",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Census Violence",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Collision Course",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Death Blossoms",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Distant Thunder - shared activity rewards",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Fertile Soil",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Fly Swatter",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Grafton Day",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Irrational Fear",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: It's a Trap",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Leader of the Pack",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Manhunt",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Monster Mash",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Patrol Duty",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Powering Up",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Project Beanstalk",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Protest March",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Riding Shotgun",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Activity: Surface to Air",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Enclave Activity: A Real Blast",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Enclave Activity: Bots on Parade",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Enclave Activity: Dropped Connection",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "0086A8C0"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
+          "route": "Treasure Map dig spots",
+          "source_type": "event-quest",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "001A7220"
+          ],
+          "kind": "event",
+          "conditions": [
+            "Only in Ash Heap, Cranberry Bog, The Mire, Savage Divide, Toxic Valley, Skyline Valley or Burning Springs"
+          ]
+        },
+        {
+          "route": "Abraxodyne Cache",
+          "source_type": "fixed",
+          "rate": 0.1575,
+          "rate_display": "15.75%",
+          "lvli": [
+            "00845271"
+          ],
+          "conditions": [
+            "Only in Ash Heap, Cranberry Bog, The Mire, Savage Divide, Toxic Valley, Skyline Valley or Burning Springs"
+          ]
+        },
+        {
+          "route": "Hollow Stump",
+          "source_type": "container",
+          "rate": 0.063,
+          "rate_display": "6.3%",
+          "lvli": [],
+          "conditions": []
+        },
+        {
+          "route": "Large Toolbox",
+          "source_type": "container",
+          "rate": 0.063,
+          "rate_display": "6.3%",
+          "lvli": [],
+          "conditions": []
+        },
+        {
+          "route": "Tool Case",
+          "source_type": "container",
+          "rate": 0.063,
+          "rate_display": "6.3%",
+          "lvli": [],
+          "conditions": []
+        },
+        {
+          "route": "Tool Chest",
+          "source_type": "container",
+          "rate": 0.063,
+          "rate_display": "6.3%",
+          "lvli": [],
+          "conditions": []
+        },
+        {
+          "route": "Toolbox",
+          "source_type": "container",
+          "rate": 0.063,
+          "rate_display": "6.3%",
+          "lvli": [],
+          "conditions": []
+        },
+        {
+          "route": "Activity: Battle Bots",
+          "source_type": "event-quest",
+          "rate": 0.063,
+          "rate_display": "6.3%",
+          "lvli": [
+            "0021E0AC"
+          ],
+          "quest_reward": true,
+          "kind": "event",
+          "conditions": []
+        },
+        {
           "route": "Event: Encryptid",
           "source_type": "event-quest",
           "rate": 0.0090909091,
@@ -670138,14 +671029,51 @@
         {
           "label": "Containers",
           "routes": [
-            4
+            2,
+            4,
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            41
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
-            2,
-            3
+            3,
+            6,
+            5,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31,
+            38,
+            39,
+            40
           ]
         }
       ],
@@ -675403,10 +676331,21 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
+          "route": "Scorchbeast Queen",
+          "source_type": "creature",
+          "rate": 0.07,
+          "rate_display": "7%",
+          "lvli": [
+            "0050D7FE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.14,
-          "rate_display": "14%",
+          "rate": 0.0042,
+          "rate_display": "0.42%",
           "lvli": [
             "0036BA96"
           ],
@@ -675416,21 +676355,10 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.14,
-          "rate_display": "14%",
+          "rate": 0.0042,
+          "rate_display": "0.42%",
           "lvli": [
             "0089740A"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Scorchbeast Queen",
-          "source_type": "creature",
-          "rate": 0.07,
-          "rate_display": "7%",
-          "lvli": [
-            "0050D7FE"
           ],
           "kind": "enemy",
           "conditions": []
@@ -675597,10 +676525,21 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
+          "route": "Scorchbeast Queen",
+          "source_type": "creature",
+          "rate": 0.07,
+          "rate_display": "7%",
+          "lvli": [
+            "0050D7FE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.14,
-          "rate_display": "14%",
+          "rate": 0.0042,
+          "rate_display": "0.42%",
           "lvli": [
             "0036BA96"
           ],
@@ -675610,21 +676549,10 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.14,
-          "rate_display": "14%",
+          "rate": 0.0042,
+          "rate_display": "0.42%",
           "lvli": [
             "0089740A"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Scorchbeast Queen",
-          "source_type": "creature",
-          "rate": 0.07,
-          "rate_display": "7%",
-          "lvli": [
-            "0050D7FE"
           ],
           "kind": "enemy",
           "conditions": []
@@ -675681,10 +676609,21 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
+          "route": "Scorchbeast Queen",
+          "source_type": "creature",
+          "rate": 0.07,
+          "rate_display": "7%",
+          "lvli": [
+            "0050D7FE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.14,
-          "rate_display": "14%",
+          "rate": 0.0042,
+          "rate_display": "0.42%",
           "lvli": [
             "0036BA96"
           ],
@@ -675694,21 +676633,10 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.14,
-          "rate_display": "14%",
+          "rate": 0.0042,
+          "rate_display": "0.42%",
           "lvli": [
             "0089740A"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Scorchbeast Queen",
-          "source_type": "creature",
-          "rate": 0.07,
-          "rate_display": "7%",
-          "lvli": [
-            "0050D7FE"
           ],
           "kind": "enemy",
           "conditions": []
@@ -678193,18 +679121,6 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
-          "route": "Plans lying in the world",
-          "source_type": "fixed",
-          "rate": 1.0,
-          "rate_display": "100%",
-          "lvli": [
-            "00307C6C"
-          ],
-          "conditions": [
-            "Only in Ash Heap, Cranberry Bog, The Mire, Savage Divide, Toxic Valley, Skyline Valley or Burning Springs"
-          ]
-        },
-        {
           "route": "Vendor Bot Resin (Top Of The World, Raiders vendor)",
           "source_type": "vendor",
           "rate": 1.0,
@@ -678225,10 +679141,22 @@
           "conditions": []
         },
         {
+          "route": "Plans lying in the world",
+          "source_type": "fixed",
+          "rate": 0.3,
+          "rate_display": "30%",
+          "lvli": [
+            "00307C6C"
+          ],
+          "conditions": [
+            "Only in Ash Heap, Cranberry Bog, The Mire, Savage Divide, Toxic Valley, Skyline Valley or Burning Springs"
+          ]
+        },
+        {
           "route": "Activity: Distant Thunder",
           "source_type": "event-quest",
-          "rate": 0.9,
-          "rate_display": "90%",
+          "rate": 0.27,
+          "rate_display": "27%",
           "lvli": [
             "004FD93A"
           ],
@@ -678241,8 +679169,8 @@
         {
           "route": "Plans lying in the world",
           "source_type": "fixed",
-          "rate": 0.3333333333,
-          "rate_display": "33.3333%",
+          "rate": 0.1,
+          "rate_display": "10%",
           "lvli": [
             "001D5CBB"
           ],
@@ -678253,8 +679181,8 @@
         {
           "route": "Activity: Always Vigilant",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678265,8 +679193,8 @@
         {
           "route": "Activity: AWOL Armaments",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678277,8 +679205,8 @@
         {
           "route": "Activity: Back on the Beat",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678289,8 +679217,8 @@
         {
           "route": "Activity: Battle Bots - shared activity rewards",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678301,8 +679229,8 @@
         {
           "route": "Activity: Breach and Clear",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678313,8 +679241,8 @@
         {
           "route": "Activity: Census Violence",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678325,8 +679253,8 @@
         {
           "route": "Activity: Collision Course",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678337,8 +679265,8 @@
         {
           "route": "Activity: Death Blossoms",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678349,8 +679277,8 @@
         {
           "route": "Activity: Distant Thunder - shared activity rewards",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678361,8 +679289,8 @@
         {
           "route": "Activity: Fertile Soil",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678373,8 +679301,8 @@
         {
           "route": "Activity: Fly Swatter",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678385,8 +679313,8 @@
         {
           "route": "Activity: Grafton Day",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678397,8 +679325,8 @@
         {
           "route": "Activity: Irrational Fear",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678409,8 +679337,8 @@
         {
           "route": "Activity: It's a Trap",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678421,8 +679349,8 @@
         {
           "route": "Activity: Leader of the Pack",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678433,8 +679361,8 @@
         {
           "route": "Activity: Manhunt",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678445,8 +679373,8 @@
         {
           "route": "Activity: Monster Mash",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678457,8 +679385,8 @@
         {
           "route": "Activity: Patrol Duty",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678469,8 +679397,8 @@
         {
           "route": "Activity: Powering Up",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678481,8 +679409,8 @@
         {
           "route": "Activity: Project Beanstalk",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678493,8 +679421,8 @@
         {
           "route": "Activity: Protest March",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678505,8 +679433,8 @@
         {
           "route": "Activity: Riding Shotgun",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678517,8 +679445,8 @@
         {
           "route": "Activity: Surface to Air",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678529,8 +679457,8 @@
         {
           "route": "Enclave Activity: A Real Blast",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678541,8 +679469,8 @@
         {
           "route": "Enclave Activity: Bots on Parade",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678553,8 +679481,8 @@
         {
           "route": "Enclave Activity: Dropped Connection",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "0086A8C0"
           ],
@@ -678565,8 +679493,8 @@
         {
           "route": "Treasure Map dig spots",
           "source_type": "event-quest",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "001A7220"
           ],
@@ -678578,8 +679506,8 @@
         {
           "route": "Abraxodyne Cache",
           "source_type": "fixed",
-          "rate": 0.225,
-          "rate_display": "22.5%",
+          "rate": 0.0675,
+          "rate_display": "6.75%",
           "lvli": [
             "00845271"
           ],
@@ -678590,48 +679518,48 @@
         {
           "route": "Hollow Stump",
           "source_type": "container",
-          "rate": 0.09,
-          "rate_display": "9%",
+          "rate": 0.027,
+          "rate_display": "2.7%",
           "lvli": [],
           "conditions": []
         },
         {
           "route": "Large Toolbox",
           "source_type": "container",
-          "rate": 0.09,
-          "rate_display": "9%",
+          "rate": 0.027,
+          "rate_display": "2.7%",
           "lvli": [],
           "conditions": []
         },
         {
           "route": "Tool Case",
           "source_type": "container",
-          "rate": 0.09,
-          "rate_display": "9%",
+          "rate": 0.027,
+          "rate_display": "2.7%",
           "lvli": [],
           "conditions": []
         },
         {
           "route": "Tool Chest",
           "source_type": "container",
-          "rate": 0.09,
-          "rate_display": "9%",
+          "rate": 0.027,
+          "rate_display": "2.7%",
           "lvli": [],
           "conditions": []
         },
         {
           "route": "Toolbox",
           "source_type": "container",
-          "rate": 0.09,
-          "rate_display": "9%",
+          "rate": 0.027,
+          "rate_display": "2.7%",
           "lvli": [],
           "conditions": []
         },
         {
           "route": "Activity: Battle Bots",
           "source_type": "event-quest",
-          "rate": 0.09,
-          "rate_display": "9%",
+          "rate": 0.027,
+          "rate_display": "2.7%",
           "lvli": [
             "0021E0AC"
           ],
@@ -678698,14 +679626,14 @@
         {
           "label": "Caps",
           "routes": [
-            1,
-            2
+            0,
+            1
           ]
         },
         {
           "label": "Containers",
           "routes": [
-            0,
+            2,
             4,
             32,
             33,
@@ -680327,10 +681255,21 @@
       "category_label": "Armour Mod / Paint",
       "obtain_routes": [
         {
+          "route": "Scorchbeast Queen",
+          "source_type": "creature",
+          "rate": 0.0063,
+          "rate_display": "0.63%",
+          "lvli": [
+            "0050D7FE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.0126,
-          "rate_display": "1.26%",
+          "rate": 0.000378,
+          "rate_display": "0.0378%",
           "lvli": [
             "0036BA96"
           ],
@@ -680340,21 +681279,10 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.0126,
-          "rate_display": "1.26%",
+          "rate": 0.000378,
+          "rate_display": "0.0378%",
           "lvli": [
             "0089740A"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Scorchbeast Queen",
-          "source_type": "creature",
-          "rate": 0.0063,
-          "rate_display": "0.63%",
-          "lvli": [
-            "0050D7FE"
           ],
           "kind": "enemy",
           "conditions": []
@@ -681055,8 +681983,8 @@
         {
           "route": "Plans lying in the world",
           "source_type": "fixed",
-          "rate": 0.3980025,
-          "rate_display": "39.8002%",
+          "rate": 0.11940075,
+          "rate_display": "11.9401%",
           "lvli": [
             "00307C6C"
           ],
@@ -681067,8 +681995,8 @@
         {
           "route": "Activity: Distant Thunder",
           "source_type": "event-quest",
-          "rate": 0.35820225,
-          "rate_display": "35.8202%",
+          "rate": 0.107460675,
+          "rate_display": "10.7461%",
           "lvli": [
             "004FD93A"
           ],
@@ -681081,8 +682009,8 @@
         {
           "route": "Plans lying in the world",
           "source_type": "fixed",
-          "rate": 0.1326675,
-          "rate_display": "13.2667%",
+          "rate": 0.03980025,
+          "rate_display": "3.98%",
           "lvli": [
             "001D5CBB"
           ],
@@ -681093,8 +682021,8 @@
         {
           "route": "Activity: Always Vigilant",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681105,8 +682033,8 @@
         {
           "route": "Activity: AWOL Armaments",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681117,8 +682045,8 @@
         {
           "route": "Activity: Back on the Beat",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681129,8 +682057,8 @@
         {
           "route": "Activity: Battle Bots - shared activity rewards",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681141,8 +682069,8 @@
         {
           "route": "Activity: Breach and Clear",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681153,8 +682081,8 @@
         {
           "route": "Activity: Census Violence",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681165,8 +682093,8 @@
         {
           "route": "Activity: Collision Course",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681177,8 +682105,8 @@
         {
           "route": "Activity: Death Blossoms",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681189,8 +682117,8 @@
         {
           "route": "Activity: Distant Thunder - shared activity rewards",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681201,8 +682129,8 @@
         {
           "route": "Activity: Fertile Soil",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681213,8 +682141,8 @@
         {
           "route": "Activity: Fly Swatter",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681225,8 +682153,8 @@
         {
           "route": "Activity: Grafton Day",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681237,8 +682165,8 @@
         {
           "route": "Activity: Irrational Fear",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681249,8 +682177,8 @@
         {
           "route": "Activity: It's a Trap",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681261,8 +682189,8 @@
         {
           "route": "Activity: Leader of the Pack",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681273,8 +682201,8 @@
         {
           "route": "Activity: Manhunt",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681285,8 +682213,8 @@
         {
           "route": "Activity: Monster Mash",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681297,8 +682225,8 @@
         {
           "route": "Activity: Patrol Duty",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681309,8 +682237,8 @@
         {
           "route": "Activity: Powering Up",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681321,8 +682249,8 @@
         {
           "route": "Activity: Project Beanstalk",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681333,8 +682261,8 @@
         {
           "route": "Activity: Protest March",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681345,8 +682273,8 @@
         {
           "route": "Activity: Riding Shotgun",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681357,8 +682285,8 @@
         {
           "route": "Activity: Surface to Air",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681369,8 +682297,8 @@
         {
           "route": "Enclave Activity: A Real Blast",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681381,8 +682309,8 @@
         {
           "route": "Enclave Activity: Bots on Parade",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681393,8 +682321,8 @@
         {
           "route": "Enclave Activity: Dropped Connection",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "0086A8C0"
           ],
@@ -681405,8 +682333,8 @@
         {
           "route": "Treasure Map dig spots",
           "source_type": "event-quest",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "001A7220"
           ],
@@ -681418,8 +682346,8 @@
         {
           "route": "Abraxodyne Cache",
           "source_type": "fixed",
-          "rate": 0.0895505625,
-          "rate_display": "8.9551%",
+          "rate": 0.0268651688,
+          "rate_display": "2.6865%",
           "lvli": [
             "00845271"
           ],
@@ -681430,48 +682358,48 @@
         {
           "route": "Hollow Stump",
           "source_type": "container",
-          "rate": 0.035820225,
-          "rate_display": "3.582%",
+          "rate": 0.0107460675,
+          "rate_display": "1.0746%",
           "lvli": [],
           "conditions": []
         },
         {
           "route": "Large Toolbox",
           "source_type": "container",
-          "rate": 0.035820225,
-          "rate_display": "3.582%",
+          "rate": 0.0107460675,
+          "rate_display": "1.0746%",
           "lvli": [],
           "conditions": []
         },
         {
           "route": "Tool Case",
           "source_type": "container",
-          "rate": 0.035820225,
-          "rate_display": "3.582%",
+          "rate": 0.0107460675,
+          "rate_display": "1.0746%",
           "lvli": [],
           "conditions": []
         },
         {
           "route": "Tool Chest",
           "source_type": "container",
-          "rate": 0.035820225,
-          "rate_display": "3.582%",
+          "rate": 0.0107460675,
+          "rate_display": "1.0746%",
           "lvli": [],
           "conditions": []
         },
         {
           "route": "Toolbox",
           "source_type": "container",
-          "rate": 0.035820225,
-          "rate_display": "3.582%",
+          "rate": 0.0107460675,
+          "rate_display": "1.0746%",
           "lvli": [],
           "conditions": []
         },
         {
           "route": "Activity: Battle Bots",
           "source_type": "event-quest",
-          "rate": 0.035820225,
-          "rate_display": "3.582%",
+          "rate": 0.0107460675,
+          "rate_display": "1.0746%",
           "lvli": [
             "0021E0AC"
           ],
@@ -684398,8 +685326,8 @@
         {
           "route": "Plans lying in the world",
           "source_type": "fixed",
-          "rate": 0.75,
-          "rate_display": "75%",
+          "rate": 0.225,
+          "rate_display": "22.5%",
           "lvli": [
             "00307C6C"
           ],
@@ -684410,8 +685338,8 @@
         {
           "route": "Activity: Distant Thunder",
           "source_type": "event-quest",
-          "rate": 0.675,
-          "rate_display": "67.5%",
+          "rate": 0.2025,
+          "rate_display": "20.25%",
           "lvli": [
             "004FD93A"
           ],
@@ -684424,8 +685352,8 @@
         {
           "route": "Plans lying in the world",
           "source_type": "fixed",
-          "rate": 0.25,
-          "rate_display": "25%",
+          "rate": 0.075,
+          "rate_display": "7.5%",
           "lvli": [
             "001D5CBB"
           ],
@@ -684436,8 +685364,8 @@
         {
           "route": "Activity: Always Vigilant",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684448,8 +685376,8 @@
         {
           "route": "Activity: AWOL Armaments",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684460,8 +685388,8 @@
         {
           "route": "Activity: Back on the Beat",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684472,8 +685400,8 @@
         {
           "route": "Activity: Battle Bots - shared activity rewards",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684484,8 +685412,8 @@
         {
           "route": "Activity: Breach and Clear",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684496,8 +685424,8 @@
         {
           "route": "Activity: Census Violence",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684508,8 +685436,8 @@
         {
           "route": "Activity: Collision Course",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684520,8 +685448,8 @@
         {
           "route": "Activity: Death Blossoms",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684532,8 +685460,8 @@
         {
           "route": "Activity: Distant Thunder - shared activity rewards",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684544,8 +685472,8 @@
         {
           "route": "Activity: Fertile Soil",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684556,8 +685484,8 @@
         {
           "route": "Activity: Fly Swatter",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684568,8 +685496,8 @@
         {
           "route": "Activity: Grafton Day",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684580,8 +685508,8 @@
         {
           "route": "Activity: Irrational Fear",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684592,8 +685520,8 @@
         {
           "route": "Activity: It's a Trap",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684604,8 +685532,8 @@
         {
           "route": "Activity: Leader of the Pack",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684616,8 +685544,8 @@
         {
           "route": "Activity: Manhunt",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684628,8 +685556,8 @@
         {
           "route": "Activity: Monster Mash",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684640,8 +685568,8 @@
         {
           "route": "Activity: Patrol Duty",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684652,8 +685580,8 @@
         {
           "route": "Activity: Powering Up",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684664,8 +685592,8 @@
         {
           "route": "Activity: Project Beanstalk",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684676,8 +685604,8 @@
         {
           "route": "Activity: Protest March",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684688,8 +685616,8 @@
         {
           "route": "Activity: Riding Shotgun",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684700,8 +685628,8 @@
         {
           "route": "Activity: Surface to Air",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684712,8 +685640,8 @@
         {
           "route": "Enclave Activity: A Real Blast",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684724,8 +685652,8 @@
         {
           "route": "Enclave Activity: Bots on Parade",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684736,8 +685664,8 @@
         {
           "route": "Enclave Activity: Dropped Connection",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "0086A8C0"
           ],
@@ -684748,8 +685676,8 @@
         {
           "route": "Treasure Map dig spots",
           "source_type": "event-quest",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "001A7220"
           ],
@@ -684761,8 +685689,8 @@
         {
           "route": "Abraxodyne Cache",
           "source_type": "fixed",
-          "rate": 0.16875,
-          "rate_display": "16.875%",
+          "rate": 0.050625,
+          "rate_display": "5.0625%",
           "lvli": [
             "00845271"
           ],
@@ -684773,48 +685701,48 @@
         {
           "route": "Hollow Stump",
           "source_type": "container",
-          "rate": 0.0675,
-          "rate_display": "6.75%",
+          "rate": 0.02025,
+          "rate_display": "2.025%",
           "lvli": [],
           "conditions": []
         },
         {
           "route": "Large Toolbox",
           "source_type": "container",
-          "rate": 0.0675,
-          "rate_display": "6.75%",
+          "rate": 0.02025,
+          "rate_display": "2.025%",
           "lvli": [],
           "conditions": []
         },
         {
           "route": "Tool Case",
           "source_type": "container",
-          "rate": 0.0675,
-          "rate_display": "6.75%",
+          "rate": 0.02025,
+          "rate_display": "2.025%",
           "lvli": [],
           "conditions": []
         },
         {
           "route": "Tool Chest",
           "source_type": "container",
-          "rate": 0.0675,
-          "rate_display": "6.75%",
+          "rate": 0.02025,
+          "rate_display": "2.025%",
           "lvli": [],
           "conditions": []
         },
         {
           "route": "Toolbox",
           "source_type": "container",
-          "rate": 0.0675,
-          "rate_display": "6.75%",
+          "rate": 0.02025,
+          "rate_display": "2.025%",
           "lvli": [],
           "conditions": []
         },
         {
           "route": "Activity: Battle Bots",
           "source_type": "event-quest",
-          "rate": 0.0675,
-          "rate_display": "6.75%",
+          "rate": 0.02025,
+          "rate_display": "2.025%",
           "lvli": [
             "0021E0AC"
           ],
@@ -707921,8 +708849,8 @@
         {
           "route": "Assaultron",
           "source_type": "creature",
-          "rate": 0.4166666667,
-          "rate_display": "41.6667%",
+          "rate": 0.0833333333,
+          "rate_display": "8.3333%",
           "lvli": [
             "0001B34D"
           ],
@@ -707934,8 +708862,8 @@
         {
           "route": "Communist Elite Trooper",
           "source_type": "creature",
-          "rate": 0.4166666667,
-          "rate_display": "41.6667%",
+          "rate": 0.0833333333,
+          "rate_display": "8.3333%",
           "lvli": [
             "003A0BFD"
           ],
@@ -711849,39 +712777,6 @@
       "category_label": "Weapon (physical plan)",
       "obtain_routes": [
         {
-          "route": "Glowing Mole Miner",
-          "source_type": "creature",
-          "rate": 0.3142857143,
-          "rate_display": "31.4286%",
-          "lvli": [
-            "00661EBE"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Mole Miner",
-          "source_type": "creature",
-          "rate": 0.3142857143,
-          "rate_display": "31.4286%",
-          "lvli": [
-            "00017DEC"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
-          "route": "Mole Miner",
-          "source_type": "creature",
-          "rate": 0.2928571429,
-          "rate_display": "29.2857%",
-          "lvli": [
-            "004EE6CD"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
           "route": "Missing Persons",
           "source_type": "event-quest",
           "rate": 0.0454545455,
@@ -711906,6 +712801,39 @@
           "conditions": [
             "Level 20 and above"
           ]
+        },
+        {
+          "route": "Glowing Mole Miner",
+          "source_type": "creature",
+          "rate": 0.0157142857,
+          "rate_display": "1.5714%",
+          "lvli": [
+            "00661EBE"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
+          "route": "Mole Miner",
+          "source_type": "creature",
+          "rate": 0.0157142857,
+          "rate_display": "1.5714%",
+          "lvli": [
+            "00017DEC"
+          ],
+          "kind": "enemy",
+          "conditions": []
+        },
+        {
+          "route": "Mole Miner",
+          "source_type": "creature",
+          "rate": 0.0146428571,
+          "rate_display": "1.4643%",
+          "lvli": [
+            "004EE6CD"
+          ],
+          "kind": "enemy",
+          "conditions": []
         },
         {
           "route": "ATLAS Donor's Provisions (Fortifying ATLAS event, Aug–Sep 2020 only)",
@@ -711988,9 +712916,9 @@
         {
           "label": "Enemies",
           "routes": [
-            0,
-            1,
-            2
+            2,
+            3,
+            4
           ]
         },
         {
@@ -712004,8 +712932,8 @@
         {
           "label": "Quests",
           "routes": [
-            3,
-            4
+            0,
+            1
           ]
         }
       ],
@@ -712027,7 +712955,7 @@
           ]
         }
       ],
-      "source_tag": "Enemy",
+      "source_tag": "Quest",
       "images": [
         "mole-miner-gauntlet"
       ],
@@ -739275,10 +740203,21 @@
           "conditions": []
         },
         {
+          "route": "Event: Encryptid",
+          "source_type": "event-quest",
+          "rate": 0.1,
+          "rate_display": "10%",
+          "lvli": [
+            "0046D296"
+          ],
+          "kind": "event",
+          "conditions": []
+        },
+        {
           "route": "Assaultron",
           "source_type": "creature",
-          "rate": 0.4166666667,
-          "rate_display": "41.6667%",
+          "rate": 0.0208333333,
+          "rate_display": "2.0833%",
           "lvli": [
             "0001B34D"
           ],
@@ -739290,8 +740229,8 @@
         {
           "route": "Communist Elite Trooper",
           "source_type": "creature",
-          "rate": 0.4166666667,
-          "rate_display": "41.6667%",
+          "rate": 0.0208333333,
+          "rate_display": "2.0833%",
           "lvli": [
             "003A0BFD"
           ],
@@ -739299,17 +740238,6 @@
           "conditions": [
             "Stops dropping once you learn it"
           ]
-        },
-        {
-          "route": "Event: Encryptid",
-          "source_type": "event-quest",
-          "rate": 0.1,
-          "rate_display": "10%",
-          "lvli": [
-            "0046D296"
-          ],
-          "kind": "event",
-          "conditions": []
         }
       ],
       "obtain_unlocks": [],
@@ -739343,14 +740271,14 @@
         {
           "label": "Enemies",
           "routes": [
-            3,
-            4
+            4,
+            5
           ]
         },
         {
           "label": "Events & Activities",
           "routes": [
-            5
+            3
           ]
         }
       ],
@@ -742317,17 +743245,6 @@
       "category_label": "Weapon (physical plan)",
       "obtain_routes": [
         {
-          "route": "Robobrain",
-          "source_type": "creature",
-          "rate": 1.0,
-          "rate_display": "100%",
-          "lvli": [
-            "0045EC2C"
-          ],
-          "kind": "enemy",
-          "conditions": []
-        },
-        {
           "route": "Del Lawson (C.A.M.P. ally vendor)",
           "source_type": "vendor",
           "rate": 1.0,
@@ -742355,6 +743272,17 @@
           "lvli": [
             "004102B1"
           ],
+          "conditions": []
+        },
+        {
+          "route": "Robobrain",
+          "source_type": "creature",
+          "rate": 0.03,
+          "rate_display": "3%",
+          "lvli": [
+            "0045EC2C"
+          ],
+          "kind": "enemy",
           "conditions": []
         },
         {
@@ -743363,9 +744291,9 @@
         {
           "label": "Caps",
           "routes": [
+            0,
             1,
-            2,
-            3
+            2
           ]
         },
         {
@@ -743406,7 +744334,7 @@
         {
           "label": "Enemies",
           "routes": [
-            0,
+            3,
             20,
             21,
             22,
@@ -751484,32 +752412,6 @@
           "conditions": []
         },
         {
-          "route": "Deathclaw",
-          "source_type": "creature",
-          "rate": 0.06781,
-          "rate_display": "6.781%",
-          "lvli": [
-            "0002EF6C"
-          ],
-          "kind": "enemy",
-          "conditions": [
-            "Stops dropping once you learn it"
-          ]
-        },
-        {
-          "route": "Uninvited Deathclaw Matriarch",
-          "source_type": "creature",
-          "rate": 0.06781,
-          "rate_display": "6.781%",
-          "lvli": [
-            "0089740B"
-          ],
-          "kind": "enemy",
-          "conditions": [
-            "Stops dropping once you learn it"
-          ]
-        },
-        {
           "route": "Cooler",
           "source_type": "container",
           "rate": 0.025981215,
@@ -751656,6 +752558,32 @@
           "rate_display": "0.96%",
           "lvli": [],
           "conditions": []
+        },
+        {
+          "route": "Deathclaw",
+          "source_type": "creature",
+          "rate": 0.0078835,
+          "rate_display": "0.7884%",
+          "lvli": [
+            "0002EF6C"
+          ],
+          "kind": "enemy",
+          "conditions": [
+            "Stops dropping once you learn it"
+          ]
+        },
+        {
+          "route": "Uninvited Deathclaw Matriarch",
+          "source_type": "creature",
+          "rate": 0.0078835,
+          "rate_display": "0.7884%",
+          "lvli": [
+            "0089740B"
+          ],
+          "kind": "enemy",
+          "conditions": [
+            "Stops dropping once you learn it"
+          ]
         },
         {
           "route": "Mutated Party Pack",
@@ -752495,17 +753423,17 @@
         {
           "label": "Containers",
           "routes": [
+            1,
+            2,
             3,
             4,
             5,
             6,
             7,
             8,
-            9,
-            10,
+            13,
+            14,
             15,
-            16,
-            17,
             18,
             19,
             47,
@@ -752526,8 +753454,8 @@
         {
           "label": "Enemies",
           "routes": [
-            1,
-            2,
+            16,
+            17,
             48,
             49,
             50,
@@ -752589,10 +753517,10 @@
         {
           "label": "Quests",
           "routes": [
+            9,
+            10,
             11,
             12,
-            13,
-            14,
             79
           ]
         }
@@ -819661,8 +820589,8 @@
         {
           "route": "Scorchbeast",
           "source_type": "creature",
-          "rate": 0.00162,
-          "rate_display": "0.162%",
+          "rate": 4.86e-05,
+          "rate_display": "0.0049%",
           "lvli": [
             "0036BA96"
           ],
@@ -819672,8 +820600,8 @@
         {
           "route": "Uninvited Scorchbeast",
           "source_type": "creature",
-          "rate": 0.00162,
-          "rate_display": "0.162%",
+          "rate": 4.86e-05,
+          "rate_display": "0.0049%",
           "lvli": [
             "0089740A"
           ],
