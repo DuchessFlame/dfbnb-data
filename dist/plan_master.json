@@ -361034,7 +361034,9 @@
       "obtain": "Not a plan — Grant's Saber is a unique version of the Sword. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [],
+      "obtain_unlocks": [
+        "Quest reward: Forging a Legend."
+      ],
       "plan_item": null,
       "cobj": null,
       "cnam": {
@@ -361053,7 +361055,23 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
-      "obtain_ledger": [],
+      "drop_conditions": [
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": false
+        }
+      ],
+      "source_tag": "Quest",
+      "obtain_ledger": [
+        {
+          "label": "Quests",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
       "weapon_role": "unique",
       "weapon_group": "Grant's Saber",
       "weapon_group_key": "grant-s-saber",
@@ -362882,7 +362900,7 @@
         {
           "route": "Events & Activities",
           "conditions": [],
-          "checked": false
+          "checked": true
         }
       ],
       "source_tag": "Events",
@@ -363355,7 +363373,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Quest reward: Raids (Enclave Expeditions)."
+        "Drops from: Safe and Sound."
       ],
       "plan_item": null,
       "cobj": null,
@@ -363377,15 +363395,15 @@
       "plan_page_group": null,
       "drop_conditions": [
         {
-          "route": "Quests",
+          "route": "Events & Activities",
           "conditions": [],
           "checked": true
         }
       ],
-      "source_tag": "Quest",
+      "source_tag": "Events",
       "obtain_ledger": [
         {
-          "label": "Quests",
+          "label": "Events & Activities",
           "unlocks": [
             0
           ],

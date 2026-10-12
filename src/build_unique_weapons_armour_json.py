@@ -768,6 +768,27 @@ _DEAD_LIST = re.compile(r"(^|_)(zzz|CUT|DONOTUSE|DEL)(_|$)|^zzz", re.I)
 _SKIP_PARENT = re.compile(r"^LL_Weapon_Unique_All$", re.I)
 
 
+def _item_alias_quests(channel):
+    """WEAP/ARMO FormID -> quest name, for every quest alias that creates the
+    item (ALCO). {} when the export has no _ItemAliases sheet yet."""
+    path = pick("QUST2_Export_*_ItemAliases.tsv", channel)
+    out = {}
+    if not path:
+        return out
+    for r in read_tsv(path):
+        name = strip_q(r.get("QuestName", ""))
+        if not name or "<" in name or "[" in name:
+            continue
+        name = re.sub(r"^\s*(Event|Daily|Activity):\s*", "", name)
+        for m in re.finditer(r"ALCO=([0-9A-Fa-f]{8}):[^:;]*:(WEAP|ARMO)\b",
+                             strip_q(r.get("Links", ""))):
+            out.setdefault(norm_formid(m.group(1)), name)
+    return out
+
+
+_RAID_GMRW = re.compile(r"^RD\d+_QuestReward_", re.I)
+
+
 def _event_lists(channel):
     """Walk from a unique's own leveled list (LL_Weapon_Ranged_RedTerror,
     SCORE_S7_LL_GammaGun_Xerxos ...) up to the event or quest that hands it
@@ -804,6 +825,13 @@ def _event_lists(channel):
         if not q:
             link = strip_q(r.get("ParentQuestLink", ""))
             q = qname.get(norm_formid(link.split(":")[0])) if link else None
+        if not q and _RAID_GMRW.match(strip_q(r.get("EDID", ""))):
+            # A raid stage reward has no QUST behind it; its ParentQuestDisplay
+            # IS the stage ("Enclave Research Lab Module"). Same label the plan
+            # pages print (build_plan_obtain_json.raid_stage_label).
+            stage = strip_q(r.get("ParentQuestDisplay", ""))
+            if stage and "<" not in stage and "[" not in stage:
+                q = "Raids - " + stage
         if q:
             reward_of[item.split(":")[1]].add(q)
     parents = defaultdict(set)                # child EDID -> parent list EDIDs
@@ -883,7 +911,10 @@ def fill_sources(items, channel, weap_combos=None):
         # the Treasure Hunter rewards) names the wrong event — tried and
         # reverted, 11 Oct 2026.
         weak = (not how or "unconfirmed" in how.lower() or _VAGUE_SCORE.match(how)
-                or how.lower().startswith("world drop"))
+                or how.lower().startswith("world drop")
+                # the old hand line from build_unique_weapons_json.py, which
+                # never named the stage (and was wrong for The Kabloom)
+                or "raids (enclave expeditions)" in how.lower())
         if not weak:
             continue
         key = norm_name(it.get("name"))
@@ -1290,6 +1321,19 @@ def build_channel(channel, dist_dir):
             i["unreleased"] = True
     if not INCLUDE_CUT:
         all_items = [i for i in all_items if not i.get("isCut")]
+
+    # Quest aliases that CREATE the item (ALCO) - QUST2_*_ItemAliases.tsv, the
+    # every-quest pass added to ExportQUST2ToTSV.pas on 12 Oct 2026. Read
+    # from the files first; the SUPP_OBTAIN lines below are only the fallback
+    # for an export made before that pass existed.
+    made_by = _item_alias_quests(channel)
+    for it in all_items:
+        if str(it.get("howToObtain") or "").strip() in ("", "Source unconfirmed"):
+            q = made_by.get(norm_formid(it.get("formId") or ""))
+            if q:
+                it["howToObtain"] = "Quest: " + q
+                it["sourceType"] = classify_source(it["howToObtain"])
+                it["questName"] = q
 
     # Items discover_and_add() brought in skip obtain_for(), so a SUPP_OBTAIN
     # line keyed on their own EditorID (Grant's Saber) is applied here, only
