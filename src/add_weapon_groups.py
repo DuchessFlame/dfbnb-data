@@ -648,9 +648,63 @@ def attach(items):
     for it in weapons:
         it["weapon_group_solo"] = bool(it.get("weapon_group_key")) and sizes[it["weapon_group_key"]] == 1
 
+    pics = tidy_images(weapons)
     images, missing = group_images(weapons)
     return {"groups": len(sizes), "tally": dict(tally), "sources": res.sources,
-            "uniques": ustats, "group_images": images, "images_missing": missing}
+            "uniques": ustats, "group_images": images, "images_missing": missing,
+            "row_images": pics}
+
+
+# ── row pictures on the Weapon page (Duchess, 12 Oct 2026) ─────────────────
+# The weapon page shows ONLY real pictures for now, so the gaps are visible:
+#  - the generic weapon-mod box (plan_images.GENERIC_ART) is taken off this
+#    page's rows. Other pages keep it; set SHOW_MOD_BOX = True to bring it back.
+#  - store art that is not a weapon is dropped. Bethesda points some weapon
+#    paints at bundle art (the .44 American Paint at a Pip-Boy skin, the Combat
+#    Shotgun Free States paint at a Scout armour skin), and one schematic picked
+#    up a Nukelele from the CAMP library by FormID.
+#  - a weapon plan uses its OWN uploaded picture when there is one. "Plan:
+#    Flatliner" builds the base Gauss Rifle record, so it resolved to the plain
+#    Gauss Rifle even though flatliner.avif is on the server - same rule as the
+#    root images: a file named after the item beats a picture named after
+#    something else.
+SHOW_MOD_BOX = False
+_MOD_BOX = "/weapons/weapon_mod.avif"
+_IMG_ROOT = "/wp-content/uploads/guide-images/plan-checklist/"
+_RX_OTHER_LIBRARY = re.compile(r"/guide-images/(atom-shop|camp-items)/", re.I)
+_RX_WEAPON_ART = re.compile(r"weapon", re.I)
+
+
+def _full_url(it, img):
+    img = str(img)
+    if img.startswith("/"):
+        return img
+    return _IMG_ROOT + (it.get("image_dir") or it.get("type") or "weapons") + "/" + img + ".avif"
+
+
+def tidy_images(weapons):
+    files = weapon_unique_versions.server_images()
+    n = collections.Counter()
+    for it in weapons:
+        imgs = list(it.get("images") or [])
+        cur = _full_url(it, imgs[0]) if imgs else ""
+        if cur and not SHOW_MOD_BOX and (it.get("image_source") == "weapon-mod"
+                                          or cur.endswith(_MOD_BOX)):
+            it["images"], it["image_source"] = [], ""
+            n["mod box removed"] += 1
+            continue
+        if cur and _RX_OTHER_LIBRARY.search(cur) and not _RX_WEAPON_ART.search(cur.rsplit("/", 1)[-1]):
+            it["images"], it["image_source"] = [], ""
+            n["not a weapon picture"] += 1
+            continue
+        if it.get("weapon_role") == "base" and it.get("image_source") != "override":
+            own = weapon_unique_versions.image_for(
+                re.sub(r"^Plan:\s*", "", it.get("name") or ""), files)
+            if own and own != cur and (not cur or (_IMG_ROOT + "weapons/") in cur):
+                it["images"], it["image_source"] = [own], "server"
+                n["own picture"] += 1
+    n["no picture"] = sum(1 for it in weapons if it.get("weapon_group") and not it.get("images"))
+    return dict(n)
 
 
 def group_images(weapons):
@@ -705,6 +759,7 @@ def report(stats, where=""):
           + ", ".join(stats["sources"]))
     print("  rows: " + ", ".join(f"{k}={v}" for k, v in sorted(stats["tally"].items())))
     print(f"  uniques: {stats.get('uniques')}")
+    print("  row images: " + ", ".join(f"{k}={v}" for k, v in sorted((stats.get("row_images") or {}).items())))
     print(f"  root images: {len(stats.get('group_images') or {})}, missing: "
           + ", ".join(stats.get("images_missing") or []))
 
