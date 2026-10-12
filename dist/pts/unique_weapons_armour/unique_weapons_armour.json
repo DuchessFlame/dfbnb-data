@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "generated": "2026-10-12T02:01:56Z",
-  "channel": "live",
-  "count": 128,
+  "generated": "2026-10-12T02:51:32Z",
+  "channel": "pts",
+  "count": 129,
   "counts": {
-    "weapon": 120,
+    "weapon": 121,
     "armour": 8,
     "powerArmour": 0
   },
@@ -3821,7 +3821,7 @@
       "planName": "Plan: Pickaxe",
       "tradeable": true,
       "formId": "00002840",
-      "edid": "pickaxe",
+      "edid": "Pickaxe",
       "inCurrentExport": true,
       "isCut": false,
       "uniqueMods": [],
@@ -6323,7 +6323,7 @@
       "planName": "",
       "tradeable": true,
       "formId": "00002840",
-      "edid": "pickaxe",
+      "edid": "Pickaxe",
       "inCurrentExport": true,
       "isCut": false,
       "uniqueMods": [
@@ -12021,13 +12021,6 @@
       },
       "starEffects": [
         {
-          "star": 1,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
-        },
-        {
           "star": 2,
           "name": "Random",
           "edid": "",
@@ -12795,6 +12788,179 @@
           "dropRate": "N/A",
           "conditions": [],
           "conditionsChecked": true
+        },
+        {
+          "route": "Challenges",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        }
+      ],
+      "recordIds": []
+    },
+    {
+      "id": "stormcutter-3",
+      "name": "Storm Slasher",
+      "kind": "Weapon",
+      "subType": "Melee",
+      "base": "V63 Zweihaender",
+      "image": "",
+      "ddsHandle": "",
+      "stats": {
+        "damage": 40,
+        "fireRate": 1.0,
+        "range": 10,
+        "weight": 15.0,
+        "value": 100,
+        "ammoType": null,
+        "capacity": 0,
+        "apCost": 47,
+        "critMult": 3.0,
+        "minLevel": 30
+      },
+      "starEffects": [
+        {
+          "star": 1,
+          "name": "Juggernaut's",
+          "edid": "mod_Legendary_Weapon1_DamageViaHealth",
+          "formId": "00606B73",
+          "fixed": true
+        },
+        {
+          "star": 2,
+          "name": "Vital",
+          "edid": "mod_Legendary_Weapon2_DmgCrits",
+          "formId": "0052414B",
+          "fixed": true
+        }
+      ],
+      "inherentEffect": "Weapon and other mods now deal fire damage instead.",
+      "buffs": [],
+      "cosmeticOnly": false,
+      "cosmeticNote": "",
+      "howToObtain": "Source unconfirmed",
+      "sourceType": "Unknown",
+      "sourceRef": "",
+      "questName": "",
+      "craftable": false,
+      "planName": "",
+      "tradeable": null,
+      "formId": "0072DF0B",
+      "edid": "Stormcutter",
+      "inCurrentExport": true,
+      "isCut": false,
+      "discoveredBy": [
+        "custommod",
+        "keyword"
+      ],
+      "uniqueMods": [
+        {
+          "name": "PARENT mod custom Storm Slasher Burning",
+          "edid": "_PARENT_mod_custom_StormSlasher_Burning",
+          "formId": "0092FA18",
+          "kind": "unique",
+          "desc": "Weapon and other mods now deal fire damage instead."
+        },
+        {
+          "name": "PARENT mod custom Storm Slasher Crushing",
+          "edid": "_PARENT_mod_custom_StormSlasher_Crushing",
+          "formId": "0092FA1C",
+          "kind": "unique",
+          "desc": "Slower swing speed, but attacks now deal AOE damage."
+        },
+        {
+          "name": "PARENT mod custom Storm Slasher One Shot",
+          "edid": "_PARENT_mod_custom_StormSlasher_OneShot",
+          "formId": "0092FA1D",
+          "kind": "unique",
+          "desc": "Critical hits release a staggering burst of energy."
+        },
+        {
+          "name": "PARENT mod custom Storm Slasher Static",
+          "edid": "_PARENT_mod_custom_StormSlasher_Static",
+          "formId": "0092FA19",
+          "kind": "unique",
+          "desc": "Deal or take damage to build up a static charge. This will attract lightning strikes when attacking."
+        },
+        {
+          "name": "PARENT mod custom Storm Slasher Stormwalker",
+          "edid": "_PARENT_mod_custom_StormSlasher_Stormwalker",
+          "formId": "0092FA1A",
+          "kind": "unique",
+          "desc": "Deal bonus damage and increase attack distance while in V.A.T.S."
+        },
+        {
+          "name": "PARENT mod custom Storm Slasher Channeling",
+          "edid": "_PARENT_mod_custom_StormSlasher_Channeling",
+          "formId": "0092FA1B",
+          "kind": "unique",
+          "desc": "Power up by blocking twice. Gain increased movement speed, damage, and resistances."
+        },
+        {
+          "name": "V63-Z Custom",
+          "edid": "mod_custom_StormSlasher",
+          "formId": "008B0902",
+          "kind": "unique",
+          "desc": ""
+        }
+      ],
+      "obtainRoutes": [
+        {
+          "route": "Caps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Stamps",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Scoreboard",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Gold Bullion",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Atom Shop",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Limited Time Bundle",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Events & Activities",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
+        },
+        {
+          "route": "Quests",
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
         },
         {
           "route": "Challenges",
@@ -16170,7 +16336,7 @@
       "recordIds": []
     },
     {
-      "id": "stormcutter-2",
+      "id": "stormcutter",
       "name": "V63 Zweihaender",
       "kind": "Weapon",
       "subType": "Melee",
@@ -16194,20 +16360,17 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Source unconfirmed",
-      "sourceType": "Unknown",
-      "sourceRef": "",
-      "questName": "",
-      "craftable": false,
+      "howToObtain": "Quest: Skyline Valley",
+      "sourceType": "Quest",
+      "sourceRef": "Skyline Valley",
+      "questName": "Skyline Valley",
+      "craftable": true,
       "planName": "",
-      "tradeable": null,
+      "tradeable": true,
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
       "isCut": false,
-      "discoveredBy": [
-        "official"
-      ],
       "uniqueMods": [],
       "obtainRoutes": [
         {
@@ -16259,7 +16422,7 @@
             "Drops: Ready-made weapon",
             "Source: Expedition"
           ],
-          "tradeable": null,
+          "tradeable": true,
           "dropRate": "N/A",
           "conditions": [],
           "conditionsChecked": true
@@ -16271,7 +16434,7 @@
             "Drops: Ready-made weapon",
             "Source: The Eye of the Storm"
           ],
-          "tradeable": null,
+          "tradeable": true,
           "dropRate": "N/A",
           "conditions": [],
           "conditionsChecked": true
@@ -16283,7 +16446,7 @@
             "Drops: Ready-made weapon",
             "Source: RTSV Challenge Reward Challenge Lifetime Brain 1"
           ],
-          "tradeable": null,
+          "tradeable": true,
           "dropRate": "N/A",
           "conditions": [],
           "conditionsChecked": true
@@ -16419,8 +16582,8 @@
       "recordIds": []
     },
     {
-      "id": "stormcutter",
-      "name": "V63-Z Custom",
+      "id": "stormcutter-2",
+      "name": "V63-Z",
       "kind": "Weapon",
       "subType": "Melee",
       "base": "V63 Zweihaender",
@@ -16452,31 +16615,33 @@
           "edid": "mod_Legendary_Weapon2_DmgCrits",
           "formId": "0052414B",
           "fixed": true
-        },
-        {
-          "star": 3,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
         }
       ],
       "inherentEffect": "",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Quest: Skyline Valley",
-      "sourceType": "Quest",
-      "sourceRef": "Skyline Valley",
-      "questName": "Skyline Valley",
-      "craftable": true,
+      "howToObtain": "Source unconfirmed",
+      "sourceType": "Unknown",
+      "sourceRef": "",
+      "questName": "",
+      "craftable": false,
       "planName": "",
-      "tradeable": true,
+      "tradeable": null,
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
       "isCut": false,
-      "uniqueMods": [],
+      "confirmedByGameFiles": false,
+      "uniqueMods": [
+        {
+          "name": "V63-Z Custom",
+          "edid": "mod_custom_StormSlasher",
+          "formId": "008B0902",
+          "kind": "unique",
+          "desc": ""
+        }
+      ],
       "obtainRoutes": [
         {
           "route": "Caps",
@@ -16529,15 +16694,10 @@
         },
         {
           "route": "Quests",
-          "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon",
-            "Source: Skyline Valley"
-          ],
-          "tradeable": true,
-          "dropRate": "N/A",
-          "conditions": [],
-          "conditionsChecked": false
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
         },
         {
           "route": "Challenges",
