@@ -979,10 +979,11 @@ class Rng76Resolver:
 
         # Resolve actual ChanceNone via GLOB/CURV (both return 0-100).
         actual_list_cn = self.resolve_chance_none(math, "List")
-        actual_entry_cn = (
-            0.0 if _is_minlvl
-            else self.resolve_chance_none(math, "Entry")
-        )
+        # A MinLvl GLOB in the ChanceNone slot is a level, not a chance.
+        # resolve_chance_none() already ignores it and still reads the
+        # drop-chance tier in the ChanceNoneCurve column, so always ask it.
+        # (Skipping it here threw the tier away -> 32 drops showed 100%.)
+        actual_entry_cn = self.resolve_chance_none(math, "Entry")
 
         cn_factor = (
             (1.0 - actual_list_cn / 100.0)
