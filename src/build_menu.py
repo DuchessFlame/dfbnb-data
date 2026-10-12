@@ -210,8 +210,13 @@ class BuildMenu:
         return ", ".join(f"{s['main']}{sep}{s['sub']}" for s in self.paths(*fids))
 
     def public(self, *fids):
-        """JSON-ready list for a dist item: [{"main": "Utility", "sub": "Instruments"}]."""
-        return [{"main": s["main"], "sub": s["sub"]} for s in self.paths(*fids)]
+        """JSON-ready list for a dist item:
+        [{"main": "Utility", "sub": "Instruments", "order": 4012}].
+        `order` is the section's place in the game's Build Menu (category * 1000
+        + sub-category), so a page can list headings in menu order."""
+        return [{"main": s["main"], "sub": s["sub"],
+                 "order": s["order"][0] * 1000 + s["order"][1]}
+                for s in self.paths(*fids)]
 
     def in_sub(self, sub_edid_suffix, *fids):
         return any(s["subEdid"].endswith(sub_edid_suffix) for s in self.paths(*fids))

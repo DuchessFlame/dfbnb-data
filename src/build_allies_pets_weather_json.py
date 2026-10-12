@@ -359,7 +359,8 @@ def load_tsv(path, encoding="utf-8"):
 # CAMP page key per output file — camp_build_menu stamps buildMenu + pages.
 _CAMP_PAGE = {"weather_stations.json": "weather-stations", "repair-bots.json": "repair-bots",
               "allies.json": "allies", "pets.json": "pets", "cryos.json": "fridges-cryos",
-              "fridges.json": "fridges-cryos", "dispensers.json": "dispensers"}
+              "fridges.json": "fridges-cryos", "dispensers.json": "dispensers",
+              "pet-furniture.json": "pet-furniture"}
 
 
 def save_json(filename, data):

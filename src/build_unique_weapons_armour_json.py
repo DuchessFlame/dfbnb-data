@@ -1082,6 +1082,11 @@ def discover_and_add(all_items, channel, omod_by_fid, cn_weapon, weap_base, weap
     # count as "already there" (Nuka-Launcher matched its own paint record).
     real = [i for i in all_items if not i.get("cosmeticOnly") and not i.get("isCut")]
     page_keys = {uwa_discover.key(i["name"]): i for i in real}
+    # A renamed item is still the roster's entry under its EditorID name
+    # (Bethesda's list calls Meadow Breeze Sprayer "AbraxoGun").
+    for i in real:
+        for alt in i.get("_altNames") or []:
+            page_keys.setdefault(uwa_discover.key(alt), i)
     page_mods = set().union(*[mods_of(i) for i in real]) if real else set()
     unconfirmed = []
     for it in all_items:
@@ -1089,6 +1094,10 @@ def discover_and_add(all_items, channel, omod_by_fid, cn_weapon, weap_base, weap
             continue                      # dropped later anyway
         k = uwa_discover.key(it["name"])
         hit = uwa_discover.match(k, acc)
+        for alt in ([] if hit else it.get("_altNames") or []):
+            hit = uwa_discover.match(uwa_discover.key(alt), acc)
+            if hit:
+                break
         if hit and acc[hit]["lists"] and not it.get("_rosterList"):
             it["_rosterList"] = sorted(acc[hit]["lists"])[0]
             it["_rosterLists"] = sorted(acc[hit]["lists"])
@@ -1174,6 +1183,45 @@ def discover_and_add(all_items, channel, omod_by_fid, cn_weapon, weap_base, weap
     return official
 
 
+_PLACEHOLDER_FULL = re.compile(r"(custom\s*mod|\bmod|paint|skin)\s*$", re.I)
+
+
+def rename_from_own_mod(items, omod_by_fid):
+    """Name an item after its own custom-name mod (Duchess, 12 Oct 2026).
+
+    The old hand-built list named some uniques from EditorIDs (Abraxo Gun,
+    Abraxolator). The game shows the FULL of the mod on the ap_customName
+    slot instead (Meadow Breeze Sprayer, Prototype ABX03). Placeholder FULLs
+    ("All Rise Custom Mod"), effect mods and paints never rename; spelling-only
+    differences (The VATS Unknown) are left alone.
+    """
+    for it in items:
+        if it.get("cosmeticOnly"):
+            continue
+        for fid in it.get("_cmod_fids") or []:
+            row = omod_by_fid.get(fid) or {}
+            ed = strip_q(row.get("OMOD_EDID", ""))
+            full = strip_q(row.get("FULL", ""))
+            # Only the item's own naming mod: mod_custom_[<Weapon>_]<Name>,
+            # nothing after the name (TheKabloom_Effect is "Poison").
+            m = re.match(r"mod_custom_(?:[A-Za-z0-9]+_)?([A-Za-z0-9]+)$", ed, re.I)
+            if not m:
+                continue
+            if strip_q(row.get("AttachPoint_EDID", "")) != "ap_customName":
+                continue
+            if not full or _PLACEHOLDER_FULL.search(full):
+                continue
+            def _c(x):
+                return re.sub(r"[^a-z0-9]", "", x.lower())
+            # Rename only names rebuilt from that EditorID (AbraxoGun ->
+            # "Abraxo Gun"); a hand-picked name is left alone.
+            if _c(full) != _c(it["name"]) and _c(m.group(1)) == _c(it["name"]):
+                print(f"  renamed from its custom-name mod: {it['name']} -> {full}")
+                it["_altNames"] = [it["name"]]
+                it["name"] = full
+            break
+
+
 def build_channel(channel, dist_dir):
     global _SLUG_SEEN
     _SLUG_SEEN = {}
@@ -1210,6 +1258,7 @@ def build_channel(channel, dist_dir):
     reuse_path = REPO_ROOT / "dist" / "unique_weapons" / "unique_weapons.json"
     reuse = json.load(open(reuse_path, encoding="utf-8"))
     reuse_items = [convert_reuse_weapon(w) for w in reuse["weapons"]]
+    rename_from_own_mod(reuse_items, omod_by_fid)
 
     reuse_by_cmod, reuse_by_name = {}, {}
     for it in reuse_items:
@@ -1442,6 +1491,7 @@ def build_channel(channel, dist_dir):
         it.pop("_cmod_fids", None)
         it.pop("_rosterList", None)
         it.pop("_rosterLists", None)
+        it.pop("_altNames", None)
         it["id"] = unique_slug(it.get("edid") or it.get("name") or "item")
 
     all_items.sort(key=lambda x: x["name"].lower())
