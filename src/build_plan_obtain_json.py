@@ -1677,6 +1677,22 @@ def expand_payers(routes, lvli_refs, parent_edid, quest_named, by_name):
     return collapse_routes(out)
 
 
+RAID_FAMILIES = {"Raids"}
+
+
+def raid_stage_label(fam, lvli_fid, lvli_refs, gmrw_quests=None):
+    """"Raids" -> "Raids - Scorchtongue Module": the stage(s) whose GMRW pays
+    the list out, read from ParentQuestDisplay. Up to three stages; more than
+    that (a pool every stage rolls) keeps the plain family name. None = keep."""
+    if fam not in RAID_FAMILIES:
+        return None
+    names = plan_sources.gmrw_quests_for(lvli_fid, lvli_refs,
+                                         GMRW_QUESTS if gmrw_quests is None else gmrw_quests)
+    if not names or len(names) > 3:
+        return None
+    return fam + " - " + ", ".join(names)
+
+
 def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
                    names_only=False, skip_worn=False):
     """Routes for one plan, highest rate first.
@@ -1941,6 +1957,11 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
                 if dq and not (set(plan_sources.route_key(dq).split())
                                & set(plan_sources.route_key(fam).split())):
                     qfam = dq
+            # A raid reward names its stage (Duchess, 12 Oct 2026): "Raids"
+            # alone does not say which encounter pays out. The GMRW's
+            # ParentQuestDisplay is the stage ("Scorchtongue Module").
+            if not qfam:
+                qfam = raid_stage_label(fam, str(L).upper(), lvli_refs)
             if qfam:
                 fam = qfam
                 quest_named.add(qfam)

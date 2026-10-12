@@ -186,6 +186,8 @@ DEFAULT_OBTAIN = ("Known by default — there is no plan to find. Every characte
                   "can craft this at a weapons workbench from the start.")
 PICKUP_OBTAIN = ("There is no plan to find — you learn to craft this the first time "
                  "you pick one up.")
+PICKUP_REWARD_OBTAIN = ("There is no plan to find — you learn to craft this the first "
+                        "time you pick one up. One is given as the reward below.")
 QUEST_OBTAIN = ("There is no plan to find — you learn this automatically when you "
                 "complete the quest below.")
 # Recipes that are not "known by default" in spirit even when the COBJ2 file is
@@ -193,6 +195,59 @@ QUEST_OBTAIN = ("There is no plan to find — you learn this automatically when 
 _RX_ANY_WEAPON_COBJ_SKIP = re.compile(r"nocraft|repaironly|^zzz|^del_|^cut_|test|"
                                       r"copy|questreward|^survival_|^atx_|^score_",
                                       re.I)
+
+
+_REWARD_CACHE = {}
+
+
+def _weapon_reward_sentences(weap_fid):
+    """Where the game hands out a learned-on-pick-up weapon (Duchess, 12 Oct 2026).
+
+    Blade of Bastet and Voice of Set have no plan, so the plan route walk never
+    sees them and the rows said nothing about where to get one. The game pays
+    each out from a leveled list held by a quest reward (GMRW):
+    MoM_LL_BladeOfBastet <- QuestReward_MoM02B_Stage100_01 "Forging a Legend".
+    Read from the files: every leveled list holding the WEAP, then every GMRW /
+    QUST holding that list, worded by the same UnlockIndex the plan rows use.
+    Editor lists (dev prefixes, the Bethesda roster LL_*_Unique_All) never hold
+    a reward, so they simply produce nothing.
+    """
+    weap_fid = (weap_fid or "").upper()
+    if not weap_fid:
+        return []
+    if "idx" not in _REWARD_CACHE:
+        holds = collections.defaultdict(set)       # WEAP -> lists holding it
+        path = bpo.newest("LVLI_Export_*_LVLI_Entries.tsv")
+        with open(path, encoding="utf-8", errors="replace", newline="") as f:
+            for line in f:
+                bits = line.split("\t", 4)
+                if len(bits) > 3 and bits[3].endswith(":WEAP"):
+                    holds[bits[3].split(":", 1)[0].upper()].add(bits[0].upper())
+        refs = {}                                   # list -> [(fid, edid, sig)]
+        path = bpo.newest("LVLI_Export_*_LVLI_Refs.tsv")
+        with open(path, encoding="utf-8", errors="replace", newline="") as f:
+            for line in f:
+                bits = line.rstrip("\r\n").split("\t")
+                if len(bits) > 3:
+                    refs[bits[0].upper()] = [tuple(c.rsplit(":", 2)) for c in bits[3:]
+                                             if c.count(":") >= 2]
+        _REWARD_CACHE["idx"] = (holds, refs,
+                                plan_sources.UnlockIndex(bpo.TSV, bpo.newest))
+    holds, refs, ui = _REWARD_CACHE["idx"]
+    out = []
+    for lst in sorted(holds.get(weap_fid, ())):
+        for rfid, redid, rsig in refs.get(lst, ()):
+            if plan_sources.is_dev_record(redid):
+                continue
+            s = ""
+            if rsig == "GMRW":
+                s = ui._gmrw_sentence(ui._gmrw_by_fid.get(rfid.upper(), {"edid": redid}))
+            elif rsig == "QUST":
+                q = ui._quests_by_fid.get(rfid.upper())
+                s = ("Reward for completing the quest: " + q) if q else ""
+            if s and s not in out:
+                out.append(s)
+    return out
 
 
 def _cobj2(tsv_dir):
@@ -276,14 +331,15 @@ def _build_default_weapons(items, cobj_idx, unlocks, stats):
             continue
         seen.add(cnam)
         if pickup:
+            rewards = _weapon_reward_sentences(cnam)
             row = {
                 "kind": "plan", "recipe_only": True, "pickup_learned": True,
                 "brand": "df", "type": "weapon",
                 "id": f"RECIPE_{co_fid}", "name": DEFAULT_NAMES.get(full, full),
                 "has_image_box": True, "image_dir": "",
-                "obtain": PICKUP_OBTAIN,
+                "obtain": PICKUP_REWARD_OBTAIN if rewards else PICKUP_OBTAIN,
                 "category_label": "Weapon (learned on pick-up)",
-                "obtain_routes": [], "obtain_unlocks": [],
+                "obtain_routes": [], "obtain_unlocks": rewards,
                 "plan_item": None,
                 "cobj": {"formid": co_fid, "edid": edid},
                 "cnam": {"formid": cnam, "edid": c.get("cnam_edid") or "", "sig": "WEAP"},
@@ -292,9 +348,10 @@ def _build_default_weapons(items, cobj_idx, unlocks, stats):
                 "changes": [], "source_tag": "Pickup",
             }
             row["image_dir"] = plan_images.page_folder(row) or "weapons"
-            row["obtain_ledger"] = []
+            row["obtain_ledger"] = plan_sources.obtain_ledger(row) if rewards else []
             rows.append(row)
             stats["pickup_learned_emitted"] += 1
+            stats["pickup_learned_with_reward"] += bool(rewards)
             continue
         if quest:
             sentence = f"Learned automatically when you complete the quest: {quest}."

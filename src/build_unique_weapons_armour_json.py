@@ -341,6 +341,11 @@ SUPP_OBTAIN = {
     # first reward pool that gives out ANY Pipe Gun (Monster Mash), which is
     # wrong. Source per Duchess (Oct 2026): a random encounter.
     "ThePipe": "Event: Random encounter",
+    # Grant's Saber (MoM02B_HistoricSword): the Forging a Legend quest (MoM02B)
+    # creates it in a quest alias (ALCO in SeventySix.esm) - read from the ESM,
+    # 12 Oct 2026. The xEdit alias export (QUST2_*_Aliases.tsv) leaves the MoM
+    # quests out, so the build cannot see it on its own yet.
+    "MoM02B_HistoricSword": "Quest: Forging a Legend",
 }
 
 
@@ -1285,6 +1290,18 @@ def build_channel(channel, dist_dir):
             i["unreleased"] = True
     if not INCLUDE_CUT:
         all_items = [i for i in all_items if not i.get("isCut")]
+
+    # Items discover_and_add() brought in skip obtain_for(), so a SUPP_OBTAIN
+    # line keyed on their own EditorID (Grant's Saber) is applied here, only
+    # where nothing better was found.
+    for it in all_items:
+        if str(it.get("howToObtain") or "").strip() in ("", "Source unconfirmed"):
+            for frag, val in SUPP_OBTAIN.items():
+                if frag.lower() in str(it.get("edid") or "").lower():
+                    it["howToObtain"] = val
+                    it["sourceType"] = classify_source(val)
+                    it["questName"] = val.split(":", 1)[1].strip() if ":" in val else ""
+                    break
 
     # Never leave a blank How-to-Obtain: fall back honestly.
     for it in all_items:

@@ -262,6 +262,14 @@ ALIASES = {
     "LaserMusket": "Laser Musket",          # CUT_recipe_mod_LaserMusket_Scope_*
     "BoSPistol": "Crusader Pistol",         # PTS Crusader Pistol mods (no plan for the gun there)
     "UltraciteTerrorSword": "Ultracite Terror Sword",
+    # Two different revolvers (Duchess, 12 Oct 2026). The plan for the
+    # DLC04_Revolver is printed "Plan: Revolver", so the plan name alone made a
+    # root called just "Revolver". The weapon is the Western Revolver (WEAP
+    # 00113D6A FULL); the Single Action Revolver (WEAP 001C7A69) is its own root
+    # via the "SingleActionRevolver" alias above. "WesternRevolver" is how the
+    # loadout / Atom Shop / Scoreboard paints spell it.
+    "Revolver": "Western Revolver",
+    "WesternRevolver": "Western Revolver",
 }
 
 # PTS only (Duchess, 11 Oct 2026): rows nothing in the PTS files ties to a
@@ -662,8 +670,13 @@ def group_images(weapons):
     for (key, label), rows in sorted(by.items()):
         base = [r for r in rows if r.get("weapon_role") == "base" and not r.get("cut")]
         base.sort(key=lambda r: 0 if re.sub(r"^Plan:\s*", "", r.get("name") or "") == label else 1)
-        url = None
-        for r in base:
+        # A file named after the weapon beats a base row named after something
+        # else (Duchess, 12 Oct 2026): the Chainsaw root has only the
+        # Cauterizer's plan, the Western Revolver's plan is "Plan: Revolver" -
+        # their own picture, once uploaded, is the right one for the root.
+        named = [r for r in base if re.sub(r"^Plan:\s*", "", r.get("name") or "") == label]
+        url = None if named else weapon_unique_versions.image_for(label, files)
+        for r in ([] if url else base):
             imgs = r.get("images") or []
             if imgs:
                 url = str(imgs[0])
