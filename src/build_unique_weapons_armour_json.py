@@ -75,6 +75,7 @@ TSV_DIR = REPO_ROOT / "tsv"
 sys.path.insert(0, str(SRC_DIR))
 import tsv_source
 import uwa_mods
+import uwa_images      # unique pictures, matched by name (Oct 2026)
 import uwa_obtain
 import uwa_discover
 from patchlog_utils import write_empty_patchlog_feed
@@ -1422,6 +1423,7 @@ def build_channel(channel, dist_dir):
                 shown += " " + origin.lower()
                 break
     attach_conditions(all_items, channel)
+    uwa_images.attach(all_items)   # pictures by name, from the server listing
 
     # Items Bethesda's own WeaponsUniqueNamedList has never heard of AND that
     # the override table names as mod records rather than weapons. Dropping

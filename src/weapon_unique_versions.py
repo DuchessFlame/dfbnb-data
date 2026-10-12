@@ -184,7 +184,11 @@ def build(items, tsv_dir="tsv"):
                   "checked": r.get("conditionsChecked")}
                  for r in u.get("obtainRoutes") or []
                  if r.get("populated") and "conditionsChecked" in r]
-        img = image_for(name, files)
+        # The uniques build matched this item's own picture (uwa_images); a
+        # look-alike that only borrows its base weapon's picture is skipped,
+        # because this row already sits under that weapon.
+        img = ((u.get("image") or None) if not u.get("imageSameAsBase") else None) \
+            or image_for(name, files)
         row = {
             "kind": "plan", "brand": "df", "type": "weapon",
             "unique_version": True, "id": rid, "name": name,
