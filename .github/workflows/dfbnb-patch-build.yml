@@ -68,6 +68,13 @@ jobs:
         run: python src/tsv_source.py
 
       # ===== DROP RATES (must run before titles, events) =====
+      # --- SHARED PICTURE LIBRARY (dist/image_index.json) ---
+      # Was a by-hand step on Duchess's PC after every upload. It only reads
+      # data/server_listing.tsv, the committed dist/ JSON and tsv/, so it runs
+      # here, before the reward / event / activity builders that read it.
+      - name: Build image index
+        run: python src/build_image_index.py
+
       - name: Build Drop Rates JSON
         run: python src/build_drop_rates.py
 
@@ -929,6 +936,15 @@ jobs:
       # cross-references the reward-pool JSONs for How-to-Obtain.
       - name: Build Unique Weapons Armour JSON
         run: python src/build_unique_weapons_armour_json.py --channel both
+
+      # Every unique's source line must reach its own leveled list in the
+      # game files (uwa_source_links.py). The build already drops a line that
+      # does not; this prints the report into the run log. Never blocks.
+      - name: Check unique sources against the game files
+        continue-on-error: true
+        run: |
+          python src/check_uwa_sources.py
+          python src/check_uwa_sources.py --channel pts
 
       # --- APPAREL WITHOUT PLANS (/df/collectables/apparel-without-plans/checklist/) ---
       # Outputs dist/no_plan_apparel.json for df-bnb-plan-checklists.js
