@@ -37730,6 +37730,8 @@
         "RECIPE_00900A91",
         "RECIPE_00900A92",
         "RECIPE_00900A93",
+        "UNIQ_ABRAXOLATOR",
+        "UNIQ_ABRAXO_GUN",
         "UNIQ_ACCEPTABLE_OVERKILL",
         "UNIQ_ALL_RISE",
         "UNIQ_ANCHORAGE_ACE",
@@ -37764,7 +37766,6 @@
         "UNIQ_KINGFISHER",
         "UNIQ_LONGSHOT",
         "UNIQ_LOVE_TAP",
-        "UNIQ_MEADOW_BREEZE_SPRAYER",
         "UNIQ_MEDICAL_MALPRACTICE",
         "UNIQ_METEORITE_SWORD",
         "UNIQ_MIND_OVER_MATTER",
@@ -37775,11 +37776,9 @@
         "UNIQ_OATHBREAKER",
         "UNIQ_OGUA_GAUNTLET",
         "UNIQ_OLD_GUARD",
-        "UNIQ_OVERKILL",
         "UNIQ_PERFECT_STORM",
         "UNIQ_PIERCING_LOVE_BOW",
         "UNIQ_PIRATE_PUNCH",
-        "UNIQ_PROTOTYPE_ABX03",
         "UNIQ_PYROLYZER",
         "UNIQ_RED_TERROR",
         "UNIQ_RELIC_REAPER",
@@ -48705,7 +48704,6 @@
     "unique_weapons_armour/unique_weapons_armour.json": {
       "key": "id",
       "added": [
-        "fatman-3",
         "mod-custom-corpsestacker",
         "mod-custom-crybaby",
         "mod-custom-deepbreath",
@@ -48736,7 +48734,8 @@
             "questName",
             "sourceRef",
             "sourceType",
-            "uniqueMods"
+            "uniqueMods",
+            "unreleased"
           ]
         },
         {
@@ -48764,28 +48763,50 @@
           "key": "armor-bosinfantry-torso",
           "label": "Last Stand",
           "fields": [
-            "image"
+            "base"
           ]
         },
         {
           "key": "armor-combat-torso",
           "label": "Stand Fast",
           "fields": [
-            "image"
+            "base"
           ]
         },
         {
           "key": "armor-dlc03-trapper-armleft",
           "label": "Road Kill",
           "fields": [
-            "image"
+            "base"
+          ]
+        },
+        {
+          "key": "armor-enclavescoutuniform-torso-urban",
+          "label": "Last Bastion",
+          "fields": [
+            "base",
+            "subType"
+          ]
+        },
+        {
+          "key": "armor-leather-torso",
+          "label": "Silver Lining",
+          "fields": [
+            "base"
+          ]
+        },
+        {
+          "key": "armor-metal-torso",
+          "label": "Trail Warden",
+          "fields": [
+            "base"
           ]
         },
         {
           "key": "armor-raidermod-torso",
           "label": "Rage",
           "fields": [
-            "image"
+            "base"
           ]
         },
         {
@@ -48799,7 +48820,8 @@
             "planName",
             "questName",
             "sourceRef",
-            "sourceType"
+            "sourceType",
+            "subType"
           ]
         },
         {
@@ -48813,7 +48835,8 @@
             "planName",
             "questName",
             "sourceRef",
-            "sourceType"
+            "sourceType",
+            "subType"
           ]
         },
         {
@@ -48827,7 +48850,8 @@
             "planName",
             "questName",
             "sourceRef",
-            "sourceType"
+            "sourceType",
+            "subType"
           ]
         },
         {
@@ -48841,7 +48865,15 @@
             "planName",
             "questName",
             "sourceRef",
-            "sourceType"
+            "sourceType",
+            "subType"
+          ]
+        },
+        {
+          "key": "armor-secretservice-torso",
+          "label": "Bulwark",
+          "fields": [
+            "base"
           ]
         },
         {
@@ -48852,7 +48884,8 @@
             "obtainRoutes",
             "questName",
             "sourceRef",
-            "sourceType"
+            "sourceType",
+            "subType"
           ]
         },
         {
@@ -48900,33 +48933,29 @@
             "questName",
             "sourceRef",
             "sourceType",
-            "uniqueMods"
-          ]
-        },
-        {
-          "key": "e06-colossus-lls-quest-rewards-cursedharpoongun",
-          "label": "Cursed Harpoon Gun",
-          "fields": [
-            "image"
-          ]
-        },
-        {
-          "key": "e06-colossus-lls-quest-rewards-cursedpickaxe",
-          "label": "Cursed Pickaxe",
-          "fields": [
-            "image"
-          ]
-        },
-        {
-          "key": "e06-colossus-lls-quest-rewards-cursedshovel",
-          "label": "Cursed Shovel",
-          "fields": [
-            "image"
+            "uniqueMods",
+            "unreleased"
           ]
         },
         {
           "key": "fatman-2",
           "label": "Overkill",
+          "fields": [
+            "howToObtain",
+            "image",
+            "imageSameAsBase",
+            "name",
+            "obtainRoutes",
+            "recordIds",
+            "repairOnly",
+            "sourceRef",
+            "starEffects",
+            "uniqueMods"
+          ]
+        },
+        {
+          "key": "fatman-3",
+          "label": "The Guarantee",
           "fields": [
             "howToObtain",
             "image",
@@ -48959,14 +48988,8 @@
             "planName",
             "questName",
             "sourceRef",
-            "sourceType"
-          ]
-        },
-        {
-          "key": "knife",
-          "label": "Cosmic Knife",
-          "fields": [
-            "image"
+            "sourceType",
+            "subType"
           ]
         },
         {
@@ -48996,14 +49019,8 @@
             "questName",
             "sourceRef",
             "sourceType",
-            "uniqueMods"
-          ]
-        },
-        {
-          "key": "mod-custom-cosmicknife-superheated",
-          "label": "Cosmic Knife Super-Heated",
-          "fields": [
-            "image"
+            "uniqueMods",
+            "unreleased"
           ]
         },
         {
@@ -49018,24 +49035,6 @@
           "label": "Headhunter Scythe",
           "fields": [
             "edid"
-          ]
-        },
-        {
-          "key": "plasmagun",
-          "label": "Meadow Breeze Sprayer",
-          "fields": [
-            "aka",
-            "image",
-            "name"
-          ]
-        },
-        {
-          "key": "plasmagun-2",
-          "label": "Prototype ABX03",
-          "fields": [
-            "aka",
-            "image",
-            "name"
           ]
         },
         {
