@@ -211,8 +211,11 @@ class Tracer:
         for fid, e in self.omod_edid.items():
             if not re.search(r"mod_custom", e, re.I) or _DEAD.search(e):
                 continue
-            ne = _norm(e)
-            if any(t in ne for t in toks):
+            # Whole EditorID parts only: "Overkill" is not in
+            # mod_Custom_AcceptableOverkill (a different unique).
+            segs = [_norm(x) for x in re.split(r"_+", e) if x]
+            runs = {"".join(segs[i:j]) for i in range(len(segs)) for j in range(i + 1, len(segs) + 1)}
+            if toks & runs:
                 out.add(fid)
         return out
 

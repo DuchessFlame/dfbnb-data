@@ -1612,6 +1612,20 @@ def build_channel(channel, dist_dir):
         print(f"  excluded {len(dropped)} non-item record(s): "
               f"{', '.join(sorted(dropped))}")
 
+    # Ticks on the page are saved by id, so an item keeps the id it had in the
+    # last build. Only a new item gets a new one, and never a used one (adding
+    # Overkill must not hand it The Guarantee's fatman-2 and its ticks).
+    prev_ids, used_ids = {}, set()
+    _prev = REPO_ROOT / "dist" / ("pts" if channel == "pts" else "") / "unique_weapons_armour" / "unique_weapons_armour.json"
+    try:
+        for _p in json.loads(_prev.read_text(encoding="utf-8")).get("items", []):
+            if _p.get("id"):
+                for _n in [_p.get("name")] + list(_p.get("aka") or []):
+                    if _n:
+                        prev_ids.setdefault((_p.get("kind"), norm_name(_n)), _p["id"])
+    except (OSError, ValueError, AttributeError):
+        pass
+    _taken = set(prev_ids.values())
     for it in all_items:
         it.pop("_cmod_fids", None)
         it.pop("_rosterList", None)
@@ -1620,7 +1634,16 @@ def build_channel(channel, dist_dir):
         it.pop("_nameKeywords", None)
         it.pop("_ownLists", None)
         it.pop("_howWas", None)
-        it["id"] = unique_slug(it.get("edid") or it.get("name") or "item")
+        nid = next((prev_ids[(it.get("kind"), norm_name(n))]
+                    for n in [it.get("name")] + list(it.get("aka") or [])
+                    if n and (it.get("kind"), norm_name(n)) in prev_ids
+                    and prev_ids[(it.get("kind"), norm_name(n))] not in used_ids), None)
+        if not nid:
+            nid = unique_slug(it.get("edid") or it.get("name") or "item")
+            while nid in _taken or nid in used_ids:
+                nid = unique_slug(it.get("edid") or it.get("name") or "item")
+        used_ids.add(nid)
+        it["id"] = nid
 
     all_items.sort(key=lambda x: x["name"].lower())
 

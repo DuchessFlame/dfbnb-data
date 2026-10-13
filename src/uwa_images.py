@@ -99,7 +99,7 @@ def load_listing(path=LISTING):
     return weap, season, other, armo
 
 
-def find(name, weap, season, other=None, armo=None):
+def find(name, weap, season, other=None, armo=None, others=frozenset()):
     """(listing path, same_as_base) for one unique, or (None, False).
     Pass `armo` (the body-armour folder) for Armour items only."""
     s = _slug(name)
@@ -116,8 +116,11 @@ def find(name, weap, season, other=None, armo=None):
     if other and len(other.get(s) or []) == 1:
         return other[s][0], False
     if len(short) >= 8:
+        # never another unique's own picture ("Overkill" is not
+        # acceptable-overkill.avif)
         hits = [p for st, p in weap.items()
-                if _core(st).startswith(short) or _core(st).endswith(short)]
+                if (_core(st).startswith(short) or _core(st).endswith(short))
+                and _core(st) not in others]
         if len(hits) == 1:
             return hits[0], False
         hits = [p for tok, p in season.items() if _compact(tok).endswith(short)]
@@ -138,13 +141,15 @@ def attach(items, path=LISTING):
     """Set `image` (absolute URL) on every unique the server has a picture for."""
     weap, season, other, armo = load_listing(path)
     n = {"own": 0, "base": 0, "none": 0}
+    names_all = {_compact(re.sub(r"^the\s+", "", i.get("name") or "", flags=re.I)) for i in items}
     for it in items:
         a = armo if (it.get("kind") or "").lower().startswith("armo") else None
-        p, same = find(it.get("name") or "", weap, season, other, a)
+        others = frozenset(names_all - {_compact(re.sub(r"^the\s+", "", it.get("name") or "", flags=re.I))})
+        p, same = find(it.get("name") or "", weap, season, other, a, others)
         # renamed to its in-game name (uwa_names): the picture may still be
         # filed under the old one (strike-breaker.avif for Flatliner)
         for alt in ([] if p else list(it.get("_altNames") or []) + list(it.get("aka") or [])):
-            p, same = find(alt, weap, season, other, a)
+            p, same = find(alt, weap, season, other, a, others)
             if p:
                 break
         if p:
