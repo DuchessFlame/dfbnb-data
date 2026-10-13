@@ -79,6 +79,8 @@ import uwa_images      # unique pictures, matched by name (Oct 2026)
 import uwa_obtain
 import uwa_discover
 import uwa_source_links
+import uwa_names       # in-game names from INNR (Oct 2026)
+import uwa_trace       # sources traced from the game files (Oct 2026)
 from patchlog_utils import write_empty_patchlog_feed
 
 import build_unique_weapons_json as buw
@@ -342,21 +344,8 @@ def is_cosmetic_omod(omod_row):
     return False
 
 
-SUPP_OBTAIN = {
-    "ChaosEngine": "Quest: Skyline Valley (Vault 63)",
-    "Tempest": "Quest: Skyline Valley (Vault 63)",
-    "Splinter": "Quest: Skyline Valley (Vault 63)",
-    # The files hold no drop record for The Pipe (only its instantiation
-    # filter). Without this line the base-weapon formid lookup hands it the
-    # first reward pool that gives out ANY Pipe Gun (Monster Mash), which is
-    # wrong. Source per Duchess (Oct 2026): a random encounter.
-    "ThePipe": "Event: Random encounter",
-    # Grant's Saber (MoM02B_HistoricSword): the Forging a Legend quest (MoM02B)
-    # creates it in a quest alias (ALCO in SeventySix.esm) - read from the ESM,
-    # 12 Oct 2026. The xEdit alias export (QUST2_*_Aliases.tsv) leaves the MoM
-    # quests out, so the build cannot see it on its own yet.
-    "MoM02B_HistoricSword": "Quest: Forging a Legend",
-}
+# Emptied 13 Oct 2026 (Duchess): no hand-written source lines.
+SUPP_OBTAIN = {}
 
 
 def obtain_for(edid, name, pool_name, pool_fid, formid=None):
@@ -366,9 +355,8 @@ def obtain_for(edid, name, pool_name, pool_fid, formid=None):
     fb = match_obtain_fallback(edid)
     if fb:
         return fb, classify_source(fb), (fb.split(":", 1)[1].strip() if ":" in fb else "")
-    if formid and formid.upper() in pool_fid:
-        st, ho, ref = pool_fid[formid.upper()]
-        return ho, st, ref
+    # No lookup by the BASE weapon's FormID: every unique on that base would
+    # inherit whatever pool hands out a plain one (The Pipe got Monster Mash).
     key = norm_name(name)
     if key in pool_name:
         st, ho, ref = pool_name[key]
@@ -1544,6 +1532,13 @@ def build_channel(channel, dist_dir):
                     it["howToObtain"] = f"{it['howToObtain']} / {origin}"
                 shown += " " + origin.lower()
                 break
+    # In-game names from the naming rules (INNR), then every source the files
+    # give, traced from each unique's own lists up to whatever hands them out.
+    # Both read the game files each build — see uwa_names.py / uwa_trace.py.
+    _pk = lambda p, exclude=None: pick(p, channel, exclude=exclude)
+    uwa_names.apply(all_items, uwa_names.Names(_pk))
+    uwa_trace.apply(all_items, uwa_trace.Tracer(_pk, read_tsv), uwa_names.Names(_pk),
+                    obtain_idx, getattr(obtain_idx, "hand_only", ()))
     attach_conditions(all_items, channel)
     uwa_images.attach(all_items)   # pictures by name, from the server listing
 
@@ -1565,6 +1560,9 @@ def build_channel(channel, dist_dir):
         it.pop("_rosterList", None)
         it.pop("_rosterLists", None)
         it.pop("_altNames", None)
+        it.pop("_nameKeywords", None)
+        it.pop("_ownLists", None)
+        it.pop("_howWas", None)
         it["id"] = unique_slug(it.get("edid") or it.get("name") or "item")
 
     all_items.sort(key=lambda x: x["name"].lower())

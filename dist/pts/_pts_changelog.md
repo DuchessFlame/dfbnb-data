@@ -1798,7 +1798,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +305 / -109 / ~1126
+## `plan_master.json`  ·  +305 / -109 / ~1207
 
 **Added (305)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1886,7 +1886,7 @@ _Couldn't key this file to records; contents differ._
 - Cursed Broadsider  `UNIQ_CURSED_BROADSIDER`
 - …and 69 more
 
-**Changed (1126)**
+**Changed (1207)**
 - Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images
 - Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images
 - MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images
@@ -1927,7 +1927,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Lead Lined Combat Armor Chest  `PLAN_000224FC` — fields: obtain_ledger, obtain_routes
 - Plan: BoS Combat Armor Chest Piece  `PLAN_000224FD` — fields: obtain_ledger, obtain_routes
 - Plan: Cushioned Combat Armor Legs  `PLAN_00022E98` — fields: obtain_ledger, obtain_routes
-- …and 1086 more
+- …and 1167 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -2047,7 +2047,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +24 / -0 / ~37
+## `titles_player.json`  ·  +24 / -0 / ~36
 
 **Added (24)**
 - ATX_PlayerTitles_Prefix_Apex  `ATX_PlayerTitles_Prefix_Apex`
@@ -2075,7 +2075,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S27_PlayerTitles_Suffix_Athlete  `SCORE_S27_PlayerTitles_Suffix_Athlete`
 - SCORE_S27_PlayerTitles_Suffix_Competitor  `SCORE_S27_PlayerTitles_Suffix_Competitor`
 
-**Changed (37)**
+**Changed (36)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear, source
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel, source
 - ATX_PlayerTitles_Prefix_Gleaming  `ATX_PlayerTitles_Prefix_Gleaming` — fields: source
@@ -2112,7 +2112,6 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl, images
-- SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 
 ## `titles_player_generator.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -2126,7 +2125,7 @@ _Couldn't key this file to records; contents differ._
 ## `unique_weapons/unique_weapons.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `unique_weapons_armour/unique_weapons_armour.json`  ·  +7 / -0 / ~12
+## `unique_weapons_armour/unique_weapons_armour.json`  ·  +7 / -0 / ~22
 
 **Added (7)**
 - Corpse Stacker  `mod-custom-corpsestacker`
@@ -2137,19 +2136,29 @@ _Couldn't key this file to records; contents differ._
 - Tarnished Claw  `rd01-ultraciteterrorsword-2`
 - V63 Zweihaender  `stormcutter-2`
 
-**Changed (12)**
-- Splinter  `10mmsmg-4` — fields: uniqueMods
+**Changed (22)**
+- Old Guard  `10mmsmg` — fields: howToObtain, obtainRoutes
+- Splinter  `10mmsmg-4` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
+- The Fact Finder  `44-3` — fields: obtainRoutes
 - Final Word  `50calmachinegun` — fields: uniqueMods
 - The Action Hero  `50calmachinegun-2` — fields: uniqueMods
+- The Invader  `atx-alienprobe` — fields: howToObtain, obtainRoutes, sourceRef, sourceType
 - Disorderly Conduct  `baton` — fields: uniqueMods
-- Tempest  `dlc01-assaultronblade-2` — fields: uniqueMods
+- V63 Shock Baton  `baton-2` — fields: howToObtain, obtainRoutes
+- The Dragon  `blackpowder-rifle-dragon` — fields: howToObtain, obtainRoutes
+- Tempest  `dlc01-assaultronblade-2` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
+- Flatliner  `gaussrifle` — fields: howToObtain, obtainRoutes
+- Cryptid Jawbone Knife  `knife-2` — fields: howToObtain, obtainRoutes
 - Crushing Blow  `m79` — fields: uniqueMods
-- Chaos Engine  `m79-2` — fields: uniqueMods
+- Chaos Engine  `m79-2` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
 - Cultist Piercer  `pickaxe` — fields: edid
-- Head Hunter  `pickaxe-2` — fields: edid
+- Headhunter Scythe  `pickaxe-2` — fields: edid
 - Slug Buster  `plasmagun-4` — fields: starEffects
-- Ultracite Terror Sword  `rd01-ultraciteterrorsword` — fields: confirmedByGameFiles, starEffects, uniqueMods
-- V63-Z Custom  `stormcutter` — fields: image, name, obtainRoutes, recordIds, starEffects
+- Lickety-Split  `railwayrifle` — fields: howToObtain, obtainRoutes
+- Venomous Fang  `rd01-ultraciteterrorsword` — fields: aka, confirmedByGameFiles, name, obtainRoutes, starEffects, uniqueMods
+- V63-Z Custom  `stormcutter` — fields: howToObtain, image, name, obtainRoutes, questName, recordIds, sourceRef, starEffects
+- The Farmhand  `supersledge-3` — fields: howToObtain, obtainRoutes
+- Oathbreaker  `warglaive` — fields: obtainRoutes
 
 ## `vendors.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._

@@ -55,6 +55,9 @@ from collections import defaultdict
 
 import tsv_source
 import gold_vendor
+import plan_sources
+
+_RECIPE = re.compile(r"(^|_)recipe_", re.I)
 
 csv.field_size_limit(min(sys.maxsize, 2 ** 31 - 1))
 
@@ -236,10 +239,16 @@ class ObtainIndex:
         # AssaultRifle, "Plan: Whistle in the Dark"), so the record lookup
         # above never finds it. The plan's own name does.
         self.plan_by_name = {}
+        self.plan_edid = {}
         for r in _rows(self._pick("COBJ_Export_*.tsv")):
+            if _q(r.get("GNAM_FormID")):
+                self.plan_edid[_fid(r.get("GNAM_FormID"))] = _q(r.get("GNAM_EDID"))
             cnam = _fid(r.get("CNAM_FormID"))
             gfull = _q(r.get("GNAM_FULL"))
-            if _q(r.get("GNAM_EDID")).lower().startswith("recipe_") \
+            # Plans are named Recipe_… but often with a content prefix:
+            # SCORE_S12_Recipe_Coldshoulder_StampVendor, RD01_Recipe_…, SSE_Recipe_…
+            # (Cold Shoulder lost its plan route to the startswith test).
+            if _RECIPE.search(_q(r.get("GNAM_EDID"))) \
                     and re.match(r"^\s*plan\s*:", gfull, flags=re.I):
                 nm = re.sub(r"^\s*plan\s*:\s*", "", gfull, flags=re.I)
                 self.plan_by_name.setdefault(_norm(nm), {
@@ -248,7 +257,7 @@ class ObtainIndex:
                 continue
             if _q(r.get("GNAM_EDID")) == NOCRAFT:
                 self.repair_only.add(cnam)
-            elif _q(r.get("GNAM_EDID")).lower().startswith("recipe_"):
+            elif _RECIPE.search(_q(r.get("GNAM_EDID"))):
                 self.plan_of[cnam] = {
                     "fid": _fid(r.get("GNAM_FormID")),
                     "name": re.sub(r"^\s*plan\s*:\s*", "",
@@ -479,6 +488,19 @@ class ObtainIndex:
             # "Optional Success Rare Rewards" off zzzMTNS04_LL_OptionalSuccess_
             # RareRewards_QuestReward, a list nothing rolls any more.
             if DEAD_REWARD.search(list_edid or ""):
+                continue
+            # A vendor the plan pages already named (Giuseppe, Minerva…) is a
+            # vendor route, never "Expedition" read off the list name.
+            vlab = self.vendor_label.get(list_fid)
+            if vlab or re.search(r"(^|_)LLV(_|$)", list_edid or "", re.I):
+                if not vlab and re.search(r"GoldVendor|Gold_Vendor|GoldBullion", list_edid or "", re.I):
+                    continue      # the Gold Bullion route below names it (gold_vendor.py)
+                vlab = vlab or plan_sources.source_label(list_edid) or self._pretty(list_edid)
+                money = (vlab + " " + list_edid + " " + self.rec_edid.get(fid, "") + " "
+                         + self.plan_edid.get(fid, "")).lower()
+                route = ("Gold Bullion" if "gold" in money and "bullion" in money or "goldvendor" in money
+                         else "Stamps" if "stamp" in money else "Caps")
+                out.append((route, vlab, what, list_fid, fid))
                 continue
             route, label, shown = self._source_label(list_fid, list_edid)
             if not route:
@@ -801,6 +823,13 @@ class ObtainIndex:
 
     @staticmethod
     def _fallback(item, routes):
+        """Hand-written summaries are no longer shown (Duchess, 13 Oct 2026:
+        "there should never have been hand written lines"). Every route comes
+        from the game files; an item they cannot place says so."""
+        return False
+
+    @staticmethod
+    def _old_fallback(item, routes):
         """Put the old one-line summary in its route rather than nine N/As."""
         how = _q(item.get("howToObtain"))
         if not how or "unconfirmed" in how.lower() or "legacy" in how.lower():

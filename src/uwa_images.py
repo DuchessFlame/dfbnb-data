@@ -132,6 +132,12 @@ def attach(items, path=LISTING):
     n = {"own": 0, "base": 0, "none": 0}
     for it in items:
         p, same = find(it.get("name") or "", weap, season, other)
+        # renamed to its in-game name (uwa_names): the picture may still be
+        # filed under the old one (strike-breaker.avif for Flatliner)
+        for alt in ([] if p else list(it.get("_altNames") or []) + list(it.get("aka") or [])):
+            p, same = find(alt, weap, season, other)
+            if p:
+                break
         if p:
             it["image"] = URL_ROOT + p
             if same:
