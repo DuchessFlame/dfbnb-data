@@ -170,6 +170,7 @@ class TitleEventRoutes:
                 self.gmrw_by_list[_fid(item)].append(r)
 
         self.quest_full, self.quest_edid, self.switch_target = {}, {}, {}
+        self.seasonal_by_code = {}
         for r in _rows(_newest(tsv_root, "QUEST_Export_*.tsv")):
             f = _fid(r.get("FormID"))
             self.quest_full[f] = _q(r.get("FULL - Name"))
@@ -179,6 +180,11 @@ class TitleEventRoutes:
             m = _SWITCH_QUEST.match(self.quest_full[f])
             if m:
                 self.switch_target[self.quest_edid[f].lower()] = m.group("what").strip()
+            # "(Seasonal) The Slasher" umbrella quests: the name a season's
+            # live-content switches (LCP_<CODE>_...) stand for.
+            ms = re.match(r"^\(Seasonal\)\s*(.+)$", self.quest_full[f])
+            if ms and "_" in self.quest_edid[f]:
+                self.seasonal_by_code.setdefault(self.quest_edid[f].split("_")[0].upper(), ms.group(1).strip())
         self.objectives = defaultdict(list)
         for r in _rows(_newest(tsv_root, "QUST2_Export_*_Objectives.tsv")):
             text = _q(r.get("ObjectiveText"))
@@ -325,6 +331,21 @@ class TitleEventRoutes:
                     ev = _humanize(m.group(1))
                     words.append(f"Only while the {ev} event is running" if yes
                                  else f"Only while the {ev} event is not running")
+                    continue
+                # A season's live-content switch (LCP_SDOW_Slasher = 1) is the
+                # season itself running: name it from the season's own
+                # "(Seasonal) ..." quest.
+                ml = re.match(r"^LCP_([A-Za-z0-9]+)_", edid)
+                if ml and ml.group(1).upper() in self.seasonal_by_code \
+                        and self.glob_val.get(gfid) in (0.0, 1.0) and value in (0.0, 1.0) \
+                        and not _COUNTISH.search(edid) and op in (_pc.OP_EQ, _pc.OP_NE):
+                    yes = (value == 1.0) == (op == _pc.OP_EQ)
+                    ev = self.seasonal_by_code[ml.group(1).upper()]
+                    ev = ev if ev.lower().startswith("the ") else f"the {ev}"
+                    w = (f"Only while {ev} seasonal event is running" if yes
+                         else f"Only while {ev} seasonal event is not running")
+                    if w not in words:
+                        words.append(w)
                     continue
                 name = _humanize(edid, quest_code)
                 if not name:
