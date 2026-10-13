@@ -55,6 +55,7 @@ from collections import defaultdict
 
 import tsv_source
 import gold_vendor
+import plan_sources
 
 _RECIPE = re.compile(r"(^|_)recipe_", re.I)
 
@@ -492,7 +493,9 @@ class ObtainIndex:
             # vendor route, never "Expedition" read off the list name.
             vlab = self.vendor_label.get(list_fid)
             if vlab or re.search(r"(^|_)LLV(_|$)", list_edid or "", re.I):
-                vlab = vlab or self._pretty(list_edid)
+                if not vlab and re.search(r"GoldVendor|Gold_Vendor|GoldBullion", list_edid or "", re.I):
+                    continue      # the Gold Bullion route below names it (gold_vendor.py)
+                vlab = vlab or plan_sources.source_label(list_edid) or self._pretty(list_edid)
                 money = (vlab + " " + list_edid + " " + self.rec_edid.get(fid, "") + " "
                          + self.plan_edid.get(fid, "")).lower()
                 route = ("Gold Bullion" if "gold" in money and "bullion" in money or "goldvendor" in money
@@ -820,6 +823,13 @@ class ObtainIndex:
 
     @staticmethod
     def _fallback(item, routes):
+        """Hand-written summaries are no longer shown (Duchess, 13 Oct 2026:
+        "there should never have been hand written lines"). Every route comes
+        from the game files; an item they cannot place says so."""
+        return False
+
+    @staticmethod
+    def _old_fallback(item, routes):
         """Put the old one-line summary in its route rather than nine N/As."""
         how = _q(item.get("howToObtain"))
         if not how or "unconfirmed" in how.lower() or "legacy" in how.lower():

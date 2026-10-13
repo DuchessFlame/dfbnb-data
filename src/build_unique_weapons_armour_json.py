@@ -338,21 +338,8 @@ def is_cosmetic_omod(omod_row):
     return False
 
 
-SUPP_OBTAIN = {
-    "ChaosEngine": "Quest: Skyline Valley (Vault 63)",
-    "Tempest": "Quest: Skyline Valley (Vault 63)",
-    "Splinter": "Quest: Skyline Valley (Vault 63)",
-    # The files hold no drop record for The Pipe (only its instantiation
-    # filter). Without this line the base-weapon formid lookup hands it the
-    # first reward pool that gives out ANY Pipe Gun (Monster Mash), which is
-    # wrong. Source per Duchess (Oct 2026): a random encounter.
-    "ThePipe": "Event: Random encounter",
-    # Grant's Saber (MoM02B_HistoricSword): the Forging a Legend quest (MoM02B)
-    # creates it in a quest alias (ALCO in SeventySix.esm) - read from the ESM,
-    # 12 Oct 2026. The xEdit alias export (QUST2_*_Aliases.tsv) leaves the MoM
-    # quests out, so the build cannot see it on its own yet.
-    "MoM02B_HistoricSword": "Quest: Forging a Legend",
-}
+# Emptied 13 Oct 2026 (Duchess): no hand-written source lines.
+SUPP_OBTAIN = {}
 
 
 def obtain_for(edid, name, pool_name, pool_fid, formid=None):
@@ -362,9 +349,8 @@ def obtain_for(edid, name, pool_name, pool_fid, formid=None):
     fb = match_obtain_fallback(edid)
     if fb:
         return fb, classify_source(fb), (fb.split(":", 1)[1].strip() if ":" in fb else "")
-    if formid and formid.upper() in pool_fid:
-        st, ho, ref = pool_fid[formid.upper()]
-        return ho, st, ref
+    # No lookup by the BASE weapon's FormID: every unique on that base would
+    # inherit whatever pool hands out a plain one (The Pipe got Monster Mash).
     key = norm_name(name)
     if key in pool_name:
         st, ho, ref = pool_name[key]

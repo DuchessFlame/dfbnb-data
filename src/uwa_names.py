@@ -10,9 +10,10 @@ turn that keyword into the text the player sees:
 
 So the INNR text is the name, not the mod FULL and not the EditorID. Rules
 are read from tsv/INNR_Export_<Month>_<Year>.tsv, written straight from the
-game files by src/export_innr_from_esm.py, and from its _Users.tsv (which
-naming rules each WEAP/ARMO uses — the Chainsaw names its unique
-"Cauterizer" through dn_CommonGun, the melee rules say "The Cauterizer").
+same pass as the WEAP export ("!!!Wordpress - ExportWEAPToTSV.pas" writes it
+as a fourth file), and from the WEAP Base column INRD_NamingRules (which rules
+each weapon uses — the Chainsaw names its unique "Cauterizer" through
+dn_CommonGun, the melee rules say "The Cauterizer").
 
 Only a rule whose keyword list is exactly that one CustomItemName keyword is
 a name. A rule that pairs it with a part keyword (RD01_CustomItemName_
@@ -30,11 +31,20 @@ _KW = re.compile(r"(\S+) \[KYWD:([0-9A-Fa-f]{8})\]")
 _NAMEKW = re.compile(r"CustomItemName", re.I)
 
 
-def _rows(path, enc="utf-8"):
+def _rows(path, enc=None):
+    """xEdit saves some exports as UTF-8 and some as ANSI; try UTF-8 first."""
     if not path:
         return []
-    with open(path, encoding=enc, errors="replace", newline="") as fh:
-        return list(csv.DictReader(fh, delimiter="\t"))
+    raw = open(path, "rb").read()
+    if enc is None:
+        try:
+            text = raw.decode("utf-8-sig")
+        except UnicodeDecodeError:
+            text = raw.decode("cp1252", errors="replace")
+    else:
+        text = raw.decode(enc, errors="replace")
+    import io
+    return list(csv.DictReader(io.StringIO(text, newline=""), delimiter="\t"))
 
 
 def norm(s):
@@ -53,8 +63,7 @@ class Names:
     def __init__(self, pick):
         """pick(pattern, exclude=None) -> newest export path for this channel."""
         self.ok = False
-        rules_path = pick("INNR_Export_*.tsv", exclude="_Users")
-        users_path = pick("INNR_Export_*_Users.tsv")
+        rules_path = pick("INNR_Export_*.tsv")
         # keyword edid -> [(innr fid, ruleset, rule, text)]
         self.by_kw = defaultdict(list)
         self.prefixes = set()      # "Cursed" (dn_HasCustomMod_Cursed): prefix + base name
@@ -75,8 +84,16 @@ class Names:
             self.by_kw[kws[0][0]].append((r.get("INNR_FormID", "").upper(), key, text))
         for v in self.by_kw.values():
             v.sort(key=lambda x: x[1])
-        self.innr_of = {r.get("FormID", "").upper(): r.get("INRD_FormID", "").upper()
-                        for r in _rows(users_path)}
+        self.innr_of = {}
+        self.full_of = {}
+        for r in _rows(pick("WEAP_Export_*_Base.tsv")):
+            fid = (r.get("WEAP_FormID") or "").strip().upper()
+            m = re.search(r"\[INNR:([0-9A-Fa-f]{8})\]", r.get("INRD_NamingRules") or "")
+            if m:
+                self.innr_of[fid] = m.group(1).upper()
+            self.full_of[fid] = (r.get("WEAP_FULL") or "").strip()
+        for r in _rows(pick("ARMO_Export_*_ARMOUR.tsv")):
+            self.full_of[(r.get("ARMO_FormID") or "").strip().upper()] = (r.get("ARMO_FULL") or "").strip()
         # mod fid -> CustomItemName keyword edids it adds
         self.mod_kws = defaultdict(set)
         self.kw_mods = defaultdict(set)
@@ -146,6 +163,15 @@ def apply(items, names, log=print):
         if kws:
             it["_nameKeywords"] = sorted(kws)
         new = names.name_for(kws, it.get("formId"))
+        if not new:
+            # No naming rule, but the item's own record spells it properly
+            # (Survival_PipeWrench_MechanicsBestFriend: "Mechanic's Best Friend").
+            # Only a spelling fix — same letters — never a different name.
+            for rid in it.get("recordIds") or []:
+                full = names.full_of.get((rid or "").upper(), "")
+                if full and norm(full) == norm(it.get("name")) and full != it.get("name"):
+                    new = full
+                    break
         if not new:
             # Prefix rules (dn_HasCustomMod_Cursed -> "Cursed") put the word in
             # front of the base weapon's own name: "Cursed Pickaxe", not the

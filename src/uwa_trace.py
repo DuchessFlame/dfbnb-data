@@ -166,6 +166,11 @@ class Tracer:
             for col in ("FULL", "FULL - Name"):
                 if r.get(col):
                     self.entm[_norm(r[col])].append(e)
+            # the EditorID names the weapon too (…_ENTM_Weapons_NukaLauncher,
+            # whose FULL is "Nuka-Launcher Crafting")
+            tail = re.split(r"_ENTM_(?:Weapons?|Armor|Armour)_", e, flags=re.I)[-1]
+            if tail and e not in self.entm[_norm(tail)]:
+                self.entm[_norm(tail)].append(e)
 
     def entitlement_routes(self, names_):
         out = []
@@ -442,7 +447,7 @@ def apply(items, tracer, names=None, obtain_idx=None, hand_only=(), log=print):
                 it["_legacyNote"] = kept
         shown = " ".join(l for r in routes if r.get("populated") for l in r["lines"]).lower()
         for route, lab, path in found:
-            core = re.sub(r"^(activity|event)\s*:\s*", "", lab.lower())
+            core = re.sub(r"^(activity|event)\s*:\s*|^raids?\s*-\s*", "", lab.lower())
             if lab.lower() in shown or core in shown:
                 continue
             r = next(x for x in routes if x["route"] == route)
@@ -459,7 +464,7 @@ def apply(items, tracer, names=None, obtain_idx=None, hand_only=(), log=print):
         parts, first, seen_k = [], None, set()
 
         def _add(route, lab):
-            k = re.sub(r"^(activity|event|enemy drop)\s*:\s*", "", lab.lower()).strip()
+            k = re.sub(r"^(activity|event|enemy drop)\s*:\s*|^raids?\s*-\s*", "", lab.lower()).strip()
             if k in seen_k:
                 return
             seen_k.add(k)
@@ -483,6 +488,38 @@ def apply(items, tracer, names=None, obtain_idx=None, hand_only=(), log=print):
         it["questName"] = first[1] if first[0] == "Quests" else ""
         if old and old != it["howToObtain"]:
             it["_howWas"] = old
+    # Retired copies (Survival_…, NW_…, DEPRECATED_…) are read from the
+    # item's own records: the old version is gone, say so beside today's
+    # sources, or on its own when nothing hands the item out any more.
+    rec_edid = getattr(obtain_idx, "rec_edid", {}) or {}
+    for it in items:
+        routes = it.get("obtainRoutes") or uwa_obtain.blank_routes()
+        it["obtainRoutes"] = routes
+        lines = []
+        for rid in it.get("recordIds") or []:
+            e = rec_edid.get(rid, "")
+            if uwa_obtain.is_legacy_record(e):
+                mode = uwa_obtain.legacy_mode(e)
+                lines.append(f"Legacy: {mode} version — no longer obtainable, player trading only"
+                             if mode else
+                             "Legacy: an older version — no longer obtainable, player trading only")
+        live = [r for r in routes if r.get("populated")]
+        for l in dict.fromkeys(lines):
+            if any(l in r["lines"] for r in live):
+                continue
+            if live:
+                live[0]["lines"].append(l)
+            else:
+                r = next(x for x in routes if x["route"] == "Events & Activities")
+                r.update({"populated": True, "dropRate": "N/A", "tradeable": it.get("tradeable"),
+                          "lines": ["Drops: No longer obtainable", l]})
+                live = [r]
+        if not any(l.startswith("Source:") for r in routes if r.get("populated") for l in r["lines"]):
+            if not any(r.get("populated") for r in routes):
+                it["howToObtain"] = "Not found in the game files"
+                it["sourceType"], it["sourceRef"] = "Unknown", ""
+            elif lines:
+                it["howToObtain"] = "No longer obtainable — player trading only"
     log(f"  traced sources (own lists walked to their holders): {report['traced']} item(s)")
     log(f"  hand-written lines replaced by traced sources: {len(report['replaced'])}")
     for n, h in report["replaced"]:
