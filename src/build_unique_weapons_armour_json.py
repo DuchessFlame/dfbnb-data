@@ -267,7 +267,7 @@ def load_weap_tables(channel):
     objt_p = pick("WEAP_Export_*_ObjectTemplate.tsv", channel)
     base = {norm_formid(r.get("WEAP_FormID", "")): r for r in read_tsv(base_p)} if base_p else {}
     dnam = {norm_formid(r.get("WEAP_FormID", "")): r for r in read_tsv(dnam_p)} if dnam_p else {}
-    combos = defaultdict(lambda: defaultdict(lambda: {"full": "", "mods": []}))
+    combos = defaultdict(lambda: defaultdict(lambda: {"full": "", "mods": [], "kw_tails": set()}))
     host = defaultdict(list)
     if objt_p:
         for r in read_tsv(objt_p):
@@ -277,6 +277,12 @@ def load_weap_tables(channel):
             cf = strip_q(r.get("Combination_FULL", ""))
             if cf and not cd["full"]:
                 cd["full"] = cf
+            # OBTS_Keywords (export column added 13 Oct 2026): the
+            # if_tmp_<Name> instance filter that a leveled list asks for.
+            for kw in strip_q(r.get("OBTS_Keywords", "")).split("|"):
+                m = re.match(r"\s*if_tmp_([A-Za-z0-9_-]+)", kw)
+                if m:
+                    cd["kw_tails"].add(m.group(1))
             m = strip_q(r.get("Include_Mod", ""))
             if m:
                 me, mn, mf = parse_omod_ref(m)
@@ -1268,10 +1274,29 @@ def build_channel(channel, dist_dir):
         if strip_q(_row.get("FormType", "")) != "Weapon":
             continue
         for _wf, _ci in weap_host.get(_fid, []):
-            _cf = weap_combos[_wf][_ci]["full"]
-            if _cf and norm_name(_cf) == norm_name(_full):
+            if uwa_discover.combo_is_mods(weap_combos[_wf][_ci], _ed, _full,
+                                          lambda a, b: norm_name(a) == norm_name(b)):
                 cn_weapon.add(_fid)
                 break
+
+    # Combination labels that disagree with their own keyword - printed so a
+    # shuffled label is seen, never trusted (Plasma Gun, 13 Oct 2026).
+    _shuffled = []
+    for _wf, _cs in weap_combos.items():
+        for _ci, _cd in _cs.items():
+            if not _cd.get("kw_tails"):
+                continue
+            for _me, _mn, _mf in _cd["mods"]:
+                _row = omod_by_fid.get(_mf) or {}
+                _mfull = strip_q(_row.get("FULL", ""))
+                if _mfull and re.match(r"mod_custom_", _me or "", re.I) \
+                        and uwa_discover.combo_is_mods(_cd, _me, _mfull) \
+                        and _cd["full"] and norm_name(_cd["full"]) != norm_name(_mfull):
+                    _shuffled.append(f"{strip_q(weap_base.get(_wf, {}).get('WEAP_EDID', _wf))} "
+                                     f"#{_ci}: labelled '{_cd['full']}', builds '{_mfull}'")
+    print(f"  combination labels that disagree with their keyword: {len(_shuffled)}")
+    for _l in _shuffled:
+        print("    " + _l)
 
     reuse_path = REPO_ROOT / "dist" / "unique_weapons" / "unique_weapons.json"
     reuse = json.load(open(reuse_path, encoding="utf-8"))

@@ -62,19 +62,12 @@ RE_QUOTED = re.compile(r'"([^"]+)"')
 RE_COBJ_REF = re.compile(r"(?:\[COBJ:|COBJ:)([0-9A-F]{8})(?:\]?)", re.IGNORECASE)
 
 # ---- Manual howToObtain overrides (keyed by PLYT/CMPT EDID, lower-cased) ----
-# These titles have multi-path unlock conditions that the auto-resolver
-# cannot distinguish (Primary vs Shutdown ARIC-4 paths in Project Paradise).
+# Event reward titles are read from the game files (title_event_routes.py,
+# 13 Oct 2026) and do NOT belong here: when the files answer, a line here is
+# ignored and the build log lists it as safe to delete. Keep this table for
+# what the files cannot say (paid platform bundles, pet levelling, ...).
 HOW_TO_OBTAIN_OVERRIDES: Dict[str, str] = {
     # ---- Player Titles ----
-    # Project Paradise — Primary vs Shutdown ARIC-4 paths
-    "playertitles_suffix_zookeeper":
-        "Complete the Event: Project Paradise\nCondition: Keep all 3 animals alive",
-    "sfs09_playertitles_suffix_tamer":
-        "Complete the Event: Project Paradise\nCondition: Keep all 3 animals alive",
-    "playertitles_suffix_researcher":
-        "Complete the Event: Project Paradise\nCondition: Shut down ARIC-4 (any number of animals alive)",
-    "sfs09_playertitles_suffix_manager":
-        "Complete the Event: Project Paradise\nCondition: Shut down ARIC-4 (any number of animals alive)",
     # ---- Paid Platform Store Bundles (Xbox / PlayStation / Steam) ----
     # Enclave Armory Bundle — December 3, 2024
     "atx_playertitles_prefix_gleaming":
@@ -98,12 +91,6 @@ HOW_TO_OBTAIN_OVERRIDES: Dict[str, str] = {
     # Treasure Hunter — title drops from Crafted Mole Miner Pails only
     "playertitles_suffix_surveyor":
         "Open Crafted Mole Miner Pails during the Treasure Hunter seasonal event",
-    # Lucky Strike — title drops from the Miner/Prospector/Excavator mine LL stages
-    # (MTRz05_LL_01/02/03_*Mine via QuestReward_MTRZ05_Lucky_Stage255_01 GMRW).
-    # The auto-resolver finds the LVLI candidates but can't pick a ParentQuest label
-    # from this GMRW row shape, so it falls back to "(unknown)".
-    "mtrz05_playertitles_prefix_treasurer":
-        "Complete the Activity: Lucky Strike",
     # Spooky Scorched — title drops from Spooky Treat Bags
     "playertitles_prefix_spooky":
         "Drops from Spooky Treat Bags during the Spooky Scorched seasonal event",
@@ -112,61 +99,17 @@ HOW_TO_OBTAIN_OVERRIDES: Dict[str, str] = {
         "Complete the Event: Uranium Fever",
 
     # ---- CAMP Titles: Activities ----
-    "camptitles_suffix_array":
-        "Complete the Activity: Always Vigilant",
-    "camptitles_suffix_battery":
-        "Complete the Activity: Distant Thunder",
-    "camptitles_suffix_crashsite":
-        "Complete the Activity: Fly Swatter",
-    "camptitles_suffix_bulwark":
-        "Complete the Activity: AWOL Armaments",
-    "camptitles_suffix_archive":
-        "Complete the Activity: Census Violence",
-    "camptitles_suffix_apiary":
-        "Complete the Activity: Irrational Fear",
-    "camptitles_prefix_fugitives":
-        "Complete the Activity: Manhunt",
-    "camptitles_prefix_leaders":
-        "Complete the Activity: Leader of the Pack",
     "camptitles_lifetime_prefix_homestead":
         "Complete the Activity: Project Beanstalk",
-    "camptitles_lifetime_both_precinct":
-        "Complete the Activity: Back on the Beat",
-    "camptitles_lifetime_both_forge":
-        "Complete the Activity: Breach and Clear",
-    "camptitles_lifetime_suffix_laboratory":
-        "Complete the Activity: Fertile Soil",
-    "camptitles_lifetime_prefix_electric":
-        "Complete the Activity: Powering Up",
-    "camptitles_lifetime_prefix_excavator":
-        "Complete the Activity: Lucky Strike",
 
-    # ---- CAMP Titles: Events ----
-    "camptitles_lifetime_both_chapel":
-        "Complete the Event: The Mothman Equinox",
-    "camptitles_lifetime_both_junkyard":
-        "Complete the Event: Neurological Warfare",
-    "camptitles_lifetime_suffix_hideout":
-        "Complete the Event: Bounty Hunting: Head Hunt",
-    "camptitles_lifetime_both_sinkhole":
-        "Complete the Event: Sinkhole Solutions",
 
     # ---- CAMP Titles: Challenges ----
     # (Removed — auto-resolver now correctly appends x## counts from TNAM)
 
-    # ---- CAMP Titles: Shadows of the Dead ----
-    "sdow_camptitles_suffix_cemetery":
-        "Drops from the Shadows of the Dead seasonal quest",
 
     # ---- Player Titles: Shadows of the Dead ----
-    "sdow_playertitles_prefix_pintsized":
-        "Drops from Daily Ops during the Shadows of the Dead seasonal event",
     "sdow_playertitles_suffix_slasher":
         "Drops from Infestations during the Shadows of the Dead seasonal event",
-    "sdow_playertitles_prefix_grave":
-        "Drops from the Shadows of the Dead seasonal quest",
-    "sdow_playertitles_suffix_keeper":
-        "Drops from the Shadows of the Dead seasonal quest",
 
     # ---- Player Titles: World Pets — Pet Levelling rewards ----
     # Cat
@@ -217,15 +160,14 @@ DROP_RATE_OVERRIDES: Dict[str, str] = {
     # Treasure Hunter — same sub-list bug, same rates as Holiday Scorched
     "playertitles_suffix_surveyor":
         "Loot Tier 1 - 0%\nLoot Tier 2 - 0%\nLoot Tier 3 - 0%\nCrafted Tier 1 - 5%\nCrafted Tier 2 - 10%\nCrafted Tier 3 - 25%",
-    # Radiation Rumble — RA_RareTitleDropChance GLOB (FLTV 90 = 10% drop)
-    "playertitles_suffix_rumbler": "10%",
-    "e05_playertitles_suffix_scavenger": "10%",
-    # Project Paradise — same RA_RareTitleDropChance GLOB (FLTV 90 = 10% drop)
-    "sfs09_playertitles_suffix_manager": "10%",
-    "playertitles_suffix_researcher": "10%",
     # Spooky Scorched — ChanceNone 80 on parent entry = 20% drop per treat bag
     "playertitles_prefix_spooky": "20%",
 }
+
+
+EVENT_ROUTES = None            # title_event_routes.TitleEventRoutes, set in main()
+EVENT_ROUTES_USED: List[str] = []
+EVENT_ROUTES_SUPERSEDED: List[str] = []
 
 
 def now_iso() -> str:
@@ -1767,7 +1709,7 @@ def title_source(how: str, unlock_type: str, cut: bool, is_ltb: bool = False) ->
     if re.search(r"\bcaps\b|purveyor|vendor", h):
         return "Caps"
     if ("seasonal" in h or "crafted holiday" in h or "spooky treat" in h
-            or "mole miner pail" in h):
+            or "mole miner pail" in h or "event is running" in h):
         return "Seasonal Event"
     if "complete the activity" in h:
         return "Activity"
@@ -1781,6 +1723,10 @@ def title_source(how: str, unlock_type: str, cut: bool, is_ltb: bool = False) ->
         return "PTS"
     if ut == "atx":
         return "Atom Shop"
+    # Read from the files (title_event_routes): "Complete Lucky Strike",
+    # "Complete the Bounty Hunting: Head Hunt" - a named reward you go and do.
+    if h.startswith("complete "):
+        return "Event"
     return "Other"
 
 
@@ -3252,6 +3198,17 @@ def main() -> int:
 
     args = ap.parse_args()
 
+    global EVENT_ROUTES
+    try:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import title_event_routes
+        root = args.tsv_root or os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "tsv")
+        EVENT_ROUTES = title_event_routes.precompute(root)
+        print(f"[titles] event reward routes read from the game files: {len(EVENT_ROUTES)} title recipe(s)")
+    except Exception as exc:          # never block the titles build on it
+        print(f"[titles] WARNING: event reward routes unavailable ({exc}); using the hand tables")
+        EVENT_ROUTES = None
+
     args.cmpt = _autofill_paths(args.tsv_root, args.cmpt, ["**/*CMPT*.tsv"])
     args.plyt = _autofill_paths(args.tsv_root, args.plyt, ["**/*PLYT*.tsv", "**/*Player*Title*.tsv", "**/*PlayerTitles*.tsv"])
     args.book = _autofill_paths(args.tsv_root, args.book, ["**/*BOOK*.tsv"])
@@ -3520,12 +3477,26 @@ def main() -> int:
             curv_pts_by_formid=curv_pts_by_formid,
         )
 
-        # Apply manual overrides (howToObtain + dropRate)
+        # Event rewards read straight from the game files (title_event_routes,
+        # 13 Oct 2026): which reward tier gives the title, that tier's own
+        # conditions in words, and rng76's chance. When the files answer, the
+        # hand-typed tables below are not used for this title.
         _edid_lower = edid.lower()
-        if _edid_lower in HOW_TO_OBTAIN_OVERRIDES:
-            how = HOW_TO_OBTAIN_OVERRIDES[_edid_lower]
-        if _edid_lower in DROP_RATE_OVERRIDES:
-            dr = DROP_RATE_OVERRIDES[_edid_lower]
+        _gen_how, _gen_dr = (None, None)
+        if EVENT_ROUTES is not None:
+            _gen_how, _gen_dr = EVENT_ROUTES.get((cobj_token_from_condition(conds) or "").upper(), (None, None))
+        if _gen_how:
+            how, dr = _gen_how, _gen_dr
+            EVENT_ROUTES_USED.append(edid)
+            if _edid_lower in HOW_TO_OBTAIN_OVERRIDES or _edid_lower in DROP_RATE_OVERRIDES:
+                EVENT_ROUTES_SUPERSEDED.append(edid)
+        else:
+            # Manual overrides (howToObtain + dropRate) - only where the files
+            # cannot answer yet.
+            if _edid_lower in HOW_TO_OBTAIN_OVERRIDES:
+                how = HOW_TO_OBTAIN_OVERRIDES[_edid_lower]
+            if _edid_lower in DROP_RATE_OVERRIDES:
+                dr = DROP_RATE_OVERRIDES[_edid_lower]
 
         tradeable = False  # camp default
         k_edid = _norm_key(edid)
@@ -3668,12 +3639,26 @@ def main() -> int:
             curv_pts_by_formid=curv_pts_by_formid,
         )
 
-        # Apply manual overrides (howToObtain + dropRate)
+        # Event rewards read straight from the game files (title_event_routes,
+        # 13 Oct 2026): which reward tier gives the title, that tier's own
+        # conditions in words, and rng76's chance. When the files answer, the
+        # hand-typed tables below are not used for this title.
         _edid_lower = edid.lower()
-        if _edid_lower in HOW_TO_OBTAIN_OVERRIDES:
-            how = HOW_TO_OBTAIN_OVERRIDES[_edid_lower]
-        if _edid_lower in DROP_RATE_OVERRIDES:
-            dr = DROP_RATE_OVERRIDES[_edid_lower]
+        _gen_how, _gen_dr = (None, None)
+        if EVENT_ROUTES is not None:
+            _gen_how, _gen_dr = EVENT_ROUTES.get((cobj_token_from_condition(conds) or "").upper(), (None, None))
+        if _gen_how:
+            how, dr = _gen_how, _gen_dr
+            EVENT_ROUTES_USED.append(edid)
+            if _edid_lower in HOW_TO_OBTAIN_OVERRIDES or _edid_lower in DROP_RATE_OVERRIDES:
+                EVENT_ROUTES_SUPERSEDED.append(edid)
+        else:
+            # Manual overrides (howToObtain + dropRate) - only where the files
+            # cannot answer yet.
+            if _edid_lower in HOW_TO_OBTAIN_OVERRIDES:
+                how = HOW_TO_OBTAIN_OVERRIDES[_edid_lower]
+            if _edid_lower in DROP_RATE_OVERRIDES:
+                dr = DROP_RATE_OVERRIDES[_edid_lower]
 
         tradeable = False  # player default
         k_edid = _norm_key(edid)
@@ -3952,6 +3937,9 @@ def main() -> int:
     with open(manifest_path, "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, separators=(",", ":"), indent=2)
 
+    print(f"[titles] event rewards read from the game files: {len(EVENT_ROUTES_USED)} title(s)")
+    if EVENT_ROUTES_SUPERSEDED:
+        print(f"[titles]   hand-typed lines no longer used (safe to delete): {sorted(set(EVENT_ROUTES_SUPERSEDED))}")
     return 0
 
 

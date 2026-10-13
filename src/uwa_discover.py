@@ -66,6 +66,30 @@ def key(name):
     return re.sub(r"[^a-z0-9]", "", s.lower())
 
 
+_RX_CUSTOM_TAIL = re.compile(r"mod_custom_(?:[A-Za-z0-9]+_)?([A-Za-z0-9-]+?)"
+                             r"(?:_(?:Paint|Appearance|Effect|customName|custom|SpecialEffect|Skin))?$", re.I)
+
+
+def combo_is_mods(combo, mod_edid, mod_full, same=None):
+    """Is this WEAP ObjectTemplate combination the one that builds the unique
+    whose custom mod is mod_edid / mod_full?
+
+    The combination's instance-filter keyword (if_tmp_SlugBuster) is what a
+    leveled list asks for, so it is the real tie: its tail must match the
+    custom mod's EditorID tail (mod_Custom_SlugBuster). Its FULL label is
+    NOT trustworthy - the Plasma Gun's are shuffled one place along
+    ("Meadow Breeze Sprayer" holds Slug Buster). The label is only used when
+    the export has no keyword column yet (WEAP exports before 13 Oct 2026).
+    """
+    tails = combo.get("kw_tails") or ()
+    if tails:
+        m = _RX_CUSTOM_TAIL.search(mod_edid or "")
+        return bool(m) and key(m.group(1)) in {key(t) for t in tails}
+    same = same or (lambda a, b: key(a) == key(b))
+    cf = combo.get("full") or ""
+    return bool(cf and mod_full and same(cf, mod_full))
+
+
 def _name_from_list(edid, weapon_words):
     segs = [x for x in (edid or "").split("_") if x]
     for s in reversed(segs):
@@ -163,9 +187,9 @@ def discover(pick, read_tsv, strip_q, norm_formid, omod_by_fid, cn_weapon,
         if m:
             add(camel(m.group(1)), src, omod=fid, on_item=hosted)
         for wf, ci in weap_host.get(fid, []):
-            cf = weap_combos[wf][ci]["full"]
-            if cf and full and key(cf) == key(full):
-                add(cf, "combo", omod=fid, weap=wf)
+            if full and combo_is_mods(weap_combos[wf][ci], ed, full):
+                # Named with the mod's FULL, never the combination's label.
+                add(full, "combo", omod=fid, weap=wf)
 
     accepted, possible = {}, {}
     for k, e in c.items():
