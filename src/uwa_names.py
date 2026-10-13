@@ -106,6 +106,12 @@ class Names:
                 fid = (r.get("OMOD_FormID") or "").strip().upper()
                 self.mod_kws[fid].add(m.group(1))
                 self.kw_mods[m.group(1)].add(fid)
+        # mod fid -> its own FULL (the custom mod's name)
+        self.mod_full = {}
+        for r in _rows(pick("OMOD_Export_*.tsv", exclude="_Properties"), "latin-1"):
+            fid = (r.get("OMOD_FormID") or "").strip().upper()
+            if fid in self.mod_kws:
+                self.mod_full[fid] = (r.get("FULL") or "").strip()
         # every name keyword by its normalised tail and by its INNR text
         self.kw_by_key = defaultdict(set)
         for kw in set(self.kw_mods) | set(self.by_kw):
@@ -133,6 +139,20 @@ class Names:
                 if best is None or rank < best[0]:
                     best = (rank, text)
         return best[1] if best else ""
+
+    def mod_name_over_placeholder(self, mod_fids, keywords, text):
+        if not any(norm(text) in (norm(kw_tail(k)), norm(kw_tail(k).split("_")[-1]))
+                   for k in keywords):
+            return ""
+        for f in mod_fids:
+            f = (f or "").upper()
+            if not (self.mod_kws.get(f, set()) & set(keywords)):
+                continue
+            n = self.mod_full.get(f, "")
+            if (len(n.split()) >= 2 and not re.search(r"custom|paint|bounty|skin", n, re.I)
+                    and norm(n) != norm(text) and not norm(n).startswith(norm(text))):
+                return n
+        return ""
 
 
 def apply(items, names, log=print):
@@ -180,6 +200,15 @@ def apply(items, names, log=print):
                         if (it.get("name") or "").lower().startswith(p.lower() + " ")), None)
             if pre and it.get("base"):
                 new = f"{pre} {it['base']}"
+        # A rule whose text is only its keyword spelled out ("Abraxo Gun" for
+        # CustomItemName_Plasma_AbraxoGun) is a placeholder: in game the item
+        # shows its custom mod's own name ("Meadow Breeze Sprayer", "Prototype
+        # ABX03" - Duchess's screenshots, 13 Oct 2026). Only when that mod name
+        # is a real multi-word name and not just the rule text spelled longer.
+        if new:
+            alt = names.mod_name_over_placeholder(mods, kws, new)
+            if alt:
+                new = alt
         if not new or new == it.get("name"):
             continue
         old = it["name"]

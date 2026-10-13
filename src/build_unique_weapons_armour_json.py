@@ -23,7 +23,7 @@ from the current exports.
     * LVLI LL_Armor_Unique_All -> 8 unique armours; 3 weight variants collapse
       into one item; fixed stars from the ARMO ObjectTemplate combo carrying
       the mod_Custom_<name>.
-    * Cosmetic named armour (6 Secret Settler name plates + Blue Ridge
+    * Cosmetic named armour (Blue Ridge
       Guardsmen Paint) is built only when INCLUDE_COSMETICS is on.
 
   POWER ARMOUR
@@ -622,20 +622,75 @@ def build_armour(channel, lvli_idx, armo_tbl, pool_name, pool_fid, gmrw_quest):
     return items
 
 
+_ARMO_SET_MOD = re.compile(
+    r"^(?P<edid>\S*Mod_Custom_(?P<set>\w+?)_CustomName_(?P<slot>\w+))\s+\"(?P<full>[^\"]*)\"\s+\[OMOD:(?P<fid>[0-9A-Fa-f]{8})\]")
+_ARMO_DEAD = re.compile(r"(^|_)(zzz|CUT|DEL|DONOTUSE|DEPRECATED)(_|$)|^zzz", re.I)
+
+
+def discover_armour_sets(lvli_idx, armo_tbl, known_names, omod_by_fid=None):
+    """Named armour pieces read from the files (Duchess, 13 Oct 2026: the
+    Drifter is coming back, so its Secret Settler set is not cut). A piece is
+    an ARMO ObjectTemplate combination that includes a
+    Mod_Custom_<Set>_CustomName_<Piece> mod; its own leveled list is the
+    <...>_LL_Armor_<Set>_<Piece> list, which uwa_trace walks up to whatever
+    hands it out. Anything with a CUT / DEL / zzz tag stays out."""
+    armour_rows, combos, _slots = armo_tbl
+    items, seen = [], set()
+    for armo_fid, cmap in combos.items():
+        for _ci, cd in cmap.items():
+            for m in cd["mods"]:
+                mm = _ARMO_SET_MOD.match(m)
+                if not mm or _ARMO_DEAD.search(mm.group("edid")) or mm.group("edid") in seen:
+                    continue
+                seen.add(mm.group("edid"))
+                row = armour_rows.get(armo_fid, {})
+                if _ARMO_DEAD.search(strip_q(row.get("ARMO_EDID", ""))):
+                    continue
+                name = (cd["full"] or "").strip()
+                if not name:
+                    # "Secret Settler Custom Name Helmet" -> "Secret Settler Helmet"
+                    name = re.sub(r"\s*Custom Name\s*", " ", mm.group("full")).strip()
+                if not name or norm_name(name) in known_names:
+                    continue
+                token, slot = mm.group("set"), mm.group("slot")
+                own = [e for e in lvli_idx
+                       if re.search(rf"(^|_)LL_Armor_{re.escape(token)}_{re.escape(slot)}$", e, re.I)
+                       and not _ARMO_DEAD.search(e)]
+                base_label = strip_q(row.get("ARMO_FULL", "")) or token
+                it = blank_item()
+                it["kind"] = "Armour"
+                it["name"] = name
+                it["subType"] = base_label
+                it["base"] = base_label
+                it["stats"] = armo_stats(row) if row else {}
+                it["starEffects"] = extract_armo_stars(armo_fid, token, combos)
+                it["formId"] = armo_fid
+                it["edid"] = strip_q(row.get("ARMO_EDID", ""))
+                it["tradeable"] = None
+                it["inCurrentExport"] = True
+                it["_cmod_fids"] = [norm_formid(mm.group("fid"))]
+                it["_rosterLists"] = own
+                # the set's own effect mod (Mod_Custom_<Set>_SpecialEffect) and its text
+                for m2 in cd["mods"]:
+                    em = re.match(r"^(\S*Mod_Custom_" + re.escape(token) + r"_\w+)\s.*\[OMOD:([0-9A-Fa-f]{8})\]", m2)
+                    if not em or "_CustomName_" in em.group(1):
+                        continue
+                    orow = (omod_by_fid or {}).get(norm_formid(em.group(2)), {})
+                    desc = strip_q(orow.get("DESC", ""))
+                    if desc:
+                        it["inherentEffect"] = it.get("inherentEffect") or desc
+                        it.setdefault("uniqueMods", []).append({
+                            "name": name, "edid": em.group(1), "formId": norm_formid(em.group(2)),
+                            "kind": "unique", "desc": desc})
+                it["howToObtain"] = "Source unconfirmed"
+                it["sourceType"] = "Unknown"
+                it["sourceRef"] = ""
+                items.append(it)
+    return items
+
+
 def build_cosmetic_armour(channel, omod_by_fid):
     specs = [
-        ("007FFF1C", "Secret Settler (Helmet)", "Secret Service Armor",
-         "Secret Service Armor (Helmet)"),
-        ("007FFF20", "Secret Settler (Torso)", "Secret Service Armor",
-         "Secret Service Armor (Torso)"),
-        ("007FFF1E", "Secret Settler (Left Arm)", "Secret Service Armor",
-         "Secret Service Armor (Left Arm)"),
-        ("007FFF1F", "Secret Settler (Right Arm)", "Secret Service Armor",
-         "Secret Service Armor (Right Arm)"),
-        ("007FFF1D", "Secret Settler (Left Leg)", "Secret Service Armor",
-         "Secret Service Armor (Left Leg)"),
-        ("007FFF19", "Secret Settler (Right Leg)", "Secret Service Armor",
-         "Secret Service Armor (Right Leg)"),
         ("0069224A", "Blue Ridge Guardsmen Paint", "Armor Paint",
          "Blue Ridge Guardsmen Armor"),
     ]
@@ -1329,6 +1384,8 @@ def build_channel(channel, dist_dir):
     lvli_idx = build_lvli_index(channel)
     armo_tbl = load_armo_tables(channel)
     armour_items = build_armour(channel, lvli_idx, armo_tbl, pool_name, pool_fid, gmrw_quest)
+    armour_items += discover_armour_sets(
+        lvli_idx, armo_tbl, {norm_name(i["name"]) for i in armour_items}, omod_by_fid)
     if INCLUDE_COSMETICS:
         armour_items += build_cosmetic_armour(channel, omod_by_fid)
 
