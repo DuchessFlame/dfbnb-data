@@ -1798,7 +1798,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +305 / -109 / ~1207
+## `plan_master.json`  ·  +305 / -108 / ~1207
 
 **Added (305)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1843,7 +1843,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: LMG True .45 Receiver  `PLAN_00947F34`
 - …and 265 more
 
-**Removed (109)**
+**Removed (108)**
 - Aligned Long Barrel  `RECIPE_00399FB4`
 - Deathclaw Leveling Backpack Flair  `RECIPE_008B507F`
 - Cat Leveling Backpack Flair  `RECIPE_008B5081`
@@ -1873,18 +1873,18 @@ _Couldn't key this file to records; contents differ._
 - Anchorage Ace  `UNIQ_ANCHORAGE_ACE`
 - Black Diamond  `UNIQ_BLACK_DIAMOND`
 - Blue Ridge Branding Iron  `UNIQ_BLUE_RIDGE_BRANDING_IRON`
-- BoomStick  `UNIQ_BOOMSTICK`
+- Boomstick  `UNIQ_BOOMSTICK`
 - Bunker Buster  `UNIQ_BUNKER_BUSTER`
 - Burning Love  `UNIQ_BURNING_LOVE`
 - Camden Whacker  `UNIQ_CAMDEN_WHACKER`
 - Civil Unrest  `UNIQ_CIVIL_UNREST`
-- Commanders Charge  `UNIQ_COMMANDERS_CHARGE`
+- Commander's Charge  `UNIQ_COMMANDER_S_CHARGE`
 - Cosmic Knife Super-Heated  `UNIQ_COSMIC_KNIFE_SUPER_HEATED`
 - Crushing Blow  `UNIQ_CRUSHING_BLOW`
 - Cryptid Jawbone Knife  `UNIQ_CRYPTID_JAWBONE_KNIFE`
 - Cultist Piercer  `UNIQ_CULTIST_PIERCER`
 - Cursed Broadsider  `UNIQ_CURSED_BROADSIDER`
-- …and 69 more
+- …and 68 more
 
 **Changed (1207)**
 - Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images
@@ -2048,7 +2048,7 @@ _Couldn't key this file to records; contents differ._
 ## `titles_data.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `titles_player.json`  ·  +24 / -0 / ~38
+## `titles_player.json`  ·  +24 / -0 / ~37
 
 **Added (24)**
 - ATX_PlayerTitles_Prefix_Apex  `ATX_PlayerTitles_Prefix_Apex`
@@ -2076,7 +2076,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S27_PlayerTitles_Suffix_Athlete  `SCORE_S27_PlayerTitles_Suffix_Athlete`
 - SCORE_S27_PlayerTitles_Suffix_Competitor  `SCORE_S27_PlayerTitles_Suffix_Competitor`
 
-**Changed (38)**
+**Changed (37)**
 - ATX_PlayerTitles_Prefix_AdVictoriam  `ATX_PlayerTitles_Prefix_AdVictoriam` — fields: releaseDate, releaseLabel, releaseYear, source
 - ATX_PlayerTitles_Prefix_Contessa  `ATX_PlayerTitles_Prefix_Contessa` — fields: releaseDate, releaseLabel, source
 - ATX_PlayerTitles_Prefix_Gleaming  `ATX_PlayerTitles_Prefix_Gleaming` — fields: source
@@ -2113,7 +2113,6 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S25_PlayerTitles_Prefix_Outdoor  `SCORE_S25_PlayerTitles_Prefix_Outdoor` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Globetrotter  `SCORE_S25_PlayerTitles_Suffix_Globetrotter` — fields: imageUrl, images
 - SCORE_S25_PlayerTitles_Suffix_Pioneer  `SCORE_S25_PlayerTitles_Suffix_Pioneer` — fields: imageUrl, images
-- SDOW_PlayerTitles_Prefix_PintSized  `SDOW_PlayerTitles_Prefix_PintSized` — fields: howToObtain
 - SFS09_PlayerTitles_Suffix_Manager  `SFS09_PlayerTitles_Suffix_Manager` — fields: debug
 
 ## `titles_player_generator.json`  ·  changed (structural)
@@ -2128,9 +2127,10 @@ _Couldn't key this file to records; contents differ._
 ## `unique_weapons/unique_weapons.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `unique_weapons_armour/unique_weapons_armour.json`  ·  +7 / -0 / ~30
+## `unique_weapons_armour/unique_weapons_armour.json`  ·  +8 / -0 / ~40
 
-**Added (7)**
+**Added (8)**
+- The Guarantee  `fatman-3`
 - Corpse Stacker  `mod-custom-corpsestacker`
 - Crybaby  `mod-custom-crybaby`
 - Deep Breath  `mod-custom-deepbreath`
@@ -2139,12 +2139,16 @@ _Couldn't key this file to records; contents differ._
 - Tarnished Claw  `rd01-ultraciteterrorsword-2`
 - V63 Zweihaender  `stormcutter-2`
 
-**Changed (30)**
+**Changed (40)**
 - Old Guard  `10mmsmg` — fields: howToObtain, obtainRoutes
 - Splinter  `10mmsmg-4` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
 - The Fact Finder  `44-3` — fields: obtainRoutes
 - Final Word  `50calmachinegun` — fields: uniqueMods
 - The Action Hero  `50calmachinegun-2` — fields: uniqueMods
+- Last Stand  `armor-bosinfantry-torso` — fields: image
+- Stand Fast  `armor-combat-torso` — fields: image
+- Road Kill  `armor-dlc03-trapper-armleft` — fields: image
+- Rage  `armor-raidermod-torso` — fields: image
 - Secret Settler Left Arm  `armor-secretservice-armleft` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
 - Secret Settler Right Arm  `armor-secretservice-armright` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
 - Secret Settler Left Leg  `armor-secretservice-legleft` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
@@ -2155,15 +2159,21 @@ _Couldn't key this file to records; contents differ._
 - V63 Shock Baton  `baton-2` — fields: howToObtain, obtainRoutes
 - The Dragon  `blackpowder-rifle-dragon` — fields: howToObtain, obtainRoutes
 - Tempest  `dlc01-assaultronblade-2` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
+- Cursed Harpoon Gun  `e06-colossus-lls-quest-rewards-cursedharpoongun` — fields: image
+- Cursed Pickaxe  `e06-colossus-lls-quest-rewards-cursedpickaxe` — fields: image
+- Cursed Shovel  `e06-colossus-lls-quest-rewards-cursedshovel` — fields: image
 - Overkill  `fatman-2` — fields: howToObtain, image, imageSameAsBase, name, obtainRoutes, recordIds, repairOnly, sourceRef, starEffects, uniqueMods
-- The Guarantee  `fatman-3` — fields: howToObtain, image, imageSameAsBase, name, obtainRoutes, recordIds, repairOnly, sourceRef, starEffects, uniqueMods
 - Flatliner  `gaussrifle` — fields: howToObtain, obtainRoutes
 - Secret Settler Helmet  `headwear-clothes-secretservice-helmet` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
+- Cosmic Knife  `knife` — fields: image
 - Cryptid Jawbone Knife  `knife-2` — fields: howToObtain, obtainRoutes
 - Crushing Blow  `m79` — fields: uniqueMods
 - Chaos Engine  `m79-2` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
+- Cosmic Knife Super-Heated  `mod-custom-cosmicknife-superheated` — fields: image
 - Cultist Piercer  `pickaxe` — fields: edid
 - Headhunter Scythe  `pickaxe-2` — fields: edid
+- Meadow Breeze Sprayer  `plasmagun` — fields: aka, image, name
+- Prototype ABX03  `plasmagun-2` — fields: aka, image, name
 - Slug Buster  `plasmagun-4` — fields: starEffects
 - Lickety-Split  `railwayrifle` — fields: howToObtain, obtainRoutes
 - Venomous Fang  `rd01-ultraciteterrorsword` — fields: aka, confirmedByGameFiles, name, obtainRoutes, starEffects, uniqueMods
