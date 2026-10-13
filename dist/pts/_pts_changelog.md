@@ -1798,7 +1798,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +305 / -109 / ~1126
+## `plan_master.json`  ·  +305 / -109 / ~1207
 
 **Added (305)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1886,7 +1886,7 @@ _Couldn't key this file to records; contents differ._
 - Cursed Broadsider  `UNIQ_CURSED_BROADSIDER`
 - …and 69 more
 
-**Changed (1126)**
+**Changed (1207)**
 - Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images
 - Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images
 - MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images
@@ -1927,7 +1927,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Lead Lined Combat Armor Chest  `PLAN_000224FC` — fields: obtain_ledger, obtain_routes
 - Plan: BoS Combat Armor Chest Piece  `PLAN_000224FD` — fields: obtain_ledger, obtain_routes
 - Plan: Cushioned Combat Armor Legs  `PLAN_00022E98` — fields: obtain_ledger, obtain_routes
-- …and 1086 more
+- …and 1167 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -2126,7 +2126,7 @@ _Couldn't key this file to records; contents differ._
 ## `unique_weapons/unique_weapons.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `unique_weapons_armour/unique_weapons_armour.json`  ·  +7 / -0 / ~12
+## `unique_weapons_armour/unique_weapons_armour.json`  ·  +7 / -0 / ~114
 
 **Added (7)**
 - Corpse Stacker  `mod-custom-corpsestacker`
@@ -2137,19 +2137,48 @@ _Couldn't key this file to records; contents differ._
 - Tarnished Claw  `rd01-ultraciteterrorsword-2`
 - V63 Zweihaender  `stormcutter-2`
 
-**Changed (12)**
-- Splinter  `10mmsmg-4` — fields: uniqueMods
-- Final Word  `50calmachinegun` — fields: uniqueMods
-- The Action Hero  `50calmachinegun-2` — fields: uniqueMods
-- Disorderly Conduct  `baton` — fields: uniqueMods
-- Tempest  `dlc01-assaultronblade-2` — fields: uniqueMods
-- Crushing Blow  `m79` — fields: uniqueMods
-- Chaos Engine  `m79-2` — fields: uniqueMods
-- Cultist Piercer  `pickaxe` — fields: edid
-- Head Hunter  `pickaxe-2` — fields: edid
-- Slug Buster  `plasmagun-4` — fields: starEffects
-- Ultracite Terror Sword  `rd01-ultraciteterrorsword` — fields: confirmedByGameFiles, starEffects, uniqueMods
-- V63-Z Custom  `stormcutter` — fields: image, name, obtainRoutes, recordIds, starEffects
+**Changed (114)**
+- Circuit Breaker  `10mm-circuitbreaker` — fields: howToObtain, obtainRoutes, planFormId, planName, sourceRef, sourceType
+- Old Guard  `10mmsmg` — fields: howToObtain, obtainRoutes, questName, sourceRef, sourceType
+- Perfect Storm  `10mmsmg-2` — fields: howToObtain, obtainRoutes
+- Splinter  `10mmsmg-4` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
+- Medical Malpractice  `44` — fields: howToObtain, obtainRoutes, sourceRef, sourceType
+- Somerset Special  `44-2` — fields: howToObtain, obtainRoutes
+- The Fact Finder  `44-3` — fields: howToObtain, obtainRoutes, questName, sourceRef, sourceType
+- Final Word  `50calmachinegun` — fields: howToObtain, obtainRoutes, sourceRef, sourceType, uniqueMods
+- The Action Hero  `50calmachinegun-2` — fields: howToObtain, sourceRef, sourceType, uniqueMods
+- The V.A.T.S. Unknown  `alienblaster` — fields: aka, howToObtain, name, obtainRoutes
+- Zeta's Revenge  `alienblaster-2` — fields: howToObtain, obtainRoutes, sourceRef, sourceType
+- Last Stand  `armor-bosinfantry-torso` — fields: howToObtain, obtainRoutes, sourceRef, sourceType
+- Stand Fast  `armor-combat-torso` — fields: howToObtain, obtainRoutes
+- Road Kill  `armor-dlc03-trapper-armleft` — fields: sourceType
+- Last Bastion  `armor-enclavescoutuniform-torso-urban` — fields: howToObtain, obtainRoutes
+- Silver Lining  `armor-leather-torso` — fields: howToObtain, obtainRoutes
+- Trail Warden  `armor-metal-torso` — fields: howToObtain, obtainRoutes
+- Rage  `armor-raidermod-torso` — fields: sourceType
+- Bulwark  `armor-secretservice-torso` — fields: sourceType
+- Whistle in the Dark  `assaultrifle` — fields: aka, howToObtain, name, obtainRoutes, sourceRef, sourceType
+- The Invader  `atx-alienprobe` — fields: howToObtain, obtainRoutes, sourceRef, sourceType
+- Slasher Axe  `autoaxe` — fields: howToObtain, obtainRoutes, sourceRef
+- The Peacemaker  `autogrenadelauncher` — fields: aka, howToObtain, name, obtainRoutes, sourceRef, sourceType, starEffects
+- Resolve Breaker  `autogrenadelauncher-2` — fields: howToObtain, obtainRoutes, planFormId, planName, sourceRef
+- Nuka-Launcher  `autogrenadelauncher-3` — fields: craftable, obtainRoutes, planFormId, planName, sourceRef
+- Molerat Bat  `baseballbat` — fields: aka, howToObtain, name, obtainRoutes, sourceRef
+- Disorderly Conduct  `baton` — fields: howToObtain, sourceRef, sourceType, uniqueMods
+- V63 Shock Baton  `baton-2` — fields: howToObtain, obtainRoutes, questName, sourceRef
+- Ogua Gauntlet  `beararm` — fields: howToObtain, obtainRoutes, questName, sourceRef, sourceType
+- Pirate Punch  `blackpowder-pistol-blunderbuss` — fields: howToObtain, obtainRoutes, sourceRef
+- The Dragon  `blackpowder-rifle-dragon` — fields: howToObtain, obtainRoutes, sourceRef
+- Grand Finale  `broadsider` — fields: howToObtain, obtainRoutes
+- The Cauterizer  `chainsaw-76` — fields: aka, howToObtain, name, obtainRoutes, planFormId, planName, questName, sourceRef
+- Meteorite Sword  `chineseofficersword` — fields: howToObtain, sourceRef
+- The Fixer  `combatrifle-fixer` — fields: howToObtain, obtainRoutes, questName, sourceRef
+- Crowd Control  `combatshotgun` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, sourceRef
+- Burning Love  `compoundbow` — fields: howToObtain, obtainRoutes, sourceRef
+- Piercing Love Bow  `compoundbow-2` — fields: aka, name, obtainRoutes, planFormId, planName
+- Minty Breather  `cryolator` — fields: howToObtain, obtainRoutes, sourceRef, sourceType
+- Unstoppable Monster  `deathclawgauntlet` — fields: howToObtain, obtainRoutes, sourceRef, sourceType
+- …and 74 more
 
 ## `vendors.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
