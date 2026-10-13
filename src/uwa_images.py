@@ -28,6 +28,9 @@ import re
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LISTING = os.path.join(ROOT, "data", "server_listing.tsv")
 WEAP_DIR = "guide-images/plan-checklist/weapons/"
+# Armour pieces live in their own folder (Duchess, 13 Oct 2026): an Armour
+# unique looks here first, under its own name.
+ARMO_DIR = "guide-images/plan-checklist/body-armour/"
 URL_ROOT = "/wp-content/uploads/"
 
 NAME_ALIAS = {
@@ -73,7 +76,7 @@ def _core(stem):
 
 
 def load_listing(path=LISTING):
-    weap, season, other = {}, {}, {}
+    weap, season, other, armo = {}, {}, {}, {}
     try:
         with open(path, encoding="utf-8") as fh:
             for line in fh:
@@ -82,6 +85,8 @@ def load_listing(path=LISTING):
                 p = line.split("\t", 1)[0].strip()
                 if not p.lower().endswith(".avif"):
                     continue
+                if p.startswith(ARMO_DIR) and "/" not in p[len(ARMO_DIR):]:
+                    armo[p[len(ARMO_DIR):-5]] = p
                 if p.startswith(WEAP_DIR) and "/" not in p[len(WEAP_DIR):]:
                     weap[p[len(WEAP_DIR):-5]] = p
                 elif p.startswith("guide-images/"):
@@ -91,12 +96,15 @@ def load_listing(path=LISTING):
                     season[m.group(1)] = p
     except OSError:
         pass
-    return weap, season, other
+    return weap, season, other, armo
 
 
-def find(name, weap, season, other=None):
-    """(listing path, same_as_base) for one unique, or (None, False)."""
+def find(name, weap, season, other=None, armo=None):
+    """(listing path, same_as_base) for one unique, or (None, False).
+    Pass `armo` (the body-armour folder) for Armour items only."""
     s = _slug(name)
+    if armo and s in armo:
+        return armo[s], False
     for c in (s, s + "-paint"):
         if c in weap:
             return weap[c], False
@@ -128,14 +136,15 @@ def find(name, weap, season, other=None):
 
 def attach(items, path=LISTING):
     """Set `image` (absolute URL) on every unique the server has a picture for."""
-    weap, season, other = load_listing(path)
+    weap, season, other, armo = load_listing(path)
     n = {"own": 0, "base": 0, "none": 0}
     for it in items:
-        p, same = find(it.get("name") or "", weap, season, other)
+        a = armo if (it.get("kind") or "").lower().startswith("armo") else None
+        p, same = find(it.get("name") or "", weap, season, other, a)
         # renamed to its in-game name (uwa_names): the picture may still be
         # filed under the old one (strike-breaker.avif for Flatliner)
         for alt in ([] if p else list(it.get("_altNames") or []) + list(it.get("aka") or [])):
-            p, same = find(alt, weap, season, other)
+            p, same = find(alt, weap, season, other, a)
             if p:
                 break
         if p:
