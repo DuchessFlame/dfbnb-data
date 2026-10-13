@@ -16,6 +16,7 @@ Read-only.
 """
 import argparse
 import json
+import re
 import os
 import sys
 
@@ -38,7 +39,9 @@ def main():
     for it in items:
         key = B.norm_name(it.get("name"))
         own = own_lists.get(key) or B.OWN_LIST_ALIAS.get(key)
-        how = str(it.get("howToObtain") or "")
+        # Traced sources (uwa_trace) and summary tails are not quest names.
+        how = " / ".join(p for p in str(it.get("howToObtain") or "").split(" / ")
+                         if not re.match(r"^\s*(and \d+ more|Enemy drop:)", p))
         res = links.check(how, own)
         linked += len(res["linked"])
         bad += [(it["name"], q, own) for q in res["contradicted"]]

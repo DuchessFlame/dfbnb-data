@@ -79,6 +79,8 @@ import uwa_images      # unique pictures, matched by name (Oct 2026)
 import uwa_obtain
 import uwa_discover
 import uwa_source_links
+import uwa_names       # in-game names from INNR (Oct 2026)
+import uwa_trace       # sources traced from the game files (Oct 2026)
 from patchlog_utils import write_empty_patchlog_feed
 
 import build_unique_weapons_json as buw
@@ -1519,6 +1521,13 @@ def build_channel(channel, dist_dir):
                     it["howToObtain"] = f"{it['howToObtain']} / {origin}"
                 shown += " " + origin.lower()
                 break
+    # In-game names from the naming rules (INNR), then every source the files
+    # give, traced from each unique's own lists up to whatever hands them out.
+    # Both read the game files each build — see uwa_names.py / uwa_trace.py.
+    _pk = lambda p, exclude=None: pick(p, channel, exclude=exclude)
+    uwa_names.apply(all_items, uwa_names.Names(_pk))
+    uwa_trace.apply(all_items, uwa_trace.Tracer(_pk, read_tsv), uwa_names.Names(_pk),
+                    obtain_idx, getattr(obtain_idx, "hand_only", ()))
     attach_conditions(all_items, channel)
     uwa_images.attach(all_items)   # pictures by name, from the server listing
 
@@ -1540,6 +1549,9 @@ def build_channel(channel, dist_dir):
         it.pop("_rosterList", None)
         it.pop("_rosterLists", None)
         it.pop("_altNames", None)
+        it.pop("_nameKeywords", None)
+        it.pop("_ownLists", None)
+        it.pop("_howWas", None)
         it["id"] = unique_slug(it.get("edid") or it.get("name") or "item")
 
     all_items.sort(key=lambda x: x["name"].lower())
