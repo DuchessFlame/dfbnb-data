@@ -155,6 +155,33 @@ class Tracer:
                     out[fid] = (r.get("FULL") or "").strip().strip('"')
             return out
         self.cont, self.npc, self.chal = names("CONT_Export_*.tsv"), names("NPC_Export_*.tsv"), names("CHAL_Export_*.tsv")
+        # Weapon / armour entitlements: the Scoreboard and Atom Shop hand the
+        # item itself over through these (SCORE_S12_ENTM_Weapons_ColdShoulder).
+        # Skins and paints are not the item and are left out.
+        self.entm = defaultdict(list)
+        for r in self._rows("ENTM_Export_*.tsv"):
+            e = r.get("EDID") or ""
+            if _DEAD.search(e) or not re.search(r"_ENTM_(Weapons?|Armor|Armour)_", e, re.I):
+                continue
+            for col in ("FULL", "FULL - Name"):
+                if r.get(col):
+                    self.entm[_norm(r[col])].append(e)
+
+    def entitlement_routes(self, names_):
+        out = []
+        for n in names_:
+            for e in self.entm.get(_norm(n), []):
+                m = re.match(r"^SCORE_S(\d+)_", e, re.I)
+                if m:
+                    out.append(("Scoreboard", f"Season {int(m.group(1))} Scoreboard"))
+                    continue
+                m = re.match(r"^SCORE_MiniSeason_([A-Za-z0-9]+)_", e, re.I)
+                if m:
+                    out.append(("Scoreboard", (plan_sources.source_label(m.group(1)) or m.group(1)) + " mini-season"))
+                    continue
+                if re.match(r"^ATX_", e, re.I):
+                    out.append(("Atom Shop", "Atom Shop"))
+        return list(dict.fromkeys(out))
 
     # ------------------------------------------------------------ keywords
     def tmp_keywords(self, mod_fids, tokens):
@@ -331,7 +358,8 @@ def _put(routes, route, line, path, tradeable):
     if at < 0 and r["lines"] and r["lines"][0].startswith("Drops:"):
         at = 0
     r["lines"].insert(at + 1, line)
-    r.setdefault("paths", []).append(path)
+    if path:
+        r.setdefault("paths", []).append(path)
     return True
 
 
@@ -369,6 +397,8 @@ def apply(items, tracer, names=None, obtain_idx=None, hand_only=(), log=print):
                 groups[h["list"]].append((lab[12:], [h["list"], h["own"]]))
                 continue
             found.append((route, lab, [h["list"], h["own"]]))
+        for route, lab in tracer.entitlement_routes(tokens):
+            found.append((route, lab, None))
         for lf, enemies in groups.items():
             ns = sorted({n for n, _p in enemies})
             text = ", ".join(ns[:4]) + (f" and {len(ns) - 4} more" if len(ns) > 4 else "")
@@ -397,7 +427,15 @@ def apply(items, tracer, names=None, obtain_idx=None, hand_only=(), log=print):
             report["replaced"].append((it.get("name"), hand_how))
         for r in routes:
             if r.get("populated") and any("no longer obtainable" in l.lower() for l in r["lines"]):
+                # The old version really is gone — keep saying so, beside the
+                # sources that hand the item out today.
                 kept = [l for l in r["lines"] if l.lower().startswith("legacy:")]
+                for l in r["lines"]:
+                    m = re.match(r"^Source:\s*(.+?)\s+reward\s+—\s+retired$", l)
+                    if m:
+                        kept.append(f"Legacy: {m.group(1)} version — no longer obtainable, player trading only")
+                if not kept:
+                    kept = ["Legacy: an older version — no longer obtainable, player trading only"]
                 r.update({"populated": False, "lines": [], "tradeable": None, "dropRate": None})
                 r.pop("paths", None)
                 report["revived"].append(it.get("name"))
