@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "generated": "2026-10-13T09:15:04Z",
-  "channel": "pts",
-  "count": 128,
+  "generated": "2026-10-13T10:24:43Z",
+  "channel": "live",
+  "count": 134,
   "counts": {
     "weapon": 120,
-    "armour": 8,
+    "armour": 14,
     "powerArmour": 0
   },
   "items": [
@@ -3584,7 +3584,7 @@
       "planName": "",
       "tradeable": true,
       "formId": "00002840",
-      "edid": "Pickaxe",
+      "edid": "pickaxe",
       "inCurrentExport": true,
       "isCut": false,
       "uniqueMods": [],
@@ -6271,7 +6271,7 @@
       "planName": "",
       "tradeable": true,
       "formId": "00002840",
-      "edid": "Pickaxe",
+      "edid": "pickaxe",
       "inCurrentExport": true,
       "isCut": false,
       "uniqueMods": [
@@ -9759,7 +9759,7 @@
       "planFormId": ""
     },
     {
-      "id": "fatman-3",
+      "id": "fatman-2",
       "name": "Overkill",
       "kind": "Weapon",
       "subType": "Heavy Gun",
@@ -12891,6 +12891,13 @@
       },
       "starEffects": [
         {
+          "star": 1,
+          "name": "Random",
+          "edid": "",
+          "formId": "",
+          "fixed": false
+        },
+        {
           "star": 2,
           "name": "Random",
           "edid": "",
@@ -15193,7 +15200,7 @@
       "planFormId": "0046D299"
     },
     {
-      "id": "fatman-2",
+      "id": "fatman-3",
       "name": "The Guarantee",
       "kind": "Weapon",
       "subType": "Heavy Gun",
@@ -17045,7 +17052,7 @@
       "recordIds": []
     },
     {
-      "id": "stormcutter",
+      "id": "stormcutter-2",
       "name": "V63 Zweihaender",
       "kind": "Weapon",
       "subType": "Melee",
@@ -17069,17 +17076,20 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Quest: The Eye of the Storm / Quest: A Matter of Matter / Vendor: Windy (Cryptid Hunter vendor) / Event: Expedition",
+      "howToObtain": "Quest: The Eye of the Storm / Quest: A Matter of Matter / Vendor: Windy (Cryptid Hunter vendor) / Event: Expedition / and 1 more",
       "sourceType": "Quest",
       "sourceRef": "The Eye of the Storm",
       "questName": "The Eye of the Storm",
-      "craftable": true,
+      "craftable": false,
       "planName": "",
-      "tradeable": true,
+      "tradeable": null,
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
       "isCut": false,
+      "discoveredBy": [
+        "official"
+      ],
       "uniqueMods": [],
       "obtainRoutes": [
         {
@@ -17089,7 +17099,7 @@
             "Drops: Ready-made weapon",
             "Source: Windy (Cryptid Hunter vendor)"
           ],
-          "tradeable": true,
+          "tradeable": null,
           "dropRate": "N/A",
           "conditions": [
             "Other in-game conditions apply that could not be put into words from the game files"
@@ -17138,7 +17148,7 @@
             "Drops: Ready-made weapon",
             "Source: Expedition"
           ],
-          "tradeable": true,
+          "tradeable": null,
           "dropRate": "N/A",
           "conditions": [],
           "conditionsChecked": true
@@ -17151,17 +17161,22 @@
             "Source: The Eye of the Storm",
             "Source: A Matter of Matter"
           ],
-          "tradeable": true,
+          "tradeable": null,
           "dropRate": "N/A",
           "conditions": [],
           "conditionsChecked": true
         },
         {
           "route": "Challenges",
-          "populated": false,
-          "lines": [],
+          "populated": true,
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: RTSV Challenge Reward Challenge Lifetime Brain 1"
+          ],
           "tradeable": null,
-          "dropRate": null
+          "dropRate": "N/A",
+          "conditions": [],
+          "conditionsChecked": true
         }
       ],
       "recordIds": [
@@ -17550,7 +17565,7 @@
       ]
     },
     {
-      "id": "stormcutter-2",
+      "id": "stormcutter",
       "name": "V63-Z Custom",
       "kind": "Weapon",
       "subType": "Melee",
@@ -17583,6 +17598,13 @@
           "edid": "mod_Legendary_Weapon2_DmgCrits",
           "formId": "0052414B",
           "fixed": true
+        },
+        {
+          "star": 3,
+          "name": "Random",
+          "edid": "",
+          "formId": "",
+          "fixed": false
         }
       ],
       "inherentEffect": "",
@@ -17593,23 +17615,14 @@
       "sourceType": "Quest",
       "sourceRef": "A Matter of Matter",
       "questName": "A Matter of Matter",
-      "craftable": false,
+      "craftable": true,
       "planName": "",
-      "tradeable": null,
+      "tradeable": true,
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
       "isCut": false,
-      "confirmedByGameFiles": false,
-      "uniqueMods": [
-        {
-          "name": "V63-Z Custom",
-          "edid": "mod_custom_StormSlasher",
-          "formId": "008B0902",
-          "kind": "unique",
-          "desc": ""
-        }
-      ],
+      "uniqueMods": [],
       "obtainRoutes": [
         {
           "route": "Caps",
@@ -17618,7 +17631,7 @@
             "Drops: Ready-made weapon",
             "Source: Windy (Cryptid Hunter vendor)"
           ],
-          "tradeable": null,
+          "tradeable": true,
           "dropRate": "N/A",
           "conditions": [
             "Other in-game conditions apply that could not be put into words from the game files"
@@ -17674,7 +17687,7 @@
             "Drops: Ready-made weapon",
             "Source: A Matter of Matter"
           ],
-          "tradeable": null,
+          "tradeable": true,
           "dropRate": "N/A",
           "conditions": [],
           "conditionsChecked": true
@@ -17687,198 +17700,7 @@
           "dropRate": null
         }
       ],
-      "recordIds": [],
-      "aka": [
-        "V63-Z"
-      ]
-    },
-    {
-      "id": "stormcutter-3",
-      "name": "V63-Z Custom",
-      "kind": "Weapon",
-      "subType": "Melee",
-      "base": "V63 Zweihaender",
-      "image": "",
-      "ddsHandle": "",
-      "stats": {
-        "damage": 40,
-        "fireRate": 1.0,
-        "range": 10,
-        "weight": 15.0,
-        "value": 100,
-        "ammoType": null,
-        "capacity": 0,
-        "apCost": 47,
-        "critMult": 3.0,
-        "minLevel": 30
-      },
-      "starEffects": [
-        {
-          "star": 1,
-          "name": "Juggernaut's",
-          "edid": "mod_Legendary_Weapon1_DamageViaHealth",
-          "formId": "00606B73",
-          "fixed": true
-        },
-        {
-          "star": 2,
-          "name": "Vital",
-          "edid": "mod_Legendary_Weapon2_DmgCrits",
-          "formId": "0052414B",
-          "fixed": true
-        }
-      ],
-      "inherentEffect": "Weapon and other mods now deal fire damage instead.",
-      "buffs": [],
-      "cosmeticOnly": false,
-      "cosmeticNote": "",
-      "howToObtain": "Quest: A Matter of Matter / Vendor: Windy (Cryptid Hunter vendor)",
-      "sourceType": "Quest",
-      "sourceRef": "A Matter of Matter",
-      "questName": "A Matter of Matter",
-      "craftable": false,
-      "planName": "",
-      "tradeable": null,
-      "formId": "0072DF0B",
-      "edid": "Stormcutter",
-      "inCurrentExport": true,
-      "isCut": false,
-      "discoveredBy": [
-        "custommod",
-        "keyword"
-      ],
-      "uniqueMods": [
-        {
-          "name": "PARENT mod custom Storm Slasher Burning",
-          "edid": "_PARENT_mod_custom_StormSlasher_Burning",
-          "formId": "0092FA18",
-          "kind": "unique",
-          "desc": "Weapon and other mods now deal fire damage instead."
-        },
-        {
-          "name": "PARENT mod custom Storm Slasher Crushing",
-          "edid": "_PARENT_mod_custom_StormSlasher_Crushing",
-          "formId": "0092FA1C",
-          "kind": "unique",
-          "desc": "Slower swing speed, but attacks now deal AOE damage."
-        },
-        {
-          "name": "PARENT mod custom Storm Slasher One Shot",
-          "edid": "_PARENT_mod_custom_StormSlasher_OneShot",
-          "formId": "0092FA1D",
-          "kind": "unique",
-          "desc": "Critical hits release a staggering burst of energy."
-        },
-        {
-          "name": "PARENT mod custom Storm Slasher Static",
-          "edid": "_PARENT_mod_custom_StormSlasher_Static",
-          "formId": "0092FA19",
-          "kind": "unique",
-          "desc": "Deal or take damage to build up a static charge. This will attract lightning strikes when attacking."
-        },
-        {
-          "name": "PARENT mod custom Storm Slasher Stormwalker",
-          "edid": "_PARENT_mod_custom_StormSlasher_Stormwalker",
-          "formId": "0092FA1A",
-          "kind": "unique",
-          "desc": "Deal bonus damage and increase attack distance while in V.A.T.S."
-        },
-        {
-          "name": "PARENT mod custom Storm Slasher Channeling",
-          "edid": "_PARENT_mod_custom_StormSlasher_Channeling",
-          "formId": "0092FA1B",
-          "kind": "unique",
-          "desc": "Power up by blocking twice. Gain increased movement speed, damage, and resistances."
-        },
-        {
-          "name": "V63-Z Custom",
-          "edid": "mod_custom_StormSlasher",
-          "formId": "008B0902",
-          "kind": "unique",
-          "desc": ""
-        }
-      ],
-      "obtainRoutes": [
-        {
-          "route": "Caps",
-          "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon",
-            "Source: Windy (Cryptid Hunter vendor)"
-          ],
-          "tradeable": null,
-          "dropRate": "N/A",
-          "conditions": [
-            "Other in-game conditions apply that could not be put into words from the game files"
-          ],
-          "conditionsChecked": true
-        },
-        {
-          "route": "Stamps",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Scoreboard",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Gold Bullion",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Atom Shop",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Limited Time Bundle",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Events & Activities",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        },
-        {
-          "route": "Quests",
-          "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon",
-            "Source: A Matter of Matter"
-          ],
-          "tradeable": null,
-          "dropRate": "N/A",
-          "conditions": [],
-          "conditionsChecked": true
-        },
-        {
-          "route": "Challenges",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
-        }
-      ],
-      "recordIds": [],
-      "aka": [
-        "Storm Slasher"
-      ]
+      "recordIds": []
     },
     {
       "id": "gatlinglaser",
