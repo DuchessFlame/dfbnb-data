@@ -13,7 +13,7 @@ OUTPUT
   dist/image_index.json     FormID -> wp-content path (+ carousel extras), the
                             placeholders, the title affixes, the weapon-mod set,
                             and the folder listing builders check URLs against
-  audits/image_cleanup.md   files to tidy on the server: originals left beside
+  image_cleanup.md          files to tidy on the server: originals left beside
                             their AVIF, event-folder copies of library art,
                             Nuclear Winter art copied into event folders,
                             duplicate uploads, and library files nothing uses
@@ -280,7 +280,12 @@ def main():
     ap.add_argument("--dist", default=os.path.join(REPO, "dist"))
     ap.add_argument("--tsv", default=os.path.join(REPO, "tsv"))
     ap.add_argument("--out", default=ii.INDEX_PATH)
-    ap.add_argument("--audit", default=os.path.join(REPO, "audits", "image_cleanup.md"))
+    # Working notes are Claude's files, not repo files (Duchess, 13 Oct 2026):
+    # on her PC they go to GitHub\Claude\dfbnb-data notes\; anywhere else
+    # (CI, cloud) to audits/, which .gitignore keeps out of commits.
+    _notes = os.path.join(os.path.dirname(REPO), "Claude", "dfbnb-data notes")
+    _audit_dir = _notes if os.path.isdir(_notes) else os.path.join(REPO, "audits")
+    ap.add_argument("--audit", default=os.path.join(_audit_dir, "image_cleanup.md"))
     args = ap.parse_args()
 
     rows = ii.read_listing(args.listing)
