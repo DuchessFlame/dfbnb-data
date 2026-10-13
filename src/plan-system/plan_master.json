@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated": "2026-10-13T09:09:58.546111+00:00",
+  "generated": "2026-10-13T10:17:04.550128+00:00",
   "count": 4241,
   "source_files": {
     "WEAP": "WEAP_Export_October_2026_Base.tsv",
@@ -1004605,7 +1004605,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "No longer obtainable: Survival mode reward — retired. Player trading only."
+        "Drops from: Enemy drop: Uninvited Pint-Sized Phantom. Legacy: Survival mode version — no longer obtainable, player trading only."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1004632,7 +1004632,7 @@
           "checked": true
         }
       ],
-      "not_obtainable": true,
+      "source_tag": "Events",
       "obtain_ledger": [
         {
           "label": "Events & Activities",
@@ -1004664,6 +1004664,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
+        "Drops from: Activity: Grafton Day.",
         "Quest reward: Mayor for a Day."
       ],
       "plan_item": null,
@@ -1004686,17 +1004687,29 @@
       "plan_page_group": null,
       "drop_conditions": [
         {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        },
+        {
           "route": "Quests",
           "conditions": [],
           "checked": true
         }
       ],
-      "source_tag": "Quest",
+      "source_tag": "Events",
       "obtain_ledger": [
+        {
+          "label": "Events & Activities",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        },
         {
           "label": "Quests",
           "unlocks": [
-            0
+            1
           ],
           "drop": "N/A"
         }
@@ -1004780,6 +1004793,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
+        "Drops from: Feed the People, Activity: Project Beanstalk, Activity: Fertile Soil, The Path to Enlightenment, Activity: Leader of the Pack, Activity: Fly Swatter.",
         "Quest reward: Flavors of Mayhem."
       ],
       "plan_item": null,
@@ -1004802,17 +1004816,29 @@
       "plan_page_group": null,
       "drop_conditions": [
         {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        },
+        {
           "route": "Quests",
           "conditions": [],
           "checked": true
         }
       ],
-      "source_tag": "Quest",
+      "source_tag": "Events",
       "obtain_ledger": [
+        {
+          "label": "Events & Activities",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        },
         {
           "label": "Quests",
           "unlocks": [
-            0
+            1
           ],
           "drop": "N/A"
         }
@@ -1004887,18 +1004913,18 @@
       "type": "weapon",
       "unique_version": true,
       "id": "UNIQ_BOOMSTICK",
-      "name": "BoomStick",
+      "name": "Boomstick",
       "has_image_box": true,
       "image_dir": "weapons",
       "images": [
         "/wp-content/uploads/guide-images/plan-checklist/weapons/boomstick.avif"
       ],
       "image_source": "server",
-      "obtain": "Not a plan — BoomStick is a unique version of the Missile Launcher. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
+      "obtain": "Not a plan — Boomstick is a unique version of the Missile Launcher. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Mutated public events reward."
+        "Drops from: Mutated Public Events."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1004922,7 +1004948,7 @@
         {
           "route": "Events & Activities",
           "conditions": [],
-          "checked": false
+          "checked": true
         }
       ],
       "source_tag": "Events",
@@ -1004957,6 +1004983,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
+        "Drops from: Enclave Activity: A Real Blast, Enclave Activity: Bots on Parade, Enclave Activity: Dropped Connection.",
         "Quest reward: One of Us."
       ],
       "plan_item": null,
@@ -1004979,17 +1005006,31 @@
       "plan_page_group": null,
       "drop_conditions": [
         {
+          "route": "Events & Activities",
+          "conditions": [
+            "Only after completing One of Us"
+          ],
+          "checked": true
+        },
+        {
           "route": "Quests",
           "conditions": [],
           "checked": true
         }
       ],
-      "source_tag": "Quest",
+      "source_tag": "Events",
       "obtain_ledger": [
+        {
+          "label": "Events & Activities",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        },
         {
           "label": "Quests",
           "unlocks": [
-            0
+            1
           ],
           "drop": "N/A"
         }
@@ -1005016,7 +1005057,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Treasure Hunter event reward."
+        "Drops from: Tunnel Of Love."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1005072,9 +1005113,7 @@
       "obtain": "Not a plan — Camden Whacker is a unique version of the Commie Whacker. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [
-        "Quest reward: Camden Park daily quests."
-      ],
+      "obtain_unlocks": [],
       "plan_item": null,
       "cobj": null,
       "cnam": {
@@ -1005093,23 +1005132,7 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
-      "drop_conditions": [
-        {
-          "route": "Quests",
-          "conditions": [],
-          "checked": false
-        }
-      ],
-      "source_tag": "Quest",
-      "obtain_ledger": [
-        {
-          "label": "Quests",
-          "unlocks": [
-            0
-          ],
-          "drop": "N/A"
-        }
-      ],
+      "obtain_ledger": [],
       "weapon_role": "unique",
       "weapon_group": "Commie Whacker",
       "weapon_group_key": "commie-whacker",
@@ -1005132,6 +1005155,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
+        "Drops from: Activity: Protest March.",
         "Quest reward: Falsely Accused."
       ],
       "plan_item": null,
@@ -1005154,17 +1005178,29 @@
       "plan_page_group": null,
       "drop_conditions": [
         {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        },
+        {
           "route": "Quests",
           "conditions": [],
           "checked": true
         }
       ],
-      "source_tag": "Quest",
+      "source_tag": "Events",
       "obtain_ledger": [
+        {
+          "label": "Events & Activities",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        },
         {
           "label": "Quests",
           "unlocks": [
-            0
+            1
           ],
           "drop": "N/A"
         }
@@ -1005179,17 +1005215,17 @@
       "brand": "df",
       "type": "weapon",
       "unique_version": true,
-      "id": "UNIQ_COMMANDERS_CHARGE",
-      "name": "Commanders Charge",
+      "id": "UNIQ_COMMANDER_S_CHARGE",
+      "name": "Commander's Charge",
       "has_image_box": true,
       "image_dir": "weapons",
       "images": [],
       "image_source": "",
-      "obtain": "Not a plan — Commanders Charge is a unique version of the Sword. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
+      "obtain": "Not a plan — Commander's Charge is a unique version of the Sword. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "No longer obtainable: Survival mode reward — retired. Player trading only."
+        "Drops from: Enemy drop: Uninvited Pint-Sized Phantom. Legacy: Survival mode version — no longer obtainable, player trading only."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1005216,7 +1005252,7 @@
           "checked": true
         }
       ],
-      "not_obtainable": true,
+      "source_tag": "Events",
       "obtain_ledger": [
         {
           "label": "Events & Activities",
@@ -1005245,9 +1005281,7 @@
       "obtain": "Not a plan — Cosmic Knife Super-Heated is a unique version of the base weapon. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [
-        "Drops from: Treasure Hunter event reward."
-      ],
+      "obtain_unlocks": [],
       "plan_item": null,
       "cobj": null,
       "cnam": {
@@ -1005266,23 +1005300,7 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
-      "drop_conditions": [
-        {
-          "route": "Events & Activities",
-          "conditions": [],
-          "checked": false
-        }
-      ],
-      "source_tag": "Events",
-      "obtain_ledger": [
-        {
-          "label": "Events & Activities",
-          "unlocks": [
-            0
-          ],
-          "drop": "N/A"
-        }
-      ],
+      "obtain_ledger": [],
       "weapon_role": "unique",
       "weapon_group": "Combat Knife",
       "weapon_group_key": "combat-knife",
@@ -1005303,7 +1005321,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "No longer obtainable: Survival mode reward — retired. Player trading only."
+        "Drops from: Enemy drop: Uninvited Pint-Sized Phantom. Legacy: Survival mode version — no longer obtainable, player trading only."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1005330,7 +1005348,7 @@
           "checked": true
         }
       ],
-      "not_obtainable": true,
+      "source_tag": "Events",
       "obtain_ledger": [
         {
           "label": "Events & Activities",
@@ -1005362,7 +1005380,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Quest reward: Cryptids of Appalachia."
+        "Drops from: Safe and Sound."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1005384,15 +1005402,15 @@
       "plan_page_group": null,
       "drop_conditions": [
         {
-          "route": "Quests",
+          "route": "Events & Activities",
           "conditions": [],
           "checked": true
         }
       ],
-      "source_tag": "Quest",
+      "source_tag": "Events",
       "obtain_ledger": [
         {
-          "label": "Quests",
+          "label": "Events & Activities",
           "unlocks": [
             0
           ],
@@ -1005421,7 +1005439,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Quest reward: Cult of the Mothman."
+        "Drops from: Beasts of Burden."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1005443,15 +1005461,15 @@
       "plan_page_group": null,
       "drop_conditions": [
         {
-          "route": "Quests",
+          "route": "Events & Activities",
           "conditions": [],
           "checked": true
         }
       ],
-      "source_tag": "Quest",
+      "source_tag": "Events",
       "obtain_ledger": [
         {
-          "label": "Quests",
+          "label": "Events & Activities",
           "unlocks": [
             0
           ],
@@ -1005480,7 +1005498,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Hunt for the Treasure Hunter, A Colossal Problem."
+        "Drops from: Treasure Hunter (Mole Miner Pail)."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1005504,7 +1005522,7 @@
         {
           "route": "Events & Activities",
           "conditions": [],
-          "checked": false
+          "checked": true
         }
       ],
       "source_tag": "Events",
@@ -1005584,13 +1005602,13 @@
       "brand": "df",
       "type": "weapon",
       "unique_version": true,
-      "id": "UNIQ_CURSED_PICK_AXE",
-      "name": "Cursed Pick Axe",
+      "id": "UNIQ_CURSED_PICKAXE",
+      "name": "Cursed Pickaxe",
       "has_image_box": true,
       "image_dir": "weapons",
       "images": [],
       "image_source": "",
-      "obtain": "Not a plan — Cursed Pick Axe is a unique version of the Pickaxe. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
+      "obtain": "Not a plan — Cursed Pickaxe is a unique version of the Pickaxe. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
@@ -1005653,7 +1005671,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Hunt for the Treasure Hunter. Also tied to Daily Ops in the game files."
+        "Drops from: Treasure Hunter (Mole Miner Pail)."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1005677,7 +1005695,7 @@
         {
           "route": "Events & Activities",
           "conditions": [],
-          "checked": false
+          "checked": true
         }
       ],
       "source_tag": "Events",
@@ -1005769,7 +1005787,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Hunt for the Treasure Hunter, A Colossal Problem."
+        "Drops from: Treasure Hunter (Mole Miner Pail)."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1005793,7 +1005811,7 @@
         {
           "route": "Events & Activities",
           "conditions": [],
-          "checked": false
+          "checked": true
         }
       ],
       "source_tag": "Events",
@@ -1005826,6 +1005844,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
+        "Drops from: Feed the People, Activity: Project Beanstalk, Activity: Fertile Soil, The Path to Enlightenment, Activity: Leader of the Pack, Activity: Fly Swatter.",
         "Quest reward: An Organic Solution."
       ],
       "plan_item": null,
@@ -1005848,17 +1005867,29 @@
       "plan_page_group": null,
       "drop_conditions": [
         {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        },
+        {
           "route": "Quests",
           "conditions": [],
           "checked": true
         }
       ],
-      "source_tag": "Quest",
+      "source_tag": "Events",
       "obtain_ledger": [
+        {
+          "label": "Events & Activities",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        },
         {
           "label": "Quests",
           "unlocks": [
-            0
+            1
           ],
           "drop": "N/A"
         }
@@ -1005932,19 +1005963,19 @@
       "brand": "df",
       "type": "weapon",
       "unique_version": true,
-      "id": "UNIQ_DOCTORS_ORDERS",
-      "name": "Doctors Orders",
+      "id": "UNIQ_DOCTOR_S_ORDERS",
+      "name": "Doctor's Orders",
       "has_image_box": true,
       "image_dir": "weapons",
       "images": [
         "/wp-content/uploads/guide-images/plan-checklist/weapons/doctors-orders.avif"
       ],
       "image_source": "server",
-      "obtain": "Not a plan — Doctors Orders is a unique version of the Hunting Rifle. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
+      "obtain": "Not a plan — Doctor's Orders is a unique version of the Hunting Rifle. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Treasure Hunter event reward."
+        "Drops from: Eviction Notice."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1005991,15 +1006022,15 @@
       "brand": "df",
       "type": "weapon",
       "unique_version": true,
-      "id": "UNIQ_ELDERS_MARK",
-      "name": "Elders Mark",
+      "id": "UNIQ_ELDER_S_MARK",
+      "name": "Elder's Mark",
       "has_image_box": true,
       "image_dir": "weapons",
       "images": [
         "/wp-content/uploads/guide-images/plan-checklist/weapons/elders-mark.avif"
       ],
       "image_source": "server",
-      "obtain": "Not a plan — Elders Mark is a unique version of the Submachine Gun. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
+      "obtain": "Not a plan — Elder's Mark is a unique version of the Submachine Gun. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
@@ -1006060,7 +1006091,8 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Sold for caps: Beckett (companion quest)."
+        "Drops from: Activity: Riding Shotgun.",
+        "Quest reward: Ally: Thicker Than Water."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1006082,19 +1006114,31 @@
       "plan_page_group": null,
       "drop_conditions": [
         {
-          "route": "Caps",
+          "route": "Events & Activities",
           "conditions": [
             "Only after completing Ally: Thicker Than Water"
           ],
           "checked": true
+        },
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
         }
       ],
-      "source_tag": "Vendor",
+      "source_tag": "Events",
       "obtain_ledger": [
         {
-          "label": "Caps",
+          "label": "Events & Activities",
           "unlocks": [
             0
+          ],
+          "drop": "N/A"
+        },
+        {
+          "label": "Quests",
+          "unlocks": [
+            1
           ],
           "drop": "N/A"
         }
@@ -1006109,19 +1006153,19 @@
       "brand": "df",
       "type": "weapon",
       "unique_version": true,
-      "id": "UNIQ_FOUNDATIONS_VENGEANCE",
-      "name": "Foundations Vengeance",
+      "id": "UNIQ_FOUNDATION_S_VENGEANCE",
+      "name": "Foundation's Vengeance",
       "has_image_box": true,
       "image_dir": "weapons",
       "images": [
         "/wp-content/uploads/guide-images/plan-checklist/weapons/foundation-s-vengeance-paint.avif"
       ],
       "image_source": "server",
-      "obtain": "Not a plan — Foundations Vengeance is a unique version of the Minigun. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
+      "obtain": "Not a plan — Foundation's Vengeance is a unique version of the Minigun. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Treasure Hunter event reward."
+        "Drops from: Eviction Notice."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1006180,7 +1006224,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Bounty hunt target, Seismic Activity."
+        "Drops from: Bounty hunt target, Seismic Activity, Enemy drop: Ragtime Randy."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1006261,7 +1006305,7 @@
         {
           "route": "Quests",
           "conditions": [],
-          "checked": false
+          "checked": true
         }
       ],
       "source_tag": "Quest",
@@ -1006284,19 +1006328,19 @@
       "brand": "df",
       "type": "weapon",
       "unique_version": true,
-      "id": "UNIQ_GUNTHERS_REVOLVER",
-      "name": "Gunthers Revolver",
+      "id": "UNIQ_GUNTHER_S_BIG_IRON",
+      "name": "Gunther's Big Iron",
       "has_image_box": true,
       "image_dir": "weapons",
       "images": [
         "/wp-content/uploads/guide-images/plan-checklist/weapons/gunther-s-paint.avif"
       ],
       "image_source": "server",
-      "obtain": "Not a plan — Gunthers Revolver is a unique version of the Single Action Revolver. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
+      "obtain": "Not a plan — Gunther's Big Iron is a unique version of the Single Action Revolver. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Quest reward: Gunther's Gold (Atlantic City)."
+        "Drops from: Most Wanted."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1006318,15 +1006362,15 @@
       "plan_page_group": null,
       "drop_conditions": [
         {
-          "route": "Quests",
+          "route": "Events & Activities",
           "conditions": [],
           "checked": true
         }
       ],
-      "source_tag": "Quest",
+      "source_tag": "Events",
       "obtain_ledger": [
         {
-          "label": "Quests",
+          "label": "Events & Activities",
           "unlocks": [
             0
           ],
@@ -1006336,65 +1006380,6 @@
       "weapon_role": "unique",
       "weapon_group": "Single Action Revolver",
       "weapon_group_key": "single-action-revolver",
-      "weapon_group_solo": false
-    },
-    {
-      "kind": "plan",
-      "brand": "df",
-      "type": "weapon",
-      "unique_version": true,
-      "id": "UNIQ_HEAD_HUNTER",
-      "name": "Head Hunter",
-      "has_image_box": true,
-      "image_dir": "weapons",
-      "images": [
-        "/wp-content/uploads/season_images/season-17/score_s17_weapons_headhunter.avif"
-      ],
-      "image_source": "server",
-      "obtain": "Not a plan — Head Hunter is a unique version of the Pickaxe. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
-      "category_label": "Unique weapon (no plan)",
-      "obtain_routes": [],
-      "obtain_unlocks": [
-        "Scoreboard: Season 17 Scoreboard."
-      ],
-      "plan_item": null,
-      "cobj": null,
-      "cnam": {
-        "formid": "00002840",
-        "edid": "Pickaxe",
-        "sig": "WEAP"
-      },
-      "unique_base": "Pickaxe",
-      "unique_effect": "",
-      "desc": "",
-      "tradeable": true,
-      "stops_dropping": null,
-      "effects": null,
-      "cut": false,
-      "cut_reason": null,
-      "changes": [],
-      "plan_page": "weapon",
-      "plan_page_group": null,
-      "drop_conditions": [
-        {
-          "route": "Scoreboard",
-          "conditions": [],
-          "checked": false
-        }
-      ],
-      "source_tag": "Score",
-      "obtain_ledger": [
-        {
-          "label": "Scoreboard",
-          "unlocks": [
-            0
-          ],
-          "drop": "N/A"
-        }
-      ],
-      "weapon_role": "unique",
-      "weapon_group": "Pickaxe",
-      "weapon_group_key": "pickaxe",
       "weapon_group_solo": false
     },
     {
@@ -1006414,7 +1006399,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Quest reward: Reformation (Brotherhood of Steel)."
+        "Drops from: Beasts of Burden."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1006436,15 +1006421,15 @@
       "plan_page_group": null,
       "drop_conditions": [
         {
-          "route": "Quests",
+          "route": "Events & Activities",
           "conditions": [],
           "checked": true
         }
       ],
-      "source_tag": "Quest",
+      "source_tag": "Events",
       "obtain_ledger": [
         {
-          "label": "Quests",
+          "label": "Events & Activities",
           "unlocks": [
             0
           ],
@@ -1006473,7 +1006458,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: A Feast Fit for a King. Legacy: Survival mode version — no longer obtainable, player trading only."
+        "Drops from: A Feast Fit for a King, Fishing - Linda Lee Chum Trough. Legacy: Survival mode version — no longer obtainable, player trading only."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1006530,7 +1006515,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Mutated public events reward."
+        "Drops from: Mutated Public Events."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1006554,7 +1006539,7 @@
         {
           "route": "Events & Activities",
           "conditions": [],
-          "checked": false
+          "checked": true
         }
       ],
       "source_tag": "Events",
@@ -1006589,7 +1006574,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Treasure Hunter event reward."
+        "Drops from: Tunnel Of Love."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1006636,65 +1006621,6 @@
       "brand": "df",
       "type": "weapon",
       "unique_version": true,
-      "id": "UNIQ_LUCA_SWITCHBLADE",
-      "name": "Luca Switchblade",
-      "has_image_box": true,
-      "image_dir": "weapons",
-      "images": [
-        "/wp-content/uploads/guide-images/plan-checklist/weapons/luca-switchblade.avif"
-      ],
-      "image_source": "server",
-      "obtain": "Not a plan — Luca Switchblade is a unique version of the Switchblade. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
-      "category_label": "Unique weapon (no plan)",
-      "obtain_routes": [],
-      "obtain_unlocks": [
-        "Quest reward: Atlantic City."
-      ],
-      "plan_item": null,
-      "cobj": null,
-      "cnam": {
-        "formid": "000FDC81",
-        "edid": "Switchblade",
-        "sig": "WEAP"
-      },
-      "unique_base": "Switchblade",
-      "unique_effect": "",
-      "desc": "",
-      "tradeable": true,
-      "stops_dropping": null,
-      "effects": null,
-      "cut": false,
-      "cut_reason": null,
-      "changes": [],
-      "plan_page": "weapon",
-      "plan_page_group": null,
-      "drop_conditions": [
-        {
-          "route": "Quests",
-          "conditions": [],
-          "checked": true
-        }
-      ],
-      "source_tag": "Quest",
-      "obtain_ledger": [
-        {
-          "label": "Quests",
-          "unlocks": [
-            0
-          ],
-          "drop": "N/A"
-        }
-      ],
-      "weapon_role": "unique",
-      "weapon_group": "Switchblade",
-      "weapon_group_key": "switchblade",
-      "weapon_group_solo": false
-    },
-    {
-      "kind": "plan",
-      "brand": "df",
-      "type": "weapon",
-      "unique_version": true,
       "id": "UNIQ_MEADOW_BREEZE_SPRAYER",
       "name": "Meadow Breeze Sprayer",
       "has_image_box": true,
@@ -1006708,6 +1006634,7 @@
       "obtain_routes": [],
       "obtain_unlocks": [
         "Sold for caps: Splint (Burning Springs Gun, Settlers vendor).",
+        "Drops from: Enemy drop: The Cleaner.",
         "Challenge reward: Find more Abraxodyne Intel."
       ],
       "plan_item": null,
@@ -1006737,6 +1006664,11 @@
           "checked": true
         },
         {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        },
+        {
           "route": "Challenges",
           "conditions": [],
           "checked": true
@@ -1006752,9 +1006684,16 @@
           "drop": "N/A"
         },
         {
-          "label": "Challenges",
+          "label": "Events & Activities",
           "unlocks": [
             1
+          ],
+          "drop": "N/A"
+        },
+        {
+          "label": "Challenges",
+          "unlocks": [
+            2
           ],
           "drop": "N/A"
         }
@@ -1006781,7 +1006720,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Bounty hunt target. Legacy: Survival mode version — no longer obtainable, player trading only."
+        "Drops from: Daily Ops, Enemy drop: The Malpractitioner. Legacy: Survival mode version — no longer obtainable, player trading only."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1006899,7 +1006838,8 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Treasure Hunter event reward."
+        "Drops from: Daily Ops.",
+        "Quest reward: Field Testing."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1006922,8 +1006862,15 @@
       "drop_conditions": [
         {
           "route": "Events & Activities",
+          "conditions": [
+            "Level 50 and above"
+          ],
+          "checked": true
+        },
+        {
+          "route": "Quests",
           "conditions": [],
-          "checked": false
+          "checked": true
         }
       ],
       "source_tag": "Events",
@@ -1006932,6 +1006879,13 @@
           "label": "Events & Activities",
           "unlocks": [
             0
+          ],
+          "drop": "N/A"
+        },
+        {
+          "label": "Quests",
+          "unlocks": [
+            1
           ],
           "drop": "N/A"
         }
@@ -1006956,7 +1006910,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Mutated public events reward."
+        "Drops from: Mutated public events."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1006980,7 +1006934,7 @@
         {
           "route": "Events & Activities",
           "conditions": [],
-          "checked": false
+          "checked": true
         }
       ],
       "source_tag": "Events",
@@ -1006996,6 +1006950,65 @@
       "weapon_role": "unique",
       "weapon_group": "Cryolator",
       "weapon_group_key": "cryolator",
+      "weapon_group_solo": false
+    },
+    {
+      "kind": "plan",
+      "brand": "df",
+      "type": "weapon",
+      "unique_version": true,
+      "id": "UNIQ_MOLERAT_BAT",
+      "name": "Molerat Bat",
+      "has_image_box": true,
+      "image_dir": "weapons",
+      "images": [
+        "/wp-content/uploads/guide-images/plan-checklist/weapons/rat-bat.avif"
+      ],
+      "image_source": "server",
+      "obtain": "Not a plan — Molerat Bat is a unique version of the Baseball Bat. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
+      "category_label": "Unique weapon (no plan)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Drops from: Seismic Activity."
+      ],
+      "plan_item": null,
+      "cobj": null,
+      "cnam": {
+        "formid": "0008E736",
+        "edid": "BaseballBat",
+        "sig": "WEAP"
+      },
+      "unique_base": "Baseball Bat",
+      "unique_effect": "",
+      "desc": "",
+      "tradeable": true,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "plan_page": "weapon",
+      "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
+      "source_tag": "Events",
+      "obtain_ledger": [
+        {
+          "label": "Events & Activities",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "weapon_role": "unique",
+      "weapon_group": "Baseball Bat",
+      "weapon_group_key": "baseball-bat",
       "weapon_group_solo": false
     },
     {
@@ -1007072,7 +1007085,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "No longer obtainable: Survival mode reward — retired. Player trading only."
+        "Drops from: Repeatable: Disturbed Grave. Legacy: Survival mode version — no longer obtainable, player trading only."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1007099,7 +1007112,7 @@
           "checked": true
         }
       ],
-      "not_obtainable": true,
+      "source_tag": "Events",
       "obtain_ledger": [
         {
           "label": "Events & Activities",
@@ -1007119,17 +1007132,17 @@
       "brand": "df",
       "type": "weapon",
       "unique_version": true,
-      "id": "UNIQ_OATH_BREAKER",
-      "name": "Oath Breaker",
+      "id": "UNIQ_OATHBREAKER",
+      "name": "Oathbreaker",
       "has_image_box": true,
       "image_dir": "weapons",
       "images": [],
       "image_source": "",
-      "obtain": "Not a plan — Oath Breaker is a unique version of the War Glaive. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
+      "obtain": "Not a plan — Oathbreaker is a unique version of the War Glaive. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Daily Ops reward, Over and Out."
+        "Drops from: Line in the Sand, Daily: Heart of the Enemy, Activity: Distant Thunder, Over and Out."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1007188,7 +1007201,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Quest reward: Cryptids of Appalachia."
+        "Drops from: Beasts of Burden."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1007210,15 +1007223,15 @@
       "plan_page_group": null,
       "drop_conditions": [
         {
-          "route": "Quests",
+          "route": "Events & Activities",
           "conditions": [],
           "checked": true
         }
       ],
-      "source_tag": "Quest",
+      "source_tag": "Events",
       "obtain_ledger": [
         {
-          "label": "Quests",
+          "label": "Events & Activities",
           "unlocks": [
             0
           ],
@@ -1007247,8 +1007260,140 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Infestations. Legacy: Nuclear Winter version — no longer obtainable, player trading only.",
+        "Drops from: Enemy drop: Assaultron Intimidator, Blood Eagle Destroyer, Communist Commissar, Cultist Prophet and 6 more.",
         "Quest reward: Duty Calls."
+      ],
+      "plan_item": null,
+      "cobj": null,
+      "cnam": {
+        "formid": "0010DB0F",
+        "edid": "10mmSMG",
+        "sig": "WEAP"
+      },
+      "unique_base": "10mm Submachine Gun",
+      "unique_effect": "",
+      "desc": "",
+      "tradeable": true,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "plan_page": "weapon",
+      "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [
+            "Only from SDOW Actor Type Slasher Fan",
+            "Only from HTO Encounter Boss Keyword"
+          ],
+          "checked": true
+        },
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
+        }
+      ],
+      "source_tag": "Events",
+      "obtain_ledger": [
+        {
+          "label": "Events & Activities",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        },
+        {
+          "label": "Quests",
+          "unlocks": [
+            1
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "weapon_role": "unique",
+      "weapon_group": "10mm Submachine Gun",
+      "weapon_group_key": "10mm-submachine-gun",
+      "weapon_group_solo": false
+    },
+    {
+      "kind": "plan",
+      "brand": "df",
+      "type": "weapon",
+      "unique_version": true,
+      "id": "UNIQ_OVERKILL",
+      "name": "Overkill",
+      "has_image_box": true,
+      "image_dir": "weapons",
+      "images": [],
+      "image_source": "",
+      "obtain": "Not a plan — Overkill is a unique version of the Fat Man. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
+      "category_label": "Unique weapon (no plan)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Drops from: Mutated Public Events."
+      ],
+      "plan_item": null,
+      "cobj": null,
+      "cnam": {
+        "formid": "000BD56F",
+        "edid": "Fatman",
+        "sig": "WEAP"
+      },
+      "unique_base": "Fat Man",
+      "unique_effect": "",
+      "desc": "",
+      "tradeable": true,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "plan_page": "weapon",
+      "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
+      "source_tag": "Events",
+      "obtain_ledger": [
+        {
+          "label": "Events & Activities",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "weapon_role": "unique",
+      "weapon_group": "Fat Man",
+      "weapon_group_key": "fat-man",
+      "weapon_group_solo": false
+    },
+    {
+      "kind": "plan",
+      "brand": "df",
+      "type": "weapon",
+      "unique_version": true,
+      "id": "UNIQ_PERFECT_STORM",
+      "name": "Perfect Storm",
+      "has_image_box": true,
+      "image_dir": "weapons",
+      "images": [
+        "/wp-content/uploads/guide-images/plan-checklist/weapons/perfect-storm.avif"
+      ],
+      "image_source": "server",
+      "obtain": "Not a plan — Perfect Storm is a unique version of the 10mm Submachine Gun. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
+      "category_label": "Unique weapon (no plan)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Drops from: Activity: Distant Thunder.",
+        "Quest reward: Cold Case."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1007307,26 +1007452,28 @@
       "brand": "df",
       "type": "weapon",
       "unique_version": true,
-      "id": "UNIQ_PEACE_MAKER",
-      "name": "Peace Maker",
+      "id": "UNIQ_PIERCING_LOVE_BOW",
+      "name": "Piercing Love Bow",
       "has_image_box": true,
       "image_dir": "weapons",
-      "images": [],
-      "image_source": "",
-      "obtain": "Not a plan — Peace Maker is a unique version of the Auto Grenade Launcher. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
+      "images": [
+        "/wp-content/uploads/guide-images/plan-checklist/weapons/piercing-love.avif"
+      ],
+      "image_source": "server",
+      "obtain": "Not a plan — Piercing Love Bow is a unique version of the Compound Bow. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Mutated public events reward."
+        "Sold for gold bullion: ."
       ],
       "plan_item": null,
       "cobj": null,
       "cnam": {
-        "formid": "00182634",
-        "edid": "AutoGrenadeLauncher",
+        "formid": "00013CE9",
+        "edid": "CompoundBow",
         "sig": "WEAP"
       },
-      "unique_base": "Auto Grenade Launcher",
+      "unique_base": "Compound Bow",
       "unique_effect": "",
       "desc": "",
       "tradeable": true,
@@ -1007339,15 +1007486,15 @@
       "plan_page_group": null,
       "drop_conditions": [
         {
-          "route": "Events & Activities",
+          "route": "Gold Bullion",
           "conditions": [],
           "checked": false
         }
       ],
-      "source_tag": "Events",
+      "source_tag": "Gold",
       "obtain_ledger": [
         {
-          "label": "Events & Activities",
+          "label": "Gold Bullion",
           "unlocks": [
             0
           ],
@@ -1007355,67 +1007502,8 @@
         }
       ],
       "weapon_role": "unique",
-      "weapon_group": "Auto Grenade Launcher",
-      "weapon_group_key": "auto-grenade-launcher",
-      "weapon_group_solo": false
-    },
-    {
-      "kind": "plan",
-      "brand": "df",
-      "type": "weapon",
-      "unique_version": true,
-      "id": "UNIQ_PERFECT_STORM",
-      "name": "Perfect Storm",
-      "has_image_box": true,
-      "image_dir": "weapons",
-      "images": [
-        "/wp-content/uploads/guide-images/plan-checklist/weapons/perfect-storm.avif"
-      ],
-      "image_source": "server",
-      "obtain": "Not a plan — Perfect Storm is a unique version of the 10mm Submachine Gun. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
-      "category_label": "Unique weapon (no plan)",
-      "obtain_routes": [],
-      "obtain_unlocks": [
-        "Quest reward: Cold Case."
-      ],
-      "plan_item": null,
-      "cobj": null,
-      "cnam": {
-        "formid": "0010DB0F",
-        "edid": "10mmSMG",
-        "sig": "WEAP"
-      },
-      "unique_base": "10mm Submachine Gun",
-      "unique_effect": "",
-      "desc": "",
-      "tradeable": true,
-      "stops_dropping": null,
-      "effects": null,
-      "cut": false,
-      "cut_reason": null,
-      "changes": [],
-      "plan_page": "weapon",
-      "plan_page_group": null,
-      "drop_conditions": [
-        {
-          "route": "Quests",
-          "conditions": [],
-          "checked": true
-        }
-      ],
-      "source_tag": "Quest",
-      "obtain_ledger": [
-        {
-          "label": "Quests",
-          "unlocks": [
-            0
-          ],
-          "drop": "N/A"
-        }
-      ],
-      "weapon_role": "unique",
-      "weapon_group": "10mm Submachine Gun",
-      "weapon_group_key": "10mm-submachine-gun",
+      "weapon_group": "Compound Bow",
+      "weapon_group_key": "compound-bow",
       "weapon_group_solo": false
     },
     {
@@ -1007433,7 +1007521,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Treasure Hunter event reward."
+        "Drops from: Eviction Notice."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1007566,7 +1007654,8 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Quest reward: Tracking Unknowns."
+        "Drops from: Activity: Irrational Fear.",
+        "Quest reward: Tracking Unknowns, Daily: Queen of the Hunt, Daily: Waste Not."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1007588,66 +1007677,12 @@
       "plan_page_group": null,
       "drop_conditions": [
         {
-          "route": "Quests",
+          "route": "Events & Activities",
           "conditions": [],
           "checked": true
-        }
-      ],
-      "source_tag": "Quest",
-      "obtain_ledger": [
+        },
         {
-          "label": "Quests",
-          "unlocks": [
-            0
-          ],
-          "drop": "N/A"
-        }
-      ],
-      "weapon_role": "unique",
-      "weapon_group": "Flamer",
-      "weapon_group_key": "flamer",
-      "weapon_group_solo": false
-    },
-    {
-      "kind": "plan",
-      "brand": "df",
-      "type": "weapon",
-      "unique_version": true,
-      "id": "UNIQ_RAT_BAT",
-      "name": "Rat Bat",
-      "has_image_box": true,
-      "image_dir": "weapons",
-      "images": [
-        "/wp-content/uploads/guide-images/plan-checklist/weapons/rat-bat.avif"
-      ],
-      "image_source": "server",
-      "obtain": "Not a plan — Rat Bat is a unique version of the Baseball Bat. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
-      "category_label": "Unique weapon (no plan)",
-      "obtain_routes": [],
-      "obtain_unlocks": [
-        "Drops from: Treasure Hunter event reward."
-      ],
-      "plan_item": null,
-      "cobj": null,
-      "cnam": {
-        "formid": "0008E736",
-        "edid": "BaseballBat",
-        "sig": "WEAP"
-      },
-      "unique_base": "Baseball Bat",
-      "unique_effect": "",
-      "desc": "",
-      "tradeable": true,
-      "stops_dropping": null,
-      "effects": null,
-      "cut": false,
-      "cut_reason": null,
-      "changes": [],
-      "plan_page": "weapon",
-      "plan_page_group": null,
-      "drop_conditions": [
-        {
-          "route": "Events & Activities",
+          "route": "Quests",
           "conditions": [],
           "checked": true
         }
@@ -1007660,11 +1007695,18 @@
             0
           ],
           "drop": "N/A"
+        },
+        {
+          "label": "Quests",
+          "unlocks": [
+            1
+          ],
+          "drop": "N/A"
         }
       ],
       "weapon_role": "unique",
-      "weapon_group": "Baseball Bat",
-      "weapon_group_key": "baseball-bat",
+      "weapon_group": "Flamer",
+      "weapon_group_key": "flamer",
       "weapon_group_solo": false
     },
     {
@@ -1007741,7 +1007783,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: The Slasher."
+        "Drops from: Repeatable: Disturbed Grave."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1007765,7 +1007807,7 @@
         {
           "route": "Events & Activities",
           "conditions": [],
-          "checked": false
+          "checked": true
         }
       ],
       "source_tag": "Events",
@@ -1007905,16 +1007947,16 @@
       "type": "weapon",
       "unique_version": true,
       "id": "UNIQ_SALT_OF_THE_EARTH",
-      "name": "Salt Of The Earth",
+      "name": "Salt of the Earth",
       "has_image_box": true,
       "image_dir": "weapons",
       "images": [],
       "image_source": "",
-      "obtain": "Not a plan — Salt Of The Earth is a unique version of the Double-Barrel Shotgun. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
+      "obtain": "Not a plan — Salt of the Earth is a unique version of the Double-Barrel Shotgun. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "No longer obtainable: Survival mode reward — retired. Player trading only."
+        "Drops from: Repeatable: Disturbed Grave. Legacy: Survival mode version — no longer obtainable, player trading only."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1007941,7 +1007983,7 @@
           "checked": true
         }
       ],
-      "not_obtainable": true,
+      "source_tag": "Events",
       "obtain_ledger": [
         {
           "label": "Events & Activities",
@@ -1007973,7 +1008015,8 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Burning Springs."
+        "Drops from: Dangerous Pastimes.",
+        "Quest reward: Double-Crossed Wires."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1008000,6 +1008043,11 @@
             "Only after completing Double-Crossed Wires"
           ],
           "checked": true
+        },
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
         }
       ],
       "source_tag": "Events",
@@ -1008008,6 +1008056,13 @@
           "label": "Events & Activities",
           "unlocks": [
             0
+          ],
+          "drop": "N/A"
+        },
+        {
+          "label": "Quests",
+          "unlocks": [
+            1
           ],
           "drop": "N/A"
         }
@@ -1008034,7 +1008089,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Bounty hunt target."
+        "Drops from: Bounty hunt target, Enemy drop: The Reborn Pint-Sized Slasher."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1008167,6 +1008222,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
+        "Drops from: Feed the People, Activity: Project Beanstalk, Activity: Fertile Soil, The Path to Enlightenment, Activity: Leader of the Pack, Activity: Fly Swatter.",
         "Quest reward: Final Departure."
       ],
       "plan_item": null,
@@ -1008189,64 +1008245,12 @@
       "plan_page_group": null,
       "drop_conditions": [
         {
-          "route": "Quests",
+          "route": "Events & Activities",
           "conditions": [],
           "checked": true
-        }
-      ],
-      "source_tag": "Quest",
-      "obtain_ledger": [
+        },
         {
-          "label": "Quests",
-          "unlocks": [
-            0
-          ],
-          "drop": "N/A"
-        }
-      ],
-      "weapon_role": "unique",
-      "weapon_group": ".44 Revolver",
-      "weapon_group_key": "44-revolver",
-      "weapon_group_solo": false
-    },
-    {
-      "kind": "plan",
-      "brand": "df",
-      "type": "weapon",
-      "unique_version": true,
-      "id": "UNIQ_STRIKE_BREAKER",
-      "name": "Strike Breaker",
-      "has_image_box": true,
-      "image_dir": "weapons",
-      "images": [],
-      "image_source": "",
-      "obtain": "Not a plan — Strike Breaker is a unique version of the Gauss Rifle. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
-      "category_label": "Unique weapon (no plan)",
-      "obtain_routes": [],
-      "obtain_unlocks": [
-        "Drops from: Treasure Hunter event reward."
-      ],
-      "plan_item": null,
-      "cobj": null,
-      "cnam": {
-        "formid": "000D1EB0",
-        "edid": "GaussRifle",
-        "sig": "WEAP"
-      },
-      "unique_base": "Gauss Rifle",
-      "unique_effect": "Fully Charged Shots Deal 100% More Damage",
-      "desc": "Fully Charged Shots Deal 100% More Damage",
-      "tradeable": true,
-      "stops_dropping": null,
-      "effects": null,
-      "cut": false,
-      "cut_reason": null,
-      "changes": [],
-      "plan_page": "weapon",
-      "plan_page_group": null,
-      "drop_conditions": [
-        {
-          "route": "Events & Activities",
+          "route": "Quests",
           "conditions": [],
           "checked": true
         }
@@ -1008259,11 +1008263,18 @@
             0
           ],
           "drop": "N/A"
+        },
+        {
+          "label": "Quests",
+          "unlocks": [
+            1
+          ],
+          "drop": "N/A"
         }
       ],
       "weapon_role": "unique",
-      "weapon_group": "Gauss Rifle",
-      "weapon_group_key": "gauss-rifle",
+      "weapon_group": ".44 Revolver",
+      "weapon_group_key": "44-revolver",
       "weapon_group_solo": false
     },
     {
@@ -1008283,7 +1008294,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Gearin' Up."
+        "Drops from: Gearin' Up, Enemy drop: Deathclaw Handler."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1008399,7 +1008410,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Treasure Hunter event reward."
+        "Drops from: Eviction Notice."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1008458,7 +1008469,9 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Infestations, Bounty hunt target."
+        "Sold for caps: Travelling merchant (random encounter, weapon goods), Neutral vendors (Hocking Hills Station, Watoga Station, Whitespring), Grahm (Travelling Workshops vendor), Whitespring (Free States vendor), Vendor Bot Wallace (Harpers Ferry, Free States vendor).",
+        "Drops from: Infestations, Bounty hunt target, Legendary enemy drop, Flip Card Counts Items, Meat Bag, Trunk, Steamer Trunk, Activity: Battle Bots, Treasure Maps, U.S.S.A. Supply Crate, Resource Drop Crate, Government Aid Drop, Tool Case, Donations Box, Responders Crate, Safe, Duffle Bag, Boss Drop Large, Boss Drop Medium, Boss Drop Small, Cooler, Enclave Activity: Dropped Connection, Pre-War Safe, Super Duper Mart Safe, Vault Trunk, Mayor's Safe, Security Office Safe, Daniel's Safe, Enemy drop: Civil War Reenactor, Enemy drop: Albino Deathclaw, Alpha Deathclaw, Armored Deathclaw, Chameleon Deathclaw and 18 more, Enemy drop: Glowing Mothman, Mothman, Mothman Hatchling, Scorched Mothman and 2 more, Enemy drop: Dr. Blackburn, Enemy drop: Extra Crispy Scorchbeast, Scorchbeast, Enemy drop: Scorchbeast Queen, Enemy drop: Baby Mega Sloth, Glowing Mega Sloth, Hulking Mega Sloth, Lazy Mega Sloth and 4 more, Enemy drop: Alpha Fog Crawler, Enraged Fog Crawler, Fog Crawler, Glowing Fog Crawler and 3 more, Enemy drop: Albino Hermit Crab, Alpha Hermit Crab, Giant Hermit Crab, Glowing Hermit Crab and 3 more, Enemy drop: Alpha Grafton Monster, Enraged Grafton Monster, Grafton Monster, Parasitic Grafton Monster and 3 more, Enemy drop: Alpha Sheepsquatch, Necrotic Sheepsquatch, Noxious Sheepsquatch, Prime Sheepsquatch and 2 more, Enemy drop: Beezlebub, Giant Bee of Yore, Deadly Honey Beast, Frenzied Honey Beast, Giant Honey Beast and 7 more, Enemy drop: Ancient Behemoth, Behemoth, Epic Behemoth, Glowing Behemoth and 1 more, Enemy drop: Uninvited Deathclaw Matriarch, Enemy drop: Glowing Radhog Alpha, Radhog Alpha, Enemy drop: Ultracite Titan, Enemy drop: Uninvited Scorchbeast, Enemy drop: Thunder Crab, Enemy drop: Camp Counselor Nia, Glowing Stormigo, Glowing Wendigo, Nightstalker and 5 more.",
+        "Quest reward: Lost and Found, One of Us, Mayor for a Day."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1008480,17 +1008493,51 @@
       "plan_page_group": null,
       "drop_conditions": [
         {
-          "route": "Events & Activities",
+          "route": "Caps",
           "conditions": [],
+          "checked": true
+        },
+        {
+          "route": "Events & Activities",
+          "conditions": [
+            "Only from a Master-locked container",
+            "Only from a Advanced-locked container",
+            "Only from a Expert-locked container",
+            "Only from a Novice-locked container"
+          ],
+          "checked": true
+        },
+        {
+          "route": "Quests",
+          "conditions": [
+            "Only from a Master-locked container",
+            "Only from a Advanced-locked container",
+            "Only from a Expert-locked container",
+            "Only from a Novice-locked container"
+          ],
           "checked": true
         }
       ],
-      "source_tag": "Events",
+      "source_tag": "Vendor",
       "obtain_ledger": [
+        {
+          "label": "Caps",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        },
         {
           "label": "Events & Activities",
           "unlocks": [
-            0
+            1
+          ],
+          "drop": "N/A"
+        },
+        {
+          "label": "Quests",
+          "unlocks": [
+            2
           ],
           "drop": "N/A"
         }
@@ -1008517,7 +1008564,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Sold for caps: Beckett (companion quest). Also tied to Mother of Invention in the game files."
+        "Drops from: Line in the Sand, Daily: Heart of the Enemy, Activity: Distant Thunder, Mother of Invention, Enemy drop: Assaultron Intimidator, Blood Eagle Destroyer, Communist Commissar, Cultist Prophet and 6 more."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1008539,15 +1008586,18 @@
       "plan_page_group": null,
       "drop_conditions": [
         {
-          "route": "Caps",
-          "conditions": [],
+          "route": "Events & Activities",
+          "conditions": [
+            "Only from SDOW Actor Type Slasher Fan",
+            "Only from HTO Encounter Boss Keyword"
+          ],
           "checked": true
         }
       ],
-      "source_tag": "Vendor",
+      "source_tag": "Events",
       "obtain_ledger": [
         {
-          "label": "Caps",
+          "label": "Events & Activities",
           "unlocks": [
             0
           ],
@@ -1008574,7 +1008624,8 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Treasure Hunter event reward."
+        "Drops from: Enemy drop: Assaultron Intimidator, Blood Eagle Destroyer, Communist Commissar, Cultist Prophet and 6 more.",
+        "Quest reward: Field Testing."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1008597,8 +1008648,16 @@
       "drop_conditions": [
         {
           "route": "Events & Activities",
+          "conditions": [
+            "Only from SDOW Actor Type Slasher Fan",
+            "Only from HTO Encounter Boss Keyword"
+          ],
+          "checked": true
+        },
+        {
+          "route": "Quests",
           "conditions": [],
-          "checked": false
+          "checked": true
         }
       ],
       "source_tag": "Events",
@@ -1008607,6 +1008666,13 @@
           "label": "Events & Activities",
           "unlocks": [
             0
+          ],
+          "drop": "N/A"
+        },
+        {
+          "label": "Quests",
+          "unlocks": [
+            1
           ],
           "drop": "N/A"
         }
@@ -1008778,6 +1008844,63 @@
       "brand": "df",
       "type": "weapon",
       "unique_version": true,
+      "id": "UNIQ_THE_PEACEMAKER",
+      "name": "The Peacemaker",
+      "has_image_box": true,
+      "image_dir": "weapons",
+      "images": [],
+      "image_source": "",
+      "obtain": "Not a plan — The Peacemaker is a unique version of the Auto Grenade Launcher. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
+      "category_label": "Unique weapon (no plan)",
+      "obtain_routes": [],
+      "obtain_unlocks": [
+        "Drops from: Mutated public events."
+      ],
+      "plan_item": null,
+      "cobj": null,
+      "cnam": {
+        "formid": "00182634",
+        "edid": "AutoGrenadeLauncher",
+        "sig": "WEAP"
+      },
+      "unique_base": "Auto Grenade Launcher",
+      "unique_effect": "",
+      "desc": "",
+      "tradeable": true,
+      "stops_dropping": null,
+      "effects": null,
+      "cut": false,
+      "cut_reason": null,
+      "changes": [],
+      "plan_page": "weapon",
+      "plan_page_group": null,
+      "drop_conditions": [
+        {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        }
+      ],
+      "source_tag": "Events",
+      "obtain_ledger": [
+        {
+          "label": "Events & Activities",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        }
+      ],
+      "weapon_role": "unique",
+      "weapon_group": "Auto Grenade Launcher",
+      "weapon_group_key": "auto-grenade-launcher",
+      "weapon_group_solo": false
+    },
+    {
+      "kind": "plan",
+      "brand": "df",
+      "type": "weapon",
+      "unique_version": true,
       "id": "UNIQ_THE_PIPE",
       "name": "The Pipe",
       "has_image_box": true,
@@ -1008787,9 +1008910,7 @@
       "obtain": "Not a plan — The Pipe is a unique version of the Pipe Gun. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
-      "obtain_unlocks": [
-        "Drops from: Random encounter."
-      ],
+      "obtain_unlocks": [],
       "plan_item": null,
       "cobj": null,
       "cnam": {
@@ -1008808,23 +1008929,7 @@
       "changes": [],
       "plan_page": "weapon",
       "plan_page_group": null,
-      "drop_conditions": [
-        {
-          "route": "Events & Activities",
-          "conditions": [],
-          "checked": false
-        }
-      ],
-      "source_tag": "Events",
-      "obtain_ledger": [
-        {
-          "label": "Events & Activities",
-          "unlocks": [
-            0
-          ],
-          "drop": "N/A"
-        }
-      ],
+      "obtain_ledger": [],
       "weapon_role": "unique",
       "weapon_group": "Pipe Gun",
       "weapon_group_key": "pipe-gun",
@@ -1008894,19 +1008999,20 @@
       "brand": "df",
       "type": "weapon",
       "unique_version": true,
-      "id": "UNIQ_THE_VATS_UNKNOWN",
-      "name": "The VATS Unknown",
+      "id": "UNIQ_THE_V_A_T_S_UNKNOWN",
+      "name": "The V.A.T.S. Unknown",
       "has_image_box": true,
       "image_dir": "weapons",
       "images": [
         "/wp-content/uploads/guide-images/plan-checklist/weapons/the-vats-unknown.avif"
       ],
       "image_source": "server",
-      "obtain": "Not a plan — The VATS Unknown is a unique version of the Alien Blaster. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
+      "obtain": "Not a plan — The V.A.T.S. Unknown is a unique version of the Alien Blaster. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Invaders From Beyond."
+        "Drops from: Invaders From Beyond.",
+        "Quest reward: Ally: Mission Out-of-Control."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1008933,6 +1009039,11 @@
             "Only after completing Ally: Mission Out-of-Control"
           ],
           "checked": true
+        },
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
         }
       ],
       "source_tag": "Events",
@@ -1008941,6 +1009052,13 @@
           "label": "Events & Activities",
           "unlocks": [
             0
+          ],
+          "drop": "N/A"
+        },
+        {
+          "label": "Quests",
+          "unlocks": [
+            1
           ],
           "drop": "N/A"
         }
@@ -1008955,19 +1009073,20 @@
       "brand": "df",
       "type": "weapon",
       "unique_version": true,
-      "id": "UNIQ_TICKETTO_REVENGE",
-      "name": "Ticketto Revenge",
+      "id": "UNIQ_TICKET_TO_REVENGE",
+      "name": "Ticket to Revenge",
       "has_image_box": true,
       "image_dir": "weapons",
       "images": [
         "/wp-content/uploads/guide-images/plan-checklist/weapons/ticket-to-revenge-paint.avif"
       ],
       "image_source": "server",
-      "obtain": "Not a plan — Ticketto Revenge is a unique version of the Railway Rifle. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
+      "obtain": "Not a plan — Ticket to Revenge is a unique version of the Railway Rifle. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Atlantic City."
+        "Drops from: Dangerous Pastimes.",
+        "Quest reward: Seeking Shelter."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1008994,6 +1009113,11 @@
             "Only after completing Seeking Shelter"
           ],
           "checked": true
+        },
+        {
+          "route": "Quests",
+          "conditions": [],
+          "checked": true
         }
       ],
       "source_tag": "Events",
@@ -1009002,6 +1009126,13 @@
           "label": "Events & Activities",
           "unlocks": [
             0
+          ],
+          "drop": "N/A"
+        },
+        {
+          "label": "Quests",
+          "unlocks": [
+            1
           ],
           "drop": "N/A"
         }
@@ -1009028,7 +1009159,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Treasure Hunter event reward."
+        "Drops from: Eviction Notice."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1009087,7 +1009218,8 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Quest reward: Skyline Valley."
+        "Drops from: Neurological Warfare.",
+        "Quest reward: Housekeeping for Hire."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1009109,17 +1009241,29 @@
       "plan_page_group": null,
       "drop_conditions": [
         {
+          "route": "Events & Activities",
+          "conditions": [],
+          "checked": true
+        },
+        {
           "route": "Quests",
           "conditions": [],
           "checked": true
         }
       ],
-      "source_tag": "Quest",
+      "source_tag": "Events",
       "obtain_ledger": [
+        {
+          "label": "Events & Activities",
+          "unlocks": [
+            0
+          ],
+          "drop": "N/A"
+        },
         {
           "label": "Quests",
           "unlocks": [
-            0
+            1
           ],
           "drop": "N/A"
         }
@@ -1009146,7 +1009290,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Always Vigilant."
+        "Drops from: Dangerous Pastimes."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1009170,7 +1009314,7 @@
         {
           "route": "Events & Activities",
           "conditions": [],
-          "checked": false
+          "checked": true
         }
       ],
       "source_tag": "Events",
@@ -1009193,17 +1009337,19 @@
       "brand": "df",
       "type": "weapon",
       "unique_version": true,
-      "id": "UNIQ_VAULT_63_GATLING_LASER",
-      "name": "Vault 63 Gatling Laser",
+      "id": "UNIQ_V63_HELGA",
+      "name": "V63-HELGA",
       "has_image_box": true,
       "image_dir": "weapons",
-      "images": [],
-      "image_source": "",
-      "obtain": "Not a plan — Vault 63 Gatling Laser is a unique version of the Gatling Laser. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
+      "images": [
+        "/wp-content/uploads/guide-images/plan-checklist/weapons/gatling-laser-v63-helga-paint.avif"
+      ],
+      "image_source": "server",
+      "obtain": "Not a plan — V63-HELGA is a unique version of the Gatling Laser. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Quest reward: Skyline Valley."
+        "Drops from: Neurological Warfare."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1009225,15 +1009371,15 @@
       "plan_page_group": null,
       "drop_conditions": [
         {
-          "route": "Quests",
+          "route": "Events & Activities",
           "conditions": [],
           "checked": true
         }
       ],
-      "source_tag": "Quest",
+      "source_tag": "Events",
       "obtain_ledger": [
         {
-          "label": "Quests",
+          "label": "Events & Activities",
           "unlocks": [
             0
           ],
@@ -1009250,13 +1009396,13 @@
       "brand": "df",
       "type": "weapon",
       "unique_version": true,
-      "id": "UNIQ_VAULT_63_LASER_RIFLE",
-      "name": "Vault 63 Laser Rifle",
+      "id": "UNIQ_V63_OLGA",
+      "name": "V63-OLGA",
       "has_image_box": true,
       "image_dir": "weapons",
       "images": [],
       "image_source": "",
-      "obtain": "Not a plan — Vault 63 Laser Rifle is a unique version of the Laser Gun. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
+      "obtain": "Not a plan — V63-OLGA is a unique version of the Laser Gun. You get it ready-made, so it is listed here for reference and does not count towards your progress.",
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
@@ -1009376,7 +1009522,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Treasure Hunter event reward."
+        "Drops from: Most Wanted."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1009435,7 +1009581,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Treasure Hunter event reward."
+        "Drops from: Spin The Wheel."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1009551,7 +1009697,7 @@
       "category_label": "Unique weapon (no plan)",
       "obtain_routes": [],
       "obtain_unlocks": [
-        "Drops from: Invaders from Beyond."
+        "Scoreboard: Season 8 Scoreboard."
       ],
       "plan_item": null,
       "cobj": null,
@@ -1009573,15 +1009719,15 @@
       "plan_page_group": null,
       "drop_conditions": [
         {
-          "route": "Events & Activities",
+          "route": "Scoreboard",
           "conditions": [],
-          "checked": false
+          "checked": true
         }
       ],
-      "source_tag": "Events",
+      "source_tag": "Score",
       "obtain_ledger": [
         {
-          "label": "Events & Activities",
+          "label": "Scoreboard",
           "unlocks": [
             0
           ],
