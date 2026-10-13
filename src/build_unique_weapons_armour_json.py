@@ -66,7 +66,7 @@ CUT_BY_HAND = {"crimsonsky"}
 # In the files but not released in game yet (Duchess, 11 Oct 2026). Kept on the
 # page with an "Unreleased" pill rather than hidden, so they are ready the day
 # they ship. Normalised names.
-UNRELEASED_BY_HAND = {"chaosengine", "tempest", "splinter"}
+UNRELEASED_BY_HAND = set()   # emptied 13 Oct 2026: the Drifter is coming back (Duchess)
 
 SRC_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SRC_DIR.parent
@@ -469,24 +469,60 @@ def build_fresh_weapon(omod_fid, omod_row, host, combos, weap_base, weap_dnam,
 #  ARMOUR
 # --------------------------------------------------------------------------
 
-ARMOUR_UNIQUES = [
-    ("Bulwark", "LL_Armor_SecretService_Torso_Bulwark", "Bulwark",
-     "Secret Service Armor", "Secret Service Armor (Torso)"),
-    ("Last Bastion", "LL_Armor_EnclaveScoutUniform_Torso_Urban_LastBastion",
-     "LastBastion", "Enclave Scout Armor", "Urban Scout Armor (Torso)"),
-    ("Last Stand", "LL_Armor_BOSInfantry_Torso_LastStand", "LastStand",
-     "Brotherhood Recon Armor", "Brotherhood Recon Armor (Torso)"),
-    ("Rage", "LL_Armor_RaiderMod_Torso_Rage", "Rage",
-     "Raider Armor", "Raider Armor (Torso)"),
-    ("Road Kill", "LL_Armor_DLC03_Trapper_ArmLeft_Roadkill", "Roadkill",
-     "Trapper Armor", "Trapper Armor (Left Arm)"),
-    ("Silver Lining", "LL_Armor_Leather_Torso_SilverLining", "SilverLining",
-     "Leather Armor", "Leather Armor (Torso)"),
-    ("Stand Fast", "LL_Armor_Combat_Torso_StandFast", "StandFast",
-     "Combat Armor", "Combat Armor (Torso)"),
-    ("Trail Warden", "LL_Armor_Metal_Torso_TrailWarden", "TrailWarden",
-     "Metal Armor", "Metal Armor (Torso)"),
-]
+def armour_uniques_from_roster(lvli_idx, armo_tbl):
+    """Bethesda's own unique armour list (LL_Armor_Unique_All), read every build
+    - no typed table (Duchess, 13 Oct 2026). Each entry is a leveled list that
+    resolves to the armour; its mod_Custom_<X> names it ("Silver Lining Custom
+    Mod" -> "Silver Lining"; uwa_names then applies the in-game INNR name).
+    Returns (name, list edid, custom fragment, sub type, base label)."""
+    armour_rows, combos, _slots = armo_tbl
+    out = []
+    for ref in lvli_idx.get("LL_Armor_Unique_All", []):
+        parts = ref.split(":")
+        if len(parts) < 3 or parts[2] != "LVLI" or _ARMO_DEAD_RE.search(parts[1]):
+            continue
+        edid = parts[1]
+        armos = resolve_lvli_to_armo(edid, lvli_idx)
+        # The custom mod that belongs to THIS list: one armour can carry
+        # several sets' mods (the Secret Service chest has Bulwark's and the
+        # Secret Settler paint), so prefer the mod named in the list's EditorID.
+        frag = name = ""
+        cands = []
+        for fid, _e in armos:
+            for _ci, cd in combos.get(fid, {}).items():
+                for m in cd["mods"]:
+                    mm = re.match(r'^(\S*mod_Custom_(\w+))\s+"([^"]*)"', m, re.I)
+                    if mm and not _ARMO_DEAD_RE.search(mm.group(1)) and "_CustomName_" not in mm.group(1):
+                        cands.append((mm.group(2), mm.group(3)))
+        key = re.sub(r"[^a-z0-9]", "", edid.lower())
+        own = [c for c in cands if re.sub(r"[^a-z0-9]", "", c[0].lower()) in key]
+        if own:
+            frag, name = own[0]
+        elif len({c[0] for c in cands}) == 1:
+            frag, name = cands[0]
+        name = re.sub(r"\s*Custom (Mod|Name)$", "", name or "").strip()
+        if not name:
+            # no named mod: the list's own last part ("..._Torso_TrailWarden")
+            name = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", edid.split("_")[-1])
+            frag = frag or edid.split("_")[-1]
+        row = armour_rows.get(armos[0][0], {}) if armos else {}
+        base = strip_q(row.get("ARMO_FULL", "")) or edid
+        out.append((name, edid, frag, armour_family(base), base))
+    return out
+
+
+def armour_family(full):
+    """'Raider Chest Piece' -> 'Raider Armor'; 'Combat Armor Chest Piece' ->
+    'Combat Armor'; 'Trapper Left Arm' -> 'Trapper Armor'."""
+    fam = re.sub(r"\s*\b(Chest Piece|Chest|Torso|Left Arm|Right Arm|Left Leg|Right Leg|Helmet|Arm|Leg)\b\s*$",
+                 "", full or "", flags=re.I).strip()
+    if not fam:
+        return full
+    return fam if re.search(r"\b(Armor|Armour|Uniform|Suit)\b", fam, re.I) else fam + " Armor"
+
+
+_ARMO_DEAD_RE = re.compile(r"(^|_)(zzz|CUT|DEL|DONOTUSE|DEPRECATED)(_|$)|^zzz", re.I)
+
 
 ARMO_LEG_RE = re.compile(
     r'mod_Legendary_Armor(\d)_\S+\s+"([^"]+)"\s+\[OMOD:([0-9A-Fa-f]+)\]')
@@ -585,7 +621,7 @@ def build_armour(channel, lvli_idx, armo_tbl, pool_name, pool_fid, gmrw_quest):
         parts = ref.split(":")
         if len(parts) >= 2:
             top_fid_map[parts[1]] = norm_formid(parts[0])
-    for name, top_edid, cust_frag, sub, base_label in ARMOUR_UNIQUES:
+    for name, top_edid, cust_frag, sub, base_label in armour_uniques_from_roster(lvli_idx, armo_tbl):
         armos = resolve_lvli_to_armo(top_edid, lvli_idx)
         armo_fid = armos[0][0] if armos else ""
         row = armour_rows.get(armo_fid, {})
@@ -660,7 +696,7 @@ def discover_armour_sets(lvli_idx, armo_tbl, known_names, omod_by_fid=None):
                 it = blank_item()
                 it["kind"] = "Armour"
                 it["name"] = name
-                it["subType"] = base_label
+                it["subType"] = armour_family(base_label)
                 it["base"] = base_label
                 it["stats"] = armo_stats(row) if row else {}
                 it["starEffects"] = extract_armo_stars(armo_fid, token, combos)
