@@ -1798,7 +1798,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +305 / -107 / ~1207
+## `plan_master.json`  ·  +305 / -108 / ~1207
 
 **Added (305)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1843,7 +1843,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: LMG True .45 Receiver  `PLAN_00947F34`
 - …and 265 more
 
-**Removed (107)**
+**Removed (108)**
 - Aligned Long Barrel  `RECIPE_00399FB4`
 - Deathclaw Leveling Backpack Flair  `RECIPE_008B507F`
 - Cat Leveling Backpack Flair  `RECIPE_008B5081`
@@ -1868,8 +1868,6 @@ _Couldn't key this file to records; contents differ._
 - Radhog Tamer Outfit  `RECIPE_00900A91`
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
-- Abraxolator  `UNIQ_ABRAXOLATOR`
-- Abraxo Gun  `UNIQ_ABRAXO_GUN`
 - Acceptable Overkill  `UNIQ_ACCEPTABLE_OVERKILL`
 - All Rise  `UNIQ_ALL_RISE`
 - Anchorage Ace  `UNIQ_ANCHORAGE_ACE`
@@ -1884,7 +1882,9 @@ _Couldn't key this file to records; contents differ._
 - Cosmic Knife Super-Heated  `UNIQ_COSMIC_KNIFE_SUPER_HEATED`
 - Crushing Blow  `UNIQ_CRUSHING_BLOW`
 - Cryptid Jawbone Knife  `UNIQ_CRYPTID_JAWBONE_KNIFE`
-- …and 67 more
+- Cultist Piercer  `UNIQ_CULTIST_PIERCER`
+- Cursed Broadsider  `UNIQ_CURSED_BROADSIDER`
+- …and 68 more
 
 **Changed (1207)**
 - Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images
@@ -2127,7 +2127,7 @@ _Couldn't key this file to records; contents differ._
 ## `unique_weapons/unique_weapons.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `unique_weapons_armour/unique_weapons_armour.json`  ·  +7 / -0 / ~38
+## `unique_weapons_armour/unique_weapons_armour.json`  ·  +7 / -0 / ~30
 
 **Added (7)**
 - Corpse Stacker  `mod-custom-corpsestacker`
@@ -2138,37 +2138,29 @@ _Couldn't key this file to records; contents differ._
 - Tarnished Claw  `rd01-ultraciteterrorsword-2`
 - V63 Zweihaender  `stormcutter-2`
 
-**Changed (38)**
+**Changed (30)**
 - Old Guard  `10mmsmg` — fields: howToObtain, obtainRoutes
-- Splinter  `10mmsmg-4` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods, unreleased
+- Splinter  `10mmsmg-4` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
 - The Fact Finder  `44-3` — fields: obtainRoutes
 - Final Word  `50calmachinegun` — fields: uniqueMods
 - The Action Hero  `50calmachinegun-2` — fields: uniqueMods
-- Last Stand  `armor-bosinfantry-torso` — fields: base
-- Stand Fast  `armor-combat-torso` — fields: base
-- Road Kill  `armor-dlc03-trapper-armleft` — fields: base
-- Last Bastion  `armor-enclavescoutuniform-torso-urban` — fields: base, subType
-- Silver Lining  `armor-leather-torso` — fields: base
-- Trail Warden  `armor-metal-torso` — fields: base
-- Rage  `armor-raidermod-torso` — fields: base
-- Secret Settler Left Arm  `armor-secretservice-armleft` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, subType
-- Secret Settler Right Arm  `armor-secretservice-armright` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, subType
-- Secret Settler Left Leg  `armor-secretservice-legleft` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, subType
-- Secret Settler Right Leg  `armor-secretservice-legright` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, subType
-- Bulwark  `armor-secretservice-torso` — fields: base
-- Secret Settler Torso  `armor-secretservice-torso-2` — fields: howToObtain, obtainRoutes, questName, sourceRef, sourceType, subType
+- Secret Settler Left Arm  `armor-secretservice-armleft` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
+- Secret Settler Right Arm  `armor-secretservice-armright` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
+- Secret Settler Left Leg  `armor-secretservice-legleft` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
+- Secret Settler Right Leg  `armor-secretservice-legright` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
+- Secret Settler Torso  `armor-secretservice-torso-2` — fields: howToObtain, obtainRoutes, questName, sourceRef, sourceType
 - The Invader  `atx-alienprobe` — fields: howToObtain, obtainRoutes, sourceRef, sourceType
 - Disorderly Conduct  `baton` — fields: uniqueMods
 - V63 Shock Baton  `baton-2` — fields: howToObtain, obtainRoutes
 - The Dragon  `blackpowder-rifle-dragon` — fields: howToObtain, obtainRoutes
-- Tempest  `dlc01-assaultronblade-2` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods, unreleased
+- Tempest  `dlc01-assaultronblade-2` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
 - Overkill  `fatman-2` — fields: howToObtain, image, imageSameAsBase, name, obtainRoutes, recordIds, repairOnly, sourceRef, starEffects, uniqueMods
 - The Guarantee  `fatman-3` — fields: howToObtain, image, imageSameAsBase, name, obtainRoutes, recordIds, repairOnly, sourceRef, starEffects, uniqueMods
 - Flatliner  `gaussrifle` — fields: howToObtain, obtainRoutes
-- Secret Settler Helmet  `headwear-clothes-secretservice-helmet` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, subType
+- Secret Settler Helmet  `headwear-clothes-secretservice-helmet` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
 - Cryptid Jawbone Knife  `knife-2` — fields: howToObtain, obtainRoutes
 - Crushing Blow  `m79` — fields: uniqueMods
-- Chaos Engine  `m79-2` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods, unreleased
+- Chaos Engine  `m79-2` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
 - Cultist Piercer  `pickaxe` — fields: edid
 - Headhunter Scythe  `pickaxe-2` — fields: edid
 - Slug Buster  `plasmagun-4` — fields: starEffects
