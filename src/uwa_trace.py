@@ -46,6 +46,12 @@ ROUTES = ["Caps", "Stamps", "Scoreboard", "Gold Bullion", "Atom Shop",
           "Limited Time Bundle", "Events & Activities", "Quests", "Challenges"]
 
 
+# Subject.HasKeyword(..., SDOW_ActorTypeSlasherFan [KYWD:...], ...) == 1
+_KW_GATE = re.compile(r"^Subject\.HasKeyword\([^,]*,[^,]*,\s*(\S+)\s+[^\[]*\[KYWD:[0-9A-Fa-f]{8}\]")
+_CODE = re.compile(r"^[A-Z][A-Z0-9]{1,5}$")
+IMPLIED_KW = set()      # keyword EDIDs the NPC filter already applied
+
+
 def _f(v):
     v = (v or "").strip().upper()
     return v[-8:].zfill(8) if v else ""
@@ -95,6 +101,24 @@ class Tracer:
                 self.in_lists[_f(m.group(1))].add(lf)
                 self.lvli_edid.setdefault(lf, r.get("LVLI_EDID", ""))
         self.list_by_edid = {e: f for f, e in self.lvli_edid.items() if e}
+        # Enemy-type gates on a list entry: Subject.HasKeyword(SDOW_ActorType
+        # SlasherFan) means only enemies of that content (SDOW = The Slasher)
+        # roll the entry. The holder walk below drops the NPCs the gate rules
+        # out, so Old Guard no longer lists every Infestation boss.
+        self.edge_codes = defaultdict(set)   # (parent list, child) -> {content code}
+        for r in self._rows("LVLI_Export_*_LVLI_Entries.tsv"):
+            m = _REF.match((r.get("LVLO_Reference") or "").strip())
+            if not m:
+                continue
+            for k, v in r.items():
+                if not (k and k.startswith("Cond") and k[4:].isdigit()):
+                    continue
+                c = _KW_GATE.match((v or "").strip())
+                if c:
+                    code = c.group(1).split("_", 1)[0]
+                    if _CODE.match(code) and "_" in c.group(1):
+                        self.edge_codes[(_f(r.get("LVLI_FormID")), _f(m.group(1)))].add(code)
+                        IMPLIED_KW.add(c.group(1))
         self.kw_edid, self.kw_refs = {}, defaultdict(list)
         for r in self._rows("KYWD_Export_*_Refs.tsv"):
             k = _f(r.get("KeywordFormID"))
@@ -239,20 +263,22 @@ class Tracer:
                     own.append((lf, e))
                     starts.append(lf)
         holders, seen, keys = [], set(), set()
-        q = deque((f, 0, f) for f in starts)
+        q = deque((f, 0, f, frozenset()) for f in starts)
         while q:
-            fid, depth, via = q.popleft()
-            if fid in seen or depth > 14:
+            fid, depth, via, codes = q.popleft()
+            if (fid, codes) in seen or depth > 14:
                 continue
-            seen.add(fid)
+            seen.add((fid, codes))
             for rf, red, sig in self.lvli_refs.get(fid, []):
                 if _ROSTER.match(red or "") or _DEAD.search(red or ""):
                     continue
                 if sig == "LVLI":
-                    q.append((rf, depth + 1, via))
+                    q.append((rf, depth + 1, via, codes | self.edge_codes.get((rf, fid), set())))
                     continue
                 if sig in ("WEAP", "ARMO", "OMOD", "KYWD", "COBJ", "LVLN", "PERK"):
                     continue
+                if sig == "NPC_" and codes and not codes <= set((red or "").split("_")):
+                    continue    # an enemy the entry's keyword gate rules out
                 if (sig, rf) in keys:
                     continue
                 keys.add((sig, rf))
@@ -301,8 +327,12 @@ class Tracer:
             if re.search(r"DailyOps", edid, re.I):
                 return "Events & Activities", "Daily Ops"
         elif sig == "MGEF":
-            if re.search(r"^MutatedEvents", edid, re.I):
-                return "Events & Activities", "Mutated Public Events"
+            # A magic effect that rolls the list belongs to a package you open
+            # (ALCH "Mutated Package"); name the package, not the event family.
+            pk = (getattr(obtain_idx, "mgef_alch", {}) or {}).get(edid) if obtain_idx else None
+            if pk:
+                import uwa_obtain
+                return "Events & Activities", "Opening a " + uwa_obtain.PK_SEP.join(pk)
         elif sig == "COEN":
             m = re.match(r"^SCORE_S(\d+)_", edid, re.I)
             if m:
@@ -467,6 +497,15 @@ def apply(items, tracer, names=None, obtain_idx=None, hand_only=(), log=print):
         parts, first, seen_k = [], None, set()
 
         def _add(route, lab):
+            # Every package (one per magic effect) folds into one part.
+            if lab.startswith("Opening a"):
+                for i, p in enumerate(parts):
+                    if "Opening a" in p:
+                        new = [n for n in lab.split(" ", 2)[2].split(uwa_obtain.PK_SEP)
+                               if n not in p.split("Opening a ", 1)[1].split(uwa_obtain.PK_SEP)]
+                        if new:
+                            parts[i] = p + uwa_obtain.PK_SEP + uwa_obtain.PK_SEP.join(new)
+                        return
             k = re.sub(r"^(activity|event|enemy drop)\s*:\s*|^raids?\s*-\s*", "", lab.lower()).strip()
             if k in seen_k:
                 return

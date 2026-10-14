@@ -75,6 +75,7 @@ TSV_DIR = REPO_ROOT / "tsv"
 sys.path.insert(0, str(SRC_DIR))
 import tsv_source
 import uwa_mods
+import uwa_effects
 import uwa_images      # unique pictures, matched by name (Oct 2026)
 import uwa_obtain
 import uwa_discover
@@ -1112,6 +1113,7 @@ def attach_conditions(items, channel):
                           norm_formid(r.get("LVLI_FormID", "")).upper())
     own_lists, find_events = _event_lists(channel)
     stats = {"routes": 0, "with": 0, "unchecked": 0}
+    implied = {f"Only from {plan_conditions._humanize(k)}" for k in uwa_trace.IMPLIED_KW}
     for it in items:
         key = norm_name(it.get("name"))
         own = it.get("_rosterList") or own_lists.get(key) or OWN_LIST_ALIAS.get(key)
@@ -1156,6 +1158,11 @@ def attach_conditions(items, channel):
                             per_way.append((tuple(ln), sk))
                     if per_way and len({w[0] for w in per_way}) == 1:
                         lines, skipped, checked = list(per_way[0][0]), per_way[0][1], True
+            if any(l.startswith("Source: Enemy drop:") for l in r.get("lines") or []):
+                # The enemy list was already cut to the enemies these keyword
+                # gates allow (uwa_trace), so the gate itself says nothing more —
+                # and its text is editor shorthand ("SDOW Actor Type Slasher Fan").
+                lines = [l for l in lines if l not in implied]
             if skipped and not lines:
                 lines = [plan_conditions.UNREADABLE_LINE]
             r["conditions"] = plan_conditions.tidy(lines)
@@ -1535,6 +1542,11 @@ def build_channel(channel, dist_dir):
     # the item unique never surfaces at all. See uwa_mods.py.
     mod_idx = uwa_mods.build_indexes_for_channel(pick, read_tsv, channel)
     mod_stats = uwa_mods.enrich(all_items, mod_idx)
+    # What each unique mod actually does, read from its properties (perk,
+    # enchantment, actor value, damage type…) when it has no DESC; items whose
+    # custom mod only renames them are flagged "named only". See uwa_effects.py.
+    eff_stats = uwa_effects.apply(all_items, pick, channel)
+    print(f"  unique mod effects: {eff_stats}")
 
     # The nine How to Obtain routes. One free-text howToObtain line could not
     # say the thing a reader needs — whether a source hands over the made
@@ -1632,6 +1644,7 @@ def build_channel(channel, dist_dir):
     uwa_names.apply(all_items, uwa_names.Names(_pk))
     uwa_trace.apply(all_items, uwa_trace.Tracer(_pk, read_tsv), uwa_names.Names(_pk),
                     obtain_idx, getattr(obtain_idx, "hand_only", ()))
+    uwa_obtain.merge_package_lines(all_items)
     attach_conditions(all_items, channel)
     uwa_images.attach(all_items)   # pictures by name, from the server listing
 
