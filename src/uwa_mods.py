@@ -26,6 +26,17 @@ COSMETIC_EDID = re.compile(r'appearance|paint|modelswap|skin', re.I)
 # The custom mod's FULL is usually the item name plus a bookkeeping suffix
 # ("Piercing Love Custom Mod"), so the raw name never matched it.
 ZZZ_EDID = re.compile(r'(^|_)zzz', re.I)
+# Enemy-only copies: creature weapon records (crPlasmaGun) and bounty-target
+# custom mods (Bounty_Mod_Custom_AbraxoGun) carry the NPC's loadout.
+NPC_REC = re.compile(r'(^|_)cr[A-Z]|^zzz|npc', re.I)
+NPC_EDID = re.compile(r'^bounty_', re.I)
+# A rolled star: "Random Legendary Mod" on ap_Legendary1/2/3. It is a star the
+# item gets, not a fitted part.
+ROLLED_EDID = re.compile(r'legendary_crafting_(?:weapon|armor|powerarmor)(\d)', re.I)
+# Random part pools (modcol_*) and placeholder records are not fitted parts.
+POOL_EDID = re.compile(r'^modcol_', re.I)
+DUMMY_NAME = re.compile(r'dummy|no ?effect', re.I)
+PAINT_NAME = re.compile(r'\bpaint\b', re.I)
 NAME_SUFFIX = re.compile(r'\s*(Custom Mod|Custom Name|Custom Paint|Custom|Bounty)\s*$', re.I)
 
 
@@ -54,9 +65,10 @@ def build_mod_indexes(omod_rows, weap_ot_rows, armo_ot_rows):
             if stem and stem != _norm(full):
                 omod_by_full[stem].append(r)
 
-    def load(rows, fidcol, fullcol):
+    def load(rows, fidcol, fullcol, edidcol):
         combos = defaultdict(lambda: defaultdict(lambda: {'mods': [], 'default': ''}))
         by_full = defaultdict(list)
+        by_mod = defaultdict(list)   # OMOD fid -> [(record fid, combo idx, record EDID)]
         for r in rows:
             f = _clean(r.get(fidcol)).upper()
             if not f:
@@ -64,18 +76,26 @@ def build_mod_indexes(omod_rows, weap_ot_rows, armo_ot_rows):
             name = _clean(r.get(fullcol))
             if name and f not in by_full[_norm(name)]:
                 by_full[_norm(name)].append(f)
-            c = combos[f][_clean(r.get('CombinationIndex'))]
+            ci = _clean(r.get('CombinationIndex'))
+            c = combos[f][ci]
             c['default'] = _clean(r.get('OBTS_Default'))
             m = _clean(r.get('Include_Mod'))
             if m:
                 c['mods'].append(m)
-        return combos, by_full
+                mm = MODREF.match(m)
+                if mm:
+                    key = (f, ci, _clean(r.get(edidcol)))
+                    lst = by_mod[mm.group(3).upper()]
+                    if key not in lst:
+                        lst.append(key)
+        return combos, by_full, by_mod
 
-    wc, wf = load(weap_ot_rows, 'WEAP_FormID', 'WEAP_FULL')
-    ac, af = load(armo_ot_rows, 'ARMO_FormID', 'ARMO_FULL')
+    wc, wf, wm = load(weap_ot_rows, 'WEAP_FormID', 'WEAP_FULL', 'WEAP_EDID')
+    ac, af, am = load(armo_ot_rows, 'ARMO_FormID', 'ARMO_FULL', 'ARMO_EDID')
     return {'omod_by_fid': omod_by_fid, 'omod_by_full': omod_by_full,
             'omod_by_edid': omod_by_edid, 'weap_combos': wc, 'weap_by_full': wf,
-            'armo_combos': ac, 'armo_by_full': af}
+            'armo_combos': ac, 'armo_by_full': af,
+            'weap_by_mod': wm, 'armo_by_mod': am}
 
 
 def _default_combo(combos, fid):
@@ -121,8 +141,9 @@ def _entry(edid, name, fid, omod_by_fid, kind):
             'desc': _clean(row.get('DESC'))}
 
 
-def _walk_combo(combo, omod_by_fid):
-    """-> (fixed stars by slot, unique mods, pre-installed parts).
+def _walk_combo(combo, omod_by_fid, rolled=None):
+    """-> (fixed stars by slot, unique mods, pre-installed parts). Rolled star
+    slots ("Random Legendary Mod") are added to `rolled` when a set is given.
 
     Cosmetic customs (paint / appearance / model swap / custom name) are
     dropped: they say nothing about what the item does."""
@@ -136,7 +157,17 @@ def _walk_combo(combo, omod_by_fid):
         if st:
             stars[int(st.group(1))] = _entry(edid, name, fid, omod_by_fid, 'star')
             continue
+        rs = ROLLED_EDID.search(edid)
+        if rs:
+            if rolled is not None:
+                rolled.add(int(rs.group(1)))
+            continue
         if FILLER_NAME.match(_clean(name)) or FILLER_EDID.search(edid):
+            continue
+        shown = _clean(name) or _clean(omod_by_fid.get(fid, {}).get('FULL'))
+        if POOL_EDID.search(edid) or DUMMY_NAME.search(shown) or DUMMY_NAME.search(edid):
+            continue
+        if PAINT_NAME.search(shown):
             continue
         # ap_customName is the game's own marker for "this is the mod that makes
         # the item that item". Going by the EDID alone missed every unique mod
@@ -160,6 +191,8 @@ def resolve_item_mods(item, idx):
     key = _norm(item.get('name'))
     omod_by_fid = idx['omod_by_fid']
     stars, custom, fixed = {}, [], []
+    rolled = set()
+    from_template = False   # stars read from the item's own player preset
 
     # 1. the item's own WEAP/ARMO record
     by_full = idx['weap_by_full'] if item.get('kind') == 'Weapon' else idx['armo_by_full']
@@ -223,6 +256,38 @@ def resolve_item_mods(item, idx):
             if e['formId'] not in {y['formId'] for y in custom}:
                 custom.append(e)
 
+    # No record of its own (the reward is a preset on the BASE weapon, e.g. the
+    # Abraxo Gun is PlasmaGun combination "if_tmp_AbraxoGun"): find the
+    # player-weapon combination that carries this item's custom mod and read
+    # its fixed stars and fitted parts from there. NPC copies are skipped — a
+    # cr* record (creature / bounty-target weapon) or a Bounty_ custom mod
+    # carries the enemy's own loadout, not what the player is given.
+    if custom and not stars and not fixed:
+        by_mod = idx.get('weap_by_mod' if item.get('kind') == 'Weapon' else 'armo_by_mod') or {}
+        for e in list(custom):
+            if NPC_EDID.search(e['edid']):
+                continue
+            hits = [h for h in by_mod.get(e['formId'], []) if not NPC_REC.search(h[2])]
+            # Only when exactly ONE player preset carries the mod: two presets
+            # (a quest copy and an event copy) can ship different stars, and
+            # picking one would be a guess.
+            if len(hits) != 1:
+                continue
+            rec_fid, ci, _ed = hits[0]
+            combo = combos.get(rec_fid, {}).get(ci)
+            if not combo:
+                continue
+            s, c, f = _walk_combo(combo, omod_by_fid, rolled)
+            stars = s
+            from_template = bool(s or rolled)
+            custom += [x for x in c if x['formId'] not in {y['formId'] for y in custom}]
+            fixed += [x for x in f if x['formId'] not in {y['formId'] for y in fixed}]
+            break
+        # the enemy-only twin of the custom mod is not the item's own mod
+        players = [e for e in custom if not NPC_EDID.search(e['edid'])]
+        if players:
+            custom = players
+
     # Drop the pure naming record when its effect-bearing twin is here too —
     # otherwise the item lists its own name twice, once with the text and once
     # without.
@@ -247,12 +312,21 @@ def resolve_item_mods(item, idx):
         unique_mods.append(e)
 
     star_list = None
-    if stars:
+    if stars or rolled:
         star_list = []
-        for n in sorted(stars):
-            e = stars[n]
-            star_list.append({'star': n, 'name': e['name'], 'edid': e['edid'],
-                              'formId': e['formId'], 'fixed': True})
+        for n in sorted(set(stars) | rolled):
+            e = stars.get(n)
+            if e:
+                star_list.append({'star': n, 'name': e['name'], 'edid': e['edid'],
+                                  'formId': e['formId'], 'fixed': True})
+            else:
+                star_list.append({'star': n, 'name': 'Random', 'edid': '',
+                                  'formId': '', 'fixed': False})
+    if star_list is not None and from_template:
+        # The preset is the game's own record of what this item ships with, so
+        # it replaces stars carried over from the older hand-kept list.
+        for e in star_list:
+            e['template'] = True
     return star_list, unique_mods
 
 
@@ -265,7 +339,13 @@ def enrich(items, idx):
             # Merge by slot — never drop a star we already knew about, and never
             # turn a known effect back into "Random".
             cur = {s['star']: s for s in (it.get('starEffects') or [])}
+            if star_list and star_list[0].pop('template', False):
+                for s in star_list:
+                    s.pop('template', None)
+                cur = {}
             for s in star_list:
+                if not s.get('fixed') and cur.get(s['star'], {}).get('fixed'):
+                    continue
                 cur[s['star']] = s
             top = max(cur) if cur else 0
             merged = []
@@ -282,7 +362,7 @@ def enrich(items, idx):
             st['no_match'] += 1
         if not _clean(it.get('inherentEffect')):
             for m in mods:
-                if m['desc']:
+                if m['desc'] and m.get('kind') != 'preinstalled':
                     it['inherentEffect'] = m['desc']
                     st['effect_added'] += 1
                     break
