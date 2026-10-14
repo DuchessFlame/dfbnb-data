@@ -35,6 +35,7 @@ on:
       - "src/plan_apparel_class.py"   # armour vs clothing, off the ARMO record
       - "src/plan_source_pill.py"
       - "src/build_new_plans_json.py"
+      - "src/plan_activity_regions.py"  # activity/event region check (Oct 2026)
       # Page routing + art (Legacy Nuclear Winter page, hosted-first image
       # rule, Sept 2026). These run inside build_plan_obtain_json.py.
       - "src/legacy_nw.py"
@@ -134,7 +135,12 @@ jobs:
             git diff --cached --quiet && echo "No changes staged." && exit 0
             git commit -m "Build plan_master.json (plan checklists How-to-Obtain)"
             git fetch origin main
-            git pull --rebase origin main
+            # The build also rewrites files this step doesn't commit (other
+            # dist outputs), and a plain rebase refuses to run with those
+            # unstaged changes — every run failed here from 12 Oct 2026.
+            # --autostash parks them for the rebase; the runner is thrown away
+            # afterwards, so they are never committed.
+            git pull --rebase --autostash origin main
             git push origin main
           else
             echo "No changes."
