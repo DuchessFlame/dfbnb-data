@@ -2133,7 +2133,7 @@ _Couldn't key this file to records; contents differ._
 ## `unique_weapons/unique_weapons.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `unique_weapons_armour/unique_weapons_armour.json`  ·  +7 / -0 / ~28
+## `unique_weapons_armour/unique_weapons_armour.json`  ·  +7 / -0 / ~27
 
 **Added (7)**
 - Corpse Stacker  `mod-custom-corpsestacker`
@@ -2144,9 +2144,8 @@ _Couldn't key this file to records; contents differ._
 - Tarnished Claw  `rd01-ultraciteterrorsword-2`
 - V63 Zweihaender  `stormcutter-2`
 
-**Changed (28)**
+**Changed (27)**
 - Splinter  `10mmsmg-4` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
-- The Fact Finder  `44-3` — fields: obtainRoutes
 - Final Word  `50calmachinegun` — fields: uniqueMods
 - The Action Hero  `50calmachinegun-2` — fields: uniqueMods
 - Secret Settler Left Arm  `armor-secretservice-armleft` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
@@ -2154,11 +2153,12 @@ _Couldn't key this file to records; contents differ._
 - Secret Settler Left Leg  `armor-secretservice-legleft` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
 - Secret Settler Right Leg  `armor-secretservice-legright` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
 - Secret Settler Torso  `armor-secretservice-torso-2` — fields: howToObtain, obtainRoutes, questName, sourceRef, sourceType
-- The Invader  `atx-alienprobe` — fields: howToObtain, obtainRoutes, sourceRef, sourceType
+- The Invader  `atx-alienprobe` — fields: howToObtain, obtainRoutes
 - Disorderly Conduct  `baton` — fields: uniqueMods
 - V63 Shock Baton  `baton-2` — fields: howToObtain, obtainRoutes
 - The Dragon  `blackpowder-rifle-dragon` — fields: howToObtain, obtainRoutes
 - Tempest  `dlc01-assaultronblade-2` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
+- Camden Whacker  `dlc04-commiewhacker` — fields: howToObtain, obtainRoutes, sourceRef, sourceType
 - Overkill  `fatman-2` — fields: howToObtain, image, imageSameAsBase, inherentEffect, name, obtainRoutes, recordIds, repairOnly, sourceRef, starEffects, uniqueMods
 - The Guarantee  `fatman-3` — fields: howToObtain, image, imageSameAsBase, inherentEffect, name, obtainRoutes, recordIds, repairOnly, sourceRef, starEffects, uniqueMods
 - Flatliner  `gaussrifle` — fields: howToObtain, obtainRoutes
@@ -2170,9 +2170,8 @@ _Couldn't key this file to records; contents differ._
 - Headhunter Scythe  `pickaxe-2` — fields: edid
 - Slug Buster  `plasmagun-4` — fields: starEffects
 - Lickety-Split  `railwayrifle` — fields: howToObtain, obtainRoutes
-- Venomous Fang  `rd01-ultraciteterrorsword` — fields: aka, confirmedByGameFiles, name, obtainRoutes
+- Venomous Fang  `rd01-ultraciteterrorsword` — fields: aka, confirmedByGameFiles, name
 - V63-Z Custom  `stormcutter` — fields: howToObtain, image, name, obtainRoutes, questName, recordIds, sourceRef, starEffects, uniqueMods
-- Oathbreaker  `warglaive` — fields: obtainRoutes
 
 ## `vendors.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
