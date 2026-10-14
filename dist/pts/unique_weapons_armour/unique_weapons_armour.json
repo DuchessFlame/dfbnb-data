@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "generated": "2026-10-14T05:29:37Z",
-  "channel": "live",
-  "count": 134,
+  "generated": "2026-10-14T05:30:52Z",
+  "channel": "pts",
+  "count": 135,
   "counts": {
-    "weapon": 120,
+    "weapon": 121,
     "armour": 14,
     "powerArmour": 0
   },
@@ -3661,7 +3661,7 @@
       "planName": "",
       "tradeable": true,
       "formId": "00002840",
-      "edid": "pickaxe",
+      "edid": "Pickaxe",
       "inCurrentExport": true,
       "isCut": false,
       "uniqueMods": [],
@@ -6397,7 +6397,7 @@
       "planName": "",
       "tradeable": true,
       "formId": "00002840",
-      "edid": "pickaxe",
+      "edid": "Pickaxe",
       "inCurrentExport": true,
       "isCut": false,
       "uniqueMods": [
@@ -9688,9 +9688,9 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Activity: Distant Thunder",
-            "Source: Daily: Heart of the Enemy",
             "Source: Line in the Sand",
+            "Source: Daily: Heart of the Enemy",
+            "Source: Activity: Distant Thunder",
             "Source: Over and Out"
           ],
           "tradeable": true,
@@ -13277,13 +13277,6 @@
       },
       "starEffects": [
         {
-          "star": 1,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
-        },
-        {
           "star": 2,
           "name": "Random",
           "edid": "",
@@ -15215,9 +15208,9 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Activity: Distant Thunder",
-            "Source: Daily: Heart of the Enemy",
             "Source: Line in the Sand",
+            "Source: Daily: Heart of the Enemy",
+            "Source: Activity: Distant Thunder",
             "Source: Mother of Invention",
             "Source: Enemy drop: Assaultron Intimidator, Blood Eagle Destroyer, Communist Commissar, Cultist Prophet and 9 more"
           ],
@@ -17557,16 +17550,13 @@
       "sourceType": "Quest",
       "sourceRef": "The Eye of the Storm",
       "questName": "The Eye of the Storm",
-      "craftable": false,
+      "craftable": true,
       "planName": "",
-      "tradeable": null,
+      "tradeable": true,
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
       "isCut": false,
-      "discoveredBy": [
-        "official"
-      ],
       "uniqueMods": [],
       "obtainRoutes": [
         {
@@ -17576,7 +17566,7 @@
             "Drops: Ready-made weapon",
             "Source: Windy (Cryptid Hunter vendor)"
           ],
-          "tradeable": null,
+          "tradeable": true,
           "dropRate": "N/A",
           "conditions": [
             "Other in-game conditions apply that could not be put into words from the game files"
@@ -17625,7 +17615,7 @@
             "Drops: Ready-made weapon",
             "Source: Expedition"
           ],
-          "tradeable": null,
+          "tradeable": true,
           "dropRate": "N/A",
           "conditions": [],
           "conditionsChecked": true
@@ -17638,7 +17628,7 @@
             "Source: The Eye of the Storm",
             "Source: A Matter of Matter"
           ],
-          "tradeable": null,
+          "tradeable": true,
           "dropRate": "N/A",
           "conditions": [],
           "conditionsChecked": true
@@ -18218,14 +18208,23 @@
       "sourceType": "Quest",
       "sourceRef": "A Matter of Matter",
       "questName": "A Matter of Matter",
-      "craftable": true,
+      "craftable": false,
       "planName": "",
-      "tradeable": true,
+      "tradeable": null,
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
       "isCut": false,
-      "uniqueMods": [],
+      "confirmedByGameFiles": false,
+      "uniqueMods": [
+        {
+          "name": "V63-Z Custom",
+          "edid": "mod_custom_StormSlasher",
+          "formId": "008B0902",
+          "kind": "unique",
+          "desc": ""
+        }
+      ],
       "obtainRoutes": [
         {
           "route": "Caps",
@@ -18234,7 +18233,7 @@
             "Drops: Ready-made weapon",
             "Source: Windy (Cryptid Hunter vendor)"
           ],
-          "tradeable": true,
+          "tradeable": null,
           "dropRate": "N/A",
           "conditions": [
             "Other in-game conditions apply that could not be put into words from the game files"
@@ -18290,7 +18289,7 @@
             "Drops: Ready-made weapon",
             "Source: A Matter of Matter"
           ],
-          "tradeable": true,
+          "tradeable": null,
           "dropRate": "N/A",
           "conditions": [],
           "conditionsChecked": true
