@@ -78,6 +78,7 @@ import plan_unlocks         # COBJ.GNAM — what the game says unlocks each reci
 import plan_source_pill     # the one-word source tag on each row
 import prune_dead_routes    # retire routes nothing in the game rolls (see module)
 import plan_vendor_regions  # a vendor only sells the regional plans of where it stands
+import plan_activity_regions  # an activity only gives the regional plans of where it is played
 import plan_conditions      # drop conditions per source (LVLI entry CTDAs)
 import plan_display_names   # row titles: model-first weapon paint names
 import plan_recipe_rows     # rows for recipes that have no plan book at all
@@ -2327,6 +2328,15 @@ def main(argv=None):
     if not args.no_routes and not args.offset and not args.limit and not args.only:
         print("[plan-obtain] vendor regions:")
         plan_vendor_regions.report(plan_vendor_regions.attach(items, TSV))
+
+    # Activities / events only give the region-locked plans of the region they
+    # are played in (plan_activity_regions.py): a Forest activity is taken off a
+    # plan whose only way in is "Only in Cranberry Bog, The Mire or Ash Heap",
+    # and a kept one's Drop Conditions name only the regions it can meet. Pure
+    # join, no rate touched. Before source tags.
+    if not args.no_routes and not args.offset and not args.limit and not args.only:
+        print("[plan-obtain] activity regions:")
+        plan_activity_regions.report(plan_activity_regions.attach(items, TSV))
 
     # The one-word "where does this come from" tag on each row and in the
     # export poster's SOURCE column. Pure string work over the routes that were
