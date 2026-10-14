@@ -2266,7 +2266,7 @@ _Couldn't key this file to records; contents differ._
 ## `unique_weapons/unique_weapons.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `unique_weapons_armour/unique_weapons_armour.json`  ·  +7 / -0 / ~30
+## `unique_weapons_armour/unique_weapons_armour.json`  ·  +7 / -0 / ~60
 
 **Added (7)**
 - Corpse Stacker  `mod-custom-corpsestacker`
@@ -2277,37 +2277,48 @@ _Couldn't key this file to records; contents differ._
 - Tarnished Claw  `rd01-ultraciteterrorsword-2`
 - V63 Zweihaender  `stormcutter-2`
 
-**Changed (30)**
-- Old Guard  `10mmsmg` — fields: howToObtain, obtainRoutes
+**Changed (60)**
+- Circuit Breaker  `10mm-circuitbreaker` — fields: uniqueMods
+- Old Guard  `10mmsmg` — fields: howToObtain, obtainRoutes, uniqueMods
 - Splinter  `10mmsmg-4` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
 - The Fact Finder  `44-3` — fields: obtainRoutes
 - Final Word  `50calmachinegun` — fields: uniqueMods
 - The Action Hero  `50calmachinegun-2` — fields: uniqueMods
+- Last Bastion  `armor-enclavescoutuniform-torso-urban` — fields: uniqueMods
 - Secret Settler Left Arm  `armor-secretservice-armleft` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
 - Secret Settler Right Arm  `armor-secretservice-armright` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
 - Secret Settler Left Leg  `armor-secretservice-legleft` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
 - Secret Settler Right Leg  `armor-secretservice-legright` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
 - Secret Settler Torso  `armor-secretservice-torso-2` — fields: howToObtain, obtainRoutes, questName, sourceRef, sourceType
+- Whistle in the Dark  `assaultrifle` — fields: inherentEffect
 - The Invader  `atx-alienprobe` — fields: howToObtain, obtainRoutes, sourceRef, sourceType
+- The Peacemaker  `autogrenadelauncher` — fields: starEffects, uniqueMods
+- Resolve Breaker  `autogrenadelauncher-2` — fields: uniqueMods
 - Disorderly Conduct  `baton` — fields: uniqueMods
-- V63 Shock Baton  `baton-2` — fields: howToObtain, obtainRoutes
+- V63 Shock Baton  `baton-2` — fields: howToObtain, obtainRoutes, starEffects
 - The Dragon  `blackpowder-rifle-dragon` — fields: howToObtain, obtainRoutes
+- The Fixer  `combatrifle-fixer` — fields: inherentEffect, uniqueMods
 - Tempest  `dlc01-assaultronblade-2` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
+- Night Light  `dlc01lightninggun` — fields: inherentEffect
+- V63-BERTHA  `dlc01lightninggun-2` — fields: starEffects, uniqueMods
+- Ice Breaker  `dlc03-harpoongun` — fields: uniqueMods
+- Sole Survivor  `dlc03-levergun` — fields: inherentEffect
+- Shattered Grounds  `dlc04-handmadegun` — fields: uniqueMods
+- Daisycutter  `fatman` — fields: uniqueMods
 - Overkill  `fatman-2` — fields: howToObtain, image, imageSameAsBase, name, obtainRoutes, recordIds, repairOnly, sourceRef, starEffects, uniqueMods
 - The Guarantee  `fatman-3` — fields: howToObtain, image, imageSameAsBase, name, obtainRoutes, recordIds, repairOnly, sourceRef, starEffects, uniqueMods
-- Flatliner  `gaussrifle` — fields: howToObtain, obtainRoutes
+- Boiling Point  `flamer` — fields: uniqueMods
+- Pyrolyzer  `flamer-3` — fields: uniqueMods
+- Xerxos  `gammagun` — fields: uniqueMods
+- Valkyrie  `gatlinglaser` — fields: uniqueMods
+- V63-HELGA  `gatlinglaser-2` — fields: starEffects, uniqueMods
+- Drill Fist  `gauntlet` — fields: uniqueMods
+- Flatliner  `gaussrifle` — fields: howToObtain, obtainRoutes, uniqueMods
 - Secret Settler Helmet  `headwear-clothes-secretservice-helmet` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
+- Longshot  `huntingrifle-2` — fields: starEffects, uniqueMods
 - Cryptid Jawbone Knife  `knife-2` — fields: howToObtain, obtainRoutes
-- Crushing Blow  `m79` — fields: uniqueMods
-- Chaos Engine  `m79-2` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
-- Cultist Piercer  `pickaxe` — fields: edid
-- Headhunter Scythe  `pickaxe-2` — fields: edid
-- Slug Buster  `plasmagun-4` — fields: starEffects
-- Lickety-Split  `railwayrifle` — fields: howToObtain, obtainRoutes
-- Venomous Fang  `rd01-ultraciteterrorsword` — fields: aka, confirmedByGameFiles, name, obtainRoutes, starEffects, uniqueMods
-- V63-Z Custom  `stormcutter` — fields: howToObtain, image, name, obtainRoutes, questName, recordIds, sourceRef, starEffects
-- The Farmhand  `supersledge-3` — fields: howToObtain, obtainRoutes
-- Oathbreaker  `warglaive` — fields: obtainRoutes
+- V63-OLGA  `lasergun-2` — fields: starEffects, uniqueMods
+- …and 20 more
 
 ## `vendors.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
