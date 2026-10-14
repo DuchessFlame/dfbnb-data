@@ -1547,7 +1547,7 @@ _Couldn't key this file to records; contents differ._
 ## `legendary_mods.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `make_plan_checklist.json`  ·  +305 / -24 / ~129
+## `make_plan_checklist.json`  ·  +305 / -24 / ~115
 
 **Added (305)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1618,21 +1618,7 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (129)**
-- Plan: Bowie Knife  `PLAN_00436FF0` — fields: routes
-- Plan: Golf Club  `PLAN_00436FF5` — fields: routes
-- Plan: Pipe Wrench  `PLAN_00436FFA` — fields: routes
-- Plan: Pitchfork  `PLAN_00436FFB` — fields: routes
-- Plan: Rolling Pin  `PLAN_00436FFC` — fields: routes
-- Plan: Sickle  `PLAN_00436FFD` — fields: routes
-- Plan: Sledge Hammer  `PLAN_00436FFF` — fields: routes
-- Plan: Switchblade  `PLAN_00437001` — fields: routes
-- Plan: Tire Iron  `PLAN_00437002` — fields: routes
-- Plan: Pool Cue  `PLAN_00437004` — fields: routes
-- Plan: .44 Revolver  `PLAN_00437007` — fields: routes
-- Plan: Chinese Officer Sword  `PLAN_004EB73C` — fields: routes
-- Plan: Revolutionary War Sword  `PLAN_004EB741` — fields: routes
-- Plan: Crossbow  `PLAN_004F4780` — fields: routes
+**Changed (115)**
 - Plan: Single-Action Revolver Forceful Grip  `PLAN_0052A699` — fields: name
 - Plan: Auto Axe Burning Mod  `PLAN_00591903` — fields: routes
 - Plan: Auto Axe Electrified Mod  `PLAN_00591904` — fields: routes
@@ -1659,7 +1645,21 @@ _Couldn't key this file to records; contents differ._
 - Plan: Union Calibrated Shocks  `PLAN_0064B933` — fields: routes
 - Plan: Union Optimized Servos  `PLAN_0064B935` — fields: routes
 - Plan: Union VATS Matrix Overlay  `PLAN_0064B936` — fields: routes
-- …and 89 more
+- Plan: Union Core Assembly  `PLAN_0064B937` — fields: routes
+- Plan: Union Medic Pump  `PLAN_0064B938` — fields: routes
+- Plan: Union Tesla Bracers  `PLAN_0064B939` — fields: routes
+- Plan: Union Overdrive Servos  `PLAN_0064B93A` — fields: routes
+- Plan: Union Kinetic Dynamo  `PLAN_0064B93C` — fields: routes
+- Plan: Union Reactive Plates  `PLAN_0064B93E` — fields: routes
+- Plan: Union Motion-Assist Servos  `PLAN_0064B93F` — fields: routes
+- Plan: Union Sensor Array  `PLAN_0064B940` — fields: routes
+- Plan: Union Stealth Boy  `PLAN_0064B941` — fields: routes
+- Plan: Union Cooling Vent  `PLAN_0064B942` — fields: routes
+- Plan: Union Targeting HUD  `PLAN_0064B943` — fields: routes
+- Plan: Union Blood Cleanser  `PLAN_0064B944` — fields: routes
+- Plan: Cupid Cappy Sign  `PLAN_0065DD0A` — fields: routes
+- Plan: Tunnel of Love Snow Globe  `PLAN_0067F169` — fields: routes
+- …and 75 more
 
 ## `meat.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1804,7 +1804,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +305 / -108 / ~1324
+## `plan_master.json`  ·  +305 / -108 / ~1286
 
 **Added (305)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1892,7 +1892,7 @@ _Couldn't key this file to records; contents differ._
 - Cursed Broadsider  `UNIQ_CURSED_BROADSIDER`
 - …and 68 more
 
-**Changed (1324)**
+**Changed (1286)**
 - Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images
 - Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images
 - MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images
@@ -1911,29 +1911,29 @@ _Couldn't key this file to records; contents differ._
 - Plan: Assault Rifle Fierce Receiver  `PLAN_00000871` — fields: obtain_ledger, obtain_routes, retired_routes
 - Plan: Assault Rifle Vigorous Receiver  `PLAN_00000872` — fields: obtain_ledger, obtain_routes, retired_routes
 - Plan: Assault Rifle Steadfast Receiver  `PLAN_00000873` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Ultra-Light Build Robot Armor Chest  `PLAN_0001BF30` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: BioCommMesh Robot Armor Lining  `PLAN_0001BF31` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Shadowed Robot Armor Chest  `PLAN_0001BF32` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Strengthened Robot Armor Limbs  `PLAN_0001BF34` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Cushioned Robot Armor Legs  `PLAN_0001BF35` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Deep Pocketed Robot Armor Chest  `PLAN_0001BF36` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Shadowed Robot Armor Legs  `PLAN_0001BF48` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Deep Pocketed Robot Armor Limbs  `PLAN_0001BF49` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Ultra-Light Build Robot Armor Limbs  `PLAN_0001BF4A` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Ultra-Light Build Marine Armor Chest  `PLAN_000218B3` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Lead Lined Marine Armor Chest  `PLAN_000218B4` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Shadowed Robot Armor Arms  `PLAN_000218B5` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Strengthened Marine Armor Limbs  `PLAN_000218C4` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Cushioned Marine Armor Legs  `PLAN_000218C5` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Deep Pocketed Marine Armor Chest  `PLAN_000218C6` — fields: obtain_ledger, obtain_routes, retired_routes
+- Plan: Ultra-Light Build Robot Armor Chest  `PLAN_0001BF30` — fields: obtain_ledger, obtain_routes
+- Plan: BioCommMesh Robot Armor Lining  `PLAN_0001BF31` — fields: obtain_ledger, obtain_routes
+- Plan: Shadowed Robot Armor Chest  `PLAN_0001BF32` — fields: obtain_ledger, obtain_routes
+- Plan: Strengthened Robot Armor Limbs  `PLAN_0001BF34` — fields: obtain_ledger, obtain_routes
+- Plan: Cushioned Robot Armor Legs  `PLAN_0001BF35` — fields: obtain_ledger, obtain_routes
+- Plan: Deep Pocketed Robot Armor Chest  `PLAN_0001BF36` — fields: obtain_ledger, obtain_routes
+- Plan: Shadowed Robot Armor Legs  `PLAN_0001BF48` — fields: obtain_ledger, obtain_routes
+- Plan: Deep Pocketed Robot Armor Limbs  `PLAN_0001BF49` — fields: obtain_ledger, obtain_routes
+- Plan: Ultra-Light Build Robot Armor Limbs  `PLAN_0001BF4A` — fields: obtain_ledger, obtain_routes
+- Plan: Ultra-Light Build Marine Armor Chest  `PLAN_000218B3` — fields: obtain_ledger, obtain_routes
+- Plan: Lead Lined Marine Armor Chest  `PLAN_000218B4` — fields: obtain_ledger, obtain_routes
+- Plan: Shadowed Robot Armor Arms  `PLAN_000218B5` — fields: obtain_ledger, obtain_routes
+- Plan: Strengthened Marine Armor Limbs  `PLAN_000218C4` — fields: obtain_ledger, obtain_routes
+- Plan: Cushioned Marine Armor Legs  `PLAN_000218C5` — fields: obtain_ledger, obtain_routes
+- Plan: Deep Pocketed Marine Armor Chest  `PLAN_000218C6` — fields: obtain_ledger, obtain_routes
 - Plan: Shadowed Combat Armor Chest  `PLAN_0002190F` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Deep Pocketed Marine Armor Limbs  `PLAN_00021910` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: Ultra-Light Build Marine Armor Limbs  `PLAN_00021911` — fields: obtain_ledger, obtain_routes, retired_routes
+- Plan: Deep Pocketed Marine Armor Limbs  `PLAN_00021910` — fields: obtain_ledger, obtain_routes
+- Plan: Ultra-Light Build Marine Armor Limbs  `PLAN_00021911` — fields: obtain_ledger, obtain_routes
 - Plan: BioCommMesh Combat Armor Lining  `PLAN_000224FB` — fields: obtain_ledger, obtain_routes, retired_routes
 - Plan: Lead Lined Combat Armor Chest  `PLAN_000224FC` — fields: obtain_ledger, obtain_routes, retired_routes
-- Plan: BoS Combat Armor Chest Piece  `PLAN_000224FD` — fields: obtain_ledger, obtain_routes, retired_routes
+- Plan: BoS Combat Armor Chest Piece  `PLAN_000224FD` — fields: obtain_ledger, obtain_routes
 - Plan: Cushioned Combat Armor Legs  `PLAN_00022E98` — fields: obtain_ledger, obtain_routes, retired_routes
-- …and 1284 more
+- …and 1246 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -2133,7 +2133,7 @@ _Couldn't key this file to records; contents differ._
 ## `unique_weapons/unique_weapons.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `unique_weapons_armour/unique_weapons_armour.json`  ·  +7 / -0 / ~60
+## `unique_weapons_armour/unique_weapons_armour.json`  ·  +7 / -0 / ~28
 
 **Added (7)**
 - Corpse Stacker  `mod-custom-corpsestacker`
@@ -2144,48 +2144,35 @@ _Couldn't key this file to records; contents differ._
 - Tarnished Claw  `rd01-ultraciteterrorsword-2`
 - V63 Zweihaender  `stormcutter-2`
 
-**Changed (60)**
-- Circuit Breaker  `10mm-circuitbreaker` — fields: uniqueMods
-- Old Guard  `10mmsmg` — fields: howToObtain, obtainRoutes, uniqueMods
+**Changed (28)**
 - Splinter  `10mmsmg-4` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
 - The Fact Finder  `44-3` — fields: obtainRoutes
 - Final Word  `50calmachinegun` — fields: uniqueMods
 - The Action Hero  `50calmachinegun-2` — fields: uniqueMods
-- Last Bastion  `armor-enclavescoutuniform-torso-urban` — fields: uniqueMods
 - Secret Settler Left Arm  `armor-secretservice-armleft` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
 - Secret Settler Right Arm  `armor-secretservice-armright` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
 - Secret Settler Left Leg  `armor-secretservice-legleft` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
 - Secret Settler Right Leg  `armor-secretservice-legright` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
 - Secret Settler Torso  `armor-secretservice-torso-2` — fields: howToObtain, obtainRoutes, questName, sourceRef, sourceType
-- Whistle in the Dark  `assaultrifle` — fields: inherentEffect
 - The Invader  `atx-alienprobe` — fields: howToObtain, obtainRoutes, sourceRef, sourceType
-- The Peacemaker  `autogrenadelauncher` — fields: starEffects, uniqueMods
-- Resolve Breaker  `autogrenadelauncher-2` — fields: uniqueMods
 - Disorderly Conduct  `baton` — fields: uniqueMods
-- V63 Shock Baton  `baton-2` — fields: howToObtain, obtainRoutes, starEffects
+- V63 Shock Baton  `baton-2` — fields: howToObtain, obtainRoutes
 - The Dragon  `blackpowder-rifle-dragon` — fields: howToObtain, obtainRoutes
-- The Fixer  `combatrifle-fixer` — fields: inherentEffect, uniqueMods
 - Tempest  `dlc01-assaultronblade-2` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
-- Night Light  `dlc01lightninggun` — fields: inherentEffect
-- V63-BERTHA  `dlc01lightninggun-2` — fields: starEffects, uniqueMods
-- Ice Breaker  `dlc03-harpoongun` — fields: uniqueMods
-- Sole Survivor  `dlc03-levergun` — fields: inherentEffect
-- Shattered Grounds  `dlc04-handmadegun` — fields: uniqueMods
-- Daisycutter  `fatman` — fields: uniqueMods
-- Overkill  `fatman-2` — fields: howToObtain, image, imageSameAsBase, name, obtainRoutes, recordIds, repairOnly, sourceRef, starEffects, uniqueMods
-- The Guarantee  `fatman-3` — fields: howToObtain, image, imageSameAsBase, name, obtainRoutes, recordIds, repairOnly, sourceRef, starEffects, uniqueMods
-- Boiling Point  `flamer` — fields: uniqueMods
-- Pyrolyzer  `flamer-3` — fields: uniqueMods
-- Xerxos  `gammagun` — fields: uniqueMods
-- Valkyrie  `gatlinglaser` — fields: uniqueMods
-- V63-HELGA  `gatlinglaser-2` — fields: starEffects, uniqueMods
-- Drill Fist  `gauntlet` — fields: uniqueMods
-- Flatliner  `gaussrifle` — fields: howToObtain, obtainRoutes, uniqueMods
+- Overkill  `fatman-2` — fields: howToObtain, image, imageSameAsBase, inherentEffect, name, obtainRoutes, recordIds, repairOnly, sourceRef, starEffects, uniqueMods
+- The Guarantee  `fatman-3` — fields: howToObtain, image, imageSameAsBase, inherentEffect, name, obtainRoutes, recordIds, repairOnly, sourceRef, starEffects, uniqueMods
+- Flatliner  `gaussrifle` — fields: howToObtain, obtainRoutes
 - Secret Settler Helmet  `headwear-clothes-secretservice-helmet` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType
-- Longshot  `huntingrifle-2` — fields: starEffects, uniqueMods
 - Cryptid Jawbone Knife  `knife-2` — fields: howToObtain, obtainRoutes
-- V63-OLGA  `lasergun-2` — fields: starEffects, uniqueMods
-- …and 20 more
+- Crushing Blow  `m79` — fields: uniqueMods
+- Chaos Engine  `m79-2` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
+- Cultist Piercer  `pickaxe` — fields: edid
+- Headhunter Scythe  `pickaxe-2` — fields: edid
+- Slug Buster  `plasmagun-4` — fields: starEffects
+- Lickety-Split  `railwayrifle` — fields: howToObtain, obtainRoutes
+- Venomous Fang  `rd01-ultraciteterrorsword` — fields: aka, confirmedByGameFiles, name, obtainRoutes
+- V63-Z Custom  `stormcutter` — fields: howToObtain, image, name, obtainRoutes, questName, recordIds, sourceRef, starEffects, uniqueMods
+- Oathbreaker  `warglaive` — fields: obtainRoutes
 
 ## `vendors.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
