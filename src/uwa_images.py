@@ -115,6 +115,15 @@ def find(name, weap, season, other=None, armo=None, others=frozenset()):
         return hits[0], False
     if other and len(other.get(s) or []) == 1:
         return other[s][0], False
+    # The name as a whole hyphen segment at the end of a file, any length:
+    # "V63-OLGA" -> laser-gun-v63-olga-paint.avif (7 letters, too short for
+    # the loose rule below, so it showed no picture).
+    if len(s) >= 5:
+        hits = [p for st, p in weap.items()
+                if re.sub(r"-(paint|skin)$", "", st).endswith("-" + s)
+                and _core(st) not in others]
+        if len(hits) == 1:
+            return hits[0], False
     if len(short) >= 8:
         # never another unique's own picture ("Overkill" is not
         # acceptable-overkill.avif)
