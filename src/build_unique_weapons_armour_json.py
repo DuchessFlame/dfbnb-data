@@ -1608,6 +1608,10 @@ def build_channel(channel, dist_dir):
     # custom mod only renames them are flagged "named only". See uwa_effects.py.
     eff_stats = uwa_effects.apply(all_items, pick, channel)
     print(f"  unique mod effects: {eff_stats}")
+    _tr = uwa_effects.apply_tradeable(all_items, pick, channel)
+    print(f"  tradeable set from the game files: {len(_tr)} changed")
+    for _n, _o, _v in _tr:
+        print(f"    {_n}: {_o} -> {_v}")
 
     # The nine How to Obtain routes. One free-text howToObtain line could not
     # say the thing a reader needs — whether a source hands over the made

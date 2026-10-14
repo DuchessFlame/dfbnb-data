@@ -403,3 +403,66 @@ def apply(items, pick, channel):
                 m["desc"] = note
             st["named_only"] += 1
     return st
+
+
+# ── Tradeable, from the game files ──────────────────────────────────────────
+_LEGACY_REC = re.compile(r"^(Survival|NW|NuclearWinter|DEPRECATED)_", re.I)
+
+
+def _npt_from_mod(idx, fid, depth=0):
+    """True when the mod adds NonPlayerTradable, False when it removes it,
+    None when it says nothing (its included parents are asked too)."""
+    res = None
+    for r in idx.props.get((fid or "").upper(), []):
+        if r[5] == "Keywords" and "NonPlayerTradable" in r[6]:
+            res = r[4] == "ADD"
+    if res is None and depth < 2:
+        for inc in idx.omod.get((fid or "").upper(), ("", "", "", []))[3]:
+            x = _npt_from_mod(idx, inc, depth + 1)
+            if x is not None:
+                res = x
+    return res
+
+
+def apply_tradeable(items, pick, channel, idx=None):
+    """Set `tradeable` on every unique from the game files (Duchess: the files
+    are the source of truth). An item can't be traded when the NonPlayerTradable
+    keyword is on it — added by its unique mod (the Gleaming Depths raid
+    weapons: RD01_Mod_Custom_*_CustomName) or carried by its own WEAP/ARMO
+    record — unless the unique mod removes it (Last Stand). A retired copy's
+    record (Survival_…) is not the item and is ignored.
+    Returns the list of (name, old, new) that changed."""
+    idx = idx or EffectIndex(pick, channel)
+    rec_kw = {}
+    for pat, fcol, ecol in (("WEAP_Export_*_Base.tsv", "WEAP_FormID", "WEAP_EDID"),
+                            ("ARMO_Export_*_ARMOUR.tsv", "ARMO_FormID", "ARMO_EDID")):
+        rows = _read(pick(pat, channel))
+        if not rows:
+            continue
+        h = rows[0]
+        if "Keywords" not in h:
+            continue
+        i_f, i_e, i_k = h.index(fcol), h.index(ecol), h.index("Keywords")
+        for r in rows[1:]:
+            if len(r) > i_k:
+                rec_kw[r[i_f].strip('"').upper()[-8:].zfill(8)] = (r[i_e].strip('"'), r[i_k])
+    changed = []
+    for it in items:
+        mods = [_npt_from_mod(idx, m.get("formId")) for m in it.get("uniqueMods") or []
+                if m.get("kind") == "unique"]
+        recs = {(f or "").upper() for f in [it.get("formId")] + list(it.get("recordIds") or []) if f}
+        rec_npt = any("NonPlayerTradable" in rec_kw.get(f, ("", ""))[1]
+                      and not _LEGACY_REC.match(rec_kw.get(f, ("", ""))[0]) for f in recs)
+        if any(x is True for x in mods):
+            trade = False
+        elif any(x is False for x in mods):
+            trade = True
+        else:
+            trade = not rec_npt
+        if it.get("tradeable") != trade:
+            changed.append((it.get("name"), it.get("tradeable"), trade))
+        it["tradeable"] = trade
+        for r in it.get("obtainRoutes") or []:
+            if r.get("populated"):
+                r["tradeable"] = trade
+    return changed
