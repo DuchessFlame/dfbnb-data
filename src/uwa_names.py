@@ -144,14 +144,26 @@ class Names:
         if not any(norm(text) in (norm(kw_tail(k)), norm(kw_tail(k).split("_")[-1]))
                    for k in keywords):
             return ""
+        def ok(n):
+            return (len(n.split()) >= 2 and not re.search(r"custom|paint|bounty|skin", n, re.I)
+                    and norm(n) != norm(text) and not norm(n).startswith(norm(text)))
         for f in mod_fids:
             f = (f or "").upper()
             if not (self.mod_kws.get(f, set()) & set(keywords)):
                 continue
             n = self.mod_full.get(f, "")
-            if (len(n.split()) >= 2 and not re.search(r"custom|paint|bounty|skin", n, re.I)
-                    and norm(n) != norm(text) and not norm(n).startswith(norm(text))):
+            if ok(n):
                 return n
+        # No mod on the item yet (a fresh build has only the name): the mods
+        # that carry the keyword, when they all agree on one clean name.
+        # Boomstick's keyword is also on Minty Breather's mod, but Boomstick's
+        # own mod is a "Custom Mod"-style name, so nothing is renamed there.
+        if not any(mod_fids):
+            names_ = {self.mod_full.get(f, "") for k in keywords for f in self.kw_mods.get(k, ())}
+            clean = {n for n in names_ if ok(n)}
+            if len(clean) == 1 and all(ok(n) or re.search(r"bounty|custom|paint|skin", n, re.I) or not n
+                                       for n in names_):
+                return clean.pop()
         return ""
 
 

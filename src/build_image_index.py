@@ -13,7 +13,7 @@ OUTPUT
   dist/image_index.json     FormID -> wp-content path (+ carousel extras), the
                             placeholders, the title affixes, the weapon-mod set,
                             and the folder listing builders check URLs against
-  audits/image_cleanup.md   files to tidy on the server: originals left beside
+  image_cleanup.md          files to tidy on the server: originals left beside
                             their AVIF, event-folder copies of library art,
                             Nuclear Winter art copied into event folders,
                             duplicate uploads, and library files nothing uses
@@ -38,6 +38,7 @@ USAGE
 from __future__ import annotations
 
 import argparse
+import collections
 import csv
 import datetime
 import json
@@ -280,7 +281,12 @@ def main():
     ap.add_argument("--dist", default=os.path.join(REPO, "dist"))
     ap.add_argument("--tsv", default=os.path.join(REPO, "tsv"))
     ap.add_argument("--out", default=ii.INDEX_PATH)
-    ap.add_argument("--audit", default=os.path.join(REPO, "audits", "image_cleanup.md"))
+    # Working notes are Claude's files, not repo files (Duchess, 13 Oct 2026):
+    # on her PC they go to GitHub\Claude\dfbnb-data notes\; anywhere else
+    # (CI, cloud) to audits/, which .gitignore keeps out of commits.
+    _notes = os.path.join(os.path.dirname(REPO), "Claude", "dfbnb-data notes")
+    _audit_dir = _notes if os.path.isdir(_notes) else os.path.join(REPO, "audits")
+    ap.add_argument("--audit", default=os.path.join(_audit_dir, "image_cleanup.md"))
     args = ap.parse_args()
 
     rows = ii.read_listing(args.listing)
@@ -363,11 +369,27 @@ def main():
             b.put(fid, rel, "formid-file")
 
     # 2. plan checklist art
+    # Two guards against a picture landing on the wrong item and then locking
+    # itself in (Plan: Pickaxe showed the Headhunter Scythe, Oct 2026):
+    #  - a created object several plans make (the Pickaxe WEAP: the Pickaxe
+    #    plan AND the Headhunter Scythe plan, which builds a Pickaxe plus its
+    #    custom mod) only takes the picture of the plan named after it;
+    #  - for such a shared object, a row whose picture came FROM this index
+    #    ("library") is not fed back in — a wrong entry would never wash out.
+    cnam_rows = collections.Counter((it.get("cnam") or {}).get("formid") for it in other_rows)
     for it in other_rows:
         urls = pm_urls(it)
-        if urls:
-            for fid in pm_fids(it):
-                b.put(fid, urls[0], "plan-checklist", urls[1:])
+        if not urls:
+            continue
+        cn = (it.get("cnam") or {})
+        own = re.sub(r"^\s*(plan|recipe|schematic|diagram)\s*:\s*", "", it.get("name") or "", flags=re.I)
+        for fid in pm_fids(it):
+            if fid == cn.get("formid") and cnam_rows[fid] > 1 \
+                    and (it.get("image_source") == "library" or re.sub(r"[^a-z0-9]", "", own.lower()) not in {
+                        re.sub(r"[^a-z0-9]", "", str(cn.get(k) or "").lower())
+                        for k in ("name", "full", "edid")} - {""}):
+                continue
+            b.put(fid, urls[0], "plan-checklist", urls[1:])
 
     # 3. art another page already hosts
     if plan_images is not None:

@@ -334,7 +334,14 @@ def _classify_mod_slot(mod_ref_str):
     edid_lower = edid.lower()
 
     label = None
-    for keyword, slot_label in _MOD_SLOT_LABELS.items():
+    # A rolled star (modcol_Legendary_Crafting_Weapon2 "Random Legendary Mod")
+    # sits on the legendary attach point named by its trailing digit
+    # (ap_Legendary1/2/3 in the OMOD export), so it is labelled with that
+    # star, not as a loose "Mod". See style-guide -> Legendary Stat Block.
+    _rs = re.search(r"legendary_crafting_(?:weapon|armor|powerarmor)(\d)", edid_lower)
+    if _rs:
+        label = "{}\u2605 Legendary".format(_rs.group(1))
+    for keyword, slot_label in (_MOD_SLOT_LABELS.items() if not label else ()):
         if keyword in edid_lower:
             label = slot_label
             break
@@ -349,6 +356,13 @@ def _classify_mod_slot(mod_ref_str):
         h = h.replace("_", " ").strip()
         value = h if h else edid
     return label, value, omod_fid
+
+def _fixed_leg(slot):
+    """True for a legendary star the item ships with. Rolled stars
+    ("Random Legendary Mod") are labelled with their star but never
+    count when choosing a weapon's preset, so the preset picked is the
+    same one the page always used."""
+    return "Legendary" in (slot.get("label") or "") and slot.get("value") != "Random Legendary Mod"
 
 def _mod_slot_sort_key(slot):
     """Sort mod slots: Legendary stars first, then Unique/Custom, then everything else."""
@@ -603,10 +617,10 @@ for fid, combos in _weap_combos.items():
     best_combo_idx = None
     best_legendary_count = -1
     for ci, slots in combos.items():
-        has_legendary = any("Legendary" in s["label"] for s in slots)
+        has_legendary = any(_fixed_leg(s) for s in slots)
         if not has_legendary:
             continue
-        legendary_count = sum(1 for s in slots if "Legendary" in s["label"])
+        legendary_count = sum(1 for s in slots if _fixed_leg(s))
         sorted_slots = sorted(slots, key=_mod_slot_sort_key)
         keys = set()
         cname = _weap_combo_names.get(fid, {}).get(ci, "")
@@ -625,7 +639,7 @@ for fid, combos in _weap_combos.items():
     # FULL "Relic Reaper" but holds the old EN06 Cursed Shovel mods, combo 2
     # holds SDOW_Mod_Custom_RelicReaper (the Pint-Sized Phantoms reward).
     for ci, slots in combos.items():
-        if not any("Legendary" in s["label"] for s in slots):
+        if not any(_fixed_leg(s) for s in slots):
             continue
         for kw in _weap_combo_keywords.get(fid, {}).get(ci, set()):
             variants[kw] = sorted(slots, key=_mod_slot_sort_key)
@@ -681,7 +695,14 @@ def _classify_armor_mod_slot(mod_ref_str):
     edid_lower = edid.lower()
 
     label = None
-    for keyword, slot_label in _ARMOR_MOD_SLOT_LABELS.items():
+    # A rolled star (modcol_Legendary_Crafting_Weapon2 "Random Legendary Mod")
+    # sits on the legendary attach point named by its trailing digit
+    # (ap_Legendary1/2/3 in the OMOD export), so it is labelled with that
+    # star, not as a loose "Mod". See style-guide -> Legendary Stat Block.
+    _rs = re.search(r"legendary_crafting_(?:weapon|armor|powerarmor)(\d)", edid_lower)
+    if _rs:
+        label = "{}\u2605 Legendary".format(_rs.group(1))
+    for keyword, slot_label in (_ARMOR_MOD_SLOT_LABELS.items() if not label else ()):
         if keyword in edid_lower:
             label = slot_label
             break
@@ -740,10 +761,10 @@ for fid, combos in _armo_combos.items():
     best_combo_idx = None
     best_legendary_count = -1
     for ci, slots in combos.items():
-        has_legendary = any("Legendary" in s["label"] for s in slots)
+        has_legendary = any(_fixed_leg(s) for s in slots)
         if not has_legendary:
             continue
-        legendary_count = sum(1 for s in slots if "Legendary" in s["label"])
+        legendary_count = sum(1 for s in slots if _fixed_leg(s))
         sorted_slots = sorted(slots, key=_mod_slot_sort_key)
         keys = set()
         cname = _armo_combo_names.get(fid, {}).get(ci, "")

@@ -66,7 +66,7 @@ CUT_BY_HAND = {"crimsonsky"}
 # In the files but not released in game yet (Duchess, 11 Oct 2026). Kept on the
 # page with an "Unreleased" pill rather than hidden, so they are ready the day
 # they ship. Normalised names.
-UNRELEASED_BY_HAND = {"chaosengine", "tempest", "splinter"}
+UNRELEASED_BY_HAND = set()   # emptied 13 Oct 2026: the Drifter is coming back (Duchess)
 
 SRC_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SRC_DIR.parent
@@ -75,6 +75,7 @@ TSV_DIR = REPO_ROOT / "tsv"
 sys.path.insert(0, str(SRC_DIR))
 import tsv_source
 import uwa_mods
+import uwa_effects
 import uwa_images      # unique pictures, matched by name (Oct 2026)
 import uwa_obtain
 import uwa_discover
@@ -469,24 +470,60 @@ def build_fresh_weapon(omod_fid, omod_row, host, combos, weap_base, weap_dnam,
 #  ARMOUR
 # --------------------------------------------------------------------------
 
-ARMOUR_UNIQUES = [
-    ("Bulwark", "LL_Armor_SecretService_Torso_Bulwark", "Bulwark",
-     "Secret Service Armor", "Secret Service Armor (Torso)"),
-    ("Last Bastion", "LL_Armor_EnclaveScoutUniform_Torso_Urban_LastBastion",
-     "LastBastion", "Enclave Scout Armor", "Urban Scout Armor (Torso)"),
-    ("Last Stand", "LL_Armor_BOSInfantry_Torso_LastStand", "LastStand",
-     "Brotherhood Recon Armor", "Brotherhood Recon Armor (Torso)"),
-    ("Rage", "LL_Armor_RaiderMod_Torso_Rage", "Rage",
-     "Raider Armor", "Raider Armor (Torso)"),
-    ("Road Kill", "LL_Armor_DLC03_Trapper_ArmLeft_Roadkill", "Roadkill",
-     "Trapper Armor", "Trapper Armor (Left Arm)"),
-    ("Silver Lining", "LL_Armor_Leather_Torso_SilverLining", "SilverLining",
-     "Leather Armor", "Leather Armor (Torso)"),
-    ("Stand Fast", "LL_Armor_Combat_Torso_StandFast", "StandFast",
-     "Combat Armor", "Combat Armor (Torso)"),
-    ("Trail Warden", "LL_Armor_Metal_Torso_TrailWarden", "TrailWarden",
-     "Metal Armor", "Metal Armor (Torso)"),
-]
+def armour_uniques_from_roster(lvli_idx, armo_tbl):
+    """Bethesda's own unique armour list (LL_Armor_Unique_All), read every build
+    - no typed table (Duchess, 13 Oct 2026). Each entry is a leveled list that
+    resolves to the armour; its mod_Custom_<X> names it ("Silver Lining Custom
+    Mod" -> "Silver Lining"; uwa_names then applies the in-game INNR name).
+    Returns (name, list edid, custom fragment, sub type, base label)."""
+    armour_rows, combos, _slots = armo_tbl
+    out = []
+    for ref in lvli_idx.get("LL_Armor_Unique_All", []):
+        parts = ref.split(":")
+        if len(parts) < 3 or parts[2] != "LVLI" or _ARMO_DEAD_RE.search(parts[1]):
+            continue
+        edid = parts[1]
+        armos = resolve_lvli_to_armo(edid, lvli_idx)
+        # The custom mod that belongs to THIS list: one armour can carry
+        # several sets' mods (the Secret Service chest has Bulwark's and the
+        # Secret Settler paint), so prefer the mod named in the list's EditorID.
+        frag = name = ""
+        cands = []
+        for fid, _e in armos:
+            for _ci, cd in combos.get(fid, {}).items():
+                for m in cd["mods"]:
+                    mm = re.match(r'^(\S*mod_Custom_(\w+))\s+"([^"]*)"', m, re.I)
+                    if mm and not _ARMO_DEAD_RE.search(mm.group(1)) and "_CustomName_" not in mm.group(1):
+                        cands.append((mm.group(2), mm.group(3)))
+        key = re.sub(r"[^a-z0-9]", "", edid.lower())
+        own = [c for c in cands if re.sub(r"[^a-z0-9]", "", c[0].lower()) in key]
+        if own:
+            frag, name = own[0]
+        elif len({c[0] for c in cands}) == 1:
+            frag, name = cands[0]
+        name = re.sub(r"\s*Custom (Mod|Name)$", "", name or "").strip()
+        if not name:
+            # no named mod: the list's own last part ("..._Torso_TrailWarden")
+            name = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", edid.split("_")[-1])
+            frag = frag or edid.split("_")[-1]
+        row = armour_rows.get(armos[0][0], {}) if armos else {}
+        base = strip_q(row.get("ARMO_FULL", "")) or edid
+        out.append((name, edid, frag, armour_family(base), base))
+    return out
+
+
+def armour_family(full):
+    """'Raider Chest Piece' -> 'Raider Armor'; 'Combat Armor Chest Piece' ->
+    'Combat Armor'; 'Trapper Left Arm' -> 'Trapper Armor'."""
+    fam = re.sub(r"\s*\b(Chest Piece|Chest|Torso|Left Arm|Right Arm|Left Leg|Right Leg|Helmet|Arm|Leg)\b\s*$",
+                 "", full or "", flags=re.I).strip()
+    if not fam:
+        return full
+    return fam if re.search(r"\b(Armor|Armour|Uniform|Suit)\b", fam, re.I) else fam + " Armor"
+
+
+_ARMO_DEAD_RE = re.compile(r"(^|_)(zzz|CUT|DEL|DONOTUSE|DEPRECATED)(_|$)|^zzz", re.I)
+
 
 ARMO_LEG_RE = re.compile(
     r'mod_Legendary_Armor(\d)_\S+\s+"([^"]+)"\s+\[OMOD:([0-9A-Fa-f]+)\]')
@@ -585,7 +622,7 @@ def build_armour(channel, lvli_idx, armo_tbl, pool_name, pool_fid, gmrw_quest):
         parts = ref.split(":")
         if len(parts) >= 2:
             top_fid_map[parts[1]] = norm_formid(parts[0])
-    for name, top_edid, cust_frag, sub, base_label in ARMOUR_UNIQUES:
+    for name, top_edid, cust_frag, sub, base_label in armour_uniques_from_roster(lvli_idx, armo_tbl):
         armos = resolve_lvli_to_armo(top_edid, lvli_idx)
         armo_fid = armos[0][0] if armos else ""
         row = armour_rows.get(armo_fid, {})
@@ -660,7 +697,7 @@ def discover_armour_sets(lvli_idx, armo_tbl, known_names, omod_by_fid=None):
                 it = blank_item()
                 it["kind"] = "Armour"
                 it["name"] = name
-                it["subType"] = base_label
+                it["subType"] = armour_family(base_label)
                 it["base"] = base_label
                 it["stats"] = armo_stats(row) if row else {}
                 it["starEffects"] = extract_armo_stars(armo_fid, token, combos)
@@ -915,7 +952,7 @@ def _event_lists(channel):
                 for q in sorted(reward_of.get(ed, ())):
                     if (q, ed) not in out:
                         out.append((q, ed))
-                for p in parents.get(ed, ()):
+                for p in sorted(parents.get(ed, ())):   # sets: fixed order between builds
                     if p in seen or _DEAD_LIST.search(p) or _SKIP_PARENT.match(p):
                         continue
                     seen.add(p)
@@ -930,7 +967,7 @@ def _event_lists(channel):
                 for q in sorted(reward_of.get(ed, ())):
                     if q not in out:
                         out.append(q)
-                for p in parents.get(ed, ()):
+                for p in sorted(parents.get(ed, ())):   # sets: fixed order between builds
                     if p in seen or _DEAD_LIST.search(p) or _SKIP_PARENT.match(p):
                         continue
                     seen.add(p)
@@ -1050,6 +1087,52 @@ def report_source_changes(out_path, output):
               "not reach further than meant before pushing.")
 
 
+def craft_mod_routes(items, channel):
+    """A unique that is a MOD you craft onto another unique gets that item's routes.
+
+    Cosmic Knife Super-Heated is mod_custom_CosmicKnife_Superheated, made at a
+    weapon workbench by co_Weapon_Melee_CombatKnife_CosmicKnife_Superheated.
+    Its COBJ2 conditions say who can craft it: HasEntitlement(SCORE_S22_ENTM_
+    Weapons_CosmicKnife "Cosmic Knife") or HasLearnedRecipe(the Cosmic Knife
+    plan's recipe). So the way to get it is the way to get the Cosmic Knife.
+    Only items with no route of their own are touched."""
+    cobj2 = pick("COBJ2_Export_*.tsv", channel)
+    if not cobj2:
+        return
+    by_cnam = defaultdict(list)
+    for r in read_tsv(cobj2):
+        by_cnam[norm_formid(r.get("CNAM_FormID", "")).upper()].append(r.get("Conditions") or "")
+    by_name = {norm_name(i.get("name")): i for i in items}
+    done = []
+    for it in items:
+        if any(r.get("populated") for r in it.get("obtainRoutes") or []):
+            continue
+        parents = []
+        for m in it.get("uniqueMods") or []:
+            if m.get("kind") != "unique":
+                continue
+            for cond in by_cnam.get((m.get("formId") or "").upper(), []):
+                for full in re.findall(r'HasEntitlement\|[^|]*\|[^|]*\|\S+\s+"+([^"]+)"+\s*\[ENTM:', cond):
+                    par = by_name.get(norm_name(full))
+                    if par and par is not it and par not in parents:
+                        parents.append(par)
+        for par in parents:
+            for src_r in par.get("obtainRoutes") or []:
+                if not src_r.get("populated"):
+                    continue
+                dst = next(x for x in it["obtainRoutes"] if x["route"] == src_r["route"])
+                lines = [f"Drops: Mod — craft it onto the {par['name']} at a weapon workbench"]
+                lines += [l for l in src_r["lines"] if not l.startswith("Drops:")]
+                dst.update({"populated": True, "lines": lines,
+                            "tradeable": src_r.get("tradeable"), "dropRate": src_r.get("dropRate")})
+                if src_r.get("paths"):
+                    dst["paths"] = list(src_r["paths"])
+            it["howToObtain"] = f"Craft: mod for the {par['name']} (" + par.get("howToObtain", "") + ")"
+            done.append(it["name"])
+    if done:
+        print(f"  crafted-mod uniques given their item's routes: {done}")
+
+
 def attach_conditions(items, channel):
     """Drop Conditions for every unique's live How to Obtain routes.
 
@@ -1076,6 +1159,7 @@ def attach_conditions(items, channel):
                           norm_formid(r.get("LVLI_FormID", "")).upper())
     own_lists, find_events = _event_lists(channel)
     stats = {"routes": 0, "with": 0, "unchecked": 0}
+    implied = {f"Only from {plan_conditions._humanize(k)}" for k in uwa_trace.IMPLIED_KW}
     for it in items:
         key = norm_name(it.get("name"))
         own = it.get("_rosterList") or own_lists.get(key) or OWN_LIST_ALIAS.get(key)
@@ -1091,6 +1175,21 @@ def attach_conditions(items, channel):
                 r["conditions"], r["conditionsChecked"] = [], True
                 continue
             lines, skipped, checked = [], 0, False
+            if r.get("route") in ("Scoreboard", "Atom Shop") and not paths:
+                # Claimed straight off the board / bought from the shop: no
+                # leveled list, so no drop gate exists to read. That is a
+                # checked "None", not a "Not checked".
+                checked = True
+            for rl in r.get("lines") or []:
+                # Gold Bullion vendors: the reputation the vendor needs is
+                # the gate (gold_vendor.py reads it from the files).
+                m = re.match(r"^Reputation:\s*(.+?)\s+\u2014\s+(.+)$", rl)
+                if m:
+                    lines.append(f"Only at {m.group(2)} reputation with the {m.group(1)} or higher")
+                    checked = True
+                if re.search(r"rotating stock", rl, re.I):
+                    lines.append("Only in the weeks the vendor has it in stock")
+                    checked = True
             for list_fid, target in paths:
                 if not list_fid:
                     checked = True          # handed over directly: no list gate
@@ -1120,6 +1219,11 @@ def attach_conditions(items, channel):
                             per_way.append((tuple(ln), sk))
                     if per_way and len({w[0] for w in per_way}) == 1:
                         lines, skipped, checked = list(per_way[0][0]), per_way[0][1], True
+            if any(l.startswith("Source: Enemy drop:") for l in r.get("lines") or []):
+                # The enemy list was already cut to the enemies these keyword
+                # gates allow (uwa_trace), so the gate itself says nothing more —
+                # and its text is editor shorthand ("SDOW Actor Type Slasher Fan").
+                lines = [l for l in lines if l not in implied]
             if skipped and not lines:
                 lines = [plan_conditions.UNREADABLE_LINE]
             r["conditions"] = plan_conditions.tidy(lines)
@@ -1499,6 +1603,15 @@ def build_channel(channel, dist_dir):
     # the item unique never surfaces at all. See uwa_mods.py.
     mod_idx = uwa_mods.build_indexes_for_channel(pick, read_tsv, channel)
     mod_stats = uwa_mods.enrich(all_items, mod_idx)
+    # What each unique mod actually does, read from its properties (perk,
+    # enchantment, actor value, damage type…) when it has no DESC; items whose
+    # custom mod only renames them are flagged "named only". See uwa_effects.py.
+    eff_stats = uwa_effects.apply(all_items, pick, channel)
+    print(f"  unique mod effects: {eff_stats}")
+    _tr = uwa_effects.apply_tradeable(all_items, pick, channel)
+    print(f"  tradeable set from the game files: {len(_tr)} changed")
+    for _n, _o, _v in _tr:
+        print(f"    {_n}: {_o} -> {_v}")
 
     # The nine How to Obtain routes. One free-text howToObtain line could not
     # say the thing a reader needs — whether a source hands over the made
@@ -1596,6 +1709,15 @@ def build_channel(channel, dist_dir):
     uwa_names.apply(all_items, uwa_names.Names(_pk))
     uwa_trace.apply(all_items, uwa_trace.Tracer(_pk, read_tsv), uwa_names.Names(_pk),
                     obtain_idx, getattr(obtain_idx, "hand_only", ()))
+    craft_mod_routes(all_items, channel)
+    for _it in all_items:
+        # A summary with nothing behind it would send readers somewhere the
+        # files never say (The Pipe kept "Event: Monster Mash", inherited from
+        # the plain Pipe Gun pool).
+        if not any(r.get("populated") for r in _it.get("obtainRoutes") or []):
+            _it["howToObtain"] = "No source found in the game files"
+            _it["sourceType"], _it["sourceRef"], _it["questName"] = "Unknown", "", ""
+    uwa_obtain.merge_package_lines(all_items)
     attach_conditions(all_items, channel)
     uwa_images.attach(all_items)   # pictures by name, from the server listing
 

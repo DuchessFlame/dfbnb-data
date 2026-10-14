@@ -286,6 +286,27 @@ class ObtainIndex:
                 if k and k.startswith("Ref") and _q(v) and ":" in _q(v):
                     self.parents[lf].add(_q(v).split(":", 1)[1])
 
+        # Packages you open (ALCH): a leveled list rolled by a magic effect
+        # (MutatedEvents_Package_SingleMutatedEvent_Effect) that an ALCH uses
+        # ("Mutated Package"). MGEF Refs name the ALCH; ALCH FULL is its name.
+        alch_full = {}
+        for r in _rows(self._pick("ALCH_Export_*.tsv", exclude="_Effects")):
+            full = _q(r.get("FULL"))
+            if full and "<" not in full and "[" not in full \
+                    and not DEAD_REWARD.search(_q(r.get("ALCH_EDID"))):
+                alch_full[_fid(r.get("ALCH_FormID"))] = full
+        self.mgef_alch = defaultdict(list)   # MGEF edid -> [ALCH FULL]
+        for r in _rows(self._pick("MGEF_Export_*.tsv")):
+            ed = _q(r.get("EDID"))
+            if DEAD_REWARD.search(ed):
+                continue
+            for k, v in r.items():
+                v = _q(v)
+                if k and k.startswith("Ref") and v.endswith(":ALCH"):
+                    nm = alch_full.get(_fid(v))
+                    if nm and nm not in self.mgef_alch[ed]:
+                        self.mgef_alch[ed].append(nm)
+
         # GMRW: quest and challenge rewards, live ones only.
         self.rewards = defaultdict(list)    # item fid -> [(edid, quest)]
         self.dead_rewards = defaultdict(list)
@@ -464,7 +485,7 @@ class ObtainIndex:
         nothing; its parent NPC record says Quack Doctor)."""
         route, label = self._classify(list_edid)
         if not route:
-            for parent in self.parents.get(list_fid, ()):
+            for parent in sorted(self.parents.get(list_fid, ())):
                 route, label = self._classify(parent)
                 if route:
                     list_edid = parent
@@ -472,6 +493,29 @@ class ObtainIndex:
         if not route:
             return "", "", list_edid
         return route, label, list_edid
+
+    def _packages(self, list_fid, depth=5):
+        """Names of the packages (ALCH) that roll this list, walking up the
+        lists that hold it. Minty Breather sits in LL_MutatedEvents_Rewards_
+        Weapons, which the Mutated Package's magic effect rolls — so the
+        place you get it is "Mutated Package", not a vague event label."""
+        found, seen, todo = [], set(), [(list_fid, 0)]
+        while todo:
+            lf, d = todo.pop(0)
+            if lf in seen or d > depth:
+                continue
+            seen.add(lf)
+            for ref in sorted(self.parents.get(lf, ())):
+                ed, _, sig = ref.rpartition(":")
+                if DEAD_REWARD.search(ed) or ROSTER_LIST.search(ed):
+                    continue
+                if sig == "MGEF":
+                    for nm in self.mgef_alch.get(ed, ()):
+                        if nm not in found:
+                            found.append(nm)
+                elif sig == "LVLI" and ed in self.list_fid:
+                    todo.append((self.list_fid[ed], d + 1))
+        return sorted(found, key=package_order)
 
     def _edid_of_list(self, list_fid):
         return self.list_edid.get(list_fid, "")
@@ -503,10 +547,26 @@ class ObtainIndex:
                 out.append((route, vlab, what, list_fid, fid))
                 continue
             route, label, shown = self._source_label(list_fid, list_edid)
+            if route == "Challenges" and not label and re.search(r"ChallengeReward", shown or "", re.I):
+                label = self._challenge_name(shown)
+            pk = self._packages(list_fid) if route == "Events & Activities" else []
+            if pk:
+                label = "Opening a " + PK_SEP.join(pk)
             if not route:
                 continue
             out.append((route, label or self._pretty(shown), what, list_fid, fid))
         return out
+
+    def _challenge_name(self, ed):
+        """The challenge's own title, or — when its CHAL is not in the export
+        yet (RTSV_ChallengeReward_Challenge_Lifetime_Brain_1 on PTS) — the
+        kind of challenge it is. Never the EditorID."""
+        ed = (ed or "").split(":")[0]
+        if self.reward_chal.get(ed):
+            return self.reward_chal[ed]
+        kind = re.search(r"Challenge_(Lifetime|Daily|Weekly|Seasonal|Event)", ed, re.I)
+        return ((kind.group(1).title() + " challenge") if kind else "Challenge") \
+            + " (name not in the game files yet)"
 
     def _reward_lines(self, fid, what):
         out = []
@@ -519,6 +579,8 @@ class ObtainIndex:
                 route = "Quests"
             # The quest's own name can say it is an event ("Event: A Feast Fit
             # for a King", QDLBarbara_Lesson06): file it there, name it once.
+            if route == "Challenges" and not (quest or label):
+                quest = self._challenge_name(ed)
             shown = quest or label or self._pretty(ed)
             if re.match(r"^\s*Event:\s*", shown or ""):
                 route, quest = "Events & Activities", re.sub(r"^\s*Event:\s*", "", shown)
@@ -848,6 +910,69 @@ class ObtainIndex:
                                            flags=re.I))
         return _put(routes, route, lines,
                     tradeable=item.get("tradeable"), drop="N/A")
+
+
+def package_order(name):
+    """Mutated Package, Double Mutated Package, then the Party Packs."""
+    low = name.lower()
+    return ("party" in low, "double" in low, low)
+
+
+PK_SEP = " \u00a6 "      # between package names until merge_package_lines
+
+
+def package_text(names):
+    """'Opening any Mutated Package or Mutated Party Pack'. A name that ends
+    in another name on the list is a kind of it (Double Mutated Package,
+    Dusty Mole Miner Pail), so only the plain ones are named, with "any"."""
+    names = sorted(set(names), key=package_order)
+    roots = [n for n in names
+             if not any(o != n and n.lower().endswith(" " + o.lower()) for o in names)]
+    lead = "Opening any " if len(roots) < len(names) else "Opening a "
+    return lead + " or ".join(roots)
+
+
+_OPENING = re.compile(r"Opening an? ((?:(?!\s/\s).)+?)(?=\s/\s|$)")
+
+
+def merge_package_lines(items):
+    """One readable "Opening ..." line per route (the list walk and the holder
+    trace each name the packages, one magic effect at a time), and the same
+    wording in the one-line summary."""
+    def _names(txt):
+        return [n.strip() for n in txt.split(PK_SEP.strip()) if n.strip()]
+    for it in items:
+        for r in it.get("obtainRoutes") or []:
+            names, first, keep = [], None, []
+            for ln in r.get("lines") or []:
+                m = re.match(r"^Source: Opening an? (.+)$", ln)
+                if not m:
+                    keep.append(ln)
+                    continue
+                if first is None:
+                    first = len(keep)
+                    keep.append(None)
+                names += [n for n in _names(m.group(1)) if n not in names]
+            if first is not None:
+                keep[first] = "Source: " + package_text(names)
+                r["lines"] = keep
+        how = it.get("howToObtain") or ""
+        if PK_SEP.strip() in how or "Opening a" in how:
+            parts, names, out = how.split(" / "), [], []
+            # summary parts look like "Event: Opening a A ¦ B"
+            for p in parts:
+                m = re.match(r"^(.*?)Opening an? (.+)$", p)
+                if m:
+                    if not names:
+                        out.append(m.group(1) + "\0")
+                    names += [n for n in _names(m.group(2)) if n not in names]
+                else:
+                    out.append(p)
+            it["howToObtain"] = " / ".join(out).replace("\0", package_text(names))
+        ref = it.get("sourceRef") or ""
+        m = re.search(r"Opening an?y? [^/]+", it.get("howToObtain") or "")
+        if ref.startswith("Opening a") and m:
+            it["sourceRef"] = m.group(0).strip()
 
 
 def _drops_line(what, kind):

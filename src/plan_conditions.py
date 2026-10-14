@@ -302,6 +302,9 @@ def _is_own(ref_fid, name, own):
     return bool(title and name and title.strip().lower() == name.strip().lower())
 
 
+PLAN_NAMES = {}     # COBJ FormID -> the name of the plan that teaches it
+
+
 def sentence(cond, names=None, own=None):
     """Plain-English line for one parsed condition, or None if not readable."""
     fn = cond["fn"]
@@ -317,7 +320,8 @@ def sentence(cond, names=None, own=None):
         if yes is None:
             return None
         ref_fid = ((cond.get("refs") or [{}])[0].get("fid") or "").upper()
-        if not yes and _is_own(ref_fid, name, own):
+        if not yes and (_is_own(ref_fid, name, own)
+                        or _is_own(ref_fid, PLAN_NAMES.get(ref_fid), own)):
             # The plan's own recipe -- the ordinary "a plan you know stops
             # showing up", which Technical already carries as a flag.
             return "Stops dropping once you learn it"
@@ -544,6 +548,12 @@ class ConditionIndex:
                 full = (row.get("CNAM_FULL") or "").strip()
                 if fid and full:
                     self.names[fid] = full
+                # The plan's own name too: a unique's recipe crafts the BASE
+                # weapon (co_Weapon_Melee_FaceBreaker -> "Power Fist"), so
+                # Face Breaker's own gate read "Only until you learn Power Fist".
+                m = re.match(r"^\s*(?:plan|recipe)\s*:\s*(.+)$", row.get("GNAM_FULL") or "", re.I)
+                if fid and m:
+                    PLAN_NAMES[fid] = m.group(1).strip()
 
     # -- the walk -----------------------------------------------------------
     def _paths(self, list_fid, target_fid, depth, seen):
