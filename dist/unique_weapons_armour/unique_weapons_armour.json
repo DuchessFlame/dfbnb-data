@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated": "2026-10-14T07:45:21Z",
+  "generated": "2026-10-14T08:32:41Z",
   "channel": "live",
   "count": 127,
   "counts": {
@@ -1686,9 +1686,9 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Not found in the game files",
-      "sourceType": "Unknown",
-      "sourceRef": "",
+      "howToObtain": "Event: Prize terminal (spend Mr. Fuzzy Tokens) — earned from Daily: Dross Toss, Daily: Lucky Mucker, Daily: Mistaken Identity, Daily: The Chow Line",
+      "sourceType": "Event",
+      "sourceRef": "Prize terminal (spend Mr. Fuzzy Tokens) — earned from Daily: Dross Toss, Daily: Lucky Mucker, Daily: Mistaken Identity, Daily: The Chow Line",
       "questName": "",
       "craftable": false,
       "planName": "",
@@ -1751,10 +1751,15 @@
         },
         {
           "route": "Events & Activities",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
+          "populated": true,
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Prize terminal (spend Mr. Fuzzy Tokens) — earned from Daily: Dross Toss, Daily: Lucky Mucker, Daily: Mistaken Identity, Daily: The Chow Line"
+          ],
+          "tradeable": true,
+          "dropRate": "N/A",
+          "conditions": [],
+          "conditionsChecked": true
         },
         {
           "route": "Quests",
@@ -2197,7 +2202,7 @@
           "tradeable": true,
           "dropRate": "N/A",
           "conditions": [],
-          "conditionsChecked": false
+          "conditionsChecked": true
         },
         {
           "route": "Gold Bullion",
@@ -2518,7 +2523,7 @@
           "tradeable": true,
           "dropRate": "N/A",
           "conditions": [],
-          "conditionsChecked": false
+          "conditionsChecked": true
         },
         {
           "route": "Gold Bullion",
@@ -2822,7 +2827,7 @@
           "tradeable": true,
           "dropRate": "N/A",
           "conditions": [],
-          "conditionsChecked": false
+          "conditionsChecked": true
         },
         {
           "route": "Gold Bullion",
@@ -2884,7 +2889,7 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Not found in the game files",
+      "howToObtain": "Craft: mod for the Cosmic Knife (Score: Season 22 Scoreboard / Vendor: Giuseppe (Expeditions vendor))",
       "sourceType": "Unknown",
       "sourceRef": "",
       "questName": "",
@@ -2914,17 +2919,28 @@
         },
         {
           "route": "Stamps",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
+          "populated": true,
+          "lines": [
+            "Drops: Mod — craft it onto the Cosmic Knife at a weapon workbench",
+            "Source: Giuseppe (Expeditions vendor)",
+            "Plan: Cosmic Knife"
+          ],
+          "tradeable": true,
+          "dropRate": "N/A",
+          "conditions": [],
+          "conditionsChecked": true
         },
         {
           "route": "Scoreboard",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
+          "populated": true,
+          "lines": [
+            "Drops: Mod — craft it onto the Cosmic Knife at a weapon workbench",
+            "Source: Season 22 Scoreboard"
+          ],
+          "tradeable": true,
+          "dropRate": "N/A",
+          "conditions": [],
+          "conditionsChecked": true
         },
         {
           "route": "Gold Bullion",
@@ -5134,8 +5150,10 @@
           ],
           "tradeable": true,
           "dropRate": "N/A",
-          "conditions": [],
-          "conditionsChecked": false
+          "conditions": [
+            "Only at Neighborly reputation with the Raiders or higher"
+          ],
+          "conditionsChecked": true
         },
         {
           "route": "Atom Shop",
@@ -6194,7 +6212,7 @@
           "tradeable": true,
           "dropRate": "N/A",
           "conditions": [],
-          "conditionsChecked": false
+          "conditionsChecked": true
         },
         {
           "route": "Gold Bullion",
@@ -6476,7 +6494,7 @@
           "tradeable": true,
           "dropRate": "N/A",
           "conditions": [],
-          "conditionsChecked": false
+          "conditionsChecked": true
         },
         {
           "route": "Gold Bullion",
@@ -6490,8 +6508,10 @@
           ],
           "tradeable": true,
           "dropRate": "N/A",
-          "conditions": [],
-          "conditionsChecked": false
+          "conditions": [
+            "Only at Ally reputation with the Raiders or higher"
+          ],
+          "conditionsChecked": true
         },
         {
           "route": "Atom Shop",
@@ -7637,7 +7657,7 @@
           "tradeable": true,
           "dropRate": "N/A",
           "conditions": [],
-          "conditionsChecked": false
+          "conditionsChecked": true
         },
         {
           "route": "Quests",
@@ -9178,7 +9198,7 @@
           "tradeable": null,
           "dropRate": "N/A",
           "conditions": [],
-          "conditionsChecked": false
+          "conditionsChecked": true
         },
         {
           "route": "Gold Bullion",
@@ -9190,8 +9210,10 @@
           ],
           "tradeable": null,
           "dropRate": "N/A",
-          "conditions": [],
-          "conditionsChecked": false
+          "conditions": [
+            "Only in the weeks the vendor has it in stock"
+          ],
+          "conditionsChecked": true
         },
         {
           "route": "Atom Shop",
@@ -9351,8 +9373,8 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Line in the Sand",
-            "Source: Daily: Heart of the Enemy",
             "Source: Activity: Distant Thunder",
+            "Source: Daily: Heart of the Enemy",
             "Source: Over and Out"
           ],
           "tradeable": true,
@@ -9565,7 +9587,7 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Quest: Duty Calls / Enemy drop: Pint-Sized Phantom Trespasser",
+      "howToObtain": "Quest: Duty Calls / Enemy drop: Pint-Sized Phantom Trespasser (only while The Slasher event is running)",
       "sourceType": "Quest",
       "sourceRef": "Duty Calls",
       "questName": "Duty Calls",
@@ -9668,7 +9690,7 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Enemy drop: Pint-Sized Phantom Trespasser"
+            "Source: Enemy drop: Pint-Sized Phantom Trespasser (only while The Slasher event is running)"
           ],
           "tradeable": true,
           "dropRate": "N/A",
@@ -10090,8 +10112,10 @@
           ],
           "tradeable": true,
           "dropRate": "N/A",
-          "conditions": [],
-          "conditionsChecked": false
+          "conditions": [
+            "Only at Ally reputation with the Raiders or higher"
+          ],
+          "conditionsChecked": true
         },
         {
           "route": "Atom Shop",
@@ -14643,10 +14667,10 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Line in the Sand",
-            "Source: Daily: Heart of the Enemy",
             "Source: Activity: Distant Thunder",
+            "Source: Daily: Heart of the Enemy",
             "Source: Mother of Invention",
-            "Source: Enemy drop: Pint-Sized Phantom Trespasser"
+            "Source: Enemy drop: Pint-Sized Phantom Trespasser (only while The Slasher event is running)"
           ],
           "tradeable": true,
           "dropRate": "N/A",
@@ -14717,7 +14741,7 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Quest: Field Testing / Enemy drop: Pint-Sized Phantom Trespasser",
+      "howToObtain": "Quest: Field Testing / Enemy drop: Pint-Sized Phantom Trespasser (only while The Slasher event is running)",
       "sourceType": "Quest",
       "sourceRef": "Field Testing",
       "questName": "Field Testing",
@@ -14785,7 +14809,7 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Enemy drop: Pint-Sized Phantom Trespasser"
+            "Source: Enemy drop: Pint-Sized Phantom Trespasser (only while The Slasher event is running)"
           ],
           "tradeable": true,
           "dropRate": "N/A",
@@ -15346,9 +15370,9 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Not found in the game files",
-      "sourceType": "Unknown",
-      "sourceRef": "",
+      "howToObtain": "Source: Atom Shop",
+      "sourceType": "Event",
+      "sourceRef": "Atom Shop",
       "questName": "",
       "craftable": false,
       "planName": "",
@@ -15393,10 +15417,15 @@
         },
         {
           "route": "Atom Shop",
-          "populated": false,
-          "lines": [],
+          "populated": true,
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Atom Shop"
+          ],
           "tradeable": null,
-          "dropRate": null
+          "dropRate": "N/A",
+          "conditions": [],
+          "conditionsChecked": true
         },
         {
           "route": "Limited Time Bundle",
@@ -15770,7 +15799,7 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Not found in the game files",
+      "howToObtain": "No source found in the game files",
       "sourceType": "Unknown",
       "sourceRef": "",
       "questName": "",
@@ -16544,7 +16573,7 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Quest: Bureau of Tourism / Event: Lode Baring",
+      "howToObtain": "Quest: Bureau of Tourism / Event: Prize terminal (spend Claim Tokens) — earned from Lode Baring / Event: Lode Baring",
       "sourceType": "Quest",
       "sourceRef": "Bureau of Tourism",
       "questName": "Bureau of Tourism",
@@ -16612,7 +16641,7 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made armour",
-            "Source: Lode Baring"
+            "Source: Prize terminal (spend Claim Tokens) — earned from Lode Baring"
           ],
           "tradeable": null,
           "dropRate": "N/A",

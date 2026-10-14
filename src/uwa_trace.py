@@ -49,6 +49,8 @@ ROUTES = ["Caps", "Stamps", "Scoreboard", "Gold Bullion", "Atom Shop",
 # Subject.HasKeyword(..., SDOW_ActorTypeSlasherFan [KYWD:...], ...) == 1
 _KW_GATE = re.compile(r"^Subject\.HasKeyword\([^,]*,[^,]*,\s*(\S+)\s+[^\[]*\[KYWD:[0-9A-Fa-f]{8}\]")
 _CODE = re.compile(r"^[A-Z][A-Z0-9]{1,5}$")
+# Subject.GetGlobalValue(..., LCP_SDOW_Slasher [GLOB:...], ...) — a content switch
+_LCP_GATE = re.compile(r"^Subject\.GetGlobalValue\([^,]*,[^,]*,\s*(LCP_\w+)\s*\[GLOB:")
 IMPLIED_KW = set()      # keyword EDIDs the NPC filter already applied
 
 
@@ -106,6 +108,7 @@ class Tracer:
         # roll the entry. The holder walk below drops the NPCs the gate rules
         # out, so Old Guard no longer lists every Infestation boss.
         self.edge_codes = defaultdict(set)   # (parent list, child) -> {content code}
+        self.edge_globs = defaultdict(set)   # (parent list, child) -> {LCP_ switch EDID}
         for r in self._rows("LVLI_Export_*_LVLI_Entries.tsv"):
             m = _REF.match((r.get("LVLO_Reference") or "").strip())
             if not m:
@@ -113,6 +116,9 @@ class Tracer:
             for k, v in r.items():
                 if not (k and k.startswith("Cond") and k[4:].isdigit()):
                     continue
+                g = _LCP_GATE.match((v or "").strip())
+                if g:
+                    self.edge_globs[(_f(r.get("LVLI_FormID")), _f(m.group(1)))].add(g.group(1))
                 c = _KW_GATE.match((v or "").strip())
                 if c:
                     code = c.group(1).split("_", 1)[0]
@@ -150,11 +156,28 @@ class Tracer:
             self.omod_edid[_f(r.get("OMOD_FormID"))] = (r.get("OMOD_EDID") or "").strip('"')
         # quests
         self.quest = {}
+        self.quest_by_edid = {}
         for pattern, col in (("QUEST_Export_*.tsv", "FULL - Name"), ("QUST2_Export_*_Quests.tsv", "FULL")):
             for r in self._rows(pattern):
                 t = plan_sources.tidy_quest_title(r.get(col) or "")
                 if t and plan_sources.usable_quest_name(t) and t.lower() != "none":
                     self.quest.setdefault(_f(r.get("FormID")), t)
+                    ed = (r.get("EDID") or r.get("EditorID") or "").strip().strip('"')
+                    if ed and not _DEAD.search(ed):
+                        self.quest_by_edid.setdefault(ed, t)
+        # Prize terminals: the currency you spend there is a MISC that names
+        # the terminal in its Refs and shares its content code
+        # (MTR04_MrFuzzyToken -> MTR04_RedeemSubTerminal at Camden Park).
+        self.term_currency = defaultdict(list)    # TERM edid -> [currency FULL]
+        for r in self._rows("MISC_Export_*.tsv"):
+            ed, full = (r.get("EDID") or "").strip('"'), (r.get("FULL") or "").strip().strip('"')
+            if not full or _DEAD.search(ed):
+                continue
+            for k, v in r.items():
+                m = _REF.match((v or "").strip()) if (k or "").startswith("Ref") else None
+                if m and m.group(3) == "TERM" and ed.split("_")[0] == m.group(2).split("_")[0] \
+                        and full not in self.term_currency[m.group(2)]:
+                    self.term_currency[m.group(2)].append(full)
         self.gmrw = {}
         for r in self._rows("GMRW_Export_*.tsv"):
             fid = _f(r.get("FormID"))
@@ -185,7 +208,17 @@ class Tracer:
         self.entm = defaultdict(list)
         for r in self._rows("ENTM_Export_*.tsv"):
             e = r.get("EDID") or ""
-            if _DEAD.search(e) or not re.search(r"_ENTM_(Weapons?|Armor|Armour)_", e, re.I):
+            if _DEAD.search(e):
+                continue
+            if re.search(r"_ENTM_Skin_WeaponModel_", e, re.I):
+                # A whole-weapon model sold as a "skin" whose name IS the item
+                # (ATX_ENTM_Skin_WeaponModel_Baton_AlienProbe = "The Invader").
+                # Matched on the exact FULL only — never on the EditorID tail.
+                for col in ("FULL", "FULL - Name"):
+                    if r.get(col):
+                        self.entm[_norm(r[col])].append(e)
+                continue
+            if not re.search(r"_ENTM_(Weapons?|Armor|Armour)_", e, re.I):
                 continue
             for col in ("FULL", "FULL - Name"):
                 if r.get(col):
@@ -257,15 +290,15 @@ class Tracer:
                     own.append((f, e))
                     starts.append(f)
         for rec in copy_records:
-            for lf in self.in_lists.get(_f(rec), ()):
+            for lf in sorted(self.in_lists.get(_f(rec), ())):
                 e = self.lvli_edid.get(lf, "")
                 if not _DEAD.search(e) and not _ROSTER.match(e) and lf not in starts:
                     own.append((lf, e))
                     starts.append(lf)
         holders, seen, keys = [], set(), set()
-        q = deque((f, 0, f, frozenset()) for f in starts)
+        q = deque((f, 0, f, frozenset(), frozenset()) for f in starts)
         while q:
-            fid, depth, via, codes = q.popleft()
+            fid, depth, via, codes, globs = q.popleft()
             if (fid, codes) in seen or depth > 14:
                 continue
             seen.add((fid, codes))
@@ -273,7 +306,8 @@ class Tracer:
                 if _ROSTER.match(red or "") or _DEAD.search(red or ""):
                     continue
                 if sig == "LVLI":
-                    q.append((rf, depth + 1, via, codes | self.edge_codes.get((rf, fid), set())))
+                    q.append((rf, depth + 1, via, codes | self.edge_codes.get((rf, fid), set()),
+                              globs | self.edge_globs.get((rf, fid), set())))
                     continue
                 if sig in ("WEAP", "ARMO", "OMOD", "KYWD", "COBJ", "LVLN", "PERK"):
                     continue
@@ -283,8 +317,30 @@ class Tracer:
                     continue
                 keys.add((sig, rf))
                 holders.append({"sig": sig, "fid": rf, "edid": red, "depth": depth,
-                                "list": fid, "own": via})
+                                "list": fid, "own": via, "globs": sorted(globs)})
         return own, holders
+
+    def event_switch(self, glob):
+        """'Only while The Slasher event is running' for LCP_SDOW_Slasher.
+
+        An LCP_<code>_<word> switch whose word is in the name of the content
+        the code belongs to. The name is the code's quest family: the stem
+        before ":" that most of its quests share ("The Slasher: Masked Truth").
+        Feature switches (LCP_SDOW_LTC_InfestationToggle) do not name the
+        content and say nothing."""
+        parts = glob.split("_")
+        if len(parts) < 3:
+            return None
+        code, word = parts[1], parts[2]
+        stems = [t.split(":", 1)[0].strip() for e, t in self.quest_by_edid.items()
+                 if e.split("_")[0] == code and ":" in t]
+        if not stems:
+            return None
+        stem, n = max(((x, stems.count(x)) for x in set(stems)), key=lambda z: (z[1], z[0]))
+        if n < 2 or n * 2 < len(stems) or _norm(word) not in _norm(stem):
+            return None
+        return f"Only while the {stem} event is running" if not stem.lower().startswith("the ") \
+            else f"Only while {stem} event is running"
 
     # --------------------------------------------------------------- label
     def quest_route(self, title):
@@ -367,6 +423,17 @@ class Tracer:
                 return "Events & Activities", "Bounty hunt target"
             if sig == "LGDI":
                 return "Events & Activities", "Legendary enemy drop"
+        elif sig == "TERM" and self.term_currency.get(edid):
+            # "Spend Mr. Fuzzy Tokens at the Camden Park prize terminal" — the
+            # tokens come from the dailies that share the terminal's code.
+            code = edid.split("_")[0]
+            qs = sorted({re.sub(r"^\s*(?:Public\s+)?Event\s*:\s*", "", t)
+                         for e, t in self.quest_by_edid.items() if e.split("_")[0] == code})
+            cur = " / ".join(self.term_currency[edid])
+            lab = f"Prize terminal (spend {cur}s)"
+            if qs:
+                lab += " — earned from " + ", ".join(qs)
+            return "Events & Activities", lab
         # Last resort for records that name a place or a machine: the quest the
         # record's content code belongs to, then the shared plan-page naming.
         if sig in ("QUST", "CONT", "ACTI", "TERM", "MGEF"):
@@ -431,6 +498,12 @@ def apply(items, tracer, names=None, obtain_idx=None, hand_only=(), log=print):
             route, lab = tracer.label(h, obtain_idx, it.get("name", ""))
             if not route:
                 continue
+            # A content switch on the way in ("Only while The Slasher event is
+            # running") goes on the source line itself: a route's conditions are
+            # shared by every source in it, and Line in the Sand is not gated.
+            evs = sorted({e for e in (tracer.event_switch(g) for g in h.get("globs") or ()) if e})
+            if evs:
+                lab = f"{lab} ({'; '.join(e[0].lower() + e[1:] for e in evs)})"
             if lab.startswith("Enemy drop: "):
                 groups[h["list"]].append((lab[12:], [h["list"], h["own"]]))
                 continue
@@ -482,6 +555,14 @@ def apply(items, tracer, names=None, obtain_idx=None, hand_only=(), log=print):
         for route, lab, path in found:
             core = re.sub(r"^(activity|event)\s*:\s*|^raids?\s*-\s*", "", lab.lower())
             if lab.lower() in shown or core in shown:
+                # Already on the page from another step, maybe with no list
+                # behind it (Luca's Switchblade: "Beasts of Burden"). This
+                # holder IS the list, so its conditions can be read.
+                if path:
+                    for x in routes:
+                        if x.get("populated") and not x.get("paths") and any(
+                                core in l.lower() for l in x["lines"] if l.startswith("Source:")):
+                            x["paths"] = [path]
                 continue
             r = next(x for x in routes if x["route"] == route)
             if not r.get("populated"):

@@ -952,7 +952,7 @@ def _event_lists(channel):
                 for q in sorted(reward_of.get(ed, ())):
                     if (q, ed) not in out:
                         out.append((q, ed))
-                for p in parents.get(ed, ()):
+                for p in sorted(parents.get(ed, ())):   # sets: fixed order between builds
                     if p in seen or _DEAD_LIST.search(p) or _SKIP_PARENT.match(p):
                         continue
                     seen.add(p)
@@ -967,7 +967,7 @@ def _event_lists(channel):
                 for q in sorted(reward_of.get(ed, ())):
                     if q not in out:
                         out.append(q)
-                for p in parents.get(ed, ()):
+                for p in sorted(parents.get(ed, ())):   # sets: fixed order between builds
                     if p in seen or _DEAD_LIST.search(p) or _SKIP_PARENT.match(p):
                         continue
                     seen.add(p)
@@ -1087,6 +1087,52 @@ def report_source_changes(out_path, output):
               "not reach further than meant before pushing.")
 
 
+def craft_mod_routes(items, channel):
+    """A unique that is a MOD you craft onto another unique gets that item's routes.
+
+    Cosmic Knife Super-Heated is mod_custom_CosmicKnife_Superheated, made at a
+    weapon workbench by co_Weapon_Melee_CombatKnife_CosmicKnife_Superheated.
+    Its COBJ2 conditions say who can craft it: HasEntitlement(SCORE_S22_ENTM_
+    Weapons_CosmicKnife "Cosmic Knife") or HasLearnedRecipe(the Cosmic Knife
+    plan's recipe). So the way to get it is the way to get the Cosmic Knife.
+    Only items with no route of their own are touched."""
+    cobj2 = pick("COBJ2_Export_*.tsv", channel)
+    if not cobj2:
+        return
+    by_cnam = defaultdict(list)
+    for r in read_tsv(cobj2):
+        by_cnam[norm_formid(r.get("CNAM_FormID", "")).upper()].append(r.get("Conditions") or "")
+    by_name = {norm_name(i.get("name")): i for i in items}
+    done = []
+    for it in items:
+        if any(r.get("populated") for r in it.get("obtainRoutes") or []):
+            continue
+        parents = []
+        for m in it.get("uniqueMods") or []:
+            if m.get("kind") != "unique":
+                continue
+            for cond in by_cnam.get((m.get("formId") or "").upper(), []):
+                for full in re.findall(r'HasEntitlement\|[^|]*\|[^|]*\|\S+\s+"+([^"]+)"+\s*\[ENTM:', cond):
+                    par = by_name.get(norm_name(full))
+                    if par and par is not it and par not in parents:
+                        parents.append(par)
+        for par in parents:
+            for src_r in par.get("obtainRoutes") or []:
+                if not src_r.get("populated"):
+                    continue
+                dst = next(x for x in it["obtainRoutes"] if x["route"] == src_r["route"])
+                lines = [f"Drops: Mod — craft it onto the {par['name']} at a weapon workbench"]
+                lines += [l for l in src_r["lines"] if not l.startswith("Drops:")]
+                dst.update({"populated": True, "lines": lines,
+                            "tradeable": src_r.get("tradeable"), "dropRate": src_r.get("dropRate")})
+                if src_r.get("paths"):
+                    dst["paths"] = list(src_r["paths"])
+            it["howToObtain"] = f"Craft: mod for the {par['name']} (" + par.get("howToObtain", "") + ")"
+            done.append(it["name"])
+    if done:
+        print(f"  crafted-mod uniques given their item's routes: {done}")
+
+
 def attach_conditions(items, channel):
     """Drop Conditions for every unique's live How to Obtain routes.
 
@@ -1129,6 +1175,21 @@ def attach_conditions(items, channel):
                 r["conditions"], r["conditionsChecked"] = [], True
                 continue
             lines, skipped, checked = [], 0, False
+            if r.get("route") in ("Scoreboard", "Atom Shop") and not paths:
+                # Claimed straight off the board / bought from the shop: no
+                # leveled list, so no drop gate exists to read. That is a
+                # checked "None", not a "Not checked".
+                checked = True
+            for rl in r.get("lines") or []:
+                # Gold Bullion vendors: the reputation the vendor needs is
+                # the gate (gold_vendor.py reads it from the files).
+                m = re.match(r"^Reputation:\s*(.+?)\s+\u2014\s+(.+)$", rl)
+                if m:
+                    lines.append(f"Only at {m.group(2)} reputation with the {m.group(1)} or higher")
+                    checked = True
+                if re.search(r"rotating stock", rl, re.I):
+                    lines.append("Only in the weeks the vendor has it in stock")
+                    checked = True
             for list_fid, target in paths:
                 if not list_fid:
                     checked = True          # handed over directly: no list gate
@@ -1644,6 +1705,14 @@ def build_channel(channel, dist_dir):
     uwa_names.apply(all_items, uwa_names.Names(_pk))
     uwa_trace.apply(all_items, uwa_trace.Tracer(_pk, read_tsv), uwa_names.Names(_pk),
                     obtain_idx, getattr(obtain_idx, "hand_only", ()))
+    craft_mod_routes(all_items, channel)
+    for _it in all_items:
+        # A summary with nothing behind it would send readers somewhere the
+        # files never say (The Pipe kept "Event: Monster Mash", inherited from
+        # the plain Pipe Gun pool).
+        if not any(r.get("populated") for r in _it.get("obtainRoutes") or []):
+            _it["howToObtain"] = "No source found in the game files"
+            _it["sourceType"], _it["sourceRef"], _it["questName"] = "Unknown", "", ""
     uwa_obtain.merge_package_lines(all_items)
     attach_conditions(all_items, channel)
     uwa_images.attach(all_items)   # pictures by name, from the server listing

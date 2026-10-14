@@ -485,7 +485,7 @@ class ObtainIndex:
         nothing; its parent NPC record says Quack Doctor)."""
         route, label = self._classify(list_edid)
         if not route:
-            for parent in self.parents.get(list_fid, ()):
+            for parent in sorted(self.parents.get(list_fid, ())):
                 route, label = self._classify(parent)
                 if route:
                     list_edid = parent
@@ -547,6 +547,8 @@ class ObtainIndex:
                 out.append((route, vlab, what, list_fid, fid))
                 continue
             route, label, shown = self._source_label(list_fid, list_edid)
+            if route == "Challenges" and not label and re.search(r"ChallengeReward", shown or "", re.I):
+                label = self._challenge_name(shown)
             pk = self._packages(list_fid) if route == "Events & Activities" else []
             if pk:
                 label = "Opening a " + PK_SEP.join(pk)
@@ -554,6 +556,17 @@ class ObtainIndex:
                 continue
             out.append((route, label or self._pretty(shown), what, list_fid, fid))
         return out
+
+    def _challenge_name(self, ed):
+        """The challenge's own title, or — when its CHAL is not in the export
+        yet (RTSV_ChallengeReward_Challenge_Lifetime_Brain_1 on PTS) — the
+        kind of challenge it is. Never the EditorID."""
+        ed = (ed or "").split(":")[0]
+        if self.reward_chal.get(ed):
+            return self.reward_chal[ed]
+        kind = re.search(r"Challenge_(Lifetime|Daily|Weekly|Seasonal|Event)", ed, re.I)
+        return ((kind.group(1).title() + " challenge") if kind else "Challenge") \
+            + " (name not in the game files yet)"
 
     def _reward_lines(self, fid, what):
         out = []
@@ -566,6 +579,8 @@ class ObtainIndex:
                 route = "Quests"
             # The quest's own name can say it is an event ("Event: A Feast Fit
             # for a King", QDLBarbara_Lesson06): file it there, name it once.
+            if route == "Challenges" and not (quest or label):
+                quest = self._challenge_name(ed)
             shown = quest or label or self._pretty(ed)
             if re.match(r"^\s*Event:\s*", shown or ""):
                 route, quest = "Events & Activities", re.sub(r"^\s*Event:\s*", "", shown)
