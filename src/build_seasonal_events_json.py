@@ -2087,7 +2087,14 @@ def _ot_classify(mod_ref):
     edid = re.split(r'["\[]', s)[0].strip()
     edid_lower = edid.lower()
     label = None
-    for kw, lab in _OT_SLOT_LABELS:
+    # A rolled star (modcol_Legendary_Crafting_Weapon2 "Random Legendary Mod")
+    # sits on the legendary attach point named by its trailing digit
+    # (ap_Legendary1/2/3 in the OMOD export), so it is labelled with that
+    # star, not as a loose "Mod". See style-guide -> Legendary Stat Block.
+    _rs = re.search(r"legendary_crafting_(?:weapon|armor|powerarmor)(\d)", edid_lower)
+    if _rs:
+        label = "{}\u2605 Legendary".format(_rs.group(1))
+    for kw, lab in (_OT_SLOT_LABELS if not label else ()):
         if kw in edid_lower:
             label = lab
             break
@@ -2194,8 +2201,9 @@ def _resolve_mod_slots(fid, sig):
     def legendary_count(refs):
         n = 0
         for ref in refs:
-            lab, _, _ = _ot_classify(ref)
-            if lab and "Legendary" in lab:
+            lab, _, edl = _ot_classify(ref)
+            # rolled stars (legendary_crafting_*) never decide the preset
+            if lab and "Legendary" in lab and "legendary_crafting_" not in edl:
                 n += 1
         return n
 
