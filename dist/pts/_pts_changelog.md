@@ -1547,7 +1547,7 @@ _Couldn't key this file to records; contents differ._
 ## `legendary_mods.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `make_plan_checklist.json`  ·  +305 / -24 / ~115
+## `make_plan_checklist.json`  ·  +305 / -24 / ~171
 
 **Added (305)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1618,7 +1618,7 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (115)**
+**Changed (171)**
 - Plan: Single-Action Revolver Forceful Grip  `PLAN_0052A699` — fields: name
 - Plan: Auto Axe Burning Mod  `PLAN_00591903` — fields: routes
 - Plan: Auto Axe Electrified Mod  `PLAN_00591904` — fields: routes
@@ -1659,7 +1659,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Union Blood Cleanser  `PLAN_0064B944` — fields: routes
 - Plan: Cupid Cappy Sign  `PLAN_0065DD0A` — fields: routes
 - Plan: Tunnel of Love Snow Globe  `PLAN_0067F169` — fields: routes
-- …and 75 more
+- …and 131 more
 
 ## `meat.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1804,7 +1804,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +305 / -108 / ~1286
+## `plan_master.json`  ·  +305 / -108 / ~1341
 
 **Added (305)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1892,7 +1892,7 @@ _Couldn't key this file to records; contents differ._
 - Cursed Broadsider  `UNIQ_CURSED_BROADSIDER`
 - …and 68 more
 
-**Changed (1286)**
+**Changed (1341)**
 - Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images
 - Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images
 - MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images
@@ -1933,7 +1933,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Lead Lined Combat Armor Chest  `PLAN_000224FC` — fields: obtain_ledger, obtain_routes, retired_routes
 - Plan: BoS Combat Armor Chest Piece  `PLAN_000224FD` — fields: obtain_ledger, obtain_routes
 - Plan: Cushioned Combat Armor Legs  `PLAN_00022E98` — fields: obtain_ledger, obtain_routes, retired_routes
-- …and 1246 more
+- …and 1301 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
