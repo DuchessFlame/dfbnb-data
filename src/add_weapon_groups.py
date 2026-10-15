@@ -712,6 +712,8 @@ def tidy_images(weapons):
 # the plain Shovel in game). Picture stems only, never a source.
 ROOT_IMAGE_ALIAS = {
     "Shovel": "cursed-shovel",
+    "Grant's Saber": "chinese-officer-sword",     # same look (uwa_images SAME_LOOK_AS_BASE)
+    "Black Powder Blunderbuss": "pirate-punch",   # Pirate Punch is the Blunderbuss
 }
 
 

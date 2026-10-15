@@ -36,8 +36,8 @@ URL_ROOT = "/wp-content/uploads/"
 NAME_ALIAS = {
     "Gunthers Revolver": "gunther-s-paint",
     "Slasher Axe": "sdow_mod_custom_slasheraxe_appearance",
-    # The wiki shows Zeta's Revenge as the Alien Blaster in its Steel skin.
-    "Zeta's Revenge": "guide-images/atom-shop/request-item-images/ATX_Skin_WeaponSkin_AlienBlaster_Steel.avif",
+    # Zeta's Revenge: its own zetas-revenge.avif (Duchess, 15 Oct 2026) replaced
+    # the Atom Shop advert that stood in for it.
 }
 
 SAME_LOOK_AS_BASE = {
