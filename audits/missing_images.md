@@ -1,14 +1,14 @@
 # Missing images
 
-Every item on a reward page with no picture anywhere: not in the shared library, not in its own event folder, not on any other page. Built 2026-10-10 from the server listing of 2026-10-10T12:50:27Z.
+Every item on a reward page with no picture anywhere: not in the shared library, not in its own event folder, not on any other page. Built 2026-10-15 from the server listing of 2026-10-15T08:18:53Z.
 
-**3343 items have no picture on the server**: 406 are already on your computer and just need uploading, 2937 need art found (7163 rows - the same item can appear on several pages; one upload fixes every page it is on).
+**3272 items have no picture on the server**: 333 are already on your computer and just need uploading, 2939 need art found (7155 rows - the same item can appear on several pages; one upload fixes every page it is on).
 
 Upload each file to the folder shown, named exactly as shown. Outfits: the folded item-only render is the `_go` file; a mannequin view, if you have one, is `<FormID>_c1.avif` beside it. Never upload a mannequin-only picture as the main image.
 
 Titles are not listed - they show the blank name tag until their art is uploaded (see `dist/titles/title_art_missing.json`). Weapon mod plans are not listed - they use the mod box.
 
-# Upload what you already have (280 files)
+# Upload what you already have (206 files)
 
 These pictures are in your local `.Plan Checklist` staging folder but are NOT on the server, so the pages that use them have been showing a broken image. Upload them as they are (same names) into the folder shown, then re-run the listing.
 
@@ -226,89 +226,15 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 
 **`wp-content/uploads/guide-images/plan-checklist/weapons/`**
 
-- `atx__skin_weaponmodel_gatlinggun_lightemup_l.avif`
-- `atx__skin_weaponskin_gatlinggun_plusinterest_l.avif`
-- `atx__skin_weaponskin_gatlingplasma__flatwoodsgatling_l.avif`
-- `atx_entm_skin_weaponskin_chainsaw_grinder_l.avif`
-- `atx_entm_skin_weaponskin_doublebarrelshotgun_doubledunk_l.avif`
-- `atx_entm_skin_weaponskin_doublebarrelshotgun_freestates_l.avif`
-- `atx_entm_skin_weaponskin_doublebarrelshotgun_shotgunwedding_l.avif`
-- `atx_entm_skin_weaponskin_gatlingplasma_patriotic_l.avif`
-- `atx_skin_fixer_huntingrifle_communistthreat_l.avif`
-- `atx_skin_weaponmodel_baseballbat_firehydrantbat_l.avif`
-- `atx_skin_weaponmodel_baseballbat_wifflebat_l.avif`
-- `atx_skin_weaponmodel_bow_cavehunter_l.avif`
-- `atx_skin_weaponmodel_brandingironraider_l.avif`
-- `atx_skin_weaponmodel_deathtambo_bonetambo_l.avif`
-- `atx_skin_weaponmodel_deathtambo_jinglebell_l.avif`
-- `atx_skin_weaponmodel_grognakaxe_greloksorcererstaff_l.avif`
-- `atx_skin_weaponmodel_handmadegun_lightemup_l.avif`
-- `atx_skin_weaponmodel_handmadegun_screamingeagle_freestates_l.avif`
-- `atx_skin_weaponmodel_knife_blackdagger_l.avif`
-- `atx_skin_weaponmodel_knife_combatdagger_l.avif`
-- `atx_skin_weaponmodel_knife_golddagger_l.avif`
-- `atx_skin_weaponmodel_knife_tacticaldagger_l.avif`
-- `atx_skin_weaponmodel_pumpactionshotgun_lightemup_l.avif`
-- `atx_skin_weaponmodel_pumpshotgun_redrocketshotgun_l.avif`
-- `atx_skin_weaponmodel_sledgehammer_croquet_l.avif`
-- `atx_skin_weaponmodel_walkingcane_candycane_l.avif`
-- `atx_skin_weaponskin_10mm_freestates_l.avif`
-- `atx_skin_weaponskin_10mm_tricentennial_l.avif`
-- `atx_skin_weaponskin_10mmsmg_freestates_l.avif`
-- `atx_skin_weaponskin_44_gold_l.avif`
-- `atx_skin_weaponskin_alienrifle_flatwoodsmonster_l.avif`
-- `atx_skin_weaponskin_assaultrifle_untilparted_l.avif`
-- `atx_skin_weaponskin_blackpowder_flintlock_l.avif`
-- `atx_skin_weaponskin_blackpowder_handcarved_l.avif`
-- `atx_skin_weaponskin_blackpowder_rifle_pioneer_l.avif`
-- `atx_skin_weaponskin_bosrocketlauncher_armorace_l.avif`
-- `atx_skin_weaponskin_broadsider_stinger_l.avif`
-- `atx_skin_weaponskin_coldshoulder_coldblooded_l.avif`
-- `atx_skin_weaponskin_crusaderpistol_redsteel_l.avif`
-- `atx_skin_weaponskin_cryolator_softserve_l.avif`
-- `atx_skin_weaponskin_fireaxe_serviceaward_l.avif`
-- `atx_skin_weaponskin_fireaxe_survival_l.avif`
-- `atx_skin_weaponskin_fireaxe_yellow_l.avif`
-- `atx_skin_weaponskin_flamer_firehazard_l.avif`
-- `atx_skin_weaponskin_flamer_flame-ingo_l.avif`
-- `atx_skin_weaponskin_flamer_snowblower_l.avif`
-- `atx_skin_weaponskin_flamer_vaulttec_l.avif`
-- `atx_skin_weaponskin_gaussminigun_tickledpink_l.avif`
-- `atx_skin_weaponskin_handmadegun_enclave_l.avif`
-- `atx_skin_weaponskin_handmadegun_goldandblack_l.avif`
-- `atx_skin_weaponskin_handmadegun_r91_l.avif`
-- `atx_skin_weaponskin_handmadegun_raider_l.avif`
-- `atx_skin_weaponskin_handmadegun_silver_l.avif`
-- `atx_skin_weaponskin_hatchet_tricentennial_l.avif`
-- `atx_skin_weaponskin_huntingrifle_camo_l.avif`
-- `atx_skin_weaponskin_huntingrifle_director_l.avif`
-- `atx_skin_weaponskin_huntingrifle_nukaquantum_l.avif`
-- `atx_skin_weaponskin_laser_tricentennial_l.avif`
-- `atx_skin_weaponskin_levergun_blueridge_l.avif`
-- `atx_skin_weaponskin_levergun_nukacolaquantumburst_l.avif`
-- `atx_skin_weaponskin_levergun_pioneer_l.avif`
-- `atx_skin_weaponskin_levergun_quantumburst_v2_l.avif`
-- `atx_skin_weaponskin_levergun_starlet_l.avif`
-- `atx_skin_weaponskin_levergun_woodinlay_l.avif`
-- `atx_skin_weaponskin_mg42_enclave_l.avif`
-- `atx_skin_weaponskin_minigun_fillemup_l.avif`
-- `atx_skin_weaponskin_moleminergauntlet_candycane_l.avif`
-- `atx_skin_weaponskin_peppershaker_luckypiece_l.avif`
-- `atx_skin_weaponskin_pickaxe_flame_l.avif`
-- `atx_skin_weaponskin_pickaxe_gilded_l.avif`
-- `atx_skin_weaponskin_pickaxe_modern_l.avif`
-- `atx_skin_weaponskin_pickaxe_shark_l.avif`
-- `atx_skin_weaponskin_plasmacasterrifle_softserve_l.avif`
-- `atx_skin_weaponskin_pumpactionshotgun_firstresp_l.avif`
-- `atx_skin_weaponskin_pumpactionshotgun_nukadark_l.avif`
-- `atx_skin_weaponskin_pumpactionshotgun_tactical_l.avif`
-- `atx_skin_weaponskin_railwayrifle_cowpunch_l.avif`
-- `atx_skin_weaponskin_supersledge_blackbird_l.avif`
-- `atx_skin_weaponskin_teslarifle_freedomforge_l.avif`
-- `atx_weaponmodel_machete_pintsizedslasher_l.avif`
+- `44-revolver.avif`
+- `handmade-gun.avif`
+- `laser-gun.avif`
+- `lever-gun.avif`
+- `mg42-light-machine-gun.avif`
 - `plasma-gun.avif`
-- `score_s15_valentines_skin_weaponskin_flamer_hotrodpink_l.avif`
-- `v63-zweihaender.avif`
+- `railway-rifle.avif`
+- `revolutionary-war-sword.avif`
+- `tesla-rifle.avif`
 
 ---
 
@@ -1628,95 +1554,48 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Vault Suit Underarmor Style | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `0089D6BD.avif` |
 | Plan: Vault Tec University Jumpsuit *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `vault-tec-university-jumpsuit.avif` |
 
-## Plan Checklists - Weapons (152)
+## Plan Checklists - Weapons (81)
 
 | Item | Upload to | File name |
 |---|---|---|
-| .44 Gold Paint *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_44_gold_l.avif` |
 | Ad Victoriam | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00872E82.avif` |
-| Armor Ace Paint (Hellstorm Missile Launcher) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_bosrocketlauncher_armorace_l.avif` |
 | Army Issue Paint (Shotgun) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `0062CBA0.avif` |
 | Battle Scar Paint (Gatling Plasma) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `006C4EC2.avif` |
 | Birthday Paint (Rolling Pin) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `006F6C70.avif` |
-| Black Combat Dagger (Combat Knife Skin) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponmodel_knife_blackdagger_l.avif` |
-| Blackbird Paint (Super Sledge) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_supersledge_blackbird_l.avif` |
-| Blue Ridge Paint (Lever Action Rifle) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_levergun_blueridge_l.avif` |
 | Bone Asher Flamer Skin | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `006612BA.avif` |
-| Boney Tambo Skin (Death Tambo) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponmodel_deathtambo_bonetambo_l.avif` |
 | BoS Shock Trooper Paint (Gauss Rifle) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `008F478E.avif` |
 | Brotherhood of Steel Paint (Tesla Rifle) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00685D71.avif` |
-| Camouflage Hunting Rifle Paint *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_huntingrifle_camo_l.avif` |
-| Candy Cane Skin (Walking Cane) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponmodel_walkingcane_candycane_l.avif` |
-| Candy Claws Paint (Mole Miner Gauntlet) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_moleminergauntlet_candycane_l.avif` |
 | Cold Steel Paint (Combat Rifle + Fixer) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `008599F5.avif` |
 | Cold Steel Paint (Combat Shotgun) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `008599F6.avif` |
-| Cold-Blooded *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_coldshoulder_coldblooded_l.avif` |
-| Combat Dagger (Combat Knife Skin) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponmodel_knife_combatdagger_l.avif` |
+| Commander's Charge *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `revolutionary-war-sword.avif` |
 | Communist Carbine Paint (V63 Laser Carbine) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `007DC628.avif` |
-| Communist Threat Paint (Combat Rifle) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_fixer_huntingrifle_communistthreat_l.avif` |
-| Cowpunch Paint (Railway Rifle) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_railwayrifle_cowpunch_l.avif` |
-| Croquet Mallet Skin (Sledgehammer) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponmodel_sledgehammer_croquet_l.avif` |
-| Deep Cave Hunter Skin (Bow) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponmodel_bow_cavehunter_l.avif` |
-| Double Dunk Paint (Double-Barrel Shotgun) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_entm_skin_weaponskin_doublebarrelshotgun_doubledunk_l.avif` |
 | Dragonclaw Gauntlet (Deathclaw Gauntlet) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00857005.avif` |
-| Enclave Light Machine Gun Paint *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_mg42_enclave_l.avif` |
 | Enclave Paint (Cauterizer) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `007A747A.avif` |
 | Enclave Paint (Pump Action Shotgun) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `0066F21F.avif` |
 | Enclave Sigma Squad Paint (Tesla Rifle) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `008D3192.avif` |
 | Epsilon Squad Paint (Plasma Caster) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `0079A0C8.avif` |
 | Fanatic Paint (10mm SMG) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00664EB4.avif` |
-| Fill 'Em Up Paint (Minigun) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_minigun_fillemup_l.avif` |
-| Fire Hazard Paint (Flamer) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_flamer_firehazard_l.avif` |
-| Fire Hydrant Bat Paint (Baseball Bat) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponmodel_baseballbat_firehydrantbat_l.avif` |
-| First Responders (Pump Action Shotgun) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_pumpactionshotgun_firstresp_l.avif` |
 | First Response Paint (Combat Rifle + Fixer) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `0083E793.avif` |
-| Flame Paint (Pickaxe) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_pickaxe_flame_l.avif` |
-| Flame-ingo Paint (Flamer) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_flamer_flame-ingo_l.avif` |
-| Flatwoods Monster Paint *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_alienrifle_flatwoodsmonster_l.avif` |
-| Flatwoods Paint (Gatling Plasma) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx__skin_weaponskin_gatlingplasma__flatwoodsgatling_l.avif` |
-| Flintlock Skin (Black Powder Rifle) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_blackpowder_flintlock_l.avif` |
 | Free States Gauss Minigun Paint | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00692CCF.avif` |
-| Free States Paint (10mm Submachine Gun) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_10mmsmg_freestates_l.avif` |
-| Free States Paint (10mm) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_10mm_freestates_l.avif` |
 | Free States Paint (Dom Pedro) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `0086272A.avif` |
-| Free States Paint (Double-Barrel Shotgun) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_entm_skin_weaponskin_doublebarrelshotgun_freestates_l.avif` |
-| Freedom Forge Paint (Tesla Rifle) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_teslarifle_freedomforge_l.avif` |
 | Freeze-Aid Paint (Cryolator) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `008571F8.avif` |
-| Frostbite Paint (Flamer) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_flamer_snowblower_l.avif` |
-| Gilded Paint (Pickaxe) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_pickaxe_gilded_l.avif` |
-| Gold Combat Dagger (Combat Knife Skin) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponmodel_knife_golddagger_l.avif` |
-| Gold Paint (Handmade Rifle) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_handmadegun_goldandblack_l.avif` |
-| Grelok Sorcerer Staff (Grognak's Axe) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponmodel_grognakaxe_greloksorcererstaff_l.avif` |
-| Grinder Paint (Chainsaw) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_entm_skin_weaponskin_chainsaw_grinder_l.avif` |
+| Grant's Saber | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00357FBD.avif` |
 | Halloween Paint (Chainsaw) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `0066F232.avif` |
 | Halloween Paint (Cremator) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `0078DB17.avif` |
-| Hand Carved Skin (Black Powder Rifle) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_blackpowder_handcarved_l.avif` |
 | Heart Wrencher (Pipe Wrench) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `005F86D8.avif` |
 | Hellfire Hazard Flamer Skin | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `006612B9.avif` |
-| Hot Rod Pink Paint (Flamer) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `score_s15_valentines_skin_weaponskin_flamer_hotrodpink_l.avif` |
 | Hunter's Camo Paint (Combat Rifle + Fixer) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `008B0D61.avif` |
 | Independence Paint (Sword) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `006A915A.avif` |
 | Jackhammer Drill (Chainsaw) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00677BCB.avif` |
 | Lawbringer | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `008599F7.avif` |
-| Light 'Em Up Paint  (Pump Action Shotgun) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponmodel_pumpactionshotgun_lightemup_l.avif` |
 | Light 'Em Up Paint (Cremator) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `007A7E86.avif` |
-| Light 'Em Up Paint (Gatling Gun) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx__skin_weaponmodel_gatlinggun_lightemup_l.avif` |
 | Light 'Em Up Paint (Gatling Plasma) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00781844.avif` |
-| Light 'Em Up Paint (Handmade Rifle) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponmodel_handmadegun_lightemup_l.avif` |
 | Lincoln's Repeater Paint (Lever Action Rifle) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `0066F22F.avif` |
-| Lucky Piece Paint (Pepper Shaker) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_peppershaker_luckypiece_l.avif` |
-| Modern Paint (Pickaxe) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_pickaxe_modern_l.avif` |
+| Medical Malpractice *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Nuka Victory Paint (Thirst Zapper) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `008B22F3.avif` |
 | Nuka-Cola Paint (Combat + Fixer) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `006873B3.avif` |
-| Nuka-Cola Quantum Paint (Lever Action Rifle) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_levergun_nukacolaquantumburst_l.avif` |
-| Nuka-Dark Paint (Pump Action Shotgun) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_pumpactionshotgun_nukadark_l.avif` |
-| Nuka-Quantum Paint (Hunting Rifle) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_huntingrifle_nukaquantum_l.avif` |
 | Off The Record (Power Fist) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `008B80FA.avif` |
 | Patriotic M79 Paint | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00808284.avif` |
-| Patriotic Paint (Gatling Plasma) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_entm_skin_weaponskin_gatlingplasma_patriotic_l.avif` |
-| Pint-Sized Slasher Knife Skin (Machete) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_weaponmodel_machete_pintsizedslasher_l.avif` |
-| Pioneer Scout Black Powder Rifle Paint *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_blackpowder_rifle_pioneer_l.avif` |
-| Pioneer Scout Lever Action Rifle Paint *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_levergun_pioneer_l.avif` |
 | Plan: 10mm SMG Arctic Paint | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00751EC6.avif` |
 | Plan: Blue Flamer *(cut)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00693D37.avif` |
 | Plan: Branding Iron Shishkebab Paint *(cut)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00691D46.avif` |
@@ -1735,55 +1614,31 @@ These pictures are in your local `.Plan Checklist` staging folder but are NOT on
 | Plan: Tillberg's Tornado *(cut)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00691D12.avif` |
 | Plan: Tillberg's Tornado *(cut)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00692562.avif` |
 | Plan: War Shrike | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `007D3AF4.avif` |
-| Plus Interest Paint (Gatling Gun) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx__skin_weaponskin_gatlinggun_plusinterest_l.avif` |
 | Pumpkin Smasher Paint (Assault Rifle) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `006E1DF3.avif` |
-| Quantum Burst Paint (Lever Action Rifle) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_levergun_quantumburst_v2_l.avif` |
-| R91 Skin (Handmade Rifle) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_handmadegun_r91_l.avif` |
-| Raider Branding Iron Skin (Fire Axe) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponmodel_brandingironraider_l.avif` |
 | Raider Paint (Railway Rifle) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `0091EEA1.avif` |
 | Reaper Paint (Gatling Laser) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00787F82.avif` |
 | Reaper Paint (Gatling Laser) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00841336.avif` |
 | Red Rocket Paint (The Dragon) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00664EB3.avif` |
-| Red Steel Crusader Pistol Paint *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_crusaderpistol_redsteel_l.avif` |
+| Red Terror *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `mg42-light-machine-gun.avif` |
 | Redd-Upper (Auto Axe) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00668705.avif` |
 | Roasting Stick | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `0078C7CB.avif` |
+| Rose's Syringer | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `003E1331.avif` |
 | Rust Riddler Paint (.50 Cal Machine Gun) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `0089AD96.avif` |
-| Scabber Paint (Handmade Rifle) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_handmadegun_raider_l.avif` |
-| Screaming Eagle Enclave (Handmade Rifle) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_handmadegun_enclave_l.avif` |
-| Screaming Eagle Free States Skin (Handmade Rifle) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponmodel_handmadegun_screamingeagle_freestates_l.avif` |
-| Service Award Axe Paint *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_fireaxe_serviceaward_l.avif` |
-| Shark Paint (Pickaxe) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_pickaxe_shark_l.avif` |
-| Shotgun Wedding Paint (Double-Barrel Shotgun) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_entm_skin_weaponskin_doublebarrelshotgun_shotgunwedding_l.avif` |
-| Silver Paint (Handmade Rifle) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_handmadegun_silver_l.avif` |
-| Slay Bells Skin (Death Tambo) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponmodel_deathtambo_jinglebell_l.avif` |
+| Shattered Grounds *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `handmade-gun.avif` |
 | Slocum's Joe Neon Paint (Gatling Gun) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `008D3191.avif` |
-| Soft Serve Paint (Cryolator) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_cryolator_softserve_l.avif` |
-| Soft Serve Plasma Caster Paint *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_plasmacasterrifle_softserve_l.avif` |
 | Splintered Stovepipe Paint (Double Barrel Shotgun) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `006E7503.avif` |
-| Starlet Sniper Skin (Lever Action Rifle) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_levergun_starlet_l.avif` |
-| Survival Fire Axe Paint *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_fireaxe_survival_l.avif` |
 | Switchback Paint (Minigun) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `007DC641.avif` |
-| Tactical Combat Dagger (Combat Knife Skin) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponmodel_knife_tacticaldagger_l.avif` |
-| Tactical Paint (Pump Action Shotgun) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_pumpactionshotgun_tactical_l.avif` |
-| The Director (Hunting Rifle) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_huntingrifle_director_l.avif` |
 | The Persuader Paint (Combat Rifle + Fixer) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `007B28EA.avif` |
-| The Station Pump Skin (Pump Action Shotgun) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponmodel_pumpshotgun_redrocketshotgun_l.avif` |
-| The Stinger *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_broadsider_stinger_l.avif` |
-| Tickled Pink Gauss Minigun Paint *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_gaussminigun_tickledpink_l.avif` |
-| Tricentennial Paint (10mm) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_10mm_tricentennial_l.avif` |
-| Tricentennial Paint (Hatchet) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_hatchet_tricentennial_l.avif` |
-| Tricentennial Paint (Laser Gun) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_laser_tricentennial_l.avif` |
+| Ticket to Revenge *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `railway-rifle.avif` |
 | Tricentennial Paint (Tesla Rifle) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00774587.avif` |
 | Turkey Ripper | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `0059D12C.avif` |
-| Until Parted Paint (Assault Rifle) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_assaultrifle_untilparted_l.avif` |
 | US Flag Paint (Railway Rifle) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `0078DBC1.avif` |
-| V63 Zweihaender *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `v63-zweihaender.avif` |
-| Vault-Tec Paint (Flamer) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_flamer_vaulttec_l.avif` |
+| V63-BERTHA *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `tesla-rifle.avif` |
+| V63-OLGA *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `laser-gun.avif` |
 | Veinsplitter Paint (Pickaxe) | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `008F478D.avif` |
+| Vox Syringer | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `0050CA2C.avif` |
 | Weed Killer Auto Axe Paint | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `008B53B4.avif` |
-| Wiffle Bat Skin (Baseball Bat) *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponmodel_baseballbat_wifflebat_l.avif` |
-| Wooden Inlay Lever Action Rifle Paint *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_levergun_woodinlay_l.avif` |
-| Yellow Fire Axe Paint *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `atx_skin_weaponskin_fireaxe_yellow_l.avif` |
+| Western Spirit *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `lever-gun.avif` |
 
 ## Plan Checklists - Workshop (C.A.M.P.) (795)
 
@@ -3008,7 +2863,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 
 | Item | Upload to | File name |
 |---|---|---|
-| Cursed Shovel | `wp-content/uploads/guide-images/activities/a-colossal-problem/` | `004E2E20.avif` |
+| Cursed Shovel | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `004E2E20.avif` |
 | Plan: Casual Underarmor Style | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `0089D6C2.avif` |
 | Plan: Meat Pile | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0059EDBC.avif` |
 | Plan: Wendigo Colossus Heads | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005A6E67.avif` |
@@ -3328,10 +3183,13 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Marine Armor Right Leg | `wp-content/uploads/guide-images/activities/census-violence/` | `001107AE.avif` |
 | Plan: Shielded Lining Marine Underarmor | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `0016E89A.avif` |
 
-## Activities - Dangerous Pastimes (12)
+## Activities - Dangerous Pastimes (16)
 
 | Item | Upload to | File name |
 |---|---|---|
+| Handmade Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `handmade-gun.avif` |
+| Lickety-Split Railway *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `railway-rifle.avif` |
+| Night Light Tesla Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `tesla-rifle.avif` |
 | Plan: Lightning Harvester | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `00745CDE.avif` |
 | Plan: Lost Tube | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0075E13A.avif` |
 | Plan: Moe the Mole Safety Cutout | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0077082D.avif` |
@@ -3344,6 +3202,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Wildlife Deer Trail Sign | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0077081B.avif` |
 | Plan: Wildlife Turkey Trail Sign | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0077081C.avif` |
 | Plan: Wildlife Wolf Trail Sign | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0077081D.avif` |
+| Red Terror Light Machine Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `mg42-light-machine-gun.avif` |
 
 ## Activities - Death Blossoms (2)
 
@@ -3352,12 +3211,13 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Corpse Flower Stamen | `wp-content/uploads/guide-images/activities/death-blossoms/` | `00366F95.avif` |
 | Corpse Seeds | `wp-content/uploads/guide-images/activities/death-blossoms/` | `00007030.avif` |
 
-## Activities - Distant Thunder (42)
+## Activities - Distant Thunder (43)
 
 | Item | Upload to | File name |
 |---|---|---|
 | .44 Round | `wp-content/uploads/guide-images/activities/distant-thunder/` | `0009221C.avif` |
 | Last Stand Brotherhood Recon Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `005DD339.avif` |
+| Lawbringer .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Plan: Excavator Cooling Vent | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00338660.avif` |
 | Plan: Excavator Hydraulic Bracers | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00338659.avif` |
 | Plan: Excavator Internal Database | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `0033865B.avif` |
@@ -3614,7 +3474,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Utility Repair Kit Improved | `wp-content/uploads/guide-images/activities/encryptid/` | `0041ADEC.avif` |
 | White Wolf Fedora | `wp-content/uploads/guide-images/activities/encryptid/` | `0040FAC1.avif` |
 
-## Activities - Eviction Notice (7)
+## Activities - Eviction Notice (6)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -3623,7 +3483,6 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Legendary Scrip | `wp-content/uploads/guide-images/activities/eviction-notice/` | `003F7410.avif` |
 | Mutated Package | `wp-content/uploads/guide-images/activities/eviction-notice/` | `00697588.avif` |
 | Mutated Party Pack | `wp-content/uploads/guide-images/activities/eviction-notice/` | `00698820.avif` |
-| Pirate Punch Black Powder Blunderbuss | `wp-content/uploads/guide-images/activities/eviction-notice/` | `00003AAD.avif` |
 | Treasury Note | `wp-content/uploads/guide-images/activities/eviction-notice/` | `005A5443.avif` |
 
 ## Activities - Fasnacht Day Parade (67)
@@ -3698,23 +3557,26 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Recipe: Fasnacht Donut *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `fasnacht-donut.avif` |
 | Recipe: Fasnacht Sausage *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `fasnacht-sausage.avif` |
 
-## Activities - Feed The People (1)
+## Activities - Feed The People (2)
 
 | Item | Upload to | File name |
 |---|---|---|
 | Canned Meat Stew | `wp-content/uploads/guide-images/activities/feed-the-people/` | `00343776.avif` |
+| Lawbringer .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
-## Activities - Fertile Soil (1)
+## Activities - Fertile Soil (2)
 
 | Item | Upload to | File name |
 |---|---|---|
+| Lawbringer .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Raw Fertilizer | `wp-content/uploads/guide-images/activities/fertile-soil/` | `001BF730.avif` |
 
-## Activities - Fly Swatter (1)
+## Activities - Fly Swatter (2)
 
 | Item | Upload to | File name |
 |---|---|---|
 | Aluminum Scrap | `wp-content/uploads/guide-images/activities/fly-swatter/` | `0006907A.avif` |
+| Lawbringer .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
 ## Activities - Free Range (7)
 
@@ -3816,7 +3678,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Scorchbeast Hide | `wp-content/uploads/guide-images/activities/its-a-trap/` | `0035E6CF.avif` |
 | Scorchbeast Wing Fragment | `wp-content/uploads/guide-images/activities/its-a-trap/` | `0035E6D0.avif` |
 
-## Activities - Jail Break (220)
+## Activities - Jail Break (221)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -3854,6 +3716,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Fusion Cell | `wp-content/uploads/guide-images/activities/jail-break/` | `000C1897.avif` |
 | Grape Mentats | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `0010129A.avif` |
 | Improved Bait | `wp-content/uploads/guide-images/activities/jail-break/` | `007FDC33.avif` |
+| Laser Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `laser-gun.avif` |
 | Leather Aerodynamic Limb Mod | `wp-content/uploads/guide-images/activities/jail-break/` | `00245BD0.avif` |
 | Leather Asbestos Torso Mod | `wp-content/uploads/guide-images/activities/jail-break/` | `00245AD4.avif` |
 | Leather BioCommMesh Torso Mod | `wp-content/uploads/guide-images/activities/jail-break/` | `0018E587.avif` |
@@ -4041,13 +3904,14 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Western Outfit & Chaps | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `001135E1.avif` |
 | X-Cell | `wp-content/uploads/guide-images/activities/jail-break/` | `001506F4.avif` |
 
-## Activities - Leader Of The Pack (1)
+## Activities - Leader Of The Pack (2)
 
 | Item | Upload to | File name |
 |---|---|---|
+| Lawbringer .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Raw Wolf Meat | `wp-content/uploads/guide-images/activities/leader-of-the-pack/` | `00110A48.avif` |
 
-## Activities - Line In The Sand (10)
+## Activities - Line In The Sand (11)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -4056,6 +3920,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Double Mutated Party Pack | `wp-content/uploads/guide-images/activities/line-in-the-sand/` | `00698821.avif` |
 | Fusion Core | `wp-content/uploads/guide-images/activities/line-in-the-sand/` | `00075FE4.avif` |
 | Last Stand Brotherhood Recon Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `005DD339.avif` |
+| Lawbringer .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Legendary Scrip | `wp-content/uploads/guide-images/activities/line-in-the-sand/` | `003F7410.avif` |
 | Mutated Package | `wp-content/uploads/guide-images/activities/line-in-the-sand/` | `00697588.avif` |
 | Mutated Party Pack | `wp-content/uploads/guide-images/activities/line-in-the-sand/` | `00698820.avif` |
@@ -4116,7 +3981,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Raider Underarmor Style | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `0089D6BE.avif` |
 | Treasury Note | `wp-content/uploads/guide-images/activities/moonshine-jamboree/` | `005A5443.avif` |
 
-## Activities - Most Wanted (76)
+## Activities - Most Wanted (77)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -4195,6 +4060,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Shotgun Shell | `wp-content/uploads/guide-images/activities/most-wanted/` | `0001F673.avif` |
 | Stimpak *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `stimpak.avif` |
 | Treasury Note | `wp-content/uploads/guide-images/activities/most-wanted/` | `005A5443.avif` |
+| Western Spirit Lever Action Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `lever-gun.avif` |
 | Yao Guai Pastry *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `yao-guai-pastry.avif` |
 
 ## Activities - Mothman Equinox (49)
@@ -4251,7 +4117,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Wise Mothman Throne | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `0062CB9A.avif` |
 | Treasury Note | `wp-content/uploads/guide-images/activities/mothman-equinox/` | `005A5443.avif` |
 
-## Activities - Neurological Warfare (69)
+## Activities - Neurological Warfare (74)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -4267,9 +4133,13 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Arrow | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `005A5DD2.avif` |
 | Fusion Cell | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `000C1897.avif` |
 | Fusion Core | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `00075FE4.avif` |
+| Handmade Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `handmade-gun.avif` |
+| Laser Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `laser-gun.avif` |
 | Legendary Module | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `005652F9.avif` |
+| Lickety-Split Railway *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `railway-rifle.avif` |
 | Mini Nuke | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `000E6B2E.avif` |
 | Missile | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `000CABA3.avif` |
+| Night Light Tesla Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `tesla-rifle.avif` |
 | Plan: 10mm SMG Arctic Paint | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00751EC6.avif` |
 | Plan: Casual Underarmor Style | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `0089D6C2.avif` |
 | Plan: Deathclaw Tamer Hat | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `00844583.avif` |
@@ -4314,6 +4184,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plasma Cartridge | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `0001DBB7.avif` |
 | Rad-X | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `00024057.avif` |
 | Rad-X: Diluted *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `diluted-rad-x.avif` |
+| Red Terror Light Machine Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `mg42-light-machine-gun.avif` |
 | Secret Settler Secret Service Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `00568FA9.avif` |
 | Shotgun Shell | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `0001F673.avif` |
 | Stable Cobalt Flux | `wp-content/uploads/guide-images/activities/neurological-warfare/` | `002B9179.avif` |
@@ -4345,7 +4216,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Stand Fast Combat Armor Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0011D3C3.avif` |
 | Treasury Note | `wp-content/uploads/guide-images/activities/one-violent-night/` | `005A5443.avif` |
 
-## Activities - Powering Up Power Station (236)
+## Activities - Powering Up Power Station (244)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -4370,6 +4241,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Combat Armor Left Leg | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0011D3C5.avif` |
 | Combat Armor Right Arm | `wp-content/uploads/guide-images/activities/powering-up-power-station/` | `0011D3C6.avif` |
 | Combat Armor Right Leg | `wp-content/uploads/guide-images/activities/powering-up-power-station/` | `0011D3C4.avif` |
+| Commander's Charge Revolutionary Sword *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `revolutionary-war-sword.avif` |
 | Cop Cap | `wp-content/uploads/guide-images/activities/powering-up-power-station/` | `003E8C73.avif` |
 | Copper Scrap | `wp-content/uploads/guide-images/activities/powering-up-power-station/` | `0006907C.avif` |
 | Daddy-O | `wp-content/uploads/guide-images/activities/powering-up-power-station/` | `00156D0B.avif` |
@@ -4379,6 +4251,9 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Fury | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `000628CA.avif` |
 | Fusion Cell | `wp-content/uploads/guide-images/activities/powering-up-power-station/` | `000C1897.avif` |
 | Grape Mentats | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `0010129A.avif` |
+| Handmade Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `handmade-gun.avif` |
+| Laser Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `laser-gun.avif` |
+| Lawbringer .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Leather Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0007B9C6.avif` |
 | Leather Coat | `wp-content/uploads/guide-images/activities/powering-up-power-station/` | `000732B5.avif` |
 | Leather Left Arm | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0007B9C7.avif` |
@@ -4395,6 +4270,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Miner Hat | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `00012B1E.avif` |
 | Miner Hat Clean | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `00052B11.avif` |
 | Miner Uniform | `wp-content/uploads/guide-images/activities/powering-up-power-station/` | `00011B60.avif` |
+| Night Light Tesla Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `tesla-rifle.avif` |
 | Nuclear Waste | `wp-content/uploads/guide-images/activities/powering-up-power-station/` | `00069086.avif` |
 | Orange Mentats | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `000518C5.avif` |
 | Overdrive | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `00058AAD.avif` |
@@ -4567,10 +4443,12 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Recipe: Tasty Squirrel Stew *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `tasty-squirrel-stew.avif` |
 | Recipe: Tasty Stingwing Stew *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `tasty-stingwing-stew.avif` |
 | Recipe: Tasty Yao Guai Roast *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `tasty-yao-guai-roast.avif` |
+| Red Terror Light Machine Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `mg42-light-machine-gun.avif` |
 | Responder Fireman Helmet | `wp-content/uploads/guide-images/activities/powering-up-power-station/` | `003E8CE4.avif` |
 | Responder Fireman Uniform | `wp-content/uploads/guide-images/activities/powering-up-power-station/` | `003E8C76.avif` |
 | Responder Police Uniform | `wp-content/uploads/guide-images/activities/powering-up-power-station/` | `003E8C71.avif` |
 | Responders Paramedic Jumpsuit | `wp-content/uploads/guide-images/activities/powering-up-power-station/` | `003E576A.avif` |
+| Slug Buster Plasma Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `plasma-gun.avif` |
 | Stand Fast Combat Armor Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0011D3C3.avif` |
 | Stimpak *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `stimpak.avif` |
 | Stimpak: Diluted | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `003078C2.avif` |
@@ -4582,9 +4460,16 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | VTU Jacket and Jeans | `wp-content/uploads/guide-images/activities/powering-up-power-station/` | `0038EE51.avif` |
 | Western Outfit | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `001135E0.avif` |
 | Western Outfit & Chaps | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `001135E1.avif` |
+| Western Spirit Lever Action Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `lever-gun.avif` |
 | White Powder Jumpsuit | `wp-content/uploads/guide-images/activities/powering-up-power-station/` | `003E5766.avif` |
 | Whitespring Jumpsuit | `wp-content/uploads/guide-images/activities/powering-up-power-station/` | `003E5768.avif` |
 | X-Cell | `wp-content/uploads/guide-images/activities/powering-up-power-station/` | `001506F4.avif` |
+
+## Activities - Project Beanstalk (1)
+
+| Item | Upload to | File name |
+|---|---|---|
+| Lawbringer .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
 ## Activities - Project Paradise (122)
 
@@ -4713,7 +4598,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Treasury Note | `wp-content/uploads/guide-images/activities/project-paradise/` | `005A5443.avif` |
 | Utility Repair Kit Improved | `wp-content/uploads/guide-images/activities/project-paradise/` | `0041ADEC.avif` |
 
-## Activities - Radiation Rumble (220)
+## Activities - Radiation Rumble (228)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -4734,6 +4619,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Combat Armor Left Leg | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0011D3C5.avif` |
 | Combat Armor Right Arm | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `0011D3C6.avif` |
 | Combat Armor Right Leg | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `0011D3C4.avif` |
+| Commander's Charge Revolutionary Sword *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `revolutionary-war-sword.avif` |
 | Cop Cap | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `003E8C73.avif` |
 | Double Mutated Package | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `00697589.avif` |
 | Double Mutated Party Pack | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `00698821.avif` |
@@ -4741,6 +4627,9 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Emmett Mountain Hazmat Suit | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `00595914.avif` |
 | Forest Camo Jumpsuit | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `003E5758.avif` |
 | Gamma Round | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `000DF279.avif` |
+| Handmade Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `handmade-gun.avif` |
+| Laser Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `laser-gun.avif` |
+| Lawbringer .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Leather Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0007B9C6.avif` |
 | Leather Coat | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `000732B5.avif` |
 | Leather Left Arm | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0007B9C7.avif` |
@@ -4759,6 +4648,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Mini Nuke | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `000E6B2E.avif` |
 | Mutated Package | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `00697588.avif` |
 | Mutated Party Pack | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `00698820.avif` |
+| Night Light Tesla Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `tesla-rifle.avif` |
 | Nuclear Waste | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `00069086.avif` |
 | Plan: BioCommMesh Combat Armor Lining | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0019441F.avif` |
 | Plan: BioCommMesh Leather Armor Lining | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0018E572.avif` |
@@ -4922,10 +4812,12 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Recipe: Tasty Squirrel Stew *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `tasty-squirrel-stew.avif` |
 | Recipe: Tasty Stingwing Stew *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `tasty-stingwing-stew.avif` |
 | Recipe: Tasty Yao Guai Roast *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `tasty-yao-guai-roast.avif` |
+| Red Terror Light Machine Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `mg42-light-machine-gun.avif` |
 | Responder Fireman Helmet | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `003E8CE4.avif` |
 | Responder Fireman Uniform | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `003E8C76.avif` |
 | Responder Police Uniform | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `003E8C71.avif` |
 | Responders Paramedic Jumpsuit | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `003E576A.avif` |
+| Slug Buster Plasma Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `plasma-gun.avif` |
 | Stand Fast Combat Armor Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0011D3C3.avif` |
 | Tattered Field Jacket | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `000732B1.avif` |
 | Trail Warden Metal Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `000536C4.avif` |
@@ -4935,6 +4827,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | VTU Jacket and Jeans | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `0038EE51.avif` |
 | Western Outfit | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `001135E0.avif` |
 | Western Outfit & Chaps | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `001135E1.avif` |
+| Western Spirit Lever Action Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `lever-gun.avif` |
 | White Powder Jumpsuit | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `003E5766.avif` |
 | Whitespring Jumpsuit | `wp-content/uploads/guide-images/activities/radiation-rumble/` | `003E5768.avif` |
 
@@ -5238,7 +5131,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | T-51b Right Arm | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00140C4D.avif` |
 | T-51b Right Leg | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00140C50.avif` |
 
-## Activities - Swarm Of Suitors (74)
+## Activities - Swarm Of Suitors (75)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -5247,6 +5140,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Cop Cap | `wp-content/uploads/guide-images/activities/swarm-of-suitors/` | `003E8C73.avif` |
 | Double Mutated Package | `wp-content/uploads/guide-images/activities/swarm-of-suitors/` | `00697589.avif` |
 | Double Mutated Party Pack | `wp-content/uploads/guide-images/activities/swarm-of-suitors/` | `00698821.avif` |
+| Laser Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `laser-gun.avif` |
 | Leather Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0007B9C6.avif` |
 | Leather Left Arm | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0007B9C7.avif` |
 | Leather Left Leg | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0007B9C4.avif` |
@@ -5378,10 +5272,11 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: T-51b Right Leg | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00140C50.avif` |
 | Treasury Note | `wp-content/uploads/guide-images/activities/test-your-metal/` | `005A5443.avif` |
 
-## Activities - The Path To Enlightenment (1)
+## Activities - The Path To Enlightenment (2)
 
 | Item | Upload to | File name |
 |---|---|---|
+| Lawbringer .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Nuclear Waste | `wp-content/uploads/guide-images/activities/the-path-to-enlightenment/` | `00069086.avif` |
 
 ## Activities - Tunnel Of Love (14)
@@ -5418,7 +5313,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 
 | Item | Upload to | File name |
 |---|---|---|
-| Cursed Shovel | `wp-content/uploads/guide-images/public-events/a-colossal-problem/` | `004E2E20.avif` |
+| Cursed Shovel | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `004E2E20.avif` |
 | Plan: Casual Underarmor Style | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `0089D6C2.avif` |
 | Plan: Meat Pile | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0059EDBC.avif` |
 | Plan: Wendigo Colossus Heads | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `005A6E67.avif` |
@@ -5738,7 +5633,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Marine Armor Right Leg | `wp-content/uploads/guide-images/public-events/census-violence/` | `001107AE.avif` |
 | Plan: Shielded Lining Marine Underarmor | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `0016E89A.avif` |
 
-## Public Events - Dangerous Pastimes (12)
+## Public Events - Dangerous Pastimes (16)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -5754,6 +5649,10 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Wildlife Deer Trail Sign | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0077081B.avif` |
 | Plan: Wildlife Turkey Trail Sign | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0077081C.avif` |
 | Plan: Wildlife Wolf Trail Sign | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0077081D.avif` |
+| Red Terror Light Machine Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `mg42-light-machine-gun.avif` |
+| Shattered Grounds Handmade Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `handmade-gun.avif` |
+| Ticket to Revenge Railway *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `railway-rifle.avif` |
+| V63-BERTHA Tesla *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `tesla-rifle.avif` |
 
 ## Public Events - Death Blossoms (2)
 
@@ -5762,10 +5661,11 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Corpse Flower Stamen | `wp-content/uploads/guide-images/public-events/death-blossoms/` | `00366F95.avif` |
 | Corpse Seeds | `wp-content/uploads/guide-images/public-events/death-blossoms/` | `00007030.avif` |
 
-## Public Events - Distant Thunder (66)
+## Public Events - Distant Thunder (67)
 
 | Item | Upload to | File name |
 |---|---|---|
+| .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Ammo44 | `wp-content/uploads/guide-images/public-events/distant-thunder/` | `0009221C.avif` |
 | Last Stand Brotherhood Recon Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `005DD339.avif` |
 | Plan: Excavator Cooling Vent | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00338660.avif` |
@@ -6055,7 +5955,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Utility Repair Kit Improved | `wp-content/uploads/guide-images/public-events/encryptid/` | `0041ADEC.avif` |
 | White Wolf Fedora | `wp-content/uploads/guide-images/public-events/encryptid/` | `0040FAC1.avif` |
 
-## Public Events - Eviction Notice (7)
+## Public Events - Eviction Notice (6)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -6064,7 +5964,6 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Legendary Scrip | `wp-content/uploads/guide-images/public-events/eviction-notice/` | `003F7410.avif` |
 | Mutated Package | `wp-content/uploads/guide-images/public-events/eviction-notice/` | `00697588.avif` |
 | Mutated Party Pack | `wp-content/uploads/guide-images/public-events/eviction-notice/` | `00698820.avif` |
-| Pirate Punch Black Powder Blunderbuss | `wp-content/uploads/guide-images/public-events/eviction-notice/` | `00003AAD.avif` |
 | Treasury Note | `wp-content/uploads/guide-images/public-events/eviction-notice/` | `005A5443.avif` |
 
 ## Public Events - Fasnacht Day Parade (67)
@@ -6139,22 +6038,25 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Recipe: Fasnacht Donut *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `fasnacht-donut.avif` |
 | Recipe: Fasnacht Sausage *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `fasnacht-sausage.avif` |
 
-## Public Events - Feed The People (1)
+## Public Events - Feed The People (2)
 
 | Item | Upload to | File name |
 |---|---|---|
+| .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Canned Meat Stew | `wp-content/uploads/guide-images/public-events/feed-the-people/` | `00343776.avif` |
 
-## Public Events - Fertile Soil (1)
+## Public Events - Fertile Soil (2)
 
 | Item | Upload to | File name |
 |---|---|---|
+| .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Raw Fertilizer | `wp-content/uploads/guide-images/public-events/fertile-soil/` | `001BF730.avif` |
 
-## Public Events - Fly Swatter (1)
+## Public Events - Fly Swatter (2)
 
 | Item | Upload to | File name |
 |---|---|---|
+| .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Aluminum Scrap | `wp-content/uploads/guide-images/public-events/fly-swatter/` | `0006907A.avif` |
 
 ## Public Events - Free Range (7)
@@ -6257,7 +6159,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Scorchbeast Hide | `wp-content/uploads/guide-images/public-events/its-a-trap/` | `0035E6CF.avif` |
 | Scorchbeast Wing Fragment | `wp-content/uploads/guide-images/public-events/its-a-trap/` | `0035E6D0.avif` |
 
-## Public Events - Jail Break (221)
+## Public Events - Jail Break (222)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -6296,6 +6198,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Fury | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `000628CA.avif` |
 | Grape Mentats | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `0010129A.avif` |
 | Improved Bait | `wp-content/uploads/guide-images/public-events/jail-break/` | `007FDC33.avif` |
+| Laser *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `laser-gun.avif` |
 | Leather Aerodynamic Limb Mod | `wp-content/uploads/guide-images/public-events/jail-break/` | `00245BD0.avif` |
 | Leather Asbestos Torso Mod | `wp-content/uploads/guide-images/public-events/jail-break/` | `00245AD4.avif` |
 | Leather BioCommMesh Torso Mod | `wp-content/uploads/guide-images/public-events/jail-break/` | `0018E587.avif` |
@@ -6483,16 +6386,18 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Western Outfit & Chaps | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `001135E1.avif` |
 | X-Cell | `wp-content/uploads/guide-images/public-events/jail-break/` | `001506F4.avif` |
 
-## Public Events - Leader Of The Pack (1)
+## Public Events - Leader Of The Pack (2)
 
 | Item | Upload to | File name |
 |---|---|---|
+| .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Raw Wolf Meat | `wp-content/uploads/guide-images/public-events/leader-of-the-pack/` | `00110A48.avif` |
 
-## Public Events - Line In The Sand (10)
+## Public Events - Line In The Sand (11)
 
 | Item | Upload to | File name |
 |---|---|---|
+| .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Ammo Fusion Core | `wp-content/uploads/guide-images/public-events/line-in-the-sand/` | `00075FE4.avif` |
 | Ammo44 | `wp-content/uploads/guide-images/public-events/line-in-the-sand/` | `0009221C.avif` |
 | Double Mutated Package | `wp-content/uploads/guide-images/public-events/line-in-the-sand/` | `00697589.avif` |
@@ -6558,7 +6463,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Raider Underarmor Style | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `0089D6BE.avif` |
 | Treasury Note | `wp-content/uploads/guide-images/public-events/moonshine-jamboree/` | `005A5443.avif` |
 
-## Public Events - Most Wanted (76)
+## Public Events - Most Wanted (77)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -6635,6 +6540,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Rad-X | `wp-content/uploads/guide-images/public-events/most-wanted/` | `00024057.avif` |
 | Rad-X: Diluted *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `diluted-rad-x.avif` |
 | Radscorpion Kebab *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `radscorpion-kebab.avif` |
+| Sole Survivor Lever Action Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `lever-gun.avif` |
 | Stimpak *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `stimpak.avif` |
 | Treasury Note | `wp-content/uploads/guide-images/public-events/most-wanted/` | `005A5443.avif` |
 | Yao Guai Pastry *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `yao-guai-pastry.avif` |
@@ -6693,7 +6599,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Wise Mothman Throne | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `0062CB9A.avif` |
 | Treasury Note | `wp-content/uploads/guide-images/public-events/mothman-equinox/` | `005A5443.avif` |
 
-## Public Events - Neurological Warfare (69)
+## Public Events - Neurological Warfare (74)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -6713,6 +6619,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Ammo45Caliber | `wp-content/uploads/guide-images/public-events/neurological-warfare/` | `0001F66A.avif` |
 | Ammo556 | `wp-content/uploads/guide-images/public-events/neurological-warfare/` | `0001F278.avif` |
 | Ammo5mm | `wp-content/uploads/guide-images/public-events/neurological-warfare/` | `0001F66C.avif` |
+| Laser *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `laser-gun.avif` |
 | Legendary Module | `wp-content/uploads/guide-images/public-events/neurological-warfare/` | `005652F9.avif` |
 | Plan: 10mm SMG Arctic Paint | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `00751EC6.avif` |
 | Plan: Casual Underarmor Style | `wp-content/uploads/guide-images/plan-checklist/underarmour/` | `0089D6C2.avif` |
@@ -6757,7 +6664,9 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: Wildlife Wolf Trail Sign | `wp-content/uploads/guide-images/plan-checklist/workshop/` | `0077081D.avif` |
 | Rad-X | `wp-content/uploads/guide-images/public-events/neurological-warfare/` | `00024057.avif` |
 | Rad-X: Diluted *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `diluted-rad-x.avif` |
+| Red Terror Light Machine Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `mg42-light-machine-gun.avif` |
 | Secret Settler Secret Service Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `00568FA9.avif` |
+| Shattered Grounds Handmade Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `handmade-gun.avif` |
 | Stable Cobalt Flux | `wp-content/uploads/guide-images/public-events/neurological-warfare/` | `002B9179.avif` |
 | Stable Crimson Flux | `wp-content/uploads/guide-images/public-events/neurological-warfare/` | `002B917F.avif` |
 | Stable Fluorescent Flux | `wp-content/uploads/guide-images/public-events/neurological-warfare/` | `002B917B.avif` |
@@ -6765,7 +6674,9 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Stable Yellowcake Flux | `wp-content/uploads/guide-images/public-events/neurological-warfare/` | `002B9181.avif` |
 | Stimpak *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `stimpak.avif` |
 | Stimpak: Super *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `super-stimpak.avif` |
+| Ticket to Revenge Railway *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `railway-rifle.avif` |
 | Treasury Note | `wp-content/uploads/guide-images/public-events/neurological-warfare/` | `005A5443.avif` |
+| V63-BERTHA Tesla *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `tesla-rifle.avif` |
 
 ## Public Events - One Violent Night (15)
 
@@ -6787,7 +6698,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Stand Fast Combat Armor Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0011D3C3.avif` |
 | Treasury Note | `wp-content/uploads/guide-images/public-events/one-violent-night/` | `005A5443.avif` |
 
-## Public Events - Powering Up Power Station (101)
+## Public Events - Powering Up Power Station (102)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -6887,11 +6798,18 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Recipe: Tasty Mutant Hound Stew | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `003C60DF.avif` |
 | Recipe: Tasty Radscorpion Egg Omelette *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `tasty-radscorpion-egg-omelette.avif` |
 | Recipe: Tasty Yao Guai Roast *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `tasty-yao-guai-roast.avif` |
+| Sole Survivor Lever Action Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `lever-gun.avif` |
 | Stand Fast Combat Armor Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0011D3C3.avif` |
 | Stimpak *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `stimpak.avif` |
 | Stimpak: Super *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `super-stimpak.avif` |
 | Trail Warden Metal Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `000536C4.avif` |
 | X-Cell | `wp-content/uploads/guide-images/public-events/powering-up-power-station/` | `001506F4.avif` |
+
+## Public Events - Project Beanstalk (1)
+
+| Item | Upload to | File name |
+|---|---|---|
+| .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 
 ## Public Events - Project Paradise (122)
 
@@ -7020,10 +6938,11 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Treasury Note | `wp-content/uploads/guide-images/public-events/project-paradise/` | `005A5443.avif` |
 | Utility Repair Kit Improved | `wp-content/uploads/guide-images/public-events/project-paradise/` | `0041ADEC.avif` |
 
-## Public Events - Radiation Rumble (220)
+## Public Events - Radiation Rumble (228)
 
 | Item | Upload to | File name |
 |---|---|---|
+| .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Ammo Fat Man Mini Nuke | `wp-content/uploads/guide-images/public-events/radiation-rumble/` | `000E6B2E.avif` |
 | Ammo Gamma Cell | `wp-content/uploads/guide-images/public-events/radiation-rumble/` | `000DF279.avif` |
 | Asylum Worker Hat Blue | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `0016B4A1.avif` |
@@ -7043,12 +6962,14 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Combat Armor Left Leg | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0011D3C5.avif` |
 | Combat Armor Right Arm | `wp-content/uploads/guide-images/public-events/radiation-rumble/` | `0011D3C6.avif` |
 | Combat Armor Right Leg | `wp-content/uploads/guide-images/public-events/radiation-rumble/` | `0011D3C4.avif` |
+| Commander's Charge Revolutionary Sword *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `revolutionary-war-sword.avif` |
 | Cop Cap | `wp-content/uploads/guide-images/public-events/radiation-rumble/` | `003E8C73.avif` |
 | Double Mutated Package | `wp-content/uploads/guide-images/public-events/radiation-rumble/` | `00697589.avif` |
 | Double Mutated Party Pack | `wp-content/uploads/guide-images/public-events/radiation-rumble/` | `00698821.avif` |
 | Drill | `wp-content/uploads/guide-images/public-events/radiation-rumble/` | `00081DD5.avif` |
 | Emmett Mountain Hazmat Suit | `wp-content/uploads/guide-images/public-events/radiation-rumble/` | `00595914.avif` |
 | Forest Camo Jumpsuit | `wp-content/uploads/guide-images/public-events/radiation-rumble/` | `003E5758.avif` |
+| Laser *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `laser-gun.avif` |
 | Leather Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0007B9C6.avif` |
 | Leather Coat | `wp-content/uploads/guide-images/public-events/radiation-rumble/` | `000732B5.avif` |
 | Leather Left Arm | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0007B9C7.avif` |
@@ -7229,15 +7150,20 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Recipe: Tasty Squirrel Stew *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `tasty-squirrel-stew.avif` |
 | Recipe: Tasty Stingwing Stew *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `tasty-stingwing-stew.avif` |
 | Recipe: Tasty Yao Guai Roast *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/recipes/` | `tasty-yao-guai-roast.avif` |
+| Red Terror Light Machine Gun *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `mg42-light-machine-gun.avif` |
 | Responder Fireman Helmet | `wp-content/uploads/guide-images/public-events/radiation-rumble/` | `003E8CE4.avif` |
 | Responder Fireman Uniform | `wp-content/uploads/guide-images/public-events/radiation-rumble/` | `003E8C76.avif` |
 | Responder Police Uniform | `wp-content/uploads/guide-images/public-events/radiation-rumble/` | `003E8C71.avif` |
 | Responders Paramedic Jumpsuit | `wp-content/uploads/guide-images/public-events/radiation-rumble/` | `003E576A.avif` |
+| Shattered Grounds Handmade Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `handmade-gun.avif` |
+| Slug Buster Plasma *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `plasma-gun.avif` |
+| Sole Survivor Lever Action Rifle *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `lever-gun.avif` |
 | Stand Fast Combat Armor Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0011D3C3.avif` |
 | Tattered Field Jacket | `wp-content/uploads/guide-images/public-events/radiation-rumble/` | `000732B1.avif` |
 | Trail Warden Metal Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `000536C4.avif` |
 | Traveling Leather Coat | `wp-content/uploads/guide-images/public-events/radiation-rumble/` | `000732B9.avif` |
 | Treasury Note | `wp-content/uploads/guide-images/public-events/radiation-rumble/` | `005A5443.avif` |
+| V63-BERTHA Tesla *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `tesla-rifle.avif` |
 | VTU Baseball Cap | `wp-content/uploads/guide-images/public-events/radiation-rumble/` | `0038EE54.avif` |
 | VTU Jacket and Jeans | `wp-content/uploads/guide-images/public-events/radiation-rumble/` | `0038EE51.avif` |
 | Western Outfit | `wp-content/uploads/guide-images/plan-checklist/apparel/` | `001135E0.avif` |
@@ -7546,7 +7472,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | T-51b Right Arm | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00140C4D.avif` |
 | T-51b Right Leg | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00140C50.avif` |
 
-## Public Events - Swarm Of Suitors (74)
+## Public Events - Swarm Of Suitors (75)
 
 | Item | Upload to | File name |
 |---|---|---|
@@ -7555,6 +7481,7 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Cop Cap | `wp-content/uploads/guide-images/public-events/swarm-of-suitors/` | `003E8C73.avif` |
 | Double Mutated Package | `wp-content/uploads/guide-images/public-events/swarm-of-suitors/` | `00697589.avif` |
 | Double Mutated Party Pack | `wp-content/uploads/guide-images/public-events/swarm-of-suitors/` | `00698821.avif` |
+| Laser *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `laser-gun.avif` |
 | Leather Chest Piece | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0007B9C6.avif` |
 | Leather Left Arm | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0007B9C7.avif` |
 | Leather Left Leg | `wp-content/uploads/guide-images/plan-checklist/body-armour/` | `0007B9C4.avif` |
@@ -7686,10 +7613,11 @@ Activities, Public Events and Treasure Maps carry the picture in their data (Uni
 | Plan: T-51b Right Leg | `wp-content/uploads/guide-images/plan-checklist/power-armour/` | `00140C50.avif` |
 | Treasury Note | `wp-content/uploads/guide-images/public-events/test-your-metal/` | `005A5443.avif` |
 
-## Public Events - The Path To Enlightenment (1)
+## Public Events - The Path To Enlightenment (2)
 
 | Item | Upload to | File name |
 |---|---|---|
+| .44 *(already on your computer - see the top)* | `wp-content/uploads/guide-images/plan-checklist/weapons/` | `44-revolver.avif` |
 | Nuclear Waste | `wp-content/uploads/guide-images/public-events/the-path-to-enlightenment/` | `00069086.avif` |
 
 ## Public Events - Tunnel Of Love (14)
