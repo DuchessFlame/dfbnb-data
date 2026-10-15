@@ -400,6 +400,13 @@ class Tracer:
             if pk:
                 import uwa_obtain
                 return "Events & Activities", "Opening a " + uwa_obtain.PK_SEP.join(pk)
+            # Otherwise the list it rolls says who: BossLootDropEffect_Large
+            # rolls LLE_Creature_Boss_Large_Dynamic = "Boss enemies (large
+            # loot)", the plan pages' name — not "Boss Drop Large".
+            le = self.lvli_edid.get(h.get("list"), "")
+            lab = plan_sources.source_label(le) if le else None
+            if lab and not plan_sources.looks_like_wiring(lab):
+                return "Events & Activities", lab
         elif sig == "COEN":
             m = re.match(r"^SCORE_S(\d+)_", edid, re.I)
             if m:
@@ -411,6 +418,8 @@ class Tracer:
             if re.search(r"TreasureMap", edid, re.I):
                 return "Events & Activities", "Treasure Maps"
         elif sig == "CONT":
+            if plan_sources.is_script_container(edid):
+                return None, None        # a script's counter/holding box, not loot
             lab = (getattr(obtain_idx, "vendor_label", {}) or {}).get(h["list"]) if obtain_idx else None
             if not lab and re.search(r"vendor", edid, re.I):
                 lab = plan_sources.source_label(edid)

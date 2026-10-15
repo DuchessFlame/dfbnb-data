@@ -1729,6 +1729,54 @@ class VendorNames:
         return f"{npc} ({inner})"
 
 
+# Containers a script uses to hold or count items, never opened by a player:
+# FlipCardSignManager_CounterContainer ("Flip Card Counts Items", Watoga's
+# flip-card sign), MTR06_HoldingChest, terminalHackerDummySafe. Their FULL
+# reads like a container, so the EditorID is the only tell.
+_SCRIPT_CONT = re.compile(r"(?:Manager|Counter)(?=_|Container|$)|Holding(?:Chest|Container)|Dummy(?:Safe|Container)")
+
+
+def is_script_container(edid):
+    return bool(_SCRIPT_CONT.search((edid or "").strip()))
+
+
+_RAID_GMRW_EDID = re.compile(r"^(RD\d+)_QuestReward_Enc(\d+)$", re.I)
+
+
+def raid_encounter_names(quest_rows, chal_rows):
+    """{("RD01", 5): ("Gleaming Depths", "Ultracite Terror")} from the game files.
+
+    The raid stage's GMRW only says "Scorchtongue Module" (an editor name).
+    The raid quest names the raid ("Raid: Gleaming Depths", RD01_GleamingDepths)
+    and the lifetime challenges name each encounter ("Gleaming Depths - Defeat
+    Ultracite Terror", Challenge_Lifetime_RD01_Enc05_*). Majority vote over the
+    challenges; the _SUB_ / weekly ones are skipped (the weeklies swap Enc03
+    and Enc04). quest_rows: (EDID, FULL); chal_rows: (EDID, FULL)."""
+    raid = {}
+    for ed, full in quest_rows:
+        m = re.match(r"^\s*Raid\s*:\s*(.+)$", full or "")
+        if m and ed and not re.search(r"(^|_)(TEST|zzz|DEL)(_|$)", ed, re.I):
+            raid.setdefault(ed.split("_", 1)[0].upper(), m.group(1).strip())
+    votes = collections.defaultdict(collections.Counter)
+    for ed, full in chal_rows:
+        m = re.search(r"_(RD\d+)_Enc(\d+)_", ed or "", re.I)
+        if not m or re.search(r"_SUB_|Weekly", ed, re.I):
+            continue
+        code = m.group(1).upper()
+        rn = raid.get(code)
+        n = re.match(rf"^{re.escape(rn)}\s*-\s*Defeat\s+(.+)$", full or "", re.I) if rn else None
+        if n:
+            votes[(code, int(m.group(2)))][n.group(1).strip()] += 1
+    return {k: (raid[k[0]], max(v.items(), key=lambda kv: (kv[1], kv[0]))[0])
+            for k, v in votes.items()}
+
+
+def raid_stage_of_gmrw(edid, encounters):
+    """("Gleaming Depths", "Ultracite Terror") for RD01_QuestReward_Enc05, else None."""
+    m = _RAID_GMRW_EDID.match((edid or "").strip())
+    return encounters.get((m.group(1).upper(), int(m.group(2)))) if m else None
+
+
 class UnlockIndex:
     """Non-drop routes for a plan: bought, quested, challenged, or placed.
 
@@ -1749,6 +1797,7 @@ class UnlockIndex:
         self._names = {}          # FormID -> FULL/EDID for CONT, TERM, NPC_
         self._locations = {}
         self._chal_names = {}     # CHAL EditorID (lowered) -> its display title
+        self._chal_rows = []      # (EDID, FULL), for the raid encounter names
         self.quest_names = QuestNames()
 
         # The challenge's own title. A ChallengeReward GMRW is named after the
@@ -1764,9 +1813,11 @@ class UnlockIndex:
                 for r in csv.DictReader(f, delimiter="\t"):
                     ce = (r.get("EDID") or "").strip().lower()
                     title = (r.get("FULL") or "").strip()
+                    self._chal_rows.append(((r.get("EDID") or "").strip(), title))
                     if ce and title and usable_quest_name(title):
                         self._chal_names[ce] = _clean_name(title)
 
+        self._quest_edid_full = []
         qf = newest("QUEST_Export_*.tsv", tsv_root)
         if qf:
             self.quest_names.load(qf)
@@ -1774,12 +1825,16 @@ class UnlockIndex:
                 for r in csv.DictReader(f, delimiter="\t"):
                     fid = (r.get("FormID") or "").strip().upper()
                     full = (r.get("FULL - Name") or "").strip()
+                    self._quest_edid_full.append(((r.get("EDID") or "").strip(), full))
                     if fid and usable_quest_name(full):
                         self._quests_by_fid[fid] = full
                     tidy = tidy_quest_title(full)
                     if fid and tidy:
                         self.quest_titles_tidy[fid] = tidy
 
+        # Raid stages print the encounter's public name, not "Scorchtongue
+        # Module" (Duchess, 15 Oct 2026): "Gleaming Depths - Ultracite Terror".
+        self.raid_encounters = raid_encounter_names(self._quest_edid_full, self._chal_rows)
         gf = newest("GMRW_Export_*.tsv", tsv_root)
         if gf:
             with open(gf, encoding="utf-8", errors="replace") as f:
@@ -1802,9 +1857,15 @@ class UnlockIndex:
                                     if qname:
                                         break
                         qname = qname or rec["quest"]
-                        if usable_quest_name(qname):
+                        rs = raid_stage_of_gmrw(rec["edid"], self.raid_encounters)
+                        if rs:
+                            # Read from the game's own challenge titles, so it
+                            # is player-facing even though "EN06" looks like a
+                            # content code to usable_quest_name().
+                            qname = f"{rs[0]} - {rs[1]}"
+                        if rs or usable_quest_name(qname):
                             self.gmrw_quests[fid] = qname
-                        tidy = tidy_quest_title(qname)
+                        tidy = qname if rs else tidy_quest_title(qname)
                         if tidy:
                             self.gmrw_titles[fid] = tidy
                     item = (r.get("RewardedItem") or "").strip()

@@ -1634,8 +1634,8 @@ def expand_payers(routes, lvli_refs, parent_edid, quest_named, by_name):
             continue
         label = r.get("route") or ""
         head = label.split(" - ", 1)[0].strip()
-        if label in _AREA_NAMES or head in _AREA_NAMES:
-            out.append(r)
+        if label in _AREA_NAMES or head in _AREA_NAMES or label.startswith("Raid: "):
+            out.append(r)        # raid encounters are already named (raid_stage_label)
             continue
         titles, other = plan_sources.payer_titles(lists, lvli_refs, GMRW_TITLES,
                                                   QUEST_TITLES_TIDY or QUEST_TITLES)
@@ -1685,13 +1685,25 @@ def raid_stage_label(fam, lvli_fid, lvli_refs, gmrw_quests=None):
     """"Raids" -> "Raids - Scorchtongue Module": the stage(s) whose GMRW pays
     the list out, read from ParentQuestDisplay. Up to three stages; more than
     that (a pool every stage rolls) keeps the plain family name. None = keep."""
-    if fam not in RAID_FAMILIES:
+    # "Raids - Trophies" (the list's own name) is a raid reward too.
+    if fam.split(" - ", 1)[0] not in RAID_FAMILIES:
         return None
     names = plan_sources.gmrw_quests_for(lvli_fid, lvli_refs,
                                          GMRW_QUESTS if gmrw_quests is None else gmrw_quests)
     if not names or len(names) > 3:
         return None
-    return fam + " - " + ", ".join(names)
+    # "Gleaming Depths - EN06 Guardian" (plan_sources.raid_encounter_names):
+    # one "Raid: Gleaming Depths - EN06 Guardian, Drill Complex" per raid.
+    by_raid = {}
+    for n in names:
+        raid, _, enc = n.partition(" - ")
+        if enc:
+            by_raid.setdefault(raid, []).append(enc)
+        else:
+            by_raid.setdefault("", []).append(n)
+    if "" in by_raid:                     # a stage the files don't name
+        return fam + " - " + ", ".join(names)
+    return "; ".join(f"Raid: {r} - {', '.join(e)}" for r, e in by_raid.items())
 
 
 def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
@@ -1940,8 +1952,12 @@ def resolve_routes(target_fid, tables, rates, cont_names, npc_names=None,
         if bucket == "event-quest":
             # "Side Quests" says nothing; the GMRW that pays this list out
             # names the real quest.
-            qfam = plan_sources.quest_route_label(fam, str(L).upper(), lvli_refs,
-                                                  GMRW_QUESTS)
+            # Raids first: the encounter name ("Raid: Gleaming Depths - EN06
+            # Guardian") must not be swallowed by the quest-title steps below.
+            qfam = raid_stage_label(fam, str(L).upper(), lvli_refs)
+            if not qfam:
+                qfam = plan_sources.quest_route_label(fam, str(L).upper(), lvli_refs,
+                                                      GMRW_QUESTS)
             # Still reads like an EditorID ("Schematic Armor Raider", "CB04")?
             # The quest record that rolls this list names it for a player.
             if not qfam and plan_sources.looks_like_wiring(fam):

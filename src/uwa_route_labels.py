@@ -30,6 +30,8 @@ import re
 from collections import defaultdict
 from pathlib import Path
 
+import plan_sources
+
 _REF = re.compile(r"^([0-9A-Fa-f]{8}):([^:]*):([A-Z_]{4})$")
 _RAID_GMRW = re.compile(r"^(RD\d+)_QuestReward_Enc(\d+)$", re.I)
 _DEAD = re.compile(r"(^|_)(zzz|CUT|DONOTUSE|DEL|DEPRECATED|TEST|Debug)(_|$|\d)|^zzz|^DEL_", re.I)
@@ -115,17 +117,11 @@ class Labels:
                 if nm:
                     self.kind[_norm(nm)] = f"Seasonal Event: {nm}"
 
-        # --- raid encounters, named by the game's own challenges
-        enc = defaultdict(lambda: defaultdict(int))     # (RD01, 3) -> {name: votes}
-        for r in self._rows("CHAL_Export_*.tsv"):
-            ed, full = _q(r.get("EDID")), _q(r.get("FULL"))
-            m = re.search(r"_(RD\d+)_Enc(\d+)_", ed)
-            if not m or "_SUB_" in ed:
-                continue
-            raid = raid_name.get(m.group(1).upper())
-            n = re.match(rf"^{re.escape(raid)}\s*-\s*Defeat\s+(.+)$", full) if raid else None
-            if n:
-                enc[(m.group(1).upper(), int(m.group(2)))][n.group(1).strip()] += 1
+        # --- raid encounters, named by the game's own challenges (shared with
+        # the plan pages: plan_sources.raid_encounter_names)
+        enc = plan_sources.raid_encounter_names(
+            [(e, f) for e, f, _t in quests],
+            [(_q(r.get("EDID")), _q(r.get("FULL"))) for r in self._rows("CHAL_Export_*.tsv")])
         self.raid = {}                     # "Raids - Scorchtongue Module" -> (label, [reward lists])
         stage_lists = defaultdict(set)
         stage_name = {}
@@ -140,13 +136,11 @@ class Labels:
             if item.endswith(":LVLI"):
                 stage_lists[key].add(_f(item))
         for key, disp in stage_name.items():
-            raid = raid_name.get(key[0])
-            votes = enc.get(key)
-            if raid and votes:
-                who = max(votes.items(), key=lambda kv: (kv[1], kv[0]))[0]
+            if key in enc:
+                raid, who = enc[key]
                 self.raid[f"Raids - {disp}"] = (f"Raid: {raid} - {who}", stage_lists[key])
-            elif raid:
-                self.raid[f"Raids - {disp}"] = (f"Raid: {raid} - {disp}", stage_lists[key])
+            elif raid_name.get(key[0]):
+                self.raid[f"Raids - {disp}"] = (f"Raid: {raid_name[key[0]]} - {disp}", stage_lists[key])
 
         # --- entitlements that unlock crafting
         self.craft = {}                    # (norm name, "Scoreboard"/"Atom Shop") -> bench
