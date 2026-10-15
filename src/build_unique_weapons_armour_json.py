@@ -66,7 +66,15 @@ CUT_BY_HAND = {"crimsonsky"}
 # In the files but not released in game yet (Duchess, 11 Oct 2026). Kept on the
 # page with an "Unreleased" pill rather than hidden, so they are ready the day
 # they ship. Normalised names.
-UNRELEASED_BY_HAND = set()   # emptied 13 Oct 2026: the Drifter is coming back (Duchess)
+# The Drifter's gear: in the files, not in the game yet (Duchess, 15 Oct 2026:
+# "these are unreleased"). Unreleased pill, off the progress bar, no picture
+# needed. Not cut — the Drifter is coming back.
+UNRELEASED_BY_HAND = {n for n in (
+    "Chaos Engine", "Splinter", "Tempest",
+    "Secret Settler Helmet", "Secret Settler Torso",
+    "Secret Settler Left Arm", "Secret Settler Right Arm",
+    "Secret Settler Left Leg", "Secret Settler Right Leg",
+)}
 
 SRC_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SRC_DIR.parent
@@ -1559,7 +1567,7 @@ def build_channel(channel, dist_dir):
     for i in all_items:
         if norm_name(i.get("name")) in CUT_BY_HAND:
             i["isCut"] = True
-        if norm_name(i.get("name")) in UNRELEASED_BY_HAND:
+        if norm_name(i.get("name")) in {norm_name(n) for n in UNRELEASED_BY_HAND}:
             i["unreleased"] = True
     if not INCLUDE_CUT:
         all_items = [i for i in all_items if not i.get("isCut")]

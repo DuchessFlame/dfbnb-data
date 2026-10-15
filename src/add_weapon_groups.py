@@ -707,6 +707,14 @@ def tidy_images(weapons):
     return dict(n)
 
 
+# Roots with no picture of their own that look exactly like another item
+# whose picture is on the server (Duchess, 15 Oct 2026: the Cursed Shovel is
+# the plain Shovel in game). Picture stems only, never a source.
+ROOT_IMAGE_ALIAS = {
+    "Shovel": "cursed-shovel",
+}
+
+
 def group_images(weapons):
     """{group key: image url} — the picture on each weapon's root expand.
 
@@ -729,7 +737,8 @@ def group_images(weapons):
         # Cauterizer's plan, the Western Revolver's plan is "Plan: Revolver" -
         # their own picture, once uploaded, is the right one for the root.
         named = [r for r in base if re.sub(r"^Plan:\s*", "", r.get("name") or "") == label]
-        url = None if named else weapon_unique_versions.image_for(label, files)
+        url = None if named else weapon_unique_versions.image_for(
+            label, files, [ROOT_IMAGE_ALIAS[label]] if label in ROOT_IMAGE_ALIAS else ())
         for r in ([] if url else base):
             imgs = r.get("images") or []
             if imgs:
@@ -742,9 +751,12 @@ def group_images(weapons):
                            + "/" + url + ".avif")
                 break
         if not url:
-            url = weapon_unique_versions.image_for(label, files)
+            url = weapon_unique_versions.image_for(
+                label, files, [ROOT_IMAGE_ALIAS[label]] if label in ROOT_IMAGE_ALIAS else ())
         if url:
             out[key] = url
+        elif all(r.get("cut") for r in rows):
+            continue    # only cut rows (Laser Musket, Pretty Floral Bouquet): no picture to find
         else:
             missing.append(label)
     return out, missing
