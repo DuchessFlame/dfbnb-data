@@ -56,6 +56,7 @@ from collections import defaultdict
 import tsv_source
 import gold_vendor
 import plan_sources
+import uwa_trace
 
 _RECIPE = re.compile(r"(^|_)recipe_", re.I)
 
@@ -226,7 +227,11 @@ class ObtainIndex:
                 (self._pick("ARMO_Export_*_ARMOUR.tsv"), "ARMO_FormID", "ARMO_FULL", "ARMO_EDID")):
             for r in _rows(path):
                 nm = _norm(r.get(full_col))
-                if nm:
+                # The NPC copy shares the name (cr10mm_CircuitBreaker is the
+                # Indebted Gambler's gun). Walking it printed "Enemy drop:
+                # Indebted Gambler" and "Bounty hunt target" for a weapon those
+                # enemies only carry.
+                if nm and not uwa_trace.is_npc_copy(_q(r.get(edid_col))):
                     self.rec_by_name[nm].add(_fid(r.get(fid_col)))
                     self.rec_edid[_fid(r.get(fid_col))] = _q(r.get(edid_col))
 

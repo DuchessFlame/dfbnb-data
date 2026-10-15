@@ -39,7 +39,18 @@ _OMOD = re.compile(r"\[OMOD:([0-9A-Fa-f]{8})\]")
 _KYWD = re.compile(r"\[KYWD:([0-9A-Fa-f]{8})\]")
 _DEAD = re.compile(r"(^|_)(zzz|CUT|DONOTUSE|DEL|DEPRECATED|TEST|Debug|QA)(_|$|\d)|^zzz|^DEL_|^XPD_|BabylonExclude", re.I)
 _ROSTER = re.compile(r"^(LL_Weapon_Unique_All|LL_Armor_Unique_All|WeaponsUniqueNamedList)$", re.I)
-_NPC_WEAP = re.compile(r"^(cr|DEL_|zzz|XPD_)|_cr[A-Z]|NONPLAYABLE|^MTR\d*_cr|^SDOW_cr|^P62_cr", re.I)
+# NPC copies of a weapon (cr10mm_CircuitBreaker, crcrossbow, CrMolotovCocktail,
+# SDOW_crAxe ...). What an enemy HOLDS, not what it drops: the bounty boss's
+# crLLI_..._CircuitBreaker list is its gun, not loot. The "cr" test is case
+# sensitive on purpose: with re.I it also threw out Cryolator, Crossbow and
+# Cremator, real player weapons.
+_NPC_COPY = re.compile(r"^(?:cr|Cr(?=[A-Z]))|_cr[A-Z]")
+_NPC_WEAP = re.compile(_NPC_COPY.pattern + r"|(?i:^(?:DEL_|zzz|XPD_)|NONPLAYABLE)")
+
+
+def is_npc_copy(edid):
+    """True for an NPC-only copy of a record, or a leveled list of them (crLLI_*)."""
+    return bool(_NPC_COPY.search(str(edid or "").strip().strip('"')))
 _GENERIC_TMP = re.compile(r"if_tmp_(DEBUG|Random|Simple|Default|Base|Any)", re.I)
 
 ROUTES = ["Caps", "Stamps", "Scoreboard", "Gold Bullion", "Atom Shop",

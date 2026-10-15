@@ -90,6 +90,7 @@ import uwa_discover
 import uwa_source_links
 import uwa_names       # in-game names from INNR (Oct 2026)
 import uwa_trace       # sources traced from the game files (Oct 2026)
+import uwa_route_labels  # player-facing route names (Oct 2026)
 from patchlog_utils import write_empty_patchlog_feed
 
 import build_unique_weapons_json as buw
@@ -945,7 +946,9 @@ def _event_lists(channel):
         parents[ced].add(par)
         for ed in (ced, par):
             tail = ed.rsplit("_", 1)[-1]
-            if not _DEAD_LIST.search(ed):
+            # crLLI_..._CircuitBreaker is what a bounty boss holds, never
+            # the unique's own (loot) list.
+            if not _DEAD_LIST.search(ed) and not uwa_trace.is_npc_copy(ed):
                 own.setdefault(norm_name(tail), ed)
                 # "TheVATSUnknown" has no space for norm_name to drop "the "
                 # from, so key it the way the unique's name normalises too.
@@ -1728,6 +1731,9 @@ def build_channel(channel, dist_dir):
     uwa_obtain.merge_package_lines(all_items)
     attach_conditions(all_items, channel)
     uwa_images.attach(all_items)   # pictures by name, from the server listing
+    # Player-facing route names: raid encounters, event kinds, raid plans,
+    # Scoreboard crafting unlocks — all read from the files (uwa_route_labels).
+    uwa_route_labels.apply(all_items, uwa_route_labels.Labels(_pk, read_tsv, REPO_ROOT))
 
     # Items Bethesda's own WeaponsUniqueNamedList has never heard of AND that
     # the override table names as mod records rather than weapons. Dropping
