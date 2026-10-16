@@ -711,6 +711,12 @@ jobs:
           node src/plan-system/build-plan-master.mjs
 
       - name: Build Plan Checklists (How to Obtain) JSON
+        # rng76_fast: skips loot-list branches that cannot hold the plan.
+        # Proven bit-identical to the old engine on every plan (11 Oct 2026:
+        # 2,892 plans, 239,879 checks, 0 differences, ~28x faster). Delete
+        # this env block to go back to the old walk.
+        env:
+          DFBNB_FAST_RATES: "1"
         run: |
           python src/build_plan_obtain_json.py \
             --data-dir tsv \
@@ -1210,6 +1216,21 @@ jobs:
           DFBNB_CHANNEL: pts
         run: python src/build_collectable_spawns_json.py
 
+      # --- BRAIN IN A JAR (Collectables - A Matter of Matter, Skyline Valley) ---
+      # Placements come from the committed data/brain_in_a_jar/placements_pts.tsv
+      # (src/esm_scan_placements.py, run locally against the PTS SeventySix.esm
+      # with the Mappalachia DB). Rewards / holotapes / quest name come from the
+      # CHAL, GMRW, GLOB, NOTE and QUST2 exports. Hand-filled directions and photos
+      # are carried over from the last committed dist/pts copy (git show HEAD).
+      # Writes dist/brain_in_a_jar.json + _guide.json; the relocate step moves
+      # them to dist/pts/. Rendered by df-bnb-brain-in-a-jar.js.
+      - name: Build Brain in a Jar JSON
+        env:
+          DFBNB_CHANNEL: pts
+        run: |
+          python src/build_brain_in_a_jar_json.py
+          python -c "import json;d=json.load(open('dist/brain_in_a_jar.json'));g=json.load(open('dist/brain_in_a_jar_guide.json'));assert d['total_real']>=100 and d['rewards']['milestones'] and g['sections'],d['total_real'];print('brain_in_a_jar ok',d['total_real'],len(d['pages']),'pages',len(d['rewards']['milestones']),'tiers',len(d['holotapes']),'tapes')"
+
       # --- NUKA COLA SPAWNS ({Type} Locations pages) ---
       # Same builder as the live channel, in CI CACHE mode: the full source closure comes from the
       # committed game-file exports and coordinates+regions from data/nuka_cola_spawns/geo_cache.json
@@ -1338,6 +1359,13 @@ jobs:
       # and BEFORE the map-link stamp below.
       - name: Build combined plant guide pages
         run: python src/build_plant_combo_guides.py
+
+      # --- PRE-WAR FOOD LOCATION GUIDE ---
+      # Same as the patch build. No --pts flag here: this workflow has already
+      # swapped the PTS exports into tsv/, and the relocate step moves dist/ ->
+      # dist/pts/ afterwards. Must run AFTER build_farming_used_for.py.
+      - name: Build Pre-War Food guide
+        run: python src/build_pre_war_food_guide.py
 
       # --- SPAWN MAP DOWNLOAD LINKS (map_base + full_map) ---
       # Stamps every farming/meat/plants/insects/drinks spawn doc with its map
@@ -1615,7 +1643,12 @@ jobs:
           for item in dist/!(pts); do
             mv "$item" dist/pts/
           done
-          echo "dist/pts now contains:"; ls -1 dist/pts | head -50
+          # Print a preview without `| head`: Actions bash runs with -o pipefail,
+          # so head closing the pipe early makes ls die with "Broken pipe"
+          # (exit 2) and fails the step once dist/pts has more than 50 entries.
+          # sed reads all of its input, so ls never gets SIGPIPE.
+          echo "dist/pts now contains $(ls -1 dist/pts | wc -l) entries; first 50:"
+          ls -1 dist/pts | sed -n '1,50p'
 
       - name: Generate PTS vs Live changelog
         shell: bash
