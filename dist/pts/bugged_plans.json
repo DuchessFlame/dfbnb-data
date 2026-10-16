@@ -21,24 +21,24 @@
   "dead_entries_never_rolls": 24,
   "dead_entries_shadowed": 6,
   "lists_live": 8975,
-  "plans_scanned": 3136,
+  "plans_scanned": 3137,
   "plans_cut": 314,
   "plans_via_unreferenced_gmrw": 27,
-  "scrap_scanned": 979,
-  "titles_scanned": 521,
-  "titles_entitlement_or_default": 287,
-  "titles_skipped_cut_or_atom": 156,
+  "scrap_scanned": 982,
+  "titles_scanned": 522,
+  "titles_entitlement_or_default": 286,
+  "titles_skipped_cut_or_atom": 157,
   "titles_checked": 52
  },
  "counts": {
-  "total": 85,
-  "unobtainable": 83,
+  "total": 86,
+  "unobtainable": 84,
   "broken_item": 2,
-  "conf_check": 81,
+  "conf_check": 82,
   "conf_strong": 4,
   "confirmed": 0,
   "titles": 0,
-  "plans": 85
+  "plans": 86
  },
  "items": [
   {
@@ -215,22 +215,12 @@
     },
     "recipes": [
      {
-      "form_id": "00948282",
-      "edid": "co_mod_50CalMachineGun_Magazine_Ammo-ArmorPen",
-      "type": "COBJ"
-     },
-     {
       "form_id": "00948272",
       "edid": "co_mod_50CalMachineGun_Grip_Recoil-SecondaryDMG",
       "type": "COBJ"
      }
     ],
     "creates": [
-     {
-      "form_id": "009482B3",
-      "edid": "mod_50CalMachineGun_Magazine_Ammo-ArmorPen",
-      "type": "OMOD"
-     },
      {
       "form_id": "009482A4",
       "edid": "mod_50CalMachineGun_Grip_Recoil-SecondaryDMG",
@@ -463,8 +453,20 @@
      "edid": "recipe_mod_50CalMachineGun_Magazine_Ammo-ArmorPen",
      "type": "BOOK"
     },
-    "recipes": [],
-    "creates": []
+    "recipes": [
+     {
+      "form_id": "00948282",
+      "edid": "co_mod_50CalMachineGun_Magazine_Ammo-ArmorPen",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "009482B3",
+      "edid": "mod_50CalMachineGun_Magazine_Ammo-ArmorPen",
+      "type": "OMOD"
+     }
+    ]
    },
    "confidence": "check",
    "confirmed": false,
@@ -1221,35 +1223,15 @@
     },
     "recipes": [
      {
-      "form_id": "0057375A",
-      "edid": "co_mod_GaussShotgun_Receiver_FastTrigger-HipAccuracy",
-      "type": "COBJ"
-     },
-     {
       "form_id": "00949003",
       "edid": "co_mod_GaussShotgun_Barrel_Long_Recoil-HipAccuracy",
-      "type": "COBJ"
-     },
-     {
-      "form_id": "00949009",
-      "edid": "co_mod_GaussShotgun_Barrel_Shielded_Recoil-HipAccuracy",
       "type": "COBJ"
      }
     ],
     "creates": [
      {
-      "form_id": "00573744",
-      "edid": "mod_GaussShotgun_Receiver_FastTrigger-HipAccuracy",
-      "type": "OMOD"
-     },
-     {
       "form_id": "00949029",
       "edid": "mod_GaussShotgun_Barrel_Long_Recoil-HipAccuracy",
-      "type": "OMOD"
-     },
-     {
-      "form_id": "0094902F",
-      "edid": "mod_GaussShotgun_Barrel_Shielded_Recoil-HipAccuracy",
       "type": "OMOD"
      }
     ]
@@ -1287,8 +1269,20 @@
      "edid": "recipe_mod_GaussShotgun_Barrel_Shielded_Recoil-HipAccuracy",
      "type": "BOOK"
     },
-    "recipes": [],
-    "creates": []
+    "recipes": [
+     {
+      "form_id": "00949009",
+      "edid": "co_mod_GaussShotgun_Barrel_Shielded_Recoil-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094902F",
+      "edid": "mod_GaussShotgun_Barrel_Shielded_Recoil-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
    },
    "confidence": "check",
    "confirmed": false,
@@ -1563,8 +1557,20 @@
      "edid": "recipe_mod_GaussShotgun_Receiver_FastTrigger-HipAccuracy",
      "type": "BOOK"
     },
-    "recipes": [],
-    "creates": []
+    "recipes": [
+     {
+      "form_id": "0057375A",
+      "edid": "co_mod_GaussShotgun_Receiver_FastTrigger-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00573744",
+      "edid": "mod_GaussShotgun_Receiver_FastTrigger-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
    },
    "confidence": "check",
    "confirmed": false,
@@ -1714,9 +1720,9 @@
       "type": "OMOD"
      },
      {
-      "form_id": "00951619",
-      "edid": "miscmod_mod_GaussPistol_Receiver_FastTrigger-Damage",
-      "type": ""
+      "form_id": "0095162C",
+      "edid": "mod_GaussPistol_Receiver_FastTrigger-Damage",
+      "type": "OMOD"
      }
     ]
    },
@@ -2974,6 +2980,54 @@
    "is_new": false
   },
   {
+   "id": "0094F153",
+   "name": "Plan: M79 Aligned Long Barrel",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16D",
+       "edid": "LLS_Mods_Weapons_Ranged_M79",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged M79 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_M79) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged M79."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094F153",
+     "edid": "recipe_mod_M79_LongBarrel_HipAccuracy-Recoil",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094F15D",
+      "edid": "co_mod_M79_Barrel_Long_Recoil-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094F18B",
+      "edid": "mod_M79_Barrel_Long_Recoil-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-16",
+   "is_new": true
+  },
+  {
    "id": "0094F156",
    "name": "Plan: M79 Aligned Short Barrel",
    "kind": "plan",
@@ -3023,7 +3077,7 @@
   },
   {
    "id": "0094F152",
-   "name": "Plan: M79 Forceful Grip",
+   "name": "Plan: M79 Forceful Stock",
    "kind": "plan",
    "severity": "unobtainable",
    "bugs": [
@@ -3071,7 +3125,7 @@
   },
   {
    "id": "0094F154",
-   "name": "Plan: M79 Precise Grip",
+   "name": "Plan: M79 Precise Stock",
    "kind": "plan",
    "severity": "unobtainable",
    "bugs": [
@@ -3108,54 +3162,6 @@
      {
       "form_id": "0094F18C",
       "edid": "mod_M79_StockFull_HipAccuracy-SecondaryDMG",
-      "type": "OMOD"
-     }
-    ]
-   },
-   "confidence": "check",
-   "confirmed": false,
-   "first_seen": "2026-10-05",
-   "is_new": false
-  },
-  {
-   "id": "0094F158",
-   "name": "Plan: M79 Precise Grip",
-   "kind": "plan",
-   "severity": "unobtainable",
-   "bugs": [
-    {
-     "kind": "orphan",
-     "strong": false,
-     "title": "Reward list isn't connected to anything",
-     "records": [
-      {
-       "form_id": "0094F16D",
-       "edid": "LLS_Mods_Weapons_Ranged_M79",
-       "type": "LVLI"
-      }
-     ],
-     "summary": "The Mods Weapons Ranged M79 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_M79) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged M79."
-    }
-   ],
-   "still_from": [],
-   "technical": {
-    "plan": {
-     "form_id": "0094F158",
-     "edid": "recipe_mod_M79_Stock_HipAccuracy-SecondaryDMG",
-     "type": "BOOK"
-    },
-    "recipes": [
-     {
-      "form_id": "0094F16A",
-      "edid": "co_mod_M79_Stock_HipAccuracy-SecondaryDMG",
-      "type": "COBJ"
-     }
-    ],
-    "creates": [
-     {
-      "form_id": "0094F184",
-      "edid": "mod_M79_Stock_HipAccuracy-SecondaryDMG",
       "type": "OMOD"
      }
     ]
@@ -3204,6 +3210,54 @@
      {
       "form_id": "0094F185",
       "edid": "mod_M79_Receiver_Damage-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-05",
+   "is_new": false
+  },
+  {
+   "id": "0094F158",
+   "name": "Plan: M79 Reliable Stock",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "0094F16D",
+       "edid": "LLS_Mods_Weapons_Ranged_M79",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The Mods Weapons Ranged M79 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_M79) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged M79."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094F158",
+     "edid": "recipe_mod_M79_Stock_HipAccuracy-SecondaryDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094F16A",
+      "edid": "co_mod_M79_Stock_HipAccuracy-SecondaryDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094F184",
+      "edid": "mod_M79_Stock_HipAccuracy-SecondaryDMG",
       "type": "OMOD"
      }
     ]
@@ -4243,11 +4297,6 @@
   {
    "id": "00916663",
    "name": "Plan: Covert Scout Tattered Armor Torso",
-   "fixed_on": "2026-10-06"
-  },
-  {
-   "id": "0094F153",
-   "name": "Plan: M79 Aligned Long Barrel",
    "fixed_on": "2026-10-06"
   },
   {
