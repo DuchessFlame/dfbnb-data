@@ -2176,7 +2176,7 @@ _Couldn't key this file to records; contents differ._
 ## `unique_weapons/unique_weapons.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `unique_weapons_armour/unique_weapons_armour.json`  ·  +7 / -0 / ~27
+## `unique_weapons_armour/unique_weapons_armour.json`  ·  +7 / -0 / ~29
 
 **Added (7)**
 - Corpse Stacker  `mod-custom-corpsestacker`
@@ -2187,7 +2187,7 @@ _Couldn't key this file to records; contents differ._
 - Tarnished Claw  `rd01-ultraciteterrorsword-2`
 - V63 Zweihaender  `stormcutter-2`
 
-**Changed (27)**
+**Changed (29)**
 - Splinter  `10mmsmg-4` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
 - Final Word  `50calmachinegun` — fields: uniqueMods
 - The Action Hero  `50calmachinegun-2` — fields: uniqueMods
@@ -2199,6 +2199,7 @@ _Couldn't key this file to records; contents differ._
 - Whistle in the Dark  `assaultrifle` — fields: obtainRoutes
 - Disorderly Conduct  `baton` — fields: uniqueMods
 - V63 Shock Baton  `baton-2` — fields: howToObtain, obtainRoutes
+- The Dragon  `blackpowder-rifle-dragon` — fields: obtainRoutes
 - Tempest  `dlc01-assaultronblade-2` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
 - Camden Whacker  `dlc04-commiewhacker` — fields: howToObtain, obtainRoutes, sourceRef, sourceType, unreleased
 - Overkill  `fatman-2` — fields: howToObtain, image, imageSameAsBase, inherentEffect, name, obtainRoutes, recordIds, repairOnly, sourceRef, starEffects, uniqueMods
@@ -2212,6 +2213,7 @@ _Couldn't key this file to records; contents differ._
 - Vox Syringer  `mtns05-pipesyringer-vox` — fields: howToObtain
 - Headhunter Scythe  `pickaxe-2` — fields: howToObtain, obtainRoutes
 - Slug Buster  `plasmagun-4` — fields: howToObtain, obtainRoutes, questName, sourceRef, sourceType, starEffects
+- Face Breaker  `powerfist` — fields: obtainRoutes
 - Lickety-Split  `railwayrifle` — fields: howToObtain, obtainRoutes
 - Venomous Fang  `rd01-ultraciteterrorsword` — fields: aka, confirmedByGameFiles, name
 - V63-Z Custom  `stormcutter` — fields: howToObtain, image, name, obtainRoutes, questName, recordIds, sourceRef, starEffects, uniqueMods
