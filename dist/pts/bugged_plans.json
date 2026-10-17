@@ -16,11 +16,11 @@
   "CMPT": "CMPT_Export_October_2026.tsv"
  },
  "stats": {
-  "lists_total": 11305,
+  "lists_total": 11316,
   "dead_entries_shadowed_switch": 6,
   "dead_entries_never_rolls": 24,
   "dead_entries_shadowed": 6,
-  "lists_live": 8975,
+  "lists_live": 8966,
   "plans_scanned": 3137,
   "plans_cut": 314,
   "plans_via_unreferenced_gmrw": 27,
@@ -31,16 +31,63 @@
   "titles_checked": 52
  },
  "counts": {
-  "total": 86,
-  "unobtainable": 84,
+  "total": 103,
+  "unobtainable": 101,
   "broken_item": 2,
-  "conf_check": 82,
+  "conf_check": 99,
   "conf_strong": 4,
   "confirmed": 0,
   "titles": 0,
-  "plans": 86
+  "plans": 103
  },
  "items": [
+  {
+   "id": "0095A748",
+   "name": "\"Ignited\" Security Baton Rod Mod",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0095A74E",
+       "edid": "LLC_PTS_P72_SecurityBaton_Mods",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0095A748",
+     "edid": "SCORE_S27_Recipe_Baton_Rod_Bundle_Ignited_StampVendor",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0095A74D",
+      "edid": "SCORE_S27_co_Weapon_Baton_Rod_Bundle_Ignited_StampVendor",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-17",
+   "is_new": true
+  },
   {
    "id": "00948263",
    "name": "Plan: 50 Cal Machine Gun Aligned Grip",
@@ -53,13 +100,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00948287",
        "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -101,13 +153,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00948287",
        "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -149,13 +206,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00948287",
        "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -197,13 +259,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00948287",
        "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -245,13 +312,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00948287",
        "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -293,13 +365,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00948287",
        "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -341,13 +418,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00948287",
        "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -389,13 +471,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00948287",
        "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -437,13 +524,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00948287",
        "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -485,13 +577,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00948287",
        "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -533,13 +630,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00948287",
        "edid": "LLS_Mods_Weapons_Ranged_50CalMachineGun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Cal Machine Gun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_50CalMachineGun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Cal Machine Gun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -677,13 +779,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094F16C",
        "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -725,13 +832,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094F16C",
        "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -773,13 +885,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094F16C",
        "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -821,13 +938,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094F16C",
        "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -869,13 +991,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094F16C",
        "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -917,13 +1044,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094F16C",
        "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -965,13 +1097,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094F16C",
        "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1013,13 +1150,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094F16C",
        "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1061,13 +1203,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094F16C",
        "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1109,13 +1256,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094F16C",
        "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1157,13 +1309,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094F16C",
        "edid": "LLS_Mods_Weapons_Ranged_BoSPistol",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Brotherhood of Steel Pistol reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_BoSPistol) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Brotherhood of Steel Pistol."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1194,6 +1351,630 @@
    "is_new": false
   },
   {
+   "id": "00951606",
+   "name": "Plan: Gauss Pistol Aligned Energy Barrel",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0095F4F0",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00951606",
+     "edid": "recipe_co_mod_GaussPistol_Barrel_Energy_Recoil-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0095160E",
+      "edid": "co_mod_GaussPistol_Barrel_Energy_Recoil-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00951628",
+      "edid": "mod_GaussPistol_Barrel_Energy_Recoil-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-17",
+   "is_new": true
+  },
+  {
+   "id": "0094F7E6",
+   "name": "Plan: Gauss Pistol Aligned Grip",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0095F4F0",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094F7E6",
+     "edid": "recipe_mod_GaussPistol_Grip_HipAccuracy-Recoil",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094F7EB",
+      "edid": "co_mod_GaussPistol_Grip_HipAccuracy-Recoil",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094F802",
+      "edid": "mod_GaussPistol_Grip_Recoil-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-17",
+   "is_new": true
+  },
+  {
+   "id": "00951601",
+   "name": "Plan: Gauss Pistol Aligned Suppressed Barrel",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0095F4F0",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00951601",
+     "edid": "recipe_mod_GaussPistol_Barrel_Suppressed_Recoil-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00951610",
+      "edid": "co_mod_GaussPistol_Barrel_Suppressed_Recoil-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00951629",
+      "edid": "mod_GaussPistol_Barrel_Suppressed_Recoil-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-17",
+   "is_new": true
+  },
+  {
+   "id": "00951605",
+   "name": "Plan: Gauss Pistol Fierce Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0095F4F0",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00951605",
+     "edid": "recipe_mod_GaussPistol_Receiver_FastTrigger-CritDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00951609",
+      "edid": "co_mod_GaussPistol_Receiver_FastTrigger-CritDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0095162B",
+      "edid": "mod_GaussPistol_Receiver_FastTrigger-CritDMG",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-17",
+   "is_new": true
+  },
+  {
+   "id": "0094F7E7",
+   "name": "Plan: Gauss Pistol Forceful Grip",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0095F4F0",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094F7E7",
+     "edid": "recipe_mod_GaussPistol_Grip_Recoil-SecondaryDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094F7F1",
+      "edid": "co_mod_GaussPistol_Grip_Recoil-SecondaryDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094F803",
+      "edid": "mod_GaussPistol_Grip_Recoil-SecondaryDMG",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-17",
+   "is_new": true
+  },
+  {
+   "id": "0094F7E3",
+   "name": "Plan: Gauss Pistol Piercing Magazine",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0095F4F0",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094F7E3",
+     "edid": "recipe_mod_GaussPistol_Magazine_Reload-ArmorPen",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094F7EF",
+      "edid": "co_mod_GaussPistol_Magazine_Reload-ArmorPen",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094F801",
+      "edid": "mod_GaussPistol_Magazine_Reload-ArmorPen",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-17",
+   "is_new": true
+  },
+  {
+   "id": "0094F7E5",
+   "name": "Plan: Gauss Pistol Precise Grip",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0095F4F0",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094F7E5",
+     "edid": "recipe_mod_GaussPistol_Grip_HipAccuracy-SecondaryDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094F7E9",
+      "edid": "co_mod_GaussPistol_Grip_HipAccuracy-SecondaryDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094F807",
+      "edid": "mod_GaussPistol_Grip_HipAccuracy-SecondaryDMG",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-17",
+   "is_new": true
+  },
+  {
+   "id": "00951602",
+   "name": "Plan: Gauss Pistol Severe Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0095F4F0",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00951602",
+     "edid": "recipe_co_mod_GaussPistol_Receiver_Damage-CritDMG",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00951613",
+      "edid": "co_mod_GaussPistol_Receiver_Damage-CritDMG",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00951626",
+      "edid": "mod_GaussPistol_Receiver_Damage-CritDMG",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-17",
+   "is_new": true
+  },
+  {
+   "id": "00951603",
+   "name": "Plan: Gauss Pistol Steadfast Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0095F4F0",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00951603",
+     "edid": "recipe_mod_GaussPistol_Receiver_FastTrigger-HipAccuracy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0095160C",
+      "edid": "co_mod_GaussPistol_Receiver_FastTrigger-HipAccuracy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0095162E",
+      "edid": "mod_GaussPistol_Receiver_FastTrigger-HipAccuracy",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-17",
+   "is_new": true
+  },
+  {
+   "id": "0094F7E2",
+   "name": "Plan: Gauss Pistol Stinging Magazine",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0095F4F0",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094F7E2",
+     "edid": "recipe_mod_GaussPistol_Magazine_Ammo-ArmorPen",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094F7F0",
+      "edid": "co_mod_GaussPistol_Magazine_Ammo-ArmorPen",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094F808",
+      "edid": "mod_GaussPistol_Magazine_Ammo-ArmorPen",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-17",
+   "is_new": true
+  },
+  {
+   "id": "0094F7E4",
+   "name": "Plan: Gauss Pistol Swift Magazine",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0095F4F0",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0094F7E4",
+     "edid": "recipe_mod_GaussPistol_Magazine_Ammo-Reload",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0094F7EC",
+      "edid": "co_mod_GaussPistol_Magazine_Ammo-Reload",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0094F7FE",
+      "edid": "mod_GaussPistol_Magazine_Ammo-Reload",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-17",
+   "is_new": true
+  },
+  {
+   "id": "00951604",
+   "name": "Plan: Gauss Pistol Vigorous Receiver",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0095F4F0",
+       "edid": "LLS_Mods_Weapons_Ranged_GaussPistol",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00951604",
+     "edid": "recipe_mod_GaussPistol_Receiver_FastTrigger-Damage",
+     "type": "BOOK"
+    },
+    "recipes": [],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-17",
+   "is_new": true
+  },
+  {
    "id": "00948FF5",
    "name": "Plan: Gauss Shotgun Aligned Long Barrel",
    "kind": "plan",
@@ -1205,13 +1986,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094900A",
        "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1253,13 +2039,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094900A",
        "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1301,13 +2092,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094900A",
        "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1349,13 +2145,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094900A",
        "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1397,13 +2198,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094900A",
        "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1445,13 +2251,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094900A",
        "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1493,13 +2304,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094900A",
        "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1541,13 +2357,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094900A",
        "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1589,13 +2410,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094900A",
        "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1637,13 +2463,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094900A",
        "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1685,13 +2516,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094900A",
        "edid": "LLS_Mods_Weapons_Ranged_GaussShotgun",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Gauss Shotgun reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_GaussShotgun) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Gauss Shotgun."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1743,13 +2579,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1791,13 +2632,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1839,13 +2685,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1887,13 +2738,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1935,13 +2791,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -1983,13 +2844,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2031,13 +2897,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2079,13 +2950,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2127,13 +3003,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2175,13 +3056,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2223,13 +3109,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2271,13 +3162,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2319,13 +3215,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2367,13 +3268,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2415,13 +3321,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2463,13 +3374,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2511,13 +3427,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2559,13 +3480,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2607,13 +3533,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2655,13 +3586,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2703,13 +3639,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2751,13 +3692,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2799,13 +3745,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2847,13 +3798,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2895,13 +3851,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00947F5D",
        "edid": "LLS_Mods_Weapons_Ranged_MG42",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged MG42 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_MG42) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged MG42."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2943,13 +3904,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094F16D",
        "edid": "LLS_Mods_Weapons_Ranged_M79",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged M79 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_M79) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged M79."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -2991,13 +3957,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094F16D",
        "edid": "LLS_Mods_Weapons_Ranged_M79",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged M79 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_M79) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged M79."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -3039,13 +4010,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094F16D",
        "edid": "LLS_Mods_Weapons_Ranged_M79",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged M79 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_M79) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged M79."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -3087,13 +4063,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094F16D",
        "edid": "LLS_Mods_Weapons_Ranged_M79",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged M79 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_M79) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged M79."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -3135,13 +4116,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094F16D",
        "edid": "LLS_Mods_Weapons_Ranged_M79",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged M79 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_M79) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged M79."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -3183,13 +4169,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094F16D",
        "edid": "LLS_Mods_Weapons_Ranged_M79",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged M79 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_M79) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged M79."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -3231,13 +4222,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094F16D",
        "edid": "LLS_Mods_Weapons_Ranged_M79",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged M79 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_M79) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged M79."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -3279,13 +4275,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094F16D",
        "edid": "LLS_Mods_Weapons_Ranged_M79",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged M79 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_M79) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged M79."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -3327,13 +4328,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "0094F16D",
        "edid": "LLS_Mods_Weapons_Ranged_M79",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged M79 reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_M79) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged M79."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -3471,13 +4477,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "008B1D62",
        "edid": "LLS_Mods_Weapons_Ranged_PlasmaCaster",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Plasma Caster reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_PlasmaCaster) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Plasma Caster."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -3519,13 +4530,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "008B1D62",
        "edid": "LLS_Mods_Weapons_Ranged_PlasmaCaster",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Plasma Caster reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_PlasmaCaster) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Plasma Caster."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -3567,13 +4583,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "008B1D62",
        "edid": "LLS_Mods_Weapons_Ranged_PlasmaCaster",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Plasma Caster reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_PlasmaCaster) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Plasma Caster."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -3615,13 +4636,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "008B1D62",
        "edid": "LLS_Mods_Weapons_Ranged_PlasmaCaster",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Plasma Caster reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_PlasmaCaster) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Plasma Caster."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -3652,6 +4678,194 @@
    "is_new": false
   },
   {
+   "id": "009559D1",
+   "name": "Plan: Security Baton Grip Mod Bundle #1",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0095A74E",
+       "edid": "LLC_PTS_P72_SecurityBaton_Mods",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "009559D1",
+     "edid": "SCORE_S27_Recipe_Baton_Grip_Bundle1_StampVendor",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0095A749",
+      "edid": "SCORE_S27_co_Weapon_Baton_Grip_Bundle1_StampVendor",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-17",
+   "is_new": true
+  },
+  {
+   "id": "009559D2",
+   "name": "Plan: Security Baton Grip Mod Bundle #2",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0095A74E",
+       "edid": "LLC_PTS_P72_SecurityBaton_Mods",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "009559D2",
+     "edid": "SCORE_S27_Recipe_Baton_Grip_Bundle2_StampVendor",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0095A74A",
+      "edid": "SCORE_S27_co_Weapon_Baton_Grip_Bundle2_StampVendor",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-17",
+   "is_new": true
+  },
+  {
+   "id": "009559D3",
+   "name": "Plan: Security Baton Grip Mod Bundle #3",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0095A74E",
+       "edid": "LLC_PTS_P72_SecurityBaton_Mods",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "009559D3",
+     "edid": "SCORE_S27_Recipe_Baton_Grip_Bundle3_StampVendor",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0095A74B",
+      "edid": "SCORE_S27_co_Weapon_Baton_Grip_Bundle3_StampVendor",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-17",
+   "is_new": true
+  },
+  {
+   "id": "0095A747",
+   "name": "Plan: Security Baton Rod Mod Bundle #1",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "orphan",
+     "strong": false,
+     "title": "Reward list isn't connected to anything",
+     "records": [
+      {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
+       "form_id": "0095A74E",
+       "edid": "LLC_PTS_P72_SecurityBaton_Mods",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0095A747",
+     "edid": "SCORE_S27_Recipe_Baton_Rod_Bundle1_StampVendor",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0095A74C",
+      "edid": "SCORE_S27_co_Weapon_Baton_Rod_Bundle1_StampVendor",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "check",
+   "confirmed": false,
+   "first_seen": "2026-10-17",
+   "is_new": true
+  },
+  {
    "id": "0094673D",
    "name": "Plan: Single Action Revolver Fierce Receiver",
    "kind": "plan",
@@ -3663,13 +4877,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00946755",
        "edid": "LLS_Mods_Weapons_Ranged_SingleActionRevolver",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Single Action Revolver reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_SingleActionRevolver) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Single Action Revolver."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -3711,13 +4930,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00946755",
        "edid": "LLS_Mods_Weapons_Ranged_SingleActionRevolver",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Single Action Revolver reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_SingleActionRevolver) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Single Action Revolver."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -3759,13 +4983,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00946755",
        "edid": "LLS_Mods_Weapons_Ranged_SingleActionRevolver",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Single Action Revolver reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_SingleActionRevolver) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Single Action Revolver."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -3807,13 +5036,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00946755",
        "edid": "LLS_Mods_Weapons_Ranged_SingleActionRevolver",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Single Action Revolver reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_SingleActionRevolver) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Single Action Revolver."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -3855,13 +5089,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00946755",
        "edid": "LLS_Mods_Weapons_Ranged_SingleActionRevolver",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Single Action Revolver reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_SingleActionRevolver) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Single Action Revolver."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -3903,13 +5142,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00946755",
        "edid": "LLS_Mods_Weapons_Ranged_SingleActionRevolver",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Single Action Revolver reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_SingleActionRevolver) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Single Action Revolver."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -3951,13 +5195,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00946755",
        "edid": "LLS_Mods_Weapons_Ranged_SingleActionRevolver",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Single Action Revolver reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_SingleActionRevolver) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Single Action Revolver."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -3999,13 +5248,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00946755",
        "edid": "LLS_Mods_Weapons_Ranged_SingleActionRevolver",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Single Action Revolver reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_SingleActionRevolver) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Single Action Revolver."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],
@@ -4047,13 +5301,18 @@
      "title": "Reward list isn't connected to anything",
      "records": [
       {
+       "form_id": "008A830F",
+       "edid": "LLC_PTS_Locker_Default",
+       "type": "LVLI"
+      },
+      {
        "form_id": "00946755",
        "edid": "LLS_Mods_Weapons_Ranged_SingleActionRevolver",
        "type": "LVLI"
       }
      ],
-     "summary": "The Mods Weapons Ranged Single Action Revolver reward pool that holds this plan isn't hooked up to anything, so it never drops.",
-     "detail": "The leveled list that holds this plan (LLS_Mods_Weapons_Ranged_SingleActionRevolver) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to Mods Weapons Ranged Single Action Revolver."
+     "summary": "The LLC PTS Locker Default reward pool that holds this plan isn't hooked up to anything, so it never drops.",
+     "detail": "The leveled list that holds this plan (LLC_PTS_Locker_Default) isn't referenced by any quest reward, enemy, container, vendor or parent list, so nothing in the game ever rolls it. It looks like it belongs to LLC PTS Locker Default."
     }
    ],
    "still_from": [],

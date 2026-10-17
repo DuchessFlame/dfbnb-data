@@ -8,9 +8,356 @@
     "current_game_version": "1.7.26.22",
     "current_patch_date": "2026-10-01",
     "patches_behind": 1,
-    "current": 6802
+    "current": 6809
   },
   "entries": [
+    {
+      "ts": "2026-10-16",
+      "source": "NPC_Export_PTS_2026-10-16_2123.tsv",
+      "game_version": "1.7.26.22",
+      "patch_name": "The Slasher",
+      "current": 6809,
+      "added": [
+        {
+          "name": "Aberrant Mutant Hound",
+          "id": "00958672"
+        },
+        {
+          "name": "AudioTemplateDogVicious",
+          "id": "00962C70"
+        },
+        {
+          "name": "Cultist Ritualist",
+          "id": "009576D9"
+        },
+        {
+          "name": "Rust Raider Marauder",
+          "id": "0095A708"
+        },
+        {
+          "name": "Rust Raider Reaver",
+          "id": "0095A707"
+        },
+        {
+          "name": "Sinister Mothman",
+          "id": "009576DA"
+        },
+        {
+          "name": "Super Mutant Firestarter",
+          "id": "00958673"
+        }
+      ],
+      "removed": [],
+      "changed": [
+        {
+          "name": "Cultist Acolyte",
+          "id": "008F4ECF",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Cultist Chosen",
+              "to": "Cultist Acolyte"
+            }
+          ]
+        },
+        {
+          "name": "Cultist Adherent",
+          "id": "008F4EC3",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Cultist",
+              "to": "Cultist Adherent"
+            }
+          ]
+        },
+        {
+          "name": "Cultist Firewalker",
+          "id": "008F4EDF",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Cultist Purifier",
+              "to": "Cultist Firewalker"
+            }
+          ]
+        },
+        {
+          "name": "Cultist Harvestman",
+          "id": "008F4EB8",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Cultist Zealot",
+              "to": "Cultist Harvestman"
+            }
+          ]
+        },
+        {
+          "name": "Cultist Novitiate",
+          "id": "008F4EDA",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Cultist Prospect",
+              "to": "Cultist Novitiate"
+            }
+          ]
+        },
+        {
+          "name": "Cultist Skulk",
+          "id": "008F4ED7",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Cultist Toxophilite",
+              "to": "Cultist Skulk"
+            }
+          ]
+        },
+        {
+          "name": "Cultist Zealot",
+          "id": "008F4EE2",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Cultist Initiate",
+              "to": "Cultist Zealot"
+            }
+          ]
+        },
+        {
+          "name": "Eye Bomb",
+          "id": "008F4ED3",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "EyeBomb",
+              "to": "Eye Bomb"
+            }
+          ]
+        },
+        {
+          "name": "Floater Emitter",
+          "id": "008FF6A2",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Aberrant Mutant Hound",
+              "to": "Floater Emitter"
+            },
+            {
+              "field": "Race",
+              "from": "FEVHoundRace",
+              "to": "FloaterRace"
+            }
+          ]
+        },
+        {
+          "name": "HIDE_LvlCultistWildcard",
+          "id": "008F4EC7",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Mothman Hatchling",
+              "to": ""
+            },
+            {
+              "field": "Race",
+              "from": "MothmanRace",
+              "to": "HumanRace"
+            }
+          ]
+        },
+        {
+          "name": "HIDE_LvlFEVWildcard",
+          "id": "008F4EC8",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Floater Emitter",
+              "to": ""
+            },
+            {
+              "field": "Race",
+              "from": "FloaterRace",
+              "to": "SuperMutantRace"
+            }
+          ]
+        },
+        {
+          "name": "HIDE_LvlRustRaiderWildcard",
+          "id": "008F4EC4",
+          "changes": [
+            {
+              "field": "Race",
+              "from": "DeathclawRace",
+              "to": "HumanRace"
+            }
+          ]
+        },
+        {
+          "name": "Languishing Robobrain",
+          "id": "0090B9F4",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Robobrain Resident",
+              "to": "Languishing Robobrain"
+            }
+          ]
+        },
+        {
+          "name": "Lost Galvanic Technician",
+          "id": "008F4EE7",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Feral Lost",
+              "to": "Lost Galvanic Technician"
+            },
+            {
+              "field": "Race",
+              "from": "LostFeralSuiciderRace",
+              "to": "LostRace"
+            }
+          ]
+        },
+        {
+          "name": "Mr. Murder",
+          "id": "008F4EC6",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Patrol Bot",
+              "to": "Mr. Murder"
+            }
+          ]
+        },
+        {
+          "name": "Mutant Hound Whelp",
+          "id": "008F4ED9",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "",
+              "to": "Mutant Hound Whelp"
+            }
+          ]
+        },
+        {
+          "name": "Mutant Hound Whelp",
+          "id": "008FF6A1",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Mutant Hound Pup",
+              "to": "Mutant Hound Whelp"
+            }
+          ]
+        },
+        {
+          "name": "Protectron Incinerator",
+          "id": "008F4EE3",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Incineratron",
+              "to": "Protectron Incinerator"
+            }
+          ]
+        },
+        {
+          "name": "Protectron Oppressor",
+          "id": "008F4EBF",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Security Bot",
+              "to": "Protectron Oppressor"
+            }
+          ]
+        },
+        {
+          "name": "Robobrain Bruiser",
+          "id": "0090B9F7",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Robobrain Survivor",
+              "to": "Robobrain Bruiser"
+            }
+          ]
+        },
+        {
+          "name": "Rust Guard Champion",
+          "id": "008F4EBA",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Rust Guard Lieutenant",
+              "to": "Rust Guard Champion"
+            }
+          ]
+        },
+        {
+          "name": "Rust Raider Patrol",
+          "id": "008F4EB7",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Rust Raider Dreg",
+              "to": "Rust Raider Patrol"
+            }
+          ]
+        },
+        {
+          "name": "Rust Raider Soldier",
+          "id": "008F4EE8",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Rust Raider",
+              "to": "Rust Raider Soldier"
+            }
+          ]
+        },
+        {
+          "name": "Super Mutant Conquerer",
+          "id": "008F4EC2",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Super Mutant Warlord",
+              "to": "Super Mutant Conquerer"
+            }
+          ]
+        },
+        {
+          "name": "Super Mutant Devastator",
+          "id": "008F4EDE",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Super Mutant Crusher",
+              "to": "Super Mutant Devastator"
+            }
+          ]
+        },
+        {
+          "name": "Super Mutant Subjugator",
+          "id": "008F4EE5",
+          "changes": [
+            {
+              "field": "Name",
+              "from": "Super Mutant Shredder",
+              "to": "Super Mutant Subjugator"
+            }
+          ]
+        }
+      ],
+      "notes": []
+    },
     {
       "ts": "2026-10-05",
       "source": "NPC_Export_PTS_2026-10-05_2203.tsv",

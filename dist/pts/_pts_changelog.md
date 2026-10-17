@@ -433,9 +433,9 @@ _Couldn't key this file to records; contents differ._
 
 ## `buffs/scout-banners.json`  ·  +0 / -0 / ~0
 
-## `bugged_plans.json`  ·  +76 / -14 / ~0
+## `bugged_plans.json`  ·  +93 / -14 / ~4
 
-**Added (76)**
+**Added (93)**
 - Plan: LMG Calibrated .308 Receiver  `008D5AA7`
 - Plan: LMG Calibrated .45 Receiver  `008D5AA8`
 - Plan: LMG Compensator  `008D5AAE`
@@ -476,7 +476,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: 50 Cal Machine Gun Vicious Receiver  `00948265`
 - Plan: 50 Cal Machine Gun Severe Receiver  `00948266`
 - Plan: 50 Cal Machine Gun Refined Receiver  `00948267`
-- …and 36 more
+- …and 53 more
 
 **Removed (14)**
 - Plan: Cupid Cappy Sign  `0065DD0A`
@@ -493,6 +493,12 @@ _Couldn't key this file to records; contents differ._
 - Recipe: Radscorpion Kebab  `0068B8F3`
 - Plan: Secret Settler Helmet  `007FFEF0`
 - Plan: Love Tap Paint  `008F20F0`
+
+**Changed (4)**
+- Plan: Plasma Caster Short Scope  `00590FC5` — fields: bugs
+- Plan: Plasma Caster Automatic Barrel  `0086DBE5` — fields: bugs
+- Plan: Plasma Caster Splitter Barrel  `0086DBE6` — fields: bugs
+- Plan: Plasma Caster Gamma Wave Emitter  `0086DBE7` — fields: bugs
 
 ## `build_menu_items.json`  ·  +1 / -0 / ~21
 
@@ -918,17 +924,17 @@ _Couldn't key this file to records; contents differ._
 **Changed (28)**
 - ATX_Community2020_ATLAS_ENTM_CAMP_Utility_Collectron_BoS  `ATX_Community2020_ATLAS_ENTM_CAMP_Utility_Collectron_BoS` — fields: releaseDate
 - ATX_ENTM_CAMP_Utility_Collectron_BivBev  `ATX_ENTM_CAMP_Utility_Collectron_BivBev` — fields: releaseDate
-- ATX_ENTM_CAMP_Utility_Collectron_Communist  `ATX_ENTM_CAMP_Utility_Collectron_Communist` — fields: imageUrl, production, releaseDate
+- ATX_ENTM_CAMP_Utility_Collectron_Communist  `ATX_ENTM_CAMP_Utility_Collectron_Communist` — fields: imageUrl, releaseDate
 - ATX_ENTM_CAMP_Utility_Collectron_CopperBot  `ATX_ENTM_CAMP_Utility_Collectron_CopperBot` — fields: releaseDate
-- ATX_ENTM_CAMP_Utility_Collectron_Fasnacht  `ATX_ENTM_CAMP_Utility_Collectron_Fasnacht` — fields: imageUrl, production, releaseDate
+- ATX_ENTM_CAMP_Utility_Collectron_Fasnacht  `ATX_ENTM_CAMP_Utility_Collectron_Fasnacht` — fields: imageUrl, releaseDate
 - ATX_ENTM_CAMP_Utility_Collectron_FloraTron  `ATX_ENTM_CAMP_Utility_Collectron_FloraTron` — fields: releaseDate
 - ATX_ENTM_CAMP_Utility_Collectron_FreeStates  `ATX_ENTM_CAMP_Utility_Collectron_FreeStates` — fields: releaseDate
-- ATX_ENTM_CAMP_Utility_Collectron_JunkyardDog  `ATX_ENTM_CAMP_Utility_Collectron_JunkyardDog` — fields: imageUrl, production, releaseDate
+- ATX_ENTM_CAMP_Utility_Collectron_JunkyardDog  `ATX_ENTM_CAMP_Utility_Collectron_JunkyardDog` — fields: imageUrl, releaseDate
 - ATX_ENTM_CAMP_Utility_Collectron_Liberated  `ATX_ENTM_CAMP_Utility_Collectron_Liberated` — fields: releaseDate
 - ATX_ENTM_CAMP_Utility_Collectron_LumberjackCollectron  `ATX_ENTM_CAMP_Utility_Collectron_LumberjackCollectron` — fields: releaseDate
 - ATX_ENTM_CAMP_Utility_Collectron_Peppino  `ATX_ENTM_CAMP_Utility_Collectron_Peppino` — fields: releaseDate
 - ATX_ENTM_CAMP_Utility_Collectron_Raider  `ATX_ENTM_CAMP_Utility_Collectron_Raider` — fields: imageUrl, releaseDate
-- ATX_ENTM_CAMP_Utility_Collectron_Santa  `ATX_ENTM_CAMP_Utility_Collectron_Santa` — fields: imageUrl, production, releaseDate
+- ATX_ENTM_CAMP_Utility_Collectron_Santa  `ATX_ENTM_CAMP_Utility_Collectron_Santa` — fields: imageUrl, releaseDate
 - ATX_ENTM_CAMP_Utility_Collectron_Scavenger  `ATX_ENTM_CAMP_Utility_Collectron_Scavenger` — fields: imageUrl, releaseDate
 - ATX_ENTM_CAMP_Utility_Collectron_SirLoin  `ATX_ENTM_CAMP_Utility_Collectron_SirLoin` — fields: production, releaseDate
 - ATX_ENTM_CAMP_Utility_Collectron_ToxicBob  `ATX_ENTM_CAMP_Utility_Collectron_ToxicBob` — fields: releaseDate
@@ -942,7 +948,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S3_ENTM_CAMP_Utility_Collectron_GoldBot  `SCORE_S3_ENTM_CAMP_Utility_Collectron_GoldBot` — fields: imageUrl
 - SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola  `SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola` — fields: imageUrl
 - SCORE_S5_ENTM_CAMP_Utility_Collectron_RedRocket  `SCORE_S5_ENTM_CAMP_Utility_Collectron_RedRocket` — fields: imageUrl
-- SCORE_S6_ENTM_CAMP_Utility_Collectron_FETCH  `SCORE_S6_ENTM_CAMP_Utility_Collectron_FETCH` — fields: imageUrl, production
+- SCORE_S6_ENTM_CAMP_Utility_Collectron_FETCH  `SCORE_S6_ENTM_CAMP_Utility_Collectron_FETCH` — fields: imageUrl
 - zzzATX_ENTM_CAMP_Utility_Collectron_SilverBot  `zzzATX_ENTM_CAMP_Utility_Collectron_SilverBot` — fields: releaseDate
 
 ## `community/plan_check_mule_pc.json`  ·  changed (structural)
@@ -1587,7 +1593,7 @@ _Couldn't key this file to records; contents differ._
 ## `locations/all_locations.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `make_plan_checklist.json`  ·  +310 / -23 / ~130
+## `make_plan_checklist.json`  ·  +310 / -23 / ~182
 
 **Added (310)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1657,7 +1663,7 @@ _Couldn't key this file to records; contents differ._
 - Cat Tamer Helmet  `RECIPE_00900A92`
 - Cat Tamer Outfit  `RECIPE_00900A93`
 
-**Changed (130)**
+**Changed (182)**
 - Plan: Bowie Knife  `PLAN_00436FF0` — fields: routes
 - Plan: Golf Club  `PLAN_00436FF5` — fields: routes
 - Plan: Pipe Wrench  `PLAN_00436FFA` — fields: routes
@@ -1698,7 +1704,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Union Recon Sensors  `PLAN_0064B931` — fields: routes
 - Plan: Union Calibrated Shocks  `PLAN_0064B933` — fields: routes
 - Plan: Union Optimized Servos  `PLAN_0064B935` — fields: routes
-- …and 90 more
+- …and 142 more
 
 ## `meat.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -1840,7 +1846,7 @@ _Couldn't key this file to records; contents differ._
 - SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi  `SCORE_S23_CAMPPets_SpawnFurniture_Cat_Lykoi` — fields: imageUrl
 - SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat  `SCORE_S24_CAMPPets_SpawnFurniture_Cat_GlowingCat` — fields: imageUrl
 
-## `plan_master.json`  ·  +310 / -107 / ~1311
+## `plan_master.json`  ·  +310 / -107 / ~1361
 
 **Added (310)**
 - Plan: Brain In a Jar  `PLAN_008AC859`
@@ -1928,7 +1934,7 @@ _Couldn't key this file to records; contents differ._
 - Cursed Harpoon Gun  `UNIQ_CURSED_HARPOON_GUN`
 - …and 67 more
 
-**Changed (1311)**
+**Changed (1361)**
 - Mr. Handy Player Icon  `NWREWARD_003FBB46` — fields: image_source, images
 - Pocket Watch Player Icon  `NWREWARD_003FBB49` — fields: image_source, images
 - MegaSloth Player Icon  `NWREWARD_003FBB4B` — fields: image_source, images
@@ -1969,7 +1975,7 @@ _Couldn't key this file to records; contents differ._
 - Plan: Lead Lined Combat Armor Chest  `PLAN_000224FC` — fields: obtain_ledger, obtain_routes, retired_routes
 - Plan: BoS Combat Armor Chest Piece  `PLAN_000224FD` — fields: obtain_ledger, obtain_routes, retired_routes
 - Plan: Cushioned Combat Armor Legs  `PLAN_00022E98` — fields: obtain_ledger, obtain_routes, retired_routes
-- …and 1271 more
+- …and 1321 more
 
 ## `plan_master_unresolved.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
@@ -2013,7 +2019,7 @@ _Couldn't key this file to records; contents differ._
 - ATX_ENTM_CAMP_Collector_PumpkinPie  `ATX_ENTM_CAMP_Collector_PumpkinPie` — fields: releaseDate
 - ATX_ENTM_CAMP_Collector_RadTurkeyFieldDressingStation  `ATX_ENTM_CAMP_Collector_RadTurkeyFieldDressingStation` — fields: releaseDate
 - ATX_ENTM_CAMP_Collector_RockerBox  `ATX_ENTM_CAMP_Collector_RockerBox` — fields: releaseDate
-- ATX_ENTM_CAMP_Collector_Shredder  `ATX_ENTM_CAMP_Collector_Shredder` — fields: production, releaseDate
+- ATX_ENTM_CAMP_Collector_Shredder  `ATX_ENTM_CAMP_Collector_Shredder` — fields: releaseDate
 - ATX_ENTM_CAMP_Collector_SteamBoiler  `ATX_ENTM_CAMP_Collector_SteamBoiler` — fields: releaseDate
 - ATX_ENTM_CAMP_Collector_TeaWizard  `ATX_ENTM_CAMP_Collector_TeaWizard` — fields: releaseDate
 - ATX_ENTM_CAMP_Collector_TreeOfSpoils  `ATX_ENTM_CAMP_Collector_TreeOfSpoils` — fields: releaseDate
@@ -2173,7 +2179,7 @@ _Couldn't key this file to records; contents differ._
 ## `unique_weapons/unique_weapons.json`  ·  changed (structural)
 _Couldn't key this file to records; contents differ._
 
-## `unique_weapons_armour/unique_weapons_armour.json`  ·  +7 / -0 / ~24
+## `unique_weapons_armour/unique_weapons_armour.json`  ·  +7 / -0 / ~27
 
 **Added (7)**
 - Corpse Stacker  `mod-custom-corpsestacker`
@@ -2184,7 +2190,7 @@ _Couldn't key this file to records; contents differ._
 - Tarnished Claw  `rd01-ultraciteterrorsword-2`
 - V63 Zweihaender  `stormcutter-2`
 
-**Changed (24)**
+**Changed (27)**
 - Splinter  `10mmsmg-4` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
 - Final Word  `50calmachinegun` — fields: uniqueMods
 - The Action Hero  `50calmachinegun-2` — fields: uniqueMods
@@ -2205,7 +2211,10 @@ _Couldn't key this file to records; contents differ._
 - Cryptid Jawbone Knife  `knife-2` — fields: howToObtain, obtainRoutes
 - Crushing Blow  `m79` — fields: uniqueMods
 - Chaos Engine  `m79-2` — fields: craftable, howToObtain, obtainRoutes, planFormId, planName, questName, sourceRef, sourceType, uniqueMods
-- Slug Buster  `plasmagun-4` — fields: starEffects
+- Grant's Saber  `mom02b-historicsword` — fields: howToObtain, obtainRoutes, questName, sourceRef, sourceType
+- Vox Syringer  `mtns05-pipesyringer-vox` — fields: howToObtain
+- Headhunter Scythe  `pickaxe-2` — fields: howToObtain, obtainRoutes
+- Slug Buster  `plasmagun-4` — fields: howToObtain, obtainRoutes, questName, sourceRef, sourceType, starEffects
 - Lickety-Split  `railwayrifle` — fields: howToObtain, obtainRoutes
 - Venomous Fang  `rd01-ultraciteterrorsword` — fields: aka, confirmedByGameFiles, name
 - V63-Z Custom  `stormcutter` — fields: howToObtain, image, name, obtainRoutes, questName, recordIds, sourceRef, starEffects, uniqueMods
