@@ -713,7 +713,8 @@ class ObtainIndex:
 
         # Group by route so "weapon and plan" reads as one entry rather than
         # the same source printed twice.
-        grouped = defaultdict(lambda: {"sources": [], "what": set(), "paths": []})
+        grouped = defaultdict(lambda: {"sources": [], "what": set(), "paths": [],
+                                       "by_label": defaultdict(list)})
         for route, label, what, list_fid, target in hits:
             g = grouped[route]
             if label not in g["sources"]:
@@ -722,6 +723,8 @@ class ObtainIndex:
             # (list, record) pairs this route came from — read later for
             # Drop Conditions (build_unique_weapons_armour_json).
             g["paths"].append([list_fid, target])
+            # ...and per source line, for its drop rate (uwa_rates).
+            g["by_label"][label].append([list_fid, target])
 
         for route, g in grouped.items():
             lines = [_drops_line(g["what"], item.get("kind"))]
@@ -734,6 +737,9 @@ class ObtainIndex:
             for entry in routes:
                 if entry["route"] == route:
                     entry["paths"] = g["paths"]
+                    lp = entry.setdefault("_linePaths", {})
+                    for src, ps in g["by_label"].items():
+                        lp.setdefault(f"Source: {src}", []).extend(ps)
 
         if plan:
             gold = self.gv.route_for_plan(plan["fid"])
@@ -948,12 +954,13 @@ def merge_package_lines(items):
         return [n.strip() for n in txt.split(PK_SEP.strip()) if n.strip()]
     for it in items:
         for r in it.get("obtainRoutes") or []:
-            names, first, keep = [], None, []
+            names, first, keep, merged_paths = [], None, [], []
             for ln in r.get("lines") or []:
                 m = re.match(r"^Source: Opening an? (.+)$", ln)
                 if not m:
                     keep.append(ln)
                     continue
+                merged_paths += (r.get("_linePaths") or {}).get(ln, [])
                 if first is None:
                     first = len(keep)
                     keep.append(None)
@@ -961,6 +968,8 @@ def merge_package_lines(items):
             if first is not None:
                 keep[first] = "Source: " + package_text(names)
                 r["lines"] = keep
+                if merged_paths:
+                    r.setdefault("_linePaths", {})[keep[first]] = merged_paths
         how = it.get("howToObtain") or ""
         if PK_SEP.strip() in how or "Opening a" in how:
             parts, names, out = how.split(" / "), [], []

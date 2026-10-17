@@ -188,6 +188,12 @@ def apply(items, labels, log=print):
             if not r.get("populated"):
                 continue
             lines = r["lines"]
+            lp = r.get("_linePaths") or {}
+
+            def _moved(old_line, new_line):
+                # a renamed source line keeps the lists behind it (uwa_rates)
+                if old_line in lp and old_line != new_line:
+                    lp.setdefault(new_line, []).extend(lp.pop(old_line))
             for i, l in enumerate(lines):
                 if not l.startswith("Source: "):
                     continue
@@ -196,6 +202,7 @@ def apply(items, labels, log=print):
                 if src in labels.raid:
                     new, tops = labels.raid[src]
                     lines[i] = f"Source: {new}"
+                    _moved(l, lines[i])
                     renames[src] = new
                     renames[src.split(" - ", 1)[1]] = new     # summary says "Event: Drill Complex Module"
                     changed["raid name"].append(f"{it['name']}: {new}")
@@ -223,6 +230,7 @@ def apply(items, labels, log=print):
                 shown = labels.kind.get(_norm(head))
                 if shown and shown != head:
                     lines[i] = f"Source: {shown}{tail or ''}"
+                    _moved(l, lines[i])
                     renames[head] = shown
                     changed["event kind"].append(f"{it['name']}: {shown}")
             # 4. crafting unlocks

@@ -95,6 +95,7 @@ import uwa_images      # unique pictures, matched by name (Oct 2026)
 import uwa_obtain
 import uwa_discover
 import uwa_source_links
+import uwa_rates
 import uwa_names       # in-game names from INNR (Oct 2026)
 import uwa_trace       # sources traced from the game files (Oct 2026)
 import uwa_route_labels  # player-facing route names (Oct 2026)
@@ -1145,6 +1146,8 @@ def craft_mod_routes(items, channel):
                             "tradeable": src_r.get("tradeable"), "dropRate": src_r.get("dropRate")})
                 if src_r.get("paths"):
                     dst["paths"] = list(src_r["paths"])
+                if src_r.get("_linePaths"):
+                    dst["_linePaths"] = {k: list(v) for k, v in src_r["_linePaths"].items()}
             it["howToObtain"] = f"Craft: mod for the {par['name']} (" + par.get("howToObtain", "") + ")"
             done.append(it["name"])
     if done:
@@ -1776,6 +1779,13 @@ def build_channel(channel, dist_dir):
     # Player-facing route names: raid encounters, event kinds, raid plans,
     # Scoreboard crafting unlocks — all read from the files (uwa_route_labels).
     uwa_route_labels.apply(all_items, uwa_route_labels.Labels(_pk, read_tsv, REPO_ROOT))
+    # Drop rate on every source line with a leveled list behind it - rng76's
+    # numbers, the same engine as the plan pages (uwa_rates.py, 17 Oct 2026).
+    _lv = pick("LVLI_Export_*_LVLI_Entries.tsv", channel)
+    if _lv:
+        uwa_rates.apply(all_items, uwa_rates.Rates(os.path.dirname(_lv)))
+    else:
+        uwa_rates.strip(all_items)
 
     # Items Bethesda's own WeaponsUniqueNamedList has never heard of AND that
     # the override table names as mod records rather than weapons. Dropping

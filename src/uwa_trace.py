@@ -485,6 +485,7 @@ def _put(routes, route, line, path, tradeable):
     r["lines"].insert(at + 1, line)
     if path:
         r.setdefault("paths", []).append(path)
+        r.setdefault("_linePaths", {}).setdefault(line, []).append(path)
     return True
 
 
@@ -583,6 +584,15 @@ def apply(items, tracer, names=None, obtain_idx=None, hand_only=(), log=print):
                         if x.get("populated") and not x.get("paths") and any(
                                 core in l.lower() for l in x["lines"] if l.startswith("Source:")):
                             x["paths"] = [path]
+                    # the line itself, for its drop rate (uwa_rates)
+                    for x in routes:
+                        if not x.get("populated"):
+                            continue
+                        for l in x["lines"]:
+                            if l.startswith("Source:") and core in l.lower():
+                                lp = x.setdefault("_linePaths", {}).setdefault(l, [])
+                                if path not in lp:
+                                    lp.append(path)
                 continue
             r = next(x for x in routes if x["route"] == route)
             if not r.get("populated"):
