@@ -268,13 +268,18 @@ def build_guide(doc, channel):
     miles = "".join(f'<li><strong>{m["milestone"]}</strong> {"brain" if m["milestone"] == 1 else "brains"}: {E(m["name"])}</li>'
                     for m in doc["rewards"]["milestones"])
     tapes = "".join(f"<li>{E(h['name'])}</li>" for h in doc["holotapes"])
-    secs = [{"title": fill(g["intro"]["title"]), "html": fill(g["intro"]["html"])},
+    intro = {"title": fill(g["intro"]["title"]), "html": fill(g["intro"]["html"])}
+    if g["intro"].get("images"):          # names under <IMAGE_BASE>guide-images/<name>.avif
+        intro["images"] = list(g["intro"]["images"])
+    secs = [intro,
             {"title": "Brain in a Jar Locations", "html": f"<p>The brains are split into pages of {PAGE_SIZE}, in route order.</p><ul>{locs}</ul><h4>Maps</h4><ul>{maps}</ul>"},
             {"title": "Milestone Rewards", "html": f"<ul>{miles}</ul><p>Tick them off on the <a href=\"{URL_BASE}checklist/\">Brain in a Jar Reward Checklist</a>.</p>"}]
     if tapes:
         secs.append({"title": "The Scan Holotapes", "html": f"<p>{len(doc['holotapes'])} holotapes go with the questline.</p><ul>{tapes}</ul>"})
     secs.append({"title": fill(g["faq"]["title"]), "html": fill(g["faq"]["html"])})
     out = {"_meta": doc["_meta"], "title": fill(g["title"]), "subtitle": fill(g["subtitle"]), "sections": secs}
+    if g.get("image_dims"):               # [w, h] per guide image, so the page reserves the space
+        out["image_dims"] = g["image_dims"]
     with open(os.path.join(OUT_DIR, "brain_in_a_jar_guide.json"), "w", encoding="utf-8", newline="\n") as fh:
         json.dump(out, fh, indent=1, ensure_ascii=False)
 

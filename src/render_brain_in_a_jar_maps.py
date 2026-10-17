@@ -81,7 +81,7 @@ def draw_crop(bg, rows, box, context=(), title=None, legend="Brain in a Jar", la
     f = rsm._font(48)
     for r in loc:                      # place_labels measures str(r["n"])
         r["_n"], r["n"] = r["n"], label(r)
-    rsm.place_labels(d, loc, f)
+    rsm.place_labels(d, loc, f, gap=rsm.DOT_D * 0.6 + 6)
     for r in loc:
         r["n"] = r["_n"]
     for r in loc:

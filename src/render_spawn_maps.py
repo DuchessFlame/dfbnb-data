@@ -560,7 +560,7 @@ def spread_dots(rows):
             rows[k]["py"] = cy + rad * math.sin(ang)
 
 
-def place_labels(d, rows, font):
+def place_labels(d, rows, font, gap=None):
     """Pick a spot for each number that doesn't sit on another number or dot.
 
     Tries right, left, above, below, then the four corners, and keeps the first
@@ -578,7 +578,10 @@ def place_labels(d, rows, font):
         bb = d.textbbox((0, 0), str(r["n"]), font=font)
         w, h = bb[2] - bb[0], bb[3] - bb[1]
         ox, oy = bb[0], bb[1]
-        gap = DOT_D * 0.6
+        # gap=None keeps the old spacing (numbers). Callers with long text labels
+        # pass a bigger gap: at 0.6 the label box clips its own dot by 0.4 px, so
+        # every spot "hits" and the label is pushed out a whole label-width.
+        gap = DOT_D * 0.6 if gap is None else gap
         px, py = r["px"], r["py"]
         spots = [(px + gap, py - h / 2), (px - gap - w, py - h / 2),
                  (px - w / 2, py - gap - h), (px - w / 2, py + gap),

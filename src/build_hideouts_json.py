@@ -177,6 +177,127 @@ def glob_val(globs, ref):
     return int(round(v)) if v is not None else None
 
 
+# ─────────────────────────────────────────────────────────────────────────────
+# The Drifter — his own pages (Drifter Guide / Drifter All Rewards, Oct 2026)
+# ─────────────────────────────────────────────────────────────────────────────
+# Words only. Every ability below is listed ONLY when its record is in this
+# build's exports (presence is data-driven); the sentence is ours, written from
+# the record names / descriptions. "game" quotes the record's own text.
+DRIFTER_ABILITIES = [
+    ("Absorbing", ("HIDE_AbDrifter_AbsorbingBallisticSpell", "HIDE_AbDrifter_AbsorbingEnergySpell",
+                   "HIDE_AbDrifter_AbsorbingFireSpell", "HIDE_AbDrifter_AbsorbingMeleeSpell"),
+     "Switches on an absorbing effect against one damage type at a time: Ballistic, Energy, Fire or Melee. "
+     "Change to a different damage type while it is up."),
+    ("Air tank weak point", ("HIDE_AbDrifter_WeakPointDamageEffect",),
+     "The air tank on his back is a weak spot and can be blown up."),
+    ("Air tank stagger", ("HIDE_AbDrifter_WeakPointStaggerEffect",),
+     "Blowing the air tank staggers him, the one time he can be staggered."),
+    ("Air tank frenzy", ("HIDE_AbDrifter_WeakPointFrenzyEffect",),
+     "The air tank blast can frenzy its target for a short time."),
+    ("Enraged", ("HIDE_AbDrifter_EnragedEffect",), "Goes into an enraged state."),
+    ("Chameleon", ("HIDE_AbDrifter_ChameleonSpell", "HIDE_AbDrifter_ChamleonEffect"), "Can turn invisible."),
+    ("Fortify Speed", ("HIDE_AbDrifter_FortifySpeedSpell",), "Moves faster than normal."),
+    ("No stagger", ("HIDE_AbDrifter_NoStaggerPerk",), "Cannot be staggered by normal hits."),
+    ("No crippled limbs", ("HIDE_AbDrifter_NoLimbCripplePerk",), "His limbs cannot be crippled."),
+]
+# Teleporting lives in combat-style (CSTY) and explosion records, which are not
+# exported; confirmed by reading the PTS ESM directly (17 Oct 2026).
+DRIFTER_ESM_ONLY = [("Teleport", "Teleports around the arena. How often depends on which of his six combat styles is active.")]
+_POOL_LABEL_FIX = {"XPDThe Pitt": "The Pitt Rewards", "Unique Named Armor": "Unique Named Armour"}
+
+
+def _decode_cond(c):
+    """Raw CHAL condition 'flags|value|Func|..|..|Param|..|..|..|RunOn|' -> display line."""
+    b = (c or "").split("|")
+    if len(b) < 10 or not b[2]:
+        return ""
+    func, run = b[2], (b[9] or "").strip()
+    if func in ("IsFalloutWorlds", "GetIsForm"):
+        return ""
+    param = re.sub(r'\s+"[^"]*"\s*', " ", b[5] or "").strip()
+    try:
+        v = float(b[1]); val = str(int(v)) if v.is_integer() else str(v)
+    except ValueError:
+        val = b[1]
+    return f"{'' if run in ('', 'Subject') else run}.{func}({param}) = {val}"
+
+
+def drifter_extras(drifter, globs, recipes, misc, locs, in_files):
+    gv = globs.get
+    lo, hi = gv("HIDE_Renorm_MinLVL_Drifter_Boss"), gv("HIDE_Renorm_MaxLVL_Drifter_Boss")
+    drifter["levels"] = {"min": int(lo), "max": int(hi)} if lo and hi else None
+    drifter["spawnChance"] = {k: round(gv(g), 2) for k, g in (("Hard", "HIDEDrifterChanceHardGlobal"),
+                                                              ("Marked", "HIDEDrifterChanceMarkedGlobal")) if gv(g) is not None}
+    drifter["randomEncounter"] = (gv("HIDE_LCP_Drifter_RE_Toggle") or 0) >= 1
+
+    def words(t):
+        return {w for w in re.findall(r"[a-z]+", re.sub(r"(?<=[a-z])(?=[A-Z])", " ", t).lower()) if len(w) >= 5}
+    names = [l["name"] for l in locs] + list(in_files)
+    spawn = []
+    for r in rows("FLST_Export_*_Entries.tsv"):
+        m = re.match(r"^HIDE\d+([A-Za-z]+?)_DrifterKeyword_FormList$", r.get("FLST_EDID") or "")
+        if not m or m.group(1) == "Tunnel":        # HIDE02Tunnel is a test cell, not a Hideout
+            continue
+        tok = m.group(1)
+        hit = next((n for n in names if words(n) & words(tok)), None)
+        nm = hit or re.sub(r"(?<=[a-z])(?=[A-Z])", " ", tok)
+        if not any(x["name"] == nm for x in spawn):
+            spawn.append({"name": nm, "points": 0})
+        next(x for x in spawn if x["name"] == nm)["points"] += 1
+    drifter["spawnHideouts"] = spawn
+
+    present = set()
+    for pat, col in (("MGEF_Export_*.tsv", "EDID"), ("PERK_Export_*.tsv", "PERK_EDID"),
+                     ("SPEL_Export_*_HEADER.tsv", "SPEL_EDID")):
+        present.update((r.get(col) or "") for r in rows(pat))
+    drifter["abilities"] = [{"name": n, "text": t, "records": [e for e in eds if e in present]}
+                            for n, eds, t in DRIFTER_ABILITIES if any(e in present for e in eds)]
+    drifter["abilities"] += [{"name": n, "text": t, "records": [], "esmOnly": True} for n, t in DRIFTER_ESM_ONLY]
+    if gv("HIDE_Drifter_EnragedMagnitude") is not None:
+        for a in drifter["abilities"]:
+            if a["name"] == "Enraged":
+                a["game"] = f"Damage <mag> HP (magnitude {int(gv('HIDE_Drifter_EnragedMagnitude'))})"
+    for a in drifter["abilities"]:
+        if a["name"] == "Air tank frenzy":
+            a["game"] = "Frenzies Target For <DUR> Seconds."
+
+    drifter["weapons"] = [{"name": r.get("WEAP_FULL"), "edid": r.get("WEAP_EDID"), "formid": r.get("WEAP_FormID")}
+                          for r in rows("WEAP_Export_*_Base.tsv") if (r.get("WEAP_EDID") or "").startswith("HIDE_crDrifter")]
+    drifter["weapons"].sort(key=lambda w: w["name"] or "")
+
+    chals = []
+    for r in rows("CHAL_Export_*.tsv"):
+        if not (r.get("EDID") or "").startswith("HIDE_Challenge_Lifetime_Complete_Drifter_"):
+            continue
+        conds = [_decode_cond(r.get(f"Cond{i}")) for i in range(1, 30)]
+        chals.append({"formId": r["FormID"], "edid": r["EDID"], "name": r.get("FULL") or "",
+                      "required": int(float(r.get("TNAM") or 0)), "counter": r.get("SNAM") or "",
+                      "scope": r.get("CNAM") or "Lifetime", "category": r.get("ENAM") or "",
+                      "reward": (r.get("MNAM") or "").strip(),
+                      "conditions_display": [c for c in conds if c and "TrueGlobal" not in c]})
+    chals.sort(key=lambda c: c["required"])
+    drifter["challenges"] = chals
+
+    intel = misc.get("HIDE_DrifterIntel") or "Drifter Intel"
+    uses = [r["makes"] for r in recipes if any(c["name"] == intel for c in r.get("components", []))]
+    drifter["intel"] = {"name": intel, "craftChance": gv("HIDE_CriticalCrafting_DrifterIntel_Chance"),
+                        "craftFrom": "Hideout Lead: Lethal", "usedIn": uses,
+                        "recipes": [r for r in recipes if r["makes"] in uses]}
+
+    for coll in (drifter.get("deathLoot") or [], (drifter.get("lootBag") or {}).get("pools") or []):
+        for pl in coll:
+            pl["label"] = _POOL_LABEL_FIX.get(pl["label"], pl["label"])
+            tok = re.sub(r"^HIDE_crLLS_Drifter_Rewards_", "", pl.get("edid") or "")
+            tg = next((g for g in globs if g.startswith(f"HIDE_LCP_Drifter_{tok}Reward") and g.endswith("_Toggle")), None)
+            if tg:
+                pl["toggle"] = {"global": tg, "on": globs[tg] >= 1}
+    bag = drifter.get("lootBag") or {}
+    bag["sameAsDeathLoot"] = bool(bag.get("pools")) and bag.get("pools") == drifter.get("deathLoot")
+    drifter["setBonus"] = ({"name": "Secret Settler Armor Set Bonus",
+                            "text": "Wearing the full Secret Settler set reflects ballistic damage back at whoever shot you."}
+                           if "HIDE_SetBonus_SecretService_Drifter_ReflectivePerk" in present else None)
+
+
 def main():
     gm_all = rows("GMRW_Export_*.tsv")
     gm = [g for g in gm_all if g.get("EDID", "").startswith("HIDE")]
@@ -331,6 +452,8 @@ def main():
     # A Hideout counts as mapped when it shares a real word with a marker name
     # (LCTN "Immortality Center" = marker "Vault 63 Immortality Sector").
     unmapped = [n for n in in_files if not any(_words(n) & _words(h) for h in have)]
+
+    drifter_extras(drifter, globs, recipes, misc, locs, in_files)
 
     intro = next((g for g in gm if g["EDID"] == "HIDE_QuestReward_Intro_CantonBreadcrumb_GMRW"), None)
     intro_q = next((q.get("FULL - Name") for q in rows("QUEST_Export_*.tsv") if q.get("EDID") == "HIDE_Intro_CantonBreadcrumb"), "")

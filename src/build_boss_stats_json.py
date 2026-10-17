@@ -700,6 +700,20 @@ INTRO = {
         "support": "Every gang brings a Lieutenant alongside its leader.",
         "npcs": "Each gang fills its Hideout with fighters in set roles (close, medium and long range, support, interference and fodder), plus rare wildcard spawns and the Hideout's own wildlife.",
     },
+    "drifter": {
+        "title": "Hideouts - Drifter Boss Stats",
+        "blurb": ("The Drifter is the roaming boss of Hideouts: he can turn up on Lethal runs and always "
+                  "appears on Marked runs. This page lists his health, resistances and weapons, the "
+                  "abilities he fights with, and his other spawn variants. All numbers are read straight "
+                  "from the game files and update with every patch."),
+        "profiles": "The Drifter's own record. He spawns at the level range shown, with the weapons below.",
+        "mutations": "The Drifter carries his own abilities instead of a mutation. Ability names come from the game files; the words describing them are ours.",
+        "mechanics": "How and where The Drifter appears.",
+        "health": "Health is read from the curve table assigned to The Drifter, across the levels he spawns between.",
+        "damage": "Damage per hit from his hardest-hitting weapon, at the bottom and top of his level range.",
+        "support": "The Drifter fights alone — no support creatures are attached to him.",
+        "npcs": "Other Drifter records in the game files: the levelled versions that Hideouts actually spawn.",
+    },
     "head_hunts": {
         "title": "Bounty Hunting - Head Hunt Boss Stats",
         "blurb": ("Each Head Hunt boss comes with a distinct weapon setup and a signature mechanic, and the "
@@ -1033,6 +1047,68 @@ def build_hideouts(game: Game):
         out["mutations"]["double"] = double
         out["mutations"]["doubleIntro"] = INTRO["hideouts"]["double"]
     return out
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# The Drifter (Hideouts roaming boss) — own page, Oct 2026
+# ─────────────────────────────────────────────────────────────────────────────
+
+DRIFTER_ABILITY_ROWS = [
+    ("Absorbing", r"^HIDE_AbDrifter_Absorbing(Ballistic|Energy|Fire|Melee)Spell$",
+     "Switches on an absorbing effect against one damage type at a time: Ballistic, Energy, Fire or Melee. Change damage type while it is up."),
+    ("Air tank weak point", None, "The air tank on his back is a weak spot. Blowing it up staggers him and can frenzy whoever the blast hits."),
+    ("Chameleon", r"^HIDE_AbDrifter_ChameleonSpell$", "Can turn invisible."),
+    ("Fortify Speed", r"^HIDE_AbDrifter_FortifySpeedSpell$", "Moves faster than normal."),
+    ("Enraged", None, "Goes into an enraged state."),
+    ("Teleport", None, "Teleports around the arena; how often depends on which of his six combat styles is active."),
+]
+
+
+def build_drifter(game: Game):
+    tpl = "HIDE_EncDrifter_Template"
+    if tpl not in game.npc:
+        return {"bosses": []}
+    b = game.npc_stats(tpl)
+    b["name"] = "The Drifter"
+    b["faction"] = "Drifter"
+    b["role"] = "Roaming boss"
+    weps = [game.weapon(w, b["levelMin"], b["levelMax"]) for w in sorted(game.weap) if w.startswith("HIDE_crDrifter")]
+    b["weapons"] = [w for w in weps if w]
+    abilities = []
+    for name, pat, text in DRIFTER_ABILITY_ROWS:
+        if pat and not any(re.match(pat, k) for k in game.spel):
+            continue
+        abilities.append({"edid": "", "name": name, "summary": text, "detail": ""})
+    npcs = []
+    for edid in sorted(game.npc):
+        if edid.startswith("HIDE_LvlDrifter_"):
+            n = game.npc_stats(edid)
+            n["name"] = "The Drifter"
+            n["faction"] = "Drifter"
+            n["role"] = "mob"
+            n["loadout"] = edid.replace("HIDE_LvlDrifter_", "")
+            npcs.append(n)
+    rows = [["Level range", f"{b['levelMin']} – {b['levelMax']}" if b.get("levelMin") is not None else "—"],
+            ["Where", "Inside Hideouts — each Hideout has its own Drifter spawn points"],
+            ["Lethal runs", f"{game.glob.get('HIDEDrifterChanceHardGlobal', 0):g}% chance to appear" if game.glob.get("HIDEDrifterChanceHardGlobal") is not None else "Can appear"],
+            ["Marked runs", f"{game.glob.get('HIDEDrifterChanceMarkedGlobal', 0):g}% chance to appear" if game.glob.get("HIDEDrifterChanceMarkedGlobal") is not None else "Always appears"],
+            ["Stagger", "Cannot be staggered by normal hits; blowing his air tank staggers him"],
+            ["Crippled limbs", "His limbs cannot be crippled"]]
+    if b.get("epicRank") is not None:
+        rows.append(["Epic rank", f"{b['epicRank']:g}"])
+    return {
+        "page": "drifter",
+        "labels": {"mutations": "Boss Abilities", "mutationCol": "Ability"},
+        "intro": INTRO["drifter"],
+        "bosses": [b],
+        "mutations": {"intro": INTRO["drifter"]["mutations"], "list": abilities},
+        "mechanics": {"intro": INTRO["drifter"]["mechanics"], "rows": rows,
+                      "resist": [{"name": b["name"], **(b.get("resist") or {})}]},
+        "health": build_health_section(game, [b], 10, INTRO["drifter"]["health"]),
+        "damage": build_damage_section([b], INTRO["drifter"]["damage"]),
+        "support": {"intro": INTRO["drifter"]["support"], "rows": []},
+        "npcs": {"intro": INTRO["drifter"]["npcs"], "rows": npcs},
+    }
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1373,6 +1449,12 @@ def main():
         write("hideouts", hide)
     else:
         print("[Boss Stats] hideouts: no HIDE_ gang leaders on this channel — not written.")
+    dr = build_drifter(game)
+    if dr["bosses"]:
+        add_body_parts(game, dr["bosses"])
+        write("drifter", dr)
+    else:
+        print("[Boss Stats] drifter: no Drifter record on this channel — not written.")
 
 
 if __name__ == "__main__":

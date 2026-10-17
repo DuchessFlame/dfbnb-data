@@ -1,0 +1,342 @@
+{
+ "generated": "2026-10-17T02:38:13+00:00",
+ "channel": "pts",
+ "isPts": true,
+ "sources": {
+  "BPTD": "tsv/pts/BPTD_Export_PTS_2026-10-15_2157.tsv",
+  "CURV_POINTS": "tsv/pts/CURV_Export_PTS_2026-09-14_2013_POINTS.tsv",
+  "FLST_Entries": "tsv/pts/FLST_Export_PTS_2026-10-05_1821_Entries.tsv",
+  "GLOB": "tsv/pts/GLOB_Export_PTS_2026-10-05_1856.tsv",
+  "KYWD": "tsv/pts/KYWD_Export_PTS_2026-10-05_2122.tsv",
+  "LVLI_Entries": "tsv/pts/LVLI_Export_PTS_2026-10-05_2130_LVLI_Entries.tsv",
+  "NPC": "tsv/pts/NPC_Export_PTS_2026-10-05_2203.tsv",
+  "NPC_PRPS": "tsv/pts/NPC_Export_PTS_2026-10-05_2203_PRPS.tsv",
+  "NPC_Refs": "tsv/pts/NPC_Export_PTS_2026-10-05_2203_Refs.tsv",
+  "SPEL_HEADER": "tsv/pts/SPEL_Export_PTS_2026-10-15_2204_HEADER.tsv",
+  "WEAP_DNAM": "tsv/pts/WEAP_Export_PTS_2026-10-15_2202_DNAM.tsv"
+ },
+ "page": "drifter",
+ "labels": {
+  "mutations": "Boss Abilities",
+  "mutationCol": "Ability"
+ },
+ "intro": {
+  "title": "Hideouts - Drifter Boss Stats",
+  "blurb": "The Drifter is the roaming boss of Hideouts: he can turn up on Lethal runs and always appears on Marked runs. This page lists his health, resistances and weapons, the abilities he fights with, and his other spawn variants. All numbers are read straight from the game files and update with every patch.",
+  "profiles": "The Drifter's own record. He spawns at the level range shown, with the weapons below.",
+  "mutations": "The Drifter carries his own abilities instead of a mutation. Ability names come from the game files; the words describing them are ours.",
+  "mechanics": "How and where The Drifter appears.",
+  "health": "Health is read from the curve table assigned to The Drifter, across the levels he spawns between.",
+  "damage": "Damage per hit from his hardest-hitting weapon, at the bottom and top of his level range.",
+  "support": "The Drifter fights alone — no support creatures are attached to him.",
+  "npcs": "Other Drifter records in the game files: the levelled versions that Hideouts actually spawn."
+ },
+ "bosses": [
+  {
+   "edid": "HIDE_EncDrifter_Template",
+   "formId": "0080225F",
+   "name": "The Drifter",
+   "race": "HIDE_Drifter",
+   "levelMin": 250,
+   "levelMax": 300,
+   "hpMin": 207972,
+   "hpMax": 415905,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier40",
+   "statsFrom": "",
+   "resist": {
+    "DR": 718,
+    "ER": 718,
+    "Fire": 531,
+    "Cryo": 414,
+    "Poison": 531,
+    "Rad": 531
+   },
+   "speedMult": 100.0,
+   "epicRank": 4.0,
+   "faction": "Drifter",
+   "role": "Roaming boss",
+   "weapons": [
+    {
+     "edid": "HIDE_crDrifter10mmSMG",
+     "name": "Splinter",
+     "ammo": "10mm Round",
+     "range": 1250,
+     "type": "Gun",
+     "damageMin": 170,
+     "damageMax": 307,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier15"
+    },
+    {
+     "edid": "HIDE_crDrifterAssaultronBlade",
+     "name": "Tempest",
+     "ammo": "",
+     "range": 256,
+     "type": "OneHandSword",
+     "damageMin": 386,
+     "damageMax": 661,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier25"
+    },
+    {
+     "edid": "HIDE_crDrifterGrenade_Crackler",
+     "name": "Crackler Grenade",
+     "ammo": "",
+     "range": 2500,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": ""
+    },
+    {
+     "edid": "HIDE_crDrifterM79",
+     "name": "Chaos Engine",
+     "ammo": "40mm Grenade Round",
+     "range": 5000,
+     "type": "Gun",
+     "damageMin": 50,
+     "damageMax": 95,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier01"
+    }
+   ],
+   "weakSpot": "Air Tank — takes 1.25× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.0,
+     "hpMin": 41594,
+     "hpMax": 83181,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Torso",
+     "pct": 80.0,
+     "mult": 1.0,
+     "hpMin": 166378,
+     "hpMax": 332724,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 20.0,
+     "mult": 1.0,
+     "hpMin": 41594,
+     "hpMax": 83181,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 51993,
+     "hpMax": 103976,
+     "severable": false,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    },
+    {
+     "name": "Air Tank",
+     "pct": 5.0,
+     "mult": 1.25,
+     "hpMin": 10399,
+     "hpMax": 20795,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": true
+    }
+   ],
+   "bodyPartData": "HIDE_Drifter_BodyPartData"
+  }
+ ],
+ "mutations": {
+  "intro": "The Drifter carries his own abilities instead of a mutation. Ability names come from the game files; the words describing them are ours.",
+  "list": [
+   {
+    "edid": "",
+    "name": "Absorbing",
+    "summary": "Switches on an absorbing effect against one damage type at a time: Ballistic, Energy, Fire or Melee. Change damage type while it is up.",
+    "detail": ""
+   },
+   {
+    "edid": "",
+    "name": "Air tank weak point",
+    "summary": "The air tank on his back is a weak spot. Blowing it up staggers him and can frenzy whoever the blast hits.",
+    "detail": ""
+   },
+   {
+    "edid": "",
+    "name": "Chameleon",
+    "summary": "Can turn invisible.",
+    "detail": ""
+   },
+   {
+    "edid": "",
+    "name": "Fortify Speed",
+    "summary": "Moves faster than normal.",
+    "detail": ""
+   },
+   {
+    "edid": "",
+    "name": "Enraged",
+    "summary": "Goes into an enraged state.",
+    "detail": ""
+   },
+   {
+    "edid": "",
+    "name": "Teleport",
+    "summary": "Teleports around the arena; how often depends on which of his six combat styles is active.",
+    "detail": ""
+   }
+  ]
+ },
+ "mechanics": {
+  "intro": "How and where The Drifter appears.",
+  "rows": [
+   [
+    "Level range",
+    "250 – 300"
+   ],
+   [
+    "Where",
+    "Inside Hideouts — each Hideout has its own Drifter spawn points"
+   ],
+   [
+    "Lethal runs",
+    "33.33% chance to appear"
+   ],
+   [
+    "Marked runs",
+    "100% chance to appear"
+   ],
+   [
+    "Stagger",
+    "Cannot be staggered by normal hits; blowing his air tank staggers him"
+   ],
+   [
+    "Crippled limbs",
+    "His limbs cannot be crippled"
+   ],
+   [
+    "Epic rank",
+    "4"
+   ]
+  ],
+  "resist": [
+   {
+    "name": "The Drifter",
+    "DR": 718,
+    "ER": 718,
+    "Fire": 531,
+    "Cryo": 414,
+    "Poison": 531,
+    "Rad": 531
+   }
+  ]
+ },
+ "health": {
+  "intro": "Health is read from the curve table assigned to The Drifter, across the levels he spawns between.",
+  "levels": [
+   250,
+   260,
+   270,
+   280,
+   290,
+   300
+  ],
+  "rows": [
+   {
+    "label": "The Drifter",
+    "bosses": [
+     "The Drifter"
+    ],
+    "curve": "CT_Creatures_Health_Universal_Tier40",
+    "values": [
+     207972,
+     241010,
+     280486,
+     327810,
+     383995,
+     415905
+    ]
+   }
+  ]
+ },
+ "damage": {
+  "intro": "Damage per hit from his hardest-hitting weapon, at the bottom and top of his level range.",
+  "rows": [
+   {
+    "boss": "The Drifter",
+    "weapon": "Tempest",
+    "levelMin": 250,
+    "levelMax": 300,
+    "damageMin": 386,
+    "damageMax": 661
+   }
+  ]
+ },
+ "support": {
+  "intro": "The Drifter fights alone — no support creatures are attached to him.",
+  "rows": []
+ },
+ "npcs": {
+  "intro": "Other Drifter records in the game files: the levelled versions that Hideouts actually spawn.",
+  "rows": [
+   {
+    "edid": "HIDE_LvlDrifter_Combatant",
+    "formId": "008CE231",
+    "name": "The Drifter",
+    "race": "HIDE_Drifter",
+    "levelMin": 250,
+    "levelMax": 300,
+    "hpMin": 207972,
+    "hpMax": 415905,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier40",
+    "statsFrom": "",
+    "resist": {
+     "DR": 718,
+     "ER": 718,
+     "Fire": 531,
+     "Cryo": 414,
+     "Poison": 531,
+     "Rad": 531
+    },
+    "speedMult": 100.0,
+    "epicRank": 4.0,
+    "faction": "Drifter",
+    "role": "mob",
+    "loadout": "Combatant"
+   },
+   {
+    "edid": "HIDE_LvlDrifter_Watcher",
+    "formId": "008CE232",
+    "name": "The Drifter",
+    "race": "HIDE_Drifter",
+    "levelMin": 250,
+    "levelMax": 300,
+    "hpMin": 1892935,
+    "hpMax": 3239383,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier55",
+    "statsFrom": "",
+    "resist": {
+     "DR": 718,
+     "ER": 718,
+     "Fire": 531,
+     "Cryo": 414,
+     "Poison": 531,
+     "Rad": 531
+    },
+    "speedMult": 100.0,
+    "faction": "Drifter",
+    "role": "mob",
+    "loadout": "Watcher"
+   }
+  ]
+ }
+}
