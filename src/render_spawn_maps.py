@@ -346,6 +346,11 @@ SOURCES = {
     "npc":      lambda slug: (
         os.path.join(REPO, "dist", "farming_spawns", f"npc-{slug}_spawns.json"),
         os.path.join(REPO, "data", "npc_spawns", "geo", f"{slug}.json")),
+    # DF Collectables - Robot Models (spawns_configs/robot_models.py). Farming-shaped
+    # doc (shape A); one geo cache keyed by the bare decimal ref.
+    "robot-models": lambda slug: (
+        os.path.join(REPO, "dist", "robot_model_spawns", "robot_models_spawns.json"),
+        os.path.join(REPO, "data", "robot_model_spawns", "geo_cache.json")),
     "insects":  lambda slug: (
         os.path.join(REPO, "dist", "insects", f"{slug}.json"),
         os.path.join(REPO, "data", "insect_spawns", f"{slug}.json")),

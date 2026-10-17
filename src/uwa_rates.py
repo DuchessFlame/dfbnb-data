@@ -46,6 +46,10 @@ class Rates:
         self.res = self.data.resolver
         self.lvli = self.data.lvli
         self._cache = {}
+        self._gate = None
+        # the LVLI_List export beside the entries (list-level conditions);
+        # set by the builder from the same pick() as the entries
+        self.list_path = None
 
     def is_list(self, fid):
         return bool(fid) and fid in self.lvli.list_by_formid
@@ -111,6 +115,34 @@ class Rates:
         return val
 
 
+    def gate(self, fid):
+        """A list's own list-level GetRandomPercent gate (0-1), via rng76's
+        extract_grp_chance. 1.0 when the list has none."""
+        if self._gate is None:
+            import csv
+            self._gate = {}
+            if self.list_path:
+                with open(self.list_path, encoding="utf-8", errors="replace", newline="") as fh:
+                    for r in csv.DictReader(fh, delimiter="\t"):
+                        conds = [v for k, v in r.items()
+                                 if k and re.match(r"^ListCond\d+$", k) and v]
+                        if conds:
+                            c = self.res.extract_grp_chance(conds)
+                            if c is not None:
+                                self._gate[_f(r.get("LVLI_FormID"))] = c
+        return self._gate.get(_f(fid), 1.0)
+
+    def combo(self, parts):
+        """P(at least one of several independent rolls gives the item): each
+        part is a [list, target] rolled once, behind its own list gate."""
+        miss = 1.0
+        for lst, tgt in parts:
+            p = self.rate([lst, tgt])
+            if p:
+                miss *= 1.0 - self.gate(lst) * p
+        return 1.0 - miss
+
+
 def _fmt(p):
     return f"{p * 100:.4f}%"
 
@@ -121,6 +153,7 @@ def apply(items, rates, log=print):
     for it in items:
         for r in it.get("obtainRoutes") or []:
             lp = r.pop("_linePaths", None) or {}
+            combos = r.pop("_combos", None) or {}
             if not r.get("populated"):
                 continue
             any_rated = False
@@ -130,7 +163,10 @@ def apply(items, rates, log=print):
                     new_lines.append(ln)
                     continue
                 stats["lines"] += 1
-                vals = [v for v in (rates.rate(p) for p in lp.get(ln, [])) if v is not None]
+                if ln in combos:
+                    vals = [rates.combo(combos[ln])]
+                else:
+                    vals = [v for v in (rates.rate(p) for p in lp.get(ln, [])) if v is not None]
                 vals = sorted({round(v, 8) for v in vals if v > 0})
                 if not vals:
                     if lp.get(ln):
@@ -159,3 +195,4 @@ def strip(items):
     for it in items:
         for r in it.get("obtainRoutes") or []:
             r.pop("_linePaths", None)
+            r.pop("_combos", None)

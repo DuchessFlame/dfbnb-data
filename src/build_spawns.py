@@ -14,6 +14,7 @@ Usage:
     python src/build_spawns.py plants [--pts] [slug ...]# every plant set, or named slugs
     python src/build_spawns.py bobbleheads              # hub + 10 region pages
     python src/build_spawns.py chainsaws [--pts]       # hub + one page per chainsaw (WEAP)
+    python src/build_spawns.py robot-models            # robot models spawn page + checklist JSON
 
 Families:
     nuka-cola   -> spawns_configs.nuka_cola   (drinks; computed Used For / Farming Tips)
@@ -22,6 +23,7 @@ Families:
     plants      -> spawns_configs.plants      (flora; spawnWeight two-tier, no fixed-spawn cap)
     bobbleheads -> spawns_configs.bobbleheads (hub page + one page per region)
     cryptids    -> spawns_configs.cryptids    (hub index + one page per cryptid)
+    robot-models -> spawns_configs.robot_models (MISC collectables: spawn page + checklist)
     chainsaws   -> spawns_configs.chainsaws   (WEAP-seeded: Weapon Stats + Mods & Plans
                                                replace Used For / Farming Tips)
 """
@@ -33,7 +35,8 @@ if HERE not in sys.path:
     sys.path.insert(0, HERE)
 
 from spawns_configs import (nuka_cola, farming, bobbleheads, cryptids, meat, insects,
-                            magazines, consumable_items, plants, chainsaws)
+                            magazines, consumable_items, plants, chainsaws,
+                            robot_models)
 from farming_spawns_config import SETS_BY_SLUG
 
 
@@ -59,6 +62,8 @@ def main(argv):
         magazines.run(rest)                           # hub + one page per region (BOOK-seeded)
     elif cmd in ("consumable-items", "consumable_items"):
         consumable_items.run(rest)                    # single-page reward consumables (Scout's Banner, Lunchbox)
+    elif cmd in ("robot-models", "robot_models"):
+        robot_models.run(rest)                        # DF Collectables: spawn guide + checklist JSON
     elif cmd in ("cryptids", "cryptid"):
         cryptids.run(["cryptids"] + rest)             # hub + one page per cryptid
     elif cmd == "meat":

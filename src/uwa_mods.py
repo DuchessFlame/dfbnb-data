@@ -250,7 +250,13 @@ def resolve_item_mods(item, idx):
             # carries effect text, or the EDID ends on the name.
             if not (_norm(NAME_SUFFIX.sub('', full)) == key
                     or _clean(r.get('DESC'))
-                    or _norm(str(ed).split('_')[-1]) == key):
+                    or _norm(str(ed).split('_')[-1]) == key
+                    # mod_custom_EldersMark_Effect: the name is the last
+                    # segment once the mod's role word is taken off. Without
+                    # this Elder's Mark lost its perk (EldersMark_Perk) and
+                    # read "no unique effect" (Duchess, 17 Oct 2026).
+                    or _norm(re.sub(r'_(Effect|CustomName|Custom|Name)$', '', str(ed),
+                                    flags=re.I).split('_')[-1]) == key):
                 continue
             e = _entry(ed, full, fid, omod_by_fid, 'unique')
             if e['formId'] not in {y['formId'] for y in custom}:

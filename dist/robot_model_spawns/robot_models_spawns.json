@@ -1,0 +1,1289 @@
+{
+ "_meta": {
+  "generated": "2026-10-17",
+  "source": "Game-file exports (MISC/LVLI/CHAL) + Mappalachia Position (cached for CI)",
+  "misc_export": "MISC_Export_October_2026.tsv",
+  "lists_in_closure": 10,
+  "source_totals": {
+   "static": 41
+  },
+  "unresolved": {}
+ },
+ "set": "robot-models",
+ "name": "Robot Models",
+ "page_title": "Robot Models Spawn Locations",
+ "blurb": "Every place a robot model sits in the world, sorted by region. Each one is a fixed spawn, so if it's missing, someone on your server has already taken it or it's still in your pick-up history. Keep grenades and explosives away from them - the models get knocked flying.",
+ "items": [
+  {
+   "form_id": "001F59B5",
+   "edid": "BotModelEyebot",
+   "name": "Eyebot Model",
+   "spawns": 9
+  },
+  {
+   "form_id": "0022CB6E",
+   "edid": "BotModelGutsy",
+   "name": "Mr. Gutsy Model",
+   "spawns": 3
+  },
+  {
+   "form_id": "0022CB6B",
+   "edid": "BotModelHandy",
+   "name": "Mr. Handy Model",
+   "spawns": 9
+  },
+  {
+   "form_id": "0022CB6A",
+   "edid": "BotModelProtectron",
+   "name": "Protectron Model",
+   "spawns": 6
+  },
+  {
+   "form_id": "0022CB6C",
+   "edid": "BotModelParts01",
+   "name": "Robot Parts Model A (01)",
+   "spawns": 2
+  },
+  {
+   "form_id": "0022CB6F",
+   "edid": "BotModelParts02",
+   "name": "Robot Parts Model B (02)",
+   "spawns": 4
+  },
+  {
+   "form_id": "0022CB6D",
+   "edid": "BotModelParts03",
+   "name": "Robot Parts Model C (03)",
+   "spawns": 4
+  },
+  {
+   "form_id": "001F2D2D",
+   "edid": "BotModelSentry",
+   "name": "Sentry Bot Model",
+   "spawns": 4
+  }
+ ],
+ "drop_rates": {
+  "world_spawns": {
+   "rate": 1.0,
+   "rate_display": "100%",
+   "rate_source": "computed",
+   "note": "Every fixed spawn is the robot model itself, placed in the world."
+  },
+  "containers": null,
+  "collectrons": null,
+  "resource_generators": null,
+  "creatures": null
+ },
+ "used_for": {
+  "challenges": [
+   {
+    "name": "Epic - Collect Complete Robot Models",
+    "edid": "SCORE_Challenge_Weekly_Items_Collected_Robot_Models_Epic",
+    "type": "Weekly",
+    "required": 3,
+    "counts": [
+     "Eyebot Model",
+     "Mr. Gutsy Model",
+     "Mr. Handy Model",
+     "Protectron Model",
+     "Sentry Bot Model"
+    ]
+   }
+  ],
+  "recipes": null
+ },
+ "info_notes": [
+  {
+   "title": "Which robot models count for the Epic challenge",
+   "body": "These count: Eyebot Model, Mr. Gutsy Model, Mr. Handy Model, Protectron Model, Sentry Bot Model. These don't: Robot Parts Model A (01), Robot Parts Model B (02), Robot Parts Model C (03)."
+  }
+ ],
+ "vendor_list": [],
+ "events_activities": [
+  {
+   "list_id": "00210B67",
+   "edid": "LLI_LunchBoxKidsDropsRare",
+   "name": "Lunch Box Kids Drops Rare",
+   "type": "Loot Bag",
+   "note": "Chance the item is in the Lunch Box Kids Drops Rare reward pool per event/activity payout.",
+   "rate_value": 0.0625,
+   "rate_display": "6.25%",
+   "rate_lines": [
+    "6.25%"
+   ]
+  }
+ ],
+ "item_breakdown": [],
+ "map_base": "/wp-content/uploads/guide-images/collectables/robot-models/",
+ "full_map": "/wp-content/uploads/guide-images/collectables/robot-models/robot-models.jpg",
+ "map_regions": [
+  "Burning Springs",
+  "Cranberry Bog",
+  "Forest",
+  "Skyline Valley",
+  "The Mire"
+ ],
+ "map_ext": ".jpg",
+ "regions": [
+  {
+   "region": "Ash Heap",
+   "locations": []
+  },
+  {
+   "region": "Atlantic City",
+   "locations": []
+  },
+  {
+   "region": "Burning Springs",
+   "locations": [
+    {
+     "marker": "Moose's House",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "834F44"
+     ],
+     "coords": [
+      1007.68933105469,
+      2478.54760742187
+     ],
+     "spawns": [
+      {
+       "label": "Sentry Bot Model",
+       "ref": "834F44",
+       "source_type": "static",
+       "coords": [
+        1007.68933105469,
+        2478.54760742187
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Sentry Bot Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ]
+    },
+    {
+     "marker": "Starlight Drive-in",
+     "count": 3,
+     "sources": {
+      "static": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "82B87D",
+      "82B87E",
+      "82B87F"
+     ],
+     "coords": [
+      -200016.03125,
+      111488.015625
+     ],
+     "spawns": [
+      {
+       "label": "Eyebot Model",
+       "ref": "82B87D",
+       "source_type": "static",
+       "coords": [
+        -200016.03125,
+        111488.015625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Mr. Gutsy Model",
+       "ref": "82B87E",
+       "source_type": "static",
+       "coords": [
+        -199988.75,
+        111489.0390625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Robot Parts Model B (02)",
+       "ref": "82B87F",
+       "source_type": "static",
+       "coords": [
+        -199964.984375,
+        111488.7578125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Eyebot Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Mr. Gutsy Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Robot Parts Model B (02)",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Cranberry Bog",
+   "locations": [
+    {
+     "marker": "Abandoned Bog Town",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "15CCA4"
+     ],
+     "coords": [
+      176687.84375,
+      -91556.1171875
+     ],
+     "spawns": [
+      {
+       "label": "Protectron Model",
+       "ref": "15CCA4",
+       "source_type": "static",
+       "coords": [
+        176687.84375,
+        -91556.1171875
+       ],
+       "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/abandoned-bog-town-location.avif",
+       "directions": "From Pylon V-13, face west and run to the large building ahead (clear out the Super Mutants first if you like). Go round the back of it, turn north and walk to the back of the diner, then climb onto the diner roof and face west. Follow the road heading west to the left of the house in front of you to its end, turn left, then right, and look for the shed on your right. The Protectron Model is inside the trailer in the shed, on the desk beside the terminal.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/abandoned-bog-town-protectron-model.avif"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Protectron Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ]
+    },
+    {
+     "marker": "AMS Headquarters",
+     "count": 3,
+     "sources": {
+      "static": 3
+     },
+     "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/ams-headquarters-location.avif",
+     "directions": "There are a lot of turrets here, so it's worth running ahead and destroying them first. You spawn in front of an elevator - take it to the AMS Headquarters, walk up the small stairs and turn right, then follow the wall round to access tube 3 and ride it to the third floor. Cross to the double doors on the south side, turn right, go left at the end of the hall and up the stairs. Two floors up at the fork, turn left, then right at the end of the hallway, up the short stairs, round the balcony and up the next short stairs. In the next room take the red stairs, go left, up the next red stairs and then the white stairs. Turn left, go to the west side of the floor and open the door.",
+     "image_bottom": "",
+     "refs": [
+      "3D1F8A",
+      "3D1F8B",
+      "3D1F8C"
+     ],
+     "coords": [
+      866.787170410156,
+      167.266616821289
+     ],
+     "spawns": [
+      {
+       "label": "Mr. Handy Model",
+       "ref": "3D1F8A",
+       "source_type": "static",
+       "coords": [
+        867.34814453125,
+        129.768981933594
+       ],
+       "image_top": "",
+       "directions": "On the bottom shelf, together with the other two models.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/ams-headquarters-shelf.avif"
+      },
+      {
+       "label": "Protectron Model",
+       "ref": "3D1F8B",
+       "source_type": "static",
+       "coords": [
+        867.317321777344,
+        151.492126464844
+       ],
+       "image_top": "",
+       "directions": "On the bottom shelf, together with the other two models.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/ams-headquarters-shelf.avif"
+      },
+      {
+       "label": "Eyebot Model",
+       "ref": "3D1F8C",
+       "source_type": "static",
+       "coords": [
+        866.787170410156,
+        167.266616821289
+       ],
+       "image_top": "",
+       "directions": "On the bottom shelf, together with the other two models.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/ams-headquarters-shelf.avif"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Eyebot Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Mr. Handy Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Protectron Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ]
+    },
+    {
+     "marker": "Big Bend Tunnel East",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "6B2F64"
+     ],
+     "coords": [
+      116901.96875,
+      -150591.90625
+     ],
+     "spawns": [
+      {
+       "label": "Robot Parts Model C (03)",
+       "ref": "6B2F64",
+       "source_type": "static",
+       "coords": [
+        116901.96875,
+        -150591.90625
+       ],
+       "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/big-bend-tunnel-east-location.avif",
+       "directions": "From where you spawn in, turn around to face east, walk forward and jump onto the train carriage. Take a few steps, turn right and drop to the ground, then turn north-east and go into the carriage. Face east and walk to the bookcase at the end. The model is on its bottom shelf.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/big-bend-tunnel-east-robot-parts-model.avif"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Robot Parts Model C (03)",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ]
+    },
+    {
+     "marker": "Duncan & Duncan Robotics",
+     "count": 4,
+     "sources": {
+      "static": 4
+     },
+     "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/duncan-duncan-robotics-location.avif",
+     "directions": "From the Summersville fast travel point, follow the road into the middle of town. Duncan & Duncan is on the south side of the main road, between the Delicatessen and the clothing store - the door is easy to miss because the front looks boarded up. You need the keycard from the Strength in Numbers quest to get in. This is an instanced location, so the per-server spawn rules don't apply here.",
+     "image_bottom": "",
+     "refs": [
+      "59EFBA",
+      "59EFBB",
+      "59EFBC",
+      "59EFBD"
+     ],
+     "coords": [
+      -2309.65893554687,
+      883.722045898438
+     ],
+     "spawns": [
+      {
+       "label": "Mr. Handy Model",
+       "ref": "59EFBA",
+       "source_type": "static",
+       "coords": [
+        -2615.58422851562,
+        737.779968261719
+       ],
+       "image_top": "",
+       "directions": "Go back to the front desk, face it, then turn and walk through the door on your right. Stop in the doorway - the Mr. Handy Model is on the black table to your left.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/duncan-duncan-robotics-mr-handy-model.avif"
+      },
+      {
+       "label": "Protectron Model",
+       "ref": "59EFBB",
+       "source_type": "static",
+       "coords": [
+        -2792.3134765625,
+        104.474456787109
+       ],
+       "image_top": "",
+       "directions": "From the front desk, turn left and go through the level 0 locked door. The Protectron Model is on a table on the left side of the room.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/duncan-duncan-robotics-protectron-model.avif"
+      },
+      {
+       "label": "Eyebot Model",
+       "ref": "59EFBC",
+       "source_type": "static",
+       "coords": [
+        -2984.41723632812,
+        1407.08264160156
+       ],
+       "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/duncan-duncan-robotics-stairs-location.avif",
+       "directions": "From the Mr. Handy Model room, go to the counter on the west side where the robot Skinner stands. Jump the counter or use the door on the right to reach the stairs behind him and go to the top. Open the level 1 locked door and stop in the doorway - the Eyebot Model is on the desk to your left.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/duncan-duncan-robotics-eyebot-model.avif"
+      },
+      {
+       "label": "Sentry Bot Model",
+       "ref": "59EFBD",
+       "source_type": "static",
+       "coords": [
+        -2309.65893554687,
+        883.722045898438
+       ],
+       "image_top": "",
+       "directions": "From the Eyebot Model, face east and walk to the end of the room, then turn right and stop at the red chair on your left. The Sentry Bot Model is on the table in front of you.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/duncan-duncan-robotics-sentry-bot-model.avif"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Eyebot Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Mr. Handy Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Protectron Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Sentry Bot Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ]
+    },
+    {
+     "marker": "RobCo Research Center",
+     "count": 9,
+     "sources": {
+      "static": 9
+     },
+     "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/robco-research-center-location.avif",
+     "directions": "From the fast travel point, run up the hill, jump over the green truck trailer and go in through the main doors on your left. This is an instanced location, so the per-server spawn rules don't apply here. Tip: the level 1 wall terminal in the north corner of the basement turns off every turret in the building.",
+     "image_bottom": "",
+     "refs": [
+      "3DE167",
+      "3DE168",
+      "3DE169",
+      "3DE16A",
+      "3DE16B",
+      "3DE16C",
+      "3DE16D",
+      "491D6E",
+      "491D74"
+     ],
+     "coords": [
+      -30.2987327575684,
+      4361.837890625
+     ],
+     "spawns": [
+      {
+       "label": "Eyebot Model #1",
+       "ref": "3DE167",
+       "source_type": "static",
+       "coords": [
+        -751.99365234375,
+        3535.99658203125
+       ],
+       "image_top": "",
+       "directions": "Leave the double-door room and face west - stairs on your left, an office door on your right. Go into the office. The Eyebot Model is on top of the filing cabinet in the north-east corner.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/robco-research-center-eyebot-model-office.avif"
+      },
+      {
+       "label": "Mr. Handy Model",
+       "ref": "3DE168",
+       "source_type": "static",
+       "coords": [
+        1008.32757568359,
+        3126.66870117188
+       ],
+       "image_top": "",
+       "directions": "Leave that office and face east. Go up the stairs in front of you, turn left, and take the office door on your left at the end. The Mr. Handy Model is on the bottom shelf of the coffee stand in the south corner.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/robco-research-center-mr-handy-model.avif"
+      },
+      {
+       "label": "Mr. Gutsy Model",
+       "ref": "3DE169",
+       "source_type": "static",
+       "coords": [
+        1083.89611816406,
+        1593.4033203125
+       ],
+       "image_top": "",
+       "directions": "You need the Mayor for a Day questline finished for this one. Back upstairs, stop at the end of the black couch on your left, turn left and go through the Facilities Wing door. Turn right and follow the white wall to a door with an ID card reader on your right, swipe in, and the Mr. Gutsy Model is on top of the filing cabinet at the south end of the room.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/robco-research-center-mr-gutsy-model.avif"
+      },
+      {
+       "label": "Robot Parts Model A (01)",
+       "ref": "3DE16A",
+       "source_type": "static",
+       "coords": [
+        -1352.55126953125,
+        1855.15246582031
+       ],
+       "image_top": "",
+       "directions": "From the Protectron, turn north-west and walk to the double door on your right. Turn right (north-east) to the male and female bathrooms and go into the female one (right-hand door). It's in the toilet of the third stall from the right.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/robco-research-center-robot-parts-model-a-01.avif"
+      },
+      {
+       "label": "Robot Parts Model B (02)",
+       "ref": "3DE16B",
+       "source_type": "static",
+       "coords": [
+        -4752.8193359375,
+        2225.10083007813
+       ],
+       "image_top": "",
+       "directions": "Leave the bathroom facing west, go up the stairs and into the Research Labs. Keep to the left-hand side until you pass a glass wall with turrets. It's on the corner of the bench beside the black consoles.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/robco-research-center-robot-parts-model-b-02.avif"
+      },
+      {
+       "label": "Robot Parts Model C (03)",
+       "ref": "3DE16C",
+       "source_type": "static",
+       "coords": [
+        -700.187438964844,
+        3603.17358398438
+       ],
+       "image_top": "",
+       "directions": "Walk past the reception desks and take the elevator in front of you down to the basement. Use the button beside the metal door ahead of you to open it and step inside. It's on the corner of the black console in front of you.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/robco-research-center-robot-parts-model-c-03.avif"
+      },
+      {
+       "label": "Protectron Model",
+       "ref": "3DE16D",
+       "source_type": "static",
+       "coords": [
+        -693.136962890625,
+        1448.060546875
+       ],
+       "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/robco-research-center-protectron-office-location.avif",
+       "directions": "Leave the office facing west - you'll see a Protectron station and another office door. Go into that office, drop through the hole in the floor and then the second hole below it. Turn south-east and find the desk with the broken terminal. The Protectron Model is lying on the desk, half hidden by the metal tray on the right.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/robco-research-center-protectron-model.avif"
+      },
+      {
+       "label": "Eyebot Model #2",
+       "ref": "491D6E",
+       "source_type": "static",
+       "coords": [
+        48.9733734130859,
+        4356.88720703125
+       ],
+       "image_top": "",
+       "directions": "Leave the Mr. Gutsy room, face north-east and follow the path to the double doors at the end of the floor. The Eyebot Model is on the desk inside, beside the Sentry Bot Model.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/robco-research-center-eyebot-and-sentry-bot.avif"
+      },
+      {
+       "label": "Sentry Bot Model",
+       "ref": "491D74",
+       "source_type": "static",
+       "coords": [
+        -30.2987327575684,
+        4361.837890625
+       ],
+       "image_top": "",
+       "directions": "Leave the Mr. Gutsy room, face north-east and follow the path to the double doors at the end of the floor. The Sentry Bot Model is on the desk inside, beside an Eyebot Model.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/robco-research-center-eyebot-and-sentry-bot.avif"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Eyebot Model",
+       "count": 2,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Mr. Gutsy Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Mr. Handy Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Protectron Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Robot Parts Model A (01)",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Robot Parts Model B (02)",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Robot Parts Model C (03)",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Sentry Bot Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Forest",
+   "locations": [
+    {
+     "marker": "Settler's Ridge",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "72D413"
+     ],
+     "coords": [
+      -113984.0859375,
+      108357.9296875
+     ],
+     "spawns": [
+      {
+       "label": "Mr. Handy Model",
+       "ref": "72D413",
+       "source_type": "static",
+       "coords": [
+        -113984.0859375,
+        108357.9296875
+       ],
+       "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/settlers-ridge-location.avif",
+       "directions": "Head west from the fast travel point with the open wooden shed on your left. Once past the shed, go left until you reach a planter of carrots and tatos, then turn right down the stairs, right again down the next stairs, and left down the last set. Go through the door in front of you. The Mr. Handy Model is on the bookshelf in the south-west end of the room.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/settlers-ridge-mr-handy-model.avif"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Mr. Handy Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ]
+    },
+    {
+     "marker": "Summersville Dam",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "2E7F8A"
+     ],
+     "coords": [
+      -78580.484375,
+      -56313.78125
+     ],
+     "spawns": [
+      {
+       "label": "Protectron Model",
+       "ref": "2E7F8A",
+       "source_type": "static",
+       "coords": [
+        -78580.484375,
+        -56313.78125
+       ],
+       "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/summersville-dam-location.avif",
+       "directions": "From where you spawn in, look right for the pile of stacked boats and climb them to the top of the cliff. (The yellow box in the white boat at the bottom sometimes has Sugar Bombs with rads in it.) At the top, face north-west towards the big blue pipes and the building, and go inside. The Protectron Model is on top of a broken terminal.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/summersville-dam-protectron-model.avif"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Protectron Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ]
+    },
+    {
+     "marker": "Tyler County Dirt Track",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "3CD285"
+     ],
+     "coords": [
+      -156503.8125,
+      135945.046875
+     ],
+     "spawns": [
+      {
+       "label": "Mr. Handy Model",
+       "ref": "3CD285",
+       "source_type": "static",
+       "coords": [
+        -156503.8125,
+        135945.046875
+       ],
+       "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/tyler-county-dirt-track-location.avif",
+       "directions": "Fast travel to Tyler County Fairgrounds, head north-west and turn left onto the road that joins up. Look for the grubby white building with bleachers facing the track. Take the stairs at the back up to the second floor, go through the door and down the hall to the next door. The Mr. Handy Model is on the middle desk.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/tyler-county-dirt-track-mr-handy-model.avif"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Mr. Handy Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ]
+    },
+    {
+     "marker": "Van Lowe Taxidermy",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "478D5A"
+     ],
+     "coords": [
+      1330.62658691406,
+      653.489929199219
+     ],
+     "spawns": [
+      {
+       "label": "Robot Parts Model C (03)",
+       "ref": "478D5A",
+       "source_type": "static",
+       "coords": [
+        1330.62658691406,
+        653.489929199219
+       ],
+       "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/van-lowe-taxidermy-location.avif",
+       "directions": "From the Lewisburg fast travel point, follow the road on your left and take the first street on your right - Van Lowe Taxidermy is the building on that corner. Head inside, turn left and go through the Employees Only door, then up the stairs to the top. Go into the kitchen, turn left, walk to the far end and climb the next set of stairs. At the top, turn right and head for the broken door. The model sits on the desk beside the terminal in the middle of the room.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/van-lowe-taxidermy-robot-parts-model.avif"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Robot Parts Model C (03)",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ]
+    },
+    {
+     "marker": "Vault 51",
+     "count": 4,
+     "sources": {
+      "static": 4
+     },
+     "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/vault-51-location.avif",
+     "directions": "The vault door is locked to start with. Step into the truck trailer on your left and press the button on the far wall to open it. It is much easier if you grab every keycard first, so every room is open to you.",
+     "image_bottom": "",
+     "refs": [
+      "60B19B",
+      "60B19D",
+      "60B1D8",
+      "60CB07"
+     ],
+     "coords": [
+      -539.500183105469,
+      -1745.34826660156
+     ],
+     "spawns": [
+      {
+       "label": "Mr. Handy Model",
+       "ref": "60B19B",
+       "source_type": "static",
+       "coords": [
+        77.084342956543,
+        -1308.69299316406
+       ],
+       "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/vault-51-overseers-office-location.avif",
+       "directions": "You need the vault's unmarked quest finished and the Overseer's keycard to get into the Overseer's Office, and lockpicking cards or Master Infiltrator help here too. The office is on the second floor of the Atrium, in the north corner. Climb the stairs to the top and look for the half-circle desk with a window behind it. The Mr. Handy Model is on that desk.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/vault-51-overseers-desk.avif"
+      },
+      {
+       "label": "Eyebot Model #1",
+       "ref": "60B19D",
+       "source_type": "static",
+       "coords": [
+        69.6443557739258,
+        -1318.44104003906
+       ],
+       "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/vault-51-overseers-office-location.avif",
+       "directions": "You need the vault's unmarked quest finished and the Overseer's keycard to get into the Overseer's Office, and lockpicking cards or Master Infiltrator help here too. The office is on the second floor of the Atrium, in the north corner. Climb the stairs to the top and look for the half-circle desk with a window behind it. The Eyebot Model is on that desk, next to the Mr. Handy Model.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/vault-51-overseers-desk.avif"
+      },
+      {
+       "label": "Eyebot Model #2",
+       "ref": "60B1D8",
+       "source_type": "static",
+       "coords": [
+        1759.15844726562,
+        -457.528289794922
+       ],
+       "image_top": "",
+       "directions": "Go through screening and turn right under the Welcome to Vault 51 banner. Walk past the front desk into the Atrium and head upstairs. Turn left through the wide opening into the sitting room, then right into the bedroom. The Eyebot Model is on the desk.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/vault-51-eyebot-model-bedroom.avif"
+      },
+      {
+       "label": "Sentry Bot Model",
+       "ref": "60CB07",
+       "source_type": "static",
+       "coords": [
+        -539.500183105469,
+        -1745.34826660156
+       ],
+       "image_top": "",
+       "directions": "Stand with your back to the Overseer's desk, face east and take the door on the left (it's locked). The Sentry Bot Model is on the desk to your right as you walk in.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/vault-51-sentry-bot-model.avif"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Eyebot Model",
+       "count": 2,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Mr. Handy Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Sentry Bot Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Savage Divide",
+   "locations": [
+    {
+     "marker": "Foundation Supply Room",
+     "count": 3,
+     "sources": {
+      "static": 3
+     },
+     "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/foundation-supply-room-location.avif",
+     "directions": "These three models are locked in the display case in the Foundation Supply Room, so you can see them but can't pick them up.",
+     "image_bottom": "",
+     "refs": [
+      "5D2C31",
+      "5D859C",
+      "5D859D"
+     ],
+     "coords": [
+      -712.747497558594,
+      697.169250488281
+     ],
+     "spawns": [
+      {
+       "label": "Mr. Handy Model",
+       "ref": "5D2C31",
+       "source_type": "static",
+       "coords": [
+        -714.011596679688,
+        728.853637695313
+       ],
+       "image_top": "",
+       "directions": "Inside the display case - look only, these can't be collected.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/foundation-supply-room-display-case.avif"
+      },
+      {
+       "label": "Protectron Model",
+       "ref": "5D859C",
+       "source_type": "static",
+       "coords": [
+        -720.844604492188,
+        711.427612304687
+       ],
+       "image_top": "",
+       "directions": "Inside the display case - look only, these can't be collected.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/foundation-supply-room-display-case.avif"
+      },
+      {
+       "label": "Eyebot Model",
+       "ref": "5D859D",
+       "source_type": "static",
+       "coords": [
+        -712.747497558594,
+        697.169250488281
+       ],
+       "image_top": "",
+       "directions": "Inside the display case - look only, these can't be collected.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/foundation-supply-room-display-case.avif"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Eyebot Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Mr. Handy Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Protectron Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "Skyline Valley",
+   "locations": [
+    {
+     "marker": "Atrium Upper Level",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "7625E4"
+     ],
+     "coords": [
+      4111.919921875,
+      -10360.9033203125
+     ],
+     "spawns": [
+      {
+       "label": "Mr. Handy Model",
+       "ref": "7625E4",
+       "source_type": "static",
+       "coords": [
+        4111.919921875,
+        -10360.9033203125
+       ],
+       "image_top": "",
+       "directions": "From the fast travel point head east and turn left before the Overseer's desk. Turn right and go down the stairs, walk to the end of the hallway and turn right into the Atrium. Walk forward until the security door is on your left, turn right, drop down and go through the wide double door in the south-west corner. Go straight into the Residential area and turn left - there's a set of chess pieces on a table in the south-west corner. The model is on the bedside table in the room behind the chess pieces.",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Mr. Handy Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ]
+    },
+    {
+     "marker": "Rapidan Camp",
+     "count": 3,
+     "sources": {
+      "static": 3
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "768FE4",
+      "768FE5",
+      "768FE6"
+     ],
+     "coords": [
+      5782.81689453125,
+      -226143.8125
+     ],
+     "spawns": [
+      {
+       "label": "Robot Parts Model B (02)",
+       "ref": "768FE4",
+       "source_type": "static",
+       "coords": [
+        5803.013671875,
+        -226190.703125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Mr. Gutsy Model",
+       "ref": "768FE5",
+       "source_type": "static",
+       "coords": [
+        5794.20068359375,
+        -226168.640625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Eyebot Model",
+       "ref": "768FE6",
+       "source_type": "static",
+       "coords": [
+        5782.81689453125,
+        -226143.8125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Eyebot Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Mr. Gutsy Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Robot Parts Model B (02)",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Mire",
+   "locations": [
+    {
+     "marker": "Freddy Fear's House of Scares",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "38EF31"
+     ],
+     "coords": [
+      161739.375,
+      152872.171875
+     ],
+     "spawns": [
+      {
+       "label": "Mr. Handy Model",
+       "ref": "38EF31",
+       "source_type": "static",
+       "coords": [
+        161739.375,
+        152872.171875
+       ],
+       "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/freddy-fears-house-of-scares-location.avif",
+       "directions": "You need the TNT Dome #2 mini-quest done to get in here. From the fast travel point, face north and walk down the right-hand side of the building to the stairs. Climb to the top, walk on a little and use the Rusted Key on the red door on your right. Stop just inside - the Mr. Handy Model is on the shelf straight ahead.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/freddy-fears-house-of-scares-mr-handy-model.avif"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Mr. Handy Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ]
+    },
+    {
+     "marker": "The Retreat",
+     "count": 3,
+     "sources": {
+      "static": 3
+     },
+     "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/the-retreat-location.avif",
+     "directions": "From where you spawn in, turn slightly left until you're facing the medium industrial water purifier. Run over, stand behind it and face west - there's a set of stairs across the water. Climb them, cross the wooden bridge and open the red door.",
+     "image_bottom": "",
+     "refs": [
+      "3E4E33",
+      "5C8750",
+      "5C8751"
+     ],
+     "coords": [
+      161376.796875,
+      43511.484375
+     ],
+     "spawns": [
+      {
+       "label": "Robot Parts Model A (01)",
+       "ref": "3E4E33",
+       "source_type": "static",
+       "coords": [
+        161376.796875,
+        43511.484375
+       ],
+       "image_top": "",
+       "directions": "Turn around to face the bed in the north corner of the room. It's on the wooden crate beside the bed.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/the-retreat-robot-parts-model-a-01.avif"
+      },
+      {
+       "label": "Robot Parts Model B (02)",
+       "ref": "5C8750",
+       "source_type": "static",
+       "coords": [
+        161204.203125,
+        43302.01171875
+       ],
+       "image_top": "",
+       "directions": "On the bookcase at the back of the room, next to Robot Parts Model C (03).",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/the-retreat-bookcase.avif"
+      },
+      {
+       "label": "Robot Parts Model C (03)",
+       "ref": "5C8751",
+       "source_type": "static",
+       "coords": [
+        161273.8125,
+        43233.8359375
+       ],
+       "image_top": "",
+       "directions": "On the bookcase at the back of the room, next to Robot Parts Model B (02).",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/the-retreat-bookcase.avif"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Robot Parts Model A (01)",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Robot Parts Model B (02)",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Robot Parts Model C (03)",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "region": "The Pitt",
+   "locations": []
+  },
+  {
+   "region": "Toxic Valley",
+   "locations": []
+  }
+ ],
+ "chance_spawns": {
+  "regions": [],
+  "total_markers": 0,
+  "total": 0,
+  "map_base": "/wp-content/uploads/guide-images/collectables/robot-models/"
+ }
+}

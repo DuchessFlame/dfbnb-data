@@ -11,9 +11,8 @@ items or names.
    line reads "Raid: Gleaming Depths - Ultracite Terror".
 
 2. Raid plans: a raid stage's reward list holds the unique AND its plan
-   (RD01_LLS_Raids_Rewards_Enc02_Weapons_DrillFist). When the item's plan sits
-   under that stage's reward list, the route says "Ready-made weapon and its
-   plan".
+   (RD01_LLS_Raids_Rewards_Enc02_Weapons_DrillFist). uwa_entries gives the
+   plan its own entry, rated on (stage list, plan BOOK).
 
 3. Event types: every Events & Activities source that is a quest says what
    kind it is, the way the quest's own title does — "Public Event: Eviction
@@ -206,20 +205,7 @@ def apply(items, labels, log=print):
                     renames[src] = new
                     renames[src.split(" - ", 1)[1]] = new     # summary says "Event: Drill Complex Module"
                     changed["raid name"].append(f"{it['name']}: {new}")
-                    plans = {_f(it.get("planFormId"))} - {""}
-                    for n in names + [re.sub(r"^Plan:\s*", "", str(it.get("planName") or ""))]:
-                        plans |= labels.book.get(_norm(n), set())
-                    if any(labels._under(tops, pf) for pf in plans):
-                        others = [x for x in lines if x.startswith("Source: ") and x != lines[i]]
-                        if not others:
-                            for j, d in enumerate(lines):
-                                if d.startswith("Drops: Ready-made ") and " and its plan" not in d:
-                                    lines[j] = d + " and its plan"
-                        else:
-                            # The Drops line covers every source in the route,
-                            # and the enemies don't drop the plan.
-                            lines.append(f"Note: {new.split(': ', 1)[-1]} also drops the plan.")
-                        changed["raid plan"].append(it["name"])
+                    # the plan's own entry is made by uwa_entries (17 Oct 2026)
                     continue
                 # 3. event kind
                 if r.get("route") != "Events & Activities":
