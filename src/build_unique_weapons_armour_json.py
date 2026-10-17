@@ -99,6 +99,7 @@ import uwa_rates
 import uwa_names       # in-game names from INNR (Oct 2026)
 import uwa_trace       # sources traced from the game files (Oct 2026)
 import uwa_route_labels  # player-facing route names (Oct 2026)
+import uwa_entries     # one entry per thing you get (17 Oct 2026)
 from patchlog_utils import write_empty_patchlog_feed
 
 import build_unique_weapons_json as buw
@@ -1140,7 +1141,11 @@ def craft_mod_routes(items, channel):
                 if not src_r.get("populated"):
                     continue
                 dst = next(x for x in it["obtainRoutes"] if x["route"] == src_r["route"])
-                lines = [f"Drops: Mod — craft it onto the {par['name']} at a weapon workbench"]
+                # Say what the reader does: the source hands out the parent
+                # (its plan or its unlock), and owning that is what lets you
+                # craft this mod onto it (Duchess, 17 Oct 2026).
+                lines = [f"Drops: Unlocks this mod — get the {par['name']} here, "
+                         f"then craft the mod onto it at a Weapon Workbench"]
                 lines += [l for l in src_r["lines"] if not l.startswith("Drops:")]
                 dst.update({"populated": True, "lines": lines,
                             "tradeable": src_r.get("tradeable"), "dropRate": src_r.get("dropRate")})
@@ -1149,6 +1154,12 @@ def craft_mod_routes(items, channel):
                 if src_r.get("_linePaths"):
                     dst["_linePaths"] = {k: list(v) for k, v in src_r["_linePaths"].items()}
             it["howToObtain"] = f"Craft: mod for the {par['name']} (" + par.get("howToObtain", "") + ")"
+            # A mod has no WEAP of its own, so its type read "Unknown": it is
+            # the parent's weapon type (Cosmic Knife -> Combat Knife · Melee).
+            if not it.get("base"):
+                it["base"] = par.get("base") or ""
+            if (it.get("subType") or "Unknown") == "Unknown" and par.get("subType"):
+                it["subType"] = par["subType"]
             done.append(it["name"])
     if done:
         print(f"  crafted-mod uniques given their item's routes: {done}")
@@ -1774,18 +1785,27 @@ def build_channel(channel, dist_dir):
                 _it["unreleased"] = True
                 print(f"  unreleased (no source in the game files): {_it['name']}")
     uwa_obtain.merge_package_lines(all_items)
+    # One entry per thing you get, one line per source (uwa_entries, 17 Oct
+    # 2026): before conditions, so each entry's conditions read its own paths.
+    _labels = uwa_route_labels.Labels(_pk, read_tsv, REPO_ROOT)
+    uwa_entries.split(all_items, obtain_idx, _labels, uwa_entries.Books(_pk, read_tsv))
+    uwa_entries.split_ranks(all_items, obtain_idx, uwa_entries.Timers(_pk, read_tsv))
     attach_conditions(all_items, channel)
+    uwa_entries.quest_craft_entries(all_items, obtain_idx)
     uwa_images.attach(all_items)   # pictures by name, from the server listing
     # Player-facing route names: raid encounters, event kinds, raid plans,
     # Scoreboard crafting unlocks — all read from the files (uwa_route_labels).
-    uwa_route_labels.apply(all_items, uwa_route_labels.Labels(_pk, read_tsv, REPO_ROOT))
+    uwa_route_labels.apply(all_items, _labels)
     # Drop rate on every source line with a leveled list behind it - rng76's
     # numbers, the same engine as the plan pages (uwa_rates.py, 17 Oct 2026).
     _lv = pick("LVLI_Export_*_LVLI_Entries.tsv", channel)
     if _lv:
-        uwa_rates.apply(all_items, uwa_rates.Rates(os.path.dirname(_lv)))
+        _rates = uwa_rates.Rates(os.path.dirname(_lv))
+        _rates.list_path = pick("LVLI_Export_*_LVLI_List.tsv", channel)
+        uwa_rates.apply(all_items, _rates)
     else:
         uwa_rates.strip(all_items)
+    uwa_entries.final_text(all_items, uwa_entries.load_seasons(REPO_ROOT))
 
     # Items Bethesda's own WeaponsUniqueNamedList has never heard of AND that
     # the override table names as mod records rather than weapons. Dropping

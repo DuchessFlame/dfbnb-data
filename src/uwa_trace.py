@@ -213,6 +213,16 @@ class Tracer:
                     out[fid] = (r.get("FULL") or "").strip().strip('"')
             return out
         self.cont, self.npc, self.chal = names("CONT_Export_*.tsv"), names("NPC_Export_*.tsv"), names("CHAL_Export_*.tsv")
+        # An enemy only DROPS what its death-item list (INAM) gives. A list the
+        # NPC references any other way (inventory, outfit - crLLI_Burn_
+        # BountyHunt_Weapon_Ranged_Flatliner on Gentle Gary) is the weapon it
+        # fights with, not loot (Duchess, 17 Oct 2026).
+        self.npc_inam = {}
+        for r in self._rows("NPC_Export_*.tsv"):
+            fid = _f(r.get("FormID"))
+            if fid:
+                self.npc_inam[fid] = _f(r.get("INAM_FormID")) if (r.get("INAM_FormID") or "").strip() else ""
+        self.npc_not_drop = defaultdict(set)
         # Weapon / armour entitlements: the Scoreboard and Atom Shop hand the
         # item itself over through these (SCORE_S12_ENTM_Weapons_ColdShoulder).
         # Skins and paints are not the item and are left out.
@@ -436,6 +446,9 @@ class Tracer:
                 return None, None
             if re.search(r"vendor", edid, re.I):
                 return "Caps", f"{nm} (vendor)"
+            if nm and self.npc_inam.get(fid) != h.get("list"):
+                self.npc_not_drop[item_name].add(nm)
+                return None, None
             if nm:
                 return "Events & Activities", f"Enemy drop: {nm}"
         elif sig in ("FURN", "OTFT", "LGDI"):
@@ -682,6 +695,10 @@ def apply(items, tracer, names=None, obtain_idx=None, hand_only=(), log=print):
     log(f"  NOT traced (hand line or nothing): {len(report['untraced'])}")
     for n, h in report["untraced"]:
         log(f"    {n}: {h!r}")
+    if tracer.npc_not_drop:
+        log(f"  enemies that only USE the item (not a drop, skipped): {len(tracer.npc_not_drop)}")
+        for k, v in sorted(tracer.npc_not_drop.items())[:40]:
+            log(f"    {k}: {', '.join(sorted(v)[:6])}")
     if tracer.unlabelled:
         log(f"  holders with no readable name (skipped): {len(tracer.unlabelled)}")
         for k, v in sorted(tracer.unlabelled.items())[:40]:
