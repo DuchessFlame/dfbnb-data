@@ -45,7 +45,7 @@ import tsv_source
 
 SET_SLUG = "robot-models"
 SET_NAME = "Robot Models"
-PAGE_TITLE = "Robot Models Spawn Locations"
+PAGE_TITLE = "Collectables - Robot Models Spawn Locations"
 SPAWN_URL = "/df/collectables/robot-models/spawn-locations/"
 CHECKLIST_URL = "/df/collectables/robot-models/checklist/"
 
@@ -414,6 +414,32 @@ def run(argv=None):
                                     "rate_display": e.get("rate_display", "")}
                                    for e in evs if e.get("rate_value")]
 
+    # Drop conditions on the leveled-list path to each item (LVLI entry Cond1..N):
+    # every entry, inside the item's closure, that points at the item or at another
+    # closure list. Empty -> "None" on the page (the files were read, nothing gates it).
+    closure = {str(x).upper() for x in src["lvli_closure"]}
+    conds_by_item = defaultdict(set)
+    entries = _newest("LVLI_Export_*_LVLI_Entries.tsv")
+    if entries:
+        with open(entries, encoding="utf-8", errors="replace") as f:
+            rd = csv.reader(f, delimiter="\t")
+            head = next(rd)
+            ix = {h: i for i, h in enumerate(head)}
+            cidx = [ix[h] for h in head if re.fullmatch(r"Cond\d+", h)]
+            for row in rd:
+                lid = (row[ix["LVLI_FormID"]] if len(row) > ix["LVLI_FormID"] else "").upper()
+                if lid not in closure:
+                    continue
+                ref = (row[ix["LVLO_Reference"]] if len(row) > ix["LVLO_Reference"] else "")[:8].upper()
+                cs = [row[i].strip() for i in cidx if i < len(row) and row[i].strip()]
+                if not cs:
+                    continue
+                if ref in by_fid:
+                    conds_by_item[ref].update(cs)
+                elif ref in closure:
+                    for f2 in by_fid:
+                        conds_by_item[f2].update(cs)
+
     def tradeable(kw):
         return not re.search(r"untradeable|notrade|no_trade|questitem", kw or "", re.I)
 
@@ -440,6 +466,8 @@ def run(argv=None):
                                  "places": [{"region": a, "marker": b} for a, b in markers]},
                 "containers": cont_rows_by_item.get(fid, []),
                 "events": ev_by_item.get(fid, []),
+                "drop_conditions": sorted(conds_by_item.get(fid, set())),
+                "conditions_checked": bool(entries),
                 "challenges": [{"name": c.get("name"), "type": (c.get("scope") or "").title(),
                                 "required": c.get("required")} for c in per_item_chal.get(fid, [])],
             },
