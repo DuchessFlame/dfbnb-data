@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated": "2026-10-17T10:49:12Z",
+  "generated": "2026-10-17T20:47:28Z",
   "channel": "pts",
   "count": 134,
   "counts": {
@@ -731,6 +731,18 @@
           "conditionsChecked": true
         },
         {
+          "route": "Quests",
+          "populated": true,
+          "lines": [
+            "Drops: Unlocks crafting (Weapon Workbench)",
+            "Source: Forging a Legend"
+          ],
+          "tradeable": true,
+          "dropRate": "",
+          "conditions": [],
+          "conditionsChecked": true
+        },
+        {
           "route": "Challenges",
           "populated": false,
           "lines": [],
@@ -1009,13 +1021,28 @@
         {
           "route": "Events & Activities",
           "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon and its plan",
-            "Source: Raid: Gleaming Depths - Ultracite Terror — 10.0000%"
-          ],
           "tradeable": false,
           "dropRate": "",
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Raid: Gleaming Depths - Ultracite Terror — 10.0000%"
+          ],
           "conditions": [],
+          "conditionsChecked": true
+        },
+        {
+          "route": "Events & Activities",
+          "populated": true,
+          "tradeable": false,
+          "dropRate": "",
+          "lines": [
+            "Drops: Plan only",
+            "Source: Raid: Gleaming Depths - Ultracite Terror — 5.0000%",
+            "Plan: Plan: Boiling Point"
+          ],
+          "conditions": [
+            "Stops dropping once you learn it"
+          ],
           "conditionsChecked": true
         },
         {
@@ -1165,7 +1192,10 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Opening any Mutated Package or Mutated Party Pack — 2.5000% – 6.2500%"
+            "Source: Opening a Mutated Package — 2.5000%",
+            "Source: Opening a Double Mutated Package — 3.7500%",
+            "Source: Opening a Mutated Party Pack — 3.7500%",
+            "Source: Opening a Double Mutated Party Pack — 6.2500%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -1899,13 +1929,28 @@
         {
           "route": "Events & Activities",
           "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon and its plan",
-            "Source: Raid: Gleaming Depths - Vulcan Research Lab — 10.0000%"
-          ],
           "tradeable": false,
           "dropRate": "",
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Raid: Gleaming Depths - Vulcan Research Lab — 10.0000%"
+          ],
           "conditions": [],
+          "conditionsChecked": true
+        },
+        {
+          "route": "Events & Activities",
+          "populated": true,
+          "tradeable": false,
+          "dropRate": "",
+          "lines": [
+            "Drops: Plan only",
+            "Source: Raid: Gleaming Depths - Vulcan Research Lab — 5.0000%",
+            "Plan: Plan: Cauterizer"
+          ],
+          "conditions": [
+            "Stops dropping once you learn it"
+          ],
           "conditionsChecked": true
         },
         {
@@ -1980,7 +2025,7 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Event: Drifter Loot Bag / Enemy drop: Drifter",
+      "howToObtain": "Event: Drifter Loot Bag",
       "sourceType": "Event",
       "sourceRef": "Drifter Loot Bag",
       "questName": "",
@@ -2063,8 +2108,7 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Drifter Loot Bag — 5.0000%",
-            "Source: Enemy drop: Drifter — 100.0000%"
+            "Source: Drifter Loot Bag — 5.0000%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -2177,9 +2221,9 @@
           "lines": [
             "Drops: Plan only",
             "Source: Giuseppe (Expeditions vendor) — 100.0000%",
-            "Plan: Circuit Breaker"
+            "Plan: Plan: Circuit Breaker"
           ],
-          "tradeable": true,
+          "tradeable": false,
           "dropRate": "",
           "conditions": [],
           "conditionsChecked": true
@@ -2189,7 +2233,7 @@
           "populated": true,
           "lines": [
             "Drops: Unlocks crafting (Weapon Workbench)",
-            "Source: Season 15 Scoreboard"
+            "Source: The Big Score (Season 15 Scoreboard)"
           ],
           "tradeable": true,
           "dropRate": "N/A",
@@ -2491,9 +2535,9 @@
           "lines": [
             "Drops: Plan only",
             "Source: Giuseppe (Expeditions vendor) — 100.0000%",
-            "Plan: Cold Shoulder"
+            "Plan: Plan: Cold Shoulder"
           ],
-          "tradeable": true,
+          "tradeable": false,
           "dropRate": "",
           "conditions": [],
           "conditionsChecked": true
@@ -2503,7 +2547,7 @@
           "populated": true,
           "lines": [
             "Drops: Unlocks crafting (Weapon Workbench)",
-            "Source: Season 12 Scoreboard"
+            "Source: Rip Daring and the Cryptid Hunt (Season 12 Scoreboard)"
           ],
           "tradeable": true,
           "dropRate": "N/A",
@@ -2897,9 +2941,9 @@
           "lines": [
             "Drops: Plan only",
             "Source: Giuseppe (Expeditions vendor) — 100.0000%",
-            "Plan: Cosmic Knife"
+            "Plan: Plan: Cosmic Knife"
           ],
-          "tradeable": true,
+          "tradeable": false,
           "dropRate": "",
           "conditions": [],
           "conditionsChecked": true
@@ -2909,7 +2953,7 @@
           "populated": true,
           "lines": [
             "Drops: Unlocks crafting (Weapon Workbench)",
-            "Source: Season 22 Scoreboard"
+            "Source: Appalachian Modern Living (Season 22 Scoreboard)"
           ],
           "tradeable": true,
           "dropRate": "N/A",
@@ -2966,8 +3010,8 @@
       "id": "mod-custom-cosmicknife-superheated",
       "name": "Cosmic Knife Super-Heated",
       "kind": "Weapon",
-      "subType": "Unknown",
-      "base": "",
+      "subType": "Melee",
+      "base": "Combat Knife",
       "image": "/wp-content/uploads/guide-images/plan-checklist/weapons/cosmic-knife-super-heated.avif",
       "ddsHandle": "",
       "stats": {},
@@ -3008,9 +3052,9 @@
           "route": "Stamps",
           "populated": true,
           "lines": [
-            "Drops: Mod — craft it onto the Cosmic Knife at a weapon workbench",
+            "Drops: Unlocks this mod — get the Cosmic Knife here, then craft the mod onto it at a Weapon Workbench",
             "Source: Giuseppe (Expeditions vendor) — 100.0000%",
-            "Plan: Cosmic Knife"
+            "Plan: Plan: Cosmic Knife"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -3021,8 +3065,8 @@
           "route": "Scoreboard",
           "populated": true,
           "lines": [
-            "Drops: Mod — craft it onto the Cosmic Knife at a weapon workbench",
-            "Source: Season 22 Scoreboard"
+            "Drops: Unlocks this mod — get the Cosmic Knife here, then craft the mod onto it at a Weapon Workbench",
+            "Source: Appalachian Modern Living (Season 22 Scoreboard)"
           ],
           "tradeable": true,
           "dropRate": "N/A",
@@ -3518,7 +3562,7 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Public Event: Safe and Sound / Enemy drop: Cultist Novitiate",
+      "howToObtain": "Public Event: Safe and Sound",
       "sourceType": "Event",
       "sourceRef": "Public Event: Safe and Sound",
       "questName": "",
@@ -3586,8 +3630,7 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Public Event: Safe and Sound — 26.6667%",
-            "Source: Enemy drop: Cultist Novitiate — 16.6667%"
+            "Source: Public Event: Safe and Sound — 26.6667%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -3654,7 +3697,7 @@
           "fixed": false
         }
       ],
-      "inherentEffect": "Named weapon only — no unique effect",
+      "inherentEffect": "+50% Armor Penetrations vs Cryptids",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -3669,8 +3712,15 @@
       "edid": "Pickaxe",
       "inCurrentExport": true,
       "isCut": false,
-      "uniqueMods": [],
-      "namedOnly": true,
+      "uniqueMods": [
+        {
+          "name": "Cultist Piercer Effect",
+          "edid": "mod_custom_CultistPiercer_Effect",
+          "formId": "006E2247",
+          "kind": "unique",
+          "desc": "+50% Armor Penetrations vs Cryptids"
+        }
+      ],
       "obtainRoutes": [
         {
           "route": "Caps",
@@ -3840,7 +3890,12 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Opening any Mole Miner Pail — 0.1714% – 1.3714%"
+            "Source: Opening a Crafted Dusty Mole Miner Pail — 0.3429%",
+            "Source: Opening a Crafted Mole Miner Pail — 1.0286%",
+            "Source: Opening a Crafted Ornate Mole Miner Pail — 1.3714%",
+            "Source: Opening a Dusty Mole Miner Pail — 0.1714%",
+            "Source: Opening a Mole Miner Pail — 0.6857%",
+            "Source: Opening an Ornate Mole Miner Pail — 1.0286%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -4203,7 +4258,12 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Opening any Mole Miner Pail — 0.1714% – 1.3714%"
+            "Source: Opening a Crafted Dusty Mole Miner Pail — 0.3429%",
+            "Source: Opening a Crafted Mole Miner Pail — 1.0286%",
+            "Source: Opening a Crafted Ornate Mole Miner Pail — 1.3714%",
+            "Source: Opening a Dusty Mole Miner Pail — 0.1714%",
+            "Source: Opening a Mole Miner Pail — 0.6857%",
+            "Source: Opening an Ornate Mole Miner Pail — 1.0286%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -4443,7 +4503,12 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Opening any Mole Miner Pail — 0.1714% – 1.3714%"
+            "Source: Opening a Crafted Dusty Mole Miner Pail — 0.3429%",
+            "Source: Opening a Crafted Mole Miner Pail — 1.0286%",
+            "Source: Opening a Crafted Ornate Mole Miner Pail — 1.3714%",
+            "Source: Opening a Dusty Mole Miner Pail — 0.1714%",
+            "Source: Opening a Mole Miner Pail — 0.6857%",
+            "Source: Opening an Ornate Mole Miner Pail — 1.0286%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -4850,7 +4915,9 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Daily Ops — 1.1585% – 2.4390%",
+            "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
+            "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
             "Legacy: Survival mode version — no longer obtainable, player trading only"
           ],
           "tradeable": true,
@@ -5173,13 +5240,28 @@
         {
           "route": "Events & Activities",
           "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon and its plan",
-            "Source: Raid: Gleaming Depths - Drill Complex — 10.0000%"
-          ],
           "tradeable": false,
           "dropRate": "",
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Raid: Gleaming Depths - Drill Complex — 10.0000%"
+          ],
           "conditions": [],
+          "conditionsChecked": true
+        },
+        {
+          "route": "Events & Activities",
+          "populated": true,
+          "tradeable": false,
+          "dropRate": "",
+          "lines": [
+            "Drops: Plan only",
+            "Source: Raid: Gleaming Depths - Drill Complex — 5.0000%",
+            "Plan: Plan: Drill Fist"
+          ],
+          "conditions": [
+            "Stops dropping once you learn it"
+          ],
           "conditionsChecked": true
         },
         {
@@ -5243,7 +5325,7 @@
           "fixed": false
         }
       ],
-      "inherentEffect": "Named weapon only — no unique effect",
+      "inherentEffect": "+2% V.A.T.S. Critical Damage per Onslaught stack",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -5258,8 +5340,29 @@
       "edid": "SubmachineGun",
       "inCurrentExport": true,
       "isCut": false,
-      "uniqueMods": [],
-      "namedOnly": true,
+      "uniqueMods": [
+        {
+          "name": "Elders Mark Effect",
+          "edid": "mod_custom_EldersMark_Effect",
+          "formId": "006E2246",
+          "kind": "unique",
+          "desc": "+2% V.A.T.S. Critical Damage per Onslaught stack"
+        },
+        {
+          "name": "Short Stock",
+          "edid": "mod_SubmachineGun_Grip_StockShort",
+          "formId": "00188A67",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Medium Magazine",
+          "edid": "mod_SubmachineGun_Mag_Medium",
+          "formId": "0015B047",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ],
       "obtainRoutes": [
         {
           "route": "Caps",
@@ -5430,12 +5533,12 @@
           "populated": true,
           "lines": [
             "Drops: Plan only",
-            "Plan: Face Breaker",
+            "Plan: Plan: Face Breaker",
             "Vendor: Mortimer — Crater",
             "Cost: 1,000 Gold Bullion",
             "Reputation: Raiders — Neighborly"
           ],
-          "tradeable": true,
+          "tradeable": false,
           "dropRate": "N/A",
           "conditions": [
             "Only at Neighborly reputation with the Raiders or higher"
@@ -5459,13 +5562,31 @@
         {
           "route": "Events & Activities",
           "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon and its plan",
-            "Source: Daily Ops — 1.1585% – 2.8571%",
-            "Plan: Face Breaker"
-          ],
           "tradeable": true,
           "dropRate": "",
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
+            "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%"
+          ],
+          "conditions": [
+            "Level 50 and above"
+          ],
+          "conditionsChecked": true
+        },
+        {
+          "route": "Events & Activities",
+          "populated": true,
+          "tradeable": false,
+          "dropRate": "",
+          "lines": [
+            "Drops: Plan only",
+            "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 0.1643%",
+            "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.0214%",
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0071%",
+            "Plan: Plan: Face Breaker"
+          ],
           "conditions": [
             "Level 50 and above",
             "Stops dropping once you learn it"
@@ -5702,7 +5823,7 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Raid: Gleaming Depths - Epsilon Squad / Enemy drop: Gentle Gary / Enemy drop: Charlie Half-Cocked",
+      "howToObtain": "Raid: Gleaming Depths - Epsilon Squad",
       "sourceType": "Event",
       "sourceRef": "Raid: Gleaming Depths - Epsilon Squad",
       "questName": "",
@@ -5803,16 +5924,28 @@
         {
           "route": "Events & Activities",
           "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon",
-            "Source: Raid: Gleaming Depths - Epsilon Squad — 10.0000%",
-            "Source: Enemy drop: Gentle Gary — 100.0000%",
-            "Source: Enemy drop: Charlie Half-Cocked — 100.0000%",
-            "Note: Gleaming Depths - Epsilon Squad also drops the plan."
-          ],
           "tradeable": false,
           "dropRate": "",
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Raid: Gleaming Depths - Epsilon Squad — 10.0000%"
+          ],
           "conditions": [],
+          "conditionsChecked": true
+        },
+        {
+          "route": "Events & Activities",
+          "populated": true,
+          "tradeable": false,
+          "dropRate": "",
+          "lines": [
+            "Drops: Plan only",
+            "Source: Raid: Gleaming Depths - Epsilon Squad — 5.0000%",
+            "Plan: Plan: Flatliner"
+          ],
+          "conditions": [
+            "Stops dropping once you learn it"
+          ],
           "conditionsChecked": true
         },
         {
@@ -6446,7 +6579,7 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Score: Season 17 Scoreboard / Enemy drop: Cultist Ritualist",
+      "howToObtain": "Score: Season 17 Scoreboard",
       "sourceType": "Score",
       "sourceRef": "Season 17 Scoreboard",
       "questName": "",
@@ -6486,7 +6619,7 @@
           "populated": true,
           "lines": [
             "Drops: Unlocks crafting (Weapon Workbench)",
-            "Source: Season 17 Scoreboard"
+            "Source: Pioneer Scouts: Skyline Valley (Season 17 Scoreboard)"
           ],
           "tradeable": true,
           "dropRate": "N/A",
@@ -6516,15 +6649,10 @@
         },
         {
           "route": "Events & Activities",
-          "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon",
-            "Source: Enemy drop: Cultist Ritualist — 100.0000%"
-          ],
-          "tradeable": true,
-          "dropRate": "",
-          "conditions": [],
-          "conditionsChecked": true
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
         },
         {
           "route": "Quests",
@@ -6589,7 +6717,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Named weapon only — no unique effect",
+      "inherentEffect": "You and Teammates Hit by Your Flame Gain +30% Damage and +50 DR for 15 Seconds",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -6604,8 +6732,29 @@
       "edid": "Flamer",
       "inCurrentExport": true,
       "isCut": false,
-      "uniqueMods": [],
-      "namedOnly": true,
+      "uniqueMods": [
+        {
+          "name": "Holy Fire Effect",
+          "edid": "mod_custom_HolyFire_Effect",
+          "formId": "006E06A3",
+          "kind": "unique",
+          "desc": "You and Teammates Hit by Your Flame Gain +30% Damage and +50 DR for 15 Seconds"
+        },
+        {
+          "name": "Large Propellant Tank",
+          "edid": "mod_Flamer_MagTank_Large",
+          "formId": "00147B00",
+          "kind": "preinstalled",
+          "desc": ""
+        },
+        {
+          "name": "Flamer Holy Fire Nozzle",
+          "edid": "mod_Flamer_HolyFire_Nozzle",
+          "formId": "006E2249",
+          "kind": "preinstalled",
+          "desc": ""
+        }
+      ],
       "obtainRoutes": [
         {
           "route": "Caps",
@@ -6726,7 +6875,7 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Score: Season 21 Scoreboard / Enemy drop: Hostile Fisherman",
+      "howToObtain": "Score: Season 21 Scoreboard",
       "sourceType": "Score",
       "sourceRef": "Season 21 Scoreboard",
       "questName": "",
@@ -6773,7 +6922,7 @@
           "populated": true,
           "lines": [
             "Drops: Unlocks crafting (Weapon Workbench)",
-            "Source: Season 21 Scoreboard"
+            "Source: Gone Fission (Season 21 Scoreboard)"
           ],
           "tradeable": true,
           "dropRate": "N/A",
@@ -6785,12 +6934,12 @@
           "populated": true,
           "lines": [
             "Drops: Plan only",
-            "Plan: Ice Breaker",
+            "Plan: Plan: Ice Breaker",
             "Vendor: Mortimer — Crater",
             "Cost: 750 Gold Bullion",
             "Reputation: Raiders — Ally"
           ],
-          "tradeable": true,
+          "tradeable": false,
           "dropRate": "N/A",
           "conditions": [
             "Only at Ally reputation with the Raiders or higher"
@@ -6813,15 +6962,10 @@
         },
         {
           "route": "Events & Activities",
-          "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon",
-            "Source: Enemy drop: Hostile Fisherman — 100.0000%"
-          ],
-          "tradeable": true,
-          "dropRate": "",
-          "conditions": [],
-          "conditionsChecked": true
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
         },
         {
           "route": "Quests",
@@ -7357,7 +7501,7 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Raid: Gleaming Depths - Vulcan Research Lab / Enemy drop: Boxer",
+      "howToObtain": "Raid: Gleaming Depths - Vulcan Research Lab",
       "sourceType": "Event",
       "sourceRef": "Raid: Gleaming Depths - Vulcan Research Lab",
       "questName": "",
@@ -7458,15 +7602,28 @@
         {
           "route": "Events & Activities",
           "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon",
-            "Source: Raid: Gleaming Depths - Vulcan Research Lab — 10.0000%",
-            "Source: Enemy drop: Boxer — 100.0000%",
-            "Note: Gleaming Depths - Vulcan Research Lab also drops the plan."
-          ],
           "tradeable": false,
           "dropRate": "",
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Raid: Gleaming Depths - Vulcan Research Lab — 10.0000%"
+          ],
           "conditions": [],
+          "conditionsChecked": true
+        },
+        {
+          "route": "Events & Activities",
+          "populated": true,
+          "tradeable": false,
+          "dropRate": "",
+          "lines": [
+            "Drops: Plan only",
+            "Source: Raid: Gleaming Depths - Vulcan Research Lab — 5.0000%",
+            "Plan: Plan: Lickety-Split"
+          ],
+          "conditions": [
+            "Stops dropping once you learn it"
+          ],
           "conditionsChecked": true
         },
         {
@@ -7647,7 +7804,10 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Opening any Mutated Package or Mutated Party Pack — 2.5000% – 6.2500%"
+            "Source: Opening a Mutated Package — 2.5000%",
+            "Source: Opening a Double Mutated Package — 3.7500%",
+            "Source: Opening a Mutated Party Pack — 3.7500%",
+            "Source: Opening a Double Mutated Party Pack — 6.2500%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -7872,7 +8032,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Named weapon only — no unique effect",
+      "inherentEffect": "+50 Explosive Damage",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -7887,8 +8047,15 @@
       "edid": "Switchblade",
       "inCurrentExport": true,
       "isCut": false,
-      "uniqueMods": [],
-      "namedOnly": true,
+      "uniqueMods": [
+        {
+          "name": "Luca Switchblade Effect",
+          "edid": "mod_custom_LucaSwitchblade_Effect",
+          "formId": "006E2243",
+          "kind": "unique",
+          "desc": "+50 Explosive Damage"
+        }
+      ],
       "obtainRoutes": [
         {
           "route": "Caps",
@@ -8012,7 +8179,7 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Challenge: Find more Abraxodyne Intel / Vendor: Splint (Burning Springs Gun, Settlers vendor) / Enemy drop: The Cleaner",
+      "howToObtain": "Challenge: Find more Abraxodyne Intel / Vendor: Splint (Burning Springs Gun, Settlers vendor)",
       "sourceType": "Challenge",
       "sourceRef": "Find more Abraxodyne Intel",
       "questName": "",
@@ -8112,15 +8279,10 @@
         },
         {
           "route": "Events & Activities",
-          "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon",
-            "Source: Enemy drop: The Cleaner — 100.0000%"
-          ],
-          "tradeable": true,
-          "dropRate": "",
-          "conditions": [],
-          "conditionsChecked": true
+          "populated": false,
+          "lines": [],
+          "tradeable": null,
+          "dropRate": null
         },
         {
           "route": "Quests",
@@ -8246,7 +8408,7 @@
           "populated": true,
           "lines": [
             "Drops: Plan only",
-            "Plan: Mechanic's Best Friend",
+            "Plan: Plan: Mechanic's Best Friend",
             "Vendor: Minerva — travelling vendor — rotating stock",
             "Legacy: Survival mode version — no longer obtainable, player trading only"
           ],
@@ -8272,16 +8434,33 @@
         {
           "route": "Events & Activities",
           "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon",
-            "Source: Daily Ops — 1.1585% – 2.4390%"
-          ],
           "tradeable": true,
           "dropRate": "",
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
+            "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%"
+          ],
           "conditions": [
             "Level 50 and above"
           ],
           "conditionsChecked": true
+        },
+        {
+          "route": "Events & Activities",
+          "populated": true,
+          "tradeable": true,
+          "dropRate": "",
+          "lines": [
+            "Drops: Plan only",
+            "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
+            "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
+            "Plan: Plan: Mechanic's Best Friend"
+          ],
+          "conditions": [],
+          "conditionsChecked": false
         },
         {
           "route": "Quests",
@@ -8451,7 +8630,9 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Opening a Pint-Sized Phantom Pack — 0.6667%",
-            "Source: Daily Ops — 1.1585% – 2.4390%",
+            "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
+            "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
             "Legacy: Survival mode version — no longer obtainable, player trading only"
           ],
           "tradeable": true,
@@ -8749,7 +8930,9 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Daily Ops — 1.1585% – 2.4390%"
+            "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
+            "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -8899,7 +9082,10 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Opening any Mutated Package or Mutated Party Pack — 2.5000% – 12.5000%"
+            "Source: Opening a Mutated Package — 2.5000%",
+            "Source: Opening a Double Mutated Package — 3.7500%",
+            "Source: Opening a Mutated Party Pack — 3.7500%",
+            "Source: Opening a Double Mutated Party Pack — 6.2500%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -9579,7 +9765,7 @@
           "populated": true,
           "lines": [
             "Drops: Unlocks crafting (Weapon Workbench)",
-            "Source: Season 11 Scoreboard"
+            "Source: Nuka-World (Season 11 Scoreboard)"
           ],
           "tradeable": true,
           "dropRate": "N/A",
@@ -9591,10 +9777,10 @@
           "populated": true,
           "lines": [
             "Drops: Plan only",
-            "Plan: Nuka-Launcher",
+            "Plan: Plan: Nuka-Launcher",
             "Vendor: Minerva — travelling vendor — rotating stock"
           ],
-          "tradeable": true,
+          "tradeable": false,
           "dropRate": "N/A",
           "conditions": [
             "Only in the weeks the vendor has it in stock"
@@ -9836,7 +10022,7 @@
           "fixed": true
         }
       ],
-      "inherentEffect": "Named weapon only — no unique effect",
+      "inherentEffect": "+30% More Damage Blocked",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -9851,8 +10037,15 @@
       "edid": "BearArm",
       "inCurrentExport": true,
       "isCut": false,
-      "uniqueMods": [],
-      "namedOnly": true,
+      "uniqueMods": [
+        {
+          "name": "Ogua Gauntlet Effect",
+          "edid": "mod_custom_OguaGauntlet_Effect",
+          "formId": "006E2245",
+          "kind": "unique",
+          "desc": "+30% More Damage Blocked"
+        }
+      ],
       "obtainRoutes": [
         {
           "route": "Caps",
@@ -10228,7 +10421,10 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Opening any Mutated Package or Mutated Party Pack — 2.5000% – 6.2500%"
+            "Source: Opening a Mutated Package — 2.5000%",
+            "Source: Opening a Double Mutated Package — 3.7500%",
+            "Source: Opening a Mutated Party Pack — 3.7500%",
+            "Source: Opening a Double Mutated Party Pack — 6.2500%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -10492,11 +10688,11 @@
           "populated": true,
           "lines": [
             "Drops: Plan only",
-            "Plan: Piercing Love",
+            "Plan: Plan: Piercing Love",
             "Vendor: Mortimer — Crater",
             "Reputation: Raiders — Ally"
           ],
-          "tradeable": true,
+          "tradeable": false,
           "dropRate": "N/A",
           "conditions": [
             "Only at Ally reputation with the Raiders or higher"
@@ -11599,7 +11795,9 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Daily Ops — 1.1585% – 2.4390%",
+            "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
+            "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
             "Legacy: Survival mode version — no longer obtainable, player trading only"
           ],
           "tradeable": true,
@@ -11755,13 +11953,28 @@
         {
           "route": "Events & Activities",
           "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon and its plan",
-            "Source: Raid: Gleaming Depths - Epsilon Squad — 10.0000%"
-          ],
           "tradeable": false,
           "dropRate": "",
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Raid: Gleaming Depths - Epsilon Squad — 10.0000%"
+          ],
           "conditions": [],
+          "conditionsChecked": true
+        },
+        {
+          "route": "Events & Activities",
+          "populated": true,
+          "tradeable": false,
+          "dropRate": "",
+          "lines": [
+            "Drops: Plan only",
+            "Source: Raid: Gleaming Depths - Epsilon Squad — 5.0000%",
+            "Plan: Plan: Resolve Breaker"
+          ],
+          "conditions": [
+            "Stops dropping once you learn it"
+          ],
           "conditionsChecked": true
         },
         {
@@ -13241,7 +13454,7 @@
           "fixed": false
         }
       ],
-      "inherentEffect": "Named weapon only — no unique effect",
+      "inherentEffect": "Causes Bleed damage",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -13256,8 +13469,15 @@
       "edid": "AutoAxe",
       "inCurrentExport": true,
       "isCut": false,
-      "uniqueMods": [],
-      "namedOnly": true,
+      "uniqueMods": [
+        {
+          "name": "Super Slasher",
+          "edid": "SDOW_Mod_Custom_SlasherAxe_CustomName",
+          "formId": "008E076F",
+          "kind": "unique",
+          "desc": "Causes Bleed damage"
+        }
+      ],
       "obtainRoutes": [
         {
           "route": "Caps",
@@ -13455,7 +13675,10 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Opening any Mutated Package or Mutated Party Pack — 2.5000% – 100.0000%"
+            "Source: Opening a Mutated Package — 2.5000%",
+            "Source: Opening a Double Mutated Package — 3.7500%",
+            "Source: Opening a Mutated Party Pack — 3.7500%",
+            "Source: Opening a Double Mutated Party Pack — 6.2500%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -13612,7 +13835,7 @@
           "populated": true,
           "lines": [
             "Drops: Plan only",
-            "Plan: Sole Survivor",
+            "Plan: Plan: Sole Survivor",
             "Vendor: Minerva — travelling vendor — rotating stock",
             "Legacy: Survival mode version — no longer obtainable, player trading only"
           ],
@@ -13638,16 +13861,33 @@
         {
           "route": "Events & Activities",
           "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon",
-            "Source: Daily Ops — 1.1585% – 2.4390%"
-          ],
           "tradeable": true,
           "dropRate": "",
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
+            "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%"
+          ],
           "conditions": [
             "Level 50 and above"
           ],
           "conditionsChecked": true
+        },
+        {
+          "route": "Events & Activities",
+          "populated": true,
+          "tradeable": true,
+          "dropRate": "",
+          "lines": [
+            "Drops: Plan only",
+            "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
+            "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
+            "Plan: Plan: Sole Survivor"
+          ],
+          "conditions": [],
+          "conditionsChecked": false
         },
         {
           "route": "Quests",
@@ -13873,7 +14113,7 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Event: Drifter Loot Bag / Enemy drop: Drifter",
+      "howToObtain": "Event: Drifter Loot Bag",
       "sourceType": "Event",
       "sourceRef": "Drifter Loot Bag",
       "questName": "",
@@ -13977,8 +14217,7 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Drifter Loot Bag — 5.0000%",
-            "Source: Enemy drop: Drifter — 100.0000%"
+            "Source: Drifter Loot Bag — 5.0000%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -14481,7 +14720,7 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Event: Drifter Loot Bag / Enemy drop: Drifter",
+      "howToObtain": "Event: Drifter Loot Bag",
       "sourceType": "Event",
       "sourceRef": "Drifter Loot Bag",
       "questName": "",
@@ -14557,8 +14796,7 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Drifter Loot Bag — 5.0000%",
-            "Source: Enemy drop: Drifter — 100.0000%"
+            "Source: Drifter Loot Bag — 5.0000%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -14698,7 +14936,9 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Daily Ops — 1.1585% – 2.4390%",
+            "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
+            "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
             "Legacy: Survival mode version — no longer obtainable, player trading only"
           ],
           "tradeable": true,
@@ -14999,7 +15239,7 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Event: Bounty hunt target / Event: Legendary enemy drop / Event: Meat Bag / Event: Trunk / and 50 more",
+      "howToObtain": "Event: Bounty hunt target / Event: Legendary enemy drop / Event: Meat Bag / Event: Trunk / and 49 more",
       "sourceType": "Event",
       "sourceRef": "Bounty hunt target",
       "questName": "",
@@ -15099,7 +15339,6 @@
             "Source: Mayor's Safe — 0.6218%",
             "Source: Security Office Safe — 0.6218%",
             "Source: Daniel's Safe — 0.6218%",
-            "Source: Enemy drop: Civil War Reenactor — 10.0000%",
             "Source: Enemy drop: Albino Deathclaw, Alpha Deathclaw, Armored Deathclaw, Chameleon Deathclaw and 18 more — 0.1332%",
             "Source: Enemy drop: Glowing Mothman, Mothman, Mothman Hatchling, Scorched Mothman and 2 more — 0.1332%",
             "Source: Enemy drop: Dr. Blackburn — 0.1332%",
@@ -15611,8 +15850,11 @@
           "populated": true,
           "lines": [
             "Drops: Plan only",
-            "Source: Opening any Mutated Package or Mutated Party Pack — 1.2821%",
-            "Plan: The Fixer"
+            "Source: Opening a Mutated Package — 0.3205%",
+            "Source: Opening a Double Mutated Package — 0.6410%",
+            "Source: Opening a Mutated Party Pack — 0.6410%",
+            "Source: Opening a Double Mutated Party Pack — 0.9615%",
+            "Plan: Plan: The Fixer"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -15622,15 +15864,26 @@
         {
           "route": "Quests",
           "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon and its plan",
-            "Source: Wolf in Sheep's Clothing — 100.0000%",
-            "Source: Event: Encryptid — 50.0000%",
-            "Source: Atlantic City: The Human Condition — 1.3158%",
-            "Plan: The Fixer"
-          ],
           "tradeable": true,
           "dropRate": "",
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Wolf in Sheep's Clothing — 100.0000%"
+          ],
+          "conditions": [],
+          "conditionsChecked": true
+        },
+        {
+          "route": "Quests",
+          "populated": true,
+          "tradeable": true,
+          "dropRate": "",
+          "lines": [
+            "Drops: Plan only",
+            "Source: Event: Encryptid — 50.0000%",
+            "Source: Atlantic City: The Human Condition — 1.3158%",
+            "Plan: Plan: The Fixer"
+          ],
           "conditions": [
             "Only after completing The Lowe-Down",
             "Stops dropping once you learn it"
@@ -15772,7 +16025,9 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Daily Ops — 1.1585% – 2.4390%",
+            "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
+            "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
             "Legacy: Survival mode version — no longer obtainable, player trading only"
           ],
           "tradeable": true,
@@ -15896,7 +16151,7 @@
           "populated": true,
           "lines": [
             "Drops: Plan only",
-            "Plan: The Gutter",
+            "Plan: Plan: The Gutter",
             "Vendor: Minerva — travelling vendor — rotating stock",
             "Legacy: an older version — no longer obtainable, player trading only"
           ],
@@ -16110,7 +16365,7 @@
           "fixed": false
         }
       ],
-      "inherentEffect": "Named weapon only — no unique effect",
+      "inherentEffect": "Adds Poison damage",
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
@@ -16125,8 +16380,15 @@
       "edid": "PumpActionShotgun",
       "inCurrentExport": true,
       "isCut": false,
-      "uniqueMods": [],
-      "namedOnly": true,
+      "uniqueMods": [
+        {
+          "name": "Poison",
+          "edid": "mod_custom_TheKabloom_Effect",
+          "formId": "006E2242",
+          "kind": "unique",
+          "desc": "Adds Poison damage"
+        }
+      ],
       "obtainRoutes": [
         {
           "route": "Caps",
@@ -16322,7 +16584,10 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Opening any Mutated Package or Mutated Party Pack — 2.5000% – 12.5000%"
+            "Source: Opening a Mutated Package — 2.5000%",
+            "Source: Opening a Double Mutated Package — 3.7500%",
+            "Source: Opening a Mutated Party Pack — 3.7500%",
+            "Source: Opening a Double Mutated Party Pack — 6.2500%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -16621,7 +16886,9 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Daily Ops — 1.1585% – 2.4390%",
+            "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
+            "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
             "Legacy: Survival mode version — no longer obtainable, player trading only"
           ],
           "tradeable": true,
@@ -17377,7 +17644,7 @@
           "populated": true,
           "lines": [
             "Drops: Plan only",
-            "Plan: Unstoppable Monster",
+            "Plan: Plan: Unstoppable Monster",
             "Vendor: Minerva — travelling vendor — rotating stock",
             "Legacy: Survival mode version — no longer obtainable, player trading only"
           ],
@@ -17403,17 +17670,34 @@
         {
           "route": "Events & Activities",
           "populated": true,
+          "tradeable": true,
+          "dropRate": "",
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Opening a Pint-Sized Phantom Pack — 0.6667%",
-            "Source: Daily Ops — 1.1585% – 2.4390%"
+            "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
+            "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%"
           ],
-          "tradeable": true,
-          "dropRate": "",
           "conditions": [
             "Level 50 and above"
           ],
           "conditionsChecked": true
+        },
+        {
+          "route": "Events & Activities",
+          "populated": true,
+          "tradeable": true,
+          "dropRate": "",
+          "lines": [
+            "Drops: Plan only",
+            "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
+            "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
+            "Plan: Plan: Unstoppable Monster"
+          ],
+          "conditions": [],
+          "conditionsChecked": false
         },
         {
           "route": "Quests",
@@ -17483,7 +17767,7 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Quest: Housekeeping for Hire / Public Event: Neurological Warfare / Enemy drop: Lost Observer / Enemy drop: Lost Scavenger",
+      "howToObtain": "Quest: Housekeeping for Hire / Public Event: Neurological Warfare",
       "sourceType": "Quest",
       "sourceRef": "Housekeeping for Hire",
       "questName": "Housekeeping for Hire",
@@ -17551,9 +17835,7 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Public Event: Neurological Warfare — 3.7037%",
-            "Source: Enemy drop: Lost Observer — 100.0000%",
-            "Source: Enemy drop: Lost Scavenger — 100.0000%"
+            "Source: Public Event: Neurological Warfare — 3.7037%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -18518,13 +18800,28 @@
         {
           "route": "Events & Activities",
           "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon and its plan",
-            "Source: Raid: Gleaming Depths - EN06 Guardian — 10.0000%"
-          ],
           "tradeable": false,
           "dropRate": "",
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Raid: Gleaming Depths - EN06 Guardian — 10.0000%"
+          ],
           "conditions": [],
+          "conditionsChecked": true
+        },
+        {
+          "route": "Events & Activities",
+          "populated": true,
+          "tradeable": false,
+          "dropRate": "",
+          "lines": [
+            "Drops: Plan only",
+            "Source: Raid: Gleaming Depths - EN06 Guardian — 5.0000%",
+            "Plan: Plan: Valkyrie"
+          ],
+          "conditions": [
+            "Stops dropping once you learn it"
+          ],
           "conditionsChecked": true
         },
         {
@@ -18666,13 +18963,28 @@
         {
           "route": "Events & Activities",
           "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon and its plan",
-            "Source: Raid: Gleaming Depths - Ultracite Terror — 10.0000%"
-          ],
           "tradeable": false,
           "dropRate": "",
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Raid: Gleaming Depths - Ultracite Terror — 10.0000%"
+          ],
           "conditions": [],
+          "conditionsChecked": true
+        },
+        {
+          "route": "Events & Activities",
+          "populated": true,
+          "tradeable": false,
+          "dropRate": "",
+          "lines": [
+            "Drops: Plan only",
+            "Source: Raid: Gleaming Depths - Ultracite Terror — 5.0000%",
+            "Plan: Plan: Ultracite Terror Sword"
+          ],
+          "conditions": [
+            "Only until you learn Ultracite Terror Sword"
+          ],
           "conditionsChecked": true
         },
         {
@@ -18813,6 +19125,18 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Prototypical Problems — 100.0000%"
+          ],
+          "tradeable": true,
+          "dropRate": "",
+          "conditions": [],
+          "conditionsChecked": true
+        },
+        {
+          "route": "Quests",
+          "populated": true,
+          "lines": [
+            "Drops: Unlocks crafting (Weapon Workbench)",
+            "Source: Prototypical Problems"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -19411,7 +19735,7 @@
           "populated": true,
           "lines": [
             "Drops: Plan only",
-            "Plan: Whistle in the Dark",
+            "Plan: Plan: Whistle in the Dark",
             "Vendor: Minerva — travelling vendor — rotating stock",
             "Legacy: an older version — no longer obtainable, player trading only"
           ],
@@ -19437,16 +19761,33 @@
         {
           "route": "Events & Activities",
           "populated": true,
-          "lines": [
-            "Drops: Ready-made weapon",
-            "Source: Daily Ops — 1.1585% – 2.4390%"
-          ],
           "tradeable": true,
           "dropRate": "",
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
+            "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%"
+          ],
           "conditions": [
             "Level 50 and above"
           ],
           "conditionsChecked": true
+        },
+        {
+          "route": "Events & Activities",
+          "populated": true,
+          "tradeable": true,
+          "dropRate": "",
+          "lines": [
+            "Drops: Plan only",
+            "Source: Daily Ops, Elder rank (cleared in 8:00 or less) — 1.3302%",
+            "Source: Daily Ops, Paladin rank (cleared in 12:00 or less) — 0.1737%",
+            "Source: Daily Ops, Knight rank (cleared in 16:00 or less) — 0.0579%",
+            "Plan: Plan: Whistle in the Dark"
+          ],
+          "conditions": [],
+          "conditionsChecked": false
         },
         {
           "route": "Quests",
@@ -19603,7 +19944,7 @@
           "lines": [
             "Drops: Ready-made weapon",
             "Source: Seasonal Event: Invaders from Beyond — 5.0000%",
-            "Note: First released as a Season 7 Scoreboard reward, it was called Xerxo's Gamma Ray Gun back then."
+            "Note: First released as a Season 7 Scoreboard reward (Zorbo's Revenge), it was called Xerxo's Gamma Ray Gun back then."
           ],
           "tradeable": false,
           "dropRate": "",
