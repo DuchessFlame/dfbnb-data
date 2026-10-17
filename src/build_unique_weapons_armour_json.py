@@ -76,6 +76,13 @@ UNRELEASED_BY_HAND = {n for n in (
     "Secret Settler Left Leg", "Secret Settler Right Leg",
 )}
 
+# Out in the game, but nothing in the game files hands them out, so the
+# no-sources rule below must not call them unreleased. The page still says
+# "No source found in the game files" - this list never writes a source.
+# The Pipe: random encounter reward (Duchess, 17 Oct 2026); in the ESM only
+# its own Pipe Gun record points at its custom mod / build keyword.
+RELEASED_NO_SOURCE = {"The Pipe"}
+
 SRC_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SRC_DIR.parent
 TSV_DIR = REPO_ROOT / "tsv"
@@ -1308,6 +1315,16 @@ def discover_and_add(all_items, channel, omod_by_fid, cn_weapon, weap_base, weap
             continue
         if (e["omods"] & page_mods) and "official" not in e["src"]:
             continue
+        # Also match on the in-game name of the entry's own custom mods. The
+        # files call V63-Z "Storm Slasher" (keyword + mod EditorIDs) while the
+        # page row is "V63-Z" with no mods attached yet, so neither test above
+        # links them and the weapon was added twice (PTS, 17 Oct 2026). Same
+        # rule as the shared-mod test: Bethesda's own roster still wins.
+        if "official" not in e["src"] and any(
+                uwa_discover.match(uwa_discover.key(strip_q(omod_by_fid.get(f, {}).get("FULL", ""))), page_keys)
+                for f in e["omods"]
+                if len(uwa_discover.key(strip_q(omod_by_fid.get(f, {}).get("FULL", "")))) >= 4):
+            continue
         it = None
         hosted = [f for f in sorted(e["omods"]) if weap_host.get(f)]
         if hosted:
@@ -1580,6 +1597,12 @@ def build_channel(channel, dist_dir):
     # from the files first; the SUPP_OBTAIN lines below are only the fallback
     # for an export made before that pass existed.
     made_by = _item_alias_quests(channel)
+    if channel == "pts":
+        # The PTS _ItemAliases sheet is shorter than live's (1,497 vs 2,049
+        # rows, 15 Oct 2026) - Forging a Legend is missing, so Grant's Saber
+        # lost its quest on PTS. A quest live has still exists on PTS: fill
+        # the gaps from live, PTS rows win.
+        made_by = {**_item_alias_quests("live"), **made_by}
     for it in all_items:
         if str(it.get("howToObtain") or "").strip() in ("", "Source unconfirmed"):
             q = made_by.get(norm_formid(it.get("formId") or ""))
@@ -1725,9 +1748,28 @@ def build_channel(channel, dist_dir):
         # A summary with nothing behind it would send readers somewhere the
         # files never say (The Pipe kept "Event: Monster Mash", inherited from
         # the plain Pipe Gun pool).
+        # A quest alias that creates the item (QUST2 _ItemAliases) is a real
+        # source from the files, but only reached the summary line, never a
+        # route - so the check below wiped it (Grant's Saber on PTS, whose
+        # leveled lists lost their quest reference in that export).
+        _q = made_by.get(norm_formid(_it.get("formId") or ""))
+        if _q and not any(r.get("populated") for r in _it.get("obtainRoutes") or []):
+            _routes = _it.get("obtainRoutes") or uwa_obtain.blank_routes()
+            _it["obtainRoutes"] = _routes
+            uwa_obtain._put(_routes, "Quests",
+                            [uwa_obtain._drops_line({"weapon"}, _it.get("kind")), f"Source: {_q}"],
+                            tradeable=_it.get("tradeable"), drop="N/A")
+            _it["howToObtain"], _it["sourceType"] = "Quest: " + _q, "Quest"
+            _it["sourceRef"] = _it["questName"] = _q
         if not any(r.get("populated") for r in _it.get("obtainRoutes") or []):
             _it["howToObtain"] = "No source found in the game files"
             _it["sourceType"], _it["sourceRef"], _it["questName"] = "Unknown", "", ""
+            # No-sources rule (Duchess, 17 Oct 2026): not cut (cut items are
+            # already gone) and nothing in the files gives it out = not in the
+            # game yet. Unreleased pill, off the progress bar.
+            if norm_name(_it.get("name")) not in {norm_name(n) for n in RELEASED_NO_SOURCE}:
+                _it["unreleased"] = True
+                print(f"  unreleased (no source in the game files): {_it['name']}")
     uwa_obtain.merge_package_lines(all_items)
     attach_conditions(all_items, channel)
     uwa_images.attach(all_items)   # pictures by name, from the server listing
