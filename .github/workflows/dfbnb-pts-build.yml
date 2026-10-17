@@ -925,6 +925,17 @@ jobs:
       - name: Build CAMP JSON
         run: python src/build_camp_json.py
 
+      # --- PERSONAL TERMINAL (/df/camp/personal-terminal/) ---
+      # Reads the newest TERM_Export_*.tsv + its _Quests.tsv companion
+      # (xedit scripts\!!!Wordpress - ExportTERMToTSV.pas, or
+      # tools/export_term_from_esm.py). Follows the terminal's own menu links,
+      # so new friends / alerts / stats appear without code changes. Exits 0
+      # and leaves dist/personal_terminal.json alone if no TERM export exists.
+      # NEW pills come from tsv/personal_terminal_first_seen.json (committed
+      # by the tsv/*_first_seen.json line in Commit & Push).
+      - name: Build Personal Terminal JSON
+        run: python src/build_personal_terminal_json.py
+
       # --- CRYPTIDS ---
       - name: Build Cryptids JSON
         run: python src/build_cryptids_json.py

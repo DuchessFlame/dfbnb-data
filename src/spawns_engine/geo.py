@@ -58,7 +58,7 @@ INTERIOR_REGION_OVERRIDES = {
     "Valley Galleria": "Cranberry Bog",              # Watoga shopping plaza
     # --- Added Aug 2026 from the vendor build's unresolved list (DB-verified) ---
     "The Rusty Pick": "Ash Heap",                    # marker exists but sits in a polygon gap
-    "Duncan & Duncan Robotics": "Cranberry Bog",     # Watoga (all Watoga markers resolve here)
+    "Duncan & Duncan Robotics": "Forest",            # Summersville (Duchess, 17 Oct 2026; matches the game LCTN)
     "Gold Vault Operations": "Savage Divide",        # Regs — inside Vault 79 (marker = Savage Divide)
     # --- Added Aug 2026: name-variant interiors the LCTN map mis-tags or misses.
     #     These EXACT overrides beat the LCTN map (checked first) — see _resolve_interior. ---
@@ -81,7 +81,7 @@ INTERIOR_REGION_OVERRIDES = {
     "Missile Silo Charlie": "Cranberry Bog",
     "Point Repose": "The Mire",
     "Spruce Knob Boat Rental": "Savage Divide",
-    "Van Lowe Taxidermy": "Forest",
+    "Van Lowe Taxidermy": "Ash Heap",                # Lewisburg (Duchess, 17 Oct 2026; matches the game LCTN)
     "Vault-Tec Ag Research Center": "Savage Divide",
     # Still UNRESOLVED on purpose — need your call (some may be instanced player
     # Shelters with no real region, which is correct to leave off the page):

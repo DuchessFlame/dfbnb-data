@@ -3,9 +3,9 @@
   "generated": "2026-10-17",
   "source": "Game-file exports (MISC/LVLI/CHAL) + Mappalachia Position (cached for CI)",
   "misc_export": "MISC_Export_October_2026.tsv",
-  "lists_in_closure": 10,
+  "lists_in_closure": 16,
   "source_totals": {
-   "static": 41
+   "static": 204
   },
   "unresolved": {}
  },
@@ -18,49 +18,99 @@
    "form_id": "001F59B5",
    "edid": "BotModelEyebot",
    "name": "Eyebot Model",
+   "group": "Robot Models",
    "spawns": 9
   },
   {
    "form_id": "0022CB6E",
    "edid": "BotModelGutsy",
    "name": "Mr. Gutsy Model",
+   "group": "Robot Models",
    "spawns": 3
   },
   {
    "form_id": "0022CB6B",
    "edid": "BotModelHandy",
    "name": "Mr. Handy Model",
+   "group": "Robot Models",
    "spawns": 9
   },
   {
    "form_id": "0022CB6A",
    "edid": "BotModelProtectron",
    "name": "Protectron Model",
+   "group": "Robot Models",
    "spawns": 6
   },
   {
    "form_id": "0022CB6C",
    "edid": "BotModelParts01",
    "name": "Robot Parts Model A (01)",
+   "group": "Robot Models",
    "spawns": 2
   },
   {
    "form_id": "0022CB6F",
    "edid": "BotModelParts02",
    "name": "Robot Parts Model B (02)",
+   "group": "Robot Models",
    "spawns": 4
   },
   {
    "form_id": "0022CB6D",
    "edid": "BotModelParts03",
    "name": "Robot Parts Model C (03)",
+   "group": "Robot Models",
    "spawns": 4
   },
   {
    "form_id": "001F2D2D",
    "edid": "BotModelSentry",
    "name": "Sentry Bot Model",
+   "group": "Robot Models",
    "spawns": 4
+  },
+  {
+   "form_id": "0047EFAC",
+   "edid": "Chess_BotModel_Bishop",
+   "name": "Bishop",
+   "group": "Robot Model Chess Pieces",
+   "spawns": 21
+  },
+  {
+   "form_id": "0047EFA9",
+   "edid": "Chess_BotModel_King",
+   "name": "King",
+   "group": "Robot Model Chess Pieces",
+   "spawns": 11
+  },
+  {
+   "form_id": "0047EFAD",
+   "edid": "Chess_BotModel_Knight",
+   "name": "Knight",
+   "group": "Robot Model Chess Pieces",
+   "spawns": 21
+  },
+  {
+   "form_id": "0047EFAA",
+   "edid": "Chess_BotModel_Pawn",
+   "name": "Pawn",
+   "group": "Robot Model Chess Pieces",
+   "spawns": 80
+  },
+  {
+   "form_id": "0047EFA7",
+   "edid": "Chess_BotModel_Queen",
+   "name": "Queen",
+   "group": "Robot Model Chess Pieces",
+   "spawns": 10
+  },
+  {
+   "form_id": "0047EFAB",
+   "edid": "Chess_BotModel_Rook",
+   "name": "Rook",
+   "group": "Robot Model Chess Pieces",
+   "spawns": 20
   }
  ],
  "drop_rates": {
@@ -96,24 +146,11 @@
  "info_notes": [
   {
    "title": "Which robot models count for the Epic challenge",
-   "body": "These count: Eyebot Model, Mr. Gutsy Model, Mr. Handy Model, Protectron Model, Sentry Bot Model. These don't: Robot Parts Model A (01), Robot Parts Model B (02), Robot Parts Model C (03)."
+   "body": "These count: Eyebot Model, Mr. Gutsy Model, Mr. Handy Model, Protectron Model, Sentry Bot Model. These don't: Bishop, King, Knight, Pawn, Queen, Robot Parts Model A (01), Robot Parts Model B (02), Robot Parts Model C (03), Rook."
   }
  ],
  "vendor_list": [],
- "events_activities": [
-  {
-   "list_id": "00210B67",
-   "edid": "LLI_LunchBoxKidsDropsRare",
-   "name": "Lunch Box Kids Drops Rare",
-   "type": "Loot Bag",
-   "note": "Chance the item is in the Lunch Box Kids Drops Rare reward pool per event/activity payout.",
-   "rate_value": 0.0625,
-   "rate_display": "6.25%",
-   "rate_lines": [
-    "6.25%"
-   ]
-  }
- ],
+ "events_activities": [],
  "item_breakdown": [],
  "map_base": "/wp-content/uploads/guide-images/collectables/robot-models/",
  "full_map": "/wp-content/uploads/guide-images/collectables/robot-models/robot-models.jpg",
@@ -128,7 +165,47 @@
  "regions": [
   {
    "region": "Ash Heap",
-   "locations": []
+   "locations": [
+    {
+     "marker": "Van Lowe Taxidermy",
+     "count": 1,
+     "sources": {
+      "static": 1
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "478D5A"
+     ],
+     "coords": [
+      1330.62658691406,
+      653.489929199219
+     ],
+     "spawns": [
+      {
+       "label": "Robot Parts Model C (03)",
+       "ref": "478D5A",
+       "source_type": "static",
+       "coords": [
+        1330.62658691406,
+        653.489929199219
+       ],
+       "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/van-lowe-taxidermy-location.avif",
+       "directions": "From the Lewisburg fast travel point, follow the road on your left and take the first street on your right - Van Lowe Taxidermy is the building on that corner. Head inside, turn left and go through the Employees Only door, then up the stairs to the top. Go into the kitchen, turn left, walk to the far end and climb the next set of stairs. At the top, turn right and head for the broken door. The model sits on the desk beside the terminal in the middle of the room.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/van-lowe-taxidermy-robot-parts-model.avif"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Robot Parts Model C (03)",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ]
+    }
+   ]
   },
   {
    "region": "Atlantic City",
@@ -178,14 +255,46 @@
     },
     {
      "marker": "Starlight Drive-in",
-     "count": 3,
+     "count": 35,
      "sources": {
-      "static": 3
+      "static": 35
      },
      "image_top": "",
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "82992B",
+      "82992D",
+      "829930",
+      "829931",
+      "829933",
+      "829937",
+      "829939",
+      "82993B",
+      "82993F",
+      "829943",
+      "829944",
+      "829945",
+      "829956",
+      "829958",
+      "829959",
+      "82995A",
+      "82995B",
+      "82995C",
+      "82995D",
+      "82995E",
+      "82995F",
+      "829960",
+      "829961",
+      "829962",
+      "829963",
+      "829964",
+      "829965",
+      "829966",
+      "829968",
+      "829969",
+      "82996A",
+      "82996B",
       "82B87D",
       "82B87E",
       "82B87F"
@@ -234,8 +343,26 @@
      ],
      "breakdown": [
       {
+       "label": "Bishop",
+       "count": 4,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
        "label": "Eyebot Model",
        "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "King",
+       "count": 2,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Knight",
+       "count": 4,
        "rate_key": "world_spawns",
        "rate_display": "100%"
       },
@@ -246,12 +373,31 @@
        "rate_display": "100%"
       },
       {
+       "label": "Pawn",
+       "count": 16,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Queen",
+       "count": 2,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
        "label": "Robot Parts Model B (02)",
        "count": 1,
        "rate_key": "world_spawns",
        "rate_display": "100%"
+      },
+      {
+       "label": "Rook",
+       "count": 4,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
       }
-     ]
+     ],
+     "spawns_compacted": true
     }
    ]
   },
@@ -407,102 +553,6 @@
      "breakdown": [
       {
        "label": "Robot Parts Model C (03)",
-       "count": 1,
-       "rate_key": "world_spawns",
-       "rate_display": "100%"
-      }
-     ]
-    },
-    {
-     "marker": "Duncan & Duncan Robotics",
-     "count": 4,
-     "sources": {
-      "static": 4
-     },
-     "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/duncan-duncan-robotics-location.avif",
-     "directions": "From the Summersville fast travel point, follow the road into the middle of town. Duncan & Duncan is on the south side of the main road, between the Delicatessen and the clothing store - the door is easy to miss because the front looks boarded up. You need the keycard from the Strength in Numbers quest to get in. This is an instanced location, so the per-server spawn rules don't apply here.",
-     "image_bottom": "",
-     "refs": [
-      "59EFBA",
-      "59EFBB",
-      "59EFBC",
-      "59EFBD"
-     ],
-     "coords": [
-      -2309.65893554687,
-      883.722045898438
-     ],
-     "spawns": [
-      {
-       "label": "Mr. Handy Model",
-       "ref": "59EFBA",
-       "source_type": "static",
-       "coords": [
-        -2615.58422851562,
-        737.779968261719
-       ],
-       "image_top": "",
-       "directions": "Go back to the front desk, face it, then turn and walk through the door on your right. Stop in the doorway - the Mr. Handy Model is on the black table to your left.",
-       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/duncan-duncan-robotics-mr-handy-model.avif"
-      },
-      {
-       "label": "Protectron Model",
-       "ref": "59EFBB",
-       "source_type": "static",
-       "coords": [
-        -2792.3134765625,
-        104.474456787109
-       ],
-       "image_top": "",
-       "directions": "From the front desk, turn left and go through the level 0 locked door. The Protectron Model is on a table on the left side of the room.",
-       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/duncan-duncan-robotics-protectron-model.avif"
-      },
-      {
-       "label": "Eyebot Model",
-       "ref": "59EFBC",
-       "source_type": "static",
-       "coords": [
-        -2984.41723632812,
-        1407.08264160156
-       ],
-       "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/duncan-duncan-robotics-stairs-location.avif",
-       "directions": "From the Mr. Handy Model room, go to the counter on the west side where the robot Skinner stands. Jump the counter or use the door on the right to reach the stairs behind him and go to the top. Open the level 1 locked door and stop in the doorway - the Eyebot Model is on the desk to your left.",
-       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/duncan-duncan-robotics-eyebot-model.avif"
-      },
-      {
-       "label": "Sentry Bot Model",
-       "ref": "59EFBD",
-       "source_type": "static",
-       "coords": [
-        -2309.65893554687,
-        883.722045898438
-       ],
-       "image_top": "",
-       "directions": "From the Eyebot Model, face east and walk to the end of the room, then turn right and stop at the red chair on your left. The Sentry Bot Model is on the table in front of you.",
-       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/duncan-duncan-robotics-sentry-bot-model.avif"
-      }
-     ],
-     "breakdown": [
-      {
-       "label": "Eyebot Model",
-       "count": 1,
-       "rate_key": "world_spawns",
-       "rate_display": "100%"
-      },
-      {
-       "label": "Mr. Handy Model",
-       "count": 1,
-       "rate_key": "world_spawns",
-       "rate_display": "100%"
-      },
-      {
-       "label": "Protectron Model",
-       "count": 1,
-       "rate_key": "world_spawns",
-       "rate_display": "100%"
-      },
-      {
-       "label": "Sentry Bot Model",
        "count": 1,
        "rate_key": "world_spawns",
        "rate_display": "100%"
@@ -700,6 +750,190 @@
    "region": "Forest",
    "locations": [
     {
+     "marker": "Duncan & Duncan Robotics",
+     "count": 4,
+     "sources": {
+      "static": 4
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "59EFBA",
+      "59EFBB",
+      "59EFBC",
+      "59EFBD"
+     ],
+     "coords": [
+      -2309.65893554687,
+      883.722045898438
+     ],
+     "spawns": [
+      {
+       "label": "Mr. Handy Model",
+       "ref": "59EFBA",
+       "source_type": "static",
+       "coords": [
+        -2615.58422851562,
+        737.779968261719
+       ],
+       "image_top": "",
+       "directions": "Go back to the front desk, face it, then turn and walk through the door on your right. Stop in the doorway - the Mr. Handy Model is on the black table to your left.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/duncan-duncan-robotics-mr-handy-model.avif"
+      },
+      {
+       "label": "Protectron Model",
+       "ref": "59EFBB",
+       "source_type": "static",
+       "coords": [
+        -2792.3134765625,
+        104.474456787109
+       ],
+       "image_top": "",
+       "directions": "From the front desk, turn left and go through the level 0 locked door. The Protectron Model is on a table on the left side of the room.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/duncan-duncan-robotics-protectron-model.avif"
+      },
+      {
+       "label": "Eyebot Model",
+       "ref": "59EFBC",
+       "source_type": "static",
+       "coords": [
+        -2984.41723632812,
+        1407.08264160156
+       ],
+       "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/duncan-duncan-robotics-stairs-location.avif",
+       "directions": "From the Mr. Handy Model room, go to the counter on the west side where the robot Skinner stands. Jump the counter or use the door on the right to reach the stairs behind him and go to the top. Open the level 1 locked door and stop in the doorway - the Eyebot Model is on the desk to your left.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/duncan-duncan-robotics-eyebot-model.avif"
+      },
+      {
+       "label": "Sentry Bot Model",
+       "ref": "59EFBD",
+       "source_type": "static",
+       "coords": [
+        -2309.65893554687,
+        883.722045898438
+       ],
+       "image_top": "",
+       "directions": "From the Eyebot Model, face east and walk to the end of the room, then turn right and stop at the red chair on your left. The Sentry Bot Model is on the table in front of you.",
+       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/duncan-duncan-robotics-sentry-bot-model.avif"
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Eyebot Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Mr. Handy Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Protectron Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Sentry Bot Model",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ]
+    },
+    {
+     "marker": "Eta Psi House",
+     "count": 32,
+     "sources": {
+      "static": 32
+     },
+     "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/eta-psi-house-location.avif",
+     "directions": "From where you spawn in on Fraternity Row, turn left and follow the road up until you see a building on your right with a blue door. Go in through the blue door and head upstairs. At the top, turn right and then right again - the robot model chess set is on the table in the corner. These are chess pieces, so they don't count for the Epic challenge, but you can still display them.",
+     "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/eta-psi-house-chess-pieces.avif",
+     "refs": [
+      "47EFDB",
+      "47EFFE",
+      "47EFFF",
+      "47F000",
+      "47F001",
+      "47F002",
+      "47F014",
+      "47F015",
+      "47F016",
+      "47F017",
+      "47F018",
+      "47F019",
+      "47F01A",
+      "47F01B",
+      "47F01C",
+      "47F01D",
+      "47F01E",
+      "47F01F",
+      "47F020",
+      "47F021",
+      "47F022",
+      "47F023",
+      "47F024",
+      "47F025",
+      "47F026",
+      "47F027",
+      "47F028",
+      "47F029",
+      "47F02A",
+      "47F02B",
+      "47F02C",
+      "47F02D"
+     ],
+     "coords": [
+      184.602493286133,
+      1357.29296875
+     ],
+     "spawns": [],
+     "breakdown": [
+      {
+       "label": "Bishop",
+       "count": 4,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "King",
+       "count": 2,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Knight",
+       "count": 4,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Pawn",
+       "count": 16,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Queen",
+       "count": 2,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Rook",
+       "count": 4,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ],
+     "spawns_compacted": true
+    },
+    {
      "marker": "Settler's Ridge",
      "count": 1,
      "sources": {
@@ -810,45 +1044,6 @@
      "breakdown": [
       {
        "label": "Mr. Handy Model",
-       "count": 1,
-       "rate_key": "world_spawns",
-       "rate_display": "100%"
-      }
-     ]
-    },
-    {
-     "marker": "Van Lowe Taxidermy",
-     "count": 1,
-     "sources": {
-      "static": 1
-     },
-     "image_top": "",
-     "directions": "",
-     "image_bottom": "",
-     "refs": [
-      "478D5A"
-     ],
-     "coords": [
-      1330.62658691406,
-      653.489929199219
-     ],
-     "spawns": [
-      {
-       "label": "Robot Parts Model C (03)",
-       "ref": "478D5A",
-       "source_type": "static",
-       "coords": [
-        1330.62658691406,
-        653.489929199219
-       ],
-       "image_top": "/wp-content/uploads/guide-images/collectables/robot-models/van-lowe-taxidermy-location.avif",
-       "directions": "From the Lewisburg fast travel point, follow the road on your left and take the first street on your right - Van Lowe Taxidermy is the building on that corner. Head inside, turn left and go through the Employees Only door, then up the stairs to the top. Go into the kitchen, turn left, walk to the far end and climb the next set of stairs. At the top, turn right and head for the broken door. The model sits on the desk beside the terminal in the middle of the room.",
-       "image_bottom": "/wp-content/uploads/guide-images/collectables/robot-models/van-lowe-taxidermy-robot-parts-model.avif"
-      }
-     ],
-     "breakdown": [
-      {
-       "label": "Robot Parts Model C (03)",
        "count": 1,
        "rate_key": "world_spawns",
        "rate_display": "100%"
@@ -1034,15 +1229,47 @@
    "locations": [
     {
      "marker": "Atrium Upper Level",
-     "count": 1,
+     "count": 33,
      "sources": {
-      "static": 1
+      "static": 33
      },
      "image_top": "",
-     "directions": "",
+     "directions": "From the fast travel point head east and turn left before the Overseer's desk. Turn right and go down the stairs, walk to the end of the hallway and turn right into the Atrium. Walk forward until the security door is on your left, turn right, drop down and go through the wide double door in the south-west corner. Go straight into the Residential area and turn left - the robot model chess set is on a table in the south-west corner. The chess pieces don't count for the Epic challenge, but you can still display them.",
      "image_bottom": "",
      "refs": [
-      "7625E4"
+      "7625E4",
+      "77E8BB",
+      "77E8BC",
+      "77E8BD",
+      "77E8BE",
+      "77E8BF",
+      "77E8C0",
+      "77E8C1",
+      "77E8C2",
+      "77E8C3",
+      "77E8C4",
+      "77E8C5",
+      "77E8C6",
+      "77E8C7",
+      "77E8C8",
+      "77E8C9",
+      "77E8CA",
+      "77E8CB",
+      "77E8CC",
+      "77E8CD",
+      "77E8CE",
+      "77E8CF",
+      "77E8D0",
+      "77E8D1",
+      "77E8D2",
+      "77E8D3",
+      "77E8D4",
+      "77E8D5",
+      "77E8D6",
+      "77E8D8",
+      "77E8D9",
+      "77E8DA",
+      "77E8DB"
      ],
      "coords": [
       4111.919921875,
@@ -1058,21 +1285,58 @@
         -10360.9033203125
        ],
        "image_top": "",
-       "directions": "From the fast travel point head east and turn left before the Overseer's desk. Turn right and go down the stairs, walk to the end of the hallway and turn right into the Atrium. Walk forward until the security door is on your left, turn right, drop down and go through the wide double door in the south-west corner. Go straight into the Residential area and turn left - there's a set of chess pieces on a table in the south-west corner. The model is on the bedside table in the room behind the chess pieces.",
+       "directions": "From the chess set, go into the room behind it. The Mr. Handy Model is in this room.",
        "image_bottom": ""
       }
      ],
      "breakdown": [
       {
+       "label": "Bishop",
+       "count": 4,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "King",
+       "count": 2,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Knight",
+       "count": 4,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
        "label": "Mr. Handy Model",
        "count": 1,
        "rate_key": "world_spawns",
        "rate_display": "100%"
+      },
+      {
+       "label": "Pawn",
+       "count": 16,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Queen",
+       "count": 2,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Rook",
+       "count": 4,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
       }
-     ]
+     ],
+     "spawns_compacted": true
     },
     {
-     "marker": "Rapidan Camp",
+     "marker": "Camp Liberty",
      "count": 3,
      "sources": {
       "static": 3
@@ -1081,9 +1345,118 @@
      "directions": "",
      "image_bottom": "",
      "refs": [
+      "752D1E",
+      "752D1F",
+      "752D20"
+     ],
+     "coords": [
+      64513.3046875,
+      -247120.84375
+     ],
+     "spawns": [
+      {
+       "label": "Knight",
+       "ref": "752D1E",
+       "source_type": "static",
+       "coords": [
+        64519.546875,
+        -247147.625
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "King",
+       "ref": "752D1F",
+       "source_type": "static",
+       "coords": [
+        64513.3046875,
+        -247120.84375
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      },
+      {
+       "label": "Bishop",
+       "ref": "752D20",
+       "source_type": "static",
+       "coords": [
+        64534.453125,
+        -247106.828125
+       ],
+       "image_top": "",
+       "directions": "",
+       "image_bottom": ""
+      }
+     ],
+     "breakdown": [
+      {
+       "label": "Bishop",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "King",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Knight",
+       "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ]
+    },
+    {
+     "marker": "Rapidan Camp",
+     "count": 35,
+     "sources": {
+      "static": 35
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
       "768FE4",
       "768FE5",
-      "768FE6"
+      "768FE6",
+      "771A45",
+      "771A46",
+      "771A47",
+      "771A48",
+      "771A49",
+      "771A4A",
+      "771A4B",
+      "771A4C",
+      "771A4D",
+      "771A4E",
+      "771A4F",
+      "771A50",
+      "771A51",
+      "771A52",
+      "771A53",
+      "771A55",
+      "771A56",
+      "771A57",
+      "771A58",
+      "771A59",
+      "771A5A",
+      "771A5B",
+      "771A5C",
+      "771A5D",
+      "771A5E",
+      "771A5F",
+      "771A60",
+      "771A61",
+      "771A62",
+      "771A63",
+      "771A64",
+      "771A91"
      ],
      "coords": [
       5782.81689453125,
@@ -1129,8 +1502,26 @@
      ],
      "breakdown": [
       {
+       "label": "Bishop",
+       "count": 4,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
        "label": "Eyebot Model",
        "count": 1,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "King",
+       "count": 2,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Knight",
+       "count": 4,
        "rate_key": "world_spawns",
        "rate_display": "100%"
       },
@@ -1141,12 +1532,119 @@
        "rate_display": "100%"
       },
       {
+       "label": "Pawn",
+       "count": 16,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Queen",
+       "count": 2,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
        "label": "Robot Parts Model B (02)",
        "count": 1,
        "rate_key": "world_spawns",
        "rate_display": "100%"
+      },
+      {
+       "label": "Rook",
+       "count": 4,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
       }
-     ]
+     ],
+     "spawns_compacted": true
+    },
+    {
+     "marker": "The Brown House",
+     "count": 32,
+     "sources": {
+      "static": 32
+     },
+     "image_top": "",
+     "directions": "",
+     "image_bottom": "",
+     "refs": [
+      "73FAD8",
+      "73FAD9",
+      "73FADA",
+      "73FADB",
+      "73FADC",
+      "73FADD",
+      "73FADE",
+      "73FADF",
+      "73FAE0",
+      "73FAE1",
+      "73FAE2",
+      "73FAE3",
+      "73FAE4",
+      "73FAE5",
+      "73FAE6",
+      "73FAE7",
+      "73FAE8",
+      "73FAE9",
+      "73FAEA",
+      "73FAEB",
+      "73FAEC",
+      "73FAED",
+      "73FAEE",
+      "73FAEF",
+      "73FAF0",
+      "73FAF1",
+      "73FAF2",
+      "73FAF3",
+      "73FAF5",
+      "73FAF6",
+      "73FAF7",
+      "73FAF8"
+     ],
+     "coords": [
+      1875.73291015625,
+      -601.683166503906
+     ],
+     "spawns": [],
+     "breakdown": [
+      {
+       "label": "Bishop",
+       "count": 4,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "King",
+       "count": 2,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Knight",
+       "count": 4,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Pawn",
+       "count": 16,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Queen",
+       "count": 2,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      },
+      {
+       "label": "Rook",
+       "count": 4,
+       "rate_key": "world_spawns",
+       "rate_display": "100%"
+      }
+     ],
+     "spawns_compacted": true
     }
    ]
   },

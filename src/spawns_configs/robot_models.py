@@ -54,7 +54,17 @@ ALL_REGIONS = [
     "Savage Divide", "Skyline Valley", "The Mire", "The Pitt", "Toxic Valley",
 ]
 
-PICKUP_EDID_RE = re.compile(r"^BotModel[A-Za-z]+\d*$")
+PICKUP_EDID_RE = re.compile(r"^(?:BotModel[A-Za-z]+\d*|Chess_BotModel_[A-Za-z]+)$")
+# Robot-model chess pieces (Chess_BotModel_King …): real, lootable MISC pieces laid
+# out as chess sets. Their in-game name is just the piece ("King"), so the page
+# groups them under "Robot Model Chess Pieces" rather than renaming them.
+CHESS_RE = re.compile(r"^Chess_BotModel_", re.I)
+GROUP_MODELS = "Robot Models"
+GROUP_CHESS = "Robot Model Chess Pieces"
+# A marker holding a whole chess set (this many pieces or more) gets ONE photo /
+# directions slot for the set instead of one per piece - 32 blank slots for one
+# board would bury the page. Smaller groups keep their per-spawn slots.
+CHESS_SET_MIN = 8
 PARTS_RE = re.compile(r"^BotModelParts(\d\d)$")
 DEV_EDID_RE = re.compile(r"(^qa|^test|_test|debug|zzz_|babylon|^cut_)", re.I)
 
@@ -124,7 +134,9 @@ def load_item_records():
                          "full": full, "name": display_name(edid, full),
                          "keywords": g("Keywords"), "value": g("Value"), "weight": g("Weight"),
                          "refs": refs})
-    recs.sort(key=lambda r: r["name"].lower())
+    for r in recs:
+        r["group"] = GROUP_CHESS if CHESS_RE.match(r["edid"]) else GROUP_MODELS
+    recs.sort(key=lambda r: (r["group"] != GROUP_MODELS, r["name"].lower()))
     return recs, os.path.basename(misc)
 
 
@@ -231,6 +243,16 @@ def run(argv=None):
             loc["breakdown"] = [{"label": nm, "count": c, "rate_key": "world_spawns",
                                  "rate_display": "100%"}
                                 for nm, c in sorted(counts.items())]
+            # Whole chess sets: one marker-level slot for the board, not one per piece.
+            chess_n = sum(1 for sp in loc["spawns"]
+                          if by_fid.get(base_of(int(sp["ref"], 16)), {}).get("group") == GROUP_CHESS)
+            if chess_n >= CHESS_SET_MIN:
+                kept = [sp for sp in loc["spawns"]
+                        if by_fid.get(base_of(int(sp["ref"], 16)), {}).get("group") != GROUP_CHESS
+                        or sp.get("image_top") or sp.get("directions") or sp.get("image_bottom")]
+                if len(kept) != len(loc["spawns"]):
+                    loc["spawns"] = kept
+                    loc["spawns_compacted"] = True
 
     # Containers / vendors / events
     parent_edid = tbls["parent_edid"]
@@ -238,6 +260,28 @@ def run(argv=None):
     for f, e in parent_edid.items():
         if e:
             edid_to_fid.setdefault(e, f)
+
+    # A reward list whose ONLY users are EXPL records is an explosion's spawn list,
+    # not an event or activity. LLI_LunchBoxKidsDropsRare is the case that made this
+    # rule: its users are four explosions (ExplosionKidsLunchbox(Rare),
+    # ExplosionReclamationBox(_MTX)) and a full SeventySix.esm scan (17 Oct 2026)
+    # found nothing in the game that sets any of them off - a dead route. Read from
+    # the LVLI_Refs export, never typed.
+    refs_tsv = _newest("LVLI_Export_*_LVLI_Refs.tsv")
+    users_by_list = defaultdict(set)
+    if refs_tsv:
+        with open(refs_tsv, encoding="utf-8", errors="replace") as f:
+            for line in f:
+                cols = line.rstrip("\n").split("\t")
+                if len(cols) < 4 or not re.fullmatch(r"[0-9A-Fa-f]{8}", cols[0]):
+                    continue
+                for c in cols[3:]:
+                    if c:
+                        users_by_list[cols[0].upper()].add(c.rsplit(":", 1)[-1])
+
+    def expl_only(list_id):
+        u = users_by_list.get(str(list_id or "").upper())
+        return bool(u) and u <= {"EXPL"}
 
     def rate_of(list_ref, tset):
         if not appearance_fn or not list_ref:
@@ -307,6 +351,7 @@ def run(argv=None):
     events_activities = eevents.detect(src["lvli_closure"], parent_edid, c2p=tbls["c2p"])
     eevents.resolve_event_rates(events_activities, targets, appearance_fn)
     events_activities = [e for e in events_activities if e.get("rate_value") or e.get("rate_display")]
+    events_activities = [e for e in events_activities if not expl_only(e.get("list_id"))]
 
     # Challenges (CHAL joined through CNDF / EDID stem — collectable_challenges).
     challenges = None
@@ -351,7 +396,7 @@ def run(argv=None):
                   "server has already taken it or it's still in your pick-up history. "
                   "Keep grenades and explosives away from them - the models get knocked "
                   "flying."),
-        "items": [{"form_id": r["formid"], "edid": r["edid"], "name": r["name"],
+        "items": [{"form_id": r["formid"], "edid": r["edid"], "name": r["name"], "group": r["group"],
                    "spawns": per_item_spawns.get(r["formid"], 0)} for r in items],
         "drop_rates": {
             "world_spawns": {"rate": 1.0, "rate_display": "100%", "rate_source": "computed",
@@ -388,7 +433,7 @@ def run(argv=None):
     json.dump(doc, open(OUT_FILE, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
     bad = [(r["region"], l["marker"]) for r in regions_out for l in r["locations"]
-           if len(l.get("spawns") or []) != l["count"]]
+           if not l.get("spawns_compacted") and len(l.get("spawns") or []) != l["count"]]
     if bad:
         raise AssertionError(f"spawns/count mismatch at {bad[:5]}")
 
@@ -412,7 +457,7 @@ def run(argv=None):
         eevents.resolve_event_rates(evs, {r["formid"]}, appearance_fn)
         ev_by_item[r["formid"]] = [{"name": e.get("name"), "type": e.get("type"),
                                     "rate_display": e.get("rate_display", "")}
-                                   for e in evs if e.get("rate_value")]
+                                   for e in evs if e.get("rate_value") and not expl_only(e.get("list_id"))]
 
     # Drop conditions on the leveled-list path to each item (LVLI entry Cond1..N):
     # every entry, inside the item's closure, that points at the item or at another
@@ -450,6 +495,7 @@ def run(argv=None):
         rows.append({
             "id": fid,
             "name": r["name"],
+            "group": r["group"],
             "full": r["full"],
             "edid": r["edid"],
             "form_id": fid,
@@ -457,7 +503,10 @@ def run(argv=None):
             "value": r["value"],
             "weight": r["weight"],
             "tradeable": tradeable(r["keywords"]),
-            "image": IMAGE_BASE + slugify(r["name"]) + ".avif",
+            # chess pieces carry a "chess-" prefix so "King" can't collide with
+            # any other king picture in the folder.
+            "image": IMAGE_BASE + ("chess-" if r["group"] == GROUP_CHESS else "")
+                     + slugify(r["name"]) + ".avif",
             "source": "World Spawn" if per_item_spawns.get(fid) else (
                 "Containers" if cont_rows_by_item.get(fid) else "Other"),
             "obtain": {
@@ -476,6 +525,7 @@ def run(argv=None):
     checklist = {"_meta": {"generated": generated, "source": SOURCE_TAG,
                            "spawn_guide": SPAWN_URL},
                  "set": SET_SLUG, "name": SET_NAME, "count": len(rows),
+                 "groups": [GROUP_MODELS, GROUP_CHESS],
                  "challenges": used_for_challenges, "items": rows}
     json.dump(checklist, open(CHECKLIST_FILE, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 
