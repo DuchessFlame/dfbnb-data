@@ -1,0 +1,4660 @@
+{
+ "generated": "2026-10-17T01:48:05+00:00",
+ "channel": "pts",
+ "isPts": true,
+ "sources": {
+  "BPTD": "tsv/BPTD_Export_October_2026.tsv",
+  "CURV_POINTS": "tsv/CURV_Export_October_2026_POINTS.tsv",
+  "FLST_Entries": "tsv/FLST_Export_October_2026_Entries.tsv",
+  "GLOB": "tsv/GLOB_Export_October_2026.tsv",
+  "KYWD": "tsv/KYWD_Export_October_2026.tsv",
+  "LVLI_Entries": "tsv/LVLI_Export_October_2026_LVLI_Entries.tsv",
+  "NPC": "tsv/NPC_Export_October_2026.tsv",
+  "NPC_PRPS": "tsv/NPC_Export_October_2026_PRPS.tsv",
+  "NPC_Refs": "tsv/NPC_Export_October_2026_Refs.tsv",
+  "SPEL_HEADER": "tsv/SPEL_Export_October_2026_HEADER.tsv",
+  "WEAP_DNAM": "tsv/WEAP_Export_October_2026_DNAM.tsv",
+  "head_hunt_bosses": "dist/bounty-hunting/head_hunt_bosses.json"
+ },
+ "page": "head_hunts",
+ "intro": {
+  "title": "Bounty Hunting - Head Hunt Boss Stats",
+  "blurb": "Each Head Hunt boss comes with a distinct weapon setup and a signature mechanic, and the gang they bring follows the same theme. This page lists every boss by group with their weapons, health, damage and resistances, plus the gang members and support wave that fight alongside them. Tick bosses off as you complete them.",
+  "profiles": "Bosses are grouped the same way as the Head Hunt Groups lifetime challenges. Tick a boss when you have killed it — ticking every boss in a group completes the group.",
+  "mutations": "Mutation effects used by bounty targets. One-star outlaws are named after theirs, and some Head Hunt bosses carry a forced mutation as part of their signature attack.",
+  "mechanics": "Head Hunt bosses share the following stats.",
+  "health": "Health is read from the curve table assigned to each boss across the bounty level range. Bosses on the same curve share a row.",
+  "damage": "Damage per hit from each boss's main weapon at the bottom and top of the bounty level range.",
+  "support": "Every Head Hunt also sends a support wave that fights alongside the boss and its gang.",
+  "npcs": "Each boss brings its own gang members, listed with the boss they belong to."
+ },
+ "storeKey": "dfbnb_hh_bosses_v1",
+ "allChallenge": {
+  "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_All_META",
+  "formId": "008AF904",
+  "name": "Complete All Skyline Valley Head Hunt Groups"
+ },
+ "groups": [
+  {
+   "groupNumber": 1,
+   "label": "Head Hunter Group 1",
+   "seasonal": false,
+   "bosses": [
+    {
+     "name": "Bird of Prey",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "bird-of-prey",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group01_KillBounty02_SUB",
+      "formId": "008AF8F3",
+      "name": "Kill the Target - Bird of Prey"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Buzzkill",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "buzzkill",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group01_KillBounty03_SUB",
+      "formId": "008AF8F4",
+      "name": "Kill the Target - Buzzkill"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Dada",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "dada",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group01_KillBounty04_SUB",
+      "formId": "008AF8F5",
+      "name": "Kill the Target - Dada"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Detonation Dave",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "detonation-dave",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group01_KillBounty06_SUB",
+      "formId": "008E81AD",
+      "name": "Kill the Target - Detonation Dave"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Il Maestro",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "il-maestro",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group01_KillBounty07_SUB",
+      "formId": "008E81AE",
+      "name": "Kill the Target -  Il Maestro"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "The Black Horseman",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "the-black-horseman",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillFamine_SUB",
+      "formId": "00843111",
+      "name": "Kill the Target - The Black Horseman"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "The Oversearer",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "the-oversearer",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group01_KillBounty05_SUB",
+      "formId": "008AF8F6",
+      "name": "Kill the Target - The Oversearer"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "The Pale Horseman",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "the-pale-horseman",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillDeath_SUB",
+      "formId": "00843141",
+      "name": "Kill the Target - The Pale Horseman"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "The Pied Pipebomber",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "the-pied-pipebomber",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group01_KillBounty01_SUB",
+      "formId": "008AF8F2",
+      "name": "Kill the Target - The Pied Pipebomber"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "The Red Rider",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "the-red-rider",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillWar_SUB",
+      "formId": "00843120",
+      "name": "Kill the Target - The Red Rider"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "The White Horseman",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "the-white-horseman",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillPest_SUB",
+      "formId": "00843107",
+      "name": "Kill the Target - The White Horseman"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    }
+   ],
+   "metaChallenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group01_META",
+    "formId": "008AF8F7",
+    "name": "Kill Bounties from Group 1"
+   }
+  },
+  {
+   "groupNumber": 2,
+   "label": "Head Hunter Group 2",
+   "seasonal": false,
+   "bosses": [
+    {
+     "name": "Anna The Nuka-Queen",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "anna-the-nuka-queen",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillNuka_SUB",
+      "formId": "00843117",
+      "name": "Kill the Target - Anna The Nuka-Queen"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Ayam Legion",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "ayam-legion",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group02_KillBounty01_SUB",
+      "formId": "008AF8F8",
+      "name": "Kill the Target - Ayam Legion"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Cletus Brimstone",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "cletus-brimstone",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillRadCleaners_SUB",
+      "formId": "00843118",
+      "name": "Kill the Target - Cletus Brimstone"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Irene The Irradiated",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "irene-the-irradiated",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillRadCult_SUB",
+      "formId": "0084311D",
+      "name": "Kill the Target - Irene The Irradiated"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Jaques the Jammer",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "jaques-the-jammer",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group02_KillBounty06_SUB",
+      "formId": "008E81AF",
+      "name": "Kill the Target - Jaques the Jammer"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Mercy's End",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "mercys-end",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group02_KillBounty03_SUB",
+      "formId": "008AF8FA",
+      "name": "Kill the Target - Mercy's End"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Micro Mike",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "micro-mike",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group02_KillBounty02_SUB",
+      "formId": "008AF8F9",
+      "name": "Kill the Target - Micro Mike"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Storm Warning",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "storm-warning",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group02_KillBounty07_SUB",
+      "formId": "008E81B0",
+      "name": "Kill the Target - Storm Warning"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "The Cleaner",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "the-cleaner",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillAbraxo_SUB",
+      "formId": "0084310F",
+      "name": "Kill the Target - The Cleaner"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "The Malpractitioner",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "the-malpractitioner",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillQuackDocs_SUB",
+      "formId": "00843133",
+      "name": "Kill the Target - The Malpractitioner"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "The Secret Weapon",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "the-secret-weapon",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group02_KillBounty05_SUB",
+      "formId": "008AF8FC",
+      "name": "Kill the Target - The Secret Weapon"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "The Sharpshooter",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "the-sharpshooter",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group02_KillBounty04_SUB",
+      "formId": "008AF8FB",
+      "name": "Kill the Target - The Sharpshooter"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    }
+   ],
+   "metaChallenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group02_META",
+    "formId": "008AF8FD",
+    "name": "Kill Bounties from Group 2"
+   }
+  },
+  {
+   "groupNumber": 3,
+   "label": "Head Hunter Group 3",
+   "seasonal": false,
+   "bosses": [
+    {
+     "name": "Chief Meteorologist Sally McSun",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "chief-meteorologist-sally-mcsun",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group03_KillBounty05_SUB",
+      "formId": "008AF902",
+      "name": "Kill the Target - Chief Meteorologist Sally McSun"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Greasehands Greta",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "greasehands-greta",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group03_KillBounty02_SUB",
+      "formId": "008AF8FF",
+      "name": "Kill the Target - Greasehands Greta"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Lilly Oleander",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "lilly-oleander",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group03_KillBounty04_SUB",
+      "formId": "008AF901",
+      "name": "Kill the Target - Lilly Oleander"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Ragtime Randy",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "ragtime-randy",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillJazz_SUB",
+      "formId": "0084313E",
+      "name": "Kill the Target - Ragtime Randy"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "The Ace",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "the-ace",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillPilot_SUB",
+      "formId": "00843114",
+      "name": "Kill the Target - The Ace"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "The Chief Researcher",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "the-chief-researcher",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillVaultTec_SUB",
+      "formId": "00843108",
+      "name": "Kill the Target - The Chief Researcher"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "The Inquisitionor",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "the-inquisitionor",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group03_KillBounty07_SUB",
+      "formId": "008E81B2",
+      "name": "Kill the Target - The Inquisitionor"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "The Pirate King",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "the-pirate-king",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group03_KillBounty06_SUB",
+      "formId": "008E81B1",
+      "name": "Kill the Target - The Pirate King"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "The Proletariat Punisher",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "the-proletariat-punisher",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillCommies_SUB",
+      "formId": "00843131",
+      "name": "Kill the Target - The Proletariat Punisher"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "The Pseudo Subjugator",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "the-pseudo-subjugator",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group03_KillBounty03_SUB",
+      "formId": "008AF900",
+      "name": "Kill the Target - The Pseudo Subjugator"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "The Space Ranger",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "the-space-ranger",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillAstronauts_SUB",
+      "formId": "00843113",
+      "name": "Kill the Target - The Space Ranger"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "The Temporal Technician",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "the-temporal-technician",
+     "challenge": {
+      "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group03_KillBounty01_SUB",
+      "formId": "008AF8FE",
+      "name": "Kill the Target - The Temporal Technician"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    }
+   ],
+   "metaChallenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group03_META",
+    "formId": "008AF903",
+    "name": "Kill Bounties from Group 3"
+   }
+  },
+  {
+   "groupNumber": 4,
+   "label": "Head Hunter Group 4",
+   "seasonal": false,
+   "bosses": [
+    {
+     "name": "Baron Boris Wazie",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "baron-boris-wazie",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillOldMoney_SUB",
+      "formId": "00843132",
+      "name": "Kill the Target - Baron Boris Wazie"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Chief Engineer Lewis",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "chief-engineer-lewis",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillRobobrains_SUB",
+      "formId": "00843124",
+      "name": "Kill the Target - Chief Engineer Lewis"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Corporal Jane",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "corporal-jane",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillPatriots_SUB",
+      "formId": "0084310B",
+      "name": "Kill the Target - Corporal Jane"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Tincan Toni",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "tincan-toni",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillRobots_SUB",
+      "formId": "00843105",
+      "name": "Kill the Target - Tincan Toni"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    }
+   ],
+   "metaChallenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_META",
+    "formId": "0084311A",
+    "name": "Kill Bounties from Group 4"
+   }
+  },
+  {
+   "groupNumber": 5,
+   "label": "Head Hunter Group 5",
+   "seasonal": false,
+   "bosses": [
+    {
+     "name": "Becca The Heavyweight",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "becca-the-heavyweight",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillBoxer_SUB",
+      "formId": "0084313B",
+      "name": "Kill the Target - Becca The Heavyweight"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Charlie Half-Cocked",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "charlie-half-cocked",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillSniper_SUB",
+      "formId": "00843125",
+      "name": "Kill the Target - Charlie Half-Cocked"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Cowgirl Janine",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "cowgirl-janine",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillGunslinger_SUB",
+      "formId": "0084310C",
+      "name": "Kill the Target - Cowgirl Janine"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Richie Finesse",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "richie-finesse",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillBigGun_SUB",
+      "formId": "00843136",
+      "name": "Kill the Target - Richie Finesse"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    }
+   ],
+   "metaChallenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_META",
+    "formId": "00843121",
+    "name": "Kill Bounties from Group 5"
+   }
+  },
+  {
+   "groupNumber": 6,
+   "label": "Head Hunter Group 6",
+   "seasonal": false,
+   "bosses": [
+    {
+     "name": "Colt the Bolt",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "colt-the-bolt",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillHunter_SUB",
+      "formId": "00843148",
+      "name": "Kill the Target - Colt the Bolt"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Granny Dolores",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "granny-dolores",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillGolden_SUB",
+      "formId": "00843149",
+      "name": "Kill the Target - Granny Dolores"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "The Devil of Defiance",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "the-devil-of-defiance",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillBlueDevils_SUB",
+      "formId": "00843129",
+      "name": "Kill the Target - The Devil of Defiance"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Vito \"The Vic\" Bronco",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "vito-the-vic-bronco",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillGambler_SUB",
+      "formId": "0084311E",
+      "name": "Kill the Target - Vito \"The Vic\" Bronco"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    }
+   ],
+   "metaChallenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_META",
+    "formId": "0084311C",
+    "name": "Kill Bounties from Group 6"
+   }
+  },
+  {
+   "groupNumber": 7,
+   "label": "Head Hunter Group 7",
+   "seasonal": false,
+   "bosses": [
+    {
+     "name": "Amadi the Piranha",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "amadi-the-piranha",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillFisherman_SUB",
+      "formId": "00843116",
+      "name": "Kill the Target - Amadi the Piranha"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Gentle Gary",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "gentle-gary",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillCrusher_SUB",
+      "formId": "00843142",
+      "name": "Kill the Target - Gentle Gary"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "Scout Leader Karen",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "scout-leader-karen",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillScout_SUB",
+      "formId": "00843126",
+      "name": "Kill the Target - Scout Leader Karen"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    },
+    {
+     "name": "The Foreman",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "",
+     "imageSlug": "the-foreman",
+     "challenge": {
+      "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillMiner_SUB",
+      "formId": "00843123",
+      "name": "Kill the Target - The Foreman"
+     },
+     "weapons": [
+      {
+       "edid": "cr50CalMachineGun",
+       "name": ".50 Cal Machine Gun",
+       "ammo": ".50 Round",
+       "range": 3895,
+       "type": "Gun",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+       "slot": "Main"
+      },
+      {
+       "edid": "crFloaterGnasherGrenade",
+       "name": "Floater Gnasher Grenade",
+       "ammo": "",
+       "range": 2000,
+       "type": "Grenade",
+       "damageMin": null,
+       "damageMax": null,
+       "damageCurve": "",
+       "slot": "Thrown"
+      }
+     ],
+     "specials": [
+      {
+       "name": "Bleed",
+       "text": "001A03FD"
+      }
+     ],
+     "gangMembers": []
+    }
+   ],
+   "metaChallenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_META",
+    "formId": "0084311F",
+    "name": "Kill Bounties from Group 7"
+   }
+  },
+  {
+   "groupNumber": 8,
+   "label": "Slasher Party Crasher",
+   "seasonal": true,
+   "bosses": [
+    {
+     "name": "The Reborn Pint-Sized Slasher",
+     "levelMin": null,
+     "levelMax": null,
+     "gang": "Pint-Sized Phantoms",
+     "imageSlug": "the-reborn-pint-sized-slasher",
+     "weapons": [
+      {
+       "name": "Bowie Knife",
+       "slot": "Main",
+       "type": "1H Melee",
+       "ammo": "",
+       "range": 0
+      }
+     ],
+     "specials": [
+      {
+       "name": "Note",
+       "text": "3-star BIG bounty target that can crash an active Head Hunt."
+      }
+     ],
+     "gangMembers": []
+    }
+   ],
+   "blurb": "Seasonal Shadows of the Dead of Winter (SDOW) party crasher. Appears on the live site automatically once the Head Hunt toggle goes live."
+  }
+ ],
+ "bosses": [
+  {
+   "name": "Bird of Prey",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "bird-of-prey",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group01_KillBounty02_SUB",
+    "formId": "008AF8F3",
+    "name": "Kill the Target - Bird of Prey"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Buzzkill",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "buzzkill",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group01_KillBounty03_SUB",
+    "formId": "008AF8F4",
+    "name": "Kill the Target - Buzzkill"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Dada",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "dada",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group01_KillBounty04_SUB",
+    "formId": "008AF8F5",
+    "name": "Kill the Target - Dada"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Detonation Dave",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "detonation-dave",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group01_KillBounty06_SUB",
+    "formId": "008E81AD",
+    "name": "Kill the Target - Detonation Dave"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Il Maestro",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "il-maestro",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group01_KillBounty07_SUB",
+    "formId": "008E81AE",
+    "name": "Kill the Target -  Il Maestro"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The Black Horseman",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "the-black-horseman",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillFamine_SUB",
+    "formId": "00843111",
+    "name": "Kill the Target - The Black Horseman"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The Oversearer",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "the-oversearer",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group01_KillBounty05_SUB",
+    "formId": "008AF8F6",
+    "name": "Kill the Target - The Oversearer"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The Pale Horseman",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "the-pale-horseman",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillDeath_SUB",
+    "formId": "00843141",
+    "name": "Kill the Target - The Pale Horseman"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The Pied Pipebomber",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "the-pied-pipebomber",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group01_KillBounty01_SUB",
+    "formId": "008AF8F2",
+    "name": "Kill the Target - The Pied Pipebomber"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The Red Rider",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "the-red-rider",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillWar_SUB",
+    "formId": "00843120",
+    "name": "Kill the Target - The Red Rider"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The White Horseman",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "the-white-horseman",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group01_KillPest_SUB",
+    "formId": "00843107",
+    "name": "Kill the Target - The White Horseman"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Anna The Nuka-Queen",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "anna-the-nuka-queen",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillNuka_SUB",
+    "formId": "00843117",
+    "name": "Kill the Target - Anna The Nuka-Queen"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Ayam Legion",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "ayam-legion",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group02_KillBounty01_SUB",
+    "formId": "008AF8F8",
+    "name": "Kill the Target - Ayam Legion"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Cletus Brimstone",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "cletus-brimstone",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillRadCleaners_SUB",
+    "formId": "00843118",
+    "name": "Kill the Target - Cletus Brimstone"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Irene The Irradiated",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "irene-the-irradiated",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillRadCult_SUB",
+    "formId": "0084311D",
+    "name": "Kill the Target - Irene The Irradiated"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Jaques the Jammer",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "jaques-the-jammer",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group02_KillBounty06_SUB",
+    "formId": "008E81AF",
+    "name": "Kill the Target - Jaques the Jammer"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Mercy's End",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "mercys-end",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group02_KillBounty03_SUB",
+    "formId": "008AF8FA",
+    "name": "Kill the Target - Mercy's End"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Micro Mike",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "micro-mike",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group02_KillBounty02_SUB",
+    "formId": "008AF8F9",
+    "name": "Kill the Target - Micro Mike"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Storm Warning",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "storm-warning",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group02_KillBounty07_SUB",
+    "formId": "008E81B0",
+    "name": "Kill the Target - Storm Warning"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The Cleaner",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "the-cleaner",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillAbraxo_SUB",
+    "formId": "0084310F",
+    "name": "Kill the Target - The Cleaner"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The Malpractitioner",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "the-malpractitioner",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group02_KillQuackDocs_SUB",
+    "formId": "00843133",
+    "name": "Kill the Target - The Malpractitioner"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The Secret Weapon",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "the-secret-weapon",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group02_KillBounty05_SUB",
+    "formId": "008AF8FC",
+    "name": "Kill the Target - The Secret Weapon"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The Sharpshooter",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "the-sharpshooter",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group02_KillBounty04_SUB",
+    "formId": "008AF8FB",
+    "name": "Kill the Target - The Sharpshooter"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Chief Meteorologist Sally McSun",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "chief-meteorologist-sally-mcsun",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group03_KillBounty05_SUB",
+    "formId": "008AF902",
+    "name": "Kill the Target - Chief Meteorologist Sally McSun"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Greasehands Greta",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "greasehands-greta",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group03_KillBounty02_SUB",
+    "formId": "008AF8FF",
+    "name": "Kill the Target - Greasehands Greta"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Lilly Oleander",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "lilly-oleander",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group03_KillBounty04_SUB",
+    "formId": "008AF901",
+    "name": "Kill the Target - Lilly Oleander"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Ragtime Randy",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "ragtime-randy",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillJazz_SUB",
+    "formId": "0084313E",
+    "name": "Kill the Target - Ragtime Randy"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The Ace",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "the-ace",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillPilot_SUB",
+    "formId": "00843114",
+    "name": "Kill the Target - The Ace"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The Chief Researcher",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "the-chief-researcher",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillVaultTec_SUB",
+    "formId": "00843108",
+    "name": "Kill the Target - The Chief Researcher"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The Inquisitionor",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "the-inquisitionor",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group03_KillBounty07_SUB",
+    "formId": "008E81B2",
+    "name": "Kill the Target - The Inquisitionor"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The Pirate King",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "the-pirate-king",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group03_KillBounty06_SUB",
+    "formId": "008E81B1",
+    "name": "Kill the Target - The Pirate King"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The Proletariat Punisher",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "the-proletariat-punisher",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillCommies_SUB",
+    "formId": "00843131",
+    "name": "Kill the Target - The Proletariat Punisher"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The Pseudo Subjugator",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "the-pseudo-subjugator",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group03_KillBounty03_SUB",
+    "formId": "008AF900",
+    "name": "Kill the Target - The Pseudo Subjugator"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The Space Ranger",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "the-space-ranger",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group03_KillAstronauts_SUB",
+    "formId": "00843113",
+    "name": "Kill the Target - The Space Ranger"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The Temporal Technician",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "the-temporal-technician",
+   "challenge": {
+    "edid": "Challenge_Lifetime_SkylineBounty_CompleteHeadGroups_Group03_KillBounty01_SUB",
+    "formId": "008AF8FE",
+    "name": "Kill the Target - The Temporal Technician"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Baron Boris Wazie",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "baron-boris-wazie",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillOldMoney_SUB",
+    "formId": "00843132",
+    "name": "Kill the Target - Baron Boris Wazie"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Chief Engineer Lewis",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "chief-engineer-lewis",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillRobobrains_SUB",
+    "formId": "00843124",
+    "name": "Kill the Target - Chief Engineer Lewis"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Corporal Jane",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "corporal-jane",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillPatriots_SUB",
+    "formId": "0084310B",
+    "name": "Kill the Target - Corporal Jane"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Tincan Toni",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "tincan-toni",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group04_KillRobots_SUB",
+    "formId": "00843105",
+    "name": "Kill the Target - Tincan Toni"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Becca The Heavyweight",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "becca-the-heavyweight",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillBoxer_SUB",
+    "formId": "0084313B",
+    "name": "Kill the Target - Becca The Heavyweight"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Charlie Half-Cocked",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "charlie-half-cocked",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillSniper_SUB",
+    "formId": "00843125",
+    "name": "Kill the Target - Charlie Half-Cocked"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Cowgirl Janine",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "cowgirl-janine",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillGunslinger_SUB",
+    "formId": "0084310C",
+    "name": "Kill the Target - Cowgirl Janine"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Richie Finesse",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "richie-finesse",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group05_KillBigGun_SUB",
+    "formId": "00843136",
+    "name": "Kill the Target - Richie Finesse"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Colt the Bolt",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "colt-the-bolt",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillHunter_SUB",
+    "formId": "00843148",
+    "name": "Kill the Target - Colt the Bolt"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Granny Dolores",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "granny-dolores",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillGolden_SUB",
+    "formId": "00843149",
+    "name": "Kill the Target - Granny Dolores"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The Devil of Defiance",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "the-devil-of-defiance",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillBlueDevils_SUB",
+    "formId": "00843129",
+    "name": "Kill the Target - The Devil of Defiance"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Vito \"The Vic\" Bronco",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "vito-the-vic-bronco",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group06_KillGambler_SUB",
+    "formId": "0084311E",
+    "name": "Kill the Target - Vito \"The Vic\" Bronco"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Amadi the Piranha",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "amadi-the-piranha",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillFisherman_SUB",
+    "formId": "00843116",
+    "name": "Kill the Target - Amadi the Piranha"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Gentle Gary",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "gentle-gary",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillCrusher_SUB",
+    "formId": "00843142",
+    "name": "Kill the Target - Gentle Gary"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "Scout Leader Karen",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "scout-leader-karen",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillScout_SUB",
+    "formId": "00843126",
+    "name": "Kill the Target - Scout Leader Karen"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The Foreman",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "",
+   "imageSlug": "the-foreman",
+   "challenge": {
+    "edid": "Challenge_Lifetime_BurnBounty_CompleteHeadGroups_Group07_KillMiner_SUB",
+    "formId": "00843123",
+    "name": "Kill the Target - The Foreman"
+   },
+   "weapons": [
+    {
+     "edid": "cr50CalMachineGun",
+     "name": ".50 Cal Machine Gun",
+     "ammo": ".50 Round",
+     "range": 3895,
+     "type": "Gun",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "CT_Creatures_Damage_Universal_Tier17",
+     "slot": "Main"
+    },
+    {
+     "edid": "crFloaterGnasherGrenade",
+     "name": "Floater Gnasher Grenade",
+     "ammo": "",
+     "range": 2000,
+     "type": "Grenade",
+     "damageMin": null,
+     "damageMax": null,
+     "damageCurve": "",
+     "slot": "Thrown"
+    }
+   ],
+   "specials": [
+    {
+     "name": "Bleed",
+     "text": "001A03FD"
+    }
+   ],
+   "gangMembers": []
+  },
+  {
+   "name": "The Reborn Pint-Sized Slasher",
+   "levelMin": null,
+   "levelMax": null,
+   "gang": "Pint-Sized Phantoms",
+   "imageSlug": "the-reborn-pint-sized-slasher",
+   "weapons": [
+    {
+     "name": "Bowie Knife",
+     "slot": "Main",
+     "type": "1H Melee",
+     "ammo": "",
+     "range": 0
+    }
+   ],
+   "specials": [
+    {
+     "name": "Note",
+     "text": "3-star BIG bounty target that can crash an active Head Hunt."
+    }
+   ],
+   "gangMembers": []
+  }
+ ],
+ "mutations": {
+  "intro": "Mutation effects used by bounty targets. One-star outlaws are named after theirs, and some Head Hunt bosses carry a forced mutation as part of their signature attack.",
+  "list": [
+   {
+    "edid": "Burn_Bounty_Mutation_Chameleon",
+    "name": "Chameleon",
+    "summary": "",
+    "detail": "Turns invisible while it stands still."
+   },
+   {
+    "edid": "Burn_Bounty_Mutation_ElectricallyCharged",
+    "name": "Electrically Charged",
+    "summary": "Slow targets down on attack",
+    "detail": "Can shock melee attackers."
+   },
+   {
+    "edid": "Burn_Bounty_Mutation_FreezingTouch",
+    "name": "Freezing Touch",
+    "summary": "Slow targets down on attack",
+    "detail": "Melee hits slow the target down."
+   },
+   {
+    "edid": "Burn_Bounty_Mutation_HerdMentality",
+    "name": "Herd Mentality",
+    "summary": "-2 SPECIAL solo, +2 SPECIAL grouped",
+    "detail": "Weaker alone, stronger while grouped with its gang."
+   },
+   {
+    "edid": "Burn_Bounty_Mutation_PlagueWalker",
+    "name": "Plague Walker",
+    "summary": "",
+    "detail": "Emits a poison aura while it is sick."
+   },
+   {
+    "edid": "Burn_Bounty_Mutation_UnstableIsotope",
+    "name": "Unstable Isotope",
+    "summary": "",
+    "detail": "Forced Unstable Isotope — can release a radiation burst when struck."
+   }
+  ],
+  "outlaws": []
+ },
+ "mechanics": {
+  "intro": "Head Hunt bosses share the following stats.",
+  "rows": [
+   [
+    "Bosses",
+    "51 across 7 groups"
+   ],
+   [
+    "Support wave",
+    "Rust Raiders"
+   ]
+  ],
+  "resist": []
+ },
+ "health": {
+  "intro": "Health is read from the curve table assigned to each boss across the bounty level range. Bosses on the same curve share a row.",
+  "levels": [],
+  "rows": []
+ },
+ "damage": {
+  "intro": "Damage per hit from each boss's main weapon at the bottom and top of the bounty level range.",
+  "rows": []
+ },
+ "support": {
+  "intro": "Every Head Hunt also sends a support wave that fights alongside the boss and its gang.",
+  "rows": [
+   {
+    "edid": "Burn_LvlRustRaider_RaiderRanged_Workshop",
+    "formId": "008244C3",
+    "name": "Rust Raider (Ranged)",
+    "race": "Human",
+    "levelMin": 5,
+    "levelMax": 60,
+    "hpMin": 102,
+    "hpMax": 731,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 40,
+     "ER": 28,
+     "Fire": 34,
+     "Cryo": 14,
+     "Poison": 28,
+     "Rad": 14
+    },
+    "speedMult": 100.0
+   }
+  ]
+ },
+ "npcs": {
+  "intro": "Each boss brings its own gang members, listed with the boss they belong to.",
+  "rows": []
+ }
+}
