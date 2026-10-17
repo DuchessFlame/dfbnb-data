@@ -392,6 +392,30 @@ jobs:
           DFBNB_CHANNEL: pts
         run: python src/build_head_hunt_bosses_json.py
 
+      # Boss Stats pages (Infestations / Daily Ops / Head Hunts / Hideouts). Reads
+      # dist/bounty-hunting/head_hunt_bosses.json, so it runs after the step above.
+      # Plain form + DFBNB_PTS_LABEL=1 as the script header says: tsv/ is already
+      # PTS-normalised here and the relocate step moves dist/boss_stats -> dist/pts/.
+      # Hideouts (HIDE_ actors) only exist on PTS; the script skips that page on live.
+      - name: Build Boss Stats JSON
+        env:
+          DFBNB_PTS_LABEL: "1"
+        run: |
+          python src/build_boss_stats_json.py
+          test -f dist/boss_stats/hideouts.json && echo "OK hideouts.json" || echo "NOTE no hideouts.json (no HIDE_ gang leaders in this export)"
+
+      # --- HIDEOUTS (Guide / Leads / Locations / All Rewards) ---
+      # Rates from rng76 over tsv/pts (DFBNB_CHANNEL=pts); Hideout Cache + Drifter Loot
+      # Bag contents and map markers come from the committed data/hideouts/*_pts.tsv
+      # (read from the ESM locally - CI has no game files). Writes dist/hideouts/,
+      # relocated to dist/pts/hideouts/. Rendered by df-bnb-hideouts.js.
+      - name: Build Hideouts JSON
+        env:
+          DFBNB_CHANNEL: pts
+        run: |
+          python src/build_hideouts_json.py
+          python -c "import json;d=json.load(open('dist/hideouts/hideouts.json'));assert sum(1 for x in d['difficulties'] if x['completion'])==4,d['difficulties'];print('hideouts ok',len(d['leads']['sources']),'lead lists',len(d['locations']),'locations')"
+
       # --- MINI SEASONS ---
       - name: Build Mini Seasons JSON
         run: python src/build_mini_seasons_json.py
@@ -862,6 +886,18 @@ jobs:
       - name: Build Axolotl Rotations JSON
         run: node tools/build-axolotl-rotations-json.mjs
 
+      # --- ALL LOCATIONS (Data Mining - Fallout 76 List of All Locations) ---
+      # Every Appalachia map marker by region + the challenges / quests tied to
+      # it. Markers come from the committed Mappalachia cache
+      # (data/locations/mappalachia_markers.json — refreshed by any local run
+      # that can see the DB). Reads dist/challenges + dist/activities + dist/events,
+      # so it runs after those builders. Reads the normalized
+      # PTS tsv/ tree and writes dist/ - the relocate step moves it to dist/pts/.
+      - name: Build All Locations JSON
+        run: |
+          python src/build_locations_json.py
+          python -c "import json;d=json.load(open('dist/locations/all_locations.json'));assert d['count']>=400,d['count'];print('all_locations ok',d['count'],[(r['name'],r['count']) for r in d['regions']])"
+
       # --- SEASONAL FISH ---
       # Reads the latest FISH + LVLI_Entries TSVs and emits dist/seasonal-fish.json
       # consumed by the home banner. Regenerative — if Bethesda moves a fish
@@ -1203,6 +1239,21 @@ jobs:
         env:
           DFBNB_CHANNEL: pts
         run: python src/build_collectable_spawns_json.py
+
+      # --- BRAIN IN A JAR (Collectables - A Matter of Matter, Skyline Valley) ---
+      # Placements come from the committed data/brain_in_a_jar/placements_pts.tsv
+      # (src/esm_scan_placements.py, run locally against the PTS SeventySix.esm
+      # with the Mappalachia DB). Rewards / holotapes / quest name come from the
+      # CHAL, GMRW, GLOB, NOTE and QUST2 exports. Hand-filled directions and photos
+      # are carried over from the last committed dist/pts copy (git show HEAD).
+      # Writes dist/brain_in_a_jar.json + _guide.json; the relocate step moves
+      # them to dist/pts/. Rendered by df-bnb-brain-in-a-jar.js.
+      - name: Build Brain in a Jar JSON
+        env:
+          DFBNB_CHANNEL: pts
+        run: |
+          python src/build_brain_in_a_jar_json.py
+          python -c "import json;d=json.load(open('dist/brain_in_a_jar.json'));g=json.load(open('dist/brain_in_a_jar_guide.json'));assert d['total_real']>=100 and d['rewards']['milestones'] and g['sections'],d['total_real'];print('brain_in_a_jar ok',d['total_real'],len(d['pages']),'pages',len(d['rewards']['milestones']),'tiers',len(d['holotapes']),'tapes')"
 
       # --- NUKA COLA SPAWNS ({Type} Locations pages) ---
       # Same builder as the live channel, in CI CACHE mode: the full source closure comes from the

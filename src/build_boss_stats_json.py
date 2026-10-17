@@ -7,6 +7,7 @@ Builds the data behind three flat written-guide pages on buffsnbrew.com:
   /df/infestations/infestation-boss-stats/          -> dist/boss_stats/infestations.json
   /df/daily-ops/daily-ops-boss-stats/                -> dist/boss_stats/daily_ops.json
   /df/bounty-hunting/head-hunts/head-hunt-groups/    -> dist/boss_stats/head_hunts.json
+  /df/hideouts/hideout-boss-stats/                   -> dist/boss_stats/hideouts.json (PTS only for now)
                                                         (page title: Head Hunt Boss Stats)
 
 Every page has the same layout, rendered by df-bnb-boss-stats.js:
@@ -683,6 +684,22 @@ INTRO = {
         "support": "Support creatures spawn alongside each family's humanoid enemies.",
         "npcs": "Regular enemies for each family.",
     },
+    "hideouts": {
+        "title": "Hideouts - Hideout Boss Stats",
+        "blurb": ("Every Hideout is held by one gang, led by a gang leader and a lieutenant and backed by "
+                  "role-based fighters, with wildlife minibosses that belong to the Hideout itself. This page "
+                  "lists each gang leader, lieutenant and miniboss with their health and resistances, the "
+                  "mutations lieutenants carry, and every enemy you can meet inside. All numbers are read "
+                  "straight from the game files and update with every patch."),
+        "profiles": "Gang leaders first, then each Hideout's wildlife minibosses. Defeat the gang leader within the time limit for a bonus objective.",
+        "mutations": "Each Hideout Lieutenant carries one mutation from this pool.",
+        "double": "Hideout runs also roll a pair of mutations for the run, from the combinations below.",
+        "mechanics": "Hideout enemies share the following traits.",
+        "health": "Health is read from the curve table assigned to each boss, at the levels bosses spawn between. Bosses on the same curve share a row.",
+        "damage": "Boss weapons come from each leader's outfit, which is not in the current exports yet, so weapon damage is not listed.",
+        "support": "Every gang brings a Lieutenant alongside its leader.",
+        "npcs": "Each gang fills its Hideout with fighters in set roles (close, medium and long range, support, interference and fodder), plus rare wildcard spawns and the Hideout's own wildlife.",
+    },
     "head_hunts": {
         "title": "Bounty Hunting - Head Hunt Boss Stats",
         "blurb": ("Each Head Hunt boss comes with a distinct weapon setup and a signature mechanic, and the "
@@ -886,6 +903,136 @@ def build_infestations(game: Game):
         "support": {"intro": INTRO["infestations"]["support"], "rows": support},
         "npcs": {"intro": INTRO["infestations"]["npcs"], "rows": npcs},
     }
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Hideouts (HIDE_) — added Oct 2026 from the World Pets / Hideouts PTS
+# ─────────────────────────────────────────────────────────────────────────────
+# Gangs come from the game's own HIDEGangKeywordFormList (keyword FULL = display
+# name, keyword EDID HIDEGang<Token>Keyword = the NPC token, singular). Minibosses
+# come from each Hideout's HIDE##<Location>MinibossActorFormList, and the Hideout
+# name from HIDELocationFormlist (LCTN FULL). Nothing is typed per gang.
+
+HIDE_ROLE_ORDER = ["Boss", "Lieutenant", "CloseRange", "MediumRange", "LongRange",
+                   "Support", "Interference", "Popcorn", "Wildcard"]
+HIDE_ROLE_LABEL = {"CloseRange": "Close range", "MediumRange": "Medium range", "LongRange": "Long range",
+                   "Support": "Support", "Interference": "Interference", "Popcorn": "Fodder",
+                   "Wildcard": "Wildcard"}
+
+
+def _hide_locations(game: Game):
+    """token (e.g. 'SkylineCaverns') -> Hideout display name, from HIDELocationFormlist.
+    A FULL that is all capitals ('TUNNEL') is a dev placeholder and is skipped."""
+    out = {}
+    for e in game.flst.get("HIDELocationFormlist", []):
+        full = (e.get("Entry_FULL") or "").strip()
+        m = re.match(r"^Loc[A-Z][A-Za-z]*?([A-Z][A-Za-z]+)Location$", e.get("Entry_EDID", ""))
+        if not full or full.isupper() or not m:
+            continue
+        out[m.group(1)] = full
+    return out
+
+
+def build_hideouts(game: Game):
+    locs = _hide_locations(game)
+    gangs = []
+    for e in game.flst.get("HIDEGangKeywordFormList", []):
+        m = re.match(r"^HIDEGang(\w+?)Keyword$", e.get("Entry_EDID", ""))
+        if not m:
+            continue
+        tok = m.group(1)
+        for cand in (tok, tok[:-1] if tok.endswith("s") else tok):
+            if f"HIDE_{cand}Boss" in game.npc:
+                gangs.append((cand, (e.get("Entry_FULL") or humanise(tok)).strip()))
+                break
+    bosses, support, npcs = [], [], []
+    for tok, gname in gangs:
+        b = game.npc_stats(f"HIDE_{tok}Boss")
+        b["faction"] = gname
+        b["role"] = "Gang leader"
+        b["weapons"] = []
+        bosses.append(b)
+        lt = f"HIDE_{tok}Lieutenant"
+        if lt in game.npc:
+            n = game.npc_stats(lt); n["faction"] = gname; n["role"] = "support"
+            n["loadout"] = "Lieutenant"
+            support.append(n)
+        seen = set()
+        for edid in sorted(game.npc):
+            mm = re.match(rf"^HIDE_(?:Lvl)?{re.escape(tok)}(CloseRange|MediumRange|LongRange|Support|Interference|Popcorn|Wildcard)(?:_(\w+))?$", edid)
+            if not mm:
+                continue
+            n = game.npc_stats(edid)
+            if n["name"] in ("", "Default", "enc01") or n["name"].startswith("Material Swap"):
+                n["name"] = humanise(re.sub(r"^HIDE_(?:Lvl)?", "", edid))
+            n["faction"] = gname
+            n["role"] = "mob"
+            extra = (mm.group(2) or "").replace("_", " ").strip()
+            n["loadout"] = HIDE_ROLE_LABEL[mm.group(1)] + (f" ({extra.lower()})" if extra else "")
+            key = (n["name"], n["loadout"])
+            if key in seen:
+                continue
+            seen.add(key)
+            npcs.append(n)
+    # Wildlife minibosses, per Hideout.
+    mini_seen = set()
+    for fl, entries in sorted(game.flst.items()):
+        m = re.match(r"^HIDE\d+([A-Za-z]+?)MinibossActorFormList$", fl)
+        if not m or m.group(1) not in locs:
+            continue
+        for e in entries:
+            edid = e.get("Entry_EDID", "")
+            if edid not in game.npc:
+                continue
+            b = game.npc_stats(edid)
+            b["faction"] = f"{locs[m.group(1)]} miniboss"
+            b["role"] = "Miniboss"
+            b["weapons"] = []
+            if (edid, b["faction"]) in mini_seen:
+                continue
+            mini_seen.add((edid, b["faction"]))
+            bosses.append(b)
+    # Remaining Hideout wildlife (HIDE_WL_*, not a miniboss).
+    for edid in sorted(game.npc):
+        if edid.startswith("HIDE_WL_") and "_Miniboss_" not in edid:
+            n = game.npc_stats(edid)
+            if n["name"] in ("", "Default", "enc01"):
+                n["name"] = humanise(edid.replace("HIDE_WL_", ""))
+            n["faction"] = "Hideout wildlife"
+            n["role"] = "mob"
+            n["loadout"] = "Wildlife"
+            npcs.append(n)
+
+    mutations = mutation_list(game, "HIDELieutenantSpellFormList")
+    double = []
+    for e in game.flst.get("HIDEMutationConfigList", []):
+        parts = mutation_list(game, e.get("Entry_EDID", ""))
+        double.append({"edid": e.get("Entry_EDID", ""), "name": (e.get("Entry_FULL") or "").strip()
+                       or " + ".join(x["name"] for x in parts),
+                       "summary": " ".join(x["detail"] or x["summary"] for x in parts).strip()})
+    lv = sorted({(b["levelMin"], b["levelMax"]) for b in bosses if b.get("levelMin") is not None})
+    mech_rows = [["Boss level range", " / ".join(f"{a} – {c}" for a, c in lv)]] if lv else []
+    mech_rows += [["Gangs", ", ".join(g for _, g in gangs)],
+                  ["Hideouts", ", ".join(sorted(locs.values()))],
+                  ["Lieutenant mutation", "Each Lieutenant spawns with one mutation from the pool below"]]
+    if game.spel.get("HIDE_crNormalizeAddPerkSpell_Boss"):
+        mech_rows.append(["Scripted scaling", "Hideout actors carry a scripted normalising perk per role (boss, lieutenant, miniboss, fodder, wildlife), so in-game numbers can differ from the curve values shown here"])
+    out = {
+        "page": "hideouts",
+        "intro": INTRO["hideouts"],
+        "bosses": bosses,
+        "mutations": {"intro": INTRO["hideouts"]["mutations"], "list": mutations},
+        "mechanics": {"intro": INTRO["hideouts"]["mechanics"], "rows": mech_rows,
+                      "resist": [{"name": b["name"], **(b.get("resist") or {})} for b in bosses]},
+        "health": build_health_section(game, bosses, 25, INTRO["hideouts"]["health"]),
+        "damage": {"intro": INTRO["hideouts"]["damage"], "rows": []},
+        "support": {"intro": INTRO["hideouts"]["support"], "rows": support},
+        "npcs": {"intro": INTRO["hideouts"]["npcs"], "rows": npcs},
+    }
+    if double:
+        out["mutations"]["double"] = double
+        out["mutations"]["doubleIntro"] = INTRO["hideouts"]["double"]
+    return out
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -1218,6 +1365,14 @@ def main():
     write("infestations", hto)
     write("daily_ops", do)
     write("head_hunts", hh)
+    # Hideouts are PTS-only until the update ships: no HIDE_ actors on live, so
+    # skip quietly there instead of failing the guard above.
+    hide = build_hideouts(game)
+    if hide["bosses"]:
+        add_body_parts(game, hide["bosses"])
+        write("hideouts", hide)
+    else:
+        print("[Boss Stats] hideouts: no HIDE_ gang leaders on this channel — not written.")
 
 
 if __name__ == "__main__":

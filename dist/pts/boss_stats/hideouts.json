@@ -1,0 +1,2519 @@
+{
+ "generated": "2026-10-17T00:06:40+00:00",
+ "channel": "pts",
+ "isPts": true,
+ "sources": {},
+ "page": "hideouts",
+ "intro": {
+  "title": "Hideouts - Hideout Boss Stats",
+  "blurb": "Every Hideout is held by one gang, led by a gang leader and a lieutenant and backed by role-based fighters, with wildlife minibosses that belong to the Hideout itself. This page lists each gang leader, lieutenant and miniboss with their health and resistances, the mutations lieutenants carry, and every enemy you can meet inside. All numbers are read straight from the game files and update with every patch.",
+  "profiles": "Gang leaders first, then each Hideout's wildlife minibosses. Defeat the gang leader within the time limit for a bonus objective.",
+  "mutations": "Each Hideout Lieutenant carries one mutation from this pool.",
+  "double": "Hideout runs also roll a pair of mutations for the run, from the combinations below.",
+  "mechanics": "Hideout enemies share the following traits.",
+  "health": "Health is read from the curve table assigned to each boss, at the levels bosses spawn between. Bosses on the same curve share a row.",
+  "damage": "Boss weapons come from each leader's outfit, which is not in the current exports yet, so weapon damage is not listed.",
+  "support": "Every gang brings a Lieutenant alongside its leader.",
+  "npcs": "Each gang fills its Hideout with fighters in set roles (close, medium and long range, support, interference and fodder), plus rare wildcard spawns and the Hideout's own wildlife."
+ },
+ "bosses": [
+  {
+   "edid": "HIDE_FEVBoss",
+   "formId": "008F4EC2",
+   "name": "Super Mutant Warlord",
+   "race": "SuperMutant",
+   "levelMin": 75,
+   "levelMax": 225,
+   "hpMin": 13896,
+   "hpMax": 93796,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier37",
+   "statsFrom": "",
+   "resist": {
+    "DR": 326,
+    "ER": 203,
+    "Fire": 255,
+    "Cryo": 192,
+    "Poison": 657,
+    "Rad": 1824
+   },
+   "speedMult": 100.0,
+   "faction": "FEV Creatures",
+   "role": "Gang leader",
+   "weapons": [],
+   "weakSpot": "Head — takes 1.25× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.25,
+     "hpMin": 2779,
+     "hpMax": 18759,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 0.9,
+     "hpMin": 10422,
+     "hpMax": 70347,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 30.0,
+     "mult": 1.0,
+     "hpMin": 4169,
+     "hpMax": 28139,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 4864,
+     "hpMax": 32829,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "SuperMutantBodyPartData"
+  },
+  {
+   "edid": "HIDE_RobotBoss",
+   "formId": "008F4EB3",
+   "name": "Master Tactical Unit",
+   "race": "Assaultron",
+   "levelMin": 75,
+   "levelMax": 225,
+   "hpMin": 11729,
+   "hpMax": 80997,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier36",
+   "statsFrom": "",
+   "resist": {
+    "DR": 488,
+    "ER": 192,
+    "Fire": 181,
+    "Cryo": 227,
+    "Poison": 1824,
+    "Rad": 1824
+   },
+   "speedMult": 100.0,
+   "faction": "Robots",
+   "role": "Gang leader",
+   "weapons": [],
+   "weakSpot": "None — no body part takes bonus damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 0.5,
+     "hpMin": 2346,
+     "hpMax": 16199,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Torso",
+     "pct": 80.0,
+     "mult": 0.85,
+     "hpMin": 9383,
+     "hpMax": 64798,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 4105,
+     "hpMax": 28349,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 40.0,
+     "mult": 1.0,
+     "hpMin": 4692,
+     "hpMax": 32399,
+     "severable": false,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    },
+    {
+     "name": "Combat Inhibitor",
+     "pct": 10.0,
+     "mult": 0.25,
+     "hpMin": 1173,
+     "hpMax": 8100,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "AssaultronBodyPartData"
+  },
+  {
+   "edid": "HIDE_LostBoss",
+   "formId": "008F4EBC",
+   "name": "Lost Voltaic Commander",
+   "race": "Lost",
+   "levelMin": 75,
+   "levelMax": 225,
+   "hpMin": 16467,
+   "hpMax": 108681,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier38",
+   "statsFrom": "",
+   "resist": {
+    "DR": 227,
+    "ER": 424,
+    "Fire": 154,
+    "Cryo": 108,
+    "Poison": 130,
+    "Rad": 1824
+   },
+   "speedMult": 100.0,
+   "faction": "The Lost",
+   "role": "Gang leader",
+   "weapons": [],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 3293,
+     "hpMax": 21736,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 12350,
+     "hpMax": 81511,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 4117,
+     "hpMax": 27170,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 5763,
+     "hpMax": 38038,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "HIDE_CultistBoss",
+   "formId": "008F4ED6",
+   "name": "Cultist Grand Revelator",
+   "race": "Human",
+   "levelMin": 75,
+   "levelMax": 225,
+   "hpMin": 19514,
+   "hpMax": 126001,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier39",
+   "statsFrom": "",
+   "resist": {
+    "DR": 181,
+    "ER": 255,
+    "Fire": 181,
+    "Cryo": 145,
+    "Poison": 270,
+    "Rad": 203
+   },
+   "speedMult": 100.0,
+   "faction": "Mothman Cultists",
+   "role": "Gang leader",
+   "weapons": [],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 3903,
+     "hpMax": 25200,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 14636,
+     "hpMax": 94501,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 4878,
+     "hpMax": 31500,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 6830,
+     "hpMax": 44100,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "HIDE_RustRaiderBoss",
+   "formId": "008F4EBE",
+   "name": "Rust Guard Warmaster",
+   "race": "Human",
+   "levelMin": 75,
+   "levelMax": 225,
+   "hpMin": 13896,
+   "hpMax": 93796,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier37",
+   "statsFrom": "",
+   "resist": {
+    "DR": 371,
+    "ER": 287,
+    "Fire": 287,
+    "Cryo": 181,
+    "Poison": 181,
+    "Rad": 287
+   },
+   "speedMult": 100.0,
+   "faction": "Rust Raiders",
+   "role": "Gang leader",
+   "weapons": [],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 1.5,
+     "hpMin": 2779,
+     "hpMax": 18759,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 75.0,
+     "mult": 1.0,
+     "hpMin": 10422,
+     "hpMax": 70347,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 3474,
+     "hpMax": 23449,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 4864,
+     "hpMax": 32829,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "HumanBodyPartData"
+  },
+  {
+   "edid": "HIDE_WL_Miniboss_GlowingMonstrosity",
+   "formId": "008F66ED",
+   "name": "Bloated Monstrosity",
+   "race": "FeralGhoulGlowing",
+   "levelMin": 50,
+   "levelMax": 150,
+   "hpMin": 7666,
+   "hpMax": 30261,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier36",
+   "statsFrom": "",
+   "speedMult": 100.0,
+   "faction": "Forever Farm miniboss",
+   "role": "Miniboss",
+   "weapons": [],
+   "weakSpot": "Head — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 40.0,
+     "mult": 1.5,
+     "hpMin": 3066,
+     "hpMax": 12104,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 80.0,
+     "mult": 1.0,
+     "hpMin": 6133,
+     "hpMax": 24209,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 10.0,
+     "mult": 1.0,
+     "hpMin": 767,
+     "hpMax": 3026,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 2683,
+     "hpMax": 10591,
+     "severable": true,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "FeralGhoulGlowingOneBodyPartData"
+  },
+  {
+   "edid": "HIDE_WL_Miniboss_FacilityAdmin",
+   "formId": "008F66EB",
+   "name": "Facility Administrator",
+   "race": "Assaultron",
+   "levelMin": 50,
+   "levelMax": 150,
+   "hpMin": 5449,
+   "hpMax": 21905,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier34",
+   "statsFrom": "",
+   "resist": {
+    "DR": 143,
+    "ER": 91,
+    "Fire": 98,
+    "Cryo": 133,
+    "Poison": 1305,
+    "Rad": 1305
+   },
+   "speedMult": 100.0,
+   "faction": "Forever Farm miniboss",
+   "role": "Miniboss",
+   "weapons": [],
+   "weakSpot": "None — no body part takes bonus damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 0.5,
+     "hpMin": 1090,
+     "hpMax": 4381,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Torso",
+     "pct": 80.0,
+     "mult": 0.85,
+     "hpMin": 4359,
+     "hpMax": 17524,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 1907,
+     "hpMax": 7667,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 40.0,
+     "mult": 1.0,
+     "hpMin": 2180,
+     "hpMax": 8762,
+     "severable": false,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    },
+    {
+     "name": "Combat Inhibitor",
+     "pct": 10.0,
+     "mult": 0.25,
+     "hpMin": 545,
+     "hpMax": 2190,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "AssaultronBodyPartData"
+  },
+  {
+   "edid": "HIDE_WL_Miniboss_FiltrationEfficiency",
+   "formId": "008F66EC",
+   "name": "Filtration Efficiency Unit",
+   "race": "Protectron",
+   "levelMin": 50,
+   "levelMax": 150,
+   "hpMin": 4594,
+   "hpMax": 18645,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+   "statsFrom": "",
+   "speedMult": 100.0,
+   "faction": "Forever Farm miniboss",
+   "role": "Miniboss",
+   "weapons": [],
+   "weakSpot": "Head — takes 1.1× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 50.0,
+     "mult": 1.1,
+     "hpMin": 2297,
+     "hpMax": 9322,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 100.0,
+     "mult": 0.9,
+     "hpMin": 4594,
+     "hpMax": 18645,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 1148,
+     "hpMax": 4661,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 25.0,
+     "mult": 1.0,
+     "hpMin": 1148,
+     "hpMax": 4661,
+     "severable": false,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    },
+    {
+     "name": "Combat Inhibitor",
+     "pct": 15.0,
+     "mult": 0.25,
+     "hpMin": 689,
+     "hpMax": 2797,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "ProtectronBodyPartData"
+  },
+  {
+   "edid": "HIDE_WL_Miniboss_MrHandy_Saw",
+   "formId": "0094D06E",
+   "name": "Cranial Expert",
+   "race": "Handy",
+   "levelMin": 50,
+   "levelMax": 150,
+   "hpMin": 4594,
+   "hpMax": 18645,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+   "statsFrom": "",
+   "speedMult": 100.0,
+   "faction": "Immortality Center miniboss",
+   "role": "Miniboss",
+   "weapons": [],
+   "weakSpot": "Left Leg — takes 1.5× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 15.0,
+     "mult": 1.25,
+     "hpMin": 689,
+     "hpMax": 2797,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Torso",
+     "pct": 80.0,
+     "mult": 0.9,
+     "hpMin": 3675,
+     "hpMax": 14916,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 20.0,
+     "mult": 1.0,
+     "hpMin": 919,
+     "hpMax": 3729,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Left Leg",
+     "pct": 50.0,
+     "mult": 1.5,
+     "hpMin": 2297,
+     "hpMax": 9322,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Combat Inhibitor",
+     "pct": 10.0,
+     "mult": 0.5,
+     "hpMin": 459,
+     "hpMax": 1864,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Eyes (each)",
+     "pct": 15.0,
+     "mult": 1.25,
+     "hpMin": 689,
+     "hpMax": 2797,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Mid Arm",
+     "pct": 20.0,
+     "mult": 1.0,
+     "hpMin": 919,
+     "hpMax": 3729,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "MrHandyBodyPartData"
+  },
+  {
+   "edid": "HIDE_WL_Miniboss_StormGoliath",
+   "formId": "0094CE8D",
+   "name": "Storm Giant",
+   "race": "StormBoss",
+   "levelMin": 50,
+   "levelMax": 150,
+   "hpMin": 4594,
+   "hpMax": 18645,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+   "statsFrom": "",
+   "speedMult": 120.0,
+   "faction": "Immortality Center miniboss",
+   "role": "Miniboss",
+   "weapons": [],
+   "weakSpot": "Head — takes 1.15× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 25.0,
+     "mult": 1.15,
+     "hpMin": 1148,
+     "hpMax": 4661,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 50.0,
+     "mult": 0.85,
+     "hpMin": 2297,
+     "hpMax": 9322,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 15.0,
+     "mult": 1.0,
+     "hpMin": 689,
+     "hpMax": 2797,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 15.0,
+     "mult": 1.0,
+     "hpMin": 689,
+     "hpMax": 2797,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Back Panel",
+     "pct": 10.0,
+     "mult": 1.0,
+     "hpMin": 459,
+     "hpMax": 1864,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Foots (each)",
+     "pct": 10.0,
+     "mult": 1.0,
+     "hpMin": 459,
+     "hpMax": 1864,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "StormBossBodyPartData"
+  },
+  {
+   "edid": "HIDE_WL_Miniboss_MirelurkHunter",
+   "formId": "009367C2",
+   "name": "Brood Lurker",
+   "race": "MirelurkHunter",
+   "levelMin": 50,
+   "levelMax": 150,
+   "hpMin": 7666,
+   "hpMax": 30261,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier36",
+   "statsFrom": "",
+   "speedMult": 100.0,
+   "faction": "Black Pool Caverns miniboss",
+   "role": "Miniboss",
+   "weapons": [],
+   "weakSpot": "Head — takes 1.25× damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 25.0,
+     "mult": 1.25,
+     "hpMin": 1916,
+     "hpMax": 7565,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": true
+    },
+    {
+     "name": "Torso",
+     "pct": 80.0,
+     "mult": 0.9,
+     "hpMin": 6133,
+     "hpMax": 24209,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 35.0,
+     "mult": 0.33,
+     "hpMin": 2683,
+     "hpMax": 10591,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 20.0,
+     "mult": 1.0,
+     "hpMin": 1533,
+     "hpMax": 6052,
+     "severable": true,
+     "alsoHitVia": [
+      "Left Legs",
+      "Right Legs"
+     ],
+     "weakSpot": false
+    },
+    {
+     "name": "Shell",
+     "pct": 50.0,
+     "mult": 0.5,
+     "hpMin": 3833,
+     "hpMax": 15130,
+     "severable": true,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "mirelurkHunterBodyPartData"
+  },
+  {
+   "edid": "HIDE_WL_Miniboss_ImposterSheepsquatch",
+   "formId": "009367C1",
+   "name": "Imposter Sheepsquatch",
+   "race": "Assaultron",
+   "levelMin": 50,
+   "levelMax": 150,
+   "hpMin": 7666,
+   "hpMax": 30261,
+   "healthCurve": "CT_Creatures_Health_Universal_Tier36",
+   "statsFrom": "",
+   "speedMult": 100.0,
+   "faction": "Black Pool Caverns miniboss",
+   "role": "Miniboss",
+   "weapons": [],
+   "weakSpot": "None — no body part takes bonus damage",
+   "limbs": [
+    {
+     "name": "Head",
+     "pct": 20.0,
+     "mult": 0.5,
+     "hpMin": 1533,
+     "hpMax": 6052,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Torso",
+     "pct": 80.0,
+     "mult": 0.85,
+     "hpMin": 6133,
+     "hpMax": 24209,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Arms (each)",
+     "pct": 35.0,
+     "mult": 1.0,
+     "hpMin": 2683,
+     "hpMax": 10591,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    },
+    {
+     "name": "Legs (each)",
+     "pct": 40.0,
+     "mult": 1.0,
+     "hpMin": 3066,
+     "hpMax": 12104,
+     "severable": false,
+     "alsoHitVia": [
+      "Feet"
+     ],
+     "weakSpot": false
+    },
+    {
+     "name": "Combat Inhibitor",
+     "pct": 10.0,
+     "mult": 0.25,
+     "hpMin": 767,
+     "hpMax": 3026,
+     "severable": false,
+     "alsoHitVia": [],
+     "weakSpot": false
+    }
+   ],
+   "bodyPartData": "AssaultronBodyPartData"
+  }
+ ],
+ "mutations": {
+  "intro": "Each Hideout Lieutenant carries one mutation from this pool.",
+  "list": [
+   {
+    "edid": "DailyOps_Mutation_DangerCloud",
+    "name": "Danger Cloud",
+    "summary": "Harms HP and AP of nearby players",
+    "detail": "Periodically releases a poison cloud that damages health and drains Action Points of players caught inside it."
+   },
+   {
+    "edid": "DailyOps_Mutation_ToxicBlood",
+    "name": "Toxic Blood",
+    "summary": "Poison hazard dropped on death",
+    "detail": "Leaves a poison hazard on the ground when killed."
+   },
+   {
+    "edid": "DailyOps_Mutation_ActiveCamouflage",
+    "name": "Active Camouflage",
+    "summary": "Cloaked when not attacking",
+    "detail": "Invisible by default; becomes visible while firing or attacking."
+   },
+   {
+    "edid": "DailyOps_Mutation_Resilient",
+    "name": "Resilient",
+    "summary": "Can only be killed by a melee attack",
+    "detail": "Cannot be killed by ranged damage — the final blow has to be a melee hit."
+   },
+   {
+    "edid": "DailyOps_Mutation_SwiftFooted",
+    "name": "Swift-Footed",
+    "summary": "Faster movement, reload & melee speed",
+    "detail": "Moves faster and reloads much quicker."
+   },
+   {
+    "edid": "DailyOps_Mutation_Volatile",
+    "name": "Volatile",
+    "summary": "Explodes on death",
+    "detail": "Explodes when killed — back off before the last hit lands."
+   }
+  ]
+ },
+ "mechanics": {
+  "intro": "Hideout enemies share the following traits.",
+  "rows": [
+   [
+    "Boss level range",
+    "50 – 150 / 75 – 225"
+   ],
+   [
+    "Gangs",
+    "FEV Creatures, Robots, The Lost, Mothman Cultists, Rust Raiders"
+   ],
+   [
+    "Hideouts",
+    "Black Pool Caverns, Forever Farm, Immortality Center"
+   ],
+   [
+    "Lieutenant mutation",
+    "Each Lieutenant spawns with one mutation from the pool below"
+   ],
+   [
+    "Scripted scaling",
+    "Hideout actors carry a scripted normalising perk per role (boss, lieutenant, miniboss, fodder, wildlife), so in-game numbers can differ from the curve values shown here"
+   ]
+  ],
+  "resist": [
+   {
+    "name": "Super Mutant Warlord",
+    "DR": 326,
+    "ER": 203,
+    "Fire": 255,
+    "Cryo": 192,
+    "Poison": 657,
+    "Rad": 1824
+   },
+   {
+    "name": "Master Tactical Unit",
+    "DR": 488,
+    "ER": 192,
+    "Fire": 181,
+    "Cryo": 227,
+    "Poison": 1824,
+    "Rad": 1824
+   },
+   {
+    "name": "Lost Voltaic Commander",
+    "DR": 227,
+    "ER": 424,
+    "Fire": 154,
+    "Cryo": 108,
+    "Poison": 130,
+    "Rad": 1824
+   },
+   {
+    "name": "Cultist Grand Revelator",
+    "DR": 181,
+    "ER": 255,
+    "Fire": 181,
+    "Cryo": 145,
+    "Poison": 270,
+    "Rad": 203
+   },
+   {
+    "name": "Rust Guard Warmaster",
+    "DR": 371,
+    "ER": 287,
+    "Fire": 287,
+    "Cryo": 181,
+    "Poison": 181,
+    "Rad": 287
+   },
+   {
+    "name": "Bloated Monstrosity"
+   },
+   {
+    "name": "Facility Administrator",
+    "DR": 143,
+    "ER": 91,
+    "Fire": 98,
+    "Cryo": 133,
+    "Poison": 1305,
+    "Rad": 1305
+   },
+   {
+    "name": "Filtration Efficiency Unit"
+   },
+   {
+    "name": "Cranial Expert"
+   },
+   {
+    "name": "Storm Giant"
+   },
+   {
+    "name": "Brood Lurker"
+   },
+   {
+    "name": "Imposter Sheepsquatch"
+   }
+  ]
+ },
+ "health": {
+  "intro": "Health is read from the curve table assigned to each boss, at the levels bosses spawn between. Bosses on the same curve share a row.",
+  "levels": [
+   50,
+   75,
+   100,
+   125,
+   150
+  ],
+  "rows": [
+   {
+    "label": "Super Mutant Warlord, Rust Guard Warmaster",
+    "bosses": [
+     "Super Mutant Warlord",
+     "Rust Guard Warmaster"
+    ],
+    "curve": "CT_Creatures_Health_Universal_Tier37",
+    "values": [
+     null,
+     13896,
+     19523,
+     26479,
+     35584
+    ]
+   },
+   {
+    "label": "Master Tactical Unit, Bloated Monstrosity, Brood Lurker, Imposter Sheepsquatch",
+    "bosses": [
+     "Master Tactical Unit",
+     "Bloated Monstrosity",
+     "Brood Lurker",
+     "Imposter Sheepsquatch"
+    ],
+    "curve": "CT_Creatures_Health_Universal_Tier36",
+    "values": [
+     null,
+     11729,
+     16506,
+     22443,
+     30261
+    ]
+   },
+   {
+    "label": "Lost Voltaic Commander",
+    "bosses": [
+     "Lost Voltaic Commander"
+    ],
+    "curve": "CT_Creatures_Health_Universal_Tier38",
+    "values": [
+     null,
+     16467,
+     23094,
+     31248,
+     41855
+    ]
+   },
+   {
+    "label": "Cultist Grand Revelator",
+    "bosses": [
+     "Cultist Grand Revelator"
+    ],
+    "curve": "CT_Creatures_Health_Universal_Tier39",
+    "values": [
+     null,
+     19514,
+     27322,
+     36881,
+     49245
+    ]
+   },
+   {
+    "label": "Facility Administrator",
+    "bosses": [
+     "Facility Administrator"
+    ],
+    "curve": "CT_Creatures_Health_Universal_Tier34",
+    "values": [
+     5449,
+     8357,
+     11804,
+     16134,
+     21905
+    ]
+   },
+   {
+    "label": "Filtration Efficiency Unit, Cranial Expert, Storm Giant",
+    "bosses": [
+     "Filtration Efficiency Unit",
+     "Cranial Expert",
+     "Storm Giant"
+    ],
+    "curve": "CT_Creatures_Health_Universal_Tier33",
+    "values": [
+     4594,
+     7056,
+     9986,
+     13684,
+     18645
+    ]
+   }
+  ]
+ },
+ "damage": {
+  "intro": "Boss weapons come from each leader's outfit, which is not in the current exports yet, so weapon damage is not listed.",
+  "rows": []
+ },
+ "support": {
+  "intro": "Every gang brings a Lieutenant alongside its leader.",
+  "rows": [
+   {
+    "edid": "HIDE_FEVLieutenant",
+    "formId": "008F4EE5",
+    "name": "Super Mutant Shredder",
+    "race": "SuperMutant",
+    "levelMin": 75,
+    "levelMax": 200,
+    "hpMin": 9900,
+    "hpMax": 48970,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 203,
+     "ER": 158,
+     "Fire": 216,
+     "Cryo": 158,
+     "Poison": 585,
+     "Rad": 1648
+    },
+    "speedMult": 100.0,
+    "faction": "FEV Creatures",
+    "role": "support",
+    "loadout": "Lieutenant"
+   },
+   {
+    "edid": "HIDE_RobotLieutenant",
+    "formId": "008F4ECD",
+    "name": "Auxiliary Tactical Unit",
+    "race": "DLC01RoboBrain",
+    "levelMin": 75,
+    "levelMax": 200,
+    "hpMin": 7056,
+    "hpMax": 36183,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Robots",
+    "role": "support",
+    "loadout": "Lieutenant"
+   },
+   {
+    "edid": "HIDE_LostLieutenant",
+    "formId": "008F4EB4",
+    "name": "Lost Voltaic Adjutant",
+    "race": "Lost",
+    "levelMin": 75,
+    "levelMax": 200,
+    "hpMin": 9900,
+    "hpMax": 48970,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier35",
+    "statsFrom": "",
+    "resist": {
+     "DR": 168,
+     "ER": 282,
+     "Fire": 108,
+     "Cryo": 75,
+     "Poison": 94,
+     "Rad": 1648
+    },
+    "speedMult": 100.0,
+    "faction": "The Lost",
+    "role": "support",
+    "loadout": "Lieutenant"
+   },
+   {
+    "edid": "HIDE_CultistLieutenant",
+    "formId": "008F4ECF",
+    "name": "Cultist Chosen",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 200,
+    "hpMin": 11729,
+    "hpMax": 57013,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier36",
+    "statsFrom": "",
+    "resist": {
+     "DR": 131,
+     "ER": 148,
+     "Fire": 131,
+     "Cryo": 108,
+     "Poison": 158,
+     "Rad": 148
+    },
+    "speedMult": 100.0,
+    "faction": "Mothman Cultists",
+    "role": "support",
+    "loadout": "Lieutenant"
+   },
+   {
+    "edid": "HIDE_RustRaiderLieutenant",
+    "formId": "008F4EBA",
+    "name": "Rust Guard Lieutenant",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 200,
+    "hpMin": 7056,
+    "hpMax": 36183,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 323,
+     "ER": 247,
+     "Fire": 247,
+     "Cryo": 148,
+     "Poison": 148,
+     "Rad": 247
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders",
+    "role": "support",
+    "loadout": "Lieutenant"
+   }
+  ]
+ },
+ "npcs": {
+  "intro": "Each gang fills its Hideout with fighters in set roles (close, medium and long range, support, interference and fodder), plus rare wildcard spawns and the Hideout's own wildlife.",
+  "rows": [
+   {
+    "edid": "HIDE_FEVCloseRange",
+    "formId": "008F4EE9",
+    "name": "Super Mutant Berserker",
+    "race": "SuperMutant",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 1552,
+    "hpMax": 6415,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier24",
+    "statsFrom": "",
+    "resist": {
+     "DR": 160,
+     "ER": 130,
+     "Fire": 183,
+     "Cryo": 130,
+     "Poison": 516,
+     "Rad": 1475
+    },
+    "speedMult": 100.0,
+    "faction": "FEV Creatures",
+    "role": "mob",
+    "loadout": "Close range"
+   },
+   {
+    "edid": "HIDE_FEVInterference",
+    "formId": "008F4EDB",
+    "name": "Floater Freezer",
+    "race": "Floater",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 1552,
+    "hpMax": 6415,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier24",
+    "statsFrom": "",
+    "resist": {
+     "DR": 56,
+     "ER": 1104,
+     "Fire": 40,
+     "Cryo": 516,
+     "Poison": 56,
+     "Rad": 349
+    },
+    "speedMult": 100.0,
+    "faction": "FEV Creatures",
+    "role": "mob",
+    "loadout": "Interference"
+   },
+   {
+    "edid": "HIDE_FEVLongRange",
+    "formId": "008F4EDE",
+    "name": "Super Mutant Crusher",
+    "race": "SuperMutant",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 943,
+    "hpMax": 4083,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 160,
+     "ER": 130,
+     "Fire": 183,
+     "Cryo": 130,
+     "Poison": 516,
+     "Rad": 1475
+    },
+    "speedMult": 100.0,
+    "faction": "FEV Creatures",
+    "role": "mob",
+    "loadout": "Long range"
+   },
+   {
+    "edid": "HIDE_FEVMediumRange",
+    "formId": "008F4EC0",
+    "name": "Super Mutant Enforcer",
+    "race": "SuperMutant",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 943,
+    "hpMax": 4083,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 160,
+     "ER": 130,
+     "Fire": 183,
+     "Cryo": 130,
+     "Poison": 516,
+     "Rad": 1475
+    },
+    "speedMult": 100.0,
+    "faction": "FEV Creatures",
+    "role": "mob",
+    "loadout": "Medium range"
+   },
+   {
+    "edid": "HIDE_FEVPopcorn",
+    "formId": "008F4ED9",
+    "name": "Aberrant Mutant Hound / Mutant Hound Pup",
+    "race": "FEVHound",
+    "levelMin": 50,
+    "levelMax": 150,
+    "hpMin": 603,
+    "hpMax": 2786,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "speedMult": 110.0,
+    "faction": "FEV Creatures",
+    "role": "mob",
+    "loadout": "Fodder"
+   },
+   {
+    "edid": "HIDE_FEVPopcorn_01",
+    "formId": "008FF6A1",
+    "name": "Mutant Hound Pup",
+    "race": "FEVHound",
+    "levelMin": 50,
+    "levelMax": 150,
+    "hpMin": 603,
+    "hpMax": 2786,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "speedMult": 110.0,
+    "faction": "FEV Creatures",
+    "role": "mob",
+    "loadout": "Fodder (01)"
+   },
+   {
+    "edid": "HIDE_FEVPopcorn_02",
+    "formId": "008FF6A2",
+    "name": "Aberrant Mutant Hound",
+    "race": "FEVHound",
+    "levelMin": 50,
+    "levelMax": 150,
+    "hpMin": 842,
+    "hpMax": 3805,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier23",
+    "statsFrom": "",
+    "speedMult": 85.0,
+    "faction": "FEV Creatures",
+    "role": "mob",
+    "loadout": "Fodder (02)"
+   },
+   {
+    "edid": "HIDE_FEVSupport",
+    "formId": "008F4ECC",
+    "name": "Floater Flamer",
+    "race": "Floater",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 1552,
+    "hpMax": 6415,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier24",
+    "statsFrom": "",
+    "resist": {
+     "DR": 56,
+     "ER": 78,
+     "Fire": 516,
+     "Cryo": 40,
+     "Poison": 56,
+     "Rad": 349
+    },
+    "speedMult": 100.0,
+    "faction": "FEV Creatures",
+    "role": "mob",
+    "loadout": "Support"
+   },
+   {
+    "edid": "HIDE_FEVWildcard",
+    "formId": "008F4EC8",
+    "name": "Floater Emitter",
+    "race": "Floater",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 1552,
+    "hpMax": 6415,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier24",
+    "statsFrom": "",
+    "resist": {
+     "DR": 56,
+     "ER": 1104,
+     "Fire": 40,
+     "Cryo": 516,
+     "Poison": 56,
+     "Rad": 349
+    },
+    "speedMult": 100.0,
+    "faction": "FEV Creatures",
+    "role": "mob",
+    "loadout": "Wildcard"
+   },
+   {
+    "edid": "HIDE_RobotCloseRange",
+    "formId": "008F4EC1",
+    "name": "Construction Protectron",
+    "race": "ProtectronFast",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 1552,
+    "hpMax": 6415,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier24",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Robots",
+    "role": "mob",
+    "loadout": "Close range"
+   },
+   {
+    "edid": "HIDE_RobotCloseRange_Walker",
+    "formId": "00900663",
+    "name": "Construction Protectron",
+    "race": "Protectron",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 1552,
+    "hpMax": 6415,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier24",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Robots",
+    "role": "mob",
+    "loadout": "Close range (walker)"
+   },
+   {
+    "edid": "HIDE_RobotInterference",
+    "formId": "008F4ED3",
+    "name": "EyeBomb",
+    "race": "EyeBot",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 418,
+    "hpMax": 1953,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier16",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Robots",
+    "role": "mob",
+    "loadout": "Interference"
+   },
+   {
+    "edid": "HIDE_RobotLongRange",
+    "formId": "008F4EBF",
+    "name": "Security Bot",
+    "race": "Protectron",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 943,
+    "hpMax": 4083,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Robots",
+    "role": "mob",
+    "loadout": "Long range"
+   },
+   {
+    "edid": "HIDE_RobotMediumRange",
+    "formId": "008F4EC6",
+    "name": "Patrol Bot",
+    "race": "Handy",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 679,
+    "hpMax": 3032,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier19",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Robots",
+    "role": "mob",
+    "loadout": "Medium range"
+   },
+   {
+    "edid": "HIDE_RobotPopcorn",
+    "formId": "008F4EB5",
+    "name": "Maintenance Drone",
+    "race": "Liberator",
+    "levelMin": 50,
+    "levelMax": 150,
+    "hpMin": 312,
+    "hpMax": 1508,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier17",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Robots",
+    "role": "mob",
+    "loadout": "Fodder"
+   },
+   {
+    "edid": "HIDE_RobotSupport",
+    "formId": "008F4EE3",
+    "name": "Incineratron",
+    "race": "ProtectronFast",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 800,
+    "hpMax": 3517,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier20",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Robots",
+    "role": "mob",
+    "loadout": "Support"
+   },
+   {
+    "edid": "HIDE_RobotSupport_Walker",
+    "formId": "00900664",
+    "name": "Incineratron",
+    "race": "Protectron",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 800,
+    "hpMax": 3517,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier20",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Robots",
+    "role": "mob",
+    "loadout": "Support (walker)"
+   },
+   {
+    "edid": "HIDE_RobotWildcard",
+    "formId": "008F4ECE",
+    "name": "Organics Disposal Unit",
+    "race": "Assaultron",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 943,
+    "hpMax": 4083,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 171,
+     "ER": 113,
+     "Fire": 121,
+     "Cryo": 160,
+     "Poison": 1475,
+     "Rad": 1475
+    },
+    "speedMult": 100.0,
+    "faction": "Robots",
+    "role": "mob",
+    "loadout": "Wildcard"
+   },
+   {
+    "edid": "HIDE_RobotWildcard_Common",
+    "formId": "0094F8E5",
+    "name": "Organics Disposal Unit",
+    "race": "Assaultron",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 943,
+    "hpMax": 4083,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 171,
+     "ER": 113,
+     "Fire": 121,
+     "Cryo": 160,
+     "Poison": 1475,
+     "Rad": 1475
+    },
+    "speedMult": 100.0,
+    "faction": "Robots",
+    "role": "mob",
+    "loadout": "Wildcard (common)"
+   },
+   {
+    "edid": "HIDE_RobotWildcard_Rare",
+    "formId": "0094F8E6",
+    "name": "COB-E Prototype",
+    "race": "Protectron",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 4251,
+    "hpMax": 16101,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier30",
+    "statsFrom": "",
+    "speedMult": 200.0,
+    "faction": "Robots",
+    "role": "mob",
+    "loadout": "Wildcard (rare)"
+   },
+   {
+    "edid": "HIDE_LostCloseRange",
+    "formId": "008F4ED4",
+    "name": "Lost Dweller",
+    "race": "Lost",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 2169,
+    "hpMax": 8699,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier26",
+    "statsFrom": "",
+    "resist": {
+     "DR": 67,
+     "ER": 121,
+     "Fire": 72,
+     "Cryo": 47,
+     "Poison": 61,
+     "Rad": 1475
+    },
+    "speedMult": 100.0,
+    "faction": "The Lost",
+    "role": "mob",
+    "loadout": "Close range"
+   },
+   {
+    "edid": "HIDE_LostInterference",
+    "formId": "008F4EE7",
+    "name": "Feral Lost",
+    "race": "LostFeralSuicider",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 1552,
+    "hpMax": 6415,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier24",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "The Lost",
+    "role": "mob",
+    "loadout": "Interference"
+   },
+   {
+    "edid": "HIDE_LostLongRange",
+    "formId": "008F4EE0",
+    "name": "Lost Observer",
+    "race": "Lost",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 1113,
+    "hpMax": 4743,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier22",
+    "statsFrom": "",
+    "resist": {
+     "DR": 72,
+     "ER": 121,
+     "Fire": 84,
+     "Cryo": 56,
+     "Poison": 61,
+     "Rad": 1475
+    },
+    "speedMult": 100.0,
+    "faction": "The Lost",
+    "role": "mob",
+    "loadout": "Long range"
+   },
+   {
+    "edid": "HIDE_LostMediumRange",
+    "formId": "008F4EC5",
+    "name": "Lost Scavenger",
+    "race": "Lost",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 1314,
+    "hpMax": 5514,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier23",
+    "statsFrom": "",
+    "resist": {
+     "DR": 72,
+     "ER": 121,
+     "Fire": 84,
+     "Cryo": 56,
+     "Poison": 61,
+     "Rad": 1475
+    },
+    "speedMult": 100.0,
+    "faction": "The Lost",
+    "role": "mob",
+    "loadout": "Medium range"
+   },
+   {
+    "edid": "HIDE_LostPopcorn",
+    "formId": "008F4EC9",
+    "name": "Feral Lost",
+    "race": "LostFeralSuicider",
+    "levelMin": 50,
+    "levelMax": 150,
+    "hpMin": 432,
+    "hpMax": 2046,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier19",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "The Lost",
+    "role": "mob",
+    "loadout": "Fodder"
+   },
+   {
+    "edid": "HIDE_LostSupport",
+    "formId": "008F4EB6",
+    "name": "Lost Vanguard",
+    "race": "Lost",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 1552,
+    "hpMax": 6415,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier24",
+    "statsFrom": "",
+    "resist": {
+     "DR": 67,
+     "ER": 113,
+     "Fire": 72,
+     "Cryo": 47,
+     "Poison": 61,
+     "Rad": 1475
+    },
+    "speedMult": 100.0,
+    "faction": "The Lost",
+    "role": "mob",
+    "loadout": "Support"
+   },
+   {
+    "edid": "HIDE_LostWildcard",
+    "formId": "008F4ED0",
+    "name": "Lost Tempest",
+    "race": "Lost",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 1552,
+    "hpMax": 6415,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier24",
+    "statsFrom": "",
+    "resist": {
+     "DR": 72,
+     "ER": 121,
+     "Fire": 84,
+     "Cryo": 56,
+     "Poison": 61,
+     "Rad": 1475
+    },
+    "speedMult": 120.0,
+    "faction": "The Lost",
+    "role": "mob",
+    "loadout": "Wildcard"
+   },
+   {
+    "edid": "HIDE_LostWildcard_Common",
+    "formId": "00951684",
+    "name": "Lost Tempest",
+    "race": "Lost",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 1552,
+    "hpMax": 6415,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier24",
+    "statsFrom": "",
+    "resist": {
+     "DR": 72,
+     "ER": 121,
+     "Fire": 84,
+     "Cryo": 56,
+     "Poison": 61,
+     "Rad": 1475
+    },
+    "speedMult": 120.0,
+    "faction": "The Lost",
+    "role": "mob",
+    "loadout": "Wildcard (common)"
+   },
+   {
+    "edid": "HIDE_LostWildcard_Rare",
+    "formId": "00951685",
+    "name": "Lost Stormwalker",
+    "race": "Lost",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 4251,
+    "hpMax": 16101,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier30",
+    "statsFrom": "",
+    "resist": {
+     "DR": 139,
+     "ER": 407,
+     "Fire": 84,
+     "Cryo": 56,
+     "Poison": 61,
+     "Rad": 1475
+    },
+    "speedMult": 120.0,
+    "faction": "The Lost",
+    "role": "mob",
+    "loadout": "Wildcard (rare)"
+   },
+   {
+    "edid": "HIDE_CultistCloseRange",
+    "formId": "008F4EE2",
+    "name": "Cultist Initiate",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 2169,
+    "hpMax": 8699,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier26",
+    "statsFrom": "",
+    "resist": {
+     "DR": 72,
+     "ER": 91,
+     "Fire": 98,
+     "Cryo": 84,
+     "Poison": 98,
+     "Rad": 67
+    },
+    "speedMult": 100.0,
+    "faction": "Mothman Cultists",
+    "role": "mob",
+    "loadout": "Close range"
+   },
+   {
+    "edid": "HIDE_CultistInterference",
+    "formId": "008F4EDF",
+    "name": "Cultist Purifier",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 1552,
+    "hpMax": 6415,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier24",
+    "statsFrom": "",
+    "resist": {
+     "DR": 72,
+     "ER": 91,
+     "Fire": 121,
+     "Cryo": 84,
+     "Poison": 98,
+     "Rad": 67
+    },
+    "speedMult": 100.0,
+    "faction": "Mothman Cultists",
+    "role": "mob",
+    "loadout": "Interference"
+   },
+   {
+    "edid": "HIDE_CultistLongRange",
+    "formId": "008F4ED7",
+    "name": "Cultist Toxophilite",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 943,
+    "hpMax": 4083,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 72,
+     "ER": 91,
+     "Fire": 98,
+     "Cryo": 84,
+     "Poison": 160,
+     "Rad": 67
+    },
+    "speedMult": 100.0,
+    "faction": "Mothman Cultists",
+    "role": "mob",
+    "loadout": "Long range"
+   },
+   {
+    "edid": "HIDE_CultistMediumRange",
+    "formId": "008F4EC3",
+    "name": "Cultist",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 1314,
+    "hpMax": 5514,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier23",
+    "statsFrom": "",
+    "resist": {
+     "DR": 72,
+     "ER": 91,
+     "Fire": 98,
+     "Cryo": 84,
+     "Poison": 98,
+     "Rad": 67
+    },
+    "speedMult": 100.0,
+    "faction": "Mothman Cultists",
+    "role": "mob",
+    "loadout": "Medium range"
+   },
+   {
+    "edid": "HIDE_CultistPopcorn",
+    "formId": "008F4EDA",
+    "name": "Cultist Prospect",
+    "race": "Human",
+    "levelMin": 50,
+    "levelMax": 150,
+    "hpMin": 713,
+    "hpMax": 3255,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier22",
+    "statsFrom": "",
+    "resist": {
+     "DR": 56,
+     "ER": 72,
+     "Fire": 78,
+     "Cryo": 66,
+     "Poison": 78,
+     "Rad": 51
+    },
+    "speedMult": 100.0,
+    "faction": "Mothman Cultists",
+    "role": "mob",
+    "loadout": "Fodder"
+   },
+   {
+    "edid": "HIDE_CultistSupport",
+    "formId": "008F4EB8",
+    "name": "Cultist Zealot",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 1314,
+    "hpMax": 5514,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier23",
+    "statsFrom": "",
+    "resist": {
+     "DR": 72,
+     "ER": 91,
+     "Fire": 98,
+     "Cryo": 84,
+     "Poison": 98,
+     "Rad": 67
+    },
+    "speedMult": 100.0,
+    "faction": "Mothman Cultists",
+    "role": "mob",
+    "loadout": "Support"
+   },
+   {
+    "edid": "HIDE_CultistWildcard",
+    "formId": "008F4EC7",
+    "name": "Mothman Hatchling",
+    "race": "Mothman",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 943,
+    "hpMax": 4083,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Mothman Cultists",
+    "role": "mob",
+    "loadout": "Wildcard"
+   },
+   {
+    "edid": "HIDE_RustRaiderCloseRange",
+    "formId": "008F4EE4",
+    "name": "Rust Raider Mauler",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 1552,
+    "hpMax": 6415,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier24",
+    "statsFrom": "",
+    "resist": {
+     "DR": 139,
+     "ER": 105,
+     "Fire": 105,
+     "Cryo": 56,
+     "Poison": 91,
+     "Rad": 56
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders",
+    "role": "mob",
+    "loadout": "Close range"
+   },
+   {
+    "edid": "HIDE_RustRaiderInterference",
+    "formId": "008F4ED1",
+    "name": "Radhog",
+    "race": "RadHog",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 1113,
+    "hpMax": 4743,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier22",
+    "statsFrom": "",
+    "resist": {
+     "DR": 160,
+     "ER": 67,
+     "Fire": 160,
+     "Cryo": 52,
+     "Poison": 84,
+     "Rad": 98
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders",
+    "role": "mob",
+    "loadout": "Interference"
+   },
+   {
+    "edid": "HIDE_RustRaiderLongRange",
+    "formId": "008F4EE6",
+    "name": "Rust Raider Marksman",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 800,
+    "hpMax": 3517,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier20",
+    "statsFrom": "",
+    "resist": {
+     "DR": 121,
+     "ER": 91,
+     "Fire": 105,
+     "Cryo": 56,
+     "Poison": 91,
+     "Rad": 56
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders",
+    "role": "mob",
+    "loadout": "Long range"
+   },
+   {
+    "edid": "HIDE_RustRaiderMediumRange",
+    "formId": "008F4EE8",
+    "name": "Rust Raider",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 1113,
+    "hpMax": 4743,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier22",
+    "statsFrom": "",
+    "resist": {
+     "DR": 121,
+     "ER": 91,
+     "Fire": 105,
+     "Cryo": 56,
+     "Poison": 91,
+     "Rad": 56
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders",
+    "role": "mob",
+    "loadout": "Medium range"
+   },
+   {
+    "edid": "HIDE_RustRaiderPopcorn",
+    "formId": "008F4EB7",
+    "name": "Rust Raider Dreg",
+    "race": "Human",
+    "levelMin": 50,
+    "levelMax": 150,
+    "hpMin": 432,
+    "hpMax": 2046,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier19",
+    "statsFrom": "",
+    "resist": {
+     "DR": 98,
+     "ER": 72,
+     "Fire": 84,
+     "Cryo": 42,
+     "Poison": 72,
+     "Rad": 42
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders",
+    "role": "mob",
+    "loadout": "Fodder"
+   },
+   {
+    "edid": "HIDE_RustRaiderSupport",
+    "formId": "008F4EDC",
+    "name": "Rust Raider Enforcer",
+    "race": "Human",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 943,
+    "hpMax": 4083,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier21",
+    "statsFrom": "",
+    "resist": {
+     "DR": 121,
+     "ER": 91,
+     "Fire": 105,
+     "Cryo": 56,
+     "Poison": 91,
+     "Rad": 56
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders",
+    "role": "mob",
+    "loadout": "Support"
+   },
+   {
+    "edid": "HIDE_RustRaiderWildcard",
+    "formId": "008F4EC4",
+    "name": "Rusted Deathclaw",
+    "race": "Deathclaw",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 136,
+    "hpMax": 280,
+    "healthCurve": "CT_Creatures_Armor_Universal_Tier30",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Rust Raiders",
+    "role": "mob",
+    "loadout": "Wildcard"
+   },
+   {
+    "edid": "HIDE_RustRaiderWildcard_Common",
+    "formId": "00954353",
+    "name": "Rusted Deathclaw",
+    "race": "Deathclaw",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 136,
+    "hpMax": 280,
+    "healthCurve": "CT_Creatures_Armor_Universal_Tier30",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Rust Raiders",
+    "role": "mob",
+    "loadout": "Wildcard (common)"
+   },
+   {
+    "edid": "HIDE_RustRaiderWildcard_Rare",
+    "formId": "00954354",
+    "name": "Armored Deathclaw",
+    "race": "Deathclaw",
+    "levelMin": 75,
+    "levelMax": 175,
+    "hpMin": 7056,
+    "hpMax": 25683,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier33",
+    "statsFrom": "",
+    "resist": {
+     "DR": 139
+    },
+    "speedMult": 100.0,
+    "faction": "Rust Raiders",
+    "role": "mob",
+    "loadout": "Wildcard (rare)"
+   },
+   {
+    "edid": "HIDE_WL_BubbleTurret",
+    "formId": "00934693",
+    "name": "Laser Turret",
+    "race": "TurretBubble",
+    "levelMin": 25,
+    "levelMax": 25,
+    "hpMin": 161,
+    "hpMax": 161,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier17",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Hideout wildlife",
+    "role": "mob",
+    "loadout": "Wildlife"
+   },
+   {
+    "edid": "HIDE_WL_CaveCricket",
+    "formId": "0090ABCF",
+    "name": "Deep Cave Cricket",
+    "race": "DLC04_CaveCricket",
+    "levelMin": 25,
+    "levelMax": 100,
+    "hpMin": 370,
+    "hpMax": 1612,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier22",
+    "statsFrom": "",
+    "resist": {
+     "DR": 40,
+     "ER": 29,
+     "Fire": 36,
+     "Cryo": 40,
+     "Poison": 104,
+     "Rad": 58
+    },
+    "speedMult": 100.0,
+    "faction": "Hideout wildlife",
+    "role": "mob",
+    "loadout": "Wildlife"
+   },
+   {
+    "edid": "HIDE_WL_CaveRadscorpion",
+    "formId": "0090ABD0",
+    "name": "Cave Scorpion",
+    "race": "RadScorpion",
+    "levelMin": 25,
+    "levelMax": 100,
+    "hpMin": 730,
+    "hpMax": 3114,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier26",
+    "statsFrom": "",
+    "resist": {
+     "DR": 63,
+     "ER": 48,
+     "Fire": 44,
+     "Cryo": 58,
+     "Poison": 132,
+     "Rad": 215
+    },
+    "speedMult": 100.0,
+    "faction": "Hideout wildlife",
+    "role": "mob",
+    "loadout": "Wildlife"
+   },
+   {
+    "edid": "HIDE_WL_ExcavatorRadscorpion",
+    "formId": "0090B9F3",
+    "name": "Excavator Radscorpion",
+    "race": "RadScorpion",
+    "levelMin": 25,
+    "levelMax": 100,
+    "hpMin": 730,
+    "hpMax": 3114,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier26",
+    "statsFrom": "",
+    "resist": {
+     "DR": 104,
+     "ER": 74,
+     "Fire": 63,
+     "Cryo": 40,
+     "Poison": 48,
+     "Rad": 168
+    },
+    "speedMult": 110.0,
+    "faction": "Hideout wildlife",
+    "role": "mob",
+    "loadout": "Wildlife"
+   },
+   {
+    "edid": "HIDE_WL_FacilityMonitorBot",
+    "formId": "008F66E9",
+    "name": "Facility Monitor Bot",
+    "race": "EyeBot",
+    "levelMin": 25,
+    "levelMax": 100,
+    "hpMin": 99,
+    "hpMax": 448,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier14",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Hideout wildlife",
+    "role": "mob",
+    "loadout": "Wildlife"
+   },
+   {
+    "edid": "HIDE_WL_FeralGhoul",
+    "formId": "008F66EA",
+    "name": "Feral Ghoul",
+    "race": "FeralGhoul",
+    "levelMin": 25,
+    "levelMax": 100,
+    "hpMin": 224,
+    "hpMax": 990,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier19",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Hideout wildlife",
+    "role": "mob",
+    "loadout": "Wildlife"
+   },
+   {
+    "edid": "HIDE_WL_GlowingOne",
+    "formId": "00900665",
+    "name": "Enriched Glowing One",
+    "race": "FeralGhoulGlowing",
+    "levelMin": 25,
+    "levelMax": 100,
+    "hpMin": 370,
+    "hpMax": 1612,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier22",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Hideout wildlife",
+    "role": "mob",
+    "loadout": "Wildlife"
+   },
+   {
+    "edid": "HIDE_WL_ImmortalityCenterResident",
+    "formId": "0090B9F4",
+    "name": "Robobrain Resident",
+    "race": "DLC01RoboBrain",
+    "levelMin": 25,
+    "levelMax": 100,
+    "hpMin": 730,
+    "hpMax": 3114,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier26",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Hideout wildlife",
+    "role": "mob",
+    "loadout": "Wildlife"
+   },
+   {
+    "edid": "HIDE_WL_MirelurkCrab",
+    "formId": "008F66EE",
+    "name": "Mirelurk",
+    "race": "Mirelurk",
+    "levelMin": 25,
+    "levelMax": 100,
+    "hpMin": 224,
+    "hpMax": 990,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier19",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Hideout wildlife",
+    "role": "mob",
+    "loadout": "Wildlife"
+   },
+   {
+    "edid": "HIDE_WL_MirelurkHunter",
+    "formId": "008F66EF",
+    "name": "Mirelurk Hunter",
+    "race": "MirelurkHunter",
+    "levelMin": 25,
+    "levelMax": 100,
+    "hpMin": 370,
+    "hpMax": 1612,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier22",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Hideout wildlife",
+    "role": "mob",
+    "loadout": "Wildlife"
+   },
+   {
+    "edid": "HIDE_WL_MirelurkKing",
+    "formId": "008F66F0",
+    "name": "Mirelurk King",
+    "race": "MirelurkKing",
+    "levelMin": 25,
+    "levelMax": 100,
+    "hpMin": 616,
+    "hpMax": 2640,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier25",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Hideout wildlife",
+    "role": "mob",
+    "loadout": "Wildlife"
+   },
+   {
+    "edid": "HIDE_WL_Molerat",
+    "formId": "008F66F1",
+    "name": "Mole Rat",
+    "race": "Molerat",
+    "levelMin": 25,
+    "levelMax": 100,
+    "hpMin": 161,
+    "hpMax": 718,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier17",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Hideout wildlife",
+    "role": "mob",
+    "loadout": "Wildlife"
+   },
+   {
+    "edid": "HIDE_WL_MudGulper",
+    "formId": "0090B9F8",
+    "name": "Mud Gulper",
+    "race": "DLC03_GulperSmall",
+    "levelMin": 25,
+    "levelMax": 100,
+    "hpMin": 1445,
+    "hpMax": 6051,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier30",
+    "statsFrom": "",
+    "resist": {
+     "DR": 112,
+     "ER": 74,
+     "Fire": 63,
+     "Cryo": 24,
+     "Poison": 144,
+     "Rad": 132
+    },
+    "speedMult": 85.0,
+    "faction": "Hideout wildlife",
+    "role": "mob",
+    "loadout": "Wildlife"
+   },
+   {
+    "edid": "HIDE_WL_PestControlBot",
+    "formId": "008F66F2",
+    "name": "Forever Farmworker",
+    "race": "ProtectronFast",
+    "levelMin": 25,
+    "levelMax": 100,
+    "hpMin": 264,
+    "hpMax": 1164,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier20",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Hideout wildlife",
+    "role": "mob",
+    "loadout": "Wildlife"
+   },
+   {
+    "edid": "HIDE_WL_PestControlBot_Walker",
+    "formId": "00900666",
+    "name": "Forever Farmworker",
+    "race": "Protectron",
+    "levelMin": 25,
+    "levelMax": 100,
+    "hpMin": 264,
+    "hpMax": 1164,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier20",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Hideout wildlife",
+    "role": "mob",
+    "loadout": "Wildlife"
+   },
+   {
+    "edid": "HIDE_WL_ToxicBloatfly",
+    "formId": "008F66F3",
+    "name": "Toxic Bloatfly",
+    "race": "Bloatfly",
+    "levelMin": 25,
+    "levelMax": 100,
+    "hpMin": 161,
+    "hpMax": 718,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier17",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Hideout wildlife",
+    "role": "mob",
+    "loadout": "Wildlife"
+   },
+   {
+    "edid": "HIDE_WL_YaoGuai",
+    "formId": "00936DA1",
+    "name": "Yao Guai",
+    "race": "YaoGuai",
+    "levelMin": 25,
+    "levelMax": 100,
+    "hpMin": 730,
+    "hpMax": 3114,
+    "healthCurve": "CT_Creatures_Health_Universal_Tier26",
+    "statsFrom": "",
+    "speedMult": 100.0,
+    "faction": "Hideout wildlife",
+    "role": "mob",
+    "loadout": "Wildlife"
+   }
+  ]
+ }
+}

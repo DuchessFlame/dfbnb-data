@@ -62,7 +62,7 @@ def pages_for(total):
     return [(a, min(a + PAGE_SIZE - 1, total)) for a in range(1, total + 1, PAGE_SIZE)]
 
 
-def draw_crop(bg, rows, box, context=(), title=None):
+def draw_crop(bg, rows, box, context=(), title=None, legend="Brain in a Jar", label=lambda r: str(r["n"])):
     """Crop bg to box (4096 px space), scale to TILE_WIDTH, draw context dots grey,
     then rows numbered. rows carry px/py in 4096 space."""
     x0, y0, x1, y1 = box
@@ -79,11 +79,15 @@ def draw_crop(bg, rows, box, context=(), title=None):
     for r in loc:
         rsm.draw_dot(d, r["px"], r["py"])
     f = rsm._font(48)
+    for r in loc:                      # place_labels measures str(r["n"])
+        r["_n"], r["n"] = r["n"], label(r)
     rsm.place_labels(d, loc, f)
     for r in loc:
-        rsm.draw_outlined_text(d, r["label_xy"], str(r["n"]), f, w=3)
+        r["n"] = r["_n"]
+    for r in loc:
+        rsm.draw_outlined_text(d, r["label_xy"], label(r), f, w=3)
     if title:
-        rsm.draw_legend(crop, title, [("Brain in a Jar", len(rows))])
+        rsm.draw_legend(crop, title, [(legend, len(rows))])
     return map_watermark.apply(crop, corner="bottom-right")
 
 
