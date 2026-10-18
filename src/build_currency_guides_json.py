@@ -1091,7 +1091,9 @@ def build_gallery(slug):
     for g in _GALLERY.get(key) or []:
         if not g.get("file"):
             continue
-        row = {"url": GALLERY_ROOT + key + "/" + g["file"], "caption": g.get("caption", ""),
+        # "folder" points at another page's folder, so a shot two pages share
+        # (e.g. the Pioneer Scout machines) is stored and uploaded once.
+        row = {"url": GALLERY_ROOT + (g.get("folder") or key) + "/" + g["file"], "caption": g.get("caption", ""),
                "credit": g.get("credit", "")}
         if g.get("fit"):
             row["fit"] = g["fit"]
