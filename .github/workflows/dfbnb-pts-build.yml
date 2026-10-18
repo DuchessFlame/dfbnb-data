@@ -1395,6 +1395,16 @@ jobs:
       - name: Build combined plant guide pages
         run: python src/build_plant_combo_guides.py
 
+      # --- CURRENCY GUIDES (/df/currency/guide-<slug>/) ---
+      # One JSON per currency: limits, every source and every vendor that takes it.
+      # Reads dist/challenges, dist/treasure_maps.json and the camp-item exports, so it
+      # runs after those builds. Needs the NPC2 _Currencies/_Factions/_FactionsPlacements
+      # and TERM _Placements splits (re-run those .pas exports when they are missing).
+      # No --pts flag: tsv/ is already PTS-normalised and the relocate step moves
+      # dist/currency_guides -> dist/pts/currency_guides.
+      - name: Build Currency Guides JSON
+        run: python src/build_currency_guides_json.py
+
       # --- PRE-WAR FOOD LOCATION GUIDE ---
       # Same as the patch build. No --pts flag here: this workflow has already
       # swapped the PTS exports into tsv/, and the relocate step moves dist/ ->

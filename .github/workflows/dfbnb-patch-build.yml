@@ -1186,6 +1186,14 @@ jobs:
       - name: Build combined plant guide pages
         run: python src/build_plant_combo_guides.py
 
+      # --- CURRENCY GUIDES (/df/currency/guide-<slug>/) ---
+      # One JSON per currency: limits, every source and every vendor that takes it.
+      # Reads dist/challenges, dist/treasure_maps.json and the camp-item exports, so it
+      # runs after those builds. Needs the NPC2 _Currencies/_Factions/_FactionsPlacements
+      # and TERM _Placements splits (re-run those .pas exports when they are missing).
+      - name: Build Currency Guides JSON
+        run: python src/build_currency_guides_json.py
+
       # --- PRE-WAR FOOD LOCATION GUIDE (/bnb/farming/non-perishable/pre-war-food-location-guide/) ---
       # Every food the "Eat Pre-war Food" challenges count (the CHAL "Pre-war Food"
       # keyword) on one page: one Fixed Spawn sub-expand + map set per food, the

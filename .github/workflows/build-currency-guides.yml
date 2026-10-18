@@ -1,0 +1,73 @@
+name: Build Currency Guides
+
+# The currency guide pages (/df/currency/guide-<slug>/). Also runs inside the
+# DFBNB Patch Build and DFBNB PTS Build, so nothing extra to run per patch -
+# this workflow is for rebuilding just these pages after a change to the
+# builder, the limits table or the page list.
+
+on:
+  workflow_dispatch:
+
+  push:
+    paths:
+      - 'src/build_currency_guides_json.py'
+      - 'data/currency/limits.tsv'
+      - 'tsv/NPC2_Vendors_*_Currencies.tsv'
+      - 'tsv/NPC2_Vendors_*_Factions*.tsv'
+      - 'tsv/TERM_Export_*_Placements.tsv'
+      - '.github/workflows/build-currency-guides.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Build live currency guides
+        run: python src/build_currency_guides_json.py
+
+      - name: Build PTS currency guides
+        run: |
+          if ls tsv/pts/NPC2_Vendors_PTS_*_Currencies.tsv >/dev/null 2>&1 || ls tsv/pts/LVLI_Export_PTS_*_LVLI_Entries.tsv >/dev/null 2>&1; then
+            python src/build_currency_guides_json.py --pts
+          else
+            echo "No PTS exports - skipping."
+          fi
+
+      - name: Sanity check
+        run: |
+          python3 - <<'PY'
+          import json, glob
+          idx = json.load(open("dist/currency_guides/index.json"))
+          pages = [c for c in idx["currencies"] if c["has_page"]]
+          assert pages, "no currency page resolved"
+          for c in pages:
+              d = json.load(open(f"dist/currency_guides/{c['slug']}.json"))
+              n = sum(len(v) for v in d["sources"].values()) + len(d["vendors"]["fixed"]) + len(d["vendors"]["traveling"])
+              print(f"  {c['name']:<22} sources+vendors={n}")
+          PY
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add dist/currency_guides
+          git add --ignore-removal dist/pts/currency_guides 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Build Currency Guides data"
+            git pull --rebase origin main
+            git push
+          fi
