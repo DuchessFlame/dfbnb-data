@@ -1,0 +1,1660 @@
+{
+ "page": "/df/camp/personal-terminal/",
+ "title": "CAMP - Personal Terminal",
+ "source": "TERM_Export_October_2026.tsv",
+ "built": "2026-10-18",
+ "totals": {
+  "friends": 3,
+  "alerts": 5,
+  "stat_sections": 9,
+  "stats": 209,
+  "new": 0
+ },
+ "home": {
+  "form_id": "00417C2F",
+  "edid": "X01X_PlayerTerminal_Home",
+  "menu": [
+   {
+    "label": "My Daily Planner",
+    "kind": "daily",
+    "form_id": "00417C30"
+   },
+   {
+    "label": "My Stats",
+    "kind": "stats",
+    "form_id": "0092B362"
+   },
+   {
+    "label": "Automated Alerts",
+    "kind": "alerts",
+    "form_id": "00417C31"
+   }
+  ]
+ },
+ "daily": {
+  "form_id": "00417C30",
+  "edid": "X01X_PlayerTerminal_Daily",
+  "title": "My Personal Planner",
+  "empty_text": "Oh no! Looks like no one has made any appointments with you... Check back here if you meet a friend that wants you to meet them for an appointment.",
+  "friends": [
+   {
+    "id": "friend:X01X_PlayerTerminal_Daily_Biv",
+    "name": "Biv E. Ridge",
+    "form_id": "00417C33",
+    "edid": "X01X_PlayerTerminal_Daily_Biv",
+    "meet_button": "Meet Biv E. Ridge",
+    "states": [
+     {
+      "state": "READY TO MEET",
+      "text": "My friend Biv E. Ridge, the Robobrain, has asked me to stop by and help him craft and test an assortment of alcoholic beverages. I should head to Al's Tattoo Parlor in Morgantown and meet him in the speakeasy behind the Nuka-Cola machine. I'm sure he's come up with the next batch to test by now."
+     },
+     {
+      "state": "In Progress",
+      "text": "I've agreed to help Biv E. Ridge with crafting and testing an assortment of alcoholic beverages. I should check my Pip-Boy to see what he's requested today."
+     },
+     {
+      "state": "Done for Today",
+      "text": "Today I helped Biv E. Ridge with crafting and testing various alcoholic beverages. I should be sure to check back with him again tomorrow to see if he has more to test."
+     },
+     {
+      "state": "All Completed",
+      "text": "I've completed all of the taste tests that Biv E. Ridge requested help with. I don't think he'll need any more assistance with this for some time."
+     }
+    ]
+   },
+   {
+    "id": "friend:X01X_PlayerTerminal_Daily_Treadly",
+    "name": "Scout Leader Treadly",
+    "form_id": "00417C35",
+    "edid": "X01X_PlayerTerminal_Daily_Treadly",
+    "meet_button": "Meet Scout Leader Treadly",
+    "states": [
+     {
+      "state": "READY TO MEET",
+      "text": "I've met a Scout Leader named Treadly near Dolly Sods Campground. He was very concerned with ongoing insect infestations in the area and requested I check back with him in the future. I imagine he is in need of my help again."
+     },
+     {
+      "state": "In Progress",
+      "text": "Scout Leader Treadly has requested my assistance in gathering insect parts. I should check my Pip-Boy for details on what to do next."
+     },
+     {
+      "state": "Done for Today",
+      "text": "I helped out Scout Leader Treadly by bringing him a collection of insect parts. I should check in again with him tomorrow to see if he needs more help."
+     },
+     {
+      "state": "All Completed",
+      "text": "I've completed all of the tasks that Scout Leader Treadly had for me."
+     }
+    ]
+   },
+   {
+    "id": "friend:X01X_PlayerTerminal_Daily_Pompy",
+    "name": "Scout Leader Pompy",
+    "form_id": "00417C34",
+    "edid": "X01X_PlayerTerminal_Daily_Pompy",
+    "meet_button": "Meet Scout Leader Pompy",
+    "states": [
+     {
+      "state": "READY TO MEET",
+      "text": "I met a Mr. Handy Scout Leader named Pompy at Kiddie Corner Cabins. He's interested in cleaning up toxic waste in the area and needs my assistance. He asked me to return to him in the future to see if he needs help; I should visit him soon."
+     },
+     {
+      "state": "In Progress",
+      "text": "Scout Leader Pompy, a Mr. Handy I met at Kiddie Corner Cabins, has requested my help in cleaning up toxic waste in the area. I should check my Pip-Boy to see what to do next."
+     },
+     {
+      "state": "Done for Today",
+      "text": "I finished helping Scout Leader Pompy clean up toxic waste for the day. I should remember to meet with him again tomorrow to see if he needs more help."
+     },
+     {
+      "state": "All Completed",
+      "text": "I've completed all of the tasks that Scout Leader Pompy had for me."
+     }
+    ]
+   }
+  ]
+ },
+ "alerts": {
+  "form_id": "00417C31",
+  "edid": "X01X_PlayerTerminal_Alerts",
+  "alerts": [
+   {
+    "id": "alert:X01X_PlayerTerminal_Alerts_LGVendor",
+    "title": "Anomalous Seismic Activity",
+    "report": "Anomalous seismic activity found in a recent geological survey near Charleston.",
+    "review": "This report has not yet been reviewed",
+    "note": "It's important we look into any strange seismic activity-- could be a sign of an underground attack from the Commies.",
+    "coords": "Download Coordinates - The Rusty Pick",
+    "does": {
+     "marker": "The Rusty Pick",
+     "objectives": [
+      "Find the source of the seismic activity"
+     ]
+    },
+    "in_menu": true,
+    "form_id": "00537EC0",
+    "edid": "X01X_PlayerTerminal_Alerts_LGVendor"
+   },
+   {
+    "id": "alert:X01X_PlayerTerminal_Alerts_Hopper",
+    "title": "Unknown Machinery at Train Stations",
+    "report": "New Appalachian Railroad's Anti-Communist Watch Systems have detected unusual machinery at several train stations.",
+    "review": "This report has not yet been reviewed",
+    "note": "Any and all potential communist activity must be followed-up on IMMEDIATELY. We have to be on the scene before some feds in dark suits shoo us away.",
+    "coords": "Download Coordinates - Nearest Station",
+    "does": {
+     "marker": "Nearest Station",
+     "objectives": [
+      "Find the strange machinery"
+     ]
+    },
+    "in_menu": true,
+    "form_id": "00537EC1",
+    "edid": "X01X_PlayerTerminal_Alerts_Hopper"
+   },
+   {
+    "id": "alert:X01X_PlayerTerminal_Alerts_TouristCorpse",
+    "title": "Suspicious Person",
+    "report": "Suspicious person reported",
+    "review": "This report has not yet been reviewed",
+    "note": "Any and all potential communist activity must be followed-up on IMMEDIATELY. We have to be on the scene before some feds in dark suits shoo us away.",
+    "coords": "Download Coordinates - Suspicious Person",
+    "does": {
+     "marker": "Suspicious Person",
+     "objectives": [
+      "Investigate the suspicious person",
+      "Find a camera"
+     ],
+     "leads_to": {
+      "kind": "Quest",
+      "name": "Bucket List",
+      "edid": "P01C_Bucket",
+      "summary": "I've acquired a broken camera and the uncompleted bucket list of a deceased tourist. If I repair the camera, I could live out their last wishes and complete the list myself.",
+      "objectives": [
+       "Craft a Camera at a Weapons Workbench",
+       "Craft a Camera at a Tinker's Workbench",
+       "Photograph the Harpers Ferry Armory courtyard",
+       "Photograph the Freddy Fear's storefront"
+      ]
+     }
+    },
+    "in_menu": true,
+    "form_id": "00566191",
+    "edid": "X01X_PlayerTerminal_Alerts_TouristCorpse"
+   },
+   {
+    "id": "alert:X01X_PlayerTerminal_Alerts:hostile-occupation-alert",
+    "title": "Hostile Occupation Alert",
+    "report": "Several scanners have reported security breaches in the region. Hostile Occupation alert is in progress.",
+    "review": "This report has not yet been reviewed",
+    "note": "Drop all other stories and get on this NOW. If the Commies are here, we'll be reporting from the trenches.",
+    "coords": null,
+    "in_menu": true,
+    "does": null,
+    "form_id": null,
+    "edid": null
+   },
+   {
+    "id": "alert:X01X_PlayerTerminal_Alerts_Habitat",
+    "title": "Escaped animals reported by Arktos Pharma security monitoring",
+    "report": "Escaped animals reported by Arktos Pharma security monitoring.",
+    "review": "Reviewed by Editor Overbey",
+    "note": "This lines up with another tip we got: the Capitol Post is gearing up to run an exclusive from a whistle blower at Arktos. Let's get someone over there soon to see if we can break this story first.",
+    "coords": "Download Coordinates - Arktos Pharma",
+    "does": {
+     "marker": "Arktos Pharma",
+     "objectives": [
+      "Take the elevator down to Arktos Pharma Lab"
+     ],
+     "leads_to": {
+      "kind": "Event",
+      "name": "Project Paradise",
+      "edid": "SFS09_Habitat",
+      "summary": "The Arktos Pharma Biome Lab is ready to run an experiment. I can initialize it at the mainframe terminal just below the lobby.",
+      "objectives": [
+       "Initialize the experiment",
+       "Fill the feeding troughs",
+       "Final call for trough materials!",
+       "Meet the friendly animals"
+      ]
+     }
+    },
+    "in_menu": false,
+    "form_id": "00417C32",
+    "edid": "X01X_PlayerTerminal_Alerts_Habitat"
+   }
+  ]
+ },
+ "stats": {
+  "form_id": "0092B362",
+  "edid": "X01X_PlayerTerminal_Stats",
+  "sections": [
+   {
+    "id": "section:X01X_PlayerTerminal_Stats_Fishing",
+    "section": "Fishing",
+    "form_id": "0092B363",
+    "edid": "X01X_PlayerTerminal_Stats_Fishing",
+    "conditional": false,
+    "rows": [
+     {
+      "id": "stat:Fish Caught",
+      "label": "Fish Caught",
+      "stat": "Fish Caught"
+     },
+     {
+      "id": "stat:Junk Caught",
+      "label": "Junk Caught",
+      "stat": "Junk Caught"
+     }
+    ],
+    "groups": [
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Fishing:General Fish",
+      "name": "General Fish",
+      "rows": [
+       {
+        "id": "stat:Fish Caught: 007CE4D3",
+        "label": "Brook Silverside",
+        "stat": "Fish Caught: 007CE4D3",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4D3"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4DB",
+        "label": "Chain Pickerel",
+        "stat": "Fish Caught: 007CE4DB",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4DB"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4E9",
+        "label": "Redbelly",
+        "stat": "Fish Caught: 007CE4E9",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4E9"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4E8",
+        "label": "Ridge Trout",
+        "stat": "Fish Caught: 007CE4E8",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4E8"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4E0",
+        "label": "Smoky Salmon",
+        "stat": "Fish Caught: 007CE4E0",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4E0"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4D9",
+        "label": "Sunscream",
+        "stat": "Fish Caught: 007CE4D9",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4D9"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4EA",
+        "label": "Walleye",
+        "stat": "Fish Caught: 007CE4EA",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4EA"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4EB",
+        "label": "Yellow Bullhead",
+        "stat": "Fish Caught: 007CE4EB",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4EB"
+       }
+      ],
+      "conditional": false
+     },
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Fishing:Local Legends",
+      "name": "Local Legends",
+      "rows": [
+       {
+        "id": "stat:Fish Caught: 00804F74",
+        "label": "Ryl-Tkannoth, Maw-Begotten",
+        "stat": "Fish Caught: 00804F74",
+        "stat_kind": "Fish Caught",
+        "form_id": "00804F74"
+       },
+       {
+        "id": "stat:Fish Caught: 00804F76",
+        "label": "Organ Grinder",
+        "stat": "Fish Caught: 00804F76",
+        "stat_kind": "Fish Caught",
+        "form_id": "00804F76"
+       },
+       {
+        "id": "stat:Fish Caught: 00804F75",
+        "label": "Wavy Willard",
+        "stat": "Fish Caught: 00804F75",
+        "stat_kind": "Fish Caught",
+        "form_id": "00804F75"
+       },
+       {
+        "id": "stat:Fish Caught: 0085A4F6",
+        "label": "Hocking Hill Hellion",
+        "stat": "Fish Caught: 0085A4F6",
+        "stat_kind": "Fish Caught",
+        "form_id": "0085A4F6"
+       },
+       {
+        "id": "stat:Fish Caught: 008A45C9",
+        "label": "Glass Ghost",
+        "stat": "Fish Caught: 008A45C9",
+        "stat_kind": "Fish Caught",
+        "form_id": "008A45C9"
+       },
+       {
+        "id": "stat:Fish Caught: 008EFCA6",
+        "label": "Sludge Eye",
+        "stat": "Fish Caught: 008EFCA6",
+        "stat_kind": "Fish Caught",
+        "form_id": "008EFCA6"
+       }
+      ],
+      "conditional": false
+     },
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Fishing:Seasonal Fish",
+      "name": "Seasonal Fish",
+      "rows": [
+       {
+        "id": "stat:Fish Caught: 008A45CD",
+        "label": "Bog sucker",
+        "stat": "Fish Caught: 008A45CD",
+        "stat_kind": "Fish Caught",
+        "form_id": "008A45CD"
+       },
+       {
+        "id": "stat:Fish Caught: 008A45CB",
+        "label": "Orange overseer",
+        "stat": "Fish Caught: 008A45CB",
+        "stat_kind": "Fish Caught",
+        "form_id": "008A45CB"
+       },
+       {
+        "id": "stat:Fish Caught: 008A581E",
+        "label": "Fernskipper",
+        "stat": "Fish Caught: 008A581E",
+        "stat_kind": "Fish Caught",
+        "form_id": "008A581E"
+       },
+       {
+        "id": "stat:Fish Caught: 008A45CC",
+        "label": "Fester koi",
+        "stat": "Fish Caught: 008A45CC",
+        "stat_kind": "Fish Caught",
+        "form_id": "008A45CC"
+       }
+      ],
+      "conditional": false
+     },
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Fishing:Axolotl",
+      "name": "Axolotl",
+      "rows": [
+       {
+        "id": "stat:Fish Caught: 008006D7",
+        "label": "Charcoal Axolotl",
+        "stat": "Fish Caught: 008006D7",
+        "stat_kind": "Fish Caught",
+        "form_id": "008006D7"
+       },
+       {
+        "id": "stat:Fish Caught: 008006D3",
+        "label": "Pink Axolotl",
+        "stat": "Fish Caught: 008006D3",
+        "stat_kind": "Fish Caught",
+        "form_id": "008006D3"
+       },
+       {
+        "id": "stat:Fish Caught: 008006CF",
+        "label": "Clay Axolotl",
+        "stat": "Fish Caught: 008006CF",
+        "stat_kind": "Fish Caught",
+        "form_id": "008006CF"
+       },
+       {
+        "id": "stat:Fish Caught: 008006D9",
+        "label": "Dotted Axolotl",
+        "stat": "Fish Caught: 008006D9",
+        "stat_kind": "Fish Caught",
+        "form_id": "008006D9"
+       },
+       {
+        "id": "stat:Fish Caught: 008006D4",
+        "label": "Purple Axolotl",
+        "stat": "Fish Caught: 008006D4",
+        "stat_kind": "Fish Caught",
+        "form_id": "008006D4"
+       },
+       {
+        "id": "stat:Fish Caught: 008006D8",
+        "label": "Banded Axolotl",
+        "stat": "Fish Caught: 008006D8",
+        "stat_kind": "Fish Caught",
+        "form_id": "008006D8"
+       },
+       {
+        "id": "stat:Fish Caught: 008006DC",
+        "label": "Scaled Axolotl",
+        "stat": "Fish Caught: 008006DC",
+        "stat_kind": "Fish Caught",
+        "form_id": "008006DC"
+       },
+       {
+        "id": "stat:Fish Caught: 008006DB",
+        "label": "Striped Axolotl",
+        "stat": "Fish Caught: 008006DB",
+        "stat_kind": "Fish Caught",
+        "form_id": "008006DB"
+       },
+       {
+        "id": "stat:Fish Caught: 008006D5",
+        "label": "Shadow Axolotl",
+        "stat": "Fish Caught: 008006D5",
+        "stat_kind": "Fish Caught",
+        "form_id": "008006D5"
+       },
+       {
+        "id": "stat:Fish Caught: 008006DA",
+        "label": "Spotted Axolotl",
+        "stat": "Fish Caught: 008006DA",
+        "stat_kind": "Fish Caught",
+        "form_id": "008006DA"
+       },
+       {
+        "id": "stat:Fish Caught: 008006D6",
+        "label": "Speckled Axolotl",
+        "stat": "Fish Caught: 008006D6",
+        "stat_kind": "Fish Caught",
+        "form_id": "008006D6"
+       },
+       {
+        "id": "stat:Fish Caught: 008006D1",
+        "label": "Stone Axolotl",
+        "stat": "Fish Caught: 008006D1",
+        "stat_kind": "Fish Caught",
+        "form_id": "008006D1"
+       }
+      ],
+      "conditional": false
+     },
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Fishing:Forest Fish",
+      "name": "Forest Fish",
+      "rows": [
+       {
+        "id": "stat:Fish Caught: 007CE4ED",
+        "label": "Timber Sawgill",
+        "stat": "Fish Caught: 007CE4ED",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4ED"
+       },
+       {
+        "id": "stat:Fish Caught: 007D2AF3",
+        "label": "Bloodwhisker",
+        "stat": "Fish Caught: 007D2AF3",
+        "stat_kind": "Fish Caught",
+        "form_id": "007D2AF3"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4D4",
+        "label": "Kanawha Piranha",
+        "stat": "Fish Caught: 007CE4D4",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4D4"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4E1",
+        "label": "Glowing Kanawha Piranha",
+        "stat": "Fish Caught: 007CE4E1",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4E1"
+       }
+      ],
+      "conditional": false
+     },
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Fishing:Ash Heap Fish",
+      "name": "Ash Heap Fish",
+      "rows": [
+       {
+        "id": "stat:Fish Caught: 007CE4D0",
+        "label": "Sooty Sawgill",
+        "stat": "Fish Caught: 007CE4D0",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4D0"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4E5",
+        "label": "Ashen Ambusher",
+        "stat": "Fish Caught: 007CE4E5",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4E5"
+       },
+       {
+        "id": "stat:Fish Caught: 007D2AF0",
+        "label": "Deathjaw",
+        "stat": "Fish Caught: 007D2AF0",
+        "stat_kind": "Fish Caught",
+        "form_id": "007D2AF0"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4E2",
+        "label": "Glowing Ambusher",
+        "stat": "Fish Caught: 007CE4E2",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4E2"
+       }
+      ],
+      "conditional": false
+     },
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Fishing:Toxic Valley Fish",
+      "name": "Toxic Valley Fish",
+      "rows": [
+       {
+        "id": "stat:Fish Caught: 007CE4E3",
+        "label": "Noxious Sawgill",
+        "stat": "Fish Caught: 007CE4E3",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4E3"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4D2",
+        "label": "Potbelly Kelt",
+        "stat": "Fish Caught: 007CE4D2",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4D2"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4DD",
+        "label": "Purple Radpole",
+        "stat": "Fish Caught: 007CE4DD",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4DD"
+       },
+       {
+        "id": "stat:Fish Caught: 007D2AF2",
+        "label": "Glowing Potbelly Kelt",
+        "stat": "Fish Caught: 007D2AF2",
+        "stat_kind": "Fish Caught",
+        "form_id": "007D2AF2"
+       }
+      ],
+      "conditional": false
+     },
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Fishing:Savage Divide Fish",
+      "name": "Savage Divide Fish",
+      "rows": [
+       {
+        "id": "stat:Fish Caught: 007CE4DC",
+        "label": "Alpine Sawgill",
+        "stat": "Fish Caught: 007CE4DC",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4DC"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4E6",
+        "label": "Armored Spinefish",
+        "stat": "Fish Caught: 007CE4E6",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4E6"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4D5",
+        "label": "Leatherback",
+        "stat": "Fish Caught: 007CE4D5",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4D5"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4E4",
+        "label": "Glowing Spinefish",
+        "stat": "Fish Caught: 007CE4E4",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4E4"
+       }
+      ],
+      "conditional": false
+     },
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Fishing:Mire Fish",
+      "name": "Mire Fish",
+      "rows": [
+       {
+        "id": "stat:Fish Caught: 007CE4E7",
+        "label": "Muddy Sawgill",
+        "stat": "Fish Caught: 007CE4E7",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4E7"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4EC",
+        "label": "Gulpy",
+        "stat": "Fish Caught: 007CE4EC",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4EC"
+       },
+       {
+        "id": "stat:Fish Caught: 007D2AF1",
+        "label": "Spikedsnapper",
+        "stat": "Fish Caught: 007D2AF1",
+        "stat_kind": "Fish Caught",
+        "form_id": "007D2AF1"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4D7",
+        "label": "Glowing Gulpy",
+        "stat": "Fish Caught: 007CE4D7",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4D7"
+       }
+      ],
+      "conditional": false
+     },
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Fishing:Cranberry Bog Fish",
+      "name": "Cranberry Bog Fish",
+      "rows": [
+       {
+        "id": "stat:Fish Caught: 007CE4DA",
+        "label": "Bog Sawgill",
+        "stat": "Fish Caught: 007CE4DA",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4DA"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4DF",
+        "label": "Blisterfish",
+        "stat": "Fish Caught: 007CE4DF",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4DF"
+       },
+       {
+        "id": "stat:Fish Caught: 007D2AF4",
+        "label": "Bog Lurker",
+        "stat": "Fish Caught: 007D2AF4",
+        "stat_kind": "Fish Caught",
+        "form_id": "007D2AF4"
+       },
+       {
+        "id": "stat:Fish Caught: 007D2AF5",
+        "label": "Glowing Bog Lurker",
+        "stat": "Fish Caught: 007D2AF5",
+        "stat_kind": "Fish Caught",
+        "form_id": "007D2AF5"
+       }
+      ],
+      "conditional": false
+     },
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Fishing:Skyline Valley Fish",
+      "name": "Skyline Valley Fish",
+      "rows": [
+       {
+        "id": "stat:Fish Caught: 007CE4DE",
+        "label": "Static Sawgill",
+        "stat": "Fish Caught: 007CE4DE",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4DE"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4D1",
+        "label": "Bluefin Zapper",
+        "stat": "Fish Caught: 007CE4D1",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4D1"
+       },
+       {
+        "id": "stat:Fish Caught: 007CE4D6",
+        "label": "Stormswimmer",
+        "stat": "Fish Caught: 007CE4D6",
+        "stat_kind": "Fish Caught",
+        "form_id": "007CE4D6"
+       },
+       {
+        "id": "stat:Fish Caught: 007D2AEF",
+        "label": "Glowing Stormswimmer",
+        "stat": "Fish Caught: 007D2AEF",
+        "stat_kind": "Fish Caught",
+        "form_id": "007D2AEF"
+       }
+      ],
+      "conditional": false
+     },
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Fishing:Burning Springs Fish",
+      "name": "Burning Springs Fish",
+      "rows": [
+       {
+        "id": "stat:Fish Caught: 0084829C",
+        "label": "Rusted sawgill",
+        "stat": "Fish Caught: 0084829C",
+        "stat_kind": "Fish Caught",
+        "form_id": "0084829C"
+       },
+       {
+        "id": "stat:Fish Caught: 0084829D",
+        "label": "Brahfin",
+        "stat": "Fish Caught: 0084829D",
+        "stat_kind": "Fish Caught",
+        "form_id": "0084829D"
+       },
+       {
+        "id": "stat:Fish Caught: 0084829F",
+        "label": "Withered radeye",
+        "stat": "Fish Caught: 0084829F",
+        "stat_kind": "Fish Caught",
+        "form_id": "0084829F"
+       },
+       {
+        "id": "stat:Fish Caught: 0084829E",
+        "label": "Glowing brahfin",
+        "stat": "Fish Caught: 0084829E",
+        "stat_kind": "Fish Caught",
+        "form_id": "0084829E"
+       }
+      ],
+      "conditional": false
+     }
+    ],
+    "count": 64
+   },
+   {
+    "id": "section:X01X_PlayerTerminal_Stats_Exploration",
+    "section": "Exploration",
+    "form_id": "0092B364",
+    "edid": "X01X_PlayerTerminal_Stats_Exploration",
+    "conditional": false,
+    "rows": [
+     {
+      "id": "stat:Locations Discovered",
+      "label": "Locations Discovered",
+      "stat": "Locations Discovered"
+     },
+     {
+      "id": "stat:Quests Completed",
+      "label": "Quests Completed",
+      "stat": "Quests Completed"
+     },
+     {
+      "id": "stat:Expeditions Completed",
+      "label": "Expeditions Completed",
+      "stat": "Expeditions Completed"
+     },
+     {
+      "id": "stat:Total Meltdowns",
+      "label": "Nukes Launched",
+      "stat": "Total Meltdowns"
+     },
+     {
+      "id": "stat:Computers Hacked",
+      "label": "Terminals Hacked",
+      "stat": "Computers Hacked"
+     },
+     {
+      "id": "stat:Locks Picked",
+      "label": "Locks Picked",
+      "stat": "Locks Picked"
+     },
+     {
+      "id": "stat:Recipes Learned",
+      "label": "Recipes Learned",
+      "stat": "Recipes Learned"
+     },
+     {
+      "id": "stat:Total Distance Traveled",
+      "label": "Distance Traveled",
+      "stat": "Total Distance Traveled"
+     },
+     {
+      "id": "stat:Hours Played",
+      "label": "Hours Played",
+      "stat": "Hours Played"
+     },
+     {
+      "id": "stat:Bobbleheads Collected",
+      "label": "Bobbleheads Found",
+      "stat": "Bobbleheads Collected"
+     },
+     {
+      "id": "stat:Magazines Read",
+      "label": "Magazines Read",
+      "stat": "Magazines Read"
+     },
+     {
+      "id": "stat:Diseases Caught",
+      "label": "Diseases Caught",
+      "stat": "Diseases Caught"
+     },
+     {
+      "id": "stat:Mutations Acquired",
+      "label": "Times Mutated",
+      "stat": "Mutations Acquired"
+     },
+     {
+      "id": "stat:Addictions Cured",
+      "label": "Addictions Cured",
+      "stat": "Addictions Cured"
+     },
+     {
+      "id": "stat:Junk Collected",
+      "label": "Junk Collected",
+      "stat": "Junk Collected"
+     },
+     {
+      "id": "stat:Plants Harvested",
+      "label": "Plants Harvested",
+      "stat": "Plants Harvested"
+     }
+    ],
+    "groups": [],
+    "count": 16
+   },
+   {
+    "id": "section:X01X_PlayerTerminal_Stats_Combat",
+    "section": "Combat",
+    "form_id": "0092B365",
+    "edid": "X01X_PlayerTerminal_Stats_Combat",
+    "conditional": false,
+    "rows": [
+     {
+      "id": "stat:Total Enemies Killed",
+      "label": "Total Kills",
+      "stat": "Total Enemies Killed"
+     },
+     {
+      "id": "stat:Total Creatures Killed",
+      "label": "Creatures Killed",
+      "stat": "Total Creatures Killed"
+     },
+     {
+      "id": "stat:Total Robots Killed",
+      "label": "Robots Destroyed",
+      "stat": "Total Robots Killed"
+     },
+     {
+      "id": "stat:Total Animals Killed",
+      "label": "Animals Slaughtered",
+      "stat": "Total Animals Killed"
+     },
+     {
+      "id": "stat:Total Insects Killed",
+      "label": "Insects Killed",
+      "stat": "Total Insects Killed"
+     },
+     {
+      "id": "stat:Total Cryptids Killed",
+      "label": "Cryptids Killed",
+      "stat": "Total Cryptids Killed"
+     },
+     {
+      "id": "stat:Critters Killed",
+      "label": "Critters Killed",
+      "stat": "Critters Killed"
+     },
+     {
+      "id": "stat:Mutated Enemies Killed",
+      "label": "Mutated Enemies Killed",
+      "stat": "Mutated Enemies Killed"
+     },
+     {
+      "id": "stat:Limbs Crippled (Any)",
+      "label": "Limbs Crippled",
+      "stat": "Limbs Crippled (Any)"
+     }
+    ],
+    "groups": [
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Combat:Creatures",
+      "name": "Creatures",
+      "rows": [
+       {
+        "id": "stat:Behemoths Killed",
+        "label": "Behemoths Killed",
+        "stat": "Behemoths Killed"
+       },
+       {
+        "id": "stat:Deathclaws Killed",
+        "label": "Deathclaws Killed",
+        "stat": "Deathclaws Killed"
+       },
+       {
+        "id": "stat:Feral Ghouls Killed",
+        "label": "Feral Ghouls Killed",
+        "stat": "Feral Ghouls Killed"
+       },
+       {
+        "id": "stat:Floaters Killed",
+        "label": "Floaters Killed",
+        "stat": "Floaters Killed"
+       },
+       {
+        "id": "stat:Glowing Ones Killed",
+        "label": "Glowing Ones Killed",
+        "stat": "Glowing Ones Killed"
+       },
+       {
+        "id": "stat:Honey Beast Killed",
+        "label": "Honey Beasts Killed",
+        "stat": "Honey Beast Killed"
+       },
+       {
+        "id": "stat:Mole Miners Killed",
+        "label": "Mole Miners Killed",
+        "stat": "Mole Miners Killed"
+       },
+       {
+        "id": "stat:Overgrown Killed",
+        "label": "Overgrown Killed",
+        "stat": "Overgrown Killed"
+       },
+       {
+        "id": "stat:Overgrown Killed With Fire",
+        "label": "Overgrown Killed with Fire",
+        "stat": "Overgrown Killed With Fire"
+       },
+       {
+        "id": "stat:Rad Hogs Killed",
+        "label": "Rad Hogs Killed",
+        "stat": "Rad Hogs Killed"
+       },
+       {
+        "id": "stat:Scorched Killed",
+        "label": "Scorched Killed",
+        "stat": "Scorched Killed"
+       },
+       {
+        "id": "stat:Scorchbeasts Killed",
+        "label": "Scorchbeasts Killed",
+        "stat": "Scorchbeasts Killed"
+       },
+       {
+        "id": "stat:Snallygasters Killed",
+        "label": "Snallygasters Killed",
+        "stat": "Snallygasters Killed"
+       },
+       {
+        "id": "stat:Super Mutants Killed",
+        "label": "Super Mutants Killed",
+        "stat": "Super Mutants Killed"
+       },
+       {
+        "id": "stat:Trogs Killed",
+        "label": "Trogs Killed",
+        "stat": "Trogs Killed"
+       },
+       {
+        "id": "stat:Trogs Killed With AutoAxe",
+        "label": "Trogs Killed with Auto Axe",
+        "stat": "Trogs Killed With AutoAxe"
+       }
+      ],
+      "conditional": false
+     },
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Combat:Robots",
+      "name": "Robots",
+      "rows": [
+       {
+        "id": "stat:Assaultrons Destroyed",
+        "label": "Assaultrons Destroyed",
+        "stat": "Assaultrons Destroyed"
+       },
+       {
+        "id": "stat:Eyebots Destroyed",
+        "label": "Eyebots Destroyed",
+        "stat": "Eyebots Destroyed"
+       },
+       {
+        "id": "stat:Liberators Destroyed",
+        "label": "Liberators Destroyed",
+        "stat": "Liberators Destroyed"
+       },
+       {
+        "id": "stat:Mr Handys Destroyed",
+        "label": "Mr. Handys Destroyed",
+        "stat": "Mr Handys Destroyed"
+       },
+       {
+        "id": "stat:Protectrons Destroyed",
+        "label": "Protectrons Destroyed",
+        "stat": "Protectrons Destroyed"
+       },
+       {
+        "id": "stat:Sentry Bots Destroyed",
+        "label": "Sentry Bots Destroyed",
+        "stat": "Sentry Bots Destroyed"
+       },
+       {
+        "id": "stat:Turrets Destroyed",
+        "label": "Turrets Destroyed",
+        "stat": "Turrets Destroyed"
+       },
+       {
+        "id": "stat:Vertibots Destroyed",
+        "label": "Vertibots Destroyed",
+        "stat": "Vertibots Destroyed"
+       }
+      ],
+      "conditional": false
+     },
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Combat:Animals",
+      "name": "Animals",
+      "rows": [
+       {
+        "id": "stat:Canines Killed",
+        "label": "Canines Killed",
+        "stat": "Canines Killed"
+       },
+       {
+        "id": "stat:Molerats Killed",
+        "label": "Molerats Killed",
+        "stat": "Molerats Killed"
+       },
+       {
+        "id": "stat:Mutated Wolves Killed",
+        "label": "Mutated Wolves Killed",
+        "stat": "Mutated Wolves Killed"
+       },
+       {
+        "id": "stat:Rad Turkeys Killed",
+        "label": "Thrasher Killed",
+        "stat": "Rad Turkeys Killed"
+       },
+       {
+        "id": "stat:Yao Guais Killed",
+        "label": "Yao Guais Killed",
+        "stat": "Yao Guais Killed"
+       }
+      ],
+      "conditional": false
+     },
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Combat:Insects",
+      "name": "Insects",
+      "rows": [
+       {
+        "id": "stat:Bloodbugs Killed",
+        "label": "Bloodbugs Killed",
+        "stat": "Bloodbugs Killed"
+       },
+       {
+        "id": "stat:Fog Crawlers Killed",
+        "label": "Fog Crawlers Killed",
+        "stat": "Fog Crawlers Killed"
+       },
+       {
+        "id": "stat:Mirelurks Killed",
+        "label": "Mirelurks Killed",
+        "stat": "Mirelurks Killed"
+       },
+       {
+        "id": "stat:Rad Ants Killed",
+        "label": "Rad Ants Killed",
+        "stat": "Rad Ants Killed"
+       },
+       {
+        "id": "stat:Rad Roaches Killed",
+        "label": "Rad Roaches Killed",
+        "stat": "Rad Roaches Killed"
+       },
+       {
+        "id": "stat:Rad Scorpions Killed",
+        "label": "Rad Scorpions Killed",
+        "stat": "Rad Scorpions Killed"
+       },
+       {
+        "id": "stat:Stingwings Killed",
+        "label": "Stingwings Killed",
+        "stat": "Stingwings Killed"
+       },
+       {
+        "id": "stat:Ticks Killed",
+        "label": "Ticks Killed",
+        "stat": "Ticks Killed"
+       }
+      ],
+      "conditional": false
+     },
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Combat:Cryptids",
+      "name": "Cryptids",
+      "rows": [
+       {
+        "id": "stat:Alien Killed",
+        "label": "Aliens Killed",
+        "stat": "Alien Killed"
+       },
+       {
+        "id": "stat:Angler Killed",
+        "label": "Angler Killed",
+        "stat": "Angler Killed"
+       },
+       {
+        "id": "stat:Blue Devils Killed",
+        "label": "Blue Devil Killed",
+        "stat": "Blue Devils Killed"
+       },
+       {
+        "id": "stat:Bigfoot Killed",
+        "label": "Bigfoot Killed",
+        "stat": "Bigfoot Killed"
+       },
+       {
+        "id": "stat:Flatwoods Monsters Killed",
+        "label": "Flatwoods Monsters Killed",
+        "stat": "Flatwoods Monsters Killed"
+       },
+       {
+        "id": "stat:Grafton Monsters Killed",
+        "label": "Grafton Monsters Killed",
+        "stat": "Grafton Monsters Killed"
+       },
+       {
+        "id": "stat:Jersey Devil Killed",
+        "label": "Jersey Devil Killed",
+        "stat": "Jersey Devil Killed"
+       },
+       {
+        "id": "stat:Lesser Devils Killed With Melee",
+        "label": "Lesser Devils Killed with Melee",
+        "stat": "Lesser Devils Killed With Melee"
+       },
+       {
+        "id": "stat:Mega Sloth Killed",
+        "label": "Mega Sloth Killed",
+        "stat": "Mega Sloth Killed"
+       },
+       {
+        "id": "stat:Mothmen Killed",
+        "label": "Mothmen Killed",
+        "stat": "Mothmen Killed"
+       },
+       {
+        "id": "stat:Ogua Killed",
+        "label": "Ogua Killed",
+        "stat": "Ogua Killed"
+       },
+       {
+        "id": "stat:Sheepsquatch Killed",
+        "label": "Sheepsquatch Killed",
+        "stat": "Sheepsquatch Killed"
+       },
+       {
+        "id": "stat:Wendigo Killed",
+        "label": "Wendigo Killed",
+        "stat": "Wendigo Killed"
+       }
+      ],
+      "conditional": false
+     },
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Combat:Critters",
+      "name": "Critters",
+      "rows": [
+       {
+        "id": "stat:Beavers Killed",
+        "label": "Beavers Slaughtered",
+        "stat": "Beavers Killed"
+       },
+       {
+        "id": "stat:Brahmin Slaughtered",
+        "label": "Brahmin Slaughtered",
+        "stat": "Brahmin Slaughtered"
+       },
+       {
+        "id": "stat:Chickens Killed",
+        "label": "Chickens Slaughtered",
+        "stat": "Chickens Killed"
+       },
+       {
+        "id": "stat:Foxes Killed",
+        "label": "Foxes Slaughtered",
+        "stat": "Foxes Killed"
+       },
+       {
+        "id": "stat:Opossoms Killed",
+        "label": "Opossoms Slaughtered",
+        "stat": "Opossoms Killed"
+       },
+       {
+        "id": "stat:Rabbits Killed",
+        "label": "Rabbits Slaughtered",
+        "stat": "Rabbits Killed"
+       },
+       {
+        "id": "stat:Rad Stags Slaughtered",
+        "label": "Rad Stags Slaughtered",
+        "stat": "Rad Stags Slaughtered"
+       },
+       {
+        "id": "stat:Squirrels Killed",
+        "label": "Squirrels Slaughtered",
+        "stat": "Squirrels Killed"
+       },
+       {
+        "id": "stat:Toads Killed",
+        "label": "Toads Slaughtered",
+        "stat": "Toads Killed"
+       }
+      ],
+      "conditional": false
+     },
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Combat:Nuke Zone Boss",
+      "name": "Nuke Zone Boss",
+      "rows": [
+       {
+        "id": "stat:Scorchbeast Queens Killed",
+        "label": "Scorchbeast Queens Killed",
+        "stat": "Scorchbeast Queens Killed"
+       },
+       {
+        "id": "stat:Wendigo Colossus Killed",
+        "label": "Wendigo Colossus Killed",
+        "stat": "Wendigo Colossus Killed"
+       },
+       {
+        "id": "stat:Ultracite Titians Killed",
+        "label": "Ultracite Titians Killed",
+        "stat": "Ultracite Titians Killed"
+       },
+       {
+        "id": "stat:Storm Goliaths Destroyed",
+        "label": "Storm Goliaths Destroyed",
+        "stat": "Storm Goliaths Destroyed"
+       }
+      ],
+      "conditional": false
+     },
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Combat:PvP",
+      "name": "PvP",
+      "rows": [
+       {
+        "id": "stat:Wanted Players Killed",
+        "label": "Wanted Players Killed",
+        "stat": "Wanted Players Killed"
+       },
+       {
+        "id": "stat:Players Murdered",
+        "label": "Players Murdered",
+        "stat": "Players Murdered"
+       },
+       {
+        "id": "stat:Players Killed",
+        "label": "Players Killed",
+        "stat": "Players Killed"
+       },
+       {
+        "id": "stat:Duels Won",
+        "label": "Duels Won",
+        "stat": "Duels Won"
+       }
+      ],
+      "conditional": false
+     }
+    ],
+    "count": 76
+   },
+   {
+    "id": "section:X01X_PlayerTerminal_Stats_Social",
+    "section": "Social",
+    "form_id": "0092D0A2",
+    "edid": "X01X_PlayerTerminal_Stats_Social",
+    "conditional": false,
+    "rows": [
+     {
+      "id": "stat:Friends Made",
+      "label": "Friends Made",
+      "stat": "Friends Made"
+     },
+     {
+      "id": "stat:Teams Joined",
+      "label": "Teams Joined",
+      "stat": "Teams Joined"
+     },
+     {
+      "id": "stat:Photos Taken",
+      "label": "Photos Taken",
+      "stat": "Photos Taken"
+     },
+     {
+      "id": "stat:Players Revived",
+      "label": "Players Revived",
+      "stat": "Players Revived"
+     },
+     {
+      "id": "stat:Bodies in Emotion",
+      "label": "Times Emoted",
+      "stat": "Bodies in Emotion"
+     }
+    ],
+    "groups": [],
+    "count": 5
+   },
+   {
+    "id": "section:X01X_PlayerTerminal_Stats_Building",
+    "section": "Workshop and C.A.M.P.",
+    "form_id": "0092D0A3",
+    "edid": "X01X_PlayerTerminal_Stats_Building",
+    "conditional": false,
+    "rows": [
+     {
+      "id": "stat:Best Build Camp Visited",
+      "label": "Best Builds Visited",
+      "stat": "Best Build Camp Visited"
+     },
+     {
+      "id": "stat:Best Build Camp Liked",
+      "label": "Best Builds Liked",
+      "stat": "Best Build Camp Liked"
+     },
+     {
+      "id": "stat:Workshop Objects Crafted",
+      "label": "Workshop Objects Created",
+      "stat": "Workshop Objects Crafted"
+     },
+     {
+      "id": "stat:Workshops Claimed",
+      "label": "Workshops Claimed",
+      "stat": "Workshops Claimed"
+     },
+     {
+      "id": "stat:CAMPs Set Up",
+      "label": "C.A.M.P. Placed",
+      "stat": "CAMPs Set Up"
+     },
+     {
+      "id": "stat:Casino Games Built",
+      "label": "Casino Games Built",
+      "stat": "Casino Games Built"
+     }
+    ],
+    "groups": [],
+    "count": 6
+   },
+   {
+    "id": "section:X01X_PlayerTerminal_Stats_Crafting",
+    "section": "Crafting",
+    "form_id": "0092D0A1",
+    "edid": "X01X_PlayerTerminal_Stats_Crafting",
+    "conditional": false,
+    "rows": [
+     {
+      "id": "stat:Items Modded",
+      "label": "Items Modded",
+      "stat": "Items Modded"
+     },
+     {
+      "id": "stat:Weapons Improved",
+      "label": "Weapons Modded",
+      "stat": "Weapons Improved"
+     },
+     {
+      "id": "stat:Items Repaired",
+      "label": "Items Repaired",
+      "stat": "Items Repaired"
+     },
+     {
+      "id": "stat:Items Scrapped",
+      "label": "Items Scrapped",
+      "stat": "Items Scrapped"
+     },
+     {
+      "id": "stat:Item Crafted",
+      "label": "Items Crafted",
+      "stat": "Item Crafted"
+     },
+     {
+      "id": "stat:Weapons Crafted",
+      "label": "Weapons Crafted",
+      "stat": "Weapons Crafted"
+     },
+     {
+      "id": "stat:Armors Crafted",
+      "label": "Armor Crafted",
+      "stat": "Armors Crafted"
+     }
+    ],
+    "groups": [
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Crafting:Legendary Items",
+      "name": "Legendary Items",
+      "rows": [
+       {
+        "id": "stat:Legendary Items Scrapped",
+        "label": "Legendary Items Scrapped",
+        "stat": "Legendary Items Scrapped"
+       },
+       {
+        "id": "stat:Legendary Items Modded",
+        "label": "Legendary Items Modded",
+        "stat": "Legendary Items Modded"
+       },
+       {
+        "id": "stat:1 Star Legendary Mods Crafted",
+        "label": "1-Star Legendary Mod Crafted",
+        "stat": "1 Star Legendary Mods Crafted"
+       },
+       {
+        "id": "stat:2 Star Legendary Mods Crafted",
+        "label": "2-Star Legendary Mod Crafted",
+        "stat": "2 Star Legendary Mods Crafted"
+       },
+       {
+        "id": "stat:3 Star Legendary Mods Crafted",
+        "label": "3-Star Legendary Mod Crafted",
+        "stat": "3 Star Legendary Mods Crafted"
+       },
+       {
+        "id": "stat:4 Star Legendary Mods Crafted",
+        "label": "4-Star Legendary Mod Crafted",
+        "stat": "4 Star Legendary Mods Crafted"
+       },
+       {
+        "id": "stat:1 Star Legendary Items Scrapped",
+        "label": "1-Star Legendary Items Scrapped",
+        "stat": "1 Star Legendary Items Scrapped"
+       },
+       {
+        "id": "stat:2 Star Legendary Items Scrapped",
+        "label": "2-Star Legendary Items Scrapped",
+        "stat": "2 Star Legendary Items Scrapped"
+       },
+       {
+        "id": "stat:3 Star Legendary Items Scrapped",
+        "label": "3-Star Legendary Items Scrapped",
+        "stat": "3 Star Legendary Items Scrapped"
+       },
+       {
+        "id": "stat:4 Star Legendary Items Scrapped",
+        "label": "4-Star Legendary Items Scrapped",
+        "stat": "4 Star Legendary Items Scrapped"
+       }
+      ],
+      "conditional": false
+     },
+     {
+      "id": "group:X01X_PlayerTerminal_Stats_Crafting:Unique Items",
+      "name": "Unique Items",
+      "rows": [
+       {
+        "id": "stat:Unique Items Acquired",
+        "label": "Unique Items Acquired",
+        "stat": "Unique Items Acquired"
+       },
+       {
+        "id": "stat:Unique Item Crafted",
+        "label": "Unique Items Crafted",
+        "stat": "Unique Item Crafted"
+       },
+       {
+        "id": "stat:Unique Items Scrapped",
+        "label": "Unique Items Scrapped",
+        "stat": "Unique Items Scrapped"
+       },
+       {
+        "id": "stat:Unique Items Modded",
+        "label": "Unique Items Modded",
+        "stat": "Unique Items Modded"
+       }
+      ],
+      "conditional": false
+     }
+    ],
+    "count": 21
+   },
+   {
+    "id": "section:X01X_PlayerTerminal_Stats_Economy",
+    "section": "Economy",
+    "form_id": "0092D0A4",
+    "edid": "X01X_PlayerTerminal_Stats_Economy",
+    "conditional": false,
+    "rows": [
+     {
+      "id": "stat:Vendor Items Purchased",
+      "label": "Items Bought",
+      "stat": "Vendor Items Purchased"
+     },
+     {
+      "id": "stat:Vendor Items Sold",
+      "label": "Items Sold",
+      "stat": "Vendor Items Sold"
+     },
+     {
+      "id": "stat:Barters",
+      "label": "Player Trades",
+      "stat": "Barters"
+     },
+     {
+      "id": "stat:Total Caps Collected",
+      "label": "Total Caps Found",
+      "stat": "Total Caps Collected"
+     },
+     {
+      "id": "stat:Total Gold Bullion Collected",
+      "label": "Total Gold Bullion Found",
+      "stat": "Total Gold Bullion Collected"
+     },
+     {
+      "id": "stat:Total Legendary Scrip Collected",
+      "label": "Total Scrip Found",
+      "stat": "Total Legendary Scrip Collected"
+     },
+     {
+      "id": "stat:Total Expedition Stamps Collected",
+      "label": "Total Stamps Found",
+      "stat": "Total Expedition Stamps Collected"
+     }
+    ],
+    "groups": [],
+    "count": 7
+   },
+   {
+    "id": "section:X01X_PlayerTerminal_Stats_Survival",
+    "section": "Survival",
+    "form_id": "0092D0A6",
+    "edid": "X01X_PlayerTerminal_Stats_Survival",
+    "conditional": false,
+    "rows": [
+     {
+      "id": "stat:Food and Drink Consumed",
+      "label": "Food and Drink Consumed",
+      "stat": "Food and Drink Consumed"
+     },
+     {
+      "id": "stat:Item Spoiled",
+      "label": "Food Spoiled",
+      "stat": "Item Spoiled"
+     },
+     {
+      "id": "stat:If Wishes were Corpses",
+      "label": "Corpses Eaten",
+      "stat": "If Wishes were Corpses"
+     },
+     {
+      "id": "stat:Snaxolotl",
+      "label": "Snaxolotl",
+      "stat": "Snaxolotl"
+     }
+    ],
+    "groups": [],
+    "count": 4
+   },
+   {
+    "id": "section:X01X_PlayerTerminal_Stats_NW",
+    "section": "Nuclear Winter",
+    "form_id": "0092D0A5",
+    "edid": "X01X_PlayerTerminal_Stats_NW",
+    "conditional": true,
+    "rows": [
+     {
+      "id": "stat:Nuclear Winter Nuke Player Kills",
+      "label": "Players Nuked",
+      "stat": "Nuclear Winter Nuke Player Kills"
+     },
+     {
+      "id": "stat:Nuclear Winter Player Kills",
+      "label": "Players Killed",
+      "stat": "Nuclear Winter Player Kills"
+     },
+     {
+      "id": "stat:Nuclear Winter Nukes Launched",
+      "label": "Nukes Launched",
+      "stat": "Nuclear Winter Nukes Launched"
+     },
+     {
+      "id": "stat:Nuclear Winter Minutes Alive",
+      "label": "Minutes Survived",
+      "stat": "Nuclear Winter Minutes Alive"
+     },
+     {
+      "id": "stat:Nuclear Winter Minutes In Nuke Zone",
+      "label": "Minutes in Nuke Zone",
+      "stat": "Nuclear Winter Minutes In Nuke Zone"
+     },
+     {
+      "id": "stat:Nuclear Winter Minutes In Storm",
+      "label": "Minutes in Storm",
+      "stat": "Nuclear Winter Minutes In Storm"
+     },
+     {
+      "id": "stat:Overseer Rank Up",
+      "label": "Overseer Rank",
+      "stat": "Overseer Rank Up"
+     },
+     {
+      "id": "stat:Nuclear Winter Games Completed",
+      "label": "Matches Completed",
+      "stat": "Nuclear Winter Games Completed"
+     },
+     {
+      "id": "stat:Nuclear Winter Games Survived",
+      "label": "Matches Survived",
+      "stat": "Nuclear Winter Games Survived"
+     },
+     {
+      "id": "stat:Nuclear Winter Games Won",
+      "label": "Matches Won",
+      "stat": "Nuclear Winter Games Won"
+     }
+    ],
+    "groups": [],
+    "count": 10
+   }
+  ]
+ },
+ "other": []
+}
