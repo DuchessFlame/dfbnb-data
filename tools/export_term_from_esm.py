@@ -17,6 +17,10 @@ Run it on the PC that has the game installed:
 Only TERM records whose EDID starts with --prefix (default X01X_PlayerTerminal)
 are exported, plus anything those menus link to.
 
+Oct 2026: also the token-exchange terminals (EDID has "Redeem", or "Exchange"+"Terminal")
+for the Currency pages. NOT YET HERE: the .pas also writes ..._Placements.tsv (where those
+terminals stand). Run the .pas for that file.
+
 TSV SCHEMA (shared with the .pas — keep both in step)
 -----------------------------------------------------
 Main:   TERM_FormID  TERM_EDID  Row  Idx  Text  ItemType  Target_FormID  Display  Conditions
@@ -164,7 +168,12 @@ def main(argv=None):
         return f"Func{func}|{OPS[(flags >> 5) % 6]}|{v}|{pfid}|{ped}|{psig}"
 
     # TERM records to export: prefix family + anything they link to.
-    terms = {fid for fid, (s, subs) in R.items() if s == "TERM" and edids[fid].startswith(a.prefix)}
+    # + the token-exchange terminals (Currency pages) - keep in step with
+    #   IsExchangeTerm in the .pas
+    def is_exchange(ed):
+        return "Redeem" in ed or ("Exchange" in ed and "Terminal" in ed)
+    terms = {fid for fid, (s, subs) in R.items() if s == "TERM" and
+             (edids[fid].startswith(a.prefix) or is_exchange(edids[fid]))}
     rows, referenced = [], set()
     queue = sorted(terms)
     seen = set()
