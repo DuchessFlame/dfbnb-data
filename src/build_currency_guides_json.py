@@ -22,6 +22,11 @@ Limits             data/currency/limits.tsv — daily limit, refresh time and
                    period. SERVER-SIDE: checked every GLOB / GMST in the ESM on
                    18 Oct 2026, they are not there. Max held is NOT in this
                    table — it is MXCT, read from the game.
+Gallery            data/currency/gallery.json — {page slug minus "guide-":
+                   [{file, caption, credit, fit}]}. Files live on the server in
+                   /wp-content/uploads/guide-images/currency/<that slug>/ and on
+                   Duchess's PC in Guides and Stuff\.Currency\<Name>\05 Gallery.
+                   The page drops any thumb whose file isn't uploaded yet.
 Events/Activities  every leveled list that can hand the currency out, walked up
                    to whatever holds it: GMRW quest reward (named by its quest),
                    MGEF (a loot bag like a Holiday Gift), QUST script. Plus GMRW
@@ -1063,8 +1068,35 @@ def build_one(D, cur, pages, limits):
             "vendors": build_sellers(D, cur),
         },
         "vendors": {"fixed": fixed, "traveling": travel},
+        "gallery": build_gallery(slug),
     }
     return doc
+
+
+GALLERY_ROOT = "/wp-content/uploads/guide-images/currency/"
+_GALLERY = None
+
+
+def build_gallery(slug):
+    """Gallery thumbs for a page, from data/currency/gallery.json."""
+    global _GALLERY
+    if _GALLERY is None:
+        path = os.path.join(REPO, "data", "currency", "gallery.json")
+        try:
+            _GALLERY = json.load(open(path, encoding="utf-8"))
+        except (OSError, ValueError):
+            _GALLERY = {}
+    key = re.sub(r"^guide-", "", slug)
+    out = []
+    for g in _GALLERY.get(key) or []:
+        if not g.get("file"):
+            continue
+        row = {"url": GALLERY_ROOT + key + "/" + g["file"], "caption": g.get("caption", ""),
+               "credit": g.get("credit", "")}
+        if g.get("fit"):
+            row["fit"] = g["fit"]
+        out.append(row)
+    return out
 
 
 def main(argv=None):
