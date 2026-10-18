@@ -878,6 +878,16 @@ def build_vendors(D, cur):
                 loc_name, region = D.place(p.get("Location_FormID"), x, y, p.get("Ref_FormID"),
                                            exterior=(p.get("Worldspace_EDID") or "").upper() == "APPALACHIA")
                 h["places"].append({"location": loc_name or "", "region": region or ""})
+        # No placed holder in the export (older NPC2 exports skipped ACHR
+        # placements): name the vendor from the NPC records in this faction.
+        if not holders:
+            for nf, fl in D.npc_factions.items():
+                if fedid in fl and D.npc_full.get(nf):
+                    pseudo = {"Holder_Sig": "NPC_", "Holder_FormID": nf, "Holder_FULL": D.npc_full[nf]}
+                    if holder_trades_here(D, pseudo, fedid):
+                        holders.setdefault(nf, {"name": D.npc_full[nf], "sig": "NPC_", "places": []})
+            if len({h["name"] for h in holders.values()}) > 1:
+                holders = collections.OrderedDict()      # several NPCs: don't guess
         # the stall itself, when the chest stands in the world
         stall = None
         if not DEV_CELL.search(f.get("Cell_EDID") or "") and (f.get("Cell_EDID") or f.get("Worldspace_EDID")):
@@ -1046,8 +1056,9 @@ def build_one(D, cur, pages, limits):
             "daily_limit": (lim.get("daily_limit") or "").strip(),
             "refresh_time": (lim.get("refresh_time") or "").strip(),
             "refresh_period": (lim.get("refresh_period") or "").strip(),
-            "max_limit": cur.get("max"),
-            "max_source": "game files (CNCY MXCT)" if cur.get("max") is not None else "",
+            "max_limit": cur.get("max") if cur.get("max") is not None else (num((lim.get("max_held") or "").replace(",", "")) or None),
+            "max_source": ("game files (CNCY MXCT)" if cur.get("max") is not None
+                           else "seen in game" if (lim.get("max_held") or "").strip() else ""),
             "notes": (lim.get("notes") or "").strip(),
             "confirmed": (lim.get("confirmed") or "").strip().lower() in ("1", "yes", "y", "true")},
         "details": {
