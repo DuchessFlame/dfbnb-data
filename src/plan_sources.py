@@ -208,6 +208,20 @@ CONFIRMED_CUT_SOURCE_PATTERNS = (
     # Duchess, 11 Oct 2026: cut content).
     (re.compile(r"^sfz08_fear_vendor", re.I),
      "the Irrational Fear vendor", "the Irrational Fear vendor is cut content"),
+    # Duchess, 18 Oct 2026 (currency pages): all three still wired up in the
+    # files, all cut in game.
+    # Vault 94 missions (V94_*, VaultSystemRewards_V94_*). "Vault94" in a live
+    # item name (c_Steel_Vault94_scrap, Vault Steel) does NOT match: the code
+    # has to stand on its own between underscores.
+    (re.compile(r"(?:^|_)v94(?:_|\d|$)", re.I),
+     "Vault 94 missions", "Vault 94 missions are cut content"),
+    # Milepost Zero (MILE_* - caravans, HQ vendors, Supplies, mystery crates).
+    (re.compile(r"(?:^|_)mile\d*_", re.I),
+     "Milepost Zero", "Milepost Zero is cut content"),
+    # Double-mutated events (LL_MutatedEvents_Mutation_Double_*, Daily Ops
+    # DoubleMutation lists, Double Mutated packages).
+    (re.compile(r"double_?mutat|mutation_\w*?double", re.I),
+     "double-mutated events", "double-mutated events are cut content"),
 )
 
 

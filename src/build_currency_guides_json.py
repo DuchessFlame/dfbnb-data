@@ -83,6 +83,26 @@ DEV_CELL = re.compile(r"Debug|zzz|Test|HoldingCell|Warehouse|(^|[^a-z])QA|Smoke"
 SKIP_HOLDER_SIGS = {"LOUT", "DFOB", "FLST", "KYWD"}
 
 
+# ─────────────────────────────── cut content ────────────────────────────────
+# ONE test, shared with the plan pages: plan_sources.cut_source() (the
+# Duchess-confirmed cut families: Mole Miner Mystery Crate, Quickplay PvP,
+# Vault 94 missions, Milepost Zero, double-mutated events …) plus
+# plan_sources.is_dev_record() (zzz / CUT / DEL / POST / debug / test records).
+# New cut families go into plan_sources.CONFIRMED_CUT_SOURCE_PATTERNS, never here.
+# NB cut_content.is_cut() is NOT used: it is the BnB menu filter and also drops
+# real loot bags (Festive_ Holiday Gifts, TreasureHunt_Chest Mole Miner Pails).
+import plan_sources as _PS          # noqa: E402
+
+
+def is_cut(*edids):
+    """True when any of these EditorIDs is a cut / dev source."""
+    for e in edids:
+        e = (e or "").strip()
+        if e and (_PS.cut_source(e) or _PS.is_dev_record(e)):
+            return True
+    return False
+
+
 # ─────────────────────────────── small helpers ──────────────────────────────
 def U(s):
     return (s or "").strip().upper()
@@ -136,6 +156,7 @@ class Data:
         self._load_quests()
         self._load_names()
         self._load_vendors()
+        self._load_crafting()
 
     # currencies ------------------------------------------------------------
     def _load_currencies(self):
@@ -164,6 +185,8 @@ class Data:
         self.misc = {}
         for r in rows(self.pick("MISC_Export_*.tsv", exclude=["MISC2"])):
             self.misc[U(r.get("FormID"))] = r
+        self.misc_full_by_edid = {(r.get("EDID") or "").lower(): (r.get("FULL") or r.get("FULL - Name") or "")
+                                  for r in self.misc.values()}
 
     # quests / gmrw ---------------------------------------------------------
     def _load_quests(self):
@@ -246,6 +269,20 @@ class Data:
             self.mapp = PVR.Mappalachia()
         except Exception:
             self.mapp = None
+
+    # crafting --------------------------------------------------------------
+    def _load_crafting(self):
+        """COBJ recipes and the curve tables their component counts point at."""
+        self.cobj = rows(self.pick("COBJ_Export_*.tsv", exclude=["COBJ2"]))
+        self.omod_full = {}
+        for r in rows(self.pick("OMOD_Export_*.tsv", exclude=["Properties"])):
+            if r.get("FULL"):
+                self.omod_full[U(r.get("OMOD_FormID"))] = r["FULL"]
+        self.curve = collections.defaultdict(dict)        # EDID -> {x: y}
+        for r in rows(self.pick("CURV_Export_*_POINTS.tsv")):
+            x, y = num(r.get("X")), num(r.get("Y"))
+            if x is not None and y is not None:
+                self.curve[(r.get("EDID") or "").lower()][x] = y
 
     # vendors ---------------------------------------------------------------
     def _load_vendors(self):
@@ -385,7 +422,7 @@ def gmrw_chance(g):
 # ─────────────────────────────── sources ────────────────────────────────────
 # Double-mutation reward lists are cut content site-wide (plan_route_kinds
 # CUT_LIST_RX) — the same rule here, read off the entry's conditions.
-_CUT_COND = re.compile(r"DoubleMutation", re.I)
+_CUT_COND = re.compile(r"DoubleMutation|\(Double\)", re.I)
 
 
 def cond_note(conds):
@@ -422,7 +459,7 @@ def _branches(D, root):
         if not sub:
             continue
         ed = D.lvli_edid.get(U(sub), "")
-        if _CUT_LIST.search(ed):
+        if is_cut(ed):
             continue
         pw, cn = D.res._entry_pick_and_cn(m, e, root)
         out.append((U(sub), pw * cn, branch_note(ed)))
@@ -434,7 +471,6 @@ def _branches(D, root):
     return out
 
 
-_CUT_LIST = re.compile(r"DoubleMutat", re.I)
 
 
 def amounts_in(D, root, targets, _depth=0):
@@ -483,9 +519,9 @@ def build_sources(D, cur):
         bucket[key] = row
 
     for lv in closure:
-        if lv in targets:
+        if lv in targets or is_cut(D.lvli_edid.get(lv, "")):
             continue
-        holders = [h for h in D.lvli_refs.get(lv, []) if h[2] != "LVLI"]
+        holders = [h for h in D.lvli_refs.get(lv, []) if h[2] != "LVLI" and not is_cut(h[1])]
         if not holders:
             continue
         amts = None
@@ -503,6 +539,8 @@ def build_sources(D, cur):
                     or D.gmrw.get(hf, [])[:1]
                 for g in grows[:1]:
                     q = fid_of(g.get("ParentQuestLink"))
+                    if is_cut(g.get("EDID"), D.quest.get(q, {}).get("edid")):
+                        continue
                     name, kind = quest_label(D, q, g)
                     tier = tier_text(g)
                     if not tier and kind == "Daily Ops" and re.search(r"Repeatable", D.lvli_edid.get(lv, ""), re.I):
@@ -518,6 +556,8 @@ def build_sources(D, cur):
                                                      "amounts": amts, "expected": expected(amts),
                                                      "condition_chance": None, "via": D.lvli_edid.get(lv, "")})
             elif hs == "QUST":
+                if is_cut(D.quest.get(hf, {}).get("edid")):
+                    continue
                 name, kind = quest_label(D, hf)
                 bucket = randoms if kind == "Random Encounter" else events
                 add(bucket, (name, kind, ""), {"name": name, "type": kind, "tier": "", "amounts": amts,
@@ -545,7 +585,7 @@ def build_sources(D, cur):
             if not qty or re.match(r"ChallengeReward", g.get("EDID") or "", re.I):
                 continue
             q = fid_of(g.get("ParentQuestLink"))
-            if re.search(r"(^|_)(zzz|CUT|DEL|Test|Debug)(_|$)", D.quest.get(q, {}).get("edid", ""), re.I):
+            if is_cut(g.get("EDID"), D.quest.get(q, {}).get("edid")):
                 continue
             name, kind = quest_label(D, q, g)
             amts = [{"qty": qty, "rate": 1.0, "rate_display": "100%"}]
@@ -560,6 +600,99 @@ def build_sources(D, cur):
     return {"events_activities": ordered(events), "random_encounters": ordered(randoms),
             "containers": sorted(containers.values(), key=lambda r: -r["expected"]),
             "creatures": sorted(creatures.values(), key=lambda r: r["name"])}
+
+
+# What a recipe does, read off the COBJ's EditorID family (the same convention
+# every legendary recipe uses) - the heading readers see in Used For.
+_CRAFT_KIND = (
+    (re.compile(r"(?:^|_)co_LegendaryShard_", re.I), "Craft legendary mods"),
+    (re.compile(r"(?:^|_)co_mod_Legendary_Crafting_", re.I), "Roll a random legendary mod"),
+    (re.compile(r"(?:^|_)co_mod_Legendary_", re.I), "Attach legendary mods"),
+)
+_OTHER_KIND = "Craft weapons & armour"
+# GNAM learn conditions that mean "this recipe can never be crafted".
+_NOCRAFT = re.compile(r"NOCRAFT|Uncraftable|_DELETE_", re.I)
+_REPAIR_ONLY = re.compile(r"REPAIRONLY|^SURVIVAL_", re.I)   # repair-only / removed Survival mode
+
+
+def _workbench(edid):
+    e = re.sub(r"^Workbench_(Crafting_)?", "", edid or "")
+    if not e:
+        return ""
+    e = {"Tinkers": "Tinker's", "Armor": "Armor"}.get(e, rng76.humanize_edid(e))
+    return e + " Workbench"
+
+
+def build_crafting(D, cur):
+    """Recipes that use the currency as a component (Legendary Modules craft
+    legendary mods and some uniques; scrip pays to attach legendary mods)."""
+    names = {cur["edid"].lower()}
+    # a MISC currency is used through its component (Legendary Module -> c_LegendaryModule)
+    if cur["sig"] == "MISC":
+        mc = (D.misc.get(cur["form_id"], {}).get("MCQP") or "").split(":")[0].strip()
+        if mc:
+            names.add(mc.lower())
+        names.add("c_" + cur["edid"].lower())
+    out = {}
+    for r in D.cobj:
+        ed = r.get("COBJ_EDID") or ""
+        if _REPAIR_ONLY.search(ed) or is_cut(ed, r.get("CNAM_EDID")) or _NOCRAFT.search(r.get("GNAM_EDID") or ""):
+            continue
+        for part in (r.get("FVPA") or "").split("|"):
+            bits = part.split(":")
+            if len(bits) < 2 or bits[0].strip().lower() not in names:
+                continue
+            q = num(bits[1]) or 1
+            curve = bits[2].strip() if len(bits) > 2 else ""
+            cost = D.curve.get(curve.lower(), {}).get(q, q) if curve else q
+            full = r.get("CNAM_FULL") or D.omod_full.get(U(r.get("CNAM_FormID")), "")
+            if not full or full.strip() == "0":
+                # no created object: the recipe attaches a shard component
+                # ("LegendaryShard_Weapon4_Locked" -> "¬¬¬¬ Locked")
+                shard = next((p.split(":")[0].strip() for p in (r.get("FVPA") or "").split("|")
+                              if "legendaryshard" in p.lower()), "")
+                full = D.misc_full_by_edid.get(shard.lower(), "") if shard else ""
+            stars = len(re.match(r"^\s*(¬*)", full).group(1))
+            if not stars:
+                m = re.search(r"_(?:Armor|Weapon|PowerArmor)(\d)_", r.get("CNAM_EDID") or "")
+                stars = int(m.group(1)) if m else 0
+            nm = re.sub(r"^[¬\s]+", "", full).strip() or rng76.humanize_edid(r.get("CNAM_EDID") or ed)
+            nm = nm.replace("¬", "\u2605")          # "Random ¬¬¬" -> "Random ★★★"
+            kind = next((k for rx, k in _CRAFT_KIND if rx.search(ed)), _OTHER_KIND)
+            plan = r.get("GNAM_FULL") or ""
+            if kind == _OTHER_KIND:
+                # A unique crafted on a base weapon: its plan names it; without a
+                # plan the recipe's own EditorID does ("..._ColdShoulder").
+                own = rng76.humanize_edid(re.split(r"_", ed)[-1]) if "_" in ed else ""
+                if plan.startswith("Plan: "):
+                    nm = plan[6:]
+                elif own and own.lower() not in nm.lower():
+                    nm = f"{own} ({nm})" if full else own
+            bench = _workbench(r.get("BNAM_EDID"))
+            if not bench:
+                m = re.search(r"_Crafting_(PowerArmor|Armor|Weapon)\d", ed)
+                if m:   # random-roll recipes carry no BNAM; the slot type says where
+                    bench = {"PowerArmor": "Power Armor Workbench", "Armor": "Armor Workbench",
+                             "Weapon": "Weapon Workbench"}[m.group(1)]
+                elif kind != _OTHER_KIND:
+                    continue        # no workbench and no slot type: never craftable
+            if kind == "Roll a random legendary mod":
+                slot = re.search(r"_Crafting_(PowerArmor|Armor|Weapon)(\d)", ed)
+                if slot:
+                    what = {"PowerArmor": "power armour", "Armor": "armour", "Weapon": "weapon"}[slot.group(1)]
+                    n = int(slot.group(2))
+                    nm = f"Random {what} mod"   # rolls a random N-star mod into that slot
+                    stars = n
+            row = {"name": (f"{stars}\u2605 " if stars and "\u2605" not in nm else "") + nm,
+                   "stars": stars, "workbench": bench, "cost": cost,
+                   "plan": (r.get("GNAM_FULL") or "") if (r.get("GNAM_FULL") or "").startswith(("Plan", "Recipe")) else ""}
+            out.setdefault(kind, {})[(row["name"], bench)] = row
+    groups = []
+    for kind in [k for _r, k in _CRAFT_KIND] + [_OTHER_KIND]:
+        rows_ = sorted((out.get(kind) or {}).values(), key=lambda x: (x["stars"], x["name"].lower()))
+        if rows_:
+            groups.append({"kind": kind, "rows": rows_})
+    return groups
 
 
 def build_challenges(D, cur):
@@ -645,6 +778,8 @@ def vendor_stock(D, base_fid):
             f = U(it.get("formid"))
             sig = it.get("sig") or ""
             edid = it.get("edid") or ""
+            if is_cut(edid):
+                continue
             price = None
             if sig == "LGDI" or f in D.lgdi:
                 price = (D.lgdi.get(f) or {}).get("cost")
@@ -679,7 +814,8 @@ def build_sellers(D, cur):
     out = []
     for f in D.factions:
         base = U(f.get("ContainerBase_FormID"))
-        if not base or DEAD.search(f.get("Faction_EDID") or ""):
+        if not base or DEAD.search(f.get("Faction_EDID") or "") or \
+                is_cut(f.get("Faction_EDID"), f.get("ContainerBase_EDID")):
             continue
         if base not in _STOCK_CACHE:
             _STOCK_CACHE[base] = vendor_stock(D, base) if D.cont_lists.get(base) else []
@@ -720,13 +856,13 @@ def build_vendors(D, cur):
             continue
         ffid = U(f.get("Faction_FormID"))
         fedid = f.get("Faction_EDID") or ""
-        if DEAD.search(fedid) or re.search(r"(^|_)(QA|Test|Debug)", fedid):
+        if DEAD.search(fedid) or is_cut(fedid, f.get("ContainerBase_EDID")):
             continue
         # who stands at this faction's stall
         holders = collections.OrderedDict()
         for p in D.fplace.get(ffid, []):
             hf = U(p.get("Holder_FormID"))
-            if not holder_trades_here(D, p, fedid):
+            if not holder_trades_here(D, p, fedid) or is_cut(p.get("Holder_EDID")):
                 continue
             h = holders.setdefault(hf, {"name": p.get("Holder_FULL") or "", "sig": p.get("Holder_Sig"),
                                         "places": []})
@@ -802,6 +938,8 @@ def build_terminals(D, cur):
     out = []
     for tf in sorted(_item_refs(D, cur)):
         rows_ = D.term_rows.get(tf) or []
+        if rows_ and is_cut((rows_[0].get("TERM_EDID") or "").strip('"')):
+            continue
         if not rows_:
             continue
         q = lambda r, k: (r.get(k) or "").strip('"')
@@ -912,7 +1050,7 @@ def build_one(D, cur, pages, limits):
             "weight": cur.get("weight"),
             "vendor_restock_days": sorted({v["restock_days"] for v in fixed + travel if v["restock_days"]}),
         },
-        "used_for": {"challenges": chal_uses},
+        "used_for": {"challenges": chal_uses, "crafting": build_crafting(D, cur)},
         "sources": {
             "challenges": chal_rewards,
             "collectrons": prod["collectrons"],
@@ -958,6 +1096,13 @@ def main(argv=None):
             continue
         doc = build_one(D, cur, pages, limits)
         doc["channel"] = channel
+        live = (sum(len(v) for v in doc["sources"].values()) + len(doc["vendors"]["fixed"])
+                + len(doc["vendors"]["traveling"]) + len(doc["used_for"]["crafting"]))
+        if not live:
+            # Same two-test idea as cut plans: nothing in the files gives it out
+            # or takes it once the cut sources are gone (Supplies = Milepost Zero).
+            print(f"  {cur['name']:<22} nothing live gives it out or takes it - treated as cut, not built")
+            continue
         path = os.path.join(outdir, doc["slug"] + ".json")
         with open(path, "w", encoding="utf-8") as fh:
             json.dump(doc, fh, ensure_ascii=False, indent=1)
