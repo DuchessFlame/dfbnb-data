@@ -9,7 +9,7 @@
   "edid": "LegendaryTokens",
   "record": "CNCY",
   "singular": "Legendary Scrip",
-  "plural": ""
+  "plural": "Legendary Scrips"
  },
  "intro": {
   "blurb": "Legendary scrip in Fallout 76: how to earn it by scripping legendary items, the daily limit and what the Purveyor and others sell for it."
@@ -18,15 +18,17 @@
   "daily_limit": "500",
   "refresh_time": "",
   "refresh_period": "",
-  "max_limit": null,
-  "max_source": "",
+  "max_limit": 11000,
+  "max_source": "game files (CNCY MXCT)",
   "notes": "Oct 2025 infographic. Server-side - not in the game files.",
   "confirmed": false
  },
  "details": {
   "tradeable": null,
   "weight": null,
-  "vendor_restock_days": []
+  "vendor_restock_days": [
+   3
+  ]
  },
  "used_for": {
   "challenges": [
@@ -2900,7 +2902,7 @@
     ],
     "expected": 6.69,
     "condition_chance": null,
-    "via": "XPD_LL_Mission_Reward_Repeatable"
+    "via": "XPD_AC_LL_Mission_Reward_Repeatable"
    },
    {
     "name": "Atlantic City: The Human Condition",
@@ -2934,7 +2936,7 @@
     ],
     "expected": 6.69,
     "condition_chance": null,
-    "via": "XPD_LL_Mission_Reward_Repeatable"
+    "via": "XPD_AC_LL_Mission_Reward_Repeatable"
    },
    {
     "name": "Atlantic City: The Most Sensational Game",
@@ -2968,7 +2970,7 @@
     ],
     "expected": 6.69,
     "condition_chance": null,
-    "via": "XPD_LL_Mission_Reward_Repeatable"
+    "via": "XPD_AC_LL_Mission_Reward_Repeatable"
    },
    {
     "name": "The Pitt: From Ashes to Fire",
@@ -3555,7 +3557,7 @@
     ],
     "expected": 70.0,
     "condition_chance": null,
-    "via": "E07A_Mothman_LL_Event_Rewards_Tier01"
+    "via": "E07A_Mothman_LL_Event_Rewards_Tier03"
    },
    {
     "name": "Uranium Fever",
@@ -3726,7 +3728,240 @@
   "vendors": []
  },
  "vendors": {
-  "fixed": [],
+  "fixed": [
+   {
+    "name": "Legendary Exchange",
+    "kind": "Vending machine",
+    "faction": "LGV01_VendingMachine_VendorFaction_HighwayTown",
+    "locations": [
+     {
+      "location": "Lewisburg Station",
+      "region": "Ash Heap"
+     },
+     {
+      "location": "Nuka-World On Tour",
+      "region": "Ash Heap"
+     },
+     {
+      "location": "The Rusty Pick",
+      "region": "Ash Heap"
+     },
+     {
+      "location": "Welch Station",
+      "region": "Ash Heap"
+     },
+     {
+      "location": "Highway Town",
+      "region": "Burning Springs"
+     },
+     {
+      "location": "Hocking Hills Station",
+      "region": "Burning Springs"
+     },
+     {
+      "location": "Watoga Station",
+      "region": "Cranberry Bog"
+     },
+     {
+      "location": "Pleasant Valley Station",
+      "region": "Savage Divide"
+     },
+     {
+      "location": "R&G Station",
+      "region": "Savage Divide"
+     },
+     {
+      "location": "Sunnytop Station",
+      "region": "Savage Divide"
+     },
+     {
+      "location": "The Whitespring Station",
+      "region": "Savage Divide"
+     },
+     {
+      "location": "The Trading Post",
+      "region": "Skyline Valley"
+     },
+     {
+      "location": "Charleston Station",
+      "region": "The Forest"
+     },
+     {
+      "location": "Morgantown Station",
+      "region": "The Forest"
+     },
+     {
+      "location": "Sutton Station",
+      "region": "The Forest"
+     },
+     {
+      "location": "Berkeley Springs Station",
+      "region": "The Mire"
+     },
+     {
+      "location": "Grafton Station",
+      "region": "Toxic Valley"
+     },
+     {
+      "location": "The Whitespring Mall",
+      "region": ""
+     }
+    ],
+    "restock_days": null,
+    "buys": "Legendary",
+    "stock": []
+   },
+   {
+    "name": "Vendor",
+    "kind": "Vendor",
+    "faction": "LGV01_MoleMiner_VendorFaction",
+    "locations": [
+     {
+      "location": "The Rusty Pick",
+      "region": "Ash Heap"
+     }
+    ],
+    "restock_days": 3,
+    "buys": "",
+    "stock": [
+     {
+      "name": "1★ Legendary Armour",
+      "qty": 1,
+      "price": 25,
+      "rate": 1.0,
+      "form_id": "00417C4B",
+      "limited": false,
+      "rate_display": "100%"
+     },
+     {
+      "name": "1★ Legendary Melee Weapon",
+      "qty": 1,
+      "price": 25,
+      "rate": 1.0,
+      "form_id": "00417C46",
+      "limited": false,
+      "rate_display": "100%"
+     },
+     {
+      "name": "1★ Legendary Power Armour",
+      "qty": 1,
+      "price": 25,
+      "rate": 1.0,
+      "form_id": "00605FC3",
+      "limited": false,
+      "rate_display": "100%"
+     },
+     {
+      "name": "1★ Legendary Ranged Weapon",
+      "qty": 1,
+      "price": 25,
+      "rate": 1.0,
+      "form_id": "00417C42",
+      "limited": false,
+      "rate_display": "100%"
+     },
+     {
+      "name": "2★ Legendary Armour",
+      "qty": 1,
+      "price": 35,
+      "rate": 1.0,
+      "form_id": "00417C40",
+      "limited": false,
+      "rate_display": "100%"
+     },
+     {
+      "name": "2★ Legendary Melee Weapon",
+      "qty": 1,
+      "price": 35,
+      "rate": 1.0,
+      "form_id": "00417C47",
+      "limited": false,
+      "rate_display": "100%"
+     },
+     {
+      "name": "2★ Legendary Power Armour",
+      "qty": 1,
+      "price": 35,
+      "rate": 1.0,
+      "form_id": "00605FC4",
+      "limited": false,
+      "rate_display": "100%"
+     },
+     {
+      "name": "2★ Legendary Ranged Weapon",
+      "qty": 1,
+      "price": 35,
+      "rate": 1.0,
+      "form_id": "00417C43",
+      "limited": false,
+      "rate_display": "100%"
+     },
+     {
+      "name": "3★ Legendary Armour",
+      "qty": 1,
+      "price": 60,
+      "rate": 1.0,
+      "form_id": "00417C41",
+      "limited": false,
+      "rate_display": "100%"
+     },
+     {
+      "name": "3★ Legendary Melee Weapon",
+      "qty": 1,
+      "price": 60,
+      "rate": 1.0,
+      "form_id": "00417C48",
+      "limited": false,
+      "rate_display": "100%"
+     },
+     {
+      "name": "3★ Legendary Power Armour",
+      "qty": 1,
+      "price": 60,
+      "rate": 1.0,
+      "form_id": "00605FC5",
+      "limited": false,
+      "rate_display": "100%"
+     },
+     {
+      "name": "3★ Legendary Ranged Weapon",
+      "qty": 1,
+      "price": 60,
+      "rate": 1.0,
+      "form_id": "00417C44",
+      "limited": false,
+      "rate_display": "100%"
+     },
+     {
+      "name": "Legendary Module",
+      "qty": 100,
+      "price": 100,
+      "rate": 1.0,
+      "form_id": "005652F9",
+      "limited": false,
+      "rate_display": "100%"
+     },
+     {
+      "name": "Murmrgh's Mystery Pick!",
+      "qty": 1,
+      "price": 60,
+      "rate": 1.0,
+      "form_id": "005380CF",
+      "limited": true,
+      "rate_display": "100%"
+     },
+     {
+      "name": "Vault Steel Scrap",
+      "qty": 500,
+      "price": 10,
+      "rate": 1.0,
+      "form_id": "0041023D",
+      "limited": false,
+      "rate_display": "100%"
+     }
+    ]
+   }
+  ],
   "traveling": []
  },
  "channel": "pts"

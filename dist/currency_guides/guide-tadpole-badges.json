@@ -9,7 +9,7 @@
   "edid": "TadpoleBadge",
   "record": "CNCY",
   "singular": "Tadpole Badge",
-  "plural": ""
+  "plural": "Tadpole Badges"
  },
  "intro": {
   "blurb": "Tadpole badges in Fallout 76: how to earn them through Pioneer Scout challenges, what you can buy with them and tips for earning them faster."
@@ -18,15 +18,17 @@
   "daily_limit": "No limit",
   "refresh_time": "",
   "refresh_period": "",
-  "max_limit": null,
-  "max_source": "",
+  "max_limit": 100,
+  "max_source": "game files (CNCY MXCT)",
   "notes": "Oct 2025 infographic.",
   "confirmed": false
  },
  "details": {
   "tradeable": null,
   "weight": null,
-  "vendor_restock_days": []
+  "vendor_restock_days": [
+   3
+  ]
  },
  "used_for": {
   "challenges": [],
@@ -122,7 +124,94 @@
   "vendors": []
  },
  "vendors": {
-  "fixed": [],
+  "fixed": [
+   {
+    "name": "Tadpole Vending Machine",
+    "kind": "Vending machine",
+    "faction": "P01C_VendingMachine_PioneerScout_Tadpole_Faction",
+    "locations": [
+     {
+      "location": "Camp Liberty",
+      "region": "Skyline Valley"
+     },
+     {
+      "location": "Camp Adams",
+      "region": "The Forest"
+     },
+     {
+      "location": "Pioneer Scout Camp",
+      "region": "Toxic Valley"
+     }
+    ],
+    "restock_days": 3,
+    "buys": "",
+    "stock": [
+     {
+      "name": "Pioneer Scout Hat: Tadpole",
+      "qty": 1,
+      "price": 3,
+      "rate": 1.0,
+      "form_id": "003FC7DC",
+      "limited": false,
+      "rate_display": "100%"
+     },
+     {
+      "name": "Pioneer Scout Tadpole Shorts",
+      "qty": 1,
+      "price": 1,
+      "rate": 1.0,
+      "form_id": "00415795",
+      "limited": false,
+      "rate_display": "100%"
+     },
+     {
+      "name": "Pioneer Scout Tadpole Skirt",
+      "qty": 1,
+      "price": 1,
+      "rate": 1.0,
+      "form_id": "003FC7DE",
+      "limited": false,
+      "rate_display": "100%"
+     },
+     {
+      "name": "Plan: Pioneer Scout Banner: Tadpole",
+      "qty": 1,
+      "price": 1,
+      "rate": 1.0,
+      "form_id": "003FC7E1",
+      "limited": false,
+      "rate_display": "100%"
+     },
+     {
+      "name": "Plan: Pioneer Scout Plant Poster",
+      "qty": 1,
+      "price": 1,
+      "rate": 1.0,
+      "form_id": "003FC7E4",
+      "limited": false,
+      "rate_display": "100%"
+     },
+     {
+      "name": "Plan: Pioneer Scout Sleeping Bag",
+      "qty": 1,
+      "price": 1,
+      "rate": 1.0,
+      "form_id": "00424726",
+      "limited": false,
+      "rate_display": "100%"
+     },
+     {
+      "name": "Plan: U.S. Flags (Clean)",
+      "qty": 1,
+      "price": 2,
+      "rate": 1.0,
+      "form_id": "003FC7E0",
+      "limited": false,
+      "rate_display": "100%"
+     }
+    ]
+   }
+  ],
   "traveling": []
  },
  "channel": "live"
