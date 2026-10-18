@@ -150,7 +150,6 @@ def main() -> None:
         ("/df/starfield/",                 "patchlog_latest_df_starfield.json",               "df-starfield"),
         ("/df/titles/",                    "patchlog_latest_titles.json",                     "df-titles"),
         ("/df/treasure-maps/",             "patchlog_latest_df_treasure_maps.json",           "df-treasure-maps"),
-        ("/df/vendors/",                   "patchlog_latest_df_vendors.json",                 "df-vendors"),
 
         # --- BNB (Buffs n Brew) categories ---
         ("/bnb/armour/",                   "patchlog_latest_bnb_armour.json",                 "bnb-armour"),
