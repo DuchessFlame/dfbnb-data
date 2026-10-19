@@ -1,6 +1,6 @@
 {
  "version": "2026-10-19",
- "generated": "2026-10-19T13:21:36+00:00",
+ "generated": "2026-10-19T22:41:28+00:00",
  "page": "mutations",
  "title": "Mutation Buffs",
  "url": "/bnb/buffs/mutations/mutation-buffs/",
@@ -172,10 +172,11 @@
      "name": "Fortify Agility",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+4 Agility (+5 Agility with a serum)",
+     "display": "+4 Agility (+5 Agility in a team with Strange In Numbers)",
      "groupKey": "fortify-agility",
      "groupLabel": "Fortify Agility",
-     "serumMagnitude": 5.0
+     "serumMagnitude": 5.0,
+     "higherWhen": "team"
     },
     {
      "formId": "0034D237",
@@ -189,10 +190,11 @@
      "name": "Reduce Fall Damage",
      "polarity": "debuff",
      "durationDisplay": null,
-     "display": "Fall Damage ×0.9 (Fall Damage ×0.95 with a serum)",
+     "display": "Fall Damage ×0.9 (Fall Damage ×0.95 in a team with Strange In Numbers)",
      "groupKey": "fall-speed-damage",
      "groupLabel": "Fall Speed & Damage",
-     "serumMagnitude": 0.95
+     "serumMagnitude": 0.95,
+     "higherWhen": "team"
     },
     {
      "formId": "0034D2BF",
@@ -206,10 +208,11 @@
      "name": "Reduce Fall Speed",
      "polarity": "debuff",
      "durationDisplay": null,
-     "display": "Fall Speed ×0.45 (Fall Speed ×0.65 with a serum)",
+     "display": "Fall Speed ×0.45 (Fall Speed ×0.65 in a team with Strange In Numbers)",
      "groupKey": "fall-speed-damage",
      "groupLabel": "Fall Speed & Damage",
-     "serumMagnitude": 0.65
+     "serumMagnitude": 0.65,
+     "higherWhen": "team"
     },
     {
      "formId": "003C4038",
@@ -543,10 +546,11 @@
      "name": "Fortify Critical Damage",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+50 Critical Damage (+62 Critical Damage with a serum)",
+     "display": "+50 Critical Damage (+62 Critical Damage in a team with Strange In Numbers)",
      "groupKey": "critical-damage",
      "groupLabel": "Critical Damage",
-     "serumMagnitude": 62.5
+     "serumMagnitude": 62.5,
+     "higherWhen": "team"
     },
     {
      "formId": "003C403A",
@@ -560,10 +564,11 @@
      "name": "Fortify Perception",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+4 Perception (+5 Perception with a serum)",
+     "display": "+4 Perception (+5 Perception in a team with Strange In Numbers)",
      "groupKey": "fortify-perception",
      "groupLabel": "Fortify Perception",
-     "serumMagnitude": 5.0
+     "serumMagnitude": 5.0,
+     "higherWhen": "team"
     },
     {
      "formId": "003C4038",
@@ -649,10 +654,11 @@
      "name": "Fortify Intelligence",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+6 Intelligence (+8 Intelligence with a serum)",
+     "display": "+6 Intelligence (+8 Intelligence in a team with Strange In Numbers)",
      "groupKey": "fortify-intelligence",
      "groupLabel": "Fortify Intelligence",
-     "serumMagnitude": 8.0
+     "serumMagnitude": 8.0,
+     "higherWhen": "team"
     },
     {
      "formId": "003C4048",
@@ -840,10 +846,11 @@
      "name": "Empath Strength",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+1 Empath Strength (+2 Empath Strength with a serum)",
+     "display": "+1 Empath Strength (+2 Empath Strength in a team with Strange In Numbers)",
      "groupKey": "strength",
      "groupLabel": "Strength",
-     "serumMagnitude": 2.0
+     "serumMagnitude": 2.0,
+     "higherWhen": "team"
     },
     {
      "formId": "004E1F1B",
@@ -927,10 +934,11 @@
      "name": "Fortify Energy Resist",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+100 Energy Resist (+125 Energy Resist with a serum)",
+     "display": "+100 Energy Resist (+125 Energy Resist in a team with Strange In Numbers)",
      "groupKey": "fortify-energy-resist",
      "groupLabel": "Fortify Energy Resist",
-     "serumMagnitude": 125.0
+     "serumMagnitude": 125.0,
+     "higherWhen": "team"
     },
     {
      "formId": "004E4005",
@@ -1030,10 +1038,11 @@
      "name": "Fortify Heal Rate",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+3 Heal Rate (+4 Heal Rate with a serum)",
+     "display": "+3 Heal Rate (+4 Heal Rate in a team with Strange In Numbers)",
      "groupKey": "healing-rate",
      "groupLabel": "Healing Rate",
-     "serumMagnitude": 3.75
+     "serumMagnitude": 3.75,
+     "higherWhen": "team"
     }
    ],
    "effectGroups": [
@@ -1207,10 +1216,11 @@
      "name": "+ Endurance",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+2 Endurance (+3 Endurance with a serum)",
+     "display": "+2 Endurance (+3 Endurance in a team with Strange In Numbers)",
      "groupKey": "endurance",
      "groupLabel": "Endurance",
-     "serumMagnitude": 3.0
+     "serumMagnitude": 3.0,
+     "higherWhen": "team"
     },
     {
      "formId": "004E3FF6",
@@ -1224,10 +1234,11 @@
      "name": "+ Intelligence",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+2 Intelligence (+3 Intelligence with a serum)",
+     "display": "+2 Intelligence (+3 Intelligence in a team with Strange In Numbers)",
      "groupKey": "intelligence",
      "groupLabel": "Intelligence",
-     "serumMagnitude": 3.0
+     "serumMagnitude": 3.0,
+     "higherWhen": "team"
     },
     {
      "formId": "004E3FF7",
@@ -1241,10 +1252,11 @@
      "name": "+ Luck",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+2 Luck (+3 Luck with a serum)",
+     "display": "+2 Luck (+3 Luck in a team with Strange In Numbers)",
      "groupKey": "luck",
      "groupLabel": "Luck",
-     "serumMagnitude": 3.0
+     "serumMagnitude": 3.0,
+     "higherWhen": "team"
     },
     {
      "formId": "004E3FF8",
@@ -1258,10 +1270,11 @@
      "name": "+ Perception",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+2 Perception (+3 Perception with a serum)",
+     "display": "+2 Perception (+3 Perception in a team with Strange In Numbers)",
      "groupKey": "perception",
      "groupLabel": "Perception",
-     "serumMagnitude": 3.0
+     "serumMagnitude": 3.0,
+     "higherWhen": "team"
     },
     {
      "formId": "004E3FF9",
@@ -1275,10 +1288,11 @@
      "name": "+ Strength",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+2 Strength (+3 Strength with a serum)",
+     "display": "+2 Strength (+3 Strength in a team with Strange In Numbers)",
      "groupKey": "strength",
      "groupLabel": "Strength",
-     "serumMagnitude": 3.0
+     "serumMagnitude": 3.0,
+     "higherWhen": "team"
     },
     {
      "formId": "004E3FFA",
@@ -1340,10 +1354,11 @@
      "name": "Fortify Agility",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+2 Agility (+3 Agility with a serum)",
+     "display": "+2 Agility (+3 Agility in a team with Strange In Numbers)",
      "groupKey": "fortify-agility",
      "groupLabel": "Fortify Agility",
-     "serumMagnitude": 3.0
+     "serumMagnitude": 3.0,
+     "higherWhen": "team"
     },
     {
      "formId": "004E3FF4",
@@ -1357,10 +1372,11 @@
      "name": "Fortify Charisma",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+2 Charisma (+3 Charisma with a serum)",
+     "display": "+2 Charisma (+3 Charisma in a team with Strange In Numbers)",
      "groupKey": "fortify-charisma",
      "groupLabel": "Fortify Charisma",
-     "serumMagnitude": 3.0
+     "serumMagnitude": 3.0,
+     "higherWhen": "team"
     },
     {
      "formId": "004E3FFD",
@@ -1513,10 +1529,11 @@
      "name": "Fortify Carry Weight",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+20 Carry Weight (+25 Carry Weight with a serum)",
+     "display": "+20 Carry Weight (+25 Carry Weight in a team with Strange In Numbers)",
      "groupKey": "carry-weight",
      "groupLabel": "Carry Weight",
-     "serumMagnitude": 25.0
+     "serumMagnitude": 25.0,
+     "higherWhen": "team"
     },
     {
      "formId": "004DF1D0",
@@ -1530,10 +1547,11 @@
      "name": "Jump Height",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+3 Jump Height (+4 Jump Height with a serum)",
+     "display": "+3 Jump Height (+4 Jump Height in a team with Strange In Numbers)",
      "groupKey": "fortify-jump-height",
      "groupLabel": "Fortify Jump Height",
-     "serumMagnitude": 4.0
+     "serumMagnitude": 4.0,
+     "higherWhen": "team"
     },
     {
      "formId": "004DF1D1",
@@ -1705,10 +1723,11 @@
      "name": "Fortify Damage Resist",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+50 Damage Resist (+62 Damage Resist with a serum)",
+     "display": "+50 Damage Resist (+62 Damage Resist in a team with Strange In Numbers)",
      "groupKey": "fortify-damage-resist",
      "groupLabel": "Fortify Damage Resist",
-     "serumMagnitude": 62.0
+     "serumMagnitude": 62.0,
+     "higherWhen": "team"
     },
     {
      "formId": "004DF1D4",
@@ -1722,10 +1741,11 @@
      "name": "Fortify Energy Resist",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+50 Energy Resist (+62 Energy Resist with a serum)",
+     "display": "+50 Energy Resist (+62 Energy Resist in a team with Strange In Numbers)",
      "groupKey": "fortify-energy-resist",
      "groupLabel": "Fortify Energy Resist",
-     "serumMagnitude": 62.0
+     "serumMagnitude": 62.0,
+     "higherWhen": "team"
     },
     {
      "formId": "004DF1D5",
@@ -1811,10 +1831,11 @@
      "name": "Fortify Move Speed",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+20 Move Speed (+25 Move Speed with a serum)",
+     "display": "+20 Move Speed (+25 Move Speed in a team with Strange In Numbers)",
      "groupKey": "fortify-move-speed",
      "groupLabel": "Fortify Move Speed",
-     "serumMagnitude": 25.0
+     "serumMagnitude": 25.0,
+     "higherWhen": "team"
     },
     {
      "formId": "004DF1E6",
@@ -1828,10 +1849,11 @@
      "name": "Fortify Reload Speed",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "Reload Speed ×0.3 (Reload Speed ×0.4 with a serum)",
+     "display": "Reload Speed ×0.3 (Reload Speed ×0.4 in a team with Strange In Numbers)",
      "groupKey": "fortify-reload-speed",
      "groupLabel": "Fortify Reload Speed",
-     "serumMagnitude": 0.4
+     "serumMagnitude": 0.4,
+     "higherWhen": "team"
     },
     {
      "formId": "007F2033",
@@ -1935,10 +1957,11 @@
      "name": "+25 Bleed DMG over 5 sec",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+25 Bleed DMG over 5 sec (+25 Bleed DMG over 5 sec with a serum)",
+     "display": "+25 Bleed DMG over 5 sec (+25 Bleed DMG over 5 sec in a team with Strange In Numbers)",
      "groupKey": "25-bleed-dmg-over-5-sec",
      "groupLabel": "+25 Bleed DMG Over 5 Sec",
-     "serumMagnitude": 35.0
+     "serumMagnitude": 35.0,
+     "higherWhen": "team"
     },
     {
      "formId": "00391F10",
@@ -2022,10 +2045,11 @@
      "name": "Limb Damage",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+50 Limb Damage (+63 Limb Damage with a serum)",
+     "display": "+50 Limb Damage (+63 Limb Damage in a team with Strange In Numbers)",
      "groupKey": "twisted-muscles",
      "groupLabel": "Twisted Muscles",
-     "serumMagnitude": 63.0
+     "serumMagnitude": 63.0,
+     "higherWhen": "team"
     },
     {
      "formId": "003C4031",
@@ -2039,10 +2063,11 @@
      "name": "Melee Damage",
      "polarity": "buff",
      "durationDisplay": null,
-     "display": "+25 Melee Damage (+35 Melee Damage with a serum)",
+     "display": "+25 Melee Damage (+35 Melee Damage in a team with Strange In Numbers)",
      "groupKey": "twisted-muscles",
      "groupLabel": "Twisted Muscles",
-     "serumMagnitude": 35.0
+     "serumMagnitude": 35.0,
+     "higherWhen": "team"
     },
     {
      "formId": "003C4034",
