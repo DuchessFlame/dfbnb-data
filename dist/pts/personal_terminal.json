@@ -2,13 +2,13 @@
  "page": "/df/camp/personal-terminal/",
  "title": "CAMP - Personal Terminal",
  "source": "TERM_Export_October_2026.tsv",
- "built": "2026-10-18",
+ "built": "2026-10-19",
  "totals": {
   "friends": 3,
   "alerts": 5,
   "stat_sections": 9,
-  "stats": 209,
-  "new": 0
+  "stats": 217,
+  "new": 8
  },
  "home": {
   "form_id": "00417C2F",
@@ -356,6 +356,14 @@
         "stat": "Fish Caught: 008EFCA6",
         "stat_kind": "Fish Caught",
         "form_id": "008EFCA6"
+       },
+       {
+        "id": "stat:Fish Caught: 00921E4B",
+        "label": "Fastenfisch",
+        "stat": "Fish Caught: 00921E4B",
+        "stat_kind": "Fish Caught",
+        "form_id": "00921E4B",
+        "new": true
        }
       ],
       "conditional": false
@@ -366,14 +374,14 @@
       "rows": [
        {
         "id": "stat:Fish Caught: 008A45CD",
-        "label": "Bog sucker",
+        "label": "Bog Sucker",
         "stat": "Fish Caught: 008A45CD",
         "stat_kind": "Fish Caught",
         "form_id": "008A45CD"
        },
        {
         "id": "stat:Fish Caught: 008A45CB",
-        "label": "Orange overseer",
+        "label": "Orange Overseer",
         "stat": "Fish Caught: 008A45CB",
         "stat_kind": "Fish Caught",
         "form_id": "008A45CB"
@@ -387,7 +395,7 @@
        },
        {
         "id": "stat:Fish Caught: 008A45CC",
-        "label": "Fester koi",
+        "label": "Fester Koi",
         "stat": "Fish Caught: 008A45CC",
         "stat_kind": "Fish Caught",
         "form_id": "008A45CC"
@@ -482,6 +490,14 @@
         "stat": "Fish Caught: 008006D1",
         "stat_kind": "Fish Caught",
         "form_id": "008006D1"
+       },
+       {
+        "id": "stat:Fish Caught: 00913919",
+        "label": "Gold Axolotl",
+        "stat": "Fish Caught: 00913919",
+        "stat_kind": "Fish Caught",
+        "form_id": "00913919",
+        "new": true
        }
       ],
       "conditional": false
@@ -767,7 +783,7 @@
       "conditional": false
      }
     ],
-    "count": 64
+    "count": 66
    },
    {
     "id": "section:X01X_PlayerTerminal_Stats_Exploration",
@@ -790,6 +806,12 @@
       "id": "stat:Expeditions Completed",
       "label": "Expeditions Completed",
       "stat": "Expeditions Completed"
+     },
+     {
+      "id": "stat:Infestations Completed",
+      "label": "Infestations Completed",
+      "stat": "Infestations Completed",
+      "new": true
      },
      {
       "id": "stat:Total Meltdowns",
@@ -858,7 +880,7 @@
      }
     ],
     "groups": [],
-    "count": 16
+    "count": 17
    },
    {
     "id": "section:X01X_PlayerTerminal_Stats_Combat",
@@ -1214,9 +1236,21 @@
         "stat": "Brahmin Slaughtered"
        },
        {
+        "id": "stat:Cats Killed",
+        "label": "Cats Slaughtered",
+        "stat": "Cats Killed",
+        "new": true
+       },
+       {
         "id": "stat:Chickens Killed",
         "label": "Chickens Slaughtered",
         "stat": "Chickens Killed"
+       },
+       {
+        "id": "stat:Firefly Killed",
+        "label": "Fire Flies Slaughtered",
+        "stat": "Firefly Killed",
+        "new": true
        },
        {
         "id": "stat:Foxes Killed",
@@ -1227,6 +1261,12 @@
         "id": "stat:Opossoms Killed",
         "label": "Opossoms Slaughtered",
         "stat": "Opossoms Killed"
+       },
+       {
+        "id": "stat:Owlet Killed",
+        "label": "Owlet Slaughtered",
+        "stat": "Owlet Killed",
+        "new": true
        },
        {
         "id": "stat:Rabbits Killed",
@@ -1306,7 +1346,7 @@
       "conditional": false
      }
     ],
-    "count": 76
+    "count": 79
    },
    {
     "id": "section:X01X_PlayerTerminal_Stats_Social",
@@ -1557,10 +1597,16 @@
       "id": "stat:Total Expedition Stamps Collected",
       "label": "Total Stamps Found",
       "stat": "Total Expedition Stamps Collected"
+     },
+     {
+      "id": "stat:MrFuzzyTokenCollected",
+      "label": "Total Mr. Fuzzy Tokens Found",
+      "stat": "MrFuzzyTokenCollected",
+      "new": true
      }
     ],
     "groups": [],
-    "count": 7
+    "count": 8
    },
    {
     "id": "section:X01X_PlayerTerminal_Stats_Survival",
@@ -1588,10 +1634,16 @@
       "id": "stat:Snaxolotl",
       "label": "Snaxolotl",
       "stat": "Snaxolotl"
+     },
+     {
+      "id": "stat:PPPEnjoyer",
+      "label": "Perfectly Preserved Pie Enjoyed",
+      "stat": "PPPEnjoyer",
+      "new": true
      }
     ],
     "groups": [],
-    "count": 4
+    "count": 5
    },
    {
     "id": "section:X01X_PlayerTerminal_Stats_NW",
