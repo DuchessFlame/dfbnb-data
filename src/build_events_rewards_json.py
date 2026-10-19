@@ -49,6 +49,7 @@ from rng76 import (
     fmt_pct, REGION_BY_SUBLVLI_EDID,
 )
 import tsv_source          # one resolver for every export selection
+import reward_variants     # which named version a reward list drops
 
 # Resolve paths relative to the repo root (one level up from src/) so the
 # script produces correct output regardless of which directory it's run from.
@@ -964,6 +965,28 @@ for fid, combos in _armo_combos.items():
         best_slots.sort(key=_mod_slot_sort_key)
         armo_mod_slots_by_formid[fid] = best_slots
 
+# Named versions (mod_Custom_* combinations) per record, identified by their
+# unique mod and if_tmp_* keyword - see src/reward_variants.py for why
+# Combination_FULL alone can't be trusted (the Alien Blaster's is off by one).
+WEAP_NAMED = reward_variants.named_combos(WEAP_OT, "WEAP_FormID")
+ARMO_NAMED = reward_variants.named_combos(ARMO_OT, "ARMO_FormID")
+
+
+def _named_slots(sig, fid, holders, base_name=""):
+    """(slots, display name) of the one named version the holder lists name
+    (LL_Weapon_Ranged_AlienBlaster_TheVATSUnknown -> The V.A.T.S. Unknown),
+    else None."""
+    sig = (sig or "").upper()
+    named = WEAP_NAMED if sig == "WEAP" else ARMO_NAMED if sig == "ARMO" else {}
+    hit = reward_variants.pick(holders, reward_variants.variants_for(named, fid), base_name)
+    if not hit:
+        return None
+    ci, label = hit
+    slots = ((_weap_combos if sig == "WEAP" else _armo_combos).get(fid) or {}).get(ci)
+    if not slots:
+        return None
+    return sorted(slots, key=_mod_slot_sort_key), label
+
 # --------------------------------------------------
 # Index: GLOB
 # --------------------------------------------------
@@ -1701,7 +1724,12 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                 # Regular LVLI pools drop the base version (OT CombinationIndex 0).
                 if _is_unique_lvli(edid):
                     raw_slots = None
-                    if ref_sig == "ARMO" and fid in armo_mod_slots_by_formid:
+                    # This list names the version (..._AlienBlaster_TheVATSUnknown):
+                    # use that combination, not the base record's "best" one.
+                    named = _named_slots(ref_sig, fid, [edid], name)
+                    if named:
+                        raw_slots = named[0]
+                    elif ref_sig == "ARMO" and fid in armo_mod_slots_by_formid:
                         raw_slots = armo_mod_slots_by_formid[fid]
                     elif ref_sig == "WEAP" and fid in weap_mod_slots_by_formid:
                         raw_slots = weap_mod_slots_by_formid[fid]
@@ -1712,7 +1740,9 @@ def build_lvli_tree_node(list_id, depth=0, seen=None):
                         # Prefer the ObjectTemplate combination name (the true unique
                         # weapon name, e.g. "Relic Reaper") over an appearance/skin
                         # custom-mod value (e.g. "Cursed Shovel").
-                        if ref_sig == "WEAP" and fid in weap_combo_name_by_formid:
+                        if named:
+                            custom_prefix = named[1] or custom_prefix
+                        elif ref_sig == "WEAP" and fid in weap_combo_name_by_formid:
                             custom_prefix = weap_combo_name_by_formid[fid]
                         if cleaned:
                             item_data["modSlots"] = cleaned
@@ -2388,6 +2418,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                         "qty": item.get("qty", 1),
                         "kind": None,
                         "conditions": simplify_conditions(item.get("conditions", [])),
+                        "_root": formid,  # reward_variants: which named version
                     })
 
         # All other LVLI - resolve to unique event rewards
@@ -2411,6 +2442,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     "qty": item.get("qty", 1),
                     "kind": "plan" if is_plan else None,
                     "conditions": simplify_conditions(item.get("conditions", [])),
+                    "_root": formid,  # reward_variants: which named version
                 })
                 if is_plan:
                     activity_data["planRewards"].append({
@@ -2516,17 +2548,33 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
         if not fid:
             continue
         slots = None
-        if fid in weap_mod_slots_by_formid:
+        # The list that holds the base record names the version (Invaders from
+        # Beyond: ..._AlienBlaster_TheVATSUnknown, not Zeta's Revenge).
+        root = uer_item.pop("_root", "")
+        named = None
+        if root:
+            holders = reward_variants.holder_edids(
+                root, fid, lvli_entries_by_list, lvli_edid_by_formid)
+            named = (_named_slots("WEAP", fid, holders, uer_item.get("name", ""))
+                     or _named_slots("ARMO", fid, holders, uer_item.get("name", "")))
+        if named:
+            slots = named[0]
+        elif fid in weap_mod_slots_by_formid:
             slots = weap_mod_slots_by_formid[fid]
         elif fid in armo_mod_slots_by_formid:
             slots = armo_mod_slots_by_formid[fid]
         if slots:
             raw_slots = [{"label": s["label"], "value": s["value"]} for s in slots]
             cleaned, custom_prefix = _filter_and_clean_modslots(raw_slots, uer_item.get("name"))
+            if named and named[1]:
+                custom_prefix = named[1]   # the version's own name
             if cleaned:
                 uer_item["modSlots"] = cleaned
             if custom_prefix:
                 uer_item["name"] = _apply_custom_prefix(uer_item.get("name", ""), custom_prefix)
+
+    for uer_item in activity_data["uniqueEventRewards"]:
+        uer_item.pop("_root", None)
 
     # Sort unique event rewards: titles first, then others
     def _uer_sort_key(item):
