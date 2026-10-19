@@ -1,12 +1,13 @@
-currency_edid	name	daily_limit	refresh_time	refresh_period	tradeable	confirmed	notes
-Caps001	Caps	1,400				0	Caps you can get from selling to vendors. Server-side - not in the game files.
-LegendaryTokens	Legendary Scrip	500				0	Oct 2025 infographic. Server-side - not in the game files.
-GoldBullion	Gold Bullion	400				0	Turning in Treasury Notes. Smiley's 300 a week is W05_BullionPurchasedMax in the files.
-XPD_Stamps_Currency	Stamps	No limit				0	Oct 2025 infographic.
-PerkScrapCurrency	Perk Coins	No limit				0	Oct 2025 infographic.
-PossumBadge	Possum Badges	No limit				0	Oct 2025 infographic.
-TadpoleBadge	Tadpole Badges	No limit				0	Oct 2025 infographic.
-Treasury_Note	Treasury Notes	40				0	Oct 2025 infographic.
-LegendaryModule	Legendary Modules	No limit				0	Oct 2025 infographic.
-SuppliesCurrency	Supplies					0	Milepost Zero. Ask the devs.
-MrFuzzyCurrency	Mr. Fuzzy Tokens					0	PTS only (Oct 2026). Ask the devs.
+currency_edid	name	daily_limit	refresh_time	refresh_period	tradeable	confirmed	max_held	notes
+Caps001	Caps	1,400				1		The most caps vendors will pay you a day, shared across every caps vendor. From the game files (vendor wallet Vendor_CapsBalance_Shared_Faction, default 1,400).
+LegendaryTokens	Legendary Scrip	500				1		The most scrip the Legendary Exchange machines will give you a day, shared across every machine. From the game files (vendor wallet Vendor_CapsBalance_LegendaryVending, default 500).
+GoldBullion	Gold Bullion	400				1		The most bullion the Gold Press machines will turn Treasury Notes into a day (40 notes). From the game files (vendor wallet Vendor_GoldBalance_Gold_VendingMachine, default 400). Separate weekly limit: 300 bullion bought at The Wayward (W05_BullionPurchasedMax, resets every week).
+XPD_Stamps_Currency	Stamps	No limit				0		
+PerkScrapCurrency	Perk Coins	No limit				0		
+PossumBadge	Possum Badges	No limit				0		
+TadpoleBadge	Tadpole Badges	No limit				0		
+Treasury_Note	Treasury Notes	40				1		40 notes a day can be turned in at the Gold Press machines (400 bullion, 10 bullion per note).
+LegendaryModule	Legendary Modules	No limit				0		
+SuppliesCurrency	Supplies					0		Milepost Zero (cut content).
+MTR04_MrFuzzyToken	Mr. Fuzzy Tokens					1	1000	Most you can hold seen in game (Pip-Boy: Capacity 1000/1000, Oct 2026).
+MrFuzzyCurrency	Mr. Fuzzy Tokens					1	1000	Most you can hold seen in game (Pip-Boy: Capacity 1000/1000, Oct 2026).
