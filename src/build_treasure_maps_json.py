@@ -26,6 +26,7 @@ Usage:
 """
 
 import csv, glob, json, os, re, sys
+from ench_rows import normalize as normalize_ench
 from collections import defaultdict, OrderedDict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -162,7 +163,9 @@ for _r in _read_cols("MGEF_Export_*.tsv", ["MGEF_FormID", "EDID", "DNAM_MagicIte
         _MGEF_TEXT[(_r["MGEF_FormID"] or "").strip().upper()] = _r["DNAM_MagicItemDescription"].strip()
 _ENCH_EFFECTS = {}  # ENCH fid -> [(MGEF fid, magnitude)]
 for _r in _read_cols("ENCH_Export_*.tsv", ["ENCH_FormID"] + [
-        f"Effect_{i}_{k}" for i in range(1, 6) for k in ("MGEF_FID", "Magnitude")]):
+        f"Effect_{i}_{k}" for i in range(1, 6)
+        for k in ("MGEF_FID", "MGEF_EID", "Magnitude", "Area", "Duration", "CURV_EID")]):
+    normalize_ench(_r)   # old shifted export -> correct columns
     _effs = []
     for i in range(1, 6):
         _m = (_r.get(f"Effect_{i}_MGEF_FID") or "").strip().upper()

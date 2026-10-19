@@ -1,0 +1,57 @@
+name: Build Builds Data
+
+# dist/builds/builds_data.json + build_templates.json for the BnB Builds
+# category (build calculator + preset build pages, df-bnb-builds.js).
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'tsv/PCRD_Export_*'
+      - 'tsv/WEAP_Export_*'
+      - 'tsv/OMOD_Export_*'
+      - 'src/build_builds_json.py'
+      - 'data/builds/**'
+      - 'dist/perk_cards.json'
+      - 'dist/legendary_mods.json'
+      - 'dist/armour.json'
+      - 'dist/buffs/**'
+      - 'dist/unique_weapons_armour/**'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: dist-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Build builds JSON
+        run: python src/build_builds_json.py
+
+      - name: Commit and push
+        shell: bash
+        run: |
+          if git status --porcelain dist/builds | grep -q .; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add dist/builds
+            git commit -m "Build Builds data"
+            git fetch origin main
+            git pull --rebase origin main
+            git push origin main
+          else
+            echo "No dist/builds changes."
+          fi

@@ -51,6 +51,17 @@ Usage:
 from __future__ import annotations
 
 import datetime as dt
+from ench_rows import normalize as normalize_ench
+
+
+def _num_text(v):
+    """'10.000000' -> '10', '0.5' -> '0.5'; blank / '0' stays blank-ish as before."""
+    t = (v or "").strip()
+    try:
+        f = float(t)
+    except ValueError:
+        return t
+    return "" if f == 0 else ("%g" % f)
 import json
 import os
 import re
@@ -502,6 +513,7 @@ class EffectIndex:
         # ENCH — one row per enchantment, effects in numbered columns.
         try:
             for r in read_tsv(newest(os.path.join(tsv_root, "ENCH_Export_*.tsv"))):
+                normalize_ench(r)   # old shifted export -> correct columns
                 effects = []
                 for i in range(1, 8):
                     ref = (r.get(f"Effect_{i}_MGEF_FID") or "").strip()
@@ -509,8 +521,8 @@ class EffectIndex:
                         continue
                     effects.append({
                         "mgef": ref.split(":")[0].strip().upper(),
-                        "magnitude": (r.get(f"Effect_{i}_Magnitude") or "").strip(),
-                        "area": (r.get(f"Effect_{i}_Area") or "").strip(),
+                        "magnitude": _num_text(r.get(f"Effect_{i}_Magnitude")),
+                        "area": _num_text(r.get(f"Effect_{i}_Area")),
                     })
                 if effects:
                     self._register(

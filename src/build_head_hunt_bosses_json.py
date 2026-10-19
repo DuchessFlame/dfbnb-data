@@ -14,6 +14,7 @@ updated boss names, weapon stats, enchantment magnitudes, etc. automatically.
 """
 
 import csv
+from ench_rows import normalize as normalize_ench
 import glob
 import json
 import os
@@ -292,12 +293,12 @@ def load_weapon_stats(dnam_rows):
 
 
 def load_enchantments(ench_rows):
-    # Column quirk of the ENCH export:
-    #   Effect_i_MGEF_FID = "FormID:EDID"   (the MGEF reference)
-    #   Effect_i_MGEF_EID = magnitude       (the numeric value lives here)
-    #   Effect_i_Area     = duration (sec)  (NOT the Duration column, which is blank)
+    # ench_rows.normalize() turns an old shifted ENCH export ("FormID:EDID" in
+    # one cell, every value one column early) into the correct layout, so this
+    # reads the real Magnitude / Duration columns whichever export it's given.
     enchants = {}
     for row in ench_rows:
+        normalize_ench(row)
         edid = row.get("ENCH_EDID", "")
         if not (edid.startswith("Burn_BountyHunt_") or edid.startswith("Burn_Bounty_")
                 or edid.startswith("SDOW_")):
@@ -305,14 +306,13 @@ def load_enchantments(ench_rows):
         effects = []
         count = safe_int(row.get("Effects_Count"), 0)
         for i in range(1, min(count + 1, 31)):
-            fid_field = row.get(f"Effect_{i}_MGEF_FID", "") or ""
-            mgef_edid = fid_field.split(":", 1)[1] if ":" in fid_field else fid_field
+            mgef_edid = (row.get(f"Effect_{i}_MGEF_EID", "") or "").strip()
             if not mgef_edid:
                 continue
             effects.append({
                 "mgefEdid": mgef_edid,
-                "magnitude": safe_float(row.get(f"Effect_{i}_MGEF_EID")),
-                "duration": safe_int(row.get(f"Effect_{i}_Area")),
+                "magnitude": safe_float(row.get(f"Effect_{i}_Magnitude")),
+                "duration": safe_int(safe_float(row.get(f"Effect_{i}_Duration"))),
             })
         enchants[edid] = {"name": row.get("ENCH_FULL", "") or edid, "formId": row.get("ENCH_FormID", ""), "effects": effects}
     return enchants

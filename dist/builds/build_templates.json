@@ -1,0 +1,661 @@
+{
+ "generated": "2026-10-19T07:31:03Z",
+ "templates": [
+  {
+   "id": "build-calculator",
+   "path": "/bnb/builds/build-calculator/",
+   "title": "Make Your Own Build",
+   "blurb": "Tap what you fight with, whether you wear power armour and how you like to play. Your full loadout builds itself: SPECIALs, perk cards, legendary perks, weapon mods, legendary effects, armour, mutations and buffs. Fine-tune it underneath if you want to.",
+   "custom": true,
+   "defaults": {
+    "classes": [
+     "rifle"
+    ],
+    "pa": false,
+    "focus": "balanced",
+    "aim": "auto",
+    "health": "full",
+    "race": "human",
+    "team": "solo",
+    "level": 100,
+    "carry": false,
+    "utility": false,
+    "mutations": true,
+    "coins": 0
+   }
+  },
+  {
+   "id": "heavy-guns",
+   "path": "/bnb/builds/heavy-guns-builds/",
+   "title": "Heavy Guns Build",
+   "blurb": "A power armour heavy gunner built around Bullet Storm. Tap a different playstyle or weapon to reshape it, or fine-tune your level and perk coins below.",
+   "defaults": {
+    "classes": [
+     "heavy"
+    ],
+    "weapon": "Gatling Plasma",
+    "pa": true,
+    "focus": "damage",
+    "aim": "free",
+    "health": "full",
+    "race": "human",
+    "team": "solo",
+    "level": 100,
+    "carry": false,
+    "utility": false,
+    "mutations": true,
+    "coins": 0
+   },
+   "weapons": [
+    "Gatling Plasma",
+    "Light Machine Gun",
+    "Minigun",
+    "Gatling Gun",
+    ".50 Cal Machine Gun",
+    "Gatling Laser"
+   ],
+   "coreCards": [
+    "Bullet Storm",
+    "Bringing the Big Guns",
+    "Lock and Load",
+    "Stabilized",
+    "Bullet Shield"
+   ],
+   "paSets": [
+    "T-65",
+    "Union",
+    "Hellcat"
+   ],
+   "armourSets": [
+    "Secret Service Armor"
+   ],
+   "weaponEffects": {
+    "1": [
+     "Bloodied",
+     "Anti-armor",
+     "Juggernaut's"
+    ],
+    "2": [
+     "Rapid",
+     "Vital"
+    ],
+    "3": [
+     "Lightweight"
+    ]
+   },
+   "mutations": [
+    "Adrenal Reaction",
+    "Marsupial",
+    "Speed Demon",
+    "Herbivore"
+   ]
+  },
+  {
+   "id": "melee",
+   "path": "/bnb/builds/melee-builds/",
+   "title": "Melee Build",
+   "blurb": "A two-handed melee build that hits hard and keeps you standing. Swap in any melee weapon, power armour, or a bloodied setup with one tap.",
+   "defaults": {
+    "classes": [
+     "melee"
+    ],
+    "weapon": "Super Sledge",
+    "pa": false,
+    "focus": "damage",
+    "aim": "free",
+    "health": "full",
+    "race": "human",
+    "team": "solo",
+    "level": 100,
+    "carry": false,
+    "utility": false,
+    "mutations": true,
+    "coins": 0
+   },
+   "weapons": [
+    "Super Sledge",
+    "War Glaive",
+    "Sledgehammer",
+    "Chainsaw",
+    "Pipe Wrench",
+    "Combat Knife"
+   ],
+   "coreCards": [
+    "Heavy Hitter",
+    "Incisor",
+    "Martial Artist",
+    "Slugger"
+   ],
+   "armourSets": [
+    "Secret Service Armor",
+    "Trapper Armor"
+   ],
+   "paSets": [
+    "T-65",
+    "Union"
+   ],
+   "weaponEffects": {
+    "1": [
+     "Bloodied",
+     "Juggernaut's",
+     "Executioner's"
+    ],
+    "2": [
+     "Heavy Hitter's",
+     "Rapid"
+    ],
+    "3": [
+     "Strength",
+     "Lightweight"
+    ]
+   },
+   "mutations": [
+    "Twisted Muscles",
+    "Adrenal Reaction",
+    "Talons",
+    "Speed Demon",
+    "Marsupial",
+    "Carnivore"
+   ]
+  },
+  {
+   "id": "pistol",
+   "path": "/bnb/builds/pistol-builds/",
+   "title": "Pistol Build",
+   "blurb": "A light, fast gunslinger that lives in VATS. Switch to free aim or sneak with one tap.",
+   "defaults": {
+    "classes": [
+     "pistol"
+    ],
+    "weapon": "Western Revolver",
+    "pa": false,
+    "focus": "damage",
+    "aim": "vats",
+    "health": "full",
+    "race": "human",
+    "team": "solo",
+    "level": 100,
+    "carry": false,
+    "utility": false,
+    "mutations": true,
+    "coins": 0
+   },
+   "weapons": [
+    "Western Revolver",
+    ".44 Pistol",
+    "Single Action Revolver",
+    "10mm Pistol",
+    "Pipe Revolver",
+    "Gauss Pistol"
+   ],
+   "coreCards": [
+    "Gunslinger",
+    "Gunslinger Expert",
+    "Gunslinger Master",
+    "Guerrilla"
+   ],
+   "armourSets": [
+    "Secret Service Armor",
+    "Brotherhood Recon Armor",
+    "Combat Armor"
+   ],
+   "weaponEffects": {
+    "1": [
+     "Bloodied",
+     "Anti-armor",
+     "Executioner's"
+    ],
+    "2": [
+     "Vital",
+     "V.A.T.S. Enhanced"
+    ],
+    "3": [
+     "V.A.T.S. Optimized",
+     "Lightweight"
+    ]
+   },
+   "mutations": [
+    "Bird Bones",
+    "Eagle Eyes",
+    "Adrenal Reaction",
+    "Marsupial",
+    "Speed Demon",
+    "Herbivore"
+   ]
+  },
+  {
+   "id": "rifle",
+   "path": "/bnb/builds/rifle-builds/",
+   "title": "Rifle Build",
+   "blurb": "An all-round rifleman: automatic rifles up close, scoped rifles at range. Pick VATS, free aim or sneak.",
+   "defaults": {
+    "classes": [
+     "rifle"
+    ],
+    "weapon": "Handmade Rifle",
+    "pa": false,
+    "focus": "damage",
+    "aim": "free",
+    "health": "full",
+    "race": "human",
+    "team": "solo",
+    "level": 100,
+    "carry": false,
+    "utility": false,
+    "mutations": true,
+    "coins": 0
+   },
+   "weapons": [
+    "Handmade Rifle",
+    "Combat Rifle",
+    "Gauss Rifle",
+    "Lever Action Rifle",
+    "Railway Rifle",
+    "Assault Rifle",
+    "Hunting Rifle"
+   ],
+   "coreCards": [
+    "Tank Killer",
+    "Down Ranger",
+    "Center Masochist"
+   ],
+   "armourSets": [
+    "Secret Service Armor",
+    "Brotherhood Recon Armor",
+    "Combat Armor"
+   ],
+   "paSets": [
+    "T-65",
+    "Union"
+   ],
+   "weaponEffects": {
+    "1": [
+     "Bloodied",
+     "Anti-armor",
+     "Two Shot"
+    ],
+    "2": [
+     "Vital",
+     "Explosive"
+    ],
+    "3": [
+     "Lightweight",
+     "V.A.T.S. Optimized"
+    ]
+   },
+   "mutations": [
+    "Adrenal Reaction",
+    "Eagle Eyes",
+    "Bird Bones",
+    "Marsupial",
+    "Speed Demon",
+    "Herbivore"
+   ]
+  },
+  {
+   "id": "bows-throwing",
+   "path": "/bnb/builds/bows-throwing-builds/",
+   "title": "Bows & Throwing Build",
+   "blurb": "A quiet archer and thrower that opens every fight with a sneak attack.",
+   "defaults": {
+    "classes": [
+     "bow",
+     "thrown"
+    ],
+    "weapon": "Compound Bow",
+    "pa": false,
+    "focus": "damage",
+    "aim": "sneak",
+    "health": "full",
+    "race": "human",
+    "team": "solo",
+    "level": 100,
+    "carry": false,
+    "utility": false,
+    "mutations": true,
+    "coins": 0
+   },
+   "weapons": [
+    "Compound Bow",
+    "Bow",
+    "Crossbow"
+   ],
+   "coreCards": [
+    "Bow Before Me",
+    "Hat Trick",
+    "Master Archer",
+    "Ninja",
+    "Sneak"
+   ],
+   "armourSets": [
+    "Secret Service Armor",
+    "Combat Armor",
+    "Leather Armor"
+   ],
+   "weaponEffects": {
+    "1": [
+     "Bloodied",
+     "Anti-armor",
+     "Executioner's"
+    ],
+    "2": [
+     "Vital"
+    ],
+    "3": [
+     "Lightweight",
+     "Ghost's"
+    ]
+   },
+   "mutations": [
+    "Chameleon",
+    "Bird Bones",
+    "Eagle Eyes",
+    "Marsupial",
+    "Herbivore"
+   ]
+  },
+  {
+   "id": "raid",
+   "path": "/bnb/builds/raid-builds/",
+   "title": "Raid Build",
+   "blurb": "A team-first power armour build for raids: tough, keeps the squad alive, and still puts damage on the boss.",
+   "defaults": {
+    "classes": [
+     "heavy"
+    ],
+    "weapon": "Gatling Plasma",
+    "pa": true,
+    "focus": "team",
+    "aim": "free",
+    "health": "full",
+    "race": "human",
+    "team": "team",
+    "level": 150,
+    "carry": false,
+    "utility": false,
+    "mutations": true,
+    "coins": 0
+   },
+   "weapons": [
+    "Gatling Plasma",
+    "Light Machine Gun",
+    "Minigun",
+    "Gatling Laser"
+   ],
+   "coreCards": [
+    "Bullet Storm",
+    "Bringing the Big Guns",
+    "Tenderizer",
+    "Bodyguards",
+    "Bullet Shield"
+   ],
+   "paSets": [
+    "T-65",
+    "Union"
+   ],
+   "weaponEffects": {
+    "1": [
+     "Juggernaut's",
+     "Anti-armor"
+    ],
+    "2": [
+     "Rapid"
+    ],
+    "3": [
+     "Lightweight"
+    ]
+   },
+   "mutations": [
+    "Herd Mentality",
+    "Empath",
+    "Marsupial",
+    "Speed Demon",
+    "Herbivore"
+   ]
+  },
+  {
+   "id": "ghoul",
+   "path": "/bnb/builds/ghoul-builds/",
+   "title": "Ghoul Build",
+   "blurb": "A ghoul brawler that turns Glow into damage. Switch the weapon and the ghoul perks re-pick themselves around it.",
+   "defaults": {
+    "classes": [
+     "melee"
+    ],
+    "weapon": "Super Sledge",
+    "pa": false,
+    "focus": "damage",
+    "aim": "free",
+    "health": "full",
+    "race": "ghoul",
+    "team": "solo",
+    "level": 100,
+    "carry": false,
+    "utility": false,
+    "mutations": true,
+    "coins": 0
+   },
+   "weapons": [
+    "Super Sledge",
+    "War Glaive",
+    "Sledgehammer",
+    "Chainsaw"
+   ],
+   "coreCards": [
+    "Radioactive Strength",
+    "Rad-Reaver",
+    "Bone shatterer",
+    "Radiation Power",
+    "Heavy Hitter",
+    "Incisor"
+   ],
+   "armourSets": [
+    "Secret Service Armor",
+    "Trapper Armor"
+   ],
+   "weaponEffects": {
+    "1": [
+     "Juggernaut's",
+     "Executioner's"
+    ],
+    "2": [
+     "Heavy Hitter's"
+    ],
+    "3": [
+     "Strength"
+    ]
+   },
+   "mutations": [
+    "Twisted Muscles",
+    "Adrenal Reaction",
+    "Marsupial",
+    "Carnivore"
+   ]
+  },
+  {
+   "id": "pipe-pistol",
+   "path": "/bnb/builds/pipe-pistol-build/",
+   "title": "Pipe Pistol Build",
+   "blurb": "A starter-friendly build around the humble Pipe Pistol (a Pipe Gun with a pistol grip). Set to level 20 so new players see what they can run right now. Drag the level up to watch it grow.",
+   "lockWeapon": true,
+   "defaults": {
+    "classes": [
+     "pistol"
+    ],
+    "weapon": "Pipe Gun",
+    "pa": false,
+    "focus": "balanced",
+    "aim": "vats",
+    "health": "full",
+    "race": "human",
+    "team": "solo",
+    "level": 20,
+    "carry": false,
+    "utility": true,
+    "mutations": false,
+    "coins": 0
+   },
+   "weaponDisplayName": "Pipe Pistol",
+   "weaponClasses": [
+    "pistol",
+    "ballistic",
+    "pipe"
+   ],
+   "preferMods": {
+    "Grip / Stock": "pistol grip|standard grip|^grip",
+    "Grip": "pistol grip|standard grip|^grip"
+   },
+   "coreCards": [
+    "Gunslinger",
+    "Guerrilla",
+    "Licensed Plumber"
+   ],
+   "armourSets": [
+    "Leather Armor",
+    "Combat Armor",
+    "Metal Armor"
+   ],
+   "weaponEffects": {
+    "1": [
+     "Bloodied",
+     "Executioner's",
+     "Anti-armor"
+    ],
+    "2": [
+     "Vital",
+     "V.A.T.S. Enhanced"
+    ],
+    "3": [
+     "V.A.T.S. Optimized"
+    ]
+   },
+   "mutations": [
+    "Bird Bones",
+    "Marsupial",
+    "Herbivore"
+   ]
+  },
+  {
+   "id": "super-sledge",
+   "path": "/bnb/builds/super-sledge-build/",
+   "title": "Super Sledge Build",
+   "blurb": "A big-swing two-handed build around the Super Sledge, a craftable hammer from the Super Sledge plan (no Atom Shop needed). Tap power armour or bloodied to see how it changes.",
+   "lockWeapon": true,
+   "defaults": {
+    "classes": [
+     "melee"
+    ],
+    "weapon": "Super Sledge",
+    "pa": false,
+    "focus": "damage",
+    "aim": "free",
+    "health": "full",
+    "race": "human",
+    "team": "solo",
+    "level": 100,
+    "carry": false,
+    "utility": false,
+    "mutations": true,
+    "coins": 0
+   },
+   "coreCards": [
+    "Heavy Hitter",
+    "Incisor",
+    "Martial Artist",
+    "Slugger",
+    "Knee-Capper"
+   ],
+   "armourSets": [
+    "Secret Service Armor",
+    "Trapper Armor"
+   ],
+   "paSets": [
+    "T-65",
+    "Union"
+   ],
+   "weaponEffects": {
+    "1": [
+     "Juggernaut's",
+     "Bloodied",
+     "Executioner's"
+    ],
+    "2": [
+     "Heavy Hitter's",
+     "Rapid"
+    ],
+    "3": [
+     "Strength",
+     "Lightweight"
+    ]
+   },
+   "mutations": [
+    "Twisted Muscles",
+    "Adrenal Reaction",
+    "Talons",
+    "Marsupial",
+    "Speed Demon",
+    "Carnivore"
+   ]
+  },
+  {
+   "id": "minigun",
+   "path": "/bnb/builds/minigun-build/",
+   "title": "Minigun Build",
+   "blurb": "A power armour bullet hose around the Minigun, craftable from the Minigun plan (no Atom Shop needed). Thousands of 5mm rounds, Bullet Storm stacks, and Ammo Factory to keep it fed.",
+   "lockWeapon": true,
+   "defaults": {
+    "classes": [
+     "heavy"
+    ],
+    "weapon": "Minigun",
+    "pa": true,
+    "focus": "damage",
+    "aim": "free",
+    "health": "full",
+    "race": "human",
+    "team": "solo",
+    "level": 100,
+    "carry": false,
+    "utility": false,
+    "mutations": true,
+    "coins": 0
+   },
+   "coreCards": [
+    "Bullet Storm",
+    "Bringing the Big Guns",
+    "Lock and Load",
+    "Tightly Wound",
+    "Stabilized",
+    "Bandolier"
+   ],
+   "paSets": [
+    "T-65",
+    "Union",
+    "Hellcat"
+   ],
+   "armourSets": [
+    "Secret Service Armor"
+   ],
+   "weaponEffects": {
+    "1": [
+     "Juggernaut's",
+     "Anti-armor",
+     "Bloodied"
+    ],
+    "2": [
+     "Rapid"
+    ],
+    "3": [
+     "Lightweight"
+    ]
+   },
+   "mutations": [
+    "Adrenal Reaction",
+    "Marsupial",
+    "Speed Demon",
+    "Herbivore"
+   ]
+  }
+ ],
+ "problems": []
+}
