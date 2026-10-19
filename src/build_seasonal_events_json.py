@@ -61,6 +61,7 @@ from rng76 import (
     prettify_lvli_label,
 )
 import tsv_source          # one resolver for every export selection
+import reward_variants     # which named version a reward list drops
 import image_index         # the shared image library (dist/image_index.json)
 
 # ---------------------------------------------------------------------------
@@ -2171,13 +2172,30 @@ def _omod_desc_by_fid():
     return desc
 
 
-def _resolve_mod_slots(fid, sig):
+_NAMED_CACHE = {}
+
+
+def _named_combos(sig):
+    """reward_variants.named_combos over this sig's ObjectTemplate rows (cached)."""
+    sig = sig.upper()
+    if sig not in _NAMED_CACHE:
+        _NAMED_CACHE[sig] = reward_variants.named_combos(_ot_rows(sig), sig + "_FormID")
+    return _NAMED_CACHE[sig]
+
+
+def _resolve_mod_slots(fid, sig, holders=None, base_name=""):
     """Resolve {customModName, customModDescription, modSlots[]} for a named
     ARMO/WEAP FormID, or None if it carries no legendary combination.
 
     Picks the combination index with the most legendary slots (the "reward"
     preset), then returns its custom mod + legendary 1★-4★ (padded with N/A) +
-    lining, skipping engine-default junk values."""
+    lining, skipping engine-default junk values.
+
+    holders: EditorIDs of the leveled lists that hold this record in the
+    reward pool (reward_variants.holder_edids). When they name one version
+    (LL_Weapon_Ranged_AlienBlaster_TheVATSUnknown), that combination is used
+    instead of the "most legendary slots" guess - which labelled the Invaders
+    from Beyond Alien Blaster as Zeta's Revenge (19 Oct 2026)."""
     if not fid or sig.upper() not in ("ARMO", "WEAP"):
         return None
     fid_u = fid.upper()
@@ -2208,7 +2226,17 @@ def _resolve_mod_slots(fid, sig):
         return n
 
     best_ci = max(combos, key=lambda ci: (legendary_count(combos[ci]), ci))
-    if legendary_count(combos[best_ci]) == 0:
+    named = None
+    if holders:
+        named = reward_variants.pick(
+            holders, reward_variants.variants_for(_named_combos(sig), fid_u), base_name)
+        if named and named[0] in combos:
+            best_ci = named[0]
+        else:
+            named = None
+    # A named version is kept even when its stars are all rolled (The V.A.T.S.
+    # Unknown: three "Random Legendary Mod" stars).
+    if not named and legendary_count(combos[best_ci]) == 0:
         return None
 
     custom_name = ""
@@ -2245,6 +2273,8 @@ def _resolve_mod_slots(fid, sig):
     for lab, value in extras:
         mod_slots.append({"label": lab, "value": value})
 
+    if named and named[1]:
+        custom_name = named[1]   # the version's own name
     out = {"modSlots": mod_slots}
     if custom_name:
         out["customModName"] = custom_name
@@ -2992,7 +3022,14 @@ def _build_lvli_node(title, lvli_fid, lvli_edid, resolver, ev_slug,
         # Legendary roles / custom mod for named ARMO/WEAP rewards (e.g. the
         # Trapper Left Arm) — resolved from the ObjectTemplate the same way the
         # activity page does.
-        mods = _resolve_mod_slots(fid, sig)
+        holders = None
+        if sig in ("ARMO", "WEAP"):
+            _lv = getattr(resolver, "lvli", None)
+            if _lv is not None:
+                holders = reward_variants.holder_edids(
+                    lvli_fid, fid, getattr(_lv, "entries_by_list", {}) or {},
+                    getattr(_lv, "edid_by_formid", {}) or {})
+        mods = _resolve_mod_slots(fid, sig, holders, name)
         if mods:
             item_dict["modSlots"] = mods["modSlots"]
             if mods.get("customModName"):

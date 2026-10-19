@@ -49,6 +49,7 @@ from rng76 import (
     fmt_pct, REGION_BY_SUBLVLI_EDID,
 )
 import tsv_source          # one resolver for every export selection
+import reward_variants     # which named version a reward list drops
 
 # Resolve paths relative to the repo root (one level up from src/) so the
 # script produces correct output regardless of which directory it's run from.
@@ -2249,6 +2250,37 @@ def _resolve_variant_modslots(item_fid, item_sig, lvli_edid, fallback=True):
     return fb if fallback else None
 
 
+# Named versions (mod_Custom_* combinations) per record, identified by their
+# unique mod and if_tmp_* keyword - see src/reward_variants.py for why
+# Combination_FULL alone can't be trusted (the Alien Blaster's is off by one).
+WEAP_NAMED = reward_variants.named_combos(WEAP_OT, "WEAP_FormID")
+ARMO_NAMED = reward_variants.named_combos(ARMO_OT, "ARMO_FormID")
+
+
+def _named_version_slots(root_fid, item_fid, base_name=""):
+    """(slots, display name) of the one named version the reward list's holder
+    lists name (LL_Weapon_Ranged_AlienBlaster_TheVATSUnknown -> The V.A.T.S.
+    Unknown), else None - the caller then keeps its old behaviour."""
+    if not root_fid or not item_fid:
+        return None
+    holders = None
+    for named, combos in ((WEAP_NAMED, _weap_combos), (ARMO_NAMED, _armo_combos)):
+        variants = reward_variants.variants_for(named, item_fid)
+        if not variants:
+            continue
+        if holders is None:
+            holders = reward_variants.holder_edids(
+                root_fid, item_fid, lvli_entries_by_list,
+                lambda f: pick(lvli_list_by_formid.get(f) or {}, "LVLI_EDID", "EDID") or "")
+        hit = reward_variants.pick(holders, variants, base_name)
+        if hit:
+            ci, label = hit
+            slots = (combos.get(item_fid) or {}).get(ci)
+            if slots:
+                return sorted(slots, key=_mod_slot_sort_key), label
+    return None
+
+
 # Regex to skip cut/Drifter content LVLIs and items
 _CUT_LVLI_RE = re.compile(r'(?:^|[_\-])(?:CUT|DEL|ZZZ|POST|P62|TheDrifter|Drifter)(?:[_\-]|$)', re.IGNORECASE)
 
@@ -3539,6 +3571,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                         "qty": item.get("qty", 1),
                         "kind": None,
                         "conditions": simplify_conditions(item.get("conditions", [])),
+                        "_root": formid,  # reward_variants: which named version
                     })
 
         # All other LVLI - resolve to unique event rewards
@@ -3565,6 +3598,7 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                     "qty": item.get("qty", 1),
                     "kind": "plan" if is_plan else None,
                     "conditions": simplify_conditions(item.get("conditions", [])),
+                    "_root": formid,  # reward_variants: which named version
                 })
                 if is_plan:
                     plan_fid = item.get("formid", "")
@@ -4036,7 +4070,11 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             continue
         sig = (uer_item.get("sig") or "").upper()
         item_edid = uer_item.get("edid", "")
-        slots = _resolve_variant_modslots(fid, sig, item_edid)
+        # The list that holds the base record names the version (Invaders from
+        # Beyond drops the Alien Blaster through ..._AlienBlaster_TheVATSUnknown,
+        # not Zeta's Revenge). See src/reward_variants.py.
+        named = _named_version_slots(uer_item.pop("_root", ""), fid, uer_item.get("name", ""))
+        slots = named[0] if named else _resolve_variant_modslots(fid, sig, item_edid)
         if not slots:
             # Fallback to generic best
             if fid in weap_mod_slots_by_formid:
@@ -4047,6 +4085,8 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
             # Strip includeIndex, filter junk mods, extract custom name prefix + OMOD description
             raw_slots = [{"label": s["label"], "value": s["value"], "omod_fid": s.get("omod_fid", "")} for s in slots]
             cleaned, custom_prefix, custom_desc = _filter_and_clean_modslots(raw_slots, uer_item.get("name"))
+            if named and named[1]:
+                custom_prefix = named[1]   # the version's own name
             if cleaned:
                 uer_item["modSlots"] = cleaned
             # Prepend custom name to item display name (e.g. "Ski Sword" → "Black Diamond Ski Sword")
@@ -4056,6 +4096,9 @@ def build_activity_data(gmrw_rows, event_key, region_locations):
                 desc = custom_desc or _CUSTOM_MOD_DESC_OVERRIDES.get(custom_prefix.lower())
                 if desc:
                     uer_item["customModDescription"] = desc
+
+    for uer_item in activity_data["uniqueEventRewards"]:
+        uer_item.pop("_root", None)
 
     # Sort unique event rewards: titles first, then others
     def _uer_sort_key(item):
