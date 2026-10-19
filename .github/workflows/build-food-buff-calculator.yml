@@ -1,0 +1,66 @@
+name: Build Recommended Food Buff Calculator
+
+# Builds the data for /bnb/buffs/food/recommended-food-buff-calculator/
+#   dist/calculators/food_buff_calculator.json  (df-bnb-food-buff-calculator.js)
+# Reads ALCH / MGEF / GLOB / SPEL / KYWD exports, the two buff-rule exports
+# (MGEFKW_Export_*.tsv = MGEF keywords, PERKEP_Export_*.tsv = perk entry points
+# - from the new xEdit scripts or tools/esm_buff_rules_extract.py), the
+# Buffs n Brew menu (tsv/BnB_Menu_Items.tsv) and the hand-kept
+# data/food_buff_calculator/rules.json. The full patch / PTS builds also run it.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - 'tsv/ALCH_*.tsv'
+      - 'tsv/MGEF_*.tsv'
+      - 'tsv/MGEFKW_*.tsv'
+      - 'tsv/PERKEP_*.tsv'
+      - 'tsv/GLOB_*.tsv'
+      - 'tsv/SPEL_*.tsv'
+      - 'tsv/KYWD_*.tsv'
+      - 'tsv/BnB_Menu_Items.tsv'
+      - 'data/food_buff_calculator/**'
+      - 'src/build_food_buff_calculator_json.py'
+      - 'src/build_buffs_json.py'
+      - 'src/buffs_effects.py'
+      - '.github/workflows/build-food-buff-calculator.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-food-buff-calculator
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Build JSON
+        run: python src/build_food_buff_calculator_json.py --data-dir tsv --outdir dist
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add dist/calculators/food_buff_calculator.json
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+          git commit -m "Build Recommended Food Buff Calculator data"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin main && exit 0
+            sleep 5
+          done
+          exit 1

@@ -1225,6 +1225,12 @@ jobs:
       - name: Build Buffs JSON
         run: python src/build_buffs_json.py --data-dir tsv --outdir dist
 
+      # --- RECOMMENDED FOOD BUFF CALCULATOR (BnB Buffs > Food) ---
+      # Outputs dist/calculators/food_buff_calculator.json for df-bnb-food-buff-calculator.js.
+      # Needs tsv/MGEFKW_Export_*.tsv + tsv/PERKEP_Export_*.tsv (buff rules).
+      - name: Build Recommended Food Buff Calculator JSON
+        run: python src/build_food_buff_calculator_json.py --data-dir tsv --outdir dist
+
       # --- FISHING ---
       # Reads FISH/GLOB/LVLI TSVs directly and emits dist/fishing.json with
       # fish metadata, spawn rate tables per bait type, axolotl monthly

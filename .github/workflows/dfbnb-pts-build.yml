@@ -921,6 +921,10 @@ jobs:
       - name: Build Buffs JSON
         run: python src/build_buffs_json.py
 
+      # --- RECOMMENDED FOOD BUFF CALCULATOR ---
+      - name: Build Recommended Food Buff Calculator JSON
+        run: python src/build_food_buff_calculator_json.py
+
       # --- CAMP ---
       - name: Build CAMP JSON
         run: python src/build_camp_json.py

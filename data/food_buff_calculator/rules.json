@@ -1,0 +1,137 @@
+{
+  "_readme": [
+    "HAND-KEPT rules for the Recommended Food Buff Calculator (/bnb/buffs/food/recommended-food-buff-calculator/).",
+    "build_food_buff_calculator_json.py validates this file and copies it into dist/calculators/food_buff_calculator.json.",
+    "Everything about the ITEMS (which buff, how big, how long, meat/veg, what stacks) comes from the game exports.",
+    "Everything about WHY an item gets recommended lives here. To change a recommendation, change a weight here - not the page script.",
+    "",
+    "weights: 0 = never recommend that buff, 1 = core for the build. A buff only shows if its final weight is >= show_threshold.",
+    "Final weight for a buff = build weight, then each answer's 'add' is added and each 'mult' is multiplied (adds first, then mults).",
+    "'avoid' slots are hard-excluded: no item that GRANTS that buff is recommended at all (e.g. DR for berserkers).",
+    "ref = what counts as one 'full strength' buff of that type; only used to rank different buffs against each other."
+  ],
+  "show_threshold": 0.3,
+  "max_picks": { "food": 7, "chem": 4, "alcohol": 4 },
+  "sessions": [
+    { "key": "30", "label": "30 min", "minutes": 30, "food_min_duration_min": 30 },
+    { "key": "60", "label": "60+ min", "minutes": 60, "food_min_duration_min": 60 }
+  ],
+  "slots": {
+    "str":           { "label": "Strength",            "fmt": "+{v} Strength",              "ref": 3,   "group": "SPECIAL" },
+    "per":           { "label": "Perception",          "fmt": "+{v} Perception",            "ref": 3,   "group": "SPECIAL" },
+    "end":           { "label": "Endurance",           "fmt": "+{v} Endurance",             "ref": 3,   "group": "SPECIAL" },
+    "cha":           { "label": "Charisma",            "fmt": "+{v} Charisma",              "ref": 3,   "group": "SPECIAL" },
+    "int":           { "label": "Intelligence",        "fmt": "+{v} Intelligence",          "ref": 3,   "group": "SPECIAL" },
+    "agi":           { "label": "Agility",             "fmt": "+{v} Agility",               "ref": 3,   "group": "SPECIAL" },
+    "luck":          { "label": "Luck",                "fmt": "+{v} Luck",                  "ref": 3,   "group": "SPECIAL" },
+    "dmg_all":       { "label": "Damage",              "fmt": "+{v}% Damage",               "ref": 25,  "group": "Damage" },
+    "dmg_melee":     { "label": "Melee Damage",        "fmt": "+{v}% Melee Damage",         "ref": 30,  "group": "Damage" },
+    "dmg_unarmed":   { "label": "Unarmed Damage",      "fmt": "+{v}% Unarmed Damage",       "ref": 50,  "group": "Damage" },
+    "dmg_ballistic": { "label": "Ballistic Damage",    "fmt": "+{v}% Ballistic Damage",     "ref": 15,  "group": "Damage" },
+    "dmg_energy":    { "label": "Energy Damage",       "fmt": "+{v}% Energy Damage",        "ref": 15,  "group": "Damage" },
+    "dmg_animals":   { "label": "Damage vs Animals",   "fmt": "+{v}% Damage vs Animals",    "ref": 15,  "group": "Damage" },
+    "crit_dmg":      { "label": "Critical Damage",     "fmt": "+{v}% Critical Damage",      "ref": 50,  "group": "Damage" },
+    "sneak_attack":  { "label": "Sneak Attack Damage", "fmt": "+{v}% Sneak Attack Damage",  "ref": 15,  "group": "Damage" },
+    "vats_acc":      { "label": "VATS Hit Chance",     "fmt": "+{v}% VATS Hit Chance",      "ref": 10,  "group": "Damage" },
+    "gun_acc":       { "label": "Gun Accuracy",        "fmt": "+{v} Accuracy",              "ref": 33,  "group": "Damage" },
+    "dr":            { "label": "Damage Resistance",   "fmt": "+{v} Damage Resistance",     "ref": 50,  "group": "Defence" },
+    "er":            { "label": "Energy Resistance",   "fmt": "+{v} Energy Resistance",     "ref": 35,  "group": "Defence" },
+    "fire_res":      { "label": "Fire Resistance",     "fmt": "+{v} Fire Resistance",       "ref": 75,  "group": "Defence" },
+    "poison_res":    { "label": "Poison Resistance",   "fmt": "+{v} Poison Resistance",     "ref": 50,  "group": "Defence" },
+    "rad_res":       { "label": "Radiation Resistance","fmt": "+{v} Radiation Resistance",  "ref": 50,  "group": "Defence" },
+    "disease_res":   { "label": "Disease Resistance",  "fmt": "+{v}% Disease Resistance",   "ref": 20,  "group": "Defence" },
+    "max_hp":        { "label": "Max Health",          "fmt": "+{v} Max Health",            "ref": 40,  "group": "Defence" },
+    "heal_rate":     { "label": "Health Regen",        "fmt": "+{v} Health Regen",          "ref": 0.25,"group": "Defence" },
+    "ap":            { "label": "Action Points",       "fmt": "+{v} Action Points",         "ref": 30,  "group": "Utility" },
+    "ap_regen":      { "label": "AP Regen",            "fmt": "+{v}% AP Regen",             "ref": 10,  "group": "Utility" },
+    "carry":         { "label": "Carry Weight",        "fmt": "+{v} Carry Weight",          "ref": 30,  "group": "Utility" },
+    "xp":            { "label": "XP",                  "fmt": "+{v}% XP",                   "ref": 5,   "group": "Utility" },
+    "move_speed":    { "label": "Move Speed",          "fmt": "+{v}% Move Speed",           "ref": 20,  "group": "Utility" },
+    "invis":         { "label": "Invisibility",        "fmt": "Invisible (Stealth Boy)",    "ref": 1,   "group": "Utility" }
+  },
+  "questions": {
+    "build": {
+      "label": "What build are you running?",
+      "options": {
+        "heavy":     { "label": "Heavy Guns",                 "ranged": true,  "weights": { "str": 0.7, "end": 0.3, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.2 } },
+        "rifle":     { "label": "Rifleman (semi-auto rifles)", "ranged": true, "weights": { "per": 1, "agi": 0.3, "dmg_all": 1, "crit_dmg": 0.4, "dr": 0.5, "er": 0.4, "max_hp": 0.4, "ap": 0.3 } },
+        "commando":  { "label": "Commando (auto rifles)",     "ranged": true,  "weights": { "per": 1, "agi": 0.3, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.5, "er": 0.4, "max_hp": 0.4, "ap": 0.3 } },
+        "pistol":    { "label": "Gunslinger (pistols)",       "ranged": true,  "weights": { "agi": 1, "per": 0.3, "dmg_all": 1, "crit_dmg": 0.4, "dr": 0.5, "er": 0.4, "max_hp": 0.4, "ap": 0.4 } },
+        "shotgun":   { "label": "Shotgunner",                 "ranged": true,  "weights": { "str": 1, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.3 } },
+        "melee":     { "label": "Melee",                      "ranged": false, "weights": { "str": 1, "dmg_melee": 1, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.4, "agi": 0.2 } },
+        "unarmed":   { "label": "Unarmed",                    "ranged": false, "weights": { "str": 1, "dmg_unarmed": 1, "dmg_melee": 0.6, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.4, "agi": 0.2 } },
+        "sneak":     { "label": "Sneak / Sniper",             "ranged": true,  "weights": { "per": 1, "agi": 1, "luck": 0.4, "sneak_attack": 1, "dmg_all": 1, "crit_dmg": 0.6, "invis": 0.4, "ap": 0.4, "max_hp": 0.3 } },
+        "archer":    { "label": "Archer (bows)",              "ranged": true,  "weights": { "per": 1, "agi": 0.5, "sneak_attack": 0.6, "dmg_all": 1, "crit_dmg": 0.5, "ap": 0.3, "dr": 0.4, "max_hp": 0.3 } },
+        "explosive": { "label": "Explosives",                 "ranged": true,  "weights": { "int": 1, "dmg_all": 1, "crit_dmg": 0.2, "dr": 0.6, "er": 0.5, "fire_res": 0.3, "max_hp": 0.5 } },
+        "support":   { "label": "Support / Team Healer",      "ranged": true,  "weights": { "cha": 1, "int": 0.3, "max_hp": 0.8, "dr": 0.6, "er": 0.5, "heal_rate": 0.6, "ap": 0.3 } }
+      }
+    },
+    "damage_type": {
+      "label": "What damage does your weapon do?",
+      "only_if_ranged": true,
+      "options": {
+        "ballistic": { "label": "Ballistic (bullets)",     "add": { "dmg_ballistic": 0.9 } },
+        "energy":    { "label": "Energy (laser / plasma)", "add": { "dmg_energy": 0.9 } },
+        "mixed":     { "label": "Both / not sure",         "add": { "dmg_ballistic": 0.5, "dmg_energy": 0.5 } }
+      }
+    },
+    "aim": {
+      "label": "VATS or free aim?",
+      "only_if_ranged": true,
+      "options": {
+        "vats": { "label": "VATS",                    "add": { "crit_dmg": 0.6, "vats_acc": 0.8, "ap": 0.5, "ap_regen": 0.7, "luck": 0.6, "agi": 0.3 } },
+        "free": { "label": "Free aim / scope",        "add": { "gun_acc": 0.6 }, "mult": { "vats_acc": 0, "crit_dmg": 0.5, "ap_regen": 0.6 } }
+      }
+    },
+    "armour": {
+      "label": "What armour do you wear?",
+      "options": {
+        "power": { "label": "Power Armour",                  "add": { "carry": 0.7 }, "mult": { "dr": 0.4, "er": 0.4, "rad_res": 0.2, "fire_res": 0.6, "poison_res": 0.6 },
+                   "note": "Power Armour already gives big DR / ER and rad resistance, so those buffs drop down the list. PA users still get carry weight buffs - PA carry weight is low." },
+        "body":  { "label": "Body armour",                   "add": { "dr": 0.1, "er": 0.1 } },
+        "none":  { "label": "No armour (Berserker's / Unyielding)", "avoid": ["dr"], "add": { "er": 0.2, "max_hp": 0.2 },
+                   "note": "Berserker's does more damage the LOWER your Damage Resistance is, so anything that adds DR (Psycho, Fury, Lead Champagne, DR food) is left out." }
+      }
+    },
+    "health": {
+      "label": "Bloodied or full health?",
+      "options": {
+        "bloodied": { "label": "Bloodied (low health)", "add": { "max_hp": 0.6 }, "mult": { "rad_res": 0, "heal_rate": 0.3 }, "rads_ok": true,
+                      "note": "Bloodied builds still want Max Health buffs so they can take more hits. Rads are fine (they keep your health low), so rad resistance is left out." },
+        "full":     { "label": "Full health",           "add": { "max_hp": 0.5, "heal_rate": 0.4, "rad_res": 0.3 } }
+      }
+    },
+    "race": {
+      "label": "Ghoul or human?",
+      "options": {
+        "human": { "label": "Human" },
+        "ghoul": { "label": "Ghoul", "mult": { "rad_res": 0 }, "rads_ok": true, "feral_bonus": 0.15,
+                   "note": "Ghouls don't need rad resistance and rads don't hurt them. Chems that also refill your Feral meter get a small bonus." }
+      }
+    },
+    "carry": {
+      "label": "Do you struggle with carry weight?",
+      "options": {
+        "no":  { "label": "No",  "mult": { "carry": 0.4 } },
+        "yes": { "label": "Yes", "add": { "carry": 1, "str": 0.2 } }
+      }
+    },
+    "diet": {
+      "label": "Carnivore, Herbivore or Hybrid?",
+      "help": "Hybrid dishes are the herb and fruit ones (teas, juices, Sweet Mutfruit Tea...) that Carnivore does NOT cancel - a Herbivore gets them x2 and a Carnivore still gets them at full normal strength.",
+      "options": {
+        "carnivore": { "label": "Carnivore" },
+        "herbivore": { "label": "Herbivore" },
+        "both":      { "label": "Hybrid - Carnivore + Herbivore" },
+        "none":      { "label": "No diet mutation" }
+      }
+    }
+  },
+  "penalties": {
+    "rads_per_point": 0.01,
+    "disease_chance_per_pct": 0.004,
+    "addiction_per_pct": 0.003,
+    "secondary_buff_share": 0.2,
+    "debuff_share": 1.0
+  }
+}
