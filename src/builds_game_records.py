@@ -66,6 +66,59 @@ def _num(v, d=None):
 _COND = re.compile(r"(Subject|Target)\.(\w+)\(([^,)]*)[^)]*\)\s*(=|!=|>=|<=|>|<)\s*([-\d.]+)")
 
 
+def _epfd_float(cell):
+    """EPFD as the PERK export writes it: 'Float=0.010000', '0.01', or a
+    struct 'Actor Value=X | Float=0.010000' -> 0.01"""
+    s = _q(cell)
+    m = re.search(r"(?:^|\|)\s*(?:Float|Value)\s*=\s*([-+\d.eE]+)", s)
+    if m:
+        return _num(m.group(1), None)
+    return _num(s, None)
+
+
+_PK_TYPE = re.compile(r"^[01]{8}$")
+
+
+def _op_from_type(t):
+    """FO76Edit CTDA Type flag string: char1 Equal, char2 Greater, char3 Less,
+    char4 OR. 100 =, 000 !=, 010 >, 110 >=, 001 <, 101 <="""
+    eq, gt, lt = t[0] == "1", t[1] == "1", t[2] == "1"
+    if eq and gt:
+        return ">="
+    if eq and lt:
+        return "<="
+    if eq:
+        return "="
+    if gt:
+        return ">"
+    if lt:
+        return "<"
+    return "!="
+
+
+def parse_perk_conditions(flat):
+    """PERK export conditions (the March format, every CTDA's values joined
+    with ' | '): Type | unused | Comparison | Function | unused | Param 1 |
+    Param 2 | Run On | Reference | Param 3, one CTDA after another.
+    -> [(runOn, function, firstParamEditorID, op, value, isOr), ...]"""
+    toks = [t.strip() for t in str(flat or "").split("|")]
+    out = []
+    i = 0
+    while i < len(toks):
+        if _PK_TYPE.match(toks[i]) and i + 7 < len(toks):
+            typ = toks[i]
+            cmp_ = _num(toks[i + 2], None)
+            fn = toks[i + 3]
+            p1 = toks[i + 5].split(" ")[0].strip('"') if toks[i + 5] else ""
+            run_on = toks[i + 7]
+            if re.match(r"^[A-Za-z]\w+$", fn) and cmp_ is not None:
+                out.append((run_on, fn, p1, _op_from_type(typ), cmp_, typ[3] == "1"))
+                i += 8
+                continue
+        i += 1
+    return out
+
+
 def parse_conditions(flat):
     """'Subject.HasPerk(Slugger02 "Slugger" [PERK:..], 00 00 00 00) = 1.000000 AND | ...'
     -> [(runOn, function, firstParamEditorID, op, value), ...]"""
@@ -119,6 +172,72 @@ class Records:
         self.ench = {}
         for r in _read("ENCH_Export_*.tsv"):
             self.ench[_q(r.get("ENCH_EDID"))] = r
+        # AVIF: FormID -> EDID / name, and (fallback for MGEF exports made
+        # before the ActorValue column was fixed) MGEF FormID -> the one actor
+        # value whose ReferencedBy list names it
+        self.avif, self.avif_name, self.mgef_av = {}, {}, {}
+        seen = defaultdict(set)
+        for r in _read("AVIF_Export_*.tsv"):
+            fid, ed = _q(r.get("FormID")).upper(), _q(r.get("EDID"))
+            self.avif[fid] = ed
+            self.avif_name[ed] = _q(r.get("FULL")) or ed
+            for k, v in r.items():
+                m = re.match(r"^([0-9A-F]{8}):[^:]*:MGEF$", str(v or "").strip())
+                if k and k.startswith("Ref") and m:
+                    seen[m.group(1)].add(ed)
+        self.mgef_av = {f: next(iter(a)) for f, a in seen.items() if len(a) == 1}
+        # curves by FormID (SPEL/ENCH exports give the curve EDID)
+        self.curv_by_fid = {}
+        for r in _read("CURV_Export_*_POINTS.tsv"):
+            self.curv_by_fid[_q(r.get("FormID")).upper()] = _q(r.get("EDID"))
+        # actor value -> damage: perks like STAT_DamagePerk turn a stat into an
+        # entry point ("Add Actor Value Mult": value += stat x float). Needs the
+        # PERK export's EPF3_ActorValue column.
+        self.build_av_damage()
+
+    def build_av_damage(self):
+        self.av_damage = defaultdict(list)
+        for pe, rows in self.perk.items():
+            for r in rows:
+                av = self.av_edid(r.get("EPF3_ActorValue"))
+                if not av:
+                    m = re.search(r"Actor Value[^=]*=\s*([^|]+)", _q(r.get("EPFD_Float")))
+                    av = self.av_edid(m.group(1)) if m else ""
+                kind = ep_function_kind(r.get("EP_Function"))
+                fval = _epfd_float(r.get("EPFD_Float"))
+                if av and fval and kind in ("av_add", "av_mult", "av_mult1"):
+                    self.av_damage[av].append({"perk": pe, "ep": _q(r.get("EP_EntryPoint")), "kind": kind,
+                                               "f": fval, "conds": _q(r.get("PerkConditions_Flat"))})
+
+    def av_edid(self, cell):
+        """'ConcentratedFireRank "Concentrated Fire" [AVIF:00900A59]', a bare
+        EDID, or raw bytes '59 0A 90 00' -> 'ConcentratedFireRank'."""
+        s = _q(cell)
+        if not s or s.upper().startswith("NULL"):
+            return ""
+        m = re.search(r"\[AVIF:([0-9A-F]{8})\]", s, re.I)
+        if m:
+            return self.avif.get(m.group(1).upper()) or s.split(" ")[0].strip('"')
+        hx = re.fullmatch(r"([0-9A-F]{2})\s+([0-9A-F]{2})\s+([0-9A-F]{2})\s+([0-9A-F]{2})", s, re.I)
+        if hx:
+            return self.avif.get("".join(reversed(hx.groups())).upper(), "")
+        if re.fullmatch(r"[0-9A-F]{8}", s, re.I):
+            return self.avif.get(s.upper(), "")
+        return s.split(" ")[0].strip('"')
+
+    def mgef_av_of(self, mgef_fid):
+        mrow = self.mgef.get(str(mgef_fid or "").upper())
+        return mgef_actor_value(mrow) or self.mgef_av.get(str(mgef_fid or "").upper(), "")
+
+    def curve_points(self, curve):
+        """CVTO cell ('HeavyGunnerDamageBonus', '0083C3CC', or a linked
+        'EDID [CURV:0083C3CC]') -> sorted [(x, y)]"""
+        c = _q(curve)
+        m = re.search(r"([0-9A-F]{8})\]?$", c, re.I)
+        ed = c.split(" ")[0]
+        if ed not in self.curv_points and m:
+            ed = self.curv_by_fid.get(m.group(1).upper(), ed)
+        return ed, sorted(self.curv_points.get(ed, []))
 
     # ------------------------------------------------------------ game rules
     def game_rules(self):
@@ -206,6 +325,32 @@ class Records:
                 notes.append(("sneak", int(val)))
         return True, notes
 
+    def entry_point_conditions(self, flat, rank, rank_perks):
+        """An entry point's own conditions (PERK export, fixed 19 Oct 2026 so
+        they're actually there). Weapon keywords OR'd together (Ninja: 1H OR
+        2H melee) become one any-of note 'weapon:A|B'."""
+        pc = parse_perk_conditions(flat)
+        if not pc:
+            return True, []
+        kws = [c for c in pc if c[1] == "HasKeyword" and c[3] == "=" and c[4] == 1.0]
+        rest = [c[:5] for c in pc if c not in kws]
+        if any(re.search(r"CustomItemName|^dn_", c[2]) for c in kws):
+            return False, []
+        ok, notes = self._effect_applies(rest, rank, rank_perks)
+        if not ok:
+            return False, []
+        # ActorType* keywords are on the enemy (Exterminator: bugs, mirelurks)
+        for kind, group in (("target", [c for c in kws if c[2].startswith("ActorType")]),
+                            ("weapon", [c for c in kws if not c[2].startswith("ActorType")])):
+            if len(group) > 1 and any(c[5] for c in group[:-1]):
+                notes.append((kind, "|".join(c[2] for c in group)))
+            else:
+                notes += [(kind, c[2]) for c in group]
+        for c in pc:
+            if c[1] == "GetRandomPercent":
+                notes.append(("chance", f"{c[4]:g}%"))
+        return True, notes
+
     def perk_rank_effects(self, card_formid):
         """-> list per rank of [{group, value, unit, scales, cond[]}] for the
         damage-related effects of that rank."""
@@ -220,14 +365,18 @@ class Records:
                 for r in self.perk.get(pe, []):
                     typ = _q(r.get("PRKE_Type"))
                     ep = _q(r.get("EP_EntryPoint"))
-                    fval = _num(re.sub(r"^Float=", "", _q(r.get("EPFD_Float"))), None)
+                    fval = _epfd_float(r.get("EPFD_Float"))
                     # entry points only count on the rank perk that owns them (the
                     # game replaces the lower rank's entry point when ranked up)
                     own = (pe == rank_perks[rank - 1])
                     if typ == "Entry Point" and own and fval is not None:
                         e = entry_point_effect(ep, fval, r.get("EP_Function"))
                         if e:
-                            fx.append(e)
+                            ok, notes = self.entry_point_conditions(r.get("PerkConditions_Flat"), rank, rank_perks)
+                            if ok:
+                                if notes:
+                                    e["cond"] = [f"{k}:{v}" for k, v in notes]
+                                fx.append(e)
                     sp = _q(r.get("Spell_EDID"))
                     if sp and sp not in spells_seen and (typ == "Ability" or ep in ("Apply Combat Hit Spell",)):
                         spells_seen.add(sp)
@@ -265,7 +414,27 @@ class Records:
         mg_name = _q(s.get("EFID_MGEF_FULL")) or mg_edid
         # the stat the effect changes (MGEF ActorValue, once the fixed MGEF
         # export is in) catches damage effects whose names don't say so
-        av = mgef_actor_value(self.mgef.get(_q(s.get("EFID_MGEF_FormID")).upper()))
+        av = self.mgef_av_of(_q(s.get("EFID_MGEF_FormID")))
+        # a stat another perk turns into damage (Concentrated Fire sets
+        # ConcentratedFireRank 1/2/3; STAT_DamagePerk adds rank x 0.01 to
+        # "Mod VATS Concentrated Fire Damage Mult")
+        if av in self.av_damage and not on_target:
+            mag = _num(s.get("EFIT_Magnitude"), 0) or 0
+            out = None
+            for d in self.av_damage[av]:
+                if not re.search(r"damage|dmg", d["ep"], re.I) or not mag:
+                    continue
+                if parse_conditions(d["conds"]) or parse_perk_conditions(d["conds"]):
+                    continue   # gated on something else; not a plain card effect
+                val = mag * d["f"] * (100 if abs(d["f"]) < 5 else 1)
+                out = {"group": AV_EP_GROUP.get(d["ep"], d["ep"]), "effect": mg_edid, "value": round(val, 2),
+                       "unit": "%", "op": "+", "from": f"{d['perk']} ({av} x {d['f']:g})"}
+                cond = [f"{k}:{v}" for k, v in notes]
+                if cond:
+                    out["cond"] = cond
+                break
+            if out:
+                return out
         # stack effects (Bullet Storm max stacks, raised by Bringing the Big
         # Guns) are counts, not damage %, but they set how big the damage gets
         stack = bool(re.search(r"stacks?$", mg_edid, re.I)) and not _q(s.get("MAGA_AVIF_EDID")) and not on_target
@@ -276,6 +445,8 @@ class Records:
             if not mag:
                 return None
             e = {"group": f"{mg_name} max stacks", "effect": mg_edid, "value": round(mag, 2), "unit": " stacks", "op": "+"}
+            if av:
+                e["av"] = av
             cond = [f"{k}:{v}" for k, v in notes]
             if cond:
                 e["cond"] = cond
@@ -291,7 +462,25 @@ class Records:
             if g and g[1] is not None:
                 mag, src = g[1], "GLOB " + g[0]
         scales = _q(s.get("MAGA_AVIF_EDID"))
-        curve = _q(s.get("CVTO_CURV_EDID"))
+        curve = _q(s.get("CVTO_CURV_EDID")) or _q(s.get("CVTO_CURV_FormID"))
+        per = None
+        range_ = None
+        if curve:
+            curve, pts = self.curve_points(curve)
+            if scales and len(pts) >= 2 and pts[-1][0] != pts[0][0]:
+                # curves store either percent (HeavyGunnerDamageBonus 30 -> 90)
+                # or a fraction (ScienceBonus 100 -> 0.5 = 50%)
+                k = 100 if max(abs(y) for _, y in pts) <= 5 else 1
+                (x0, y0), (x1, y1) = pts[0], pts[-1]
+                slope = (y1 - y0) / (x1 - x0)
+                if all(abs(y0 + slope * (x - x0) - y) < 1e-6 * max(1, abs(y)) for x, y in pts):
+                    # straight line: damage per point (3% per Bullet Storm stack)
+                    per = slope * k
+                else:
+                    # bends (Science! by Intelligence, Nerd Rage! by health):
+                    # give its range instead of a per-point figure
+                    ys = [y * k for _, y in pts]
+                    range_ = (round(min(ys), 2), round(max(ys), 2))
         if on_target:
             # effects put ON the enemy: only ones that raise the damage it takes
             # count (Tenderizer "Increase Damage Taken"); Suppressor-style effects
@@ -311,6 +500,10 @@ class Records:
             e["scales"] = scales
         if curve:
             e["curve"] = curve
+        if per is not None:
+            e["per"] = round(per, 4)
+        if range_ is not None:
+            e["range"] = list(range_)
         if av:
             e["av"] = av
         cond = [f"{k}:{v}" for k, v in notes]
@@ -360,6 +553,12 @@ def _link_edid(cell):
     """'ArmorPenetration ""Armor Penetration"" [AVIF:00097341]' -> 'ArmorPenetration'"""
     return str(cell or "").strip().split(" ")[0].strip('"')
 
+
+AV_EP_GROUP = {
+    "Mod VATS Concentrated Fire Damage Mult": "V.A.T.S. focus shot damage (each focus shot)",
+    "Mod Weapon DMG Bonus Mult": "Weapon damage bonus",
+    "Mod Weapon Attack Damage": "Weapon attack damage (multiplier)",
+}
 
 AV_GROUP = {
     "ArmorPenetration": "Armour penetration (legendary)",

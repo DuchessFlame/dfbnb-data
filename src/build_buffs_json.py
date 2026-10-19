@@ -538,7 +538,7 @@ class Sources:
         if self.spel_eff_path:
             for r in read_tsv_cols(self.spel_eff_path, [
                     "SPEL_FormID", "EffectIndex", "EFID_MGEF_FormID", "EFID_MGEF_EDID",
-                    "EFID_MGEF_FULL", "EFIT_Magnitude", "EFIT_Duration"]):
+                    "EFID_MGEF_FULL", "EFIT_Magnitude", "EFIT_Duration", "Conditions"]):
                 fid = norm_fid(r.get("SPEL_FormID", ""))
                 if fid:
                     self.spel_effects.setdefault(fid, []).append(r)
@@ -1029,11 +1029,11 @@ def collapse_mutation_effects(effects: List[Dict[str, Any]]) -> List[Dict[str, A
     """Fold a mutation's duplicated effect rows into one row per MGEF.
 
     Every mutation stores each effect at least twice: the value it gives on
-    its own, and the (higher) value it gives while a Mutation Serum is
-    active. Left alone that renders as "+4 Agility" followed by
+    its own, and the (higher) team value it gives with Strange In Numbers
+    and a mutated teammate (CNDF Mutation_Check_UseSuperVersion). Left alone that renders as "+4 Agility" followed by
     "+5 Agility", which reads as a data bug. Collapsing on the MGEF EDID and
     keeping min/max turns it into the sentence a player wants:
-    "+4 Agility (+5 with a serum)".
+    "+4 Agility (+5 Agility in a team with Strange In Numbers)".
     """
     by_edid: Dict[str, List[Dict[str, Any]]] = {}
     order: List[str] = []
@@ -1054,10 +1054,15 @@ def collapse_mutation_effects(effects: List[Dict[str, Any]]) -> List[Dict[str, A
             merged["magnitude"] = min(mags)
             merged["serumMagnitude"] = max(mags)
             merged["display"] = effect_display_line(merged)
+            hi_row = max(rows, key=lambda r: r.get("magnitude") if r.get("magnitude") is not None else 0)
             hi = dict(merged, magnitude=max(mags))
-            merged["display"] += f" ({effect_display_line(hi)} with a serum)"
+            when = {"team": "in a team with Strange In Numbers",
+                    "serum": "with a serum"}.get(hi_row.get("_version"), "at most")
+            merged["higherWhen"] = hi_row.get("_version") or ""
+            merged["display"] += f" ({effect_display_line(hi)} {when})"
         else:
             merged["display"] = effect_display_line(merged)
+        merged.pop("_version", None)
         out.append(merged)
     return out
 
@@ -1103,6 +1108,15 @@ def build_mutation_items(sources: Sources, page_key: str) -> List[Dict[str, Any]
                 duration=r.get("EFIT_Duration"),
             )
             e_edid = eff["edid"]
+            # Which version of the mutation this row is. The higher numbers
+            # are the team "super" version (CNDF Mutation_Check_UseSuperVersion:
+            # in a team + Strange In Numbers + a mutated teammate), NOT a
+            # serum — a serum only switches the downside off.
+            conds = str(r.get("Conditions") or "")
+            if "Mutation_Check_UseSuperVersion" in conds:
+                eff["_version"] = "team"
+            elif re.search(r"IsSpellTarget\(Serum_[^)]*\)\s*=\s*1", conds):
+                eff["_version"] = "serum"
             # The UI-dummy pair is where the game keeps a mutation's numbers.
             # Most mutations ship TWO dummy rows (a low and a high value) — the
             # range the effect scales across — so collect both rather than
@@ -1140,9 +1154,8 @@ def build_mutation_items(sources: Sources, page_key: str) -> List[Dict[str, Any]
             eff["groupLabel"] = g[1] if g else None
             effects.append(eff)
 
-        # A mutation lists each effect TWICE — the base value and the value
-        # you get while a serum is active (Bird Bones: +4 AGI, +5 with a
-        # serum). Collapse the pair onto one row rather than printing what
+        # A mutation lists each effect TWICE — the base value and the team
+        # value (Bird Bones: +4 AGI, +5 in a team with Strange In Numbers). Collapse the pair onto one row rather than printing what
         # looks like a duplicate.
         effects = collapse_mutation_effects(effects)
         effects = sort_effects(effects)

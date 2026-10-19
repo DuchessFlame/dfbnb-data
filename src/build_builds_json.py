@@ -638,7 +638,7 @@ def build_mutations(tpl):
                 # the Buffs data calls the bigger number "with a serum"; the records
                 # say it's the team version (Mutation_Check_UseSuperVersion: in a
                 # team + Strange In Numbers + a mutated teammate)
-                d = re.sub(r"\s*\([^)]*with a serum\)", "", d).strip()
+                d = re.sub(r"\s*\([^)]*(?:with a serum|in a team with Strange In Numbers|at most)\)", "", d).strip()
                 key = (v["mgef"], v.get("race"), d)
                 if key in seen:
                     continue
