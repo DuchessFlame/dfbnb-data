@@ -550,7 +550,8 @@ def main(argv=None):
     path, qpath = a.tsv, a.quests
     if not path:
         import tsv_source
-        path = tsv_source.newest(EXPORT_PATTERN, required=False)
+        # The companions (_Quests, _Placements) match the same glob; never pick one as the main file.
+        path = tsv_source.newest(EXPORT_PATTERN, exclude=["Quests", "Placements", "Probe"], required=False)
     if not path or not os.path.exists(path):
         print(f"[personal-terminal] no {EXPORT_PATTERN} export yet - keeping the committed "
               f"{os.path.relpath(a.out, REPO)} unchanged.")

@@ -12,7 +12,9 @@ for when xEdit isn't open:
             (point --data at the PTS install's Data folder)
 
 Run it on the PC that has the game installed:
-    python tools/export_term_from_esm.py --data "D:\steamlibrary\steamapps\common\Fallout76\Data"
+    python tools/export_term_from_esm.py           (LIVE)
+    python tools/export_term_from_esm.py --pts     (PTS)
+    (--data "<Data folder>" only if the game is somewhere else)
 
 Only TERM records whose EDID starts with --prefix (default X01X_PlayerTerminal)
 are exported, plus anything those menus link to.
@@ -41,6 +43,9 @@ import zlib
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OPS = ["==", "!=", ">", ">=", "<", "<="]
+# Default game folders on Duchess's PC, so the Build Log commands need no path.
+LIVE_DATA = r"D:\steamlibrary\steamapps\common\Fallout76\Data"
+PTS_DATA = r"D:\steamlibrary\steamapps\common\Fallout 76 Playtest\Data"
 
 
 # ------------------------------------------------------------ strings ------
@@ -138,11 +143,13 @@ def esc(s):
 
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--data", required=True, help="Fallout76 Data folder")
+    ap.add_argument("--data", help="Fallout76 Data folder (default: the LIVE install, or the Playtest install with --pts)")
     ap.add_argument("--prefix", default="X01X_PlayerTerminal")
     ap.add_argument("--pts", action="store_true", help="write a PTS-channel export into tsv/pts/")
     ap.add_argument("--outdir", help="override output folder")
     a = ap.parse_args(argv)
+    if not a.data:
+        a.data = PTS_DATA if a.pts else LIVE_DATA
 
     esm = os.path.join(a.data, "SeventySix.esm")
     ba2 = os.path.join(a.data, "SeventySix - Localization.ba2")
