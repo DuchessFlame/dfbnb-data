@@ -1,6 +1,6 @@
 {
  "_generated_by": "src/build_bugged_plans_json.py",
- "generated": "2026-10-17",
+ "generated": "2026-10-19",
  "channel": "live",
  "exports": {
   "WEAP": "WEAP_Export_October_2026_Base.tsv",
@@ -20,27 +20,70 @@
   "dead_entries_shadowed_switch": 6,
   "dead_entries_never_rolls": 60,
   "dead_entries_shadowed": 6,
-  "lists_live": 8675,
+  "lists_live": 8624,
   "plans_scanned": 2963,
-  "plans_cut": 307,
+  "plans_cut": 308,
   "plans_via_unreferenced_gmrw": 27,
   "scrap_scanned": 863,
   "titles_scanned": 488,
-  "titles_entitlement_or_default": 255,
-  "titles_skipped_cut_or_atom": 145,
+  "titles_entitlement_or_default": 254,
+  "titles_skipped_cut_or_atom": 146,
   "titles_checked": 52
  },
  "counts": {
-  "total": 24,
-  "unobtainable": 21,
+  "total": 42,
+  "unobtainable": 39,
   "broken_item": 3,
-  "conf_strong": 17,
+  "conf_strong": 35,
   "conf_check": 7,
   "confirmed": 0,
   "titles": 0,
-  "plans": 24
+  "plans": 42
  },
  "items": [
+  {
+   "id": "00796709",
+   "name": "Plan: Axel's Snow Globe",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "cut_source",
+     "strong": true,
+     "source": "Milepost Zero",
+     "title": "Only source is cut content",
+     "records": [
+      {
+       "form_id": "00789AD9",
+       "edid": "MILE_Vendor_LL_CryptidHunter_Tier3",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Its only source is Milepost Zero, which is cut content.",
+     "detail": "Its only source is Milepost Zero, which is cut content. The leveled list that holds this plan (MILE_Vendor_LL_CryptidHunter_Tier3) is only used by MILE_Vendor_LL_CryptidHunter_Tier3, so nothing live in the game ever rolls it."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00796709",
+     "edid": "MILE_Recipe_Workshop_FloorDecor_Snowglobe_Axel",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0079670F",
+      "edid": "MILE_workshop_co_CondProxy_FloorDecor_Snowglobe_Axel",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-10-19",
+   "is_new": false
+  },
   {
    "id": "006369C3",
    "name": "Plan: BOS Combat Armor Paint",
@@ -350,6 +393,448 @@
    "is_new": false
   },
   {
+   "id": "00767AC7",
+   "name": "Plan: Deathclaw Head Backpack",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "cut_source",
+     "strong": true,
+     "source": "Milepost Zero",
+     "title": "Only source is cut content",
+     "records": [
+      {
+       "form_id": "00789AD9",
+       "edid": "MILE_Vendor_LL_CryptidHunter_Tier3",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Its only source is Milepost Zero, which is cut content.",
+     "detail": "Its only source is Milepost Zero, which is cut content. The leveled list that holds this plan (MILE_Vendor_LL_CryptidHunter_Tier3) is only used by MILE_Vendor_LL_CryptidHunter_Tier3, so nothing live in the game ever rolls it."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00767AC7",
+     "edid": "MILE_Recipe_Backpack_Deathclaw",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0076B018",
+      "edid": "MILE_CO_Armor_Backpack_DeathClaw",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00767AC8",
+      "edid": "MILE_mod_BackPack_Deathclaw_Material_Default",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-10-19",
+   "is_new": false
+  },
+  {
+   "id": "00745090",
+   "name": "Plan: Deathclaw Skin Outfit",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "cut_source",
+     "strong": true,
+     "source": "Milepost Zero",
+     "title": "Only source is cut content",
+     "records": [
+      {
+       "form_id": "00789AD9",
+       "edid": "MILE_Vendor_LL_CryptidHunter_Tier3",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Its only source is Milepost Zero, which is cut content.",
+     "detail": "Its only source is Milepost Zero, which is cut content. The leveled list that holds this plan (MILE_Vendor_LL_CryptidHunter_Tier3) is only used by MILE_Vendor_LL_CryptidHunter_Tier3, so nothing live in the game ever rolls it."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00745090",
+     "edid": "MILE_Clothes_Workshop_Recipe_DeathClaw",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00745093",
+      "edid": "MILE_Clothes_Workshop_CO_DeathClaw",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "00744D01",
+      "edid": "MILE_Clothes_DeathClaw_Outfit",
+      "type": "ARMO"
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-10-19",
+   "is_new": false
+  },
+  {
+   "id": "008BA7E8",
+   "name": "Plan: Dom Pedro",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "cut_source",
+     "strong": true,
+     "source": "Milepost Zero",
+     "title": "Only source is cut content",
+     "records": [
+      {
+       "form_id": "00789AD9",
+       "edid": "MILE_Vendor_LL_CryptidHunter_Tier3",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Its only source is Milepost Zero, which is cut content.",
+     "detail": "Its only source is Milepost Zero, which is cut content. The leveled list that holds this plan (MILE_Vendor_LL_CryptidHunter_Tier3) is only used by MILE_Vendor_LL_CryptidHunter_Tier3, so nothing live in the game ever rolls it."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "008BA7E8",
+     "edid": "SCORE_S23_Recipe_Nitro_StampVendor",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "008BA7F8",
+      "edid": "SCORE_S23_co_Weapon_Nitro_StampVendor",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-10-19",
+   "is_new": false
+  },
+  {
+   "id": "008BA7E3",
+   "name": "Plan: Dom Pedro Explosive Mods",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "cut_source",
+     "strong": true,
+     "source": "Milepost Zero",
+     "title": "Only source is cut content",
+     "records": [
+      {
+       "form_id": "00789AD9",
+       "edid": "MILE_Vendor_LL_CryptidHunter_Tier3",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Its only source is Milepost Zero, which is cut content.",
+     "detail": "Its only source is Milepost Zero, which is cut content. The leveled list that holds this plan (MILE_Vendor_LL_CryptidHunter_Tier3) is only used by MILE_Vendor_LL_CryptidHunter_Tier3, so nothing live in the game ever rolls it."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "008BA7E3",
+     "edid": "SCORE_S23_Recipe_Nitro_Explosive_StampVendor",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "008BA7F3",
+      "edid": "SCORE_S23_co_Weapon_Nitro_Explosive_StampVendor",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-10-19",
+   "is_new": false
+  },
+  {
+   "id": "008BA7E4",
+   "name": "Plan: Dom Pedro Grip Mods",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "cut_source",
+     "strong": true,
+     "source": "Milepost Zero",
+     "title": "Only source is cut content",
+     "records": [
+      {
+       "form_id": "00789AD9",
+       "edid": "MILE_Vendor_LL_CryptidHunter_Tier3",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Its only source is Milepost Zero, which is cut content.",
+     "detail": "Its only source is Milepost Zero, which is cut content. The leveled list that holds this plan (MILE_Vendor_LL_CryptidHunter_Tier3) is only used by MILE_Vendor_LL_CryptidHunter_Tier3, so nothing live in the game ever rolls it."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "008BA7E4",
+     "edid": "SCORE_S23_Recipe_Nitro_Grip_StampVendor",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "008BA7F4",
+      "edid": "SCORE_S23_co_Weapon_Nitro_Grip_StampVendor",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-10-19",
+   "is_new": false
+  },
+  {
+   "id": "008BA7E5",
+   "name": "Plan: Dom Pedro Magazine Mods",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "cut_source",
+     "strong": true,
+     "source": "Milepost Zero",
+     "title": "Only source is cut content",
+     "records": [
+      {
+       "form_id": "00789AD9",
+       "edid": "MILE_Vendor_LL_CryptidHunter_Tier3",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Its only source is Milepost Zero, which is cut content.",
+     "detail": "Its only source is Milepost Zero, which is cut content. The leveled list that holds this plan (MILE_Vendor_LL_CryptidHunter_Tier3) is only used by MILE_Vendor_LL_CryptidHunter_Tier3, so nothing live in the game ever rolls it."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "008BA7E5",
+     "edid": "SCORE_S23_Recipe_Nitro_Magazine_StampVendor",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "008BA7F5",
+      "edid": "SCORE_S23_co_Weapon_Nitro_Magazine_StampVendor",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-10-19",
+   "is_new": false
+  },
+  {
+   "id": "008BA7E6",
+   "name": "Plan: Dom Pedro Receiver Mods",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "cut_source",
+     "strong": true,
+     "source": "Milepost Zero",
+     "title": "Only source is cut content",
+     "records": [
+      {
+       "form_id": "00789AD9",
+       "edid": "MILE_Vendor_LL_CryptidHunter_Tier3",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Its only source is Milepost Zero, which is cut content.",
+     "detail": "Its only source is Milepost Zero, which is cut content. The leveled list that holds this plan (MILE_Vendor_LL_CryptidHunter_Tier3) is only used by MILE_Vendor_LL_CryptidHunter_Tier3, so nothing live in the game ever rolls it."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "008BA7E6",
+     "edid": "SCORE_S23_Recipe_Nitro_Receiver_StampVendor",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "008BA7F6",
+      "edid": "SCORE_S23_co_Weapon_Nitro_Receiver_StampVendor",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-10-19",
+   "is_new": false
+  },
+  {
+   "id": "008BA7E7",
+   "name": "Plan: Dom Pedro Sight Mods",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "cut_source",
+     "strong": true,
+     "source": "Milepost Zero",
+     "title": "Only source is cut content",
+     "records": [
+      {
+       "form_id": "00789AD9",
+       "edid": "MILE_Vendor_LL_CryptidHunter_Tier3",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Its only source is Milepost Zero, which is cut content.",
+     "detail": "Its only source is Milepost Zero, which is cut content. The leveled list that holds this plan (MILE_Vendor_LL_CryptidHunter_Tier3) is only used by MILE_Vendor_LL_CryptidHunter_Tier3, so nothing live in the game ever rolls it."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "008BA7E7",
+     "edid": "SCORE_S23_Recipe_Nitro_Sights_StampVendor",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "008BA7F7",
+      "edid": "SCORE_S23_co_Weapon_Nitro_Sights_StampVendor",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-10-19",
+   "is_new": false
+  },
+  {
+   "id": "008BA7E9",
+   "name": "Plan: Dom Pedro Stock 1 Mods",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "cut_source",
+     "strong": true,
+     "source": "Milepost Zero",
+     "title": "Only source is cut content",
+     "records": [
+      {
+       "form_id": "00789AD9",
+       "edid": "MILE_Vendor_LL_CryptidHunter_Tier3",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Its only source is Milepost Zero, which is cut content.",
+     "detail": "Its only source is Milepost Zero, which is cut content. The leveled list that holds this plan (MILE_Vendor_LL_CryptidHunter_Tier3) is only used by MILE_Vendor_LL_CryptidHunter_Tier3, so nothing live in the game ever rolls it."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "008BA7E9",
+     "edid": "SCORE_S23_Recipe_Nitro_Stock1_StampVendor",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "008BA7FA",
+      "edid": "SCORE_S23_co_Weapon_Nitro_Stock1_StampVendor",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-10-19",
+   "is_new": false
+  },
+  {
+   "id": "008BA7EA",
+   "name": "Plan: Dom Pedro Stock 2 Mods",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "cut_source",
+     "strong": true,
+     "source": "Milepost Zero",
+     "title": "Only source is cut content",
+     "records": [
+      {
+       "form_id": "00789AD9",
+       "edid": "MILE_Vendor_LL_CryptidHunter_Tier3",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Its only source is Milepost Zero, which is cut content.",
+     "detail": "Its only source is Milepost Zero, which is cut content. The leveled list that holds this plan (MILE_Vendor_LL_CryptidHunter_Tier3) is only used by MILE_Vendor_LL_CryptidHunter_Tier3, so nothing live in the game ever rolls it."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "008BA7EA",
+     "edid": "SCORE_S23_Recipe_Nitro_Stock2_StampVendor",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "008BA7F9",
+      "edid": "SCORE_S23_co_Weapon_Nitro_Stock2_StampVendor",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-10-19",
+   "is_new": false
+  },
+  {
    "id": "0068B8EE",
    "name": "Recipe: Fried Radroach On A Stick",
    "kind": "plan",
@@ -456,6 +941,158 @@
    "is_new": false
   },
   {
+   "id": "00773A31",
+   "name": "Plan: Gulper Plushie",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "cut_source",
+     "strong": true,
+     "source": "Milepost Zero",
+     "title": "Only source is cut content",
+     "records": [
+      {
+       "form_id": "00789AD9",
+       "edid": "MILE_Vendor_LL_CryptidHunter_Tier3",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Its only source is Milepost Zero, which is cut content.",
+     "detail": "Its only source is Milepost Zero, which is cut content. The leveled list that holds this plan (MILE_Vendor_LL_CryptidHunter_Tier3) is only used by MILE_Vendor_LL_CryptidHunter_Tier3, so nothing live in the game ever rolls it."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "00773A31",
+     "edid": "MILE_Workshop_Recipe_GulperPlushie",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00773A34",
+      "edid": "MILE_Workshop_CondProxy_CO_GulperPlushie",
+      "type": "COBJ"
+     },
+     {
+      "form_id": "0079019C",
+      "edid": "MILE_Workshop_CO_Tinkers_GulperPlushie",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0079019E",
+      "edid": "MILE_GulperPlushie_Misc",
+      "type": ""
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-10-19",
+   "is_new": false
+  },
+  {
+   "id": "007734F1",
+   "name": "Plan: Gulper Skin Hood",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "cut_source",
+     "strong": true,
+     "source": "Milepost Zero",
+     "title": "Only source is cut content",
+     "records": [
+      {
+       "form_id": "00789AD9",
+       "edid": "MILE_Vendor_LL_CryptidHunter_Tier3",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Its only source is Milepost Zero, which is cut content.",
+     "detail": "Its only source is Milepost Zero, which is cut content. The leveled list that holds this plan (MILE_Vendor_LL_CryptidHunter_Tier3) is only used by MILE_Vendor_LL_CryptidHunter_Tier3, so nothing live in the game ever rolls it."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "007734F1",
+     "edid": "MILE_Workshop_Recipe_GulperHat",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "007734F5",
+      "edid": "MILE_Workshop_CO_GulperHat",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "007734F0",
+      "edid": "MILE_Workshop_Headwear_GulperHat",
+      "type": "ARMO"
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-10-19",
+   "is_new": false
+  },
+  {
+   "id": "007734F2",
+   "name": "Plan: Gulper Skin Outfit",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "cut_source",
+     "strong": true,
+     "source": "Milepost Zero",
+     "title": "Only source is cut content",
+     "records": [
+      {
+       "form_id": "00789AD9",
+       "edid": "MILE_Vendor_LL_CryptidHunter_Tier3",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Its only source is Milepost Zero, which is cut content.",
+     "detail": "Its only source is Milepost Zero, which is cut content. The leveled list that holds this plan (MILE_Vendor_LL_CryptidHunter_Tier3) is only used by MILE_Vendor_LL_CryptidHunter_Tier3, so nothing live in the game ever rolls it."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "007734F2",
+     "edid": "MILE_Workshop_Recipe_GulperOutfit",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "007734F4",
+      "edid": "MILE_Workshop_CO_GulperOutfit",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "007734EF",
+      "edid": "MILE_Workshop_Clothes_GulperOutfit",
+      "type": "ARMO"
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-10-19",
+   "is_new": false
+  },
+  {
    "id": "0068B8ED",
    "name": "Recipe: Gulper Stuffed Foot",
    "kind": "plan",
@@ -506,6 +1143,55 @@
    "confidence": "strong",
    "confirmed": false,
    "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0076DE20",
+   "name": "Plan: Hunter's Hanbok Outfit",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "cut_source",
+     "strong": true,
+     "source": "Milepost Zero",
+     "title": "Only source is cut content",
+     "records": [
+      {
+       "form_id": "00789AD9",
+       "edid": "MILE_Vendor_LL_CryptidHunter_Tier3",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Its only source is Milepost Zero, which is cut content.",
+     "detail": "Its only source is Milepost Zero, which is cut content. The leveled list that holds this plan (MILE_Vendor_LL_CryptidHunter_Tier3) is only used by MILE_Vendor_LL_CryptidHunter_Tier3, so nothing live in the game ever rolls it."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0076DE20",
+     "edid": "MILE_Workshop_Recipe_CryptidHunterOutfit",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "0076DE21",
+      "edid": "MILE_Workshop_CO_CryptidHunterOutfit",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "0076DE1F",
+      "edid": "MILE_Workshop_Clothes_CryptidHunterOutfit",
+      "type": "ARMO"
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-10-19",
    "is_new": false
   },
   {
@@ -622,6 +1308,108 @@
    "confidence": "strong",
    "confirmed": false,
    "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "007734F3",
+   "name": "Plan: Ogua Shell Throne",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "cut_source",
+     "strong": true,
+     "source": "Milepost Zero",
+     "title": "Only source is cut content",
+     "records": [
+      {
+       "form_id": "00789AD9",
+       "edid": "MILE_Vendor_LL_CryptidHunter_Tier3",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Its only source is Milepost Zero, which is cut content.",
+     "detail": "Its only source is Milepost Zero, which is cut content. The leveled list that holds this plan (MILE_Vendor_LL_CryptidHunter_Tier3) is only used by MILE_Vendor_LL_CryptidHunter_Tier3, so nothing live in the game ever rolls it."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "007734F3",
+     "edid": "MILE_Workshop_Recipe_CryptidThrone",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "007734F7",
+      "edid": "MILE_workshop_co_CondProxy_Chairs_CryptidThrone",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-10-19",
+   "is_new": false
+  },
+  {
+   "id": "007525E8",
+   "name": "Plan: Pheasant Foot Backpack Flair",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "cut_source",
+     "strong": true,
+     "source": "Milepost Zero",
+     "title": "Only source is cut content",
+     "records": [
+      {
+       "form_id": "00789AD9",
+       "edid": "MILE_Vendor_LL_CryptidHunter_Tier3",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Its only source is Milepost Zero, which is cut content.",
+     "detail": "Its only source is Milepost Zero, which is cut content. The leveled list that holds this plan (MILE_Vendor_LL_CryptidHunter_Tier3) is only used by MILE_Vendor_LL_CryptidHunter_Tier3, so nothing live in the game ever rolls it."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "007525E8",
+     "edid": "MILE_Recipe_PheasantFootFlair",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "007525E9",
+      "edid": "MILE_co_mod_BackPack_PheasantFoot_Flair1",
+      "type": "COBJ"
+     },
+     {
+      "form_id": "007525E6",
+      "edid": "MILE_co_mod_BackPack_PheasantFoot_Flair2",
+      "type": "COBJ"
+     }
+    ],
+    "creates": [
+     {
+      "form_id": "007525E7",
+      "edid": "MILE_mod_BackPack_PheasantFoot_Flair1",
+      "type": "OMOD"
+     },
+     {
+      "form_id": "007525E5",
+      "edid": "MILE_mod_BackPack_PheasantFoot_Flair2",
+      "type": "OMOD"
+     }
+    ]
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-10-19",
    "is_new": false
   },
   {
@@ -1057,6 +1845,49 @@
    "confidence": "strong",
    "confirmed": false,
    "first_seen": "2026-09-23",
+   "is_new": false
+  },
+  {
+   "id": "0079670E",
+   "name": "Plan: Windy's Snow Globe",
+   "kind": "plan",
+   "severity": "unobtainable",
+   "bugs": [
+    {
+     "kind": "cut_source",
+     "strong": true,
+     "source": "Milepost Zero",
+     "title": "Only source is cut content",
+     "records": [
+      {
+       "form_id": "00789AD9",
+       "edid": "MILE_Vendor_LL_CryptidHunter_Tier3",
+       "type": "LVLI"
+      }
+     ],
+     "summary": "Its only source is Milepost Zero, which is cut content.",
+     "detail": "Its only source is Milepost Zero, which is cut content. The leveled list that holds this plan (MILE_Vendor_LL_CryptidHunter_Tier3) is only used by MILE_Vendor_LL_CryptidHunter_Tier3, so nothing live in the game ever rolls it."
+    }
+   ],
+   "still_from": [],
+   "technical": {
+    "plan": {
+     "form_id": "0079670E",
+     "edid": "MILE_Recipe_Workshop_FloorDecor_Snowglobe_Windy",
+     "type": "BOOK"
+    },
+    "recipes": [
+     {
+      "form_id": "00796714",
+      "edid": "MILE_workshop_co_CondProxy_FloorDecor_Snowglobe_Windy",
+      "type": "COBJ"
+     }
+    ],
+    "creates": []
+   },
+   "confidence": "strong",
+   "confirmed": false,
+   "first_seen": "2026-10-19",
    "is_new": false
   },
   {

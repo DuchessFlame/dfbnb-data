@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generated": "2026-10-18T00:50:54Z",
-  "channel": "live",
+  "generated": "2026-10-19T06:37:54Z",
+  "channel": "pts",
   "count": 134,
   "counts": {
     "weapon": 120,
@@ -6296,10 +6296,10 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "No source found in the game files",
-      "sourceType": "Unknown",
-      "sourceRef": "",
-      "questName": "",
+      "howToObtain": "Quest: Forging a Legend",
+      "sourceType": "Quest",
+      "sourceRef": "Forging a Legend",
+      "questName": "Forging a Legend",
       "craftable": false,
       "planName": "",
       "tradeable": true,
@@ -6364,10 +6364,15 @@
         },
         {
           "route": "Quests",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
+          "populated": true,
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Forging a Legend"
+          ],
+          "tradeable": true,
+          "dropRate": "N/A",
+          "conditions": [],
+          "conditionsChecked": false
         },
         {
           "route": "Challenges",
@@ -6382,7 +6387,6 @@
       ],
       "planFormId": "",
       "repairOnly": true,
-      "unreleased": true,
       "imageSameAsBase": true
     },
     {
@@ -10941,7 +10945,7 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Challenge: Find more Abraxodyne Intel / Vendor: Windy (Cryptid Hunter vendor)",
+      "howToObtain": "Challenge: Find more Abraxodyne Intel / Vendor: MILE HQ Cryptid Hunter vendor",
       "sourceType": "Challenge",
       "sourceRef": "Find more Abraxodyne Intel",
       "questName": "",
@@ -10995,7 +10999,7 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Windy (Cryptid Hunter vendor) — 100.0000%"
+            "Source: MILE HQ Cryptid Hunter vendor — 100.0000%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -13570,13 +13574,6 @@
         "minLevel": 15
       },
       "starEffects": [
-        {
-          "star": 1,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
-        },
         {
           "star": 2,
           "name": "Random",
@@ -17892,20 +17889,17 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Quest: The Eye of the Storm / Quest: A Matter of Matter / Vendor: Windy (Cryptid Hunter vendor) / Event: Expedition / and 1 more",
+      "howToObtain": "Quest: The Eye of the Storm / Quest: A Matter of Matter / Vendor: MILE HQ Cryptid Hunter vendor / Event: Expedition / and 1 more",
       "sourceType": "Quest",
       "sourceRef": "The Eye of the Storm",
       "questName": "The Eye of the Storm",
-      "craftable": false,
+      "craftable": true,
       "planName": "",
       "tradeable": true,
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
       "isCut": false,
-      "discoveredBy": [
-        "official"
-      ],
       "uniqueMods": [],
       "namedOnly": true,
       "obtainRoutes": [
@@ -17914,7 +17908,7 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Windy (Cryptid Hunter vendor) — 100.0000%"
+            "Source: MILE HQ Cryptid Hunter vendor — 100.0000%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -18554,17 +18548,18 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "Quest: A Matter of Matter / Vendor: Windy (Cryptid Hunter vendor)",
+      "howToObtain": "Quest: A Matter of Matter / Vendor: MILE HQ Cryptid Hunter vendor",
       "sourceType": "Quest",
       "sourceRef": "A Matter of Matter",
       "questName": "A Matter of Matter",
-      "craftable": true,
+      "craftable": false,
       "planName": "",
       "tradeable": true,
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
       "isCut": false,
+      "confirmedByGameFiles": false,
       "uniqueMods": [
         {
           "name": "V63-Z Custom",
@@ -18581,7 +18576,7 @@
           "populated": true,
           "lines": [
             "Drops: Ready-made weapon",
-            "Source: Windy (Cryptid Hunter vendor) — 100.0000%"
+            "Source: MILE HQ Cryptid Hunter vendor — 100.0000%"
           ],
           "tradeable": true,
           "dropRate": "",
@@ -18652,7 +18647,10 @@
           "dropRate": null
         }
       ],
-      "recordIds": []
+      "recordIds": [],
+      "aka": [
+        "V63-Z"
+      ]
     },
     {
       "id": "gatlinglaser",
