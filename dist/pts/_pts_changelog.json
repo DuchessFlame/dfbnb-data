@@ -51,6 +51,8 @@
     "best-build-tags.json",
     "bobblehead_spawns/bobbleheads_spawns.json",
     "buffs/hybrid-food.json",
+    "builds/build_templates.json",
+    "builds/builds_data.json",
     "calculators/all_seasons.json",
     "calculators/score_progression.json",
     "calculators/score_progression_s1.json",
@@ -749,9 +751,6 @@
       ]
     },
     "apparel_formids.json": {
-      "structural_change": true
-    },
-    "armour.json": {
       "structural_change": true
     },
     "axolotl-rotations.json": {
@@ -1707,7 +1706,92 @@
       "key": "edid",
       "added": [],
       "removed": [],
-      "changed": []
+      "changed": [
+        {
+          "key": "Mutation_BirdBones",
+          "label": "Bird Bones Mutation",
+          "fields": [
+            "effects"
+          ]
+        },
+        {
+          "key": "Mutation_EagleEyes",
+          "label": "Eagle Eyes Mutation",
+          "fields": [
+            "effects"
+          ]
+        },
+        {
+          "key": "Mutation_EggHead",
+          "label": "Egg Head Mutation",
+          "fields": [
+            "effects"
+          ]
+        },
+        {
+          "key": "Mutation_Empath",
+          "label": "Empath Mutation",
+          "fields": [
+            "effects"
+          ]
+        },
+        {
+          "key": "Mutation_Grounded",
+          "label": "Grounded Mutation",
+          "fields": [
+            "effects"
+          ]
+        },
+        {
+          "key": "Mutation_HealingFactor",
+          "label": "Healing Factor Mutation",
+          "fields": [
+            "effects"
+          ]
+        },
+        {
+          "key": "Mutation_HerdMentality",
+          "label": "Herd Mentality Mutation",
+          "fields": [
+            "effects"
+          ]
+        },
+        {
+          "key": "Mutation_Marsupial",
+          "label": "Marsupial Mutation",
+          "fields": [
+            "effects"
+          ]
+        },
+        {
+          "key": "Mutation_ScalySkin",
+          "label": "Scaly Skin Mutation",
+          "fields": [
+            "effects"
+          ]
+        },
+        {
+          "key": "Mutation_SpeedDemon",
+          "label": "Speed Demon Mutation",
+          "fields": [
+            "effects"
+          ]
+        },
+        {
+          "key": "Mutation_Talons",
+          "label": "Talons Mutation",
+          "fields": [
+            "effects"
+          ]
+        },
+        {
+          "key": "Mutation_TwistedMuscles",
+          "label": "Twisted Muscles Mutation",
+          "fields": [
+            "effects"
+          ]
+        }
+      ]
     },
     "buffs/nuka-cola.json": {
       "key": "edid",
@@ -1760,24 +1844,6 @@
     "bugged_plans.json": {
       "key": "id",
       "added": [
-        "00745090",
-        "007525E8",
-        "00767AC7",
-        "0076DE20",
-        "007734F1",
-        "007734F2",
-        "007734F3",
-        "00773A31",
-        "00796709",
-        "0079670E",
-        "008BA7E3",
-        "008BA7E4",
-        "008BA7E5",
-        "008BA7E6",
-        "008BA7E7",
-        "008BA7E8",
-        "008BA7E9",
-        "008BA7EA",
         "008D5AA7",
         "008D5AA8",
         "008D5AAE",
@@ -2097,8 +2163,54 @@
     "calculators/crafting_materials_calculator.json": {
       "structural_change": true
     },
-    "calculators/healing_calculator.json": {
-      "structural_change": true
+    "calculators/food_buff_calculator.json": {
+      "key": "edid",
+      "added": [],
+      "removed": [],
+      "changed": [
+        {
+          "key": "BloodpackGlowing",
+          "label": "BloodpackGlowing",
+          "fields": [
+            "fx"
+          ]
+        },
+        {
+          "key": "BloodpackIrradiated",
+          "label": "BloodpackIrradiated",
+          "fields": [
+            "fx"
+          ]
+        },
+        {
+          "key": "RadX",
+          "label": "RadX",
+          "fields": [
+            "fx"
+          ]
+        },
+        {
+          "key": "RadXDiluted",
+          "label": "RadXDiluted",
+          "fields": [
+            "fx"
+          ]
+        },
+        {
+          "key": "SFM04_Organic_RadShield",
+          "label": "SFM04_Organic_RadShield",
+          "fields": [
+            "fx"
+          ]
+        },
+        {
+          "key": "TrenchMed_Pitt",
+          "label": "TrenchMed_Pitt",
+          "fields": [
+            "fx"
+          ]
+        }
+      ]
     },
     "calculators/outfit_inspiration.json": {
       "key": "edid",
@@ -2391,12 +2503,6 @@
       ],
       "removed": [],
       "changed": []
-    },
-    "chainsaws.json": {
-      "structural_change": true
-    },
-    "chainsaws/chainsaw.json": {
-      "structural_change": true
     },
     "chal_latest.json": {
       "key": "FormID",
@@ -4983,9 +5089,6 @@
       "structural_change": true
     },
     "collectable_spawns_pint-sized-phantom-graves.json": {
-      "structural_change": true
-    },
-    "collectable_spawns_pint-sized-slasher-masks.json": {
       "structural_change": true
     },
     "collectable_spawns_treasure-maps-locations.json": {
@@ -16264,9 +16367,6 @@
     "cryptids/angler.json": {
       "structural_change": true
     },
-    "cryptids/bigfoot.json": {
-      "structural_change": true
-    },
     "cryptids/blue-devil.json": {
       "structural_change": true
     },
@@ -16274,9 +16374,6 @@
       "structural_change": true
     },
     "cryptids/grafton-monster.json": {
-      "structural_change": true
-    },
-    "cryptids/jersey-lesser-devils.json": {
       "structural_change": true
     },
     "cryptids/megasloth.json": {
@@ -16298,9 +16395,6 @@
       "structural_change": true
     },
     "currency.json": {
-      "structural_change": true
-    },
-    "currency_guides/guide-claim-tokens.json": {
       "structural_change": true
     },
     "currency_guides/guide-gold-bullion.json": {
@@ -16623,12 +16717,6 @@
       "removed": [],
       "changed": []
     },
-    "farming_spawns/cajun-rice-beans_spawns.json": {
-      "structural_change": true
-    },
-    "farming_spawns/canned-coffee_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/canned-dog-food_spawns.json": {
       "structural_change": true
     },
@@ -16713,9 +16801,6 @@
     "farming_spawns/chems-high-radiation-fluids_spawns.json": {
       "structural_change": true
     },
-    "farming_spawns/chems-insect-repellent_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/chems-marsupial-serum_spawns.json": {
       "structural_change": true
     },
@@ -16764,9 +16849,6 @@
     "farming_spawns/chems-stealth-boy-mark-iii_spawns.json": {
       "structural_change": true
     },
-    "farming_spawns/chems-stealth-boy_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/chems-stimpak-diluted_spawns.json": {
       "structural_change": true
     },
@@ -16809,9 +16891,6 @@
       "removed": [],
       "changed": []
     },
-    "farming_spawns/frog-egg_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/funnel-cake_spawns.json": {
       "structural_change": true
     },
@@ -16821,9 +16900,6 @@
     "farming_spawns/gum-drops_spawns.json": {
       "structural_change": true
     },
-    "farming_spawns/halloween-candy_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/honey_spawns.json": {
       "structural_change": true
     },
@@ -16831,9 +16907,6 @@
       "structural_change": true
     },
     "farming_spawns/hotdog_spawns.json": {
-      "structural_change": true
-    },
-    "farming_spawns/imitation-seafood_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/instamash_spawns.json": {
@@ -16854,19 +16927,7 @@
     "farming_spawns/noodle-cup_spawns.json": {
       "structural_change": true
     },
-    "farming_spawns/nuka-cola-candy_spawns.json": {
-      "structural_change": true
-    },
-    "farming_spawns/nuka-cola-quantum-candy_spawns.json": {
-      "structural_change": true
-    },
-    "farming_spawns/nuka-victory-candy_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/perfect-bubblegum_spawns.json": {
-      "structural_change": true
-    },
-    "farming_spawns/perfectly-preserved-pie_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/plant-strangler-pod_spawns.json": {
@@ -16874,9 +16935,6 @@
       "added": [],
       "removed": [],
       "changed": []
-    },
-    "farming_spawns/popcorn_spawns.json": {
-      "structural_change": true
     },
     "farming_spawns/pork-n-beans_spawns.json": {
       "structural_change": true
@@ -16893,13 +16951,7 @@
     "farming_spawns/radscorpion-egg_spawns.json": {
       "structural_change": true
     },
-    "farming_spawns/radtoad-egg_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/royal-jelly_spawns.json": {
-      "structural_change": true
-    },
-    "farming_spawns/rudys-canned-pozole_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/salisbury-steak_spawns.json": {
@@ -16912,12 +16964,6 @@
       "structural_change": true
     },
     "farming_spawns/sugar-bombs_spawns.json": {
-      "structural_change": true
-    },
-    "farming_spawns/tick-blood_spawns.json": {
-      "structural_change": true
-    },
-    "farming_spawns/vegetarian-ham_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/yum-yum-deviled-eggs_spawns.json": {
@@ -16934,12 +16980,6 @@
     },
     "fishing_equipment.json": {
       "structural_change": true
-    },
-    "help_menu.json": {
-      "key": "edid",
-      "added": [],
-      "removed": [],
-      "changed": []
     },
     "home-events.json": {
       "structural_change": true
@@ -18264,13 +18304,7 @@
         }
       ]
     },
-    "legendary_mod_drop_chances.json": {
-      "structural_change": true
-    },
     "legendary_mods.json": {
-      "structural_change": true
-    },
-    "load_screens.json": {
       "structural_change": true
     },
     "locations/all_locations.json": {
@@ -19359,124 +19393,6 @@
           ]
         },
         {
-          "key": "PLAN_00745090",
-          "label": "Plan: Deathclaw Skin Outfit",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0076DE20",
-          "label": "Plan: Hunter's Hanbok Outfit",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_007720C2",
-          "label": "Plan: Redcoat Hat",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_007720C3",
-          "label": "Plan: Redcoat Outfit",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_007734F1",
-          "label": "Plan: Gulper Skin Hood",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_007734F2",
-          "label": "Plan: Gulper Skin Outfit",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_007734F3",
-          "label": "Plan: Ogua Shell Throne",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_00773809",
-          "label": "Plan: Lederhosen Outfit",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_00773A31",
-          "label": "Plan: Gulper Plushie",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_00785056",
-          "label": "Plan: Shenandoah Vistor Center Snow Globe",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_00785057",
-          "label": "Plan: Slumber Mill Motel Snow Globe",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_00785059",
-          "label": "Plan: Dark Hollow Manor Snow Globe",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0078505A",
-          "label": "Plan: Big Meadows Gas Well Snow Globe",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0078505B",
-          "label": "Plan: High Knob Lookout Snow Globe",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0078505C",
-          "label": "Plan: Camp Liberty Snow Globe",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_007858E5",
-          "label": "Plan: Lederhosen Outfit Hat",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
           "key": "PLAN_00792EAD",
           "label": "Plan: Ultracite Terror Sword",
           "fields": [
@@ -19806,53 +19722,6 @@
           ]
         },
         {
-          "key": "PLAN_00796709",
-          "label": "Plan: Axel's Snow Globe",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0079670A",
-          "label": "Plan: Ineke's Snow Globe",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0079670B",
-          "label": "Plan: Josie's Snow Globe",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0079670C",
-          "label": "Plan: Marley's Snow Globe",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0079670D",
-          "label": "Plan: Theodore's Snow Globe",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0079670E",
-          "label": "Plan: Windy's Snow Globe",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
           "key": "PLAN_007AE573",
           "label": "Plan: Drill Fist Ultracite Bits",
           "fields": [
@@ -19926,70 +19795,6 @@
           "key": "PLAN_00802194",
           "label": "Plan: Splinter",
           "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_008BA7E3",
-          "label": "Plan: Dom Pedro Explosive Mods",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_008BA7E4",
-          "label": "Plan: Dom Pedro Grip Mods",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_008BA7E5",
-          "label": "Plan: Dom Pedro Magazine Mods",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_008BA7E6",
-          "label": "Plan: Dom Pedro Receiver Mods",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_008BA7E7",
-          "label": "Plan: Dom Pedro Sight Mods",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_008BA7E8",
-          "label": "Plan: Dom Pedro",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_008BA7E9",
-          "label": "Plan: Dom Pedro Stock 1 Mods",
-          "fields": [
-            "cut",
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_008BA7EA",
-          "label": "Plan: Dom Pedro Stock 2 Mods",
-          "fields": [
-            "cut",
             "routes"
           ]
         },
@@ -20137,16 +19942,10 @@
     "meat/brahmin.json": {
       "structural_change": true
     },
-    "meat/cat.json": {
-      "structural_change": true
-    },
     "meat/chicken.json": {
       "structural_change": true
     },
     "meat/deathclaw.json": {
-      "structural_change": true
-    },
-    "meat/fox.json": {
       "structural_change": true
     },
     "meat/frog.json": {
@@ -20161,9 +19960,6 @@
     "meat/hermit-crab.json": {
       "structural_change": true
     },
-    "meat/iguana.json": {
-      "structural_change": true
-    },
     "meat/megasloth.json": {
       "structural_change": true
     },
@@ -20176,34 +19972,13 @@
     "meat/mole-rat.json": {
       "structural_change": true
     },
-    "meat/mongrel-dog.json": {
-      "structural_change": true
-    },
     "meat/mutant-hound.json": {
-      "structural_change": true
-    },
-    "meat/opossum.json": {
-      "structural_change": true
-    },
-    "meat/owlet.json": {
-      "structural_change": true
-    },
-    "meat/pheasant.json": {
-      "structural_change": true
-    },
-    "meat/rabbit.json": {
       "structural_change": true
     },
     "meat/radhog.json": {
       "structural_change": true
     },
-    "meat/radrat.json": {
-      "structural_change": true
-    },
     "meat/radstag.json": {
-      "structural_change": true
-    },
-    "meat/radtoad.json": {
       "structural_change": true
     },
     "meat/radturkey.json": {
@@ -20213,9 +19988,6 @@
       "structural_change": true
     },
     "meat/sheepsquatch.json": {
-      "structural_change": true
-    },
-    "meat/squirrel.json": {
       "structural_change": true
     },
     "meat/wolf.json": {
@@ -20248,43 +20020,13 @@
     "no_plan_apparel_unresolved.json": {
       "structural_change": true
     },
-    "npc_spawns.json": {
-      "structural_change": true
-    },
     "nuka_cola_spawns_cherry.json": {
-      "structural_change": true
-    },
-    "nuka_cola_spawns_cranberry.json": {
-      "structural_change": true
-    },
-    "nuka_cola_spawns_dark.json": {
-      "structural_change": true
-    },
-    "nuka_cola_spawns_grape.json": {
       "structural_change": true
     },
     "nuka_cola_spawns_nuka-cola.json": {
       "structural_change": true
     },
     "nuka_cola_spawns_nukashine.json": {
-      "structural_change": true
-    },
-    "nuka_cola_spawns_orange.json": {
-      "structural_change": true
-    },
-    "nuka_cola_spawns_quantum.json": {
-      "structural_change": true
-    },
-    "nuka_cola_spawns_sunset-sarsaparilla.json": {
-      "structural_change": true
-    },
-    "nuka_cola_spawns_twist.json": {
-      "structural_change": true
-    },
-    "nuka_cola_spawns_vaccinated.json": {
-      "structural_change": true
-    },
-    "nuka_cola_spawns_wild.json": {
       "structural_change": true
     },
     "pennants.json": {
@@ -33479,7 +33221,6 @@
           "key": "SFS09_PlayerTitles_Suffix_Manager",
           "label": "SFS09_PlayerTitles_Suffix_Manager",
           "fields": [
-            "debug",
             "howToObtain"
           ]
         },
@@ -33750,14 +33491,6 @@
           ]
         },
         {
-          "key": "plasmagun-2",
-          "label": "Prototype ABX03",
-          "fields": [
-            "howToObtain",
-            "obtainRoutes"
-          ]
-        },
-        {
           "key": "plasmagun-4",
           "label": "Slug Buster",
           "fields": [
@@ -33860,155 +33593,7 @@
       "key": "edid",
       "added": [],
       "removed": [],
-      "changed": [
-        {
-          "key": "AmmoResource10mm",
-          "label": "AmmoResource10mm",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "AmmoResource308caliber",
-          "label": "AmmoResource308caliber",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "AmmoResource38caliber",
-          "label": "AmmoResource38caliber",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "AmmoResource44caliber",
-          "label": "AmmoResource44caliber",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "AmmoResource45caliber",
-          "label": "AmmoResource45caliber",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "AmmoResource50caliber",
-          "label": "AmmoResource50caliber",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "AmmoResource556",
-          "label": "AmmoResource556",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "AmmoResource5mm",
-          "label": "AmmoResource5mm",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "AmmoResourceFusionCell",
-          "label": "AmmoResourceFusionCell",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "AmmoResourceGammaCell",
-          "label": "AmmoResourceGammaCell",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "AmmoResourcePlasmaCartridge",
-          "label": "AmmoResourcePlasmaCartridge",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "AmmoResourceShotgunShell",
-          "label": "AmmoResourceShotgunShell",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "FertilizerBrahminResource",
-          "label": "FertilizerBrahminResource",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "FoodPackagedResource00",
-          "label": "FoodPackagedResource00",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "FoodPackagedResource01",
-          "label": "FoodPackagedResource01",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "FoodPackagedResource02",
-          "label": "FoodPackagedResource02",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "FoodPackagedResource03",
-          "label": "FoodPackagedResource03",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "FoodPackagedResource04",
-          "label": "FoodPackagedResource04",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "FoodResource",
-          "label": "FoodResource",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "FusionCoreResource",
-          "label": "FusionCoreResource",
-          "fields": [
-            "releaseDate"
-          ]
-        },
-        {
-          "key": "OreMountBlairResource",
-          "label": "OreMountBlairResource",
-          "fields": [
-            "releaseDate"
-          ]
-        }
-      ]
+      "changed": []
     },
     "world_pet_challenges.json": {
       "structural_change": true
