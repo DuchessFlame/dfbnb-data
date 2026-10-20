@@ -1635,6 +1635,27 @@
           "per_point": 1
         }
       }
+    },
+    "unarmed": {
+      "label": "Unarmed damage",
+      "unit": "% unarmed damage",
+      "why": "Fists and unarmed weapons. Strength adds through the damage-strength setting (not the Unarmed Damage actor value), and Unarmed Damage plus Melee Damage buffs both count (STAT_DmgMeleeUnarmed_Formula).",
+      "slots": {
+        "str": {
+          "from": "formula",
+          "stat": "str",
+          "formula": "unarmed",
+          "per": "mult",
+          "scale": 100
+        },
+        "dmg_unarmed": {
+          "per_point": 1
+        },
+        "dmg_melee": {
+          "per_point": 1,
+          "unit": "% unarmed damage"
+        }
+      }
     }
   }
 }

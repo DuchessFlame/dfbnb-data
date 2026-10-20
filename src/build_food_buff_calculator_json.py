@@ -280,7 +280,7 @@ def load_rules():
     bad = []
     for qk, q in (rules.get("questions") or {}).items():
         for ok, o in (q.get("options") or {}).items():
-            for part in ("weights", "add", "mult"):
+            for part in ("weights", "add", "mult", "fallback_add"):
                 for s in (o.get(part) or {}):
                     if s not in slots:
                         bad.append(f"{qk}.{ok}.{part}.{s}")
@@ -289,6 +289,19 @@ def load_rules():
                     bad.append(f"{qk}.{ok}.avoid.{s}")
     if bad:
         raise SystemExit("[food_buff_calc] FATAL: rules.json names unknown slots: " + ", ".join(bad))
+    # goals come from the SPECIALs & Stats build (dist/specials_stats.json -> goals)
+    sp_path = os.path.join(REPO, "dist", "specials_stats.json")
+    if os.path.exists(sp_path):
+        with open(sp_path, encoding="utf-8") as f:
+            sp_goals = (json.load(f) or {}).get("goals") or {}
+        refs = ((rules.get("goals") or {}).get("refs") or {})
+        for qk, q in (rules.get("questions") or {}).items():
+            for ok, o in (q.get("options") or {}).items():
+                for g in (o.get("goals") or {}):
+                    if g not in sp_goals:
+                        warn(f"rules.json {qk}.{ok}.goals.{g}: not a goal in specials_stats.json")
+                    if g not in refs:
+                        warn(f"rules.json {qk}.{ok}.goals.{g}: no goals.refs entry")
     rules.pop("_readme", None)
     return rules
 

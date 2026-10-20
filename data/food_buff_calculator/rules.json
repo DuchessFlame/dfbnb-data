@@ -20,6 +20,14 @@
     "ref = what counts as one 'full strength' buff of that type; only used to rank different buffs against each other."
   ],
   "show_threshold": 0.3,
+  "_goals_readme": [
+    "GOALS (20 Oct 2026): what a stat is worth comes from dist/specials_stats.json -> goals (built from the game files), e.g. 1 Endurance = 5 HP, 1 Strength = 5 lb, 1 Agility = 10 AP, 1 Intelligence = 3% XP, Heal Rate = % of max HP per sec (out of combat).",
+    "An answer (or build) can list 'goals': { goal: weight }. Each slot in that goal gets weight x (its conversion x its slot ref) / refs[goal] - so a +3 END food (15 HP) is weighed against a +40 Max Health food in the same HP.",
+    "refs = how big one 'full-strength' buff is in the goal's own unit. Weight 0 = no weighting, just show the reason on the cards (e.g. VATS: '+2 Perception (+0.8 % hit chance)').",
+    "'fallback_add' = hand-set weights used only if specials_stats.json can't load on the page (answers AND builds).",
+    "Melee build = melee goal (1 STR = 5% melee damage, fAVDMeleeDamageMult). Unarmed build = unarmed goal (1 STR = 10% unarmed damage, fDamageStrengthMult; Unarmed AND Melee Damage buffs both count) - Kat, 20 Oct 2026."
+  ],
+  "goals": { "refs": { "health_bar": 40, "health_regen": 0.25, "carry_weight": 30, "xp": 5, "action_points": 30, "melee": 30, "unarmed": 50, "vats": 0 } },
   "_exclude_items_readme": "Item names never recommended (quest-only / can't normally get). Nuclear Don's Custom Chem Blend = W05_MQR_203P Wastelanders main quest chem (+100% dmg, +100 DR, +100 HP) - Claude 20 Oct 2026, ask Kat before adding more.",
   "exclude_items": ["Nuclear Don's Custom Chem Blend"],
   "_display_order_readme": "Order the result cards and the stat list are shown in: SPECIAL first, then AP Regen, XP and the rest. Reorder freely.",
@@ -76,8 +84,8 @@
         "commando":  { "label": "Commando (auto rifles)",     "ranged": true,  "weights": { "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.5, "er": 0.4, "max_hp": 0.4, "ap": 0.3 } },
         "pistol":    { "label": "Gunslinger (pistols)",       "ranged": true,  "weights": { "dmg_all": 1, "crit_dmg": 0.4, "dr": 0.5, "er": 0.4, "max_hp": 0.4, "ap": 0.4 } },
         "shotgun":   { "label": "Shotgunner",                 "ranged": true,  "weights": { "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.3 } },
-        "melee":     { "label": "Melee",                      "ranged": false, "weights": { "str": 1, "dmg_melee": 1, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.4 } },
-        "unarmed":   { "label": "Unarmed",                    "ranged": false, "weights": { "str": 1, "dmg_unarmed": 1, "dmg_melee": 0.6, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.4 } },
+        "melee":     { "label": "Melee",                      "ranged": false, "goals": { "melee": 1 }, "fallback_add": { "str": 1, "dmg_melee": 1 }, "weights": { "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.4 } },
+        "unarmed":   { "label": "Unarmed",                    "ranged": false, "goals": { "unarmed": 1 }, "fallback_add": { "str": 1, "dmg_unarmed": 1, "dmg_melee": 0.6 }, "weights": { "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.4 } },
         "archer":    { "label": "Bows & Throwing (bows, knives, tomahawks)", "ranged": true, "skip": ["damage_type"], "prefer": { "alcohol": ["Wine"] }, "weights": { "dmg_all": 1, "crit_dmg": 0.5, "ap": 0.3, "dr": 0.4, "max_hp": 0.3 } },
         "explosive": { "label": "Explosives",                 "ranged": true, "skip": ["damage_type"], "weights": { "dmg_all": 1, "crit_dmg": 0.2, "dr": 0.6, "er": 0.5, "fire_res": 0.3, "max_hp": 0.5 } },
         "support":   { "label": "Support / Team Healer",      "ranged": true, "skip": ["damage_type"], "weights": { "cha": 1, "max_hp": 0.8, "dr": 0.6, "er": 0.5, "heal_rate": 0.6, "ap": 0.3, "end": 0.3 } }
@@ -96,7 +104,9 @@
       "label": "VATS or free aim?",
       "only_if_ranged": true,
       "options": {
-        "vats": { "label": "VATS",                    "add": { "crit_dmg": 1.5, "vats_acc": 0.8, "ap": 0.5, "ap_regen": 0.7, "luck": 0.8, "agi": 0.6, "per": 0.6 },
+        "vats": { "label": "VATS",                    "goals": { "action_points": 0.5, "vats": 0 },
+                  "add": { "crit_dmg": 1.5, "vats_acc": 0.8, "ap_regen": 0.7, "luck": 0.8, "per": 0.6 },
+                  "fallback_add": { "ap": 0.5, "agi": 0.6 },
                   "note": "VATS builds live on crits, so Critical Damage is weighted heavily (Overdrive over Psycho for the chem slot)." },
         "free": { "label": "Free aim / scope",        "add": { "gun_acc": 0.6 }, "mult": { "vats_acc": 0, "crit_dmg": 0.5, "ap_regen": 0.6 } }
       }
@@ -138,14 +148,14 @@
       "label": "Do you struggle with carry weight?",
       "options": {
         "no":  { "label": "No",  "mult": { "carry": 0 } },
-        "yes": { "label": "Yes", "add": { "carry": 1, "str": 0.5 } }
+        "yes": { "label": "Yes", "goals": { "carry_weight": 1 }, "fallback_add": { "carry": 1, "str": 0.5 } }
       }
     },
     "deaths": {
       "label": "Do you die a lot?",
       "options": {
         "no":  { "label": "No" },
-        "yes": { "label": "Yes", "add": { "max_hp": 0.8, "heal_rate": 0.8, "end": 0.5 },
+        "yes": { "label": "Yes", "goals": { "health_bar": 1, "health_regen": 1 }, "fallback_add": { "max_hp": 0.8, "heal_rate": 0.8, "end": 0.5 },
                  "note": "You die a lot, so anything that adds HP to your health bar (Max Health, Endurance) and health regen moves up the list (Kat, 20 Oct 2026). Bloodied still keeps regen low - it would heal them out of bloodied." }
       }
     },
@@ -153,7 +163,7 @@
       "label": "Is XP important to you?",
       "options": {
         "no":  { "label": "No", "mult": { "xp": 0 } },
-        "yes": { "label": "Yes", "add": { "xp": 1, "cha": 1, "int": 0.7 },
+        "yes": { "label": "Yes", "goals": { "xp": 1 }, "add": { "cha": 1 }, "fallback_add": { "xp": 1, "int": 0.7 },
                  "note": "XP hungry: XP buffs, Intelligence (it raises XP gained) and Charisma buffs. Charisma raises your XP through the Inspirational perk card while you're on a team (+20% at 15 CHA, +25% at 30) and your teammates' XP too." }
       }
     },

@@ -183,12 +183,17 @@ class Records:
         self.ench = {}
         for r in S.tsv("ENCH_Export_*.tsv"):
             fx = []
-            for i in range(1, 13):
+            i = 0
+            while f"Effect_{i + 1}_MGEF_EID" in r:     # every effect slot the export has (was 1-12 only)
+                i += 1
                 e = (r.get(f"Effect_{i}_MGEF_EID") or "").strip()
                 if not e:
                     continue
                 fx.append({"mgef": e, "mag": fnum(r.get(f"Effect_{i}_Magnitude"), 0.0),
-                           "curve": (r.get(f"Effect_{i}_CURV_EID") or "").strip()})
+                           "curve": (r.get(f"Effect_{i}_CURV_EID") or "").strip(),
+                           # MAGA = the actor value the curve is keyed on (ENCH export columns added 20 Oct 2026)
+                           "inFid": (r.get(f"Effect_{i}_MAGA_FID") or "").strip().upper(),
+                           "inEdid": (r.get(f"Effect_{i}_MAGA_EID") or "").strip()})
             self.ench[r["ENCH_EDID"]] = {"name": (r.get("ENCH_FULL") or "").strip(), "fx": fx,
                                          "fid": r.get("ENCH_FormID", "")}
         self.av_name = {}
@@ -197,6 +202,9 @@ class Records:
         self.omod = {r["OMOD_EDID"]: r for r in S.tsv("OMOD_Export_*[0-9].tsv", required=False)
                      or S.tsv("OMOD_Export_*.tsv")}
         self.omod_props = S.tsv("OMOD_Export_*_Properties.tsv")
+        # what each curve is keyed on, read straight from SeventySix.esm by tools/esm_curve_inputs_extract.py
+        # (ENCH / SPEL MAGA + PERK EPF4). Optional: the ENCH / SPEL / PERKEP exports carry the same thing.
+        self.curvin = S.tsv("CURVIN_Export_*.tsv", required=False)
 
     def label(self, m):
         """Readable name for a magic effect: its FULL, or the actor value's name."""
@@ -393,6 +401,138 @@ def page_wants(stat, av, kind):
     if k == "heal_rate" and av == "Health":
         return kind == "restore"
     return True
+
+
+# ───────────────────────────── curve inputs ─────────────────────────────
+# A few curves are keyed on actor values that are built into the engine and have NO record in
+# SeventySix.esm. xEdit still knows their names (the SPEL export carries them: 00000392 HealthPercent,
+# 0000032C PlayerLevel, 00000394 JunkItemCount, 00000399 Kill Streak ...), so the build learns the
+# names from there (R.engine_names) and this table only adds a readable label + one line of help.
+# Checked against every curve that uses each one (tools/esm_curve_inputs_extract.py -> CURVIN_Export).
+ENGINE_AV = {
+    # Unyielding, Bolstering, Nerd Rage, Last Bastion, *InverseHealth / *ProportionalHealth - curves run 0 - 1
+    "HealthPercent": ("Health (fraction of max HP)",
+                      "The game feeds in your current health as a fraction of max: 1 = full health, "
+                      "0.2 = 20% health, 0 = none."),
+    "PlayerLevel": ("Player level", "The game feeds in your character level."),
+    # Junk Shield (JunkShieldDRBonus) - curve runs 1 - 100
+    "JunkItemCount": ("Junk items carried", "The game feeds in how many junk items you are carrying."),
+    # Adrenaline, Adrenal Reaction, Adrenal - curves run 0 - 20
+    "Kill Streak": ("Kill streak", "The game feeds in your current kill streak (the Adrenaline stack)."),
+    "ConsecutiveHitCount": ("Consecutive hits", "The game feeds in how many hits in a row you have landed."),
+    "AmmoSpenderStacks": ("Ammo spent (stacks)", "The game feeds in your current ammo-spent stacks."),
+    # No xEdit name seen yet. Aristocrat's, *_AddDamageViaCaps, *_ResistancesProportionalCaps - curves run 0 - 40,000
+    "00000393": ("Caps carried", "The game feeds in the number of caps you are carrying."),
+}
+OMOD_EXPLAIN = ("Armour, underarmour and backpack mod curves have no input field. The game reads them "
+                "at the level of the item the mod is on (the same Universal tier curves sit on the base "
+                "armour records), so a level 50 piece gets the last row.")
+
+
+def _pretty_av(edid):
+    return re.sub(r"(?<=[a-z])(?=[A-Z])", " ", re.sub(r"^(LGND|STAT|SURV)_", "", edid)).replace("_", " ").strip()
+
+
+def curve_inputs(R):
+    """curve EDID -> what the game feeds in as X, and what the curve drives, straight from the records.
+
+    Sources, first one wins: SPEL effect MAGA, ENCH effect MAGA (export columns added 20 Oct 2026),
+    PERK entry point EPF4 (PERKEP Raw), CURVIN (read from the ESM), then OMOD property curves
+    (item level). Sets R.curve_input {curve: {label, kind, src, explain}} and
+    R.curve_output {curve: [(actor value, effect label)]}."""
+    R.curve_input, R.curve_output = {}, {}
+    # built-in (engine) actor values: no AVIF record, but the xEdit exports name them
+    known = set(R.av_name)
+    R.engine_names = {}
+    for rows in R.spel_fx.values():
+        for fx in rows:
+            f, e = (fx.get("MAGA_AVIF_FormID") or "").strip().upper(), (fx.get("MAGA_AVIF_EDID") or "").strip()
+            if f and e and e not in known:
+                R.engine_names.setdefault(f, e)
+    for e in R.ench.values():
+        for fx in e["fx"]:
+            if fx.get("inFid") and fx.get("inEdid") and fx["inEdid"] not in known:
+                R.engine_names.setdefault(fx["inFid"], fx["inEdid"])
+
+    def put(cv, fid, edid, kind, src):
+        cv, fid, edid = (cv or "").strip(), (fid or "").strip().upper(), (edid or "").strip()
+        if not cv or cv in R.curve_input or not (fid or edid):
+            return
+        if not edid and fid in R.engine_names:
+            edid = R.engine_names[fid]                 # built-in actor value xEdit knows the name of
+        if edid in ENGINE_AV:
+            lab, ex = ENGINE_AV[edid]
+        elif edid:
+            lab, ex = R.av_name.get(edid) or _pretty_av(edid), ""
+        elif fid in ENGINE_AV:
+            lab, ex = ENGINE_AV[fid]
+        else:
+            lab, ex = f"Engine value {fid}", "This input is built into the game engine and has no record to name it."
+        R.curve_input[cv] = {"label": lab, "kind": kind, "explain": ex,
+                             "src": dict(src, av=edid or fid)}
+
+    def out(cv, mgef_edid):
+        cv = (cv or "").strip()
+        m = R.mgef.get((mgef_edid or "").strip())
+        if not cv or not m or "description" in mgef_edid.lower():
+            return
+        pair = (m["av"], R.label(m))
+        if pair not in R.curve_output.setdefault(cv, []):
+            R.curve_output[cv].append(pair)
+
+    for edid, rows in R.spel_fx.items():
+        for fx in rows:
+            cv = fx.get("CVTO_CURV_EDID")
+            out(cv, fx.get("EFID_MGEF_EDID") or "")
+            put(cv, fx.get("MAGA_AVIF_FormID"), fx.get("MAGA_AVIF_EDID"), "SPEL",
+                {"type": "SPEL MAGA", "edid": edid, "formId": fx.get("SPEL_FormID", "")})
+    for edid, e in R.ench.items():
+        for fx in e["fx"]:
+            out(fx["curve"], fx["mgef"])
+            put(fx["curve"], fx.get("inFid"), fx.get("inEdid"), "ENCH",
+                {"type": "ENCH MAGA", "edid": edid, "formId": e.get("fid", "")})
+    for perk, rows in R.perkep.items():
+        for r in rows:
+            raw = r.get("Raw") or ""
+            c = re.search(r"Curve Table=\s*([A-Za-z_][\w]*)\s*\[CURV:", raw)
+            a = re.search(r"EPF4 - Actor value 2=\s*([A-Za-z_][\w]*)?\s*\[AVIF:([0-9A-Fa-f]{8})\]", raw)
+            if c and a:
+                ep = re.sub(r"^Mod ", "", (r.get("EntryPoint") or "").strip())
+                ep = {"Spell Magnitude": "Effect strength"}.get(ep, ep)
+                fn = r.get("Function") or ""
+                if ep:
+                    pair = ("", ep + (" (\u00d7)" if "Multiply" in fn else " (+)" if "Add" in fn else ""))
+                    if pair not in R.curve_output.setdefault(c.group(1), []):
+                        R.curve_output[c.group(1)].append(pair)
+                put(c.group(1), a.group(2), a.group(1) or "", "PERK",
+                    {"type": "PERK EPF4", "edid": perk, "formId": r.get("PERK_FormID", "")})
+    for r in R.curvin:
+        kind = r.get("Source_Sig", "")
+        out(r.get("Curve_EDID"), r.get("Effect_EDID") or "")
+        put(r.get("Curve_EDID"), r.get("Input_FormID"), r.get("Input_EDID"), kind,
+            {"type": f"{kind} {r.get('Field', '')}".strip(), "edid": r.get("Source_EDID", ""),
+             "formId": r.get("Source_FormID", "")})
+    dt_stat = {"dtPhysical": ("dr", "Damage Resistance"), "dtEnergy": ("er", "Energy Resistance"),
+               "dtFire": ("fire_res", "Fire Resistance"), "dtCryo": ("cryo_res", "Cryo Resistance"),
+               "dtFrost": ("cryo_res", "Cryo Resistance"), "dtPoison": ("poison_res", "Poison Resistance"),
+               "dtRadiationExposure": ("rad_res", "Radiation Resistance")}
+    for p in R.omod_props:
+        ct = p.get("CurveTable") or ""
+        if "CURV:" in ct:
+            cv = first_edid(ct)
+            v1 = first_edid(p.get("Value1"))
+            if p.get("PropertyName") == "Damage Type Value" and v1 in dt_stat:
+                pair = dt_stat[v1]                       # (stat key, label) - matched on the page by key
+            elif p.get("PropertyName") in ("Actor Values", "ActorValues") and v1:
+                pair = (v1, R.av_name.get(v1) or _pretty_av(v1))
+            else:
+                pair = None
+            if pair and cv and pair not in R.curve_output.setdefault(cv, []):
+                R.curve_output[cv].append(pair)
+            if cv and cv not in R.curve_input:
+                R.curve_input[cv] = {"label": "Item level", "kind": "OMOD", "explain": OMOD_EXPLAIN,
+                                     "src": {"type": "OMOD property", "edid": p.get("OMOD_EDID", ""),
+                                             "formId": p.get("OMOD_FormID", "")}}
 
 
 class Boost:
@@ -645,18 +785,7 @@ class Boost:
         R = self.R
         found = {}
         if not hasattr(R, "curve_input"):
-            # curve -> the actor value the game feeds into it (SPEL effect MAGA), straight from the records
-            R.curve_input = {}
-            R.curve_output = {}
-            for rows in R.spel_fx.values():
-                for fx in rows:
-                    cv, av = (fx.get("CVTO_CURV_EDID") or "").strip(), (fx.get("MAGA_AVIF_EDID") or "").strip()
-                    if cv and cv not in R.curve_output:
-                        mm = R.mgef.get(fx.get("EFID_MGEF_EDID", ""))
-                        if mm:
-                            R.curve_output[cv] = R.label(mm)
-                    if cv and av and cv not in R.curve_input:
-                        R.curve_input[cv] = R.av_name.get(av) or re.sub(r"(?<=[a-z])(?=[A-Z])", " ", re.sub(r"^(LGND|STAT|SURV)_", "", av)).replace("_", " ")
+            curve_inputs(R)
 
         def add(edid, why, x=None, meta=None):
             edid = (edid or "").strip()
@@ -691,12 +820,20 @@ class Boost:
         for edid, info in found.items():
             m = info["meta"] or {}
             guessed = {"Player Level", "Input Value", "Input", "Rank", ""}
-            xl = R.curve_input.get(edid) or info["x"] or (m.get("xLabel") if m.get("xLabel") not in guessed else None) or "Input"
+            ci = R.curve_input.get(edid)
+            xl = (ci or {}).get("label") or info["x"] or (m.get("xLabel") if m.get("xLabel") not in guessed else None) or "Input"
+            # output: the effect this curve drives ON THIS PAGE (Unyielding's one curve drives all six SPECIALs)
+            outs = R.curve_output.get(edid) or []
+            mine = [lab for av, lab in outs if av in stat["avs"] or av == stat["key"]]
+            yl = (mine or [lab for _, lab in outs] or [None])[0]
+            explain = (ci or {}).get("explain", "") or m.get("explain", "")
             out.append({"edid": edid, "formId": R.curv_ids.get(edid, ""), "why": info["why"],
-                        "explain": m.get("explain", ""), "xFrom": "SPEL" if R.curve_input.get(edid) else ("formula" if info["x"] else "unknown"),
+                        "explain": explain,
+                        "xFrom": (ci or {}).get("kind") or ("formula" if info["x"] else "unknown"),
+                        "xSrc": (ci or {}).get("src"),
                         "xLabel": xl,
-                        "yLabel": R.curve_output.get(edid) or (m.get("yLabel") if m.get("yLabel") not in ("Output Value", "Bonus Value", "Perk Bonus %") else None) or "Value",
-                        "unit": "" if R.curve_output.get(edid) else m.get("unit", ""),
+                        "yLabel": yl or (m.get("yLabel") if m.get("yLabel") not in ("Output Value", "Bonus Value", "Perk Bonus %") else None) or "Value",
+                        "unit": "" if yl else m.get("unit", ""),
                         "points": R.curves[edid]})
         return out
 
@@ -942,7 +1079,9 @@ def build(channel):
                 if v is not None and rule.get("scale"):
                     v = v * rule["scale"]
                 out["slots"][slot] = {"per_point": v, "unit": rule.get("unit", g["unit"]), "src": inp.get("src"),
-                                      "explain": f"1 {stats[rule['stat']]['label']} = {clean(v) if v is not None else '?'} {rule.get('unit', g['unit'])}"}
+                                      "explain": f"1 {stats[rule['stat']]['label']} = {clean(v) if v is not None else '?'}"
+                                                 + ("" if str(rule.get('unit', g['unit'])).startswith('%') else " ")
+                                                 + f"{rule.get('unit', g['unit'])}"}
             elif "curve" in rule:
                 pts, src = R.curve(rule["curve"])
                 out["slots"][slot] = {"curve": pts, "unit": rule.get("unit"), "src": src}
