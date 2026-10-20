@@ -1,5 +1,10 @@
 {
   "_readme": [
+    "SPECIAL buffs do NOT add perk card points - they only give the SPECIAL's own effects (AVIF descriptions, Oct 2026):",
+    "  STR carry weight + melee damage | PER VATS accuracy | END total Health, sprint AP drain, disease resistance",
+    "  CHA perk sharing, group quest rewards, barter (+ Inspirational XP) | INT hacking, crafted condition, XP gained, scrap",
+    "  AGI VATS AP + sneak | LCK crit recharge rate, loot condition. So a SPECIAL is only weighted where that effect helps.",
+    "",
     "HAND-KEPT rules for the Recommended Food Buff Calculator (/bnb/buffs/food/recommended-food-buff-calculator/).",
     "build_food_buff_calculator_json.py validates this file and copies it into dist/calculators/food_buff_calculator.json.",
     "Everything about the ITEMS (which buff, how big, how long, meat/veg, what stacks) comes from the game exports.",
@@ -11,6 +16,13 @@
     "ref = what counts as one 'full strength' buff of that type; only used to rank different buffs against each other."
   ],
   "show_threshold": 0.3,
+  "_display_order_readme": "Order the result cards and the stat list are shown in: SPECIAL first, then AP Regen, XP and the rest. Reorder freely.",
+  "display_order": ["str", "per", "end", "cha", "int", "agi", "luck",
+                    "ap_regen", "xp", "ap", "carry",
+                    "dmg_all", "dmg_melee", "dmg_unarmed", "dmg_ballistic", "dmg_energy", "dmg_animals",
+                    "crit_dmg", "sneak_attack", "vats_acc", "gun_acc",
+                    "max_hp", "heal_rate", "dr", "er", "fire_res", "poison_res", "rad_res", "disease_res",
+                    "move_speed", "invis"],
   "max_picks": { "food": 7, "chem": 4, "alcohol": 4 },
   "sessions": [
     { "key": "30", "label": "30 min", "minutes": 30, "food_min_duration_min": 30 },
@@ -53,17 +65,16 @@
     "build": {
       "label": "What build are you running?",
       "options": {
-        "heavy":     { "label": "Heavy Guns",                 "ranged": true,  "weights": { "str": 0.7, "end": 0.3, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.2 } },
-        "rifle":     { "label": "Rifleman (semi-auto rifles)", "ranged": true, "weights": { "per": 1, "agi": 0.3, "dmg_all": 1, "crit_dmg": 0.4, "dr": 0.5, "er": 0.4, "max_hp": 0.4, "ap": 0.3 } },
-        "commando":  { "label": "Commando (auto rifles)",     "ranged": true,  "weights": { "per": 1, "agi": 0.3, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.5, "er": 0.4, "max_hp": 0.4, "ap": 0.3 } },
-        "pistol":    { "label": "Gunslinger (pistols)",       "ranged": true,  "weights": { "agi": 1, "per": 0.3, "dmg_all": 1, "crit_dmg": 0.4, "dr": 0.5, "er": 0.4, "max_hp": 0.4, "ap": 0.4 } },
-        "shotgun":   { "label": "Shotgunner",                 "ranged": true,  "weights": { "str": 1, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.3 } },
-        "melee":     { "label": "Melee",                      "ranged": false, "weights": { "str": 1, "dmg_melee": 1, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.4, "agi": 0.2 } },
-        "unarmed":   { "label": "Unarmed",                    "ranged": false, "weights": { "str": 1, "dmg_unarmed": 1, "dmg_melee": 0.6, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.4, "agi": 0.2 } },
-        "sneak":     { "label": "Sneak / Sniper",             "ranged": true,  "weights": { "per": 1, "agi": 1, "luck": 0.4, "sneak_attack": 1, "dmg_all": 1, "crit_dmg": 0.6, "invis": 0.4, "ap": 0.4, "max_hp": 0.3 } },
-        "archer":    { "label": "Archer (bows)",              "ranged": true,  "weights": { "per": 1, "agi": 0.5, "sneak_attack": 0.6, "dmg_all": 1, "crit_dmg": 0.5, "ap": 0.3, "dr": 0.4, "max_hp": 0.3 } },
-        "explosive": { "label": "Explosives",                 "ranged": true,  "weights": { "int": 1, "dmg_all": 1, "crit_dmg": 0.2, "dr": 0.6, "er": 0.5, "fire_res": 0.3, "max_hp": 0.5 } },
-        "support":   { "label": "Support / Team Healer",      "ranged": true,  "weights": { "cha": 1, "int": 0.3, "max_hp": 0.8, "dr": 0.6, "er": 0.5, "heal_rate": 0.6, "ap": 0.3 } }
+        "heavy":     { "label": "Heavy Guns",                 "ranged": true,  "weights": { "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.2 } },
+        "rifle":     { "label": "Rifleman / Sniper (semi-auto & scoped rifles)", "ranged": true, "weights": { "dmg_all": 1, "crit_dmg": 0.4, "dr": 0.5, "er": 0.4, "max_hp": 0.4, "ap": 0.3 } },
+        "commando":  { "label": "Commando (auto rifles)",     "ranged": true,  "weights": { "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.5, "er": 0.4, "max_hp": 0.4, "ap": 0.3 } },
+        "pistol":    { "label": "Gunslinger (pistols)",       "ranged": true,  "weights": { "dmg_all": 1, "crit_dmg": 0.4, "dr": 0.5, "er": 0.4, "max_hp": 0.4, "ap": 0.4 } },
+        "shotgun":   { "label": "Shotgunner",                 "ranged": true,  "weights": { "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.3 } },
+        "melee":     { "label": "Melee",                      "ranged": false, "weights": { "str": 1, "dmg_melee": 1, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.4 } },
+        "unarmed":   { "label": "Unarmed",                    "ranged": false, "weights": { "str": 1, "dmg_unarmed": 1, "dmg_melee": 0.6, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.4 } },
+        "archer":    { "label": "Bows & Throwing (bows, knives, tomahawks)", "ranged": true, "skip": ["damage_type"], "weights": { "dmg_all": 1, "crit_dmg": 0.5, "ap": 0.3, "dr": 0.4, "max_hp": 0.3 } },
+        "explosive": { "label": "Explosives",                 "ranged": true, "skip": ["damage_type"], "weights": { "dmg_all": 1, "crit_dmg": 0.2, "dr": 0.6, "er": 0.5, "fire_res": 0.3, "max_hp": 0.5 } },
+        "support":   { "label": "Support / Team Healer",      "ranged": true, "skip": ["damage_type"], "weights": { "cha": 1, "max_hp": 0.8, "dr": 0.6, "er": 0.5, "heal_rate": 0.6, "ap": 0.3, "end": 0.3 } }
       }
     },
     "damage_type": {
@@ -79,15 +90,23 @@
       "label": "VATS or free aim?",
       "only_if_ranged": true,
       "options": {
-        "vats": { "label": "VATS",                    "add": { "crit_dmg": 0.6, "vats_acc": 0.8, "ap": 0.5, "ap_regen": 0.7, "luck": 0.6, "agi": 0.3 } },
+        "vats": { "label": "VATS",                    "add": { "crit_dmg": 1.5, "vats_acc": 0.8, "ap": 0.5, "ap_regen": 0.7, "luck": 0.8, "agi": 0.6, "per": 0.6 },
+                  "note": "VATS builds live on crits, so Critical Damage is weighted heavily (Overdrive over Psycho for the chem slot)." },
         "free": { "label": "Free aim / scope",        "add": { "gun_acc": 0.6 }, "mult": { "vats_acc": 0, "crit_dmg": 0.5, "ap_regen": 0.6 } }
+      }
+    },
+    "sneaky": {
+      "label": "Do you play sneaky?",
+      "options": {
+        "no":  { "label": "No" },
+        "yes": { "label": "Yes", "add": { "agi": 1, "sneak_attack": 1.6, "invis": 0.4 } }
       }
     },
     "armour": {
       "label": "What armour do you wear?",
       "options": {
         "power": { "label": "Power Armour",                  "add": { "carry": 0.7 }, "mult": { "dr": 0.4, "er": 0.4, "rad_res": 0.2, "fire_res": 0.6, "poison_res": 0.6 },
-                   "note": "Power Armour already gives big DR / ER and rad resistance, so those buffs drop down the list. PA users still get carry weight buffs - PA carry weight is low." },
+                   "note": "Power Armour already gives big DR / ER and rad resistance, so those buffs drop down the list." },
         "body":  { "label": "Body armour",                   "add": { "dr": 0.1, "er": 0.1 } },
         "none":  { "label": "No armour (Berserker's / Unyielding)", "avoid": ["dr"], "add": { "er": 0.2, "max_hp": 0.2 },
                    "note": "Berserker's does more damage the LOWER your Damage Resistance is, so anything that adds DR (Psycho, Fury, Lead Champagne, DR food) is left out." }
@@ -112,13 +131,28 @@
     "carry": {
       "label": "Do you struggle with carry weight?",
       "options": {
-        "no":  { "label": "No",  "mult": { "carry": 0.4 } },
-        "yes": { "label": "Yes", "add": { "carry": 1, "str": 0.2 } }
+        "no":  { "label": "No",  "mult": { "carry": 0 } },
+        "yes": { "label": "Yes", "add": { "carry": 1, "str": 0.5 } }
+      }
+    },
+    "deaths": {
+      "label": "Do you die a lot?",
+      "options": {
+        "no":  { "label": "No" },
+        "yes": { "label": "Yes", "add": { "max_hp": 0.5, "dr": 0.3, "er": 0.3, "heal_rate": 0.5, "end": 0.5 },
+                 "note": "You die a lot, so Max Health, resistances and health regen move up the list (Berserker's still never gets DR)." }
+      }
+    },
+    "xp": {
+      "label": "Is XP important to you?",
+      "options": {
+        "no":  { "label": "No", "mult": { "xp": 0 } },
+        "yes": { "label": "Yes", "add": { "xp": 1, "cha": 1, "int": 0.7 },
+                 "note": "XP hungry: XP buffs, Intelligence (it raises XP gained) and Charisma buffs. Charisma raises your XP through the Inspirational perk card while you're on a team (+20% at 15 CHA, +25% at 30) and your teammates' XP too." }
       }
     },
     "diet": {
       "label": "Carnivore, Herbivore or Hybrid?",
-      "help": "Hybrid dishes are the herb and fruit ones (teas, juices, Sweet Mutfruit Tea...) that Carnivore does NOT cancel - a Herbivore gets them x2 and a Carnivore still gets them at full normal strength.",
       "options": {
         "carnivore": { "label": "Carnivore" },
         "herbivore": { "label": "Herbivore" },
@@ -127,6 +161,8 @@
       }
     }
   },
+  "_damage_first_readme": "Chems and alcohol only get ONE slot each (dispel groups), so that slot goes to DAMAGE OUTPUT: buffs in the 'Damage' slot group count in full, everything else counts at non_damage_share. Carry Weight also counts in full when they say they struggle with carry weight (that is the only time Rad Ant Lager wins).",
+  "damage_first": { "types": ["chem", "alcohol"], "non_damage_share": 0.25, "full_when_yes": { "carry": "carry" } },
   "penalties": {
     "rads_per_point": 0.01,
     "disease_chance_per_pct": 0.004,

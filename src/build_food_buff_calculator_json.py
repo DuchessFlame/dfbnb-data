@@ -397,12 +397,14 @@ def build(data_dir, dist_dir):
             continue
 
         fx, sup, feral = [], False, 0.0
+        all_dg = set()          # dispel keywords on ANY effect of the item (what it wipes when taken)
         for r in S.alch_effects.get(fid, []):
             e = S.build_effect(mgef_form_id=r["MGEF_FormID"], mgef_edid=r["MGEF_EDID"], mgef_full=r["MGEF_FULL"],
                                magnitude=r["EFIT_Magnitude"], duration=r["EFIT_Duration"],
                                mag_glob=r["MAGG_GLOB_EDID"], dur_glob=r["DURG_GLOB_EDID"])
             mfid = e["formId"]
             ek = mgef_kw.get(mfid, set())
+            all_dg |= {k for k in ek if "Dispel" in k}
             av = mgef_av.get(mfid, "")
             mag, dur = e.get("magnitude") or 0.0, e.get("duration") or 0.0
             # A magnitude / duration GLOBAL is what the game reads when it is set;
@@ -452,6 +454,19 @@ def build(data_dir, dist_dir):
                 if (p1 != 1 or p2 != 1) and not neg:
                     pm = [p1, p2]
             f = {"s": slot, "m": round(mag, 4), "d": int(round(dur)), "st": stack, "e": eed}
+            # DISPEL GROUPS — the real stacking rule (checked against the whole ESM,
+            # 20 Oct 2026: these keywords are referenced by nothing except the effects
+            # that carry them, so the engine works off the keyword itself). Taking an
+            # item replaces every active effect that shares one of its dispel keywords:
+            #   FoodDispelEffect_<Buff>  one per food buff type -> foods of DIFFERENT
+            #                            buff types stack, same type replaces
+            #   AlcoholDispelEffect      on (almost) every alcohol buff -> ONE drink at a time
+            #   ChemDispelEffects        on (almost) every chem buff    -> ONE chem at a time
+            #   ChemDispelRadX           Rad-X family, its own slot
+            # An effect with no dispel keyword is never replaced by another item.
+            dg = sorted(k for k in ek if "Dispel" in k)
+            if dg:
+                f["dg"] = dg
             if neg:
                 f["neg"] = 1
             if dm:
@@ -474,6 +489,8 @@ def build(data_dir, dist_dir):
                       if k in ("IngredientTypeMeat", "IngredientTypeVegetable", "IngredientTypeHerb", "IngredientTypeFruit"))
         menu = menu_by_fid.get(fid) or menu_by_edid.get(edid) or menu_by_name.get(name.lower())
         it = {"id": fid, "edid": edid, "n": name, "t": typ, "diet": diet, "fx": fx}
+        if all_dg:
+            it["dgAll"] = sorted(all_dg)
         if sup:
             it["sup"] = 1
         if feral:
