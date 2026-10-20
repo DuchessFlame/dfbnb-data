@@ -509,6 +509,18 @@ def build(data_dir, dist_dir):
             best[k] = (score, it)
     items = sorted((v[1] for v in best.values()), key=lambda i: (i["t"], i["n"].lower()))
 
+    # rules.json "prefer" names must be real items (e.g. Bows & Throwing -> Wine)
+    names = {(i["t"], i["n"]) for i in items}
+    for ok, o in ((rules.get("questions") or {}).get("build") or {}).get("options", {}).items():
+        for t, lst in (o.get("prefer") or {}).items():
+            for n in lst:
+                if (t, n) not in names:
+                    warn(f"rules.json build.{ok}.prefer.{t}: no {t} item called '{n}'")
+    item_names = {i["n"] for i in items}
+    for n in rules.get("exclude_items") or []:
+        if n not in item_names:
+            warn(f"rules.json exclude_items: no item called '{n}'")
+
     mech = {
         "diet": {k: {"perks": diet_perks[k], "rules": rules_json(v)} for k, v in diet_rules.items()},
         "partyGirl": [party["rank1"][0]["mult"] if party["rank1"] else 2.0,

@@ -1,0 +1,41 @@
+{
+  "_readme": "Hand-kept text for the two non-stat pages. No game numbers here — the Hunger & Thirst tiers and effects are pulled from SPEL / GLOB by build_specials_stats_json.py.",
+  "overview": {
+    "path": "/bnb/specials-stats/special-stat-guides/specials-stats-overview/",
+    "title": "SPECIALs & Stats Overview",
+    "blurb": "What SPECIALs and stats are, how buffs stack, which stats each build should buff — and a link to the full guide for every SPECIAL and stat.",
+    "credit": "Thank you to Gilpo, Mapex and Zeek for their patience and for answering my constant questions.",
+    "sections": [
+      {
+        "title": "SPECIALs and Stats",
+        "html": "<p>SPECIALs are your character's core abilities — Strength, Perception, Endurance, Charisma, Intelligence, Agility and Luck. Each one feeds a set of stats: carry weight, health, Action Points, V.A.T.S. hit chance, XP and more.</p><p>Stats decide how well you fight, explore and survive. These guides show what every point does — worked out live from the game files — and every way to buff it, so you can decide what is worth chasing for your build.</p>"
+      },
+      {
+        "title": "Tips, Tricks and Information",
+        "html": "<h3>Food buffs</h3><p>Most food buffs of the same type do not stack — two Intelligence foods will not raise Intelligence twice; the newest one replaces the first. AP Refill is the exception: those stack.</p><h3>Stack these on top of food</h3><ul><li>Alcohol</li><li>Ally buffs</li><li>Armour effects and mods</li><li>Bobbleheads</li><li>Chems</li><li>CAMP buff stations</li><li>Event buffs (e.g. Path to Enlightenment)</li><li>Magazines</li><li>Mutations</li><li>Perk cards</li></ul><h3>Damaged limbs</h3><ul><li><strong>Crippled head:</strong> distorted vision and slower healing.</li><li><strong>Crippled arms:</strong> harder to aim.</li><li><strong>Crippled torso:</strong> slower AP regen.</li><li><strong>Crippled legs:</strong> slower movement.</li></ul><h3>Hunger and thirst</h3><p>Empty hunger and thirst bars no longer hurt you, but full ones still give you bonuses. Run the Rejuvenated perk card and Perfect Bubblegum with your food buffs for extra stats — see the Hunger & Thirst Bar Explained guide.</p>"
+      },
+      {
+        "title": "Recommended Buffs for Your Build",
+        "html": "<p>Pick a build and commit to it — min-max and hybrid builds work, but they cost a lot to keep buffed. These are the bare-minimum stats to buff for each kind of build; the <a href=\"/bnb/buffs/food/recommended-food-buff-calculator/\">Recommended Food Buff Calculator</a> picks the actual food, chems and drinks for you.</p>",
+        "builds": [
+          { "name": "Ranged (Rifles, Commando, Sneak, Bows)", "play": "Stay at a distance or in sneak to avoid taking damage.", "diet": "Herbivore", "stats": ["per", "agi", "luck", "crit_dmg", "ap", "ap_regen", "er"], "extra": ["AP Refill (if needed)"] },
+          { "name": "Melee (Unarmed, One-Handed, Two-Handed)", "play": "Get up close and take hits.", "diet": "Carnivore", "stats": ["str", "end", "dmg_melee", "max_hp", "heal_rate", "dr", "er", "rad_res", "disease_res"], "extra": ["Agility, Max AP and AP Regen if you run Hack & Slash"] },
+          { "name": "Heavy Weapons (Energy and Non-Energy)", "play": "Power armour for damage and survival — Stabilized ignores enemy resistance and power armour cuts the damage you take.", "diet": "Carnivore, Hybrid for PvP, or Herbivore for PvE", "stats": ["per", "int", "agi", "ap", "ap_regen"], "extra": ["AP Refill (if needed)"] },
+          { "name": "XP Farming", "play": "Get as much XP as possible.", "diet": "XP foods", "stats": ["int"], "extra": ["XP"] },
+          { "name": "PvP", "play": "Survive and stay mobile against other players.", "diet": "Hybrid, or Carnivore for top-tier builds", "stats": ["end", "agi", "ap", "ap_regen", "max_hp", "heal_rate", "dr", "er", "poison_res"], "extra": ["AP Refill"] }
+        ]
+      }
+    ]
+  },
+  "hunger": {
+    "path": "/bnb/specials-stats/special-stat-guides/hunger-and-thirst-bar-explained/",
+    "title": "Hunger and Thirst Bar Explained",
+    "blurb": "What your hunger and thirst bars do in Fallout 76 — every tier, every bonus and how the Rejuvenated perk card and Rejuvenator's armour change them — straight from the game files.",
+    "intro": "Your hunger and thirst bars no longer hurt you when they run empty, but keeping them full still gives you real bonuses: extra Strength, Endurance, max HP, AP regen and disease resistance. The fuller the bars, the bigger the bonus — and the Endurance perk card Rejuvenated makes them bigger again.",
+    "notes": [
+      "Ghouls have no hunger or thirst bars — they have a Feral meter instead, so none of the bonuses below apply to ghoul characters and they cannot equip Rejuvenated.",
+      "Rejuvenator's power armour (legendary) adds HP and AP regeneration that grows with how full your bars are and which Rejuvenated rank you run.",
+      "Perfect Bubblegum fills both bars at once."
+    ]
+  }
+}

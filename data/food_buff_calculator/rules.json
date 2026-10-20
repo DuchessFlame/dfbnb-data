@@ -13,9 +13,15 @@
     "weights: 0 = never recommend that buff, 1 = core for the build. A buff only shows if its final weight is >= show_threshold.",
     "Final weight for a buff = build weight, then each answer's 'add' is added and each 'mult' is multiplied (adds first, then mults).",
     "'avoid' slots are hard-excluded: no item that GRANTS that buff is recommended at all (e.g. DR for berserkers).",
+    "'prefer' (build option): { type: [item names] } - that item takes the slot first whenever it is allowed (menu / avoid rules still apply).",
+    "  Used for Bows & Throwing: no drink adds bow or throwing damage, so the drink slot goes to Wine (+15 AP) - Kat, 20 Oct 2026.",
+"  Nukashine has no alcohol dispel keyword, so it stacks with Wine: both can be taken (the card says so).",
+"Any ALCH item can be recommended; items Buffs n Brew doesn't sell get a 'Not sold at BnB' mark and are left out of the copied order list.",
     "ref = what counts as one 'full strength' buff of that type; only used to rank different buffs against each other."
   ],
   "show_threshold": 0.3,
+  "_exclude_items_readme": "Item names never recommended (quest-only / can't normally get). Nuclear Don's Custom Chem Blend = W05_MQR_203P Wastelanders main quest chem (+100% dmg, +100 DR, +100 HP) - Claude 20 Oct 2026, ask Kat before adding more.",
+  "exclude_items": ["Nuclear Don's Custom Chem Blend"],
   "_display_order_readme": "Order the result cards and the stat list are shown in: SPECIAL first, then AP Regen, XP and the rest. Reorder freely.",
   "display_order": ["str", "per", "end", "cha", "int", "agi", "luck",
                     "ap_regen", "xp", "ap", "carry",
@@ -72,7 +78,7 @@
         "shotgun":   { "label": "Shotgunner",                 "ranged": true,  "weights": { "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.3 } },
         "melee":     { "label": "Melee",                      "ranged": false, "weights": { "str": 1, "dmg_melee": 1, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.4 } },
         "unarmed":   { "label": "Unarmed",                    "ranged": false, "weights": { "str": 1, "dmg_unarmed": 1, "dmg_melee": 0.6, "dmg_all": 1, "crit_dmg": 0.3, "dr": 0.6, "er": 0.5, "max_hp": 0.5, "ap": 0.4 } },
-        "archer":    { "label": "Bows & Throwing (bows, knives, tomahawks)", "ranged": true, "skip": ["damage_type"], "weights": { "dmg_all": 1, "crit_dmg": 0.5, "ap": 0.3, "dr": 0.4, "max_hp": 0.3 } },
+        "archer":    { "label": "Bows & Throwing (bows, knives, tomahawks)", "ranged": true, "skip": ["damage_type"], "prefer": { "alcohol": ["Wine"] }, "weights": { "dmg_all": 1, "crit_dmg": 0.5, "ap": 0.3, "dr": 0.4, "max_hp": 0.3 } },
         "explosive": { "label": "Explosives",                 "ranged": true, "skip": ["damage_type"], "weights": { "dmg_all": 1, "crit_dmg": 0.2, "dr": 0.6, "er": 0.5, "fire_res": 0.3, "max_hp": 0.5 } },
         "support":   { "label": "Support / Team Healer",      "ranged": true, "skip": ["damage_type"], "weights": { "cha": 1, "max_hp": 0.8, "dr": 0.6, "er": 0.5, "heal_rate": 0.6, "ap": 0.3, "end": 0.3 } }
       }
@@ -115,8 +121,8 @@
     "health": {
       "label": "Bloodied or full health?",
       "options": {
-        "bloodied": { "label": "Bloodied (low health)", "add": { "max_hp": 0.6 }, "mult": { "rad_res": 0, "heal_rate": 0.3 }, "rads_ok": true,
-                      "note": "Bloodied builds still want Max Health buffs so they can take more hits. Rads are fine (they keep your health low), so rad resistance is left out." },
+        "bloodied": { "label": "Bloodied (low health)", "add": { "max_hp": 0.6, "end": 1 }, "mult": { "rad_res": 0, "heal_rate": 0.3 }, "rads_ok": true,
+                      "note": "Bloodied builds still want Max Health and Endurance buffs so they can take more hits (Kat, 20 Oct 2026: bloodied always gets Endurance). Rads are fine (they keep your health low), so rad resistance is left out." },
         "full":     { "label": "Full health",           "add": { "max_hp": 0.5, "heal_rate": 0.4, "rad_res": 0.3 } }
       }
     },
@@ -139,8 +145,8 @@
       "label": "Do you die a lot?",
       "options": {
         "no":  { "label": "No" },
-        "yes": { "label": "Yes", "add": { "max_hp": 0.5, "dr": 0.3, "er": 0.3, "heal_rate": 0.5, "end": 0.5 },
-                 "note": "You die a lot, so Max Health, resistances and health regen move up the list (Berserker's still never gets DR)." }
+        "yes": { "label": "Yes", "add": { "max_hp": 0.8, "heal_rate": 0.8, "end": 0.5 },
+                 "note": "You die a lot, so anything that adds HP to your health bar (Max Health, Endurance) and health regen moves up the list (Kat, 20 Oct 2026). Bloodied still keeps regen low - it would heal them out of bloodied." }
       }
     },
     "xp": {

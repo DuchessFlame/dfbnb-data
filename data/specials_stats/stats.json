@@ -1,0 +1,1640 @@
+{
+  "_readme": [
+    "Hand-kept WHAT-TO-SHOW for the SPECIALs & Stats pages (build_specials_stats_json.py).",
+    "NO game numbers live here. Every number on the pages comes from a game record named in 'inputs'",
+    "(gmst / glob / curve / prps / avif / perk / const). The build looks each one up and writes the value",
+    "and its record into dist/specials_stats.json. 'const' is only for engine conventions that are not",
+    "game data (e.g. 21.333 game units = 1 foot) and must say why.",
+    "Text: {name} in notes / facts is replaced with the resolved value of that input.",
+    "Keys match the Recommended Food Buff Calculator slots (rules.json) wherever a slot exists."
+  ],
+  "category": "SPECIALs & Stats",
+  "pageBase": "/bnb/specials-stats/",
+  "units_per_foot": {
+    "const": 21.333,
+    "why": "Creation Engine distance unit: 64 units = 3 feet (1 unit = 1.4288 cm)"
+  },
+  "stats": [
+    {
+      "key": "str",
+      "label": "Strength",
+      "group": "SPECIAL",
+      "avs": [
+        "Strength"
+      ],
+      "special": "Strength",
+      "path": "/bnb/specials-stats/strength/strength-guide/",
+      "title": "Strength Guide",
+      "blurb": "What every point of Strength does in Fallout 76 — carry weight and melee damage, worked out live from the game files — and every way to boost it.",
+      "intro": "Strength is your raw physical power. It decides how much you can carry and how hard your melee attacks hit. High Strength does not add damage to guns or heavy weapons directly, but it lets you equip more of the Strength perk cards that do.",
+      "details": [
+        "Strength starts at {min} and caps at {max} points (actor value limits).",
+        "Melee mods that add fire, energy, cryo, poison or electrical damage scale with Strength and Melee Damage buffs.",
+        "Heavy weapons: Strength does not raise heavy weapon damage on its own — it buys room for the Strength heavy weapon perk cards."
+      ],
+      "limits": {
+        "min": {
+          "avif": [
+            "Strength",
+            "NAM5"
+          ]
+        },
+        "max": {
+          "avif": [
+            "Strength",
+            "NAM6"
+          ]
+        }
+      },
+      "formulas": [
+        {
+          "id": "carry",
+          "label": "Carry weight",
+          "expr": "base + mult * STR",
+          "unit": "lb",
+          "decimals": 0,
+          "vars": [
+            {
+              "name": "STR",
+              "label": "Strength",
+              "default": 15
+            }
+          ],
+          "inputs": {
+            "base": {
+              "gmst": "fAVDCarryWeightBase"
+            },
+            "mult": {
+              "gmst": "fAVDCarryWeightMult"
+            }
+          },
+          "perPoint": {
+            "input": "mult",
+            "unit": "lb carry weight"
+          }
+        },
+        {
+          "id": "melee",
+          "label": "Melee damage bonus",
+          "expr": "mult * STR * 100",
+          "unit": "%",
+          "decimals": 0,
+          "vars": [
+            {
+              "name": "STR",
+              "label": "Strength",
+              "default": 15
+            }
+          ],
+          "inputs": {
+            "mult": {
+              "gmst": "fAVDMeleeDamageMult"
+            }
+          },
+          "perPoint": {
+            "input": "mult",
+            "scale": 100,
+            "unit": "% melee damage"
+          },
+          "note": "Added to one-handed, two-handed and bash damage. Melee Damage buffs stack on top."
+        },
+        {
+          "id": "unarmed",
+          "label": "Unarmed damage bonus",
+          "expr": "(base + mult * STR - 1) * 100",
+          "unit": "%",
+          "decimals": 0,
+          "vars": [
+            {
+              "name": "STR",
+              "label": "Strength",
+              "default": 15
+            }
+          ],
+          "inputs": {
+            "base": {
+              "gmst": "fDamageStrengthBase"
+            },
+            "mult": {
+              "gmst": "fDamageStrengthMult"
+            }
+          },
+          "perPoint": {
+            "input": "mult",
+            "scale": 100,
+            "unit": "% unarmed damage"
+          },
+          "note": "Fists and unarmed weapons use the game's damage-strength setting (1 + 0.1 per point), which matches the ÷10 rule measured in game. The separate Unarmed Damage actor value gets nothing from Strength (fAVDUnarmedDamageMult is 0) — it only holds Unarmed Damage buffs."
+        }
+      ]
+    },
+    {
+      "key": "per",
+      "label": "Perception",
+      "group": "SPECIAL",
+      "avs": [
+        "Perception"
+      ],
+      "special": "Perception",
+      "path": "/bnb/specials-stats/perception/perception-guide/",
+      "title": "Perception Guide",
+      "blurb": "What every point of Perception does in Fallout 76 — V.A.T.S. hit chance, compass range and limb targeting from the game files — and every way to boost it.",
+      "intro": "Perception is your awareness. It raises your V.A.T.S. hit chance and how far away enemies show on your compass. It does not add ranged damage directly — it lets you equip more Perception rifle and accuracy perk cards.",
+      "details": [
+        "Perception starts at {min} and caps at {max} points.",
+        "At {limbs} Perception you can target enemy limbs in V.A.T.S. (STAT_Progression perk on the player).",
+        "V.A.T.S. hit chance is capped by the game, so very high Perception stops helping once you are already at the cap."
+      ],
+      "limits": {
+        "min": {
+          "avif": [
+            "Perception",
+            "NAM5"
+          ]
+        },
+        "max": {
+          "avif": [
+            "Perception",
+            "NAM6"
+          ]
+        },
+        "limbs": {
+          "perkcond": [
+            "STAT_Progression",
+            "Set VATS Target Limbs"
+          ]
+        }
+      },
+      "formulas": [
+        {
+          "id": "vats",
+          "label": "V.A.T.S. hit chance bonus",
+          "expr": "mult * PER * 100",
+          "unit": "%",
+          "decimals": 1,
+          "vars": [
+            {
+              "name": "PER",
+              "label": "Perception",
+              "default": 15
+            }
+          ],
+          "inputs": {
+            "mult": {
+              "gmst": "fVATSChancePerceptionMultiplier"
+            }
+          },
+          "perPoint": {
+            "input": "mult",
+            "scale": 100,
+            "unit": "% V.A.T.S. hit chance"
+          }
+        },
+        {
+          "id": "compass",
+          "label": "Compass range",
+          "expr": "(base + mult * PER) / upf",
+          "unit": "ft",
+          "decimals": 0,
+          "vars": [
+            {
+              "name": "PER",
+              "label": "Perception",
+              "default": 15
+            }
+          ],
+          "inputs": {
+            "base": {
+              "gmst": "fPerceptionCompassBase"
+            },
+            "mult": {
+              "gmst": "fPerceptionCompassMult"
+            },
+            "upf": {
+              "ref": "units_per_foot"
+            }
+          },
+          "perPoint": {
+            "expr": "mult / upf",
+            "unit": "ft compass range"
+          },
+          "note": "How far away enemies and locations appear on your compass."
+        }
+      ]
+    },
+    {
+      "key": "end",
+      "label": "Endurance",
+      "group": "SPECIAL",
+      "avs": [
+        "Endurance"
+      ],
+      "special": "Endurance",
+      "path": "/bnb/specials-stats/endurance/endurance-guide/",
+      "title": "Endurance Guide",
+      "blurb": "What every point of Endurance does in Fallout 76 — max HP, sprint AP drain and disease chance, worked out from the game files — and every way to boost it.",
+      "intro": "Endurance is your physical fitness. Every point adds to your health bar, makes sprinting cheaper on Action Points and lowers your chance of catching a disease.",
+      "details": [
+        "Endurance starts at {min} and caps at {max} points.",
+        "Your health bar is the player's base Health plus the race's Health plus {hpPer} HP per point of Endurance — level does not add HP (fStatsHealthLevelMult is {lvl}).",
+        "Ghoul characters get the same base Health from their race as humans."
+      ],
+      "limits": {
+        "min": {
+          "avif": [
+            "Endurance",
+            "NAM5"
+          ]
+        },
+        "max": {
+          "avif": [
+            "Endurance",
+            "NAM6"
+          ]
+        },
+        "hpPer": {
+          "gmst": "fAVDHealthStartEndMult"
+        },
+        "lvl": {
+          "gmst": "fStatsHealthLevelMult"
+        }
+      },
+      "formulas": [
+        {
+          "id": "hp",
+          "label": "Max HP (health bar)",
+          "expr": "player + race + mult * END + offset",
+          "unit": "HP",
+          "decimals": 0,
+          "vars": [
+            {
+              "name": "END",
+              "label": "Endurance",
+              "default": 15
+            }
+          ],
+          "inputs": {
+            "player": {
+              "prps": [
+                "NPC_",
+                "Player",
+                "Health"
+              ]
+            },
+            "race": {
+              "prps": [
+                "RACE",
+                "HumanRace",
+                "Health"
+              ]
+            },
+            "mult": {
+              "gmst": "fAVDHealthStartEndMult"
+            },
+            "offset": {
+              "gmst": "fHealthEnduranceOffset"
+            }
+          },
+          "perPoint": {
+            "input": "mult",
+            "unit": "max HP"
+          },
+          "note": "Before perk cards, armour, mutations and food. Max HP buffs (food, chems, perks) add straight on top."
+        },
+        {
+          "id": "sprint",
+          "label": "Sprint AP drain",
+          "expr": "(base + mult * END) * 100",
+          "unit": "% of normal",
+          "decimals": 0,
+          "vars": [
+            {
+              "name": "END",
+              "label": "Endurance",
+              "default": 15
+            }
+          ],
+          "inputs": {
+            "base": {
+              "gmst": "fSprintActionPointsEndBase"
+            },
+            "mult": {
+              "gmst": "fSprintActionPointsEndMult"
+            }
+          },
+          "perPoint": {
+            "input": "mult",
+            "scale": 100,
+            "unit": "% sprint AP drain"
+          },
+          "note": "Lower is better — the AP you spend per second of sprinting."
+        },
+        {
+          "id": "disease",
+          "label": "Disease chance multiplier",
+          "expr": "curve(c, END)",
+          "unit": "×",
+          "decimals": 2,
+          "vars": [
+            {
+              "name": "END",
+              "label": "Endurance",
+              "default": 15
+            }
+          ],
+          "inputs": {
+            "c": {
+              "curve": "CT_SURV_ScaleDiseaseChance_Endurance"
+            }
+          },
+          "note": "×1 = normal chance; below 1 means you catch diseases less often. The curve stops at its last point."
+        }
+      ]
+    },
+    {
+      "key": "cha",
+      "label": "Charisma",
+      "group": "SPECIAL",
+      "avs": [
+        "Charisma"
+      ],
+      "special": "Charisma",
+      "path": "/bnb/specials-stats/charisma/charisma-guide/",
+      "title": "Charisma Guide",
+      "blurb": "What Charisma does in Fallout 76 — vendor prices, perk card sharing and team play — and every way to boost it.",
+      "intro": "Charisma is your ability to lead and help others. It lets you share higher-rank perk cards with your team and changes what vendors charge you and pay you.",
+      "details": [
+        "Charisma starts at {min} and caps at {max} points.",
+        "Sharing a perk card needs 3 base Charisma per rank of the card. Only your own points count — food, chem and drink Charisma buffs do not raise what you can share.",
+        "Charisma does not change event rewards or drop rates."
+      ],
+      "limits": {
+        "min": {
+          "avif": [
+            "Charisma",
+            "NAM5"
+          ]
+        },
+        "max": {
+          "avif": [
+            "Charisma",
+            "NAM6"
+          ]
+        }
+      },
+      "settings": [
+        {
+          "label": "Barter: lowest buy multiplier",
+          "input": {
+            "gmst": "fBarterMin"
+          }
+        },
+        {
+          "label": "Barter: highest buy multiplier",
+          "input": {
+            "gmst": "fBarterMax"
+          }
+        },
+        {
+          "label": "Barter: best buy price (fraction of value)",
+          "input": {
+            "gmst": "fBarterBuyMax"
+          }
+        },
+        {
+          "label": "Barter: best sell price (fraction of value)",
+          "input": {
+            "gmst": "fBarterSellMax"
+          }
+        }
+      ],
+      "observed": {
+        "title": "Charisma and vendor prices (tested in game by Duchess)",
+        "columns": [
+          "Charisma",
+          "You pay",
+          "You get when selling"
+        ],
+        "rows": [
+          [
+            "1",
+            "2.5× base value",
+            "10% of base value"
+          ],
+          [
+            "25",
+            "1.75× base value",
+            "25% of base value"
+          ],
+          [
+            "100",
+            "1× base value",
+            "62.5% of base value"
+          ]
+        ],
+        "note": "25 Charisma is the sweet spot: buying keeps getting a little cheaper after 25, but selling only improves in small steps."
+      },
+      "formulas": []
+    },
+    {
+      "key": "int",
+      "label": "Intelligence",
+      "group": "SPECIAL",
+      "avs": [
+        "Intelligence"
+      ],
+      "special": "Intelligence",
+      "path": "/bnb/specials-stats/intelligence/intelligence-guide/",
+      "title": "Intelligence Guide",
+      "blurb": "What every point of Intelligence does in Fallout 76 — XP gain and scrapping returns from the game files — and every way to boost it.",
+      "intro": "Intelligence is your mental sharpness. It raises the XP you earn, the materials you get back from scrapping, the condition of things you craft and makes hacking easier.",
+      "details": [
+        "Intelligence starts at {min} and caps at {max} points.",
+        "Intelligence buffs from food, drink and chems count for XP — stack them before a big event or XP farm.",
+        "Intelligence does not change event rewards or drop rates."
+      ],
+      "limits": {
+        "min": {
+          "avif": [
+            "Intelligence",
+            "NAM5"
+          ]
+        },
+        "max": {
+          "avif": [
+            "Intelligence",
+            "NAM6"
+          ]
+        }
+      },
+      "formulas": [
+        {
+          "id": "xp",
+          "label": "XP bonus",
+          "expr": "(base + mult * INT - 1) * 100",
+          "unit": "%",
+          "decimals": 0,
+          "vars": [
+            {
+              "name": "INT",
+              "label": "Intelligence",
+              "default": 15
+            }
+          ],
+          "inputs": {
+            "base": {
+              "gmst": "fXPModBase"
+            },
+            "mult": {
+              "gmst": "fXPModMult"
+            }
+          },
+          "perPoint": {
+            "input": "mult",
+            "scale": 100,
+            "unit": "% XP"
+          },
+          "note": "XP earned = base XP × (1 + 0.03 × Intelligence) — e.g. 150 XP at 25 INT = 262.5 XP."
+        },
+        {
+          "id": "scrap",
+          "label": "Scrap return multiplier",
+          "expr": "curve(c, INT)",
+          "unit": "×",
+          "decimals": 3,
+          "vars": [
+            {
+              "name": "INT",
+              "label": "Intelligence",
+              "default": 15
+            }
+          ],
+          "inputs": {
+            "c": {
+              "curve": "ScrapBonusINT"
+            }
+          },
+          "note": "Multiplies the materials you get back when you scrap weapons and armour. Stacks with Scrapper."
+        }
+      ]
+    },
+    {
+      "key": "agi",
+      "label": "Agility",
+      "group": "SPECIAL",
+      "avs": [
+        "Agility"
+      ],
+      "special": "Agility",
+      "path": "/bnb/specials-stats/agility/agility-guide/",
+      "title": "Agility Guide",
+      "blurb": "What every point of Agility does in Fallout 76 — your Action Point bar, worked out from the game files — and every way to boost it.",
+      "intro": "Agility is your finesse and reflexes. Every point makes your Action Point bar longer — the AP you spend in V.A.T.S., sprinting, power attacks, gun bashing and jetpacks — and Agility perk cards make you harder to detect.",
+      "details": [
+        "Agility starts at {min} and caps at {max} points.",
+        "There is no cap on the AP bar itself — it grows with every point of Agility and every AP buff."
+      ],
+      "limits": {
+        "min": {
+          "avif": [
+            "Agility",
+            "NAM5"
+          ]
+        },
+        "max": {
+          "avif": [
+            "Agility",
+            "NAM6"
+          ]
+        }
+      },
+      "formulas": [
+        {
+          "id": "ap",
+          "label": "Action Points",
+          "expr": "base + mult * AGI",
+          "unit": "AP",
+          "decimals": 0,
+          "vars": [
+            {
+              "name": "AGI",
+              "label": "Agility",
+              "default": 15
+            }
+          ],
+          "inputs": {
+            "base": {
+              "gmst": "fAVDActionPointsBase"
+            },
+            "mult": {
+              "gmst": "fAVDActionPointsMult"
+            }
+          },
+          "perPoint": {
+            "input": "mult",
+            "unit": "Action Points"
+          }
+        }
+      ]
+    },
+    {
+      "key": "luck",
+      "label": "Luck",
+      "group": "SPECIAL",
+      "avs": [
+        "Luck"
+      ],
+      "special": "Luck",
+      "path": "/bnb/specials-stats/luck/luck-guide/",
+      "title": "Luck Guide",
+      "blurb": "What every point of Luck does in Fallout 76 — how fast your V.A.T.S. critical meter fills and the condition of loot — and every way to boost it.",
+      "intro": "Luck is your good fortune. It fills your V.A.T.S. critical meter faster and raises the condition of weapons and armour you loot.",
+      "details": [
+        "Luck starts at {min} and caps at {max} points.",
+        "The critical meter now follows the Luck curve below (the game's default-object curve). The older GMST setting ({oldBase} + {oldMult} per point) is no longer what the game uses.",
+        "Luck does not change event rewards or drop rates."
+      ],
+      "limits": {
+        "min": {
+          "avif": [
+            "Luck",
+            "NAM5"
+          ]
+        },
+        "max": {
+          "avif": [
+            "Luck",
+            "NAM6"
+          ]
+        },
+        "oldBase": {
+          "gmst": "fVATSCriticalChargeBase"
+        },
+        "oldMult": {
+          "gmst": "fVATSCriticalChargeMult"
+        }
+      },
+      "formulas": [
+        {
+          "id": "crit",
+          "label": "Critical meter per V.A.T.S. hit",
+          "expr": "curve(c, LCK)",
+          "unit": "%",
+          "decimals": 1,
+          "vars": [
+            {
+              "name": "LCK",
+              "label": "Luck",
+              "default": 15
+            }
+          ],
+          "inputs": {
+            "c": {
+              "curve": "CT_LuckVATSCriticalCharge"
+            }
+          },
+          "note": "How much of the critical meter each successful V.A.T.S. hit fills."
+        },
+        {
+          "id": "lootmin",
+          "label": "Looted weapon & armour condition (low end)",
+          "expr": "curve(c, LCK)",
+          "unit": "%",
+          "decimals": 0,
+          "vars": [
+            {
+              "name": "LCK",
+              "label": "Luck",
+              "default": 15
+            }
+          ],
+          "inputs": {
+            "c": {
+              "curve": "LCK_Condition_Weapon_Default_Min"
+            }
+          }
+        },
+        {
+          "id": "lootmax",
+          "label": "Looted weapon & armour condition (high end)",
+          "expr": "curve(c, LCK)",
+          "unit": "%",
+          "decimals": 0,
+          "vars": [
+            {
+              "name": "LCK",
+              "label": "Luck",
+              "default": 15
+            }
+          ],
+          "inputs": {
+            "c": {
+              "curve": "LCK_Condition_Weapon_Default_Max"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "ap",
+      "label": "Action Points (AP)",
+      "group": "Stats",
+      "avs": [
+        "ActionPoints",
+        "ActionPointsMax"
+      ],
+      "path": "/bnb/specials-stats/action-points/action-points-guide/",
+      "title": "Action Points (AP) Guide",
+      "blurb": "How your Action Point bar is worked out in Fallout 76, what uses AP, and every way to make the bar longer or refill it.",
+      "intro": "Action Points are the yellow bar you spend in V.A.T.S., sprinting, gun bashing, power attacks and jetpack flights. The bar's length comes from Agility; AP buffs make it longer and AP refill items fill it back up.",
+      "details": [
+        "There is no cap on your AP bar.",
+        "Entering V.A.T.S. without a target costs AP; targeting itself does not.",
+        "AP Refill effects (e.g. Canned Coffee) are not a bar-length buff — they stack, so you can drink several in a row."
+      ],
+      "formulas": [
+        {
+          "id": "ap",
+          "label": "Action Points",
+          "expr": "base + mult * AGI",
+          "unit": "AP",
+          "decimals": 0,
+          "vars": [
+            {
+              "name": "AGI",
+              "label": "Agility",
+              "default": 15
+            }
+          ],
+          "inputs": {
+            "base": {
+              "gmst": "fAVDActionPointsBase"
+            },
+            "mult": {
+              "gmst": "fAVDActionPointsMult"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "ap_regen",
+      "label": "AP Regen",
+      "group": "Stats",
+      "avs": [
+        "ActionPointsRate",
+        "ActionPointsRateMult"
+      ],
+      "path": "/bnb/specials-stats/ap-regen/ap-regen-guide/",
+      "title": "AP Regen Guide",
+      "blurb": "How fast your Action Points refill in Fallout 76, from the game files, and every way to speed it up.",
+      "intro": "AP Regen is how fast your Action Point bar fills back up. Every AP Regen buff adds a percentage on top of the base rate, and they all stack.",
+      "details": [
+        "Your base AP regen rate comes from your race record ({base}). AP Regen buffs raise the rate multiplier, which starts at {multBase}%.",
+        "There is no cap on AP regen.",
+        "A crippled torso slows AP regen."
+      ],
+      "limits": {
+        "base": {
+          "prps": [
+            "RACE",
+            "HumanRace",
+            "ActionPointsRate"
+          ]
+        },
+        "multBase": {
+          "avif": [
+            "ActionPointsRateMult",
+            "NAM0"
+          ]
+        }
+      },
+      "formulas": [
+        {
+          "id": "regen",
+          "label": "AP regen",
+          "expr": "base * (multBase + bonus) / 100",
+          "unit": "% of max AP / sec",
+          "decimals": 1,
+          "vars": [
+            {
+              "name": "bonus",
+              "label": "AP Regen buffs (%)",
+              "default": 0,
+              "min": 0,
+              "max": 300
+            }
+          ],
+          "inputs": {
+            "base": {
+              "prps": [
+                "RACE",
+                "HumanRace",
+                "ActionPointsRate"
+              ]
+            },
+            "multBase": {
+              "avif": [
+                "ActionPointsRateMult",
+                "NAM0"
+              ]
+            }
+          },
+          "note": "Time to refill an empty bar = 100 ÷ this number (seconds)."
+        },
+        {
+          "id": "refill",
+          "label": "Seconds to refill an empty bar",
+          "expr": "100 / (base * (multBase + bonus) / 100)",
+          "unit": "s",
+          "decimals": 1,
+          "vars": [
+            {
+              "name": "bonus",
+              "label": "AP Regen buffs (%)",
+              "default": 0,
+              "min": 0,
+              "max": 300
+            }
+          ],
+          "inputs": {
+            "base": {
+              "prps": [
+                "RACE",
+                "HumanRace",
+                "ActionPointsRate"
+              ]
+            },
+            "multBase": {
+              "avif": [
+                "ActionPointsRateMult",
+                "NAM0"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "carry",
+      "label": "Carry Weight",
+      "group": "Stats",
+      "avs": [
+        "CarryWeight"
+      ],
+      "path": "/bnb/specials-stats/carry-weight/carry-weight-guide/",
+      "title": "Carry Weight Guide",
+      "blurb": "How your carry weight is worked out in Fallout 76, the over-encumbered rules, and every way to carry more.",
+      "intro": "Carry weight is how much you can hold before you are over-encumbered. It comes from Strength, and buffs, backpacks, armour mods and perk cards add on top.",
+      "details": [
+        "Over-encumbered: running drains AP and you cannot fast travel.",
+        "Hard limit: you cannot go more than 1,500 lb over your current carry weight — anything past that is destroyed if you drop or move it (Duchess, tested in game).",
+        "Carry weight food buffs replace each other — only the most recent one is active."
+      ],
+      "formulas": [
+        {
+          "id": "carry",
+          "label": "Carry weight",
+          "expr": "base + mult * STR",
+          "unit": "lb",
+          "decimals": 0,
+          "vars": [
+            {
+              "name": "STR",
+              "label": "Strength",
+              "default": 15
+            }
+          ],
+          "inputs": {
+            "base": {
+              "gmst": "fAVDCarryWeightBase"
+            },
+            "mult": {
+              "gmst": "fAVDCarryWeightMult"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "max_hp",
+      "label": "Hit Points (HP)",
+      "group": "Stats",
+      "avs": [
+        "Health",
+        "HealthBonus"
+      ],
+      "path": "/bnb/specials-stats/hp/hp-guide/",
+      "title": "Hit Points (HP) Guide",
+      "blurb": "How your health bar is worked out in Fallout 76, straight from the game files, and every way to make it longer.",
+      "intro": "Your health bar is how much damage you can take before you go down. There is no cap — Endurance, Max HP buffs, perk cards, mutations and armour all add to it.",
+      "details": [
+        "Max HP = the player's base Health ({player}) + the race's Health ({race}) + {hpPer} HP per point of Endurance.",
+        "Level does not add HP (fStatsHealthLevelMult is {lvl}).",
+        "Max HP food buffs are boosted by diet mutations and Strange In Numbers like other food — see the W/Mutation columns in the food table below."
+      ],
+      "limits": {
+        "player": {
+          "prps": [
+            "NPC_",
+            "Player",
+            "Health"
+          ]
+        },
+        "race": {
+          "prps": [
+            "RACE",
+            "HumanRace",
+            "Health"
+          ]
+        },
+        "hpPer": {
+          "gmst": "fAVDHealthStartEndMult"
+        },
+        "lvl": {
+          "gmst": "fStatsHealthLevelMult"
+        }
+      },
+      "formulas": [
+        {
+          "id": "hp",
+          "label": "Max HP (health bar)",
+          "expr": "player + race + mult * END + offset + bonus",
+          "unit": "HP",
+          "decimals": 0,
+          "vars": [
+            {
+              "name": "END",
+              "label": "Endurance",
+              "default": 15
+            },
+            {
+              "name": "bonus",
+              "label": "Max HP buffs",
+              "default": 0,
+              "min": 0,
+              "max": 500
+            }
+          ],
+          "inputs": {
+            "player": {
+              "prps": [
+                "NPC_",
+                "Player",
+                "Health"
+              ]
+            },
+            "race": {
+              "prps": [
+                "RACE",
+                "HumanRace",
+                "Health"
+              ]
+            },
+            "mult": {
+              "gmst": "fAVDHealthStartEndMult"
+            },
+            "offset": {
+              "gmst": "fHealthEnduranceOffset"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "heal_rate",
+      "label": "HP Regen",
+      "group": "Stats",
+      "avs": [
+        "HealRate",
+        "STAT_HealMult"
+      ],
+      "path": "/bnb/specials-stats/hp-regen/hp-regen-guide/",
+      "title": "HP Regen Guide",
+      "blurb": "How health regeneration works in Fallout 76, when it stops in combat, and every way to heal faster.",
+      "intro": "HP Regen is passive healing — your health bar slowly refilling on its own. Heal Rate buffs give you a percentage of your max HP back every second, but only while you are out of combat.",
+      "details": [
+        "Heal Rate regen is switched off in combat: the game multiplies it by {combat} while you are fighting (fCombatHealthRegenRateMult).",
+        "Food that restores health over time is different — it keeps healing in combat.",
+        "HP Regen food buffs are boosted by diet mutations and Strange In Numbers (fixed in April 2025) — see the W/Mutation columns in the food table below."
+      ],
+      "limits": {
+        "combat": {
+          "gmst": "fCombatHealthRegenRateMult"
+        }
+      },
+      "formulas": [
+        {
+          "id": "regen",
+          "label": "HP regained per second (out of combat)",
+          "expr": "rate * maxhp / 100",
+          "unit": "HP / sec",
+          "decimals": 2,
+          "vars": [
+            {
+              "name": "rate",
+              "label": "Heal Rate (from buffs)",
+              "default": 1,
+              "min": 0,
+              "max": 20
+            },
+            {
+              "name": "maxhp",
+              "label": "Max HP",
+              "default": 320,
+              "min": 50,
+              "max": 2000
+            }
+          ],
+          "inputs": {},
+          "note": "Heal Rate is the percentage of your max HP restored each second (Creation Engine actor value). 0 in combat."
+        }
+      ]
+    },
+    {
+      "key": "dmg_melee",
+      "label": "Melee Damage",
+      "group": "Stats",
+      "avs": [
+        "STAT_DmgMelee",
+        "STAT_DmgMeleeWeapons",
+        "STAT_DmgMeleeUnarmed",
+        "STAT_DmgMelee1H",
+        "STAT_DmgMelee2H"
+      ],
+      "path": "/bnb/specials-stats/melee-damage/melee-damage-guide/",
+      "title": "Melee Damage Guide",
+      "blurb": "How melee damage is worked out in Fallout 76 — Strength plus Melee Damage buffs — and every way to hit harder.",
+      "intro": "Melee damage covers unarmed, one-handed and two-handed melee weapons. It comes from the weapon's base damage, your Strength and any Melee Damage buffs, which stack on top of Strength.",
+      "details": [
+        "Each point of a Melee Damage buff adds {meleePer}% damage to melee and unarmed attacks (STAT_DamagePerk on the player).",
+        "Melee damage food buffs replace each other — only the most recent one is active.",
+        "No cap, but limited in practice by the Strength cap.",
+        "Unarmed attacks add every Melee Damage buff AND every Unarmed Damage buff together (STAT_DmgMeleeUnarmed_Formula = STAT_DmgMelee + STAT_DmgMeleeUnarmed)."
+      ],
+      "limits": {
+        "meleePer": {
+          "perk": [
+            "STAT_DamagePerk",
+            "STAT_DmgMelee"
+          ],
+          "scale": 100
+        }
+      },
+      "formulas": [
+        {
+          "id": "melee",
+          "label": "Total one-handed / two-handed damage",
+          "expr": "dmg * (1 + mult * STR + buff / 100)",
+          "unit": "damage",
+          "decimals": 0,
+          "vars": [
+            {
+              "name": "STR",
+              "label": "Strength",
+              "default": 15
+            },
+            {
+              "name": "dmg",
+              "label": "Weapon base damage",
+              "default": 100,
+              "min": 1,
+              "max": 2000
+            },
+            {
+              "name": "buff",
+              "label": "Melee Damage buffs (%)",
+              "default": 0,
+              "min": 0,
+              "max": 300
+            }
+          ],
+          "inputs": {
+            "mult": {
+              "gmst": "fAVDMeleeDamageMult"
+            }
+          }
+        },
+        {
+          "id": "unarmed_total",
+          "label": "Total unarmed damage",
+          "expr": "dmg * (base + mult * STR + buff / 100)",
+          "unit": "damage",
+          "decimals": 0,
+          "vars": [
+            {
+              "name": "STR",
+              "label": "Strength",
+              "default": 15
+            },
+            {
+              "name": "dmg",
+              "label": "Weapon base damage",
+              "default": 100,
+              "min": 1,
+              "max": 2000
+            },
+            {
+              "name": "buff",
+              "label": "Melee + Unarmed Damage buffs (%)",
+              "default": 0,
+              "min": 0,
+              "max": 300
+            }
+          ],
+          "inputs": {
+            "base": {
+              "gmst": "fDamageStrengthBase"
+            },
+            "mult": {
+              "gmst": "fDamageStrengthMult"
+            }
+          },
+          "note": "Fists and unarmed weapons use the game's damage-strength setting (1 + 0.1 per point), which matches the ÷10 rule measured in game. The separate Unarmed Damage actor value gets nothing from Strength (fAVDUnarmedDamageMult is 0) — it only holds Unarmed Damage buffs."
+        }
+      ]
+    },
+    {
+      "key": "crit_dmg",
+      "label": "V.A.T.S. Criticals",
+      "group": "Stats",
+      "avs": [
+        "STAT_CritDmgAll",
+        "STAT_CritDmgBallistic",
+        "STAT_CritDmgEnergy",
+        "STAT_CritDmgHeavyGuns"
+      ],
+      "path": "/bnb/specials-stats/vats-crits/vats-crits-guide/",
+      "title": "V.A.T.S. Criticals Guide",
+      "blurb": "How V.A.T.S. critical hits work in Fallout 76 — the crit meter, critical damage — and every way to crit harder and more often.",
+      "intro": "Every successful V.A.T.S. hit fills your critical meter. When it is full you can fire a critical shot: a guaranteed hit with extra damage that ignores most of the enemy's damage reduction.",
+      "details": [
+        "Each point of a Critical Damage buff adds {critPer}% critical damage (STAT_CritDamagePerk on the player).",
+        "Critical damage buffs do not apply to melee weapons.",
+        "There is no cap on critical damage."
+      ],
+      "limits": {
+        "critPer": {
+          "perk": [
+            "STAT_CritDamagePerk",
+            "STAT_CritDmgAll"
+          ],
+          "scale": 100
+        }
+      },
+      "formulas": [
+        {
+          "id": "crit",
+          "label": "Critical meter per V.A.T.S. hit",
+          "expr": "curve(c, LCK)",
+          "unit": "%",
+          "decimals": 1,
+          "vars": [
+            {
+              "name": "LCK",
+              "label": "Luck",
+              "default": 15
+            }
+          ],
+          "inputs": {
+            "c": {
+              "curve": "CT_LuckVATSCriticalCharge"
+            }
+          }
+        },
+        {
+          "id": "hits",
+          "label": "V.A.T.S. hits to fill the meter",
+          "expr": "ceil(100 / curve(c, LCK))",
+          "unit": "hits",
+          "decimals": 0,
+          "vars": [
+            {
+              "name": "LCK",
+              "label": "Luck",
+              "default": 15
+            }
+          ],
+          "inputs": {
+            "c": {
+              "curve": "CT_LuckVATSCriticalCharge"
+            }
+          },
+          "note": "Before perk cards and legendary effects that add to the meter."
+        }
+      ]
+    },
+    {
+      "key": "vats_acc",
+      "label": "V.A.T.S. Hit Chance",
+      "group": "Stats",
+      "avs": [
+        "STAT_VATSAccuracy"
+      ],
+      "isNew": true,
+      "path": "/bnb/specials-stats/vats-hit-chance/vats-hit-chance-guide/",
+      "title": "V.A.T.S. Hit Chance Guide",
+      "blurb": "How your V.A.T.S. hit chance is worked out in Fallout 76 — distance, body part, recoil, Perception — and every way to raise it.",
+      "intro": "Since Patch 62 V.A.T.S. starts every shot at its maximum hit chance and takes away from it for distance, what you can see, the body part, recoil, spread and fire rate. Perception and V.A.T.S. accuracy buffs win some of it back.",
+      "details": [
+        "Inside about half your weapon's range the penalties are small; past it hit chance drops until it can reach 0% at full range.",
+        "You can only target body parts you can actually see — reposition to open up limbs and weak spots.",
+        "Torsos are easiest to hit, heads and small parts hardest.",
+        "Each point of V.A.T.S. accuracy multiplies hit chance by 1 + {accPer} (STAT_BeneficialPerk on the player).",
+        "Recoil, cone of fire and fire rate all lower hit chance — True and Stabilized mods, semi-auto receivers and short bursts help."
+      ],
+      "limits": {
+        "accPer": {
+          "perk": [
+            "STAT_BeneficialPerk",
+            "STAT_VATSAccuracy"
+          ]
+        }
+      },
+      "formulas": [
+        {
+          "id": "vats",
+          "label": "Perception hit chance bonus",
+          "expr": "mult * PER * 100",
+          "unit": "%",
+          "decimals": 1,
+          "vars": [
+            {
+              "name": "PER",
+              "label": "Perception",
+              "default": 15
+            }
+          ],
+          "inputs": {
+            "mult": {
+              "gmst": "fVATSChancePerceptionMultiplier"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "key": "sneak",
+      "label": "Sneak",
+      "group": "Stats",
+      "avs": [
+        "STAT_Sneak",
+        "STAT_SneakLight",
+        "STAT_SneakSound",
+        "STAT_SneakAttackBonus",
+        "Invisibility"
+      ],
+      "isNew": true,
+      "path": "/bnb/specials-stats/sneak/sneak-guide/",
+      "title": "Sneak Guide",
+      "blurb": "How sneaking and detection work in Fallout 76 and every way to stay hidden and hit harder from stealth.",
+      "intro": "Sneak decides how long you stay [HIDDEN]. Light, noise and movement give you away; Agility perk cards, stealth gear and chems keep you hidden, and sneak attacks hit far harder than normal shots.",
+      "details": [
+        "Each point of Sneak skill adds {sneakPer} to your detection sneak skill (STAT_BeneficialPerk).",
+        "Each point of Sneak Attack Damage adds {sneakAtk}% to sneak attack damage (PlayerPerk).",
+        "Stealth Boys make you invisible for a short time."
+      ],
+      "limits": {
+        "sneakPer": {
+          "perk": [
+            "STAT_BeneficialPerk",
+            "STAT_Sneak"
+          ]
+        },
+        "sneakAtk": {
+          "perk": [
+            "PlayerPerk",
+            "STAT_SneakAttackBonus"
+          ],
+          "scale": 100
+        }
+      },
+      "formulas": []
+    },
+    {
+      "key": "move_speed",
+      "label": "Movement Speed",
+      "group": "Stats",
+      "avs": [
+        "SpeedMult",
+        "SprintSpeedMult"
+      ],
+      "path": "/bnb/specials-stats/movement-speed/movement-speed-guide/",
+      "title": "Movement Speed Guide",
+      "blurb": "How movement speed works in Fallout 76 and every way to run faster.",
+      "intro": "Movement speed starts at {base}% and buffs add percentage points on top. Crippled legs and being over-encumbered slow you down.",
+      "limits": {
+        "base": {
+          "prps": [
+            "NPC_",
+            "Player",
+            "SpeedMult"
+          ]
+        }
+      },
+      "details": [
+        "Movement speed buffs add straight onto the base {base}%."
+      ],
+      "formulas": []
+    },
+    {
+      "key": "well_rested",
+      "label": "Well Rested",
+      "group": "Stats",
+      "avs": [],
+      "spells": [
+        "SURV_WellRested",
+        "WellRested"
+      ],
+      "path": "/bnb/specials-stats/well-rested/well-rested-guide/",
+      "title": "Well Rested Guide",
+      "blurb": "What the Well Rested buff does in Fallout 76, how long it lasts and every bed and CAMP item that gives it.",
+      "intro": "Sleep in a bed and you wake up Well Rested — a timed XP buff. Better beds and the right CAMP items make it stronger.",
+      "details": [
+        "See the Well Rested Buffs guide for every Rested, Well Rested and Well Tuned source."
+      ],
+      "formulas": []
+    },
+    {
+      "key": "dr",
+      "label": "Damage Resistance",
+      "group": "Resistances",
+      "avs": [
+        "DamageResist"
+      ],
+      "resist": "fPhysicalDamageFactor",
+      "path": "/bnb/specials-stats/resistance/damage-resistance/damage-resistance-guide/",
+      "title": "Damage Resistance Guide",
+      "blurb": "How Damage Resistance (DR) cuts physical damage in Fallout 76 — the real formula from the game files — and every way to raise it.",
+      "intro": "Damage Resistance reduces physical damage — bullets, blades, fists and claws. It works on a curve: every extra point is worth a little less, and the bigger the hit, the less your DR stops.",
+      "details": [
+        "For most enemies 300–400 DR is plenty. Expeditions, raids, nuked bosses, Encryptid and Daily Ops usually need 700+ together with damage reduction perks and gear.",
+        "Past roughly 350 resistance you get diminishing returns — damage reduction (not resistance) is the better next step."
+      ],
+      "formulas": "resist"
+    },
+    {
+      "key": "er",
+      "label": "Energy Resistance",
+      "group": "Resistances",
+      "avs": [
+        "EnergyResist"
+      ],
+      "resist": "fEnergyDamageFactor",
+      "path": "/bnb/specials-stats/resistance/energy-resistance/energy-resistance-guide/",
+      "title": "Energy Resistance Guide",
+      "blurb": "How Energy Resistance (ER) cuts laser, plasma and electrical damage in Fallout 76 — the real formula — and every way to raise it.",
+      "intro": "Energy Resistance reduces energy damage — lasers, plasma, alien blasters, robots, turrets, Mothmen and Scorchbeast screams. Like DR it works on a curve.",
+      "details": [
+        "At 300 ER a 150-damage Assaultron face laser is cut by about 61%; at 350 ER by about 63% — +50 ER for about 2% more. Use the calculator below with your own numbers.",
+        "For most enemies 300–400 ER is plenty; PvP, nuked bosses, Encryptid and Daily Ops usually need 700+ with damage reduction perks and gear."
+      ],
+      "formulas": "resist"
+    },
+    {
+      "key": "fire_res",
+      "label": "Fire Resistance",
+      "group": "Resistances",
+      "avs": [
+        "FireResist"
+      ],
+      "resist": "fFireDamageFactor",
+      "path": "/bnb/specials-stats/resistance/fire-resistance/fire-resistance-guide/",
+      "title": "Fire Resistance Guide",
+      "blurb": "How Fire Resistance cuts flame damage in Fallout 76 — the real formula — and every way to raise it.",
+      "intro": "Fire Resistance reduces fire damage — flamers, Floater Flamers, Anglers, Molotovs, incendiary rounds and burning ground.",
+      "details": [
+        "Fireproof also cuts explosion and flame damage as damage reduction, which is often worth more than more resistance."
+      ],
+      "formulas": "resist"
+    },
+    {
+      "key": "cryo_res",
+      "label": "Cryo Resistance",
+      "group": "Resistances",
+      "avs": [
+        "FrostResist"
+      ],
+      "resist": "fFrostDamageFactor",
+      "path": "/bnb/specials-stats/resistance/cryo-resistance/cryo-resistance-guide/",
+      "title": "Cryo Resistance Guide",
+      "blurb": "How Cryo Resistance cuts cold damage in Fallout 76 — the real formula — and every way to raise it.",
+      "intro": "Cryo Resistance reduces cold damage — Floater Freezers, Cryo aliens and cryo weapons. There are very few cryo enemies, so few builds chase it.",
+      "details": [],
+      "formulas": "resist"
+    },
+    {
+      "key": "poison_res",
+      "label": "Poison Resistance",
+      "group": "Resistances",
+      "avs": [
+        "PoisonResist"
+      ],
+      "resist": "fPoisonDamageFactor",
+      "path": "/bnb/specials-stats/resistance/poison-resistance/poison-resistance-guide/",
+      "title": "Poison Resistance Guide",
+      "blurb": "How Poison Resistance cuts poison damage in Fallout 76 — the real formula — and every way to raise it, including where to farm the food.",
+      "intro": "Poison Resistance reduces poison damage — Floater Gnashers, Mirelurk spit, Trogs, Stingwings, Bloodbugs, toxic plants and the Toxic Blood / Danger Cloud Daily Ops mutations.",
+      "details": [
+        "Poison Resistance food buffs stack on themselves — two Tato Soups give double the poison resistance.",
+        "For a permanent source, run Funky Duds (legendary) or Natural Resistance (Endurance, only while you are not diseased).",
+        "Robots and turrets are immune to poison damage."
+      ],
+      "formulas": "resist"
+    },
+    {
+      "key": "rad_res",
+      "label": "Radiation Resistance",
+      "group": "Resistances",
+      "avs": [
+        "RadResistExposure",
+        "STAT_ResistRadIngestion"
+      ],
+      "resist": "fRadsDamageFactor",
+      "path": "/bnb/specials-stats/resistance/radiation-resistance/radiation-resistance-guide/",
+      "title": "Radiation Resistance Guide",
+      "blurb": "How Radiation Resistance cuts the rads you take in Fallout 76 — the real formula — and every way to raise it.",
+      "intro": "Radiation Resistance lowers the rads you pick up from the environment, creatures and radiation weapons. You can never block it all — you always take some rads in an irradiated area.",
+      "details": [
+        "The same Rad Resistance buffs stack on themselves — two Glowing Fungus Soups or two RadShields give double."
+      ],
+      "formulas": "resist"
+    },
+    {
+      "key": "disease_res",
+      "label": "Disease Resistance",
+      "group": "Resistances",
+      "avs": [
+        "SURV_DiseaseResistance"
+      ],
+      "path": "/bnb/specials-stats/disease-resistance/disease-resistance-guide/",
+      "title": "Disease Resistance Guide",
+      "blurb": "How Disease Resistance lowers your chance of catching a disease in Fallout 76 and every way to raise it.",
+      "intro": "Disease Resistance lowers your chance of catching a disease from dirty food and water, hazards and diseased creatures. Endurance changes the base chance; Disease Resistance takes a percentage off what is left.",
+      "details": [
+        "Each point of Disease Resistance takes {per}% off your chance of catching a disease (SURV_ScaleDiseaseChance perk on the player).",
+        "You must be level 15 or higher to catch a disease. You can only catch one disease every 30 minutes, and the same disease every 45 minutes (server hopping resets this).",
+        "Iron Stomach, Natural Resistance and Thirst Quencher only work while you are free of disease.",
+        "Disease Resistance food buffs are not boosted by diet mutations or Strange In Numbers."
+      ],
+      "limits": {
+        "per": {
+          "perk": [
+            "SURV_ScaleDiseaseChance",
+            "SURV_DiseaseResistance"
+          ],
+          "scale": -100
+        }
+      },
+      "formulas": [
+        {
+          "id": "chance",
+          "label": "Disease chance after resistance",
+          "expr": "curve(c, END) * max(0, 1 - per * res) * 100",
+          "unit": "% of normal",
+          "decimals": 0,
+          "vars": [
+            {
+              "name": "END",
+              "label": "Endurance",
+              "default": 15
+            },
+            {
+              "name": "res",
+              "label": "Disease Resistance",
+              "default": 0,
+              "min": 0,
+              "max": 100
+            }
+          ],
+          "inputs": {
+            "c": {
+              "curve": "CT_SURV_ScaleDiseaseChance_Endurance"
+            },
+            "per": {
+              "perk": [
+                "SURV_ScaleDiseaseChance",
+                "SURV_DiseaseResistance"
+              ],
+              "scale": -1
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "resistFormula": {
+    "label": "Damage taken after resistance",
+    "expr": "100 * clamp(pow(dmg * factor / max(res, 1), exp), 1 - maxred, 1 - minred)",
+    "unit": "% of the hit",
+    "decimals": 1,
+    "vars": [
+      {
+        "name": "res",
+        "label": "Your resistance",
+        "default": 300,
+        "min": 0,
+        "max": 2000
+      },
+      {
+        "name": "dmg",
+        "label": "Incoming hit (damage)",
+        "default": 150,
+        "min": 1,
+        "max": 2000
+      }
+    ],
+    "inputs": {
+      "factor": {
+        "gmst": "@resist"
+      },
+      "exp": {
+        "gmst": "fPhysicalArmorDmgReductionExp"
+      },
+      "minred": {
+        "gmst": "fPhysicalMinDamageReduction"
+      },
+      "maxred": {
+        "gmst": "fPhysicalMaxDamageReduction"
+      }
+    },
+    "note": "Damage taken = hit × (hit × factor ÷ resistance) ^ exponent, kept between the game's minimum and maximum reduction. Bigger hits get through more."
+  },
+  "goals": {
+    "health_bar": {
+      "label": "Health bar",
+      "unit": "HP",
+      "why": "Everything that makes the health bar longer, in HP. For the 'Do you die a lot?' answer.",
+      "slots": {
+        "end": {
+          "from": "formula",
+          "stat": "end",
+          "formula": "hp",
+          "per": "mult"
+        },
+        "max_hp": {
+          "per_point": 1
+        }
+      }
+    },
+    "health_regen": {
+      "label": "Health regen",
+      "unit": "HP / sec",
+      "why": "Everything that heals you over time, in HP per second. Heal Rate is % of max HP per second out of combat only.",
+      "slots": {
+        "heal_rate": {
+          "per_point_of_max_hp": 0.01,
+          "combat": "gmst:fCombatHealthRegenRateMult"
+        }
+      },
+      "healing_calculator": [
+        "base",
+        "food",
+        "water",
+        "foodHealRate",
+        "perks",
+        "mutations",
+        "legendary",
+        "equipment",
+        "camp"
+      ]
+    },
+    "action_points": {
+      "label": "Action Points",
+      "unit": "AP",
+      "slots": {
+        "agi": {
+          "from": "formula",
+          "stat": "agi",
+          "formula": "ap",
+          "per": "mult"
+        },
+        "ap": {
+          "per_point": 1
+        }
+      }
+    },
+    "ap_regen": {
+      "label": "AP regen",
+      "unit": "% AP regen",
+      "slots": {
+        "ap_regen": {
+          "per_point": 1
+        }
+      }
+    },
+    "carry_weight": {
+      "label": "Carry weight",
+      "unit": "lb",
+      "slots": {
+        "str": {
+          "from": "formula",
+          "stat": "str",
+          "formula": "carry",
+          "per": "mult"
+        },
+        "carry": {
+          "per_point": 1
+        }
+      }
+    },
+    "xp": {
+      "label": "XP",
+      "unit": "% XP",
+      "slots": {
+        "int": {
+          "from": "formula",
+          "stat": "int",
+          "formula": "xp",
+          "per": "mult",
+          "scale": 100
+        },
+        "xp": {
+          "per_point": 1
+        }
+      }
+    },
+    "vats": {
+      "label": "V.A.T.S.",
+      "unit": "mixed",
+      "slots": {
+        "per": {
+          "from": "formula",
+          "stat": "per",
+          "formula": "vats",
+          "per": "mult",
+          "scale": 100,
+          "unit": "% hit chance"
+        },
+        "vats_acc": {
+          "per_point": 1,
+          "unit": "V.A.T.S. accuracy"
+        },
+        "luck": {
+          "curve": "CT_LuckVATSCriticalCharge",
+          "unit": "% crit meter per hit"
+        },
+        "crit_dmg": {
+          "per_point": 1,
+          "unit": "% crit damage"
+        }
+      }
+    },
+    "melee": {
+      "label": "Melee damage",
+      "unit": "% melee damage",
+      "slots": {
+        "str": {
+          "from": "formula",
+          "stat": "str",
+          "formula": "melee",
+          "per": "mult",
+          "scale": 100
+        },
+        "dmg_melee": {
+          "per_point": 1
+        }
+      }
+    }
+  }
+}
