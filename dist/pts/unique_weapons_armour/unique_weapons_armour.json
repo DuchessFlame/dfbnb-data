@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generated": "2026-10-21T09:35:02Z",
-  "channel": "live",
+  "generated": "2026-10-21T09:44:55Z",
+  "channel": "pts",
   "count": 134,
   "counts": {
     "weapon": 120,
@@ -6296,10 +6296,10 @@
       "buffs": [],
       "cosmeticOnly": false,
       "cosmeticNote": "",
-      "howToObtain": "No source found in the game files",
-      "sourceType": "Unknown",
-      "sourceRef": "",
-      "questName": "",
+      "howToObtain": "Quest: Forging a Legend",
+      "sourceType": "Quest",
+      "sourceRef": "Forging a Legend",
+      "questName": "Forging a Legend",
       "craftable": false,
       "planName": "",
       "tradeable": true,
@@ -6364,10 +6364,15 @@
         },
         {
           "route": "Quests",
-          "populated": false,
-          "lines": [],
-          "tradeable": null,
-          "dropRate": null
+          "populated": true,
+          "lines": [
+            "Drops: Ready-made weapon",
+            "Source: Forging a Legend"
+          ],
+          "tradeable": true,
+          "dropRate": "N/A",
+          "conditions": [],
+          "conditionsChecked": false
         },
         {
           "route": "Challenges",
@@ -6382,7 +6387,6 @@
       ],
       "planFormId": "",
       "repairOnly": true,
-      "unreleased": true,
       "imageSameAsBase": true
     },
     {
@@ -13571,13 +13575,6 @@
       },
       "starEffects": [
         {
-          "star": 1,
-          "name": "Random",
-          "edid": "",
-          "formId": "",
-          "fixed": false
-        },
-        {
           "star": 2,
           "name": "Random",
           "edid": "",
@@ -17903,16 +17900,13 @@
       "sourceType": "Quest",
       "sourceRef": "The Eye of the Storm",
       "questName": "The Eye of the Storm",
-      "craftable": false,
+      "craftable": true,
       "planName": "",
       "tradeable": true,
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
       "isCut": false,
-      "discoveredBy": [
-        "official"
-      ],
       "uniqueMods": [],
       "namedOnly": true,
       "obtainRoutes": [
@@ -18565,13 +18559,14 @@
       "sourceType": "Quest",
       "sourceRef": "A Matter of Matter",
       "questName": "A Matter of Matter",
-      "craftable": true,
+      "craftable": false,
       "planName": "",
       "tradeable": true,
       "formId": "0072DF0B",
       "edid": "Stormcutter",
       "inCurrentExport": true,
       "isCut": false,
+      "confirmedByGameFiles": false,
       "uniqueMods": [
         {
           "name": "V63-Z Custom",
@@ -18659,7 +18654,10 @@
           "dropRate": null
         }
       ],
-      "recordIds": []
+      "recordIds": [],
+      "aka": [
+        "V63-Z"
+      ]
     },
     {
       "id": "gatlinglaser",
