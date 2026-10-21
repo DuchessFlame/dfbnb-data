@@ -1761,12 +1761,6 @@
         "008D5AA7",
         "008D5AA8",
         "008D5AAE",
-        "00918210",
-        "00918211",
-        "00918212",
-        "00918213",
-        "00918214",
-        "00918215",
         "0094673A",
         "0094673B",
         "0094673C",
@@ -1871,7 +1865,16 @@
         "0068B8F1",
         "0068B8F2",
         "0068B8F3",
+        "007FFEEF",
         "007FFEF0",
+        "007FFEF1",
+        "007FFEF2",
+        "007FFEF3",
+        "007FFEF4",
+        "007FFFDA",
+        "00802192",
+        "00802193",
+        "00802194",
         "008F20F0"
       ],
       "changed": [
@@ -14228,45 +14231,35 @@
           "key": "SCORE_S11_ENTM_CAMP_Utility_Collectron_NukaQuantum",
           "label": "SCORE_S11_ENTM_CAMP_Utility_Collectron_NukaQuantum",
           "fields": [
-            "howToObtain",
-            "imageUrl",
-            "obtainRoutes"
+            "imageUrl"
           ]
         },
         {
           "key": "SCORE_S14_ENTM_CAMP_Utility_Collectron_AutoMiner",
           "label": "SCORE_S14_ENTM_CAMP_Utility_Collectron_AutoMiner",
           "fields": [
-            "howToObtain",
-            "imageUrl",
-            "obtainRoutes"
+            "imageUrl"
           ]
         },
         {
           "key": "SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster",
           "label": "SCORE_S17_ENTM_CAMP_Utility_Collectron_Scoutmaster",
           "fields": [
-            "howToObtain",
-            "imageUrl",
-            "obtainRoutes"
+            "imageUrl"
           ]
         },
         {
           "key": "SCORE_S22_ENTM_CAMP_Utility_Collectron_RoboButler",
           "label": "SCORE_S22_ENTM_CAMP_Utility_Collectron_RoboButler",
           "fields": [
-            "howToObtain",
-            "imageUrl",
-            "obtainRoutes"
+            "imageUrl"
           ]
         },
         {
           "key": "SCORE_S23_ENTM_CAMP_Utility_Collectron_Cornbot",
           "label": "SCORE_S23_ENTM_CAMP_Utility_Collectron_Cornbot",
           "fields": [
-            "howToObtain",
             "imageUrl",
-            "obtainRoutes",
             "production"
           ]
         },
@@ -14274,8 +14267,6 @@
           "key": "SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand",
           "label": "SCORE_S25_ENTM_CAMP_Utility_Collectron_MrFarmhand",
           "fields": [
-            "howToObtain",
-            "obtainRoutes",
             "releaseDate"
           ]
         },
@@ -14290,9 +14281,7 @@
           "key": "SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola",
           "label": "SCORE_S4_ENTM_CAMP_Utility_Collectron_NukaCola",
           "fields": [
-            "howToObtain",
-            "imageUrl",
-            "obtainRoutes"
+            "imageUrl"
           ]
         },
         {
@@ -14313,7 +14302,6 @@
           "key": "zzzATX_ENTM_CAMP_Utility_Collectron_SilverBot",
           "label": "zzzATX_ENTM_CAMP_Utility_Collectron_SilverBot",
           "fields": [
-            "howToObtain",
             "releaseDate"
           ]
         }
@@ -14425,6 +14413,9 @@
       "structural_change": true
     },
     "curves/meta.json": {
+      "structural_change": true
+    },
+    "curves/perk_cards.json": {
       "structural_change": true
     },
     "daily_ops/daily_ops_all_rewards.json": {
@@ -14696,9 +14687,6 @@
       "removed": [],
       "changed": []
     },
-    "farming_spawns/cajun-rice-beans_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/canned-dog-food_spawns.json": {
       "structural_change": true
     },
@@ -14891,9 +14879,6 @@
     "farming_spawns/hotdog_spawns.json": {
       "structural_change": true
     },
-    "farming_spawns/imitation-seafood_spawns.json": {
-      "structural_change": true
-    },
     "farming_spawns/instamash_spawns.json": {
       "key": "name",
       "added": [],
@@ -14910,9 +14895,6 @@
       "structural_change": true
     },
     "farming_spawns/noodle-cup_spawns.json": {
-      "structural_change": true
-    },
-    "farming_spawns/pemmican_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/perfect-bubblegum_spawns.json": {
@@ -14952,9 +14934,6 @@
       "structural_change": true
     },
     "farming_spawns/sugar-bombs_spawns.json": {
-      "structural_change": true
-    },
-    "farming_spawns/vegetarian-ham_spawns.json": {
       "structural_change": true
     },
     "farming_spawns/yum-yum-deviled-eggs_spawns.json": {
@@ -16608,7 +16587,6 @@
         "RECIPE_00951611",
         "RECIPE_00951612",
         "RECIPE_00951614",
-        "SKIN_008F4CBA_008F4CB9",
         "SKIN_00909913_00909915",
         "SKIN_0092737D_0092737C",
         "SKIN_00927381_00927380",
@@ -16747,34 +16725,6 @@
           ]
         },
         {
-          "key": "PLAN_00591903",
-          "label": "Plan: Auto Axe Burning Mod",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_00591904",
-          "label": "Plan: Auto Axe Electrified Mod",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_00591905",
-          "label": "Plan: Auto Axe Poisoned Mod",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_00591906",
-          "label": "Plan: Auto Axe Turbo Mod",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
           "key": "PLAN_0059560D",
           "label": "Plan: Gauss Shotgun Long Barrel",
           "fields": [
@@ -16833,181 +16783,6 @@
         {
           "key": "PLAN_0063670C",
           "label": "Plan: Vault-Tec University Poster",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_00646E69",
-          "label": "Plan: Union Hunting Rifle Skin",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_00648D28",
-          "label": "Plan: Fanatics Pump-Action Shotgun Paint",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B927",
-          "label": "Plan: Union Rusty Knuckles",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B929",
-          "label": "Plan: Union Emergency Protocols",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B92A",
-          "label": "Plan: Union Kinetic Servos",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B92B",
-          "label": "Plan: Union Internal Database",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B92C",
-          "label": "Plan: Union Hydraulic Bracers",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B92D",
-          "label": "Plan: Union Tesla Coils",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B92F",
-          "label": "Plan: Union Optimized Bracers",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B931",
-          "label": "Plan: Union Recon Sensors",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B933",
-          "label": "Plan: Union Calibrated Shocks",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B935",
-          "label": "Plan: Union Optimized Servos",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B936",
-          "label": "Plan: Union VATS Matrix Overlay",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B937",
-          "label": "Plan: Union Core Assembly",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B938",
-          "label": "Plan: Union Medic Pump",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B939",
-          "label": "Plan: Union Tesla Bracers",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B93A",
-          "label": "Plan: Union Overdrive Servos",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B93C",
-          "label": "Plan: Union Kinetic Dynamo",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B93E",
-          "label": "Plan: Union Reactive Plates",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B93F",
-          "label": "Plan: Union Motion-Assist Servos",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B940",
-          "label": "Plan: Union Sensor Array",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B941",
-          "label": "Plan: Union Stealth Boy",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B942",
-          "label": "Plan: Union Cooling Vent",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B943",
-          "label": "Plan: Union Targeting HUD",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_0064B944",
-          "label": "Plan: Union Blood Cleanser",
           "fields": [
             "routes"
           ]
@@ -17092,293 +16867,6 @@
         {
           "key": "PLAN_0068B8F3",
           "label": "Recipe: Radscorpion Kebab",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006C503C",
-          "label": "Plan: Union Headlamp Blue",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006C503D",
-          "label": "Plan: Union Headlamp Bright",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006C503E",
-          "label": "Plan: Union Headlamp Purple",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006C503F",
-          "label": "Plan: Union Headlamp Red Tactical",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006C5040",
-          "label": "Plan: Union Headlamp Vault Boy",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006E5CE0",
-          "label": "Plan: Roulette .44 Paint",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006E6F1E",
-          "label": "Plan: Showstopper Shotgun Paint",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006E7356",
-          "label": "Plan: Civil Engineer Underarmor",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F2845",
-          "label": "Plan: Overgrown Missile Launcher Paint",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F2846",
-          "label": "Plan: Overgrown Assault Rifle Paint",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F2847",
-          "label": "Plan: Overgrown Deathclaw Gauntlet Paint",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4D7F",
-          "label": "Plan: Civil Engineer Welded Armor Arms",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4D80",
-          "label": "Plan: Civil Engineer Tempered Armor Arms",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4D81",
-          "label": "Plan: Civil Engineer Hardened Armor Arms",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4D82",
-          "label": "Plan: Civil Engineer Buttressed Armor Arms",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4D86",
-          "label": "Plan: Civil Engineer Welded Armor Legs",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4D87",
-          "label": "Plan: Civil Engineer Tempered Armor Legs",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4D88",
-          "label": "Plan: Civil Engineer Hardened Armor Legs",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4D89",
-          "label": "Plan: Civil Engineer Buttressed Armor Legs",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4D8D",
-          "label": "Plan: Civil Engineer Welded Armor Torso",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4D8E",
-          "label": "Plan: Civil Engineer Tempered Armor Torso",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4D8F",
-          "label": "Plan: Civil Engineer Hardened Armor Torso",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4D90",
-          "label": "Plan: Civil Engineer Buttressed Armor Torso",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4D91",
-          "label": "Plan: Civil Engineer Pocketed Armor Limbs",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4D94",
-          "label": "Plan: Civil Engineer Ultra-Light Build Armor Limbs",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4D95",
-          "label": "Plan: Civil Engineer Strengthened Armor Limbs",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4D97",
-          "label": "Plan: Civil Engineer Braced Armor Arms",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4D99",
-          "label": "Plan: Civil Engineer Weighted Armor Arms",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4D9A",
-          "label": "Plan: Civil Engineer Aerodynamic Armor Arms",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4D9F",
-          "label": "Plan: Civil Engineer Padded Armor Torso",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4DA0",
-          "label": "Plan: Civil Engineer Dense Armor Torso",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4DA2",
-          "label": "Plan: Civil Engineer Pocketed Armor Torso",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4DA3",
-          "label": "Plan: Civil Engineer Deep Pocketed Armor Torso",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4DA5",
-          "label": "Plan: Civil Engineer Lighter Build Armor Torso",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4DA7",
-          "label": "Plan: Civil Engineer BioCommMesh Armor Torso",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4DA9",
-          "label": "Plan: Civil Engineer Jet Pack Armor",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4DAA",
-          "label": "Plan: Treated Lining Civil Engineer Underarmor",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4DAB",
-          "label": "Plan: Resistant Lining Civil Engineer Underarmor",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4DAC",
-          "label": "Plan: Protective Lining Civil Engineer Underarmor",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4DAD",
-          "label": "Plan: Shielded Lining Civil Engineer Underarmor",
-          "fields": [
-            "routes"
-          ]
-        },
-        {
-          "key": "PLAN_006F4EB7",
-          "label": "Plan: Civil Engineer Muffled Limbs",
           "fields": [
             "routes"
           ]
@@ -17723,6 +17211,7 @@
           "key": "PLAN_007FFEEF",
           "label": "Plan: Secret Settler Left Leg",
           "fields": [
+            "cut",
             "routes"
           ]
         },
@@ -17730,6 +17219,7 @@
           "key": "PLAN_007FFEF0",
           "label": "Plan: Secret Settler Helmet",
           "fields": [
+            "cut",
             "routes"
           ]
         },
@@ -17737,6 +17227,7 @@
           "key": "PLAN_007FFEF1",
           "label": "Plan: Secret Settler Right Leg",
           "fields": [
+            "cut",
             "routes"
           ]
         },
@@ -17744,6 +17235,7 @@
           "key": "PLAN_007FFEF2",
           "label": "Plan: Secret Settler Left Arm",
           "fields": [
+            "cut",
             "routes"
           ]
         },
@@ -17751,6 +17243,7 @@
           "key": "PLAN_007FFEF3",
           "label": "Plan: Secret Settler Right Arm",
           "fields": [
+            "cut",
             "routes"
           ]
         },
@@ -17758,6 +17251,7 @@
           "key": "PLAN_007FFEF4",
           "label": "Plan: Secret Settler Chest Piece",
           "fields": [
+            "cut",
             "routes"
           ]
         },
@@ -17765,6 +17259,7 @@
           "key": "PLAN_007FFFDA",
           "label": "Plan: Crackler Grenade",
           "fields": [
+            "cut",
             "routes"
           ]
         },
@@ -17772,6 +17267,7 @@
           "key": "PLAN_00802192",
           "label": "Plan: Tempest",
           "fields": [
+            "cut",
             "routes"
           ]
         },
@@ -17779,6 +17275,7 @@
           "key": "PLAN_00802193",
           "label": "Plan: Chaos Engine",
           "fields": [
+            "cut",
             "routes"
           ]
         },
@@ -17786,6 +17283,7 @@
           "key": "PLAN_00802194",
           "label": "Plan: Splinter",
           "fields": [
+            "cut",
             "routes"
           ]
         },
@@ -17824,7 +17322,6 @@
           "key": "PLAN_00918211",
           "label": "Plan: Cryolator Polar Lobber Mod",
           "fields": [
-            "cut",
             "routes"
           ]
         },
@@ -17832,7 +17329,6 @@
           "key": "PLAN_00918213",
           "label": "Plan: Cryolator Hypothermic Muzzle Mod",
           "fields": [
-            "cut",
             "routes"
           ]
         },
@@ -17840,7 +17336,6 @@
           "key": "PLAN_00918214",
           "label": "Plan: Cryolator Cold Surge Muzzle",
           "fields": [
-            "cut",
             "routes"
           ]
         },
@@ -17848,7 +17343,6 @@
           "key": "PLAN_00918215",
           "label": "Plan: Cryolator Magazine Mods",
           "fields": [
-            "cut",
             "routes"
           ]
         },
@@ -18453,7 +17947,6 @@
         "RECIPE_00951611",
         "RECIPE_00951612",
         "RECIPE_00951614",
-        "SKIN_008F4CBA_008F4CB9",
         "SKIN_00909913_00909915",
         "SKIN_0092737D_0092737C",
         "SKIN_00927381_00927380",
@@ -23794,7 +23287,8 @@
           "label": "Plan: Auto Axe Burning Mod",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -23802,7 +23296,8 @@
           "label": "Plan: Auto Axe Electrified Mod",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -23810,7 +23305,8 @@
           "label": "Plan: Auto Axe Poisoned Mod",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -23818,7 +23314,8 @@
           "label": "Plan: Auto Axe Turbo Mod",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -24897,7 +24394,8 @@
             "image_source",
             "images",
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -24907,7 +24405,8 @@
             "image_source",
             "images",
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -24915,7 +24414,8 @@
           "label": "Plan: Union Rusty Knuckles",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -24923,7 +24423,8 @@
           "label": "Plan: Union Emergency Protocols",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -24931,7 +24432,8 @@
           "label": "Plan: Union Kinetic Servos",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -24939,7 +24441,8 @@
           "label": "Plan: Union Internal Database",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -24947,7 +24450,8 @@
           "label": "Plan: Union Hydraulic Bracers",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -24955,7 +24459,8 @@
           "label": "Plan: Union Tesla Coils",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -24963,7 +24468,8 @@
           "label": "Plan: Union Optimized Bracers",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -24971,7 +24477,8 @@
           "label": "Plan: Union Recon Sensors",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -24979,7 +24486,8 @@
           "label": "Plan: Union Calibrated Shocks",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -24987,7 +24495,8 @@
           "label": "Plan: Union Optimized Servos",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -24995,7 +24504,8 @@
           "label": "Plan: Union VATS Matrix Overlay",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -25003,7 +24513,8 @@
           "label": "Plan: Union Core Assembly",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -25011,7 +24522,8 @@
           "label": "Plan: Union Medic Pump",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -25019,7 +24531,8 @@
           "label": "Plan: Union Tesla Bracers",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -25027,7 +24540,8 @@
           "label": "Plan: Union Overdrive Servos",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -25035,7 +24549,8 @@
           "label": "Plan: Union Kinetic Dynamo",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -25043,7 +24558,8 @@
           "label": "Plan: Union Reactive Plates",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -25051,7 +24567,8 @@
           "label": "Plan: Union Motion-Assist Servos",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -25059,7 +24576,8 @@
           "label": "Plan: Union Sensor Array",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -25067,7 +24585,8 @@
           "label": "Plan: Union Stealth Boy",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -25075,7 +24594,8 @@
           "label": "Plan: Union Cooling Vent",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -25083,7 +24603,8 @@
           "label": "Plan: Union Targeting HUD",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -25091,7 +24612,8 @@
           "label": "Plan: Union Blood Cleanser",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -25172,6 +24694,24 @@
             "obtain_routes",
             "retired_routes",
             "source_tag"
+          ]
+        },
+        {
+          "key": "PLAN_0067F16D",
+          "label": "Plan: Bottle Backpack Flair",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0067F16E",
+          "label": "Plan: Cappy Backpack Flair",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -25455,6 +24995,13 @@
           ]
         },
         {
+          "key": "PLAN_00696251",
+          "label": "Plan: Alien Backpack",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
           "key": "PLAN_00696252",
           "label": "Plan: Intergalactic Handmade Skin",
           "fields": [
@@ -25546,7 +25093,8 @@
           "label": "Plan: Union Headlamp Blue",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -25554,7 +25102,8 @@
           "label": "Plan: Union Headlamp Bright",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -25562,7 +25111,8 @@
           "label": "Plan: Union Headlamp Purple",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -25570,7 +25120,8 @@
           "label": "Plan: Union Headlamp Red Tactical",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -25578,7 +25129,8 @@
           "label": "Plan: Union Headlamp Vault Boy",
           "fields": [
             "obtain_ledger",
-            "obtain_routes"
+            "obtain_routes",
+            "retired_routes"
           ]
         },
         {
@@ -25630,8 +25182,6 @@
           "fields": [
             "image_source",
             "images",
-            "obtain_ledger",
-            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -25641,8 +25191,6 @@
           "fields": [
             "image_source",
             "images",
-            "obtain_ledger",
-            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -25650,8 +25198,6 @@
           "key": "PLAN_006E7356",
           "label": "Plan: Civil Engineer Underarmor",
           "fields": [
-            "obtain_ledger",
-            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -25682,13 +25228,19 @@
           ]
         },
         {
+          "key": "PLAN_006EC20D",
+          "label": "Plan: Vault-Tec Survival Backpack",
+          "fields": [
+            "obtain_ledger",
+            "obtain_routes"
+          ]
+        },
+        {
           "key": "PLAN_006F2845",
           "label": "Plan: Overgrown Missile Launcher Paint",
           "fields": [
             "image_source",
             "images",
-            "obtain_ledger",
-            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -25696,8 +25248,6 @@
           "key": "PLAN_006F2846",
           "label": "Plan: Overgrown Assault Rifle Paint",
           "fields": [
-            "obtain_ledger",
-            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -25705,8 +25255,6 @@
           "key": "PLAN_006F2847",
           "label": "Plan: Overgrown Deathclaw Gauntlet Paint",
           "fields": [
-            "obtain_ledger",
-            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -25714,7 +25262,6 @@
           "key": "PLAN_006F4D7F",
           "label": "Plan: Civil Engineer Welded Armor Arms",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25723,7 +25270,6 @@
           "key": "PLAN_006F4D80",
           "label": "Plan: Civil Engineer Tempered Armor Arms",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25732,7 +25278,6 @@
           "key": "PLAN_006F4D81",
           "label": "Plan: Civil Engineer Hardened Armor Arms",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25741,7 +25286,6 @@
           "key": "PLAN_006F4D82",
           "label": "Plan: Civil Engineer Buttressed Armor Arms",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25750,7 +25294,6 @@
           "key": "PLAN_006F4D86",
           "label": "Plan: Civil Engineer Welded Armor Legs",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25759,7 +25302,6 @@
           "key": "PLAN_006F4D87",
           "label": "Plan: Civil Engineer Tempered Armor Legs",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25768,7 +25310,6 @@
           "key": "PLAN_006F4D88",
           "label": "Plan: Civil Engineer Hardened Armor Legs",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25777,7 +25318,6 @@
           "key": "PLAN_006F4D89",
           "label": "Plan: Civil Engineer Buttressed Armor Legs",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25786,7 +25326,6 @@
           "key": "PLAN_006F4D8D",
           "label": "Plan: Civil Engineer Welded Armor Torso",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25795,7 +25334,6 @@
           "key": "PLAN_006F4D8E",
           "label": "Plan: Civil Engineer Tempered Armor Torso",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25804,7 +25342,6 @@
           "key": "PLAN_006F4D8F",
           "label": "Plan: Civil Engineer Hardened Armor Torso",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25813,7 +25350,6 @@
           "key": "PLAN_006F4D90",
           "label": "Plan: Civil Engineer Buttressed Armor Torso",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25822,7 +25358,6 @@
           "key": "PLAN_006F4D91",
           "label": "Plan: Civil Engineer Pocketed Armor Limbs",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25831,7 +25366,6 @@
           "key": "PLAN_006F4D92",
           "label": "Plan: Civil Engineer Deep Pocketed Armor Limbs",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25840,8 +25374,6 @@
           "key": "PLAN_006F4D93",
           "label": "Plan: Civil Engineer Lighter Build Armor Limbs",
           "fields": [
-            "obtain_ledger",
-            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -25849,7 +25381,6 @@
           "key": "PLAN_006F4D94",
           "label": "Plan: Civil Engineer Ultra-Light Build Armor Limbs",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25858,7 +25389,6 @@
           "key": "PLAN_006F4D95",
           "label": "Plan: Civil Engineer Strengthened Armor Limbs",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25867,7 +25397,6 @@
           "key": "PLAN_006F4D96",
           "label": "Plan: Civil Engineer Lead Lined Armor Limbs",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25876,7 +25405,6 @@
           "key": "PLAN_006F4D97",
           "label": "Plan: Civil Engineer Braced Armor Arms",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25885,7 +25413,6 @@
           "key": "PLAN_006F4D98",
           "label": "Plan: Civil Engineer Brawling Armor Arms",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25894,7 +25421,6 @@
           "key": "PLAN_006F4D99",
           "label": "Plan: Civil Engineer Weighted Armor Arms",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25903,7 +25429,6 @@
           "key": "PLAN_006F4D9A",
           "label": "Plan: Civil Engineer Aerodynamic Armor Arms",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25912,7 +25437,6 @@
           "key": "PLAN_006F4D9B",
           "label": "Plan: Civil Engineer Stabilized Armor Arms",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25921,7 +25445,6 @@
           "key": "PLAN_006F4D9C",
           "label": "Plan: Civil Engineer Cushioned Armor Legs",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25930,7 +25453,6 @@
           "key": "PLAN_006F4D9D",
           "label": "Plan: Civil Engineer Custom Fitted Armor Legs",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25939,7 +25461,6 @@
           "key": "PLAN_006F4D9E",
           "label": "Plan: Civil Engineer Sleek Armor Legs",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25948,7 +25469,6 @@
           "key": "PLAN_006F4D9F",
           "label": "Plan: Civil Engineer Padded Armor Torso",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25957,7 +25477,6 @@
           "key": "PLAN_006F4DA0",
           "label": "Plan: Civil Engineer Dense Armor Torso",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25966,8 +25485,6 @@
           "key": "PLAN_006F4DA1",
           "label": "Plan: Civil Engineer Asbestos Lined Armor Torso",
           "fields": [
-            "obtain_ledger",
-            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -25975,7 +25492,6 @@
           "key": "PLAN_006F4DA2",
           "label": "Plan: Civil Engineer Pocketed Armor Torso",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25984,7 +25500,6 @@
           "key": "PLAN_006F4DA3",
           "label": "Plan: Civil Engineer Deep Pocketed Armor Torso",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -25993,8 +25508,6 @@
           "key": "PLAN_006F4DA4",
           "label": "Plan: Civil Engineer Pneumatic Armor Torso",
           "fields": [
-            "obtain_ledger",
-            "obtain_routes",
             "retired_routes"
           ]
         },
@@ -26002,7 +25515,6 @@
           "key": "PLAN_006F4DA5",
           "label": "Plan: Civil Engineer Lighter Build Armor Torso",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -26011,7 +25523,6 @@
           "key": "PLAN_006F4DA6",
           "label": "Plan: Civil Engineer Ultra-Light Build Armor Torso",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -26020,7 +25531,6 @@
           "key": "PLAN_006F4DA7",
           "label": "Plan: Civil Engineer BioCommMesh Armor Torso",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -26029,7 +25539,6 @@
           "key": "PLAN_006F4DA8",
           "label": "Plan: Civil Engineer Lead Lined Armor Torso",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -26038,7 +25547,6 @@
           "key": "PLAN_006F4DA9",
           "label": "Plan: Civil Engineer Jet Pack Armor",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -26047,7 +25555,6 @@
           "key": "PLAN_006F4DAA",
           "label": "Plan: Treated Lining Civil Engineer Underarmor",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -26056,7 +25563,6 @@
           "key": "PLAN_006F4DAB",
           "label": "Plan: Resistant Lining Civil Engineer Underarmor",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -26065,7 +25571,6 @@
           "key": "PLAN_006F4DAC",
           "label": "Plan: Protective Lining Civil Engineer Underarmor",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -26074,7 +25579,6 @@
           "key": "PLAN_006F4DAD",
           "label": "Plan: Shielded Lining Civil Engineer Underarmor",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -26083,7 +25587,6 @@
           "key": "PLAN_006F4EB7",
           "label": "Plan: Civil Engineer Muffled Limbs",
           "fields": [
-            "obtain_ledger",
             "obtain_routes",
             "retired_routes"
           ]
@@ -26290,6 +25793,27 @@
         {
           "key": "PLAN_0076F423",
           "label": "Plan: Plastiform Snowman",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0076F454",
+          "label": "Plan: Peppermint Backpack Flair",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0076F45B",
+          "label": "Plan: Snowman Head Backpack Flair",
+          "fields": [
+            "obtain_routes"
+          ]
+        },
+        {
+          "key": "PLAN_0076F477",
+          "label": "Plan: Atomicset Ltd. Handbag Backpack",
           "fields": [
             "obtain_routes"
           ]
@@ -27111,9 +26635,12 @@
             "armour_group",
             "armour_group_key",
             "cobj",
+            "cut",
+            "cut_reason",
             "obtain_ledger",
             "obtain_routes",
             "plan_item",
+            "retired_routes",
             "source_tag"
           ]
         },
@@ -27124,9 +26651,12 @@
             "armour_group",
             "armour_group_key",
             "cobj",
+            "cut",
+            "cut_reason",
             "obtain_ledger",
             "obtain_routes",
             "plan_item",
+            "retired_routes",
             "source_tag"
           ]
         },
@@ -27137,9 +26667,12 @@
             "armour_group",
             "armour_group_key",
             "cobj",
+            "cut",
+            "cut_reason",
             "obtain_ledger",
             "obtain_routes",
             "plan_item",
+            "retired_routes",
             "source_tag"
           ]
         },
@@ -27150,9 +26683,12 @@
             "armour_group",
             "armour_group_key",
             "cobj",
+            "cut",
+            "cut_reason",
             "obtain_ledger",
             "obtain_routes",
             "plan_item",
+            "retired_routes",
             "source_tag"
           ]
         },
@@ -27163,9 +26699,12 @@
             "armour_group",
             "armour_group_key",
             "cobj",
+            "cut",
+            "cut_reason",
             "obtain_ledger",
             "obtain_routes",
             "plan_item",
+            "retired_routes",
             "source_tag"
           ]
         },
@@ -27176,9 +26715,12 @@
             "armour_group",
             "armour_group_key",
             "cobj",
+            "cut",
+            "cut_reason",
             "obtain_ledger",
             "obtain_routes",
             "plan_item",
+            "retired_routes",
             "source_tag"
           ]
         },
@@ -27188,9 +26730,12 @@
           "fields": [
             "cnam",
             "cobj",
+            "cut",
+            "cut_reason",
             "obtain_ledger",
             "obtain_routes",
             "plan_item",
+            "retired_routes",
             "source_tag"
           ]
         },
@@ -27199,11 +26744,14 @@
           "label": "Plan: Tempest",
           "fields": [
             "cobj",
+            "cut",
+            "cut_reason",
             "image_source",
             "images",
             "obtain_ledger",
             "obtain_routes",
             "plan_item",
+            "retired_routes",
             "source_tag",
             "unreleased"
           ]
@@ -27213,11 +26761,14 @@
           "label": "Plan: Chaos Engine",
           "fields": [
             "cobj",
+            "cut",
+            "cut_reason",
             "image_source",
             "images",
             "obtain_ledger",
             "obtain_routes",
             "plan_item",
+            "retired_routes",
             "source_tag",
             "unreleased"
           ]
@@ -27227,11 +26778,14 @@
           "label": "Plan: Splinter",
           "fields": [
             "cobj",
+            "cut",
+            "cut_reason",
             "image_source",
             "images",
             "obtain_ledger",
             "obtain_routes",
             "plan_item",
+            "retired_routes",
             "source_tag",
             "unreleased"
           ]
@@ -27729,12 +27283,11 @@
           "key": "PLAN_00918211",
           "label": "Plan: Cryolator Polar Lobber Mod",
           "fields": [
-            "cut",
-            "cut_reason",
             "obtain",
             "obtain_ledger",
+            "obtain_routes",
             "obtain_unlocks",
-            "retired_routes",
+            "source_tag",
             "stops_dropping"
           ]
         },
@@ -27742,12 +27295,11 @@
           "key": "PLAN_00918213",
           "label": "Plan: Cryolator Hypothermic Muzzle Mod",
           "fields": [
-            "cut",
-            "cut_reason",
             "obtain",
             "obtain_ledger",
+            "obtain_routes",
             "obtain_unlocks",
-            "retired_routes",
+            "source_tag",
             "stops_dropping"
           ]
         },
@@ -27755,12 +27307,11 @@
           "key": "PLAN_00918214",
           "label": "Plan: Cryolator Cold Surge Muzzle",
           "fields": [
-            "cut",
-            "cut_reason",
             "obtain",
             "obtain_ledger",
+            "obtain_routes",
             "obtain_unlocks",
-            "retired_routes",
+            "source_tag",
             "stops_dropping"
           ]
         },
@@ -27768,13 +27319,12 @@
           "key": "PLAN_00918215",
           "label": "Plan: Cryolator Magazine Mods",
           "fields": [
-            "cut",
-            "cut_reason",
             "image_source",
             "obtain",
             "obtain_ledger",
+            "obtain_routes",
             "obtain_unlocks",
-            "retired_routes",
+            "source_tag",
             "stops_dropping"
           ]
         },
@@ -30097,7 +29647,6 @@
           "label": "ATX_ENTM_CAMP_Collector_AbandonedNest",
           "fields": [
             "bucket",
-            "buildMenu",
             "production",
             "releaseDate"
           ]
@@ -30170,7 +29719,6 @@
           "label": "ATX_ENTM_CAMP_Collector_FeastSideTable",
           "fields": [
             "bucket",
-            "buildMenu",
             "production",
             "releaseDate"
           ]
@@ -30214,8 +29762,6 @@
           "key": "ATX_ENTM_CAMP_Collector_PumpkinPie",
           "label": "ATX_ENTM_CAMP_Collector_PumpkinPie",
           "fields": [
-            "howToObtain",
-            "obtainRoutes",
             "releaseDate"
           ]
         },
@@ -30584,9 +30130,7 @@
           "key": "SCORE_S17_ENTM_CAMP_Collector_Pemmican",
           "label": "SCORE_S17_ENTM_CAMP_Collector_Pemmican",
           "fields": [
-            "howToObtain",
-            "imageUrl",
-            "obtainRoutes"
+            "imageUrl"
           ]
         },
         {
@@ -30628,9 +30172,7 @@
           "key": "SCORE_S23_ENTM_CAMP_Collector_CrashedCargoBot",
           "label": "SCORE_S23_ENTM_CAMP_Collector_CrashedCargoBot",
           "fields": [
-            "howToObtain",
-            "imageUrl",
-            "obtainRoutes"
+            "imageUrl"
           ]
         },
         {
@@ -30644,9 +30186,7 @@
           "key": "SCORE_S24_ENTM_CAMP_Collector_SurvivalCache",
           "label": "SCORE_S24_ENTM_CAMP_Collector_SurvivalCache",
           "fields": [
-            "howToObtain",
-            "imageUrl",
-            "obtainRoutes"
+            "imageUrl"
           ]
         },
         {
@@ -30677,7 +30217,6 @@
           "key": "SSE_Resource_CarnalWeeper",
           "label": "SSE_Resource_CarnalWeeper",
           "fields": [
-            "howToObtain",
             "releaseDate"
           ]
         },
@@ -30685,7 +30224,6 @@
           "key": "SSE_Resource_CrystalCup",
           "label": "SSE_Resource_CrystalCup",
           "fields": [
-            "howToObtain",
             "releaseDate"
           ]
         },
@@ -30693,7 +30231,6 @@
           "key": "SSE_Resource_Radlily",
           "label": "SSE_Resource_Radlily",
           "fields": [
-            "howToObtain",
             "releaseDate"
           ]
         },
@@ -31490,6 +31027,14 @@
           "label": "Vox Syringer",
           "fields": [
             "howToObtain"
+          ]
+        },
+        {
+          "key": "plasmagun-2",
+          "label": "Prototype ABX03",
+          "fields": [
+            "howToObtain",
+            "obtainRoutes"
           ]
         },
         {
