@@ -592,6 +592,13 @@ def main(argv=None):
                      "count": sum(1 for g in groups for i in g["items"] if i["is_new"])},
         "groups": groups,
     }
+    # Quest steps for the quest routes on these rows (plan_quest_guides.py).
+    try:
+        import plan_quest_guides
+        plan_quest_guides.subset(out, master)
+    except Exception as exc:                      # noqa: BLE001 - never fatal
+        print(f"  WARNING: quest guides not copied: {exc}", file=sys.stderr)
+
     os.makedirs(os.path.dirname(os.path.abspath(out_path)), exist_ok=True)
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(out, f, ensure_ascii=False, indent=2)

@@ -24,6 +24,9 @@ straight from the game files, so these no longer need xEdit:
     ACTI    ACTI_Export_<Month>_<Year>_ACTI.tsv + _Refs  (ExportACTIToTSV.pas)
     ACTI2   ACTI2_Export_<Month>_<Year>.tsv         (ExportACTI2ToCSV.pas)
     REFRLVLI REFRLVLI_Placements_<Month>_<Year>.tsv [+ _Part2 ...]  (ExportREFRPlacementsToTSV.pas on LVLI)
+    QUST2RQ QUST2_Export_<Month>_<Year>_RewardQuests.tsv  (the _RewardQuests file of
+            ExportQUST2ToTSV.pas - only that one file; the .pas stays the manual
+            backup and still writes all six)
 
 GLOB, AVIF, MISC and NPC list every record that points at each row ("Referenced By"),
 worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
@@ -1208,6 +1211,40 @@ def exp_refrlvli(esm):
 
 
 # exports whose rows list "Referenced By" - one shared scan covers them all
+# ------------------------------------------------------------- QUST2 _RewardQuests --
+def exp_qust2_rq(esm):
+    """ExportQUST2ToTSV.pas, _RewardQuests file only: every quest with a reward
+    stage (QRWD), one row per objective, log entry, stage comment and reward.
+    Read by src/plan_quest_guides.py (the quest steps on the plan pages)."""
+    out = ["QuestFormID\tQuestEDID\tQuestName\tRowKind\tIndex\tText\tLink"]
+    for r in R.xedit_order(esm, "QUST"):
+        if not any(k == "QRWD" for k, _ in r.subs):
+            continue
+        head = "%08X\t%s\t%s" % (r.fid, cc(r.edid), cc(esm.lstring(r.first("FULL"))))
+        stage, in_obj, objs = None, False, []
+        for k, v in r.subs:
+            if k == "INDX" and not in_obj:
+                stage = str(struct.unpack_from("<H", v)[0])
+            elif k == "QOBJ":
+                in_obj = True
+                obj = str(struct.unpack_from("<H", v)[0])
+            elif k == "NNAM" and in_obj:
+                objs.append("%s\tObjective\t%s\t%s\t" % (head, obj, cc(esm.lstring(v))))
+            elif in_obj or stage is None:
+                continue
+            elif k == "SCFC":
+                out.append("%s\tStageNote\t%s\t%s\t" % (
+                    head, stage, cc(v.rstrip(b"\0").decode("utf-8", "replace"))))
+            elif k == "CNAM":
+                out.append("%s\tLog\t%s\t%s\t" % (head, stage, cc(esm.lstring(v))))
+            elif k == "QRWD":
+                g = struct.unpack("<I", v[:4])[0]
+                out.append("%s\tReward\t%s\t\t%08X:%s:%s" % (
+                    head, stage, g, cc(esm.edid_of(g)), esm.sig_of(g) or "GMRW"))
+        out.extend(objs)
+    return {"_RewardQuests": out}
+
+
 NEEDS_REFS = {"GLOB", "AVIF", "MISC", "NPC", "NPC2", "MISC2", "ACTI", "ACTI2"}
 # exports that need Referenced By for more than their own records
 REF_TARGETS = {"NPC2": npc2_ref_targets, "MISC2": misc2_ref_targets, "ACTI2": acti2_ref_targets}
@@ -1232,6 +1269,7 @@ EXPORTS = {
     "ACTI": (["ACTI"], "ACTI_Export", exp_acti),
     "ACTI2": (["ACTI"], "ACTI2_Export", exp_acti2),
     "REFRLVLI": (["LVLI"], "REFRLVLI_Placements", exp_refrlvli),
+    "QUST2RQ": (["QUST"], "QUST2_Export", exp_qust2_rq),
 }
 
 # PTS file names carry the date only (no time) for these, like their .pas
