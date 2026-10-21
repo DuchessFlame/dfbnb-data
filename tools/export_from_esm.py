@@ -14,6 +14,13 @@ straight from the game files, so these no longer need xEdit:
     CHAL    CHAL_Export_<Month>_<Year>.tsv          (ExportCHALToTSV.pas)
     PLYT    PLYT_Export_<Month>_<Year>.tsv          (ExportPlayerTitleToCSV.pas)
     SPEL    SPEL_Export_<Month>_<Year>_HEADER/_EFFECTS/_CONDITIONS.tsv  (ExportSPELToCSV.pas)
+    GLOB    GLOB_Export_<Month>_<Year>.tsv          (ExportGLOBToCSV.pas)
+    AVIF    AVIF_Export_<Month>_<Year>.tsv          (ExportAVIFToTSV.pas)
+
+GLOB and AVIF list every record that points at each row ("Referenced By"),
+worked out by esm_refs.py in one ~40 s scan (needs numpy). Known gap: xEdit
+stops reading some quests part-way through their objective/alias conditions, so
+its lists leave out those quests; these lists include them.
 
 Conditions are shown exactly as xEdit shows them (esm_conditions.py, built from
 xEdit's own definitions in xedit_functions.py). Links to placed references, cells
@@ -383,6 +390,42 @@ def exp_spel(esm):
     return {"_HEADER": header, "_EFFECTS": effects, "_CONDITIONS": conds_out}
 
 
+# ------------------------------------------------- Referenced By exports ------
+def _refcells(esm, fid):
+    out = []
+    for r in esm.refby.get(fid, ()):
+        sig, ed = esm.refinfo[r]
+        out.append(cc("%08X:%s:%s" % (r, ed, sig)))
+    return out
+
+
+def _pad_refs(rows, base_header, prefix="Ref"):
+    return _pad_conds(rows, base_header, prefix)
+
+
+def exp_glob(esm):
+    rows = []
+    for r in R.xedit_order(esm, "GLOB"):
+        fl = r.first("FLTV")
+        refs = _refcells(esm, r.fid)
+        rows.append((["%08X" % r.fid, cc(r.edid),
+                      C.fmt_float(struct.unpack("<f", fl[:4])[0]) if fl and len(fl) >= 4 else "",
+                      str(len(refs))], refs))
+    return _pad_refs(rows, ["FormID", "EDID", "FLTV", "ReferencedByCount"])
+
+
+def exp_avif(esm):
+    rows = []
+    for r in R.xedit_order(esm, "AVIF"):
+        refs = _refcells(esm, r.fid)
+        rows.append((["%08X" % r.fid, cc(r.edid), cc(esm.lstring(r.full)), cc(esm.lstring(r.first("DESC"))),
+                      cc(esm.lstring(r.first("ANAM"))), str(len(refs))], refs))
+    return _pad_refs(rows, ["FormID", "EDID", "FULL", "DESC", "ANAM", "ReferencedByCount"])
+
+
+# exports whose rows list "Referenced By" - one shared scan covers them all
+NEEDS_REFS = {"GLOB", "AVIF"}
+
 EXPORTS = {
     # key: (record types to load, file prefix, function)
     "GMST": (["GMST"], "GMST_Export", exp_gmst),
@@ -394,6 +437,8 @@ EXPORTS = {
     "CHAL": (["CHAL"], "CHAL_Export", exp_chal),
     "PLYT": (["PLYT"], "PLYT_Export", exp_plyt),
     "SPEL": (["SPEL"], "SPEL_Export", exp_spel),
+    "GLOB": (["GLOB"], "GLOB_Export", exp_glob),
+    "AVIF": (["AVIF"], "AVIF_Export", exp_avif),
 }
 
 
@@ -421,6 +466,14 @@ def main(argv=None):
     print("[%s] reading %s ..." % (channel, data))
     esm = R.Esm(data, sigs)
     print("  loaded in %.0fs" % (time.time() - t0))
+    esm.refby, esm.refinfo = {}, {}
+    ref_exports = [w for w in which if w in NEEDS_REFS]
+    if ref_exports:
+        import esm_refs
+        t1 = time.time()
+        targets = {r.fid for w in ref_exports for s in EXPORTS[w][0] for r in esm.records[s]}
+        esm.refby, esm.refinfo = esm_refs.referenced_by(esm, targets)
+        print("  Referenced By worked out for %d records in %.0fs" % (len(targets), time.time() - t1))
     for w in which:
         _sigs, prefix, fn = EXPORTS[w]
         result = fn(esm)
